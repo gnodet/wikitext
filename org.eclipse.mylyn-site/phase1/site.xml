@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.eclipse.mylar_feature_0.2.1.jar" id="org.eclipse.mylar_feature" version="0.2.1">
+      <category name="Mylar"/>
+   </feature>
+   <category-def name="Mylar" label="Mylar"/>
+</site>

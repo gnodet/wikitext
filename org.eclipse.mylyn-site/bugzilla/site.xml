@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.eclipse.mylar.bugzilla_feature_1.7.2.jar" id="org.eclipse.mylar.bugzilla_feature" version="1.7.2">
+      <category name="Bugzilla"/>
+   </feature>
+   <category-def name="Bugzilla" label="Bugzilla"/>
+</site>
