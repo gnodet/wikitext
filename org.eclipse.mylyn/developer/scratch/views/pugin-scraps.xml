@@ -1,0 +1,321 @@
+
+  <extension point="org.eclipse.ui.actionSets">
+  	<actionSet 
+  		label="Mylar" 
+  		visible="true" 
+  		id="ca.ubc.mylar.ui.actions">
+      <action
+            toolbarPath="additions"
+            label="Mylar"
+            class="ca.ubc.mylar.EnableMylarMonitoringAction"
+            tooltip="Enable Mylar monitoring"
+            style="toggle"
+            state="false"
+            id="ca.ubc.mylar.EnableMylarMonitoringAction"/>
+  	</actionSet>
+  </extension>
+
+	  <view name="Interesting Problems" 
+	  	icon="icons/eview16/problems-mylar.gif" 
+	  	category="ca.ubc.mylar" 
+	  	class="ca.ubc.mylar.java.ui.views.MylarProblemView" 
+	  	id="ca.ubc.mylar.java.ui.views.MylarProblemView"> 
+	  </view>
+
+  	  <view name="Package Explorer" 
+	    icon="icons/eview16/package-explorer-mylar.gif" 
+	    category="ca.ubc.mylar" 
+	    class="ca.ubc.mylar.java.ui.views.MylarPackageExplorer" 
+	    id="ca.ubc.mylar.java.ui.views.MylarPackageExplorer" />
+	    
+	    <!-- ** STANDARD PACKAGE EXPLORER FILTERS ********************************************* -->
+      <filter
+            targetId="ca.ubc.mylar.java.ui.views.MylarPackageExplorer"
+            name="%HideSystemFiles.label"
+            enabled="true"
+            description="%HideSystemFiles.description"
+            pattern=".*">
+      </filter>
+      <filter
+            targetId="ca.ubc.mylar.java.ui.views.MylarPackageExplorer"
+            name="%HideInnerClassFiles.label"
+            enabled="true"
+            description="%HideInnerClassFiles.description"
+            pattern="*$*.class">
+      </filter> 
+      <filter
+            targetId="ca.ubc.mylar.java.ui.views.MylarPackageExplorer"
+            name="%HideEmptyPackages.label"
+            enabled="false"
+            description="%HideEmptyPackages.description"
+            class="org.eclipse.jdt.internal.ui.filters.EmptyPackageFilter"
+            id="ca.ubc.mylar.java.ui.views.PackageExplorer.EmptyPackageFilter">
+      </filter>    
+      <filter
+            targetId="ca.ubc.mylar.java.ui.views.MylarPackageExplorer"
+            name="%HideEmptyInnerPackages.label"
+            enabled="true"
+            description="%HideEmptyInnerPackages.description"
+            class="org.eclipse.jdt.internal.ui.filters.EmptyInnerPackageFilter"
+            id="ca.ubc.mylar.java.ui.views.MylarPackageExplorer.EmptyInnerPackageFilter">
+      </filter>
+      <filter
+            targetId="ca.ubc.mylar.java.ui.views.MylarPackageExplorer"
+            name="%HideNonJavaElements.label"
+            enabled="false"
+            description="%HideNonJavaElements.description"
+            class="org.eclipse.jdt.internal.ui.filters.NonJavaElementFilter"
+            id="ca.ubc.mylar.java.ui.views.MylarPackageExplorer.NonJavaElementFilter">
+      </filter>
+      <filter
+            targetId="ca.ubc.mylar.java.ui.views.MylarPackageExplorer"
+            name="%HideReferencedLibraries.label"
+            enabled="false"
+            description="%HideReferencedLibraries.description"
+            class="org.eclipse.jdt.internal.ui.filters.LibraryFilter"
+            id="ca.ubc.mylar.java.ui.views.MylarPackageExplorer.LibraryFilter">
+      </filter>
+      <filter
+            targetId="ca.ubc.mylar.java.ui.views.MylarPackageExplorer"
+            name="%HideJavaFiles.label"
+            enabled="false"
+            description="%HideJavaFiles.description"
+            class="org.eclipse.jdt.internal.ui.filters.JavaFileFilter"
+            id="ca.ubc.mylar.java.ui.views.MylarPackageExplorer.CuAndClassFileFilter">
+      </filter>
+      <filter
+            targetId="ca.ubc.mylar.java.ui.views.MylarPackageExplorer"
+            name="%HidePackageDeclaration.label"
+            enabled="true"
+            description="%HidePackageDeclaration.description"
+            class="org.eclipse.jdt.internal.ui.filters.PackageDeclarationFilter"
+            id="ca.ubc.mylar.java.ui.views.MylarPackageExplorer.PackageDeclarationFilter">
+      </filter>
+      <filter
+            targetId="ca.ubc.mylar.java.ui.views.MylarPackageExplorer"
+            name="%HideImportDeclaration.label"
+            enabled="true"
+            description="%HideImportDeclaration.description"
+            class="org.eclipse.jdt.internal.ui.filters.ImportDeclarationFilter"
+            id="ca.ubc.mylar.java.ui.views.MylarPackageExplorer.ImportDeclarationFilter">
+      </filter>
+      <filter
+            targetId="ca.ubc.mylar.java.ui.views.MylarPackageExplorer"
+            name="%HideNonJavaProjects.label"
+            enabled="false"
+            description="%HideNonJavaProjects.description"
+            class="org.eclipse.jdt.internal.ui.filters.NonJavaProjectsFilter"
+            id="ca.ubc.mylar.java.ui.views.MylarPackageExplorer.NonJavaProjectsFilter">
+      </filter>
+      <filter
+            targetId="ca.ubc.mylar.java.ui.views.MylarPackageExplorer"
+            name="%HideNonSharedProjects.label"
+            enabled="false"
+            description="%HideNonSharedProjects.description"
+            class="org.eclipse.jdt.internal.ui.filters.NonSharedProjectFilter"
+            id="ca.ubc.mylar.java.ui.views.MylarPackageExplorer.NonSharedProjectsFilter">
+      </filter>
+      <filter
+            targetId="ca.ubc.mylar.java.ui.views.MylarPackageExplorer"
+            name="%HideClosedProjects.label"
+            enabled="false"
+            description="%HideClosedProjects.description"
+            class="org.eclipse.jdt.internal.ui.filters.ClosedProjectFilter"
+            id="ca.ubc.mylar.java.ui.views.MylarPackageExplorer.ClosedProjectsFilter">
+      </filter>
+      <filter
+            targetId="ca.ubc.mylar.java.ui.views.MylarPackageExplorer"
+            name="%HideFields.label"
+            enabled="false"
+            description="%HideFields.description"
+            class="org.eclipse.jdt.internal.ui.filters.FieldsFilter"
+            id="ca.ubc.mylar.java.ui.views.MylarPackageExplorer.FieldsFilter">
+      </filter>
+      <filter
+            targetId="ca.ubc.mylar.java.ui.views.MylarPackageExplorer"
+            name="%HideStatics.label"
+            enabled="false"
+            description="%HideStatics.description"
+            class="org.eclipse.jdt.internal.ui.filters.StaticsFilter"
+            id="ca.ubc.mylar.java.ui.views.MylarPackageExplorer.StaticsFilter">
+      </filter>
+      <filter
+            targetId="ca.ubc.mylar.java.ui.views.MylarPackageExplorer"
+            name="%HideNonPublic.label"
+            enabled="false"
+            description="%HideNonPublic.description"
+            class="org.eclipse.jdt.internal.ui.filters.NonPublicFilter"
+            id="ca.ubc.mylar.java.ui.views.MylarPackageExplorer.NonPublicFilter">
+      </filter>
+      <filter
+            targetId="ca.ubc.mylar.java.ui.views.MylarPackageExplorer"
+            name="%HideLocalTypes.label"
+            enabled="false"
+            description="%HideLocalTypes.description"
+            class="org.eclipse.jdt.internal.ui.filters.LocalTypesFilter"
+            id="ca.ubc.mylar.java.ui.views.MylarPackageExplorer.LocalTypesFilter">
+      </filter>
+      -->
+  </extension>
+  
+  <!--
+   <extension
+         id="instrumentation"
+         name="Mylar Instrumentation"
+         point="org.eclipse.instrumentation.instrumentation">
+      <instrumentation
+            url="file://c:/reports"
+            confirmationTitle="Instrumentation Test: Data Transfer Authorization"
+            explanationTitle="Instrumentation Test: Data Collection Authorization"
+            template="template.xrpt"
+            class="org.eclipse.instrumentation.internal.LocalSender"
+            updatePeriod="0"> 
+         <explanation>
+            As part of an ongoing effort to improve usability, the Eclipse development team would like to request your permission to gather anonymous usage statistics from your installation of Eclipse.      
+			This confidential data, which can be reviewed prior to transmission, will not contain personal data or workspace content. The information collected through your participation in this study will be used for the sole purpose of improving usability.
+			Do you wish to contribute your usage statistics to this project?
+         </explanation>
+         <confirmationMessage>
+            Data has been gathered about your current Preference and Perspective settings. The data is anonymous and, if sent, will be used to improve the Eclipse user experience.
+			Please consider sending the data to the Eclipse development team. To review the usage data prior to transmission, click View Data
+         </confirmationMessage>
+      </instrumentation>
+   </extension>
+   -->
+   
+   <!--
+   <extension point="org.eclipse.ui.editorActions">
+		<editorContribution 
+			targetID="ca.ubc.mylar.ui.editor.MylarCompilationUnitEditor" 
+			id="ca.ubc.mylar.ui.editor.MylarCompilationUnitEditor.BreakpointRulerActions">
+	  		<action 
+	  			label="%AddBreakpoint.label" 
+	  			class="org.eclipse.jdt.internal.debug.ui.actions.ManageBreakpointRulerActionDelegate" 
+	  			actionID="RulerDoubleClick" 
+	  			id="org.eclipse.jdt.debug.ui.actions.ManageBreakpointRulerAction" /> 
+  			         <action
+               label="%Dummy.label"
+               class="org.eclipse.jdt.internal.ui.javaeditor.JavaSelectRulerAction"
+               actionID="RulerClick"
+               id="org.eclipse.jdt.internal.ui.javaeditor.JavaSelectRulerAction">
+         	</action>
+  		</editorContribution>
+		<editorContribution 
+			targetID="ca.ubc.mylar.ui.editor.MylarClassFileEditor" 
+			id="ca.ubc.mylar.ui.editor.MylarClassFileEditor.BreakpointRulerActions">
+  			<action 
+  				label="%AddBreakpoint.label" 
+  				class="org.eclipse.jdt.internal.debug.ui.actions.ManageBreakpointRulerActionDelegate" 
+  				actionID="RulerDoubleClick" 
+  				id="org.eclipse.jdt.debug.ui.actions.ManageBreakpointRulerAction" /> 
+         	<action
+               label="%Dummy.label"
+               class="org.eclipse.jdt.internal.ui.javaeditor.JavaSelectRulerAction"
+               actionID="RulerClick"
+               id="org.eclipse.jdt.internal.ui.javaeditor.JavaSelectRulerAction">
+         </action>
+      </editorContribution>
+  </extension>
+  -->
+  
+  <!--
+  <extension point="org.eclipse.ui.popupMenus">
+  	<viewerContribution 
+  		targetID="#CompilationUnitRulerContext" 
+  		id="org.eclipse.jdt.internal.ui.javaeditor.QuickFixRulerMenuAction">
+  		<action 
+  			label="%Dummy.label" 
+  			helpContextId="org.eclipse.jdt.ui.quick_fix_action" 
+  			class="org.eclipse.jdt.internal.ui.javaeditor.JavaSelectRulerAction" 
+  			menubarPath="additions" 
+  			definitionId="org.eclipse.jdt.ui.edit.text.java.correction.assist.proposals" 
+  			id="org.eclipse.jdt.internal.ui.javaeditor.JavaSelectRulerMenuAction" /> 
+  	</viewerContribution> 
+  </extension>
+  -->
+  
+  <!-- ** VIEWS ****************************************** -->
+ 
+ <!--  
+  <extension point = "org.eclipse.ui.viewActions">
+      <viewContribution 
+         id="ca.ubc.mylar.ui.actions" 
+         targetID="ca.ubc.mylar.ui.views.MylarPackageExplorer"> 
+ 
+       <action id="ca.ubc.mylar.ui.actions.ToggleAutoManagerExplorerAction" 
+       		  style="toggle" 
+              label="Auto expand and filter" 
+              tooltip="Auto expand and filter tree nodes according to interest" 
+	      	  menubarPath="additions"
+              toolbarPath="additions" 
+              icon="icons/elcl16/auto-expand.gif" 
+              class="ca.ubc.mylar.ui.actions.ToggleAutoManagerExplorerAction"/> 
+       <action id="ca.ubc.mylar.ui.actions.FilterDeclarationsAction" 
+       		  style="toggle" 
+              label="Filter declarations" 
+              tooltip="Filter declarations" 
+	      	  menubarPath="additions"
+              toolbarPath="additions" 
+              icon="icons/elcl16/filter-declarations.gif" 
+              class="ca.ubc.mylar.ui.actions.FilterDeclarationsAction"/> 
+        <action id="ca.ubc.mylar.ui.actions.ResetModelAction" 
+       		  style="push" 
+              label="Erase model" 
+              tooltip="Erase interest model" 
+	      	  menubarPath="additions"
+              toolbarPath="additions" 
+              icon="icons/elcl16/erase-model.gif" 
+              class="ca.ubc.mylar.ui.actions.ResetModelAction"/>
+	   <action id="ca.ubc.mylar.ui.actions.ShowFilteredAction" 
+              label="Raise children" 
+	      	  menubarPath="additions"
+              toolbarPath="additions" 
+              icon="icons/elcl16/raise-children.gif" 
+              tooltip="Show all children of the current element" 
+              class="ca.ubc.mylar.ui.actions.ShowFilteredAction" 
+              enablesFor="1"/>       
+	   <action id="ca.ubc.mylar.ui.actions.SuppressFilterAction" 
+	     	  style="toggle" 
+              label="Filter uninteresting" 
+	      	  menubarPath="additions"
+              toolbarPath="additions" 
+              icon="icons/elcl16/filter-uninteresting.gif" 
+              tooltip="Toggle low interest filtering" 
+              class="ca.ubc.mylar.ui.actions.SuppressFilterAction"/> 
+      </viewContribution>
+  </extension>
+-->
+  
+  <!--
+  <extension point="org.eclipse.ui.actionSets">
+  	<actionSet 
+  		label="Mylar" 
+  		visible="true" 
+  		id="ca.ubc.mylar.ui.actions">
+      <action
+            toolbarPath="mylar"
+            label="Auto fold"
+            icon="icons/elcl16/auto-fold.gif"
+            tooltip="Auto fold"
+            class="ca.ubc.mylar.ui.actions.ToggleAutoFoldAction"
+            style="toggle"
+            id="ca.ubc.mylar.ui.actions.ToggleAutoFoldAction"/>
+      <action
+            toolbarPath="mylar"
+            label="Auto close"
+            class="ca.ubc.mylar.ui.actions.ToggleAutoCloseAction"
+            icon="icons/elcl16/auto-close.gif"
+            tooltip="Auto close editor windows"
+            style="toggle"
+            id="ca.ubc.mylar.ui.actions.ToggleAutoCloseAction"/>
+      <action
+            toolbarPath="mylar"
+            class="ca.ubc.mylar.ui.actions.OpenPrefsAction"
+            label="Mylar"
+            tooltip="Open Mylar Preferences..."
+            style="push"
+            icon="icons/eview16/mylar-glasses.gif"
+            id="ca.ubc.mylar.ui.actions.null"/>
+  	</actionSet>
+  </extension>
+  -->

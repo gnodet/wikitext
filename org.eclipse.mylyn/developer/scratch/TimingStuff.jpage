@@ -1,0 +1,16 @@
+//MylarPlugin.log(this, "text changed: " + event);
+//if (javaEditingTimer == null) {
+//  javaEditingTimer = new PassiveTimer();
+//  javaEditingTimer.restart();
+//}            
+//if (keystrokeTimer != null) keystrokeTimer.stop();
+//keystrokeTimer = new ActiveTimer(
+//  KEYSTROKE_TIMOUT,
+//  new IActiveTimerListener() {
+//      public void fireTimedOut() {
+//          MylarPlugin.getUserManager().getCurrentSession().appendToTimeJavaEditing(
+//              javaEditingTimer.getElapsedInSeconds()
+//          );
+//          javaEditingTimer = null;
+//      }  
+//  }); 

@@ -1,0 +1,8 @@
+      <editor
+            name="Mylar Class File Viewer"
+            icon="icons/eview16/editor-mylar-class.gif"
+            extensions="class"
+            contributorClass="org.eclipse.jdt.internal.ui.javaeditor.ClassFileEditorActionContributor"
+            class="ca.ubc.mylar.java.ui.editor.MylarClassFileEditor"
+            id="ca.ubc.mylar.java.ui.editor.MylarClassFileEditor">
+      </editor> 

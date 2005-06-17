@@ -1,0 +1,179 @@
+package ca.ubc.mylar;
+
+import java.io.*;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.jdt.internal.ui.viewsupport.JavaElementImageProvider;
+import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.ui.internal.Workbench;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
+
+import ca.ubc.mylar.model.DoiModelManager;
+import ca.ubc.mylar.monitor.UsageStatisticsManager;
+ 
+/**
+ * The main plugin class to be used in the desktop.
+ */
+public class MylarPlugin extends AbstractUIPlugin {
+    
+    public static boolean DEBUG_MODE = false;
+    public static final String LOG_FILE_NAME = "mylar-log.txt";
+    
+    private static boolean enabled = true;
+  
+	private static MylarPlugin plugin;
+	private static UserSelectionListener userSelectionListneer = new UserSelectionListener(); 
+    private static DoiModelManager modelManager = new DoiModelManager();
+    private static UsageStatisticsManager statisticsManager = new UsageStatisticsManager();
+    
+    private static PrintStream logStream;
+    
+	//Resource bundle.
+	private ResourceBundle resourceBundle;
+	private JavaElementImageProvider javaImageProvider;
+	 
+    public static DoiModelManager getModelManager() {
+        return modelManager;
+    }
+  
+	static {
+        IPath rootPath = ResourcesPlugin.getWorkspace().getRoot().getLocation();
+        String path = rootPath.toString() + File.separator + LOG_FILE_NAME;
+        try {
+            logStream = new PrintStream(new FileOutputStream(new File(path), true));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }  
+    
+    /**
+	 * The constructor.
+	 */  
+	public MylarPlugin() {
+		super();
+		plugin = this;
+		try {
+		    resourceBundle = ResourceBundle.getBundle("ca.ubc.mylar.MylarPluginResources");
+		    javaImageProvider = new JavaElementImageProvider();
+		} catch (MissingResourceException x) {
+			resourceBundle = null;
+		} catch (Throwable t) {
+			System.err.println("> Mylar failed to start: " + t.getMessage());
+			t.printStackTrace();		
+		}
+	}
+    
+    /**
+	 * Returns the shared instance.
+	 */
+	public static MylarPlugin getDefault() {
+		return plugin;
+	}
+	
+	public static IPreferenceStore getPrefs() {
+		return getDefault().getPreferenceStore();
+	}
+	
+	public static void log(Object source, String message) {
+	    StringBuffer buffer = new StringBuffer();
+	    buffer.append("[");
+	    buffer.append(Util.getFormattedDate());
+	    buffer.append(", ");
+	    buffer.append(Util.getFormattedTime());
+	    buffer.append("] ");
+	    
+	    if (source != null) buffer.append(source.getClass().getName());
+	    buffer.append(": " + message);
+	    
+	    if (DEBUG_MODE) System.out.println(buffer.toString());
+        if (logStream != null) logStream.println(buffer.toString());
+	}
+
+	/**
+	 * @param throwable  can be null
+	 * @param message
+	 */
+	public static void fail(Throwable throwable, String message) {
+		StringWriter stringWriter= new StringWriter();
+		PrintWriter writer= new PrintWriter(stringWriter);
+		StringBuffer buffer = new StringBuffer();
+		if (throwable != null) {
+		    throwable.printStackTrace(writer);
+		    buffer = stringWriter.getBuffer();
+		}
+		log(MylarPlugin.getDefault(), "fail: " + message + "\n" + buffer.toString());
+		
+		final Status status= new Status(
+		        Status.ERROR,
+				"ca.ubc.mylar", 
+				Status.OK,
+				message,  //$NON-NLS-1$
+				throwable);
+		
+		Workbench.getInstance().getDisplay().syncExec(new Runnable() {
+			public void run() {
+			    ErrorDialog.openError(
+			            Workbench.getInstance().getActiveWorkbenchWindow().getShell(),
+			            "Mylar error",
+			            "Please report the following error",
+						status);
+			}
+		});
+	}  
+
+	/**
+	 * Returns the string from the plugin's resource bundle,
+	 * or 'key' if not found.
+	 */
+	public static String getResourceString(String key) {
+		ResourceBundle bundle = MylarPlugin.getDefault().getResourceBundle(); 
+		try {
+			return (bundle != null) ? bundle.getString(key) : key;
+		} catch (MissingResourceException e) {
+			return key;
+		}
+	}
+
+	/**
+	 * Returns the string from the plugin's resource bundle,
+	 * or 'key' if not found.
+	 */
+	public static String getMessage(String key) {
+		ResourceBundle bundle = getDefault().getResourceBundle();
+		try {
+			return (bundle != null) ? bundle.getString(key) : key;
+		} catch (MissingResourceException e) {
+			return key;
+		}
+	}
+	
+	/**
+	 * Returns the plugin's resource bundle,
+	 */
+	public ResourceBundle getResourceBundle() {
+		return resourceBundle;
+	}
+	
+    public static UsageStatisticsManager getStatisticsManager() {
+        return statisticsManager;
+    }
+    
+    /**
+     * For testing.
+     */
+    public static UserSelectionListener getUserSelectionListneer() {
+        return userSelectionListneer;
+    }
+
+    public static boolean isEnabled() {
+        return enabled;
+    }
+    public static void setEnabled(boolean enabled) {
+        MylarPlugin.enabled = enabled;
+    }
+}
