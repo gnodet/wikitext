@@ -1,4 +1,16 @@
 
+   <extension
+         id="org.eclipse.mylar.reports.views.UsageCountView"
+         name="Simple Usage Count"
+         point="org.eclipse.ui.views">
+      <view
+            category="org.eclipse.mylar"
+            class="org.eclipse.mylar.monitor.reports.ui.views.UsageCountView"
+            icon="icons/eview16/monitor.gif"
+            id="org.eclipse.mylar.monitor.reports.ui.UsageCountView"
+            name="Usage Statistics"/>
+   </extension>
+
   <extension point="org.eclipse.ui.actionSets">
   	<actionSet 
   		label="Mylar" 
