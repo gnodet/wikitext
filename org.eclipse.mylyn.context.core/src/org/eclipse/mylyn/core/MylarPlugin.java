@@ -222,7 +222,7 @@ public class MylarPlugin extends AbstractUIPlugin {
          */
     public static void fail(Throwable throwable, String message, boolean informUser) {
         if (message == null) message = "no message";
-
+ 
         final Status status= new Status(
                 Status.ERROR,
                 MylarPlugin.IDENTIFIER, 
