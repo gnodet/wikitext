@@ -11,7 +11,7 @@
 /*
  * Created on Jan 24, 2005
  */
-package org.eclipse.mylar.tasks.util;
+package org.eclipse.mylar.tests;
 
 import java.util.ArrayList;
 import java.util.List;
