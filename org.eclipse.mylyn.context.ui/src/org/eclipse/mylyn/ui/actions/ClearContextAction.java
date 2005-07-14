@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.tasks.ui.actions;
+package org.eclipse.mylar.ui.actions;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -42,6 +42,13 @@ public class ClearContextAction extends Action {
 	public void run() {
 	    Object selectedObject = ((IStructuredSelection)this.view.getViewer().getSelection()).getFirstElement();
 	    if (selectedObject != null && selectedObject instanceof ITask) {
+//	    	ITask task = (ITask)selectedObject;
+//    		if (task.isActive() || task.getOrCreateCorrespondingTask().isActive()) {
+//	    		MessageDialog.openError(Workbench.getInstance()
+//						.getActiveWorkbenchWindow().getShell(), "Clear context failed",
+//						"Task must be deactivated before clearing task context.");
+//				return;
+//	    	}
 	    	boolean deleteConfirmed = MessageDialog.openQuestion(
 		            Workbench.getInstance().getActiveWorkbenchWindow().getShell(),
 		            "Confirm clear context", 
@@ -52,7 +59,6 @@ public class ClearContextAction extends Action {
 	    	MylarPlugin.getTaskscapeManager().taskDeleted(((ITask)selectedObject).getHandle(), ((Task)selectedObject).getPath());
 	    	this.view.getViewer().refresh();
 	    } 
-	    //	  XXX: refactored put this somewhere
 //	    else if (selectedObject != null && selectedObject instanceof BugzillaHit) {
 //	    	BugzillaTask task = ((BugzillaHit)selectedObject).getAssociatedTask();
 //	    	if(task != null){
