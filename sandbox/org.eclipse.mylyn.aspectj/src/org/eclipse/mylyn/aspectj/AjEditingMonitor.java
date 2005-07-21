@@ -16,7 +16,7 @@ import org.eclipse.mylar.java.JavaEditingMonitor;
 /**
  * @author Mik Kersten
  */
-public class AJEditingMonitor extends JavaEditingMonitor {
+public class AjEditingMonitor extends JavaEditingMonitor {
     
   // -----------------------------------------------------------
   // ---------------------- Interface --------------------------
@@ -34,8 +34,8 @@ public class AJEditingMonitor extends JavaEditingMonitor {
 
   private boolean debug;
   void setDebug(boolean debug) {this.debug = debug;}
-  AJEditingMonitor() {this(false);}
-  AJEditingMonitor(boolean debug) {setDebug(debug);}
+  AjEditingMonitor() {this(false);}
+  AjEditingMonitor(boolean debug) {setDebug(debug);}
 
   private void debug(String s) {
     System.err.println(prefix() + s);

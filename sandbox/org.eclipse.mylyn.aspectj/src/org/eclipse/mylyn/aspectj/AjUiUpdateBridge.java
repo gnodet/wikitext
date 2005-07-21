@@ -19,7 +19,7 @@ import org.eclipse.mylar.core.IMylarContextNode;
 /**
  * @author Mik Kersten
  */
-public class AJUiUpdateBridge implements IMylarContextListener {
+public class AjUiUpdateBridge implements IMylarContextListener {
 
 	public void contextActivated(IMylarContext context) {
 		// TODO Auto-generated method stub

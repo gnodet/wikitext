@@ -17,7 +17,7 @@ import org.eclipse.ajdt.core.AspectJCore;
 import org.eclipse.ajdt.core.javaelements.IAspectJElement;
 import org.eclipse.jdt.core.IJavaElement;
 
-public class AJStructureBridge extends org.eclipse.mylar.java.JavaStructureBridge {
+public class AjStructureBridge extends org.eclipse.mylar.java.JavaStructureBridge {
 
   // -----------------------------------------------------------
   // ---------------------- Interface --------------------------
@@ -106,8 +106,8 @@ public class AJStructureBridge extends org.eclipse.mylar.java.JavaStructureBridg
   // -----------------------------------------------------------
   private boolean debug;
   void setDebug(boolean debug) {this.debug = debug;}
-  AJStructureBridge() {this(false);}
-  AJStructureBridge(boolean debug) {setDebug(debug);}
+  AjStructureBridge() {this(false);}
+  AjStructureBridge(boolean debug) {setDebug(debug);}
 
   private void debug(String s) {
     System.err.println(prefix() + s);

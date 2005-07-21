@@ -1,4 +1,4 @@
-package org.eclipse.mylar.util;
+package org.eclipse.mylar.aspectj.util;
 
 import java.io.PrintStream;
 import java.lang.reflect.Method;

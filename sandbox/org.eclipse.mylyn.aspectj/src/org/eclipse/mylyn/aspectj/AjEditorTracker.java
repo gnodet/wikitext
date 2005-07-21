@@ -17,8 +17,8 @@ import org.eclipse.ui.IEditorPart;
 /**
  * @author Mik Kersten
  */
-public class AJEditorTracker extends JavaEditorTracker {
-
+public class AjEditorTracker extends JavaEditorTracker {
+ 
   // -----------------------------------------------------------
   // ---------------------- Interface --------------------------
   // -----------------------------------------------------------
@@ -61,8 +61,8 @@ public class AJEditorTracker extends JavaEditorTracker {
 
   private boolean debug;
   void setDebug(boolean debug) {this.debug = debug;}
-  AJEditorTracker() {this(false);}
-  AJEditorTracker(boolean debug) {setDebug(debug);}
+  AjEditorTracker() {this(false);}
+  AjEditorTracker(boolean debug) {setDebug(debug);}
 
   private void debug(String s) {
     System.err.println(prefix() + s);
