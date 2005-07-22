@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.tasks.ui.views;
+package org.eclipse.mylar.tasklist.ui.views;
 
 
 import org.eclipse.jface.action.*;
