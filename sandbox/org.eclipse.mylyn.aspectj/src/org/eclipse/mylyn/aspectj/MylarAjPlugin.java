@@ -7,15 +7,15 @@ import org.osgi.framework.BundleContext;
 /**
  * The main plugin class to be used in the desktop.
  */
-public class MylarAspectjPlugin extends AbstractUIPlugin {
+public class MylarAjPlugin extends AbstractUIPlugin {
 
 	//The shared instance.
-	private static MylarAspectjPlugin plugin;
+	private static MylarAjPlugin plugin;
 	
 	/**
 	 * The constructor.
 	 */
-	public MylarAspectjPlugin() {
+	public MylarAjPlugin() {
 		plugin = this;
 	}
 
@@ -37,7 +37,7 @@ public class MylarAspectjPlugin extends AbstractUIPlugin {
 	/**
 	 * Returns the shared instance.
 	 */
-	public static MylarAspectjPlugin getDefault() {
+	public static MylarAjPlugin getDefault() {
 		return plugin;
 	}
 
