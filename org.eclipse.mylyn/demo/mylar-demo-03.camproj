@@ -37,7 +37,7 @@
 <ClipName>C:\Beatmik\Projects - Mylar\Demo Catpures\interst-filtering.camrec</ClipName>
 </ClipBin_Object>
 <ClipBin_Object>
-<ClipName>C:\Demo\camtasia\predicted-errors.camrec</ClipName>
+<ClipName>C:\Dev\mylar-bootstrap\org.eclipse.mylar\demo\predicted-errors.camrec</ClipName>
 </ClipBin_Object>
 <ClipBin_Object>
 <ClipName>C:\Beatmik\Projects - Mylar\Demo Catpures\search-context.camrec</ClipName>
@@ -69,300 +69,10 @@
 <DShowControl_ClipMap_Object>
 <FileName></FileName>
 <Track>4</Track>
-<ClipIndex>27</ClipIndex>
+<ClipIndex>35</ClipIndex>
 <Flags>0</Flags>
-<Start>503160598</Start>
-<End>573160598</End>
-<ClipHasAudio>0</ClipHasAudio>
-<BitsPerPixel>0</BitsPerPixel>
-<Width>0</Width>
-<Height>0</Height>
-<FileLength>0</FileLength>
-<MarkIn>0</MarkIn>
-<MarkOut>0</MarkOut>
-<MediaStart>0</MediaStart>
-<MediaEnd>0</MediaEnd>
-<FrameRate>0.000000</FrameRate>
-<ClipSpeed>1.000000</ClipSpeed>
-<WFSize>65535</WFSize>
-<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
-<WFBlockAlign>65535</WFBlockAlign>
-<WFChannels>65535</WFChannels>
-<WFSamplesPerSec>-1</WFSamplesPerSec>
-<WFBitsPerSample>65535</WFBitsPerSample>
-<WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>12</ClipMapIndex>
-<ClipTitle>Untitled</ClipTitle>
-<PowerPointSlide>0</PowerPointSlide>
-</DShowControl_ClipMap_Object>
-<DShowControl_ClipMap_Object>
-<FileName></FileName>
-<Track>4</Track>
-<ClipIndex>24</ClipIndex>
-<Flags>0</Flags>
-<Start>359652490</Start>
-<End>429652490</End>
-<ClipHasAudio>0</ClipHasAudio>
-<BitsPerPixel>0</BitsPerPixel>
-<Width>0</Width>
-<Height>0</Height>
-<FileLength>0</FileLength>
-<MarkIn>0</MarkIn>
-<MarkOut>0</MarkOut>
-<MediaStart>0</MediaStart>
-<MediaEnd>0</MediaEnd>
-<FrameRate>0.000000</FrameRate>
-<ClipSpeed>1.000000</ClipSpeed>
-<WFSize>65535</WFSize>
-<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
-<WFBlockAlign>65535</WFBlockAlign>
-<WFChannels>65535</WFChannels>
-<WFSamplesPerSec>-1</WFSamplesPerSec>
-<WFBitsPerSample>65535</WFBitsPerSample>
-<WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>11</ClipMapIndex>
-<ClipTitle>Untitled</ClipTitle>
-<PowerPointSlide>0</PowerPointSlide>
-</DShowControl_ClipMap_Object>
-<DShowControl_ClipMap_Object>
-<FileName></FileName>
-<Track>4</Track>
-<ClipIndex>21</ClipIndex>
-<Flags>0</Flags>
-<Start>268051570</Start>
-<End>338051570</End>
-<ClipHasAudio>0</ClipHasAudio>
-<BitsPerPixel>0</BitsPerPixel>
-<Width>0</Width>
-<Height>0</Height>
-<FileLength>0</FileLength>
-<MarkIn>0</MarkIn>
-<MarkOut>0</MarkOut>
-<MediaStart>0</MediaStart>
-<MediaEnd>0</MediaEnd>
-<FrameRate>0.000000</FrameRate>
-<ClipSpeed>1.000000</ClipSpeed>
-<WFSize>65535</WFSize>
-<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
-<WFBlockAlign>65535</WFBlockAlign>
-<WFChannels>65535</WFChannels>
-<WFSamplesPerSec>-1</WFSamplesPerSec>
-<WFBitsPerSample>65535</WFBitsPerSample>
-<WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>10</ClipMapIndex>
-<ClipTitle>Untitled</ClipTitle>
-<PowerPointSlide>0</PowerPointSlide>
-</DShowControl_ClipMap_Object>
-<DShowControl_ClipMap_Object>
-<FileName></FileName>
-<Track>4</Track>
-<ClipIndex>18</ClipIndex>
-<Flags>0</Flags>
-<Start>159375626</Start>
-<End>217227150</End>
-<ClipHasAudio>0</ClipHasAudio>
-<BitsPerPixel>0</BitsPerPixel>
-<Width>0</Width>
-<Height>0</Height>
-<FileLength>0</FileLength>
-<MarkIn>0</MarkIn>
-<MarkOut>0</MarkOut>
-<MediaStart>0</MediaStart>
-<MediaEnd>0</MediaEnd>
-<FrameRate>0.000000</FrameRate>
-<ClipSpeed>1.000000</ClipSpeed>
-<WFSize>65535</WFSize>
-<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
-<WFBlockAlign>65535</WFBlockAlign>
-<WFChannels>65535</WFChannels>
-<WFSamplesPerSec>-1</WFSamplesPerSec>
-<WFBitsPerSample>65535</WFBitsPerSample>
-<WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>9</ClipMapIndex>
-<ClipTitle>Untitled</ClipTitle>
-<PowerPointSlide>0</PowerPointSlide>
-</DShowControl_ClipMap_Object>
-<DShowControl_ClipMap_Object>
-<FileName></FileName>
-<Track>4</Track>
-<ClipIndex>2</ClipIndex>
-<Flags>0</Flags>
-<Start>49227150</Start>
-<End>119227150</End>
-<ClipHasAudio>0</ClipHasAudio>
-<BitsPerPixel>0</BitsPerPixel>
-<Width>0</Width>
-<Height>0</Height>
-<FileLength>0</FileLength>
-<MarkIn>0</MarkIn>
-<MarkOut>0</MarkOut>
-<MediaStart>0</MediaStart>
-<MediaEnd>0</MediaEnd>
-<FrameRate>0.000000</FrameRate>
-<ClipSpeed>1.000000</ClipSpeed>
-<WFSize>65535</WFSize>
-<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
-<WFBlockAlign>65535</WFBlockAlign>
-<WFChannels>65535</WFChannels>
-<WFSamplesPerSec>-1</WFSamplesPerSec>
-<WFBitsPerSample>65535</WFBitsPerSample>
-<WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>6</ClipMapIndex>
-<ClipTitle>Untitled</ClipTitle>
-<PowerPointSlide>0</PowerPointSlide>
-</DShowControl_ClipMap_Object>
-<DShowControl_ClipMap_Object>
-<FileName>TSCRec://c:\beatmik\projects - mylar\demo catpures\task-create.camrec!Screen_Stream.avi</FileName>
-<Track>0</Track>
-<ClipIndex>1</ClipIndex>
-<Flags>8</Flags>
-<Start>49227150</Start>
-<End>217227150</End>
-<ClipHasAudio>0</ClipHasAudio>
-<BitsPerPixel>24</BitsPerPixel>
-<Width>1024</Width>
-<Height>768</Height>
-<FileLength>168000000</FileLength>
-<MarkIn>0</MarkIn>
-<MarkOut>0</MarkOut>
-<MediaStart>0</MediaStart>
-<MediaEnd>168000000</MediaEnd>
-<FrameRate>15.000015</FrameRate>
-<ClipSpeed>0.700000</ClipSpeed>
-<WFSize>65535</WFSize>
-<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
-<WFBlockAlign>65535</WFBlockAlign>
-<WFChannels>65535</WFChannels>
-<WFSamplesPerSec>-1</WFSamplesPerSec>
-<WFBitsPerSample>65535</WFBitsPerSample>
-<WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>5</ClipMapIndex>
-<ClipTitle>task-create.camrec!Screen_Stream</ClipTitle>
-<PowerPointSlide>0</PowerPointSlide>
-</DShowControl_ClipMap_Object>
-<DShowControl_ClipMap_Object>
-<FileName>TSCRec://c:\beatmik\projects - mylar\demo catpures\interst-filtering.camrec!Screen_Stream.avi</FileName>
-<Track>0</Track>
-<ClipIndex>2</ClipIndex>
-<Flags>8</Flags>
-<Start>217227150</Start>
-<End>773892206</End>
-<ClipHasAudio>0</ClipHasAudio>
-<BitsPerPixel>24</BitsPerPixel>
-<Width>1024</Width>
-<Height>768</Height>
-<FileLength>620660000</FileLength>
-<MarkIn>12148476</MarkIn>
-<MarkOut>51846468</MarkOut>
-<MediaStart>12148476</MediaStart>
-<MediaEnd>568813532</MediaEnd>
-<FrameRate>15.000015</FrameRate>
-<ClipSpeed>0.700000</ClipSpeed>
-<WFSize>65535</WFSize>
-<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
-<WFBlockAlign>65535</WFBlockAlign>
-<WFChannels>65535</WFChannels>
-<WFSamplesPerSec>-1</WFSamplesPerSec>
-<WFBitsPerSample>65535</WFBitsPerSample>
-<WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>1</ClipMapIndex>
-<ClipTitle>interst-filtering.camrec!Screen_Stream</ClipTitle>
-<PowerPointSlide>0</PowerPointSlide>
-</DShowControl_ClipMap_Object>
-<DShowControl_ClipMap_Object>
-<FileName>TSCRec://c:\beatmik\projects - mylar\demo catpures\show-filtered.camrec!Screen_Stream.avi</FileName>
-<Track>0</Track>
-<ClipIndex>3</ClipIndex>
-<Flags>8</Flags>
 <Start>773892206</Start>
-<End>846155154</End>
-<ClipHasAudio>0</ClipHasAudio>
-<BitsPerPixel>24</BitsPerPixel>
-<Width>1024</Width>
-<Height>768</Height>
-<FileLength>102000000</FileLength>
-<MarkIn>7296147</MarkIn>
-<MarkOut>22440905</MarkOut>
-<MediaStart>7296147</MediaStart>
-<MediaEnd>79559095</MediaEnd>
-<FrameRate>15.000015</FrameRate>
-<ClipSpeed>0.700000</ClipSpeed>
-<WFSize>65535</WFSize>
-<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
-<WFBlockAlign>65535</WFBlockAlign>
-<WFChannels>65535</WFChannels>
-<WFSamplesPerSec>-1</WFSamplesPerSec>
-<WFBitsPerSample>65535</WFBitsPerSample>
-<WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>2</ClipMapIndex>
-<ClipTitle>show-filtered.camrec!Screen_Stream</ClipTitle>
-<PowerPointSlide>0</PowerPointSlide>
-</DShowControl_ClipMap_Object>
-<DShowControl_ClipMap_Object>
-<FileName>TSCRec://c:\beatmik\projects - mylar\demo catpures\folding-toggle.camrec!Screen_Stream.avi</FileName>
-<Track>0</Track>
-<ClipIndex>4</ClipIndex>
-<Flags>8</Flags>
-<Start>846155154</Start>
-<End>900815154</End>
-<ClipHasAudio>0</ClipHasAudio>
-<BitsPerPixel>24</BitsPerPixel>
-<Width>1024</Width>
-<Height>768</Height>
-<FileLength>54660000</FileLength>
-<MarkIn>0</MarkIn>
-<MarkOut>0</MarkOut>
-<MediaStart>0</MediaStart>
-<MediaEnd>54660000</MediaEnd>
-<FrameRate>15.000015</FrameRate>
-<ClipSpeed>0.700000</ClipSpeed>
-<WFSize>65535</WFSize>
-<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
-<WFBlockAlign>65535</WFBlockAlign>
-<WFChannels>65535</WFChannels>
-<WFSamplesPerSec>-1</WFSamplesPerSec>
-<WFBitsPerSample>65535</WFBitsPerSample>
-<WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>3</ClipMapIndex>
-<ClipTitle>folding-toggle.camrec!Screen_Stream</ClipTitle>
-<PowerPointSlide>0</PowerPointSlide>
-</DShowControl_ClipMap_Object>
-<DShowControl_ClipMap_Object>
-<FileName>TSCRec://c:\beatmik\projects - mylar\demo catpures\task-deactivate.camrec!Screen_Stream.avi</FileName>
-<Track>0</Track>
-<ClipIndex>5</ClipIndex>
-<Flags>8</Flags>
-<Start>900815154</Start>
-<End>949969530</End>
-<ClipHasAudio>0</ClipHasAudio>
-<BitsPerPixel>24</BitsPerPixel>
-<Width>1024</Width>
-<Height>768</Height>
-<FileLength>74000000</FileLength>
-<MarkIn>0</MarkIn>
-<MarkOut>24845624</MarkOut>
-<MediaStart>0</MediaStart>
-<MediaEnd>49154376</MediaEnd>
-<FrameRate>15.000015</FrameRate>
-<ClipSpeed>0.700000</ClipSpeed>
-<WFSize>65535</WFSize>
-<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
-<WFBlockAlign>65535</WFBlockAlign>
-<WFChannels>65535</WFChannels>
-<WFSamplesPerSec>-1</WFSamplesPerSec>
-<WFBitsPerSample>65535</WFBitsPerSample>
-<WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>4</ClipMapIndex>
-<ClipTitle>task-deactivate.camrec!Screen_Stream</ClipTitle>
-<PowerPointSlide>0</PowerPointSlide>
-</DShowControl_ClipMap_Object>
-<DShowControl_ClipMap_Object>
-<FileName></FileName>
-<Track>4</Track>
-<ClipIndex>30</ClipIndex>
-<Flags>0</Flags>
-<Start>593269217</Start>
-<End>663269217</End>
+<End>839050747</End>
 <ClipHasAudio>0</ClipHasAudio>
 <BitsPerPixel>0</BitsPerPixel>
 <Width>0</Width>
@@ -381,7 +91,7 @@
 <WFSamplesPerSec>-1</WFSamplesPerSec>
 <WFBitsPerSample>65535</WFBitsPerSample>
 <WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>13</ClipMapIndex>
+<ClipMapIndex>15</ClipMapIndex>
 <ClipTitle>Untitled</ClipTitle>
 <PowerPointSlide>0</PowerPointSlide>
 </DShowControl_ClipMap_Object>
@@ -417,10 +127,10 @@
 <DShowControl_ClipMap_Object>
 <FileName></FileName>
 <Track>4</Track>
-<ClipIndex>35</ClipIndex>
+<ClipIndex>30</ClipIndex>
 <Flags>0</Flags>
-<Start>773892206</Start>
-<End>839050747</End>
+<Start>593269217</Start>
+<End>663269217</End>
 <ClipHasAudio>0</ClipHasAudio>
 <BitsPerPixel>0</BitsPerPixel>
 <Width>0</Width>
@@ -439,142 +149,26 @@
 <WFSamplesPerSec>-1</WFSamplesPerSec>
 <WFBitsPerSample>65535</WFBitsPerSample>
 <WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>15</ClipMapIndex>
+<ClipMapIndex>13</ClipMapIndex>
 <ClipTitle>Untitled</ClipTitle>
 <PowerPointSlide>0</PowerPointSlide>
 </DShowControl_ClipMap_Object>
 <DShowControl_ClipMap_Object>
-<FileName></FileName>
-<Track>4</Track>
-<ClipIndex>92</ClipIndex>
-<Flags>0</Flags>
-<Start>1819156158</Start>
-<End>1875391302</End>
-<ClipHasAudio>0</ClipHasAudio>
-<BitsPerPixel>0</BitsPerPixel>
-<Width>0</Width>
-<Height>0</Height>
-<FileLength>0</FileLength>
-<MarkIn>0</MarkIn>
-<MarkOut>0</MarkOut>
-<MediaStart>0</MediaStart>
-<MediaEnd>0</MediaEnd>
-<FrameRate>0.000000</FrameRate>
-<ClipSpeed>1.000000</ClipSpeed>
-<WFSize>65535</WFSize>
-<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
-<WFBlockAlign>65535</WFBlockAlign>
-<WFChannels>65535</WFChannels>
-<WFSamplesPerSec>-1</WFSamplesPerSec>
-<WFBitsPerSample>65535</WFBitsPerSample>
-<WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>27</ClipMapIndex>
-<ClipTitle>Untitled</ClipTitle>
-<PowerPointSlide>0</PowerPointSlide>
-</DShowControl_ClipMap_Object>
-<DShowControl_ClipMap_Object>
-<FileName></FileName>
-<Track>4</Track>
-<ClipIndex>37</ClipIndex>
-<Flags>0</Flags>
-<Start>846366138</Start>
-<End>895917914</End>
-<ClipHasAudio>0</ClipHasAudio>
-<BitsPerPixel>0</BitsPerPixel>
-<Width>0</Width>
-<Height>0</Height>
-<FileLength>0</FileLength>
-<MarkIn>0</MarkIn>
-<MarkOut>0</MarkOut>
-<MediaStart>0</MediaStart>
-<MediaEnd>0</MediaEnd>
-<FrameRate>0.000000</FrameRate>
-<ClipSpeed>1.000000</ClipSpeed>
-<WFSize>65535</WFSize>
-<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
-<WFBlockAlign>65535</WFBlockAlign>
-<WFChannels>65535</WFChannels>
-<WFSamplesPerSec>-1</WFSamplesPerSec>
-<WFBitsPerSample>65535</WFBitsPerSample>
-<WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>16</ClipMapIndex>
-<ClipTitle>Untitled</ClipTitle>
-<PowerPointSlide>0</PowerPointSlide>
-</DShowControl_ClipMap_Object>
-<DShowControl_ClipMap_Object>
-<FileName>TSCRec://c:\beatmik\projects - mylar\demo catpures\task-reactivate.camrec!Screen_Stream.avi</FileName>
+<FileName>TSCRec://c:\beatmik\projects - mylar\demo catpures\task-deactivate.camrec!Screen_Stream.avi</FileName>
 <Track>0</Track>
-<ClipIndex>6</ClipIndex>
+<ClipIndex>5</ClipIndex>
 <Flags>8</Flags>
-<Start>949969530</Start>
-<End>984138734</End>
-<ClipHasAudio>0</ClipHasAudio>
-<BitsPerPixel>24</BitsPerPixel>
-<Width>1024</Width>
-<Height>768</Height>
-<FileLength>134000000</FileLength>
-<MarkIn>18435084</MarkIn>
-<MarkOut>81395712</MarkOut>
-<MediaStart>18435084</MediaStart>
-<MediaEnd>52604288</MediaEnd>
-<FrameRate>15.000015</FrameRate>
-<ClipSpeed>0.700000</ClipSpeed>
-<WFSize>65535</WFSize>
-<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
-<WFBlockAlign>65535</WFBlockAlign>
-<WFChannels>65535</WFChannels>
-<WFSamplesPerSec>-1</WFSamplesPerSec>
-<WFBitsPerSample>65535</WFBitsPerSample>
-<WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>17</ClipMapIndex>
-<ClipTitle>task-reactivate.camrec!Screen_Stream</ClipTitle>
-<PowerPointSlide>0</PowerPointSlide>
-</DShowControl_ClipMap_Object>
-<DShowControl_ClipMap_Object>
-<FileName></FileName>
-<Track>4</Track>
-<ClipIndex>40</ClipIndex>
-<Flags>0</Flags>
 <Start>900815154</Start>
 <End>949969530</End>
 <ClipHasAudio>0</ClipHasAudio>
-<BitsPerPixel>0</BitsPerPixel>
-<Width>0</Width>
-<Height>0</Height>
-<FileLength>0</FileLength>
-<MarkIn>0</MarkIn>
-<MarkOut>0</MarkOut>
-<MediaStart>0</MediaStart>
-<MediaEnd>0</MediaEnd>
-<FrameRate>0.000000</FrameRate>
-<ClipSpeed>1.000000</ClipSpeed>
-<WFSize>65535</WFSize>
-<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
-<WFBlockAlign>65535</WFBlockAlign>
-<WFChannels>65535</WFChannels>
-<WFSamplesPerSec>-1</WFSamplesPerSec>
-<WFBitsPerSample>65535</WFBitsPerSample>
-<WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>18</ClipMapIndex>
-<ClipTitle>Untitled</ClipTitle>
-<PowerPointSlide>0</PowerPointSlide>
-</DShowControl_ClipMap_Object>
-<DShowControl_ClipMap_Object>
-<FileName>TSCRec://c:\beatmik\projects - mylar\demo catpures\task-multiple.camrec!Screen_Stream.avi</FileName>
-<Track>0</Track>
-<ClipIndex>7</ClipIndex>
-<Flags>8</Flags>
-<Start>984138734</Start>
-<End>1674560483</End>
-<ClipHasAudio>0</ClipHasAudio>
 <BitsPerPixel>24</BitsPerPixel>
 <Width>1024</Width>
 <Height>768</Height>
-<FileLength>787330000</FileLength>
+<FileLength>74000000</FileLength>
 <MarkIn>0</MarkIn>
-<MarkOut>96908251</MarkOut>
+<MarkOut>24845624</MarkOut>
 <MediaStart>0</MediaStart>
-<MediaEnd>690421749</MediaEnd>
+<MediaEnd>49154376</MediaEnd>
 <FrameRate>15.000015</FrameRate>
 <ClipSpeed>0.700000</ClipSpeed>
 <WFSize>65535</WFSize>
@@ -584,17 +178,133 @@
 <WFSamplesPerSec>-1</WFSamplesPerSec>
 <WFBitsPerSample>65535</WFBitsPerSample>
 <WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>19</ClipMapIndex>
-<ClipTitle>task-multiple.camrec!Screen_Stream</ClipTitle>
+<ClipMapIndex>4</ClipMapIndex>
+<ClipTitle>task-deactivate.camrec!Screen_Stream</ClipTitle>
+<PowerPointSlide>0</PowerPointSlide>
+</DShowControl_ClipMap_Object>
+<DShowControl_ClipMap_Object>
+<FileName>TSCRec://c:\beatmik\projects - mylar\demo catpures\folding-toggle.camrec!Screen_Stream.avi</FileName>
+<Track>0</Track>
+<ClipIndex>4</ClipIndex>
+<Flags>8</Flags>
+<Start>846155154</Start>
+<End>900815154</End>
+<ClipHasAudio>0</ClipHasAudio>
+<BitsPerPixel>24</BitsPerPixel>
+<Width>1024</Width>
+<Height>768</Height>
+<FileLength>54660000</FileLength>
+<MarkIn>0</MarkIn>
+<MarkOut>0</MarkOut>
+<MediaStart>0</MediaStart>
+<MediaEnd>54660000</MediaEnd>
+<FrameRate>15.000015</FrameRate>
+<ClipSpeed>0.700000</ClipSpeed>
+<WFSize>65535</WFSize>
+<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
+<WFBlockAlign>65535</WFBlockAlign>
+<WFChannels>65535</WFChannels>
+<WFSamplesPerSec>-1</WFSamplesPerSec>
+<WFBitsPerSample>65535</WFBitsPerSample>
+<WFFormatTag>65535</WFFormatTag>
+<ClipMapIndex>3</ClipMapIndex>
+<ClipTitle>folding-toggle.camrec!Screen_Stream</ClipTitle>
+<PowerPointSlide>0</PowerPointSlide>
+</DShowControl_ClipMap_Object>
+<DShowControl_ClipMap_Object>
+<FileName>TSCRec://c:\beatmik\projects - mylar\demo catpures\show-filtered.camrec!Screen_Stream.avi</FileName>
+<Track>0</Track>
+<ClipIndex>3</ClipIndex>
+<Flags>8</Flags>
+<Start>773892206</Start>
+<End>846155154</End>
+<ClipHasAudio>0</ClipHasAudio>
+<BitsPerPixel>24</BitsPerPixel>
+<Width>1024</Width>
+<Height>768</Height>
+<FileLength>102000000</FileLength>
+<MarkIn>7296147</MarkIn>
+<MarkOut>22440905</MarkOut>
+<MediaStart>7296147</MediaStart>
+<MediaEnd>79559095</MediaEnd>
+<FrameRate>15.000015</FrameRate>
+<ClipSpeed>0.700000</ClipSpeed>
+<WFSize>65535</WFSize>
+<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
+<WFBlockAlign>65535</WFBlockAlign>
+<WFChannels>65535</WFChannels>
+<WFSamplesPerSec>-1</WFSamplesPerSec>
+<WFBitsPerSample>65535</WFBitsPerSample>
+<WFFormatTag>65535</WFFormatTag>
+<ClipMapIndex>2</ClipMapIndex>
+<ClipTitle>show-filtered.camrec!Screen_Stream</ClipTitle>
+<PowerPointSlide>0</PowerPointSlide>
+</DShowControl_ClipMap_Object>
+<DShowControl_ClipMap_Object>
+<FileName>TSCRec://c:\beatmik\projects - mylar\demo catpures\interst-filtering.camrec!Screen_Stream.avi</FileName>
+<Track>0</Track>
+<ClipIndex>2</ClipIndex>
+<Flags>8</Flags>
+<Start>217227150</Start>
+<End>773892206</End>
+<ClipHasAudio>0</ClipHasAudio>
+<BitsPerPixel>24</BitsPerPixel>
+<Width>1024</Width>
+<Height>768</Height>
+<FileLength>620660000</FileLength>
+<MarkIn>12148476</MarkIn>
+<MarkOut>51846468</MarkOut>
+<MediaStart>12148476</MediaStart>
+<MediaEnd>568813532</MediaEnd>
+<FrameRate>15.000015</FrameRate>
+<ClipSpeed>0.700000</ClipSpeed>
+<WFSize>65535</WFSize>
+<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
+<WFBlockAlign>65535</WFBlockAlign>
+<WFChannels>65535</WFChannels>
+<WFSamplesPerSec>-1</WFSamplesPerSec>
+<WFBitsPerSample>65535</WFBitsPerSample>
+<WFFormatTag>65535</WFFormatTag>
+<ClipMapIndex>1</ClipMapIndex>
+<ClipTitle>interst-filtering.camrec!Screen_Stream</ClipTitle>
+<PowerPointSlide>0</PowerPointSlide>
+</DShowControl_ClipMap_Object>
+<DShowControl_ClipMap_Object>
+<FileName>TSCRec://c:\beatmik\projects - mylar\demo catpures\task-create.camrec!Screen_Stream.avi</FileName>
+<Track>0</Track>
+<ClipIndex>1</ClipIndex>
+<Flags>8</Flags>
+<Start>49227150</Start>
+<End>217227150</End>
+<ClipHasAudio>0</ClipHasAudio>
+<BitsPerPixel>24</BitsPerPixel>
+<Width>1024</Width>
+<Height>768</Height>
+<FileLength>168000000</FileLength>
+<MarkIn>0</MarkIn>
+<MarkOut>0</MarkOut>
+<MediaStart>0</MediaStart>
+<MediaEnd>168000000</MediaEnd>
+<FrameRate>15.000015</FrameRate>
+<ClipSpeed>0.700000</ClipSpeed>
+<WFSize>65535</WFSize>
+<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
+<WFBlockAlign>65535</WFBlockAlign>
+<WFChannels>65535</WFChannels>
+<WFSamplesPerSec>-1</WFSamplesPerSec>
+<WFBitsPerSample>65535</WFBitsPerSample>
+<WFFormatTag>65535</WFFormatTag>
+<ClipMapIndex>5</ClipMapIndex>
+<ClipTitle>task-create.camrec!Screen_Stream</ClipTitle>
 <PowerPointSlide>0</PowerPointSlide>
 </DShowControl_ClipMap_Object>
 <DShowControl_ClipMap_Object>
 <FileName></FileName>
 <Track>4</Track>
-<ClipIndex>43</ClipIndex>
+<ClipIndex>2</ClipIndex>
 <Flags>0</Flags>
-<Start>999841142</Start>
-<End>1056076286</End>
+<Start>49227150</Start>
+<End>119227150</End>
 <ClipHasAudio>0</ClipHasAudio>
 <BitsPerPixel>0</BitsPerPixel>
 <Width>0</Width>
@@ -613,17 +323,17 @@
 <WFSamplesPerSec>-1</WFSamplesPerSec>
 <WFBitsPerSample>65535</WFBitsPerSample>
 <WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>20</ClipMapIndex>
+<ClipMapIndex>6</ClipMapIndex>
 <ClipTitle>Untitled</ClipTitle>
 <PowerPointSlide>0</PowerPointSlide>
 </DShowControl_ClipMap_Object>
 <DShowControl_ClipMap_Object>
 <FileName></FileName>
 <Track>4</Track>
-<ClipIndex>46</ClipIndex>
+<ClipIndex>18</ClipIndex>
 <Flags>0</Flags>
-<Start>1219683350</Start>
-<End>1275918494</End>
+<Start>159375626</Start>
+<End>217227150</End>
 <ClipHasAudio>0</ClipHasAudio>
 <BitsPerPixel>0</BitsPerPixel>
 <Width>0</Width>
@@ -642,17 +352,17 @@
 <WFSamplesPerSec>-1</WFSamplesPerSec>
 <WFBitsPerSample>65535</WFBitsPerSample>
 <WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>21</ClipMapIndex>
+<ClipMapIndex>9</ClipMapIndex>
 <ClipTitle>Untitled</ClipTitle>
 <PowerPointSlide>0</PowerPointSlide>
 </DShowControl_ClipMap_Object>
 <DShowControl_ClipMap_Object>
 <FileName></FileName>
 <Track>4</Track>
-<ClipIndex>48</ClipIndex>
+<ClipIndex>21</ClipIndex>
 <Flags>0</Flags>
-<Start>1474908199</Start>
-<End>1531143343</End>
+<Start>268051570</Start>
+<End>338051570</End>
 <ClipHasAudio>0</ClipHasAudio>
 <BitsPerPixel>0</BitsPerPixel>
 <Width>0</Width>
@@ -671,7 +381,152 @@
 <WFSamplesPerSec>-1</WFSamplesPerSec>
 <WFBitsPerSample>65535</WFBitsPerSample>
 <WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>22</ClipMapIndex>
+<ClipMapIndex>10</ClipMapIndex>
+<ClipTitle>Untitled</ClipTitle>
+<PowerPointSlide>0</PowerPointSlide>
+</DShowControl_ClipMap_Object>
+<DShowControl_ClipMap_Object>
+<FileName></FileName>
+<Track>4</Track>
+<ClipIndex>24</ClipIndex>
+<Flags>0</Flags>
+<Start>359652490</Start>
+<End>429652490</End>
+<ClipHasAudio>0</ClipHasAudio>
+<BitsPerPixel>0</BitsPerPixel>
+<Width>0</Width>
+<Height>0</Height>
+<FileLength>0</FileLength>
+<MarkIn>0</MarkIn>
+<MarkOut>0</MarkOut>
+<MediaStart>0</MediaStart>
+<MediaEnd>0</MediaEnd>
+<FrameRate>0.000000</FrameRate>
+<ClipSpeed>1.000000</ClipSpeed>
+<WFSize>65535</WFSize>
+<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
+<WFBlockAlign>65535</WFBlockAlign>
+<WFChannels>65535</WFChannels>
+<WFSamplesPerSec>-1</WFSamplesPerSec>
+<WFBitsPerSample>65535</WFBitsPerSample>
+<WFFormatTag>65535</WFFormatTag>
+<ClipMapIndex>11</ClipMapIndex>
+<ClipTitle>Untitled</ClipTitle>
+<PowerPointSlide>0</PowerPointSlide>
+</DShowControl_ClipMap_Object>
+<DShowControl_ClipMap_Object>
+<FileName></FileName>
+<Track>4</Track>
+<ClipIndex>27</ClipIndex>
+<Flags>0</Flags>
+<Start>503160598</Start>
+<End>573160598</End>
+<ClipHasAudio>0</ClipHasAudio>
+<BitsPerPixel>0</BitsPerPixel>
+<Width>0</Width>
+<Height>0</Height>
+<FileLength>0</FileLength>
+<MarkIn>0</MarkIn>
+<MarkOut>0</MarkOut>
+<MediaStart>0</MediaStart>
+<MediaEnd>0</MediaEnd>
+<FrameRate>0.000000</FrameRate>
+<ClipSpeed>1.000000</ClipSpeed>
+<WFSize>65535</WFSize>
+<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
+<WFBlockAlign>65535</WFBlockAlign>
+<WFChannels>65535</WFChannels>
+<WFSamplesPerSec>-1</WFSamplesPerSec>
+<WFBitsPerSample>65535</WFBitsPerSample>
+<WFFormatTag>65535</WFFormatTag>
+<ClipMapIndex>12</ClipMapIndex>
+<ClipTitle>Untitled</ClipTitle>
+<PowerPointSlide>0</PowerPointSlide>
+</DShowControl_ClipMap_Object>
+<DShowControl_ClipMap_Object>
+<FileName></FileName>
+<Track>4</Track>
+<ClipIndex>57</ClipIndex>
+<Flags>0</Flags>
+<Start>1898795400</Start>
+<End>1982245107</End>
+<ClipHasAudio>0</ClipHasAudio>
+<BitsPerPixel>0</BitsPerPixel>
+<Width>0</Width>
+<Height>0</Height>
+<FileLength>0</FileLength>
+<MarkIn>0</MarkIn>
+<MarkOut>0</MarkOut>
+<MediaStart>0</MediaStart>
+<MediaEnd>0</MediaEnd>
+<FrameRate>0.000000</FrameRate>
+<ClipSpeed>1.000000</ClipSpeed>
+<WFSize>65535</WFSize>
+<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
+<WFBlockAlign>65535</WFBlockAlign>
+<WFChannels>65535</WFChannels>
+<WFSamplesPerSec>-1</WFSamplesPerSec>
+<WFBitsPerSample>65535</WFBitsPerSample>
+<WFFormatTag>65535</WFFormatTag>
+<ClipMapIndex>26</ClipMapIndex>
+<ClipTitle>Untitled</ClipTitle>
+<PowerPointSlide>0</PowerPointSlide>
+</DShowControl_ClipMap_Object>
+<DShowControl_ClipMap_Object>
+<FileName>tscrec://C:\Dev\mylar-bootstrap\org.eclipse.mylar\demo\predicted-errors.camrec!Screen_Stream.avi</FileName>
+<Track>0</Track>
+<ClipIndex>9</ClipIndex>
+<Flags>8</Flags>
+<Start>1696135400</Start>
+<End>1898795400</End>
+<ClipHasAudio>0</ClipHasAudio>
+<BitsPerPixel>24</BitsPerPixel>
+<Width>1024</Width>
+<Height>768</Height>
+<FileLength>202660000</FileLength>
+<MarkIn>0</MarkIn>
+<MarkOut>0</MarkOut>
+<MediaStart>0</MediaStart>
+<MediaEnd>202660000</MediaEnd>
+<FrameRate>15.000015</FrameRate>
+<ClipSpeed>1.000000</ClipSpeed>
+<WFSize>65535</WFSize>
+<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
+<WFBlockAlign>65535</WFBlockAlign>
+<WFChannels>65535</WFChannels>
+<WFSamplesPerSec>-1</WFSamplesPerSec>
+<WFBitsPerSample>65535</WFBitsPerSample>
+<WFFormatTag>65535</WFFormatTag>
+<ClipMapIndex>25</ClipMapIndex>
+<ClipTitle>predicted-errors.camrec!Screen_Stream</ClipTitle>
+<PowerPointSlide>0</PowerPointSlide>
+</DShowControl_ClipMap_Object>
+<DShowControl_ClipMap_Object>
+<FileName></FileName>
+<Track>4</Track>
+<ClipIndex>54</ClipIndex>
+<Flags>0</Flags>
+<Start>1618325339</Start>
+<End>1674560483</End>
+<ClipHasAudio>0</ClipHasAudio>
+<BitsPerPixel>0</BitsPerPixel>
+<Width>0</Width>
+<Height>0</Height>
+<FileLength>0</FileLength>
+<MarkIn>0</MarkIn>
+<MarkOut>0</MarkOut>
+<MediaStart>0</MediaStart>
+<MediaEnd>0</MediaEnd>
+<FrameRate>0.000000</FrameRate>
+<ClipSpeed>1.000000</ClipSpeed>
+<WFSize>65535</WFSize>
+<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
+<WFBlockAlign>65535</WFBlockAlign>
+<WFChannels>65535</WFChannels>
+<WFSamplesPerSec>-1</WFSamplesPerSec>
+<WFBitsPerSample>65535</WFBitsPerSample>
+<WFFormatTag>65535</WFFormatTag>
+<ClipMapIndex>24</ClipMapIndex>
 <ClipTitle>Untitled</ClipTitle>
 <PowerPointSlide>0</PowerPointSlide>
 </DShowControl_ClipMap_Object>
@@ -707,10 +562,10 @@
 <DShowControl_ClipMap_Object>
 <FileName></FileName>
 <Track>4</Track>
-<ClipIndex>54</ClipIndex>
+<ClipIndex>48</ClipIndex>
 <Flags>0</Flags>
-<Start>1618325339</Start>
-<End>1674560483</End>
+<Start>1474908199</Start>
+<End>1531143343</End>
 <ClipHasAudio>0</ClipHasAudio>
 <BitsPerPixel>0</BitsPerPixel>
 <Width>0</Width>
@@ -729,46 +584,17 @@
 <WFSamplesPerSec>-1</WFSamplesPerSec>
 <WFBitsPerSample>65535</WFBitsPerSample>
 <WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>24</ClipMapIndex>
+<ClipMapIndex>22</ClipMapIndex>
 <ClipTitle>Untitled</ClipTitle>
-<PowerPointSlide>0</PowerPointSlide>
-</DShowControl_ClipMap_Object>
-<DShowControl_ClipMap_Object>
-<FileName>tscrec://C:\Demo\camtasia\predicted-errors.camrec!Screen_Stream.avi</FileName>
-<Track>0</Track>
-<ClipIndex>9</ClipIndex>
-<Flags>8</Flags>
-<Start>1696135400</Start>
-<End>1705893817</End>
-<ClipHasAudio>0</ClipHasAudio>
-<BitsPerPixel>24</BitsPerPixel>
-<Width>1024</Width>
-<Height>768</Height>
-<FileLength>423330000</FileLength>
-<MarkIn>0</MarkIn>
-<MarkOut>413571583</MarkOut>
-<MediaStart>0</MediaStart>
-<MediaEnd>9758417</MediaEnd>
-<FrameRate>15.000015</FrameRate>
-<ClipSpeed>1.000000</ClipSpeed>
-<WFSize>65535</WFSize>
-<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
-<WFBlockAlign>65535</WFBlockAlign>
-<WFChannels>65535</WFChannels>
-<WFSamplesPerSec>-1</WFSamplesPerSec>
-<WFBitsPerSample>65535</WFBitsPerSample>
-<WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>25</ClipMapIndex>
-<ClipTitle>predicted-errors.camrec!Screen_Stream</ClipTitle>
 <PowerPointSlide>0</PowerPointSlide>
 </DShowControl_ClipMap_Object>
 <DShowControl_ClipMap_Object>
 <FileName></FileName>
 <Track>4</Track>
-<ClipIndex>57</ClipIndex>
+<ClipIndex>46</ClipIndex>
 <Flags>0</Flags>
-<Start>1705893817</Start>
-<End>1789343524</End>
+<Start>1219683350</Start>
+<End>1275918494</End>
 <ClipHasAudio>0</ClipHasAudio>
 <BitsPerPixel>0</BitsPerPixel>
 <Width>0</Width>
@@ -787,7 +613,181 @@
 <WFSamplesPerSec>-1</WFSamplesPerSec>
 <WFBitsPerSample>65535</WFBitsPerSample>
 <WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>26</ClipMapIndex>
+<ClipMapIndex>21</ClipMapIndex>
+<ClipTitle>Untitled</ClipTitle>
+<PowerPointSlide>0</PowerPointSlide>
+</DShowControl_ClipMap_Object>
+<DShowControl_ClipMap_Object>
+<FileName></FileName>
+<Track>4</Track>
+<ClipIndex>43</ClipIndex>
+<Flags>0</Flags>
+<Start>999841142</Start>
+<End>1056076286</End>
+<ClipHasAudio>0</ClipHasAudio>
+<BitsPerPixel>0</BitsPerPixel>
+<Width>0</Width>
+<Height>0</Height>
+<FileLength>0</FileLength>
+<MarkIn>0</MarkIn>
+<MarkOut>0</MarkOut>
+<MediaStart>0</MediaStart>
+<MediaEnd>0</MediaEnd>
+<FrameRate>0.000000</FrameRate>
+<ClipSpeed>1.000000</ClipSpeed>
+<WFSize>65535</WFSize>
+<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
+<WFBlockAlign>65535</WFBlockAlign>
+<WFChannels>65535</WFChannels>
+<WFSamplesPerSec>-1</WFSamplesPerSec>
+<WFBitsPerSample>65535</WFBitsPerSample>
+<WFFormatTag>65535</WFFormatTag>
+<ClipMapIndex>20</ClipMapIndex>
+<ClipTitle>Untitled</ClipTitle>
+<PowerPointSlide>0</PowerPointSlide>
+</DShowControl_ClipMap_Object>
+<DShowControl_ClipMap_Object>
+<FileName>TSCRec://c:\beatmik\projects - mylar\demo catpures\task-multiple.camrec!Screen_Stream.avi</FileName>
+<Track>0</Track>
+<ClipIndex>7</ClipIndex>
+<Flags>8</Flags>
+<Start>984138734</Start>
+<End>1674560483</End>
+<ClipHasAudio>0</ClipHasAudio>
+<BitsPerPixel>24</BitsPerPixel>
+<Width>1024</Width>
+<Height>768</Height>
+<FileLength>787330000</FileLength>
+<MarkIn>0</MarkIn>
+<MarkOut>96908251</MarkOut>
+<MediaStart>0</MediaStart>
+<MediaEnd>690421749</MediaEnd>
+<FrameRate>15.000015</FrameRate>
+<ClipSpeed>0.700000</ClipSpeed>
+<WFSize>65535</WFSize>
+<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
+<WFBlockAlign>65535</WFBlockAlign>
+<WFChannels>65535</WFChannels>
+<WFSamplesPerSec>-1</WFSamplesPerSec>
+<WFBitsPerSample>65535</WFBitsPerSample>
+<WFFormatTag>65535</WFFormatTag>
+<ClipMapIndex>19</ClipMapIndex>
+<ClipTitle>task-multiple.camrec!Screen_Stream</ClipTitle>
+<PowerPointSlide>0</PowerPointSlide>
+</DShowControl_ClipMap_Object>
+<DShowControl_ClipMap_Object>
+<FileName></FileName>
+<Track>4</Track>
+<ClipIndex>40</ClipIndex>
+<Flags>0</Flags>
+<Start>900815154</Start>
+<End>949969530</End>
+<ClipHasAudio>0</ClipHasAudio>
+<BitsPerPixel>0</BitsPerPixel>
+<Width>0</Width>
+<Height>0</Height>
+<FileLength>0</FileLength>
+<MarkIn>0</MarkIn>
+<MarkOut>0</MarkOut>
+<MediaStart>0</MediaStart>
+<MediaEnd>0</MediaEnd>
+<FrameRate>0.000000</FrameRate>
+<ClipSpeed>1.000000</ClipSpeed>
+<WFSize>65535</WFSize>
+<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
+<WFBlockAlign>65535</WFBlockAlign>
+<WFChannels>65535</WFChannels>
+<WFSamplesPerSec>-1</WFSamplesPerSec>
+<WFBitsPerSample>65535</WFBitsPerSample>
+<WFFormatTag>65535</WFFormatTag>
+<ClipMapIndex>18</ClipMapIndex>
+<ClipTitle>Untitled</ClipTitle>
+<PowerPointSlide>0</PowerPointSlide>
+</DShowControl_ClipMap_Object>
+<DShowControl_ClipMap_Object>
+<FileName>TSCRec://c:\beatmik\projects - mylar\demo catpures\task-reactivate.camrec!Screen_Stream.avi</FileName>
+<Track>0</Track>
+<ClipIndex>6</ClipIndex>
+<Flags>8</Flags>
+<Start>949969530</Start>
+<End>984138734</End>
+<ClipHasAudio>0</ClipHasAudio>
+<BitsPerPixel>24</BitsPerPixel>
+<Width>1024</Width>
+<Height>768</Height>
+<FileLength>134000000</FileLength>
+<MarkIn>18435084</MarkIn>
+<MarkOut>81395712</MarkOut>
+<MediaStart>18435084</MediaStart>
+<MediaEnd>52604288</MediaEnd>
+<FrameRate>15.000015</FrameRate>
+<ClipSpeed>0.700000</ClipSpeed>
+<WFSize>65535</WFSize>
+<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
+<WFBlockAlign>65535</WFBlockAlign>
+<WFChannels>65535</WFChannels>
+<WFSamplesPerSec>-1</WFSamplesPerSec>
+<WFBitsPerSample>65535</WFBitsPerSample>
+<WFFormatTag>65535</WFFormatTag>
+<ClipMapIndex>17</ClipMapIndex>
+<ClipTitle>task-reactivate.camrec!Screen_Stream</ClipTitle>
+<PowerPointSlide>0</PowerPointSlide>
+</DShowControl_ClipMap_Object>
+<DShowControl_ClipMap_Object>
+<FileName></FileName>
+<Track>4</Track>
+<ClipIndex>37</ClipIndex>
+<Flags>0</Flags>
+<Start>846366138</Start>
+<End>895917914</End>
+<ClipHasAudio>0</ClipHasAudio>
+<BitsPerPixel>0</BitsPerPixel>
+<Width>0</Width>
+<Height>0</Height>
+<FileLength>0</FileLength>
+<MarkIn>0</MarkIn>
+<MarkOut>0</MarkOut>
+<MediaStart>0</MediaStart>
+<MediaEnd>0</MediaEnd>
+<FrameRate>0.000000</FrameRate>
+<ClipSpeed>1.000000</ClipSpeed>
+<WFSize>65535</WFSize>
+<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
+<WFBlockAlign>65535</WFBlockAlign>
+<WFChannels>65535</WFChannels>
+<WFSamplesPerSec>-1</WFSamplesPerSec>
+<WFBitsPerSample>65535</WFBitsPerSample>
+<WFFormatTag>65535</WFFormatTag>
+<ClipMapIndex>16</ClipMapIndex>
+<ClipTitle>Untitled</ClipTitle>
+<PowerPointSlide>0</PowerPointSlide>
+</DShowControl_ClipMap_Object>
+<DShowControl_ClipMap_Object>
+<FileName></FileName>
+<Track>4</Track>
+<ClipIndex>92</ClipIndex>
+<Flags>0</Flags>
+<Start>2012057741</Start>
+<End>2068292885</End>
+<ClipHasAudio>0</ClipHasAudio>
+<BitsPerPixel>0</BitsPerPixel>
+<Width>0</Width>
+<Height>0</Height>
+<FileLength>0</FileLength>
+<MarkIn>0</MarkIn>
+<MarkOut>0</MarkOut>
+<MediaStart>0</MediaStart>
+<MediaEnd>0</MediaEnd>
+<FrameRate>0.000000</FrameRate>
+<ClipSpeed>1.000000</ClipSpeed>
+<WFSize>65535</WFSize>
+<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
+<WFBlockAlign>65535</WFBlockAlign>
+<WFChannels>65535</WFChannels>
+<WFSamplesPerSec>-1</WFSamplesPerSec>
+<WFBitsPerSample>65535</WFBitsPerSample>
+<WFFormatTag>65535</WFFormatTag>
+<ClipMapIndex>27</ClipMapIndex>
 <ClipTitle>Untitled</ClipTitle>
 <PowerPointSlide>0</PowerPointSlide>
 </DShowControl_ClipMap_Object>
@@ -821,80 +821,22 @@
 <PowerPointSlide>0</PowerPointSlide>
 </DShowControl_ClipMap_Object>
 <DShowControl_ClipMap_Object>
-<FileName>tscrec://C:\Demo\camtasia\predicted-errors.camrec!Screen_Stream.avi</FileName>
-<Track>0</Track>
-<ClipIndex>10</ClipIndex>
-<Flags>8</Flags>
-<Start>1705893817</Start>
-<End>1906176677</End>
+<FileName></FileName>
+<Track>5</Track>
+<ClipIndex>1</ClipIndex>
+<Flags>0</Flags>
+<Start>2101455400</Start>
+<End>2111455400</End>
 <ClipHasAudio>0</ClipHasAudio>
-<BitsPerPixel>24</BitsPerPixel>
-<Width>1024</Width>
-<Height>768</Height>
-<FileLength>423330000</FileLength>
-<MarkIn>0</MarkIn>
-<MarkOut>223047140</MarkOut>
-<MediaStart>0</MediaStart>
-<MediaEnd>200282860</MediaEnd>
-<FrameRate>15.000015</FrameRate>
-<ClipSpeed>0.700000</ClipSpeed>
-<WFSize>65535</WFSize>
-<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
-<WFBlockAlign>65535</WFBlockAlign>
-<WFChannels>65535</WFChannels>
-<WFSamplesPerSec>-1</WFSamplesPerSec>
-<WFBitsPerSample>65535</WFBitsPerSample>
-<WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>52</ClipMapIndex>
-<ClipTitle>Untitled</ClipTitle>
-<PowerPointSlide>0</PowerPointSlide>
-</DShowControl_ClipMap_Object>
-<DShowControl_ClipMap_Object>
-<FileName>TSCRec://c:\beatmik\projects - mylar\demo catpures\task-multiple.camrec!Screen_Stream.avi</FileName>
-<Track>0</Track>
-<ClipIndex>8</ClipIndex>
-<Flags>8</Flags>
-<Start>1674560483</Start>
-<End>1696135400</End>
-<ClipHasAudio>0</ClipHasAudio>
-<BitsPerPixel>24</BitsPerPixel>
-<Width>1024</Width>
-<Height>768</Height>
-<FileLength>787330000</FileLength>
-<MarkIn>765755083</MarkIn>
-<MarkOut>0</MarkOut>
-<MediaStart>765755083</MediaStart>
-<MediaEnd>787330000</MediaEnd>
-<FrameRate>15.000015</FrameRate>
-<ClipSpeed>0.700000</ClipSpeed>
-<WFSize>65535</WFSize>
-<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
-<WFBlockAlign>65535</WFBlockAlign>
-<WFChannels>65535</WFChannels>
-<WFSamplesPerSec>-1</WFSamplesPerSec>
-<WFBitsPerSample>65535</WFBitsPerSample>
-<WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>50</ClipMapIndex>
-<ClipTitle>Untitled</ClipTitle>
-<PowerPointSlide>0</PowerPointSlide>
-</DShowControl_ClipMap_Object>
-<DShowControl_ClipMap_Object>
-<FileName>5.TSCTitle</FileName>
-<Track>0</Track>
-<ClipIndex>0</ClipIndex>
-<Flags>4</Flags>
-<Start>0</Start>
-<End>39227150</End>
-<ClipHasAudio>0</ClipHasAudio>
-<BitsPerPixel>32</BitsPerPixel>
-<Width>1024</Width>
-<Height>768</Height>
+<BitsPerPixel>0</BitsPerPixel>
+<Width>0</Width>
+<Height>0</Height>
 <FileLength>0</FileLength>
 <MarkIn>0</MarkIn>
 <MarkOut>0</MarkOut>
 <MediaStart>0</MediaStart>
 <MediaEnd>0</MediaEnd>
-<FrameRate>10.000000</FrameRate>
+<FrameRate>0.000000</FrameRate>
 <ClipSpeed>1.000000</ClipSpeed>
 <WFSize>65535</WFSize>
 <WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
@@ -903,37 +845,8 @@
 <WFSamplesPerSec>-1</WFSamplesPerSec>
 <WFBitsPerSample>65535</WFBitsPerSample>
 <WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>55</ClipMapIndex>
-<ClipTitle>5</ClipTitle>
-<PowerPointSlide>0</PowerPointSlide>
-</DShowControl_ClipMap_Object>
-<DShowControl_ClipMap_Object>
-<FileName>6.TSCTitle</FileName>
-<Track>0</Track>
-<ClipIndex>11</ClipIndex>
-<Flags>4</Flags>
-<Start>1916176677</Start>
-<End>2039835221</End>
-<ClipHasAudio>0</ClipHasAudio>
-<BitsPerPixel>32</BitsPerPixel>
-<Width>1024</Width>
-<Height>768</Height>
-<FileLength>0</FileLength>
-<MarkIn>0</MarkIn>
-<MarkOut>0</MarkOut>
-<MediaStart>0</MediaStart>
-<MediaEnd>0</MediaEnd>
-<FrameRate>10.000000</FrameRate>
-<ClipSpeed>1.000000</ClipSpeed>
-<WFSize>65535</WFSize>
-<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
-<WFBlockAlign>65535</WFBlockAlign>
-<WFChannels>65535</WFChannels>
-<WFSamplesPerSec>-1</WFSamplesPerSec>
-<WFBitsPerSample>65535</WFBitsPerSample>
-<WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>56</ClipMapIndex>
-<ClipTitle>6</ClipTitle>
+<ClipMapIndex>58</ClipMapIndex>
+<ClipTitle>Untitled</ClipTitle>
 <PowerPointSlide>0</PowerPointSlide>
 </DShowControl_ClipMap_Object>
 <DShowControl_ClipMap_Object>
@@ -966,22 +879,22 @@
 <PowerPointSlide>0</PowerPointSlide>
 </DShowControl_ClipMap_Object>
 <DShowControl_ClipMap_Object>
-<FileName></FileName>
-<Track>5</Track>
-<ClipIndex>1</ClipIndex>
-<Flags>0</Flags>
-<Start>1906176677</Start>
-<End>1916176677</End>
+<FileName>6.TSCTitle</FileName>
+<Track>0</Track>
+<ClipIndex>11</ClipIndex>
+<Flags>4</Flags>
+<Start>2111455400</Start>
+<End>2235113944</End>
 <ClipHasAudio>0</ClipHasAudio>
-<BitsPerPixel>0</BitsPerPixel>
-<Width>0</Width>
-<Height>0</Height>
+<BitsPerPixel>32</BitsPerPixel>
+<Width>1024</Width>
+<Height>768</Height>
 <FileLength>0</FileLength>
 <MarkIn>0</MarkIn>
 <MarkOut>0</MarkOut>
 <MediaStart>0</MediaStart>
 <MediaEnd>0</MediaEnd>
-<FrameRate>0.000000</FrameRate>
+<FrameRate>10.000000</FrameRate>
 <ClipSpeed>1.000000</ClipSpeed>
 <WFSize>65535</WFSize>
 <WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
@@ -990,7 +903,94 @@
 <WFSamplesPerSec>-1</WFSamplesPerSec>
 <WFBitsPerSample>65535</WFBitsPerSample>
 <WFFormatTag>65535</WFFormatTag>
-<ClipMapIndex>58</ClipMapIndex>
+<ClipMapIndex>56</ClipMapIndex>
+<ClipTitle>6</ClipTitle>
+<PowerPointSlide>0</PowerPointSlide>
+</DShowControl_ClipMap_Object>
+<DShowControl_ClipMap_Object>
+<FileName>5.TSCTitle</FileName>
+<Track>0</Track>
+<ClipIndex>0</ClipIndex>
+<Flags>4</Flags>
+<Start>0</Start>
+<End>39227150</End>
+<ClipHasAudio>0</ClipHasAudio>
+<BitsPerPixel>32</BitsPerPixel>
+<Width>1024</Width>
+<Height>768</Height>
+<FileLength>0</FileLength>
+<MarkIn>0</MarkIn>
+<MarkOut>0</MarkOut>
+<MediaStart>0</MediaStart>
+<MediaEnd>0</MediaEnd>
+<FrameRate>10.000000</FrameRate>
+<ClipSpeed>1.000000</ClipSpeed>
+<WFSize>65535</WFSize>
+<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
+<WFBlockAlign>65535</WFBlockAlign>
+<WFChannels>65535</WFChannels>
+<WFSamplesPerSec>-1</WFSamplesPerSec>
+<WFBitsPerSample>65535</WFBitsPerSample>
+<WFFormatTag>65535</WFFormatTag>
+<ClipMapIndex>55</ClipMapIndex>
+<ClipTitle>5</ClipTitle>
+<PowerPointSlide>0</PowerPointSlide>
+</DShowControl_ClipMap_Object>
+<DShowControl_ClipMap_Object>
+<FileName>TSCRec://c:\beatmik\projects - mylar\demo catpures\task-multiple.camrec!Screen_Stream.avi</FileName>
+<Track>0</Track>
+<ClipIndex>8</ClipIndex>
+<Flags>8</Flags>
+<Start>1674560483</Start>
+<End>1696135400</End>
+<ClipHasAudio>0</ClipHasAudio>
+<BitsPerPixel>24</BitsPerPixel>
+<Width>1024</Width>
+<Height>768</Height>
+<FileLength>787330000</FileLength>
+<MarkIn>765755083</MarkIn>
+<MarkOut>0</MarkOut>
+<MediaStart>765755083</MediaStart>
+<MediaEnd>787330000</MediaEnd>
+<FrameRate>15.000015</FrameRate>
+<ClipSpeed>0.700000</ClipSpeed>
+<WFSize>65535</WFSize>
+<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
+<WFBlockAlign>65535</WFBlockAlign>
+<WFChannels>65535</WFChannels>
+<WFSamplesPerSec>-1</WFSamplesPerSec>
+<WFBitsPerSample>65535</WFBitsPerSample>
+<WFFormatTag>65535</WFFormatTag>
+<ClipMapIndex>50</ClipMapIndex>
+<ClipTitle>Untitled</ClipTitle>
+<PowerPointSlide>0</PowerPointSlide>
+</DShowControl_ClipMap_Object>
+<DShowControl_ClipMap_Object>
+<FileName>tscrec://C:\Dev\mylar-bootstrap\org.eclipse.mylar\demo\predicted-errors.camrec!Screen_Stream.avi</FileName>
+<Track>0</Track>
+<ClipIndex>10</ClipIndex>
+<Flags>8</Flags>
+<Start>1898795400</Start>
+<End>2101455400</End>
+<ClipHasAudio>0</ClipHasAudio>
+<BitsPerPixel>24</BitsPerPixel>
+<Width>1024</Width>
+<Height>768</Height>
+<FileLength>202660000</FileLength>
+<MarkIn>0</MarkIn>
+<MarkOut>0</MarkOut>
+<MediaStart>0</MediaStart>
+<MediaEnd>202660000</MediaEnd>
+<FrameRate>15.000015</FrameRate>
+<ClipSpeed>0.700000</ClipSpeed>
+<WFSize>65535</WFSize>
+<WFAvgBytesPerSec>-1</WFAvgBytesPerSec>
+<WFBlockAlign>65535</WFBlockAlign>
+<WFChannels>65535</WFChannels>
+<WFSamplesPerSec>-1</WFSamplesPerSec>
+<WFBitsPerSample>65535</WFBitsPerSample>
+<WFFormatTag>65535</WFFormatTag>
+<ClipMapIndex>52</ClipMapIndex>
 <ClipTitle>Untitled</ClipTitle>
 <PowerPointSlide>0</PowerPointSlide>
 </DShowControl_ClipMap_Object>
@@ -1009,7 +1009,7 @@
 <KeepAspectRatio>0</KeepAspectRatio>
 <PreserveSize>1</PreserveSize>
 <UseTColor>0</UseTColor>
-<clrTransparent >0x02200000</clrTransparent >
+<clrTransparent >0x7C910732</clrTransparent >
 <Opacity>1.00</Opacity>
 <Height>154</Height>
 <MovieHeight>768</MovieHeight>
@@ -1019,10 +1019,10 @@
 <TextLeftIndent>20</TextLeftIndent>
 <TextRightIndent>20</TextRightIndent>
 <TextTopIndent>20</TextTopIndent>
-<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
-{\colortbl ;\red0\green0\blue0;}
-\viewkind4\uc1\pard\qc\cf1\f0\fs36 To start using Mylar, open the Task List and create a task\f1\par
-}
+<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
+{\colortbl ;\red0\green0\blue0;}
+\viewkind4\uc1\pard\qc\cf1\f0\fs36 To start using Mylar, open the Task List and create a task\f1\par
+}
 </strOverlayRichText>
 <TextVJust>1</TextVJust>
 <RectDest_X>744.00</RectDest_X>
@@ -1084,7 +1084,7 @@
 <KeepAspectRatio>0</KeepAspectRatio>
 <PreserveSize>1</PreserveSize>
 <UseTColor>0</UseTColor>
-<clrTransparent >0x02210B38</clrTransparent >
+<clrTransparent >0x01A30B38</clrTransparent >
 <Opacity>1.00</Opacity>
 <Height>154</Height>
 <MovieHeight>768</MovieHeight>
@@ -1094,10 +1094,10 @@
 <TextLeftIndent>20</TextLeftIndent>
 <TextRightIndent>20</TextRightIndent>
 <TextTopIndent>20</TextTopIndent>
-<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
-{\colortbl ;\red0\green0\blue0;}
-\viewkind4\uc1\pard\qc\cf1\f0\fs36 Activate the task to start building up context\f1\par
-}
+<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
+{\colortbl ;\red0\green0\blue0;}
+\viewkind4\uc1\pard\qc\cf1\f0\fs36 Activate the task to start building up context\f1\par
+}
 </strOverlayRichText>
 <TextVJust>1</TextVJust>
 <RectDest_X>744.00</RectDest_X>
@@ -1159,7 +1159,7 @@
 <KeepAspectRatio>0</KeepAspectRatio>
 <PreserveSize>1</PreserveSize>
 <UseTColor>0</UseTColor>
-<clrTransparent >0x02200178</clrTransparent >
+<clrTransparent >0x01A30B38</clrTransparent >
 <Opacity>1.00</Opacity>
 <Height>154</Height>
 <MovieHeight>768</MovieHeight>
@@ -1169,10 +1169,10 @@
 <TextLeftIndent>20</TextLeftIndent>
 <TextRightIndent>20</TextRightIndent>
 <TextTopIndent>20</TextTopIndent>
-<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
-{\colortbl ;\red0\green0\blue0;}
-\viewkind4\uc1\pard\qc\cf1\f0\fs36 As you work, the elements you select and edit become a part of the task context.\f1\par
-}
+<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
+{\colortbl ;\red0\green0\blue0;}
+\viewkind4\uc1\pard\qc\cf1\f0\fs36 As you work, the elements you select and edit become a part of the task context.\f1\par
+}
 </strOverlayRichText>
 <TextVJust>1</TextVJust>
 <RectDest_X>743.00</RectDest_X>
@@ -1234,7 +1234,7 @@
 <KeepAspectRatio>0</KeepAspectRatio>
 <PreserveSize>1</PreserveSize>
 <UseTColor>0</UseTColor>
-<clrTransparent >0x0542FB18</clrTransparent >
+<clrTransparent >0x01A20178</clrTransparent >
 <Opacity>1.00</Opacity>
 <Height>154</Height>
 <MovieHeight>768</MovieHeight>
@@ -1244,10 +1244,10 @@
 <TextLeftIndent>20</TextLeftIndent>
 <TextRightIndent>20</TextRightIndent>
 <TextTopIndent>20</TextTopIndent>
-<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
-{\colortbl ;\red0\green0\blue0;}
-\viewkind4\uc1\pard\qc\cf1\f0\fs36 The editor automatically unfolds elements as they are added to the task context.\f1\par
-}
+<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
+{\colortbl ;\red0\green0\blue0;}
+\viewkind4\uc1\pard\qc\cf1\f0\fs36 The editor automatically unfolds elements as they are added to the task context.\f1\par
+}
 </strOverlayRichText>
 <TextVJust>1</TextVJust>
 <RectDest_X>743.00</RectDest_X>
@@ -1309,7 +1309,7 @@
 <KeepAspectRatio>0</KeepAspectRatio>
 <PreserveSize>1</PreserveSize>
 <UseTColor>0</UseTColor>
-<clrTransparent >0x05431A28</clrTransparent >
+<clrTransparent >0x01A20178</clrTransparent >
 <Opacity>1.00</Opacity>
 <Height>154</Height>
 <MovieHeight>768</MovieHeight>
@@ -1319,10 +1319,10 @@
 <TextLeftIndent>20</TextLeftIndent>
 <TextRightIndent>20</TextRightIndent>
 <TextTopIndent>20</TextTopIndent>
-<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
-{\colortbl ;\red0\green0\blue0;}
-\viewkind4\uc1\pard\qc\cf1\f0\fs36 The Mylar glasses turn on "degree of interest" filtering, to reduce information overload. \f1\par
-}
+<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
+{\colortbl ;\red0\green0\blue0;}
+\viewkind4\uc1\pard\qc\cf1\f0\fs36 The Mylar glasses turn on "degree of interest" filtering, to reduce information overload. \f1\par
+}
 </strOverlayRichText>
 <TextVJust>1</TextVJust>
 <RectDest_X>741.00</RectDest_X>
@@ -1384,7 +1384,7 @@
 <KeepAspectRatio>0</KeepAspectRatio>
 <PreserveSize>1</PreserveSize>
 <UseTColor>0</UseTColor>
-<clrTransparent >0x02210B38</clrTransparent >
+<clrTransparent >0x01A20178</clrTransparent >
 <Opacity>1.00</Opacity>
 <Height>154</Height>
 <MovieHeight>768</MovieHeight>
@@ -1394,10 +1394,10 @@
 <TextLeftIndent>20</TextLeftIndent>
 <TextRightIndent>20</TextRightIndent>
 <TextTopIndent>20</TextTopIndent>
-<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}}
-{\colortbl ;\red0\green0\blue0;}
-\viewkind4\uc1\pard\qc\cf1\f0\fs36 With interest filtering on Eclipse views show you only what you are working on.\par
-}
+<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}}
+{\colortbl ;\red0\green0\blue0;}
+\viewkind4\uc1\pard\qc\cf1\f0\fs36 With interest filtering on Eclipse views show you only what you are working on.\par
+}
 </strOverlayRichText>
 <TextVJust>1</TextVJust>
 <RectDest_X>741.00</RectDest_X>
@@ -1459,7 +1459,7 @@
 <KeepAspectRatio>0</KeepAspectRatio>
 <PreserveSize>1</PreserveSize>
 <UseTColor>0</UseTColor>
-<clrTransparent >0x02200178</clrTransparent >
+<clrTransparent >0x01A20178</clrTransparent >
 <Opacity>1.00</Opacity>
 <Height>154</Height>
 <MovieHeight>768</MovieHeight>
@@ -1469,10 +1469,10 @@
 <TextLeftIndent>20</TextLeftIndent>
 <TextRightIndent>20</TextRightIndent>
 <TextTopIndent>20</TextTopIndent>
-<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
-{\colortbl ;\red0\green0\blue0;}
-\viewkind4\uc1\pard\qc\cf1\f0\fs36 Watch the Problems view as a class with a warning becomes interesting.\f1\par
-}
+<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
+{\colortbl ;\red0\green0\blue0;}
+\viewkind4\uc1\pard\qc\cf1\f0\fs36 Watch the Problems view as a class with a warning becomes interesting.\f1\par
+}
 </strOverlayRichText>
 <TextVJust>1</TextVJust>
 <RectDest_X>743.00</RectDest_X>
@@ -1534,7 +1534,7 @@
 <KeepAspectRatio>0</KeepAspectRatio>
 <PreserveSize>1</PreserveSize>
 <UseTColor>0</UseTColor>
-<clrTransparent >0x05431A30</clrTransparent >
+<clrTransparent >0x01A30B38</clrTransparent >
 <Opacity>1.00</Opacity>
 <Height>154</Height>
 <MovieHeight>768</MovieHeight>
@@ -1544,10 +1544,10 @@
 <TextLeftIndent>20</TextLeftIndent>
 <TextRightIndent>20</TextRightIndent>
 <TextTopIndent>20</TextTopIndent>
-<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
-{\colortbl ;\red0\green0\blue0;}
-\viewkind4\uc1\pard\qc\cf1\f0\fs36 Alt-click tree nodes to temporarily show all children and make a new selection.\f1\par
-}
+<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
+{\colortbl ;\red0\green0\blue0;}
+\viewkind4\uc1\pard\qc\cf1\f0\fs36 Alt-click tree nodes to temporarily show all children and make a new selection.\f1\par
+}
 </strOverlayRichText>
 <TextVJust>1</TextVJust>
 <RectDest_X>741.00</RectDest_X>
@@ -1609,7 +1609,7 @@
 <KeepAspectRatio>0</KeepAspectRatio>
 <PreserveSize>1</PreserveSize>
 <UseTColor>0</UseTColor>
-<clrTransparent >0x02200178</clrTransparent >
+<clrTransparent >0x01A20178</clrTransparent >
 <Opacity>1.00</Opacity>
 <Height>154</Height>
 <MovieHeight>768</MovieHeight>
@@ -1619,10 +1619,10 @@
 <TextLeftIndent>20</TextLeftIndent>
 <TextRightIndent>20</TextRightIndent>
 <TextTopIndent>20</TextTopIndent>
-<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
-{\colortbl ;\red0\green0\blue0;}
-\viewkind4\uc1\pard\qc\cf1\f0\fs36 Autmatic folding can also be toggled on and off.\f1\par
-}
+<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
+{\colortbl ;\red0\green0\blue0;}
+\viewkind4\uc1\pard\qc\cf1\f0\fs36 Automatic folding can also be toggled on and off.\f1\par
+}
 </strOverlayRichText>
 <TextVJust>1</TextVJust>
 <RectDest_X>742.00</RectDest_X>
@@ -1684,7 +1684,7 @@
 <KeepAspectRatio>0</KeepAspectRatio>
 <PreserveSize>1</PreserveSize>
 <UseTColor>0</UseTColor>
-<clrTransparent >0x02200178</clrTransparent >
+<clrTransparent >0x05136510</clrTransparent >
 <Opacity>1.00</Opacity>
 <Height>154</Height>
 <MovieHeight>768</MovieHeight>
@@ -1694,10 +1694,10 @@
 <TextLeftIndent>20</TextLeftIndent>
 <TextRightIndent>20</TextRightIndent>
 <TextTopIndent>20</TextTopIndent>
-<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
-{\colortbl ;\red0\green0\blue0;}
-\viewkind4\uc1\pard\qc\cf1\f0\fs36 Use the glasses in the task list to deactivate and reactivate task context.\f1\par
-}
+<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
+{\colortbl ;\red0\green0\blue0;}
+\viewkind4\uc1\pard\qc\cf1\f0\fs36 Use the glasses in the task list to deactivate and reactivate task context.\f1\par
+}
 </strOverlayRichText>
 <TextVJust>1</TextVJust>
 <RectDest_X>742.00</RectDest_X>
@@ -1759,7 +1759,7 @@
 <KeepAspectRatio>0</KeepAspectRatio>
 <PreserveSize>1</PreserveSize>
 <UseTColor>0</UseTColor>
-<clrTransparent >0x02200178</clrTransparent >
+<clrTransparent >0x01A20178</clrTransparent >
 <Opacity>1.00</Opacity>
 <Height>154</Height>
 <MovieHeight>768</MovieHeight>
@@ -1769,10 +1769,10 @@
 <TextLeftIndent>20</TextLeftIndent>
 <TextRightIndent>20</TextRightIndent>
 <TextTopIndent>20</TextTopIndent>
-<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
-{\colortbl ;\red0\green0\blue0;}
-\viewkind4\uc1\pard\qc\cf1\f0\fs36 If a new bugzilla report arrives, we can add it to the list and active it.\f1\par
-}
+<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
+{\colortbl ;\red0\green0\blue0;}
+\viewkind4\uc1\pard\qc\cf1\f0\fs36 If a new bugzilla report arrives, we can add it to the list and active it.\f1\par
+}
 </strOverlayRichText>
 <TextVJust>1</TextVJust>
 <RectDest_X>741.00</RectDest_X>
@@ -1834,7 +1834,7 @@
 <KeepAspectRatio>0</KeepAspectRatio>
 <PreserveSize>1</PreserveSize>
 <UseTColor>0</UseTColor>
-<clrTransparent >0x02200178</clrTransparent >
+<clrTransparent >0x05137008</clrTransparent >
 <Opacity>1.00</Opacity>
 <Height>154</Height>
 <MovieHeight>768</MovieHeight>
@@ -1844,10 +1844,10 @@
 <TextLeftIndent>20</TextLeftIndent>
 <TextRightIndent>20</TextRightIndent>
 <TextTopIndent>20</TextTopIndent>
-<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
-{\colortbl ;\red0\green0\blue0;}
-\viewkind4\uc1\pard\qc\cf1\f0\fs36 As we start working with the report we build up context.\f1\par
-}
+<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
+{\colortbl ;\red0\green0\blue0;}
+\viewkind4\uc1\pard\qc\cf1\f0\fs36 As we start working with the report we build up context.\f1\par
+}
 </strOverlayRichText>
 <TextVJust>1</TextVJust>
 <RectDest_X>742.00</RectDest_X>
@@ -1909,7 +1909,7 @@
 <KeepAspectRatio>0</KeepAspectRatio>
 <PreserveSize>1</PreserveSize>
 <UseTColor>0</UseTColor>
-<clrTransparent >0x054339C0</clrTransparent >
+<clrTransparent >0x01A20178</clrTransparent >
 <Opacity>1.00</Opacity>
 <Height>154</Height>
 <MovieHeight>768</MovieHeight>
@@ -1919,10 +1919,10 @@
 <TextLeftIndent>20</TextLeftIndent>
 <TextRightIndent>20</TextRightIndent>
 <TextTopIndent>20</TextTopIndent>
-<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
-{\colortbl ;\red0\green0\blue0;}
-\viewkind4\uc1\pard\qc\cf1\f0\fs36 To distinguish this report from the first we can give it a higlighter.\f1\par
-}
+<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
+{\colortbl ;\red0\green0\blue0;}
+\viewkind4\uc1\pard\qc\cf1\f0\fs36 To distinguish this report from the first we can give it a higlighter.\f1\par
+}
 </strOverlayRichText>
 <TextVJust>1</TextVJust>
 <RectDest_X>742.00</RectDest_X>
@@ -1984,7 +1984,7 @@
 <KeepAspectRatio>0</KeepAspectRatio>
 <PreserveSize>1</PreserveSize>
 <UseTColor>0</UseTColor>
-<clrTransparent >0x02210B38</clrTransparent >
+<clrTransparent >0x01A30B38</clrTransparent >
 <Opacity>1.00</Opacity>
 <Height>154</Height>
 <MovieHeight>768</MovieHeight>
@@ -1994,10 +1994,10 @@
 <TextLeftIndent>20</TextLeftIndent>
 <TextRightIndent>20</TextRightIndent>
 <TextTopIndent>20</TextTopIndent>
-<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
-{\colortbl ;\red0\green0\blue0;}
-\viewkind4\uc1\pard\qc\cf1\f0\fs36 Highlighters can also be useful if you turn off interest filtering in a view.\f1\par
-}
+<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
+{\colortbl ;\red0\green0\blue0;}
+\viewkind4\uc1\pard\qc\cf1\f0\fs36 Highlighters can also be useful if you turn off interest filtering in a view.\f1\par
+}
 </strOverlayRichText>
 <TextVJust>1</TextVJust>
 <RectDest_X>505.00</RectDest_X>
@@ -2059,7 +2059,7 @@
 <KeepAspectRatio>0</KeepAspectRatio>
 <PreserveSize>1</PreserveSize>
 <UseTColor>0</UseTColor>
-<clrTransparent >0x02200178</clrTransparent >
+<clrTransparent >0x05137E78</clrTransparent >
 <Opacity>1.00</Opacity>
 <Height>154</Height>
 <MovieHeight>768</MovieHeight>
@@ -2069,10 +2069,10 @@
 <TextLeftIndent>20</TextLeftIndent>
 <TextRightIndent>20</TextRightIndent>
 <TextTopIndent>20</TextTopIndent>
-<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
-{\colortbl ;\red0\green0\blue0;}
-\viewkind4\uc1\pard\qc\cf1\f0\fs36 Multiple contexts can be active at the same time.  Here the highlighter distinguishes them.\f1\par
-}
+<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
+{\colortbl ;\red0\green0\blue0;}
+\viewkind4\uc1\pard\qc\cf1\f0\fs36 Multiple contexts can be active at the same time.  Here the highlighter distinguishes them.\f1\par
+}
 </strOverlayRichText>
 <TextVJust>1</TextVJust>
 <RectDest_X>742.00</RectDest_X>
@@ -2134,7 +2134,7 @@
 <KeepAspectRatio>0</KeepAspectRatio>
 <PreserveSize>1</PreserveSize>
 <UseTColor>0</UseTColor>
-<clrTransparent >0x02210B38</clrTransparent >
+<clrTransparent >0x01A20178</clrTransparent >
 <Opacity>1.00</Opacity>
 <Height>154</Height>
 <MovieHeight>768</MovieHeight>
@@ -2144,10 +2144,10 @@
 <TextLeftIndent>20</TextLeftIndent>
 <TextRightIndent>20</TextRightIndent>
 <TextTopIndent>20</TextTopIndent>
-<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
-{\colortbl ;\red0\green0\blue0;}
-\viewkind4\uc1\pard\qc\cf1\f0\fs36 Elements with errors get interest induced and show in the Package Explorer.\f1\par
-}
+<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
+{\colortbl ;\red0\green0\blue0;}
+\viewkind4\uc1\pard\qc\cf1\f0\fs36 Elements with errors get interest induced and show in the Package Explorer.\f1\par
+}
 </strOverlayRichText>
 <TextVJust>1</TextVJust>
 <RectDest_X>741.00</RectDest_X>
@@ -2209,7 +2209,7 @@
 <KeepAspectRatio>0</KeepAspectRatio>
 <PreserveSize>1</PreserveSize>
 <UseTColor>0</UseTColor>
-<clrTransparent >0x02200178</clrTransparent >
+<clrTransparent >0x01A30B38</clrTransparent >
 <Opacity>1.00</Opacity>
 <Height>154</Height>
 <MovieHeight>768</MovieHeight>
@@ -2219,10 +2219,10 @@
 <TextLeftIndent>20</TextLeftIndent>
 <TextRightIndent>20</TextRightIndent>
 <TextTopIndent>20</TextTopIndent>
-<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
-{\colortbl ;\red0\green0\blue0;}
-\viewkind4\uc1\pard\qc\cf1\f0\fs36 Watch the Package Explorer as fixing the error removes the predicted interest.\f1\par
-}
+<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
+{\colortbl ;\red0\green0\blue0;}
+\viewkind4\uc1\pard\qc\cf1\f0\fs36 Watch the Package Explorer as fixing the error removes the predicted interest.\f1\par
+}
 </strOverlayRichText>
 <TextVJust>1</TextVJust>
 <RectDest_X>742.00</RectDest_X>
@@ -2284,7 +2284,7 @@
 <KeepAspectRatio>0</KeepAspectRatio>
 <PreserveSize>1</PreserveSize>
 <UseTColor>0</UseTColor>
-<clrTransparent >0x05436898</clrTransparent >
+<clrTransparent >0x01A20178</clrTransparent >
 <Opacity>1.00</Opacity>
 <Height>154</Height>
 <MovieHeight>768</MovieHeight>
@@ -2294,10 +2294,10 @@
 <TextLeftIndent>20</TextLeftIndent>
 <TextRightIndent>20</TextRightIndent>
 <TextTopIndent>20</TextTopIndent>
-<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
-{\colortbl ;\red0\green0\blue0;}
-\viewkind4\uc1\pard\qc\cf1\f0\fs36 Interesting elements appear in black font, uninteresting elements in gray.\f1\par
-}
+<strOverlayRichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Tahoma;}{\f1\fnil\fcharset0 Arial;}}
+{\colortbl ;\red0\green0\blue0;}
+\viewkind4\uc1\pard\qc\cf1\f0\fs36 Interesting elements appear in black font, uninteresting elements in gray.\f1\par
+}
 </strOverlayRichText>
 <TextVJust>1</TextVJust>
 <RectDest_X>743.00</RectDest_X>
@@ -2374,8 +2374,8 @@
 <Transition_Array_Object>
 <TransitionArrayIndex>1</TransitionArrayIndex>
 <GUID>{02F30A30-DB20-053E-0000-0000F873FC09}</GUID>
-<Start>1906176677</Start>
-<Stop>1916176677</Stop>
+<Start>2101455400</Start>
+<Stop>2111455400</Stop>
 <Duration>10000000</Duration>
 <IndexStart>10</IndexStart>
 <IndexStop>11</IndexStop>
@@ -2409,18 +2409,42 @@
 
 <Title_Array>
 <Title_Array_Object>
-<ID>2</ID>
+<ID>6</ID>
 <TitleName>Title Clip 1</TitleName>
 <BGImage></BGImage>
-<BGColor>0x00000000</BGColor>
+<BGColor>0x00DCCEC8</BGColor>
 <BGType>2</BGType>
 <AddTextDropShadow>1</AddTextDropShadow>
 <TextVJust>1</TextVJust>
-<RichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Century Gothic;}}
-{\colortbl ;\red255\green255\blue255;}
-\viewkind4\uc1\pard\qc\cf1\b\f0\fs96 Mylar 0.3\b0\fs36\par
-\fs28 (video at 70% of actual speed)\fs36\par
-}
+<RichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Century Gothic;}}
+{\colortbl ;\red91\green91\blue91;\red255\green255\blue255;}
+\viewkind4\uc1\pard\qc\cf1\f0\fs52 http://eclipse.org/mylar\cf2\par
+}
+</RichText>
+<TextRectDest_X>10.00</TextRectDest_X>
+<TextRectDest_Y>10.00</TextRectDest_Y>
+<TextRectDest_Width>1004.00</TextRectDest_Width>
+<TextRectDest_Height>748.00</TextRectDest_Height>
+<CreateMarker>1</CreateMarker>
+<AutoSizeClip>1</AutoSizeClip>
+<TitleClipHeight>1024</TitleClipHeight>
+<TitleClipWidth>768</TitleClipWidth>
+<Title_Image_Array>
+</Title_Image_Array>
+</Title_Array_Object>
+<Title_Array_Object>
+<ID>5</ID>
+<TitleName>Title Clip 1</TitleName>
+<BGImage></BGImage>
+<BGColor>0x00DCCEC8</BGColor>
+<BGType>2</BGType>
+<AddTextDropShadow>1</AddTextDropShadow>
+<TextVJust>1</TextVJust>
+<RichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Century Gothic;}}
+{\colortbl ;\red108\green108\blue108;\red255\green255\blue255;}
+\viewkind4\uc1\pard\qc\cf1\f0\fs96 Mylar 0.3\fs36\par
+\fs28 (video at 70% of actual speed)\cf2\fs36\par
+}
 </RichText>
 <TextRectDest_X>10.00</TextRectDest_X>
 <TextRectDest_Y>10.00</TextRectDest_Y>
@@ -2441,10 +2465,10 @@
 <BGType>2</BGType>
 <AddTextDropShadow>1</AddTextDropShadow>
 <TextVJust>1</TextVJust>
-<RichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Century Gothic;}}
-{\colortbl ;\red255\green255\blue255;}
-\viewkind4\uc1\pard\qc\cf1\b\f0\fs96\par
-}
+<RichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Century Gothic;}}
+{\colortbl ;\red255\green255\blue255;}
+\viewkind4\uc1\pard\qc\cf1\b\f0\fs96\par
+}
 </RichText>
 <TextRectDest_X>0.00</TextRectDest_X>
 <TextRectDest_Y>18.00</TextRectDest_Y>
@@ -2458,42 +2482,18 @@
 </Title_Image_Array>
 </Title_Array_Object>
 <Title_Array_Object>
-<ID>5</ID>
+<ID>2</ID>
 <TitleName>Title Clip 1</TitleName>
 <BGImage></BGImage>
-<BGColor>0x00DCCEC8</BGColor>
+<BGColor>0x00000000</BGColor>
 <BGType>2</BGType>
 <AddTextDropShadow>1</AddTextDropShadow>
 <TextVJust>1</TextVJust>
-<RichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Century Gothic;}}
-{\colortbl ;\red108\green108\blue108;\red255\green255\blue255;}
-\viewkind4\uc1\pard\qc\cf1\f0\fs96 Mylar 0.3\fs36\par
-\fs28 (video at 70% of actual speed)\cf2\fs36\par
-}
-</RichText>
-<TextRectDest_X>10.00</TextRectDest_X>
-<TextRectDest_Y>10.00</TextRectDest_Y>
-<TextRectDest_Width>1004.00</TextRectDest_Width>
-<TextRectDest_Height>748.00</TextRectDest_Height>
-<CreateMarker>1</CreateMarker>
-<AutoSizeClip>1</AutoSizeClip>
-<TitleClipHeight>1024</TitleClipHeight>
-<TitleClipWidth>768</TitleClipWidth>
-<Title_Image_Array>
-</Title_Image_Array>
-</Title_Array_Object>
-<Title_Array_Object>
-<ID>6</ID>
-<TitleName>Title Clip 1</TitleName>
-<BGImage></BGImage>
-<BGColor>0x00DCCEC8</BGColor>
-<BGType>2</BGType>
-<AddTextDropShadow>1</AddTextDropShadow>
-<TextVJust>1</TextVJust>
-<RichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Century Gothic;}}
-{\colortbl ;\red91\green91\blue91;\red255\green255\blue255;}
-\viewkind4\uc1\pard\qc\cf1\f0\fs52 http://eclipse.org/mylar\cf2\par
-}
+<RichText>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Century Gothic;}}
+{\colortbl ;\red255\green255\blue255;}
+\viewkind4\uc1\pard\qc\cf1\b\f0\fs96 Mylar 0.3\b0\fs36\par
+\fs28 (video at 70% of actual speed)\fs36\par
+}
 </RichText>
 <TextRectDest_X>10.00</TextRectDest_X>
 <TextRectDest_Y>10.00</TextRectDest_Y>
