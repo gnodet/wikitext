@@ -195,6 +195,7 @@ public class TaskListExternalizer {
 	
 	public void readTaskList(TaskList tlist, File inFile) {
 		initExtensions();
+		MylarTasklistPlugin.getDefault().restoreTaskHandlerState();
 		hasCaughtException = false;
 		try {
 			// parse file
@@ -276,6 +277,7 @@ public class TaskListExternalizer {
 			// bugzilla externalizer is not loaded. So there is a potentila that we can lose bug reports.
 			writeTaskList(tlist, inFile);
 		}
+		MylarTasklistPlugin.getDefault().restoreTaskHandlerState();
 	}
 
 	/**
