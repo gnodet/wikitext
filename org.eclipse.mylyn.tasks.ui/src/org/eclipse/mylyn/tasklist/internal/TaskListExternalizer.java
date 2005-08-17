@@ -194,8 +194,8 @@ public class TaskListExternalizer {
 //	}
 	
 	public void readTaskList(TaskList tlist, File inFile) {
-		initExtensions();
 		MylarTasklistPlugin.getDefault().restoreTaskHandlerState();
+		initExtensions();
 		hasCaughtException = false;
 		try {
 			// parse file
