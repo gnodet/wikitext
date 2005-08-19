@@ -60,7 +60,7 @@ public class AjStructureBridge extends org.eclipse.mylar.java.JavaStructureBridg
     if (debug) debug("getObjectForHandle(" + arg0 + ")" + " = " + val);
     return val;
   }
-  public final boolean canBeLandmark(Object arg0) {
+  public final boolean canBeLandmark(String arg0) {
     boolean val = super.canBeLandmark(arg0);
     if (debug) debug("canBeLandmark(" + arg0 + ")" + " = " + val);
     return val;
@@ -85,11 +85,7 @@ public class AjStructureBridge extends org.eclipse.mylar.java.JavaStructureBridg
     if (debug) debug("isDocument(" + arg0 + ")" + " = " + val);
     return val;
   }
-  public final String getHandleForMarker(org.eclipse.ui.views.markers.internal.ProblemMarker arg0) {
-    String val = super.getHandleForMarker(arg0);
-    if (debug) debug("getHandleForMarker(" + arg0 + ")" + " = " + val);
-    return val;
-  }
+
   public final org.eclipse.core.resources.IProject getProjectForObject(Object arg0) {
     org.eclipse.core.resources.IProject val = super.getProjectForObject(arg0);
     if (debug) debug("getProjectForObject(" + arg0 + ")" + " = " + val);
