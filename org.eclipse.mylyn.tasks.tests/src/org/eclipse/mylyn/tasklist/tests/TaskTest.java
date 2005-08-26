@@ -11,13 +11,15 @@
 /*
  * Created on Jan 24, 2005
  */
-package org.eclipse.mylar.tests;
+package org.eclipse.mylar.tasklist.tests;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Shawn Minto
+ * 
+ * TODO: remove?
  */
 public class TaskTest {
     private int id = -1;
