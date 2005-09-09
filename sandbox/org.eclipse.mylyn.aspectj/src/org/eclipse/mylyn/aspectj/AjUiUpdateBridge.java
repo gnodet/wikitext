@@ -66,7 +66,7 @@ public class AjUiUpdateBridge implements IMylarContextListener {
 		
 	}
 
-	public void relationshipsChanged() {
+	public void edgesChanged(IMylarContextNode node) {
 		// TODO Auto-generated method stub
 		
 	}
