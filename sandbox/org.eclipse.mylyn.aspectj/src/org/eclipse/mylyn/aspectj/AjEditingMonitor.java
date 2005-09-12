@@ -38,7 +38,7 @@ public class AjEditingMonitor extends JavaEditingMonitor {
   AjEditingMonitor(boolean debug) {setDebug(debug);}
 
   private void debug(String s) {
-    System.err.println(prefix() + s);
+    System.out.println(prefix() + s);
   }
   private String prefix;
   private String prefix() {
