@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+  <extension point="org.eclipse.ui.views"> 
+	  <view name="Taskscape Tree"
+            icon="icons/eview16/model.gif"
+            category="org.eclipse.mylar"
+            class="org.eclipse.mylar.sandbox.views.TaskscapeTreeView"
+            id="org.eclipse.mylar.ui.views.TaskscapeTreeView">
+      </view> 
+	  <view name="Taskscape Viz" 
+	    icon="icons/eview16/taskscape.gif"
+	  	category="org.eclipse.mylar" 
+	  	class="org.eclipse.mylar.sandbox.views.TaskscapeGraphView" 
+	  	id="org.eclipse.mylar.sandbox.views.TaskscapeVizView" />
+	  <view name="Taskscape Control Panel"
+        icon="icons/eview16/control-panel.gif"
+        category="org.eclipse.mylar"
+        class="org.eclipse.mylar.ui.views.MylarControlPanelView"
+        id="org.eclipse.mylar.ui.views.MylarControlPanelView">
+      </view>
+  </extension> 
+  <!--
+   <extension point = "org.eclipse.ui.popupMenus">
+     <objectContribution
+        id="org.eclipse.mylar.interest"
+        objectClass="org.eclipse.jdt.core.IJavaElement">
+        <action id="org.eclipse.mylar.ui.actions.OpenRelatedElementsQuickView" 
+              label="Related elements" 
+	      	  menubarPath="mylar" 
+              icon="icons/eview16/active-search.gif" 
+              tooltip="Active Search quick view" 
+              class="org.eclipse.mylar.ui.actions.OpenRelatedElementsQuickView" 
+              enablesFor="1"/> 
+	 </objectContribution>
+  </extension>
+  -->
+</plugin>

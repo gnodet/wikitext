@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         id="org.eclipse.mylar.reports.views.UsageCountView"
+         point="org.eclipse.ui.views">
+      <view
+            category="org.eclipse.mylar"
+            class="org.eclipse.mylar.monitor.reports.ui.views.UsageCountView"
+            icon="icons/eview16/monitor.gif"
+            id="org.eclipse.mylar.monitor.reports.ui.UsageCountView"
+            name="Usage Statistics"/>
+   </extension>
+   
+   <extension point = "org.eclipse.ui.popupMenus">
+     <viewerContribution
+        id="org.eclipse.mylar.monitor.commands"
+        targetID="org.eclipse.jdt.ui.PackageExplorer">
+	    <action  
+  		  	label="Compute Summary Statistics" 
+	  		tooltip="Compute Usage Statistics"
+	  		menubarPath="mylar.monitor" 
+	  		id="org.eclipse.mylar.monitor.reports.ui.actions.ComputeSummaryAction" 
+	  		class="org.eclipse.mylar.monitor.reports.ui.actions.ComputeSummaryAction"
+	  		icon="icons/eview16/monitor.gif"
+	  		enablesFor="*"/>   
+	  	<action  
+  		  	label="Compute User Statistics" 
+	  		tooltip="Compute Usage Statistics"
+	  		menubarPath="mylar.monitor" 
+	  		id="org.eclipse.mylar.monitor.reports.ui.actions.ComputeSummaryAction" 
+	  		class="org.eclipse.mylar.monitor.reports.ui.actions.ComputeUserStatsAction"
+	  		icon="icons/eview16/monitor.gif"
+	  		enablesFor="*"/>   
+	 </viewerContribution> 
+	 <viewerContribution
+        id="org.eclipse.mylar.monitor.commands"
+        targetID="org.eclipse.ui.views.ResourceNavigator">
+	    <action  
+  		  	label="Compute Summary Statistics" 
+	  		tooltip="Compute Usage Statistics"
+	  		menubarPath="mylar.monitor" 
+	  		id="org.eclipse.mylar.monitor.reports.ui.actions.ComputeSummaryAction" 
+	  		class="org.eclipse.mylar.monitor.reports.ui.actions.ComputeSummaryAction"
+	  		icon="icons/eview16/monitor.gif"
+	  		enablesFor="*"/>   
+	  		    <action  
+  		  	label="Compute User Statistics" 
+	  		tooltip="Compute Usage Statistics"
+	  		menubarPath="mylar.monitor" 
+	  		id="org.eclipse.mylar.monitor.reports.ui.actions.ComputeSummaryAction" 
+	  		class="org.eclipse.mylar.monitor.reports.ui.actions.ComputeUserStatsAction"
+	  		icon="icons/eview16/monitor.gif"
+	  		enablesFor="*"/>   
+	 </viewerContribution> 
+   </extension>
+	  		
+	<extension
+        point="org.eclipse.ui.editors">
+     <editor
+           icon="icons/eview16/monitor.gif"
+           class="org.eclipse.mylar.monitor.reports.ui.views.UsageStatsEditorPart"
+           name="Usage Summary"
+           id="org.eclipse.mylar.monitor.reports.ui.actions.monitorSummaryReport"/>
+     <editor
+           icon="icons/eview16/monitor.gif"
+           class="org.eclipse.mylar.monitor.reports.ui.views.UsageStatsEditorPart"
+           name="User Statistics"
+           id="org.eclipse.mylar.monitor.reports.ui.actions.monitorUsersReport"/>
+  </extension>
+</plugin>
+
+        <!--
+	    <action
+           class="org.eclipse.mylar.monitor.reports.ui.actions.ShowInteractionHistory"
+           enablesFor="1"
+           icon="icons/eview16/monitor.gif"
+           id="org.eclipse.mylar.ui.actions.ShowInteractionHistory"
+           label="Show interarction history"
+           menubarPath="mylar.monitor"
+           tooltip="Show interaction history"/> 
+        -->
