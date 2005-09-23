@@ -42,7 +42,7 @@ public class EditRatioCollector implements IStatsCollector {
 	public String getLabel() {
 		return "Edit Ratio Change";
 	}
-
+	
 	public void consumeEvent(InteractionEvent event, int userId, String phase) {
 		userIds.add(userId);
 		
