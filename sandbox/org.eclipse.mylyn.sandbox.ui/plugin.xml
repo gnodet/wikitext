@@ -4,8 +4,8 @@
 
    <extension point="org.eclipse.mylar.tasklist.providers">
       <taskHandler
-            taskHandlerClass="org.eclipse.mylar.sandbox.jira.JiraReportTaskExternalizer"
-            externalizerClass="org.eclipse.mylar.sandbox.jira.JiraReportHandler"
+            taskHandlerClass="org.eclipse.mylar.sandbox.jira.JiraReportHandler"
+            externalizerClass="org.eclipse.mylar.sandbox.jira.JiraReportTaskExternalizer"
             id="org.eclipse.mylar.bugzilla.ui.tasklist"
             name="Jira Provider">
       </taskHandler>
