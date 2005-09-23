@@ -13,9 +13,10 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.mylar.java,
  org.eclipse.jdt.core,
  org.eclipse.mylar.zest.core,
- org.eclipse.mylar.zest.layouts
+ org.eclipse.mylar.zest.layouts,
+ org.eclipse.mylar.tasklist
 Eclipse-AutoStart: true
 Bundle-Vendor: Eclipse.org
 Bundle-ClassPath: mylar-sandbox.jar
 Export-Package: org.eclipse.mylar.sandbox,
- org.eclipse.mylar.sandbox.views
+ org.eclipse.mylar.sandbox.viz

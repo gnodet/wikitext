@@ -2,19 +2,47 @@
 <?eclipse version="3.0"?>
 <plugin>
 
-  <extension point="org.eclipse.ui.views"> 
-	  <view name="Taskscape Tree"
+   <extension point="org.eclipse.mylar.tasklist.providers">
+      <taskHandler
+            taskHandlerClass="org.eclipse.mylar.sandbox.jira.JiraReportTaskExternalizer"
+            externalizerClass="org.eclipse.mylar.sandbox.jira.JiraReportHandler"
+            id="org.eclipse.mylar.bugzilla.ui.tasklist"
+            name="Jira Provider">
+      </taskHandler>
+   </extension> 
+   
+   <extension point="org.eclipse.ui.viewActions"> 
+		<viewContribution 
+			id="org.eclipse.mylar.jira.ui.tasklist.actions" 
+	   		targetID="org.eclipse.mylar.tasks.ui.views.TaskListView">	  			
+    		<action
+	            class="org.eclipse.mylar.sandbox.jira.CreateJiraTaskAction"
+	            enablesFor="*"
+	            icon="icons/eview16/icons-task-jira.gif"
+	            id="org.eclipse.mylar.bugzilla.tasklist.addExisting"
+	            label="Add Existing Jira Report"
+	            style="push"
+	            toolbarPath="mylar"
+	            tooltip="Add Existing Jira Report"> 
+  			</action>
+	    </viewContribution> 
+   </extension>
+
+
+
+   <extension point="org.eclipse.ui.views"> 
+	  <view name="Context Tree"
             icon="icons/eview16/model.gif"
             category="org.eclipse.mylar"
-            class="org.eclipse.mylar.sandbox.views.TaskscapeTreeView"
+            class="org.eclipse.mylar.sandbox.viz.TaskscapeTreeView"
             id="org.eclipse.mylar.ui.views.TaskscapeTreeView">
       </view> 
-	  <view name="Taskscape Viz" 
+	  <view name="Context Viz" 
 	    icon="icons/eview16/taskscape.gif"
 	  	category="org.eclipse.mylar" 
-	  	class="org.eclipse.mylar.sandbox.views.TaskscapeGraphView" 
-	  	id="org.eclipse.mylar.sandbox.views.TaskscapeVizView" />
-	  <view name="Taskscape Control Panel"
+	  	class="org.eclipse.mylar.sandbox.viz.TaskscapeGraphView" 
+	  	id="org.eclipse.mylar.sandbox.viz.TaskscapeVizView" />
+	  <view name="Context Control Panel"
         icon="icons/eview16/control-panel.gif"
         category="org.eclipse.mylar"
         class="org.eclipse.mylar.ui.views.MylarControlPanelView"

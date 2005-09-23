@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.sandbox.views;
+package org.eclipse.mylar.sandbox.viz;
 
 import java.util.HashSet;
 import java.util.List;

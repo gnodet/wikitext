@@ -15,15 +15,12 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.osgi.framework.BundleContext;
 
 /**
- * The main plugin class to be used in the desktop.
+ * @author Mik Kersten
  */
 public class MylarSandboxPlugin extends AbstractUIPlugin {
-	//The shared instance.
+
 	private static MylarSandboxPlugin plugin;
 	
-	/**
-	 * The constructor.
-	 */
 	public MylarSandboxPlugin() {
 		super();
 		plugin = this;
