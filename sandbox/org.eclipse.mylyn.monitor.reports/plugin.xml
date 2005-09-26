@@ -2,17 +2,6 @@
 <?eclipse version="3.0"?>
 <?eclipse version="3.0"?>
 <plugin>
-   <extension
-         id="org.eclipse.mylar.reports.views.UsageCountView"
-         point="org.eclipse.ui.views">
-      <view
-            category="org.eclipse.mylar"
-            class="org.eclipse.mylar.monitor.reports.ui.views.UsageCountView"
-            icon="icons/eview16/monitor.gif"
-            id="org.eclipse.mylar.monitor.reports.ui.UsageCountView"
-            name="Usage Statistics"/>
-   </extension>
-   
    <extension point = "org.eclipse.ui.popupMenus">
      <viewerContribution
         id="org.eclipse.mylar.monitor.commands"
@@ -81,3 +70,15 @@
            menubarPath="mylar.monitor"
            tooltip="Show interaction history"/> 
         -->
+<!--
+   <extension
+         id="org.eclipse.mylar.reports.views.UsageCountView"
+         point="org.eclipse.ui.views">
+      <view
+            category="org.eclipse.mylar"
+            class="org.eclipse.mylar.monitor.reports.ui.views.UsageCountView"
+            icon="icons/eview16/monitor.gif"
+            id="org.eclipse.mylar.monitor.reports.ui.UsageCountView"
+            name="Usage Statistics"/>
+   </extension>
+-->
