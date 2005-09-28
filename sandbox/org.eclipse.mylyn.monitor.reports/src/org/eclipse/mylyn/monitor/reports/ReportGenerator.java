@@ -167,6 +167,8 @@ public class ReportGenerator {
 		        
 		        if (usersMode) {
 		        	// TODO: refactor
+		        	final List<Integer> usersImproved = new ArrayList<Integer>();
+		        	final List<Integer> usersDegraded = new ArrayList<Integer>();
 		        	for (Iterator it = userIds.iterator(); it.hasNext(); ) {
 		        		final int id = (Integer)it.next();
 		        		final String userLabel = "User ID: " + id;
@@ -192,8 +194,10 @@ public class ReportGenerator {
 										summaries.add("Baseline edit ratio: " + baselineRatio + ", mylar: " + mylarRatio);
 										String ratioChange = editRatioCollector.formatPercentage(100*(percentage-1));
 										if (percentage >= 1) {
+											usersImproved.add(id);
 											summaries.add("Improved by: " + ratioChange + "%"); 
 										} else {
+											usersDegraded.add(id);
 											summaries.add("Degraded by: " + ratioChange + "%"); 
 										}
 										summaries.add("Selections baseline: " + editRatioCollector.getNumBaselineSelections(id));
@@ -238,8 +242,7 @@ public class ReportGenerator {
 							} else {
 								summaries.add("Overall edit ratio degraded by: " + ratioChange + "% " + acceptedSummary);
 							}
-//							summaries.add(0, "Total change: " + editRatioCollector.formatPercentage()
-								
+							summaries.add("degraded: " + usersDegraded.size() + ", improved: " + usersImproved.size());
 							return summaries; 
 						}
         				
