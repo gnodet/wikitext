@@ -23,6 +23,8 @@ import java.util.Set;
 import org.eclipse.mylar.core.InteractionEvent;
 import org.eclipse.mylar.monitor.SelectionMonitor;
 import org.eclipse.mylar.monitor.reports.IStatsCollector;
+import org.eclipse.mylar.tasklist.ui.actions.TaskActivateAction;
+import org.eclipse.mylar.tasklist.ui.actions.TaskDeactivateAction;
 import org.eclipse.mylar.ui.actions.AbstractApplyMylarAction;
 
 /**
@@ -35,6 +37,8 @@ public class ViewUsageCollector implements IStatsCollector {
     private Map<Integer, Map<String, Integer>> usersFilteredViewSelections = new HashMap<Integer, Map<String, Integer>>();
     private Map<Integer, Set<String>> usersFilteredViews = new HashMap<Integer, Set<String>>();
     
+	private Set<Integer> mylarUserIds = new HashSet<Integer>();
+    
     private Map<Integer, Integer> usersNumEvents = new HashMap<Integer, Integer>();
     
     private Map<Integer, Integer> usersNumDecayed = new HashMap<Integer, Integer>();
@@ -43,6 +47,14 @@ public class ViewUsageCollector implements IStatsCollector {
     private Map<Integer, Integer> usersNumPredicted = new HashMap<Integer, Integer>();
 
     public void consumeEvent(InteractionEvent event, int userId, String phase) {
+		if (event.getKind().equals(InteractionEvent.Kind.COMMAND)) {
+			if (event.getOriginId().equals(TaskActivateAction.ID)) {
+				mylarUserIds.add(userId);
+			} else if (event.getOriginId().equals(TaskDeactivateAction.ID)) {
+				mylarUserIds.remove(userId);
+			}
+		}
+    	
 		Map<String, Integer> normalViewSelections = usersNormalViewSelections.get(userId);
 		if (normalViewSelections == null) {
 			normalViewSelections = new HashMap<String, Integer>();
@@ -66,23 +78,25 @@ public class ViewUsageCollector implements IStatsCollector {
 			int numEvents = usersNumEvents.get(userId) + 1;
 			usersNumEvents.put(userId, numEvents);
 
-			if (event.getDelta().equals(SelectionMonitor.SELECTION_DECAYED)) {
-				if (!usersNumDecayed.containsKey(userId)) usersNumDecayed.put(userId, 0);
-				int numDecayed = usersNumDecayed.get(userId) + 1;
-				usersNumDecayed.put(userId, numDecayed);
-			} else if (event.getDelta().equals(SelectionMonitor.SELECTION_PREDICTED)) {
-				if (!usersNumPredicted.containsKey(userId)) usersNumPredicted.put(userId, 0);
-				int numPredicted = usersNumPredicted.get(userId) + 1;
-				usersNumPredicted.put(userId, numPredicted);
-			} else if (event.getDelta().equals(SelectionMonitor.SELECTION_NEW)) {
-				if (!usersNumNew.containsKey(userId)) usersNumNew.put(userId, 0);
-				int numNew = usersNumNew.get(userId) + 1;
-				usersNumNew.put(userId, numNew);
-			} else if (event.getDelta().equals(SelectionMonitor.SELECTION_DEFAULT)) {
-				if (!usersNumDefault.containsKey(userId)) usersNumDefault.put(userId, 0);
-				int numDefault = usersNumDefault.get(userId) + 1;
-				usersNumDefault.put(userId, numDefault);
-			} 
+			if (mylarUserIds.contains(userId)) {
+				if (event.getDelta().equals(SelectionMonitor.SELECTION_DECAYED)) {
+					if (!usersNumDecayed.containsKey(userId)) usersNumDecayed.put(userId, 0);
+					int numDecayed = usersNumDecayed.get(userId) + 1;
+					usersNumDecayed.put(userId, numDecayed);
+				} else if (event.getDelta().equals(SelectionMonitor.SELECTION_PREDICTED)) {
+					if (!usersNumPredicted.containsKey(userId)) usersNumPredicted.put(userId, 0);
+					int numPredicted = usersNumPredicted.get(userId) + 1;
+					usersNumPredicted.put(userId, numPredicted);
+				} else if (event.getDelta().equals(SelectionMonitor.SELECTION_NEW)) {
+					if (!usersNumNew.containsKey(userId)) usersNumNew.put(userId, 0);
+					int numNew = usersNumNew.get(userId) + 1;
+					usersNumNew.put(userId, numNew);
+				} else if (event.getDelta().equals(SelectionMonitor.SELECTION_DEFAULT)) {
+					if (!usersNumDefault.containsKey(userId)) usersNumDefault.put(userId, 0);
+					int numDefault = usersNumDefault.get(userId) + 1;
+					usersNumDefault.put(userId, numDefault);
+				} 
+			}
 			
 			String viewId = event.getOriginId();	    	
     		if (!normalViewSelections.containsKey(viewId)) normalViewSelections.put(viewId, 0);
@@ -144,22 +158,22 @@ public class ViewUsageCollector implements IStatsCollector {
 		summaries.add("------------ Interest -------------");
 		
 		if (usersNumNew.containsKey(userId)) {
-			summaries.add("New: " + formatAsPercentage(usersNumNew.get(userId)/numEvents));
+			summaries.add("New: " + formatAsPercentage(usersNumNew.get(userId)/numEvents) + " (" + usersNumNew.get(userId) + ")");
 		} else {
 			summaries.add("New: n/a");
 		}
 		if (usersNumNew.containsKey(userId)) {
-			summaries.add("Predicted: " + formatAsPercentage(usersNumPredicted.get(userId)/numEvents));
+			summaries.add("Predicted: " + formatAsPercentage(usersNumPredicted.get(userId)/numEvents) + " (" + usersNumPredicted.get(userId) + ")");
 		} else {
 			summaries.add("Predicted: n/a");
 		}
 		if (usersNumNew.containsKey(userId)) {
-			summaries.add("Interesting: " + formatAsPercentage(usersNumDefault.get(userId)/numEvents));
+			summaries.add("Interesting: " + formatAsPercentage(usersNumDefault.get(userId)/numEvents) + " (" + usersNumDefault.get(userId) + ")");
 		} else {
 			summaries.add("Interesting: n/a");
 		}
 		if (usersNumNew.containsKey(userId)) {
-			summaries.add("Decayed: " + formatAsPercentage(usersNumDecayed.get(userId)/numEvents));
+			summaries.add("Decayed: " + formatAsPercentage(usersNumDecayed.get(userId)/numEvents) + " (" + usersNumDecayed.get(userId) + ")");
 		} else {
 			summaries.add("Decayed: n/a");
 		}

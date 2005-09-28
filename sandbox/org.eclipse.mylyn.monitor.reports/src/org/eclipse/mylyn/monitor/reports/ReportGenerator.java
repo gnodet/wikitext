@@ -129,7 +129,7 @@ public class ReportGenerator {
 
 	class GenerateStatisticsJob implements IRunnableWithProgress {
 		
-		private static final int TASK_ACTIVATIONS_THRESHOLD = 10;
+		private static final int TASK_ACTIVATIONS_THRESHOLD = 1;
 		private static final String SUMMARY_SEPARATOR = "----------------------";
 		private final ReportGenerator generator;
 		private List<File> sources;

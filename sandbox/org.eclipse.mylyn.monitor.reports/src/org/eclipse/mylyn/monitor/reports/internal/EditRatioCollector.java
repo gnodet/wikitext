@@ -12,6 +12,8 @@
 package org.eclipse.mylar.monitor.reports.internal;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -19,8 +21,10 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.mylar.core.InteractionEvent;
+import org.eclipse.mylar.core.util.DateUtil;
 import org.eclipse.mylar.monitor.reports.IStatsCollector;
 import org.eclipse.mylar.tasklist.ui.actions.TaskActivateAction;
+import org.eclipse.mylar.tasklist.ui.actions.TaskDeactivateAction;
 
 /**
  * @author Mik Kersten
@@ -33,7 +37,9 @@ public class EditRatioCollector implements IStatsCollector {
 	private Set<Integer> mylarUserIds = new HashSet<Integer>();
 	
 	private Map<Integer, Integer> numJavaEdits = new HashMap<Integer, Integer>();
-		
+	private Map<Integer, Date> startDates = new HashMap<Integer, Date>();
+	private Map<Integer, Date> endDates = new HashMap<Integer, Date>();
+	
 	private Map<Integer, Integer> baselineSelections = new HashMap<Integer, Integer>();
 	private Map<Integer, Integer> baselineEdits = new HashMap<Integer, Integer>();
 	private Map<Integer, Integer> mylarSelections = new HashMap<Integer, Integer>();
@@ -44,13 +50,18 @@ public class EditRatioCollector implements IStatsCollector {
 	}
 	
 	public void consumeEvent(InteractionEvent event, int userId, String phase) {
+		if (!startDates.containsKey(userId)) startDates.put(userId, event.getDate());
+		endDates.put(userId, event.getDate());
 		userIds.add(userId);
 		
-		if (event.getKind().equals(InteractionEvent.Kind.COMMAND)
-				&& event.getOriginId().equals(TaskActivateAction.ID)) {
-			mylarUserIds.add(userId);
+		if (event.getKind().equals(InteractionEvent.Kind.COMMAND)) {
+			if (event.getOriginId().equals(TaskActivateAction.ID)) {
+				mylarUserIds.add(userId);
+			} else if (event.getOriginId().equals(TaskDeactivateAction.ID)) {
+				mylarUserIds.remove(userId);
+			}
 		}
-		
+		 
 		if (event.getKind().equals(InteractionEvent.Kind.EDIT)
 				&& (event.getOriginId().indexOf("java") != -1
 					|| event.getOriginId().indexOf("jdt.ui") != -1)) {
@@ -122,6 +133,26 @@ public class EditRatioCollector implements IStatsCollector {
 			percentageString = percentageString.substring(0, indexOf2ndDecimal);
 		}
 		return percentageString;
+	}
+	
+	public String getStartDate(int id) {
+		Calendar start = Calendar.getInstance();
+		start.setTime(startDates.get(id));
+		return DateUtil.getFormattedDate(start);
+	}
+	
+	public String getEndDate(int id) {
+		Calendar end = Calendar.getInstance();
+		end.setTime(endDates.get(id));
+		return DateUtil.getFormattedDate(end);
+	}
+	
+	public int getNumBaselineSelections(int id) {
+		return baselineSelections.get(id);
+	}
+	
+	public int getNumMylarSelections(int id) {
+		return mylarSelections.get(id);
 	}
 	
 	/**
