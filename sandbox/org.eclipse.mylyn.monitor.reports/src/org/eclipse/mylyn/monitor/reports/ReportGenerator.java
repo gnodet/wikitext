@@ -34,6 +34,8 @@ import org.eclipse.mylar.monitor.reports.internal.SummaryCollector;
 import org.eclipse.mylar.monitor.reports.internal.ViewUsageCollector;
 import org.eclipse.mylar.monitor.reports.ui.views.UsageStatisticsSummary;
 import org.eclipse.mylar.tasklist.ui.actions.TaskActivateAction;
+import org.eclipse.mylar.ui.actions.InterestDecrementAction;
+import org.eclipse.mylar.ui.actions.InterestIncrementAction;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.IProgressService;
 
@@ -176,6 +178,8 @@ public class ReportGenerator {
 							public List<String> getSummary() {
 								final List<String> summaries = new ArrayList<String>();
 								int numTaskActivations = commandUsageCollector.getCommands().getUserCount(id, TaskActivateAction.ID);
+								int numIncrements = commandUsageCollector.getCommands().getUserCount(id, InterestIncrementAction.SOURCE_ID);
+								int numDecrements = commandUsageCollector.getCommands().getUserCount(id, InterestDecrementAction.SOURCE_ID);
 								if (editRatioCollector.acceptUser(id) && numTaskActivations > TASK_ACTIVATIONS_THRESHOLD) {
 									acceptedUsers++;
 									float baselineRatio = editRatioCollector.getBaselineRatio(id);
@@ -192,7 +196,10 @@ public class ReportGenerator {
 										} else {
 											summaries.add("Degraded by: " + ratioChange + "%"); 
 										}
-//										summaries.add("change: " + editRatioCollector.formatPercentage(percentage));
+										summaries.add("Selections baseline: " + editRatioCollector.getNumBaselineSelections(id));
+										summaries.add("Selections mylar: " + editRatioCollector.getNumMylarSelections(id));
+										summaries.add("Start date: " + editRatioCollector.getStartDate(id));
+										summaries.add("End date: " + editRatioCollector.getEndDate(id));
 									} else {
 										rejectedUsers++;
 									}
@@ -200,6 +207,10 @@ public class ReportGenerator {
 									summaries.add(SUMMARY_SEPARATOR);
 									summaries.add("Task activations: ");
 									summaries.add("" + numTaskActivations);
+									summaries.add("Interest increments: ");
+									summaries.add("" + numIncrements);
+									summaries.add("Interest decrements: ");
+									summaries.add("" + numDecrements);
 									summaries.add(SUMMARY_SEPARATOR);
 									summaries.add(SUMMARY_SEPARATOR);
 									summaries.addAll(viewUsageCollector.getSummary(id));
