@@ -35,7 +35,7 @@ import org.eclipse.ui.part.ViewPart;
 /**
  * @author Mik Kersten
  */
-public class TaskscapeTreeView extends ViewPart {
+public class MylarContextTreeView extends ViewPart {
 
     private ViewerSorter viewerSorter;
     protected TreeViewer viewer;
@@ -89,11 +89,11 @@ public class TaskscapeTreeView extends ViewPart {
                 public void run() {
                     try {
                     	if (viewer != null && !viewer.getTree().isDisposed()) {
-//                    		if (node != null) {
-//                    			viewer.refresh(node);
-//                    		} else {
+                    		if (node != null) {
+                    			viewer.refresh(node);
+                    		} else {
                     			viewer.refresh();
-//                    		}
+                    		}
                     	}
                     } catch (Throwable t) {
                         MylarPlugin.fail(t, "Could not update viewer", false);
@@ -107,7 +107,7 @@ public class TaskscapeTreeView extends ViewPart {
         }
     };
     
-    public TaskscapeTreeView() {
+    public MylarContextTreeView() {
         MylarPlugin.getContextManager().addListener(REFRESH_UPDATE_LISTENER);
     } 
     
@@ -152,7 +152,7 @@ public class TaskscapeTreeView extends ViewPart {
         menuMgr.setRemoveAllWhenShown(true);
         menuMgr.addMenuListener(new IMenuListener() {
             public void menuAboutToShow(IMenuManager manager) {
-                TaskscapeTreeView.this.fillContextMenu(manager);
+                MylarContextTreeView.this.fillContextMenu(manager);
             }
         });
         Menu menu = menuMgr.createContextMenu(viewer.getControl());

@@ -34,7 +34,7 @@
 	  <view name="Context Tree"
             icon="icons/eview16/model.gif"
             category="org.eclipse.mylar"
-            class="org.eclipse.mylar.sandbox.viz.TaskscapeTreeView"
+            class="org.eclipse.mylar.sandbox.viz.MylarContextTreeView"
             id="org.eclipse.mylar.ui.views.TaskscapeTreeView">
       </view> 
 	  <view name="Context Viz" 
