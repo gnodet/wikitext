@@ -16,14 +16,14 @@
 			id="org.eclipse.mylar.jira.ui.tasklist.actions" 
 	   		targetID="org.eclipse.mylar.tasks.ui.views.TaskListView">	  			
     		<action
-	            class="org.eclipse.mylar.sandbox.jira.CreateJiraTaskAction"
-	            enablesFor="*"
-	            icon="icons/eview16/icons-task-jira.gif"
-	            id="org.eclipse.mylar.bugzilla.tasklist.addExisting"
-	            label="Add Existing Jira Report"
-	            style="push"
-	            toolbarPath="mylar"
-	            tooltip="Add Existing Jira Report"> 
+            class="org.eclipse.mylar.sandbox.jira.CreateJiraTaskAction"
+            enablesFor="*"
+            icon="icons/eview16/icons-task-jira.gif"
+            id="org.eclipse.mylar.bugzilla.tasklist.addExisting"
+            label="Add Existing Jira Report"
+            menubarPath="jira"
+            style="push"
+            tooltip="Add Existing Jira Report"> 
   			</action>
 	    </viewContribution> 
    </extension>
