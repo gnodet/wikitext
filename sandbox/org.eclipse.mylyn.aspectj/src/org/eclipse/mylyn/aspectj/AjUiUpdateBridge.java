@@ -14,7 +14,7 @@ import java.util.List;
 
 import org.eclipse.mylar.core.IMylarContext;
 import org.eclipse.mylar.core.IMylarContextListener;
-import org.eclipse.mylar.core.IMylarContextNode;
+import org.eclipse.mylar.core.IMylarElement;
 
 /**
  * @author Mik Kersten
@@ -41,32 +41,32 @@ public class AjUiUpdateBridge implements IMylarContextListener {
 		
 	}
 
-	public void interestChanged(IMylarContextNode node) {
+	public void interestChanged(IMylarElement node) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void interestChanged(List<IMylarContextNode> nodes) {
+	public void interestChanged(List<IMylarElement> nodes) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void nodeDeleted(IMylarContextNode node) {
+	public void nodeDeleted(IMylarElement node) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void landmarkAdded(IMylarContextNode node) {
+	public void landmarkAdded(IMylarElement node) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void landmarkRemoved(IMylarContextNode node) {
+	public void landmarkRemoved(IMylarElement node) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void edgesChanged(IMylarContextNode node) {
+	public void edgesChanged(IMylarElement node) {
 		// TODO Auto-generated method stub
 		
 	}

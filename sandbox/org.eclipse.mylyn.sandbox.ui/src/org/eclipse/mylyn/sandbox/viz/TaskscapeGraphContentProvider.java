@@ -15,8 +15,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.mylar.core.IMylarContextEdge;
-import org.eclipse.mylar.core.IMylarContextNode;
+import org.eclipse.mylar.core.IMylarRelation;
+import org.eclipse.mylar.core.IMylarElement;
 import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.zest.core.viewers.IGraphContentProvider;
 
@@ -26,25 +26,25 @@ import org.eclipse.mylar.zest.core.viewers.IGraphContentProvider;
 public class TaskscapeGraphContentProvider implements IGraphContentProvider {
 
     public Object getSource(Object rel) {
-        if (rel instanceof IMylarContextEdge) {
-            return ((IMylarContextEdge)rel).getSource();
+        if (rel instanceof IMylarRelation) {
+            return ((IMylarRelation)rel).getSource();
         }  else {
             return null;
         }
     }
     
     public Object getDestination(Object rel) {
-        if (rel instanceof IMylarContextEdge) {
-            return ((IMylarContextEdge)rel).getTarget();
+        if (rel instanceof IMylarRelation) {
+            return ((IMylarRelation)rel).getTarget();
         } else {
             return null;
         }
 	}
     
 	public Object[] getRelationships() {
-        List<IMylarContextNode> nodes = MylarPlugin.getContextManager().getActiveContext().getAllElements();
-        Set<IMylarContextEdge> edges = new HashSet<IMylarContextEdge>();
-        for (IMylarContextNode node : nodes) edges.addAll(node.getEdges());
+        List<IMylarElement> nodes = MylarPlugin.getContextManager().getActiveContext().getAllElements();
+        Set<IMylarRelation> edges = new HashSet<IMylarRelation>();
+        for (IMylarElement node : nodes) edges.addAll(node.getEdges());
         return edges.toArray();
 	}
 
@@ -54,8 +54,8 @@ public class TaskscapeGraphContentProvider implements IGraphContentProvider {
     
 
     public double getWeight(Object rel) {
-        if (rel instanceof IMylarContextEdge) {
-            return ((IMylarContextEdge)rel).getDegreeOfInterest().getValue();
+        if (rel instanceof IMylarRelation) {
+            return ((IMylarRelation)rel).getDegreeOfInterest().getValue();
         } else {
             return 0;
         }

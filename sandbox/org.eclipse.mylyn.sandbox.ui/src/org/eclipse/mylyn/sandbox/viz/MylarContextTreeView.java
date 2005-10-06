@@ -17,7 +17,7 @@ import org.eclipse.jface.action.*;
 import org.eclipse.jface.viewers.*;
 import org.eclipse.mylar.core.IMylarContext;
 import org.eclipse.mylar.core.IMylarContextListener;
-import org.eclipse.mylar.core.IMylarContextNode;
+import org.eclipse.mylar.core.IMylarElement;
 import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.ui.*;
 import org.eclipse.mylar.ui.actions.ToggleDecorateInterestLevelAction;
@@ -44,12 +44,12 @@ public class MylarContextTreeView extends ViewPart {
     private boolean activeRefresh = true;//MylarPlugin.DEBUG_MODE;
     
     private final IMylarContextListener REFRESH_UPDATE_LISTENER = new IMylarContextListener() { 
-        public void interestChanged(IMylarContextNode node) {
+        public void interestChanged(IMylarElement node) {
             refresh(node);
         }
         
-        public void interestChanged(List<IMylarContextNode> nodes) {
-            for (IMylarContextNode node : nodes) refresh(node);
+        public void interestChanged(List<IMylarElement> nodes) {
+            for (IMylarElement node : nodes) refresh(node);
         }
   
         public void contextActivated(IMylarContext taskscape) {
@@ -68,15 +68,15 @@ public class MylarContextTreeView extends ViewPart {
         	refresh();
         } 
         
-        public void landmarkAdded(IMylarContextNode element) { 
+        public void landmarkAdded(IMylarElement element) { 
             refresh();
         }
 
-        public void landmarkRemoved(IMylarContextNode element) { 
+        public void landmarkRemoved(IMylarElement element) { 
             refresh();
         }
 
-        public void edgesChanged(IMylarContextNode node) {
+        public void edgesChanged(IMylarElement node) {
             refresh();
         } 
 
@@ -84,7 +84,7 @@ public class MylarContextTreeView extends ViewPart {
         	refresh(null);
         }
         
-        private void refresh(final IMylarContextNode node) {
+        private void refresh(final IMylarElement node) {
             Workbench.getInstance().getDisplay().asyncExec(new Runnable() {
                 public void run() {
                     try {
@@ -102,7 +102,7 @@ public class MylarContextTreeView extends ViewPart {
             });
         }
 
-        public void nodeDeleted(IMylarContextNode node) {
+        public void nodeDeleted(IMylarElement node) {
             refresh();
         }
     };

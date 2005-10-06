@@ -22,7 +22,7 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.DecoratingLabelProvider;
 import org.eclipse.mylar.core.IMylarContext;
 import org.eclipse.mylar.core.IMylarContextListener;
-import org.eclipse.mylar.core.IMylarContextNode;
+import org.eclipse.mylar.core.IMylarElement;
 import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.ui.views.MylarContextLabelProvider;
 import org.eclipse.mylar.zest.core.viewers.SpringGraphViewer;
@@ -45,12 +45,12 @@ public class TaskscapeGraphView extends ViewPart {
     private Action stopAction;
 
     private final IMylarContextListener REFRESH_UPDATE_LISTENER = new IMylarContextListener() { 
-        public void interestChanged(IMylarContextNode node) { 
+        public void interestChanged(IMylarElement node) { 
             refresh();
 //            refresh();
         }
         
-        public void interestChanged(final List<IMylarContextNode> nodes) {
+        public void interestChanged(final List<IMylarElement> nodes) {
             refresh();
 //            Workbench.getInstance().getDisplay().asyncExec(new Runnable() {
 //                public void run() {
@@ -77,17 +77,17 @@ public class TaskscapeGraphView extends ViewPart {
             refresh();
         }
         
-        public void landmarkAdded(IMylarContextNode element) { 
+        public void landmarkAdded(IMylarElement element) { 
 //            viewer.refresh(element, true);
             refresh();
         }
 
-        public void landmarkRemoved(IMylarContextNode element) { 
+        public void landmarkRemoved(IMylarElement element) { 
 //            viewer.refresh(element, true);
             refresh();
         }
 
-        public void edgesChanged(IMylarContextNode node) {
+        public void edgesChanged(IMylarElement node) {
             refresh();
         }
 
@@ -109,7 +109,7 @@ public class TaskscapeGraphView extends ViewPart {
             if (kind == IMylarContextListener.UpdateKind.HIGHLIGHTER) viewer.refresh(); 
         }
 
-        public void nodeDeleted(IMylarContextNode node) {
+        public void nodeDeleted(IMylarElement node) {
         }
     };
 
