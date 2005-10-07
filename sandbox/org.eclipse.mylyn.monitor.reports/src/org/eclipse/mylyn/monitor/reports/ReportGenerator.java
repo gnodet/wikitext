@@ -204,8 +204,6 @@ public class ReportGenerator {
 										summaries.add("Selections mylar: " + editRatioCollector.getNumMylarSelections(id));
 										summaries.add("Start date: " + editRatioCollector.getStartDate(id));
 										summaries.add("End date: " + editRatioCollector.getEndDate(id));
-									} else {
-										rejectedUsers++;
 									}
 									summaries.add(SUMMARY_SEPARATOR);
 									summaries.add(SUMMARY_SEPARATOR);
@@ -218,6 +216,8 @@ public class ReportGenerator {
 									summaries.add(SUMMARY_SEPARATOR);
 									summaries.add(SUMMARY_SEPARATOR);
 									summaries.addAll(viewUsageCollector.getSummary(id));
+								} else {
+									rejectedUsers++;
 								}
 								return summaries; 
 							}

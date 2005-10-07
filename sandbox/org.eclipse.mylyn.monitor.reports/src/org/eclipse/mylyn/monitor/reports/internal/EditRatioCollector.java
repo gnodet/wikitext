@@ -31,7 +31,8 @@ import org.eclipse.mylar.tasklist.ui.actions.TaskDeactivateAction;
  */
 public class EditRatioCollector implements IStatsCollector {
 
-	public static final int JAVA_EDITS_THRESHOLD = 3000;
+	public static final int JAVA_SELECTIONS_THRESHOLD = 3000;
+	private static final int MYLAR_SELECTIONS_THRESHOLD = 3000;
 	
 	private Set<Integer> userIds = new HashSet<Integer>();
 	private Set<Integer> mylarUserIds = new HashSet<Integer>();
@@ -122,7 +123,8 @@ public class EditRatioCollector implements IStatsCollector {
 		if (!numJavaEdits.containsKey(id)) {
 			return false;
 		} else {
-			return numJavaEdits.get(id) > JAVA_EDITS_THRESHOLD;
+			return getNumBaselineSelections(id) > JAVA_SELECTIONS_THRESHOLD
+				&& getNumMylarSelections(id) > MYLAR_SELECTIONS_THRESHOLD;
 		}
 	}
 
