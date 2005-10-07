@@ -11,7 +11,7 @@
 
 package org.eclipse.mylar.sandbox.jira;
 
-import org.eclipse.mylar.tasklist.ICategory;
+import org.eclipse.mylar.tasklist.ITaskListCategory;
 
 import org.eclipse.mylar.tasklist.IQuery;
 import org.eclipse.mylar.tasklist.IQueryHit;
@@ -49,12 +49,12 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 		return null;
 	}
 
-	public boolean canCreateElementFor(ICategory category) {
+	public boolean canCreateElementFor(ITaskListCategory category) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public Element createCategoryElement(ICategory category, Document doc,
+	public Element createCategoryElement(ITaskListCategory category, Document doc,
 			Element parent) {
 		// TODO Auto-generated method stub
 		return null;
@@ -86,7 +86,7 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 		return false;
 	}
 
-	public ITask readTask(Node node, TaskList tlist, ICategory category,
+	public ITask readTask(Node node, TaskList tlist, ITaskListCategory category,
 			ITask parent) throws MylarExternalizerException {
 		// TODO Auto-generated method stub
 		return null;
