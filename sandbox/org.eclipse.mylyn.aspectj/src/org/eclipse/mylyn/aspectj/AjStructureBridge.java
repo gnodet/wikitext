@@ -25,8 +25,8 @@ public class AjStructureBridge extends org.eclipse.mylar.java.JavaStructureBridg
 	
   public final String getContentType() {return "aj";}
 
-  public final String getResourceExtension(String arg0) {
-    String val = super.getResourceExtension(arg0);
+  public final String getContentType(String arg0) {
+    String val = super.getContentType(arg0);
     if (debug) debug("getResourceExtension(" + arg0 + ")" + " = " + val);
     return val;
   }
