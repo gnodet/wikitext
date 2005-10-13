@@ -134,7 +134,7 @@ public class EditRatioCollector implements IStatsCollector {
 		if (!numJavaEdits.containsKey(id)) {
 			return false;
 		} else {
-			return getNumBaselineSelections(id) > JAVA_SELECTIONS_THRESHOLD
+			return getNumBaselineSelections(id) + getNumMylarInactiveSelections(id) > JAVA_SELECTIONS_THRESHOLD
 				&& getNumMylarSelections(id) > MYLAR_SELECTIONS_THRESHOLD;
 		}
 	}
@@ -162,6 +162,10 @@ public class EditRatioCollector implements IStatsCollector {
 	
 	public int getNumBaselineSelections(int id) {
 		return baselineSelections.get(id);
+	}
+	
+	public int getNumMylarInactiveSelections(int id) {
+		return mylarInactiveSelections.get(id);
 	}
 	
 	public int getNumMylarSelections(int id) {
