@@ -34,8 +34,6 @@ import org.eclipse.mylar.monitor.reports.internal.SummaryCollector;
 import org.eclipse.mylar.monitor.reports.internal.ViewUsageCollector;
 import org.eclipse.mylar.monitor.reports.ui.views.UsageStatisticsSummary;
 import org.eclipse.mylar.tasklist.ui.actions.TaskActivateAction;
-import org.eclipse.mylar.ui.actions.InterestDecrementAction;
-import org.eclipse.mylar.ui.actions.InterestIncrementAction;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.IProgressService;
 
@@ -137,6 +135,7 @@ public class ReportGenerator {
 		int acceptedUsers = 0;
 		int rejectedUsers = 0;
 		float summaryDelta = 0;
+		float mylarInactiveDelta = 0;
 		
 		public GenerateStatisticsJob(ReportGenerator generator, List<File> sources) {
 			this.generator = generator;
@@ -180,18 +179,18 @@ public class ReportGenerator {
 							public List<String> getSummary() {
 								final List<String> summaries = new ArrayList<String>();
 								int numTaskActivations = commandUsageCollector.getCommands().getUserCount(id, TaskActivateAction.ID);
-								int numIncrements = commandUsageCollector.getCommands().getUserCount(id, InterestIncrementAction.SOURCE_ID);
-								int numDecrements = commandUsageCollector.getCommands().getUserCount(id, InterestDecrementAction.SOURCE_ID);
+								int numIncrements = commandUsageCollector.getCommands().getUserCount(id, "org.eclipse.mylar.ui.actions.InterestIncrementAction");
+								int numDecrements = commandUsageCollector.getCommands().getUserCount(id, "org.eclipse.mylar.ui.actions.InterestDecrementAction");
 								if (editRatioCollector.acceptUser(id) && numTaskActivations > TASK_ACTIVATIONS_THRESHOLD) {
 									acceptedUsers++;
 									float baselineRatio = editRatioCollector.getBaselineRatio(id);
+									float mylarInactiveRatio = editRatioCollector.getMylarInactiveRatio(id);
 									float mylarRatio = editRatioCollector.getMylarRatio(id);
 									
 									if (baselineRatio > 0 && mylarRatio > 0) {
 										float percentage = mylarRatio / baselineRatio;
 										summaryDelta += percentage;
-
-										summaries.add("Baseline edit ratio: " + baselineRatio + ", mylar: " + mylarRatio);
+										summaries.add("Baseline vs. Mylar edit ratio: " + baselineRatio + ", mylar: " + mylarRatio);
 										String ratioChange = editRatioCollector.formatPercentage(100*(percentage-1));
 										if (percentage >= 1) {
 											usersImproved.add(id);
@@ -199,6 +198,16 @@ public class ReportGenerator {
 										} else {
 											usersDegraded.add(id);
 											summaries.add("Degraded by: " + ratioChange + "%"); 
+										}
+
+										float inactivePercentage = mylarRatio / mylarInactiveRatio;
+										String inactiveRatioChange = editRatioCollector.formatPercentage(100*(inactivePercentage-1));
+										mylarInactiveDelta += inactivePercentage;
+										summaries.add("Inactive vs. Active edit ratio: " + mylarInactiveRatio + ", mylar: " + mylarRatio);
+										if (inactivePercentage >= 1) {
+											summaries.add("Improved by: " + inactiveRatioChange + "%"); 
+										} else {
+											summaries.add("Degraded by: " + inactiveRatioChange + "%"); 
 										}
 										summaries.add("Selections baseline: " + editRatioCollector.getNumBaselineSelections(id));
 										summaries.add("Selections mylar: " + editRatioCollector.getNumMylarSelections(id));

@@ -35,6 +35,7 @@ public class EditRatioCollector implements IStatsCollector {
 	private static final int MYLAR_SELECTIONS_THRESHOLD = 3000;
 	
 	private Set<Integer> userIds = new HashSet<Integer>();
+	private Set<Integer> mylarInactiveUserIds = new HashSet<Integer>();
 	private Set<Integer> mylarUserIds = new HashSet<Integer>();
 	
 	private Map<Integer, Integer> numJavaEdits = new HashMap<Integer, Integer>();
@@ -43,6 +44,8 @@ public class EditRatioCollector implements IStatsCollector {
 	
 	private Map<Integer, Integer> baselineSelections = new HashMap<Integer, Integer>();
 	private Map<Integer, Integer> baselineEdits = new HashMap<Integer, Integer>();
+	private Map<Integer, Integer> mylarInactiveSelections = new HashMap<Integer, Integer>();
+	private Map<Integer, Integer> mylarInactiveEdits = new HashMap<Integer, Integer>();
 	private Map<Integer, Integer> mylarSelections = new HashMap<Integer, Integer>();
 	private Map<Integer, Integer> mylarEdits = new HashMap<Integer, Integer>();
 	
@@ -58,8 +61,10 @@ public class EditRatioCollector implements IStatsCollector {
 		if (event.getKind().equals(InteractionEvent.Kind.COMMAND)) {
 			if (event.getOriginId().equals(TaskActivateAction.ID)) {
 				mylarUserIds.add(userId);
+				mylarInactiveUserIds.remove(userId);
 			} else if (event.getOriginId().equals(TaskDeactivateAction.ID)) {
-				mylarUserIds.remove(userId);
+//				mylarUserIds.remove(userId);
+				mylarInactiveUserIds.add(userId);
 			}
 		}
 		 
@@ -69,13 +74,19 @@ public class EditRatioCollector implements IStatsCollector {
 			incrementCount(userId, numJavaEdits);
 		}
 		
-		if (mylarUserIds.contains(userId)) {
+		if (mylarUserIds.contains(userId) && !mylarInactiveUserIds.contains(userId)) {
 			if (event.getKind().equals(InteractionEvent.Kind.SELECTION)) {
 	    		incrementCount(userId, mylarSelections);
 	        } else if (event.getKind().equals(InteractionEvent.Kind.EDIT)) {
 	        	incrementCount(userId, mylarEdits);
 	        }
-		} else {
+		} else if (mylarUserIds.contains(userId) && mylarInactiveUserIds.contains(userId)) {
+			if (event.getKind().equals(InteractionEvent.Kind.SELECTION)) {
+	    		incrementCount(userId, mylarInactiveSelections);
+	        } else if (event.getKind().equals(InteractionEvent.Kind.EDIT)) {
+	        	incrementCount(userId, mylarInactiveEdits);
+	        }
+		} else { // baseline
 	        if (event.getKind().equals(InteractionEvent.Kind.SELECTION)) {
 	    		incrementCount(userId, baselineSelections);
 	        } else if (event.getKind().equals(InteractionEvent.Kind.EDIT)) {
@@ -166,6 +177,10 @@ public class EditRatioCollector implements IStatsCollector {
 	 */	
 	public float getBaselineRatio(int id) {
 		return getEditRatio(id, baselineEdits, baselineSelections);
+	}
+
+	public float getMylarInactiveRatio(int id) {
+		return getEditRatio(id, mylarInactiveEdits, mylarInactiveSelections);
 	}
 	
 	/**
