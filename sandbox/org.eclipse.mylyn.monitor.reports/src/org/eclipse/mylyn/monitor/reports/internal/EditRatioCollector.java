@@ -165,7 +165,11 @@ public class EditRatioCollector implements IStatsCollector {
 	}
 	
 	public int getNumMylarInactiveSelections(int id) {
-		return mylarInactiveSelections.get(id);
+		if (mylarSelections.containsKey(id)) {
+			return mylarInactiveSelections.get(id);
+		} else {
+			return 0;
+		}
 	}
 	
 	public int getNumMylarSelections(int id) {
