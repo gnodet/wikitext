@@ -49,6 +49,52 @@
         id="org.eclipse.mylar.ui.views.MylarControlPanelView">
       </view>
   </extension> 
+  
+  <extension
+         id="mylar_provider"
+         name="Mylar Provider"
+         point="org.eclipse.contribution.visualiser.providers">
+      
+        <provider
+            markupProviderClass="org.eclipse.mylar.sandbox.viz.MylarJavaMarkupProvider"
+            name="Mylar Provider"
+            priority="9"
+            emptyMessage="No active Mylar context to display"
+            description="Provider that shows java declarations that are part of a Mylar context for a task."
+            contentProviderClass="org.eclipse.mylar.sandbox.viz.MylarJavaContentProvider"
+            id="mylarprovider">
+        </provider>
+  </extension>     
+ 
+  
+      <!--
+        <provider 
+         	markupProviderClass="org.eclipse.mylar.sandbox.viz.MylarJavaMarkupProvider" 
+         	name="Mylar Provider" 
+         	priority="9" 
+         	description="Provider that shows java declarations that are part of a Mylar context for a task." 
+         	emptyMessage="No active Mylar context to display" 
+         	contentProviderClass="org.eclipse.mylar.sandbox.viz.MylarJavaContentProvider" 
+         	id="mylarprovider" />
+        -->
+        
+      
+		<!-- This schema works for the older (1.1?) CVS version of the Visualiser from AJDT  
+		<provider
+		    class="org.eclipse.mylar.sandbox.viz.MylarJavaContentProvider"
+		    markupclass="org.eclipse.mylar.sandbox.viz.MylarJavaMarkupProvider"
+		    name="Mylar Java Provider"
+		    title="Mylar Java Task Context"
+		    priority="8"
+		    description="Provider that shows java declarations that are part of a Mylar context for a task."
+		    emptyMessage="No active Mylar context to display"
+		    id="mylarprovider">
+		</provider>
+		 --> 
+   
+  
+  
+  
   <!--
    <extension point = "org.eclipse.ui.popupMenus">
      <objectContribution

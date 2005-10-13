@@ -6,6 +6,7 @@ Bundle-Version: 0.3
 Bundle-Activator: org.eclipse.mylar.sandbox.MylarSandboxPlugin
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
+ org.eclipse.contribution.visualiser,
  org.eclipse.core.runtime,
  org.eclipse.gef,
  org.eclipse.mylar.core,
@@ -14,7 +15,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt.core,
  org.eclipse.mylar.zest.core,
  org.eclipse.mylar.zest.layouts,
- org.eclipse.mylar.tasklist
+ org.eclipse.mylar.tasklist,
+ org.eclipse.core.resources
 Eclipse-AutoStart: true
 Bundle-Vendor: Eclipse.org
 Bundle-ClassPath: mylar-sandbox.jar
