@@ -28,8 +28,6 @@
 	    </viewContribution> 
    </extension>
 
-
-
    <extension point="org.eclipse.ui.views"> 
 	  <view name="Context Tree"
             icon="icons/eview16/model.gif"
@@ -49,23 +47,6 @@
         id="org.eclipse.mylar.ui.views.MylarControlPanelView">
       </view>
   </extension> 
-  
-  <extension
-         id="mylar_provider"
-         name="Mylar Provider"
-         point="org.eclipse.contribution.visualiser.providers">
-      
-        <provider
-            markupProviderClass="org.eclipse.mylar.sandbox.viz.MylarJavaMarkupProvider"
-            name="Mylar Provider"
-            priority="9"
-            emptyMessage="No active Mylar context to display"
-            description="Provider that shows java declarations that are part of a Mylar context for a task."
-            contentProviderClass="org.eclipse.mylar.sandbox.viz.MylarJavaContentProvider"
-            id="mylarprovider">
-        </provider>
-  </extension>     
- 
   
       <!--
         <provider 
