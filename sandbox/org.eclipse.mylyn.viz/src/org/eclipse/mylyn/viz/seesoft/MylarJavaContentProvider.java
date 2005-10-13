@@ -1,4 +1,4 @@
-package org.eclipse.mylar.sandbox.viz;
+package org.eclipse.mylar.viz.seesoft;
 
 import java.util.ArrayList;
 import java.util.Iterator;

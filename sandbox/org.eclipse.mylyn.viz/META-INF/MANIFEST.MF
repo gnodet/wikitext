@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Mylar Viz Plug-in
+Bundle-SymbolicName: org.eclipse.mylar.viz
+Bundle-Version: 0.3.11
+Bundle-Activator: org.eclipse.mylar.viz.MylarVizPlugin
+Bundle-Vendor: Eclipse.org
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.jdt.core,
+ org.eclipse.contribution.visualiser,
+ org.eclipse.mylar.core,
+ org.eclipse.mylar.java
+Eclipse-AutoStart: true

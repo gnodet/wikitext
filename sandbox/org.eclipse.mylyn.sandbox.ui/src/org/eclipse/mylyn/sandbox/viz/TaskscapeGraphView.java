@@ -8,9 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-/*
- * Created on June 3, 2005
-  */
+
 package org.eclipse.mylar.sandbox.viz;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package org.eclipse.mylar.sandbox.viz;
+package org.eclipse.mylar.viz.seesoft;
 
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;

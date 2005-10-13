@@ -6,7 +6,6 @@ Bundle-Version: 0.3
 Bundle-Activator: org.eclipse.mylar.sandbox.MylarSandboxPlugin
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
- org.eclipse.contribution.visualiser,
  org.eclipse.core.runtime,
  org.eclipse.gef,
  org.eclipse.mylar.core,
