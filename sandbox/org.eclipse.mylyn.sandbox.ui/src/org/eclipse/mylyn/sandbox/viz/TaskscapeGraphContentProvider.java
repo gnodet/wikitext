@@ -44,7 +44,7 @@ public class TaskscapeGraphContentProvider implements IGraphContentProvider {
 	public Object[] getRelationships() {
         List<IMylarElement> nodes = MylarPlugin.getContextManager().getActiveContext().getAllElements();
         Set<IMylarRelation> edges = new HashSet<IMylarRelation>();
-        for (IMylarElement node : nodes) edges.addAll(node.getEdges());
+        for (IMylarElement node : nodes) edges.addAll(node.getRelations());
         return edges.toArray();
 	}
 
