@@ -37,9 +37,9 @@ public class ReportGenerator {
 	private InteractionEventLogger logger;
 	private UsageStatisticsSummary lastParsedSummary = null;
 	private Set<Integer> userIds = new HashSet<Integer>();	
-	private List<IStatsCollector> collectors;
+	private List<IUsageStatsCollector> collectors;
 	
-	public ReportGenerator(InteractionEventLogger logger, List<IStatsCollector> collectors) {
+	public ReportGenerator(InteractionEventLogger logger, List<IUsageStatsCollector> collectors) {
 		this.logger = logger;
 		this.collectors = collectors;
 	}
@@ -129,7 +129,7 @@ public class ReportGenerator {
 		        		int userId = getUserId(source);
 		        		userIds.add(userId);
 			        	if (event.getKind().isUserEvent()) {  // TODO: some collectors may want non-user events
-			        		for (IStatsCollector collector : this.generator.collectors) {
+			        		for (IUsageStatsCollector collector : this.generator.collectors) {
 			        			collector.consumeEvent(event, userId, phase);
 			        		}
 			        	}
@@ -137,7 +137,7 @@ public class ReportGenerator {
 		            } 
 			        monitor.worked(1);
 		        }
-	        	for (IStatsCollector collector : this.generator.collectors) statistics.add(collector);
+	        	for (IUsageStatsCollector collector : this.generator.collectors) statistics.add(collector);
 				List<InteractionEventSummary> flattenedSummaries = new ArrayList<InteractionEventSummary>();
 		        for (Map<String, InteractionEventSummary> userSummary : summaryMap.values()) flattenedSummaries.addAll(userSummary.values());
 		        statistics.setSingleSummaries(flattenedSummaries);	

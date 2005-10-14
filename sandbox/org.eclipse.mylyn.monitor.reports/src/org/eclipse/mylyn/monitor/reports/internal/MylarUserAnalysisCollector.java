@@ -23,7 +23,7 @@ import java.util.Set;
 
 import org.eclipse.mylar.core.InteractionEvent;
 import org.eclipse.mylar.core.util.DateUtil;
-import org.eclipse.mylar.monitor.reports.IStatsCollector;
+import org.eclipse.mylar.monitor.reports.IUsageStatsCollector;
 import org.eclipse.mylar.tasklist.ui.actions.TaskActivateAction;
 import org.eclipse.mylar.tasklist.ui.actions.TaskDeactivateAction;
 
@@ -32,7 +32,7 @@ import org.eclipse.mylar.tasklist.ui.actions.TaskDeactivateAction;
  * 
  * @author Mik Kersten
  */
-public class MylarUserAnalysisCollector implements IStatsCollector {
+public class MylarUserAnalysisCollector implements IUsageStatsCollector {
 
 	public static final int JAVA_SELECTIONS_THRESHOLD = 3000;
 	private static final int MYLAR_SELECTIONS_THRESHOLD = 3000;
@@ -65,7 +65,7 @@ public class MylarUserAnalysisCollector implements IStatsCollector {
 	private CommandUsageCollector commandUsageCollector = new CommandUsageCollector();
 	private ViewUsageCollector viewUsageCollector = new ViewUsageCollector();
 	
-	public String getLabel() {
+	public String getReportTitle() {
 		return "Edit Ratio Change";
 	}
 	

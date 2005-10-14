@@ -17,12 +17,12 @@ import java.util.Date;
 import java.util.List;
 
 import org.eclipse.mylar.core.InteractionEvent;
-import org.eclipse.mylar.monitor.reports.IStatsCollector;
+import org.eclipse.mylar.monitor.reports.IUsageStatsCollector;
 
 /**
  * @author Mik Kersten
  */
-public class SummaryCollector implements IStatsCollector {
+public class SummaryCollector implements IUsageStatsCollector {
 
     protected int numSelections = 0;
     protected int numEdits = 0;
@@ -62,7 +62,7 @@ public class SummaryCollector implements IStatsCollector {
 		return summaries;
 	}
 
-	public String getLabel() {
+	public String getReportTitle() {
 		return "Summary";
 	}
 

@@ -22,7 +22,7 @@ import java.util.Set;
 
 import org.eclipse.mylar.core.InteractionEvent;
 import org.eclipse.mylar.monitor.SelectionMonitor;
-import org.eclipse.mylar.monitor.reports.IStatsCollector;
+import org.eclipse.mylar.monitor.reports.IUsageStatsCollector;
 import org.eclipse.mylar.tasklist.ui.actions.TaskActivateAction;
 import org.eclipse.mylar.tasklist.ui.actions.TaskDeactivateAction;
 import org.eclipse.mylar.ui.actions.AbstractApplyMylarAction;
@@ -31,7 +31,7 @@ import org.eclipse.mylar.ui.actions.AbstractApplyMylarAction;
  * @author Mik Kersten
  * @author Leah Findlater
  */
-public class ViewUsageCollector implements IStatsCollector {
+public class ViewUsageCollector implements IUsageStatsCollector {
 
     private Map<Integer, Map<String, Integer>> usersNormalViewSelections = new HashMap<Integer, Map<String, Integer>>();
     private Map<Integer, Map<String, Integer>> usersFilteredViewSelections = new HashMap<Integer, Map<String, Integer>>();
@@ -197,7 +197,7 @@ public class ViewUsageCollector implements IStatsCollector {
 		return summaries;
 	}
 	
-	public String getLabel() {
+	public String getReportTitle() {
 		return "View Usage";
 	}
 

@@ -18,8 +18,9 @@ import org.eclipse.mylar.core.InteractionEvent;
 /**
  * @author Mik Kersten and Leah Findlater
  */
-public interface IStatsCollector {
-	public String getLabel();
+public interface IUsageStatsCollector {
+
+	public String getReportTitle();
 	
 	public abstract void consumeEvent(InteractionEvent event, int userId, String phase);
 

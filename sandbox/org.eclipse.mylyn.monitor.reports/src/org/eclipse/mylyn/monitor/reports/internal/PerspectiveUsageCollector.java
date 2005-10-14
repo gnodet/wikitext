@@ -20,14 +20,14 @@ import java.util.Map;
 
 import org.eclipse.mylar.core.InteractionEvent;
 import org.eclipse.mylar.monitor.PerspectiveChangeMonitor;
-import org.eclipse.mylar.monitor.reports.IStatsCollector;
+import org.eclipse.mylar.monitor.reports.IUsageStatsCollector;
 
 /**
  * @author Mik Kersten and Leah Findlater
  * 
  * TODO: put unclassified events in dummy perspective
  */
-public class PerspectiveUsageCollector implements IStatsCollector {
+public class PerspectiveUsageCollector implements IUsageStatsCollector {
 
     private Map<String, Integer> perspectiveUsage = new HashMap<String, Integer>();
     private String currentPerspective = "";
@@ -79,7 +79,7 @@ public class PerspectiveUsageCollector implements IStatsCollector {
 		return summaries;
 	}
 
-	public String getLabel() {
+	public String getReportTitle() {
 		return "Perspective Usage";
 	}
 

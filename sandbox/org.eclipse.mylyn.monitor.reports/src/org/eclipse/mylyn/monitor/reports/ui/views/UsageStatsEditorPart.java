@@ -21,7 +21,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.mylar.core.MylarPlugin;
-import org.eclipse.mylar.monitor.reports.IStatsCollector;
+import org.eclipse.mylar.monitor.reports.IUsageStatsCollector;
 import org.eclipse.mylar.monitor.reports.internal.InteractionEventSummarySorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -123,11 +123,11 @@ public class UsageStatsEditorPart extends EditorPart {
 	}
 	
 	private void createSummaryStatsSection(Composite parent, FormToolkit toolkit) {
-		for (IStatsCollector collector : editorInput.getReportGenerator().getLastParsedSummary().getCollectors()) {
+		for (IUsageStatsCollector collector : editorInput.getReportGenerator().getLastParsedSummary().getCollectors()) {
 			List<String> summary = collector.getReport();
 			if (!summary.isEmpty()) {
 				Section summarySection = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR);
-				summarySection.setText(collector.getLabel());			
+				summarySection.setText(collector.getReportTitle());			
 				summarySection.setLayout(new TableWrapLayout());
 				summarySection.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));	
 				Composite summaryContainer = toolkit.createComposite(summarySection);
