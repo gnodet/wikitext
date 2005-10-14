@@ -22,7 +22,7 @@ import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.ui.*;
 import org.eclipse.mylar.ui.actions.ToggleDecorateInterestLevelAction;
 import org.eclipse.mylar.ui.views.TaskscapeNodeClickListener;
-import org.eclipse.mylar.ui.views.MylarContextLabelProvider;
+import org.eclipse.mylar.ui.views.MylarDelegatingContextLabelProvider;
 import org.eclipse.mylar.ui.views.MylarContextContentProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -121,7 +121,7 @@ public class MylarContextTreeView extends ViewPart {
 
 //        viewer.setLabelProvider(new TaskscapeNodeLabelProvider());
         viewer.setLabelProvider(new DecoratingLabelProvider(
-                new MylarContextLabelProvider(),
+                new MylarDelegatingContextLabelProvider(),
                 PlatformUI.getWorkbench().getDecoratorManager().getLabelDecorator()));
 
         makeActions();
