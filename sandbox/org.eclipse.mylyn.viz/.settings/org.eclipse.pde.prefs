@@ -1,7 +1,7 @@
-#Thu Oct 13 13:10:21 PDT 2005
+#Thu Oct 13 13:20:54 PDT 2005
 compilers.p.deprecated=1
 compilers.p.no-required-att=0
-compilers.p.not-externalized-att=0
+compilers.p.not-externalized-att=2
 compilers.p.unknown-attribute=0
 compilers.p.unknown-class=0
 compilers.p.unknown-element=0

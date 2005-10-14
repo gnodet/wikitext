@@ -32,7 +32,7 @@ import org.eclipse.mylar.java.JavaStructureBridge;
  * 
  * @author Wesley Coelho
  */
-public class MylarJavaContentProvider implements IContentProvider, IMylarContextListener {
+public class JavaContextContentProvider implements IContentProvider, IMylarContextListener {
 
 	/** IGroups representing packages with interesting elements in them */
 	protected List<JDTGroup> groups = new ArrayList<JDTGroup>();	

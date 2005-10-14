@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Mylar Viz Plug-in
-Bundle-SymbolicName: org.eclipse.mylar.viz
+Bundle-SymbolicName: org.eclipse.mylar.viz;singleton:=true
 Bundle-Version: 0.3.11
 Bundle-Activator: org.eclipse.mylar.viz.MylarVizPlugin
 Bundle-Vendor: Eclipse.org

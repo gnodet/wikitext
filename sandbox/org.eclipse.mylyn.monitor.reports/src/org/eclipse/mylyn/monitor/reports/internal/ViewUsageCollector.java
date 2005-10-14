@@ -189,7 +189,7 @@ public class ViewUsageCollector implements IStatsCollector {
 		return formattedViewUse + "%";
 	}
     
-	public List<String> getSummary() {
+	public List<String> getReport() {
 		List<String> summaries = new ArrayList<String>();
 		for (int userId : usersNormalViewSelections.keySet()) {
 			summaries.addAll(getSummary(userId));

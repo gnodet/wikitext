@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+  
+  <extension
+         id="org.eclipse.mylar.viz.seesoft.provider.contribution"
+         name="Mylar Visualiser Provider"
+         point="org.eclipse.contribution.visualiser.providers">
+      
+        <provider
+	        id="org.eclipse.mylar.viz.seesoft.provider"
+            name="Mylar Provider"
+            priority="9"
+            emptyMessage="No active Mylar context to display"
+            description="Shows java declarations that are part of the Mylar task context."
+            contentProviderClass="org.eclipse.mylar.viz.seesoft.JavaContextContentProvider"
+            markupProviderClass="org.eclipse.mylar.viz.seesoft.JavaContextMarkupProvider">
+        </provider>
+  </extension>     
+
+</plugin>

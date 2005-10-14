@@ -124,7 +124,7 @@ public class UsageStatsEditorPart extends EditorPart {
 	
 	private void createSummaryStatsSection(Composite parent, FormToolkit toolkit) {
 		for (IStatsCollector collector : editorInput.getReportGenerator().getLastParsedSummary().getCollectors()) {
-			List<String> summary = collector.getSummary();
+			List<String> summary = collector.getReport();
 			if (!summary.isEmpty()) {
 				Section summarySection = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR);
 				summarySection.setText(collector.getLabel());			

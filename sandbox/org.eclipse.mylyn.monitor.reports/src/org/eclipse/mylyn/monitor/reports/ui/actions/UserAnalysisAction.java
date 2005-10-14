@@ -15,13 +15,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.monitor.MylarMonitorPlugin;
+import org.eclipse.mylar.monitor.reports.IStatsCollector;
 import org.eclipse.mylar.monitor.reports.MylarReportsPlugin;
+import org.eclipse.mylar.monitor.reports.ReportGenerator;
+import org.eclipse.mylar.monitor.reports.internal.MylarUserAnalysisCollector;
 import org.eclipse.mylar.monitor.reports.ui.views.UsageStatsEditorInput;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IViewActionDelegate;
@@ -34,7 +35,7 @@ import org.eclipse.ui.internal.Workbench;
 /**
  * @author Mik Kersten
  */
-public class ComputeUserStatsAction implements IViewActionDelegate {
+public class UserAnalysisAction implements IViewActionDelegate {
 
 	public void init(IViewPart view) {
 		// ignore
@@ -43,26 +44,20 @@ public class ComputeUserStatsAction implements IViewActionDelegate {
 	public void run(IAction action) {
     	if (action instanceof ViewPluginAction) {
     		ViewPluginAction objectAction = (ViewPluginAction)action;
-    		final List<File> files = new ArrayList<File>();
-    		if (objectAction.getSelection() instanceof StructuredSelection) {
-    			StructuredSelection structuredSelection = (StructuredSelection)objectAction.getSelection();
-        		for (Object object : structuredSelection.toList()) {
-					if (object instanceof IFile) {
-						IFile file = (IFile)object;
-						if (file.getFileExtension().equals("zip")) files.add(new File(file.getLocation().toString()));
-					}
-				}
-        	}
-        	
+    		final List<File> files = UsageSummaryAction.getStatsFilesFromSelection(objectAction);
         	if (files.isEmpty()) {
         		files.add(MylarMonitorPlugin.getDefault().getMonitorFile());
         	}
         	Workbench.getInstance().getDisplay().asyncExec(new Runnable() {
     			public void run() {
     				try  {
+    					List<IStatsCollector> collectors = new ArrayList<IStatsCollector>();
+    					collectors.add(new MylarUserAnalysisCollector());
+    					ReportGenerator generator = new ReportGenerator(MylarMonitorPlugin.getDefault().getInteractionLogger(), collectors);
+    					     					
     					IWorkbenchPage page = MylarReportsPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getActivePage();
     					if (page == null) return;
-    					IEditorInput input = new UsageStatsEditorInput(files, true);
+    					IEditorInput input = new UsageStatsEditorInput(files, generator);
     					page.openEditor(input, MylarReportsPlugin.REPORT_USERS_ID);    					
     				} catch (PartInitException ex) {
     					MylarPlugin.log(ex, "coudln't open summary editor");

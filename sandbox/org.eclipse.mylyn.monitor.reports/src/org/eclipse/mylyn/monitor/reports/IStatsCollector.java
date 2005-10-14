@@ -15,7 +15,6 @@ import java.util.List;
 
 import org.eclipse.mylar.core.InteractionEvent;
 
-
 /**
  * @author Mik Kersten and Leah Findlater
  */
@@ -24,5 +23,10 @@ public interface IStatsCollector {
 	
 	public abstract void consumeEvent(InteractionEvent event, int userId, String phase);
 
-	public abstract List<String> getSummary();
+	/**
+	 * TODO: return report as HTML
+	 * 
+	 * @return a list corresponding to all of the lines of the report
+	 */
+	public abstract List<String> getReport();
 }

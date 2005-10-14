@@ -36,7 +36,7 @@ public class CommandUsageCollector implements IStatsCollector {
         }
 	}
 
-	public List<String> getSummary() {
+	public List<String> getReport() {
 		return Collections.emptyList();
 	}
 

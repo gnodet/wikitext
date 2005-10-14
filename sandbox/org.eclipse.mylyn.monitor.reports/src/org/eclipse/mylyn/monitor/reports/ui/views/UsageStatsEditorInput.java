@@ -23,7 +23,6 @@ import java.util.zip.ZipFile;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylar.core.MylarPlugin;
-import org.eclipse.mylar.monitor.MylarMonitorPlugin;
 import org.eclipse.mylar.monitor.reports.ReportGenerator;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IPersistableElement;
@@ -34,14 +33,15 @@ import org.eclipse.ui.IPersistableElement;
  */
 public class UsageStatsEditorInput implements IEditorInput {
 	
-	private ReportGenerator parser;
+	private ReportGenerator reportGenerator;
 	private List<File> usageFiles;
 	
 	/**
 	 * Supports either the single workspace file or multiple zip files.
 	 */
-	public UsageStatsEditorInput(List<File> files, boolean usersMode) {
+	public UsageStatsEditorInput(List<File> files, ReportGenerator reportGenerator) {
 		try {
+			this.reportGenerator = reportGenerator;
 			usageFiles = new ArrayList<File>();
 			if (files.size() == 1 && files.get(0).getName().endsWith(".xml")) {
 				usageFiles.add(files.get(0));
@@ -62,8 +62,8 @@ public class UsageStatsEditorInput implements IEditorInput {
 			MylarPlugin.log(e, "Could not unzip usage files");
 		}
 		
-		parser = new ReportGenerator(MylarMonitorPlugin.getDefault().getInteractionLogger(), usersMode);
-		parser.getStatisticsFromInteractionHistories(usageFiles);
+//		parser = new ReportGenerator(MylarMonitorPlugin.getDefault().getInteractionLogger(), collectors);
+		reportGenerator.getStatisticsFromInteractionHistories(usageFiles);
 	}
 	
 	public boolean exists() {
@@ -95,7 +95,7 @@ public class UsageStatsEditorInput implements IEditorInput {
 	}
 
 	public ReportGenerator getReportGenerator() {
-		return parser;
+		return reportGenerator;
 	}
 	
 	private byte[] buffer = new byte[8192];

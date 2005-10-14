@@ -30,7 +30,7 @@ import org.eclipse.swt.graphics.RGB;
  * 
  * @author Wesley Coelho
  */
-public class MylarJavaMarkupProvider implements IMarkupProvider {
+public class JavaContextMarkupProvider implements IMarkupProvider {
 
 	public static final String LANDMARK_KIND = "Landmark";
 	public static final String INTERESTING_KIND = "Interesting";

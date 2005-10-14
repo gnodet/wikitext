@@ -6,14 +6,12 @@ import org.eclipse.jdt.core.ISourceReference;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.mylar.core.MylarPlugin;
 
-
 /**
  * Contains some methods used by the Provider classes
  * @author Wesley Coelho
  */
 public class Util {
 
-	
 	/**
 	 * Returns the compilation unit for a JDTMember representing a java type
 	 * by searching its parent elements. Returns null if a parent compilation

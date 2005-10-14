@@ -7,19 +7,19 @@
         id="org.eclipse.mylar.monitor.commands"
         targetID="org.eclipse.jdt.ui.PackageExplorer">
 	    <action  
-  		  	label="Compute Summary Statistics" 
-	  		tooltip="Compute Usage Statistics"
+  		  	label="Mylar Reports: Usage Summary" 
+	  		tooltip="Mylar Reports: Usage Summary"
 	  		menubarPath="mylar.monitor" 
 	  		id="org.eclipse.mylar.monitor.reports.ui.actions.ComputeSummaryAction" 
-	  		class="org.eclipse.mylar.monitor.reports.ui.actions.ComputeSummaryAction"
+	  		class="org.eclipse.mylar.monitor.reports.ui.actions.UsageSummaryAction"
 	  		icon="icons/eview16/monitor.gif"
 	  		enablesFor="*"/>   
 	  	<action  
-  		  	label="Compute User Statistics" 
-	  		tooltip="Compute Usage Statistics"
+  		  	label="Mylar Reports: User Analysis" 
+	  		tooltip="Mylar Reports: User Analysis"
 	  		menubarPath="mylar.monitor" 
 	  		id="org.eclipse.mylar.monitor.reports.ui.actions.ComputeSummaryAction" 
-	  		class="org.eclipse.mylar.monitor.reports.ui.actions.ComputeUserStatsAction"
+	  		class="org.eclipse.mylar.monitor.reports.ui.actions.UserAnalysisAction"
 	  		icon="icons/eview16/monitor.gif"
 	  		enablesFor="*"/>   
 	 </viewerContribution> 
@@ -27,19 +27,19 @@
         id="org.eclipse.mylar.monitor.commands"
         targetID="org.eclipse.ui.views.ResourceNavigator">
 	    <action  
-  		  	label="Compute Summary Statistics" 
-	  		tooltip="Compute Usage Statistics"
+  		  	label="Mylar Reports: Usage Summary" 
+	  		tooltip="Mylar Reports: Usage Summary"
 	  		menubarPath="mylar.monitor" 
 	  		id="org.eclipse.mylar.monitor.reports.ui.actions.ComputeSummaryAction" 
-	  		class="org.eclipse.mylar.monitor.reports.ui.actions.ComputeSummaryAction"
+	  		class="org.eclipse.mylar.monitor.reports.ui.actions.UsageSummaryAction"
 	  		icon="icons/eview16/monitor.gif"
 	  		enablesFor="*"/>   
 	  		    <action  
-  		  	label="Compute User Statistics" 
-	  		tooltip="Compute Usage Statistics"
+  		  	label="Mylar Reports: User Analysis" 
+	  		tooltip="Mylar Reports: User Analysis"
 	  		menubarPath="mylar.monitor" 
 	  		id="org.eclipse.mylar.monitor.reports.ui.actions.ComputeSummaryAction" 
-	  		class="org.eclipse.mylar.monitor.reports.ui.actions.ComputeUserStatsAction"
+	  		class="org.eclipse.mylar.monitor.reports.ui.actions.UserAnalysisAction"
 	  		icon="icons/eview16/monitor.gif"
 	  		enablesFor="*"/>   
 	 </viewerContribution> 
@@ -55,7 +55,7 @@
      <editor
            icon="icons/eview16/monitor.gif"
            class="org.eclipse.mylar.monitor.reports.ui.views.UsageStatsEditorPart"
-           name="User Statistics"
+           name="User Analysis"
            id="org.eclipse.mylar.monitor.reports.ui.actions.monitorUsersReport"/>
   </extension>
 </plugin>

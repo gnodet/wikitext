@@ -48,7 +48,7 @@ public class SummaryCollector implements IStatsCollector {
         numUserEvents++;
 	}
 
-	public List<String> getSummary() {
+	public List<String> getReport() {
 		List<String> summaries = new ArrayList<String>();
         
 		summaries.add("Start date: " + leastRecentDate);

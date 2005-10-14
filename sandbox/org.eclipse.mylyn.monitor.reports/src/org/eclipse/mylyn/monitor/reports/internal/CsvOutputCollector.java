@@ -35,7 +35,7 @@ public class CsvOutputCollector implements IStatsCollector {
 		// TODO: write to CSV
 	}
 
-	public List<String> getSummary() {
+	public List<String> getReport() {
 		return Collections.emptyList();
 	}
 

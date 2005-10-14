@@ -52,7 +52,7 @@ public class PerspectiveUsageCollector implements IStatsCollector {
     	}
     }
 
-	public List<String> getSummary() {
+	public List<String> getReport() {
 		List<String> summaries = new ArrayList<String>();
 		summaries.add("Perspectives (based on total user events, with " + numUnassociatedEvents + " unclassified events)");
 		summaries.add(" ");
