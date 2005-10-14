@@ -35,9 +35,9 @@ public class UiUtil {
     	return getBackgroundForElement(node, false);
     }
 	
-    public static Color getBackgroundForElement(IMylarElement node, boolean resolveContextColor) {
+    public static Color getBackgroundForElement(IMylarElement node, boolean force) {
         if (node == null) return null;
-        if (!resolveContextColor && (node.getDegreeOfInterest().isPropagated() || node.getDegreeOfInterest().isPredicted())) {
+        if (!force && (node.getDegreeOfInterest().isPropagated() || node.getDegreeOfInterest().isPredicted())) {
         	return null;
         }
         
