@@ -85,7 +85,7 @@ public class JavaContextMarkupProvider implements IMarkupProvider {
 	 */
 	protected Stripe makeStripeForJavaMember(IJavaElement member){
 		Stripe stripe = new Stripe();
-		IMylarElement memberContextNode = MylarPlugin.getContextManager().getNode(member.getHandleIdentifier());
+		IMylarElement memberContextNode = MylarPlugin.getContextManager().getElement(member.getHandleIdentifier());
 
 		if (memberContextNode != null){
 			
