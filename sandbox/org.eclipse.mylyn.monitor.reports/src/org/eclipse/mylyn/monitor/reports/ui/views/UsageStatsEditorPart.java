@@ -11,9 +11,11 @@
 
 package org.eclipse.mylar.monitor.reports.ui.views;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
@@ -113,11 +115,19 @@ public class UsageStatsEditorPart extends EditorPart {
 		layout.numColumns = 1;						
 		container.setLayout(layout);
 		
-		Button export  = toolkit.createButton(container, "Export CSV file",  SWT.PUSH | SWT.CENTER);
+		Button export  = toolkit.createButton(container, "Export as CSV",  SWT.PUSH | SWT.CENTER);
 		export.addSelectionListener(new SelectionAdapter() {			
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				exportToCSV();
+			}
+		});
+		
+		Button exportHtml  = toolkit.createButton(container, "Export as HTML",  SWT.PUSH | SWT.CENTER);
+		exportHtml.addSelectionListener(new SelectionAdapter() {			
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				exportToHtml();
 			}
 		});
 	}
@@ -223,7 +233,7 @@ public class UsageStatsEditorPart extends EditorPart {
 		tableViewer.setLabelProvider(new UsageCountLabelProvider());
 		tableViewer.setInput(editorInput);
 	}
-	
+
 	private void exportToCSV() {
 	    File outputFile;
 	    FileOutputStream outputStream;
@@ -248,6 +258,35 @@ public class UsageStatsEditorPart extends EditorPart {
 	    	}
 
 	    	outputStream.close();
+        } catch (FileNotFoundException e) {
+            MylarPlugin.log(e, "could not resolve file");
+	    } catch (IOException e) {
+	    	MylarPlugin.log(e, "could not write to file");
+	    }
+	}
+	
+	private void exportToHtml() {
+	    File outputFile;
+	    try {
+            FileDialog dialog = new FileDialog(Workbench.getInstance().getActiveWorkbenchWindow().getShell());
+	    	dialog.setText("Specify a file name");
+            dialog.setFilterExtensions(new String[] { "*.html", "*.*" });
+
+            String filename = dialog.open();
+            
+	    	outputFile = new File(filename);
+//	    	outputStream = new FileOutputStream(outputFile, true);
+	    	BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
+
+	    	for (IUsageStatsCollector collector : editorInput.getReportGenerator().getCollectors()) {
+
+	    		writer.write("<h3>" + collector.getReportTitle() + "</h3>");
+	    		for (String reportLine : collector.getReport()) {
+	    			writer.write(reportLine + "<br>");
+				}
+	    		writer.write("<br><hr>");
+			}
+	    	writer.close();
         } catch (FileNotFoundException e) {
             MylarPlugin.log(e, "could not resolve file");
 	    } catch (IOException e) {

@@ -108,6 +108,7 @@ public class ReportGenerator {
 
 	class GenerateStatisticsJob implements IRunnableWithProgress {
 
+		private static final String JOB_LABEL = "Mylar Usage Report Generation";
 		private final ReportGenerator generator;
 		private List<File> sources;
 		
@@ -117,7 +118,7 @@ public class ReportGenerator {
 		}
 		
 		public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-			monitor.beginTask("Mylar statistics generation", sources.size());
+			monitor.beginTask(JOB_LABEL, sources.size());
 			UsageStatisticsSummary statistics = new UsageStatisticsSummary();
 			try {
 				Map<Integer, Map<String, InteractionEventSummary>> summaryMap = new HashMap<Integer, Map<String, InteractionEventSummary>>();
@@ -145,7 +146,7 @@ public class ReportGenerator {
 		        monitor.done();
 			} catch (Throwable t) {
 				t.printStackTrace();
-	        	MylarPlugin.fail(t, "could not generate stats", false);
+	        	MylarPlugin.fail(t, "could not generate usage report", false);
 	        }
 	     }
 
@@ -192,5 +193,9 @@ public class ReportGenerator {
 		} else {
 			return originId;
 		}
+	}
+
+	public List<IUsageStatsCollector> getCollectors() {
+		return collectors;
 	}
 }
