@@ -51,6 +51,7 @@ public class UsageStatsEditorInput implements IEditorInput {
 		    		if(zip.entries().hasMoreElements()){
 		    			ZipEntry entry = zip.entries().nextElement();
 		    			File tempFile = File.createTempFile(file.getName(), "xml");
+		    			tempFile.deleteOnExit();
 		    			InputStream in = zip.getInputStream(entry);
 		    			OutputStream out = new FileOutputStream(tempFile);
 		    			transferData(in, out);
