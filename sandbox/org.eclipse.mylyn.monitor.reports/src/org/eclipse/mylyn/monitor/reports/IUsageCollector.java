@@ -18,7 +18,7 @@ import org.eclipse.mylar.core.InteractionEvent;
 /**
  * @author Mik Kersten and Leah Findlater
  */
-public interface IUsageStatsCollector {
+public interface IUsageCollector {
 
 	public String getReportTitle();
 	

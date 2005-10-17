@@ -18,13 +18,13 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.mylar.core.InteractionEvent;
-import org.eclipse.mylar.monitor.reports.IUsageStatsCollector;
+import org.eclipse.mylar.monitor.reports.IUsageCollector;
 import org.eclipse.mylar.monitor.reports.ReportGenerator;
 
 /**
  * @author Mik Kersten and Leah Findlater
  */
-public class CommandUsageCollector implements IUsageStatsCollector {
+public class CommandUsageCollector implements IUsageCollector {
 
     private InteractionByTypeSummary commands = new InteractionByTypeSummary();
     private Set<Integer> userIdSet = new HashSet<Integer>();

@@ -34,12 +34,14 @@ import org.eclipse.ui.progress.IProgressService;
  */
 public class ReportGenerator {
 
+	public static final String SUMMARY_SEPARATOR = "<hr><br>";	
+	
 	private InteractionEventLogger logger;
 	private UsageStatisticsSummary lastParsedSummary = null;
 	private Set<Integer> userIds = new HashSet<Integer>();	
-	private List<IUsageStatsCollector> collectors;
+	private List<IUsageCollector> collectors;
 	
-	public ReportGenerator(InteractionEventLogger logger, List<IUsageStatsCollector> collectors) {
+	public ReportGenerator(InteractionEventLogger logger, List<IUsageCollector> collectors) {
 		this.logger = logger;
 		this.collectors = collectors;
 	}
@@ -130,7 +132,7 @@ public class ReportGenerator {
 		        		int userId = getUserId(source);
 		        		userIds.add(userId);
 			        	if (event.getKind().isUserEvent()) {  // TODO: some collectors may want non-user events
-			        		for (IUsageStatsCollector collector : this.generator.collectors) {
+			        		for (IUsageCollector collector : this.generator.collectors) {
 			        			collector.consumeEvent(event, userId, phase);
 			        		}
 			        	}
@@ -138,7 +140,7 @@ public class ReportGenerator {
 		            } 
 			        monitor.worked(1);
 		        }
-	        	for (IUsageStatsCollector collector : this.generator.collectors) statistics.add(collector);
+	        	for (IUsageCollector collector : this.generator.collectors) statistics.add(collector);
 				List<InteractionEventSummary> flattenedSummaries = new ArrayList<InteractionEventSummary>();
 		        for (Map<String, InteractionEventSummary> userSummary : summaryMap.values()) flattenedSummaries.addAll(userSummary.values());
 		        statistics.setSingleSummaries(flattenedSummaries);	
@@ -195,7 +197,7 @@ public class ReportGenerator {
 		}
 	}
 
-	public List<IUsageStatsCollector> getCollectors() {
+	public List<IUsageCollector> getCollectors() {
 		return collectors;
 	}
 }

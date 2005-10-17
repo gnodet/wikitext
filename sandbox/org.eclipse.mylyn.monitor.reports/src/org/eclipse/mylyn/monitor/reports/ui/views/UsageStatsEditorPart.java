@@ -23,22 +23,23 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.mylar.core.MylarPlugin;
-import org.eclipse.mylar.monitor.reports.IUsageStatsCollector;
+import org.eclipse.mylar.monitor.reports.IUsageCollector;
 import org.eclipse.mylar.monitor.reports.internal.InteractionEventSummarySorter;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.forms.FormColors;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
@@ -92,11 +93,11 @@ public class UsageStatsEditorPart extends EditorPart {
 		ScrolledForm sform = toolkit.createScrolledForm(parent);
 		sform.getBody().setLayout(new TableWrapLayout());
 		Composite editorComposite = sform.getBody();
-		
+
+		createActionSection(editorComposite, toolkit);
 		createSummaryStatsSection(editorComposite, toolkit);
 		if (editorInput.getReportGenerator().getLastParsedSummary().getSingleSummaries().size() > 0) {
 			createUsageSection(editorComposite, toolkit);	
-			createActionSection(editorComposite, toolkit);
 		}
 	}
 
@@ -112,8 +113,16 @@ public class UsageStatsEditorPart extends EditorPart {
 		Composite container = toolkit.createComposite(section);
 		section.setClient(container);		
 		TableWrapLayout layout = new TableWrapLayout();
-		layout.numColumns = 1;						
+		layout.numColumns = 2;						
 		container.setLayout(layout);
+
+		Button exportHtml  = toolkit.createButton(container, "Export as HTML",  SWT.PUSH | SWT.CENTER);
+		exportHtml.addSelectionListener(new SelectionAdapter() {			
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				exportToHtml();
+			}
+		});
 		
 		Button export  = toolkit.createButton(container, "Export as CSV",  SWT.PUSH | SWT.CENTER);
 		export.addSelectionListener(new SelectionAdapter() {			
@@ -122,18 +131,10 @@ public class UsageStatsEditorPart extends EditorPart {
 				exportToCSV();
 			}
 		});
-		
-		Button exportHtml  = toolkit.createButton(container, "Export as HTML",  SWT.PUSH | SWT.CENTER);
-		exportHtml.addSelectionListener(new SelectionAdapter() {			
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				exportToHtml();
-			}
-		});
 	}
 	
 	private void createSummaryStatsSection(Composite parent, FormToolkit toolkit) {
-		for (IUsageStatsCollector collector : editorInput.getReportGenerator().getLastParsedSummary().getCollectors()) {
+		for (IUsageCollector collector : editorInput.getReportGenerator().getLastParsedSummary().getCollectors()) {
 			List<String> summary = collector.getReport();
 			if (!summary.isEmpty()) {
 				Section summarySection = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR);
@@ -143,14 +144,30 @@ public class UsageStatsEditorPart extends EditorPart {
 				Composite summaryContainer = toolkit.createComposite(summarySection);
 				summarySection.setClient(summaryContainer);		
 				TableWrapLayout layout = new TableWrapLayout();
-				layout.numColumns = 2;						
+//				layout.numColumns = 2;						
 				summaryContainer.setLayout(layout);
 				
-				for (String description : summary) {
-					Label label = toolkit.createLabel(summaryContainer, description);
-					label.setForeground(toolkit.getColors().getColor(FormColors.TITLE));	
-					label.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
-				}
+				Composite browserComposite = new Composite(summaryContainer, SWT.NULL);
+				browserComposite.setLayout(new GridLayout());
+				Browser browser = new Browser(browserComposite, SWT.NONE);
+		        GridData browserLayout = new GridData(GridData.FILL_HORIZONTAL);
+		        browserLayout.heightHint = 800;
+		        browserLayout.widthHint = 800;
+		        browser.setLayoutData(browserLayout);
+				String htmlText = "<html><body>";
+				for (String description : summary) htmlText += description + "<br>";
+				htmlText += "</body></html>";
+				browser.setText(htmlText);
+//					if (description.equals(ReportGenerator.SUMMARY_SEPARATOR)) {
+//						toolkit.createLabel(summaryContainer, "---------------------------------");
+//						toolkit.createLabel(summaryContainer, "---------------------------------");
+//					} else {
+//						Label label = toolkit.createLabel(summaryContainer, description);
+//						if (!description.startsWith("<h"));
+//						label.setForeground(toolkit.getColors().getColor(FormColors.TITLE));	
+//						label.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
+//					}
+//				}
 			}
 		}
 	}
@@ -273,12 +290,12 @@ public class UsageStatsEditorPart extends EditorPart {
             dialog.setFilterExtensions(new String[] { "*.html", "*.*" });
 
             String filename = dialog.open();
-            
+            if (!filename.endsWith(".html")) filename += ".html";
 	    	outputFile = new File(filename);
 //	    	outputStream = new FileOutputStream(outputFile, true);
 	    	BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
 
-	    	for (IUsageStatsCollector collector : editorInput.getReportGenerator().getCollectors()) {
+	    	for (IUsageCollector collector : editorInput.getReportGenerator().getCollectors()) {
 
 	    		writer.write("<h3>" + collector.getReportTitle() + "</h3>");
 	    		for (String reportLine : collector.getReport()) {

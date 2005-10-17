@@ -16,12 +16,12 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.mylar.core.InteractionEvent;
-import org.eclipse.mylar.monitor.reports.IUsageStatsCollector;
+import org.eclipse.mylar.monitor.reports.IUsageCollector;
 
 /**
  * @author Mik Kersten and Leah Findlater
  */
-public class CsvOutputCollector implements IUsageStatsCollector {
+public class CsvOutputCollector implements IUsageCollector {
 
 	public CsvOutputCollector() {
 		

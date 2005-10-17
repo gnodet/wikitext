@@ -14,7 +14,7 @@ package org.eclipse.mylar.monitor.reports.ui.views;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.mylar.monitor.reports.IUsageStatsCollector;
+import org.eclipse.mylar.monitor.reports.IUsageCollector;
 import org.eclipse.mylar.monitor.reports.InteractionEventSummary;
 
 /**
@@ -25,7 +25,7 @@ import org.eclipse.mylar.monitor.reports.InteractionEventSummary;
 public class UsageStatisticsSummary {
 	
 	private List<InteractionEventSummary> singleSummaries = new ArrayList<InteractionEventSummary>();
-	private List<IUsageStatsCollector> collectors = new ArrayList<IUsageStatsCollector>();
+	private List<IUsageCollector> collectors = new ArrayList<IUsageCollector>();
 	
 	public List<InteractionEventSummary> getSingleSummaries() {
 		return singleSummaries;
@@ -35,15 +35,15 @@ public class UsageStatisticsSummary {
 		this.singleSummaries = singleSummaries;
 	}
 
-	public void add(int index, IUsageStatsCollector collector) {
+	public void add(int index, IUsageCollector collector) {
 		collectors.add(index, collector);
 	}
 	
-	public void add(IUsageStatsCollector collector) {
+	public void add(IUsageCollector collector) {
 		collectors.add(collector);
 	}
 	
-	public List<IUsageStatsCollector> getCollectors() {
+	public List<IUsageCollector> getCollectors() {
 		return collectors;
 	}
 }

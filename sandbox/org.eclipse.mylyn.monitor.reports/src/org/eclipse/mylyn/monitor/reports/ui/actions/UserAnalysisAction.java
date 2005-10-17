@@ -19,7 +19,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.monitor.MylarMonitorPlugin;
-import org.eclipse.mylar.monitor.reports.IUsageStatsCollector;
+import org.eclipse.mylar.monitor.reports.IUsageCollector;
 import org.eclipse.mylar.monitor.reports.MylarReportsPlugin;
 import org.eclipse.mylar.monitor.reports.ReportGenerator;
 import org.eclipse.mylar.monitor.reports.internal.MylarUserAnalysisCollector;
@@ -51,7 +51,7 @@ public class UserAnalysisAction implements IViewActionDelegate {
         	Workbench.getInstance().getDisplay().asyncExec(new Runnable() {
     			public void run() {
     				try  {
-    					List<IUsageStatsCollector> collectors = new ArrayList<IUsageStatsCollector>();
+    					List<IUsageCollector> collectors = new ArrayList<IUsageCollector>();
     					collectors.add(new MylarUserAnalysisCollector());
     					ReportGenerator generator = new ReportGenerator(MylarMonitorPlugin.getDefault().getInteractionLogger(), collectors);
     					     					

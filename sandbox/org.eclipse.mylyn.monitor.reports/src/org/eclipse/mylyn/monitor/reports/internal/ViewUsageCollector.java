@@ -22,7 +22,7 @@ import java.util.Set;
 
 import org.eclipse.mylar.core.InteractionEvent;
 import org.eclipse.mylar.monitor.SelectionMonitor;
-import org.eclipse.mylar.monitor.reports.IUsageStatsCollector;
+import org.eclipse.mylar.monitor.reports.IUsageCollector;
 import org.eclipse.mylar.tasklist.ui.actions.TaskActivateAction;
 import org.eclipse.mylar.tasklist.ui.actions.TaskDeactivateAction;
 import org.eclipse.mylar.ui.actions.AbstractApplyMylarAction;
@@ -31,9 +31,9 @@ import org.eclipse.mylar.ui.actions.AbstractApplyMylarAction;
  * @author Mik Kersten
  * @author Leah Findlater
  */
-public class ViewUsageCollector implements IUsageStatsCollector {
+public class ViewUsageCollector implements IUsageCollector {
 
-    private Map<Integer, Map<String, Integer>> usersNormalViewSelections = new HashMap<Integer, Map<String, Integer>>();
+	private Map<Integer, Map<String, Integer>> usersNormalViewSelections = new HashMap<Integer, Map<String, Integer>>();
     private Map<Integer, Map<String, Integer>> usersFilteredViewSelections = new HashMap<Integer, Map<String, Integer>>();
     private Map<Integer, Set<String>> usersFilteredViews = new HashMap<Integer, Set<String>>();
     
@@ -46,6 +46,8 @@ public class ViewUsageCollector implements IUsageStatsCollector {
     private Map<Integer, Integer> usersNumNew = new HashMap<Integer, Integer>();
     private Map<Integer, Integer> usersNumPredicted = new HashMap<Integer, Integer>();
 
+    private int numViewsToReport = -1;
+    
     public void consumeEvent(InteractionEvent event, int userId, String phase) {
 		if (event.getKind().equals(InteractionEvent.Kind.COMMAND)) {
 			if (event.getOriginId().equals(TaskActivateAction.ID)) {

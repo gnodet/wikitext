@@ -23,7 +23,8 @@ import java.util.Set;
 
 import org.eclipse.mylar.core.InteractionEvent;
 import org.eclipse.mylar.core.util.DateUtil;
-import org.eclipse.mylar.monitor.reports.IUsageStatsCollector;
+import org.eclipse.mylar.monitor.reports.IUsageCollector;
+import org.eclipse.mylar.monitor.reports.ReportGenerator;
 import org.eclipse.mylar.tasklist.ui.actions.TaskActivateAction;
 import org.eclipse.mylar.tasklist.ui.actions.TaskDeactivateAction;
 
@@ -32,13 +33,12 @@ import org.eclipse.mylar.tasklist.ui.actions.TaskDeactivateAction;
  * 
  * @author Mik Kersten
  */
-public class MylarUserAnalysisCollector implements IUsageStatsCollector {
+public class MylarUserAnalysisCollector implements IUsageCollector {
 
 	public static final int JAVA_SELECTIONS_THRESHOLD = 3000;
 	private static final int MYLAR_SELECTIONS_THRESHOLD = 3000;
 
 	private static final int TASK_ACTIVATIONS_THRESHOLD = 1;
-	private static final String SUMMARY_SEPARATOR = "----------------------";
 	int acceptedUsers = 0;
 	int rejectedUsers = 0;
 	float summaryDelta = 0;
@@ -126,11 +126,7 @@ public class MylarUserAnalysisCollector implements IUsageStatsCollector {
 			int numIncrements = commandUsageCollector.getCommands().getUserCount(id, "org.eclipse.mylar.ui.actions.InterestIncrementAction");
 			int numDecrements = commandUsageCollector.getCommands().getUserCount(id, "org.eclipse.mylar.ui.actions.InterestDecrementAction");
 			if (acceptUser(id) && numTaskActivations > TASK_ACTIVATIONS_THRESHOLD) {
-								
-				report.add("================================");
-				report.add("================================");
-				report.add("USER ID: " + id);
-				report.add("  ");
+				report.add("<h4>USER ID: " + id + "</h4>");
 				acceptedUsers++;
 				float baselineRatio = getBaselineRatio(id);
 				float mylarInactiveRatio = getMylarInactiveRatio(id);
@@ -163,29 +159,18 @@ public class MylarUserAnalysisCollector implements IUsageStatsCollector {
 					report.add("Start date: " + getStartDate(id));
 					report.add("End date: " + getEndDate(id));
 				}
-				report.add(SUMMARY_SEPARATOR);
-				report.add(SUMMARY_SEPARATOR);
-				report.add("Task activations: ");
-				report.add("" + numTaskActivations);
-				report.add("Interest increments: ");
-				report.add("" + numIncrements);
-				report.add("Interest decrements: ");
-				report.add("" + numDecrements);
-				report.add(SUMMARY_SEPARATOR);
-				report.add(SUMMARY_SEPARATOR);
+				report.add("<b>Command Activity</b>");
+				report.add("Task activations: " + numTaskActivations);
+				report.add("Interest increments: " + numIncrements);
+				report.add("Interest decrements: " + numDecrements);
+				report.add("<b>View Activity</b>");
 				report.addAll(viewUsageCollector.getSummary(id));
-				report.add("  ");
-				report.add("  ");
-				report.add("  ");
-				report.add("  ");
+				report.add(ReportGenerator.SUMMARY_SEPARATOR);
 			} else {
 				rejectedUsers++;
 			}
 		}
-		report.add("");
-		report.add("");
-		report.add("========================");
-		report.add("========================");
+		report.add(ReportGenerator.SUMMARY_SEPARATOR);
 		String acceptedSummary = " (based on " + acceptedUsers + " accepted, " + rejectedUsers + " rejected users)";
 		float percentage = summaryDelta/(float)acceptedUsers;
 		String ratioChange = formatPercentage(100*(percentage-1));
@@ -195,10 +180,7 @@ public class MylarUserAnalysisCollector implements IUsageStatsCollector {
 			report.add("Overall edit ratio degraded by: " + ratioChange + "% " + acceptedSummary);
 		}
 		report.add("degraded: " + usersDegraded.size() + ", improved: " + usersImproved.size());
-		report.add("========================");
-		report.add("========================");
-		report.add("");
-		report.add("");
+		report.add(ReportGenerator.SUMMARY_SEPARATOR);
 		return report;
 	}
 	

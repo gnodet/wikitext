@@ -17,12 +17,12 @@ import java.util.Date;
 import java.util.List;
 
 import org.eclipse.mylar.core.InteractionEvent;
-import org.eclipse.mylar.monitor.reports.IUsageStatsCollector;
+import org.eclipse.mylar.monitor.reports.IUsageCollector;
 
 /**
  * @author Mik Kersten
  */
-public class SummaryCollector implements IUsageStatsCollector {
+public class SummaryCollector implements IUsageCollector {
 
     protected int numSelections = 0;
     protected int numEdits = 0;
