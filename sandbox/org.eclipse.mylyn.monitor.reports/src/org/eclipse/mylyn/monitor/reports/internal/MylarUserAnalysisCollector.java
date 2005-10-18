@@ -65,6 +65,10 @@ public class MylarUserAnalysisCollector implements IUsageCollector {
 	private CommandUsageCollector commandUsageCollector = new CommandUsageCollector();
 	private ViewUsageCollector viewUsageCollector = new ViewUsageCollector();
 	
+	public MylarUserAnalysisCollector() {
+		viewUsageCollector.setMaxViewsToReport(6);
+	}
+	
 	public String getReportTitle() {
 		return "Edit Ratio Change";
 	}
@@ -126,7 +130,7 @@ public class MylarUserAnalysisCollector implements IUsageCollector {
 			int numIncrements = commandUsageCollector.getCommands().getUserCount(id, "org.eclipse.mylar.ui.actions.InterestIncrementAction");
 			int numDecrements = commandUsageCollector.getCommands().getUserCount(id, "org.eclipse.mylar.ui.actions.InterestDecrementAction");
 			if (acceptUser(id) && numTaskActivations > TASK_ACTIVATIONS_THRESHOLD) {
-				report.add("<h4>USER ID: " + id + "</h4>");
+				report.add("<h4>USER ID: " + id + " (from: " + getStartDate(id) + " to " + getEndDate(id) + ")</h4>");
 				acceptedUsers++;
 				float baselineRatio = getBaselineRatio(id);
 				float mylarInactiveRatio = getMylarInactiveRatio(id);
@@ -135,51 +139,54 @@ public class MylarUserAnalysisCollector implements IUsageCollector {
 				if (baselineRatio > 0 && mylarRatio > 0) {
 					float percentage = mylarRatio / baselineRatio;
 					summaryDelta += percentage;
-					report.add("Baseline vs. Mylar edit ratio: " + baselineRatio + ", mylar: " + mylarRatio);
+					String ratio1 = "";
+					ratio1 = "Baseline vs. Mylar edit ratio: " + baselineRatio + ", mylar: " + mylarRatio + ",  ";
 					String ratioChange = formatPercentage(100*(percentage-1));
 					if (percentage >= 1) {
 						usersImproved.add(id);
-						report.add("Improved by: " + ratioChange + "%"); 
+						ratio1 += "Improved by: " + ratioChange + "%"; 
 					} else {
 						usersDegraded.add(id);
-						report.add("Degraded by: " + ratioChange + "%"); 
+						ratio1 += "Degraded by: " + ratioChange + "%"; 
 					}
+					report.add(ratio1 + "<br>");
 	
 					float inactivePercentage = mylarRatio / mylarInactiveRatio;
 					String inactiveRatioChange = formatPercentage(100*(inactivePercentage-1));
 					mylarInactiveDelta += inactivePercentage;
-					report.add("Inactive vs. Active edit ratio: " + mylarInactiveRatio + ", mylar: " + mylarRatio);
+					String ratio2 = "";
+					ratio2 += "Inactive vs. Active edit ratio: " + mylarInactiveRatio + ", mylar: " + mylarRatio + ",  ";
 					if (inactivePercentage >= 1) {
-						report.add("Improved by: " + inactiveRatioChange + "%"); 
+						ratio2 += "Improved by: " + inactiveRatioChange + "%"; 
 					} else {
-						report.add("Degraded by: " + inactiveRatioChange + "%"); 
+						ratio2 += "Degraded by: " + inactiveRatioChange + "%"; 
 					}
-					report.add("Selections baseline: " + getNumBaselineSelections(id));
-					report.add("Selections mylar: " + getNumMylarSelections(id));
-					report.add("Start date: " + getStartDate(id));
-					report.add("End date: " + getEndDate(id));
+					report.add(ratio2 + "<br>");
+					
+					report.add("Selections baseline: " + getNumBaselineSelections(id)
+							+ ", Selections mylar: " + getNumMylarSelections(id));
 				}
-				report.add("<b>Command Activity</b>");
-				report.add("Task activations: " + numTaskActivations);
-				report.add("Interest increments: " + numIncrements);
-				report.add("Interest decrements: " + numDecrements);
-				report.add("<b>View Activity</b>");
+				report.add("<h4>Command Activity</h4>");
+				report.add("Task activations: " + numTaskActivations + ", ");
+				report.add("Interest increments: " + numIncrements
+						+ ", Interest decrements: " + numDecrements + "<br>");
+				report.add("<h4>View Activity</h4>");
 				report.addAll(viewUsageCollector.getSummary(id));
 				report.add(ReportGenerator.SUMMARY_SEPARATOR);
 			} else {
 				rejectedUsers++;
 			}
 		}
-		report.add(ReportGenerator.SUMMARY_SEPARATOR);
+		report.add("<h3>Summary</h3>");
 		String acceptedSummary = " (based on " + acceptedUsers + " accepted, " + rejectedUsers + " rejected users)";
 		float percentage = summaryDelta/(float)acceptedUsers;
 		String ratioChange = formatPercentage(100*(percentage-1));
 		if (percentage >= 1) {
-			report.add("Overall edit ratio improved by: " + ratioChange + "% " + acceptedSummary);
+			report.add("Overall edit ratio improved by: " + ratioChange + "% " + acceptedSummary + "<br>");
 		} else {
-			report.add("Overall edit ratio degraded by: " + ratioChange + "% " + acceptedSummary);
+			report.add("Overall edit ratio degraded by: " + ratioChange + "% " + acceptedSummary + "<br>");
 		}
-		report.add("degraded: " + usersDegraded.size() + ", improved: " + usersImproved.size());
+		report.add("degraded: " + usersDegraded.size() + ", improved: " + usersImproved.size() + "<br>");
 		report.add(ReportGenerator.SUMMARY_SEPARATOR);
 		return report;
 	}

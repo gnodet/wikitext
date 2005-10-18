@@ -39,14 +39,15 @@ public class ViewUsageCollector implements IUsageCollector {
     
 	private Set<Integer> mylarUserIds = new HashSet<Integer>();
     
-    private Map<Integer, Integer> usersNumEvents = new HashMap<Integer, Integer>();
+    private Map<Integer, Integer> usersNumSelections = new HashMap<Integer, Integer>();
     
     private Map<Integer, Integer> usersNumDecayed = new HashMap<Integer, Integer>();
     private Map<Integer, Integer> usersNumDefault = new HashMap<Integer, Integer>();
     private Map<Integer, Integer> usersNumNew = new HashMap<Integer, Integer>();
     private Map<Integer, Integer> usersNumPredicted = new HashMap<Integer, Integer>();
+    private Map<Integer, Integer> usersNumUnknown = new HashMap<Integer, Integer>();
 
-    private int numViewsToReport = -1;
+    private int maxViewsToReport = -1;
     
     public void consumeEvent(InteractionEvent event, int userId, String phase) {
 		if (event.getKind().equals(InteractionEvent.Kind.COMMAND)) {
@@ -76,9 +77,9 @@ public class ViewUsageCollector implements IUsageCollector {
 		}
 		
 		if (event.getKind().equals(InteractionEvent.Kind.SELECTION)) {
-			if (!usersNumEvents.containsKey(userId)) usersNumEvents.put(userId, 0);
-			int numEvents = usersNumEvents.get(userId) + 1;
-			usersNumEvents.put(userId, numEvents);
+			if (!usersNumSelections.containsKey(userId)) usersNumSelections.put(userId, 0);
+			int numEvents = usersNumSelections.get(userId) + 1;
+			usersNumSelections.put(userId, numEvents);
 
 			if (mylarUserIds.contains(userId)) {
 				if (event.getDelta().equals(SelectionMonitor.SELECTION_DECAYED)) {
@@ -97,7 +98,11 @@ public class ViewUsageCollector implements IUsageCollector {
 					if (!usersNumDefault.containsKey(userId)) usersNumDefault.put(userId, 0);
 					int numDefault = usersNumDefault.get(userId) + 1;
 					usersNumDefault.put(userId, numDefault);
-				} 
+				} else {
+					if (!usersNumUnknown.containsKey(userId)) usersNumUnknown.put(userId, 0);
+					int numUnknownNew = usersNumUnknown.get(userId) + 1;
+					usersNumUnknown.put(userId, numUnknownNew);			
+				}
 			}
 			
 			String viewId = event.getOriginId();	    	
@@ -127,24 +132,26 @@ public class ViewUsageCollector implements IUsageCollector {
 		Map<String, Integer> normalViewSelections = usersNormalViewSelections.get(userId);
 		Map<String, Integer> filteredViewSelections = usersFilteredViewSelections.get(userId);
 	
-		float numEvents = (float)usersNumEvents.get(userId);
+		float numSelections = (float)usersNumSelections.get(userId);
 		
 		List<String> summaries = new ArrayList<String>();
-		summaries.add("Selections");
-		summaries.add(" ");
 		List<String> viewUsage = new ArrayList<String>();
 		for (String view : normalViewSelections.keySet()) {
-			float viewUse = ((float)(normalViewSelections.get(view)))/numEvents;
+			float viewUse = ((float)(normalViewSelections.get(view)))/numSelections;
 			String formattedViewUse = formatAsPercentage(viewUse);
-			
-			viewUsage.add(formattedViewUse + ": " + view + " (" + normalViewSelections.get(view) + ")");				
+			viewUsage.add(formattedViewUse + ": " + view + " (" + normalViewSelections.get(view) + ")" + "<br>");	
 		}
 		Collections.sort(viewUsage, new PercentUsageComparator());
-		for (String viewUsageSummary : viewUsage) summaries.add(viewUsageSummary);
+		int numViewsToReport = 0;
+		for (String viewUsageSummary : viewUsage) {
+			if (numViewsToReport == -1 || numViewsToReport <= maxViewsToReport) {
+				summaries.add(viewUsageSummary);
+				numViewsToReport++;
+			}
+		}
 		
 		if (!filteredViewSelections.keySet().isEmpty()) {
-			summaries.add("------------ Filtering -------------");
-			summaries.add("------------ Filtering -------------");
+			summaries.add("<h4>Interest Filtering</h4>");
 		}
 		
 		// TODO: pull this out into a mylar-specific thing
@@ -152,33 +159,27 @@ public class ViewUsageCollector implements IUsageCollector {
 			int normalSelections = normalViewSelections.get(view);
 			int filteredSelections = filteredViewSelections.get(view);
 			int unfilteredSelections = normalSelections - filteredSelections; 
-			summaries.add("FILTERED " + view + ": " + filteredSelections);
-			summaries.add("UNFILTERED " + view + ": " + unfilteredSelections);
+			summaries.add(view + ": " + filteredSelections + " vs. ");
+			summaries.add(unfilteredSelections + "<br>");
 		}
-
-		summaries.add("------------ Interest -------------");
-		summaries.add("------------ Interest -------------");
+		summaries.add("<h4>Interest Model</h4>");
 		
-		if (usersNumNew.containsKey(userId)) {
-			summaries.add("New: " + formatAsPercentage(usersNumNew.get(userId)/numEvents) + " (" + usersNumNew.get(userId) + ")");
-		} else {
-			summaries.add("New: n/a");
-		}
-		if (usersNumNew.containsKey(userId)) {
-			summaries.add("Predicted: " + formatAsPercentage(usersNumPredicted.get(userId)/numEvents) + " (" + usersNumPredicted.get(userId) + ")");
-		} else {
-			summaries.add("Predicted: n/a");
-		}
-		if (usersNumNew.containsKey(userId)) {
-			summaries.add("Interesting: " + formatAsPercentage(usersNumDefault.get(userId)/numEvents) + " (" + usersNumDefault.get(userId) + ")");
-		} else {
-			summaries.add("Interesting: n/a");
-		}
-		if (usersNumNew.containsKey(userId)) {
-			summaries.add("Decayed: " + formatAsPercentage(usersNumDecayed.get(userId)/numEvents) + " (" + usersNumDecayed.get(userId) + ")");
-		} else {
-			summaries.add("Decayed: n/a");
-		}
+		int numNew = usersNumNew.get(userId);
+		int numPredicted = usersNumPredicted.get(userId);
+		int numInteresting = usersNumDefault.get(userId);
+		int numDecayed = usersNumDecayed.get(userId);
+		int numUnknown = usersNumUnknown.get(userId);
+		
+		float inModel = (numPredicted + numInteresting + numDecayed);
+		float notInModel = numNew;
+		float hitRatio = inModel / (inModel + notInModel);
+		summaries.add("In model: " + formatAsPercentage(hitRatio) + "<br>"); 
+		
+		summaries.add("New: " + formatAsPercentage(numNew/numSelections) + " (" + numNew + ")" + "; ");
+		summaries.add("Predicted: " + formatAsPercentage(usersNumPredicted.get(userId)/numSelections) + " (" + numPredicted + ")" + "; ");
+		summaries.add("Interesting: " + formatAsPercentage(usersNumDefault.get(userId)/numSelections) + " (" + numInteresting + ")" + "; ");
+		summaries.add("Decayed: " + formatAsPercentage(usersNumDecayed.get(userId)/numSelections) + " (" + numDecayed + ")" + "; ");
+		summaries.add("Unknown: " + formatAsPercentage(usersNumUnknown.get(userId)/numSelections) + " (" + numUnknown + ")" + "<br>");
 		return summaries;		
 	}
 
@@ -194,7 +195,7 @@ public class ViewUsageCollector implements IUsageCollector {
 	public List<String> getReport() {
 		List<String> summaries = new ArrayList<String>();
 		for (int userId : usersNormalViewSelections.keySet()) {
-			summaries.addAll(getSummary(userId));
+				summaries.addAll(getSummary(userId));
 		}
 		return summaries;
 	}
@@ -228,5 +229,9 @@ public class ViewUsageCollector implements IUsageCollector {
 			normalViewSelections.putAll(usersNormalViewSelections.get(userId));
 		}
 		return normalViewSelections;
+	}
+
+	public void setMaxViewsToReport(int maxViewsToReport) {
+		this.maxViewsToReport = maxViewsToReport;
 	}
 }

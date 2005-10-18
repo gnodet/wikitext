@@ -155,7 +155,7 @@ public class UsageStatsEditorPart extends EditorPart {
 		        browserLayout.widthHint = 800;
 		        browser.setLayoutData(browserLayout);
 				String htmlText = "<html><body>";
-				for (String description : summary) htmlText += description + "<br>";
+				for (String description : summary) htmlText += description;
 				htmlText += "</body></html>";
 				browser.setText(htmlText);
 //					if (description.equals(ReportGenerator.SUMMARY_SEPARATOR)) {
