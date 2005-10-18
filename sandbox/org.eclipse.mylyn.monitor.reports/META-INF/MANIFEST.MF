@@ -17,6 +17,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.mylar.tasklist
 Eclipse-AutoStart: true
 Export-Package: org.eclipse.mylar.monitor.reports,
+ org.eclipse.mylar.monitor.reports.collectors,
  org.eclipse.mylar.monitor.reports.internal,
  org.eclipse.mylar.monitor.reports.ui.actions,
  org.eclipse.mylar.monitor.reports.ui.views

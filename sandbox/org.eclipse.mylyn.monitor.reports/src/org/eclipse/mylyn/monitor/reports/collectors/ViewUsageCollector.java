@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.monitor.reports.internal;
+package org.eclipse.mylar.monitor.reports.collectors;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -164,11 +164,16 @@ public class ViewUsageCollector implements IUsageCollector {
 		}
 		summaries.add("<h4>Interest Model</h4>");
 		
-		int numNew = usersNumNew.get(userId);
-		int numPredicted = usersNumPredicted.get(userId);
-		int numInteresting = usersNumDefault.get(userId);
-		int numDecayed = usersNumDecayed.get(userId);
-		int numUnknown = usersNumUnknown.get(userId);
+		int numNew = 0;
+		if (usersNumNew.containsKey(userId)) usersNumNew.get(userId);
+		int numPredicted = 0;
+		if (usersNumPredicted.containsKey(userId)) numPredicted = usersNumPredicted.get(userId);
+		int numInteresting = 0;
+		if (usersNumDefault.containsKey(userId)) numInteresting = usersNumDefault.get(userId);
+		int numDecayed = 0;
+		if (usersNumDecayed.containsKey(userId)) numDecayed = usersNumDecayed.get(userId);
+		int numUnknown = 0;
+		if (usersNumUnknown.containsKey(userId)) numUnknown =usersNumUnknown.get(userId);
 		
 		float inModel = (numPredicted + numInteresting + numDecayed);
 		float notInModel = numNew;

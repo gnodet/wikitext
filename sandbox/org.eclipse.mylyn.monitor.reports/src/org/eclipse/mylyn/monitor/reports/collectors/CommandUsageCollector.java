@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.monitor.reports.internal;
+package org.eclipse.mylar.monitor.reports.collectors;
 
 import java.io.File;
 import java.util.Collections;
@@ -20,6 +20,7 @@ import java.util.Set;
 import org.eclipse.mylar.core.InteractionEvent;
 import org.eclipse.mylar.monitor.reports.IUsageCollector;
 import org.eclipse.mylar.monitor.reports.ReportGenerator;
+import org.eclipse.mylar.monitor.reports.internal.InteractionByTypeSummary;
 
 /**
  * @author Mik Kersten and Leah Findlater

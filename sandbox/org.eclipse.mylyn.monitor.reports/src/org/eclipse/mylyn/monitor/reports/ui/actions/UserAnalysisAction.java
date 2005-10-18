@@ -22,7 +22,7 @@ import org.eclipse.mylar.monitor.MylarMonitorPlugin;
 import org.eclipse.mylar.monitor.reports.IUsageCollector;
 import org.eclipse.mylar.monitor.reports.MylarReportsPlugin;
 import org.eclipse.mylar.monitor.reports.ReportGenerator;
-import org.eclipse.mylar.monitor.reports.internal.MylarUserAnalysisCollector;
+import org.eclipse.mylar.monitor.reports.collectors.MylarUserAnalysisCollector;
 import org.eclipse.mylar.monitor.reports.ui.views.UsageStatsEditorInput;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IViewActionDelegate;
