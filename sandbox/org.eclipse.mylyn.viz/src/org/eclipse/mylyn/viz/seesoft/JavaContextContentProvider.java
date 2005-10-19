@@ -101,15 +101,23 @@ public class JavaContextContentProvider implements IContentProvider, IMylarConte
 			
 			List<IMylarElement> interestingNodes = MylarPlugin.getContextManager().getActiveContext().getInteresting();
 			JavaStructureBridge jBridge = new JavaStructureBridge();
-			
+	
 			for (int i = 0; i < interestingNodes.size(); i++){
 				IMylarElement node = interestingNodes.get(i);
 				
 				if (node.getContentType().equals(JavaStructureBridge.CONTENT_TYPE)){
-					IJavaElement jElement = (IJavaElement) jBridge.getObjectForHandle(node.getHandleIdentifier());
+					String handleID = node.getHandleIdentifier();
+
+					IJavaElement jElement = (IJavaElement) jBridge.getObjectForHandle(handleID);
 					
 					if (jElement.getElementType() == IJavaElement.TYPE){
-						JDTMember javaType = new JDTMember(jBridge.getName(jElement), jElement);
+
+						String typeName = jBridge.getName(jElement);
+						if (typeName.equals("")){
+							continue;
+						}
+						
+						JDTMember javaType = new JDTMember(typeName, jElement);
 						addTypeToGroups(javaType);
 					}
 				}
@@ -232,11 +240,13 @@ public class JavaContextContentProvider implements IContentProvider, IMylarConte
 	}
 
 	public void presentationSettingsChanged(UpdateKind kind) {
-
+		if (kind == UpdateKind.HIGHLIGHTER){
+			VisualiserPlugin.refresh();
+		}
 	}
 
 	public void interestChanged(IMylarElement node) {
-		VisualiserPlugin.refresh();
+
 	}
 
 	public void interestChanged(List<IMylarElement> nodes) {

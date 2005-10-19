@@ -12,5 +12,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt.core,
  org.eclipse.contribution.visualiser,
  org.eclipse.mylar.core,
- org.eclipse.mylar.java
+ org.eclipse.mylar.java,
+ org.eclipse.mylar.tasklist,
+ org.eclipse.mylar.ui
 Eclipse-AutoStart: true
