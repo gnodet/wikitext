@@ -81,6 +81,7 @@ public class MylarUserAnalysisCollector implements IUsageCollector {
 		endDates.put(userId, event.getDate());
 		userIds.add(userId);
 		
+		// TODO: refactor
 		if (event.getKind().equals(InteractionEvent.Kind.COMMAND)) {
 			if (event.getOriginId().equals(TaskActivateAction.ID)) {
 				mylarUserIds.add(userId);
