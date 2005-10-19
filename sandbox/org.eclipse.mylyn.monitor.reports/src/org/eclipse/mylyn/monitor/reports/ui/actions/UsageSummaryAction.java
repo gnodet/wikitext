@@ -13,6 +13,7 @@ package org.eclipse.mylar.monitor.reports.ui.actions;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -88,6 +89,7 @@ public class UsageSummaryAction implements IViewActionDelegate {
 				}
 			}
 		}
+		Collections.sort(files); // ensure that they are sorted by date
 		
 		if (files.isEmpty()) {
 			files.add(MylarMonitorPlugin.getDefault().getMonitorFile());

@@ -37,8 +37,9 @@ public class MylarUserAnalysisCollector implements IUsageCollector {
 
 	public static final int JAVA_SELECTIONS_THRESHOLD = 3000;
 	private static final int MYLAR_SELECTIONS_THRESHOLD = 3000;
-
 	private static final int TASK_ACTIVATIONS_THRESHOLD = 1;
+	private static final int NUM_VIEWS_REPORTED = 5;
+
 	int acceptedUsers = 0;
 	int rejectedUsers = 0;
 	float summaryDelta = 0;
@@ -66,7 +67,7 @@ public class MylarUserAnalysisCollector implements IUsageCollector {
 	private ViewUsageCollector viewUsageCollector = new ViewUsageCollector();
 	
 	public MylarUserAnalysisCollector() {
-		viewUsageCollector.setMaxViewsToReport(6);
+		viewUsageCollector.setMaxViewsToReport(NUM_VIEWS_REPORTED);
 	}
 	
 	public String getReportTitle() {
@@ -130,7 +131,7 @@ public class MylarUserAnalysisCollector implements IUsageCollector {
 			int numIncrements = commandUsageCollector.getCommands().getUserCount(id, "org.eclipse.mylar.ui.actions.InterestIncrementAction");
 			int numDecrements = commandUsageCollector.getCommands().getUserCount(id, "org.eclipse.mylar.ui.actions.InterestDecrementAction");
 			if (acceptUser(id) && numTaskActivations > TASK_ACTIVATIONS_THRESHOLD) {
-				report.add("<h4>USER ID: " + id + " (from: " + getStartDate(id) + " to " + getEndDate(id) + ")</h4>");
+				report.add("<h3>USER ID: " + id + " (from: " + getStartDate(id) + " to " + getEndDate(id) + ")</h3>");
 				acceptedUsers++;
 				float baselineRatio = getBaselineRatio(id);
 				float mylarInactiveRatio = getMylarInactiveRatio(id);
@@ -170,7 +171,7 @@ public class MylarUserAnalysisCollector implements IUsageCollector {
 				report.add("Task activations: " + numTaskActivations + ", ");
 				report.add("Interest increments: " + numIncrements
 						+ ", Interest decrements: " + numDecrements + "<br>");
-				report.add("<h4>View Activity</h4>");
+				report.add("<h4>View Activity (top " + NUM_VIEWS_REPORTED + ")</h4>");
 				report.addAll(viewUsageCollector.getSummary(id));
 				report.add(ReportGenerator.SUMMARY_SEPARATOR);
 			} else {

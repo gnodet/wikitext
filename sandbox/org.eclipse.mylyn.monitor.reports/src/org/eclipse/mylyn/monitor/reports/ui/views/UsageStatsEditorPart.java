@@ -154,7 +154,7 @@ public class UsageStatsEditorPart extends EditorPart {
 		        browserLayout.heightHint = 800;
 		        browserLayout.widthHint = 800;
 		        browser.setLayoutData(browserLayout);
-				String htmlText = "<html><body>";
+				String htmlText = "<html><head><LINK REL=STYLESHEET HREF=\"http://eclipse.org/default_style.css\" TYPE=\"text/css\"></head><body>\n";
 				for (String description : summary) htmlText += description;
 				htmlText += "</body></html>";
 				browser.setText(htmlText);

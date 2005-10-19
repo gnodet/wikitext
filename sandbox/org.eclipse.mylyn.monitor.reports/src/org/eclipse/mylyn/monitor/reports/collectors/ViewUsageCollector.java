@@ -144,7 +144,7 @@ public class ViewUsageCollector implements IUsageCollector {
 		Collections.sort(viewUsage, new PercentUsageComparator());
 		int numViewsToReport = 0;
 		for (String viewUsageSummary : viewUsage) {
-			if (numViewsToReport == -1 || numViewsToReport <= maxViewsToReport) {
+			if (numViewsToReport == -1 || numViewsToReport < maxViewsToReport) {
 				summaries.add(viewUsageSummary);
 				numViewsToReport++;
 			}
@@ -165,7 +165,7 @@ public class ViewUsageCollector implements IUsageCollector {
 		summaries.add("<h4>Interest Model</h4>");
 		
 		int numNew = 0;
-		if (usersNumNew.containsKey(userId)) usersNumNew.get(userId);
+		if (usersNumNew.containsKey(userId)) numNew = usersNumNew.get(userId);
 		int numPredicted = 0;
 		if (usersNumPredicted.containsKey(userId)) numPredicted = usersNumPredicted.get(userId);
 		int numInteresting = 0;
@@ -173,7 +173,7 @@ public class ViewUsageCollector implements IUsageCollector {
 		int numDecayed = 0;
 		if (usersNumDecayed.containsKey(userId)) numDecayed = usersNumDecayed.get(userId);
 		int numUnknown = 0;
-		if (usersNumUnknown.containsKey(userId)) numUnknown =usersNumUnknown.get(userId);
+		if (usersNumUnknown.containsKey(userId)) numUnknown = usersNumUnknown.get(userId);
 		
 		float inModel = (numPredicted + numInteresting + numDecayed);
 		float notInModel = numNew;
@@ -181,10 +181,10 @@ public class ViewUsageCollector implements IUsageCollector {
 		summaries.add("In model: " + formatAsPercentage(hitRatio) + "<br>"); 
 		
 		summaries.add("New: " + formatAsPercentage(numNew/numSelections) + " (" + numNew + ")" + "; ");
-		summaries.add("Predicted: " + formatAsPercentage(usersNumPredicted.get(userId)/numSelections) + " (" + numPredicted + ")" + "; ");
-		summaries.add("Interesting: " + formatAsPercentage(usersNumDefault.get(userId)/numSelections) + " (" + numInteresting + ")" + "; ");
-		summaries.add("Decayed: " + formatAsPercentage(usersNumDecayed.get(userId)/numSelections) + " (" + numDecayed + ")" + "; ");
-		summaries.add("Unknown: " + formatAsPercentage(usersNumUnknown.get(userId)/numSelections) + " (" + numUnknown + ")" + "<br>");
+		summaries.add("Predicted: " + formatAsPercentage(numPredicted/numSelections) + " (" + numPredicted + ")" + "; ");
+		summaries.add("Interesting: " + formatAsPercentage(numInteresting/numSelections) + " (" + numInteresting + ")" + "; ");
+		summaries.add("Decayed: " + formatAsPercentage(numDecayed/numSelections) + " (" + numDecayed + ")" + "; ");
+		summaries.add("Unknown: " + formatAsPercentage(numUnknown/numSelections) + " (" + numUnknown + ")" + "<br>");
 		return summaries;		
 	}
 
