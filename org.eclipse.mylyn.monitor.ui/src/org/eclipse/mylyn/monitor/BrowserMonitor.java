@@ -9,12 +9,13 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.hypertext;
+package org.eclipse.mylar.monitor;
 
 import java.lang.reflect.Field;
 
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.mylar.core.AbstractInteractionMonitor;
+import org.eclipse.mylar.core.InteractionEvent;
 import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.LocationEvent;
@@ -31,10 +32,10 @@ import org.eclipse.ui.internal.browser.WebBrowserEditor;
 /**
  * @author Mik Kersten
  */
-public class BrowserTracker extends AbstractInteractionMonitor implements IPartListener, IWindowListener, IPageListener {
+public class BrowserMonitor extends AbstractInteractionMonitor implements IPartListener, IWindowListener, IPageListener {
 
 	private UrlTrackingListener urlTrackingListener = new UrlTrackingListener();
-	private WebBrowserEditor currentBrowserPart = null;
+//	private WebBrowserEditor currentBrowserPart = null;
 		
 	class UrlTrackingListener implements LocationListener {
 
@@ -42,10 +43,18 @@ public class BrowserTracker extends AbstractInteractionMonitor implements IPartL
 			// ignore
 		}
 
-		public void changed(LocationEvent event) { 
-			handleElementSelection(currentBrowserPart, event);
+		public void changed(LocationEvent locationEvent) { 
+		    InteractionEvent interactionEvent = new InteractionEvent(
+		    		InteractionEvent.Kind.SELECTION, 
+		    		"url", 
+		    		locationEvent.location, 
+		    		WebBrowserEditor.WEB_BROWSER_EDITOR_ID, 
+		    		"null", 
+		    		"", 
+		    		0); 
+			MylarPlugin.getDefault().notifyInteractionObserved(interactionEvent); // TODO: move			
 		}
-	}
+	}	
 	
 	@Override
 	protected void handleWorkbenchPartSelection(IWorkbenchPart part, ISelection selection) {
@@ -80,7 +89,6 @@ public class BrowserTracker extends AbstractInteractionMonitor implements IPartL
 
 	
 	private Browser getBrowser(final WebBrowserEditor browserEditor) {
-		currentBrowserPart = browserEditor;
         try { // HACK: using reflection to gain accessibility
             Class browserClass = browserEditor.getClass();
             Field browserField = browserClass.getDeclaredField("webBrowser");
