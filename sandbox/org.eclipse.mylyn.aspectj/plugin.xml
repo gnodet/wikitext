@@ -3,9 +3,4 @@
 <?eclipse version="3.0"?>
 <plugin>
 
-   <extension
-         name="Mylar AspectJ startup"
-         point="org.eclipse.ui.startup">
-   </extension>
-
 </plugin>

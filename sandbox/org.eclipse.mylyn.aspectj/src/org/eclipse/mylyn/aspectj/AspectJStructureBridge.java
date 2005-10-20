@@ -1,3 +1,4 @@
+package org.eclipse.mylar.aspectj;
 ///*******************************************************************************
 // * Copyright (c) 2004 - 2005 University Of British Columbia and others.
 // * All rights reserved. This program and the accompanying materials
