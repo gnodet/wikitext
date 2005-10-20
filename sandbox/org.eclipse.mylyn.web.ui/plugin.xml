@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         id="org.eclipse.mylar.hypertext.context"
+         point="org.eclipse.mylar.core.context">
+      <structureBridge
+            class="org.eclipse.mylar.hypertext.HypertextStructureBridge"
+            name="Hypertext Structure Bridge"/>
+   </extension>
+</plugin>
