@@ -23,10 +23,10 @@ public class WebElementsEditorInput implements IEditorInput {
 	
 	private static final String LABEL_EDITOR = "Web Docs";
 	
-	private IMylarContext context; 
+//	private IMylarContext context; 
 	
 	public WebElementsEditorInput(IMylarContext context) {
-		this.context = context;
+//		this.context = context;
 	}
 	public boolean exists() {
 		return true;

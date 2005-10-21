@@ -8,19 +8,21 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.tasklist;
 
-import java.util.List;
+package org.eclipse.mylar.hypertext.ui.editors;
 
+import org.eclipse.mylar.core.IMylarContext;
+import org.eclipse.mylar.tasklist.IContextEditorFactory;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.part.EditorPart;
 
-public interface ITaskListCategory extends ITaskListElement {
+public class WebElementsEditorFactory implements IContextEditorFactory {
 
-	public List<ITask> getChildren();
-	
-	public void removeTask(ITask task);
-	
-	public boolean isArchive();
+	public EditorPart createEditor() {
+		return new WebElementsEditor();
+	}
 
-	public void setIsArchive(boolean isArchive);
-
+	public IEditorInput createEditorInput(IMylarContext context) {
+		return new WebElementsEditorInput(context);
+	}
 }

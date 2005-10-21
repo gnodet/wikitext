@@ -10,6 +10,6 @@
    </extension>
    <extension
          point="org.eclipse.mylar.tasklist.editors">
-      <editor class="org.eclipse.mylar.hypertext.ui.editors.WebDocsEditor"/>
+      <editorFactory class="org.eclipse.mylar.hypertext.ui.editors.WebElementsEditor"/>
    </extension>
 </plugin>

@@ -28,16 +28,12 @@ import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 import org.eclipse.ui.part.EditorPart;
 
-public class WebDocsEditor extends EditorPart {
+public class WebElementsEditor extends EditorPart {
 
 	private static final String LABEL = "Web Docs";
 	private Composite editorComposite;
 	private ScrolledForm sform;
-	
-	public WebDocsEditor() {
-		setPartName(LABEL);
-	}
-	
+		
 	@Override
 	public void doSave(IProgressMonitor monitor) {
 		// TODO Auto-generated method stub
@@ -53,8 +49,9 @@ public class WebDocsEditor extends EditorPart {
 	@Override
 	public void init(IEditorSite site, IEditorInput input)
 			throws PartInitException {
+		setPartName(LABEL);
+		
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -95,7 +92,7 @@ public class WebDocsEditor extends EditorPart {
 
 	private void createContent(Composite parent, FormToolkit toolkit) {
 		Section section = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR);
-		section.setText("yo");
+		section.setText("xxxxxxx");
 		section.setLayout(new TableWrapLayout());
 		section.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
 		section.addExpansionListener(new IExpansionListener() {
@@ -114,7 +111,7 @@ public class WebDocsEditor extends EditorPart {
 		container.setLayout(layout);
 		container.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
 		
-        Label l = toolkit.createLabel(container, "Description:");
+        Label l = toolkit.createLabel(container, "xxxxxxxxxxxx");
         l.setForeground(toolkit.getColors().getColor(FormColors.TITLE));
 	}
 
