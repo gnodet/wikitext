@@ -36,7 +36,6 @@ public class HypertextStructureBridge implements IMylarStructureBridge {
 	}
 
 	public String getHandleIdentifier(Object object) {
-		// TODO Auto-generated method stub
 		if (object instanceof LocationEvent) {
 			return ((LocationEvent)object).location;
 		} else {
@@ -88,8 +87,7 @@ public class HypertextStructureBridge implements IMylarStructureBridge {
 	}
 
 	public String getContentType(String elementHandle) {
-		// TODO Auto-generated method stub
-		return null;
+		return CONTENT_TYPE;
 	}
 
 	public List<AbstractRelationProvider> getRelationshipProviders() {

@@ -8,4 +8,8 @@
             class="org.eclipse.mylar.hypertext.HypertextStructureBridge"
             name="Hypertext Structure Bridge"/>
    </extension>
+   <extension
+         point="org.eclipse.mylar.tasklist.editors">
+      <editor class="org.eclipse.mylar.hypertext.ui.editors.WebDocsEditor"/>
+   </extension>
 </plugin>

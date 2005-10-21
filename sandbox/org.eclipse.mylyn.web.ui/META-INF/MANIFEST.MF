@@ -10,5 +10,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.browser,
  org.eclipse.mylar.core,
  org.eclipse.mylar.ui,
- org.eclipse.core.resources
+ org.eclipse.core.resources,
+ org.eclipse.mylar.tasklist,
+ org.eclipse.ui.forms
 Eclipse-AutoStart: true
