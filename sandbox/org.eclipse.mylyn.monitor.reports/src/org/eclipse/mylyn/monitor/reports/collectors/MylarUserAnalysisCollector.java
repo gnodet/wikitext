@@ -15,25 +15,22 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.eclipse.mylar.core.InteractionEvent;
 import org.eclipse.mylar.core.util.DateUtil;
-import org.eclipse.mylar.monitor.reports.IUsageCollector;
+import org.eclipse.mylar.monitor.reports.AbstractMylarUsageCollector;
 import org.eclipse.mylar.monitor.reports.ReportGenerator;
 import org.eclipse.mylar.tasklist.ui.actions.TaskActivateAction;
-import org.eclipse.mylar.tasklist.ui.actions.TaskDeactivateAction;
 
 /**
  * Delagates to other collectors for additional info.
  * 
  * @author Mik Kersten
  */
-public class MylarUserAnalysisCollector implements IUsageCollector {
+public class MylarUserAnalysisCollector extends AbstractMylarUsageCollector {
 
 	public static final int JAVA_SELECTIONS_THRESHOLD = 3000;
 	private static final int MYLAR_SELECTIONS_THRESHOLD = 3000;
@@ -48,10 +45,6 @@ public class MylarUserAnalysisCollector implements IUsageCollector {
 	final List<Integer> usersImproved = new ArrayList<Integer>();
 	final List<Integer> usersDegraded = new ArrayList<Integer>();
 		
-	private Set<Integer> userIds = new HashSet<Integer>();
-	private Set<Integer> mylarInactiveUserIds = new HashSet<Integer>();
-	private Set<Integer> mylarUserIds = new HashSet<Integer>();
-	
 	private Map<Integer, Integer> numJavaEdits = new HashMap<Integer, Integer>();
 	private Map<Integer, Date> startDates = new HashMap<Integer, Date>();
 	private Map<Integer, Date> endDates = new HashMap<Integer, Date>();
@@ -63,7 +56,6 @@ public class MylarUserAnalysisCollector implements IUsageCollector {
 	private Map<Integer, Integer> mylarSelections = new HashMap<Integer, Integer>();
 	private Map<Integer, Integer> mylarEdits = new HashMap<Integer, Integer>();
 	
-	private CommandUsageCollector commandUsageCollector = new CommandUsageCollector();
 	private ViewUsageCollector viewUsageCollector = new ViewUsageCollector();
 	
 	public MylarUserAnalysisCollector() {
@@ -75,22 +67,10 @@ public class MylarUserAnalysisCollector implements IUsageCollector {
 	}
 	
 	public void consumeEvent(InteractionEvent event, int userId, String phase) {
-		commandUsageCollector.consumeEvent(event, userId, phase);
+		super.consumeEvent(event, userId, phase);
 		viewUsageCollector.consumeEvent(event, userId, phase);
 		if (!startDates.containsKey(userId)) startDates.put(userId, event.getDate());
 		endDates.put(userId, event.getDate());
-		userIds.add(userId);
-		
-		// TODO: refactor
-		if (event.getKind().equals(InteractionEvent.Kind.COMMAND)) {
-			if (event.getOriginId().equals(TaskActivateAction.ID)) {
-				mylarUserIds.add(userId);
-				mylarInactiveUserIds.remove(userId);
-			} else if (event.getOriginId().equals(TaskDeactivateAction.ID)) {
-//				mylarUserIds.remove(userId);
-				mylarInactiveUserIds.add(userId);
-			}
-		}
 		 
 		if (event.getKind().equals(InteractionEvent.Kind.EDIT)
 				&& (event.getOriginId().indexOf("java") != -1
