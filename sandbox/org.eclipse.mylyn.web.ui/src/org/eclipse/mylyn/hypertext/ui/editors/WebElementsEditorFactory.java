@@ -25,4 +25,8 @@ public class WebElementsEditorFactory implements IContextEditorFactory {
 	public IEditorInput createEditorInput(IMylarContext context) {
 		return new WebElementsEditorInput(context);
 	}
+
+	public String getTitle() {
+		return "Web Docs";
+	}
 }
