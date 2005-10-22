@@ -38,7 +38,7 @@ public class MonitorTest extends TestCase {
     
     public void testEnablement() {
     	File monitorFile = MylarMonitorPlugin.getDefault().getMonitorFile();
-    	MylarMonitorPlugin.getDefault().stopMonitoring();
+    	assertFalse(MylarMonitorPlugin.getDefault().isMonitoringEnabled());
         generateSelection();
         assertEquals(0, logger.getHistoryFromFile(monitorFile).size());
         

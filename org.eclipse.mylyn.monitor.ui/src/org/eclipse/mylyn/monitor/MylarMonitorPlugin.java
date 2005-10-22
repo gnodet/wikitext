@@ -89,7 +89,7 @@ public class MylarMonitorPlugin extends AbstractUIPlugin implements IStartup {
 	public static final String DEFAULT_UPLAOD_SCRIPT_QUESTIONNAIRE = "questionnaire.cgi";
 	
 	private String customizingPlugin = null;
-	private boolean monitoringEnabled = true; 
+	private boolean monitoringEnabled = false;
 	
 	public static final String UI_PLUGIN_ID = "org.eclipse.mylar.ui";
     public static final String MONITOR_FILE_NAME = "workspace";
