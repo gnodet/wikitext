@@ -34,11 +34,10 @@ public class MonitorTest extends TestCase {
     private InteractionEventLogger logger = MylarMonitorPlugin.getDefault().getInteractionLogger();
     private SelectionMonitor selectionMonitor = new SelectionMonitor();
     private KeybindingCommandMonitor commandMonitor = new KeybindingCommandMonitor();
-    
-    
+        
     public void testEnablement() {
     	File monitorFile = MylarMonitorPlugin.getDefault().getMonitorFile();
-    	assertFalse(MylarMonitorPlugin.getDefault().isMonitoringEnabled());
+    	MylarMonitorPlugin.getDefault().stopMonitoring();
         generateSelection();
         assertEquals(0, logger.getHistoryFromFile(monitorFile).size());
         
