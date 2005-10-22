@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.monitor;
+package org.eclipse.mylar.monitor.monitors;
 
 import java.lang.reflect.Field;
 

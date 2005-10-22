@@ -9,16 +9,20 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.monitor;
+package org.eclipse.mylar.monitor.monitors;
 
-import java.io.File;
-
-import org.eclipse.jface.wizard.IWizardPage;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.mylar.core.InteractionEvent;
+import org.eclipse.mylar.core.MylarPlugin;
+import org.eclipse.mylar.core.internal.IActionExecutionListener;
 
 /**
  * @author Mik Kersten
  */
-public interface IMonitorQuestionnairePage extends IWizardPage {
-	
-	public abstract File createFeedbackFile();
+public class ActionExecutionMonitor implements IActionExecutionListener {
+    	
+	public void actionObserved(IAction action) {
+		InteractionEvent interactionEvent = InteractionEvent.makeCommand(action.getId(), "");
+		MylarPlugin.getDefault().notifyInteractionObserved(interactionEvent);
+	}
 }

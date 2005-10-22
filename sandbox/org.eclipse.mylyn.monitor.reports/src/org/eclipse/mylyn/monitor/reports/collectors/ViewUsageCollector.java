@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.mylar.core.InteractionEvent;
-import org.eclipse.mylar.monitor.SelectionMonitor;
+import org.eclipse.mylar.monitor.monitors.SelectionMonitor;
 import org.eclipse.mylar.monitor.reports.IUsageCollector;
 import org.eclipse.mylar.tasklist.ui.actions.TaskActivateAction;
 import org.eclipse.mylar.tasklist.ui.actions.TaskDeactivateAction;

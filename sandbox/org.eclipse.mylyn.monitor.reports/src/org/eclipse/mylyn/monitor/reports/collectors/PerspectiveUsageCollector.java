@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.mylar.core.InteractionEvent;
-import org.eclipse.mylar.monitor.PerspectiveChangeMonitor;
+import org.eclipse.mylar.monitor.monitors.PerspectiveChangeMonitor;
 import org.eclipse.mylar.monitor.reports.IUsageCollector;
 
 /**

@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.monitor;
+package org.eclipse.mylar.monitor.ui;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.mylar.monitor.MylarMonitorPlugin;
 import org.eclipse.swt.graphics.Image;
 
 /**
