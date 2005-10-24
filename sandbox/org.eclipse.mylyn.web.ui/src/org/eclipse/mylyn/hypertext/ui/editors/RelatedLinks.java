@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.tasklist;
+package org.eclipse.mylar.hypertext.ui.editors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,20 +20,25 @@ import java.util.List;
  * @author Ken Sueda
  */
 public class RelatedLinks {
+	
 	private List<String> links;
 	
 	public RelatedLinks() {
 		links = new ArrayList<String>();			
-	}		
+	}	
+	
 	public void add(String link) {
 		links.add(link);
-	}			
+	}
+	
 	public List<String> getLinks() {
 		return links;
 	}
+	
 	public void remove(String link) {
 		links.remove(link);
 	}
+	
 	public void clear() {
 		links.clear();
 	}
