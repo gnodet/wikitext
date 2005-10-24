@@ -46,7 +46,7 @@ public class UserAnalysisAction implements IViewActionDelegate {
     		ViewPluginAction objectAction = (ViewPluginAction)action;
     		final List<File> files = UsageSummaryAction.getStatsFilesFromSelection(objectAction);
         	if (files.isEmpty()) {
-        		files.add(MylarMonitorPlugin.getDefault().getMonitorFile());
+        		files.add(MylarMonitorPlugin.getDefault().getMonitorLogFile());
         	}
         	Workbench.getInstance().getDisplay().asyncExec(new Runnable() {
     			public void run() {

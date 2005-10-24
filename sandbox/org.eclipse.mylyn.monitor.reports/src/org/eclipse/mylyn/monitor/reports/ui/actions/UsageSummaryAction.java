@@ -92,7 +92,7 @@ public class UsageSummaryAction implements IViewActionDelegate {
 		Collections.sort(files); // ensure that they are sorted by date
 		
 		if (files.isEmpty()) {
-			files.add(MylarMonitorPlugin.getDefault().getMonitorFile());
+			files.add(MylarMonitorPlugin.getDefault().getMonitorLogFile());
 		}
 		return files;
 	}
