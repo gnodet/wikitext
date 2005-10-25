@@ -14,7 +14,11 @@ package org.eclipse.mylar.hypertext.ui.editors;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.Action;
@@ -22,33 +26,32 @@ import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.ColumnWeightData;
-import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.IColorProvider;
+import org.eclipse.jface.viewers.IOpenListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
+import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.TableLayout;
-import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.jface.viewers.OpenEvent;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerSorter;
+import org.eclipse.mylar.core.IMylarElement;
+import org.eclipse.mylar.core.IMylarStructureBridge;
+import org.eclipse.mylar.core.MylarPlugin;
+import org.eclipse.mylar.hypertext.HypertextStructureBridge;
 import org.eclipse.mylar.tasklist.TaskListImages;
+import org.eclipse.mylar.ui.MylarImages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseTrackListener;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
@@ -66,15 +69,16 @@ import org.eclipse.ui.part.EditorPart;
 
 public class WebElementsEditor extends EditorPart {
 
-	private static final String LABEL = "Web Docs";
+	private static final String LABEL = "Web Documents in Context";
 	private Composite editorComposite;
 	private ScrolledForm form;
 		
-	private Table table;
-	private TableViewer tableViewer;
+	private Tree linksTree;
+	private TreeViewer treeViewer;
 	private List<String> links;
 	private RelatedLinksContentProvider contentProvider;
-	
+	private Map<String, List<String>> sitesMap = new HashMap<String, List<String>>();
+		
 	private Action add;
 	private Action delete;
 
@@ -91,7 +95,7 @@ public class WebElementsEditor extends EditorPart {
 
 	@Override
 	public void doSaveAs() {
-
+		
 	}
 
 	@SuppressWarnings("deprecation")
@@ -172,51 +176,66 @@ public class WebElementsEditor extends EditorPart {
 	}
 
 	private void createTableViewer(Composite parent, FormToolkit toolkit) {
-		String[] columnNames = {"Links"};	
-		tableViewer = new TableViewer(table);
-		tableViewer.setColumnProperties(columnNames);
+//		String[] columnNames = {"Links"};	
+		treeViewer = new TreeViewer(linksTree);
+//		treeViewer.setColumnProperties(columnNames);
 		
-		CellEditor[] editors = new CellEditor[columnNames.length];
+//		CellEditor[] editors = new CellEditor[columnNames.length];
+//		TextCellEditor textEditor = new TextCellEditor(linksTree);
+//		((Text) textEditor.getControl()).setTextLimit(50);
+//		((Text) textEditor.getControl()).setOrientation(SWT.LEFT_TO_RIGHT);
+//		editors[0] = textEditor;		
+//		tableViewer.setCellEditors(editors);
+//		tableViewer.setCellModifier(new RelatedLinksCellModifier());
 		
-		TextCellEditor textEditor = new TextCellEditor(table);
-		((Text) textEditor.getControl()).setTextLimit(50);
-		((Text) textEditor.getControl()).setOrientation(SWT.LEFT_TO_RIGHT);
-		editors[0] = textEditor;		
-		
-		tableViewer.setCellEditors(editors);
-		tableViewer.setCellModifier(new RelatedLinksCellModifier());
 		contentProvider = new RelatedLinksContentProvider();
-		tableViewer.setContentProvider(contentProvider);
-		tableViewer.setLabelProvider(new RelatedLinksLabelProvider());
+		treeViewer.setContentProvider(contentProvider);
+		treeViewer.setLabelProvider(new RelatedLinksLabelProvider());
+		treeViewer.addOpenListener(new IOpenListener() {
+			public void open(OpenEvent event) {
+				String url = (String) ((IStructuredSelection)treeViewer.getSelection()).getFirstElement();
+				if (url != null) openURLinBrowser(url);
+			}
+		});
 		
-		links = new ArrayList<String>();
-		links.add("http://eclipse.org/mylar");
-		tableViewer.setInput(links);
+		treeViewer.setInput(getWebDocs());
+		treeViewer.expandAll();
 		defineActions();
 		hookContextMenu();
 	}	
 	
-	private void createTable(Composite parent, FormToolkit toolkit) {	
-		table = toolkit.createTable(parent, SWT.NONE );		
-		TableColumn col1 = new TableColumn(table, SWT.NULL);
-		TableLayout tlayout = new TableLayout();
-		tlayout.addColumnData(new ColumnWeightData(0,0,false));
-		table.setLayout(tlayout);
-		TableWrapData wd = new TableWrapData(TableWrapData.FILL_GRAB);
-		wd.heightHint = 60;
-		wd.grabVertical = true;
-		table.setLayoutData(wd);
-		table.setHeaderVisible(false);
-		col1.addSelectionListener(new SelectionAdapter() {			
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				tableViewer.setSorter(new RelatedLinksTableSorter(
-						RelatedLinksTableSorter.LABEL));
+	private List<String> getWebDocs() {
+		links = new ArrayList<String>();
+		Set<IMylarElement> elements = MylarPlugin.getContextManager().getInterestingResources(MylarPlugin.getContextManager().getActiveContext());
+		for (IMylarElement element : elements) {
+			if (element.getContentType().equals(HypertextStructureBridge.CONTENT_TYPE)) {
+				links.add(element.getHandleIdentifier());
 			}
-		});			
-		table.addMouseTrackListener(new MouseTrackListener() {
+		}
+		return links;
+	}
+
+	private void createTable(Composite parent, FormToolkit toolkit) {	
+		linksTree = toolkit.createTree(parent, SWT.NONE );		
+//		TreeColumn col1 = new TreeColumn(linksTree, SWT.NULL);
+//		TableLayout tlayout = new TableLayout();
+//		tlayout.addColumnData(new ColumnWeightData(0,0,false));
+//		linksTree.setLayout(tlayout);
+		TableWrapData wd = new TableWrapData(TableWrapData.FILL_GRAB);
+		wd.heightHint = 350;
+		wd.grabVertical = true;
+		linksTree.setLayoutData(wd);
+		linksTree.setHeaderVisible(false);
+//		col1.addSelectionListener(new SelectionAdapter() {			
+//			@Override
+//			public void widgetSelected(SelectionEvent e) {
+//				treeViewer.setSorter(new RelatedLinksTableSorter(
+//						RelatedLinksTableSorter.LABEL));
+//			}
+//		});			
+		linksTree.addMouseTrackListener(new MouseTrackListener() {
 			public void mouseEnter(MouseEvent e) {
-				if(!((RelatedLinksContentProvider)tableViewer.getContentProvider()).isEmpty()) {
+				if(!((RelatedLinksContentProvider)treeViewer.getContentProvider()).isEmpty()) {
 					Cursor hyperlinkCursor = new Cursor(Display.getCurrent(), SWT.CURSOR_HAND);
 					Display.getCurrent().getCursorControl().setCursor(hyperlinkCursor);
 				}				
@@ -228,7 +247,7 @@ public class WebElementsEditor extends EditorPart {
 			}
 
 			public void mouseHover(MouseEvent e){
-				if(!((RelatedLinksContentProvider)tableViewer.getContentProvider()).isEmpty()) {
+				if(!((RelatedLinksContentProvider)treeViewer.getContentProvider()).isEmpty()) {
 					Cursor hyperlinkCursor = new Cursor(Display.getCurrent(), SWT.CURSOR_HAND);
 					Display.getCurrent().getCursorControl().setCursor(hyperlinkCursor);
 				}
@@ -257,11 +276,31 @@ public class WebElementsEditor extends EditorPart {
 //		});
 //	}	
 	
-	private class RelatedLinksContentProvider implements
-			IStructuredContentProvider {
+	private class RelatedLinksContentProvider implements IStructuredContentProvider, ITreeContentProvider {
 
-		public Object[] getElements(Object inputElement) {
-			return links.toArray();
+		@SuppressWarnings("unchecked")
+		public Object[] getElements(Object parent) {
+			sitesMap.clear();
+            if (parent instanceof ArrayList) {
+            	List<String> webDocs = (ArrayList<String>)parent;
+    			IMylarStructureBridge bridge = MylarPlugin.getDefault().getStructureBridge(HypertextStructureBridge.CONTENT_TYPE);
+    			Set<String> sites = new HashSet<String>();
+    			for (String link : webDocs) {
+    				String webSite = bridge.getParentHandle(link);
+    				if (webSite != null) {
+    					sites.add(webSite);
+    					List<String> pages = sitesMap.get(webSite);
+    					if (pages == null) {
+    						pages = new ArrayList<String>();
+    						sitesMap.put(webSite, pages);
+    					}
+    					pages.add(link);
+    				}
+    			}
+    			return sites.toArray();
+            } else {
+            	return getChildren(parent);
+            }
 		}
 
 		public void dispose() {
@@ -273,39 +312,29 @@ public class WebElementsEditor extends EditorPart {
 		}
 
 		public boolean isEmpty() {
-			return links.isEmpty();
-		}
-	}
-
-	private class RelatedLinksTableSorter extends ViewerSorter {
-
-		public final static int LABEL = 1;
-
-		private int criteria;
-
-		public RelatedLinksTableSorter(int criteria) {
-			super();
-			this.criteria = criteria;
+			return false;
 		}
 
-		@Override
-		public int compare(Viewer viewer, Object o1, Object o2) {
-			String s1 = (String) o1;
-			String s2 = (String) o2;
-			switch (criteria) {
-			case LABEL:
-				return compareLabel(s1, s2);
-			default:
-				return 0;
-			}
+		public Object[] getChildren(Object parentElement) {
+			if (parentElement instanceof String) {
+				String site = (String)parentElement;
+				List<String> pages = sitesMap.get(site);
+				if (pages != null) return pages.toArray();
+			}	
+			return null;
 		}
 
-		protected int compareLabel(String s1, String s2) {
-			return s1.compareTo(s2);
+		public Object getParent(Object element) {
+			return null;
 		}
 
-		public int getCriteria() {
-			return criteria;
+		public boolean hasChildren(Object parentElement) {
+			if (parentElement instanceof String) {
+				String site = (String)parentElement;
+				List<String> pages = sitesMap.get(site);
+				return pages != null && pages.size() > 0;
+			}	
+			return false;
 		}
 	}
 
@@ -327,12 +356,11 @@ public class WebElementsEditor extends EditorPart {
 	}
 
 	private void removeLinkFromTable() {
-		throw new RuntimeException("unimplemented");
-//		String url = (String) ((IStructuredSelection) tableViewer
-//				.getSelection()).getFirstElement();
-//		if (url != null) {
-//			tableViewer.remove(url);
-//		}
+		String url = (String) ((IStructuredSelection)treeViewer.getSelection()).getFirstElement();
+		if (url != null) {
+			MylarPlugin.getContextManager().delete(MylarPlugin.getContextManager().getElement(url));
+		}
+		treeViewer.setInput(getWebDocs());
 	}
 
 	private void defineActions() {
@@ -366,8 +394,8 @@ public class WebElementsEditor extends EditorPart {
 				manager.add(delete);
 			}
 		});
-		Menu menu = menuMgr.createContextMenu(tableViewer.getControl());
-		tableViewer.getControl().setMenu(menu);
+		Menu menu = menuMgr.createContextMenu(treeViewer.getControl());
+		treeViewer.getControl().setMenu(menu);
 		// getSite().registerContextMenu(menuMgr, tableViewer);
 	}
 
@@ -398,42 +426,9 @@ public class WebElementsEditor extends EditorPart {
 		}
 	}
 	
-	private class RelatedLinksCellModifier implements ICellModifier, IColorProvider {
-		RelatedLinksCellModifier() {
-			super();
-
-		}
-		public boolean canModify(Object element, String property) {
-			return true;
-		}
-		public Object getValue(Object element, String property) {			
-			Object res = null;
-			if (element instanceof String) {								
-				String url = (String) element;
-				openURLinBrowser(url);
-				res = (String) element;
-			}			
-			return res;
-		}
-		public void modify(Object element, String property, Object value) {			
-			return;
-		}
-		
-		public Color getForeground(Object element) {
-			return HYPERLINK;
-		}
-		
-		public Color getBackground(Object element) {
-			return null;
-		}
-	}
-	
 	private class RelatedLinksLabelProvider extends LabelProvider implements
 			ITableLabelProvider, IColorProvider {
 		
-		public RelatedLinksLabelProvider() {
-			// don't have any initialization to do
-		}
 		public String getColumnText(Object obj, int columnIndex) {
 			String result = "";
 			if (obj instanceof String) {
@@ -447,9 +442,16 @@ public class WebElementsEditor extends EditorPart {
 			}
 			return result;
 		}
-		public Image getColumnImage(Object obj, int columnIndex) {			
+		
+		public Image getColumnImage(Object obj, int columnIndex) {
+			if (columnIndex == 0) {
+				if (!sitesMap.containsKey(obj)) {
+					return MylarImages.getImage(MylarImages.WEB_DOCUMENT);
+				}
+			} 
 			return null;
 		}
+		
 		public Color getForeground(Object element) {
 			return HYPERLINK;
 		}
@@ -458,4 +460,66 @@ public class WebElementsEditor extends EditorPart {
 			return null;
 		}
 	}
+	
+//	private class RelatedLinksCellModifier implements ICellModifier, IColorProvider {
+//		RelatedLinksCellModifier() {
+//			super();
+//
+//		}
+//		public boolean canModify(Object element, String property) {
+//			return true;
+//		}
+//		public Object getValue(Object element, String property) {			
+//			Object res = null;
+//			if (element instanceof String) {								
+//				String url = (String) element;
+//				openURLinBrowser(url);
+//				res = (String) element;
+//			}			
+//			return res;
+//		}
+//		public void modify(Object element, String property, Object value) {			
+//			return;
+//		}
+//		
+//		public Color getForeground(Object element) {
+//			return HYPERLINK;
+//		}
+//		
+//		public Color getBackground(Object element) {
+//			return null;
+//		}
+//	}
+
+//	private class RelatedLinksTableSorter extends ViewerSorter {
+	//
+//			public final static int LABEL = 1;
+	//
+//			private int criteria;
+	//
+//			public RelatedLinksTableSorter(int criteria) {
+//				super();
+//				this.criteria = criteria;
+//			}
+	//
+//			@Override
+//			public int compare(Viewer viewer, Object o1, Object o2) {
+//				String s1 = (String) o1;
+//				String s2 = (String) o2;
+//				switch (criteria) {
+//				case LABEL:
+//					return compareLabel(s1, s2);
+//				default:
+//					return 0;
+//				}
+//			}
+	//
+//			protected int compareLabel(String s1, String s2) {
+//				return s1.compareTo(s2);
+//			}
+	//
+//			public int getCriteria() {
+//				return criteria;
+//			}
+//		}
 }

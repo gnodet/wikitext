@@ -21,6 +21,8 @@ import org.eclipse.mylar.core.IMylarStructureBridge;
 import org.eclipse.swt.browser.LocationEvent;
 
 /**
+ * TODO: there is schitzophrenia between content types and protocols
+ * 
  * @author Mik Kersten
  */
 public class HypertextStructureBridge implements IMylarStructureBridge {
@@ -35,6 +37,10 @@ public class HypertextStructureBridge implements IMylarStructureBridge {
 		return CONTENT_TYPE;
 	}
 
+	public String getContentType(String elementHandle) {
+		return CONTENT_TYPE;
+	}
+	
 	public String getHandleIdentifier(Object object) {
 		if (object instanceof LocationEvent) {
 			return ((LocationEvent)object).location;
@@ -44,12 +50,20 @@ public class HypertextStructureBridge implements IMylarStructureBridge {
 	}
 
 	public Object getObjectForHandle(String handle) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public String getParentHandle(String handle) {
-		// TODO Auto-generated method stub
+		if (handle == null) return null;
+		int protocolEnd = handle.indexOf("//")+2;
+		if (protocolEnd != -1) {
+			String withoutProtocol = handle.substring(protocolEnd);
+			int siteEnd = withoutProtocol.indexOf("/");
+			if (siteEnd != -1) { 
+				String site = handle.substring(0, protocolEnd + siteEnd);
+				return site;
+			}
+		}
 		return null;
 	}
 
@@ -59,35 +73,29 @@ public class HypertextStructureBridge implements IMylarStructureBridge {
 	}
 
 	public boolean canBeLandmark(String handle) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public boolean acceptsObject(Object object) {
 		if (object instanceof LocationEvent) {
-			return true;
+			LocationEvent event = (LocationEvent)object;
+			return event.location.startsWith("http");
 		} else { 
 			return false;
 		}
 	}
 
 	public boolean canFilter(Object element) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public boolean isDocument(String handle) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	public String getHandleForOffsetInObject(Object resource, int offset) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	public String getContentType(String elementHandle) {
-		return CONTENT_TYPE;
 	}
 
 	public List<AbstractRelationProvider> getRelationshipProviders() {
