@@ -11,6 +11,7 @@
       </taskHandler>
    </extension> 
    
+   <!--
    <extension point="org.eclipse.ui.viewActions"> 
 		<viewContribution 
 			id="org.eclipse.mylar.jira.ui.tasklist.actions" 
@@ -21,12 +22,13 @@
             icon="icons/eview16/icons-task-jira.gif"
             id="org.eclipse.mylar.bugzilla.tasklist.addExisting"
             label="Add Existing Jira Report"
-            menubarPath="jira"
+            menubarPath="reports"
             style="push"
             tooltip="Add Existing Jira Report"> 
   			</action>
 	    </viewContribution> 
    </extension>
+   -->
 
    <extension point="org.eclipse.ui.views"> 
 	  <view name="Context Tree"

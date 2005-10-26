@@ -95,7 +95,7 @@ public class JavaContextMarkupProvider implements IMarkupProvider {
 			
 			if (memberMylarElement != null){
 				
-				IDegreeOfInterest degreeOfInterest = memberMylarElement.getDegreeOfInterest();
+				IDegreeOfInterest degreeOfInterest = memberMylarElement.getInterest();
 				if(!degreeOfInterest.isInteresting() && !degreeOfInterest.isLandmark()){
 					return null;
 				}

@@ -68,7 +68,7 @@ public class UsageSummaryAction implements IViewActionDelegate {
     					IEditorInput input = new UsageStatsEditorInput(files, generator);
     					page.openEditor(input, MylarReportsPlugin.REPORT_SUMMARY_ID);    					
     				} catch (PartInitException ex) {
-    					MylarPlugin.log(ex, "coudln't open summary editor");
+    					MylarPlugin.log(ex, "couldn't open summary editor");
     				}
     			}
     		});

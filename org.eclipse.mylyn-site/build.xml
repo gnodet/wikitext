@@ -1,26 +1,11 @@
 <?xml version="1.0" ?>
 <!-- writen for Ant 1.5.1 -->
-<project name="org.eclipse.aspectj.updatesite" default="feature-pack">
+<project name="org.eclipse.mylar-site" default="feature-pack">
 
-<!--
-
-This is the master build file that will build all the subprojects in turn
-and create a packaged AJDT release.
-
-The properties specified here override those in the subproject build files when
-running a master build. 
-
-The key targets are:
-* clean (obvious),
-* ajdejars (which recreates the jars in the ajde plugin from an aspectj
-  distribution
-* update-site which builds everything and creates an update-site
-* publish, which uploads the update-site to ajdt/dev/update on eclipse.org
-* release, which uploads the update-site to ajdt/update on eclipse.org
-
-to run the last two targets you need an account on dev.eclipse.org
--->
-
+<!-- copied from AJDT project -->
+	
+<description>Creates an update site structure for Mylar</description>
+	
 <property name="cctimestamp" value="DEVELOPMENT" /> <!-- set by CruiseControl -->
 <property name="ajdt.version.file" location="ajdtbuildversion.txt" /> <!-- set by CruiseControl -->
 <property name="aspectj.feature.version" value="1.3.0.${cctimestamp}" />
@@ -33,10 +18,6 @@ to run the last two targets you need an account on dev.eclipse.org
 	
 <property name="temp.folder" value="temp-folder" />
 
-<description>
-Creates an update site structure for AspectJ
-</description>
-
 <target name="init">
   <mkdir dir="dist"/>
   <mkdir dir="fpack_dist"/>
@@ -47,25 +28,13 @@ Creates an update site structure for AspectJ
 </target>
 
 <target name="clean" depends="init" >
-  <delete dir="dist"/>
-  <delete dir="fpack_dist"/>
-  <ant dir="../org.aspectj.runtime" inheritAll="true" target="clean" />
-  <ant dir="../org.aspectj.weaver" inheritAll="true" target="clean" />
-  <ant dir="../org.aspectj.ajde" inheritAll="true" target="clean" />
-  <ant dir="../org.eclipse.ajdt.core" inheritAll="true" target="clean"/>
-  <ant dir="../org.eclipse.ajdt.ui" inheritAll="true" target="clean"/>
-  <ant dir="../org.eclipse.ajdt.examples" inheritAll="true" target="clean"/>
-  <ant dir="../org.eclipse.aspectj" inheritAll="true" target="clean"/>
-  <ant dir="../org.eclipse.aspectj.feature" inheritAll="true" target="clean"/>
-  <ant dir="../org.eclipse.contribution.visualiser" inheritAll="true" target="clean"/>
-  <ant dir="../org.eclipse.contribution.visualiser.tests" inheritAll="true" target="clean"/>
-  <ant dir="../org.eclipse.ajdt.core.tests" inheritAll="true" target="clean"/>
-  <ant dir="../org.eclipse.ajdt.ui.tests" inheritAll="true" target="clean"/>
-<!--  <ant dir="../org.eclipse.ajdt.tests.performance" inheritAll="true" target="clean"/> -->
-  <ant dir="../org.eclipse.contribution.xref.core" inheritAll="true" target="clean"/>
-  <ant dir="../org.eclipse.contribution.xref.core.tests" inheritAll="true" target="clean"/>
-  <ant dir="../org.eclipse.contribution.xref.ui" inheritAll="true" target="clean"/>
-  <ant dir="../org.eclipse.contribution.xref.ui.tests" inheritAll="true" target="clean"/>
+  	<delete dir="dist"/>
+  	<delete dir="fpack_dist"/>
+  	<ant dir="../org.aspectj.mylar.bugs" inheritAll="true" target="clean"/>
+  	<ant dir="../org.aspectj.mylar.bugs" inheritAll="true" target="clean"/>
+	<ant dir="../org.aspectj.mylar.bugs" inheritAll="true" target="clean"/>
+  <ant dir="../org.aspectj.mylar.bugs" inheritAll="true" target="clean"/>
+	
 </target>
 
 	

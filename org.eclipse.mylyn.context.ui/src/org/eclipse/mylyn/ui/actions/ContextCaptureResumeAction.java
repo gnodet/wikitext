@@ -9,56 +9,33 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.tasklist.ui.actions;
+package org.eclipse.mylar.ui.actions;
 
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.mylar.core.MylarPlugin;
-import org.eclipse.mylar.tasklist.ITask;
-import org.eclipse.mylar.tasklist.MylarTasklistPlugin;
-import org.eclipse.mylar.tasklist.TaskListImages;
 import org.eclipse.mylar.tasklist.ui.views.TaskListView;
 import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
 
 /**
- * @author Mik Kersten and Ken Sueda
+ * @author Mik Kersten
  */
-public class TaskActivateAction extends Action implements IViewActionDelegate {
-	
-	public static final String ID = "org.eclipse.mylar.tasklist.actions.context.activate";
-	
-	public ITask task = null;
-	
-	public TaskActivateAction() {
-		setId(ID);
-		setText("Activate");
-		setImageDescriptor(TaskListImages.TASK_ACTIVE);
-	}
-	
+public class ContextCaptureResumeAction implements IViewActionDelegate {
+
 	public void init(IViewPart view) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	public void run() {	
-		MylarPlugin.getContextManager().actionObserved(this, Boolean.TRUE.toString());
-		run(TaskListView.getDefault().getSelectedTask());
-	}
-	
-	public void run(ITask task) {
-		if (task != null) {
-			MylarTasklistPlugin.getTaskListManager().activateTask(task);
-		}
-	}
-	
 	public void run(IAction action) {
-		run();
+		MylarPlugin.getContextManager().setContextCapturePaused(false);
+		TaskListView.getDefault().indicatePaused(false);
 	}
 
 	public void selectionChanged(IAction action, ISelection selection) {
 		// TODO Auto-generated method stub
-		
+
 	}
+
 }

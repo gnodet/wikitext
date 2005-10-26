@@ -55,7 +55,7 @@ public class TaskscapeGraphContentProvider implements IGraphContentProvider {
 
     public double getWeight(Object rel) {
         if (rel instanceof IMylarRelation) {
-            return ((IMylarRelation)rel).getDegreeOfInterest().getValue();
+            return ((IMylarRelation)rel).getInterest().getValue();
         } else {
             return 0;
         }
