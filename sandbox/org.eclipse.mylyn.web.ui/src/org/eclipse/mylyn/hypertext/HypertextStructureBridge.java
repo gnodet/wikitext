@@ -78,8 +78,9 @@ public class HypertextStructureBridge implements IMylarStructureBridge {
 
 	public boolean acceptsObject(Object object) {
 		if (object instanceof LocationEvent) {
-			LocationEvent event = (LocationEvent)object;
-			return event.location.startsWith("http");
+			return true;
+//			LocationEvent event = (LocationEvent)object;
+//			return event.location.startsWith("http");
 		} else { 
 			return false;
 		}
