@@ -40,10 +40,15 @@ public class ReportGenerator {
 	private UsageStatisticsSummary lastParsedSummary = null;
 	private Set<Integer> userIds = new HashSet<Integer>();	
 	private List<IUsageCollector> collectors;
+	private List<IUsageScanner> scanners;
 	
 	public ReportGenerator(InteractionEventLogger logger, List<IUsageCollector> collectors) {
 		this.logger = logger;
 		this.collectors = collectors;
+	}
+	
+	public void setScanners( List<IUsageScanner> scanners ) {
+		this.scanners = scanners;
 	}
 	
 	public UsageStatisticsSummary getStatisticsFromInteractionHistory(File source) {
@@ -120,36 +125,101 @@ public class ReportGenerator {
 		}
 		
 		public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-			monitor.beginTask(JOB_LABEL, sources.size());
+
 			UsageStatisticsSummary statistics = new UsageStatisticsSummary();
+			Map<Integer, Map<String, InteractionEventSummary>> summaryMap = new HashMap<Integer, Map<String, InteractionEventSummary>>();
+			
+			Map<Integer, List<File>> filesPerUser = new HashMap<Integer, List<File>>();
 			try {
-				Map<Integer, Map<String, InteractionEventSummary>> summaryMap = new HashMap<Integer, Map<String, InteractionEventSummary>>();
-		        
-				for (File source : sources) {
-			        List<InteractionEvent> events = this.generator.logger.getHistoryFromFile(source);
-		        	for (InteractionEvent event : events) {
-		        		String phase = getPhase(source);
-		        		int userId = getUserId(source);
-		        		userIds.add(userId);
-			        	if (event.getKind().isUserEvent()) {  // TODO: some collectors may want non-user events
-			        		for (IUsageCollector collector : this.generator.collectors) {
-			        			collector.consumeEvent(event, userId, phase);
-			        		}
-			        	}
-			        	createUsageTableData(summaryMap, event, userId);
-		            } 
-			        monitor.worked(1);
-		        }
-	        	for (IUsageCollector collector : this.generator.collectors) statistics.add(collector);
-				List<InteractionEventSummary> flattenedSummaries = new ArrayList<InteractionEventSummary>();
-		        for (Map<String, InteractionEventSummary> userSummary : summaryMap.values()) flattenedSummaries.addAll(userSummary.values());
-		        statistics.setSingleSummaries(flattenedSummaries);	
-		        this.generator.lastParsedSummary = statistics;	
-		        monitor.done();
+	
+				// Go through the files to determine which users we have to process (by user id)
+				for ( File source: sources ) {
+					int userId = getUserId( source );
+		       		userIds.add(userId);
+					List<File> filesForUser = null;
+					if ( filesPerUser.containsKey( userId )) 
+						filesForUser = filesPerUser.get( userId );
+					if ( filesForUser == null )
+						filesForUser = new ArrayList<File>();
+					filesForUser.add( source );
+					filesPerUser.put( userId, filesForUser );
+				}
 			} catch (Throwable t) {
 				t.printStackTrace();
 	        	MylarPlugin.fail(t, "could not generate usage report", false);
-	        }
+	        }		
+				
+			try {
+				// There are three processing events per user
+				monitor.beginTask(JOB_LABEL, userIds.size() * 3);
+				
+				// Process the files for each user
+				for( Integer aUser: filesPerUser.keySet() ) {
+					Map<String, List<InteractionEvent>> userEvents = new HashMap<String, List<InteractionEvent>>();
+					
+					for ( File aFile: filesPerUser.get( aUser )) {
+						String phase = getPhase( aFile );
+						if ( userEvents.get( phase ) == null ) 
+							userEvents.put( phase, this.generator.logger.getHistoryFromFile( aFile ));
+						else  {
+							List<InteractionEvent> currentEvents = userEvents.get(phase);
+							currentEvents.addAll( this.generator.logger.getHistoryFromFile(aFile));
+							userEvents.put( phase, currentEvents);
+						}
+					}
+					monitor.worked(1);	
+					
+
+					// If there are scanners registered, give each event to each scanner in turn
+					if (this.generator.scanners != null && this.generator.scanners.size() > 0) {
+
+						for ( Map.Entry<String, List<InteractionEvent>> eventsPerPhase: userEvents.entrySet() ) {
+							String phaseToProcess = eventsPerPhase.getKey();
+							List<InteractionEvent> events = eventsPerPhase.getValue();
+							
+					
+								for (InteractionEvent event : events ) {
+									for (IUsageScanner scanner : this.generator.scanners) {
+										scanner.scanEvent(event, aUser,
+												phaseToProcess);
+									}
+								}
+						}
+					} 
+					monitor.worked(1);
+					
+					// Consume all events
+					for ( Map.Entry<String, List<InteractionEvent>> eventsPerPhase: userEvents.entrySet() ) {
+						String phaseToProcess = eventsPerPhase.getKey();
+						List<InteractionEvent> events = eventsPerPhase.getValue();
+						
+						for (InteractionEvent event : events ) {
+
+				        	if (event.getKind().isUserEvent()) {  // TODO: some collectors may want non-user events
+				        		for (IUsageCollector collector : this.generator.collectors) 
+				        			collector.consumeEvent(event, aUser, phaseToProcess);		
+				        	}
+				        	createUsageTableData(summaryMap, event, aUser);
+						}
+					}
+					monitor.worked(1);
+				}
+				
+				
+				for (IUsageCollector collector : this.generator.collectors) statistics.add(collector);
+				List<InteractionEventSummary> flattenedSummaries = new ArrayList<InteractionEventSummary>();
+				for (Map<String, InteractionEventSummary> userSummary : summaryMap.values()) flattenedSummaries.addAll(userSummary.values());
+				statistics.setSingleSummaries(flattenedSummaries);	
+				this.generator.lastParsedSummary = statistics;	
+				monitor.done();
+					
+			} catch (Throwable t) {
+				t.printStackTrace();
+	        	MylarPlugin.fail(t, "could not generate usage report", false);
+	        }			
+				
+				
+
 	     }
 
 		private void createUsageTableData(Map<Integer, Map<String, InteractionEventSummary>> summaryMap, InteractionEvent event, int userId) {

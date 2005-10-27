@@ -40,28 +40,29 @@ public class UsageStatsEditorInput implements IEditorInput {
 	 * Supports either the single workspace file or multiple zip files.
 	 */
 	public UsageStatsEditorInput(List<File> files, ReportGenerator reportGenerator) {
-		try {
+//		try {
 			this.reportGenerator = reportGenerator;
-			usageFiles = new ArrayList<File>();
-			if (files.size() == 1 && files.get(0).getName().endsWith(".xml")) {
-				usageFiles.add(files.get(0));
-			} else {
-				for (File file : files) {
-		    		ZipFile zip = new ZipFile(file);
-		    		if(zip.entries().hasMoreElements()){
-		    			ZipEntry entry = zip.entries().nextElement();
-		    			File tempFile = File.createTempFile(file.getName(), "xml");
-		    			tempFile.deleteOnExit();
-		    			InputStream in = zip.getInputStream(entry);
-		    			OutputStream out = new FileOutputStream(tempFile);
-		    			transferData(in, out);
-		    			usageFiles.add(tempFile);
-		    		}
-				}
-			}
-		} catch (Exception e) {
-			MylarPlugin.log(e, "Could not unzip usage files");
-		}
+			usageFiles = files;
+//			usageFiles = new ArrayList<File>();
+//			if (files.size() == 1 && files.get(0).getName().endsWith(".xml")) {
+//				usageFiles.add(files.get(0));
+//			} else {
+//				for (File file : files) {
+//		    		ZipFile zip = new ZipFile(file);
+//		    		if(zip.entries().hasMoreElements()){
+//		    			ZipEntry entry = zip.entries().nextElement();
+//		    			File tempFile = File.createTempFile(file.getName(), "xml");
+//		    			tempFile.deleteOnExit();
+//		    			InputStream in = zip.getInputStream(entry);
+//		    			OutputStream out = new FileOutputStream(tempFile);
+//		    			transferData(in, out);
+//		    			usageFiles.add(tempFile);
+//		    		}
+//				}
+//			}
+//		} catch (Exception e) {
+//			MylarPlugin.log(e, "Could not unzip usage files");
+//		}
 		
 //		parser = new ReportGenerator(MylarMonitorPlugin.getDefault().getInteractionLogger(), collectors);
 		reportGenerator.getStatisticsFromInteractionHistories(usageFiles);

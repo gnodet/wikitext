@@ -8,26 +8,22 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-
 package org.eclipse.mylar.monitor.reports;
-
-import java.util.List;
 
 import org.eclipse.mylar.core.InteractionEvent;
 
 /**
- * @author Mik Kersten and Leah Findlater
+ * @author Gail Murphy
+ *
  */
-public interface IUsageCollector { 
 
-	public String getReportTitle();
+/**
+ * A usage scanner will see all events for a user before any consumers
+ */
+public interface IUsageScanner {
 	
-	public abstract void consumeEvent(InteractionEvent event, int userId, String phase);
+	public void scanEvent(InteractionEvent event, int userId, String phase);
+	
+	public boolean accept( int userId );
 
-	/**
-	 * TODO: return report as HTML
-	 * 
-	 * @return a list corresponding to all of the lines of the report
-	 */
-	public abstract List<String> getReport();
 }
