@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site
-      mirrorsURL="http://www.eclipse.org/downloads/download.php?file=/technology/org.eclipse.mylar/org.eclipse.mylar-site/eclipse3.1&amp;format=xml">
-	<description url="http://download.eclipse.org/technology/org.eclipse.mylar/org.eclipse.mylar-site/eclipse3.1/">
-    	Mylar
-    </description>
-   
-    <feature url="features/org.eclipse.mylar_feature_0.4.0.jar" id="org.eclipse.mylar_feature" version="0.4.0">
-      	<category name="Mylar for Eclipse 3.1"/>
-   	</feature>
-   	<category-def name="Mylar for Eclipse 3.1" label="Mylar for Eclipse 3.1"/>
+      mirrorsURL="http://www.eclipse.org/downloads/download.php?file=/technology/mylar/update-site/e3.1&amp;format=xml">
+   <description url="http://download.eclipse.org/technology/mylar/update-site/e3.1">
+      Mylar
+   </description>
+   <feature url="features/org.eclipse.mylar_feature_0.4.0.jar" id="org.eclipse.mylar_feature" version="0.4.0">
+      <category name="Mylar for Eclipse 3.1"/>
+   </feature>
+   <category-def name="Mylar for Eclipse 3.1" label="Mylar for Eclipse 3.1"/>
 </site>

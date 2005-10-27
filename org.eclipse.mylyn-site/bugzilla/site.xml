@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<site>
+<site mirrorsURL="http://www.eclipse.org/downloads/download.php?file=/technology/mylar/update-site/bugzilla&amp;format=xml">
+	<description url="http://download.eclipse.org/technology/mylar/update-site/bugzilla">
+    	Mylar
+    </description>
+    
    <feature url="features/org.eclipse.mylar.bugzilla_feature_0.4.0.jar" id="org.eclipse.mylar.bugzilla_feature" version="0.4.0">
       <category name="Bugzilla Client Plugin"/>
    </feature>
