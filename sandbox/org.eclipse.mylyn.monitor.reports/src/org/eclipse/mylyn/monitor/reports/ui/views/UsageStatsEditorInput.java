@@ -12,17 +12,12 @@
 package org.eclipse.mylar.monitor.reports.ui.views;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.monitor.reports.ReportGenerator;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IPersistableElement;
