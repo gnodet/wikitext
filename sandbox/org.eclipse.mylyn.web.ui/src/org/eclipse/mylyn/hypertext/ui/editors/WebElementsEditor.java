@@ -243,7 +243,9 @@ public class WebElementsEditor extends EditorPart {
 
 			public void mouseExit(MouseEvent e) {
 				Cursor pointer = new Cursor(Display.getCurrent(), SWT.CURSOR_ARROW);
-				Display.getCurrent().getCursorControl().setCursor(pointer);
+				if (Display.getCurrent() != null) {
+					Display.getCurrent().getCursorControl().setCursor(pointer);
+				}
 			}
 
 			public void mouseHover(MouseEvent e){
