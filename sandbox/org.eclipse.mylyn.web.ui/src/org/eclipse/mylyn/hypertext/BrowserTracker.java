@@ -16,9 +16,12 @@ import java.lang.reflect.Field;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.mylar.core.AbstractInteractionMonitor;
 import org.eclipse.mylar.core.MylarPlugin;
+import org.eclipse.mylar.hypertext.ui.editors.WebElementsEditor;
+import org.eclipse.mylar.tasklist.ui.TaskEditor;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.LocationEvent;
 import org.eclipse.swt.browser.LocationListener;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPageListener;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWindowListener;
@@ -34,7 +37,7 @@ import org.eclipse.ui.internal.browser.WebBrowserEditor;
 public class BrowserTracker extends AbstractInteractionMonitor implements IPartListener, IWindowListener, IPageListener {
 
 	private UrlTrackingListener urlTrackingListener = new UrlTrackingListener();
-	private WebBrowserEditor currentBrowserPart = null;
+	private IWorkbenchPart currentBrowserPart = null;
 		
 	class UrlTrackingListener implements LocationListener {
 
@@ -43,7 +46,7 @@ public class BrowserTracker extends AbstractInteractionMonitor implements IPartL
 		}
 
 		public void changed(LocationEvent event) { 
-			handleElementSelection(currentBrowserPart, event);
+			if (event != null) handleElementSelection(currentBrowserPart, event);
 		}
 	}
 	
@@ -56,7 +59,12 @@ public class BrowserTracker extends AbstractInteractionMonitor implements IPartL
 
 	public void partOpened(IWorkbenchPart part) {
 		if (part instanceof WebBrowserEditor) {
+			currentBrowserPart = part;
 			Browser browser = getBrowser((WebBrowserEditor)part);
+			if (browser != null) browser.addLocationListener(urlTrackingListener);
+		} else if (part instanceof TaskEditor) {
+			currentBrowserPart = part;
+			Browser browser = ((TaskEditor)part).getWebBrowser();
 			if (browser != null) browser.addLocationListener(urlTrackingListener);
 		}
 	}
@@ -71,7 +79,16 @@ public class BrowserTracker extends AbstractInteractionMonitor implements IPartL
 	public void partActivated(IWorkbenchPart part) {
 	}
 
+	/**
+	 * TODO: this is a wierd place for this code
+	 */
 	public void partBroughtToTop(IWorkbenchPart part) {
+		if (part instanceof TaskEditor) {
+			IEditorPart activeEditor = ((TaskEditor)part).getActiveEditor();
+			if (activeEditor instanceof WebElementsEditor) {
+				((WebElementsEditor)activeEditor).update();
+			}
+		}
 	}
 
 	public void partDeactivated(IWorkbenchPart part) {
@@ -79,7 +96,6 @@ public class BrowserTracker extends AbstractInteractionMonitor implements IPartL
 
 	
 	private Browser getBrowser(final WebBrowserEditor browserEditor) {
-		currentBrowserPart = browserEditor;
         try { // HACK: using reflection to gain accessibility
             Class browserClass = browserEditor.getClass();
             Field browserField = browserClass.getDeclaredField("webBrowser");

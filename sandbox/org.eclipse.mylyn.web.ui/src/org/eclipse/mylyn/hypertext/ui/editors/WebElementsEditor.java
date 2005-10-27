@@ -36,6 +36,8 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.OpenEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.mylar.core.IMylarContext;
+import org.eclipse.mylar.core.IMylarContextListener;
 import org.eclipse.mylar.core.IMylarElement;
 import org.eclipse.mylar.core.IMylarStructureBridge;
 import org.eclipse.mylar.core.MylarPlugin;
@@ -87,6 +89,48 @@ public class WebElementsEditor extends EditorPart {
 	 */
 	public static final Color HYPERLINK  = new Color(Display.getDefault(), 0, 0, 255);
 		
+  private final IMylarContextListener REFRESH_UPDATE_LISTENER = new IMylarContextListener() { 
+        public void interestChanged(IMylarElement node) { 
+        	// ignore
+        } 
+        
+        public void interestChanged(List<IMylarElement> nodes) {
+        	// ignore
+        }
+
+        public void contextActivated(IMylarContext taskscape) {
+            update();
+        }
+
+        public void contextDeactivated(IMylarContext taskscape) {
+            update();
+        } 
+        
+        public void presentationSettingsChanging(UpdateKind kind) {
+        	// ignore
+        }
+        
+        public void landmarkAdded(IMylarElement node) { 
+        	// ignore
+        }
+
+        public void landmarkRemoved(IMylarElement node) { 
+        	// ignore
+        }
+
+        public void edgesChanged(IMylarElement node) {
+        	// ignore
+        }
+
+        public void nodeDeleted(IMylarElement node) {
+        	// ignore
+        }
+
+        public void presentationSettingsChanged(UpdateKind kind) {
+        	// ignore
+        }
+    };
+	
 	@Override
 	public void doSave(IProgressMonitor monitor) {
 		// TODO Auto-generated method stub
@@ -119,6 +163,11 @@ public class WebElementsEditor extends EditorPart {
 	}
 
 	@Override
+	public void dispose() {
+		MylarPlugin.getContextManager().removeListener(REFRESH_UPDATE_LISTENER);
+	}
+
+	@Override
 	public void createPartControl(Composite parent) {
 		FormToolkit toolkit = new FormToolkit(parent.getDisplay());
 		form = toolkit.createScrolledForm(parent);
@@ -140,11 +189,12 @@ public class WebElementsEditor extends EditorPart {
 		// Put the info onto the editor
 		createContent(editorComposite, toolkit);
 		form.setFocus();
+		MylarPlugin.getContextManager().addListener(REFRESH_UPDATE_LISTENER);
 	}
 
 	private void createContent(Composite parent, FormToolkit toolkit) {
 		Section section = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR);
-		section.setText("Web Docs");
+		section.setText(LABEL);
 		section.setLayout(new TableWrapLayout());
 		section.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
 		section.addExpansionListener(new IExpansionListener() {
@@ -198,10 +248,14 @@ public class WebElementsEditor extends EditorPart {
 			}
 		});
 		
-		treeViewer.setInput(getWebDocs());
-		treeViewer.expandAll();
+		update();
 		defineActions();
 		hookContextMenu();
+	}
+
+	public void update() {
+		treeViewer.setInput(getWebDocs());
+		treeViewer.expandAll();
 	}	
 	
 	private List<String> getWebDocs() {
@@ -243,7 +297,7 @@ public class WebElementsEditor extends EditorPart {
 
 			public void mouseExit(MouseEvent e) {
 				Cursor pointer = new Cursor(Display.getCurrent(), SWT.CURSOR_ARROW);
-				if (Display.getCurrent() != null) {
+				if (Display.getCurrent() != null && Display.getCurrent().getCursorControl() != null) {
 					Display.getCurrent().getCursorControl().setCursor(pointer);
 				}
 			}
@@ -299,7 +353,11 @@ public class WebElementsEditor extends EditorPart {
     					pages.add(link);
     				}
     			}
-    			return sites.toArray();
+    			if (sites.size() > 0) {
+    				return sites.toArray();
+    			} else {
+    				return new String[] { "Task context not activated" };
+    			}
             } else {
             	return getChildren(parent);
             }
@@ -372,8 +430,8 @@ public class WebElementsEditor extends EditorPart {
 				removeLinkFromTable();
 			}
 		};
-		delete.setText("Delete");
-		delete.setToolTipText("Delete");
+		delete.setText("Mark as Uninteresting");
+		delete.setToolTipText("Mark as Uninteresting");
 		delete.setImageDescriptor(TaskListImages.REMOVE);
 
 		add = new Action() {
@@ -417,7 +475,7 @@ public class WebElementsEditor extends EditorPart {
 						| WorkbenchBrowserSupport.NAVIGATION_BAR;
 			}
 			browser = WorkbenchBrowserSupport.getInstance().createBrowser(flags,
-					"org.eclipse.mylar.tasklist", "Mylar Context", "tasktooltip");
+					"org.eclipse.mylar.tasklist", "Mylar Context Browser", "tasktooltip");
 			browser.openURL(new URL(url));
 		} catch (PartInitException e) {
 			MessageDialog.openError(Display.getDefault().getActiveShell(),
@@ -461,6 +519,10 @@ public class WebElementsEditor extends EditorPart {
 		public Color getBackground(Object element) {
 			return null;
 		}
+	}
+
+	public TreeViewer getTreeViewer() {
+		return treeViewer;
 	}
 	
 //	private class RelatedLinksCellModifier implements ICellModifier, IColorProvider {
