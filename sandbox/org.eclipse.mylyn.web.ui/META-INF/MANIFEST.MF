@@ -17,3 +17,4 @@ Require-Bundle: org.eclipse.ui,
 Eclipse-AutoStart: true
 Export-Package: org.eclipse.mylar.hypertext,
  org.eclipse.mylar.hypertext.ui.editors
+Bundle-Vendor: Eclipse.org
