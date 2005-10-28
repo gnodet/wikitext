@@ -71,7 +71,7 @@ import org.eclipse.ui.part.EditorPart;
 
 public class WebElementsEditor extends EditorPart {
 
-	private static final String LABEL = "Web Documents in Context";
+	private static final String LABEL = "Web Documents in Active Context";
 	private Composite editorComposite;
 	private ScrolledForm form;
 		
