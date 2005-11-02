@@ -1,4 +1,4 @@
-package org.eclipse.mylar.monitor.tests;
+package org.eclipse.mylar.tests;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -134,8 +134,7 @@ public class SharedTaskFolderTest extends TestCase{
 		assertNotNull(manager.getTaskForHandle(mainDataDirTask.getHandle(), false));			
 		
 	}
-	
-	
+		
 	/**
 	 * Creates a task with an interaction event and checks that it has
 	 * been properly saved in the currently active data directory
@@ -158,8 +157,7 @@ public class SharedTaskFolderTest extends TestCase{
 		
 		return newTask;
 	}
-	
-	
+		
 	protected void tearDown() throws Exception{
 		
 		//Reset the shared directory to the original value
