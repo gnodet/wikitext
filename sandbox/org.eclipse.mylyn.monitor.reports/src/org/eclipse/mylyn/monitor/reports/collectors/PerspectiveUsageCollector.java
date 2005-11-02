@@ -70,10 +70,11 @@ public class PerspectiveUsageCollector implements IUsageCollector {
 				perspectiveName = perspectiveName.substring(0, perspectiveName.indexOf("Perspective"));
 			}
 			perspectiveUsageList.add(formattedPerspectiveUse + "%: " + perspectiveName + " (" + perspectiveUsage.get(perspective) + ")");	
-//				statistics.getEclipseUsage().add( + ": " +  + " (" +  + "%)");
 		}
 		Collections.sort(perspectiveUsageList, new PercentUsageComparator());
-		for (String perspectiveUsageSummary : perspectiveUsageList) summaries.add(perspectiveUsageSummary);
+		for (String perspectiveUsageSummary : perspectiveUsageList) {
+			summaries.add("<br>" + perspectiveUsageSummary);
+		}
 					
 		if (perspectiveUsage.size() % 2 != 0) summaries.add(" ");
 		return summaries;

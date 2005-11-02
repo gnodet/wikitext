@@ -60,6 +60,7 @@ public class MylarUserAnalysisCollector extends AbstractMylarUsageCollector {
 	
 	public MylarUserAnalysisCollector() {
 		viewUsageCollector.setMaxViewsToReport(NUM_VIEWS_REPORTED);
+		super.getDelegates().add(viewUsageCollector);
 	}
 	
 	public String getReportTitle() {
@@ -68,7 +69,7 @@ public class MylarUserAnalysisCollector extends AbstractMylarUsageCollector {
 	
 	public void consumeEvent(InteractionEvent event, int userId, String phase) {
 		super.consumeEvent(event, userId, phase);
-		viewUsageCollector.consumeEvent(event, userId, phase);
+//		viewUsageCollector.consumeEvent(event, userId, phase);
 		if (!startDates.containsKey(userId)) startDates.put(userId, event.getDate());
 		endDates.put(userId, event.getDate());
 		 
@@ -172,36 +173,6 @@ public class MylarUserAnalysisCollector extends AbstractMylarUsageCollector {
 		report.add(ReportGenerator.SUMMARY_SEPARATOR);
 		return report;
 	}
-	
-//	public List<String> getSummary() {
-//		List<String> summaries = new ArrayList<String>();
-//		int acceptedUsers = 0;
-//		int rejectedUsers = 0;
-//		float summaryDelta = 0;
-//		for (Integer id : userIds) {
-//			float baselineRatio = getBaselineRatio(id);
-//			float mylarRatio = getMylarRatio(id);
-//			
-//			if (acceptUser(id) && baselineRatio > 0 && mylarRatio > 0) {
-//				acceptedUsers++;
-//				float percentage = mylarRatio / baselineRatio;
-//				summaryDelta += percentage;
-//
-//				summaries.add("User (" + id + ") baseline: " + baselineRatio + ", mylar: " + mylarRatio);
-//				String ratioChange = formatPercentage(percentage-1);
-//				if (percentage >= 1) {
-//					summaries.add("Improved by: " + ratioChange + "%"); 
-//				} else {
-//					summaries.add("Degraded by: " + ratioChange + "%"); 
-//				}
-//			} else {
-//				rejectedUsers++;
-//			}
-//		}
-//		summaries.add("Total change: " + formatPercentage(summaryDelta/(float)acceptedUsers)
-//			+ " (based on: " + acceptedUsers + " accepted, " + rejectedUsers + " rejected)");
-//		return summaries; 
-//	}
 
 	public boolean acceptUser(int id) {
 		if (!numJavaEdits.containsKey(id)) {

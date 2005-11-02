@@ -22,11 +22,11 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.monitor.MylarMonitorPlugin;
+import org.eclipse.mylar.monitor.reports.DelegatingUsageCollector;
 import org.eclipse.mylar.monitor.reports.IUsageCollector;
 import org.eclipse.mylar.monitor.reports.MylarReportsPlugin;
 import org.eclipse.mylar.monitor.reports.ReportGenerator;
 import org.eclipse.mylar.monitor.reports.collectors.CommandUsageCollector;
-import org.eclipse.mylar.monitor.reports.collectors.CsvOutputCollector;
 import org.eclipse.mylar.monitor.reports.collectors.PerspectiveUsageCollector;
 import org.eclipse.mylar.monitor.reports.collectors.SummaryCollector;
 import org.eclipse.mylar.monitor.reports.collectors.ViewUsageCollector;
@@ -55,13 +55,17 @@ public class UsageSummaryAction implements IViewActionDelegate {
         	Workbench.getInstance().getDisplay().asyncExec(new Runnable() {
     			public void run() {
     				try  {
-    					List<IUsageCollector> collectors = new ArrayList<IUsageCollector>();
-    					collectors.add(new ViewUsageCollector());
-    					collectors.add(new CommandUsageCollector());
-    					collectors.add(new PerspectiveUsageCollector());
-    					collectors.add(new CsvOutputCollector());
-    					collectors.add(new SummaryCollector());
-    					ReportGenerator generator = new ReportGenerator(MylarMonitorPlugin.getDefault().getInteractionLogger(), collectors);
+    					List<IUsageCollector> delegates = new ArrayList<IUsageCollector>();
+    					delegates.add(new ViewUsageCollector());
+    					delegates.add(new PerspectiveUsageCollector());
+    					delegates.add(new CommandUsageCollector());
+//    					delegates.add(new CsvOutputCollector());
+    					delegates.add(new SummaryCollector());
+    					
+    					DelegatingUsageCollector collector = new DelegatingUsageCollector();
+    					collector.setReportTitle("Usage Summary"); 
+    					collector.setDelegates(delegates);
+    					ReportGenerator generator = new ReportGenerator(MylarMonitorPlugin.getDefault().getInteractionLogger(), collector);
     					    					
     					IWorkbenchPage page = MylarReportsPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getActivePage();
     					if (page == null) return;

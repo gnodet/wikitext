@@ -41,7 +41,14 @@ public class ReportGenerator {
 	private Set<Integer> userIds = new HashSet<Integer>();	
 	private List<IUsageCollector> collectors;
 	private List<IUsageScanner> scanners;
-	
+
+	public ReportGenerator(InteractionEventLogger logger, IUsageCollector collector) {
+		List<IUsageCollector> collectors = new ArrayList<IUsageCollector>();
+		collectors.add(collector);
+		this.logger = logger;
+		this.collectors = collectors;
+	}
+		
 	public ReportGenerator(InteractionEventLogger logger, List<IUsageCollector> collectors) {
 		this.logger = logger;
 		this.collectors = collectors;
@@ -204,11 +211,13 @@ public class ReportGenerator {
 					}
 					monitor.worked(1);
 				}
-				
-				
+								
 				for (IUsageCollector collector : this.generator.collectors) statistics.add(collector);
 				List<InteractionEventSummary> flattenedSummaries = new ArrayList<InteractionEventSummary>();
-				for (Map<String, InteractionEventSummary> userSummary : summaryMap.values()) flattenedSummaries.addAll(userSummary.values());
+				for (Map<String, InteractionEventSummary> userSummary : summaryMap.values()) {
+					
+					flattenedSummaries.addAll(userSummary.values());
+				}
 				statistics.setSingleSummaries(flattenedSummaries);	
 				this.generator.lastParsedSummary = statistics;	
 				monitor.done();

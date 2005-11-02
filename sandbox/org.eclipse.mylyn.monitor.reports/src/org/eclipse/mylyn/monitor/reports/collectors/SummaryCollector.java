@@ -51,14 +51,12 @@ public class SummaryCollector implements IUsageCollector {
 	public List<String> getReport() {
 		List<String> summaries = new ArrayList<String>();
         
-		summaries.add("Start date: " + leastRecentDate);
-        summaries.add("End date: " + mostRecentDate);
+		summaries.add("Start date: " + leastRecentDate + ", End date: " + mostRecentDate + "<br>");
         
-        summaries.add("Number of user events: " + numUserEvents);
-        summaries.add("Number of commands: " + numCommands);
-
-        summaries.add("Number of preference changes: " + numPreference);
-        summaries.add("Number of selections: " + numSelections);
+        summaries.add("Number of events: " + numUserEvents + "<br>");
+        summaries.add("Number of commands: " + numCommands + "<br>");
+        summaries.add("Number of preference changes: " + numPreference + "<br>");
+        summaries.add("Number of selections: " + numSelections + "<br>");
 		return summaries;
 	}
 

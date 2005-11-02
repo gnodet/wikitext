@@ -22,19 +22,23 @@ import org.eclipse.mylar.tasklist.ui.actions.TaskDeactivateAction;
 /**
  * @author Mik Kersten
  */
-public abstract class AbstractMylarUsageCollector implements IUsageCollector {
+public abstract class AbstractMylarUsageCollector extends DelegatingUsageCollector {
 
 	protected Set<Integer> userIds = new HashSet<Integer>();
 	protected Set<Integer> mylarUserIds = new HashSet<Integer>();
 	protected Set<Integer> mylarInactiveUserIds = new HashSet<Integer>();
 	
 	protected CommandUsageCollector commandUsageCollector = new CommandUsageCollector();
-			
+	
+	public AbstractMylarUsageCollector() {
+		super.getDelegates().add(commandUsageCollector);
+	}
+		
 	/**
 	 * Overriders must call super.consumeEvent(..)
 	 */
 	public void consumeEvent(InteractionEvent event, int userId, String phase) {
-		commandUsageCollector.consumeEvent(event, userId, phase);
+		super.consumeEvent(event, userId, phase);
 		userIds.add(userId);
 		if (event.getKind().equals(InteractionEvent.Kind.COMMAND)) {
 			if (event.getOriginId().equals(TaskActivateAction.ID)) {
@@ -45,5 +49,4 @@ public abstract class AbstractMylarUsageCollector implements IUsageCollector {
 			}
 		}
 	}
-
 }
