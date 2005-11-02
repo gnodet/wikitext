@@ -23,6 +23,8 @@ public class MylarReportsPlugin extends AbstractUIPlugin {
 	public static final String REPORT_SUMMARY_ID = "org.eclipse.mylar.monitor.reports.ui.actions.monitorSummaryReport";
 	public static final String REPORT_USERS_ID = "org.eclipse.mylar.monitor.reports.ui.actions.monitorUsersReport";
 	
+	public static final String SHARED_TASK_DATA_ROOT_DIR = "org.eclipse.mylar.monitor.reports.preferences.sharedTaskDataRootDir";
+	
 	private static MylarReportsPlugin plugin;
 
 	public MylarReportsPlugin() {
@@ -52,4 +54,12 @@ public class MylarReportsPlugin extends AbstractUIPlugin {
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.mylar.monitor.reports", path);
 	}
+	
+	/**
+	 * Returns the root directory of the shared location where task data
+	 * files are stored. Returns "" if the preference has not been set.
+	 */
+    public String getRootSharedDataDirectory() {
+        return getPreferenceStore().getString(SHARED_TASK_DATA_ROOT_DIR);
+    }
 }
