@@ -89,7 +89,7 @@ public class WebElementsEditor extends EditorPart {
 	 */
 	public static final Color HYPERLINK  = new Color(Display.getDefault(), 0, 0, 255);
 		
-  private final IMylarContextListener REFRESH_UPDATE_LISTENER = new IMylarContextListener() { 
+	private final IMylarContextListener REFRESH_UPDATE_LISTENER = new IMylarContextListener() { 
         public void interestChanged(IMylarElement node) { 
         	// ignore
         } 
@@ -185,7 +185,7 @@ public class WebElementsEditor extends EditorPart {
 		layout.horizontalSpacing = 10;
 		editorComposite.setLayout(layout);
 		//editorComposite.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));				
-		
+				
 		// Put the info onto the editor
 		createContent(editorComposite, toolkit);
 		form.setFocus();
@@ -212,7 +212,7 @@ public class WebElementsEditor extends EditorPart {
 		layout.numColumns = 3;						
 		container.setLayout(layout);
 		container.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
-        
+		
 		createTable(container, toolkit);
 		createTableViewer(container, toolkit);		
 		toolkit.paintBordersFor(container);

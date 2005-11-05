@@ -14,9 +14,19 @@ package org.eclipse.mylar.hypertext.ui.editors;
 import org.eclipse.mylar.core.IMylarContext;
 import org.eclipse.mylar.tasklist.IContextEditorFactory;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.part.EditorPart;
 
+/**
+ * @author Mik Kersten
+ */
 public class WebElementsEditorFactory implements IContextEditorFactory {
+
+	public void notifyEditorActivationChange(IEditorPart editor) {
+		if (editor instanceof WebElementsEditor) {
+			((WebElementsEditor)editor).update();
+		}
+	}
 
 	public EditorPart createEditor() {
 		return new WebElementsEditor();

@@ -16,12 +16,10 @@ import java.lang.reflect.Field;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.mylar.core.AbstractInteractionMonitor;
 import org.eclipse.mylar.core.MylarPlugin;
-import org.eclipse.mylar.hypertext.ui.editors.WebElementsEditor;
 import org.eclipse.mylar.tasklist.ui.TaskEditor;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.LocationEvent;
 import org.eclipse.swt.browser.LocationListener;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPageListener;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWindowListener;
@@ -77,18 +75,14 @@ public class BrowserTracker extends AbstractInteractionMonitor implements IPartL
 	}
 	
 	public void partActivated(IWorkbenchPart part) {
+
 	}
 
 	/**
 	 * TODO: this is a wierd place for this code
 	 */
 	public void partBroughtToTop(IWorkbenchPart part) {
-		if (part instanceof TaskEditor) {
-			IEditorPart activeEditor = ((TaskEditor)part).getActiveEditor();
-			if (activeEditor instanceof WebElementsEditor) {
-				((WebElementsEditor)activeEditor).update();
-			}
-		}
+
 	}
 
 	public void partDeactivated(IWorkbenchPart part) {
