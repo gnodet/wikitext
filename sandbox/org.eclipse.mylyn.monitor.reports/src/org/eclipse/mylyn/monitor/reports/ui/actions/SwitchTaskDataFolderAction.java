@@ -13,11 +13,10 @@ import org.eclipse.mylar.monitor.reports.MylarReportsPlugin;
 import org.eclipse.mylar.monitor.reports.ui.views.ComboSelectionDialog;
 import org.eclipse.mylar.tasklist.MylarTasklistPlugin;
 import org.eclipse.mylar.tasklist.ui.views.TaskListView;
+import org.eclipse.mylar.ui.actions.ToggleContextCaptureAction;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
-import org.eclipse.mylar.ui.actions.ContextCapturePauseAction;
-import org.eclipse.mylar.ui.actions.ContextCaptureResumeAction;
 
 /**
  * Contributes a menu item to the task list that opens a dialog box
@@ -161,7 +160,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 		if (targetFolder.equals(MAIN_LOCAL_DATA_DIR)){
 			MylarPlugin.getDefault().setSharedDataDirectoryEnabled(false);
 			MylarTasklistPlugin.getDefault().setDataDirectory(MylarPlugin.getDefault().getMylarDataDirectory());
-			(new ContextCaptureResumeAction()).run(null);
+			(new ToggleContextCaptureAction()).resume(); // TODO: don't use actions directly
 			TaskListView.getDefault().indicateSharedFolder("");
 			MylarPlugin.getContextManager().setActivationHistorySuppressed(false);
 		}
@@ -170,7 +169,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 			MylarPlugin.getDefault().setSharedDataDirectory(dataDirPath);
 			MylarPlugin.getDefault().setSharedDataDirectoryEnabled(true);
 			MylarTasklistPlugin.getDefault().setDataDirectory(dataDirPath);
-			(new ContextCapturePauseAction()).run(null);
+			(new ToggleContextCaptureAction()).pause();
 			TaskListView.getDefault().indicateSharedFolder(targetFolder);
 			MylarPlugin.getContextManager().setActivationHistorySuppressed(true);
 		}
