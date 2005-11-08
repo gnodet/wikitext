@@ -19,8 +19,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -164,20 +162,17 @@ public class ReportGenerator {
 				
 				// Process the files for each user
 				for( Integer aUser: filesPerUser.keySet() ) {
-					Map<String, SortedSet<InteractionEvent>> userEvents = new HashMap<String, SortedSet<InteractionEvent>>();
+					Map<String, List<InteractionEvent>> userEvents = new HashMap<String, List<InteractionEvent>>();
 					
 					for ( File aFile: filesPerUser.get( aUser )) {
 						String phase = getPhase( aFile );
-						SortedSet<InteractionEvent> orderedEvents;
-						if ( userEvents.get( phase ) == null ) {
-							orderedEvents = new TreeSet<InteractionEvent>( new InteractionEventComparator());
-							orderedEvents.addAll( this.generator.logger.getHistoryFromFile(aFile));
-						}
+						if ( userEvents.get( phase ) == null ) 
+							userEvents.put( phase, this.generator.logger.getHistoryFromFile( aFile ));
 						else  {
-							orderedEvents = userEvents.get(phase);
-							orderedEvents.addAll( this.generator.logger.getHistoryFromFile(aFile));
+							List<InteractionEvent> currentEvents = userEvents.get(phase);
+							currentEvents.addAll( this.generator.logger.getHistoryFromFile(aFile));
+							userEvents.put( phase, currentEvents);
 						}
-						userEvents.put( phase, orderedEvents );
 					}
 					monitor.worked(1);	
 					
@@ -185,9 +180,9 @@ public class ReportGenerator {
 					// If there are scanners registered, give each event to each scanner in turn
 					if (this.generator.scanners != null && this.generator.scanners.size() > 0) {
 
-						for ( Map.Entry<String, SortedSet<InteractionEvent>> eventsPerPhase: userEvents.entrySet() ) {
+						for ( Map.Entry<String, List<InteractionEvent>> eventsPerPhase: userEvents.entrySet() ) {
 							String phaseToProcess = eventsPerPhase.getKey();
-							SortedSet<InteractionEvent> events = eventsPerPhase.getValue();
+							List<InteractionEvent> events = eventsPerPhase.getValue();
 							
 					
 								for (InteractionEvent event : events ) {
@@ -201,9 +196,9 @@ public class ReportGenerator {
 					monitor.worked(1);
 					
 					// Consume all events
-					for ( Map.Entry<String, SortedSet<InteractionEvent>> eventsPerPhase: userEvents.entrySet() ) {
+					for ( Map.Entry<String, List<InteractionEvent>> eventsPerPhase: userEvents.entrySet() ) {
 						String phaseToProcess = eventsPerPhase.getKey();
-						SortedSet<InteractionEvent> events = eventsPerPhase.getValue();
+						List<InteractionEvent> events = eventsPerPhase.getValue();
 						
 						for (InteractionEvent event : events ) {
 
@@ -256,7 +251,6 @@ public class ReportGenerator {
 		public  String getIdentifier(InteractionEvent event) {
 			return event.getKind().toString() + ':' + getCleanOriginId(event);
 		}
-		
 		
 	}
 	
