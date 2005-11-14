@@ -254,9 +254,11 @@ public class WebElementsEditor extends EditorPart {
 	}
 
 	public void update() {
-		treeViewer.setInput(getWebDocs());
-		treeViewer.expandAll();
-	}	
+		if (treeViewer.getContentProvider() != null) {
+			treeViewer.setInput(getWebDocs());
+			treeViewer.expandAll();
+		}
+	}
 	
 	private List<String> getWebDocs() {
 		links = new ArrayList<String>();
