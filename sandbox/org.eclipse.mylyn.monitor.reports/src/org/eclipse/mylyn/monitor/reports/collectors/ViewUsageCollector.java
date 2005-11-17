@@ -11,7 +11,6 @@
 
 package org.eclipse.mylar.monitor.reports.collectors;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -68,6 +67,10 @@ public class ViewUsageCollector implements IUsageCollector {
 		if (filteredViewSelections == null) {
 			filteredViewSelections = new HashMap<String, Integer>();
 			usersFilteredViewSelections.put(userId, filteredViewSelections);		
+		}
+		
+		if (!usersNumSelections.containsKey(userId)) {
+			usersNumSelections.put(userId, 0);
 		}
 		
 		Set<String> filteredViews = usersFilteredViews.get(userId);
@@ -209,7 +212,7 @@ public class ViewUsageCollector implements IUsageCollector {
 		return "View Usage";
 	}
 
-	public void generateCsvFile(File file) {
+	public void exportAsCSVFile(String directory) {
 		// TODO Auto-generated method stub
 		
 	}
