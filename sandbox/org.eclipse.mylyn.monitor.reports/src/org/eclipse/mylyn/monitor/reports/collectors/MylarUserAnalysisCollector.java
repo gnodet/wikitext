@@ -24,6 +24,7 @@ import org.eclipse.mylar.core.util.DateUtil;
 import org.eclipse.mylar.monitor.reports.AbstractMylarUsageCollector;
 import org.eclipse.mylar.monitor.reports.ReportGenerator;
 import org.eclipse.mylar.tasklist.ui.actions.TaskActivateAction;
+import org.eclipse.mylar.tasklist.ui.actions.TaskDeactivateAction;
 
 /**
  * Delagates to other collectors for additional info.
@@ -110,6 +111,7 @@ public class MylarUserAnalysisCollector extends AbstractMylarUsageCollector {
 		for (Iterator it = userIds.iterator(); it.hasNext(); ) {
     		int id = (Integer)it.next();
     		int numTaskActivations = commandUsageCollector.getCommands().getUserCount(id, TaskActivateAction.ID);
+    		int numTaskDeactivations = commandUsageCollector.getCommands().getUserCount(id, TaskDeactivateAction.ID);
 			int numIncrements = commandUsageCollector.getCommands().getUserCount(id, "org.eclipse.mylar.ui.actions.InterestIncrementAction");
 			int numDecrements = commandUsageCollector.getCommands().getUserCount(id, "org.eclipse.mylar.ui.actions.InterestDecrementAction");
 			if (acceptUser(id) && numTaskActivations > TASK_ACTIVATIONS_THRESHOLD) {
@@ -151,6 +153,7 @@ public class MylarUserAnalysisCollector extends AbstractMylarUsageCollector {
 				}
 				report.add("<h4>Command Activity</h4>");
 				report.add("Task activations: " + numTaskActivations + ", ");
+				report.add("Task deactivations: " + numTaskDeactivations + ", ");
 				report.add("Interest increments: " + numIncrements
 						+ ", Interest decrements: " + numDecrements + "<br>");
 				report.add("<h4>View Activity (top " + NUM_VIEWS_REPORTED + ")</h4>");
@@ -178,7 +181,7 @@ public class MylarUserAnalysisCollector extends AbstractMylarUsageCollector {
 		if (!numJavaEdits.containsKey(id)) {
 			return false;
 		} else {
-			return getNumBaselineSelections(id) + getNumMylarInactiveSelections(id) > JAVA_SELECTIONS_THRESHOLD
+			return getNumBaselineSelections(id) > JAVA_SELECTIONS_THRESHOLD
 				&& getNumMylarSelections(id) > MYLAR_SELECTIONS_THRESHOLD;
 		}
 	}

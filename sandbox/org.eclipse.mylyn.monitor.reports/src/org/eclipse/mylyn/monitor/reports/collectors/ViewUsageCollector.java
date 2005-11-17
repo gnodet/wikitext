@@ -178,7 +178,7 @@ public class ViewUsageCollector implements IUsageCollector {
 		float inModel = (numPredicted + numInteresting + numDecayed);
 		float notInModel = numNew;
 		float hitRatio = inModel / (inModel + notInModel);
-		summaries.add("In model: " + formatAsPercentage(hitRatio) + "<br>"); 
+		summaries.add("In model (inModel / (inModel + notInModel): " + formatAsPercentage(hitRatio) + "<br>"); 
 		
 		summaries.add("New: " + formatAsPercentage(numNew/numSelections) + " (" + numNew + ")" + "; ");
 		summaries.add("Predicted: " + formatAsPercentage(numPredicted/numSelections) + " (" + numPredicted + ")" + "; ");
