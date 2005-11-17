@@ -11,12 +11,12 @@
 
 package org.eclipse.mylar.hypertext;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.mylar.core.AbstractRelationProvider;
 import org.eclipse.mylar.core.IDegreeOfSeparation;
-import org.eclipse.mylar.core.IMylarElement;
 import org.eclipse.mylar.core.IMylarStructureBridge;
 import org.eclipse.swt.browser.LocationEvent;
 
@@ -109,9 +109,8 @@ public class HypertextStructureBridge implements IMylarStructureBridge {
 		return null;
 	}
 
-	public boolean containsProblem(IMylarElement node) {
-		// TODO Auto-generated method stub
-		return false;
+	public List<String> getChildHandles(String handle) {
+		return Collections.emptyList();
 	}
 
     public IProject getProjectForObject(Object object) {
