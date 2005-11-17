@@ -30,4 +30,10 @@ public interface IUsageCollector {
 	 * @return a list corresponding to all of the lines of the report
 	 */
 	public abstract List<String> getReport();
+	
+	/**
+	 * Implementors will need to generate a unique filename given the directory in which to place the file
+	 * @param directory
+	 */
+	public abstract void exportAsCSVFile(String directory);
 }

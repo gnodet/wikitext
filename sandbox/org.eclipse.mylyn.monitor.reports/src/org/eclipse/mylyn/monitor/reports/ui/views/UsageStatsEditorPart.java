@@ -26,6 +26,7 @@ import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.monitor.reports.IUsageCollector;
 import org.eclipse.mylar.monitor.reports.internal.InteractionEventSummarySorter;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.SWTException;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -33,6 +34,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -124,7 +126,7 @@ public class UsageStatsEditorPart extends EditorPart {
 			}
 		});
 		
-		Button export  = toolkit.createButton(container, "Export as CSV",  SWT.PUSH | SWT.CENTER);
+		Button export  = toolkit.createButton(container, "Export as CSV Files",  SWT.PUSH | SWT.CENTER);
 		export.addSelectionListener(new SelectionAdapter() {			
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -252,18 +254,26 @@ public class UsageStatsEditorPart extends EditorPart {
 	}
 
 	private void exportToCSV() {
-	    File outputFile;
-	    FileOutputStream outputStream;
-	    
-	    try {
-            FileDialog dialog = new FileDialog(Workbench.getInstance().getActiveWorkbenchWindow().getShell());
-	    	dialog.setText("Specify a file name");
-            dialog.setFilterExtensions(new String[] { "*.csv", "*.*" });
-
-            String filename = dialog.open();
-            
-	    	outputFile = new File(filename);
+		
+		// Ask the user to pick a directory into which to place multiple CSV files
+		try {
+			DirectoryDialog dialog = new DirectoryDialog(Workbench.getInstance().getActiveWorkbenchWindow().getShell());
+			dialog.setText("Specify a directory for the CSV files");
+			String directoryName = dialog.open();
+			
+		    File outputFile;
+		    FileOutputStream outputStream;
+		    
+		    String filename = directoryName + File.separator + "Usage.csv";
+		    outputFile = new File(filename);
+		    
 	    	outputStream = new FileOutputStream(outputFile, true);
+	    	
+	    	// Delegate to all collectors
+	    	for (IUsageCollector collector : editorInput.getReportGenerator().getCollectors()) {
+	    		collector.exportAsCSVFile(directoryName);
+	    	}
+	    	
 	    	
 	    	int columnCount = table.getColumnCount();
 	    	for (TableItem item : table.getItems()) {
@@ -274,8 +284,12 @@ public class UsageStatsEditorPart extends EditorPart {
 	      		outputStream.write(((String) "\n").getBytes());
 	    	}
 
-	    	outputStream.close();
-        } catch (FileNotFoundException e) {
+	    	outputStream.flush();
+	    	outputStream.close();			
+			
+		} catch(SWTException swe) {
+			MylarPlugin.log(swe, "unable to get directory name");
+		} catch (FileNotFoundException e) {
             MylarPlugin.log(e, "could not resolve file");
 	    } catch (IOException e) {
 	    	MylarPlugin.log(e, "could not write to file");

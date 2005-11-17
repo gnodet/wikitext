@@ -11,7 +11,6 @@
 
 package org.eclipse.mylar.monitor.reports.collectors;
 
-import java.io.File;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -45,7 +44,7 @@ public class CommandUsageCollector implements IUsageCollector {
 		return "Command Usage";
 	}
 
-	public void generateCsvFile(File file) {
+	public void exportAsCSVFile(String directoryName) {
 		// TODO Auto-generated method stub
 		
 	}

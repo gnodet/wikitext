@@ -11,7 +11,6 @@
 
 package org.eclipse.mylar.monitor.reports.collectors;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -64,7 +63,7 @@ public class SummaryCollector implements IUsageCollector {
 		return "Summary";
 	}
 
-	public void generateCsvFile(File file) {
+	public void exportAsCSVFile(String directory) {
 		// TODO Auto-generated method stub
 		
 	}

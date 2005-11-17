@@ -46,6 +46,10 @@ public class DelegatingUsageCollector implements IUsageCollector {
 		}
 		return combinedReports;
 	}
+	
+	public void exportAsCSVFile(String directory) {
+		
+	}
 
 	public String getReportTitle() {
 		return reportTitle;

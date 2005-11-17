@@ -11,7 +11,6 @@
 
 package org.eclipse.mylar.monitor.reports.collectors;
 
-import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,7 +38,7 @@ public class CsvOutputCollector implements IUsageCollector {
 		return Collections.emptyList();
 	}
 
-	public void generateCsvFile(File file) {
+	public void exportAsCSVFile(String directory) {
 	}
 
 }

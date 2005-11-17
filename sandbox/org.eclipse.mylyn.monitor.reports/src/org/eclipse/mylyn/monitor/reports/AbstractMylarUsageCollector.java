@@ -30,23 +30,41 @@ public abstract class AbstractMylarUsageCollector extends DelegatingUsageCollect
 	
 	protected CommandUsageCollector commandUsageCollector = new CommandUsageCollector();
 	
+	public static boolean isAMylarActivateCommand(InteractionEvent event) {
+		if (event.getKind().equals(InteractionEvent.Kind.COMMAND)) {
+			if (event.getOriginId().equals(TaskActivateAction.ID)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static boolean isAMylarDeactivateCommand(InteractionEvent event) {
+		if (event.getKind().equals(InteractionEvent.Kind.COMMAND)) {
+			if (event.getOriginId().equals(TaskDeactivateAction.ID)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public AbstractMylarUsageCollector() {
 		super.getDelegates().add(commandUsageCollector);
 	}
-		
+	
 	/**
 	 * Overriders must call super.consumeEvent(..)
 	 */
 	public void consumeEvent(InteractionEvent event, int userId, String phase) {
 		super.consumeEvent(event, userId, phase);
 		userIds.add(userId);
-		if (event.getKind().equals(InteractionEvent.Kind.COMMAND)) {
-			if (event.getOriginId().equals(TaskActivateAction.ID)) {
-				mylarUserIds.add(userId);
-				mylarInactiveUserIds.remove(userId);
-			} else if (event.getOriginId().equals(TaskDeactivateAction.ID)) {
-				mylarInactiveUserIds.add(userId);
-			}
+		if (isAMylarActivateCommand(event)) {
+			mylarUserIds.add(userId);
+			mylarInactiveUserIds.remove(userId);
+		}
+		if (isAMylarDeactivateCommand(event))  {
+			mylarInactiveUserIds.add(userId);
 		}
 	}
+
 }

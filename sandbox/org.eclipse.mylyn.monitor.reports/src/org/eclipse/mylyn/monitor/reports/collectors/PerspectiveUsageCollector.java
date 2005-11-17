@@ -11,7 +11,10 @@
 
 package org.eclipse.mylar.monitor.reports.collectors;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -84,8 +87,38 @@ public class PerspectiveUsageCollector implements IUsageCollector {
 		return "Perspective Usage";
 	}
 
-	public void generateCsvFile(File file) {
-		// TODO Auto-generated method stub
+	public void exportAsCSVFile(String directory) {
+		String filename = directory + File.separator + "PerspectiveUsage.csv";
+
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(new File(filename)));
+			
+			// Write header
+			writer.write("Perspective");
+			writer.write(",");
+			writer.write("Events");
+			writer.newLine();
+			
+			// Write Data
+			for (String perspective : perspectiveUsage.keySet()) {
+				writer.write(perspective);
+				writer.write(",");
+				writer.write(new Integer(perspectiveUsage.get(perspective)).toString());
+				writer.newLine();
+			}
+			
+			writer.write("Unclassified");
+			writer.write(",");
+			writer.write(numUnassociatedEvents);
+			writer.newLine();
+
+			writer.flush();
+			writer.close();
+
+		} catch (IOException e) {
+			System.err.println("Unable to write CVS file <" + filename + ">");
+			e.printStackTrace(System.err);
+		}
 		
 	}
 
