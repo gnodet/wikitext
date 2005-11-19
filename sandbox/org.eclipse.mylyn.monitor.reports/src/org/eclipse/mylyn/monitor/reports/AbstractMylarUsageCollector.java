@@ -16,8 +16,6 @@ import java.util.Set;
 
 import org.eclipse.mylar.core.InteractionEvent;
 import org.eclipse.mylar.monitor.reports.collectors.CommandUsageCollector;
-import org.eclipse.mylar.tasklist.ui.actions.TaskActivateAction;
-import org.eclipse.mylar.tasklist.ui.actions.TaskDeactivateAction;
 
 /**
  * @author Mik Kersten
@@ -30,23 +28,7 @@ public abstract class AbstractMylarUsageCollector extends DelegatingUsageCollect
 	
 	protected CommandUsageCollector commandUsageCollector = new CommandUsageCollector();
 	
-	public static boolean isAMylarActivateCommand(InteractionEvent event) {
-		if (event.getKind().equals(InteractionEvent.Kind.COMMAND)) {
-			if (event.getOriginId().equals(TaskActivateAction.ID)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	public static boolean isAMylarDeactivateCommand(InteractionEvent event) {
-		if (event.getKind().equals(InteractionEvent.Kind.COMMAND)) {
-			if (event.getOriginId().equals(TaskDeactivateAction.ID)) {
-				return true;
-			}
-		}
-		return false;
-	}
+
 	
 	public AbstractMylarUsageCollector() {
 		super.getDelegates().add(commandUsageCollector);
@@ -58,11 +40,11 @@ public abstract class AbstractMylarUsageCollector extends DelegatingUsageCollect
 	public void consumeEvent(InteractionEvent event, int userId, String phase) {
 		super.consumeEvent(event, userId, phase);
 		userIds.add(userId);
-		if (isAMylarActivateCommand(event)) {
+		if (MylarUsageDetector.isAMylarActivateCommand(event)) {
 			mylarUserIds.add(userId);
 			mylarInactiveUserIds.remove(userId);
 		}
-		if (isAMylarDeactivateCommand(event))  {
+		if (MylarUsageDetector.isAMylarDeactivateCommand(event))  {
 			mylarInactiveUserIds.add(userId);
 		}
 	}

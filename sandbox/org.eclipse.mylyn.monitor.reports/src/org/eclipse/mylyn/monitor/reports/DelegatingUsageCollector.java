@@ -20,6 +20,12 @@ import org.eclipse.mylar.core.InteractionEvent;
  * @author Mik Kersten
  */
 public class DelegatingUsageCollector implements IUsageCollector {
+	
+	protected List<IUsageScanner> scanners = new ArrayList<IUsageScanner>();
+
+	public void addScanner(IUsageScanner aScanner) {
+		scanners.add(aScanner);
+	}
 
 	private List<IUsageCollector> delegates = new ArrayList<IUsageCollector>();
 	private String reportTitle = "";
