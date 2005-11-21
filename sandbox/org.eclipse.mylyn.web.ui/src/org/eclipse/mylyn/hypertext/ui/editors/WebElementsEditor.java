@@ -262,7 +262,7 @@ public class WebElementsEditor extends EditorPart {
 	
 	private List<String> getWebDocs() {
 		links = new ArrayList<String>();
-		Set<IMylarElement> elements = MylarPlugin.getContextManager().getInterestingDocuments(MylarPlugin.getContextManager().getActiveContext());
+		List<IMylarElement> elements = MylarPlugin.getContextManager().getInterestingDocuments();
 		for (IMylarElement element : elements) {
 			if (element.getContentType().equals(HypertextStructureBridge.CONTENT_TYPE)) {
 				links.add(element.getHandleIdentifier());
