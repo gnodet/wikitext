@@ -22,9 +22,9 @@ import org.eclipse.ui.IWorkbenchPage;
 
 public class JiraReportHandler implements ITaskHandler {
 
-	public void itemDeleted(ITaskListElement element) {
+	public boolean deleteElement(ITaskListElement element) {
 		// TODO Auto-generated method stub
-
+		return false;
 	}
 
 	public void taskCompleted(ITask task) {
