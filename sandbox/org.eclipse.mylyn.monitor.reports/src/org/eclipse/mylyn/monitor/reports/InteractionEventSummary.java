@@ -56,7 +56,6 @@ public class InteractionEventSummary {
 	public void combine(InteractionEventSummary another) {
 		this.usageCount = this.usageCount + another.getUsageCount();
 		this.userIds.addAll(another.getUserIds());
-		System.err.println("In combine: " + this.userIds.toString());
 	}
 
 	/**

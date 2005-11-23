@@ -162,7 +162,7 @@ public class ViewUsageCollector implements IUsageCollector {
 			int normalSelections = normalViewSelections.get(view);
 			int filteredSelections = filteredViewSelections.get(view);
 			int unfilteredSelections = normalSelections - filteredSelections; 
-			summaries.add(view + ": " + filteredSelections + " vs. ");
+			summaries.add(view + " filtered: " + filteredSelections + " vs. unfiltered: ");
 			summaries.add(unfilteredSelections + "<br>");
 		}
 		summaries.add("<h4>Interest Model</h4>");

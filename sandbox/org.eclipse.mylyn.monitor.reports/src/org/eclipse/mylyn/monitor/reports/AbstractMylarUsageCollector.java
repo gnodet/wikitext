@@ -27,9 +27,7 @@ public abstract class AbstractMylarUsageCollector extends DelegatingUsageCollect
 	protected Set<Integer> mylarInactiveUserIds = new HashSet<Integer>();
 	
 	protected CommandUsageCollector commandUsageCollector = new CommandUsageCollector();
-	
-
-	
+		
 	public AbstractMylarUsageCollector() {
 		super.getDelegates().add(commandUsageCollector);
 	}
