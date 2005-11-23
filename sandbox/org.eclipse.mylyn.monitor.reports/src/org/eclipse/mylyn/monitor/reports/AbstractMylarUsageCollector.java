@@ -35,8 +35,8 @@ public abstract class AbstractMylarUsageCollector extends DelegatingUsageCollect
 	/**
 	 * Overriders must call super.consumeEvent(..)
 	 */
-	public void consumeEvent(InteractionEvent event, int userId, String phase) {
-		super.consumeEvent(event, userId, phase);
+	public void consumeEvent(InteractionEvent event, int userId) {
+		super.consumeEvent(event, userId);
 		userIds.add(userId);
 		if (MylarUsageDetector.isAMylarActivateCommand(event)) {
 			mylarUserIds.add(userId);

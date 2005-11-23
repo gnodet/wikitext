@@ -37,7 +37,7 @@ public class PerspectiveUsageCollector implements IUsageCollector {
     private int numUnassociatedEvents = 0;
     private int numEvents = 0;
     
-	public void consumeEvent(InteractionEvent event, int userId, String phase) {
+	public void consumeEvent(InteractionEvent event, int userId) {
 		numEvents++;
         if (event.getKind().equals(InteractionEvent.Kind.PREFERENCE)) {
         	if (event.getDelta().equals(PerspectiveChangeMonitor.PERSPECTIVE_ACTIVATED)) {

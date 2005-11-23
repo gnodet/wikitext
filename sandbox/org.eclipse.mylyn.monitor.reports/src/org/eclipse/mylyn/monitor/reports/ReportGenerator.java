@@ -213,7 +213,7 @@ public class ReportGenerator {
 
 					// Consume all events
 					for (Map.Entry<String, SortedSet<InteractionEvent>> eventsPerPhase : userEvents.entrySet()) {
-						String phaseToProcess = eventsPerPhase.getKey();
+//						String phaseToProcess = eventsPerPhase.getKey();
 						SortedSet<InteractionEvent> events = eventsPerPhase.getValue();
 
 						for (InteractionEvent event : events) {
@@ -225,7 +225,7 @@ public class ReportGenerator {
 																	// non-user
 																	// events
 								for (IUsageCollector collector : this.generator.collectors)
-									collector.consumeEvent(event, aUser, phaseToProcess);
+									collector.consumeEvent(event, aUser);
 							}
 							createUsageTableData(summaryMap, event, aUser);
 						}

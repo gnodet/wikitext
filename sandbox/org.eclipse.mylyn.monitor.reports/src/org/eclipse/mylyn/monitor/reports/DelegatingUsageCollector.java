@@ -38,9 +38,9 @@ public class DelegatingUsageCollector implements IUsageCollector {
 		this.delegates = delegates;
 	}
 
-	public void consumeEvent(InteractionEvent event, int userId, String phase) {
+	public void consumeEvent(InteractionEvent event, int userId) {
 		for (IUsageCollector collector : delegates) {
-			collector.consumeEvent(event, userId, phase);
+			collector.consumeEvent(event, userId);
 		}
 	} 
 

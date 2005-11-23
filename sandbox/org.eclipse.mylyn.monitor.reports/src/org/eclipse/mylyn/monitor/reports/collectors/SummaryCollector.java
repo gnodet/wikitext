@@ -31,7 +31,7 @@ public class SummaryCollector implements IUsageCollector {
     protected int numCommands = 0;
     protected int numPreference = 0;
 	
-	public void consumeEvent(InteractionEvent event, int userId, String phase) {
+	public void consumeEvent(InteractionEvent event, int userId) {
     	if (mostRecentDate.compareTo(event.getDate()) == -1) mostRecentDate = event.getDate();
         if (leastRecentDate.compareTo(event.getDate()) == 1) leastRecentDate = event.getDate();
         

@@ -29,7 +29,7 @@ public class CommandUsageCollector implements IUsageCollector {
     private InteractionByTypeSummary commands = new InteractionByTypeSummary();
     private Set<Integer> userIdSet = new HashSet<Integer>();
 	
-	public void consumeEvent(InteractionEvent event, int userId, String phase) {
+	public void consumeEvent(InteractionEvent event, int userId) {
         userIdSet.add(userId);
         if (event.getKind().equals(InteractionEvent.Kind.COMMAND)) {
         	commands.setUserCount(userId, ReportGenerator.getCleanOriginId(event), commands.getUserCount(userId, ReportGenerator.getCleanOriginId(event)) + 1);

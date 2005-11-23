@@ -48,7 +48,7 @@ public class ViewUsageCollector implements IUsageCollector {
 
     private int maxViewsToReport = -1;
     
-    public void consumeEvent(InteractionEvent event, int userId, String phase) {
+    public void consumeEvent(InteractionEvent event, int userId) {
 		if (event.getKind().equals(InteractionEvent.Kind.COMMAND)) {
 			if (event.getOriginId().equals(TaskActivateAction.ID)) {
 				mylarUserIds.add(userId);

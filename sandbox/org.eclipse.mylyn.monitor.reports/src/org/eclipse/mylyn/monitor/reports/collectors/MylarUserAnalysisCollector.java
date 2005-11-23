@@ -78,8 +78,8 @@ public class MylarUserAnalysisCollector extends AbstractMylarUsageCollector {
 		return "Mylar Usage";
 	}
 	
-	public void consumeEvent(InteractionEvent event, int userId, String phase) {
-		super.consumeEvent(event, userId, phase);
+	public void consumeEvent(InteractionEvent event, int userId) {
+		super.consumeEvent(event, userId);
 		if (!startDates.containsKey(userId)) startDates.put(userId, event.getDate());
 		endDates.put(userId, event.getDate());
 		 

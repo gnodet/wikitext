@@ -22,7 +22,7 @@ public interface IUsageCollector {
 
 	public String getReportTitle();
 	
-	public abstract void consumeEvent(InteractionEvent event, int userId, String phase);
+	public abstract void consumeEvent(InteractionEvent event, int userId);
 
 	/**
 	 * TODO: return report as HTML

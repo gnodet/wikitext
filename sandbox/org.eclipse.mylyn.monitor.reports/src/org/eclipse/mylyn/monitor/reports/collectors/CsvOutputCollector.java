@@ -30,7 +30,7 @@ public class CsvOutputCollector implements IUsageCollector {
 		return "CSV Output Collector";
 	}
 
-	public void consumeEvent(InteractionEvent event, int userId, String phase) {
+	public void consumeEvent(InteractionEvent event, int userId) {
 		// TODO: write to CSV
 	}
 
