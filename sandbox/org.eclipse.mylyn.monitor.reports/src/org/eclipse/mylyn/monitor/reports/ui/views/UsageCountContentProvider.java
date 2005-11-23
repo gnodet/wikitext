@@ -26,35 +26,34 @@ import org.eclipse.mylar.monitor.reports.ReportGenerator;
 class UsageCountContentProvider implements IStructuredContentProvider {
 
 	private ReportGenerator parser;
-	
+
 	public UsageCountContentProvider(ReportGenerator parser) {
 		this.parser = parser;
 	}
-	
-    public void inputChanged(Viewer v, Object oldInput, Object newInput) {
-        /*
-         * If we're doing real-time updating we'll need to check when the
-         * model changes.
-         */
-        // if (newInput != null)
-        // ((MylarModel) newInput).addChangeListener(this);
-        // if (oldInput != null)
-        // ((MylarModel) oldInput).removeChangeListener(this);
-    }
 
-    public void dispose() {
-        // model.removeChangeListener(this);
-    }
+	public void inputChanged(Viewer v, Object oldInput, Object newInput) {
+		/*
+		 * If we're doing real-time updating we'll need to check when the model
+		 * changes.
+		 */
+		// if (newInput != null)
+		// ((MylarModel) newInput).addChangeListener(this);
+		// if (oldInput != null)
+		// ((MylarModel) oldInput).removeChangeListener(this);
+	}
 
-    // Return the individual stat summaries as an array of Objects
+	public void dispose() {
+		// model.removeChangeListener(this);
+	}
 
-    public Object[] getElements(Object parent) {
-    	if (parser.getLastParsedSummary() == null) {
-    		return new Object[] { };
-    	} else {
-    		List<InteractionEventSummary> stats = parser.getLastParsedSummary().getSingleSummaries();
-    		return stats.toArray();
-    	}
-    }
+	// Return the individual stat summaries as an array of Objects
+
+	public Object[] getElements(Object parent) {
+		if (parser.getLastParsedSummary() == null) {
+			return new Object[] {};
+		} else {
+			List<InteractionEventSummary> stats = parser.getLastParsedSummary().getSingleSummaries();
+			return stats.toArray();
+		}
+	}
 }
-

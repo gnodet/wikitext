@@ -23,31 +23,35 @@ import org.eclipse.swt.graphics.Image;
  */
 class UsageCountLabelProvider extends LabelProvider implements ITableLabelProvider {
 
-    public String getColumnText(Object obj, int index) {
-        String labelText;
-        switch (index) {
-        case 0:
-            labelText = ((InteractionEventSummary) obj).getType();
-            break;
-        case 1:
-            labelText = ((InteractionEventSummary) obj).getName();
-            break;
-        case 2:
-            labelText = String.valueOf(((InteractionEventSummary) obj).getUsageCount());
-            break;
-//        case 3:
-//            labelText = String.valueOf(((InteractionEventSummary) obj).getInterestContribution());
-//            break;
-        case 3:
-            labelText = String.valueOf(((InteractionEventSummary) obj).getDelta());
-            break;
-        default:
-            labelText = "";
-        }
-        return labelText;
-    }
+	public String getColumnText(Object obj, int index) {
+		String labelText;
+		switch (index) {
+		case 0:
+			labelText = ((InteractionEventSummary) obj).getType();
+			break;
+		case 1:
+			labelText = ((InteractionEventSummary) obj).getName();
+			break;
+		case 2:
+			labelText = String.valueOf(((InteractionEventSummary) obj).getUsageCount());
+			break;
+		// case 3:
+		// labelText = String.valueOf(((InteractionEventSummary)
+		// obj).getInterestContribution());
+		// break;
+		case 3:
+			labelText = String.valueOf(((InteractionEventSummary) obj).getDelta());
+			break;
+		case 4:
+			labelText = ((InteractionEventSummary) obj).getUserIds().toString();
+			break;
+		default:
+			labelText = "";
+		}
+		return labelText;
+	}
 
-    public Image getColumnImage(Object obj, int index) {
-        return null;
-    }
+	public Image getColumnImage(Object obj, int index) {
+		return null;
+	}
 }

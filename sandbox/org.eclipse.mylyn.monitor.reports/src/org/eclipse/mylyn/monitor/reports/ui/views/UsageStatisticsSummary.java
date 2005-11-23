@@ -23,10 +23,11 @@ import org.eclipse.mylar.monitor.reports.InteractionEventSummary;
  * @author Mik Kersten
  */
 public class UsageStatisticsSummary {
-	
+
 	private List<InteractionEventSummary> singleSummaries = new ArrayList<InteractionEventSummary>();
+
 	private List<IUsageCollector> collectors = new ArrayList<IUsageCollector>();
-	
+
 	public List<InteractionEventSummary> getSingleSummaries() {
 		return singleSummaries;
 	}
@@ -38,11 +39,11 @@ public class UsageStatisticsSummary {
 	public void add(int index, IUsageCollector collector) {
 		collectors.add(index, collector);
 	}
-	
+
 	public void add(IUsageCollector collector) {
 		collectors.add(collector);
 	}
-	
+
 	public List<IUsageCollector> getCollectors() {
 		return collectors;
 	}
