@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.monitor.reports.collectors;
+package org.eclipse.mylar.monitor.reports.internal;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,6 +23,7 @@ import org.eclipse.mylar.core.InteractionEvent;
 import org.eclipse.mylar.core.util.DateUtil;
 import org.eclipse.mylar.monitor.reports.AbstractMylarUsageCollector;
 import org.eclipse.mylar.monitor.reports.ReportGenerator;
+import org.eclipse.mylar.monitor.reports.collectors.ViewUsageCollector;
 import org.eclipse.mylar.tasklist.ui.actions.TaskActivateAction;
 import org.eclipse.mylar.tasklist.ui.actions.TaskDeactivateAction;
 
@@ -31,17 +32,15 @@ import org.eclipse.mylar.tasklist.ui.actions.TaskDeactivateAction;
  * 
  * @author Mik Kersten
  */
-public class MylarUserAnalysisCollector extends AbstractMylarUsageCollector {
+public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 
-	private static final int THRESHOLD_SELECTION_RUNS = 5;
-	public static final int JAVA_EDITS_THRESHOLD = 3000;
-	public static final int BASELINE_SELECTIONS_THRESHOLD = 3000;
-	private static final int MYLAR_SELECTIONS_THRESHOLD = 3000;
-//	private static final int TASK_DEACTIVATIONS_THRESHOLD = 5;
+//	private static final int THRESHOLD_SELECTION_RUNS = 0;
+//	public static final int JAVA_EDITS_THRESHOLD = 3000;
+	public static final int BASELINE_SELECTIONS_THRESHOLD = 400;
+	private static final int MYLAR_SELECTIONS_THRESHOLD = 400;
+	private static final int TASK_DEACTIVATIONS_THRESHOLD = 0;
 	private static final int NUM_VIEWS_REPORTED = 5;
 
-	int acceptedUsers = 0;
-	int rejectedUsers = 0;
 	float summaryEditRatioDelta = 0;
 	float mylarInactiveDelta = 0;
 
@@ -49,7 +48,7 @@ public class MylarUserAnalysisCollector extends AbstractMylarUsageCollector {
 	final List<Integer> usersDegraded = new ArrayList<Integer>();
 		
 	private Map<Integer, Date> startDates = new HashMap<Integer, Date>();
-	private Map<Integer, Integer> numJavaEdits = new HashMap<Integer, Integer>();
+//	private Map<Integer, Integer> numJavaEdits = new HashMap<Integer, Integer>();
 	private Map<Integer, Date> endDates = new HashMap<Integer, Date>();
 	
 	private Map<Integer, Integer> baselineSelections = new HashMap<Integer, Integer>();
@@ -69,7 +68,7 @@ public class MylarUserAnalysisCollector extends AbstractMylarUsageCollector {
 		
 	private ViewUsageCollector viewUsageCollector = new ViewUsageCollector();
 	
-	public MylarUserAnalysisCollector() {
+	public MylarUsageAnalysisCollector() {
 		viewUsageCollector.setMaxViewsToReport(NUM_VIEWS_REPORTED);
 		super.getDelegates().add(viewUsageCollector);
 	}
@@ -82,46 +81,43 @@ public class MylarUserAnalysisCollector extends AbstractMylarUsageCollector {
 		super.consumeEvent(event, userId);
 		if (!startDates.containsKey(userId)) startDates.put(userId, event.getDate());
 		endDates.put(userId, event.getDate());
-		 
-		if (event.getKind().equals(InteractionEvent.Kind.EDIT)
-				&& (event.getOriginId().indexOf("java") != -1
-					|| event.getOriginId().indexOf("jdt.ui") != -1)) {
-			incrementCount(userId, numJavaEdits);
-		}
 		
+		// Mylar is active
 		if (mylarUserIds.contains(userId) && !mylarInactiveUserIds.contains(userId)) {
-			if (event.getKind().equals(InteractionEvent.Kind.SELECTION)) {
+			if (acceptSelection(event)) {
 	    		incrementCount(userId, mylarSelections);
 	    		incrementCount(userId, mylarCurrentNumSelectionsBeforeEdit);  		
-	        } else if (event.getKind().equals(InteractionEvent.Kind.EDIT)) {
+	        } else if (acceptEdit(event)) {
 	        	incrementCount(userId, mylarEdits);
 	        	
 	        	if (mylarCurrentNumSelectionsBeforeEdit.containsKey((userId))) {
 	        		int num = mylarCurrentNumSelectionsBeforeEdit.get(userId);
-	        		if (num > THRESHOLD_SELECTION_RUNS) {
+	        		if (num > 0) {
 	        			incrementCount(userId, mylarTotalEditsCounted);
 		        		incrementCount(userId, mylarTotalSelectionsBeforeEdit, num);
 		        		mylarCurrentNumSelectionsBeforeEdit.put(userId, 0);
 	        		}
 	        	}
 	        }
-		} else if (mylarUserIds.contains(userId) && mylarInactiveUserIds.contains(userId)) {
-			if (event.getKind().equals(InteractionEvent.Kind.SELECTION)) {
+		// Mylar is inactive
+		} else if (mylarInactiveUserIds.contains(userId)) {
+			if (acceptSelection(event)) {
 	    		incrementCount(userId, mylarInactiveSelections);
-			} else if (event.getKind().equals(InteractionEvent.Kind.EDIT)) {
+			} else if (acceptEdit(event)) {
 	        	incrementCount(userId, mylarInactiveEdits);
 			}
-		} else { // baseline
-	        if (event.getKind().equals(InteractionEvent.Kind.SELECTION)) {
+		// Baseline
+		} else { 
+	        if (acceptSelection(event)) {
 	    		incrementCount(userId, baselineSelections);
 	    		
 	    		incrementCount(userId, baselineCurrentNumSelectionsBeforeEdit);
-	        } else if (event.getKind().equals(InteractionEvent.Kind.EDIT)) {
+	        } else if (acceptEdit(event)) {
 	        	incrementCount(userId, baselineEdits);
 	        	
 	        	if (baselineCurrentNumSelectionsBeforeEdit.containsKey((userId))) {
 	        		int num = baselineCurrentNumSelectionsBeforeEdit.get(userId);
-	        		if (num >= THRESHOLD_SELECTION_RUNS) {  
+	        		if (num > 0) {
 	        			incrementCount(userId, baselineTotalEditsCounted);
 	        			incrementCount(userId, baselineTotalSelectionsBeforeEdit, num);
 		        		baselineCurrentNumSelectionsBeforeEdit.put(userId, 0);
@@ -129,6 +125,32 @@ public class MylarUserAnalysisCollector extends AbstractMylarUsageCollector {
 	        	}
 	        } 
 		}
+	}
+
+	private boolean acceptEdit(InteractionEvent event) {
+//		String[] ACCEPTED_EDITORS = {
+//				"org.eclipse.mylar.java.ui.editor.MylarCompilationUnitEditor",
+//				"org.eclipse.jdt.ui.CompilationUnitEditor"
+//		};
+//		String originId = event.getOriginId();
+//		if (originId == null) return false;
+		return event.getKind().equals(InteractionEvent.Kind.EDIT);
+//			&& (event.getOriginId().contains("java") || event.getOriginId().contains("jdt.ui"));
+	}
+
+	private boolean acceptSelection(InteractionEvent event) {
+//		String[] REJECTED_IDs = {
+//				"org.eclipse.mylar.java.ui.editor.MylarCompilationUnitEditor",
+//				"org.eclipse.jdt.ui.CompilationUnitEditor",
+//				"org.eclipse.jdt.ui.DefaultTextEditor",
+//				"org.eclipse.jdt.ui.ClassFileEditor"
+//		};
+		return event.getKind().equals(InteractionEvent.Kind.SELECTION)
+//			&& !Arrays.asList(REJECTED_IDs).contains(originId)
+//			&& event.getOriginId().contains("org.eclipse.jdt.ui")
+			&& !event.getOriginId().contains("Editor")
+			&& !event.getOriginId().contains("editor")
+			&& !event.getOriginId().contains("source");
 	}
 
 	private void incrementCount(int userId, Map<Integer, Integer> map, int count) {
@@ -141,6 +163,8 @@ public class MylarUserAnalysisCollector extends AbstractMylarUsageCollector {
 	}
 	
 	public List<String> getReport() {
+		int acceptedUsers = 0;
+		int rejectedUsers = 0;
 		List<String> report = new ArrayList<String>();
 		for (Iterator it = userIds.iterator(); it.hasNext(); ) {
     		int id = (Integer)it.next();
@@ -157,60 +181,67 @@ public class MylarUserAnalysisCollector extends AbstractMylarUsageCollector {
 					
 					float baselineRuns = 
 						(float)baselineTotalSelectionsBeforeEdit.get(id) /
-//						getNumBaselineEdits(id);
 						(float)baselineTotalEditsCounted.get(id);
 					
 					float mylarRuns = 
 						(float)mylarTotalSelectionsBeforeEdit.get(id) /
-//						getNumMylarEdits(id);
 						(float)mylarTotalEditsCounted.get(id);  
 					
+					float runsDifference = baselineRuns - mylarRuns;
 					report.add("Avg baseline selections before edit: " + baselineRuns 
-							+ " vs. mylar: " + mylarRuns 
-							+ " (run size: " + THRESHOLD_SELECTION_RUNS + ")<br>");
+							+ " vs. mylar: " + mylarRuns
+							+ " <b>change: " + runsDifference + "</b><br>");
+//							+ " (run size: " + THRESHOLD_SELECTION_RUNS + ")<br>")
+;
 				}
 				
 				float baselineRatio = getBaselineRatio(id);
-//				float mylarInactiveRatio = getMylarInactiveRatio(id);
-				float mylarRatio = getMylarRatio(id);				
-//				if (baselineRatio > 0 && mylarRatio > 0) {
-				float percentage = mylarRatio / baselineRatio;
-				summaryEditRatioDelta += percentage;
-				String ratio1 = "";
-				ratio1 = "Baseline vs. Mylar active edit ratio: " + baselineRatio + ", mylar: " + mylarRatio + ",  ";
-				String ratioChange = formatPercentage(100*(percentage-1));
-				if (percentage >= 1) {
-					usersImproved.add(id);
-					ratio1 += "Improved by: " + ratioChange + "%"; 
-				} else {
-					usersDegraded.add(id);
-					ratio1 += "Degraded by: " + ratioChange + "%"; 
-				}
+				float mylarInactiveRatio = getMylarInactiveRatio(id);
+				float mylarRatio = getMylarRatio(id);		
+				
+				float ratioPercentage = (mylarRatio+mylarInactiveRatio) / baselineRatio;
+				summaryEditRatioDelta += ratioPercentage;
+				String ratio1 = "Baseline vs. Mylar edit ratio: " + baselineRatio + ", mylar: " + mylarRatio + ",  ";
+				String ratioChange = formatPercentage(100*(ratioPercentage-1));
+				ratio1 += " <b>change: " + ratioChange + "%</b>";
+//				if (percentage >= 1) {
+//					usersImproved.add(id);
+//					ratio1 += "Improved by: " + ratioChange + "%"; 
+//				} else {
+//					usersDegraded.add(id);
+//					ratio1 += "Degraded by: " + ratioChange + "%"; 
+//				}
 				report.add(ratio1 + "<br>");
 
-//					float inactivePercentage = mylarRatio / mylarInactiveRatio;
-//					String inactiveRatioChange = formatPercentage(100*(inactivePercentage-1));
-//					mylarInactiveDelta += inactivePercentage;
-//					String ratio2 = "";
-//					ratio2 += "Inactive vs. Active edit ratio: " + mylarInactiveRatio + ", mylar: " + mylarRatio + ",  ";
-//					if (inactivePercentage >= 1) {
-//						ratio2 += "Improved by: " + inactiveRatioChange + "%"; 
-//					} else {
-//						ratio2 += "Degraded by: " + inactiveRatioChange + "%"; 
-//					}
-//					report.add(ratio2 + "<br>");
+				float inactivePercentage = mylarRatio / mylarInactiveRatio;
+				String inactiveRatioChange = formatPercentage(100*(inactivePercentage-1));
+				mylarInactiveDelta += inactivePercentage;
+				String ratio2 = "";
+				ratio2 += "Inactive vs. Active edit ratio: " + mylarInactiveRatio + ", mylar: " + mylarRatio + ",  ";
+				ratio1 += " <b>change: " + inactiveRatioChange + "%</b>";
+//				if (inactivePercentage >= 1) {
+//					ratio2 += "Improved by: " + inactiveRatioChange + "%"; 
+//				} else {
+//					ratio2 += "Degraded by: " + inactiveRatioChange + "%"; 
 //				}
+				report.add(ratio2 + "<br>");
 				
 				report.add("<h4>Activity</h4>");
+				float editsActive = getNumMylarEdits(id);
+				float editsInactive = getNumInactiveEdits(id);
+				report.add("Proportion Mylar active (edits): <b>" + 
+						formatPercentage(100*(editsActive/(editsInactive+editsActive))) + "%</b><br>");
 				report.add("Task activations: " + numTaskActivations + ", ");
-				report.add("Task deactivations: " + numTaskDeactivations + "<br>");
+				report.add("deactivations: " + numTaskDeactivations + "<br>");
 				report.add("Interest increments: " + numIncrements
-						+ ", Interest decrements: " + numDecrements + "<br>");
+						+ ", decrements: " + numDecrements + "<br>");
 				
 				report.add("Selections baseline: " + getNumBaselineSelections(id)
-						+ ", Selections mylar: " + getNumMylarSelections(id) + "<br>");
+						+ ", Mylar active: " + getNumMylarSelections(id) 
+						+ ", inactive: " + getNumMylarInactiveSelections(id) + "<br>");
 				report.add("Edits baseline: " + getNumBaselineEdits(id)
-						+ ", Edits mylar: " + getNumMylarEdits(id) + "<br>");
+						+ ", Mylar active: " + getNumMylarEdits(id)
+						+ ", inactive: " + getNumInactiveEdits(id) + "<br>");
 				
 				report.add("<h4>View Usage (top " + NUM_VIEWS_REPORTED + ")</h4>");
 				report.addAll(viewUsageCollector.getSummary(id));
@@ -234,15 +265,15 @@ public class MylarUserAnalysisCollector extends AbstractMylarUsageCollector {
 	}
 
 	public boolean acceptUser(int id, int numTaskDeactivations) {
-		if (!numJavaEdits.containsKey(id)) {
-			return false;
-		} else {
+//		if (!numJavaEdits.containsKey(id)) {
+//			return false;
+//		} else {
 			return 
-//				numTaskDeactivations > TASK_DEACTIVATIONS_THRESHOLD
-			 	numJavaEdits.get(id) > JAVA_EDITS_THRESHOLD
+				numTaskDeactivations > TASK_DEACTIVATIONS_THRESHOLD
+//			 	numJavaEdits.get(id) > JAVA_EDITS_THRESHOLD
 				&& getNumBaselineSelections(id) > BASELINE_SELECTIONS_THRESHOLD
 				&& getNumMylarSelections(id) > MYLAR_SELECTIONS_THRESHOLD;
-		}
+//		}
 	}
 
 	public String formatPercentage(float percentage) {
@@ -285,6 +316,14 @@ public class MylarUserAnalysisCollector extends AbstractMylarUsageCollector {
 	public int getNumMylarEdits(int id) {
 		if (mylarEdits.containsKey(id)) {
 			return mylarEdits.get(id);
+		} else {
+			return 0;
+		}
+	}
+
+	public int getNumInactiveEdits(int id) {
+		if (mylarInactiveEdits.containsKey(id)) {
+			return mylarInactiveEdits.get(id);
 		} else {
 			return 0;
 		}

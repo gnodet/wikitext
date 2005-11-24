@@ -22,7 +22,7 @@ import org.eclipse.mylar.monitor.MylarMonitorPlugin;
 import org.eclipse.mylar.monitor.reports.IUsageCollector;
 import org.eclipse.mylar.monitor.reports.MylarReportsPlugin;
 import org.eclipse.mylar.monitor.reports.ReportGenerator;
-import org.eclipse.mylar.monitor.reports.collectors.MylarUserAnalysisCollector;
+import org.eclipse.mylar.monitor.reports.internal.MylarUsageAnalysisCollector;
 import org.eclipse.mylar.monitor.reports.ui.views.UsageStatsEditorInput;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IViewActionDelegate;
@@ -52,7 +52,7 @@ public class UserAnalysisAction implements IViewActionDelegate {
     			public void run() {
     				try  {
     					List<IUsageCollector> collectors = new ArrayList<IUsageCollector>();
-    					collectors.add(new MylarUserAnalysisCollector());
+    					collectors.add(new MylarUsageAnalysisCollector());
     					ReportGenerator generator = new ReportGenerator(MylarMonitorPlugin.getDefault().getInteractionLogger(), collectors);
     					     					
     					IWorkbenchPage page = MylarReportsPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getActivePage();

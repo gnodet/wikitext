@@ -165,29 +165,29 @@ public class ViewUsageCollector implements IUsageCollector {
 			summaries.add(view + " filtered: " + filteredSelections + " vs. unfiltered: ");
 			summaries.add(unfilteredSelections + "<br>");
 		}
-		summaries.add("<h4>Interest Model</h4>");
-		
-		int numNew = 0;
-		if (usersNumNew.containsKey(userId)) numNew = usersNumNew.get(userId);
-		int numPredicted = 0;
-		if (usersNumPredicted.containsKey(userId)) numPredicted = usersNumPredicted.get(userId);
-		int numInteresting = 0;
-		if (usersNumDefault.containsKey(userId)) numInteresting = usersNumDefault.get(userId);
-		int numDecayed = 0;
-		if (usersNumDecayed.containsKey(userId)) numDecayed = usersNumDecayed.get(userId);
-		int numUnknown = 0;
-		if (usersNumUnknown.containsKey(userId)) numUnknown = usersNumUnknown.get(userId);
-		
-		float inModel = (numPredicted + numInteresting + numDecayed);
-		float notInModel = numNew;
-		float hitRatio = inModel / (inModel + notInModel);
-		summaries.add("In model (inModel / (inModel + notInModel): " + formatAsPercentage(hitRatio) + "<br>"); 
-		
-		summaries.add("New: " + formatAsPercentage(numNew/numSelections) + " (" + numNew + ")" + "; ");
-		summaries.add("Predicted: " + formatAsPercentage(numPredicted/numSelections) + " (" + numPredicted + ")" + "; ");
-		summaries.add("Interesting: " + formatAsPercentage(numInteresting/numSelections) + " (" + numInteresting + ")" + "; ");
-		summaries.add("Decayed: " + formatAsPercentage(numDecayed/numSelections) + " (" + numDecayed + ")" + "; ");
-		summaries.add("Unknown: " + formatAsPercentage(numUnknown/numSelections) + " (" + numUnknown + ")" + "<br>");
+//		summaries.add("<h4>Interest Model</h4>");
+//		
+//		int numNew = 0;
+//		if (usersNumNew.containsKey(userId)) numNew = usersNumNew.get(userId);
+//		int numPredicted = 0;
+//		if (usersNumPredicted.containsKey(userId)) numPredicted = usersNumPredicted.get(userId);
+//		int numInteresting = 0;
+//		if (usersNumDefault.containsKey(userId)) numInteresting = usersNumDefault.get(userId);
+//		int numDecayed = 0;
+//		if (usersNumDecayed.containsKey(userId)) numDecayed = usersNumDecayed.get(userId);
+//		int numUnknown = 0;
+//		if (usersNumUnknown.containsKey(userId)) numUnknown = usersNumUnknown.get(userId);
+//		
+//		float inModel = (numPredicted + numInteresting + numDecayed);
+//		float notInModel = numNew;
+//		float hitRatio = inModel / (inModel + notInModel);
+//		summaries.add("In model (inModel / (inModel + notInModel): " + formatAsPercentage(hitRatio) + "<br>"); 
+//		
+//		summaries.add("New: " + formatAsPercentage(numNew/numSelections) + " (" + numNew + ")" + "; ");
+//		summaries.add("Predicted: " + formatAsPercentage(numPredicted/numSelections) + " (" + numPredicted + ")" + "; ");
+//		summaries.add("Interesting: " + formatAsPercentage(numInteresting/numSelections) + " (" + numInteresting + ")" + "; ");
+//		summaries.add("Decayed: " + formatAsPercentage(numDecayed/numSelections) + " (" + numDecayed + ")" + "; ");
+//		summaries.add("Unknown: " + formatAsPercentage(numUnknown/numSelections) + " (" + numUnknown + ")" + "<br>");
 		return summaries;		
 	}
 
