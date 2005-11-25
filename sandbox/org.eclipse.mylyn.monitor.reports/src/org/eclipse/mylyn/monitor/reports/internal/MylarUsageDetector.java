@@ -1,4 +1,4 @@
-package org.eclipse.mylar.monitor.reports;
+package org.eclipse.mylar.monitor.reports.internal;
 
 import org.eclipse.mylar.core.InteractionEvent;
 import org.eclipse.mylar.tasklist.ui.actions.TaskActivateAction;

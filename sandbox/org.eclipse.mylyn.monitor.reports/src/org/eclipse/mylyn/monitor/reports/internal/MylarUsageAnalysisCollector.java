@@ -24,7 +24,6 @@ import java.util.Map;
 import org.eclipse.mylar.core.InteractionEvent;
 import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.core.util.DateUtil;
-import org.eclipse.mylar.monitor.reports.AbstractMylarUsageCollector;
 import org.eclipse.mylar.monitor.reports.ReportGenerator;
 import org.eclipse.mylar.tasklist.ui.actions.TaskActivateAction;
 import org.eclipse.mylar.tasklist.ui.actions.TaskDeactivateAction;
