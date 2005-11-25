@@ -287,7 +287,8 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 			writer = new FileWriter(directory + "/mylar-usage.csv");
 			writer.write(
 					"userid, " +
-					"ratio-baseline, ratio-mylar" +
+					"ratio-baseline, ratio-mylar, " +
+					"ratio-improvement, " + 
 					"filtered-explorer, " +
 					"edits-active, " +
 					"time-baseline, time-active, time-inactive, " +
@@ -307,8 +308,8 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 					writer.write(baselineRatio + ", ");
 					writer.write(combinedMylarRatio + ", ");
 					
-//					float ratioPercentage = (combinedMylarRatio-baselineRatio) / baselineRatio;
-//					writer.write(100*ratioPercentage + ", ");
+					float ratioPercentage = (combinedMylarRatio-baselineRatio) / baselineRatio;
+					writer.write(100*ratioPercentage + ", ");
 	
 					writer.write(viewUsageCollector.getFilteredSelections(id, "org.eclipse.jdt.ui.PackageExplorer") + ", ");
 										
