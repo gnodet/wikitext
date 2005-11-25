@@ -320,7 +320,8 @@ public class UsageStatsEditorPart extends EditorPart {
 //	    	outputStream = new FileOutputStream(outputFile, true);
 	    	BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
 	    	writer.write(
-	    			"<html><head><link rel=\"stylesheet\" href=\"http://eclipse.org/mylar/style.css\" type=\"text/css\"></head><body>"	
+	    			"<html><head>"
+//	    			+ "<link rel=\"stylesheet\" href=\"http://eclipse.org/mylar/style.css\" type=\"text/css\"></head><body>"	
 	    	);
 	    	for (IUsageCollector collector : editorInput.getReportGenerator().getCollectors()) {
 	    		writer.write("<h3>" + collector.getReportTitle() + "</h3>");

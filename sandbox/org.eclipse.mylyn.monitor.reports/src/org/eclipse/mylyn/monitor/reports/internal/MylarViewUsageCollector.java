@@ -114,6 +114,15 @@ public class MylarViewUsageCollector extends ViewUsageCollector {
 		}
 	}
 
+	public int getFilteredSelections(int userId, String viewId) {
+		Map<String, Integer> filteredViewSelections = usersFilteredViewSelections.get(userId);
+		if (filteredViewSelections.containsKey(viewId)) {
+			return filteredViewSelections.get(viewId);
+		} else {
+			return 0;
+		}
+	}
+	
 	public List<String> getSummary(int userId) {
 		
 		List<String> summaries = new ArrayList<String>();
@@ -124,7 +133,6 @@ public class MylarViewUsageCollector extends ViewUsageCollector {
 			summaries.add("<h4>Interest Filtering</h4>");
 		}
 		
-		// TODO: pull this out into a mylar-specific thing
 		for (String view : filteredViewSelections.keySet()) {
 			int normalSelections = normalViewSelections.get(view);
 			int filteredSelections = filteredViewSelections.get(view);
