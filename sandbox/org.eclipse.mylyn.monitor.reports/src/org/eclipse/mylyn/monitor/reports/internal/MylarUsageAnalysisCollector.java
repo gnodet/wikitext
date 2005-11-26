@@ -35,8 +35,12 @@ import org.eclipse.mylar.tasklist.ui.actions.TaskDeactivateAction;
  */
 public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 
-	public static final int BASELINE_EDITS_THRESHOLD = 400;
-	private static final int MYLAR_EDITS_THRESHOLD = 1200;
+//	public static final int BASELINE_EDITS_THRESHOLD = 400;
+//	private static final int MYLAR_EDITS_THRESHOLD = 1200;
+	
+	public static final int BASELINE_EDITS_THRESHOLD = 1000;
+	private static final int MYLAR_EDITS_THRESHOLD = 3000;
+	
 	private static final int NUM_VIEWS_REPORTED = 5;
 	
 	private float summaryEditRatioDelta = 0;
@@ -327,7 +331,7 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 		} else {
 			return
 				getNumBaselineEdits(id) > BASELINE_EDITS_THRESHOLD
-				&& getNumMylarEdits(id) > MYLAR_EDITS_THRESHOLD;
+				&& getNumMylarEdits(id) + getNumMylarInactiveEdits(id) > MYLAR_EDITS_THRESHOLD;
 		}
 	}
 
@@ -371,6 +375,14 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 	public int getNumMylarEdits(int id) {
 		if (mylarEdits.containsKey(id)) {
 			return mylarEdits.get(id);
+		} else {
+			return 0;
+		}
+	}
+	
+	public int getNumMylarInactiveEdits(int id) {
+		if (mylarInactiveEdits.containsKey(id)) {
+			return mylarInactiveEdits.get(id);
 		} else {
 			return 0;
 		}
