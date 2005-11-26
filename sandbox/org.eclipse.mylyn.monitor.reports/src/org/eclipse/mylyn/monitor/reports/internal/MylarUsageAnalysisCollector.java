@@ -331,7 +331,7 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 		} else {
 			return
 				getNumBaselineEdits(id) > BASELINE_EDITS_THRESHOLD
-				&& getNumMylarEdits(id) + getNumMylarInactiveEdits(id) > MYLAR_EDITS_THRESHOLD;
+				&& getNumMylarEdits(id) > MYLAR_EDITS_THRESHOLD;
 		}
 	}
 
