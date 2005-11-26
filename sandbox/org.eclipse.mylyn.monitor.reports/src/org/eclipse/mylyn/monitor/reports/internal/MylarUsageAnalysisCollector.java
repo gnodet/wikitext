@@ -88,10 +88,10 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 		if (mylarUserIds.contains(userId) && !mylarInactiveUserIds.contains(userId)) {
 			accumulateDuration(event, userId, timeMylarActive);
 			if (isJavaEdit(event)) incrementCount(userId, numMylarActiveJavaEdits);
-			if (acceptSelection(event)) {
+			if (isSelection(event)) {
 	    		incrementCount(userId, mylarSelections);
 	    		incrementCount(userId, mylarCurrentNumSelectionsBeforeEdit);  		
-	        } else if (acceptEdit(event)) {
+	        } else if (isEdit(event)) {
 	        	incrementCount(userId, mylarEdits);
 	        	
 	        	if (mylarCurrentNumSelectionsBeforeEdit.containsKey((userId))) {
@@ -106,19 +106,19 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 		// Mylar is inactive
 		} else if (mylarInactiveUserIds.contains(userId)) {
 			accumulateDuration(event, userId, timeMylarInactive);
-			if (acceptSelection(event)) {
+			if (isSelection(event)) {
 	    		incrementCount(userId, mylarInactiveSelections);
-			} else if (acceptEdit(event)) {
+			} else if (isEdit(event)) {
 	        	incrementCount(userId, mylarInactiveEdits);
 			}
 		// Baseline
 		} else { 
 			accumulateDuration(event, userId, timeBaseline);
-	        if (acceptSelection(event)) {
+	        if (isSelection(event)) {
 	    		incrementCount(userId, baselineSelections);
 	    		
 	    		incrementCount(userId, baselineCurrentNumSelectionsBeforeEdit);
-	        } else if (acceptEdit(event)) {
+	        } else if (isEdit(event)) {
 	        	incrementCount(userId, baselineEdits);
 	        	
 	        	if (baselineCurrentNumSelectionsBeforeEdit.containsKey((userId))) {
@@ -150,8 +150,12 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 		lastUserEvent.put(userId, event);
 	}
 
-	private boolean acceptEdit(InteractionEvent event) {
-		return event.getKind().equals(InteractionEvent.Kind.EDIT);
+	private boolean isEdit(InteractionEvent event) {
+		return event.getKind().equals(InteractionEvent.Kind.EDIT)
+			|| (event.getKind().equals(InteractionEvent.Kind.SELECTION)
+				&& event.getOriginId().contains("Editor")
+				&& event.getOriginId().contains("editor")
+				&& event.getOriginId().contains("source"));
 	}
 	
 	private boolean isJavaEdit(InteractionEvent event) {
@@ -160,7 +164,7 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 			(event.getOriginId().contains("java") || event.getOriginId().contains("jdt.ui"));
 	}
 
-	private boolean acceptSelection(InteractionEvent event) {
+	private boolean isSelection(InteractionEvent event) {
 		return event.getKind().equals(InteractionEvent.Kind.SELECTION)
 			&& !event.getOriginId().contains("Editor")
 			&& !event.getOriginId().contains("editor")
