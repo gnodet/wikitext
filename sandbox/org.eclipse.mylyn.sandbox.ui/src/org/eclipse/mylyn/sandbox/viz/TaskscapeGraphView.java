@@ -22,12 +22,15 @@ import org.eclipse.mylar.core.IMylarContext;
 import org.eclipse.mylar.core.IMylarContextListener;
 import org.eclipse.mylar.core.IMylarElement;
 import org.eclipse.mylar.core.MylarPlugin;
+import org.eclipse.mylar.ui.MylarImages;
 import org.eclipse.mylar.ui.views.MylarDelegatingContextLabelProvider;
-import org.eclipse.mylar.zest.core.viewers.SpringGraphViewer;
+import org.eclipse.mylar.zest.core.ZestStyles;
+import org.eclipse.mylar.zest.core.viewers.StaticGraphViewer;
+import org.eclipse.mylar.zest.layouts.LayoutStyles;
+import org.eclipse.mylar.zest.layouts.algorithms.SpringLayoutAlgorithm;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IActionBars;
-import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.Workbench;
 import org.eclipse.ui.part.ViewPart;
@@ -37,30 +40,16 @@ import org.eclipse.ui.part.ViewPart;
  */
 public class TaskscapeGraphView extends ViewPart {
     
-    private SpringGraphViewer viewer;
-    private Action addNodeAction;
-    private Action pauseAction;
-    private Action stopAction;
+    private StaticGraphViewer viewer;
+    private Action refreshAction;
 
     private final IMylarContextListener REFRESH_UPDATE_LISTENER = new IMylarContextListener() { 
-        public void interestChanged(IMylarElement node) { 
+        public void interestChanged(final IMylarElement node) { 
             refresh();
-//            refresh();
         }
         
         public void interestChanged(final List<IMylarElement> nodes) {
             refresh();
-//            Workbench.getInstance().getDisplay().asyncExec(new Runnable() {
-//                public void run() {
-//                    try { 
-//                        if (viewer.getControl() != null && !viewer.getControl().isDisposed()) {
-//                            viewer.addNode(nodes.get(nodes.size()-1));
-//                        }
-//                    } catch (Throwable t) {
-//                        t.printStackTrace(); // TODO: handle
-//                    }
-//                }
-//            });
         }
 
         public void contextActivated(IMylarContext taskscape) {
@@ -75,12 +64,12 @@ public class TaskscapeGraphView extends ViewPart {
             refresh();
         }
         
-        public void landmarkAdded(IMylarElement element) { 
+        public void landmarkAdded(final IMylarElement element) { 
 //            viewer.refresh(element, true);
             refresh();
         }
 
-        public void landmarkRemoved(IMylarElement element) { 
+        public void landmarkRemoved(final IMylarElement element) { 
 //            viewer.refresh(element, true);
             refresh();
         }
@@ -95,6 +84,7 @@ public class TaskscapeGraphView extends ViewPart {
                     try { 
                         if (viewer.getControl() != null && !viewer.getControl().isDisposed()) {
                             viewer.setInput(getViewSite()); // HACK
+                        	//viewer.updateModel();
                         }
                     } catch (Throwable t) {
                         t.printStackTrace(); // TODO: handle
@@ -108,6 +98,7 @@ public class TaskscapeGraphView extends ViewPart {
         }
 
         public void nodeDeleted(IMylarElement node) {
+        	refresh();
         }
     };
 
@@ -121,14 +112,20 @@ public class TaskscapeGraphView extends ViewPart {
      */
     @Override
     public void createPartControl(Composite parent) {
-        viewer = new SpringGraphViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-        viewer.setContentProvider(new TaskscapeGraphContentProvider() );
+        viewer = new StaticGraphViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | ZestStyles.NO_OVERLAPPING_NODES | ZestStyles.PANNING);
+        viewer.setContentProvider(new TaskscapeGraphContentProvider());
         viewer.setLabelProvider(new DecoratingLabelProvider(
                 new MylarDelegatingContextLabelProvider(),
                 PlatformUI.getWorkbench().getDecoratorManager().getLabelDecorator()));
 //        viewer.setLabelProvider(new TaskscapeNodeLabelProvider());
 //        viewer.setLabelProvider(new SampleGraphLabelProvider());
         //viewer.setSorter(new NameSorter());
+
+        SpringLayoutAlgorithm springLayout = new SpringLayoutAlgorithm(LayoutStyles.NONE);
+        springLayout.setRandom(false);
+        springLayout.setIterations(20);
+        viewer.setLayoutAlgorithm(springLayout, false);
+        
         viewer.setInput(getViewSite());
         
         makeActions();
@@ -143,16 +140,12 @@ public class TaskscapeGraphView extends ViewPart {
     }
     
     private void fillLocalPullDown(IMenuManager manager) {
-        manager.add(addNodeAction);
+        manager.add(refreshAction);
         manager.add(new Separator());
-        manager.add(pauseAction);
-        manager.add(stopAction);
     }
     
     private void fillLocalToolBar(IToolBarManager manager) {
-        manager.add(addNodeAction);
-        manager.add(pauseAction);
-        manager.add(stopAction);
+        manager.add(refreshAction);
     }
 
 
@@ -178,55 +171,19 @@ public class TaskscapeGraphView extends ViewPart {
      * Creates the "Add Node" action which creates a new node and adds it to the model.
      */
     private void makeActions() {
-        addNodeAction = new Action() {
-//            private int currentNamesIndex = 0;
+        refreshAction = new Action() {
             
             /** Create a new node and add a connection from it to a random node. */
             @Override
             public void run() {
-//                throw new RuntimeException("unimplemented");
-//                if (currentNamesIndex >= TaskscapeGraphContentProvider.NEWNAMES.length) {
-//                    System.out.println("Error - out of new names :(");
-//                    return;
-//                }
-//                String newNode = TaskscapeGraphContentProvider.NEWNAMES[currentNamesIndex++];
-//                String randomNode = TaskscapeGraphContentProvider.NAMES[(int)(Math.random()* TaskscapeGraphContentProvider.NAMES.length)];
-//                 
-//                viewer.addNode(newNode);
-//                viewer.addRelationship(null, randomNode, newNode);
+            	viewer.refresh();
             }
         };
         
-        addNodeAction.setText("Add Node");
-        addNodeAction.setToolTipText("Add a new node");
-        addNodeAction.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-            getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
+        refreshAction.setText("Run Layout");
+        refreshAction.setToolTipText("Runs the layout algorithm again");
+        refreshAction.setImageDescriptor(MylarImages.EDGE_REFERENCE);
         
-        pauseAction = new Action() {
-        	
-        	@Override
-            public void run() {
-//                viewer.pauseLayoutAlgorithm();
-//                pauseAction.setText(paused ? "Unpause" : "Pause");
-            }
-        };
-        pauseAction.setText("Pause");
-        pauseAction.setToolTipText("Pause or unpause the layout algorithm");
-        pauseAction.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-                getImageDescriptor(ISharedImages.IMG_OBJS_WARN_TSK));
-        
-        stopAction = new Action() {
-
-            @Override
-            public void run() {
-//            	viewer.stopLayoutAlgorithm();
-                stopAction.setEnabled(false);
-            }
-        };
-        stopAction.setText("Stop");
-        stopAction.setToolTipText("Stops the layout algorithm");
-        stopAction.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-                getImageDescriptor(ISharedImages.IMG_OBJS_ERROR_TSK));
         
     }
     
