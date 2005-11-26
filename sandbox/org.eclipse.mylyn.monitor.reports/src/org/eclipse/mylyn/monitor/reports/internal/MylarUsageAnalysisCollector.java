@@ -152,10 +152,18 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 
 	private boolean isEdit(InteractionEvent event) {
 		return event.getKind().equals(InteractionEvent.Kind.EDIT)
-			|| (event.getKind().equals(InteractionEvent.Kind.SELECTION)
-				&& event.getOriginId().contains("Editor")
-				&& event.getOriginId().contains("editor")
-				&& event.getOriginId().contains("source"));
+			|| (event.getKind().equals(InteractionEvent.Kind.SELECTION) && isSelectionInEditor(event));
+	}
+
+	private boolean isSelection(InteractionEvent event) {
+		return event.getKind().equals(InteractionEvent.Kind.SELECTION)
+			&& !isSelectionInEditor(event);
+	}
+
+	private boolean isSelectionInEditor(InteractionEvent event) {
+		return event.getOriginId().contains("Editor")
+		   || event.getOriginId().contains("editor")
+		   || event.getOriginId().contains("source");
 	}
 	
 	private boolean isJavaEdit(InteractionEvent event) {
@@ -163,14 +171,7 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 			event.getKind().equals(InteractionEvent.Kind.EDIT) &&
 			(event.getOriginId().contains("java") || event.getOriginId().contains("jdt.ui"));
 	}
-
-	private boolean isSelection(InteractionEvent event) {
-		return event.getKind().equals(InteractionEvent.Kind.SELECTION)
-			&& !event.getOriginId().contains("Editor")
-			&& !event.getOriginId().contains("editor")
-			&& !event.getOriginId().contains("source");
-	}
-
+	
 	private void incrementCount(int userId, Map<Integer, Integer> map, int count) {
 		if (!map.containsKey(userId)) map.put(userId, 0);
 		map.put(userId, map.get(userId) + count);
