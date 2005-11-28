@@ -1,6 +1,7 @@
 package org.eclipse.mylar.hypertext;
 
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -28,16 +29,20 @@ public class MylarHypertextPlugin extends AbstractUIPlugin {
 		final IWorkbench workbench = PlatformUI.getWorkbench();
         workbench.getDisplay().asyncExec(new Runnable() {
             public void run() { 
-            	browserTracker = new BrowserTracker();
-            	workbench.addWindowListener(browserTracker);
-				IWorkbenchWindow[] windows= workbench.getWorkbenchWindows();
-				for (int i= 0; i < windows.length; i++) {
-					windows[i].addPageListener(browserTracker);
-					IWorkbenchPage[] pages= windows[i].getPages();
-					for (int j= 0; j < pages.length; j++) {
-						pages[j].addPartListener(browserTracker);
+            	try {
+	            	browserTracker = new BrowserTracker();
+	            	workbench.addWindowListener(browserTracker);
+					IWorkbenchWindow[] windows= workbench.getWorkbenchWindows();
+					for (int i= 0; i < windows.length; i++) {
+						windows[i].addPageListener(browserTracker);
+						IWorkbenchPage[] pages= windows[i].getPages();
+						for (int j= 0; j < pages.length; j++) {
+							pages[j].addPartListener(browserTracker);
+						}
 					}
-				}
+        		} catch (Exception e) {
+        			MylarPlugin.fail(e, "Mylar Hypertext initialization failed", false);
+        		}
             }
         });
 	}
