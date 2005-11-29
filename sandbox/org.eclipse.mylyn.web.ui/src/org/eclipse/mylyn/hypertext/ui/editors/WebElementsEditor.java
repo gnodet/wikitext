@@ -42,7 +42,7 @@ import org.eclipse.mylar.core.IMylarElement;
 import org.eclipse.mylar.core.IMylarStructureBridge;
 import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.hypertext.HypertextStructureBridge;
-import org.eclipse.mylar.tasklist.TaskListImages;
+import org.eclipse.mylar.tasklist.TasklistImages;
 import org.eclipse.mylar.ui.MylarImages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
@@ -434,7 +434,7 @@ public class WebElementsEditor extends EditorPart {
 		};
 		delete.setText("Mark as Uninteresting");
 		delete.setToolTipText("Mark as Uninteresting");
-		delete.setImageDescriptor(TaskListImages.REMOVE);
+		delete.setImageDescriptor(TasklistImages.REMOVE);
 
 		add = new Action() {
 			@Override

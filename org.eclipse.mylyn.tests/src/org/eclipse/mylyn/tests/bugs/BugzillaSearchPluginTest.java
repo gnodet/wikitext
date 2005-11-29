@@ -11,7 +11,7 @@
 /*
  * Created on Nov 19, 2004
  */
-package org.eclipse.mylar.tasklist.tests.bugzilla;
+package org.eclipse.mylar.tests.bugs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +26,8 @@ import org.eclipse.mylar.bugzilla.ui.tasklist.BugzillaReportNode;
 import org.eclipse.mylar.bugzilla.ui.tasklist.BugzillaTask;
 import org.eclipse.mylar.bugzilla.ui.tasklist.BugzillaTask.BugTaskState;
 import org.eclipse.mylar.core.search.IActiveSearchListener;
-import org.eclipse.mylar.core.tests.support.WorkspaceSetupHelper;
-import org.eclipse.mylar.core.tests.support.search.SearchPluginTestHelper;
+import org.eclipse.mylar.java.tests.search.SearchPluginTestHelper;
+import org.eclipse.mylar.java.tests.search.WorkspaceSetupHelper;
 import org.eclipse.mylar.tasklist.MylarTasklistPlugin;
 import org.eclipse.mylar.tasklist.TaskListManager;
 import org.eclipse.mylar.tasklist.internal.TaskCategory;
@@ -53,7 +53,7 @@ import org.eclipse.mylar.tasklist.internal.TaskCategory;
 public class BugzillaSearchPluginTest extends TestCase{
     
 	//SHAWNTODO Add tests for the different types of searches (local qual, local unqual, fully qual, unqual) and mock up a bugs db for testing
-	
+	 
     /** The expected number of results when searching for astNode */
 // SHAWNTODO add back in when we have a test server mocked up
 //	private static final int NUM_AST_RESULTS = 302;
