@@ -279,7 +279,7 @@ public class UsageStatsEditorPart extends EditorPart {
 			String filename = directoryName + File.separator + "Usage.csv";
 			outputFile = new File(filename);
 
-			outputStream = new FileOutputStream(outputFile, true);
+			outputStream = new FileOutputStream(outputFile, false);
 
 			// Delegate to all collectors
 			for (IUsageCollector collector : editorInput.getReportGenerator().getCollectors()) {
