@@ -22,7 +22,7 @@ import org.eclipse.mylar.core.InteractionEvent;
  */
 public interface IUsageScanner {
 	
-	public void scanEvent(InteractionEvent event, int userId, String phase);
+	public void scanEvent(InteractionEvent event, int userId);
 	
 	public boolean accept( int userId );
 

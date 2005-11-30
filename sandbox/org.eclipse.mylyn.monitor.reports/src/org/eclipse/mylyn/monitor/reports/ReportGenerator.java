@@ -204,7 +204,7 @@ public class ReportGenerator {
 
 							for (InteractionEvent event : events) {
 								for (IUsageScanner scanner : this.generator.scanners) {
-									scanner.scanEvent(event, aUser, phaseToProcess);
+									scanner.scanEvent(event, aUser);
 								}
 							}
 						}
