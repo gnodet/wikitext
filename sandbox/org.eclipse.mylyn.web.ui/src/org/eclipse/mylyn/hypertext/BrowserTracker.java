@@ -14,7 +14,7 @@ package org.eclipse.mylar.hypertext;
 import java.lang.reflect.Field;
 
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.mylar.core.AbstractInteractionMonitor;
+import org.eclipse.mylar.core.AbstractUserInteractionMonitor;
 import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.tasklist.ui.MylarTaskEditor;
 import org.eclipse.swt.browser.Browser;
@@ -32,7 +32,7 @@ import org.eclipse.ui.internal.browser.WebBrowserEditor;
 /**
  * @author Mik Kersten
  */
-public class BrowserTracker extends AbstractInteractionMonitor implements IPartListener, IWindowListener, IPageListener {
+public class BrowserTracker extends AbstractUserInteractionMonitor implements IPartListener, IWindowListener, IPageListener {
 
 	private UrlTrackingListener urlTrackingListener = new UrlTrackingListener();
 	private IWorkbenchPart currentBrowserPart = null;
