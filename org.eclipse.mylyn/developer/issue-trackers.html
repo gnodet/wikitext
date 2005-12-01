@@ -1,0 +1,205 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Mylar Issue Tracker Requirements</title>
+</head>
+
+<body>
+
+<div id="globalWrapper">
+	<div id="column-content">
+		<div id="content">
+			<h1 class="firstHeading">Mylar Issue Tracker Requirements</h1>
+			<div id="bodyContent">
+				History
+				<ul>
+					<li>2005-11-25: Initial draft (Brock Janiczak and Mik 
+					Kersten) </li>
+				</ul>
+				<p><b>General</b> </p>
+				<ul>
+					<li>Associate a repository with a project, credentials 
+					stored in keyring. UI is a project properties page specified 
+					by provider. 
+					</li>
+					<li>Possibly provide view showing all repositories, where 
+					each provider can populate repository nodes with contets 
+					(e.g. products, reports). 
+					</li>
+					<li>Should be able to discover new repositories by checking 
+					out a project. 
+					<ul>
+						<li>Mik: Brock, could you provide more detail on this 
+						one? </li>
+						<li><font color="#6600cc">Consider the case of a user 
+						that is new to a project.&nbsp; It would be really nice if 
+						all they had to do was check out a project from CVS/SVN 
+						and the tracker instance is created and associated with 
+						the project automatically.&nbsp; I was expecting to store 
+						this information as a project scoped preference (so it 
+						can be checked in to version control).&nbsp; Another option 
+						is to have a a file (like the team PSF file) that can be 
+						imported to create the required tracker instances and 
+						attempt to connect each project to its appropriate 
+						instance.</font> </li>
+						<li><font color="#6600cc">Also, most issue trackers have 
+						some way to partition bugs into groups (that can relate 
+						to a project atrifact).&nbsp; It would be nice if this could 
+						also be associated with the project so when an issue is 
+						created in the context of a project the component (or 
+						whatever your tracker calls it) can be defaulted.</font> 
+						</li>
+					</ul>
+					<p>&nbsp;</li>
+					<li>No coupling to mylar core or UI. </li>
+				</ul>
+				<p><b>Queries</b> </p>
+				<ul>
+					<li>Provide a general notion of a query and parameters, hits 
+					returned, and a persistance mechanism (a first cut at this 
+					is already in mylar.tasklist). 
+					</li>
+					<li>Provide incoming/outgoing status notification. </li>
+				</ul>
+				<p><b>Editing Reports</b> </p>
+				<ul>
+					<li>Basic mode of embedding browser when opening issue. 
+					</li>
+					<li>Generic issue editor similar to Mylar's Bugzilla one, 
+					based on attributes and comments. </li>
+				</ul>
+				<p><b>Text</b> </p>
+				<ul>
+					<li>Hyperlink issue number in text editors. 
+					<ul>
+						<li>Brock: Berhaps we could have Team support for this? 
+						SVN could store the info in properties and CVS in a 
+						file. 
+						</li>
+						<li>Mik: isn't it enough just to look up the repository 
+						associated with the project? </li>
+						<li><font color="#6600cc">It is possible to open a 
+						resource directly from the history view or the 
+						repository view.&nbsp; In these cases there is no project.</font></li>
+					</ul>
+					</li>
+				</ul>
+				<p><b>Source Repositories</b> </p>
+				<ul>
+					<li>Provide hyperlink support in the history view 
+					<ul>
+						<li>Mik: This may be better as a popup action, which 
+						Mylar already has. But hyperlink could work as well. 
+						</li>
+						<li><font color="#6600cc">A popup action is fine when 
+						there is only one bug referenced in the commit comment, 
+						but some people (like myself) sometimes check in a 
+						change that relates to multiple issues.&nbsp; I probably 
+						shouldn't, but i do :)</font></li>
+					</ul>
+					</li>
+					<li>Populate commit comment with issue details. 
+					<ul>
+						<li>Brock: (Possible use the new template stuff? Ie a 
+						dynamic template) 
+						</li>
+						<li><font color="#6600cc">Just clarifying this as it 
+						makes no sense at all...&nbsp; In 3.2 CVS supports static 
+						templates.&nbsp; The user just creates a chunk of text and it 
+						can be added into the commit dialog.&nbsp; I can't see why 
+						this template support can't be updated to support 
+						'active' templates.&nbsp; You select a 'bug' template and a 
+						dialog pops up asking you to enter (or search for) a 
+						bug.&nbsp; These values will then be inserted into the 
+						template before it is added to the commit dialog.&nbsp; I 
+						think this would be of more value than the current 
+						static templates.&nbsp; I would be willing to look at 
+						providing a patch to Team/CVS for this one.&nbsp; btw, I will 
+						try and convince them to push it down to the Team level 
+						so the same templates can be used for all team providers 
+						(it seems to make sense).</font></li>
+					</ul>
+					</li>
+					<li>Perform some sort of Issue workflow action on commit 
+					(probably resolve) 
+					<ul>
+						<li>Brock: CVS has no support for any of this yet. They 
+						would probably accept patches for most of this. If some 
+						of this could be moved to Team, even better. All 
+						repositories have a commit process and all have a 
+						revision history. 
+						</li>
+						<li><font color="#6600cc">again, what was I on?&nbsp; I 
+						basically wanted a post commit hook so we could perform 
+						an action against the issue tracker.&nbsp; The obvious thing 
+						to do is comment/resolve an issue.&nbsp; Perhaps i was asking 
+						for a team level commit dialog???</font></li>
+					</ul>
+					</li>
+				</ul>
+				<p><b>Mylar</b> </p>
+				<ul>
+					<li>What are the requirements for Mylar? 
+					<ul>
+						<li>Brock: It really only needs to get a list of issue 
+						from a query. The query implementation and UI need to be 
+						provider specific unless the query is always &quot;my bugs&quot;. 
+						I don't see a problem with adding a Mylar/Issue Tracker 
+						bridge to do this. 
+						</li>
+						<li>Mik: The main thing Mylar needs is for there to be a 
+						single high quality Tasks view that makes it easy to 
+						work with local tasks, reports, and queries, and for 
+						that to be consisntent across providers. What it layers 
+						on to that is the ability to activate contexts. It also 
+						needs a mechanism for attaching context to issues, and 
+						retrieving them from issues. From a source and feature 
+						perspective the task functionality should be decoupled 
+						from Mylar (and it is, i.e. you can use the Mylar Tasks 
+						view and Bugzilla support without the Mylar UI). But 
+						Mylar is all about a very task-centric view of the 
+						world, and as such the UIs will be highly 
+						interdependent. </li>
+						<li><font color="#6600cc">I am not sure how to support 
+						local issues yet.&nbsp; It is almost as if we need another 
+						view to show local issues (the platform task view would 
+						be perfect)</font><br>
+&nbsp;</li>
+						<li><font color="#6600cc">I have been thinking about the 
+						best way to structure the UI.&nbsp; The issue tracker as it 
+						currently stands is no good.&nbsp; I was considering having 
+						two separate views; A &quot;Repository browser&quot; and an issue 
+						list.&nbsp; The common navigator stuff that is coming for 3.2 
+						would be perfect for the repository browser.&nbsp; We could 
+						have a top level (project level) item for the issue 
+						trackers as well as a node in each project that has an 
+						attached provider.&nbsp; This seems to be a more logical 
+						thing to do and puts the issue information right where 
+						the user needs it.</font></li>
+					</ul>
+					</li>
+				</ul>
+				<p><b>Use Cases</b> </p>
+				<ul>
+					<li>Work with bugs and queries within Eclipse. 
+					</li>
+					<li>Work with Mylar's task contexts (layers on above). </li>
+					<li><font color="#6600cc">As a user, one thing i would 
+					*love* is to have a list of active searches.&nbsp; These will 
+					update every so often and let me know when there are new 
+					matches (or changes).&nbsp; This way i don't have to be 
+					distracted by emails.&nbsp; Being able to switch between a set of 
+					issues without re-running the query would also be nice.</font></li>
+				</ul>
+				<!-- Saved in parser cache with key wiki:pcache:idhash:1317-0!1!0!0!!en!2 and timestamp 20051130154503 -->
+				<div class="printfooter">
+&nbsp;</div>
+				<!-- end content --></div>
+		</div>
+	</div>
+</div>
+
+</body>
+
+</html>
