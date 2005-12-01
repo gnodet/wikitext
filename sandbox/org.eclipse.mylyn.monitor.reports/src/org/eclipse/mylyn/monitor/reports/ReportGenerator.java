@@ -199,7 +199,7 @@ public class ReportGenerator {
 					if (this.generator.scanners != null && this.generator.scanners.size() > 0) {
 
 						for (Map.Entry<String, SortedSet<InteractionEvent>> eventsPerPhase : userEvents.entrySet()) {
-							String phaseToProcess = eventsPerPhase.getKey();
+//							String phaseToProcess = eventsPerPhase.getKey();
 							SortedSet<InteractionEvent> events = eventsPerPhase.getValue();
 
 							for (InteractionEvent event : events) {
