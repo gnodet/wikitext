@@ -56,17 +56,10 @@ public class PeriodicSaveTest extends TestCase {
 		// waiting
 		saveTimer = MylarTasklistPlugin.getDefault().getSaveTimer();
 		saveTimerInterval = saveTimer.getSaveIntervalMillis();
-		
-		MylarTasklistPlugin.getDefault().setShouldAutoSave(true);
-	}
-	
-	protected void tearDown() throws Exception {
-		saveTimer.setSaveIntervalMillis(saveTimerInterval);
-		super.tearDown();
-		MylarTasklistPlugin.getDefault().setShouldAutoSave(false);
 	}
 
 	public void testPeriodicSave() {
+
 		// Activate the task
 		(new TaskActivateAction()).run(task1);
 
@@ -112,6 +105,13 @@ public class PeriodicSaveTest extends TestCase {
 
 		return tasklist.getTaskForHandle(requestedTask.getHandleIdentifier(), false);
 
+	}
+
+	protected void tearDown() throws Exception {
+
+		saveTimer.setSaveIntervalMillis(saveTimerInterval);
+
+		super.tearDown();
 	}
 
 }
