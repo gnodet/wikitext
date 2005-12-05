@@ -11,8 +11,6 @@
 package org.eclipse.mylar.monitor.reports.internal;
 
 import org.eclipse.mylar.core.InteractionEvent;
-import org.eclipse.mylar.core.InteractionEvent.Kind;
-import org.eclipse.mylar.monitor.reports.ReportGenerator;
 
 /**
  * Test whether an InteractionEvent meets particular criteria
