@@ -9,23 +9,27 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.core.tests;
+package org.eclipse.mylar.tests;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.eclipse.mylar.core.tests.ContextTest;
+import org.eclipse.mylar.core.tests.DegreeOfInterestTest;
+import org.eclipse.mylar.tasklist.tests.TaskListStandaloneTest;
+
 /**
  * @author Mik Kersten
  */
-public class AllCoreTests {
+public class StandaloneTests {
 
 	public static Test suite() {
-		TestSuite suite = new TestSuite("Test for org.eclipse.mylar.core.tests");
+		TestSuite suite = new TestSuite("Tests not requiring Eclipse Workbench");
 		//$JUnit-BEGIN$
 		suite.addTestSuite(DegreeOfInterestTest.class);
 		suite.addTestSuite(ContextTest.class);
+		suite.addTestSuite(TaskListStandaloneTest.class);
 		//$JUnit-END$
 		return suite;
 	}
-
 }

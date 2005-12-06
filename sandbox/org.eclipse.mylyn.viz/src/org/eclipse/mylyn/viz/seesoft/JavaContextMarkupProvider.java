@@ -25,7 +25,7 @@ import org.eclipse.mylar.core.IDegreeOfInterest;
 import org.eclipse.mylar.core.IMylarElement;
 import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.tasklist.ITask;
-import org.eclipse.mylar.tasklist.MylarTasklistPlugin;
+import org.eclipse.mylar.tasklist.MylarTaskListPlugin;
 import org.eclipse.mylar.ui.internal.UiUtil;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
@@ -124,7 +124,7 @@ public class JavaContextMarkupProvider implements IMarkupProvider {
 				if (taskHandle == null){
 					return null;
 				}
-				ITask task = MylarTasklistPlugin.getTaskListManager().getTaskForHandle(taskHandle, false);
+				ITask task = MylarTaskListPlugin.getTaskListManager().getTaskForHandle(taskHandle, false);
 				if (task == null){
 					return null;
 				}
