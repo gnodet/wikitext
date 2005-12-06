@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.mylar.monitor.reports.internal;
 
-import java.util.Map;
-
 import org.eclipse.mylar.core.InteractionEvent;
 
 /**

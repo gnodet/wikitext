@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * Related links stored for each task used as input to the Table
- * used in the TaskSummaryEditor
+ * used in the TaskInfoEditor
  * 
  * @author Ken Sueda
  */

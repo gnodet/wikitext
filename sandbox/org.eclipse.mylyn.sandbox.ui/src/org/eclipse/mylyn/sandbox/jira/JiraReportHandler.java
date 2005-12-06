@@ -12,7 +12,7 @@
 package org.eclipse.mylar.sandbox.jira;
 
 import org.eclipse.jface.action.Action;
-import org.eclipse.mylar.tasklist.ITaskListCategory;
+import org.eclipse.mylar.tasklist.ITaskCategory;
 import org.eclipse.mylar.tasklist.ITask;
 import org.eclipse.mylar.tasklist.ITaskHandler;
 import org.eclipse.mylar.tasklist.ITaskListElement;
@@ -67,7 +67,7 @@ public class JiraReportHandler implements ITaskHandler {
 		return false;
 	}
 
-	public void itemRemoved(ITaskListElement element, ITaskListCategory category) {
+	public void itemRemoved(ITaskListElement element, ITaskCategory category) {
 		// TODO Auto-generated method stub
 
 	}

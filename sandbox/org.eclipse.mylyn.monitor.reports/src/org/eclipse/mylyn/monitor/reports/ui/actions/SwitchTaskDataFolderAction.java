@@ -10,7 +10,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.monitor.reports.MylarReportsPlugin;
-import org.eclipse.mylar.tasklist.MylarTasklistPlugin;
+import org.eclipse.mylar.tasklist.MylarTaskListPlugin;
 import org.eclipse.mylar.tasklist.ui.ComboSelectionDialog;
 import org.eclipse.mylar.tasklist.ui.views.TaskListView;
 import org.eclipse.mylar.ui.actions.ToggleContextCaptureAction;
@@ -141,7 +141,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 		File[] files = folder.listFiles();
 		for (int i = 0; i < files.length; i++) {
 			File currFile = files[i];
-			if (currFile.isFile() && currFile.getName().equals(MylarTasklistPlugin.DEFAULT_TASK_LIST_FILE)) {
+			if (currFile.isFile() && currFile.getName().equals(MylarTaskListPlugin.DEFAULT_TASK_LIST_FILE)) {
 				return true;
 			}
 		}
@@ -161,11 +161,11 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 	 */
 	public void switchTaskDataFolder(String targetFolder) {
 
-		MylarTasklistPlugin.getDefault().saveTaskListAndContexts();
+		MylarTaskListPlugin.getDefault().saveTaskListAndContexts();
 
 		if (targetFolder.equals(MAIN_LOCAL_DATA_DIR)) {
 			MylarPlugin.getDefault().setSharedDataDirectoryEnabled(false);
-			MylarTasklistPlugin.getDefault().setDataDirectory(MylarPlugin.getDefault().getMylarDataDirectory());
+			MylarTaskListPlugin.getDefault().setDataDirectory(MylarPlugin.getDefault().getMylarDataDirectory());
 			(new ToggleContextCaptureAction()).resume(); // TODO: don't use
 															// actions directly
 			TaskListView.getDefault().indicateSharedFolder("");
@@ -175,7 +175,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 					+ targetFolder;
 			MylarPlugin.getDefault().setSharedDataDirectory(dataDirPath);
 			MylarPlugin.getDefault().setSharedDataDirectoryEnabled(true);
-			MylarTasklistPlugin.getDefault().setDataDirectory(dataDirPath);
+			MylarTaskListPlugin.getDefault().setDataDirectory(dataDirPath);
 			(new ToggleContextCaptureAction()).pause();
 			TaskListView.getDefault().indicateSharedFolder(targetFolder);
 			MylarPlugin.getContextManager().setActivationHistorySuppressed(true);

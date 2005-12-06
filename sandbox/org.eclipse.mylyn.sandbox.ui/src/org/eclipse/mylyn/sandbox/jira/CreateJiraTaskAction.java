@@ -56,7 +56,7 @@ public class CreateJiraTaskAction extends Action implements IViewActionDelegate{
 //	    ITask newTask = new BugzillaTask("Bugzilla-"+bugId, "<bugzilla info>", true, true);				
 //	    Object selectedObject = ((IStructuredSelection)TaskListView.getDefault().getViewer().getSelection()).getFirstElement();
 //    	
-//	    ITaskHandler taskHandler = MylarTasklistPlugin.getDefault().getTaskHandlerForElement(newTask);
+//	    ITaskHandler taskHandler = MylarTaskListPlugin.getDefault().getTaskHandlerForElement(newTask);
 //	    if(taskHandler != null){
 //	    	ITask addedTask = taskHandler.taskAdded(newTask);
 //	    	if(addedTask instanceof BugzillaTask){
@@ -74,7 +74,7 @@ public class CreateJiraTaskAction extends Action implements IViewActionDelegate{
 //	    if (selectedObject instanceof TaskCategory){
 //	        ((TaskCategory)selectedObject).addTask(newTask);
 //	    } else { 
-//	        MylarTasklistPlugin.getTaskListManager().addRootTask(newTask);
+//	        MylarTaskListPlugin.getTaskListManager().addRootTask(newTask);
 //	    }
 //	    BugzillaUiPlugin.getDefault().getBugzillaTaskListManager().addToBugzillaTaskRegistry((BugzillaTask)newTask);
 //

@@ -11,13 +11,13 @@
 
 package org.eclipse.mylar.sandbox.jira;
 
-import org.eclipse.mylar.tasklist.ITaskListCategory;
+import org.eclipse.mylar.tasklist.ITaskCategory;
 
 import org.eclipse.mylar.tasklist.IQuery;
 import org.eclipse.mylar.tasklist.IQueryHit;
 import org.eclipse.mylar.tasklist.ITask;
 import org.eclipse.mylar.tasklist.ITaskListExternalizer;
-import org.eclipse.mylar.tasklist.internal.MylarExternalizerException;
+import org.eclipse.mylar.tasklist.internal.TaskListExternalizerException;
 import org.eclipse.mylar.tasklist.internal.TaskList;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -49,12 +49,12 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 		return null;
 	}
 
-	public boolean canCreateElementFor(ITaskListCategory category) {
+	public boolean canCreateElementFor(ITaskCategory category) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public Element createCategoryElement(ITaskListCategory category, Document doc,
+	public Element createCategoryElement(ITaskCategory category, Document doc,
 			Element parent) {
 		// TODO Auto-generated method stub
 		return null;
@@ -76,7 +76,7 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 	}
 
 	public void readCategory(Node node, TaskList tlist)
-			throws MylarExternalizerException {
+			throws TaskListExternalizerException {
 		// TODO Auto-generated method stub
 
 	}
@@ -86,8 +86,8 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 		return false;
 	}
 
-	public ITask readTask(Node node, TaskList tlist, ITaskListCategory category,
-			ITask parent) throws MylarExternalizerException {
+	public ITask readTask(Node node, TaskList tlist, ITaskCategory category,
+			ITask parent) throws TaskListExternalizerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -108,7 +108,7 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 	}
 
 	public void readQuery(Node node, TaskList tlist)
-			throws MylarExternalizerException {
+			throws TaskListExternalizerException {
 		// TODO Auto-generated method stub
 
 	}
@@ -130,7 +130,7 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 	}
 
 	public void readQueryHit(Node node, TaskList tlist, IQuery query)
-			throws MylarExternalizerException {
+			throws TaskListExternalizerException {
 		// TODO Auto-generated method stub
 
 	}
