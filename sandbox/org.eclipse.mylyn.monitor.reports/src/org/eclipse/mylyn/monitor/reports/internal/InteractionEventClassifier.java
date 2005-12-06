@@ -10,47 +10,45 @@
  *******************************************************************************/
 package org.eclipse.mylar.monitor.reports.internal;
 
+import java.util.Map;
+
 import org.eclipse.mylar.core.InteractionEvent;
 
 /**
  * Test whether an InteractionEvent meets particular criteria
+ * 
  * @author Gail Murphy and Mik Kersten
  */
 public class InteractionEventClassifier {
-	
-	//TODO: Move this class into mylar reporting framework
-	
+
+	// TODO: Move this class into mylar reporting framework
+
 	/**
-	 * isEdit currently classifies selections in editor as edits. May need to split off a different version
+	 * isEdit currently classifies selections in editor as edits. May need to
+	 * split off a different version
 	 */
 	public static boolean isEdit(InteractionEvent event) {
-		return event.getKind().equals(InteractionEvent.Kind.EDIT)
-			|| (event.getKind().equals(InteractionEvent.Kind.SELECTION) && isSelectionInEditor(event));
+		return event.getKind().equals(InteractionEvent.Kind.EDIT) || (event.getKind().equals(InteractionEvent.Kind.SELECTION) && isSelectionInEditor(event));
 	}
 
 	public static boolean isSelection(InteractionEvent event) {
-		return event.getKind().equals(InteractionEvent.Kind.SELECTION)
-			&& !isSelectionInEditor(event);
+		return event.getKind().equals(InteractionEvent.Kind.SELECTION) && !isSelectionInEditor(event);
 	}
-	
+
 	public static boolean isCommand(InteractionEvent event) {
 		return event.getKind().equals(InteractionEvent.Kind.COMMAND);
 	}
-	
+
 	public static boolean isJavaEdit(InteractionEvent event) {
-		return
-			event.getKind().equals(InteractionEvent.Kind.EDIT) &&
-			(event.getOriginId().contains("java") || event.getOriginId().contains("jdt.ui"));
+		return event.getKind().equals(InteractionEvent.Kind.EDIT) && (event.getOriginId().contains("java") || event.getOriginId().contains("jdt.ui"));
 	}
-	
+
 	public static boolean isJDTEvent(InteractionEvent event) {
 		return (isEdit(event) || isSelection(event) || isCommand(event)) && getCleanOriginId(event).contains("jdt");
 	}
-	
+
 	private static boolean isSelectionInEditor(InteractionEvent event) {
-		return event.getOriginId().contains("Editor")
-		   || event.getOriginId().contains("editor")
-		   || event.getOriginId().contains("source");
+		return event.getOriginId().contains("Editor") || event.getOriginId().contains("editor") || event.getOriginId().contains("source");
 	}
 
 	public static String getCleanOriginId(InteractionEvent event) {
@@ -72,6 +70,16 @@ public class InteractionEventClassifier {
 		} else {
 			return originId;
 		}
+	}
+
+	public static String formatDuration(long timeToFormatInms) {
+		long timeInSeconds = timeToFormatInms / 1000;
+		long hours, minutes;
+		hours = timeInSeconds / 3600;
+		timeInSeconds = timeInSeconds - (hours * 3600);
+		minutes = timeInSeconds / 60;
+		timeInSeconds = timeInSeconds - (minutes * 60);
+		return hours + "." + minutes;
 	}
 
 }
