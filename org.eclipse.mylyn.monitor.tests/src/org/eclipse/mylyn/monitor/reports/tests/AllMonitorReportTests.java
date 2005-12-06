@@ -8,22 +8,26 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.monitor.reports;
 
-import java.util.Set;
-import org.eclipse.mylar.core.InteractionEvent;
+package org.eclipse.mylar.monitor.reports.tests;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
- * A usage scanner will see all events for a user before any consumers
  * @author Gail Murphy
  */
-public interface IUsageScanner {
-	
-	public void scanEvent(InteractionEvent event, int userId);
-	
-	public boolean accept( int userId );
-	
-	public Set<Integer> acceptedUsers();
- 
+public class AllMonitorReportTests {
+
+	public static Test suite() {
+		TestSuite suite = new TestSuite("Test for org.eclipse.mylar.monitor.report.tests");
+
+		// $JUnit-BEGIN$
+		// TODO: Add tests as they are developed
+		suite.addTestSuite(DataOverviewCollectorTest.class);
+		// $JUnit-END$
+
+		return suite;
+	}
+
 }
