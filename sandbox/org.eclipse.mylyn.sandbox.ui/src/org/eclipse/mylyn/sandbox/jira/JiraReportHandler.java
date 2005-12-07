@@ -12,11 +12,12 @@
 package org.eclipse.mylar.sandbox.jira;
 
 import org.eclipse.jface.action.Action;
-import org.eclipse.mylar.tasklist.ITaskCategory;
+import org.eclipse.mylar.tasklist.IQueryHit;
 import org.eclipse.mylar.tasklist.ITask;
+import org.eclipse.mylar.tasklist.ITaskCategory;
 import org.eclipse.mylar.tasklist.ITaskHandler;
-import org.eclipse.mylar.tasklist.ITaskListElement;
 import org.eclipse.mylar.tasklist.internal.TaskCategory;
+import org.eclipse.mylar.tasklist.ui.ITaskListElement;
 import org.eclipse.mylar.tasklist.ui.views.TaskListView;
 import org.eclipse.ui.IWorkbenchPage;
 
@@ -72,7 +73,7 @@ public class JiraReportHandler implements ITaskHandler {
 
 	}
 
-	public ITask dropItemToPlan(ITaskListElement element) {
+	public ITask getCorrespondingTask(IQueryHit element) {
 		// TODO Auto-generated method stub
 		return null;
 	}
