@@ -8,25 +8,21 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.tasklist;
-
-import java.util.List;
-
-import org.eclipse.mylar.tasklist.ui.ITaskListElement;
+/*
+ * Created on Dec 29, 2004
+  */
+package org.eclipse.mylar.core.internal.dt;
 
 /**
- * Manipulate categories via TaskListManager
- * 
  * @author Mik Kersten
  */
-public interface ITaskCategory extends ITaskListElement {
-
-	public List<ITask> getChildren();
-	
-//	public void removeTask(ITask task);
-	
-	public boolean isArchive();
-
-	public void setIsArchive(boolean isArchive);
-
+public @interface MylarInterest {
+     
+    public Level level();
+    
+    public enum Level {
+        LANDMARK,
+        LOW
+    }
+    
 }
