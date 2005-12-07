@@ -1,10 +1,9 @@
-package org.eclipse.mylar.monitor.tests;
+package org.eclipse.mylar.tasklist.tests;
 
 import java.util.GregorianCalendar;
 
 import junit.framework.TestCase;
 
-import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.mylar.core.InteractionEvent;
 import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.tasklist.MylarTaskListPlugin;
@@ -145,7 +144,7 @@ public class TaskTimerTest extends TestCase {
 
 	protected void mockInteraction() {
 		MylarPlugin.getDefault().notifyInteractionObserved(
-				new InteractionEvent(InteractionEvent.Kind.EDIT, "java", "A.java", JavaUI.ID_PACKAGES));
+				new InteractionEvent(InteractionEvent.Kind.EDIT, "java", "A.java", "mock-id"));
 	}
 
 	public void tearDown() {
