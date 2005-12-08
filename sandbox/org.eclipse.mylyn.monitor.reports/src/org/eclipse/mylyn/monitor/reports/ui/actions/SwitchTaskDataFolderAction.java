@@ -107,7 +107,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 			for (int i = 0; i < files.length; i++) {
 				File currFile = files[i];
 				if (currFile.isDirectory() && containsTaskData(currFile)
-						&& !MylarPlugin.getDefault().getMylarDataDirectory().endsWith(currFile.getName())) {
+						&& !MylarPlugin.getDefault().getDataDirectory().endsWith(currFile.getName())) {
 					folders.add(currFile.getName());
 				}
 			}
@@ -165,7 +165,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 
 		if (targetFolder.equals(MAIN_LOCAL_DATA_DIR)) {
 			MylarPlugin.getDefault().setSharedDataDirectoryEnabled(false);
-			MylarTaskListPlugin.getDefault().setDataDirectory(MylarPlugin.getDefault().getMylarDataDirectory());
+			MylarTaskListPlugin.getDefault().setDataDirectory(MylarPlugin.getDefault().getDataDirectory());
 			(new ToggleContextCaptureAction()).resume(); // TODO: don't use
 															// actions directly
 			TaskListView.getDefault().indicateSharedFolder("");
