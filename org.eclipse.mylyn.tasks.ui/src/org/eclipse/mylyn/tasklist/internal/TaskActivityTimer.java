@@ -66,6 +66,7 @@ public class TaskActivityTimer implements ITimerThreadListener, IInteractionEven
 	public void shellDeactivated(ShellEvent e) {
 		fireTimedOut();
 		timer.setSuspended(true);
+		// windowDeactivationTime = new Date().getTime();
 	}
 
 	public void shellActivated(ShellEvent e) {
@@ -74,15 +75,16 @@ public class TaskActivityTimer implements ITimerThreadListener, IInteractionEven
 	}
 
 	public void shellClosed(ShellEvent e) {
-		// ignore
+		// Do nothing, deactivated will fire
 	}
 
 	public void shellDeiconified(ShellEvent e) {
-		// ignore
+		// Do nothing, wait for interaction to signal that the task is
+		// continuing
 	}
 
 	public void shellIconified(ShellEvent e) {
-		// ignore
+		// Do nothing, deactivated will fire
 	}
 	
 	public void startObserving() {
