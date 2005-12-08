@@ -11,6 +11,7 @@
 package org.eclipse.mylar.core;
 
 import java.io.File;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -87,6 +88,8 @@ public class MylarPlugin extends AbstractUIPlugin {
 	public static final String IDENTIFIER = "org.eclipse.mylar.core";
 
 	public static final String LOG_FILE_NAME = "mylar-log.txt";
+
+	public PrintStream logStream = null;
 
 	public static final String WORK_OFFLINE = "org.eclipse.mylar.tasklist.work.offline";
 
@@ -411,6 +414,14 @@ public class MylarPlugin extends AbstractUIPlugin {
 			resourceBundle = null;
 		}
 		return resourceBundle;
+	}
+
+	public void setLogStream(PrintStream logStream) {
+		this.logStream = logStream;
+	}
+
+	public PrintStream getLogStream() {
+		return logStream;
 	}
 
 	public boolean suppressWizardsOnStartup() {
