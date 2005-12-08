@@ -17,6 +17,7 @@ import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaElementDelta;
 import org.eclipse.mylar.core.IMylarElement;
 import org.eclipse.mylar.core.MylarPlugin;
+import org.eclipse.mylar.core.util.ErrorLogger;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 
@@ -36,26 +37,29 @@ public class InterestUpdateDeltaListener implements IElementChangedListener {
 	 * Only handles first addition/removal
 	 */
 	private void handleDelta(IJavaElementDelta[] delta) {
-		IJavaElement added = null;
-		IJavaElement removed = null;
-		for (int i = 0; i < delta.length; i++) {
-			IJavaElementDelta child = delta[i];
-			if (child.getKind() == IJavaElementDelta.ADDED) {
-				if (added == null) added = child.getElement();
-			} else if (child.getKind() == IJavaElementDelta.REMOVED) {
-				if (removed == null) removed = child.getElement();
-			} 			
-			handleDelta(child.getAffectedChildren());
+		try {
+			IJavaElement added = null;
+			IJavaElement removed = null;
+			for (int i = 0; i < delta.length; i++) {
+				IJavaElementDelta child = delta[i];
+				if (child.getKind() == IJavaElementDelta.ADDED) {
+					if (added == null) added = child.getElement();
+				} else if (child.getKind() == IJavaElementDelta.REMOVED) {
+					if (removed == null) removed = child.getElement();
+				} 			
+				handleDelta(child.getAffectedChildren());
+			}
+			
+			if (added != null && removed != null) { 
+				IMylarElement element = MylarPlugin.getContextManager().getElement(removed.getHandleIdentifier());
+				if (element != null) resetHandle(element, added.getHandleIdentifier());
+			} else if (removed != null) {
+				IMylarElement element = MylarPlugin.getContextManager().getElement(removed.getHandleIdentifier());
+				if (element != null) delete(element);
+			} 
+		} catch (Throwable t) {
+			ErrorLogger.fail(t, "delta update failed", false);
 		}
-		
-		if (added != null && removed != null) { 
-//			System.err.println("> : " + removed.getElementName() + " to " + added.getElementName()); 			
-			IMylarElement element = MylarPlugin.getContextManager().getElement(removed.getHandleIdentifier());
-			if (element != null) resetHandle(element, added.getHandleIdentifier());
-		} else if (removed != null) {
-			IMylarElement element = MylarPlugin.getContextManager().getElement(removed.getHandleIdentifier());
-			if (element != null) delete(element);
-		} 
 	}
 
 	private void resetHandle(final IMylarElement element, final String newHandle) {

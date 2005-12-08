@@ -20,6 +20,7 @@ import org.eclipse.mylar.core.IMylarContext;
 import org.eclipse.mylar.core.IMylarContextListener;
 import org.eclipse.mylar.core.IMylarElement;
 import org.eclipse.mylar.core.MylarPlugin;
+import org.eclipse.mylar.core.util.ErrorLogger;
 import org.eclipse.mylar.java.JavaStructureBridge;
 
 
@@ -124,7 +125,7 @@ public class JavaContextContentProvider implements IContentProvider, IMylarConte
 			}
 			
 		} catch (RuntimeException e) {
-			MylarPlugin.fail(e, "Could not provide data for the visualiser", false);
+			ErrorLogger.fail(e, "Could not provide data for the visualiser", false);
 		}
 	}
 	
@@ -143,7 +144,7 @@ public class JavaContextContentProvider implements IContentProvider, IMylarConte
 		}
 		
 		if (packageElt.getElementType() != IJavaElement.PACKAGE_FRAGMENT){
-			MylarPlugin.fail(new Exception("Could not find package for java element"), "Could not find package for java element", false);
+			ErrorLogger.fail(new Exception("Could not find package for java element"), "Could not find package for java element", false);
 			return;
 		}
 		

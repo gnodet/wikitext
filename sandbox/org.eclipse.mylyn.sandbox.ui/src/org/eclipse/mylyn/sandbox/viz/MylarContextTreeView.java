@@ -19,6 +19,7 @@ import org.eclipse.mylar.core.IMylarContext;
 import org.eclipse.mylar.core.IMylarContextListener;
 import org.eclipse.mylar.core.IMylarElement;
 import org.eclipse.mylar.core.MylarPlugin;
+import org.eclipse.mylar.core.util.ErrorLogger;
 import org.eclipse.mylar.ui.*;
 import org.eclipse.mylar.ui.actions.ToggleDecorateInterestLevelAction;
 import org.eclipse.mylar.ui.views.TaskscapeNodeClickListener;
@@ -96,7 +97,7 @@ public class MylarContextTreeView extends ViewPart {
                     		}
                     	}
                     } catch (Throwable t) {
-                        MylarPlugin.fail(t, "Could not update viewer", false);
+                        ErrorLogger.fail(t, "Could not update viewer", false);
                     }
                 }
             });
@@ -139,7 +140,7 @@ public class MylarContextTreeView extends ViewPart {
             try { 
                 return MylarPlugin.getContextManager().getActiveContext().getAllElements().toArray();
             } catch (Throwable t) { 
-                MylarPlugin.fail(t, "failed to show model", false);
+                ErrorLogger.fail(t, "failed to show model", false);
                 return new String[] { 
                         "Absent or incompatible model data: " + t.getMessage(), 
                         "Consider resetting model file." };

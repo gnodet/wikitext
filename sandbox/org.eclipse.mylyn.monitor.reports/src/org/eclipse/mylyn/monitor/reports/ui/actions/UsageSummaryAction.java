@@ -20,7 +20,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.mylar.core.MylarPlugin;
+import org.eclipse.mylar.core.util.ErrorLogger;
 import org.eclipse.mylar.monitor.MylarMonitorPlugin;
 import org.eclipse.mylar.monitor.reports.DelegatingUsageCollector;
 import org.eclipse.mylar.monitor.reports.IUsageCollector;
@@ -72,7 +72,7 @@ public class UsageSummaryAction implements IViewActionDelegate {
     					IEditorInput input = new UsageStatsEditorInput(files, generator);
     					page.openEditor(input, MylarReportsPlugin.REPORT_SUMMARY_ID);    					
     				} catch (PartInitException ex) {
-    					MylarPlugin.log(ex, "couldn't open summary editor");
+    					ErrorLogger.log(ex, "couldn't open summary editor");
     				}
     			}
     		});

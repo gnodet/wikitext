@@ -9,6 +9,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.mylar.core.MylarPlugin;
+import org.eclipse.mylar.core.util.ErrorLogger;
 import org.eclipse.mylar.monitor.reports.MylarReportsPlugin;
 import org.eclipse.mylar.tasklist.MylarTaskListPlugin;
 import org.eclipse.mylar.tasklist.ui.ComboSelectionDialog;
@@ -128,7 +129,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 			return folderStrings;
 
 		} catch (RuntimeException e) {
-			MylarPlugin.fail(e, "Could not create list of task folders to switch to.", true);
+			ErrorLogger.fail(e, "Could not create list of task folders to switch to.", true);
 			return null;
 		}
 	}

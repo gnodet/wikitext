@@ -4,7 +4,7 @@ import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.ISourceReference;
 import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.mylar.core.MylarPlugin;
+import org.eclipse.mylar.core.util.ErrorLogger;
 
 /**
  * Contains some methods used by the Provider classes
@@ -50,7 +50,7 @@ public class Util {
 			}
 			return lines;
 		} catch (JavaModelException e) {
-			MylarPlugin.fail(e, "Could not get the number of lines of a compilation unit", false);
+			ErrorLogger.fail(e, "Could not get the number of lines of a compilation unit", false);
 			return 1;
 		}
 	}

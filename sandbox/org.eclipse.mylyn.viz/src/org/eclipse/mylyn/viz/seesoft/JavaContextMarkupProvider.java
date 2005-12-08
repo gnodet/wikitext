@@ -24,6 +24,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.mylar.core.IDegreeOfInterest;
 import org.eclipse.mylar.core.IMylarElement;
 import org.eclipse.mylar.core.MylarPlugin;
+import org.eclipse.mylar.core.util.ErrorLogger;
 import org.eclipse.mylar.tasklist.ITask;
 import org.eclipse.mylar.tasklist.MylarTaskListPlugin;
 import org.eclipse.mylar.ui.internal.UiUtil;
@@ -76,7 +77,7 @@ public class JavaContextMarkupProvider implements IMarkupProvider {
 			
 			return stripeList;
 		} catch (JavaModelException e) {
-			MylarPlugin.fail(e, "Could not produce markups for member", false);
+			ErrorLogger.fail(e, "Could not produce markups for member", false);
 			return new ArrayList<Stripe>();
 		}
 	}
@@ -114,7 +115,7 @@ public class JavaContextMarkupProvider implements IMarkupProvider {
 					try {
 						offset = JDTUtils.getLineNumber(Util.getCompilationUnit(member),  ((ISourceReference)member).getSourceRange().getOffset());
 					} catch (JavaModelException e) {
-						MylarPlugin.fail(e, "could not get member line number", false);
+						ErrorLogger.fail(e, "could not get member line number", false);
 					}
 				}
 				stripe.setOffset(offset);
@@ -149,7 +150,7 @@ public class JavaContextMarkupProvider implements IMarkupProvider {
 			return null;
 			
 		} catch (RuntimeException e) {
-			MylarPlugin.fail(e, "could not get stripe for java member", false);
+			ErrorLogger.fail(e, "could not get stripe for java member", false);
 			return null;
 		}
 	}

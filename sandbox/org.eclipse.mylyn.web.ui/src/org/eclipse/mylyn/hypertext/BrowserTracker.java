@@ -15,7 +15,7 @@ import java.lang.reflect.Field;
 
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.mylar.core.AbstractUserInteractionMonitor;
-import org.eclipse.mylar.core.MylarPlugin;
+import org.eclipse.mylar.core.util.ErrorLogger;
 import org.eclipse.mylar.tasklist.ui.MylarTaskEditor;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.LocationEvent;
@@ -99,7 +99,7 @@ public class BrowserTracker extends AbstractUserInteractionMonitor implements IP
             	return ((BrowserViewer)browserObject).getBrowser();
             } 
         } catch (Exception e) {
-        	MylarPlugin.log(e, "could not add browser listener");
+        	ErrorLogger.log(e, "could not add browser listener");
         }
         return null;
 	}

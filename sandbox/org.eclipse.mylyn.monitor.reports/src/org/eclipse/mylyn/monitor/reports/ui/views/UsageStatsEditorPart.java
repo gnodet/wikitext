@@ -22,7 +22,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.mylar.core.MylarPlugin;
+import org.eclipse.mylar.core.util.ErrorLogger;
 import org.eclipse.mylar.monitor.reports.IUsageCollector;
 import org.eclipse.mylar.monitor.reports.internal.InteractionEventSummarySorter;
 import org.eclipse.swt.SWT;
@@ -299,11 +299,11 @@ public class UsageStatsEditorPart extends EditorPart {
 			outputStream.close();
 
 		} catch (SWTException swe) {
-			MylarPlugin.log(swe, "unable to get directory name");
+			ErrorLogger.log(swe, "unable to get directory name");
 		} catch (FileNotFoundException e) {
-			MylarPlugin.log(e, "could not resolve file");
+			ErrorLogger.log(e, "could not resolve file");
 		} catch (IOException e) {
-			MylarPlugin.log(e, "could not write to file");
+			ErrorLogger.log(e, "could not write to file");
 		}
 	}
 
@@ -333,9 +333,9 @@ public class UsageStatsEditorPart extends EditorPart {
 	    	writer.write("</body></html>");
 	    	writer.close();
         } catch (FileNotFoundException e) {
-            MylarPlugin.log(e, "could not resolve file");
+            ErrorLogger.log(e, "could not resolve file");
 	    } catch (IOException e) {
-	    	MylarPlugin.log(e, "could not write to file");
+	    	ErrorLogger.log(e, "could not write to file");
 	    }
 	}
 }
