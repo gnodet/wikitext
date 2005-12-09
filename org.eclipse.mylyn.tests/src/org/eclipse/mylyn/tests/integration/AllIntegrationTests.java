@@ -9,7 +9,9 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.tasklist.tests;
+package org.eclipse.mylar.tests.integration;
+
+import org.eclipse.mylar.core.util.ErrorLogger;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -17,19 +19,14 @@ import junit.framework.TestSuite;
 /**
  * @author Mik Kersten
  */
-public class AllTasklistTests {
-
+public class AllIntegrationTests {
 	public static Test suite() {
-		TestSuite suite = new TestSuite("Test for org.eclipse.mylar.tasklist.tests");
+		TestSuite suite = new TestSuite("Test for org.eclipse.mylar.tests.integration");
+
+		ErrorLogger.setDumpErrors(true);
 		
 		//$JUnit-BEGIN$
-		suite.addTestSuite(TaskListStandaloneTest.class);
-        suite.addTestSuite(TaskListManagerTest.class);
-        suite.addTestSuite(TaskListUiTest.class);
-        suite.addTestSuite(TaskHistoryTest.class);
-		suite.addTestSuite(TaskDataExportTest.class);
-		suite.addTestSuite(BackgroundSaveTest.class);
-		suite.addTestSuite(TaskActivityTimingTest.class);
+		suite.addTestSuite(ChangeDataDirTest.class);
 		//$JUnit-END$
 		return suite;
 	}
