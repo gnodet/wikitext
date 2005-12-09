@@ -48,20 +48,6 @@ public class TaskListSaveManager implements ITaskActivityListener, DisposeListen
 		saveTimer.setSaveIntervalMillis(DEFAULT_SAVE_INTERVAL);
 	} 
 	
-	/** 
-	 * Called periodically by the save timer 
-	 */
-	public void saveRequested() {
-		if (MylarTaskListPlugin.getDefault().isShellActive() || forceBackgroundSave) {
-			try {
-				saveTaskListAndContexts();
-				ErrorLogger.log("Automatically saved task list", this);
-			} catch (Exception e) {
-				ErrorLogger.fail(e, "Could not auto save task list", false);
-			}
-		}
-	}
-	
 	public void saveTaskListAndContexts() {
 		if (MylarTaskListPlugin.getDefault() != null) {
 			MylarTaskListPlugin.getTaskListManager().saveTaskList();
@@ -127,6 +113,20 @@ public class TaskListSaveManager implements ITaskActivityListener, DisposeListen
 	/** For testing only **/
 	public BackgroundSaveTimer getSaveTimer() {
 		return saveTimer;
+	}
+	
+	/** 
+	 * Called periodically by the save timer 
+	 */
+	public void saveRequested() {
+		if (MylarTaskListPlugin.getDefault().isShellActive() || forceBackgroundSave) {
+			try {
+				saveTaskListAndContexts();
+				ErrorLogger.log("Automatically saved task list", this);
+			} catch (Exception e) {
+				ErrorLogger.fail(e, "Could not auto save task list", false);
+			}
+		}
 	}
 	
 	public void taskActivated(ITask task) {
