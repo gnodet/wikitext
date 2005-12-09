@@ -32,6 +32,8 @@ import org.eclipse.swt.events.DisposeListener;
  */
 public class TaskListSaveManager implements ITaskActivityListener, DisposeListener, IBackgroundSaveListener {
 
+	private final static int DEFAULT_SAVE_INTERVAL = 3 * 60 * 1000;
+	
 	private static final String FILE_SUFFIX_BACKUP = "-backup.xml";
 
 	private BackgroundSaveTimer saveTimer = null;
@@ -43,7 +45,22 @@ public class TaskListSaveManager implements ITaskActivityListener, DisposeListen
 	
 	public TaskListSaveManager() {
 		saveTimer = new BackgroundSaveTimer(this);
+		saveTimer.setSaveIntervalMillis(DEFAULT_SAVE_INTERVAL);
 	} 
+	
+	/** 
+	 * Called periodically by the save timer 
+	 */
+	public void saveRequested() {
+		if (MylarTaskListPlugin.getDefault().isShellActive() || forceBackgroundSave) {
+			try {
+				saveTaskListAndContexts();
+				ErrorLogger.log("Automatically saved task list", this);
+			} catch (Exception e) {
+				ErrorLogger.fail(e, "Could not auto save task list", false);
+			}
+		}
+	}
 	
 	public void saveTaskListAndContexts() {
 		if (MylarTaskListPlugin.getDefault() != null) {
@@ -110,20 +127,6 @@ public class TaskListSaveManager implements ITaskActivityListener, DisposeListen
 	/** For testing only **/
 	public BackgroundSaveTimer getSaveTimer() {
 		return saveTimer;
-	}
-	
-	/** 
-	 * Called periodically by the save timer 
-	 */
-	public void saveRequested() {
-		if (MylarTaskListPlugin.getDefault().isShellActive() || forceBackgroundSave) {
-			try {
-				saveTaskListAndContexts();
-				ErrorLogger.log("Automatically saved task list", this);
-			} catch (Exception e) {
-				ErrorLogger.fail(e, "Could not auto save task list", false);
-			}
-		}
 	}
 	
 	public void taskActivated(ITask task) {
