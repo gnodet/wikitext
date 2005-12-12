@@ -68,14 +68,13 @@ public class TaskList implements Serializable {
 		queries.add(query);
 	}
 
-	public void setActive(ITask task, boolean active) {
+	void setActive(ITask task, boolean active) {
 		task.setActive(active);
 		if (active && !activeTasks.contains(task)) {
 			activeTasks.add(task);
 		} else if (!active) {
 			activeTasks.remove(task);
 		}
-
 	}
 
 	void deleteTask(ITask task) {
@@ -191,15 +190,15 @@ public class TaskList implements Serializable {
 	private int largestTaskHandleHelper(List<ITask> tasks) {
 		int ihandle = 0;
 		int max = 0;
-		for (ITask t : tasks) {
-			if (t.participatesInTaskHandles()) {
-				String string = t.getHandleIdentifier().substring(t.getHandleIdentifier().indexOf('-') + 1, t.getHandleIdentifier().length());
+		for (ITask task : tasks) {
+			if (task.participatesInTaskHandles()) {
+				String string = task.getHandleIdentifier().substring(task.getHandleIdentifier().indexOf('-') + 1, task.getHandleIdentifier().length());
 				if (!"".equals(string)) {
 					ihandle = Integer.parseInt(string);
 				}
 			}
 			max = Math.max(ihandle, max);
-			ihandle = largestTaskHandleHelper(t.getChildren());
+			ihandle = largestTaskHandleHelper(task.getChildren());
 			max = Math.max(ihandle, max);
 		}
 		return max;
@@ -232,10 +231,10 @@ public class TaskList implements Serializable {
 		rootTasks.clear();
 	}
 
-	public void clearActiveTasks() {
-		for (ITask task : activeTasks) {
-			task.setActive(false);
-		}
-		activeTasks.clear();
-	}
+//	public void clearActiveTasks() {
+//		for (ITask task : activeTasks) {
+//			task.setActive(false);
+//		}
+//		activeTasks.clear();
+//	}
 }
