@@ -11,6 +11,7 @@
 package org.eclipse.mylar.sandbox;
 
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.mylar.sandbox.share.SharedDataDirectoryManager;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -20,6 +21,8 @@ import org.osgi.framework.BundleContext;
 public class MylarSandboxPlugin extends AbstractUIPlugin {
 
 	private static MylarSandboxPlugin plugin;
+	
+	private SharedDataDirectoryManager sharedDataDirectoryManager = new SharedDataDirectoryManager();
 	
 	public MylarSandboxPlugin() {
 		super();
@@ -53,5 +56,9 @@ public class MylarSandboxPlugin extends AbstractUIPlugin {
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.mylar.sandbox", path);
+	}
+
+	public SharedDataDirectoryManager getSharedDataDirectoryManager() {
+		return sharedDataDirectoryManager;
 	}
 }

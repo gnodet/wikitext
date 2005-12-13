@@ -1,0 +1,13 @@
+Eclipse 3.1 Merge files to note:
+
+- mylar.ide
+  - ProblemsListInterestFilter
+- mylar.java
+  - MylarPdeJUnitTabGroup
+  - ActiveFoldingListener
+  - MylarJavaCompletionProcessor
+  - MylarJavaSourceViewerConfiguration
+- mylar.xml (organize imports for pde.ui.internal)
+  - PdeEditingMonitor
+  - PdeStructureBridge
+  - PdeUiBridge

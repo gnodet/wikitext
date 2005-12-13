@@ -11,6 +11,21 @@
       </taskHandler>
    </extension> 
    
+   <extension point="org.eclipse.ui.viewActions"> 
+   <viewContribution
+         id="org.eclipse.mylar.monitor.reports.ui.switchTaskFolder"
+         targetID="org.eclipse.mylar.tasks.ui.views.TaskListView">
+      <action
+            class="org.eclipse.mylar.sandbox.share.SwitchTaskDataFolderAction"
+            icon="icons/eview16/folder.gif"
+            id="org.eclipse.mylar.monitor.reports.ui.actions.switchTask"
+            label="Switch Task Data Folder..."
+            menubarPath="context"
+            style="push">
+      </action>
+   </viewContribution>
+   </extension>
+   
    <!--
    <extension point="org.eclipse.ui.viewActions"> 
 		<viewContribution 

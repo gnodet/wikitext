@@ -1,4 +1,4 @@
-package org.eclipse.mylar.tests.misc;
+package org.eclipse.mylar.sandbox.tests;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,7 +13,8 @@ import org.eclipse.mylar.core.InteractionEvent;
 import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.core.internal.MylarContext;
 import org.eclipse.mylar.monitor.reports.MylarReportsPlugin;
-import org.eclipse.mylar.monitor.reports.ui.actions.SwitchTaskDataFolderAction;
+import org.eclipse.mylar.sandbox.MylarSandboxPlugin;
+import org.eclipse.mylar.sandbox.share.SwitchTaskDataFolderAction;
 import org.eclipse.mylar.tasklist.ITask;
 import org.eclipse.mylar.tasklist.MylarTaskListPlugin;
 import org.eclipse.mylar.tasklist.internal.Task;
@@ -70,9 +71,9 @@ public class SharedTaskFolderTest extends TestCase{
 		}
 		
 		//Set the shared data dir
-		originalSharedDataDir = MylarPlugin.getDefault().getSharedDataDirectory();
+		originalSharedDataDir = MylarSandboxPlugin.getDefault().getSharedDataDirectoryManager().getSharedDataDirectory();
 		MylarReportsPlugin.getDefault().getPreferenceStore().setValue(MylarReportsPlugin.SHARED_TASK_DATA_ROOT_DIR, sharedDataRootDir.getPath());
-		MylarPlugin.getDefault().setSharedDataDirectory(sharedDataRootDir.getPath());
+		MylarSandboxPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectory(sharedDataRootDir.getPath());
 		assertFalse(MylarPlugin.getDefault().getDataDirectory().equals(sharedDataRootDir.getPath()));
 	}
 	
@@ -165,7 +166,7 @@ public class SharedTaskFolderTest extends TestCase{
 	protected void tearDown() throws Exception{
 		
 		//Reset the shared directory to the original value
-		MylarPlugin.getDefault().setSharedDataDirectory(originalSharedDataDir);
+		MylarSandboxPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectory(originalSharedDataDir);
 		MylarReportsPlugin.getDefault().getPreferenceStore().setValue(MylarReportsPlugin.SHARED_TASK_DATA_ROOT_DIR, originalSharedDataDir);
 		
 		//Delete the test shared data directories

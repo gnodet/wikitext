@@ -17,7 +17,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.mylar.tasklist,
  org.eclipse.core.resources,
  org.eclipse.ui.browser,
- org.eclipse.mylar.monitor.reports
+ org.eclipse.mylar.monitor.reports,
+ org.junit
 Eclipse-AutoStart: true
 Bundle-Vendor: Eclipse.org
 Bundle-ClassPath: mylar-sandbox.jar

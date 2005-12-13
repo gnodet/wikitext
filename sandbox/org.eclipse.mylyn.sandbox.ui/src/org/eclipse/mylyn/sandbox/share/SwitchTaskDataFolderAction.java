@@ -1,4 +1,4 @@
-package org.eclipse.mylar.monitor.reports.ui.actions;
+package org.eclipse.mylar.sandbox.share;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,6 +11,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.core.util.ErrorLogger;
 import org.eclipse.mylar.monitor.reports.MylarReportsPlugin;
+import org.eclipse.mylar.sandbox.MylarSandboxPlugin;
 import org.eclipse.mylar.tasklist.MylarTaskListPlugin;
 import org.eclipse.mylar.tasklist.ui.ComboSelectionDialog;
 import org.eclipse.mylar.tasklist.ui.views.TaskListView;
@@ -99,7 +100,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 			}
 
 			// Add the option to switch back to the main local data directory
-			if (MylarPlugin.getDefault().isSharedDataDirectoryEnabled()) {
+			if (MylarSandboxPlugin.getDefault().getSharedDataDirectoryManager().isSharedDataDirectoryEnabled()) {
 				folders.add(MAIN_LOCAL_DATA_DIR);
 			}
 
@@ -165,7 +166,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 		MylarTaskListPlugin.getDefault().getTaskListSaveManager().saveTaskListAndContexts();
 
 		if (targetFolder.equals(MAIN_LOCAL_DATA_DIR)) {
-			MylarPlugin.getDefault().setSharedDataDirectoryEnabled(false);
+			MylarSandboxPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectoryEnabled(false);
 //			MylarTaskListPlugin.getDefault().setDataDirectory(MylarPlugin.getDefault().getDataDirectory());
 			(new ToggleContextCaptureAction()).resume(); // TODO: don't use
 															// actions directly
@@ -174,8 +175,8 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 		} else {
 			String dataDirPath = MylarReportsPlugin.getDefault().getRootSharedDataDirectory() + File.separator
 					+ targetFolder;
-			MylarPlugin.getDefault().setSharedDataDirectory(dataDirPath);
-			MylarPlugin.getDefault().setSharedDataDirectoryEnabled(true);
+			MylarSandboxPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectory(dataDirPath);
+			MylarSandboxPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectoryEnabled(true);
 //			MylarTaskListPlugin.getDefault().setDataDirectory(dataDirPath);
 			(new ToggleContextCaptureAction()).pause();
 			TaskListView.getDefault().indicateSharedFolder(targetFolder);
