@@ -8,29 +8,29 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-
-package org.eclipse.mylar.tests;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
-import org.eclipse.mylar.core.tests.ContextTest;
-import org.eclipse.mylar.core.tests.DegreeOfInterestTest;
-import org.eclipse.mylar.tasklist.tests.TaskListStandaloneTest;
+/*
+ * Created on Jul 15, 2004
+ */
+package org.eclipse.mylar.sandbox.misc;
 
 /**
+ * Check against the system clock--doesn't need to run as thread.
+ * 
  * @author Mik Kersten
  */
-public class StandaloneTests {
+public class PassiveTimer {
 
-	public static Test suite() {
-		TestSuite suite = new TestSuite("Tests not requiring Eclipse Workbench");
-		
-		//$JUnit-BEGIN$
-		suite.addTestSuite(DegreeOfInterestTest.class);
-		suite.addTestSuite(ContextTest.class);
-		suite.addTestSuite(TaskListStandaloneTest.class);
-		//$JUnit-END$
-		return suite;
+	private long elapsed = 0;
+
+	private long lastStartTime = System.currentTimeMillis();
+
+	public void restart() {
+		lastStartTime = System.currentTimeMillis();
+		elapsed = 0;
+	}
+
+	public long getElapsedInSeconds() {
+		elapsed = System.currentTimeMillis() - lastStartTime;
+		return elapsed / 1000;
 	}
 }
