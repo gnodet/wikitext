@@ -1,13 +1,18 @@
-Eclipse 3.1 Merge files to note:
+Eclipse 3.1 Merge files that should not be overriden:
 
 - mylar.ide
   - ProblemsListInterestFilter
+  
 - mylar.java
   - MylarPdeJUnitTabGroup
   - ActiveFoldingListener
   - MylarJavaCompletionProcessor
   - MylarJavaSourceViewerConfiguration
-- mylar.xml (organize imports for pde.ui.internal)
+  
+- mylar.xml
+  - XmlReferencesProvider
+  
+- mylar.xml  (organize imports for pde.ui.internal)
   - PdeEditingMonitor
   - PdeStructureBridge
   - PdeUiBridge
