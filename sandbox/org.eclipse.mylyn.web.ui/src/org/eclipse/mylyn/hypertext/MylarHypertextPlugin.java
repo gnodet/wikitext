@@ -15,15 +15,13 @@ import org.osgi.framework.BundleContext;
 public class MylarHypertextPlugin extends AbstractUIPlugin {
 
 	private static MylarHypertextPlugin plugin;
+
 	private BrowserTracker browserTracker;
-	
+		
 	public MylarHypertextPlugin() {
 		plugin = this;
 	}
 
-	/**
-	 * This method is called upon plug-in activation
-	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		final IWorkbench workbench = PlatformUI.getWorkbench();
@@ -47,17 +45,11 @@ public class MylarHypertextPlugin extends AbstractUIPlugin {
         });
 	}
 
-	/**
-	 * This method is called when the plug-in is stopped
-	 */
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		plugin = null;
 	}
 
-	/**
-	 * Returns the shared instance.
-	 */
 	public static MylarHypertextPlugin getDefault() {
 		return plugin;
 	}
@@ -73,8 +65,4 @@ public class MylarHypertextPlugin extends AbstractUIPlugin {
 		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.mylar.hypertext", path);
 	}
 
-	public void earlyStartup() {
-		// TODO Auto-generated method stub
-		
-	}
 }
