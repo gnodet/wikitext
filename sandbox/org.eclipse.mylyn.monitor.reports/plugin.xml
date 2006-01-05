@@ -59,6 +59,7 @@
            id="org.eclipse.mylar.monitor.reports.ui.actions.monitorUsersReport"/>
   </extension>
   
+  <!--
    <extension point="org.eclipse.ui.preferencePages">
       <page 
          name="Reports"
@@ -67,6 +68,7 @@
          category="org.eclipse.mylar.ui.preferences">
       </page>  
    </extension>
+   -->
 </plugin>
 
         <!--
