@@ -14,7 +14,7 @@ package org.eclipse.mylar.sandbox.jira;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.mylar.core.util.ErrorLogger;
+import org.eclipse.mylar.core.util.MylarStatusHandler;
 import org.eclipse.mylar.tasklist.ui.views.TaskListView;
 import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
@@ -39,7 +39,7 @@ public class CreateJiraTaskAction extends Action implements IViewActionDelegate{
 	public void run() {
 		if(TaskListView.getDefault() == null) return;
 
-		ErrorLogger.fail(new RuntimeException("unimplmented"), "unimplemented", true);
+		MylarStatusHandler.fail(new RuntimeException("unimplmented"), "unimplemented", true);
 //	    String bugIdString = TaskListView.getDefault().getBugIdFromUser();
 //	    int bugId = -1;
 //	    try {

@@ -1,7 +1,7 @@
 package org.eclipse.mylar.hypertext;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylar.core.util.ErrorLogger;
+import org.eclipse.mylar.core.util.MylarStatusHandler;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -39,7 +39,7 @@ public class MylarHypertextPlugin extends AbstractUIPlugin {
 						}
 					}
         		} catch (Exception e) {
-        			ErrorLogger.fail(e, "Mylar Hypertext initialization failed", false);
+        			MylarStatusHandler.fail(e, "Mylar Hypertext initialization failed", false);
         		}
             }
         });

@@ -19,6 +19,7 @@
       <editorFactory class="org.eclipse.mylar.hypertext.ui.editors.WebElementsEditorFactory"/>
    </extension>
 
+<!--
   <extension point="org.eclipse.ui.actionSets">
 	<actionSet
             id="org.eclipse.mylar.browser.actionSet"
@@ -36,6 +37,7 @@
       	</action> 
     </actionSet>
    </extension>
+-->
 
    <extension point="org.eclipse.ui.commands">
 	  <command

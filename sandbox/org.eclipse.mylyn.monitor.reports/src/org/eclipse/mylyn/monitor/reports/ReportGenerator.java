@@ -25,7 +25,7 @@ import java.util.TreeSet;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.mylar.core.InteractionEvent;
-import org.eclipse.mylar.core.util.ErrorLogger;
+import org.eclipse.mylar.core.util.MylarStatusHandler;
 import org.eclipse.mylar.monitor.InteractionEventLogger;
 import org.eclipse.mylar.monitor.reports.ui.views.UsageStatisticsSummary;
 import org.eclipse.ui.PlatformUI;
@@ -87,7 +87,7 @@ public class ReportGenerator {
 		} catch (InvocationTargetException e) {
 			// Operation was canceled
 		} catch (InterruptedException e) {
-			ErrorLogger.log(e, "Could not generate stats");
+			MylarStatusHandler.log(e, "Could not generate stats");
 		}
 		return lastParsedSummary;
 	}
@@ -111,7 +111,7 @@ public class ReportGenerator {
 				userIDText = userIDText.substring(0, userIDText.indexOf("-"));
 				userId = Integer.valueOf(userIDText);
 			} catch (Throwable t) {
-				ErrorLogger.log(t, "could not parse user ID from source file");
+				MylarStatusHandler.log(t, "could not parse user ID from source file");
 			}
 		}
 
@@ -127,7 +127,7 @@ public class ReportGenerator {
 			try {
 				userIDText = userIDText.substring(0, userIDText.indexOf(terminator) - 1);
 			} catch (Throwable t) {
-				ErrorLogger.log(t, "could not parse user ID from source file");
+				MylarStatusHandler.log(t, "could not parse user ID from source file");
 			}
 		}
 		return phase;
@@ -169,7 +169,7 @@ public class ReportGenerator {
 				}
 			} catch (Throwable t) {
 				t.printStackTrace();
-				ErrorLogger.fail(t, "could not generate usage report", false);
+				MylarStatusHandler.fail(t, "could not generate usage report", false);
 			}
 
 			try {
@@ -264,7 +264,7 @@ public class ReportGenerator {
 
 			} catch (Throwable t) {
 				t.printStackTrace();
-				ErrorLogger.fail(t, "could not generate usage report", false);
+				MylarStatusHandler.fail(t, "could not generate usage report", false);
 			}
 
 		}

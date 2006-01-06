@@ -23,7 +23,7 @@ import java.util.Map;
 
 import org.eclipse.mylar.core.InteractionEvent;
 import org.eclipse.mylar.core.util.DateUtil;
-import org.eclipse.mylar.core.util.ErrorLogger;
+import org.eclipse.mylar.core.util.MylarStatusHandler;
 import org.eclipse.mylar.monitor.reports.ReportGenerator;
 import org.eclipse.mylar.tasklist.ui.actions.TaskActivateAction;
 import org.eclipse.mylar.tasklist.ui.actions.TaskDeactivateAction;
@@ -306,7 +306,7 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 			}
 			writer.close();
 		} catch (IOException e) {
-			ErrorLogger.fail(e, "could not generate csv file", true);
+			MylarStatusHandler.fail(e, "could not generate csv file", true);
 		}
 	}
 	

@@ -11,7 +11,7 @@
 
 package org.eclipse.mylar.sandbox.share;
 
-import org.eclipse.mylar.core.util.ErrorLogger;
+import org.eclipse.mylar.core.util.MylarStatusHandler;
 
 /**
  * @author Wesley Coelho
@@ -60,7 +60,7 @@ public class SharedDataDirectoryManager {
 	 */
 	public void setSharedDataDirectoryEnabled(boolean enable) {
 		if (enable && sharedDataDirectory == null) {
-			ErrorLogger.fail(new Exception("EnableDataDirectoryException"),
+			MylarStatusHandler.fail(new Exception("EnableDataDirectoryException"),
 					"Could not enable shared data directory because no shared data directory was specifed.", true);
 			return;
 		}
