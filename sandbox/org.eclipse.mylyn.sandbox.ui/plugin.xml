@@ -60,7 +60,7 @@
 	  <view name="Context Control Panel"
         icon="icons/eview16/control-panel.gif"
         category="org.eclipse.mylar"
-        class="org.eclipse.mylar.ui.views.MylarControlPanelView"
+        class="org.eclipse.mylar.sandbox.viz.MylarControlPanelView"
         id="org.eclipse.mylar.ui.views.MylarControlPanelView">
       </view>
   </extension> 

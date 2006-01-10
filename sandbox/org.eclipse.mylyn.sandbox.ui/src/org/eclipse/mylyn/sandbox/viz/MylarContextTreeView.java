@@ -22,9 +22,9 @@ import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.core.util.MylarStatusHandler;
 import org.eclipse.mylar.ui.*;
 import org.eclipse.mylar.ui.actions.ToggleDecorateInterestLevelAction;
-import org.eclipse.mylar.ui.views.TaskscapeNodeClickListener;
-import org.eclipse.mylar.ui.views.MylarDelegatingContextLabelProvider;
-import org.eclipse.mylar.ui.views.MylarContextContentProvider;
+import org.eclipse.mylar.ui.views.ContextNodeOpenListener;
+import org.eclipse.mylar.ui.views.DelegatingContextLabelProvider;
+import org.eclipse.mylar.ui.views.ContextContentProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
@@ -116,13 +116,13 @@ public class MylarContextTreeView extends ViewPart {
     public void createPartControl(Composite parent) {
         viewerSorter = new InterestSorter();
         viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
-        viewer.setContentProvider(new MylarContextContentProvider(viewer.getTree(), this.getViewSite(), false));
+        viewer.setContentProvider(new ContextContentProvider(viewer.getTree(), this.getViewSite(), false));
         viewer.setSorter(viewerSorter);
         viewer.setInput(getViewSite());
 
 //        viewer.setLabelProvider(new TaskscapeNodeLabelProvider());
         viewer.setLabelProvider(new DecoratingLabelProvider(
-                new MylarDelegatingContextLabelProvider(),
+                new DelegatingContextLabelProvider(),
                 PlatformUI.getWorkbench().getDecoratorManager().getLabelDecorator()));
 
         makeActions();
@@ -130,7 +130,7 @@ public class MylarContextTreeView extends ViewPart {
         contributeToActionBars();
         viewer.getTree().setBackground(MylarUiPlugin.getDefault().getColorMap().BACKGROUND_COLOR);
         
-        viewer.addOpenListener(new TaskscapeNodeClickListener(viewer));
+        viewer.addOpenListener(new ContextNodeOpenListener(viewer));
     }
     
     protected Object[] refreshView(Object parent) {

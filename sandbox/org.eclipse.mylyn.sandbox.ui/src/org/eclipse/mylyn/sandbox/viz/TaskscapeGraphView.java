@@ -23,7 +23,7 @@ import org.eclipse.mylar.core.IMylarContextListener;
 import org.eclipse.mylar.core.IMylarElement;
 import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.ui.MylarImages;
-import org.eclipse.mylar.ui.views.MylarDelegatingContextLabelProvider;
+import org.eclipse.mylar.ui.views.DelegatingContextLabelProvider;
 import org.eclipse.mylar.zest.core.ZestStyles;
 import org.eclipse.mylar.zest.core.viewers.StaticGraphViewer;
 import org.eclipse.mylar.zest.layouts.LayoutStyles;
@@ -115,7 +115,7 @@ public class TaskscapeGraphView extends ViewPart {
         viewer = new StaticGraphViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | ZestStyles.NO_OVERLAPPING_NODES | ZestStyles.PANNING);
         viewer.setContentProvider(new TaskscapeGraphContentProvider());
         viewer.setLabelProvider(new DecoratingLabelProvider(
-                new MylarDelegatingContextLabelProvider(),
+                new DelegatingContextLabelProvider(),
                 PlatformUI.getWorkbench().getDecoratorManager().getLabelDecorator()));
 //        viewer.setLabelProvider(new TaskscapeNodeLabelProvider());
 //        viewer.setLabelProvider(new SampleGraphLabelProvider());

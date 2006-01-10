@@ -11,7 +11,7 @@
 /*
  * Created on Feb 4, 2005
   */
-package org.eclipse.mylar.ui.views;
+package org.eclipse.mylar.sandbox.viz;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
