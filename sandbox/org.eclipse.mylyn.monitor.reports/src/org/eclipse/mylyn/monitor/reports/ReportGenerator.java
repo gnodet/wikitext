@@ -48,6 +48,15 @@ public class ReportGenerator {
 
 	private List<IUsageScanner> scanners;
 
+	private Map<Integer, Map<String, SortedSet<InteractionEvent>>> allUserEvents;
+	
+	private boolean saveAllUserEvents = false;
+
+	public ReportGenerator(InteractionEventLogger logger, IUsageCollector collector, boolean saveAllUserEvents) {
+		this(logger, collector);
+		this.saveAllUserEvents = saveAllUserEvents;
+	}
+	
 	public ReportGenerator(InteractionEventLogger logger, IUsageCollector collector) {
 		List<IUsageCollector> collectors = new ArrayList<IUsageCollector>();
 		collectors.add(collector);
@@ -148,6 +157,10 @@ public class ReportGenerator {
 
 		public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 
+			if(saveAllUserEvents){
+				allUserEvents = new HashMap<Integer, Map<String, SortedSet<InteractionEvent>>>();
+			}
+
 			UsageStatisticsSummary statistics = new UsageStatisticsSummary();
 			Map<Integer, Map<String, InteractionEventSummary>> summaryMap = new HashMap<Integer, Map<String, InteractionEventSummary>>();
 
@@ -199,7 +212,7 @@ public class ReportGenerator {
 					if (this.generator.scanners != null && this.generator.scanners.size() > 0) {
 
 						for (Map.Entry<String, SortedSet<InteractionEvent>> eventsPerPhase : userEvents.entrySet()) {
-//							String phaseToProcess = eventsPerPhase.getKey();
+							//                                                      String phaseToProcess = eventsPerPhase.getKey();
 							SortedSet<InteractionEvent> events = eventsPerPhase.getValue();
 
 							for (InteractionEvent event : events) {
@@ -211,19 +224,23 @@ public class ReportGenerator {
 					}
 					monitor.worked(1);
 
+					if(allUserEvents != null){
+						allUserEvents.put(aUser, userEvents);
+					}
+
 					// Consume all events
 					for (Map.Entry<String, SortedSet<InteractionEvent>> eventsPerPhase : userEvents.entrySet()) {
-//						String phaseToProcess = eventsPerPhase.getKey();
+						//                                              String phaseToProcess = eventsPerPhase.getKey();
 						SortedSet<InteractionEvent> events = eventsPerPhase.getValue();
 
 						for (InteractionEvent event : events) {
 
 							if (event.getKind().isUserEvent()) { // TODO:
-																	// some
-																	// collectors
-																	// may want
-																	// non-user
-																	// events
+								// some
+								// collectors
+								// may want
+								// non-user
+								// events
 								for (IUsageCollector collector : this.generator.collectors)
 									collector.consumeEvent(event, aUser);
 							}
@@ -236,7 +253,7 @@ public class ReportGenerator {
 				for (IUsageCollector collector : this.generator.collectors) {
 					statistics.add(collector);
 				}
-				
+
 				// Flatten the summaries for the command usage table
 				List<InteractionEventSummary> flattenedSummaries = new ArrayList<InteractionEventSummary>();
 				Map<String, InteractionEventSummary> combinedUserSummary = new HashMap<String, InteractionEventSummary>();
@@ -316,5 +333,9 @@ public class ReportGenerator {
 
 	public List<IUsageCollector> getCollectors() {
 		return collectors;
+	}
+
+	public Map<Integer, Map<String, SortedSet<InteractionEvent>>> getAllUsers() {
+		return allUserEvents;
 	}
 }
