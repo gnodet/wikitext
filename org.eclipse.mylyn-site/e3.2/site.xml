@@ -4,10 +4,10 @@
    <description url="http://download.eclipse.org/technology/mylar/update-site/e3.2">
       Mylar update site for Eclipse 3.2
    </description>
-   <feature url="features/org.eclipse.mylar_feature_0.4.6.3.jar" id="org.eclipse.mylar_feature" version="0.4.6.3">
+   <feature url="features/org.eclipse.mylar.bugzilla_feature_0.4.6.4.jar" id="org.eclipse.mylar.bugzilla_feature" version="0.4.6.4">
       <category name="Mylar for Eclipse 3.2"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.bugzilla_feature_0.4.6.3.jar" id="org.eclipse.mylar.bugzilla_feature" version="0.4.6.3">
+   <feature url="features/org.eclipse.mylar_feature_0.4.6.4.jar" id="org.eclipse.mylar_feature" version="0.4.6.4">
       <category name="Mylar for Eclipse 3.2"/>
    </feature>
    <category-def name="Mylar for Eclipse 3.2" label="Mylar for Eclipse 3.2"/>
