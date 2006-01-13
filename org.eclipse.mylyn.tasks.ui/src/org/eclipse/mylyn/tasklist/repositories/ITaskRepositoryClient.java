@@ -11,6 +11,8 @@
 
 package org.eclipse.mylar.tasklist.repositories;
 
+import org.eclipse.mylar.tasklist.ui.wizards.RepositorySettingsPage;
+
 
 /**
  * @author Mik Kersten
@@ -24,5 +26,5 @@ public interface ITaskRepositoryClient {
 	 */
 	public String getKind();
 	
-//	public IWizardPage getSettingsPage();
+	public RepositorySettingsPage getSettingsPage();
 }
