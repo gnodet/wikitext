@@ -92,7 +92,6 @@ public abstract class RepositorySettingsPage extends WizardPage {
 
 	public URL getServerUrl() {
 		try {
-			System.err.println(">>> " + serverUrlEditor);
 			return new URL(serverUrlEditor.getStringValue());
 		} catch (MalformedURLException e) {
 			MylarStatusHandler.fail(e, "could not create url", true);
@@ -126,9 +125,8 @@ public abstract class RepositorySettingsPage extends WizardPage {
 	}
 
 	/**
-	 * Hack private class to make StringFieldEditor.refreshValidState() a
-	 * publicly acessible method.
-	 * @see org.eclipse.jface.preference.StringFieldEditor#refreshValidState()
+	 * Exposes StringFieldEditor.refreshValidState() 
+	 * TODO: is there a better way?
 	 */
 	private static class RepositoryStringFieldEditor extends StringFieldEditor {
 		public RepositoryStringFieldEditor(String name, String labelText, int style, Composite parent) {
@@ -137,7 +135,11 @@ public abstract class RepositorySettingsPage extends WizardPage {
 
 		@Override
 		public void refreshValidState() {
-			super.refreshValidState();
+			try {
+				super.refreshValidState();
+			} catch (Exception e) {
+				MylarStatusHandler.log(e, "problem refreshing password field");
+			}
 		}
 
 		@Override
