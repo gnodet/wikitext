@@ -5,10 +5,14 @@ Eclipse 3.1 Merge files that should not be overriden:
   
 - mylar.java
   - MylarPdeJUnitTabGroup
-  - ActiveFoldingListener
-  - MylarJavaCompletionProcessor
-  - MylarJavaSourceViewerConfiguration
-  
+  editor
+ 	- ActiveFoldingListener
+  	- MylarJavaCompletionProcessor
+  	- MylarJavaSourceViewerConfiguration
+  - plugin.xml (merge?)
+  - ToggleAutoFoldingAction
+  - JavaEditorTracker
+
 - mylar.xml
   - XmlReferencesProvider
   
