@@ -17,7 +17,7 @@ import org.eclipse.mylar.tasklist.IQueryHit;
 import org.eclipse.mylar.tasklist.ITask;
 import org.eclipse.mylar.tasklist.ITaskCategory;
 import org.eclipse.mylar.tasklist.ITaskListExternalizer;
-import org.eclipse.mylar.tasklist.ITaskQuery;
+import org.eclipse.mylar.tasklist.IRepositoryQuery;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -39,7 +39,7 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 		return null;
 	}
 
-	public String getQueryTagNameForElement(ITaskQuery query) {
+	public String getQueryTagNameForElement(IRepositoryQuery query) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -92,12 +92,12 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 		return null;
 	}
 
-	public boolean canCreateElementFor(ITaskQuery category) {
+	public boolean canCreateElementFor(IRepositoryQuery category) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public Element createQueryElement(ITaskQuery query, Document doc, Element parent) {
+	public Element createQueryElement(IRepositoryQuery query, Document doc, Element parent) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -129,7 +129,7 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 		return false;
 	}
 
-	public void readQueryHit(Node node, TaskList tlist, ITaskQuery query)
+	public void readQueryHit(Node node, TaskList tlist, IRepositoryQuery query)
 			throws TaskListExternalizerException {
 		// TODO Auto-generated method stub
 
