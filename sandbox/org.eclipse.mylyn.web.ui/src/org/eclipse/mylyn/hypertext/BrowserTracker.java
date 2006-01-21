@@ -16,7 +16,7 @@ import java.lang.reflect.Field;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.mylar.core.AbstractUserInteractionMonitor;
 import org.eclipse.mylar.core.util.MylarStatusHandler;
-import org.eclipse.mylar.tasklist.ui.MylarTaskEditor;
+import org.eclipse.mylar.internal.tasklist.ui.MylarTaskEditor;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.LocationEvent;
 import org.eclipse.swt.browser.LocationListener;

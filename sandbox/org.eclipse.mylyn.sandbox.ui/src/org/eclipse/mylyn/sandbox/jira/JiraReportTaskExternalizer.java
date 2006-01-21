@@ -11,14 +11,14 @@
 
 package org.eclipse.mylar.sandbox.jira;
 
-import org.eclipse.mylar.tasklist.ITaskCategory;
-
-import org.eclipse.mylar.tasklist.ITaskQuery;
+import org.eclipse.mylar.internal.tasklist.TaskList;
+import org.eclipse.mylar.internal.tasklist.TaskListExternalizerException;
 import org.eclipse.mylar.tasklist.IQueryHit;
 import org.eclipse.mylar.tasklist.ITask;
+import org.eclipse.mylar.tasklist.ITaskCategory;
 import org.eclipse.mylar.tasklist.ITaskListExternalizer;
-import org.eclipse.mylar.tasklist.internal.TaskListExternalizerException;
-import org.eclipse.mylar.tasklist.internal.TaskList;
+import org.eclipse.mylar.tasklist.ITaskQuery;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

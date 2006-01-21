@@ -19,10 +19,10 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.mylar.core.InteractionEvent;
+import org.eclipse.mylar.internal.tasklist.ui.actions.TaskActivateAction;
+import org.eclipse.mylar.internal.tasklist.ui.actions.TaskDeactivateAction;
 import org.eclipse.mylar.monitor.monitors.SelectionMonitor;
 import org.eclipse.mylar.monitor.reports.collectors.ViewUsageCollector;
-import org.eclipse.mylar.tasklist.ui.actions.TaskActivateAction;
-import org.eclipse.mylar.tasklist.ui.actions.TaskDeactivateAction;
 import org.eclipse.mylar.ui.actions.AbstractApplyMylarAction;
 
 /**

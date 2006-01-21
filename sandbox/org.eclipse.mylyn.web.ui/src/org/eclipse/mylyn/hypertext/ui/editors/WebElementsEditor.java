@@ -42,7 +42,7 @@ import org.eclipse.mylar.core.IMylarElement;
 import org.eclipse.mylar.core.IMylarStructureBridge;
 import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.hypertext.HypertextStructureBridge;
-import org.eclipse.mylar.tasklist.ui.TaskListImages;
+import org.eclipse.mylar.internal.tasklist.ui.TaskListImages;
 import org.eclipse.mylar.ui.MylarImages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
