@@ -9,17 +9,27 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.core.util;
+package org.eclipse.mylar.tasklist;
+
+import org.eclipse.mylar.tasklist.ui.wizards.RepositorySettingsPage;
 
 /**
  * @author Mik Kersten
  */
-public interface ITimerThreadListener {
+public interface ITaskRepositoryClient {
 
-    public void fireTimedOut();
+	public String getLabel();
 
 	/**
-	 * Called every time TimerThread's sleepInterval lapses
+	 * @return the unique type of the repository, e.g. "bugzilla"
 	 */
-	public void intervalElapsed();
+	public String getKind();
+	
+	/**
+	 * @param id	identifier, e.g. "123" bug Bugzilla bug 123
+	 * @return		null if task could not be created
+	 */
+	public ITask createTaskFromExistingId(TaskRepository repository, String id);
+	
+	public RepositorySettingsPage getSettingsPage();
 }
