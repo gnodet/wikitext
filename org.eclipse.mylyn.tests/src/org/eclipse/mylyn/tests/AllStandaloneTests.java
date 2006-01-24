@@ -14,9 +14,9 @@ package org.eclipse.mylar.tests;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.mylar.core.tests.ContextTest;
-import org.eclipse.mylar.core.tests.DegreeOfInterestTest;
-import org.eclipse.mylar.tasklist.tests.TaskListStandaloneTest;
+import org.eclipse.mylar.tests.core.ContextTest;
+import org.eclipse.mylar.tests.core.DegreeOfInterestTest;
+import org.eclipse.mylar.tests.tasklist.TaskListStandaloneTest;
 
 /**
  * @author Mik Kersten
@@ -27,7 +27,7 @@ public class AllStandaloneTests {
 		TestSuite suite = new TestSuite("Tests not requiring Eclipse Workbench");
 		
 		//$JUnit-BEGIN$
-//		suite.addTestSuite(ContextExternalizationTest.class);
+//		suite.addTestSuite(ContextExternalizerTest.class);
 		suite.addTestSuite(DegreeOfInterestTest.class);
 		suite.addTestSuite(ContextTest.class);
 		suite.addTestSuite(TaskListStandaloneTest.class);
