@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004 - 2005 University Of British Columbia and others.
+ * Copyright (c) 2004 - 2006 University Of British Columbia and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -32,48 +32,54 @@ import org.eclipse.ui.internal.browser.WebBrowserEditor;
 /**
  * @author Mik Kersten
  */
-public class BrowserTracker extends AbstractUserInteractionMonitor implements IPartListener, IWindowListener, IPageListener {
+public class BrowserTracker extends AbstractUserInteractionMonitor implements IPartListener, IWindowListener,
+		IPageListener {
 
 	private UrlTrackingListener urlTrackingListener = new UrlTrackingListener();
+
 	private IWorkbenchPart currentBrowserPart = null;
-		
+
 	class UrlTrackingListener implements LocationListener {
 
 		public void changing(LocationEvent event) {
 			// ignore
 		}
 
-		public void changed(LocationEvent event) { 
-			if (event != null) handleElementSelection(currentBrowserPart, event);
+		public void changed(LocationEvent event) {
+			if (event != null)
+				handleElementSelection(currentBrowserPart, event);
 		}
 	}
-	
+
 	@Override
 	protected void handleWorkbenchPartSelection(IWorkbenchPart part, ISelection selection) {
 		// ignore, this is a special case
 	}
-	
-	//---- Part Listener
+
+	// ---- Part Listener
 
 	public void partOpened(IWorkbenchPart part) {
 		if (part instanceof WebBrowserEditor) {
 			currentBrowserPart = part;
-			Browser browser = getBrowser((WebBrowserEditor)part);
-			if (browser != null) browser.addLocationListener(urlTrackingListener);
+			Browser browser = getBrowser((WebBrowserEditor) part);
+			if (browser != null)
+				browser.addLocationListener(urlTrackingListener);
 		} else if (part instanceof MylarTaskEditor) {
 			currentBrowserPart = part;
-			Browser browser = ((MylarTaskEditor)part).getWebBrowser();
-			if (browser != null) browser.addLocationListener(urlTrackingListener);
+			Browser browser = ((MylarTaskEditor) part).getWebBrowser();
+			if (browser != null)
+				browser.addLocationListener(urlTrackingListener);
 		}
 	}
-	
+
 	public void partClosed(IWorkbenchPart part) {
 		if (part instanceof WebBrowserEditor) {
-			Browser browser = getBrowser((WebBrowserEditor)part);
-			if (browser != null) browser.removeLocationListener(urlTrackingListener);
+			Browser browser = getBrowser((WebBrowserEditor) part);
+			if (browser != null)
+				browser.removeLocationListener(urlTrackingListener);
 		}
 	}
-	
+
 	public void partActivated(IWorkbenchPart part) {
 
 	}
@@ -88,44 +94,48 @@ public class BrowserTracker extends AbstractUserInteractionMonitor implements IP
 	public void partDeactivated(IWorkbenchPart part) {
 	}
 
-	
 	private Browser getBrowser(final WebBrowserEditor browserEditor) {
-        try { // HACK: using reflection to gain accessibility
-            Class browserClass = browserEditor.getClass();
-            Field browserField = browserClass.getDeclaredField("webBrowser");
-            browserField.setAccessible(true);
-            Object browserObject = browserField.get(browserEditor);
-            if (browserObject != null && browserObject instanceof BrowserViewer) {
-            	return ((BrowserViewer)browserObject).getBrowser();
-            } 
-        } catch (Exception e) {
-        	MylarStatusHandler.log(e, "could not add browser listener");
-        }
-        return null;
+		try { // HACK: using reflection to gain accessibility
+			Class browserClass = browserEditor.getClass();
+			Field browserField = browserClass.getDeclaredField("webBrowser");
+			browserField.setAccessible(true);
+			Object browserObject = browserField.get(browserEditor);
+			if (browserObject != null && browserObject instanceof BrowserViewer) {
+				return ((BrowserViewer) browserObject).getBrowser();
+			}
+		} catch (Exception e) {
+			MylarStatusHandler.log(e, "could not add browser listener");
+		}
+		return null;
 	}
-	
-	//--- Window listener
-	
+
+	// --- Window listener
+
 	public void windowActivated(IWorkbenchWindow window) {
 	}
+
 	public void windowDeactivated(IWorkbenchWindow window) {
 	}
+
 	public void windowClosed(IWorkbenchWindow window) {
 		window.removePageListener(this);
 	}
+
 	public void windowOpened(IWorkbenchWindow window) {
 		window.addPageListener(this);
 	}
-	
-	//---- IPageListener
-	
+
+	// ---- IPageListener
+
 	public void pageActivated(IWorkbenchPage page) {
 	}
+
 	public void pageClosed(IWorkbenchPage page) {
 		page.removePartListener(this);
 	}
+
 	public void pageOpened(IWorkbenchPage page) {
 		page.addPartListener(this);
 	}
-	
+
 }

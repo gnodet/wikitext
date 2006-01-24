@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2004 - 2006 University Of British Columbia and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     University Of British Columbia - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.mylar.hypertext;
 
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -17,7 +27,7 @@ public class MylarHypertextPlugin extends AbstractUIPlugin {
 	private static MylarHypertextPlugin plugin;
 
 	private BrowserTracker browserTracker;
-		
+
 	public MylarHypertextPlugin() {
 		plugin = this;
 	}
@@ -25,24 +35,24 @@ public class MylarHypertextPlugin extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		final IWorkbench workbench = PlatformUI.getWorkbench();
-        workbench.getDisplay().asyncExec(new Runnable() {
-            public void run() { 
-            	try {
-	            	browserTracker = new BrowserTracker();
-	            	workbench.addWindowListener(browserTracker);
-					IWorkbenchWindow[] windows= workbench.getWorkbenchWindows();
-					for (int i= 0; i < windows.length; i++) {
+		workbench.getDisplay().asyncExec(new Runnable() {
+			public void run() {
+				try {
+					browserTracker = new BrowserTracker();
+					workbench.addWindowListener(browserTracker);
+					IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
+					for (int i = 0; i < windows.length; i++) {
 						windows[i].addPageListener(browserTracker);
-						IWorkbenchPage[] pages= windows[i].getPages();
-						for (int j= 0; j < pages.length; j++) {
+						IWorkbenchPage[] pages = windows[i].getPages();
+						for (int j = 0; j < pages.length; j++) {
 							pages[j].addPartListener(browserTracker);
 						}
 					}
-        		} catch (Exception e) {
-        			MylarStatusHandler.fail(e, "Mylar Hypertext initialization failed", false);
-        		}
-            }
-        });
+				} catch (Exception e) {
+					MylarStatusHandler.fail(e, "Mylar Hypertext initialization failed", false);
+				}
+			}
+		});
 	}
 
 	public void stop(BundleContext context) throws Exception {
@@ -55,10 +65,11 @@ public class MylarHypertextPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns an image descriptor for the image file at the given
-	 * plug-in relative path.
-	 *
-	 * @param path the path
+	 * Returns an image descriptor for the image file at the given plug-in
+	 * relative path.
+	 * 
+	 * @param path
+	 *            the path
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {

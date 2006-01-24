@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004 - 2005 University Of British Columbia and others.
+ * Copyright (c) 2004 - 2006 University Of British Columbia and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,7 +20,7 @@ import org.eclipse.mylar.core.InteractionEvent;
  * @author Mik Kersten
  */
 public class DelegatingUsageCollector implements IUsageCollector {
-	
+
 	protected List<IUsageScanner> scanners = new ArrayList<IUsageScanner>();
 
 	public void addScanner(IUsageScanner aScanner) {
@@ -28,8 +28,9 @@ public class DelegatingUsageCollector implements IUsageCollector {
 	}
 
 	private List<IUsageCollector> delegates = new ArrayList<IUsageCollector>();
+
 	private String reportTitle = "";
-	
+
 	public List<IUsageCollector> getDelegates() {
 		return delegates;
 	}
@@ -42,7 +43,7 @@ public class DelegatingUsageCollector implements IUsageCollector {
 		for (IUsageCollector collector : delegates) {
 			collector.consumeEvent(event, userId);
 		}
-	} 
+	}
 
 	public List<String> getReport() {
 		List<String> combinedReports = new ArrayList<String>();
@@ -52,15 +53,15 @@ public class DelegatingUsageCollector implements IUsageCollector {
 		}
 		return combinedReports;
 	}
-	
+
 	public void exportAsCSVFile(String directory) {
-		
+
 	}
 
 	public String getReportTitle() {
 		return reportTitle;
 	}
- 
+
 	public void setReportTitle(String reportTitle) {
 		this.reportTitle = reportTitle;
 	}

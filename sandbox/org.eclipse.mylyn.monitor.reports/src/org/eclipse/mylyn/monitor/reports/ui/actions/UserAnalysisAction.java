@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004 - 2005 University Of British Columbia and others.
+ * Copyright (c) 2004 - 2006 University Of British Columbia and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -42,29 +42,32 @@ public class UserAnalysisAction implements IViewActionDelegate {
 	}
 
 	public void run(IAction action) {
-    	if (action instanceof ViewPluginAction) {
-    		ViewPluginAction objectAction = (ViewPluginAction)action;
-    		final List<File> files = UsageSummaryAction.getStatsFilesFromSelection(objectAction);
-        	if (files.isEmpty()) {
-        		files.add(MylarMonitorPlugin.getDefault().getMonitorLogFile());
-        	}
-        	Workbench.getInstance().getDisplay().asyncExec(new Runnable() {
-    			public void run() {
-    				try  {
-    					List<IUsageCollector> collectors = new ArrayList<IUsageCollector>();
-    					collectors.add(new MylarUsageAnalysisCollector());
-    					ReportGenerator generator = new ReportGenerator(MylarMonitorPlugin.getDefault().getInteractionLogger(), collectors);
-    					     					
-    					IWorkbenchPage page = MylarReportsPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow().getActivePage();
-    					if (page == null) return;
-    					IEditorInput input = new UsageStatsEditorInput(files, generator);
-    					page.openEditor(input, MylarReportsPlugin.REPORT_USERS_ID);    					
-    				} catch (PartInitException ex) {
-    					MylarStatusHandler.log(ex, "couldn't open summary editor");
-    				}
-    			}
-    		});
-        }
+		if (action instanceof ViewPluginAction) {
+			ViewPluginAction objectAction = (ViewPluginAction) action;
+			final List<File> files = UsageSummaryAction.getStatsFilesFromSelection(objectAction);
+			if (files.isEmpty()) {
+				files.add(MylarMonitorPlugin.getDefault().getMonitorLogFile());
+			}
+			Workbench.getInstance().getDisplay().asyncExec(new Runnable() {
+				public void run() {
+					try {
+						List<IUsageCollector> collectors = new ArrayList<IUsageCollector>();
+						collectors.add(new MylarUsageAnalysisCollector());
+						ReportGenerator generator = new ReportGenerator(MylarMonitorPlugin.getDefault()
+								.getInteractionLogger(), collectors);
+
+						IWorkbenchPage page = MylarReportsPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow()
+								.getActivePage();
+						if (page == null)
+							return;
+						IEditorInput input = new UsageStatsEditorInput(files, generator);
+						page.openEditor(input, MylarReportsPlugin.REPORT_USERS_ID);
+					} catch (PartInitException ex) {
+						MylarStatusHandler.log(ex, "couldn't open summary editor");
+					}
+				}
+			});
+		}
 	}
 
 	public void selectionChanged(IAction action, ISelection selection) {

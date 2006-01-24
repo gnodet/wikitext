@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004 - 2005 University Of British Columbia and others.
+ * Copyright (c) 2004 - 2006 University Of British Columbia and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -54,8 +54,7 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 		return false;
 	}
 
-	public Element createCategoryElement(ITaskCategory category, Document doc,
-			Element parent) {
+	public Element createCategoryElement(ITaskCategory category, Document doc, Element parent) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -75,8 +74,7 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 		return false;
 	}
 
-	public void readCategory(Node node, TaskList tlist)
-			throws TaskListExternalizerException {
+	public void readCategory(Node node, TaskList tlist) throws TaskListExternalizerException {
 		// TODO Auto-generated method stub
 
 	}
@@ -86,8 +84,8 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 		return false;
 	}
 
-	public ITask readTask(Node node, TaskList tlist, ITaskCategory category,
-			ITask parent) throws TaskListExternalizerException {
+	public ITask readTask(Node node, TaskList tlist, ITaskCategory category, ITask parent)
+			throws TaskListExternalizerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -107,8 +105,7 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 		return false;
 	}
 
-	public void readQuery(Node node, TaskList tlist)
-			throws TaskListExternalizerException {
+	public void readQuery(Node node, TaskList tlist) throws TaskListExternalizerException {
 		// TODO Auto-generated method stub
 
 	}
@@ -118,8 +115,7 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 		return false;
 	}
 
-	public Element createQueryHitElement(IQueryHit queryHit, Document doc,
-			Element parent) {
+	public Element createQueryHitElement(IQueryHit queryHit, Document doc, Element parent) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -129,8 +125,7 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 		return false;
 	}
 
-	public void readQueryHit(Node node, TaskList tlist, IRepositoryQuery query)
-			throws TaskListExternalizerException {
+	public void readQueryHit(Node node, TaskList tlist, IRepositoryQuery query) throws TaskListExternalizerException {
 		// TODO Auto-generated method stub
 
 	}

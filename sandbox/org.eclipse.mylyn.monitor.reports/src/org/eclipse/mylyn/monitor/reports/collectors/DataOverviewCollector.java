@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2004 - 2005 University Of British Columbia and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     University Of British Columbia - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.mylar.monitor.reports.collectors;
 
 import java.io.BufferedWriter;
@@ -91,7 +101,8 @@ public class DataOverviewCollector implements IUsageCollector {
 		report.add("Number of Users: " + interactionHistorySizes.keySet().size() + "<br>");
 		for (Map.Entry<Integer, Integer> entry : interactionHistorySizes.entrySet()) {
 			report.add(entry.getKey() + ": " + entry.getValue() + " events; ");
-			report.add(InteractionEventClassifier.formatDuration(interactionHistoryActiveDuration.get(entry.getKey())) + " active use; ");
+			report.add(InteractionEventClassifier.formatDuration(interactionHistoryActiveDuration.get(entry.getKey()))
+					+ " active use; ");
 			List<Date> dateRange = interactionHistoryRanges.get(entry.getKey());
 			long duration = dateRange.get(endDatePosition).getTime() - dateRange.get(startDatePosition).getTime();
 			report.add(dateRange.get(startDatePosition) + " to " + dateRange.get(endDatePosition) + ", a period of "

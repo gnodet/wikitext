@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004 - 2005 University Of British Columbia and others.
+ * Copyright (c) 2004 - 2006 University Of British Columbia and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -49,14 +49,14 @@ public class ReportGenerator {
 	private List<IUsageScanner> scanners;
 
 	private Map<Integer, Map<String, SortedSet<InteractionEvent>>> allUserEvents;
-	
+
 	private boolean saveAllUserEvents = false;
 
 	public ReportGenerator(InteractionEventLogger logger, IUsageCollector collector, boolean saveAllUserEvents) {
 		this(logger, collector);
 		this.saveAllUserEvents = saveAllUserEvents;
 	}
-	
+
 	public ReportGenerator(InteractionEventLogger logger, IUsageCollector collector) {
 		List<IUsageCollector> collectors = new ArrayList<IUsageCollector>();
 		collectors.add(collector);
@@ -157,7 +157,7 @@ public class ReportGenerator {
 
 		public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 
-			if(saveAllUserEvents){
+			if (saveAllUserEvents) {
 				allUserEvents = new HashMap<Integer, Map<String, SortedSet<InteractionEvent>>>();
 			}
 
@@ -212,7 +212,7 @@ public class ReportGenerator {
 					if (this.generator.scanners != null && this.generator.scanners.size() > 0) {
 
 						for (Map.Entry<String, SortedSet<InteractionEvent>> eventsPerPhase : userEvents.entrySet()) {
-							//                                                      String phaseToProcess = eventsPerPhase.getKey();
+							// String phaseToProcess = eventsPerPhase.getKey();
 							SortedSet<InteractionEvent> events = eventsPerPhase.getValue();
 
 							for (InteractionEvent event : events) {
@@ -224,13 +224,13 @@ public class ReportGenerator {
 					}
 					monitor.worked(1);
 
-					if(allUserEvents != null){
+					if (allUserEvents != null) {
 						allUserEvents.put(aUser, userEvents);
 					}
 
 					// Consume all events
 					for (Map.Entry<String, SortedSet<InteractionEvent>> eventsPerPhase : userEvents.entrySet()) {
-						//                                              String phaseToProcess = eventsPerPhase.getKey();
+						// String phaseToProcess = eventsPerPhase.getKey();
 						SortedSet<InteractionEvent> events = eventsPerPhase.getValue();
 
 						for (InteractionEvent event : events) {
@@ -258,13 +258,15 @@ public class ReportGenerator {
 				List<InteractionEventSummary> flattenedSummaries = new ArrayList<InteractionEventSummary>();
 				Map<String, InteractionEventSummary> combinedUserSummary = new HashMap<String, InteractionEventSummary>();
 
-				// Go through the summary for each user and combine the information into a table sorted by the command
+				// Go through the summary for each user and combine the
+				// information into a table sorted by the command
 				for (Map<String, InteractionEventSummary> userSummary : summaryMap.values()) {
 					for (InteractionEventSummary aSummary : userSummary.values()) {
 						if (!combinedUserSummary.containsKey(aSummary.getName())) {
 							combinedUserSummary.put(aSummary.getName(), new InteractionEventSummary(aSummary));
 						} else {
-							// Could be simplified; but written this way for clarity
+							// Could be simplified; but written this way for
+							// clarity
 							InteractionEventSummary combinedSummary = combinedUserSummary.get(aSummary.getName());
 							combinedSummary.combine(aSummary);
 							combinedUserSummary.put(aSummary.getName(), combinedSummary);
@@ -286,7 +288,8 @@ public class ReportGenerator {
 
 		}
 
-		private void createUsageTableData(Map<Integer, Map<String, InteractionEventSummary>> summaryMap, InteractionEvent event, int userId) {
+		private void createUsageTableData(Map<Integer, Map<String, InteractionEventSummary>> summaryMap,
+				InteractionEvent event, int userId) {
 			Map<String, InteractionEventSummary> usersSummary = summaryMap.get(userId);
 			if (usersSummary == null) {
 				usersSummary = new HashMap<String, InteractionEventSummary>();

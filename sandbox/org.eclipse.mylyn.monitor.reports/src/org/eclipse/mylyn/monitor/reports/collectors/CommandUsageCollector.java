@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004 - 2005 University Of British Columbia and others.
+ * Copyright (c) 2004 - 2006 University Of British Columbia and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -26,14 +26,16 @@ import org.eclipse.mylar.monitor.reports.internal.InteractionByTypeSummary;
  */
 public class CommandUsageCollector implements IUsageCollector {
 
-    private InteractionByTypeSummary commands = new InteractionByTypeSummary();
-    private Set<Integer> userIdSet = new HashSet<Integer>();
-	
+	private InteractionByTypeSummary commands = new InteractionByTypeSummary();
+
+	private Set<Integer> userIdSet = new HashSet<Integer>();
+
 	public void consumeEvent(InteractionEvent event, int userId) {
-        userIdSet.add(userId);
-        if (event.getKind().equals(InteractionEvent.Kind.COMMAND)) {
-        	commands.setUserCount(userId, ReportGenerator.getCleanOriginId(event), commands.getUserCount(userId, ReportGenerator.getCleanOriginId(event)) + 1);
-        }
+		userIdSet.add(userId);
+		if (event.getKind().equals(InteractionEvent.Kind.COMMAND)) {
+			commands.setUserCount(userId, ReportGenerator.getCleanOriginId(event), commands.getUserCount(userId,
+					ReportGenerator.getCleanOriginId(event)) + 1);
+		}
 	}
 
 	public List<String> getReport() {
@@ -46,10 +48,10 @@ public class CommandUsageCollector implements IUsageCollector {
 
 	public void exportAsCSVFile(String directoryName) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public InteractionByTypeSummary getCommands() {
 		return commands;
-	} 
+	}
 }

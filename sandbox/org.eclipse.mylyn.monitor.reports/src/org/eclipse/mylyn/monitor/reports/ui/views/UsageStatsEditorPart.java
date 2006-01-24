@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004 - 2005 University Of British Columbia and others.
+ * Copyright (c) 2004 - 2006 University Of British Columbia and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -308,34 +308,36 @@ public class UsageStatsEditorPart extends EditorPart {
 	}
 
 	private void exportToHtml() {
-	    File outputFile;
-	    try {
-            FileDialog dialog = new FileDialog(Workbench.getInstance().getActiveWorkbenchWindow().getShell());
-	    	dialog.setText("Specify a file name");
-            dialog.setFilterExtensions(new String[] { "*.html", "*.*" });
+		File outputFile;
+		try {
+			FileDialog dialog = new FileDialog(Workbench.getInstance().getActiveWorkbenchWindow().getShell());
+			dialog.setText("Specify a file name");
+			dialog.setFilterExtensions(new String[] { "*.html", "*.*" });
 
-            String filename = dialog.open();
-            if (!filename.endsWith(".html")) filename += ".html";
-	    	outputFile = new File(filename);
-//	    	outputStream = new FileOutputStream(outputFile, true);
-	    	BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
-	    	writer.write(
-	    			"<html><head>"
-//	    			+ "<link rel=\"stylesheet\" href=\"http://eclipse.org/mylar/style.css\" type=\"text/css\"></head><body>"	
-	    	);
-	    	for (IUsageCollector collector : editorInput.getReportGenerator().getCollectors()) {
-	    		writer.write("<h3>" + collector.getReportTitle() + "</h3>");
-	    		for (String reportLine : collector.getReport()) {
-	    			writer.write(reportLine);
+			String filename = dialog.open();
+			if (!filename.endsWith(".html"))
+				filename += ".html";
+			outputFile = new File(filename);
+			// outputStream = new FileOutputStream(outputFile, true);
+			BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
+			writer.write("<html><head>"
+			// + "<link rel=\"stylesheet\"
+			// href=\"http://eclipse.org/mylar/style.css\"
+			// type=\"text/css\"></head><body>"
+					);
+			for (IUsageCollector collector : editorInput.getReportGenerator().getCollectors()) {
+				writer.write("<h3>" + collector.getReportTitle() + "</h3>");
+				for (String reportLine : collector.getReport()) {
+					writer.write(reportLine);
 				}
-	    		writer.write("<br><hr>");
+				writer.write("<br><hr>");
 			}
-	    	writer.write("</body></html>");
-	    	writer.close();
-        } catch (FileNotFoundException e) {
-            MylarStatusHandler.log(e, "could not resolve file");
-	    } catch (IOException e) {
-	    	MylarStatusHandler.log(e, "could not write to file");
-	    }
+			writer.write("</body></html>");
+			writer.close();
+		} catch (FileNotFoundException e) {
+			MylarStatusHandler.log(e, "could not resolve file");
+		} catch (IOException e) {
+			MylarStatusHandler.log(e, "could not write to file");
+		}
 	}
 }

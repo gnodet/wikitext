@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004 - 2005 University Of British Columbia and others.
+ * Copyright (c) 2004 - 2006 University Of British Columbia and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,10 +21,11 @@ import org.osgi.framework.BundleContext;
 public class MylarReportsPlugin extends AbstractUIPlugin {
 
 	public static final String REPORT_SUMMARY_ID = "org.eclipse.mylar.monitor.reports.ui.actions.monitorSummaryReport";
+
 	public static final String REPORT_USERS_ID = "org.eclipse.mylar.monitor.reports.ui.actions.monitorUsersReport";
-	
+
 	public static final String SHARED_TASK_DATA_ROOT_DIR = "org.eclipse.mylar.monitor.reports.preferences.sharedTaskDataRootDir";
-	
+
 	private static MylarReportsPlugin plugin;
 
 	public MylarReportsPlugin() {
@@ -45,21 +46,22 @@ public class MylarReportsPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns an image descriptor for the image file at the given
-	 * plug-in relative path.
-	 *
-	 * @param path the path
+	 * Returns an image descriptor for the image file at the given plug-in
+	 * relative path.
+	 * 
+	 * @param path
+	 *            the path
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.mylar.monitor.reports", path);
 	}
-	
+
 	/**
-	 * Returns the root directory of the shared location where task data
-	 * files are stored. Returns "" if the preference has not been set.
+	 * Returns the root directory of the shared location where task data files
+	 * are stored. Returns "" if the preference has not been set.
 	 */
-    public String getRootSharedDataDirectory() {
-        return getPreferenceStore().getString(SHARED_TASK_DATA_ROOT_DIR);
-    }
+	public String getRootSharedDataDirectory() {
+		return getPreferenceStore().getString(SHARED_TASK_DATA_ROOT_DIR);
+	}
 }

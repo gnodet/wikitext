@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2004 - 2006 University Of British Columbia and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     University Of British Columbia - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.mylar.sandbox.share;
 
 import java.io.File;
@@ -167,9 +177,9 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 
 		if (targetFolder.equals(MAIN_LOCAL_DATA_DIR)) {
 			MylarSandboxPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectoryEnabled(false);
-//			MylarTaskListPlugin.getDefault().setDataDirectory(MylarPlugin.getDefault().getDataDirectory());
+			// MylarTaskListPlugin.getDefault().setDataDirectory(MylarPlugin.getDefault().getDataDirectory());
 			(new ToggleContextCaptureAction()).resume(); // TODO: don't use
-															// actions directly
+			// actions directly
 			TaskListView.getDefault().indicateSharedFolder("");
 			MylarPlugin.getContextManager().setActivationHistorySuppressed(false);
 		} else {
@@ -177,7 +187,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 					+ targetFolder;
 			MylarSandboxPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectory(dataDirPath);
 			MylarSandboxPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectoryEnabled(true);
-//			MylarTaskListPlugin.getDefault().setDataDirectory(dataDirPath);
+			// MylarTaskListPlugin.getDefault().setDataDirectory(dataDirPath);
 			(new ToggleContextCaptureAction()).pause();
 			TaskListView.getDefault().indicateSharedFolder(targetFolder);
 			MylarPlugin.getContextManager().setActivationHistorySuppressed(true);
