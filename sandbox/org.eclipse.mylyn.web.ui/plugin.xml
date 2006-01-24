@@ -4,19 +4,19 @@
 <extension
          point="org.eclipse.mylar.core.context">
       <structureBridge
-            class="org.eclipse.mylar.hypertext.HypertextStructureBridge"
+            class="org.eclipse.mylar.internal.hypertext.HypertextStructureBridge"
             name="Hypertext Structure Bridge"/>
    </extension>
    <extension
          point="org.eclipse.mylar.ui.context">
       <uiBridge
-            class="org.eclipse.mylar.hypertext.HypertextUiBridge"
+            class="org.eclipse.mylar.internal.hypertext.HypertextUiBridge"
             contentType="html"
             id="org.eclipse.mylar.hypertext.uiBridge"/>
    </extension>
    <extension
          point="org.eclipse.mylar.tasklist.editors">
-      <editorFactory class="org.eclipse.mylar.hypertext.ui.editors.WebElementsEditorFactory"/>
+      <editorFactory class="org.eclipse.mylar.internal.hypertext.ui.editors.WebElementsEditorFactory"/>
    </extension>
 
 <!--
