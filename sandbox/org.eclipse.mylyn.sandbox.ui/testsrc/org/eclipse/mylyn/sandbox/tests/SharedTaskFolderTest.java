@@ -11,13 +11,13 @@ import junit.framework.TestCase;
 
 import org.eclipse.mylar.core.InteractionEvent;
 import org.eclipse.mylar.core.MylarPlugin;
-import org.eclipse.mylar.core.internal.MylarContext;
+import org.eclipse.mylar.internal.core.MylarContext;
+import org.eclipse.mylar.internal.monitor.reports.MylarReportsPlugin;
+import org.eclipse.mylar.internal.sandbox.MylarSandboxPlugin;
+import org.eclipse.mylar.internal.sandbox.share.SwitchTaskDataFolderAction;
 import org.eclipse.mylar.internal.tasklist.MylarTaskListPlugin;
 import org.eclipse.mylar.internal.tasklist.Task;
 import org.eclipse.mylar.internal.tasklist.TaskListManager;
-import org.eclipse.mylar.monitor.reports.MylarReportsPlugin;
-import org.eclipse.mylar.sandbox.MylarSandboxPlugin;
-import org.eclipse.mylar.sandbox.share.SwitchTaskDataFolderAction;
 import org.eclipse.mylar.tasklist.ITask;
 
 /**

@@ -4,8 +4,8 @@
 
    <extension point="org.eclipse.mylar.tasklist.providers">
       <taskHandler
-            taskHandlerClass="org.eclipse.mylar.sandbox.jira.JiraReportHandler"
-            externalizerClass="org.eclipse.mylar.sandbox.jira.JiraReportTaskExternalizer"
+            taskHandlerClass="org.eclipse.mylar.internal.sandbox.jira.JiraReportHandler"
+            externalizerClass="org.eclipse.mylar.internal.sandbox.jira.JiraReportTaskExternalizer"
             id="org.eclipse.mylar.bugzilla.ui.tasklist"
             name="Jira Provider">
       </taskHandler>
@@ -16,7 +16,7 @@
          id="org.eclipse.mylar.monitor.reports.ui.switchTaskFolder"
          targetID="org.eclipse.mylar.tasks.ui.views.TaskListView">
       <action
-            class="org.eclipse.mylar.sandbox.share.SwitchTaskDataFolderAction"
+            class="org.eclipse.mylar.internal.sandbox.share.SwitchTaskDataFolderAction"
             icon="icons/eview16/folder.gif"
             id="org.eclipse.mylar.monitor.reports.ui.actions.switchTask"
             label="Switch Task Data Folder..."
@@ -49,18 +49,18 @@
 	  <view name="Context Tree"
             icon="icons/eview16/model.gif"
             category="org.eclipse.mylar"
-            class="org.eclipse.mylar.sandbox.viz.MylarContextTreeView"
+            class="org.eclipse.mylar.internal.sandbox.viz.MylarContextTreeView"
             id="org.eclipse.mylar.ui.views.TaskscapeTreeView">
       </view> 
 	  <view name="Context Viz" 
 	    icon="icons/eview16/taskscape.gif"
 	  	category="org.eclipse.mylar" 
-	  	class="org.eclipse.mylar.sandbox.viz.TaskscapeGraphView" 
+	  	class="org.eclipse.mylar.internal.sandbox.viz.TaskscapeGraphView" 
 	  	id="org.eclipse.mylar.sandbox.viz.TaskscapeVizView" />
 	  <view name="Context Control Panel"
         icon="icons/eview16/control-panel.gif"
         category="org.eclipse.mylar"
-        class="org.eclipse.mylar.sandbox.viz.MylarControlPanelView"
+        class="org.eclipse.mylar.internal.sandbox.viz.MylarControlPanelView"
         id="org.eclipse.mylar.ui.views.MylarControlPanelView">
       </view>
   </extension> 

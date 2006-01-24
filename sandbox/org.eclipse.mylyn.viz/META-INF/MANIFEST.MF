@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Mylar Viz Plug-in
 Bundle-SymbolicName: org.eclipse.mylar.viz;singleton:=true
 Bundle-Version: 0.4
-Bundle-Activator: org.eclipse.mylar.viz.MylarVizPlugin
+Bundle-Activator: org.eclipse.mylar.internal.viz.MylarVizPlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,

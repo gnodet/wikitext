@@ -11,7 +11,7 @@
 	  		tooltip="Mylar Reports: Usage Summary"
 	  		menubarPath="mylar.monitor" 
 	  		id="org.eclipse.mylar.monitor.reports.ui.actions.ComputeSummaryAction" 
-	  		class="org.eclipse.mylar.monitor.reports.ui.actions.UsageSummaryAction"
+	  		class="org.eclipse.mylar.internal.monitor.reports.ui.actions.UsageSummaryAction"
 	  		icon="icons/eview16/monitor.gif"
 	  		enablesFor="*"/>   
 	  	<action  
@@ -19,7 +19,7 @@
 	  		tooltip="Mylar Reports: User Analysis"
 	  		menubarPath="mylar.monitor" 
 	  		id="org.eclipse.mylar.monitor.reports.ui.actions.ComputeSummaryAction" 
-	  		class="org.eclipse.mylar.monitor.reports.ui.actions.UserAnalysisAction"
+	  		class="org.eclipse.mylar.internal.monitor.reports.ui.actions.UserAnalysisAction"
 	  		icon="icons/eview16/monitor.gif"
 	  		enablesFor="*"/>   
 	 </viewerContribution> 
@@ -31,7 +31,7 @@
 	  		tooltip="Mylar Reports: Usage Summary"
 	  		menubarPath="mylar.monitor" 
 	  		id="org.eclipse.mylar.monitor.reports.ui.actions.ComputeSummaryAction" 
-	  		class="org.eclipse.mylar.monitor.reports.ui.actions.UsageSummaryAction"
+	  		class="org.eclipse.mylar.internal.monitor.reports.ui.actions.UsageSummaryAction"
 	  		icon="icons/eview16/monitor.gif"
 	  		enablesFor="*"/>   
 	  		    <action  
@@ -39,7 +39,7 @@
 	  		tooltip="Mylar Reports: User Analysis"
 	  		menubarPath="mylar.monitor" 
 	  		id="org.eclipse.mylar.monitor.reports.ui.actions.ComputeSummaryAction" 
-	  		class="org.eclipse.mylar.monitor.reports.ui.actions.UserAnalysisAction"
+	  		class="org.eclipse.mylar.internal.monitor.reports.ui.actions.UserAnalysisAction"
 	  		icon="icons/eview16/monitor.gif"
 	  		enablesFor="*"/>   
 	 </viewerContribution> 
@@ -49,12 +49,12 @@
         point="org.eclipse.ui.editors">
      <editor
            icon="icons/eview16/monitor.gif"
-           class="org.eclipse.mylar.monitor.reports.ui.views.UsageStatsEditorPart"
+           class="org.eclipse.mylar.internal.monitor.reports.ui.views.UsageStatsEditorPart"
            name="Usage Summary"
            id="org.eclipse.mylar.monitor.reports.ui.actions.monitorSummaryReport"/>
      <editor
            icon="icons/eview16/monitor.gif"
-           class="org.eclipse.mylar.monitor.reports.ui.views.UsageStatsEditorPart"
+           class="org.eclipse.mylar.internal.monitor.reports.ui.views.UsageStatsEditorPart"
            name="User Analysis"
            id="org.eclipse.mylar.monitor.reports.ui.actions.monitorUsersReport"/>
   </extension>

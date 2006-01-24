@@ -23,11 +23,6 @@ import org.eclipse.mylar.core.InteractionEvent;
  */
 public class InteractionEventComparator implements Comparator<InteractionEvent> {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.util.Comparator#compare(T, T)
-	 */
 	public int compare(InteractionEvent arg0, InteractionEvent arg1) {
 		if (arg0.equals(arg1)) {
 			return 0;
@@ -37,5 +32,4 @@ public class InteractionEventComparator implements Comparator<InteractionEvent> 
 		}
 		return 1;
 	}
-
 }

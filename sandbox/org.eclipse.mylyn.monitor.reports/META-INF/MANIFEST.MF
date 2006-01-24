@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Mylar Monitor Reports Plug-in
 Bundle-SymbolicName: org.eclipse.mylar.monitor.reports; singleton:=true
 Bundle-Version: 0.4.1
-Bundle-Activator: org.eclipse.mylar.monitor.reports.MylarReportsPlugin
+Bundle-Activator: org.eclipse.mylar.internal.monitor.reports.MylarReportsPlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
@@ -16,10 +16,11 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.mylar.ui,
  org.eclipse.mylar.tasklist
 Eclipse-AutoStart: true
-Export-Package: org.eclipse.mylar.monitor.reports,
- org.eclipse.mylar.monitor.reports.collectors,
- org.eclipse.mylar.monitor.reports.internal,
- org.eclipse.mylar.monitor.reports.ui.actions,
- org.eclipse.mylar.monitor.reports.ui.views
+Export-Package: org.eclipse.mylar.internal.monitor.reports,
+ org.eclipse.mylar.internal.monitor.reports.collectors,
+ org.eclipse.mylar.internal.monitor.reports.preferences,
+ org.eclipse.mylar.internal.monitor.reports.ui.actions,
+ org.eclipse.mylar.internal.monitor.reports.ui.views,
+ org.eclipse.mylar.monitor.reports
 Bundle-ClassPath: mylar-reports.jar
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

@@ -16,7 +16,8 @@ import java.util.List;
 import org.eclipse.mylar.core.InteractionEvent;
 
 /**
- * @author Mik Kersten and Leah Findlater
+ * @author Mik Kersten
+ * @author Leah Findlater
  */
 public interface IUsageCollector {
 

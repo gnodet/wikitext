@@ -4,7 +4,7 @@
               Any modifications will be overwritten.
               Please edit build-user.xml instead.
 -->
-<project basedir="." default="build" name="org.eclipse.mylar.aspectj">
+<project basedir="." default="build" name="org.eclipse.mylar.internal.aspectj">
     &buildfile;
     <property name="org.eclipse.ajdt.core.location" value="C:/Dev/mylar-bootstrap/org.eclipse.ajdt.core"/>
     <property name="org.eclipse.ajdt.ui.location" value="C:/Dev/mylar-bootstrap/org.eclipse.ajdt.ui"/>
