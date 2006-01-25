@@ -48,7 +48,7 @@ public class InteractionEventClassifier {
 		return (isEdit(event) || isSelection(event) || isCommand(event)) && getCleanOriginId(event).contains("jdt");
 	}
 
-	private static boolean isSelectionInEditor(InteractionEvent event) {
+	public static boolean isSelectionInEditor(InteractionEvent event) {
 		return event.getOriginId().contains("Editor") || event.getOriginId().contains("editor")
 				|| event.getOriginId().contains("source");
 	}
