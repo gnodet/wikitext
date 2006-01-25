@@ -11,7 +11,7 @@
 
 package org.eclipse.mylar.internal.sandbox.jira;
 
-import org.eclipse.mylar.internal.tasklist.AbstractTaskRepositoryClient;
+import org.eclipse.mylar.internal.tasklist.AbstractRepositoryClient;
 import org.eclipse.mylar.internal.tasklist.IQueryHit;
 import org.eclipse.mylar.internal.tasklist.IRepositoryQuery;
 import org.eclipse.mylar.internal.tasklist.ITask;
@@ -134,7 +134,7 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 
 	}
 
-	public AbstractTaskRepositoryClient getRepositoryClient() {
+	public AbstractRepositoryClient getRepositoryClient() {
 		// ignore
 		return null;
 	}
