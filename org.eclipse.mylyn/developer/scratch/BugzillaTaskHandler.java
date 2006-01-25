@@ -12,8 +12,6 @@
 package org.eclipse.mylar.internal.bugzilla.ui.tasklist;
 
 import org.eclipse.jface.action.Action;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
-import org.eclipse.mylar.internal.bugzilla.ui.actions.RefreshBugzillaReportsAction;
 import org.eclipse.mylar.internal.tasklist.ITaskHandler;
 import org.eclipse.mylar.internal.tasklist.ui.ITaskListElement;
 import org.eclipse.mylar.internal.tasklist.ui.actions.CopyDescriptionAction;
@@ -23,7 +21,6 @@ import org.eclipse.mylar.internal.tasklist.ui.actions.OpenTaskInExternalBrowserA
 import org.eclipse.mylar.internal.tasklist.ui.actions.OpenTaskListElementAction;
 import org.eclipse.mylar.internal.tasklist.ui.actions.RemoveFromCategoryAction;
 import org.eclipse.mylar.internal.tasklist.ui.actions.RenameAction;
-import org.eclipse.mylar.internal.tasklist.ui.views.TaskListView;
 import org.eclipse.mylar.tasklist.ITask;
 
 /**
@@ -53,15 +50,6 @@ public class BugzillaTaskHandler implements ITaskHandler {
 //			MylarStatusHandler.log(e, "Error while trying to close a bugzilla task");
 //		}
 //	}
-
-	public void restoreState(TaskListView taskListView) {
-		if (BugzillaPlugin.getDefault().refreshOnStartUpEnabled()) {
-			RefreshBugzillaReportsAction refresh = new RefreshBugzillaReportsAction();
-			refresh.setShowProgress(false);
-			refresh.run();
-			refresh.setShowProgress(true);
-		}
-	}
 
 	public boolean enableAction(Action action, ITaskListElement element) {
 
@@ -99,7 +87,6 @@ public class BugzillaTaskHandler implements ITaskHandler {
 		}
 		return false;
 	}
-
 }
 
 //public void itemOpened(ITaskListElement element) {

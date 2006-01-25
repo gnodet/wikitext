@@ -18,7 +18,7 @@ import org.eclipse.mylar.tasklist.ITask;
 import org.eclipse.mylar.tasklist.ITaskCategory;
 import org.eclipse.mylar.tasklist.ITaskListExternalizer;
 import org.eclipse.mylar.tasklist.IRepositoryQuery;
-import org.eclipse.mylar.tasklist.ITaskRepositoryClient;
+import org.eclipse.mylar.tasklist.TaskRepositoryClient;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -134,7 +134,7 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 
 	}
 
-	public ITaskRepositoryClient getRepositoryClient() {
+	public TaskRepositoryClient getRepositoryClient() {
 		// ignore
 		return null;
 	}
