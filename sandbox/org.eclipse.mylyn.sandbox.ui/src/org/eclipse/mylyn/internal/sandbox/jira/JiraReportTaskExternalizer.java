@@ -18,11 +18,15 @@ import org.eclipse.mylar.tasklist.ITask;
 import org.eclipse.mylar.tasklist.ITaskCategory;
 import org.eclipse.mylar.tasklist.ITaskListExternalizer;
 import org.eclipse.mylar.tasklist.IRepositoryQuery;
+import org.eclipse.mylar.tasklist.ITaskRepositoryClient;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+/**
+ * @author Mik Kersten
+ */
 public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 
 	public void createRegistry(Document doc, Node parent) {
@@ -128,6 +132,11 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 	public void readQueryHit(Node node, TaskList tlist, IRepositoryQuery query) throws TaskListExternalizerException {
 		// TODO Auto-generated method stub
 
+	}
+
+	public ITaskRepositoryClient getRepositoryClient() {
+		// ignore
+		return null;
 	}
 
 }

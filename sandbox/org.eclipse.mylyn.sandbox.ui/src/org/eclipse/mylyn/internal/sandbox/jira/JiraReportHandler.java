@@ -53,7 +53,7 @@ public class JiraReportHandler implements ITaskHandler {
 
 	}
 
-	public ITask addTaskToRegistry(ITask newTask) {
+	public ITask addTaskToArchive(ITask newTask) {
 		// TODO Auto-generated method stub
 		return null;
 	}
