@@ -12,7 +12,7 @@
 package org.eclipse.mylar.internal.hypertext.ui.editors;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylar.core.IMylarContext;
+import org.eclipse.mylar.tasklist.ITask;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IPersistableElement;
 
@@ -25,7 +25,7 @@ public class WebElementsEditorInput implements IEditorInput {
 
 	// private IMylarContext context;
 
-	public WebElementsEditorInput(IMylarContext context) {
+	public WebElementsEditorInput(ITask task) {
 		// this.context = context;
 	}
 

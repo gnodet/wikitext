@@ -128,10 +128,10 @@ public abstract class MylarMonitorView extends ViewPart {
 
 		deleteUsageFile = new Action() {
 			public void run() {
-				Workbench.getInstance().getDisplay().syncExec(new Runnable() {
+				PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 					public void run() {
 						try {
-							Shell shell = Workbench.getInstance().getActiveWorkbenchWindow().getShell();
+							Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 							boolean delete = MessageDialog.openQuestion(
 								shell,
 								"Confirm delete",

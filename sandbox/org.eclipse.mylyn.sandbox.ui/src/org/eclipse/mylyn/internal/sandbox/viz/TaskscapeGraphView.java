@@ -32,7 +32,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.Workbench;
 import org.eclipse.ui.part.ViewPart;
 
 /**
@@ -80,7 +79,7 @@ public class TaskscapeGraphView extends ViewPart {
 		}
 
 		private void refresh() {
-			Workbench.getInstance().getDisplay().asyncExec(new Runnable() {
+			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 				public void run() {
 					try {
 						if (viewer.getControl() != null && !viewer.getControl().isDisposed()) {

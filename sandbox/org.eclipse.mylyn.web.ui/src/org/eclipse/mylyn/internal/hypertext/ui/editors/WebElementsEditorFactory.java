@@ -11,8 +11,9 @@
 
 package org.eclipse.mylar.internal.hypertext.ui.editors;
 
-import org.eclipse.mylar.core.IMylarContext;
-import org.eclipse.mylar.internal.tasklist.ui.IContextEditorFactory;
+import org.eclipse.mylar.internal.tasklist.ui.ITaskEditorFactory;
+import org.eclipse.mylar.internal.tasklist.ui.MylarTaskEditor;
+import org.eclipse.mylar.tasklist.ITask;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.part.EditorPart;
@@ -20,7 +21,7 @@ import org.eclipse.ui.part.EditorPart;
 /**
  * @author Mik Kersten
  */
-public class WebElementsEditorFactory implements IContextEditorFactory {
+public class WebElementsEditorFactory implements ITaskEditorFactory {
 
 	public void notifyEditorActivationChange(IEditorPart editor) {
 		if (editor instanceof WebElementsEditor) {
@@ -28,15 +29,19 @@ public class WebElementsEditorFactory implements IContextEditorFactory {
 		}
 	}
 
-	public EditorPart createEditor() {
+	public EditorPart createEditor(MylarTaskEditor parentEditor) {
 		return new WebElementsEditor();
 	}
 
-	public IEditorInput createEditorInput(IMylarContext context) {
-		return new WebElementsEditorInput(context);
+	public IEditorInput createEditorInput(ITask task) {
+		return new WebElementsEditorInput(task);
 	}
 
 	public String getTitle() {
 		return "Web Docs";
+	}
+
+	public boolean canCreateEditorFor(ITask task) {
+		return true;
 	}
 }

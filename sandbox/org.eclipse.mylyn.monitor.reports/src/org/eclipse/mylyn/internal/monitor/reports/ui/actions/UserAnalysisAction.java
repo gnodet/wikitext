@@ -29,8 +29,8 @@ import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.ViewPluginAction;
-import org.eclipse.ui.internal.Workbench;
 
 /**
  * @author Mik Kersten
@@ -48,7 +48,7 @@ public class UserAnalysisAction implements IViewActionDelegate {
 			if (files.isEmpty()) {
 				files.add(MylarMonitorPlugin.getDefault().getMonitorLogFile());
 			}
-			Workbench.getInstance().getDisplay().asyncExec(new Runnable() {
+			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 				public void run() {
 					try {
 						List<IUsageCollector> collectors = new ArrayList<IUsageCollector>();

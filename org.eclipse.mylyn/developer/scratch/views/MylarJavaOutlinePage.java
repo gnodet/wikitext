@@ -91,7 +91,7 @@ public class MylarJavaOutlinePage extends JavaOutlinePage implements IContentOut
         
         private void refresh() {
             if (fOutlineViewer != null) {
-                Workbench.getInstance().getDisplay().asyncExec(new Runnable() {
+                PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
                     public void run() {
                         try { 
                             if (fOutlineViewer != null && !fOutlineViewer.getTree().isDisposed()) {

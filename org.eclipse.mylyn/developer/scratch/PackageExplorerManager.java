@@ -106,7 +106,7 @@ public class PackageExplorerManager implements IMylarContextListener {
 //            final IJavaElement raisedElement = JavaCore.create(MylarPlugin.getTaskscapeManager().getTempRaisedHandle());
 //            final PackageExplorerPart packageExplorer = PackageExplorerPart.getFromActivePerspective();
 //            if (packageExplorer != null) {
-//              Workbench.getInstance().getDisplay().asyncExec(new Runnable() {
+//              PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 //                  public void run() { 
 //                      packageExplorer.getTreeViewer().refresh(raisedElement.getParent());
 //                  }
@@ -135,7 +135,7 @@ public class PackageExplorerManager implements IMylarContextListener {
 //	            }
 //            } else if (lastElement != null) {
 //            	if (!lastNode.getDegreeOfInterest().isInteresting()) {
-//            		if (Workbench.getInstance().getActiveWorkbenchWindow().getActivePage().getActivePart() instanceof PackageExplorerPart) {
+//            		if (PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart() instanceof PackageExplorerPart) {
 //            			if (FilterPackageExplorerAction.getDefault() != null && FilterPackageExplorerAction.getDefault().isChecked()) {
 //            				fireModelUpdate(lastElement, ChangeKind.REMOVED);
 //            			}
@@ -227,7 +227,7 @@ public class PackageExplorerManager implements IMylarContextListener {
 
 //    private void revealInPackageExplorer(final Object element) {
 //    	if (element == null) return;
-//         Workbench.getInstance().getDisplay().asyncExec(new Runnable() {
+//         PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 //            public void run() {
 //
 //            	PackageExplorerPart packageExplorer = PackageExplorerPart.getFromActivePerspective();

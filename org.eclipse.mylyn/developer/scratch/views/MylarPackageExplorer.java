@@ -73,7 +73,7 @@ public class MylarPackageExplorer extends PackageExplorerPart {
         }
         
         private void refresh(final boolean updateExpansionSate) {
-            Workbench.getInstance().getDisplay().asyncExec(new Runnable() {
+            PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
                 public void run() { 
                     try { 
                         if (MylarPackageExplorer.this.getTreeViewer() != null && !MylarPackageExplorer.this.getTreeViewer().getTree().isDisposed()) { 

@@ -42,13 +42,13 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
-import org.eclipse.ui.internal.Workbench;
 import org.eclipse.ui.part.EditorPart;
 
 /**
@@ -269,7 +269,7 @@ public class UsageStatsEditorPart extends EditorPart {
 		// Ask the user to pick a directory into which to place multiple CSV
 		// files
 		try {
-			DirectoryDialog dialog = new DirectoryDialog(Workbench.getInstance().getActiveWorkbenchWindow().getShell());
+			DirectoryDialog dialog = new DirectoryDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
 			dialog.setText("Specify a directory for the CSV files");
 			String directoryName = dialog.open();
 
@@ -310,7 +310,7 @@ public class UsageStatsEditorPart extends EditorPart {
 	private void exportToHtml() {
 		File outputFile;
 		try {
-			FileDialog dialog = new FileDialog(Workbench.getInstance().getActiveWorkbenchWindow().getShell());
+			FileDialog dialog = new FileDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
 			dialog.setText("Specify a file name");
 			dialog.setFilterExtensions(new String[] { "*.html", "*.*" });
 

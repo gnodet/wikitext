@@ -111,7 +111,7 @@ public class MylarProblemView extends ProblemView {
         }
         
         private void refresh() {
-            Workbench.getInstance().getDisplay().asyncExec(new Runnable() {
+            PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
                 public void run() {
                     try {
                         if (currentViewer != null && !currentViewer.getTable().isDisposed()) {

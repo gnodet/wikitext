@@ -12,14 +12,22 @@ package org.eclipse.mylar.internal.sandbox.viz;
 
 import java.util.List;
 
-import org.eclipse.jface.action.*;
-import org.eclipse.jface.viewers.*;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.viewers.DecoratingLabelProvider;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.mylar.core.IMylarContext;
 import org.eclipse.mylar.core.IMylarContextListener;
 import org.eclipse.mylar.core.IMylarElement;
 import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
-import org.eclipse.mylar.internal.ui.*;
+import org.eclipse.mylar.internal.ui.MylarImages;
 import org.eclipse.mylar.internal.ui.actions.ToggleDecorateInterestLevelAction;
 import org.eclipse.mylar.internal.ui.views.ContextContentProvider;
 import org.eclipse.mylar.internal.ui.views.ContextNodeOpenListener;
@@ -29,8 +37,9 @@ import org.eclipse.mylar.ui.MylarUiPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
-import org.eclipse.ui.*;
-import org.eclipse.ui.internal.Workbench;
+import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.IWorkbenchActionConstants;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 /**
@@ -91,7 +100,7 @@ public class MylarContextTreeView extends ViewPart {
 		}
 
 		private void refresh(final IMylarElement node) {
-			Workbench.getInstance().getDisplay().asyncExec(new Runnable() {
+			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 				public void run() {
 					try {
 						if (viewer != null && !viewer.getTree().isDisposed()) {
