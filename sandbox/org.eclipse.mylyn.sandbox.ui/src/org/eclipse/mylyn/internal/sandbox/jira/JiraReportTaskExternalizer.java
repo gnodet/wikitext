@@ -11,14 +11,14 @@
 
 package org.eclipse.mylar.internal.sandbox.jira;
 
+import org.eclipse.mylar.internal.tasklist.AbstractTaskRepositoryClient;
+import org.eclipse.mylar.internal.tasklist.IQueryHit;
+import org.eclipse.mylar.internal.tasklist.IRepositoryQuery;
+import org.eclipse.mylar.internal.tasklist.ITask;
+import org.eclipse.mylar.internal.tasklist.ITaskCategory;
+import org.eclipse.mylar.internal.tasklist.ITaskListExternalizer;
 import org.eclipse.mylar.internal.tasklist.TaskList;
 import org.eclipse.mylar.internal.tasklist.TaskListExternalizerException;
-import org.eclipse.mylar.tasklist.IQueryHit;
-import org.eclipse.mylar.tasklist.ITask;
-import org.eclipse.mylar.tasklist.ITaskCategory;
-import org.eclipse.mylar.tasklist.ITaskListExternalizer;
-import org.eclipse.mylar.tasklist.IRepositoryQuery;
-import org.eclipse.mylar.tasklist.TaskRepositoryClient;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -134,7 +134,7 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 
 	}
 
-	public TaskRepositoryClient getRepositoryClient() {
+	public AbstractTaskRepositoryClient getRepositoryClient() {
 		// ignore
 		return null;
 	}
