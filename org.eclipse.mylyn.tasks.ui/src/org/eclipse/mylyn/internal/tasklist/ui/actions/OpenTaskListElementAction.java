@@ -80,10 +80,11 @@ public class OpenTaskListElementAction extends Action {
 								}
 							}
 							TaskListUiUtil.openEditor(task);
-							System.err.println("> opened");
 						}
 					});
 				}
+			} else {
+				TaskListUiUtil.openEditor(task);
 			}
 			// } else if (element instanceof IQueryHit) {
 			// TaskListUiUtil.openEditor((IQueryHit) element);
@@ -116,7 +117,6 @@ public class OpenTaskListElementAction extends Action {
 				monitor.beginTask(JOB_LABEL, 100);
 				client.synchronize(task);
 				monitor.done();
-				System.err.println(">>> synchronized");
 				return new Status(IStatus.OK, MylarPlugin.PLUGIN_ID, IStatus.OK, "", null);
 			} catch (Exception e) {
 				MylarStatusHandler.fail(e, "Could not open task editor", true);
