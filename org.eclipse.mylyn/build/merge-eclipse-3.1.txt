@@ -9,14 +9,15 @@ Eclipse 3.1 Merge files that should not be overriden:
  	- ActiveFoldingListener
   	- MylarJavaCompletionProcessor
   	- MylarJavaSourceViewerConfiguration
-  - plugin.xml (merge?)
+  	- AutoFoldingStructureProvider
   - ToggleAutoFoldingAction
+  - ActiveFoldingEditorTracker
   - JavaEditorTracker
-
+  - plugin.xml (merge?)
+  
 - mylar.xml
   - XmlReferencesProvider
-  
-- mylar.xml  (organize imports for pde.ui.internal)
-  - PdeEditingMonitor
-  - PdeStructureBridge
-  - PdeUiBridge
+  - (organize imports for pde.internal.ui)
+    - PdeEditingMonitor
+    - PdeStructureBridge
+    - PdeUiBridge
