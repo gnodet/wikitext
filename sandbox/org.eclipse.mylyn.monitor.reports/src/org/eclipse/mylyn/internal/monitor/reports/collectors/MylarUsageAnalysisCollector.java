@@ -170,21 +170,21 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 		lastUserEvent.put(userId, event);
 	}
 
-	private boolean isEdit(InteractionEvent event) {
+	public static boolean isEdit(InteractionEvent event) {
 		return event.getKind().equals(InteractionEvent.Kind.EDIT)
 				|| (event.getKind().equals(InteractionEvent.Kind.SELECTION) && isSelectionInEditor(event));
 	}
 
-	private boolean isSelection(InteractionEvent event) {
+	public static boolean isSelection(InteractionEvent event) {
 		return event.getKind().equals(InteractionEvent.Kind.SELECTION) && !isSelectionInEditor(event);
 	}
 
-	private boolean isSelectionInEditor(InteractionEvent event) {
+	public static boolean isSelectionInEditor(InteractionEvent event) {
 		return event.getOriginId().contains("Editor") || event.getOriginId().contains("editor")
 				|| event.getOriginId().contains("source");
 	}
 
-	private boolean isJavaEdit(InteractionEvent event) {
+	public static boolean isJavaEdit(InteractionEvent event) {
 		return event.getKind().equals(InteractionEvent.Kind.EDIT)
 				&& (event.getOriginId().contains("java") || event.getOriginId().contains("jdt.ui"));
 	}

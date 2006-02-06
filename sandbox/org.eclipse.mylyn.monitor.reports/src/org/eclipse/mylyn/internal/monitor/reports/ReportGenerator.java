@@ -59,6 +59,11 @@ public class ReportGenerator {
 		this(logger, collector);
 		this.saveAllUserEvents = saveAllUserEvents;
 	}
+	
+	public ReportGenerator(InteractionEventLogger logger, List<IUsageCollector> collectors, boolean saveAllUserEvents) {
+		this(logger, collectors);
+		this.saveAllUserEvents = saveAllUserEvents;
+	}
 
 	public ReportGenerator(InteractionEventLogger logger, IUsageCollector collector) {
 		List<IUsageCollector> collectors = new ArrayList<IUsageCollector>();
