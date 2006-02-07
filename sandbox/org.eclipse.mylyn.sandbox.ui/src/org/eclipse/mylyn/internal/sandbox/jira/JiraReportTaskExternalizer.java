@@ -13,12 +13,12 @@ package org.eclipse.mylar.internal.sandbox.jira;
 
 import org.eclipse.mylar.internal.tasklist.AbstractRepositoryClient;
 import org.eclipse.mylar.internal.tasklist.IQueryHit;
-import org.eclipse.mylar.internal.tasklist.IRepositoryQuery;
+import org.eclipse.mylar.internal.tasklist.AbstractRepositoryQuery;
 import org.eclipse.mylar.internal.tasklist.ITask;
 import org.eclipse.mylar.internal.tasklist.ITaskCategory;
 import org.eclipse.mylar.internal.tasklist.ITaskListExternalizer;
 import org.eclipse.mylar.internal.tasklist.TaskList;
-import org.eclipse.mylar.internal.tasklist.TaskListExternalizerException;
+import org.eclipse.mylar.internal.tasklist.TaskExternalizationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -43,7 +43,7 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 		return null;
 	}
 
-	public String getQueryTagNameForElement(IRepositoryQuery query) {
+	public String getQueryTagNameForElement(AbstractRepositoryQuery query) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -78,7 +78,7 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 		return false;
 	}
 
-	public void readCategory(Node node, TaskList tlist) throws TaskListExternalizerException {
+	public void readCategory(Node node, TaskList tlist) throws TaskExternalizationException {
 		// TODO Auto-generated method stub
 
 	}
@@ -89,17 +89,17 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 	}
 
 	public ITask readTask(Node node, TaskList tlist, ITaskCategory category, ITask parent)
-			throws TaskListExternalizerException {
+			throws TaskExternalizationException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public boolean canCreateElementFor(IRepositoryQuery category) {
+	public boolean canCreateElementFor(AbstractRepositoryQuery category) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public Element createQueryElement(IRepositoryQuery query, Document doc, Element parent) {
+	public Element createQueryElement(AbstractRepositoryQuery query, Document doc, Element parent) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -109,7 +109,7 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 		return false;
 	}
 
-	public void readQuery(Node node, TaskList tlist) throws TaskListExternalizerException {
+	public void readQuery(Node node, TaskList tlist) throws TaskExternalizationException {
 		// TODO Auto-generated method stub
 
 	}
@@ -129,7 +129,7 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 		return false;
 	}
 
-	public void readQueryHit(Node node, TaskList tlist, IRepositoryQuery query) throws TaskListExternalizerException {
+	public void readQueryHit(Node node, TaskList tlist, AbstractRepositoryQuery query) throws TaskExternalizationException {
 		// TODO Auto-generated method stub
 
 	}
