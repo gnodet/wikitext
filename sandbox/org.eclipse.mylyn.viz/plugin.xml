@@ -13,8 +13,8 @@
             priority="9"
             emptyMessage="No active Mylar context to display"
             description="Shows java declarations that are part of the Mylar task context."
-            contentProviderClass="org.eclipse.mylar.viz.seesoft.JavaContextContentProvider"
-            markupProviderClass="org.eclipse.mylar.viz.seesoft.JavaContextMarkupProvider">
+            contentProviderClass="org.eclipse.mylar.internal.viz.seesoft.JavaContextContentProvider" 
+            markupProviderClass="org.eclipse.mylar.internal.viz.seesoft.JavaContextMarkupProvider">
         </provider>
   </extension>     
 
