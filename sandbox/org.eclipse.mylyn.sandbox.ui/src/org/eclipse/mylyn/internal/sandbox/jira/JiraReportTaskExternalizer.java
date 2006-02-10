@@ -12,7 +12,7 @@
 package org.eclipse.mylar.internal.sandbox.jira;
 
 import org.eclipse.mylar.internal.tasklist.AbstractRepositoryClient;
-import org.eclipse.mylar.internal.tasklist.IQueryHit;
+import org.eclipse.mylar.internal.tasklist.AbstractQueryHit;
 import org.eclipse.mylar.internal.tasklist.AbstractRepositoryQuery;
 import org.eclipse.mylar.internal.tasklist.ITask;
 import org.eclipse.mylar.internal.tasklist.ITaskCategory;
@@ -114,12 +114,12 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 
 	}
 
-	public boolean canCreateElementFor(IQueryHit queryHit) {
+	public boolean canCreateElementFor(AbstractQueryHit queryHit) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public Element createQueryHitElement(IQueryHit queryHit, Document doc, Element parent) {
+	public Element createQueryHitElement(AbstractQueryHit queryHit, Document doc, Element parent) {
 		// TODO Auto-generated method stub
 		return null;
 	}
