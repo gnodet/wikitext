@@ -15,7 +15,7 @@ import org.eclipse.mylar.internal.tasklist.AbstractRepositoryClient;
 import org.eclipse.mylar.internal.tasklist.AbstractQueryHit;
 import org.eclipse.mylar.internal.tasklist.AbstractRepositoryQuery;
 import org.eclipse.mylar.internal.tasklist.ITask;
-import org.eclipse.mylar.internal.tasklist.ITaskCategory;
+import org.eclipse.mylar.internal.tasklist.ITaskContainer;
 import org.eclipse.mylar.internal.tasklist.ITaskListExternalizer;
 import org.eclipse.mylar.internal.tasklist.TaskList;
 import org.eclipse.mylar.internal.tasklist.TaskExternalizationException;
@@ -53,12 +53,12 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 		return null;
 	}
 
-	public boolean canCreateElementFor(ITaskCategory category) {
+	public boolean canCreateElementFor(ITaskContainer category) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public Element createCategoryElement(ITaskCategory category, Document doc, Element parent) {
+	public Element createCategoryElement(ITaskContainer category, Document doc, Element parent) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -88,7 +88,7 @@ public class JiraReportTaskExternalizer implements ITaskListExternalizer {
 		return false;
 	}
 
-	public ITask readTask(Node node, TaskList tlist, ITaskCategory category, ITask parent)
+	public ITask readTask(Node node, TaskList tlist, ITaskContainer category, ITask parent)
 			throws TaskExternalizationException {
 		// TODO Auto-generated method stub
 		return null;
