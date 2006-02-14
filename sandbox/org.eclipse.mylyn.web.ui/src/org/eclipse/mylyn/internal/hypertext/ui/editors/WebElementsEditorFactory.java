@@ -13,7 +13,7 @@ package org.eclipse.mylar.internal.hypertext.ui.editors;
 
 import org.eclipse.mylar.internal.tasklist.ITask;
 import org.eclipse.mylar.internal.tasklist.ui.ITaskEditorFactory;
-import org.eclipse.mylar.internal.tasklist.ui.MylarTaskEditor;
+import org.eclipse.mylar.internal.tasklist.ui.editors.MylarTaskEditor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.part.EditorPart;
