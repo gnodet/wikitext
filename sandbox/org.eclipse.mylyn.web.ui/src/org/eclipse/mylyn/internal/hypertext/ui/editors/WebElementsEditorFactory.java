@@ -44,4 +44,8 @@ public class WebElementsEditorFactory implements ITaskEditorFactory {
 	public boolean canCreateEditorFor(ITask task) {
 		return true;
 	}
+
+	public boolean providesOutline() {
+		return false;
+	}
 }
