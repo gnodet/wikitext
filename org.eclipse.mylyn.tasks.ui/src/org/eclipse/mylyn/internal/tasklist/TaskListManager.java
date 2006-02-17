@@ -108,11 +108,9 @@ public class TaskListManager {
 	 */
 	public void saveTaskList() {
 		try {
-			if (taskListInitialized) {
-				if (!taskList.isEmpty()) {
-					taskListWriter.writeTaskList(taskList, taskListFile);
-					MylarPlugin.getDefault().getPreferenceStore().setValue(TaskListPreferenceConstants.TASK_ID, nextTaskId);
-				}
+			if (taskListInitialized && !taskList.isEmpty()) {
+				taskListWriter.writeTaskList(taskList, taskListFile);
+				MylarPlugin.getDefault().getPreferenceStore().setValue(TaskListPreferenceConstants.TASK_ID, nextTaskId);
 			} else {
 				MylarStatusHandler.log("task list save attempted before initialization", this);
 			}
