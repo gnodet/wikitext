@@ -2,14 +2,6 @@
 <?eclipse version="3.0"?>
 <plugin>
 
-   <extension point="org.eclipse.mylar.tasklist.providers">
-      <taskHandler
-			externalizerClass="org.eclipse.mylar.internal.sandbox.jira.JiraReportTaskExternalizer"
-            id="org.eclipse.mylar.bugzilla.ui.tasklist"
-            name="Jira Provider">
-      </taskHandler>
-   </extension> 
-   
    <extension point="org.eclipse.ui.viewActions"> 
    <viewContribution
          id="org.eclipse.mylar.monitor.reports.ui.switchTaskFolder"
