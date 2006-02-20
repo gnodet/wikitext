@@ -108,9 +108,11 @@ public class TaskListManager {
 	 */
 	public void saveTaskList() {
 		try {
-			if (taskListInitialized && !taskList.isEmpty()) {
-				taskListWriter.writeTaskList(taskList, taskListFile);
-				MylarPlugin.getDefault().getPreferenceStore().setValue(TaskListPreferenceConstants.TASK_ID, nextTaskId);
+			if (taskListInitialized) {
+				if (!taskList.isEmpty()) {
+					taskListWriter.writeTaskList(taskList, taskListFile);
+					MylarPlugin.getDefault().getPreferenceStore().setValue(TaskListPreferenceConstants.TASK_ID, nextTaskId);
+				}
 			} else {
 				MylarStatusHandler.log("task list save attempted before initialization", this);
 			}
@@ -130,10 +132,10 @@ public class TaskListManager {
 	public void moveToRoot(ITask task) {
 		if (task.getCategory() instanceof TaskCategory) {
 			((TaskCategory) task.getCategory()).removeTask(task);
-		}
-		task.setCategory(null);
-		if (!taskList.getRootTasks().contains(task))
-			taskList.internalAddRootTask(task);
+		} 
+//		task.setCategory(null);
+//		if (!taskList.getRootTasks().contains(task))
+		taskList.internalAddRootTask(task);
 		for (ITaskActivityListener listener : listeners)
 			listener.taskListModified();
 	}
