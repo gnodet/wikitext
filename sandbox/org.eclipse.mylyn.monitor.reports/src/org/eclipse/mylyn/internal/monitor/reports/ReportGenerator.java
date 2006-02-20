@@ -24,13 +24,13 @@ import java.util.TreeSet;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.mylar.core.InteractionEvent;
 import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
 import org.eclipse.mylar.internal.monitor.InteractionEventLogger;
 import org.eclipse.mylar.internal.monitor.reports.ui.views.UsageStatisticsSummary;
 import org.eclipse.mylar.monitor.reports.IUsageCollector;
 import org.eclipse.mylar.monitor.reports.IUsageScanner;
 import org.eclipse.mylar.monitor.reports.InteractionEventComparator;
+import org.eclipse.mylar.provisional.core.InteractionEvent;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.IProgressService;
 

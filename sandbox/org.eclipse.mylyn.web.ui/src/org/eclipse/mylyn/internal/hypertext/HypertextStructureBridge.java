@@ -15,9 +15,9 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.mylar.core.AbstractRelationProvider;
-import org.eclipse.mylar.core.IDegreeOfSeparation;
-import org.eclipse.mylar.core.IMylarStructureBridge;
+import org.eclipse.mylar.provisional.core.AbstractRelationProvider;
+import org.eclipse.mylar.provisional.core.IDegreeOfSeparation;
+import org.eclipse.mylar.provisional.core.IMylarStructureBridge;
 import org.eclipse.swt.browser.LocationEvent;
 
 /**

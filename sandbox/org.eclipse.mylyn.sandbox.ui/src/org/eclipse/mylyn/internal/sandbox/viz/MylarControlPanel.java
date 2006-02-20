@@ -13,9 +13,9 @@
  */
 package org.eclipse.mylar.internal.sandbox.viz;
 
-import org.eclipse.mylar.core.IMylarContextListener;
-import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.internal.core.MylarContextManager;
+import org.eclipse.mylar.provisional.core.IMylarContextListener;
+import org.eclipse.mylar.provisional.core.MylarPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.*;
 import org.eclipse.swt.layout.GridData;

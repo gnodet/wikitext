@@ -21,12 +21,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.mylar.core.InteractionEvent;
 import org.eclipse.mylar.internal.core.util.DateUtil;
 import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
 import org.eclipse.mylar.internal.monitor.reports.ReportGenerator;
 import org.eclipse.mylar.internal.tasklist.ui.actions.TaskActivateAction;
 import org.eclipse.mylar.internal.tasklist.ui.actions.TaskDeactivateAction;
+import org.eclipse.mylar.provisional.core.InteractionEvent;
 
 /**
  * Delagates to other collectors for additional info.

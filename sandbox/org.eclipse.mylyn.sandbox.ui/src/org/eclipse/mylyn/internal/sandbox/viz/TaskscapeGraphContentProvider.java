@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.mylar.core.IMylarRelation;
-import org.eclipse.mylar.core.IMylarElement;
-import org.eclipse.mylar.core.MylarPlugin;
+import org.eclipse.mylar.provisional.core.IMylarElement;
+import org.eclipse.mylar.provisional.core.IMylarRelation;
+import org.eclipse.mylar.provisional.core.MylarPlugin;
 import org.eclipse.mylar.zest.core.viewers.IGraphContentProvider;
 
 /**

@@ -12,7 +12,7 @@
 package org.eclipse.mylar.internal.hypertext.ui.editors;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylar.internal.tasklist.ITask;
+import org.eclipse.mylar.provisional.tasklist.ITask;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IPersistableElement;
 

@@ -14,9 +14,9 @@ package org.eclipse.mylar.internal.hypertext;
 import java.lang.reflect.Field;
 
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.mylar.core.AbstractUserInteractionMonitor;
 import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
 import org.eclipse.mylar.internal.tasklist.ui.editors.MylarTaskEditor;
+import org.eclipse.mylar.provisional.core.AbstractUserInteractionMonitor;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.LocationEvent;
 import org.eclipse.swt.browser.LocationListener;

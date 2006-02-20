@@ -15,9 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.mylar.core.AbstractRelationProvider;
-import org.eclipse.mylar.core.IMylarElement;
 import org.eclipse.mylar.internal.core.search.IMylarSearchOperation;
+import org.eclipse.mylar.provisional.core.AbstractRelationProvider;
+import org.eclipse.mylar.provisional.core.IMylarElement;
 
 /**
  * @author Mik Kersten

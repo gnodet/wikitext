@@ -9,16 +9,16 @@ import java.io.OutputStream;
 
 import junit.framework.TestCase;
 
-import org.eclipse.mylar.core.InteractionEvent;
-import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.internal.core.MylarContext;
 import org.eclipse.mylar.internal.monitor.reports.MylarReportsPlugin;
 import org.eclipse.mylar.internal.sandbox.MylarSandboxPlugin;
 import org.eclipse.mylar.internal.sandbox.share.SwitchTaskDataFolderAction;
-import org.eclipse.mylar.internal.tasklist.ITask;
-import org.eclipse.mylar.internal.tasklist.MylarTaskListPlugin;
-import org.eclipse.mylar.internal.tasklist.Task;
-import org.eclipse.mylar.internal.tasklist.TaskListManager;
+import org.eclipse.mylar.provisional.core.InteractionEvent;
+import org.eclipse.mylar.provisional.core.MylarPlugin;
+import org.eclipse.mylar.provisional.tasklist.ITask;
+import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
+import org.eclipse.mylar.provisional.tasklist.Task;
+import org.eclipse.mylar.provisional.tasklist.TaskListManager;
 
 /**
  * Tests changing the shared task directory

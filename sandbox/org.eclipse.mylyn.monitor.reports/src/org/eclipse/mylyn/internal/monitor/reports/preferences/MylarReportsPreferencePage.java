@@ -11,8 +11,8 @@
 package org.eclipse.mylar.internal.monitor.reports.preferences;
 
 import org.eclipse.jface.preference.PreferencePage;
-import org.eclipse.mylar.core.MylarPlugin;
 import org.eclipse.mylar.internal.monitor.reports.MylarReportsPlugin;
+import org.eclipse.mylar.provisional.core.MylarPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
