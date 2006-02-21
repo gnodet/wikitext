@@ -1,0 +1,5 @@
+   <feature url="features/org.tigris.jira.core_0.7.0.jar" id="org.tigris.jira.core" version="0.7.0">
+      <category name="Task Repository Integration"/>
+   </feature>
+     
+   <archive path="features/org.tigris.jira.core_0.7.0.jar" url="http://jira-dashboard.tigris.org/update/features/org.tigris.jira.core_0.7.0.jar"/>
