@@ -3,21 +3,23 @@
    <description url="http://download.eclipse.org/technology/mylar/update-site/e3.2">
       Mylar update site for Eclipse 3.2
    </description>
-   <feature url="features/org.eclipse.mylar.bugzilla_feature_0.4.8.v20060216-1700.jar" id="org.eclipse.mylar.bugzilla_feature" version="0.4.8.v20060216-1700">
+   <feature url="features/org.eclipse.mylar_feature_0.4.8.v20060221-1415.jar" id="org.eclipse.mylar_feature" version="0.4.8.v20060221-1415">
+      <category name="Mylar for Eclipse 3.2"/>
+   </feature>
+   <feature url="features/org.eclipse.mylar.ide_feature_0.4.8.v20060221-1415.jar" id="org.eclipse.mylar.ide_feature" version="0.4.8.v20060221-1415">
+      <category name="Mylar for Eclipse 3.2"/>
+   </feature>
+   <feature url="features/org.eclipse.mylar.bugzilla_feature_0.4.8.v20060221-1415.jar" id="org.eclipse.mylar.bugzilla_feature" version="0.4.8.v20060221-1415">
       <category name="Task Repository Integration"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.jira_feature_0.4.8.v20060216-1700.jar" id="org.eclipse.mylar.jira_feature" version="0.4.8.v20060216-1700">
+   <feature url="features/org.eclipse.mylar.jira_feature_0.4.8.v20060221-1415.jar" id="org.eclipse.mylar.jira_feature" version="0.4.8.v20060221-1415">
       <category name="Task Repository Integration"/>
    </feature>
-   <feature url="features/org.eclipse.mylar_feature_0.4.8.v20060216-1700.jar" id="org.eclipse.mylar_feature" version="0.4.8.v20060216-1700">
-      <category name="Mylar for Eclipse 3.2 (Test)"/>
-   </feature>
-   <feature url="features/org.eclipse.mylar.ide_feature_0.4.8.v20060216-1700.jar" id="org.eclipse.mylar.ide_feature" version="0.4.8.v20060216-1700">
-      <category name="Mylar for Eclipse 3.2 (Test)"/>
-   </feature>
+
    <archive path="features/org.tigris.jira.core_0.7.0.jar" url="http://jira-dashboard.tigris.org/update/features/org.tigris.jira.core_0.7.0.jar"/>
    <archive path="plugins/org.tigris.jira.core_0.7.0.jar" url="http://jira-dashboard.tigris.org/update/plugins/org.tigris.jira.core_0.7.0.jar"/>
    <archive path="plugins/org.tigris.jira.core.soap_0.7.0.jar" url="http://jira-dashboard.tigris.org/update/plugins/org.tigris.jira.core.soap_0.7.0.jar"/>
-   <category-def name="Mylar for Eclipse 3.2 (Test)" label="Mylar for Eclipse 3.2 (Test)"/>
+
+   <category-def name="Mylar for Eclipse 3.2" label="Mylar for Eclipse 3.2"/>
    <category-def name="Task Repository Integration" label="Task Repository Integration"/>
 </site>
