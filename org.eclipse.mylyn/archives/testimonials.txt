@@ -1,0 +1,8 @@
+
+David Orme, from: https://bugs.eclipse.org/bugs/show_bug.cgi?id=119197
+
+"..Mylar, arguably the most productivity-enhancing idea since background compilation and all of the things
+that enables (namely refactoring and syntax hilighting).  
+I just don't know how I ever was able to read and understand the Eclipse
+sources (or the sources of other large projects I've worked on) before Mylar,
+it's just that good."
