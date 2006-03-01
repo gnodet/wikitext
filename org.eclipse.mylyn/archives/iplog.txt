@@ -1,2 +1,4 @@
 
 0.4.10
+- 2006-02-28
+  Eugene Kuleshov, smart key comparison and test, https://bugs.eclipse.org/bugs/show_bug.cgi?id=129511
