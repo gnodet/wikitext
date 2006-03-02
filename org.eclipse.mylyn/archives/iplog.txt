@@ -2,5 +2,7 @@
 0.4.10
 - 2006-02-28
   - Eugene Kuleshov, smart key comparison and test, https://bugs.eclipse.org/bugs/show_bug.cgi?id=129511
+- 2006-03-02
   - Ian Whalley (inw-eclipse@whalley.org), 1-line charset patch, https://bugs.eclipse.org/bugs/show_bug.cgi?id=129459
+  - Ian Whalley (inw-eclipse@whalley.org), removed Sun JDK-specific regular expressions to enable running on IBM JDK, https://bugs.eclipse.org/bugs/show_bug.cgi?id=116514
   
