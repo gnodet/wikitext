@@ -1,4 +1,6 @@
 
 0.4.10
 - 2006-02-28
-  Eugene Kuleshov, smart key comparison and test, https://bugs.eclipse.org/bugs/show_bug.cgi?id=129511
+  - Eugene Kuleshov, smart key comparison and test, https://bugs.eclipse.org/bugs/show_bug.cgi?id=129511
+  - Ian Whalley (inw-eclipse@whalley.org), 1-line charset patch, https://bugs.eclipse.org/bugs/show_bug.cgi?id=129459
+  
