@@ -146,9 +146,9 @@ public class TaskListTableLabelProvider extends DecoratingLabelProvider implemen
 						return TaskListImages.getImage(TaskListImages.STATUS_CONTEXT_CONFLICT);
 					}
 				}
-			} else if (element instanceof AbstractQueryHit){
+			} else {
 				return TaskListImages.getImage(TaskListImages.STATUS_NORMAL_INCOMING);
-			} 
+			}
 		}
 		return null;
 	}
