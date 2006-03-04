@@ -37,6 +37,7 @@ import org.eclipse.jface.viewers.OpenEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.mylar.internal.hypertext.HypertextStructureBridge;
+import org.eclipse.mylar.internal.tasklist.ui.TaskListColorsAndFonts;
 import org.eclipse.mylar.internal.tasklist.ui.TaskListImages;
 import org.eclipse.mylar.internal.ui.MylarImages;
 import org.eclipse.mylar.provisional.core.IMylarContext;
@@ -90,11 +91,6 @@ public class WebElementsEditor extends EditorPart {
 	private Action add;
 
 	private Action delete;
-
-	/**
-	 * TODO: use workbench theme
-	 */
-	public static final Color HYPERLINK = new Color(Display.getDefault(), 0, 0, 255);
 
 	private final IMylarContextListener REFRESH_UPDATE_LISTENER = new IMylarContextListener() {
 		public void interestChanged(IMylarElement node) {
@@ -526,7 +522,7 @@ public class WebElementsEditor extends EditorPart {
 		}
 
 		public Color getForeground(Object element) {
-			return HYPERLINK;
+			return TaskListColorsAndFonts.COLOR_HYPERLINK;
 		}
 
 		public Color getBackground(Object element) {

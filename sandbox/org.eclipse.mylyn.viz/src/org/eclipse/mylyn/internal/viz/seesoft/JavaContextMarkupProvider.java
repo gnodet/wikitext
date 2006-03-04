@@ -49,7 +49,10 @@ import org.eclipse.swt.graphics.RGB;
  */
 public class JavaContextMarkupProvider implements IMarkupProvider {
 
-	/** Assigned when there is no highlight color for a task or it is too light */
+	/** 
+	 * Assigned when there is no highlight color for a task or it is too light 
+	 * TODO: dispose
+	 */
 	public Color defaultStripeColor = new Color(null, new RGB(128, 128, 255));
 
 	/** Holds all IMarkupKinds (for the visualiser menu) */
@@ -241,5 +244,6 @@ public class JavaContextMarkupProvider implements IMarkupProvider {
 	}
 
 	public void deactivate() {
+		
 	}
 }
