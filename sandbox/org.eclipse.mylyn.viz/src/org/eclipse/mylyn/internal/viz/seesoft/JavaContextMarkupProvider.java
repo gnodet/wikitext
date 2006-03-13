@@ -143,7 +143,7 @@ public class JavaContextMarkupProvider implements IMarkupProvider {
 				if (taskHandle == null) {
 					return null;
 				}
-				ITask task = MylarTaskListPlugin.getTaskListManager().getTaskForHandle(taskHandle, false);
+				ITask task = MylarTaskListPlugin.getTaskListManager().getTaskList().getTask(taskHandle);
 				if (task == null) {
 					return null;
 				}

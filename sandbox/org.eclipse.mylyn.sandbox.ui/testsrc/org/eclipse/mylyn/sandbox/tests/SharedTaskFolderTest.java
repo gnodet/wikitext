@@ -99,7 +99,7 @@ public class SharedTaskFolderTest extends TestCase{
 		File mainDataDirTaskFile = MylarPlugin.getContextManager().getFileForContext(mainDataDirTask.getHandleIdentifier());
 //		File mainDataDirTaskFile = new File(MylarPlugin.getDefault().getDataDirectory() + File.separator + mainDataDirTask.getContextPath() + MylarTaskListPlugin.FILE_EXTENSION);
 		assertFalse(mainDataDirTaskFile.exists());
-		assertNull(manager.getTaskForHandle(mainDataDirTask.getHandleIdentifier(), false));
+		assertNull(manager.getTaskList().getTask(mainDataDirTask.getHandleIdentifier()));
 		
 		fail(); // uncomment below
 		//Create a new task in bob's task data folder only and check that it exists in the right place
