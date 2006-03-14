@@ -16,7 +16,7 @@
    <feature url="features/org.eclipse.mylar.jira_feature_0.4.9.v20060314-1130.jar" id="org.eclipse.mylar.jira_feature" version="0.4.9.v20060314-1130">
       <category name="Task Repository Integration"/>
    </feature>
-   <feature url="http://jira-dashboard.tigris.org/update/features/org.tigris.jira.core_0.8.0.jar" id="org.tigris.jira.core" version="0.8.0">
+   <feature url="features/org.tigris.jira.core_0.8.0.jar" id="org.tigris.jira.core" version="0.8.0">
       <category name="Tigris.org Dependencies"/>
    </feature>
    <archive path="plugins/org.apache.axis_1.3.0.jar" url="http://jira-dashboard.tigris.org/update/plugins/org.apache.axis_1.3.0.jar"/>
