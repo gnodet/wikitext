@@ -4,6 +4,9 @@
    <description url="http://download.eclipse.org/technology/mylar/update-site/e3.2">
       Mylar update site for Eclipse 3.2
    </description>
+   <feature url="http://jira-dashboard.tigris.org/update/features/org.tigris.jira.core_0.7.0.jar" id="org.tigris.jira.core" version="0.7.0">
+      <category name="Tigris.org Dependencies"/>
+   </feature>
    <feature url="features/org.eclipse.mylar_feature_0.4.9.v20060314-0730.jar" id="org.eclipse.mylar_feature" version="0.4.9.v20060314-0730">
       <category name="Mylar for Eclipse 3.2"/>
    </feature>
@@ -15,9 +18,6 @@
    </feature>
    <feature url="features/org.eclipse.mylar.jira_feature_0.4.9.v20060314-0730.jar" id="org.eclipse.mylar.jira_feature" version="0.4.9.v20060314-0730">
       <category name="Task Repository Integration"/>
-   </feature>
-   <feature url="http://jira-dashboard.tigris.org/update/features/org.tigris.jira.core_0.7.0.jar" id="org.tigris.jira.core" version="0.7.0">
-      <category name="Tigris.org Dependencies"/>
    </feature>
    <archive path="plugins/org.tigris.jira.core_0.7.0.jar" url="http://jira-dashboard.tigris.org/update/plugins/org.tigris.jira.core_0.7.0.jar"/>
    <archive path="plugins/org.tigris.jira.core.soap_0.7.0.jar" url="http://jira-dashboard.tigris.org/update/plugins/org.tigris.jira.core.soap_0.7.0.jar"/>
