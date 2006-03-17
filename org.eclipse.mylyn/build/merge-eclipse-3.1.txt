@@ -1,41 +1,50 @@
-Eclipse 3.1 Merge files that should not be overriden:
+The following files should not be overriden/updated when merging with 3.1
 
-- mylar.ide
+- mylar.ide.ui
   - ProblemsListInterestFilter
   
 - mylar.java
   - java
     - TypeHistoryManager
+    - ActiveFoldingEditorTracker
   - ui
     - JavaUiUtil
-  - ui.actoins
+  - ui.actions
+    - JavaEditorTracker
+    - ToggleActiveFoldingAction
     - ToggleAutoFoldingAction
   - editor (update none)
  	- ActiveFoldingListener
+ 	- AutoFoldingStructureProvider
   	- MylarJavaCompletionProcessor
+  	- MylarJavaNoTypeProposalComputer
+  	- MylarJavaProposalProcessor
   	- MylarJavaSourceViewerConfiguration
-  	- AutoFoldingStructureProvider
+  	- MylarJavaTypeProposalComputer
   - junit
     - MylarPdeJUnitTabGroup
-  - actions
-    - ActiveFoldingEditorTracker
-    - JavaEditorTracker
   - wizards
     - MylarPrerenceWizard
     - MylarPrerenceWizardPage
-  - plugin.xml (manual merge)
+  - plugin.xml (update and fix import/export categories)
+  
+- mylar.java.tests
+  - 
   
 - mylar.tasklist
   - ui
     - TaskListNotificationPopup
 	- TaskListPatternFilter
 	- TaskListNotificationManager
+  - ui.actions
+    - GoIntoAction
   - ui.views
     - TaskListFilteredTree
   - plugin.xml (manual merge)
   
 - mylar.tasklist.tests
   - TaskTestUtil
+  - TaskListNotificationManagerTest
   
 - mylar.xml
   - XmlReferencesProvider
