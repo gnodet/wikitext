@@ -1,0 +1,3 @@
+Mylar deployment instructions:
+- copy the e3.x directories to the update site directory
+- zip each directory to mylar-site-local-e3.x.zip

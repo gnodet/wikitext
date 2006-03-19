@@ -29,7 +29,7 @@ The following files should not be overriden/updated when merging with 3.1
   - plugin.xml (update and fix import/export categories)
   
 - mylar.java.tests
-  - 
+  - ...
   
 - mylar.tasklist
   - ui
