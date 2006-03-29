@@ -9,15 +9,17 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.core.dt;
+package org.eclipse.mylar.provisional.tasklist;
+
+import java.util.Date;
 
 /**
- * @author Mik Kersten
+ * @author Rob Elves
  */
-public @interface MylarWebRef {
+public interface IRemoteContextDelegate {
 
-	public String url();
-
-	public String name();
-
+	public Date getDate();
+	public String getAuthor();
+	public String getComment();	
+	
 }
