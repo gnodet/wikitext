@@ -9,28 +9,16 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.tests.integration;
-
-import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
+package org.eclipse.mylar.internal.monitor;
 
 /**
  * @author Mik Kersten
  */
-public class AllIntegrationTests {
-	
-	public static Test suite() {
-		TestSuite suite = new TestSuite("Test for org.eclipse.mylar.tests.integration");
+public class MylarMonitorPreferenceConstants {
 
-		MylarStatusHandler.setDumpErrors(true);
+	public static final String PREF_PREVIOUS_TRANSMIT_DATE = "org.eclipse.mylar.monitor.upload.previousTransmit";
+	public static final String PREF_NUM_USER_EVENTS = "org.eclipse.mylar.monitor.events.observed";
+	public static final String PREF_MONITORING_ENABLED = "org.eclipse.mylar.monitor.enabled";
+	public static final String PREF_MONITORING_OBFUSCATE = "org.eclipse.mylar.monitor.obfuscate";
 
-		// $JUnit-BEGIN$
-		suite.addTestSuite(DefaultPreferenceConfigTest.class);
-		suite.addTestSuite(ExtensionPointInitializationTest.class);
-		suite.addTestSuite(ChangeDataDirTest.class);
-		// $JUnit-END$
-		return suite;
-	}
 }
