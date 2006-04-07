@@ -1,7 +1,20 @@
 The following files should not be overriden/updated when merging with 3.1
 
-- mylar.ide.ui
-  - ProblemsListInterestFilter
+mylar.bugs
+  - BugzillaHyperLink
+  - BugzillaHyperLinkDetector
+
+mylar.core.tests
+  - ResourceHelper
+
+- mylar.ide
+  - team
+  	- MylarContextChangeSet
+  - ui
+    - ProblemsListInterestFilter
+    - ApplyMylarToProjectExplorerAction
+    - OpenCorrespondingTaskAction (merge)
+    - plugin.xml (merge)
   
 - mylar.java
   - java
@@ -40,11 +53,14 @@ The following files should not be overriden/updated when merging with 3.1
     - GoIntoAction
   - ui.views
     - TaskListFilteredTree
-  - plugin.xml (manual merge)
+  - plugin.xml (remove import/export categories)
   
 - mylar.tasklist.tests
   - TaskTestUtil
   - TaskListNotificationManagerTest
+  
+- mylar.ui
+  - InterestFilter (merge)  
   
 - mylar.xml
   - XmlReferencesProvider
