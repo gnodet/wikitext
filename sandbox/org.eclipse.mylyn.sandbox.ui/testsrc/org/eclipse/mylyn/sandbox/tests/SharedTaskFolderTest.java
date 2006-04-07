@@ -151,7 +151,7 @@ public class SharedTaskFolderTest extends TestCase{
 		MylarContext mockContext = MylarPlugin.getContextManager().loadContext(newTask.getHandleIdentifier());//, newTask.getContextPath());
 		InteractionEvent event = new InteractionEvent(InteractionEvent.Kind.EDIT,"structureKind","handle","originId");
 		mockContext.parseEvent(event);
-		MylarPlugin.getContextManager().contextActivated(mockContext);
+		MylarPlugin.getContextManager().activateContext(mockContext);
 
 		fail(); // uncomment below
 //		//Save the context file and check that it exists
