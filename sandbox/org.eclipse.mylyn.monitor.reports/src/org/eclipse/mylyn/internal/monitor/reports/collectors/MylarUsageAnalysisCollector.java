@@ -226,7 +226,7 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 				summaryEditRatioDelta += ratioPercentage;
 				String baselineVsMylarRatio = "Baseline vs. Mylar edit ratio: " + baselineRatio + ", mylar: "
 						+ combinedMylarRatio + ",  ";
-				String ratioChange = formatPercentage(100 * ratioPercentage);
+				String ratioChange = ReportGenerator.formatPercentage(100 * ratioPercentage);
 				baselineVsMylarRatio += " <b>change: " + ratioChange + "%</b>";
 				report.add(baselineVsMylarRatio + "<br>");
 
@@ -234,7 +234,7 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 				float editsActive = getNumMylarEdits(id);
 				float editsInactive = getNumInactiveEdits(id);
 				report.add("Proportion Mylar active (by edits): <b>"
-						+ formatPercentage(100 * ((editsActive) / (editsInactive + editsActive))) + "%</b><br>");
+						+ ReportGenerator.formatPercentage(100 * ((editsActive) / (editsInactive + editsActive))) + "%</b><br>");
 
 				report.add("Elapsed time baseline: " + getTime(id, timeBaseline) + ", active: "
 						+ getTime(id, timeMylarActive) + ", inactive: " + getTime(id, timeMylarInactive) + "<br>");
@@ -259,7 +259,7 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 		report.add("<h3>Summary</h3>");
 		String acceptedSummary = " (based on " + acceptedUsers + " accepted, " + rejectedUsers + " rejected users)";
 		float percentage = summaryEditRatioDelta / (float) acceptedUsers;
-		String ratioChange = formatPercentage(100 * (percentage - 1));
+		String ratioChange = ReportGenerator.formatPercentage(100 * (percentage - 1));
 		if (percentage >= 1) {
 			report.add("Overall edit ratio improved by: " + ratioChange + "% " + acceptedSummary + "<br>");
 		} else {
@@ -274,19 +274,20 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 		FileWriter writer;
 		try {
 			writer = new FileWriter(directory + "/mylar-usage.csv");
-			writer.write("userid, " + "ratio-baseline, ratio-mylar, " + "ratio-improvement, " + "filtered-explorer, "
+			writer.write("userid, " + "ratio-baseline, ratio-mylar, " + "ratio-improvement, " 
+					+ "filtered-explorer, " + "filtered-outline, " + "filtered-problems, "
 					+ "edits-active, " + "time-baseline, time-active, time-inactive, "
-					+ "task-activations, task-deactivations, \n");
+					+ "task-activations, task-deactivations, sel-interesting, sel-predicted, sel-decayed, sel-new, sel-unknown\n");
 			// "filtered-explorer, filtered-outline, filtered-problems, ");
 
 			for (Iterator it = userIds.iterator(); it.hasNext();) {
-				int id = (Integer) it.next();
+				int userId = (Integer) it.next();
 
-				if (acceptUser(id)) {
-					writer.write(id + ", ");
-					float baselineRatio = getBaselineRatio(id);
-					float mylarInactiveRatio = getMylarInactiveRatio(id);
-					float mylarActiveRatio = getMylarRatio(id);
+				if (acceptUser(userId)) {
+					writer.write(userId + ", ");
+					float baselineRatio = getBaselineRatio(userId);
+					float mylarInactiveRatio = getMylarInactiveRatio(userId);
+					float mylarActiveRatio = getMylarRatio(userId);
 					float combinedMylarRatio = mylarInactiveRatio + mylarActiveRatio;
 
 					writer.write(baselineRatio + ", ");
@@ -295,23 +296,61 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 					float ratioPercentage = (combinedMylarRatio - baselineRatio) / baselineRatio;
 					writer.write(100 * ratioPercentage + ", ");
 
-					writer.write(viewUsageCollector.getFilteredSelections(id, "org.eclipse.jdt.ui.PackageExplorer")
-							+ ", ");
-
-					float editsActive = getNumMylarEdits(id);
-					float editsInactive = getNumInactiveEdits(id);
+					Map<String, Integer> filteredViewSelections = viewUsageCollector.usersFilteredViewSelections.get(userId);
+					Map<String, Integer> normalViewSelections = viewUsageCollector.usersNormalViewSelections.get(userId);
+					
+					String[] views = new String[] { "org.eclipse.jdt.ui.PackageExplorer", "org.eclipse.ui.views.ContentOutline", "org.eclipse.ui.views.ProblemView"};
+					for (int i = 0; i < views.length; i++) {
+						if (normalViewSelections.containsKey(views[i]) && filteredViewSelections.containsKey(views[i])) {
+							float normalSelections = normalViewSelections.get(views[i]);
+							float filteredSelections = filteredViewSelections.get(views[i]);
+//							int unfilteredSelections = normalSelections - filteredSelections;
+							writer.write(ReportGenerator.formatPercentage(filteredSelections / (normalSelections+filteredSelections)));
+						} else {
+							writer.write(0);
+						}
+					}
+					
+					float editsActive = getNumMylarEdits(userId);
+					float editsInactive = getNumInactiveEdits(userId);
 					writer.write(100 * ((editsActive) / (editsInactive + editsActive)) + ", ");
 
-					writer.write(getTime(id, timeBaseline) + ", ");
-					writer.write(getTime(id, timeMylarActive) + ", ");
-					writer.write(getTime(id, timeMylarInactive) + ", ");
+					writer.write(getTime(userId, timeBaseline) + ", ");
+					writer.write(getTime(userId, timeMylarActive) + ", ");
+					writer.write(getTime(userId, timeMylarInactive) + ", ");
 
 					int numTaskActivations = commandUsageCollector.getCommands()
-							.getUserCount(id, TaskActivateAction.ID);
-					int numTaskDeactivations = commandUsageCollector.getCommands().getUserCount(id,
+							.getUserCount(userId, TaskActivateAction.ID);
+					int numTaskDeactivations = commandUsageCollector.getCommands().getUserCount(userId,
 							TaskDeactivateAction.ID);
 					writer.write(numTaskActivations + ", ");
 					writer.write(numTaskDeactivations + ", ");
+					
+					
+					int numNew = 0;
+					if (viewUsageCollector.usersNumNew.containsKey(userId))
+						numNew = viewUsageCollector.usersNumNew.get(userId);
+					int numPredicted = 0;
+					if (viewUsageCollector.usersNumPredicted.containsKey(userId))
+						numPredicted = viewUsageCollector.usersNumPredicted.get(userId);
+					int numInteresting = 0;
+					if (viewUsageCollector.usersNumDefault.containsKey(userId))
+						numInteresting = viewUsageCollector.usersNumDefault.get(userId);
+					int numDecayed = 0;
+					if (viewUsageCollector.usersNumDecayed.containsKey(userId))
+						numDecayed = viewUsageCollector.usersNumDecayed.get(userId);
+					int numUnknown = 0;
+					if (viewUsageCollector.usersNumUnknown.containsKey(userId))
+						numUnknown = viewUsageCollector.usersNumUnknown.get(userId);
+
+//					float numSelections = numNew + numPredicted + numInteresting + numDecayed + numUnknown;
+//					writer.write(numSelections + ", ");
+					writer.write(numInteresting + ", ");
+					writer.write(numPredicted + ", ");
+					writer.write(numDecayed + ", ");
+					writer.write(numNew + ", ");
+					writer.write(numUnknown + ", ");
+					
 					writer.write("\n");
 				}
 			}
@@ -342,15 +381,6 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 		} else {
 			return getNumBaselineEdits(id) > BASELINE_EDITS_THRESHOLD && getNumMylarEdits(id) > MYLAR_EDITS_THRESHOLD;
 		}
-	}
-
-	public String formatPercentage(float percentage) {
-		String percentageString = "" + percentage;
-		int indexOf2ndDecimal = percentageString.indexOf('.') + 3;
-		if (indexOf2ndDecimal <= percentageString.length()) {
-			percentageString = percentageString.substring(0, indexOf2ndDecimal);
-		}
-		return percentageString;
 	}
 
 	public String getStartDate(int id) {

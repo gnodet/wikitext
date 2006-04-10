@@ -35,7 +35,7 @@ import org.eclipse.ui.internal.ViewPluginAction;
 /**
  * @author Mik Kersten
  */
-public class UserAnalysisAction implements IViewActionDelegate {
+public class MylarUserAnalysisAction implements IViewActionDelegate {
 
 	public void init(IViewPart view) {
 		// ignore
@@ -44,7 +44,7 @@ public class UserAnalysisAction implements IViewActionDelegate {
 	public void run(IAction action) {
 		if (action instanceof ViewPluginAction) {
 			ViewPluginAction objectAction = (ViewPluginAction) action;
-			final List<File> files = UsageSummaryAction.getStatsFilesFromSelection(objectAction);
+			final List<File> files = EclipseUsageSummaryAction.getStatsFilesFromSelection(objectAction);
 			if (files.isEmpty()) {
 				files.add(MylarMonitorPlugin.getDefault().getMonitorLogFile());
 			}

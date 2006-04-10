@@ -7,19 +7,19 @@
         id="org.eclipse.mylar.monitor.commands"
         targetID="org.eclipse.jdt.ui.PackageExplorer">
 	    <action  
-  		  	label="Mylar Reports: Usage Summary" 
+  		  	label="Reports: Eclipse Usage Summary" 
 	  		tooltip="Mylar Reports: Usage Summary"
 	  		menubarPath="mylar.monitor" 
 	  		id="org.eclipse.mylar.monitor.reports.ui.actions.ComputeSummaryAction" 
-	  		class="org.eclipse.mylar.internal.monitor.reports.ui.actions.UsageSummaryAction"
+	  		class="org.eclipse.mylar.internal.monitor.reports.ui.actions.EclipseUsageSummaryAction"
 	  		icon="icons/eview16/monitor.gif"
 	  		enablesFor="*"/>   
 	  	<action  
-  		  	label="Mylar Reports: User Analysis" 
+  		  	label="Reports: Mylar User Analysis" 
 	  		tooltip="Mylar Reports: User Analysis"
 	  		menubarPath="mylar.monitor" 
 	  		id="org.eclipse.mylar.monitor.reports.ui.actions.ComputeSummaryAction" 
-	  		class="org.eclipse.mylar.internal.monitor.reports.ui.actions.UserAnalysisAction"
+	  		class="org.eclipse.mylar.internal.monitor.reports.ui.actions.MylarUserAnalysisAction"
 	  		icon="icons/eview16/monitor.gif"
 	  		enablesFor="*"/>   
 	 </viewerContribution> 
@@ -27,19 +27,19 @@
         id="org.eclipse.mylar.monitor.commands"
         targetID="org.eclipse.ui.views.ResourceNavigator">
 	    <action  
-  		  	label="Mylar Reports: Usage Summary" 
+  		  	label="Reports: Eclipse Usage Summary" 
 	  		tooltip="Mylar Reports: Usage Summary"
 	  		menubarPath="mylar.monitor" 
 	  		id="org.eclipse.mylar.monitor.reports.ui.actions.ComputeSummaryAction" 
-	  		class="org.eclipse.mylar.internal.monitor.reports.ui.actions.UsageSummaryAction"
+	  		class="org.eclipse.mylar.internal.monitor.reports.ui.actions.EclipseUsageSummaryAction"
 	  		icon="icons/eview16/monitor.gif"
 	  		enablesFor="*"/>   
 	  		    <action  
-  		  	label="Mylar Reports: User Analysis" 
+  		  	label="Reports: Mylar User Analysis" 
 	  		tooltip="Mylar Reports: User Analysis"
 	  		menubarPath="mylar.monitor" 
 	  		id="org.eclipse.mylar.monitor.reports.ui.actions.ComputeSummaryAction" 
-	  		class="org.eclipse.mylar.internal.monitor.reports.ui.actions.UserAnalysisAction"
+	  		class="org.eclipse.mylar.internal.monitor.reports.ui.actions.MylarUserAnalysisAction"
 	  		icon="icons/eview16/monitor.gif"
 	  		enablesFor="*"/>   
 	 </viewerContribution> 

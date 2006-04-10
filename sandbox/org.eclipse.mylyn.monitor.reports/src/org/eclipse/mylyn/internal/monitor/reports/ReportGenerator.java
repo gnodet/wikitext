@@ -342,6 +342,15 @@ public class ReportGenerator {
 		}
 	}
 
+	public static String formatPercentage(float percentage) {
+		String percentageString = "" + percentage;
+		int indexOf2ndDecimal = percentageString.indexOf('.') + 3;
+		if (indexOf2ndDecimal <= percentageString.length()) {
+			percentageString = percentageString.substring(0, indexOf2ndDecimal);
+		}
+		return percentageString;
+	}
+	
 	public List<IUsageCollector> getCollectors() {
 		return collectors;
 	}

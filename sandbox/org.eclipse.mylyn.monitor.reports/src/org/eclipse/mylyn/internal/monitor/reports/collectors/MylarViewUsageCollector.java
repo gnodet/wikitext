@@ -31,19 +31,19 @@ public class MylarViewUsageCollector extends ViewUsageCollector {
 
 	private Set<Integer> mylarUserIds = new HashSet<Integer>();
 
-	private Map<Integer, Map<String, Integer>> usersFilteredViewSelections = new HashMap<Integer, Map<String, Integer>>();
+	Map<Integer, Map<String, Integer>> usersFilteredViewSelections = new HashMap<Integer, Map<String, Integer>>();
 
 	private Map<Integer, Set<String>> usersFilteredViews = new HashMap<Integer, Set<String>>();
 
-	private Map<Integer, Integer> usersNumDecayed = new HashMap<Integer, Integer>();
+	Map<Integer, Integer> usersNumDecayed = new HashMap<Integer, Integer>();
 
-	private Map<Integer, Integer> usersNumDefault = new HashMap<Integer, Integer>();
+	Map<Integer, Integer> usersNumDefault = new HashMap<Integer, Integer>();
 
-	private Map<Integer, Integer> usersNumNew = new HashMap<Integer, Integer>();
+	Map<Integer, Integer> usersNumNew = new HashMap<Integer, Integer>();
 
-	private Map<Integer, Integer> usersNumPredicted = new HashMap<Integer, Integer>();
+	Map<Integer, Integer> usersNumPredicted = new HashMap<Integer, Integer>();
 
-	private Map<Integer, Integer> usersNumUnknown = new HashMap<Integer, Integer>();
+	Map<Integer, Integer> usersNumUnknown = new HashMap<Integer, Integer>();
 
 	@Override
 	public void consumeEvent(InteractionEvent event, int userId) {
@@ -147,45 +147,39 @@ public class MylarViewUsageCollector extends ViewUsageCollector {
 		}
 		summaries.add("<h4>View Usage (top " + maxViewsToReport + ")</h4>");
 		summaries.addAll(super.getSummary(userId));
+
+//		summaries.add("<h4>Interest Model</h4>");
+//		int numNew = 0;
+//		if (usersNumNew.containsKey(userId))
+//			numNew = usersNumNew.get(userId);
+//		int numPredicted = 0;
+//		if (usersNumPredicted.containsKey(userId))
+//			numPredicted = usersNumPredicted.get(userId);
+//		int numInteresting = 0;
+//		if (usersNumDefault.containsKey(userId))
+//			numInteresting = usersNumDefault.get(userId);
+//		int numDecayed = 0;
+//		if (usersNumDecayed.containsKey(userId))
+//			numDecayed = usersNumDecayed.get(userId);
+//		int numUnknown = 0;
+//		if (usersNumUnknown.containsKey(userId))
+//			numUnknown = usersNumUnknown.get(userId);
+//
+//		float numSelections = numNew + numPredicted + numInteresting + numDecayed + numUnknown;
+//		float inModel = (numPredicted + numInteresting + numDecayed);
+//		float notInModel = numNew;
+//		float hitRatio = inModel / (inModel + notInModel);
+//		summaries.add("In model (inModel / (inModel + notInModel): " + ReportGenerator.formatPercentage(hitRatio) + "<br>");
+// 
+//		summaries.add("New: " + ReportGenerator.formatPercentage(numNew / numSelections) + "(" + numNew + ")" + "; ");
+//		summaries.add("Predicted: " + ReportGenerator.formatPercentage(numPredicted / numSelections) + " (" + numPredicted + ")"
+//				+ "; ");
+//		summaries.add("Interesting: " + ReportGenerator.formatPercentage(numInteresting / numSelections) + " (" + numInteresting
+//				+ ")" + "; ");
+//		summaries.add("Decayed: " + ReportGenerator.formatPercentage(numDecayed / numSelections) + " (" + numDecayed + ")" + "; ");
+//		summaries.add("Unknown: " + ReportGenerator.formatPercentage(numUnknown / numSelections) + " (" + numUnknown + ")" + "<br>");
+	
 		return summaries;
-		// summaries.add("<h4>Interest Model</h4>");
-		//		
-		// int numNew = 0;
-		// if (usersNumNew.containsKey(userId)) numNew =
-		// usersNumNew.get(userId);
-		// int numPredicted = 0;
-		// if (usersNumPredicted.containsKey(userId)) numPredicted =
-		// usersNumPredicted.get(userId);
-		// int numInteresting = 0;
-		// if (usersNumDefault.containsKey(userId)) numInteresting =
-		// usersNumDefault.get(userId);
-		// int numDecayed = 0;
-		// if (usersNumDecayed.containsKey(userId)) numDecayed =
-		// usersNumDecayed.get(userId);
-		// int numUnknown = 0;
-		// if (usersNumUnknown.containsKey(userId)) numUnknown =
-		// usersNumUnknown.get(userId);
-		//		
-		// float inModel = (numPredicted + numInteresting + numDecayed);
-		// float notInModel = numNew;
-		// float hitRatio = inModel / (inModel + notInModel);
-		// summaries.add("In model (inModel / (inModel + notInModel): " +
-		// formatAsPercentage(hitRatio) + "<br>");
-		//		
-		// summaries.add("New: " + formatAsPercentage(numNew/numSelections) + "
-		// (" + numNew + ")" + "; ");
-		// summaries.add("Predicted: " +
-		// formatAsPercentage(numPredicted/numSelections) + " (" + numPredicted
-		// + ")" + "; ");
-		// summaries.add("Interesting: " +
-		// formatAsPercentage(numInteresting/numSelections) + " (" +
-		// numInteresting + ")" + "; ");
-		// summaries.add("Decayed: " +
-		// formatAsPercentage(numDecayed/numSelections) + " (" + numDecayed +
-		// ")" + "; ");
-		// summaries.add("Unknown: " +
-		// formatAsPercentage(numUnknown/numSelections) + " (" + numUnknown +
-		// ")" + "<br>");
 	}
 
 	public List<String> getReport() {

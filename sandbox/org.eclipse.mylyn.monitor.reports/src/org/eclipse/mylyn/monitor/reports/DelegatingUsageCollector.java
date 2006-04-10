@@ -65,5 +65,4 @@ public class DelegatingUsageCollector implements IUsageCollector {
 	public void setReportTitle(String reportTitle) {
 		this.reportTitle = reportTitle;
 	}
-
 }

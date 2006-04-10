@@ -42,7 +42,7 @@ import org.eclipse.ui.internal.ViewPluginAction;
 /**
  * @author Mik Kersten
  */
-public class UsageSummaryAction implements IViewActionDelegate {
+public class EclipseUsageSummaryAction implements IViewActionDelegate {
 
 	public void init(IViewPart view) {
 		// ignore
