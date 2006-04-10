@@ -298,16 +298,22 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 
 					Map<String, Integer> filteredViewSelections = viewUsageCollector.usersFilteredViewSelections.get(userId);
 					Map<String, Integer> normalViewSelections = viewUsageCollector.usersNormalViewSelections.get(userId);
-					
+					 
 					String[] views = new String[] { "org.eclipse.jdt.ui.PackageExplorer", "org.eclipse.ui.views.ContentOutline", "org.eclipse.ui.views.ProblemView"};
 					for (int i = 0; i < views.length; i++) {
 						if (normalViewSelections.containsKey(views[i]) && filteredViewSelections.containsKey(views[i])) {
 							float normalSelections = normalViewSelections.get(views[i]);
 							float filteredSelections = filteredViewSelections.get(views[i]);
+							float ratio = filteredSelections / (normalSelections+filteredSelections);
 //							int unfilteredSelections = normalSelections - filteredSelections;
-							writer.write(ReportGenerator.formatPercentage(filteredSelections / (normalSelections+filteredSelections)));
-						} else {
-							writer.write(0);
+							System.err.println(">>> " + ratio);
+							if (ratio >= 0.01) {
+								writer.write(ratio + ", ");
+							} else { 
+								writer.write("0, ");
+							}
+						} else {	
+							writer.write("0, ");
 						}
 					}
 					
