@@ -17,6 +17,7 @@ mylar.core.tests
     - plugin.xml (merge)
   
 - mylar.java
+  NEW: MylarJavaPrefConstants
   - java
     - TypeHistoryManager
     - ActiveFoldingEditorTracker
