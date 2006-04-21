@@ -55,8 +55,9 @@ public class HypertextStructureBridge implements IMylarStructureBridge {
 	}
 
 	public String getParentHandle(String handle) {
-		if (handle == null)
+		if (handle == null || "".equals(handle)) {
 			return null;
+		}
 		int protocolEnd = handle.indexOf("//") + 2;
 		if (protocolEnd != -1) {
 			String withoutProtocol = handle.substring(protocolEnd);
