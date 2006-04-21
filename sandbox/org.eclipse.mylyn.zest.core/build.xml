@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="ca.uvic.cs.zest" default="build.jars" basedir=".">
+<project name="org.eclipse.mylar.zest.core" default="build.jars" basedir=".">
 
 	<property name="basews" value="${ws}"/>
 	<property name="baseos" value="${os}"/>
@@ -9,23 +9,27 @@
 	<!-- Compiler settings. -->
 	<property name="javacFailOnError" value="false"/>
 	<property name="javacDebugInfo" value="on"/>
-	<property name="javacVerbose" value="true"/>
+	<property name="javacVerbose" value="false"/>
+	<property name="logExtension" value=".log"/>
+	<property name="compilerArg" value=""/>
 	<property name="javacSource" value="1.3"/>
 	<property name="javacTarget" value="1.2"/>
-	<property name="compilerArg" value=""/>
 	<path id="path_bootclasspath">
 		<fileset dir="${java.home}/lib">
 			<include name="*.jar"/>
 		</fileset>
 	</path>
 	<property name="bootclasspath" refid="path_bootclasspath"/>
+	<property name="bundleJavacSource" value="${javacSource}"/>
+	<property name="bundleJavacTarget" value="${javacTarget}"/>
+	<property name="bundleBootClasspath" value="${bootclasspath}"/>
 
 	<target name="init" depends="properties">
 		<condition property="pluginTemp" value="${buildTempFolder}/plugins">
 			<isset property="buildTempFolder"/>
 		</condition>
 		<property name="pluginTemp" value="${basedir}"/>
-		<condition property="build.result.folder" value="${pluginTemp}/ca.uvic.cs.zest">
+		<condition property="build.result.folder" value="${pluginTemp}/org.eclipse.mylar.zest.core">
 			<isset property="buildTempFolder"/>
 		</condition>
 		<property name="build.result.folder" value="${basedir}"/>
@@ -38,165 +42,102 @@
 
 	</target>
 
-	<target name="build.update.jar" depends="init" description="Build the plug-in: ca.uvic.cs.zest for an update site.">
+	<target name="build.update.jar" depends="init" description="Build the plug-in: org.eclipse.mylar.zest.core for an update site.">
 		<delete dir="${temp.folder}"/>
 		<mkdir dir="${temp.folder}"/>
 		<antcall target="build.jars"/>
 		<antcall target="gather.bin.parts">
 			<param name="destination.temp.folder" value="${temp.folder}/"/>
 		</antcall>
-		<zip destfile="${plugin.destination}/ca.uvic.cs.zest_1.0.0.jar" basedir="${temp.folder}/ca.uvic.cs.zest_1.0.0" filesonly="false" whenempty="skip" update="false"/>
+		<zip destfile="${plugin.destination}/org.eclipse.mylar.zest.core_0.3.1.jar" basedir="${temp.folder}/org.eclipse.mylar.zest.core_0.3.1" filesonly="false" whenempty="skip" update="false"/>
 		<delete dir="${temp.folder}"/>
 	</target>
 
-	<target name="ca.uvic.cs.zest.jar" depends="init" unless="ca.uvic.cs.zest.jar" description="Create jar: ca.uvic.cs.zest ca.uvic.cs.zest.jar.">
-		<delete dir="${temp.folder}/ca.uvic.cs.zest.jar.bin"/>
-		<mkdir dir="${temp.folder}/ca.uvic.cs.zest.jar.bin"/>
+	<target name="@dot" depends="init" unless="@dot" description="Create jar: org.eclipse.mylar.zest.core @dot.">
+		<delete dir="${temp.folder}/@dot.bin"/>
+		<mkdir dir="${temp.folder}/@dot.bin"/>
+		<path id="@dot.classpath">
+			<pathelement path="../../../../../eclipse/eclipse/plugins/com.ibm.icu_3.4.3.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.ui_3.2.0.I20060413-1200.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.core.runtime_3.2.0.v20060412-2000.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.core.runtime.compatibility.registry_3.2.0.v20060411/runtime_registry_compatibility.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.core.runtime.compatibility.registry_3.2.0.v20060411/@dot"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.equinox.registry_3.2.0.v20060411.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.osgi_3.2.0.v20060413-1200.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.core.jobs_3.2.0.v20060411.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.equinox.common_3.2.0.v20060411.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.equinox.preferences_3.2.0.v20060412-1700.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.core.contenttype_3.2.0.v20060411.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.core.runtime.compatibility.auth_3.2.0.v20060413-1200.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.swt_3.2.0.v3230b.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.swt.win32.win32.x86_3.2.0.v3230.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.jface_3.2.0.I20060413-1200.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.core.commands_3.2.0.I20060412-2000.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.ui.workbench_3.2.0.I20060413-1200.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.ui.workbench.compatibility_3.2.0.I20060207-0800/@dot"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.ui.workbench.compatibility_3.2.0.I20060207-0800/compatibility.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.help_3.2.0.v20060412.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.core.expressions_3.2.0.v20060412-1600.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.core.resources_3.2.0.v20060411.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.core.resources.compatibility_3.2.0.v20060411.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.core.resources.win32_3.2.0.v20060413.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.core.runtime.compatibility_3.1.100.v20060413-1200.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.update.configurator_3.1.100.v20060412.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.ant.core_3.1.100.v20060412.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.core.variables_3.1.100.v20060411.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.core.filesystem_1.0.0.v20060411.jar"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.core.filesystem.win32.x86_1.0.0.v20051114.jar"/>
+			<pathelement path="${build.result.folder}/../org.eclipse.mylar.zest.layouts/bin/"/>
+			<pathelement path="${build.result.folder}/../org.eclipse.mylar.zest.layouts/@dot"/>
+			<pathelement path="${build.result.folder}/../org.eclipse.gef/bin"/>
+			<pathelement path="${build.result.folder}/../org.eclipse.gef/@dot"/>
+			<pathelement path="${build.result.folder}/../org.eclipse.draw2d/bin"/>
+			<pathelement path="${build.result.folder}/../org.eclipse.draw2d/@dot"/>
+			<pathelement path="../../../../../eclipse/eclipse/plugins/org.eclipse.ui.views_3.2.0.I20060413-1200.jar"/>
+		</path>
 		<!-- compile the source code -->
-		<javac destdir="${temp.folder}/ca.uvic.cs.zest.jar.bin" failonerror="${javacFailOnError}" verbose="${javacVerbose}" debug="${javacDebugInfo}" includeAntRuntime="no" bootclasspath="${bootclasspath}" source="${javacSource}" target="${javacTarget}"		>
+		<javac destdir="${temp.folder}/@dot.bin" failonerror="${javacFailOnError}" verbose="${javacVerbose}" debug="${javacDebugInfo}" includeAntRuntime="no" bootclasspath="${bundleBootClasspath}" source="${bundleJavacSource}" target="${bundleJavacTarget}"		>
 			<compilerarg line="${compilerArg}"/>
-			<classpath>
-				<pathelement path="../org.eclipse.ui_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.core.runtime_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.osgi_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.help_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.swt_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.swt.gtk.linux.x86_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.jface_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.core.commands_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.ui.workbench_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.ui.workbench.compatibility_3.1.0/compatibility.jar"/>
-				<pathelement path="../org.eclipse.ui.workbench.compatibility_3.1.0/@dot"/>
-				<pathelement path="../org.eclipse.core.expressions_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.core.resources_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.core.resources.linux_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.core.resources.compatibility_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.core.runtime.compatibility_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.update.configurator_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.ant.core_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.core.variables_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.gef/bin"/>
-				<pathelement path="../org.eclipse.gef/@dot"/>
-				<pathelement path="../org.eclipse.draw2d/bin"/>
-				<pathelement path="../org.eclipse.draw2d/@dot"/>
-				<pathelement path="../org.eclipse.ui.views_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.mylar.zest.layouts/bin"/>
-				<pathelement path="../org.eclipse.mylar.zest.layouts/lib/prefusex_force.jar"/>
-				<pathelement path="../org.eclipse.mylar.zest.layouts/lib/prefusex.jar"/>
-				<pathelement path="../org.eclipse.emf.codegen/bin/"/>
-				<pathelement path="../org.eclipse.emf.codegen/codegen.jar"/>
-				<pathelement path="../org.eclipse.emf.common/bin/"/>
-				<pathelement path="../org.eclipse.emf.common/common.jar"/>
-				<pathelement path="../org.eclipse.jdt.core_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.text_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.team.core_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.jdt.launching_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.debug.core_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.jdt.debug_3.1.0/jdi.jar"/>
-				<pathelement path="../org.eclipse.jdt.debug_3.1.0/jdimodel.jar"/>
-				<pathelement path="../org.eclipse.jdt.debug_3.1.0/tools.jar"/>
-				<pathelement path="../org.eclipse.emf.ecore/bin/"/>
-				<pathelement path="../org.eclipse.emf.ecore/ecore.jar"/>
-				<pathelement path="../org.eclipse.emf/@dot"/>
-				<pathelement path="../org.eclipse.pde_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.pde.core_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.core.filebuffers_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.pde.ui_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.ui.ide_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.update.core_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.update.core.linux_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.update.ui_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.ui.forms_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.jface.text_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.ui.workbench.texteditor_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.ui.editors_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.debug.ui_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.ui.console_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.jdt.debug.ui_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.jdt.ui_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.search_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.compare_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.ltk.core.refactoring_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.ltk.ui.refactoring_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.pde.build_3.1.0/pdebuild.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-antlr.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-apache-bcel.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-apache-bsf.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-apache-log4j.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-apache-oro.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-apache-regexp.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-apache-resolver.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-commons-logging.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-commons-net.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-icontract.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-jai.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-javamail.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-jdepend.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-jmf.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-jsch.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-junit.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-launcher.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-netrexx.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-nodeps.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-starteam.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-stylebook.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-swing.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-trax.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-vaj.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-weblogic.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-xalan1.jar"/>
-				<pathelement path="../org.apache.ant_1.6.4/lib/ant-xslp.jar"/>
-				<pathelement path="../org.eclipse.ant.ui_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.ui.externaltools_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.jdt.junit_3.1.0/junitsupport.jar"/>
-				<pathelement path="../org.eclipse.jdt.junit.runtime_3.1.0/junitruntime.jar"/>
-				<pathelement path="../org.junit_3.8.1/junit.jar"/>
-				<pathelement path="../org.eclipse.ui.intro_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.ui.cheatsheets_3.1.0.jar"/>
-				<pathelement path="../org.eclipse.help.base_3.1.0.jar"/>
-				<pathelement path="../org.apache.lucene_1.4.3/lucene-1.4.3.jar"/>
-				<pathelement path="../org.apache.lucene_1.4.3/parser.jar"/>
-				<pathelement path="../org.eclipse.help.appserver_3.1.0.jar"/>
-			</classpath>
+			<classpath refid="@dot.classpath" />
 			<src path="src/"			/>
-			<src path="icons/"			/>
-			</javac>
+			<compilerarg value="@${basedir}/javaCompiler...args" compiler="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+			<compilerarg line="-log '${temp.folder}/@dot.bin${logExtension}'" compiler="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+		</javac>
 		<!-- Copy necessary resources -->
-		<copy todir="${temp.folder}/ca.uvic.cs.zest.jar.bin" failonerror="true" overwrite="false">
-			<fileset dir="src/" excludes="**/*.java, **/package.htm*,null"			/>
-			<fileset dir="icons/" excludes="**/*.java, **/package.htm*,null"			/>
+		<copy todir="${temp.folder}/@dot.bin" failonerror="true" overwrite="false">
+			<fileset dir="src/" excludes="**/*.java, **/package.htm*"			/>
 		</copy>
 		<mkdir dir="${build.result.folder}"/>
-		<jar destfile="${build.result.folder}/ca.uvic.cs.zest.jar" basedir="${temp.folder}/ca.uvic.cs.zest.jar.bin"/>
-		<delete dir="${temp.folder}/ca.uvic.cs.zest.jar.bin"/>
+		<copy todir="${build.result.folder}/@dot" failonerror="true" overwrite="false">
+			<fileset dir="${temp.folder}/@dot.bin"			/>
+		</copy>
+		<delete dir="${temp.folder}/@dot.bin"/>
 	</target>
 
-	<target name="ca.uvic.cs.zestsrc.zip" depends="init" unless="ca.uvic.cs.zestsrc.zip">
+	<target name="src.zip" depends="init" unless="src.zip">
 		<mkdir dir="${build.result.folder}"/>
-		<zip destfile="${build.result.folder}/ca.uvic.cs.zestsrc.zip" filesonly="false" whenempty="skip" update="false">
+		<zip destfile="${build.result.folder}/src.zip" filesonly="false" whenempty="skip" update="false">
 			<fileset dir="src/" includes="**/*.java"			/>
-			<fileset dir="icons/" includes="**/*.java"			/>
 		</zip>
 	</target>
 
-	<target name="build.jars" depends="init" description="Build all the jars for the plug-in: ca.uvic.cs.zest.">
-		<available property="ca.uvic.cs.zest.jar" file="${build.result.folder}/ca.uvic.cs.zest.jar"/>
-		<antcall target="ca.uvic.cs.zest.jar"/>
+	<target name="build.jars" depends="init" description="Build all the jars for the plug-in: org.eclipse.mylar.zest.core.">
+		<available property="@dot" file="${build.result.folder}/@dot"/>
+		<antcall target="@dot"/>
 	</target>
 
 	<target name="build.sources" depends="init">
-		<available property="ca.uvic.cs.zestsrc.zip" file="${build.result.folder}/ca.uvic.cs.zestsrc.zip"/>
-		<antcall target="ca.uvic.cs.zestsrc.zip"/>
+		<available property="src.zip" file="${build.result.folder}/src.zip"/>
+		<antcall target="src.zip"/>
 	</target>
 
 	<target name="gather.bin.parts" depends="init" if="destination.temp.folder">
-		<mkdir dir="${destination.temp.folder}/ca.uvic.cs.zest_1.0.0"/>
-		<copy todir="${destination.temp.folder}/ca.uvic.cs.zest_1.0.0" failonerror="true" overwrite="false">
-			<fileset dir="${build.result.folder}" includes="ca.uvic.cs.zest.jar"			/>
+		<mkdir dir="${destination.temp.folder}/org.eclipse.mylar.zest.core_0.3.1"/>
+		<copy todir="${destination.temp.folder}/org.eclipse.mylar.zest.core_0.3.1" failonerror="true" overwrite="false">
+			<fileset dir="${build.result.folder}/@dot" includes="**"			/>
 		</copy>
-		<copy todir="${destination.temp.folder}/ca.uvic.cs.zest_1.0.0" failonerror="true" overwrite="false">
-			<fileset dir="${basedir}" includes="META-INF/,bin/,icons/,plugin.xml,templates/,ca.uvic.cs.zest.jar"			/>
+		<copy todir="${destination.temp.folder}/org.eclipse.mylar.zest.core_0.3.1" failonerror="true" overwrite="false">
+			<fileset dir="${basedir}" includes="plugin.xml,META-INF/,bin/"			/>
 		</copy>
 	</target>
 
@@ -204,32 +145,29 @@
 	</target>
 
 	<target name="gather.sources" depends="init" if="destination.temp.folder">
-		<mkdir dir="${destination.temp.folder}/ca.uvic.cs.zest_1.0.0"/>
-		<copy file="${build.result.folder}/ca.uvic.cs.zestsrc.zip" todir="${destination.temp.folder}/ca.uvic.cs.zest_1.0.0" failonerror="false" overwrite="false"/>
-		<copy todir="${destination.temp.folder}/ca.uvic.cs.zest_1.0.0" failonerror="false" overwrite="false">
-			<fileset dir="${basedir}" includes="META-INF/,src/,icons/,templateSource/,plugin.xml,templates/"			/>
-		</copy>
+		<mkdir dir="${destination.temp.folder}/org.eclipse.mylar.zest.core_0.3.1"/>
+		<copy file="${build.result.folder}/src.zip" todir="${destination.temp.folder}/org.eclipse.mylar.zest.core_0.3.1" failonerror="false" overwrite="false"/>
 	</target>
 
 	<target name="gather.logs" depends="init" if="destination.temp.folder">
-		<mkdir dir="${destination.temp.folder}/ca.uvic.cs.zest_1.0.0"/>
-		<copy file="${temp.folder}/ca.uvic.cs.zest.jar.bin.log" todir="${destination.temp.folder}/ca.uvic.cs.zest_1.0.0" failonerror="false" overwrite="false"/>
+		<mkdir dir="${destination.temp.folder}/org.eclipse.mylar.zest.core_0.3.1"/>
+		<copy file="${temp.folder}/@dot.bin${logExtension}" todir="${destination.temp.folder}/org.eclipse.mylar.zest.core_0.3.1" failonerror="false" overwrite="false"/>
 	</target>
 
-	<target name="clean" depends="init" description="Clean the plug-in: ca.uvic.cs.zest of all the zips, jars and logs created.">
-		<delete file="${build.result.folder}/ca.uvic.cs.zest.jar"/>
-		<delete file="${build.result.folder}/ca.uvic.cs.zestsrc.zip"/>
-		<delete file="${plugin.destination}/ca.uvic.cs.zest_1.0.0.jar"/>
-		<delete file="${plugin.destination}/ca.uvic.cs.zest_1.0.0.zip"/>
+	<target name="clean" depends="init" description="Clean the plug-in: org.eclipse.mylar.zest.core of all the zips, jars and logs created.">
+		<delete dir="${build.result.folder}/@dot"/>
+		<delete file="${build.result.folder}/src.zip"/>
+		<delete file="${plugin.destination}/org.eclipse.mylar.zest.core_0.3.1.jar"/>
+		<delete file="${plugin.destination}/org.eclipse.mylar.zest.core_0.3.1.zip"/>
 		<delete dir="${temp.folder}"/>
 	</target>
 
 	<target name="refresh" depends="init" if="eclipse.running" description="Refresh this folder.">
-		<eclipse.convertPath fileSystemPath="/home/irbull/local/eclipse/plugins/ca.uvic.cs.zest" property="resourcePath"/>
+		<eclipse.convertPath fileSystemPath="C:/Documents and Settings/irbull/eclipse/zest/org.eclipse.mylar.zest.core" property="resourcePath"/>
 		<eclipse.refreshLocal resource="${resourcePath}" depth="infinite"/>
 	</target>
 
-	<target name="zip.plugin" depends="init" description="Create a zip containing all the elements for the plug-in: ca.uvic.cs.zest.">
+	<target name="zip.plugin" depends="init" description="Create a zip containing all the elements for the plug-in: org.eclipse.mylar.zest.core.">
 		<delete dir="${temp.folder}"/>
 		<mkdir dir="${temp.folder}"/>
 		<antcall target="build.jars"/>
@@ -241,9 +179,9 @@
 			<param name="destination.temp.folder" value="${temp.folder}/"/>
 		</antcall>
 		<delete>
-			<fileset dir="${temp.folder}" includes="**/*.bin.log"			/>
+			<fileset dir="${temp.folder}" includes="**/*.bin${logExtension}"			/>
 		</delete>
-		<zip destfile="${plugin.destination}/ca.uvic.cs.zest_1.0.0.zip" basedir="${temp.folder}" filesonly="true" whenempty="skip" update="false"/>
+		<zip destfile="${plugin.destination}/org.eclipse.mylar.zest.core_0.3.1.zip" basedir="${temp.folder}" filesonly="true" whenempty="skip" update="false"/>
 		<delete dir="${temp.folder}"/>
 	</target>
 
