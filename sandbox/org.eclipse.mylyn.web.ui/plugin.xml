@@ -23,13 +23,43 @@
 -->
 
 <!--
+  <extension  
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <navigatorContent
+            activeByDefault="true"
+            contentProvider="org.eclipse.mylar.internal.hypertext.ui.editors.WebResourceContentProvider"
+            icon="icons/etool16/browser-editor.gif"
+            id="org.eclipse.mylar.hypertext.navigator.webContent"
+            labelProvider="org.eclipse.mylar.internal.hypertext.ui.editors.WebResourceLabelProvider"
+            name="Web Pages"
+            priority="low">
+		 <triggerPoints> 
+		 	<or>
+			<instanceof
+				value="java.lang.String"/>
+			</or>
+		</triggerPoints>              
+      </navigatorContent>
+  </extension>
+
+   <extension
+         point="org.eclipse.ui.navigator.viewer">
+		<viewerContentBinding 
+             viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+          <includes>	       	      
+	          <contentExtension pattern="org.eclipse.mylar.hypertext.navigator.webContent"/>
+          </includes>
+       </viewerContentBinding>
+  </extension>
+-->
+
   <extension point="org.eclipse.ui.actionSets">
 	<actionSet
             id="org.eclipse.mylar.browser.actionSet"
             label="Mylar Browser"
             visible="true"> 
   		<action
-          class="org.eclipse.mylar.hypertext.ui.actions.NewWebBrowserAction"
+          class="org.eclipse.mylar.internal.hypertext.ui.actions.NewWebBrowserAction"
           definitionId="org.eclipse.mylar.browser.tab.new"
           icon="icons/etool16/browser-editor.gif" 
           id="org.eclipse.mylar.browser.editor.new"
@@ -40,7 +70,6 @@
       	</action> 
     </actionSet>
    </extension>
--->
 
    <extension point="org.eclipse.ui.commands">
 	  <command
