@@ -14,11 +14,7 @@ package org.eclipse.mylar.internal.hypertext.ui.editors;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.Action;
@@ -26,31 +22,20 @@ import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.viewers.IColorProvider;
 import org.eclipse.jface.viewers.IOpenListener;
-import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.ITableLabelProvider;
-import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.OpenEvent;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.mylar.internal.hypertext.HypertextStructureBridge;
-import org.eclipse.mylar.internal.tasklist.ui.TaskListColorsAndFonts;
 import org.eclipse.mylar.internal.tasklist.ui.TaskListImages;
-import org.eclipse.mylar.internal.ui.MylarImages;
 import org.eclipse.mylar.provisional.core.IMylarContext;
 import org.eclipse.mylar.provisional.core.IMylarContextListener;
 import org.eclipse.mylar.provisional.core.IMylarElement;
-import org.eclipse.mylar.provisional.core.IMylarStructureBridge;
 import org.eclipse.mylar.provisional.core.MylarPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseTrackListener;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Cursor;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
@@ -84,9 +69,7 @@ public class WebElementsEditor extends EditorPart {
 
 	private List<String> links;
 
-	private RelatedLinksContentProvider contentProvider;
-
-	private Map<String, List<String>> sitesMap = new HashMap<String, List<String>>();
+	private WebResourceContentProvider contentProvider;
 
 	private Action add;
 
@@ -243,9 +226,9 @@ public class WebElementsEditor extends EditorPart {
 		// tableViewer.setCellEditors(editors);
 		// tableViewer.setCellModifier(new RelatedLinksCellModifier());
 
-		contentProvider = new RelatedLinksContentProvider();
+		contentProvider = new WebResourceContentProvider();
 		treeViewer.setContentProvider(contentProvider);
-		treeViewer.setLabelProvider(new RelatedLinksLabelProvider());
+		treeViewer.setLabelProvider(new WebResourceLabelProvider());
 		treeViewer.addOpenListener(new IOpenListener() {
 			public void open(OpenEvent event) {
 				String url = (String) ((IStructuredSelection) treeViewer.getSelection()).getFirstElement();
@@ -297,7 +280,7 @@ public class WebElementsEditor extends EditorPart {
 		// });
 		linksTree.addMouseTrackListener(new MouseTrackListener() {
 			public void mouseEnter(MouseEvent e) {
-				if (!((RelatedLinksContentProvider) treeViewer.getContentProvider()).isEmpty()) {
+				if (!((WebResourceContentProvider) treeViewer.getContentProvider()).isEmpty()) {
 					Cursor hyperlinkCursor = new Cursor(Display.getCurrent(), SWT.CURSOR_HAND);
 					Display.getCurrent().getCursorControl().setCursor(hyperlinkCursor);
 				}
@@ -311,7 +294,7 @@ public class WebElementsEditor extends EditorPart {
 			}
 
 			public void mouseHover(MouseEvent e) {
-				if (!((RelatedLinksContentProvider) treeViewer.getContentProvider()).isEmpty()) {
+				if (!((WebResourceContentProvider) treeViewer.getContentProvider()).isEmpty()) {
 					Cursor hyperlinkCursor = new Cursor(Display.getCurrent(), SWT.CURSOR_HAND);
 					Display.getCurrent().getCursorControl().setCursor(hyperlinkCursor);
 				}
@@ -342,74 +325,6 @@ public class WebElementsEditor extends EditorPart {
 	// }
 	// });
 	// }
-
-	private class RelatedLinksContentProvider implements IStructuredContentProvider, ITreeContentProvider {
-
-		@SuppressWarnings("unchecked")
-		public Object[] getElements(Object parent) {
-			sitesMap.clear();
-			if (parent instanceof ArrayList) {
-				List<String> webDocs = (ArrayList<String>) parent;
-				IMylarStructureBridge bridge = MylarPlugin.getDefault().getStructureBridge(
-						HypertextStructureBridge.CONTENT_TYPE);
-				Set<String> sites = new HashSet<String>();
-				for (String link : webDocs) {
-					String webSite = bridge.getParentHandle(link);
-					if (webSite != null) {
-						sites.add(webSite);
-						List<String> pages = sitesMap.get(webSite);
-						if (pages == null) {
-							pages = new ArrayList<String>();
-							sitesMap.put(webSite, pages);
-						}
-						pages.add(link);
-					}
-				}
-				if (sites.size() > 0) {
-					return sites.toArray();
-				} else {
-					return new String[] { "Task context not activated" };
-				}
-			} else {
-				return getChildren(parent);
-			}
-		}
-
-		public void dispose() {
-			// don't care if we are disposed
-		}
-
-		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-			// don't care if the input chages
-		}
-
-		public boolean isEmpty() {
-			return false;
-		}
-
-		public Object[] getChildren(Object parentElement) {
-			if (parentElement instanceof String) {
-				String site = (String) parentElement;
-				List<String> pages = sitesMap.get(site);
-				if (pages != null)
-					return pages.toArray();
-			}
-			return null;
-		}
-
-		public Object getParent(Object element) {
-			return null;
-		}
-
-		public boolean hasChildren(Object parentElement) {
-			if (parentElement instanceof String) {
-				String site = (String) parentElement;
-				List<String> pages = sitesMap.get(site);
-				return pages != null && pages.size() > 0;
-			}
-			return false;
-		}
-	}
 
 	private void addLinkToTable() {
 		// InputDialog dialog = new InputDialog(Display.getDefault()
@@ -493,40 +408,6 @@ public class WebElementsEditor extends EditorPart {
 		} catch (MalformedURLException e) {
 			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
 					+ " could not be opened");
-		}
-	}
-
-	private class RelatedLinksLabelProvider extends LabelProvider implements ITableLabelProvider, IColorProvider {
-
-		public String getColumnText(Object obj, int columnIndex) {
-			String result = "";
-			if (obj instanceof String) {
-				switch (columnIndex) {
-				case 0:
-					result = (String) obj;
-					break;
-				default:
-					break;
-				}
-			}
-			return result;
-		}
-
-		public Image getColumnImage(Object obj, int columnIndex) {
-			if (columnIndex == 0) {
-				if (!sitesMap.containsKey(obj)) {
-					return MylarImages.getImage(MylarImages.WEB_DOCUMENT);
-				}
-			}
-			return null;
-		}
-
-		public Color getForeground(Object element) {
-			return TaskListColorsAndFonts.COLOR_HYPERLINK;
-		}
-
-		public Color getBackground(Object element) {
-			return null;
 		}
 	}
 
