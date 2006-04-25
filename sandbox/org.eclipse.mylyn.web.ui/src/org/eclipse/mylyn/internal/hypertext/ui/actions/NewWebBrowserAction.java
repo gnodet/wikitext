@@ -30,7 +30,7 @@ import org.eclipse.ui.internal.browser.WorkbenchBrowserSupport;
 public class NewWebBrowserAction implements IWorkbenchWindowActionDelegate {
 
 	public void run(IAction action) {
-		String url = "http://eclipse.org";
+		String url = "http://google.com"; 
 		try {
 			IWebBrowser browser = null;
 			int flags = 0;

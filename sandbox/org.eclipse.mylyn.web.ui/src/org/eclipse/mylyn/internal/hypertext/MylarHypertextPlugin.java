@@ -26,12 +26,18 @@ public class MylarHypertextPlugin extends AbstractUIPlugin {
 
 	private static MylarHypertextPlugin plugin;
 
+	private WebResourceManager webResourceManager = new WebResourceManager();
+	
 	private BrowserTracker browserTracker;
 
 	public MylarHypertextPlugin() {
 		plugin = this;
 	}
 
+	public static WebResourceManager getWebResourceManager() {
+		return plugin.webResourceManager;
+	}
+	
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		final IWorkbench workbench = PlatformUI.getWorkbench();
