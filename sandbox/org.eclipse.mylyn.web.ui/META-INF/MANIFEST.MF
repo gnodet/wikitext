@@ -13,7 +13,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.mylar.tasklist,
  org.eclipse.ui.forms,
- org.eclipse.jface.text
+ org.eclipse.jface.text,
+ org.eclipse.ui.navigator,
+ org.eclipse.ui.navigator.resources
 Eclipse-AutoStart: true
 Export-Package: org.eclipse.mylar.internal.hypertext
 Bundle-Vendor: Eclipse.org
