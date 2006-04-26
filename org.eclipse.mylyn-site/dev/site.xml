@@ -3,16 +3,16 @@
    <description url="http://download.eclipse.org/technology/mylar/update-site/e3.2">
       Mylar update site for Eclipse 3.2
    </description>
-   <feature url="features/org.eclipse.mylar_feature_0.5.0.v20060421-1930.jar" id="org.eclipse.mylar_feature" version="0.5.0.v20060421-1930">
+   <feature url="features/org.eclipse.mylar_feature_0.5.0.v20060425-2030.jar" id="org.eclipse.mylar_feature" version="0.5.0.v20060425-2030">
       <category name="Mylar for Eclipse 3.2"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.ide_feature_0.5.0.v20060421-1930.jar" id="org.eclipse.mylar.ide_feature" version="0.5.0.v20060421-1930">
+   <feature url="features/org.eclipse.mylar.ide_feature_0.5.0.v20060425-2030.jar" id="org.eclipse.mylar.ide_feature" version="0.5.0.v20060425-2030">
       <category name="Mylar for Eclipse 3.2"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.bugzilla_feature_0.5.0.v20060421-1930.jar" id="org.eclipse.mylar.bugzilla_feature" version="0.5.0.v20060421-1930">
+   <feature url="features/org.eclipse.mylar.bugzilla_feature_0.5.0.v20060425-2030.jar" id="org.eclipse.mylar.bugzilla_feature" version="0.5.0.v20060425-2030">
       <category name="Task Repository Integration"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.jira_feature_0.5.0.v20060421-1930.jar" id="org.eclipse.mylar.jira_feature" version="0.5.0.v20060421-1930">
+   <feature url="features/org.eclipse.mylar.jira_feature_0.5.0.v20060425-2030.jar" id="org.eclipse.mylar.jira_feature" version="0.5.0.v20060425-2030">
       <category name="Task Repository Integration"/>
    </feature>
    <feature url="http://jira-dashboard.tigris.org/update/features/org.tigris.jira.core_0.8.0.jar" id="org.tigris.jira.core" version="0.8.0">

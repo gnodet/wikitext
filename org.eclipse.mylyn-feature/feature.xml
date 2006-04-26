@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.mylar_feature"
       label="Mylar Task List (Required)"
-      version="0.5.0.v20060421-1930"
+      version="0.5.0.v20060425-2030"
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylar">
 
@@ -223,35 +223,35 @@ litigation.
       <import plugin="org.eclipse.core.resources" version="0.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.browser"/>
       <import plugin="org.eclipse.ui.forms" version="0.0.0" match="greaterOrEqual"/>
-      <import feature="org.eclipse.platform" version="3.2.0.N20060324" match="greaterOrEqual"/>
+      <import feature="org.eclipse.platform" version="3.2.0.N20060424" match="greaterOrEqual"/>
    </requires>
 
    <plugin
          id="org.eclipse.mylar.doc"
          download-size="0"
          install-size="0"
-         version="0.5.0.v20060421-1930"
+         version="0.5.0.v20060425-2030"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.mylar"
          download-size="0"
          install-size="0"
-         version="0.5.0.v20060421-1930"
+         version="0.5.0.v20060425-2030"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.mylar.core"
          download-size="0"
          install-size="0"
-         version="0.5.0.v20060421-1930"
+         version="0.5.0.v20060425-2030"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.mylar.tasklist"
          download-size="0"
          install-size="0"
-         version="0.5.0.v20060421-1930"
+         version="0.5.0.v20060425-2030"
          unpack="false"/>
 
 </feature>
