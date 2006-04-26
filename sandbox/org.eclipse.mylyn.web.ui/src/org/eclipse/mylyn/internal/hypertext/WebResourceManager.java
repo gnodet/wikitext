@@ -26,5 +26,4 @@ public class WebResourceManager {
 		return sitesMap;
 	}
 
-	
 }
