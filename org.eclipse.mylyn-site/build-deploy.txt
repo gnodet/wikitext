@@ -1,3 +1,6 @@
-Mylar deployment instructions:
+Build
+- Update each feature dependent on mylar-feature to depend on the current version
+
+Deploy:
 - copy the e3.x directories to the update site directory
 - zip each directory to mylar-site-local-e3.x.zip
