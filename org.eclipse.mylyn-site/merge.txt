@@ -10,11 +10,14 @@ mylar.core.tests
 - mylar.ide
   - team
   	- MylarContextChangeSet
+  	- MylarContextChangeSetManager
   - ui
     - ProblemsListInterestFilter
+    - ProblemsListDoiSorter
+  - ui.actions
     - ApplyMylarToProjectExplorerAction
     - OpenCorrespondingTaskAction (merge)
-    - plugin.xml (merge)
+  - plugin.xml (merge)
   
 - mylar.java
   NEW: MylarJavaPrefConstants
