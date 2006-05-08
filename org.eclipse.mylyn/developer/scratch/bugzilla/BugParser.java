@@ -29,7 +29,7 @@ import javax.security.auth.login.LoginException;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.mylar.bugzilla.core.Attribute;
+import org.eclipse.mylar.bugzilla.core.AbstractRepositoryReportAttribute;
 import org.eclipse.mylar.bugzilla.core.BugReport;
 import org.eclipse.mylar.bugzilla.core.Comment;
 import org.eclipse.mylar.bugzilla.core.Operation;
@@ -139,7 +139,7 @@ public class BugParser {
 				parseInput(bug, attributeName, tag, serverUrl, userName, password);
 			} else if (!tag.isEndTag() || attributeName.equalsIgnoreCase(KEY_RESOLUTION)) {
 				if (tag.isEndTag() && attributeName.equalsIgnoreCase(KEY_RESOLUTION)) {
-					Attribute a = new Attribute(attributeName);
+					AbstractRepositoryReportAttribute a = new AbstractRepositoryReportAttribute(attributeName);
 					a.setValue("");
 					bug.addAttribute(a);
 				}
@@ -179,7 +179,7 @@ public class BugParser {
 
 		// create a new attribute and set its value to the value that we
 		// retrieved
-		Attribute a = new Attribute(attributeName);
+		AbstractRepositoryReportAttribute a = new AbstractRepositoryReportAttribute(attributeName);
 		a.setValue(sb.toString());
 
 		// if we found an attachment attribute, forget about it, else add the
@@ -245,8 +245,8 @@ public class BugParser {
 			HtmlStreamTokenizer tokenizer) throws IOException, ParseException {
 
 		boolean first = false;
-		Attribute a = new Attribute(attributeName);
-		a.setParameterName(parameterName);
+		AbstractRepositoryReportAttribute a = new AbstractRepositoryReportAttribute(attributeName);
+		a.setID(parameterName);
 
 		Token token = tokenizer.nextToken();
 		while (token.getType() != Token.EOF) {
@@ -303,8 +303,8 @@ public class BugParser {
 	private static void parseInput(BugReport bug, String attributeName, HtmlTag tag, String serverUrl, String userName,
 			String password) throws IOException {
 
-		Attribute a = new Attribute(attributeName);
-		a.setParameterName(tag.getAttribute(KEY_NAME));
+		AbstractRepositoryReportAttribute a = new AbstractRepositoryReportAttribute(attributeName);
+		a.setID(tag.getAttribute(KEY_NAME));
 		String name = tag.getAttribute(KEY_NAME);
 		String value = tag.getAttribute(KEY_VALUE);
 		if (value == null)
@@ -742,7 +742,7 @@ public class BugParser {
 							date = attribute.substring(6).trim();
 
 						// create a new attribute and set the date
-						Attribute t = new Attribute("Last Modified");
+						AbstractRepositoryReportAttribute t = new AbstractRepositoryReportAttribute("Last Modified");
 						t.setValue(date);
 
 						// add the attribute to the bug report
@@ -814,7 +814,7 @@ public class BugParser {
 							date = sb.substring(6).trim();
 
 						// create a new attribute and set the date
-						Attribute t = new Attribute("Last Modified");
+						AbstractRepositoryReportAttribute t = new AbstractRepositoryReportAttribute("Last Modified");
 						t.setValue(date);
 
 						// add the attribute to the bug report
@@ -866,8 +866,8 @@ public class BugParser {
 				if (tag.getTagType() == HtmlTag.Type.INPUT && tag.getAttribute("type") != null
 						&& "hidden".equalsIgnoreCase(tag.getAttribute("type").trim())) {
 
-					Attribute a = new Attribute(tag.getAttribute(KEY_NAME));
-					a.setParameterName(tag.getAttribute(KEY_NAME));
+					AbstractRepositoryReportAttribute a = new AbstractRepositoryReportAttribute(tag.getAttribute(KEY_NAME));
+					a.setID(tag.getAttribute(KEY_NAME));
 					a.setValue(tag.getAttribute(KEY_VALUE));
 					a.setHidden(true);
 					bug.addAttribute(a);

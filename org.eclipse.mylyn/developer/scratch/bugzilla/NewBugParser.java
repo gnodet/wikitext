@@ -17,9 +17,9 @@ import java.text.ParseException;
 
 import javax.security.auth.login.LoginException;
 
-import org.eclipse.mylar.bugzilla.core.Attribute;
+import org.eclipse.mylar.bugzilla.core.AbstractRepositoryReportAttribute;
 import org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants;
-import org.eclipse.mylar.internal.bugzilla.core.NewBugModel;
+import org.eclipse.mylar.internal.bugzilla.core.NewBugzillaReport;
 import org.eclipse.mylar.internal.bugzilla.core.internal.HtmlStreamTokenizer.Token;
 
 /**
@@ -27,7 +27,7 @@ import org.eclipse.mylar.internal.bugzilla.core.internal.HtmlStreamTokenizer.Tok
  * 
  * This class parses the valid attribute values for a new bug
  */
-public class NewBugParser {
+class NewBugParser {
 	/** Tokenizer used on the stream */
 	private HtmlStreamTokenizer tokenizer;
 
@@ -48,7 +48,7 @@ public class NewBugParser {
 	 * @throws ParseException
 	 * @throws LoginException
 	 */
-	public void parseBugAttributes(NewBugModel nbm, boolean retrieveProducts) throws IOException, ParseException,
+	public void parseBugAttributes(NewBugzillaReport nbm, boolean retrieveProducts) throws IOException, ParseException,
 			LoginException {
 		nbm.attributes.clear(); // clear any attriubtes in bug model from a
 		// previous product
@@ -164,8 +164,8 @@ public class NewBugParser {
 				HtmlTag tag = (HtmlTag) token.getValue();
 				if (tag.getTagType() == HtmlTag.Type.INPUT && tag.getAttribute("type") != null
 						&& "hidden".equalsIgnoreCase(tag.getAttribute("type").trim())) {
-					Attribute a = new Attribute(tag.getAttribute("name"));
-					a.setParameterName(tag.getAttribute("name"));
+					AbstractRepositoryReportAttribute a = new AbstractRepositoryReportAttribute(tag.getAttribute("name"));
+					a.setID(tag.getAttribute("name"));
 					a.setValue(tag.getAttribute("value"));
 					a.setHidden(true);
 					nbm.attributes.put(a.getName(), a);
@@ -249,7 +249,7 @@ public class NewBugParser {
 	 * @throws IOException
 	 * @throws ParseException
 	 */
-	private void parseAttributeValue(NewBugModel nbm, String attributeName) throws IOException, ParseException {
+	private void parseAttributeValue(NewBugzillaReport nbm, String attributeName) throws IOException, ParseException {
 
 		HtmlStreamTokenizer.Token token = tokenizer.nextToken();
 		if (token.getType() == Token.TAG) {
@@ -281,13 +281,13 @@ public class NewBugParser {
 	 * @throws IOException
 	 * @throws ParseException
 	 */
-	private void parseAttributeValueCell(NewBugModel nbm, String attributeName) throws IOException, ParseException {
+	private void parseAttributeValueCell(NewBugzillaReport nbm, String attributeName) throws IOException, ParseException {
 		StringBuffer sb = new StringBuffer();
 
 		parseAttributeValueCell(nbm, attributeName, sb);
 	}
 
-	private void parseAttributeValueCell(NewBugModel nbm, String attributeName, StringBuffer sb) throws IOException,
+	private void parseAttributeValueCell(NewBugzillaReport nbm, String attributeName, StringBuffer sb) throws IOException,
 			ParseException {
 
 		parseTableCell(sb);
@@ -310,10 +310,10 @@ public class NewBugParser {
 	 *            The HTML tag that we are currently on
 	 * @throws IOException
 	 */
-	private static void parseInput(NewBugModel nbm, String attributeName, HtmlTag tag) throws IOException {
+	private static void parseInput(NewBugzillaReport nbm, String attributeName, HtmlTag tag) throws IOException {
 
-		Attribute a = new Attribute(attributeName);
-		a.setParameterName(tag.getAttribute("name"));
+		AbstractRepositoryReportAttribute a = new AbstractRepositoryReportAttribute(attributeName);
+		a.setID(tag.getAttribute("name"));
 		String value = tag.getAttribute("value");
 		if (value == null)
 			value = "";
@@ -348,12 +348,12 @@ public class NewBugParser {
 	 * @throws IOException
 	 * @throws ParseException
 	 */
-	private void parseSelect(NewBugModel nbm, String attributeName, String parameterName) throws IOException,
+	private void parseSelect(NewBugzillaReport nbm, String attributeName, String parameterName) throws IOException,
 			ParseException {
 
 		boolean first = false;
-		Attribute a = new Attribute(attributeName);
-		a.setParameterName(parameterName);
+		AbstractRepositoryReportAttribute a = new AbstractRepositoryReportAttribute(attributeName);
+		a.setID(parameterName);
 
 		HtmlStreamTokenizer.Token token = tokenizer.nextToken();
 		while (token.getType() != Token.EOF) {
