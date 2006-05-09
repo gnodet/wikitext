@@ -53,6 +53,7 @@
   </extension>
 -->
 
+<!--
   <extension point="org.eclipse.ui.actionSets">
 	<actionSet
             id="org.eclipse.mylar.browser.actionSet"
@@ -88,5 +89,6 @@
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
       </key>
    </extension> 
+-->  
   
 </plugin>
