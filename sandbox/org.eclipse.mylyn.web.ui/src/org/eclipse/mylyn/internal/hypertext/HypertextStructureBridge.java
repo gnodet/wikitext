@@ -14,7 +14,6 @@ package org.eclipse.mylar.internal.hypertext;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.mylar.provisional.core.AbstractRelationProvider;
 import org.eclipse.mylar.provisional.core.IDegreeOfSeparation;
 import org.eclipse.mylar.provisional.core.IMylarStructureBridge;
@@ -114,10 +113,6 @@ public class HypertextStructureBridge implements IMylarStructureBridge {
 
 	public List<String> getChildHandles(String handle) {
 		return Collections.emptyList();
-	}
-
-	public IProject getProjectForObject(Object object) {
-		return null;
 	}
 
 }
