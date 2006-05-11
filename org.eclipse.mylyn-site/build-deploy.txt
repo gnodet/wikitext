@@ -2,5 +2,7 @@ Build
 - Update each feature dependent on mylar-feature to depend on the current version
 
 Deploy:
-- copy the e3.x directories to the update site directory
+- copy old e3.x plug-ins to downloads/technology/mylar/update-site-archive
+- upload the e3.x directories to downloads/technology/mylar/update-site
 - zip each directory to mylar-site-local-e3.x.zip
+- run build.xml and upload mylar-archive-0.x.x.zip to downloads/technology/mylar/src-archive
