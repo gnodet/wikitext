@@ -12,7 +12,7 @@
 package org.eclipse.mylar.internal.monitor.monitors;
 
 import org.eclipse.jface.action.IAction;
-import org.eclipse.mylar.internal.core.IActionExecutionListener;
+import org.eclipse.mylar.internal.monitor.IActionExecutionListener;
 import org.eclipse.mylar.provisional.core.InteractionEvent;
 import org.eclipse.mylar.provisional.core.MylarPlugin;
 
