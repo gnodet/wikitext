@@ -20,9 +20,9 @@ import junit.framework.TestCase;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
 import org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants;
-import org.eclipse.mylar.internal.bugzilla.core.search.BugzillaSearchHit;
+import org.eclipse.mylar.internal.bugzilla.ui.BugzillaUiPlugin;
+import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchHit;
 
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.RegularExpression;
@@ -112,7 +112,7 @@ public class CollabNetRegularExpressionTest extends TestCase {
 
 		String query = "";
 		try {
-			String recentQuery = BugzillaPlugin.getMostRecentQuery();
+			String recentQuery = BugzillaUiPlugin.getMostRecentQuery();
 			if (recentQuery != null) {
 				query = recentQuery;
 			}
