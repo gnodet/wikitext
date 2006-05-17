@@ -54,8 +54,21 @@
         class="org.eclipse.mylar.internal.sandbox.viz.MylarControlPanelView"
         id="org.eclipse.mylar.ui.views.MylarControlPanelView">
       </view>
-  </extension> 
-  
+  </extension>
+
+  	<extension point = "org.eclipse.ui.popupMenus">
+     <objectContribution
+        id="org.eclipse.mylar.ui.instrospection"
+        objectClass="java.lang.Object">
+	    <action  
+  		  	label="Mylar Sanbox: Introspect Object" 
+	  		menubarPath="mylar" 
+	  		id="org.eclipse.mylar.sandbox.actions.introspect" 
+	  		class="org.eclipse.mylar.internal.sandbox.misc.IntrospectObjectAction"
+	  		enablesFor="1"/>
+	 </objectContribution>
+	</extension>
+
       <!--
         <provider 
          	markupProviderClass="org.eclipse.mylar.sandbox.viz.MylarJavaMarkupProvider" 
