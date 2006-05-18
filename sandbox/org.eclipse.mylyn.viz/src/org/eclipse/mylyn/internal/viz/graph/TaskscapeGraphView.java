@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.sandbox.viz;
+package org.eclipse.mylar.internal.viz.graph;
 
 import java.util.List;
 

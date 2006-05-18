@@ -28,4 +28,12 @@
         </provider>
   </extension>     
 
+   <extension point="org.eclipse.ui.views"> 
+	  <view name="Context Viz" 
+	    icon="icons/eview16/taskscape.gif"
+	  	category="org.eclipse.mylar" 
+	  	class="org.eclipse.mylar.internal.viz.graph.TaskscapeGraphView" 
+	  	id="org.eclipse.mylar.sandbox.viz.TaskscapeVizView" />
+   </extension>
+
 </plugin>

@@ -10,7 +10,7 @@
             class="org.eclipse.mylar.internal.sandbox.share.SwitchTaskDataFolderAction"
             icon="icons/eview16/folder.gif"
             id="org.eclipse.mylar.monitor.reports.ui.actions.switchTask"
-            label="Switch Task Data Folder..."
+            label="Sandbox: Switch Task Data Folder..."
             menubarPath="context"
             style="push">
       </action>
@@ -37,18 +37,13 @@
    -->
 
    <extension point="org.eclipse.ui.views"> 
-	  <view name="Context Tree"
+	  <view name="Sandbox: Context Tree"
             icon="icons/eview16/model.gif"
             category="org.eclipse.mylar"
             class="org.eclipse.mylar.internal.sandbox.viz.MylarContextTreeView"
             id="org.eclipse.mylar.ui.views.TaskscapeTreeView">
       </view> 
-	  <view name="Context Viz" 
-	    icon="icons/eview16/taskscape.gif"
-	  	category="org.eclipse.mylar" 
-	  	class="org.eclipse.mylar.internal.sandbox.viz.TaskscapeGraphView" 
-	  	id="org.eclipse.mylar.sandbox.viz.TaskscapeVizView" />
-	  <view name="Context Control Panel"
+	  <view name="Sandbox: Context Control Panel"
         icon="icons/eview16/control-panel.gif"
         category="org.eclipse.mylar"
         class="org.eclipse.mylar.internal.sandbox.viz.MylarControlPanelView"
