@@ -36,6 +36,22 @@
    </extension>
    -->
 
+   <extension point="org.eclipse.ui.decorators">
+      <decorator
+            lightweight="true"
+            label="Mylar Sandbox: Interest Level Decorator"
+            class="org.eclipse.mylar.internal.sandbox.misc.InterestDebuggingDecorator"
+            state="false"
+            id="org.eclipse.mylar.sandbox.ui.decorator.interest">
+         <description>
+			Appends interest level to nodes
+		 </description>
+         <enablement>
+            <objectClass name="java.lang.Object"/>
+         </enablement>
+      </decorator>
+   </extension>
+
    <extension point="org.eclipse.ui.views"> 
 	  <view name="Sandbox: Context Tree"
             icon="icons/eview16/model.gif"
