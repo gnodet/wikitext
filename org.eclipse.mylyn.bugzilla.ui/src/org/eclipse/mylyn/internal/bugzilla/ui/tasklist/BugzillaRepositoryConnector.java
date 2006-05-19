@@ -80,6 +80,7 @@ import org.eclipse.mylar.provisional.tasklist.TaskRepository;
 import org.eclipse.mylar.provisional.tasklist.AbstractRepositoryTask.RepositoryTaskSyncState;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
@@ -715,15 +716,9 @@ public class BugzillaRepositoryConnector extends AbstractRepositoryConnector {
 			// ignore
 		}
 		if (id != -1) {
-			OpenBugzillaReportJob job = new OpenBugzillaReportJob(repositoryUrl, id);
-			job.runInUIThread(new NullProgressMonitor());
-			// IProgressService service =
-			// PlatformUI.getWorkbench().getProgressService();
-			// try {
-			// service.run(true, false, job);
-			// } catch (Exception e) {
-			// MylarStatusHandler.fail(e, "Could not open report", true);
-			// }
+			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+			OpenBugzillaReportJob job = new OpenBugzillaReportJob(repositoryUrl, id, page);
+			job.schedule();
 		}
 	}
 
@@ -782,7 +777,7 @@ public class BugzillaRepositoryConnector extends AbstractRepositoryConnector {
 					queryForChanged(repository, changedTasks, urlQueryString);
 					queryCounter = 0;
 					urlQueryString = new String(urlQueryBase);
-					urlQueryString = "&field0-0-" + queryCounter + "=bug_id&type0-0-" + queryCounter
+					urlQueryString += "&field0-0-" + queryCounter + "=bug_id&type0-0-" + queryCounter
 							+ "=equals&value0-0-" + queryCounter + "="
 							+ AbstractRepositoryTask.getTaskId(task.getHandleIdentifier());
 				} else if (!itr.hasNext()) {
