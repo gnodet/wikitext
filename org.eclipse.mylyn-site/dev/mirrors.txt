@@ -1,0 +1,6 @@
+<site
+      mirrorsURL="http://www.eclipse.org/downloads/download.php?file=/technology/mylar/update-site/e3.2&amp;format=xml">
+ 
+<site
+      mirrorsURL="http://www.eclipse.org/downloads/download.php?file=/technology/mylar/update-site/e3.1&amp;format=xml">
+ 
