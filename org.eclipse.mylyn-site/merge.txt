@@ -12,18 +12,21 @@ mylar.core.tests
   	- MylarContextChangeSet
   	- MylarContextChangeSetManager
   - ui
+    - IdeUiUtil
     - ProblemsListInterestFilter
     - ProblemsListDoiSorter
+    - MarkerInterestFilter
+    - MylarChangeSetDecorator
   - ui.actions
     - ApplyMylarToProjectExplorerAction
     - OpenCorrespondingTaskAction (merge)
   - plugin.xml (merge)
   
 - mylar.java
-  NEW: MylarJavaPrefConstants
   - java
-    - TypeHistoryManager
     - ActiveFoldingEditorTracker
+    - MylarJavaPrefConstants
+    - TypeHistoryManager
   - ui
     - JavaUiUtil
   - ui.actions
