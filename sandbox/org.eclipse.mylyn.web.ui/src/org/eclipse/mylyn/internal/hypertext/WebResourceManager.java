@@ -99,6 +99,21 @@ public class WebResourceManager {
 		}
 	}
 
+	public WebSiteResource find(String url) {
+		String siteUrl = structureBridge.getSite(url);
+		if (siteUrl != null) {
+			WebSite webSite = webRoot.getSite(siteUrl);
+			if (webSite != null) {
+				if (url.equals(siteUrl)) {
+					return webSite;
+				} else {
+					return webSite.getPage(url);
+				}
+			}
+		}
+		return null;
+	}
+	
 	private void addUrl(String url, boolean notify) {
 		String siteUrl = structureBridge.getSite(url);
 		if (siteUrl != null) {

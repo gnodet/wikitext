@@ -15,17 +15,30 @@
             id="org.eclipse.mylar.hypertext.uiBridge"/>
    </extension>
 
-<!--
-	<extension
-        id="org.eclipse.mylar.hypertext.nature.site"
-        point="org.eclipse.core.resources.natures">
-     <runtime>
-        <run class="org.eclipse.mylar.internal.hypertext.WebSitesNature"/>
-     </runtime>
+  	<extension point = "org.eclipse.ui.popupMenus">
+     <objectContribution
+        id="org.eclipse.mylar.ui.interest"
+        objectClass="org.eclipse.mylar.internal.hypertext.WebSiteResource">
+     	<action  
+  		  	label="Mylar: Make Less Interesting" 
+	  		tooltip="Mark selected element as uninteresting"
+	  		menubarPath="mylar" 
+	  		id="org.eclipse.mylar.ui.actions.InterestDecrementAction" 
+	  		class="org.eclipse.mylar.internal.ui.actions.InterestDecrementAction"
+	  		icon="icons/elcl16/interest-decrease.gif"
+	  		enablesFor="*"/>
+	    <action  
+  		  	label="Mylar: Mark as Landmark" 
+	  		tooltip="Make selected element a landmark"
+	  		menubarPath="mylar" 
+	  		id="org.eclipse.mylar.ui.actions.InterestIncrementAction" 
+	  		class="org.eclipse.mylar.internal.ui.actions.InterestIncrementAction"
+	  		icon="icons/elcl16/interest-increase.gif"
+	  		enablesFor="*"/>
+	 </objectContribution>
    </extension>
--->
 
- <!-- ================================================================================ -->
+   <!-- ================================================================================ -->
    <!-- Common Navigator viewer for use in the Project Explorer							 -->
    <!-- ================================================================================ -->
    <extension
@@ -54,7 +67,14 @@
         -->
          <actionProvider
                class="org.eclipse.mylar.internal.hypertext.ui.WebSiteNavigatorActionProvider"
-               id="org.eclipse.mylar.hypertext.actionProvider"/>
+               id="org.eclipse.mylar.hypertext.actionProvider">
+              <enablement>
+				<or>
+					<adapt type="org.eclipse.mylar.internal.hypertext.WebSite"/> 	
+					<adapt type="org.eclipse.mylar.internal.hypertext.WebPage"/> 	
+				</or>
+			</enablement>
+		 </actionProvider>
       </navigatorContent>
       
    </extension>

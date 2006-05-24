@@ -27,6 +27,7 @@ import org.eclipse.swt.browser.LocationEvent;
 public class WebStructureBridge implements IMylarStructureBridge {
 
 	private static final String DELIM_PROTOCOL = "//";
+	
 	public static final String CONTENT_TYPE = "http"; 
 
 	public void setParentBridge(IMylarStructureBridge bridge) {
@@ -44,13 +45,16 @@ public class WebStructureBridge implements IMylarStructureBridge {
 	public String getHandleIdentifier(Object object) {
 		if (object instanceof LocationEvent) {
 			return ((LocationEvent) object).location;
+		} else if (object instanceof WebSiteResource){
+			return ((WebSiteResource)object).getUrl();
 		} else {
 			return null;
 		}
 	}
 
 	public Object getObjectForHandle(String handle) {
-		return null;
+		WebSiteResource webSiteResource = MylarHypertextPlugin.getWebResourceManager().find(handle);
+		return webSiteResource;
 	}
 
 	public String getParentHandle(String handle) {
@@ -79,11 +83,11 @@ public class WebStructureBridge implements IMylarStructureBridge {
 	}
 
 	public boolean canBeLandmark(String handle) {
-		return false;
+		return getSite(handle) != null;
 	}
 
 	public boolean acceptsObject(Object object) {
-		if (object instanceof LocationEvent) {
+		if (object instanceof LocationEvent || object instanceof WebSiteResource) {
 			return true;
 		} else {
 			return false;

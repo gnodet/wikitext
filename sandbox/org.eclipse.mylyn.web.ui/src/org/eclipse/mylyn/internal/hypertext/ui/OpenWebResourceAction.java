@@ -35,7 +35,6 @@ public class OpenWebResourceAction extends BaseSelectionListenerAction {
 
 	@Override
 	public void runWithEvent(Event event) {
-		System.err.println(">>> " + super.getStructuredSelection());
 		IStructuredSelection selection = super.getStructuredSelection();
 		Object selectedElement = selection.getFirstElement();
 		if (selectedElement instanceof WebSiteResource) {
@@ -56,7 +55,7 @@ public class OpenWebResourceAction extends BaseSelectionListenerAction {
 						| WorkbenchBrowserSupport.NAVIGATION_BAR;
 			}
 			browser = WorkbenchBrowserSupport.getInstance().createBrowser(flags, "org.eclipse.mylar.tasklist",
-					"Mylar Context Browser", "tasktooltip");
+					"Browser", url);
 			browser.openURL(new URL(url));
 		} catch (PartInitException e) {
 			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
