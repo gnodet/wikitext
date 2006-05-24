@@ -253,10 +253,6 @@ public class JavaContextContentProvider implements IContentProvider, IMylarConte
 		}
 	}
 
-	public void interestChanged(IMylarElement node) {
-
-	}
-
 	public void interestChanged(List<IMylarElement> nodes) {
 		VisualiserPlugin.refresh();
 	}

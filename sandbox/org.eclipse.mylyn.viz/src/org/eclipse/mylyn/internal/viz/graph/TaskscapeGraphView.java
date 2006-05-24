@@ -45,9 +45,6 @@ public class TaskscapeGraphView extends ViewPart {
 	private Action refreshAction;
 
 	private final IMylarContextListener REFRESH_UPDATE_LISTENER = new IMylarContextListener() {
-		public void interestChanged(final IMylarElement node) {
-			refresh();
-		}
 
 		public void interestChanged(final List<IMylarElement> nodes) {
 			refresh();

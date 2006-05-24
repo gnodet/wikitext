@@ -43,11 +43,6 @@ public class AspectJUiUpdateBridge implements IMylarContextListener {
 
 	}
 
-	public void interestChanged(IMylarElement node) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public void interestChanged(List<IMylarElement> nodes) {
 		// TODO Auto-generated method stub
 

@@ -33,12 +33,12 @@ public class WebResourceManager {
 	
 	private final IMylarContextListener UPDATE_LISTENER = new IMylarContextListener() {
 		
-		public void interestChanged(IMylarElement node) {
-			System.err.println(">>>" + node);
-		}
-
-		public void interestChanged(List<IMylarElement> nodes) {
-			System.err.println(">>>>" + nodes);
+		public void interestChanged(List<IMylarElement> elements) {
+			for (IMylarElement element : elements) {
+//				if (element.getC) {
+//					
+//				}
+			}
 		}
 
 		public void contextActivated(IMylarContext context) {

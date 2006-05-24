@@ -59,9 +59,6 @@ public class MylarContextTreeView extends ViewPart {
 	private boolean activeRefresh = true;// MylarPlugin.DEBUG_MODE;
 
 	private final IMylarContextListener REFRESH_UPDATE_LISTENER = new IMylarContextListener() {
-		public void interestChanged(IMylarElement node) {
-			refresh(node);
-		}
 
 		public void interestChanged(List<IMylarElement> nodes) {
 			for (IMylarElement node : nodes)
