@@ -40,8 +40,7 @@
          <triggerPoints>
             <or> 
             	<instanceof value="org.eclipse.core.resources.IWorkspaceRoot"/>
-            	<!--<instanceof value="org.eclipse.core.resources.IProject"/>-->
-                <instanceof value="org.eclipse.mylar.internal.hypertext.WebSiteResource"/>
+            	<instanceof value="org.eclipse.mylar.internal.hypertext.WebSiteResource"/>
             </or>
          </triggerPoints>
          <possibleChildren>

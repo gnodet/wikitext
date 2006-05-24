@@ -22,9 +22,9 @@ import org.eclipse.mylar.internal.hypertext.ui.HypertextImages;
  */
 public class WebRoot extends WebSiteResource {
 
-	public static final String URL_ROOT = "root";
+	public static final String URL_ROOT = "Web";
 	
-	private static final String LABEL = "Web Context";
+	private static final String LABEL = "Web";
 	
 	private HashMap<String, WebSiteResource> sites = new HashMap<String, WebSiteResource>();
 	
@@ -35,6 +35,11 @@ public class WebRoot extends WebSiteResource {
 
 	public WebRoot() {
 		super(URL_ROOT);
+	}
+	
+
+	public void clear() {
+		sites.clear();
 	}
 	
 	public void addSite(WebSite site) {
@@ -63,5 +68,4 @@ public class WebRoot extends WebSiteResource {
 	public ImageDescriptor getImageDescriptor(Object object) {
 		return HypertextImages.WEB_ROOT;
 	}
-
 }

@@ -42,11 +42,11 @@ public class WebResourceManager {
 		}
 
 		public void contextActivated(IMylarContext context) {
-			update();
+			update(true);
 		}
 
 		public void contextDeactivated(IMylarContext context) {
-			update();
+			update(false);
 		}
 
 		public void presentationSettingsChanging(UpdateKind kind) {
@@ -83,14 +83,16 @@ public class WebResourceManager {
 		MylarPlugin.getContextManager().removeListener(UPDATE_LISTENER);
 	}
 
-	protected void update() {
-		if (MylarPlugin.getContextManager().getActiveContext() != null) {
+	protected void update(boolean populate) {
+		if (populate) {
 			List<IMylarElement> interestingElements = MylarPlugin.getContextManager().getInterestingDocuments();
 			for (IMylarElement element : interestingElements) {
 				if (WebStructureBridge.CONTENT_TYPE.equals(element.getContentType())) {
 					addUrl(element.getHandleIdentifier(), false);
 				}
 			}
+		} else {
+			webRoot.clear();
 		}
 		for (IWebResourceListener listener : listeners) {
 			listener.webContextUpdated();
@@ -102,7 +104,7 @@ public class WebResourceManager {
 		if (siteUrl != null) {
 			WebSite webSite = webRoot.getSite(siteUrl);
 			if (webSite == null) {
-				webSite = new WebSite(url, webRoot);
+				webSite = new WebSite(siteUrl, webRoot);
 				webRoot.addSite(webSite);
 			}
 			if (!url.equals(siteUrl)) {
