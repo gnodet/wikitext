@@ -16,6 +16,97 @@
    </extension>
 
 <!--
+	<extension
+        id="org.eclipse.mylar.hypertext.nature.site"
+        point="org.eclipse.core.resources.natures">
+     <runtime>
+        <run class="org.eclipse.mylar.internal.hypertext.WebSitesNature"/>
+     </runtime>
+   </extension>
+-->
+
+ <!-- ================================================================================ -->
+   <!-- Common Navigator viewer for use in the Project Explorer							 -->
+   <!-- ================================================================================ -->
+   <extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <navigatorContent
+            activeByDefault="false"
+            contentProvider="org.eclipse.mylar.internal.hypertext.WebSiteNavigatorContentProvider"
+            icon="icons/obj16/web-root.gif"
+            id="org.eclipse.mylar.hypertext.navigator"
+            labelProvider="org.eclipse.mylar.internal.hypertext.ui.WebSiteNavigatorLabelProvider"
+            name="Mylar Web Context (Experimental)">
+         <triggerPoints>
+            <or>
+            	<instanceof value="org.eclipse.core.resources.IWorkspaceRoot"/>
+            	<!--<instanceof value="org.eclipse.core.resources.IProject"/>-->
+                <instanceof value="org.eclipse.mylar.internal.hypertext.WebSiteResource"/>
+            </or>
+         </triggerPoints>
+         <possibleChildren>
+            <instanceof value="org.eclipse.mylar.internal.hypertext.WebSiteResource"/>
+         </possibleChildren>
+        
+        <!--
+         <override
+               policy="InvokeAlwaysRegardlessOfSuppressedExt"
+               suppressedExtensionId="org.eclipse.ui.navigator.resourceContent"/>
+        -->
+         <actionProvider
+               class="org.eclipse.mylar.internal.hypertext.ui.WebSiteNavigatorActionProvider"
+               id="org.eclipse.mylar.hypertext.actionProvider"/>
+      </navigatorContent>
+      
+   </extension>
+      <extension
+         point="org.eclipse.ui.navigator.viewer">
+      <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <contentExtension
+                  pattern="org.eclipse.mylar.hypertext.navigator"/>
+         </includes>
+      </viewerContentBinding>
+   </extension>
+   <!--
+   <extension
+         point="org.eclipse.ui.newWizards">
+         <category name="Team Logical Model Example" id="org.eclipse.mylar.hypertext.newWizards">
+         </category>
+      <wizard
+            category="org.eclipse.mylar.hypertext.newWizards"
+            icon="$nl$/icons/full/obj/root_obj.gif"
+            name="Model Project"
+            class="org.eclipse.mylar.hypertext.ui.NewModelProjectWizard"
+            project="true"
+            id="org.eclipse.mylar.hypertext.newModelProject">
+            <description> 
+              This wizard creates a model project that illustrates some of the logical model support in the Eclipse Platform
+            </description>
+      </wizard>
+   </extension>
+   -->
+   
+   <!-- ================================================================================ -->
+   <!-- Model provider for the model example											 -->
+   <!-- ================================================================================ -->
+   <!--
+   <extension
+         id="modelProvider"
+         name="Web Sites"
+         point="org.eclipse.core.resources.modelProviders">
+      <modelProvider class="org.eclipse.mylar.internal.hypertext.WebSiteModelProvider"/>
+      <extends-model id="org.eclipse.core.resources.modelProvider"/>
+      <enablement>
+          <test property="org.eclipse.core.resources.projectNature" value="org.eclipse.team.examples.filesystem.modelNature" />
+      </enablement>
+   </extension>
+   -->
+   
+   
+   
+
+<!--
    <extension
          point="org.eclipse.mylar.tasklist.editors">
       <editorFactory class="org.eclipse.mylar.internal.hypertext.ui.editors.WebElementsEditorFactory"/>

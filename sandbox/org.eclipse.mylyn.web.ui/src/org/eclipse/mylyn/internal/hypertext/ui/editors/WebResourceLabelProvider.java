@@ -15,6 +15,7 @@ import org.eclipse.jface.viewers.IColorProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.mylar.internal.hypertext.MylarHypertextPlugin;
+import org.eclipse.mylar.internal.hypertext.ui.HypertextImages;
 import org.eclipse.mylar.internal.tasklist.ui.TaskListColorsAndFonts;
 import org.eclipse.mylar.internal.ui.MylarImages;
 import org.eclipse.swt.graphics.Color;
@@ -42,7 +43,7 @@ public class WebResourceLabelProvider extends LabelProvider implements ITableLab
 	public Image getColumnImage(Object obj, int columnIndex) {
 		if (columnIndex == 0) {
 			if (!MylarHypertextPlugin.getWebResourceManager().getSitesMap().containsKey(obj)) {
-				return MylarImages.getImage(MylarImages.WEB_DOCUMENT);
+				return MylarImages.getImage(HypertextImages.WEB_PAGE);
 			}
 		}
 		return null;

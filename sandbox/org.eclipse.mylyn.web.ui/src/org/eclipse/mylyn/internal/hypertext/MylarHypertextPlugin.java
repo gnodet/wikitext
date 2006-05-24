@@ -24,6 +24,8 @@ import org.osgi.framework.BundleContext;
  */
 public class MylarHypertextPlugin extends AbstractUIPlugin {
 
+	protected static final String ID = "org.eclipse.mylar.hypertext";
+
 	private static MylarHypertextPlugin plugin;
 
 	private WebResourceManager webResourceManager = new WebResourceManager();
