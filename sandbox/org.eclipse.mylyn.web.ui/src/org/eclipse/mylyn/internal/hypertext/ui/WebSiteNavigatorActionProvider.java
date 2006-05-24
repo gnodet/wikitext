@@ -27,7 +27,7 @@ import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
  */
 public class WebSiteNavigatorActionProvider extends CommonActionProvider {
 
-	private ICommonViewerWorkbenchSite viewSite = null;
+//	private ICommonViewerWorkbenchSite viewSite = null;
 
 	private OpenWebResourceAction openAction = new OpenWebResourceAction("Open");
 
@@ -35,11 +35,11 @@ public class WebSiteNavigatorActionProvider extends CommonActionProvider {
 		super();
 	}
 
-	public void init(ICommonActionExtensionSite aConfig) {
+	public void init(ICommonActionExtensionSite extensionSite) {
 		// super.init(aSite);
 		// createActions();
-		if (aConfig.getViewSite() instanceof ICommonViewerWorkbenchSite) {
-			viewSite = (ICommonViewerWorkbenchSite) aConfig.getViewSite();
+		if (extensionSite.getViewSite() instanceof ICommonViewerWorkbenchSite) {
+//			viewSite = (ICommonViewerWorkbenchSite) aConfig.getViewSite();
 			// openAction = new OpenFileAction();
 			// contribute = true;
 //			viewSite.getActionBars().
