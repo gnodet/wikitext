@@ -63,7 +63,9 @@ public class HypertextStructureBridge implements IMylarStructureBridge {
 			int siteEnd = withoutProtocol.indexOf("/");
 			if (siteEnd != -1) {
 				String site = handle.substring(0, protocolEnd + siteEnd);
-				return site;
+//				if (!handle.equals(site)) {
+					return site;
+//				}
 			}
 		}
 		return null;
