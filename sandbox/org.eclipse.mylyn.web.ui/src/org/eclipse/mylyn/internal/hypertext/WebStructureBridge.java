@@ -24,10 +24,10 @@ import org.eclipse.swt.browser.LocationEvent;
  * 
  * @author Mik Kersten
  */
-public class HypertextStructureBridge implements IMylarStructureBridge {
+public class WebStructureBridge implements IMylarStructureBridge {
 
-	public static final String CONTENT_TYPE = "html"; // HACK: should be
-														// protocol
+	private static final String DELIM_PROTOCOL = "//";
+	public static final String CONTENT_TYPE = "http"; 
 
 	public void setParentBridge(IMylarStructureBridge bridge) {
 		// TODO Auto-generated method stub
@@ -57,18 +57,21 @@ public class HypertextStructureBridge implements IMylarStructureBridge {
 		if (handle == null || "".equals(handle)) {
 			return null;
 		}
-		int protocolEnd = handle.indexOf("//") + 2;
+		String site = getSite(handle);
+		return site;
+	}
+
+	public String getSite(String url) {
+		String site = null;
+		int protocolEnd = url.indexOf(DELIM_PROTOCOL) + 2;
 		if (protocolEnd != -1) {
-			String withoutProtocol = handle.substring(protocolEnd);
+			String withoutProtocol = url.substring(protocolEnd);
 			int siteEnd = withoutProtocol.indexOf("/");
 			if (siteEnd != -1) {
-				String site = handle.substring(0, protocolEnd + siteEnd);
-//				if (!handle.equals(site)) {
-					return site;
-//				}
+				site = url.substring(0, protocolEnd + siteEnd);
 			}
 		}
-		return null;
+		return site;
 	}
 
 	public String getName(Object object) {

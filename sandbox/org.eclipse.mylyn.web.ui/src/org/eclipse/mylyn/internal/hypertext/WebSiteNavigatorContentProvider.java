@@ -34,6 +34,10 @@ public class WebSiteNavigatorContentProvider extends BaseWorkbenchContentProvide
 		public void webSiteUpdated(WebSite site) {
 			refresh();
 		}
+
+		public void webContextUpdated() {
+			refresh();
+		}
 	};
 	
 	public WebSiteNavigatorContentProvider() {

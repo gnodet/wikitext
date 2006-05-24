@@ -11,8 +11,8 @@
 
 package org.eclipse.mylar.internal.hypertext;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylar.internal.hypertext.ui.HypertextImages;
@@ -26,7 +26,7 @@ public class WebRoot extends WebSiteResource {
 	
 	private static final String LABEL = "Web Context";
 	
-	private List<WebSiteResource> sites = new ArrayList<WebSiteResource>();
+	private HashMap<String, WebSiteResource> sites = new HashMap<String, WebSiteResource>();
 	
 	@Override
 	public String getLabel(Object object) {
@@ -38,7 +38,11 @@ public class WebRoot extends WebSiteResource {
 	}
 	
 	public void addSite(WebSite site) {
-		sites.add(site);
+		sites.put(site.getUrl(), site);
+	}
+	
+	public WebSite getSite(String url) {
+		return (WebSite)sites.get(url);
 	}
 	
 	public void deleteSite(WebSite site) {
@@ -51,8 +55,8 @@ public class WebRoot extends WebSiteResource {
 	}
 
 	@Override
-	public List<WebSiteResource> getChildren() {
-		return sites;
+	public Collection<WebSiteResource> getChildren() {
+		return sites.values();
 	}
 	
 	@Override

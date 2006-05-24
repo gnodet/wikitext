@@ -25,19 +25,19 @@ import org.eclipse.mylar.provisional.core.MylarPlugin;
  */
 public class WebResourceManager {
 
-//	private Map<String, List<String>> sitesMap = new HashMap<String, List<String>>();
+	private WebStructureBridge structureBridge = new WebStructureBridge();
 
 	private WebRoot webRoot = new WebRoot();
-	
+
 	private Set<IWebResourceListener> listeners = new HashSet<IWebResourceListener>();
-	
+
 	private final IMylarContextListener UPDATE_LISTENER = new IMylarContextListener() {
-		
+
 		public void interestChanged(List<IMylarElement> elements) {
 			for (IMylarElement element : elements) {
-//				if (element.getC) {
-//					
-//				}
+				if (WebStructureBridge.CONTENT_TYPE.equals(element.getContentType())) {
+					addUrl(element.getHandleIdentifier(), true);
+				}
 			}
 		}
 
@@ -73,40 +73,61 @@ public class WebResourceManager {
 			// ignore
 		}
 	};
-	
+
 	public WebResourceManager() {
 		webRoot = new WebRoot();
 		MylarPlugin.getContextManager().addListener(UPDATE_LISTENER);
 	}
-	
+
 	public void dispose() {
 		MylarPlugin.getContextManager().removeListener(UPDATE_LISTENER);
 	}
-	
+
 	protected void update() {
-		WebSite site1 = new WebSite("http://google.com", webRoot);
-		WebSite site2 = new WebSite("http://nytimes.com", webRoot);
-		webRoot.addSite(site1);
-		webRoot.addSite(site2);
-		
-		site1.addPage(new WebPage("foo.bar", site1));
+		if (MylarPlugin.getContextManager().getActiveContext() != null) {
+			List<IMylarElement> interestingElements = MylarPlugin.getContextManager().getInterestingDocuments();
+			for (IMylarElement element : interestingElements) {
+				if (WebStructureBridge.CONTENT_TYPE.equals(element.getContentType())) {
+					addUrl(element.getHandleIdentifier(), false);
+				}
+			}
+		}
 		for (IWebResourceListener listener : listeners) {
-			listener.webSiteUpdated(site1);
+			listener.webContextUpdated();
 		}
 	}
-	
-//	public Map<String, List<String>> getSitesMap() {
-//		return sitesMap;
-//	}
+
+	private void addUrl(String url, boolean notify) {
+		String siteUrl = structureBridge.getSite(url);
+		if (siteUrl != null) {
+			WebSite webSite = webRoot.getSite(siteUrl);
+			if (webSite == null) {
+				webSite = new WebSite(url, webRoot);
+				webRoot.addSite(webSite);
+			}
+			if (!url.equals(siteUrl)) {
+				WebPage page = webSite.getPage(url);
+				if (page == null) {
+					page = new WebPage(url, webSite);
+					webSite.addPage(page);
+				}
+			}
+			if (notify) {
+				for (IWebResourceListener listener : listeners) {
+					listener.webSiteUpdated(webSite);
+				}
+			}
+		}
+	}
 
 	public WebRoot getWebRoot() {
 		return webRoot;
 	}
-	
+
 	public void addListener(IWebResourceListener listener) {
 		listeners.add(listener);
 	}
-	
+
 	public void removeListener(IWebResourceListener listener) {
 		listeners.remove(listener);
 	}

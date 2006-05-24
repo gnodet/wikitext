@@ -66,6 +66,7 @@ public class MylarHypertextPlugin extends AbstractUIPlugin {
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		plugin = null;
+		webResourceManager.dispose();
 	}
 
 	public static MylarHypertextPlugin getDefault() {

@@ -23,11 +23,11 @@ import org.eclipse.ui.IEditorPart;
 /**
  * @author Mik Kersten
  */
-public class HypertextUiBridge implements IMylarUiBridge {
+public class WebUiBridge implements IMylarUiBridge {
 
 	public void open(IMylarElement node) {
 		// ignore
-	}
+	} 
 
 	public void close(IMylarElement node) {
 		// ignore

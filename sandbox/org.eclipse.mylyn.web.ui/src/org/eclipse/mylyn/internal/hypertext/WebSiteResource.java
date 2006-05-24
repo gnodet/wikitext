@@ -11,7 +11,7 @@
 
 package org.eclipse.mylar.internal.hypertext;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.eclipse.core.runtime.PlatformObject;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -47,7 +47,7 @@ public abstract class WebSiteResource extends PlatformObject implements IWorkben
     
     public abstract ImageDescriptor getImageDescriptor(Object object);
     
-	public abstract List<WebSiteResource> getChildren();
+	public abstract Collection<WebSiteResource> getChildren();
 
 	public abstract WebSiteResource getParent();
 	

@@ -11,8 +11,8 @@
 
 package org.eclipse.mylar.internal.hypertext;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylar.internal.hypertext.ui.HypertextImages;
@@ -24,14 +24,14 @@ public class WebSite extends WebSiteResource {
 
 	private WebRoot project;
 	
-	private List<WebSiteResource> pages = new ArrayList<WebSiteResource>();
+	private HashMap<String, WebSiteResource> pages = new HashMap<String, WebSiteResource>();
 	
 	public WebSite(String url, WebRoot project) {
 		super(url);
 	}
 
 	public void addPage(WebPage page) {
-		pages.add(page);
+		pages.put(page.getUrl(), page);
 	}
 	
 	public void removePage(WebPage page) {
@@ -44,13 +44,18 @@ public class WebSite extends WebSiteResource {
 	}
 
 	@Override
-	public List<WebSiteResource> getChildren() {
-		return pages;
+	public Collection<WebSiteResource> getChildren() {
+		return pages.values();
 	}
 
 	@Override
 	public ImageDescriptor getImageDescriptor(Object object) {
 		return HypertextImages.WEB_SITE;
+	}
+
+	public WebPage getPage(String url) {
+		// ignore
+		return null;
 	}
 
 }
