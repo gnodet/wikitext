@@ -11,6 +11,7 @@
 
 package org.eclipse.mylar.internal.aspectj;
 
+
 import java.util.List;
 
 import org.eclipse.mylar.provisional.core.IMylarContext;

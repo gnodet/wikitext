@@ -24,8 +24,15 @@ public class WebRoot extends WebSiteResource {
 
 	public static final String URL_ROOT = "root";
 	
+	private static final String LABEL = "Web Context";
+	
 	private List<WebSiteResource> sites = new ArrayList<WebSiteResource>();
 	
+	@Override
+	public String getLabel(Object object) {
+		return LABEL;
+	}
+
 	public WebRoot() {
 		super(URL_ROOT);
 	}

@@ -11,25 +11,79 @@
 
 package org.eclipse.mylar.internal.hypertext;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
+
+import org.eclipse.mylar.provisional.core.IMylarContext;
+import org.eclipse.mylar.provisional.core.IMylarContextListener;
+import org.eclipse.mylar.provisional.core.IMylarElement;
+import org.eclipse.mylar.provisional.core.MylarPlugin;
 
 /**
  * @author Mik Kersten
  */
 public class WebResourceManager {
 
-	private Map<String, List<String>> sitesMap = new HashMap<String, List<String>>();
+//	private Map<String, List<String>> sitesMap = new HashMap<String, List<String>>();
 
 	private WebRoot webRoot = new WebRoot();
 	
 	private Set<IWebResourceListener> listeners = new HashSet<IWebResourceListener>();
 	
+	private final IMylarContextListener UPDATE_LISTENER = new IMylarContextListener() {
+		
+		public void interestChanged(IMylarElement node) {
+			System.err.println(">>>" + node);
+		}
+
+		public void interestChanged(List<IMylarElement> nodes) {
+			System.err.println(">>>>" + nodes);
+		}
+
+		public void contextActivated(IMylarContext context) {
+			update();
+		}
+
+		public void contextDeactivated(IMylarContext context) {
+			update();
+		}
+
+		public void presentationSettingsChanging(UpdateKind kind) {
+			// ignore
+		}
+
+		public void landmarkAdded(IMylarElement node) {
+			// ignore
+		}
+
+		public void landmarkRemoved(IMylarElement node) {
+			// ignore
+		}
+
+		public void edgesChanged(IMylarElement node) {
+			// ignore
+		}
+
+		public void nodeDeleted(IMylarElement node) {
+			// ignore
+		}
+
+		public void presentationSettingsChanged(UpdateKind kind) {
+			// ignore
+		}
+	};
+	
 	public WebResourceManager() {
 		webRoot = new WebRoot();
+		MylarPlugin.getContextManager().addListener(UPDATE_LISTENER);
+	}
+	
+	public void dispose() {
+		MylarPlugin.getContextManager().removeListener(UPDATE_LISTENER);
+	}
+	
+	protected void update() {
 		WebSite site1 = new WebSite("http://google.com", webRoot);
 		WebSite site2 = new WebSite("http://nytimes.com", webRoot);
 		webRoot.addSite(site1);
@@ -41,9 +95,9 @@ public class WebResourceManager {
 		}
 	}
 	
-	public Map<String, List<String>> getSitesMap() {
-		return sitesMap;
-	}
+//	public Map<String, List<String>> getSitesMap() {
+//		return sitesMap;
+//	}
 
 	public WebRoot getWebRoot() {
 		return webRoot;

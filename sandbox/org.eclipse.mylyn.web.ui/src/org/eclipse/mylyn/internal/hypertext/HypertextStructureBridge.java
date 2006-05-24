@@ -70,7 +70,6 @@ public class HypertextStructureBridge implements IMylarStructureBridge {
 	}
 
 	public String getName(Object object) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -81,8 +80,6 @@ public class HypertextStructureBridge implements IMylarStructureBridge {
 	public boolean acceptsObject(Object object) {
 		if (object instanceof LocationEvent) {
 			return true;
-			// LocationEvent event = (LocationEvent)object;
-			// return event.location.startsWith("http");
 		} else {
 			return false;
 		}

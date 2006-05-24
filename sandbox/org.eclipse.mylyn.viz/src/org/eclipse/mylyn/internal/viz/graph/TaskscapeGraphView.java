@@ -11,6 +11,7 @@
 
 package org.eclipse.mylar.internal.viz.graph;
 
+
 import java.util.List;
 
 import org.eclipse.jface.action.Action;

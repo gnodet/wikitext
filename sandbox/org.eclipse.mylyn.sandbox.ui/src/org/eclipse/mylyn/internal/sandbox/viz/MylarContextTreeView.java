@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.mylar.internal.sandbox.viz;
 
+
 import java.util.List;
 
 import org.eclipse.jface.action.Action;

@@ -38,7 +38,7 @@
             labelProvider="org.eclipse.mylar.internal.hypertext.ui.WebSiteNavigatorLabelProvider"
             name="Mylar Web Context (Experimental)">
          <triggerPoints>
-            <or>
+            <or> 
             	<instanceof value="org.eclipse.core.resources.IWorkspaceRoot"/>
             	<!--<instanceof value="org.eclipse.core.resources.IProject"/>-->
                 <instanceof value="org.eclipse.mylar.internal.hypertext.WebSiteResource"/>

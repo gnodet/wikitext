@@ -17,6 +17,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.navigator,
  org.eclipse.ui.navigator.resources
 Eclipse-AutoStart: true
-Export-Package: org.eclipse.mylar.internal.hypertext
+Export-Package: org.eclipse.mylar.internal.hypertext,
+ org.eclipse.mylar.internal.hypertext.ui
 Bundle-Vendor: Eclipse.org
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
