@@ -44,7 +44,7 @@
    <extension
          point="org.eclipse.ui.navigator.navigatorContent">
       <navigatorContent
-            activeByDefault="false"
+            activeByDefault="true"
             contentProvider="org.eclipse.mylar.internal.hypertext.WebSiteNavigatorContentProvider"
             icon="icons/obj16/web-root.gif"
             id="org.eclipse.mylar.hypertext.navigator"

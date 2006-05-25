@@ -32,14 +32,14 @@ public class WebSiteNavigatorContentProvider extends BaseWorkbenchContentProvide
 	private final IWebResourceListener WEB_RESOURCE_LISTENER = new IWebResourceListener() {
 
 		public void webSiteUpdated(WebSite site) {
-			refresh();
+			refresh(site);
 		}
 
 		public void webContextUpdated() {
-			refresh();
+			refresh(null);
 		}
 	};
-	
+
 	public WebSiteNavigatorContentProvider() {
 		super();
 	}
@@ -67,11 +67,15 @@ public class WebSiteNavigatorContentProvider extends BaseWorkbenchContentProvide
 	}
 
 	public Object[] getElements(Object element) {
-		if (element instanceof IWorkspaceRoot) {
-			Object[] root = { MylarHypertextPlugin.getWebResourceManager().getWebRoot() };
-			return root;
+		if (!MylarHypertextPlugin.getWebResourceManager().isWebContextEnabled()) {
+			return null;
 		} else {
-			return super.getElements(element);
+			if (element instanceof IWorkspaceRoot) {
+				Object[] root = { MylarHypertextPlugin.getWebResourceManager().getWebRoot() };
+				return root;
+			} else {
+				return super.getElements(element);
+			}
 		}
 	}
 
@@ -84,13 +88,18 @@ public class WebSiteNavigatorContentProvider extends BaseWorkbenchContentProvide
 		super.inputChanged(viewer, oldInput, newInput);
 	}
 
-	private void refresh() {
+	private void refresh(final WebSite site) {
 		Display.getDefault().asyncExec(new Runnable() {
 			public void run() {
 				if (!WebSiteNavigatorContentProvider.this.viewer.getControl().isDisposed()) {
-						((AbstractTreeViewer) WebSiteNavigatorContentProvider.this.viewer).refresh(MylarHypertextPlugin.getWebResourceManager().getWebRoot(), true);
+					AbstractTreeViewer viewer = (AbstractTreeViewer)WebSiteNavigatorContentProvider.this.viewer;
+					if (site == null) {
+						viewer.refresh(true);
+					} else {
+						viewer.refresh(MylarHypertextPlugin.getWebResourceManager().getWebRoot(), true);
 					}
 				}
+			}
 		});
 	}
 }

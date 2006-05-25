@@ -11,10 +11,10 @@
 
 package org.eclipse.mylar.internal.hypertext.ui;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.mylar.internal.hypertext.WebSiteResource;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionConstants;
@@ -27,7 +27,7 @@ import org.eclipse.ui.navigator.ICommonViewerWorkbenchSite;
  */
 public class WebSiteNavigatorActionProvider extends CommonActionProvider {
 
-//	private ICommonViewerWorkbenchSite viewSite = null;
+	// private ICommonViewerWorkbenchSite viewSite = null;
 
 	private OpenWebResourceAction openAction = new OpenWebResourceAction("Open");
 
@@ -36,13 +36,13 @@ public class WebSiteNavigatorActionProvider extends CommonActionProvider {
 	}
 
 	public void init(ICommonActionExtensionSite extensionSite) {
-		// super.init(aSite);
+		 super.init(extensionSite);
 		// createActions();
 		if (extensionSite.getViewSite() instanceof ICommonViewerWorkbenchSite) {
-//			viewSite = (ICommonViewerWorkbenchSite) aConfig.getViewSite();
+			// viewSite = (ICommonViewerWorkbenchSite) aConfig.getViewSite();
 			// openAction = new OpenFileAction();
 			// contribute = true;
-//			viewSite.getActionBars().
+			// viewSite.getActionBars().
 		}
 
 	}
@@ -55,49 +55,52 @@ public class WebSiteNavigatorActionProvider extends CommonActionProvider {
 			menuManager.insertAfter(ICommonMenuConstants.GROUP_OPEN, openAction);
 		}
 		menuManager.add(new Separator(ICommonMenuConstants.GROUP_ADDITIONS));
-//		addOpenWithMenu(menuManager);
+		// addOpenWithMenu(menuManager);
 	}
 
-	public void fillActionBars(IActionBars theActionBars) {
+	public void fillActionBars(IActionBars actionBars) {
 		IStructuredSelection selection = (IStructuredSelection) getContext().getSelection();
-		if (selection.size() == 1 && selection.getFirstElement() instanceof IFile) {
+		if (selection.size() == 1 && selection.getFirstElement() instanceof WebSiteResource) {
 			openAction.selectionChanged(selection);
-			theActionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, openAction);
+			actionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, openAction);
 		}
-
 	}
 
-//	private void addOpenWithMenu(IMenuManager aMenu) {
-//		IStructuredSelection ss = (IStructuredSelection) getContext().getSelection();
-//
-//		if (ss == null || ss.size() != 1) {
-//			return;
-//		}
-//
-//		Object o = ss.getFirstElement();
-//
-//		// first try IResource
-//		IAdaptable openable = (IAdaptable) AdaptabilityUtility.getAdapter(o, IResource.class);
-//		// otherwise try ResourceMapping
-//		if (openable == null) {
-//			openable = (IAdaptable) AdaptabilityUtility.getAdapter(o, ResourceMapping.class);
-//		} else if (((IResource) openable).getType() != IResource.FILE) {
-//			openable = null;
-//		}
-//
-//		if (openable != null) {
-//			// Create a menu flyout.
-//			IMenuManager submenu = new MenuManager(WorkbenchNavigatorMessages.OpenActionProvider_OpenWithMenu_label,
-//					ICommonMenuConstants.GROUP_OPEN_WITH);
-//			submenu.add(new GroupMarker(ICommonMenuConstants.GROUP_TOP));
-//			submenu.add(new OpenWithMenu(viewSite.getPage(), openable));
-//			submenu.add(new GroupMarker(ICommonMenuConstants.GROUP_ADDITIONS));
-//
-//			// Add the submenu.
-//			if (submenu.getItems().length > 2 && submenu.isEnabled()) {
-//				aMenu.appendToGroup(ICommonMenuConstants.GROUP_OPEN_WITH, submenu);
-//			}
-//		}
-//	}
+	// private void addOpenWithMenu(IMenuManager aMenu) {
+	// IStructuredSelection ss = (IStructuredSelection)
+	// getContext().getSelection();
+	//
+	// if (ss == null || ss.size() != 1) {
+	// return;
+	// }
+	//
+	// Object o = ss.getFirstElement();
+	//
+	// // first try IResource
+	// IAdaptable openable = (IAdaptable) AdaptabilityUtility.getAdapter(o,
+	// IResource.class);
+	// // otherwise try ResourceMapping
+	// if (openable == null) {
+	// openable = (IAdaptable) AdaptabilityUtility.getAdapter(o,
+	// ResourceMapping.class);
+	// } else if (((IResource) openable).getType() != IResource.FILE) {
+	// openable = null;
+	// }
+	//
+	// if (openable != null) {
+	// // Create a menu flyout.
+	// IMenuManager submenu = new
+	// MenuManager(WorkbenchNavigatorMessages.OpenActionProvider_OpenWithMenu_label,
+	// ICommonMenuConstants.GROUP_OPEN_WITH);
+	// submenu.add(new GroupMarker(ICommonMenuConstants.GROUP_TOP));
+	// submenu.add(new OpenWithMenu(viewSite.getPage(), openable));
+	// submenu.add(new GroupMarker(ICommonMenuConstants.GROUP_ADDITIONS));
+	//
+	// // Add the submenu.
+	// if (submenu.getItems().length > 2 && submenu.isEnabled()) {
+	// aMenu.appendToGroup(ICommonMenuConstants.GROUP_OPEN_WITH, submenu);
+	// }
+	// }
+	// }
 
 }

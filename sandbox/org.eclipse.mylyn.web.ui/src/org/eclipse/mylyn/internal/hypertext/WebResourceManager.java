@@ -31,6 +31,8 @@ public class WebResourceManager {
 
 	private Set<IWebResourceListener> listeners = new HashSet<IWebResourceListener>();
 
+	private boolean webContextEnabled = false;
+	
 	private final IMylarContextListener UPDATE_LISTENER = new IMylarContextListener() {
 
 		public void interestChanged(List<IMylarElement> elements) {
@@ -42,10 +44,12 @@ public class WebResourceManager {
 		}
 
 		public void contextActivated(IMylarContext context) {
+			webContextEnabled = true;
 			update(true);
 		}
 
 		public void contextDeactivated(IMylarContext context) {
+			webContextEnabled = false;
 			update(false);
 		}
 
@@ -147,5 +151,9 @@ public class WebResourceManager {
 
 	public void removeListener(IWebResourceListener listener) {
 		listeners.remove(listener);
+	}
+
+	public boolean isWebContextEnabled() {
+		return webContextEnabled;
 	}
 }

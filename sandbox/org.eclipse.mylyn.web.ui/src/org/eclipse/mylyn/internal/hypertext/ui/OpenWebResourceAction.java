@@ -18,7 +18,6 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.mylar.internal.hypertext.WebSiteResource;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.BaseSelectionListenerAction;
 import org.eclipse.ui.browser.IWebBrowser;
@@ -32,9 +31,9 @@ public class OpenWebResourceAction extends BaseSelectionListenerAction {
 	protected OpenWebResourceAction(String text) {
 		super(text);
 	}
-
+	
 	@Override
-	public void runWithEvent(Event event) {
+	public void run() {
 		IStructuredSelection selection = super.getStructuredSelection();
 		Object selectedElement = selection.getFirstElement();
 		if (selectedElement instanceof WebSiteResource) {
