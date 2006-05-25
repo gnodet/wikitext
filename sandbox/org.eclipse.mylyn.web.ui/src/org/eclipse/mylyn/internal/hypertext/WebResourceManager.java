@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.mylar.internal.tasklist.ui.views.RetrieveTitleFromUrlJob;
 import org.eclipse.mylar.provisional.core.IMylarContext;
 import org.eclipse.mylar.provisional.core.IMylarContextListener;
 import org.eclipse.mylar.provisional.core.IMylarElement;
@@ -32,7 +33,7 @@ public class WebResourceManager {
 	private Set<IWebResourceListener> listeners = new HashSet<IWebResourceListener>();
 
 	private boolean webContextEnabled = false;
-	
+
 	private final IMylarContextListener UPDATE_LISTENER = new IMylarContextListener() {
 
 		public void interestChanged(List<IMylarElement> elements) {
@@ -103,7 +104,7 @@ public class WebResourceManager {
 		}
 	}
 
-	public WebSiteResource find(String url) {
+	public WebResource find(String url) {
 		String siteUrl = structureBridge.getSite(url);
 		if (siteUrl != null) {
 			WebSite webSite = webRoot.getSite(siteUrl);
@@ -117,7 +118,7 @@ public class WebResourceManager {
 		}
 		return null;
 	}
-	
+
 	private void addUrl(String url, boolean notify) {
 		String siteUrl = structureBridge.getSite(url);
 		if (siteUrl != null) {
@@ -127,11 +128,9 @@ public class WebResourceManager {
 				webRoot.addSite(webSite);
 			}
 			if (!url.equals(siteUrl)) {
-				WebPage page = webSite.getPage(url);
-				if (page == null) {
-					page = new WebPage(url, webSite);
-					webSite.addPage(page);
-				}
+				WebPage existingPage = webSite.getPage(url);
+				final WebPage page = (existingPage == null) ? new WebPage(url, webSite) : existingPage;
+				webSite.addPage(page);
 			}
 			if (notify) {
 				for (IWebResourceListener listener : listeners) {
@@ -139,6 +138,19 @@ public class WebResourceManager {
 				}
 			}
 		}
+	}
+	
+	public void retrieveTitle(final WebPage page) {
+		RetrieveTitleFromUrlJob job = new RetrieveTitleFromUrlJob(page.getUrl()) {
+			@Override
+			protected void setTitle(final String pageTitle) {
+				page.setTitle(pageTitle);
+				for (IWebResourceListener listener : listeners) {
+					listener.webPageUpdated(page);
+				}
+			}
+		};
+		job.schedule();
 	}
 
 	public WebRoot getWebRoot() {

@@ -12,7 +12,7 @@
 package org.eclipse.mylar.internal.hypertext.ui;
 
 import org.eclipse.jface.viewers.ILabelProviderListener;
-import org.eclipse.mylar.internal.hypertext.WebSiteResource;
+import org.eclipse.mylar.internal.hypertext.WebResource;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.navigator.ICommonContentExtensionSite;
@@ -51,8 +51,8 @@ public class WebSiteNavigatorLabelProvider extends WorkbenchLabelProvider implem
 	}
 
 	public String getDescription(Object anElement) {
-		if (anElement instanceof WebSiteResource) {
-			return ((WebSiteResource) anElement).getLabel(anElement);
+		if (anElement instanceof WebResource) {
+			return ((WebResource) anElement).getLabel(anElement);
 		}
 		return null;
 	} 

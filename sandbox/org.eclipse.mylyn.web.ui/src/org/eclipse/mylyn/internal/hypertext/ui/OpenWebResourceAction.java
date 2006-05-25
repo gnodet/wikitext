@@ -16,7 +16,9 @@ import java.net.URL;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.mylar.internal.hypertext.WebSiteResource;
+import org.eclipse.mylar.internal.hypertext.MylarHypertextPlugin;
+import org.eclipse.mylar.internal.hypertext.WebPage;
+import org.eclipse.mylar.internal.hypertext.WebResource;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.BaseSelectionListenerAction;
@@ -36,12 +38,13 @@ public class OpenWebResourceAction extends BaseSelectionListenerAction {
 	public void run() {
 		IStructuredSelection selection = super.getStructuredSelection();
 		Object selectedElement = selection.getFirstElement();
-		if (selectedElement instanceof WebSiteResource) {
-			openUrlInBrowser(((WebSiteResource)selectedElement).getUrl());
+		if (selectedElement instanceof WebResource) {
+			openUrlInBrowser((WebResource)selectedElement);
 		}
 	}
 
-	private void openUrlInBrowser(String url) {
+	private void openUrlInBrowser(WebResource webResource) {
+		String url = webResource.getUrl();
 		try {
 			IWebBrowser browser = null;
 			int flags = 0;
@@ -56,6 +59,10 @@ public class OpenWebResourceAction extends BaseSelectionListenerAction {
 			browser = WorkbenchBrowserSupport.getInstance().createBrowser(flags, "org.eclipse.mylar.tasklist",
 					"Browser", url);
 			browser.openURL(new URL(url));
+			if (webResource instanceof WebPage) {
+				MylarHypertextPlugin.getWebResourceManager().retrieveTitle((WebPage)webResource);
+			}
+			
 		} catch (PartInitException e) {
 			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
 					+ " could not be opened");

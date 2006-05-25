@@ -20,13 +20,13 @@ import org.eclipse.mylar.internal.hypertext.ui.HypertextImages;
 /**
  * @author Mik Kersten
  */
-public class WebRoot extends WebSiteResource {
+public class WebRoot extends WebResource {
 
 	public static final String URL_ROOT = "webroot";
 
 	private static final String LABEL = "Web Context";
 
-	private HashMap<String, WebSiteResource> sites = new HashMap<String, WebSiteResource>();
+	private HashMap<String, WebResource> sites = new HashMap<String, WebResource>();
 
 	@Override
 	public String getLabel(Object object) {
@@ -54,12 +54,12 @@ public class WebRoot extends WebSiteResource {
 	}
 
 	@Override
-	public WebSiteResource getParent() {
+	public WebResource getParent() {
 		return null;
 	}
 
 	@Override
-	public Collection<WebSiteResource> getChildren() {
+	public Collection<WebResource> getChildren() {
 		return sites.values();
 	}
 

@@ -21,11 +21,11 @@ import org.eclipse.ui.model.IWorkbenchAdapter;
 /**
  * @author Mik Kersten
  */
-public abstract class WebSiteResource extends PlatformObject implements IWorkbenchAdapter {
+public abstract class WebResource extends PlatformObject implements IWorkbenchAdapter {
 	
-	private final String url;
+	protected final String url;
 	
-	protected WebSiteResource(String url) {
+	protected WebResource(String url) {
 		this.url = url;
 	}
 
@@ -47,13 +47,13 @@ public abstract class WebSiteResource extends PlatformObject implements IWorkben
     
     public abstract ImageDescriptor getImageDescriptor(Object object);
     
-	public abstract Collection<WebSiteResource> getChildren();
+	public abstract Collection<WebResource> getChildren();
 
-	public abstract WebSiteResource getParent();
+	public abstract WebResource getParent();
 	
 	public boolean equals(Object obj) {
-		if (obj instanceof WebSiteResource) {
-			WebSiteResource webResource = (WebSiteResource) obj;
+		if (obj instanceof WebResource) {
+			WebResource webResource = (WebResource) obj;
 			return getUrl().equals(webResource.getUrl());
 		}
 		return super.equals(obj);

@@ -21,32 +21,44 @@ import org.eclipse.mylar.internal.hypertext.ui.HypertextImages;
 /**
  * @author Mik Kersten
  */
-public class WebPage extends WebSiteResource {
+public class WebPage extends WebResource {
 
 	private WebSite site;
+	
+	private String title = null;
 	
 	protected WebPage(String url, WebSite site) {
 		super(url);
 		this.site = site;
 	}
 	
-	public String getName() {
-		return "page: " + super.getLabel(this);
-	}
-
 	@Override
-	public List<WebSiteResource> getChildren() {
+	public List<WebResource> getChildren() {
 		return Collections.emptyList();
 	}
 
 	@Override
-	public WebSiteResource getParent() {
+	public String getLabel(Object object) {
+		if (title == null) {
+			return url;
+		} else {
+			return title;
+		}
+	}
+
+	@Override
+	public WebResource getParent() {
 		return site;
 	}
 
 	@Override
 	public ImageDescriptor getImageDescriptor(Object object) {
 		return HypertextImages.WEB_PAGE;
+	}
+
+	
+	public void setTitle(String pageTitle) {
+		this.title = pageTitle;
 	}
 
 }

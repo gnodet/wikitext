@@ -23,7 +23,7 @@ import org.eclipse.ui.navigator.ICommonContentProvider;
 /**
  * @author Mik Kersten
  */
-public class WebSiteNavigatorContentProvider extends BaseWorkbenchContentProvider implements ICommonContentProvider {
+public class WebResourceContentProvider extends BaseWorkbenchContentProvider implements ICommonContentProvider {
 
 	private ICommonContentExtensionSite extensionSite;
 
@@ -38,9 +38,13 @@ public class WebSiteNavigatorContentProvider extends BaseWorkbenchContentProvide
 		public void webContextUpdated() {
 			refresh(null);
 		}
+
+		public void webPageUpdated(WebPage page) {
+			refresh(page);
+		}
 	};
 
-	public WebSiteNavigatorContentProvider() {
+	public WebResourceContentProvider() {
 		super();
 	}
 
@@ -88,11 +92,11 @@ public class WebSiteNavigatorContentProvider extends BaseWorkbenchContentProvide
 		super.inputChanged(viewer, oldInput, newInput);
 	}
 
-	private void refresh(final WebSite site) {
+	public void refresh(final WebResource site) {
 		Display.getDefault().asyncExec(new Runnable() {
 			public void run() {
-				if (!WebSiteNavigatorContentProvider.this.viewer.getControl().isDisposed()) {
-					AbstractTreeViewer viewer = (AbstractTreeViewer)WebSiteNavigatorContentProvider.this.viewer;
+				if (!WebResourceContentProvider.this.viewer.getControl().isDisposed()) {
+					AbstractTreeViewer viewer = (AbstractTreeViewer)WebResourceContentProvider.this.viewer;
 					if (site == null) {
 						viewer.refresh(true);
 					} else {

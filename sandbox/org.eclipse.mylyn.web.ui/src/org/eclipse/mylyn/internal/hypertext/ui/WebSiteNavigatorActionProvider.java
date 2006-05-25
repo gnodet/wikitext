@@ -14,7 +14,7 @@ package org.eclipse.mylar.internal.hypertext.ui;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.mylar.internal.hypertext.WebSiteResource;
+import org.eclipse.mylar.internal.hypertext.WebResource;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionConstants;
@@ -60,7 +60,7 @@ public class WebSiteNavigatorActionProvider extends CommonActionProvider {
 
 	public void fillActionBars(IActionBars actionBars) {
 		IStructuredSelection selection = (IStructuredSelection) getContext().getSelection();
-		if (selection.size() == 1 && selection.getFirstElement() instanceof WebSiteResource) {
+		if (selection.size() == 1 && selection.getFirstElement() instanceof WebResource) {
 			openAction.selectionChanged(selection);
 			actionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, openAction);
 		}

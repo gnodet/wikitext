@@ -45,16 +45,16 @@ public class WebStructureBridge implements IMylarStructureBridge {
 	public String getHandleIdentifier(Object object) {
 		if (object instanceof LocationEvent) {
 			return ((LocationEvent) object).location;
-		} else if (object instanceof WebSiteResource){
-			return ((WebSiteResource)object).getUrl();
+		} else if (object instanceof WebResource){
+			return ((WebResource)object).getUrl();
 		} else {
 			return null;
 		}
 	}
 
 	public Object getObjectForHandle(String handle) {
-		WebSiteResource webSiteResource = MylarHypertextPlugin.getWebResourceManager().find(handle);
-		return webSiteResource;
+		WebResource webResource = MylarHypertextPlugin.getWebResourceManager().find(handle);
+		return webResource;
 	}
 
 	public String getParentHandle(String handle) {
@@ -87,7 +87,7 @@ public class WebStructureBridge implements IMylarStructureBridge {
 	}
 
 	public boolean acceptsObject(Object object) {
-		if (object instanceof LocationEvent || object instanceof WebSiteResource) {
+		if (object instanceof LocationEvent || object instanceof WebResource) {
 			return true;
 		} else {
 			return false;

@@ -20,11 +20,11 @@ import org.eclipse.mylar.internal.hypertext.ui.HypertextImages;
 /**
  * @author Mik Kersten
  */
-public class WebSite extends WebSiteResource {
+public class WebSite extends WebResource {
 
 	private WebRoot project;
 	
-	private HashMap<String, WebSiteResource> pages = new HashMap<String, WebSiteResource>();
+	private HashMap<String, WebResource> pages = new HashMap<String, WebResource>();
 	
 	public WebSite(String url, WebRoot project) {
 		super(url);
@@ -39,12 +39,12 @@ public class WebSite extends WebSiteResource {
 	}
 	
 	@Override
-	public WebSiteResource getParent() {
+	public WebResource getParent() {
 		return project;
 	}
 
 	@Override
-	public Collection<WebSiteResource> getChildren() {
+	public Collection<WebResource> getChildren() {
 		return pages.values();
 	}
 
