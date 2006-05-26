@@ -37,7 +37,7 @@ public class CreateJiraTaskAction extends Action implements IViewActionDelegate 
 
 	@Override
 	public void run() {
-		if (TaskListView.getDefault() == null)
+		if (TaskListView.getFromActivePerspective() == null)
 			return;
 
 		MylarStatusHandler.fail(new RuntimeException("unimplmented"), "unimplemented", true);

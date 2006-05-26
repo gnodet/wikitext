@@ -180,7 +180,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 			// MylarTaskListPlugin.getDefault().setDataDirectory(MylarPlugin.getDefault().getDataDirectory());
 			(new ToggleContextCaptureAction()).resume(); // TODO: don't use
 			// actions directly
-			TaskListView.getDefault().indicateSharedFolder("");
+			TaskListView.getFromActivePerspective().indicateSharedFolder("");
 			MylarPlugin.getContextManager().setActivationHistorySuppressed(false);
 		} else {
 			String dataDirPath = MylarReportsPlugin.getDefault().getRootSharedDataDirectory() + File.separator
@@ -189,7 +189,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 			MylarSandboxPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectoryEnabled(true);
 			// MylarTaskListPlugin.getDefault().setDataDirectory(dataDirPath);
 			(new ToggleContextCaptureAction()).pause();
-			TaskListView.getDefault().indicateSharedFolder(targetFolder);
+			TaskListView.getFromActivePerspective().indicateSharedFolder(targetFolder);
 			MylarPlugin.getContextManager().setActivationHistorySuppressed(true);
 		}
 	}
