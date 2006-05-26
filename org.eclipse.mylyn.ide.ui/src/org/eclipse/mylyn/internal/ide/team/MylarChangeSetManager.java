@@ -11,6 +11,7 @@
 
 package org.eclipse.mylar.internal.ide.team;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
