@@ -7,3 +7,6 @@ I just don't know how I ever was able to read and understand the Eclipse
 sources (or the sources of other large projects I've worked on) before Mylar,
 it's just that good."
  
+Deepak Devje <deepak.devje@gs.com>
+https://bugs.eclipse.org/bugs/show_bug.cgi?id=142727
+I would like to commend you on this very good tool. It has increased my productivity by 3 folds - no kidding... I use it to manage my subprojects & frameworks - very friendly and very useful.
