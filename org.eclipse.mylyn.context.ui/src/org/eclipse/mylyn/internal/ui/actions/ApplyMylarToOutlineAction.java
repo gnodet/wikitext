@@ -37,8 +37,11 @@ public class ApplyMylarToOutlineAction extends AbstractApplyMylarAction {
 	// TODO: move or delete?
 	private static final String ID_CONTENT_OUTLINE = "org.eclipse.ui.views.ContentOutline";
 
+//	private static ApplyMylarToOutlineAction INSTANCE;
+
 	public ApplyMylarToOutlineAction() {
 		super(new InterestFilter());
+//		INSTANCE = this;
 	}
 
 	/**
@@ -78,6 +81,10 @@ public class ApplyMylarToOutlineAction extends AbstractApplyMylarAction {
 		}
 		return viewers;
 	}
+
+//	public static ApplyMylarToOutlineAction getDefault() {
+//		return INSTANCE;
+//	}
 
 	public void propertyChange(PropertyChangeEvent event) {
 		// ignore
