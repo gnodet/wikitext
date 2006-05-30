@@ -22,7 +22,7 @@ import org.eclipse.mylar.internal.hypertext.ui.HypertextImages;
  */
 public class WebRoot extends WebResource {
 
-	public static final String URL_ROOT = "webroot";
+	public static final String HANDLE_ROOT = "webroot";
 
 	private static final String LABEL = "Web Context";
 
@@ -34,7 +34,7 @@ public class WebRoot extends WebResource {
 	}
 
 	public WebRoot() {
-		super(URL_ROOT);
+		super(HANDLE_ROOT);
 	}
 
 	public void clear() {
