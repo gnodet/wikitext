@@ -15,7 +15,10 @@ import java.util.List;
 
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.mylar.internal.hypertext.ui.WebUiUtil;
 import org.eclipse.mylar.provisional.core.IMylarElement;
+import org.eclipse.mylar.provisional.core.IMylarStructureBridge;
+import org.eclipse.mylar.provisional.core.MylarPlugin;
 import org.eclipse.mylar.provisional.ui.IMylarUiBridge;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -25,10 +28,23 @@ import org.eclipse.ui.IEditorPart;
  */
 public class WebUiBridge implements IMylarUiBridge {
 
-	public void open(IMylarElement node) {
-		// ignore
+	public void open(IMylarElement element) {
+		IMylarStructureBridge bridge = MylarPlugin.getDefault().getStructureBridge(element.getContentType());
+		if (bridge == null) {
+			return;
+		} else {
+			WebResource webResource = (WebResource)bridge.getObjectForHandle(element.getHandleIdentifier());
+//			System.err.println(">>> " + webResource);
+			if (webResource instanceof WebPage || webResource instanceof WebSite) {
+				WebUiUtil.openUrlInInternalBrowser(webResource);
+			}
+		}
 	} 
 
+	public void restoreEditor(IMylarElement document) {
+		open(document);
+	}
+	
 	public void close(IMylarElement node) {
 		// ignore
 	}
@@ -43,10 +59,6 @@ public class WebUiBridge implements IMylarUiBridge {
 
 	public Object getObjectForTextSelection(TextSelection selection, IEditorPart editor) {
 		return null;
-	}
-
-	public void restoreEditor(IMylarElement document) {
-		// ignore
 	}
 
 	public void setContextCapturePaused(boolean paused) {

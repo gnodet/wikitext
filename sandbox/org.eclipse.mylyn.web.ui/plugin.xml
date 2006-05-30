@@ -38,6 +38,42 @@
 	 </objectContribution>
    </extension>
 
+<extension point="org.eclipse.ui.actionSets">
+	<actionSet
+            id="org.eclipse.mylar.browser.actionSet"
+            label="Mylar Browser"
+            visible="true"> 
+  		<action
+          class="org.eclipse.mylar.internal.hypertext.ui.NewWebBrowserAction"
+          definitionId="org.eclipse.mylar.browser.tab.new"
+          icon="icons/etool16/browser-new.gif" 
+          id="org.eclipse.mylar.browser.editor.new"
+          label="New Browser"
+          style="push"
+          toolbarPath="org.eclipse.ui.edit.text.actionSet.presentation/Presentation"
+          tooltip="New Browser"> 
+      	</action> 
+    </actionSet>
+   </extension>
+
+   <extension point="org.eclipse.ui.commands">
+	  <command
+         categoryId="org.eclipse.mylar.ui"
+         description="Toggle Automatic Folding"
+         id="org.eclipse.mylar.browser.editor.new"
+         name="New Browser">
+      </command>
+   </extension>
+
+   <extension point="org.eclipse.ui.bindings">   
+	  <key
+            sequence="M1+M2+M3+T"
+            contextId="org.eclipse.ui.globalScope"
+            commandId="org.eclipse.mylar.browser.editor.new"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </key>
+   </extension>
+
    <!-- ================================================================================ -->
    <!-- Common Navigator viewer for use in the Project Explorer							 -->
    <!-- ================================================================================ -->

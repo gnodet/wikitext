@@ -28,7 +28,7 @@ public class MylarHypertextPlugin extends AbstractUIPlugin {
 
 	private static MylarHypertextPlugin plugin;
 
-	private WebResourceManager webResourceManager = new WebResourceManager();
+	private WebResourceManager webResourceManager;
 	
 	private BrowserTracker browserTracker;
 
@@ -42,6 +42,7 @@ public class MylarHypertextPlugin extends AbstractUIPlugin {
 	
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
+		webResourceManager = new WebResourceManager();
 		final IWorkbench workbench = PlatformUI.getWorkbench();
 		workbench.getDisplay().asyncExec(new Runnable() {
 			public void run() {
@@ -64,9 +65,9 @@ public class MylarHypertextPlugin extends AbstractUIPlugin {
 	}
 
 	public void stop(BundleContext context) throws Exception {
+		webResourceManager.dispose();
 		super.stop(context);
 		plugin = null;
-		webResourceManager.dispose();
 	}
 
 	public static MylarHypertextPlugin getDefault() {

@@ -11,10 +11,16 @@
 
 package org.eclipse.mylar.internal.hypertext;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
+import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
 import org.eclipse.mylar.internal.tasklist.ui.views.RetrieveTitleFromUrlJob;
 import org.eclipse.mylar.provisional.core.IMylarContext;
 import org.eclipse.mylar.provisional.core.IMylarContextListener;
@@ -26,6 +32,8 @@ import org.eclipse.mylar.provisional.core.MylarPlugin;
  */
 public class WebResourceManager {
 
+	private static final String FILENAME_CACHE = "title-cache.properties";
+
 	private WebStructureBridge structureBridge = new WebStructureBridge();
 
 	private WebRoot webRoot = new WebRoot();
@@ -34,24 +42,26 @@ public class WebResourceManager {
 
 	private boolean webContextEnabled = false;
 
+	private Properties titleCache = new Properties();
+	
 	private final IMylarContextListener UPDATE_LISTENER = new IMylarContextListener() {
 
 		public void interestChanged(List<IMylarElement> elements) {
 			for (IMylarElement element : elements) {
 				if (WebStructureBridge.CONTENT_TYPE.equals(element.getContentType())) {
-					addUrl(element.getHandleIdentifier(), true);
+					addUrl(element.getHandleIdentifier(), false);
 				}
 			}
 		}
 
 		public void contextActivated(IMylarContext context) {
 			webContextEnabled = true;
-			update(true);
+			updateContents(true);
 		}
 
 		public void contextDeactivated(IMylarContext context) {
 			webContextEnabled = false;
-			update(false);
+			updateContents(false);
 		}
 
 		public void presentationSettingsChanging(UpdateKind kind) {
@@ -79,21 +89,43 @@ public class WebResourceManager {
 		}
 	};
 
+
+
 	public WebResourceManager() {
 		webRoot = new WebRoot();
 		MylarPlugin.getContextManager().addListener(UPDATE_LISTENER);
+
+		try {
+	        titleCache.load(new FileInputStream(getTitleCacheFile()));
+	    } catch (IOException e) {
+	    	MylarStatusHandler.fail(e, "could not load title cache", false);
+	    }	
 	}
 
 	public void dispose() {
 		MylarPlugin.getContextManager().removeListener(UPDATE_LISTENER);
+		try {
+			titleCache.store(new FileOutputStream(getTitleCacheFile()), null);
+	    } catch (IOException e) {
+	    	MylarStatusHandler.fail(e, "could not store title cache", false);
+	    }
 	}
 
-	protected void update(boolean populate) {
+	private File getTitleCacheFile() throws IOException {
+		String storePath = MylarHypertextPlugin.getDefault().getStateLocation().toOSString();
+		File file = new File(storePath + File.separator + FILENAME_CACHE);
+		if (!file.exists()) {
+			file.createNewFile();
+		}
+		return file;
+	}
+	
+	protected void updateContents(boolean populate) {
 		if (populate) {
 			List<IMylarElement> interestingElements = MylarPlugin.getContextManager().getInterestingDocuments();
 			for (IMylarElement element : interestingElements) {
 				if (WebStructureBridge.CONTENT_TYPE.equals(element.getContentType())) {
-					addUrl(element.getHandleIdentifier(), false);
+					addUrl(element.getHandleIdentifier(), true);
 				}
 			}
 		} else {
@@ -105,21 +137,25 @@ public class WebResourceManager {
 	}
 
 	public WebResource find(String url) {
-		String siteUrl = structureBridge.getSite(url);
-		if (siteUrl != null) {
-			WebSite webSite = webRoot.getSite(siteUrl);
-			if (webSite != null) {
-				if (url.equals(siteUrl)) {
-					return webSite;
-				} else {
-					return webSite.getPage(url);
+		if (WebRoot.HANDLE_ROOT.equals(url)) {
+			return webRoot;
+		} else {
+			String siteUrl = structureBridge.getSite(url);
+			if (siteUrl != null) {
+				WebSite webSite = webRoot.getSite(siteUrl);
+				if (webSite != null) {
+					if (url.equals(siteUrl)) {
+						return webSite;
+					} else {
+						return webSite.getPage(url);
+					}
 				}
 			}
+			return null;
 		}
-		return null;
 	}
 
-	private void addUrl(String url, boolean notify) {
+	private void addUrl(String url, boolean restore) {
 		String siteUrl = structureBridge.getSite(url);
 		if (siteUrl != null) {
 			WebSite webSite = webRoot.getSite(siteUrl);
@@ -131,20 +167,29 @@ public class WebResourceManager {
 				WebPage existingPage = webSite.getPage(url);
 				final WebPage page = (existingPage == null) ? new WebPage(url, webSite) : existingPage;
 				webSite.addPage(page);
+				if (restore) {
+					String cachedtitle = titleCache.getProperty(url);
+					if (cachedtitle != null) {
+						page.setTitle(cachedtitle);
+					}
+				} else {
+					updateTitle(page);
+				}
 			}
-			if (notify) {
+			if (!restore) {
 				for (IWebResourceListener listener : listeners) {
 					listener.webSiteUpdated(webSite);
 				}
 			}
 		}
 	}
-	
-	public void retrieveTitle(final WebPage page) {
+
+	public void updateTitle(final WebPage page) {
 		RetrieveTitleFromUrlJob job = new RetrieveTitleFromUrlJob(page.getUrl()) {
 			@Override
 			protected void setTitle(final String pageTitle) {
 				page.setTitle(pageTitle);
+				titleCache.put(page.getUrl(), pageTitle);
 				for (IWebResourceListener listener : listeners) {
 					listener.webPageUpdated(page);
 				}

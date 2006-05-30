@@ -31,7 +31,7 @@ public class WebStructureBridge implements IMylarStructureBridge {
 	public static final String CONTENT_TYPE = "http"; 
 
 	public void setParentBridge(IMylarStructureBridge bridge) {
-		// TODO Auto-generated method stub
+		// ignore
 	}
 
 	public String getContentType() {
@@ -53,8 +53,7 @@ public class WebStructureBridge implements IMylarStructureBridge {
 	}
 
 	public Object getObjectForHandle(String handle) {
-		WebResource webResource = MylarHypertextPlugin.getWebResourceManager().find(handle);
-		return webResource;
+		return MylarHypertextPlugin.getWebResourceManager().find(handle);
 	}
 
 	public String getParentHandle(String handle) {
@@ -62,6 +61,9 @@ public class WebStructureBridge implements IMylarStructureBridge {
 			return null;
 		}
 		String site = getSite(handle);
+		if (site == null) {
+			return WebRoot.HANDLE_ROOT;
+		}
 		return site;
 	}
 
@@ -95,7 +97,7 @@ public class WebStructureBridge implements IMylarStructureBridge {
 	}
 
 	public boolean canFilter(Object element) {
-		return false;
+		return element instanceof WebResource;
 	}
 
 	public boolean isDocument(String handle) {

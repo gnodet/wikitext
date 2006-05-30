@@ -54,8 +54,7 @@ public class WebSite extends WebResource {
 	}
 
 	public WebPage getPage(String url) {
-		// ignore
-		return null;
+		return (WebPage)pages.get(url);
 	}
 
 }

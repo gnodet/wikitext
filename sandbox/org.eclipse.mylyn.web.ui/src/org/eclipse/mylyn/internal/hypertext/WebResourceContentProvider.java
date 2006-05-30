@@ -43,7 +43,7 @@ public class WebResourceContentProvider extends BaseWorkbenchContentProvider imp
 			refresh(page);
 		}
 	};
-
+	
 	public WebResourceContentProvider() {
 		super();
 	}
@@ -92,12 +92,12 @@ public class WebResourceContentProvider extends BaseWorkbenchContentProvider imp
 		super.inputChanged(viewer, oldInput, newInput);
 	}
 
-	public void refresh(final WebResource site) {
+	public void refresh(final WebResource webResource) {
 		Display.getDefault().asyncExec(new Runnable() {
 			public void run() {
 				if (!WebResourceContentProvider.this.viewer.getControl().isDisposed()) {
 					AbstractTreeViewer viewer = (AbstractTreeViewer)WebResourceContentProvider.this.viewer;
-					if (site == null) {
+					if (webResource == null) {
 						viewer.refresh(true);
 					} else {
 						viewer.refresh(MylarHypertextPlugin.getWebResourceManager().getWebRoot(), true);
