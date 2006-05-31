@@ -41,11 +41,11 @@
 <extension point="org.eclipse.ui.actionSets">
 	<actionSet
             id="org.eclipse.mylar.browser.actionSet"
-            label="Mylar Browser"
+            label="Mylar Web"
             visible="true"> 
   		<action
           class="org.eclipse.mylar.internal.hypertext.ui.NewWebBrowserAction"
-          definitionId="org.eclipse.mylar.browser.tab.new"
+          definitionId="org.eclipse.mylar.web.browser.new"
           icon="icons/etool16/browser-new.gif" 
           id="org.eclipse.mylar.browser.editor.new"
           label="New Browser"
@@ -60,7 +60,7 @@
 	  <command
          categoryId="org.eclipse.mylar.ui"
          description="Toggle Automatic Folding"
-         id="org.eclipse.mylar.browser.editor.new"
+         id="org.eclipse.mylar.web.browser.new"
          name="New Browser">
       </command>
    </extension>
@@ -69,7 +69,7 @@
 	  <key
             sequence="M1+M2+M3+T"
             contextId="org.eclipse.ui.globalScope"
-            commandId="org.eclipse.mylar.browser.editor.new"
+            commandId="org.eclipse.mylar.web.browser.new"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
       </key>
    </extension>
