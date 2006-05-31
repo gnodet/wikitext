@@ -4,13 +4,13 @@
 <extension
          point="org.eclipse.mylar.core.context">
       <structureBridge
-            class="org.eclipse.mylar.internal.hypertext.WebStructureBridge"
+            class="org.eclipse.mylar.internal.web.WebResourceStructureBridge"
             name="Hypertext Structure Bridge"/>
    </extension>
    <extension
          point="org.eclipse.mylar.ui.context">
       <uiBridge
-            class="org.eclipse.mylar.internal.hypertext.WebUiBridge"
+            class="org.eclipse.mylar.internal.web.ui.WebResourceUiBridge"
             contentType="http"
             id="org.eclipse.mylar.hypertext.uiBridge"/>
    </extension>
@@ -18,7 +18,7 @@
   	<extension point = "org.eclipse.ui.popupMenus">
      <objectContribution
         id="org.eclipse.mylar.ui.interest"
-        objectClass="org.eclipse.mylar.internal.hypertext.WebResource">
+        objectClass="org.eclipse.mylar.internal.web.WebResource">
      	<action  
   		  	label="Mylar: Make Less Interesting" 
 	  		tooltip="Mark selected element as uninteresting"
@@ -44,7 +44,7 @@
             label="Mylar Web"
             visible="true"> 
   		<action
-          class="org.eclipse.mylar.internal.hypertext.ui.NewWebBrowserAction"
+          class="org.eclipse.mylar.internal.web.ui.NewWebBrowserAction"
           definitionId="org.eclipse.mylar.web.browser.new"
           icon="icons/etool16/browser-new.gif" 
           id="org.eclipse.mylar.browser.editor.new"
@@ -81,19 +81,19 @@
          point="org.eclipse.ui.navigator.navigatorContent">
       <navigatorContent
             activeByDefault="true"
-            contentProvider="org.eclipse.mylar.internal.hypertext.WebResourceContentProvider"
+            contentProvider="org.eclipse.mylar.internal.web.WebResourceContentProvider"
             icon="icons/obj16/web-root.gif"
             id="org.eclipse.mylar.hypertext.navigator"
-            labelProvider="org.eclipse.mylar.internal.hypertext.ui.WebSiteNavigatorLabelProvider"
+            labelProvider="org.eclipse.mylar.internal.web.ui.WebSiteNavigatorLabelProvider"
             name="Mylar Web Context (Experimental)">
          <triggerPoints>
             <or> 
             	<instanceof value="org.eclipse.core.resources.IWorkspaceRoot"/>
-            	<instanceof value="org.eclipse.mylar.internal.hypertext.WebResource"/>
+            	<instanceof value="org.eclipse.mylar.internal.web.WebResource"/>
             </or>
          </triggerPoints>
          <possibleChildren>
-            <instanceof value="org.eclipse.mylar.internal.hypertext.WebResource"/>
+            <instanceof value="org.eclipse.mylar.internal.web.WebResource"/>
          </possibleChildren>
         
         <!--
@@ -102,12 +102,12 @@
                suppressedExtensionId="org.eclipse.ui.navigator.resourceContent"/>
         -->
          <actionProvider
-               class="org.eclipse.mylar.internal.hypertext.ui.WebSiteNavigatorActionProvider"
+               class="org.eclipse.mylar.internal.web.ui.WebSiteNavigatorActionProvider"
                id="org.eclipse.mylar.hypertext.actionProvider">
               <enablement>
 				<or>
-					<adapt type="org.eclipse.mylar.internal.hypertext.WebSite"/> 	
-					<adapt type="org.eclipse.mylar.internal.hypertext.WebPage"/> 	
+					<adapt type="org.eclipse.mylar.internal.web.WebSite"/> 	
+					<adapt type="org.eclipse.mylar.internal.web.WebPage"/> 	
 				</or>
 			</enablement>
 		 </actionProvider>

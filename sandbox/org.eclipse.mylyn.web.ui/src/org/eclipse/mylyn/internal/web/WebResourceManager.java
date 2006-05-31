@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.hypertext;
+package org.eclipse.mylar.internal.web;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,7 +34,7 @@ public class WebResourceManager {
 
 	private static final String FILENAME_CACHE = "title-cache.properties";
 
-	private WebStructureBridge structureBridge = new WebStructureBridge();
+	private WebResourceStructureBridge structureBridge = new WebResourceStructureBridge();
 
 	private WebRoot webRoot = new WebRoot();
 
@@ -43,12 +43,12 @@ public class WebResourceManager {
 	private boolean webContextEnabled = false;
 
 	private Properties titleCache = new Properties();
-	
+
 	private final IMylarContextListener UPDATE_LISTENER = new IMylarContextListener() {
 
 		public void interestChanged(List<IMylarElement> elements) {
 			for (IMylarElement element : elements) {
-				if (WebStructureBridge.CONTENT_TYPE.equals(element.getContentType())) {
+				if (WebResourceStructureBridge.CONTENT_TYPE.equals(element.getContentType())) {
 					addUrl(element.getHandleIdentifier(), false);
 				}
 			}
@@ -89,42 +89,40 @@ public class WebResourceManager {
 		}
 	};
 
-
-
 	public WebResourceManager() {
 		webRoot = new WebRoot();
 		MylarPlugin.getContextManager().addListener(UPDATE_LISTENER);
 
 		try {
-	        titleCache.load(new FileInputStream(getTitleCacheFile()));
-	    } catch (IOException e) {
-	    	MylarStatusHandler.fail(e, "could not load title cache", false);
-	    }	
+			titleCache.load(new FileInputStream(getTitleCacheFile()));
+		} catch (IOException e) {
+			MylarStatusHandler.fail(e, "could not load title cache", false);
+		}
 	}
 
 	public void dispose() {
 		MylarPlugin.getContextManager().removeListener(UPDATE_LISTENER);
 		try {
 			titleCache.store(new FileOutputStream(getTitleCacheFile()), null);
-	    } catch (IOException e) {
-	    	MylarStatusHandler.fail(e, "could not store title cache", false);
-	    }
+		} catch (IOException e) {
+			MylarStatusHandler.fail(e, "could not store title cache", false);
+		}
 	}
 
 	private File getTitleCacheFile() throws IOException {
-		String storePath = MylarHypertextPlugin.getDefault().getStateLocation().toOSString();
+		String storePath = MylarWebPlugin.getDefault().getStateLocation().toOSString();
 		File file = new File(storePath + File.separator + FILENAME_CACHE);
 		if (!file.exists()) {
 			file.createNewFile();
 		}
 		return file;
 	}
-	
+
 	protected void updateContents(boolean populate) {
 		if (populate) {
 			List<IMylarElement> interestingElements = MylarPlugin.getContextManager().getInterestingDocuments();
 			for (IMylarElement element : interestingElements) {
-				if (WebStructureBridge.CONTENT_TYPE.equals(element.getContentType())) {
+				if (WebResourceStructureBridge.CONTENT_TYPE.equals(element.getContentType())) {
 					addUrl(element.getHandleIdentifier(), true);
 				}
 			}

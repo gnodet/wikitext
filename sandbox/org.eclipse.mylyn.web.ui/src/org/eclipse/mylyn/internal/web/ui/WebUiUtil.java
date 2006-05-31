@@ -9,15 +9,15 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.hypertext.ui;
+package org.eclipse.mylar.internal.web.ui;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.mylar.internal.hypertext.MylarHypertextPlugin;
-import org.eclipse.mylar.internal.hypertext.WebPage;
-import org.eclipse.mylar.internal.hypertext.WebResource;
+import org.eclipse.mylar.internal.web.MylarWebPlugin;
+import org.eclipse.mylar.internal.web.WebPage;
+import org.eclipse.mylar.internal.web.WebResource;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.browser.IWebBrowser;
@@ -42,7 +42,7 @@ public class WebUiUtil {
 						| WorkbenchBrowserSupport.NAVIGATION_BAR;
 			}
 			if (webResource instanceof WebPage) {
-				MylarHypertextPlugin.getWebResourceManager().updateTitle((WebPage)webResource);
+				MylarWebPlugin.getWebResourceManager().updateTitle((WebPage)webResource);
 			}
 			
 			browser = WorkbenchBrowserSupport.getInstance().createBrowser(flags, "org.eclipse.mylar.web",

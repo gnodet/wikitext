@@ -9,52 +9,63 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.hypertext;
+package org.eclipse.mylar.internal.web;
 
 import java.util.Collection;
 import java.util.HashMap;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylar.internal.hypertext.ui.HypertextImages;
+import org.eclipse.mylar.internal.web.ui.WebImages;
 
 /**
  * @author Mik Kersten
  */
-public class WebSite extends WebResource {
+public class WebRoot extends WebResource {
 
-	private WebRoot project;
-	
-	private HashMap<String, WebResource> pages = new HashMap<String, WebResource>();
-	
-	public WebSite(String url, WebRoot project) {
-		super(url);
+	public static final String HANDLE_ROOT = "webroot";
+
+	private static final String LABEL = "Web Context";
+
+	private HashMap<String, WebResource> sites = new HashMap<String, WebResource>();
+
+	@Override
+	public String getLabel(Object object) {
+		return LABEL;
 	}
 
-	public void addPage(WebPage page) {
-		pages.put(page.getUrl(), page);
+	public WebRoot() {
+		super(HANDLE_ROOT);
+	}
+
+	public void clear() {
+		sites.clear();
+	}
+
+	public void addSite(WebSite site) {
+		sites.put(site.getUrl(), site);
+	}
+
+	public WebSite getSite(String url) {
+		return (WebSite) sites.get(url);
 	}
 	
-	public void removePage(WebPage page) {
-		pages.remove(page);
+	public void deleteSite(WebSite site) {
+		sites.remove(site);
 	}
-	
+
 	@Override
 	public WebResource getParent() {
-		return project;
+		return null;
 	}
 
 	@Override
 	public Collection<WebResource> getChildren() {
-		return pages.values();
+		return sites.values();
 	}
 
 	@Override
 	public ImageDescriptor getImageDescriptor(Object object) {
-		return HypertextImages.WEB_SITE;
-	}
-
-	public WebPage getPage(String url) {
-		return (WebPage)pages.get(url);
+		return WebImages.WEB_ROOT;
 	}
 
 }

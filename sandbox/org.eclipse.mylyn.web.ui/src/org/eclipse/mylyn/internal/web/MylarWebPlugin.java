@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.hypertext;
+package org.eclipse.mylar.internal.web;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
@@ -22,22 +22,22 @@ import org.osgi.framework.BundleContext;
 /**
  * @author Mik Kersten
  */
-public class MylarHypertextPlugin extends AbstractUIPlugin {
+public class MylarWebPlugin extends AbstractUIPlugin {
 
-	protected static final String ID = "org.eclipse.mylar.hypertext";
+	protected static final String ID = "org.eclipse.mylar.web";
 
-	private static MylarHypertextPlugin plugin;
+	private static MylarWebPlugin INSTANCE;
 
 	private WebResourceManager webResourceManager;
 	
 	private BrowserTracker browserTracker;
 
-	public MylarHypertextPlugin() {
-		plugin = this;
+	public MylarWebPlugin() {
+		INSTANCE = this;
 	}
 
 	public static WebResourceManager getWebResourceManager() {
-		return plugin.webResourceManager;
+		return INSTANCE.webResourceManager;
 	}
 	
 	public void start(BundleContext context) throws Exception {
@@ -67,11 +67,11 @@ public class MylarHypertextPlugin extends AbstractUIPlugin {
 	public void stop(BundleContext context) throws Exception {
 		webResourceManager.dispose();
 		super.stop(context);
-		plugin = null;
+		INSTANCE = null;
 	}
 
-	public static MylarHypertextPlugin getDefault() {
-		return plugin;
+	public static MylarWebPlugin getDefault() {
+		return INSTANCE;
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class MylarHypertextPlugin extends AbstractUIPlugin {
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
-		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.mylar.internal.hypertext", path);
+		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.mylar.internal.web", path);
 	}
 
 }

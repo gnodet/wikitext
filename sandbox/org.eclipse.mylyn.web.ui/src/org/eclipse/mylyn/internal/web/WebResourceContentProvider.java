@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.hypertext;
+package org.eclipse.mylar.internal.web;
 
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.jface.viewers.AbstractTreeViewer;
@@ -50,12 +50,12 @@ public class WebResourceContentProvider extends BaseWorkbenchContentProvider imp
 
 	public void init(ICommonContentExtensionSite extensionSite) {
 		this.extensionSite = extensionSite;
-		MylarHypertextPlugin.getWebResourceManager().addListener(WEB_RESOURCE_LISTENER);
+		MylarWebPlugin.getWebResourceManager().addListener(WEB_RESOURCE_LISTENER);
 	}
 
 	public void dispose() {
 		super.dispose();
-		MylarHypertextPlugin.getWebResourceManager().removeListener(WEB_RESOURCE_LISTENER);
+		MylarWebPlugin.getWebResourceManager().removeListener(WEB_RESOURCE_LISTENER);
 	}
 
 	public void restoreState(IMemento aMemento) {
@@ -71,11 +71,11 @@ public class WebResourceContentProvider extends BaseWorkbenchContentProvider imp
 	}
 
 	public Object[] getElements(Object element) {
-		if (!MylarHypertextPlugin.getWebResourceManager().isWebContextEnabled()) {
+		if (MylarWebPlugin.getWebResourceManager() != null && !MylarWebPlugin.getWebResourceManager().isWebContextEnabled()) {
 			return null;
 		} else {
 			if (element instanceof IWorkspaceRoot) {
-				Object[] root = { MylarHypertextPlugin.getWebResourceManager().getWebRoot() };
+				Object[] root = { MylarWebPlugin.getWebResourceManager().getWebRoot() };
 				return root;
 			} else {
 				return super.getElements(element);
@@ -100,7 +100,7 @@ public class WebResourceContentProvider extends BaseWorkbenchContentProvider imp
 					if (webResource == null) {
 						viewer.refresh(true);
 					} else {
-						viewer.refresh(MylarHypertextPlugin.getWebResourceManager().getWebRoot(), true);
+						viewer.refresh(MylarWebPlugin.getWebResourceManager().getWebRoot(), true);
 					}
 				}
 			}

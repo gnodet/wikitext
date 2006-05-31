@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.hypertext;
+package org.eclipse.mylar.internal.web;
 
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +24,7 @@ import org.eclipse.swt.browser.LocationEvent;
  * 
  * @author Mik Kersten
  */
-public class WebStructureBridge implements IMylarStructureBridge {
+public class WebResourceStructureBridge implements IMylarStructureBridge {
 
 	private static final String DELIM_PROTOCOL = "//";
 	
@@ -53,7 +53,7 @@ public class WebStructureBridge implements IMylarStructureBridge {
 	}
 
 	public Object getObjectForHandle(String handle) {
-		return MylarHypertextPlugin.getWebResourceManager().find(handle);
+		return MylarWebPlugin.getWebResourceManager().find(handle);
 	}
 
 	public String getParentHandle(String handle) {

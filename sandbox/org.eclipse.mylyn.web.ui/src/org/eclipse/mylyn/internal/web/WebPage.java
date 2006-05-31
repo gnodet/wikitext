@@ -9,13 +9,13 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.hypertext;
+package org.eclipse.mylar.internal.web;
 
 import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylar.internal.hypertext.ui.HypertextImages;
+import org.eclipse.mylar.internal.web.ui.WebImages;
 
 
 /**
@@ -53,7 +53,7 @@ public class WebPage extends WebResource {
 
 	@Override
 	public ImageDescriptor getImageDescriptor(Object object) {
-		return HypertextImages.WEB_PAGE;
+		return WebImages.WEB_PAGE;
 	}
 
 	

@@ -1,0 +1,4 @@
+
+2006-05-31 0800: 
+  - CVS rename of org.eclipse.mylar.hypertext to ..mylar.web
+  - refactoring of corresponding packages

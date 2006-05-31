@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.hypertext.ui;
+package org.eclipse.mylar.internal.web.ui;
 
 import java.net.MalformedURLException;
 import java.net.URL;

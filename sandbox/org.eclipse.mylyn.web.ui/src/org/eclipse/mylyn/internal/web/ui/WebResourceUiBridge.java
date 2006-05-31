@@ -9,13 +9,15 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.hypertext;
+package org.eclipse.mylar.internal.web.ui;
 
 import java.util.List;
 
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.mylar.internal.hypertext.ui.WebUiUtil;
+import org.eclipse.mylar.internal.web.WebPage;
+import org.eclipse.mylar.internal.web.WebResource;
+import org.eclipse.mylar.internal.web.WebSite;
 import org.eclipse.mylar.provisional.core.IMylarElement;
 import org.eclipse.mylar.provisional.core.IMylarStructureBridge;
 import org.eclipse.mylar.provisional.core.MylarPlugin;
@@ -26,7 +28,7 @@ import org.eclipse.ui.IEditorPart;
 /**
  * @author Mik Kersten
  */
-public class WebUiBridge implements IMylarUiBridge {
+public class WebResourceUiBridge implements IMylarUiBridge {
 
 	public void open(IMylarElement element) {
 		IMylarStructureBridge bridge = MylarPlugin.getDefault().getStructureBridge(element.getContentType());

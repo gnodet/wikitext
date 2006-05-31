@@ -9,10 +9,10 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.hypertext.ui;
+package org.eclipse.mylar.internal.web.ui;
 
 import org.eclipse.jface.viewers.ILabelProviderListener;
-import org.eclipse.mylar.internal.hypertext.WebResource;
+import org.eclipse.mylar.internal.web.WebResource;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.navigator.ICommonContentExtensionSite;
@@ -32,11 +32,11 @@ public class WebSiteNavigatorLabelProvider extends WorkbenchLabelProvider implem
 
 //    public Image getImage(Object element) {
 //    	if (element instanceof WebRoot) {
-//    		return HypertextImages.getImage(HypertextImages.WEB_ROOT);
+//    		return WebImages.getImage(WebImages.WEB_ROOT);
 //    	} else if (element instanceof WebSite) {
-//    		return HypertextImages.getImage(HypertextImages.WEB_SITE);
+//    		return WebImages.getImage(WebImages.WEB_SITE);
 //    	} else if (element instanceof WebPage) {
-//    		return HypertextImages.getImage(HypertextImages.WEB_PAGE);
+//    		return WebImages.getImage(WebImages.WEB_PAGE);
 //    	} else {
 //    		return null;
 //    	}

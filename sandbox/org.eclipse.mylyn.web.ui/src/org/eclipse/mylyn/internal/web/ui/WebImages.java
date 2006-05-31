@@ -9,20 +9,20 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.hypertext.ui;
+package org.eclipse.mylar.internal.web.ui;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
-import org.eclipse.mylar.internal.hypertext.MylarHypertextPlugin;
+import org.eclipse.mylar.internal.web.MylarWebPlugin;
 import org.eclipse.swt.graphics.Image;
 
 /**
  * @author Mik Kersten
  */
-public class HypertextImages {
+public class WebImages {
 
 	private static ImageRegistry imageRegistry;
 
@@ -32,7 +32,7 @@ public class HypertextImages {
 
 	public static final String T_VIEW = "eview16";
 
-	private static final URL baseURL = MylarHypertextPlugin.getDefault().getBundle().getEntry("/icons/");
+	private static final URL baseURL = MylarWebPlugin.getDefault().getBundle().getEntry("/icons/");
 	
 	public static final ImageDescriptor WEB_PAGE = create(T_OBJ, "web-page.gif");
 
