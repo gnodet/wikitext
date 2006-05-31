@@ -40,7 +40,7 @@
 
 <extension point="org.eclipse.ui.actionSets">
 	<actionSet
-            id="org.eclipse.mylar.browser.actionSet"
+            id="org.eclipse.mylar.web.actionSet"
             label="Mylar Web"
             visible="true"> 
   		<action
