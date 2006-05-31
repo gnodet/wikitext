@@ -5,14 +5,14 @@
          point="org.eclipse.mylar.core.context">
       <structureBridge
             class="org.eclipse.mylar.internal.web.WebResourceStructureBridge"
-            name="Hypertext Structure Bridge"/>
-   </extension>
+            name="Web Resource Structure Bridge"/>
+   </extension> 
    <extension
          point="org.eclipse.mylar.ui.context">
       <uiBridge
             class="org.eclipse.mylar.internal.web.ui.WebResourceUiBridge"
             contentType="http"
-            id="org.eclipse.mylar.hypertext.uiBridge"/>
+            id="org.eclipse.mylar.web.uiBridge"/>
    </extension>
 
   	<extension point = "org.eclipse.ui.popupMenus">
@@ -83,7 +83,7 @@
             activeByDefault="true"
             contentProvider="org.eclipse.mylar.internal.web.WebResourceContentProvider"
             icon="icons/obj16/web-root.gif"
-            id="org.eclipse.mylar.hypertext.navigator"
+            id="org.eclipse.mylar.web.navigator"
             labelProvider="org.eclipse.mylar.internal.web.ui.WebSiteNavigatorLabelProvider"
             name="Mylar Web Context (Experimental)">
          <triggerPoints>
@@ -103,7 +103,7 @@
         -->
          <actionProvider
                class="org.eclipse.mylar.internal.web.ui.WebSiteNavigatorActionProvider"
-               id="org.eclipse.mylar.hypertext.actionProvider">
+               id="org.eclipse.mylar.web.actionProvider">
               <enablement>
 				<or>
 					<adapt type="org.eclipse.mylar.internal.web.WebSite"/> 	
@@ -119,22 +119,22 @@
       <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
          <includes>
             <contentExtension
-                  pattern="org.eclipse.mylar.hypertext.navigator"/>
+                  pattern="org.eclipse.mylar.web.navigator"/>
          </includes>
       </viewerContentBinding>
    </extension>
    <!--
    <extension
          point="org.eclipse.ui.newWizards">
-         <category name="Team Logical Model Example" id="org.eclipse.mylar.hypertext.newWizards">
+         <category name="Team Logical Model Example" id="org.eclipse.mylar.web.newWizards">
          </category>
       <wizard
-            category="org.eclipse.mylar.hypertext.newWizards"
+            category="org.eclipse.mylar.web.newWizards"
             icon="$nl$/icons/full/obj/root_obj.gif"
             name="Model Project"
-            class="org.eclipse.mylar.hypertext.ui.NewModelProjectWizard"
+            class="org.eclipse.mylar.web.ui.NewModelProjectWizard"
             project="true"
-            id="org.eclipse.mylar.hypertext.newModelProject">
+            id="org.eclipse.mylar.web.newModelProject">
             <description> 
               This wizard creates a model project that illustrates some of the logical model support in the Eclipse Platform
             </description>
@@ -150,7 +150,7 @@
          id="modelProvider"
          name="Web Sites"
          point="org.eclipse.core.resources.modelProviders">
-      <modelProvider class="org.eclipse.mylar.internal.hypertext.WebSiteModelProvider"/>
+      <modelProvider class="org.eclipse.mylar.internal.web.WebSiteModelProvider"/>
       <extends-model id="org.eclipse.core.resources.modelProvider"/>
       <enablement>
           <test property="org.eclipse.core.resources.projectNature" value="org.eclipse.team.examples.filesystem.modelNature" />
@@ -164,7 +164,7 @@
 <!--
    <extension
          point="org.eclipse.mylar.tasklist.editors">
-      <editorFactory class="org.eclipse.mylar.internal.hypertext.ui.editors.WebElementsEditorFactory"/>
+      <editorFactory class="org.eclipse.mylar.internal.web.ui.editors.WebElementsEditorFactory"/>
    </extension>
 -->
 
@@ -173,10 +173,10 @@
          point="org.eclipse.ui.navigator.navigatorContent">
       <navigatorContent
             activeByDefault="true"
-            contentProvider="org.eclipse.mylar.internal.hypertext.ui.editors.WebResourceContentProvider"
+            contentProvider="org.eclipse.mylar.internal.web.ui.editors.WebResourceContentProvider"
             icon="icons/etool16/browser-editor.gif"
-            id="org.eclipse.mylar.hypertext.navigator.webContent"
-            labelProvider="org.eclipse.mylar.internal.hypertext.ui.editors.WebResourceLabelProvider"
+            id="org.eclipse.mylar.web.navigator.webContent"
+            labelProvider="org.eclipse.mylar.internal.web.ui.editors.WebResourceLabelProvider"
             name="Web Pages"
             priority="low">
 		 <triggerPoints> 
@@ -193,7 +193,7 @@
 		<viewerContentBinding 
              viewerId="org.eclipse.ui.navigator.ProjectExplorer">
           <includes>	       	      
-	          <contentExtension pattern="org.eclipse.mylar.hypertext.navigator.webContent"/>
+	          <contentExtension pattern="org.eclipse.mylar.web.navigator.webContent"/>
           </includes>
        </viewerContentBinding>
   </extension>
