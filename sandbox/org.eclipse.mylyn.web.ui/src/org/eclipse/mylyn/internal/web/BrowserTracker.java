@@ -15,7 +15,6 @@ import java.lang.reflect.Field;
 
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
-import org.eclipse.mylar.internal.tasklist.ui.editors.MylarTaskEditor;
 import org.eclipse.mylar.provisional.core.AbstractUserInteractionMonitor;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.LocationEvent;
@@ -56,20 +55,19 @@ public class BrowserTracker extends AbstractUserInteractionMonitor implements IP
 		// ignore, this is a special case
 	}
 
-	// ---- Part Listener
-
 	public void partOpened(IWorkbenchPart part) {
 		if (part instanceof WebBrowserEditor) {
 			currentBrowserPart = part;
 			Browser browser = getBrowser((WebBrowserEditor) part);
 			if (browser != null)
 				browser.addLocationListener(urlTrackingListener);
-		} else if (part instanceof MylarTaskEditor) {
-			currentBrowserPart = part;
-			Browser browser = ((MylarTaskEditor) part).getWebBrowser();
-			if (browser != null)
-				browser.addLocationListener(urlTrackingListener);
-		}
+		} 
+//		else if (part instanceof MylarTaskEditor) {
+//			currentBrowserPart = part;
+//			Browser browser = ((MylarTaskEditor) part).getWebBrowser();
+//			if (browser != null)
+//				browser.addLocationListener(urlTrackingListener);
+//		}
 	}
 
 	public void partClosed(IWorkbenchPart part) {
