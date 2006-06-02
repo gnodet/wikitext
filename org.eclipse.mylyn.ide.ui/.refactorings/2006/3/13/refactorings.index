@@ -1,0 +1,5 @@
+1143750849320	Rename method 'org.eclipse.mylar.internal.ide.ui.actions.ApplyMylarToMarkerTasksAction.updateLabelProvider(...)' to 'updateMarkerViewLabelProvider'
+1143753575990	Rename type 'org.eclipse.mylar.internal.ide.ui.ResourceMarkerInterestFilter' to 'MarkerInterestFilter'
+1143753541661	Rename type 'org.eclipse.mylar.internal.ide.ui.ProblemsListInterestFilter' to 'ResourceMarkerInterestFilter'
+1143752370337	Extract method 'private boolean isImplicitlyInteresting(ConcreteMarker marker)' from 'org.eclipse.mylar.internal.ide.ui.ProblemsListInterestFilter.select()' to 'org.eclipse.mylar.internal.ide.ui.ProblemsListInterestFilter'
+1143750875117	Rename type 'org.eclipse.mylar.internal.ide.ui.ProblemsListLabelProvider' to 'MarkerViewLabelProvider'

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename field 'DEFAULT_EDITOR' in 'org.eclipse.mylar.internal.java.ui.wizards.MylarPreferenceWizardPage' to 'CONTENT_ASSIST'&#13;&#10;- Original element: 'org.eclipse.mylar.internal.java.ui.wizards.MylarPreferenceWizardPage.DEFAULT_EDITOR'&#13;&#10;- Renamed element: 'org.eclipse.mylar.internal.java.ui.wizards.MylarPreferenceWizardPage.CONTENT_ASSIST'&#13;&#10;- Update references to refactored element&#13;&#10;- Update textual occurrences in comments and strings" delegate="false" deprecate="true" description="Rename field 'DEFAULT_EDITOR'" flags="589826" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;org.eclipse.mylar.internal.java.ui.wizards{MylarPreferenceWizardPage.java[MylarPreferenceWizardPage^DEFAULT_EDITOR" name="CONTENT_ASSIST" references="true" setter="false" stamp="1147197528883" textual="false" version="1.0"/>
+</session>

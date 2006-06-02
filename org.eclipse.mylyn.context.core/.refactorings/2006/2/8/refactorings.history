@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="" description="Rename package 'org.eclipse.mylar.core' to 'org.eclipse.mylar.provisional.core'" flags="65542" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="=org.eclipse.mylar.core/src&lt;org.eclipse.mylar.core" name="org.eclipse.mylar.provisional.core" project="org.eclipse.mylar.core" qualified="false" references="true" stamp="1140464685357" textual="false"/>
+</session>

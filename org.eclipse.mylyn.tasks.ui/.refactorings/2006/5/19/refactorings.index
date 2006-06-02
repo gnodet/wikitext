@@ -1,0 +1,4 @@
+1147375241467	Extract constant 'TITLE'
+1147459810120	Extract constant 'LABEL_SCHEDULE'
+1147456884042	Rename method 'setInHour'
+1147456823385	Rename field 'LABEL_IN_HOUR'

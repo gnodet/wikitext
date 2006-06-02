@@ -1,0 +1,1 @@
+1143860351816	Rename method 'org.eclipse.mylar.internal.ide.team.MylarContextChangeSet.getTaskIdFromComment(...)' to 'getTaskIdFromCommentOrLabel'

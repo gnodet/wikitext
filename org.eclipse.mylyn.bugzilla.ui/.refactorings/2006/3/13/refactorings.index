@@ -1,0 +1,2 @@
+1143846908155	Extract constant 'org.eclipse.mylar.internal.bugzilla.ui.editor.ExistingBugEditor.ATTR_SUMMARY' from expression '"Summary"'
+1143847679764	Convert anonymous class 'org.eclipse.mylar.internal.bugzilla.ui.editor.AbstractBugEditor.addHyperlinks().new HyperlinkAdapter() {...}' in 'org.eclipse.mylar.internal.bugzilla.ui.editor.AbstractBugEditor.addHyperlinks()' to nested class

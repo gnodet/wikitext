@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="" description="Rename resource '/org.eclipse.mylar/graphics/ui/icons-new.psd' to 'icons-mylar.psd'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="/org.eclipse.mylar/graphics/ui/icons-new.psd" name="icons-mylar.psd" project="org.eclipse.mylar" stamp="1142798378262"/>
+</session>

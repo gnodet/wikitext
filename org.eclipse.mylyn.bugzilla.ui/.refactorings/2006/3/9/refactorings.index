@@ -1,0 +1,3 @@
+1141261237917	Rename type 'org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaRepositoryConnector.SynchronizeBugzillaQueryJob' to 'SynchronizeQueryJob'
+1141261247020	Rename type 'org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaRepositoryConnector.SynchronizeBugzillaTaskJob' to 'SynchronizeTaskJob'
+1141272919794	Rename method 'org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaTask.isBugDownloaded()' to 'isDownloaded'

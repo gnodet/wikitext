@@ -1,0 +1,5 @@
+1148345876632	Extract superclass 'AdaptiveRefreshFilteredTree'
+1148602298202	Rename method 'getDefault'
+1148595218542	Rename type 'OpenInExternalBrowserAction'
+1148347131447	Rename type 'AdaptiveRefreshFilteredTree'
+1148346810155	Extract method 'createStatusComposite'

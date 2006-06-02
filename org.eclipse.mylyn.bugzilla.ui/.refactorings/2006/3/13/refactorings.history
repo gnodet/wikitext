@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring description="Extract constant 'org.eclipse.mylar.internal.bugzilla.ui.editor.ExistingBugEditor.ATTR_SUMMARY' from expression '&quot;Summary&quot;'" id="org.eclipse.jdt.ui.extract.constant" input="unit://src/org/eclipse/mylar/internal/bugzilla/ui/editor/ExistingBugEditor.java" name="ATTR_SUMMARY" qualify="false" replace="true" selection="34667 9" stamp="1143846908155" version="1.0" visibility="2"/>
+<refactoring description="Convert anonymous class 'org.eclipse.mylar.internal.bugzilla.ui.editor.AbstractBugEditor.addHyperlinks().new HyperlinkAdapter() {...}' in 'org.eclipse.mylar.internal.bugzilla.ui.editor.AbstractBugEditor.addHyperlinks()' to nested class" final="true" flags="2" id="org.eclipse.jdt.ui.convert.anonymous" input="unit://src/org/eclipse/mylar/internal/bugzilla/ui/editor/AbstractBugEditor.java" name="JavaStackTraceHyperlinkAdapter" selection="54854 0" stamp="1143847679764" static="false" version="1.0" visibility="2"/>
+</session>

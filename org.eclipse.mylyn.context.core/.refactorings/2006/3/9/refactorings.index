@@ -1,0 +1,3 @@
+1141348679497	Rename field 'org.eclipse.mylar.internal.core.MylarContextManager.activityHistory' to 'activityHistoryMetaContext'
+1141349070860	Rename method 'org.eclipse.mylar.internal.core.MylarContextManager.getActivityHistory()' to 'getActivityHistoryMetaContext'
+1141350881133	Rename field 'org.eclipse.mylar.internal.core.MylarContextManager.activityHistoryMetaContext' to 'activityMetaContext'

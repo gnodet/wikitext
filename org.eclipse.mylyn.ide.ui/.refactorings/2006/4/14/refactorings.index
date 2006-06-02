@@ -1,0 +1,2 @@
+1144434975220	Extract method 'private void getAffectedFiles(final List<IResource> changedResources,IResourceDelta delta)' from 'org.eclipse.mylar.internal.ide.ResourceChangeMonitor.resourceChanged().new IResourceDeltaVisitor() {...}.visit()' to 'org.eclipse.mylar.internal.ide.ResourceChangeMonitor'
+1144461106895	Rename resource '/org.eclipse.mylar.ide/doc/interest.html' to 'concepts.html'

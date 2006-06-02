@@ -1,0 +1,4 @@
+1145414074099	Rename type 'org.eclipse.mylar.internal.java.PackageExplorerExpansionManager' to 'PackageExplorerManager'
+1145500362431	Rename type 'org.eclipse.mylar.internal.java.ui.JavaDeclarationsMembersFilter' to 'JavaDeclarationsFilter'
+1145500356032	Rename type 'org.eclipse.mylar.internal.java.ui.MembersFilter' to 'JavaDeclarationsMembersFilter'
+1145494140224	Rename field 'org.eclipse.mylar.internal.java.MylarJavaPrefConstants.AUTO_FOLDING_ENABLED' to 'ACTIVE_FOLDING_ENABLED'

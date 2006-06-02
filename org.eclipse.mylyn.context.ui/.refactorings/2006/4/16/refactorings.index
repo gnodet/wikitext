@@ -1,0 +1,2 @@
+1145500112812	Change method 'public List<ViewerFilter> org.eclipse.mylar.internal.ui.actions.AbstractApplyMylarAction.getExcludedFilters()' to 'public List<Class> getExcludedFilters()'
+1145500205175	Rename method 'org.eclipse.mylar.internal.ui.actions.AbstractApplyMylarAction.getExcludedFilters()' to 'getPreservedFilters'

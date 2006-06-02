@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring delegate="false" deprecate="true" description="Rename method 'org.eclipse.mylar.internal.ide.team.MylarContextChangeSet.getTaskIdFromComment(...)' to 'getTaskIdFromCommentOrLabel'" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="=org.eclipse.mylar.ide/src&lt;org.eclipse.mylar.internal.ide.team{MylarContextChangeSet.java[MylarContextChangeSet~getTaskIdFromComment~QString;" name="getTaskIdFromCommentOrLabel" references="true" stamp="1143860351816" version="1.0"/>
+</session>

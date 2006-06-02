@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comments="false" description="Extract method 'private boolean isTemporarilyUnfiltered(Object parent)' from 'org.eclipse.mylar.provisional.ui.InterestFilter.select()' to 'org.eclipse.mylar.provisional.ui.InterestFilter'" destination="0" exceptions="false" flags="2" id="org.eclipse.jdt.ui.extract.method" input="unit://src/org/eclipse/mylar/provisional/ui/InterestFilter.java" name="isTemporarilyUnfiltered" replace="true" selection="2343 69" stamp="1144300719297" version="1.0" visibility="2"/>
+</session>

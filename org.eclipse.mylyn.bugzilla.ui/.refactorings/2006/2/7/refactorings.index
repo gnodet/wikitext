@@ -1,0 +1,13 @@
+1139955674016	Rename resource '/org.eclipse.mylar.bugzilla.ui/icons/eview16]' to 'eview16'
+1140034781046	Move org.eclipse.mylar.internal.bugzilla.ui.wizard.AbstractWizardDataPage.ATTRIBUTE_SEVERITY to {1}
+1140034793124	Move org.eclipse.mylar.internal.bugzilla.ui.wizard.AbstractWizardDataPage.ATTRIBUTE_OS to {1}
+1140034807895	Move org.eclipse.mylar.internal.bugzilla.ui.wizard.AbstractWizardDataPage.ATTRIBUTE_MILESTONE to {1}
+1140034818450	Move org.eclipse.mylar.internal.bugzilla.ui.wizard.AbstractWizardDataPage.ATTRIBUTE_PLATFORM to {1}
+1140034829436	Move org.eclipse.mylar.internal.bugzilla.ui.wizard.AbstractWizardDataPage.ATTRIBUTE_VERSION to {1}
+1140034838118	Move org.eclipse.mylar.internal.bugzilla.ui.wizard.AbstractWizardDataPage.ATTRIBUTE_COMPONENT to {1}
+1140034848654	Move org.eclipse.mylar.internal.bugzilla.ui.wizard.AbstractWizardDataPage.ATTRIBUTE_PRIORITY to {1}
+1140034858618	Move org.eclipse.mylar.internal.bugzilla.ui.wizard.AbstractWizardDataPage.ATTRIBUTE_URL to {1}
+1140034872197	Move org.eclipse.mylar.internal.bugzilla.ui.wizard.AbstractWizardDataPage.KEY_MILESTONE to {1}
+1140066991322	Rename field 'org.eclipse.mylar.internal.bugzilla.ui.editor.AbstractBugEditor.model' to 'bugzillaOutlineNode'
+1140067014366	Rename field 'org.eclipse.mylar.internal.bugzilla.ui.editor.AbstractBugEditor.bugzillaOutlineNode' to 'bugzillaOutlineModel'
+1140067346513	Rename method 'org.eclipse.mylar.internal.bugzilla.ui.editor.AbstractBugEditor.getModel()' to 'getOutlineModel'

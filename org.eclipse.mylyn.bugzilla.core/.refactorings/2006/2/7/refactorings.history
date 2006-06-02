@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="" description="Extract local variable 'OLD_PREF_SERVER' from expression '&quot;BUGZILLA_SERVER&quot;'" final="false" id="org.eclipse.jdt.ui.extract.temp" input="=org.eclipse.mylar.bugzilla.core/src&lt;org.eclipse.mylar.internal.bugzilla.core{BugzillaPlugin.java" name="OLD_PREF_SERVER" project="org.eclipse.mylar.bugzilla.core" replace="true" selection="4428 17" stamp="1140105385961"/>
+</session>

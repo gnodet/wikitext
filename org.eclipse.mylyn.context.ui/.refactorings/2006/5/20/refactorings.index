@@ -1,0 +1,3 @@
+1148002361036	Rename type 'ScrollingInteractionMonitor'
+1148063069788	Extract method 'compareKeys'
+1148063045533	Extract method 'comparePriorities'

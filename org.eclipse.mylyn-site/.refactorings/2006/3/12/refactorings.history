@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="" description="Rename resource '/org.eclipse.mylar-site/merge-eclipse-3.1.txt' to 'merge.txt'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="/org.eclipse.mylar-site/merge-eclipse-3.1.txt" name="merge.txt" project="org.eclipse.mylar-site" stamp="1142793793861"/>
+</session>

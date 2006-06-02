@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring delegate="false" deprecate="true" description="Rename method 'org.eclipse.mylar.internal.core.MylarContextManager.manipulateInterestForNode(...)' to 'manipulateInterestForElement'" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylar.internal.core{MylarContextManager.java[MylarContextManager~manipulateInterestForNode~QIMylarElement;~Z~Z~QString;" name="manipulateInterestForElement" references="true" stamp="1145732023684" version="1.0"/>
+</session>

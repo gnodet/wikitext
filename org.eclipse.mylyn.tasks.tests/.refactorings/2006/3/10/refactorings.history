@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="" description="Extract local variable 'task' from expression 'new Task(&quot;1&quot;,&quot;&quot;,true)'" final="false" id="org.eclipse.jdt.ui.extract.temp" input="=org.eclipse.mylar.tasklist.tests/src&lt;org.eclipse.mylar.tasklist.tests{TabelSorterTest.java" name="task" project="org.eclipse.mylar.tasklist.tests" replace="true" selection="1171 23" stamp="1141843320075"/>
+<refactoring comment="" description="Extract local variable 'category' from expression 'new TaskCategory(&quot;cat&quot;)'" final="false" id="org.eclipse.jdt.ui.extract.temp" input="=org.eclipse.mylar.tasklist.tests/src&lt;org.eclipse.mylar.tasklist.tests{TabelSorterTest.java" name="category" project="org.eclipse.mylar.tasklist.tests" replace="true" selection="1217 23" stamp="1141843341225"/>
+</session>

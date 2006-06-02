@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring delegate="false" deprecate="true" description="Rename field 'org.eclipse.mylar.provisional.tasklist.DelegatingTaskExternalizer.KEY_QUERY_LAST_REFRESH' to 'KEY_LAST_REFRESH'" flags="589830" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;org.eclipse.mylar.provisional.tasklist{DelegatingTaskExternalizer.java[DelegatingTaskExternalizer^KEY_QUERY_LAST_REFRESH" name="KEY_LAST_REFRESH" references="true" setter="false" stamp="1145577553230" textual="false" version="1.0"/>
+<refactoring delegate="false" deprecate="true" description="Rename field 'org.eclipse.mylar.internal.tasklist.ui.TaskListColorsAndFonts.THEME_COLOR_ID_TASK_DUE_TODAY' to 'THEME_COLOR_ID_TASK_TODAY'" flags="589830" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;org.eclipse.mylar.internal.tasklist.ui{TaskListColorsAndFonts.java[TaskListColorsAndFonts^THEME_COLOR_ID_TASK_DUE_TODAY" name="THEME_COLOR_ID_TASK_TODAY" references="true" setter="false" stamp="1145590187252" textual="false" version="1.0"/>
+</session>

@@ -1,0 +1,1 @@
+1144300719297	Extract method 'private boolean isTemporarilyUnfiltered(Object parent)' from 'org.eclipse.mylar.provisional.ui.InterestFilter.select()' to 'org.eclipse.mylar.provisional.ui.InterestFilter'

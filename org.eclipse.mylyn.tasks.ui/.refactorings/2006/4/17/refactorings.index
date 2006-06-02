@@ -1,0 +1,7 @@
+1146016573963	Extract constant 'org.eclipse.mylar.internal.tasklist.ui.actions.CopyDescriptionAction.LABEL' from expression '"Copy Description"'
+1146259650882	Rename method 'getKind'
+1146254914992	Rename method 'isActiveToday'
+1146106982879	Extract constant 'org.eclipse.mylar.internal.tasklist.ui.wizards.ContextRetrieveWizard.TITLE' from expression '"Retrieve Context"'
+1146082078355	Rename method 'createDocumentationSection'
+1146082056264	Rename type 'TaskInfoEditor'
+1146017097227	Rename type 'OpenTaskInExternalBrowserAction'

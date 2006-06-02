@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="" description="Rename type 'org.eclipse.mylar.internal.tasklist.ui.AbstractTaskFilter' to 'AbstractTaskListFilter'" flags="65542" id="org.eclipse.jdt.ui.rename.type" input="=org.eclipse.mylar.tasklist/src&lt;org.eclipse.mylar.internal.tasklist.ui{AbstractTaskFilter.java[AbstractTaskFilter" matchStrategy="1" name="AbstractTaskListFilter" project="org.eclipse.mylar.tasklist" qualified="false" references="true" similarDeclarations="true" stamp="1143516342515" textual="false"/>
+<refactoring comment="" delegate="false" deprecate="true" description="Rename field 'org.eclipse.mylar.internal.tasklist.ui.TaskReminderMenuContributor.SET_REMINDER' to 'LABEL_REMINDER'" flags="65538" getter="false" id="org.eclipse.jdt.ui.rename.field" input="=org.eclipse.mylar.tasklist/src&lt;org.eclipse.mylar.internal.tasklist.ui{TaskReminderMenuContributor.java[TaskReminderMenuContributor^SET_REMINDER" name="LABEL_REMINDER" project="org.eclipse.mylar.tasklist" references="true" setter="false" stamp="1143571073753" textual="false"/>
+</session>

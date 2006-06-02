@@ -1,0 +1,3 @@
+1141323285188	Rename method 'org.eclipse.mylar.internal.ide.team.MylarContextChangeSet.getIssueIdFromComment(...)' to 'getTaskIdFromComment'
+1141325505189	Extract constant 'org.eclipse.mylar.internal.ide.team.MylarContextChangeSet.PREFIX_DELIM' from expression '" "'
+1141325732676	Extract method 'private static String fixUpDelimIfPresent(String completedPrefix)' from 'org.eclipse.mylar.internal.ide.team.MylarContextChangeSet.generateComment()' to 'org.eclipse.mylar.internal.ide.team.MylarContextChangeSet'

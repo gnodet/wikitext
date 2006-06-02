@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comments="false" description="Extract method 'private void getAffectedFiles(final List&lt;IResource&gt; changedResources,IResourceDelta delta)' from 'org.eclipse.mylar.internal.ide.ResourceChangeMonitor.resourceChanged().new IResourceDeltaVisitor() {...}.visit()' to 'org.eclipse.mylar.internal.ide.ResourceChangeMonitor'" destination="1" exceptions="false" flags="2" id="org.eclipse.jdt.ui.extract.method" input="unit://src/org/eclipse/mylar/internal/ide/ResourceChangeMonitor.java" name="getAffectedFiles" replace="false" selection="2323 272" stamp="1144434975220" version="1.0" visibility="2"/>
+<refactoring description="Rename resource '/org.eclipse.mylar.ide/doc/interest.html' to 'concepts.html'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="resource://doc/interest.html" name="concepts.html" stamp="1144461106895" version="1.0"/>
+</session>

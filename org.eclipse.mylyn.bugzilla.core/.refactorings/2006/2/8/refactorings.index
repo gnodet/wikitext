@@ -1,0 +1,4 @@
+1140641583126	Extract constant 'org.eclipse.mylar.internal.bugzilla.core.internal.BugParser.KEY_NAME' from expression '"name"'
+1140641607942	Extract constant 'org.eclipse.mylar.internal.bugzilla.core.internal.BugParser.KEY_VALUE' from expression '"value"'
+1140642016049	Extract constant 'org.eclipse.mylar.internal.bugzilla.core.internal.BugParser.KEY_RESOLUTION' from expression '"resolution"'
+1140642329970	Extract constant 'org.eclipse.mylar.internal.bugzilla.core.internal.BugParser.KEY_BUG_NUM' from expression '"Bug#"'

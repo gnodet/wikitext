@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring description="Extract constant 'org.eclipse.mylar.internal.bugzilla.ui.wizard.NewBugzillaReportWizard.TITLE' from expression '&quot;New Bugzilla Task&quot;'" id="org.eclipse.jdt.ui.extract.constant" input="unit://src/org/eclipse/mylar/internal/bugzilla/ui/wizard/NewBugzillaReportWizard.java" name="TITLE" qualify="false" replace="true" selection="1911 19" stamp="1144337386181" version="1.0" visibility="2"/>
+</session>

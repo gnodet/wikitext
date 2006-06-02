@@ -1,0 +1,4 @@
+1142291022438	Extract constant 'org.eclipse.mylar.internal.ui.actions.AbstractInterestManipulationAction.NO_CONTEXT_MESSAGE' from expression '"No task context is active, or element not found in context"'
+1142291033494	Rename field 'org.eclipse.mylar.internal.ui.actions.AbstractInterestManipulationAction.NO_CONTEXT_MESSAGE' to 'MESSAGE_NO_CONTEXT'
+1142441335515	Rename field 'org.eclipse.mylar.internal.ui.ColorMap.WHITE' to 'DEFAULT'
+1142442523353	Extract constant 'org.eclipse.mylar.internal.ui.Highlighter.VAL_DEFAULT' from expression '""'

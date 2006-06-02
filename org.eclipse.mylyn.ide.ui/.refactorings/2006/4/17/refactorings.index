@@ -1,0 +1,1 @@
+1146081082183	Extract method 'private void isActiveTaskEditor(ITask activeTask,IEditorInput input)' from 'org.eclipse.mylar.internal.ide.MylarEditorManager.closeAllEditors()' to 'org.eclipse.mylar.internal.ide.MylarEditorManager'

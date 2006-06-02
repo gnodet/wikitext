@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="" delegate="false" deprecate="true" description="Rename method 'org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaRepositorySettingsPage.validateServer()' to 'validateSettings'" flags="65538" id="org.eclipse.jdt.ui.rename.method" input="=org.eclipse.mylar.bugzilla.ui/src&lt;org.eclipse.mylar.internal.bugzilla.ui.tasklist{BugzillaRepositorySettingsPage.java[BugzillaRepositorySettingsPage~validateServer" name="validateSettings" project="org.eclipse.mylar.bugzilla.ui" references="true" stamp="1140467802970"/>
+<refactoring comment="" description="Rename type 'org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaRepositoryClient' to 'BugzillaRepositoryConnector'" flags="65542" id="org.eclipse.jdt.ui.rename.type" input="=org.eclipse.mylar.bugzilla.ui/src&lt;org.eclipse.mylar.internal.bugzilla.ui.tasklist{BugzillaRepositoryClient.java[BugzillaRepositoryClient" matchStrategy="1" name="BugzillaRepositoryConnector" project="org.eclipse.mylar.bugzilla.ui" qualified="false" references="true" similarDeclarations="false" stamp="1140626236549" textual="false"/>
+</session>

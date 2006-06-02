@@ -1,0 +1,3 @@
+1142292958622	Rename type 'org.eclipse.mylar.internal.bugzilla.ui.wizard.AbstractWizardDataPage' to 'AbstractBugzillaWizardPage'
+1142293187141	Rename field 'org.eclipse.mylar.internal.bugzilla.ui.wizard.BugzillaProductPage.TITLE' to 'TITLE_NEW_BUG'
+1142293403341	Extract constant 'org.eclipse.mylar.internal.bugzilla.ui.wizard.WizardAttributesPage.DESCRIPTION' from expression '"Enter Bugzilla report details"'

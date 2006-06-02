@@ -1,0 +1,16 @@
+1144349097441	Extract method 'private void ensureIsInteresting(InteractionEvent event,IMylarElement previous,float previousInterest)' from 'org.eclipse.mylar.internal.core.MylarContextManager.internalHandleInteractionEvent()' to 'org.eclipse.mylar.internal.core.MylarContextManager'
+1144448049830	Rename method 'org.eclipse.mylar.internal.core.MylarContextManager.contextDeactivated(...)' to 'deactivateContext'
+1144448036711	Rename method 'org.eclipse.mylar.internal.core.MylarContextManager.contextActivated(...)' to 'activateContext'
+1144448013528	Rename method 'org.eclipse.mylar.internal.core.MylarContextManager.contextActivated(...)' to 'activateContext'
+1144447965298	Rename method 'org.eclipse.mylar.internal.core.MylarContextManager.contextDeleted(...)' to 'deleteContext'
+1144442112933	Rename type 'org.eclipse.mylar.internal.core.MylarContextManagerr' to 'MylarContextManager'
+1144442095238	Rename type 'org.eclipse.mylar.internal.core.MylarContextManager' to 'MylarContextManagerr'
+1144442079575	Rename field 'org.eclipse.mylar.internal.core.MylarContextManager.ACTIVITY_KIND' to 'ACTIVITY_STRUCTURE_KIND'
+1144441959402	Rename field 'org.eclipse.mylar.internal.core.MylarContextManager.INACTIVITY_TIMEOUT_MILLIS' to 'TIMEOUT_INACTIVITY_MILLIS'
+1144440455570	Move type 'org.eclipse.mylar.internal.core.MylarContextManager.ShellLifecycleListener' in 'org.eclipse.mylar.internal.core.MylarContextManager' to new file
+1144437084963	Convert anonymous class 'org.eclipse.mylar.internal.core.MylarContextManager.new ShellListener() {...}' in '' to nested class
+1144436676736	Rename field 'org.eclipse.mylar.internal.core.MylarContextManager.ACTIVITY_HANDLE' to 'ACTIVITY_HANDLE_ATTENTION'
+1144436658981	Rename field 'org.eclipse.mylar.internal.core.MylarContextManager.ACTIVITY_ID' to 'ACTIVITY_ORIGIN_ID'
+1144436579587	Rename field 'org.eclipse.mylar.internal.core.MylarContextManager.ACTIVITY_ACTIVATED' to 'ACTIVITY_DELTA_ACTIVATED'
+1144433799169	Rename field 'org.eclipse.mylar.internal.core.MylarContextManager.ACTIVITY_DEACTIVATED' to 'ACTIVITY_DELTA_DEACTIVATED'
+1144350345916	Extract method 'private float ensureIsInteresting(InteractionEvent event,IMylarElement previous,float previousInterest,float decayOffset)' from 'org.eclipse.mylar.internal.core.MylarContextManager.internalHandleInteractionEvent()' to 'org.eclipse.mylar.internal.core.MylarContextManager'

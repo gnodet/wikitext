@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename type 'org.eclipse.mylar.java.tests.ResourceStructureTest' to 'ResourceStructureMappingTest'&#13;&#10;- Original element: 'org.eclipse.mylar.java.tests.ResourceStructureTest'&#13;&#10;- Renamed element: 'org.eclipse.mylar.java.tests.ResourceStructureMappingTest'&#13;&#10;- Update references to refactored element&#13;&#10;- Rename similarly named elements&#13;&#10;- Update textual occurrences in comments and strings" description="Rename type 'ResourceStructureTest'" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;org.eclipse.mylar.java.tests{ResourceStructureTest.java[ResourceStructureTest" matchStrategy="1" name="ResourceStructureMappingTest" qualified="false" references="true" similarDeclarations="true" stamp="1147304061216" textual="false" version="1.0"/>
+</session>

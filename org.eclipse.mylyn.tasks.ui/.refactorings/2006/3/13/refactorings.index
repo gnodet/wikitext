@@ -1,0 +1,2 @@
+1143516342515	Rename type 'org.eclipse.mylar.internal.tasklist.ui.AbstractTaskFilter' to 'AbstractTaskListFilter'
+1143571073753	Rename field 'org.eclipse.mylar.internal.tasklist.ui.TaskReminderMenuContributor.SET_REMINDER' to 'LABEL_REMINDER'

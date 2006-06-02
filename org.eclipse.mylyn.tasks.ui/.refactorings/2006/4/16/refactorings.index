@@ -1,0 +1,2 @@
+1145577553230	Rename field 'org.eclipse.mylar.provisional.tasklist.DelegatingTaskExternalizer.KEY_QUERY_LAST_REFRESH' to 'KEY_LAST_REFRESH'
+1145590187252	Rename field 'org.eclipse.mylar.internal.tasklist.ui.TaskListColorsAndFonts.THEME_COLOR_ID_TASK_DUE_TODAY' to 'THEME_COLOR_ID_TASK_TODAY'

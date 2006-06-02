@@ -1,0 +1,6 @@
+1147391479110	Extract constant 'MESSAGE_LOGIN_FAILURE'
+1147474458132	Rename field 'ID'
+1147465971299	Move member 'PLUGIN_ID'
+1147463137734	Rename package 'org.eclipse.mylar.bugzilla.core'
+1147462865172	Rename type 'BugzillaStructureCreator'
+1147393024452	Rename method 'setURL'

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource '/org.eclipse.mylar.doc/doc/new-0.4.0.html' to 'new-0.3.html'&#13;&#10;- Original element: 'new-0.4.0.html'" description="Rename resource 'new-0.4.0.html'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="doc/new-0.4.0.html" name="new-0.3.html" stamp="1146281179258" version="1.0"/>
+<refactoring comment="Rename resource '/org.eclipse.mylar.doc/doc/new-0.5.0.html' to 'new-0.4.html'&#13;&#10;- Original element: 'new-0.5.0.html'" description="Rename resource 'new-0.5.0.html'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="doc/new-0.5.0.html" name="new-0.4.html" stamp="1146281186558" version="1.0"/>
+</session>

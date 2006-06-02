@@ -1,0 +1,6 @@
+1141329647480	Rename resource '/org.eclipse.mylar.ui/icons/eview16/mylar-overlay.gif' to 'overlay-mylar.gif'
+1141427432145	Rename type 'org.eclipse.mylar.internal.ui.actions.ClearContextAction' to 'ContextClearAction'
+1141434854048	Rename field 'org.eclipse.mylar.internal.ui.Highlighter.black' to 'COLOR_BLACK'
+1141434860967	Rename field 'org.eclipse.mylar.internal.ui.Highlighter.base' to 'COLOR_WHITE'
+1141435514177	Rename field 'org.eclipse.mylar.internal.ui.Highlighter.ELEVATIONS' to 'gradients'
+1141441239780	Rename method 'org.eclipse.mylar.provisional.ui.InterestFilter.matchesExclusion(...)' to 'isImplicitlyInteresting'

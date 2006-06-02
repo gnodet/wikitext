@@ -1,0 +1,3 @@
+1143846784417	Extract constant 'org.eclipse.mylar.bugzilla.core.BugReport.ATTR_ASSIGNED_TO' from expression '"Assigned To"'
+1143846810805	Extract constant 'org.eclipse.mylar.bugzilla.core.BugReport.ATTR_REPORTER' from expression '"Reporter"'
+1143846798387	Extract constant 'org.eclipse.mylar.bugzilla.core.BugReport.ATTR_RESOLUTION' from expression '"Resolution"'

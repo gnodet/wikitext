@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comments="false" description="Extract method 'private void isActiveTaskEditor(ITask activeTask,IEditorInput input)' from 'org.eclipse.mylar.internal.ide.MylarEditorManager.closeAllEditors()' to 'org.eclipse.mylar.internal.ide.MylarEditorManager'" destination="0" exceptions="false" flags="786434" id="org.eclipse.jdt.ui.extract.method" input="/src&lt;org.eclipse.mylar.internal.ide{MylarEditorManager.java" name="isActiveTaskEditor" replace="false" selection="4001 300" stamp="1146081082183" version="1.0" visibility="2"/>
+</session>

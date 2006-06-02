@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource '/org.eclipse.mylar/archives/testimonials.txt' to 'user-quotes'&#13;&#10;- Original element: 'testimonials.txt'" description="Rename resource 'testimonials.txt'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="archives/testimonials.txt" name="user-quotes" stamp="1148939472371" version="1.0"/>
+<refactoring comment="Rename resource '/org.eclipse.mylar/archives/user-quotes' to 'user-quotes.txt'&#13;&#10;- Original element: 'user-quotes'" description="Rename resource 'user-quotes'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="archives/user-quotes" name="user-quotes.txt" stamp="1148939475265" version="1.0"/>
+</session>

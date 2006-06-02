@@ -1,0 +1,5 @@
+1149196472005	Extract method 'compareCompleted'
+1149280496262	Rename method 'installInterestFilter'
+1149196527415	Extract method 'compareOverdue'
+1149196512583	Extract method 'compareToday'
+1149196493526	Extract method 'compareIsThisWeek'

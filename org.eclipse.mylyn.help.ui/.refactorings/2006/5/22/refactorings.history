@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource '/org.eclipse.mylar.doc/doc/integrating' to 'integrating.html'&#13;&#10;- Original element: 'integrating'" description="Rename resource 'integrating'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="doc/integrating" name="integrating.html" stamp="1149106149245" version="1.0"/>
+</session>

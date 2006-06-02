@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="" description="Rename type 'org.eclipse.mylar.tasklist.tests.SmartComparatorTest' to 'TaskKeyComparatorTest'" flags="65542" id="org.eclipse.jdt.ui.rename.type" input="=org.eclipse.mylar.tasklist.tests/src&lt;org.eclipse.mylar.tasklist.tests{SmartComparatorTest.java[SmartComparatorTest" matchStrategy="1" name="TaskKeyComparatorTest" project="org.eclipse.mylar.tasklist.tests" qualified="false" references="true" similarDeclarations="false" stamp="1141185818906" textual="false"/>
+</session>

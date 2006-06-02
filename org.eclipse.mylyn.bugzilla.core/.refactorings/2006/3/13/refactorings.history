@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring description="Extract constant 'org.eclipse.mylar.bugzilla.core.BugReport.ATTR_ASSIGNED_TO' from expression '&quot;Assigned To&quot;'" id="org.eclipse.jdt.ui.extract.constant" input="unit://src/org/eclipse/mylar/bugzilla/core/BugReport.java" name="ATTR_ASSIGNED_TO" qualify="false" replace="true" selection="8850 13" stamp="1143846784417" version="1.0" visibility="2"/>
+<refactoring description="Extract constant 'org.eclipse.mylar.bugzilla.core.BugReport.ATTR_RESOLUTION' from expression '&quot;Resolution&quot;'" id="org.eclipse.jdt.ui.extract.constant" input="unit://src/org/eclipse/mylar/bugzilla/core/BugReport.java" name="ATTR_RESOLUTION" qualify="false" replace="true" selection="9101 12" stamp="1143846798387" version="1.0" visibility="2"/>
+<refactoring description="Extract constant 'org.eclipse.mylar.bugzilla.core.BugReport.ATTR_REPORTER' from expression '&quot;Reporter&quot;'" id="org.eclipse.jdt.ui.extract.constant" input="unit://src/org/eclipse/mylar/bugzilla/core/BugReport.java" name="ATTR_REPORTER" qualify="false" replace="true" selection="8774 10" stamp="1143846810805" version="1.0" visibility="2"/>
+</session>

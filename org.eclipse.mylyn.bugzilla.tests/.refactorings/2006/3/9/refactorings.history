@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="" description="Rename type 'org.eclipse.mylar.bugzilla.tests.BugzillaRepositoryClientTest' to 'BugzillaRepositoryConnectorTest'" flags="65542" id="org.eclipse.jdt.ui.rename.type" input="=org.eclipse.mylar.bugzilla.tests/src&lt;org.eclipse.mylar.bugzilla.tests{BugzillaRepositoryClientTest.java[BugzillaRepositoryClientTest" matchStrategy="1" name="BugzillaRepositoryConnectorTest" project="org.eclipse.mylar.bugzilla.tests" qualified="false" references="true" similarDeclarations="false" stamp="1141173516336" textual="false"/>
+</session>

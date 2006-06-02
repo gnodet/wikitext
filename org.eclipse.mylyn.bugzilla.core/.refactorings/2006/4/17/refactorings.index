@@ -1,0 +1,3 @@
+1145928733333	Rename type 'ProductConfiguration'
+1145928799829	Extract constant 'org.eclipse.mylar.internal.bugzilla.core.internal.RepositoryConfiguration.VERSION_UNKNOWN' from expression '"unknown"'
+1145928787982	Rename field 'bugzillaVersion'

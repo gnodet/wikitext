@@ -1,0 +1,4 @@
+1141758413189	Rename method 'org.eclipse.mylar.internal.ui.MylarViewerManager.displose()' to 'dispose'
+1141769650671	Rename method 'org.eclipse.mylar.internal.ui.BrowseFilteredListener.mouseInteractionAccepted(...)' to 'isUnfilterMouseEvent'
+1141769658382	Rename method 'org.eclipse.mylar.internal.ui.BrowseFilteredListener.isUnfilterMouseEvent(...)' to 'isUnfilterEvent'
+1141769666153	Rename method 'org.eclipse.mylar.internal.ui.BrowseFilteredListener.keyboardInteractionAccepted(...)' to 'isUnfilterEvent'

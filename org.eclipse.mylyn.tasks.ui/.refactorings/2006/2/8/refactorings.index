@@ -1,0 +1,18 @@
+1140396160927	Rename method 'org.eclipse.mylar.internal.tasklist.TaskList.getRoots()' to 'getRootElements'
+1140451330452	Move 4 members to {1}
+1140451348408	Move org.eclipse.mylar.internal.tasklist.TaskRepositoryManager.HANDLE_DELIM to {1}
+1140459475796	Rename field 'org.eclipse.mylar.internal.tasklist.TaskList.CATEGORY_ROOT' to 'LABEl_ROOT'
+1140459481555	Rename field 'org.eclipse.mylar.internal.tasklist.TaskList.LABEl_ROOT' to 'LABEL_ROOT'
+1140491752913	Extract constant 'org.eclipse.mylar.internal.tasklist.ui.views.TaskListFilteredTree.LABEL_SIZE' from expression '120'
+1140555138637	Rename field 'org.eclipse.mylar.internal.tasklist.util.TaskListExtensionReader.ELMNT_REPOSITORY_CLIENT' to 'ELMNT_REPOSITORY_TYPE'
+1140587274898	Rename type 'org.eclipse.mylar.internal.tasklist.ui.wizards.CreateNewBugzillaTaskAction' to 'CreateNewRepositoryTaskAction'
+1140587494744	Rename type 'org.eclipse.mylar.internal.tasklist.ui.wizards.CreateNewRepositoryTaskAction' to 'NewRepositoryTaskAction'
+1140587583702	Convert anonymous class 'org.eclipse.mylar.internal.tasklist.ui.actions.NewRepositoryTaskAction.run().new SelectRepositoryPage() {...}' in 'org.eclipse.mylar.internal.tasklist.ui.actions.NewRepositoryTaskAction.run()' to nested class
+1140587701652	Move type 'org.eclipse.mylar.internal.tasklist.ui.actions.NewRepositoryTaskAction.NewRepositoryTaskWizard' in 'org.eclipse.mylar.internal.tasklist.ui.actions.NewRepositoryTaskAction' to new file
+1140587891374	Rename type 'org.eclipse.mylar.provisional.tasklist.AbstractRepositoryClient' to 'AbstractRepositoryConnector'
+1140626076799	Rename method 'org.eclipse.mylar.provisional.tasklist.AbstractRepositoryConnector.getKind()' to 'getRepositoryType'
+1140628207683	Rename type 'org.eclipse.mylar.internal.tasklist.ui.wizards.NewRepositoryTaskWizard' to 'NewRepositoryTaskPage'
+1140710152902	Extract constant 'org.eclipse.mylar.internal.tasklist.ui.views.TaskListView.MEMENTO_KEY_WIDTH' from expression '"width"'
+1140710169926	Extract constant 'org.eclipse.mylar.internal.tasklist.ui.views.TaskListView.MEMENTO_KEY_SORT_INDEX' from expression '"sortIndex"'
+1140710181663	Extract constant 'org.eclipse.mylar.internal.tasklist.ui.views.TaskListView.MEMENTO_KEY_SORTER' from expression '"sorter"'
+1140710194141	Extract constant 'org.eclipse.mylar.internal.tasklist.ui.views.TaskListView.MEMENTO_KEY_SORT_DIRECTION' from expression '"sortDirection"'

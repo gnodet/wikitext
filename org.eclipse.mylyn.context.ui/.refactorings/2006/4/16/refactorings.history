@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring delegate="false" deprecate="true" description="Change method 'public List&lt;ViewerFilter&gt; org.eclipse.mylar.internal.ui.actions.AbstractApplyMylarAction.getExcludedFilters()' to 'public List&lt;Class&gt; getExcludedFilters()'" flags="589830" id="org.eclipse.jdt.ui.change.method.signature" input="/src&lt;org.eclipse.mylar.internal.ui.actions{AbstractApplyMylarAction.java[AbstractApplyMylarAction~getExcludedFilters" name="getExcludedFilters" return="List&lt;Class&gt;" stamp="1145500112812" version="1.0"/>
+<refactoring delegate="false" deprecate="true" description="Rename method 'org.eclipse.mylar.internal.ui.actions.AbstractApplyMylarAction.getExcludedFilters()' to 'getPreservedFilters'" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylar.internal.ui.actions{AbstractApplyMylarAction.java[AbstractApplyMylarAction~getExcludedFilters" name="getPreservedFilters" references="true" stamp="1145500205175" version="1.0"/>
+</session>

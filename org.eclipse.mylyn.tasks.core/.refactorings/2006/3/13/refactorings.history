@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring description="Rename compilation unit 'org.eclipse.mylar.internal.bugs.java.fpp.java' to 'JavaStackTraceHyperlinkAdapter.java'" flags="589830" id="org.eclipse.jdt.ui.rename.compilationunit" input="unit://src/org/eclipse/mylar/internal/bugs/java/fpp.java" name="JavaStackTraceHyperlinkAdapter.java" stamp="1143848035235" version="1.0"/>
+</session>

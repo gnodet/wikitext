@@ -1,0 +1,2 @@
+1140467802970	Rename method 'org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaRepositorySettingsPage.validateServer()' to 'validateSettings'
+1140626236549	Rename type 'org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaRepositoryClient' to 'BugzillaRepositoryConnector'

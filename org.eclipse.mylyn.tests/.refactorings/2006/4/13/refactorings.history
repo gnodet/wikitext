@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring description="Rename type 'org.eclipse.mylar.tests.integration.FullConfigExtensionVerificationTest' to 'ExtensionPointInitializationTest'" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="=org.eclipse.mylar.tests/src&lt;org.eclipse.mylar.tests.integration{FullConfigExtensionVerificationTest.java[FullConfigExtensionVerificationTest" matchStrategy="1" name="ExtensionPointInitializationTest" qualified="false" references="true" similarDeclarations="true" stamp="1143850584691" textual="false" version="1.0"/>
+</session>

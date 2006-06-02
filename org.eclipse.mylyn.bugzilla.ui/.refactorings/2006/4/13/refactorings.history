@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring description="Extract constant 'org.eclipse.mylar.internal.bugzilla.ui.editor.AbstractBugEditor.HYPERLINK_TYPE_JAVA' from expression '&quot;java&quot;'" id="org.eclipse.jdt.ui.extract.constant" input="unit://src/org/eclipse/mylar/internal/bugzilla/ui/editor/AbstractBugEditor.java" name="HYPERLINK_TYPE_JAVA" qualify="false" replace="true" selection="54460 6" stamp="1143849816096" version="1.0" visibility="2"/>
+</session>

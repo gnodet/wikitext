@@ -1,0 +1,4 @@
+1143853139154	Extract method 'private void openTaskListElement(Object element)' from 'org.eclipse.mylar.internal.tasklist.ui.actions.OpenTaskListElementAction.run()' to 'org.eclipse.mylar.internal.tasklist.ui.actions.OpenTaskListElementAction'
+1143857545801	Rename type 'org.eclipse.mylar.internal.tasklist.ui.TaskListUiUtil' to 'TaskUiUtil'
+1143854926785	Rename method 'org.eclipse.mylar.provisional.tasklist.AbstractRepositoryConnector.getRepositoryUrlFromCommitComment(...)' to 'getRepositoryUrlFromTaskUrl'
+1143853298343	Rename method 'org.eclipse.mylar.internal.tasklist.ui.actions.OpenTaskListElementAction.openTaskListElement(...)' to 'refreshAndOpenTaskListElement'

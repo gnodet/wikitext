@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename method 'org.eclipse.mylar.internal.ide.ui.IdeUiUtil.getResourceNavigator()' to 'getNavigatorFromActivePage'&#13;&#10;- Original element: 'org.eclipse.mylar.internal.ide.ui.IdeUiUtil.getResourceNavigator()'&#13;&#10;- Renamed element: 'org.eclipse.mylar.internal.ide.ui.IdeUiUtil.getNavigatorFromActivePage()'&#13;&#10;- Update references to refactored element" delegate="false" deprecate="true" description="Rename method 'getResourceNavigator'" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylar.internal.ide.ui{IdeUiUtil.java[IdeUiUtil~getResourceNavigator" name="getNavigatorFromActivePage" references="true" stamp="1148607462107" version="1.0"/>
+</session>

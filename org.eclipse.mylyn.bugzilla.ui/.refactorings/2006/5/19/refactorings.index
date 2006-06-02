@@ -1,0 +1,5 @@
+1147374129178	Extract constant 'MESSAGE_FAILURE_UNKNOWN'
+1147474500613	Rename method 'getRepository'
+1147472335220	Extract constant 'PLUGIN_ID'
+1147395124272	Rename type 'BugzillaReportNode'
+1147394818372	Rename type 'BugzillaUITools'

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="" description="Rename resource '/org.eclipse.mylar/archives/iplog.txt' to 'mylar-iplog.csv'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="/org.eclipse.mylar/archives/iplog.txt" name="mylar-iplog.csv" project="org.eclipse.mylar" stamp="1141750880302"/>
+</session>
