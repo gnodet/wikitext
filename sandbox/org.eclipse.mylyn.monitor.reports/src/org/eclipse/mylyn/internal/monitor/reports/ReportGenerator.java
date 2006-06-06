@@ -102,7 +102,7 @@ public class ReportGenerator {
 			while (lastParsedSummary == null)
 				Thread.sleep(1000);
 		} catch (InvocationTargetException e) {
-			// Operation was canceled
+			// RepositoryOperation was canceled
 		} catch (InterruptedException e) {
 			MylarStatusHandler.log(e, "Could not generate stats");
 		}

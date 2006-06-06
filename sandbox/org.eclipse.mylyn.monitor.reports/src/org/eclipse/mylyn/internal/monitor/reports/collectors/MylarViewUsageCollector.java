@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.mylar.internal.monitor.monitors.SelectionMonitor;
 import org.eclipse.mylar.internal.tasklist.ui.actions.TaskActivateAction;
 import org.eclipse.mylar.internal.tasklist.ui.actions.TaskDeactivateAction;
 import org.eclipse.mylar.internal.ui.actions.AbstractApplyMylarAction;
@@ -71,34 +70,36 @@ public class MylarViewUsageCollector extends ViewUsageCollector {
 
 		if (event.getKind().equals(InteractionEvent.Kind.SELECTION)) {
 			String viewId = event.getOriginId();
-			if (mylarUserIds.contains(userId)) {
-				if (event.getDelta().equals(SelectionMonitor.SELECTION_DECAYED)) {
-					if (!usersNumDecayed.containsKey(userId))
-						usersNumDecayed.put(userId, 0);
-					int numDecayed = usersNumDecayed.get(userId) + 1;
-					usersNumDecayed.put(userId, numDecayed);
-				} else if (event.getDelta().equals(SelectionMonitor.SELECTION_PREDICTED)) {
-					if (!usersNumPredicted.containsKey(userId))
-						usersNumPredicted.put(userId, 0);
-					int numPredicted = usersNumPredicted.get(userId) + 1;
-					usersNumPredicted.put(userId, numPredicted);
-				} else if (event.getDelta().equals(SelectionMonitor.SELECTION_NEW)) {
-					if (!usersNumNew.containsKey(userId))
-						usersNumNew.put(userId, 0);
-					int numNew = usersNumNew.get(userId) + 1;
-					usersNumNew.put(userId, numNew);
-				} else if (event.getDelta().equals(SelectionMonitor.SELECTION_DEFAULT)) {
-					if (!usersNumDefault.containsKey(userId))
-						usersNumDefault.put(userId, 0);
-					int numDefault = usersNumDefault.get(userId) + 1;
-					usersNumDefault.put(userId, numDefault);
-				} else {
-					if (!usersNumUnknown.containsKey(userId))
-						usersNumUnknown.put(userId, 0);
-					int numUnknownNew = usersNumUnknown.get(userId) + 1;
-					usersNumUnknown.put(userId, numUnknownNew);
-				}
-			}
+			
+			// TODO: put back?
+//			if (mylarUserIds.contains(userId)) {
+//				if (event.getDelta().equals(SelectionMonitor.SELECTION_DECAYED)) {
+//					if (!usersNumDecayed.containsKey(userId))
+//						usersNumDecayed.put(userId, 0);
+//					int numDecayed = usersNumDecayed.get(userId) + 1;
+//					usersNumDecayed.put(userId, numDecayed);
+//				} else if (event.getDelta().equals(SelectionMonitor.SELECTION_PREDICTED)) {
+//					if (!usersNumPredicted.containsKey(userId))
+//						usersNumPredicted.put(userId, 0);
+//					int numPredicted = usersNumPredicted.get(userId) + 1;
+//					usersNumPredicted.put(userId, numPredicted);
+//				} else if (event.getDelta().equals(SelectionMonitor.SELECTION_NEW)) {
+//					if (!usersNumNew.containsKey(userId))
+//						usersNumNew.put(userId, 0);
+//					int numNew = usersNumNew.get(userId) + 1;
+//					usersNumNew.put(userId, numNew);
+//				} else if (event.getDelta().equals(SelectionMonitor.SELECTION_DEFAULT)) {
+//					if (!usersNumDefault.containsKey(userId))
+//						usersNumDefault.put(userId, 0);
+//					int numDefault = usersNumDefault.get(userId) + 1;
+//					usersNumDefault.put(userId, numDefault);
+//				} else {
+//					if (!usersNumUnknown.containsKey(userId))
+//						usersNumUnknown.put(userId, 0);
+//					int numUnknownNew = usersNumUnknown.get(userId) + 1;
+//					usersNumUnknown.put(userId, numUnknownNew);
+//				}
+//			}
 
 			if (filteredViews.contains(viewId)) {
 				if (!filteredViewSelections.containsKey(viewId))

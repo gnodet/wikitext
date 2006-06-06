@@ -46,12 +46,12 @@ public class BrowserTracker extends AbstractUserInteractionMonitor implements IP
 
 		public void changed(LocationEvent event) {
 			if (event != null)
-				handleElementSelection(currentBrowserPart, event);
+				handleElementSelection(currentBrowserPart, event, false);
 		}
 	}
 
 	@Override
-	protected void handleWorkbenchPartSelection(IWorkbenchPart part, ISelection selection) {
+	protected void handleWorkbenchPartSelection(IWorkbenchPart part, ISelection selection, boolean contributeToContext) {
 		// ignore, this is a special case
 	}
 

@@ -1,0 +1,4 @@
+1149533940784	Extract constant 'ERROR_NO_ATTRIBUTE_FACTORY'
+1149560508206	Rename method 'removeOffflineTaskData'
+1149560496690	Rename method 'removeReport'
+1149560377378	Rename type 'BugzillaRemoteContextDelegate'

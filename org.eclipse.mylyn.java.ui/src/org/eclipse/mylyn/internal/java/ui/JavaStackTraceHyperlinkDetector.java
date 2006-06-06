@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.bugs.java;
+package org.eclipse.mylar.internal.java.ui;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

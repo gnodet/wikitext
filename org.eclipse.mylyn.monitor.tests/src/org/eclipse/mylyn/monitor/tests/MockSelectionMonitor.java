@@ -9,16 +9,19 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.tasklist;
+package org.eclipse.mylar.monitor.tests;
+
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.mylar.provisional.core.AbstractUserInteractionMonitor;
+import org.eclipse.ui.IWorkbenchPart;
 
 /**
- * @author Rob Elves
+ * @author Mik Kersten
  */
-public class BugzillaAttributeFactory extends AbstractTaskAttributeFactory {
+public class MockSelectionMonitor extends AbstractUserInteractionMonitor {
 
 	@Override
-	public AbstractRepositoryTaskAttribute createAttribute(Object key) {
-		return new RepositoryTaskAttribute((BugzillaReportElement) key);
+	protected void handleWorkbenchPartSelection(IWorkbenchPart part, ISelection selection, boolean contributeToContext) {
+		handleElementSelection(part, selection, contributeToContext);
 	}
-
 }

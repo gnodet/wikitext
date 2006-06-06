@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename method 'org.eclipse.mylar.provisional.core.InteractionEvent.getContentType()' to 'getStructureKind'&#13;&#10;- Original element: 'org.eclipse.mylar.provisional.core.InteractionEvent.getContentType()'&#13;&#10;- Renamed element: 'org.eclipse.mylar.provisional.core.InteractionEvent.getStructureKind()'&#13;&#10;- Update references to refactored element" delegate="false" deprecate="true" description="Rename method 'getContentType'" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylar.provisional.core{InteractionEvent.java[InteractionEvent~getContentType" name="getStructureKind" references="true" stamp="1149463910789" version="1.0"/>
+</session>
