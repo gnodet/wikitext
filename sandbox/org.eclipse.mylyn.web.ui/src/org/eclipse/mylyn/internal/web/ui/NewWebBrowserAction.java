@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.ui.internal.browser.WorkbenchBrowserSupport;
 
 /**
@@ -26,9 +27,9 @@ import org.eclipse.ui.internal.browser.WorkbenchBrowserSupport;
 public class NewWebBrowserAction implements IWorkbenchWindowActionDelegate {
 
 	public void run(IAction action) {
-		String url = ""; 
+		String url = "";
 		try {
-//			IWebBrowser browser = null;
+			IWebBrowser browser = null;
 			int flags = 0;
 			if (WorkbenchBrowserSupport.getInstance().isInternalWebBrowserAvailable()) {
 				flags = WorkbenchBrowserSupport.AS_EDITOR | WorkbenchBrowserSupport.LOCATION_BAR
@@ -38,13 +39,13 @@ public class NewWebBrowserAction implements IWorkbenchWindowActionDelegate {
 				flags = WorkbenchBrowserSupport.AS_EXTERNAL | WorkbenchBrowserSupport.LOCATION_BAR
 						| WorkbenchBrowserSupport.NAVIGATION_BAR;
 			}
-			WorkbenchBrowserSupport.getInstance().createBrowser(flags, "org.eclipse.mylar.tasklist",
-					"Browser", "tasktooltip");
-//			browser.openURL(new URL(url));
+			browser = WorkbenchBrowserSupport.getInstance().createBrowser(flags, "org.eclipse.mylar.tasklist", "Browser",
+					"");
+			browser.openURL(null);
 		} catch (PartInitException e) {
 			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
 					+ " could not be opened");
-		} 
+		}
 //		catch (MalformedURLException e) {
 //			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
 //					+ " could not be opened");
