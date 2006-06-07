@@ -111,6 +111,18 @@
 				</or>
 			</enablement>
 		 </actionProvider>
+		 
+		 
+		<commonSorter
+              class="org.eclipse.mylar.provisional.ui.InterestSorter"
+              id="org.eclipse.mylar.web.sorter.interest">
+           <parentExpression>
+           		  <or>           
+		            <instanceof value="org.eclipse.mylar.internal.web.WebResource" /> 
+		         </or>
+		   </parentExpression>
+        </commonSorter>
+		 
       </navigatorContent>
       
    </extension>
