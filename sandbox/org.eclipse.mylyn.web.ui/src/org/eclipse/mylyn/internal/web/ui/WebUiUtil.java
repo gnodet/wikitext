@@ -19,8 +19,13 @@ import org.eclipse.mylar.internal.web.MylarWebPlugin;
 import org.eclipse.mylar.internal.web.WebPage;
 import org.eclipse.mylar.internal.web.WebResource;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.browser.IWebBrowser;
+import org.eclipse.ui.internal.browser.WebBrowserEditorInput;
 import org.eclipse.ui.internal.browser.WorkbenchBrowserSupport;
 
 /**
@@ -30,7 +35,21 @@ public class WebUiUtil {
 
 	public static void openUrlInInternalBrowser(WebResource webResource) {
 		String url = webResource.getUrl();
-		try {
+		try { 
+			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage(); 
+			IEditorReference[] editorReferences = page.getEditorReferences();
+			for (IEditorReference editorReference : editorReferences) {
+				IEditorInput input = editorReference.getEditorInput();
+				if (input instanceof WebBrowserEditorInput) {
+					WebBrowserEditorInput webInput = (WebBrowserEditorInput)input;
+					URL alreadyOpenUrl = webInput.getURL();
+					if (alreadyOpenUrl != null && alreadyOpenUrl.toExternalForm().equals(url)) {
+						page.activate(editorReference.getEditor(true));
+						return;
+					}
+				}
+			}
+			
 			IWebBrowser browser = null;
 			int flags = 0;
 			if (WorkbenchBrowserSupport.getInstance().isInternalWebBrowserAvailable()) {
@@ -46,7 +65,7 @@ public class WebUiUtil {
 			}
 			
 			browser = WorkbenchBrowserSupport.getInstance().createBrowser(flags, "org.eclipse.mylar.web",
-					webResource.getLabel(webResource), url);
+					null, null);
 			browser.openURL(new URL(url));
 		} catch (PartInitException e) {
 			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
@@ -55,6 +74,5 @@ public class WebUiUtil {
 			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
 					+ " could not be opened");
 		}
-	}
-	
+	}	
 }

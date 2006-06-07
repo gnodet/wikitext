@@ -12,9 +12,8 @@ package org.eclipse.mylar.internal.web;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
+import org.eclipse.mylar.provisional.core.MylarPlugin;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -48,15 +47,17 @@ public class MylarWebPlugin extends AbstractUIPlugin {
 			public void run() {
 				try {
 					browserTracker = new BrowserTracker();
-					workbench.addWindowListener(browserTracker);
-					IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
-					for (int i = 0; i < windows.length; i++) {
-						windows[i].addPageListener(browserTracker);
-						IWorkbenchPage[] pages = windows[i].getPages();
-						for (int j = 0; j < pages.length; j++) {
-							pages[j].addPartListener(browserTracker);
-						}
-					}
+					MylarPlugin.getDefault().addWindowPartListener(browserTracker);
+										
+//					workbench.addWindowListener(browserTracker);
+//					IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
+//					for (int i = 0; i < windows.length; i++) {
+//						windows[i].addPageListener(browserTracker);
+//						IWorkbenchPage[] pages = windows[i].getPages();
+//						for (int j = 0; j < pages.length; j++) {
+//							pages[j].addPartListener(browserTracker);
+//						}
+//					}
 				} catch (Exception e) {
 					MylarStatusHandler.fail(e, "Mylar Hypertext initialization failed", false);
 				}
@@ -65,6 +66,7 @@ public class MylarWebPlugin extends AbstractUIPlugin {
 	}
 
 	public void stop(BundleContext context) throws Exception {
+		MylarPlugin.getDefault().removeWindowPartListener(browserTracker);
 		webResourceManager.dispose();
 		super.stop(context);
 		INSTANCE = null;

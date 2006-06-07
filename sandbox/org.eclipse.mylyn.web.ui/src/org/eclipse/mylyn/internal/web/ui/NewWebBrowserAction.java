@@ -11,6 +11,9 @@
 
 package org.eclipse.mylar.internal.web.ui;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
@@ -27,7 +30,7 @@ import org.eclipse.ui.internal.browser.WorkbenchBrowserSupport;
 public class NewWebBrowserAction implements IWorkbenchWindowActionDelegate {
 
 	public void run(IAction action) {
-		String url = "";
+		String url = "http://google.com";
 		try {
 			IWebBrowser browser = null;
 			int flags = 0;
@@ -39,17 +42,16 @@ public class NewWebBrowserAction implements IWorkbenchWindowActionDelegate {
 				flags = WorkbenchBrowserSupport.AS_EXTERNAL | WorkbenchBrowserSupport.LOCATION_BAR
 						| WorkbenchBrowserSupport.NAVIGATION_BAR;
 			}
-			browser = WorkbenchBrowserSupport.getInstance().createBrowser(flags, "org.eclipse.mylar.tasklist", "Browser",
-					"");
-			browser.openURL(null);
+			browser = WorkbenchBrowserSupport.getInstance().createBrowser(flags, "org.eclipse.mylar.tasklist", null,
+					null);
+			browser.openURL(new URL(url));
 		} catch (PartInitException e) {
 			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
 					+ " could not be opened");
+		} catch (MalformedURLException e) {
+			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
+					+ " could not be opened");
 		}
-//		catch (MalformedURLException e) {
-//			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
-//					+ " could not be opened");
-//		}
 	}
 
 	public void selectionChanged(IAction action, ISelection selection) {

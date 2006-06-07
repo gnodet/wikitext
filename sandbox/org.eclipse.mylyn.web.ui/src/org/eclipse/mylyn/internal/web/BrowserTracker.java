@@ -19,20 +19,15 @@ import org.eclipse.mylar.provisional.core.AbstractUserInteractionMonitor;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.LocationEvent;
 import org.eclipse.swt.browser.LocationListener;
-import org.eclipse.ui.IPageListener;
 import org.eclipse.ui.IPartListener;
-import org.eclipse.ui.IWindowListener;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.internal.browser.BrowserViewer;
 import org.eclipse.ui.internal.browser.WebBrowserEditor;
 
 /**
  * @author Mik Kersten
  */
-public class BrowserTracker extends AbstractUserInteractionMonitor implements IPartListener, IWindowListener,
-		IPageListener {
+public class BrowserTracker extends AbstractUserInteractionMonitor implements IPartListener {
 
 	private UrlTrackingListener urlTrackingListener = new UrlTrackingListener();
 
@@ -45,8 +40,9 @@ public class BrowserTracker extends AbstractUserInteractionMonitor implements IP
 		}
 
 		public void changed(LocationEvent event) {
-			if (event != null)
-				handleElementSelection(currentBrowserPart, event, false);
+			if (event != null) {
+				handleElementSelection(currentBrowserPart, event, true);
+			}
 		}
 	}
 
@@ -58,9 +54,11 @@ public class BrowserTracker extends AbstractUserInteractionMonitor implements IP
 	public void partOpened(IWorkbenchPart part) {
 		if (part instanceof WebBrowserEditor) {
 			currentBrowserPart = part;
+//			((WebBrowserEditor)part).get`
 			Browser browser = getBrowser((WebBrowserEditor) part);
-			if (browser != null)
+			if (browser != null) {
 				browser.addLocationListener(urlTrackingListener);
+			} 
 		} 
 //		else if (part instanceof MylarTaskEditor) {
 //			currentBrowserPart = part;
@@ -73,8 +71,9 @@ public class BrowserTracker extends AbstractUserInteractionMonitor implements IP
 	public void partClosed(IWorkbenchPart part) {
 		if (part instanceof WebBrowserEditor) {
 			Browser browser = getBrowser((WebBrowserEditor) part);
-			if (browser != null)
+			if (browser != null) {
 				browser.removeLocationListener(urlTrackingListener);
+			}
 		}
 	}
 
@@ -106,34 +105,4 @@ public class BrowserTracker extends AbstractUserInteractionMonitor implements IP
 		}
 		return null;
 	}
-
-	// --- Window listener
-
-	public void windowActivated(IWorkbenchWindow window) {
-	}
-
-	public void windowDeactivated(IWorkbenchWindow window) {
-	}
-
-	public void windowClosed(IWorkbenchWindow window) {
-		window.removePageListener(this);
-	}
-
-	public void windowOpened(IWorkbenchWindow window) {
-		window.addPageListener(this);
-	}
-
-	// ---- IPageListener
-
-	public void pageActivated(IWorkbenchPage page) {
-	}
-
-	public void pageClosed(IWorkbenchPage page) {
-		page.removePartListener(this);
-	}
-
-	public void pageOpened(IWorkbenchPage page) {
-		page.addPartListener(this);
-	}
-
 }
