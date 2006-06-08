@@ -11,7 +11,6 @@
 
 package org.eclipse.mylar.internal.ide.team;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -82,7 +81,7 @@ public class MylarChangeSetManager implements IMylarContextListener {
 
 	private ITaskActivityListener TASK_ACTIVITY_LISTENER = new ITaskActivityListener() {
 		
-		public void tasklistRead() {
+		public void taskListRead() {
 			initContextChangeSets();
 		}
 		
