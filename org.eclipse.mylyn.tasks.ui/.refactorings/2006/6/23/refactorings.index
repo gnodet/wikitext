@@ -1,4 +1,6 @@
 1149533940784	Extract constant 'ERROR_NO_ATTRIBUTE_FACTORY'
+1149741647524	Rename method 'createBugzillaReportOption'
+1149741370456	Rename field 'bugzillaOutlineModel'
 1149732360190	Rename method 'migrateRepositoryUrl'
 1149732104943	Rename method 'migrateTaskHandles'
 1149627639937	Rename method 'createMonthCombo'
