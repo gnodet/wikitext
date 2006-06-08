@@ -1,2 +1,5 @@
 1149537932221	Pull up members to 'AbstractRepositoryConnector'
+1149711751609	Rename type 'AbstractBugEditor'
+1149711034109	Rename method 'getBug'
+1149707336906	Rename method 'getCurrentBug'
 1149538081940	Pull up 'removeReport' to 'AbstractRepositoryConnector'
