@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource '/org.eclipse.mylar.bugzilla.tests/credentials.properties' to 'credentials.propertiesss'&#13;&#10;- Original element: 'credentials.properties'" description="Rename resource 'credentials.properties'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="credentials.properties" name="credentials.propertiesss" stamp="1149873326442" version="1.0"/>
+<refactoring comment="Rename resource '/org.eclipse.mylar.bugzilla.tests/credentials.propertiesss' to 'credentials.properties'&#13;&#10;- Original element: 'credentials.propertiesss'" description="Rename resource 'credentials.propertiesss'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="credentials.propertiesss" name="credentials.properties" stamp="1149873541932" version="1.0"/>
+</session>
