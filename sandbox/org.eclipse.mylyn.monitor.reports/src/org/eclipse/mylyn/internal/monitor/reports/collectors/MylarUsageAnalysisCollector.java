@@ -306,7 +306,6 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 							float filteredSelections = filteredViewSelections.get(views[i]);
 							float ratio = filteredSelections / (normalSelections+filteredSelections);
 //							int unfilteredSelections = normalSelections - filteredSelections;
-							System.err.println(">>> " + ratio);
 							if (ratio >= 0.01) {
 								writer.write(ratio + ", ");
 							} else { 

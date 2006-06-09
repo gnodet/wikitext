@@ -36,7 +36,6 @@ public class WebResourceUiBridge implements IMylarUiBridge {
 			return;
 		} else {
 			WebResource webResource = (WebResource)bridge.getObjectForHandle(element.getHandleIdentifier());
-//			System.err.println(">>> " + webResource);
 			if (webResource instanceof WebPage || webResource instanceof WebSite) {
 				WebUiUtil.openUrlInInternalBrowser(webResource);
 			}
@@ -61,10 +60,6 @@ public class WebResourceUiBridge implements IMylarUiBridge {
 
 	public Object getObjectForTextSelection(TextSelection selection, IEditorPart editor) {
 		return null;
-	}
-
-	public void setContextCapturePaused(boolean paused) {
-		// ignore
 	}
 	
 	public IMylarElement getElement(IEditorInput input) {
