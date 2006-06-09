@@ -1,4 +1,6 @@
 1149533940784	Extract constant 'ERROR_NO_ATTRIBUTE_FACTORY'
+1149824526106	Rename field 'REMINDER_DIALOG_TITLE'
+1149824494921	Move member 'REMINDER_DIALOG_TITLE'
 1149742647652	Rename method 'tasklistRead'
 1149741647524	Rename method 'createBugzillaReportOption'
 1149741370456	Rename field 'bugzillaOutlineModel'
