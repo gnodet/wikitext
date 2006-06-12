@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename method 'org.eclipse.mylar.internal.tasklist.ui.preferences.MylarTaskListPreferencePage.createTaskDirectoryControl(...)' to 'createTaskDataControl'&#13;&#10;- Original element: 'org.eclipse.mylar.internal.tasklist.ui.preferences.MylarTaskListPreferencePage.createTaskDirectoryControl(...)'&#13;&#10;- Renamed element: 'org.eclipse.mylar.internal.tasklist.ui.preferences.MylarTaskListPreferencePage.createTaskDataControl(...)'&#13;&#10;- Update references to refactored element" delegate="false" deprecate="true" description="Rename method 'createTaskDirectoryControl'" flags="589826" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylar.internal.tasklist.ui.preferences{MylarTaskListPreferencePage.java[MylarTaskListPreferencePage~createTaskDirectoryControl~QComposite;" name="createTaskDataControl" references="true" stamp="1150142684959" version="1.0"/>
+</session>
