@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename method 'org.eclipse.mylar.internal.ui.preferences.MylarPreferencePage.createInclusionTable(...)' to 'createResourceExclusionTable'&#13;&#10;- Original element: 'org.eclipse.mylar.internal.ui.preferences.MylarPreferencePage.createInclusionTable(...)'&#13;&#10;- Renamed element: 'org.eclipse.mylar.internal.ui.preferences.MylarPreferencePage.createResourceExclusionTable(...)'&#13;&#10;- Update references to refactored element" delegate="false" deprecate="true" description="Rename method 'createInclusionTable'" flags="589826" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylar.internal.ui.preferences{MylarPreferencePage.java[MylarPreferencePage~createInclusionTable~QComposite;" name="createResourceExclusionTable" references="true" stamp="1150151246189" version="1.0"/>
+</session>
