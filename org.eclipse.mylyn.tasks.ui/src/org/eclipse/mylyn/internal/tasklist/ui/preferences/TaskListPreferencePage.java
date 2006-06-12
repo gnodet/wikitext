@@ -62,6 +62,8 @@ public class TaskListPreferencePage extends PreferencePage implements IWorkbench
 
 	private Button synchQueries = null;
 
+//	private Button userRefreshOnly;
+
 	private Text taskDirectoryText = null;
 
 	private Button browse = null;
