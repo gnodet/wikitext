@@ -11,6 +11,7 @@
 
 package org.eclipse.mylar.internal.web;
 
+import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 
@@ -42,11 +43,21 @@ public class WebResourceStructureBridge implements IMylarStructureBridge {
 		return CONTENT_TYPE;
 	}
 
+	public boolean acceptsObject(Object object) {
+		if (object instanceof LocationEvent || object instanceof WebResource || object instanceof URL) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	public String getHandleIdentifier(Object object) {
 		if (object instanceof LocationEvent) {
 			return ((LocationEvent) object).location;
 		} else if (object instanceof WebResource){
 			return ((WebResource)object).getUrl();
+		} else if (object instanceof URL) {
+			return ((URL)object).toExternalForm();
 		} else {
 			return null;
 		}
@@ -86,14 +97,6 @@ public class WebResourceStructureBridge implements IMylarStructureBridge {
 
 	public boolean canBeLandmark(String handle) {
 		return getSite(handle) != null;
-	}
-
-	public boolean acceptsObject(Object object) {
-		if (object instanceof LocationEvent || object instanceof WebResource) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	public boolean canFilter(Object element) {

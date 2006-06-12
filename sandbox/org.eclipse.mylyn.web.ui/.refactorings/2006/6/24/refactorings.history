@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Convert anonymous class 'org.eclipse.mylar.internal.web.BrowserTracker.partOpened().new ProgressListener() {...}' in 'org.eclipse.mylar.internal.web.BrowserTracker.partOpened()' to nested class&#13;&#10;- Original element: 'org.eclipse.mylar.internal.web.BrowserTracker.partOpened().new ProgressListener() {...}'&#13;&#10;- Class name: 'BrowserProgressListener'&#13;&#10;- Declared visibility: 'private'&#13;&#10;- Declare class 'final'" description="Convert anonymous class to nested" final="true" flags="786434" id="org.eclipse.jdt.ui.convert.anonymous" input="/src&lt;org.eclipse.mylar.internal.web{BrowserTracker.java" name="BrowserProgressListener" selection="2342 0" stamp="1150132251249" static="false" version="1.0" visibility="2"/>
+</session>

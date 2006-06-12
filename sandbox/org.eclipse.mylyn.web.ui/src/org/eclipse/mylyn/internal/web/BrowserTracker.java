@@ -12,13 +12,15 @@
 package org.eclipse.mylar.internal.web;
 
 import java.lang.reflect.Field;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
 import org.eclipse.mylar.provisional.core.AbstractUserInteractionMonitor;
 import org.eclipse.swt.browser.Browser;
-import org.eclipse.swt.browser.LocationEvent;
-import org.eclipse.swt.browser.LocationListener;
+import org.eclipse.swt.browser.ProgressEvent;
+import org.eclipse.swt.browser.ProgressListener;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.internal.browser.BrowserViewer;
@@ -29,22 +31,43 @@ import org.eclipse.ui.internal.browser.WebBrowserEditor;
  */
 public class BrowserTracker extends AbstractUserInteractionMonitor implements IPartListener {
 
-	private UrlTrackingListener urlTrackingListener = new UrlTrackingListener();
+//	private UrlTrackingListener urlTrackingListener = new UrlTrackingListener();
 
 	private IWorkbenchPart currentBrowserPart = null;
 
-	class UrlTrackingListener implements LocationListener {
+	private final class UrlTrackingListener implements ProgressListener {
+		private final Browser browser;
 
-		public void changing(LocationEvent event) {
-			// ignore
+		private UrlTrackingListener(Browser browser) {
+			this.browser = browser;
 		}
 
-		public void changed(LocationEvent event) {
-			if (event != null) {
-				handleElementSelection(currentBrowserPart, event, true);
+		public void changed(ProgressEvent event) {
+			// ignore
+			
+		}
+
+		public void completed(ProgressEvent event) {
+			try {
+				handleElementSelection(currentBrowserPart, new URL(browser.getUrl()), true);
+			} catch (MalformedURLException e) {
+				// ignore bogus URLs
 			}
 		}
 	}
+
+//	class UrlTrackingListener implements LocationListener {
+//
+//		public void changing(LocationEvent event) {
+//			// ignore
+//		}
+//
+//		public void changed(LocationEvent event) {
+//			if (event != null) {
+//				handleElementSelection(currentBrowserPart, event, true);
+//			}
+//		}
+//	}
 
 	@Override
 	protected void handleWorkbenchPartSelection(IWorkbenchPart part, ISelection selection, boolean contributeToContext) {
@@ -55,9 +78,11 @@ public class BrowserTracker extends AbstractUserInteractionMonitor implements IP
 		if (part instanceof WebBrowserEditor) {
 			currentBrowserPart = part;
 //			((WebBrowserEditor)part).get`
-			Browser browser = getBrowser((WebBrowserEditor) part);
+			final Browser browser = getBrowser((WebBrowserEditor) part);
 			if (browser != null) {
-				browser.addLocationListener(urlTrackingListener);
+				// NOTE: assuming they're disposed with the browser
+				browser.addProgressListener(new UrlTrackingListener(browser));	
+//				browser.addLocationListener(urlTrackingListener);
 			} 
 		} 
 //		else if (part instanceof MylarTaskEditor) {
@@ -69,12 +94,12 @@ public class BrowserTracker extends AbstractUserInteractionMonitor implements IP
 	}
 
 	public void partClosed(IWorkbenchPart part) {
-		if (part instanceof WebBrowserEditor) {
-			Browser browser = getBrowser((WebBrowserEditor) part);
-			if (browser != null) {
-				browser.removeLocationListener(urlTrackingListener);
-			}
-		}
+//		if (part instanceof WebBrowserEditor) {
+//			Browser browser = getBrowser((WebBrowserEditor) part);
+//			if (browser != null) {
+//				browser.removeLocationListener(urlTrackingListener);
+//			}
+//		}
 	}
 
 	public void partActivated(IWorkbenchPart part) {
