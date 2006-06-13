@@ -62,8 +62,6 @@ public class TaskListPreferencePage extends PreferencePage implements IWorkbench
 
 	private Button synchQueries = null;
 
-//	private Button userRefreshOnly;
-
 	private Text taskDirectoryText = null;
 
 	private Button browse = null;
@@ -224,6 +222,9 @@ public class TaskListPreferencePage extends PreferencePage implements IWorkbench
 			}
 		});
 		synchScheduleTime = new Text(enableSynch, SWT.BORDER | SWT.RIGHT);
+		GridData gridData = new GridData();
+		gridData.widthHint = 20;
+		synchScheduleTime.setLayoutData(gridData);
 		synchScheduleTime.setText(getMinutesString());
 		synchScheduleTime.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {

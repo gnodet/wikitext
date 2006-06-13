@@ -1,2 +1,5 @@
 1150131719204	Rename type 'IInterestPreservedOnClose'
+1150164700148	Rename method 'setIgnoredResourcePatterns'
+1150164648243	Rename method 'getIgnoredResourcePatterns'
+1150163283932	Rename field 'addNewButton'
 1150131766692	Rename type 'ICustomEditor'
