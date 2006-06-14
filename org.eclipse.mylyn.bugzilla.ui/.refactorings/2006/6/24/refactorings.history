@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Extract constant 'org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaRepositoryConnector.BUG_ID' from expression '&quot;&amp;bug_id=&quot;'&#13;&#10;- Constant name: 'BUG_ID'&#13;&#10;- Constant expression: '&quot;&amp;bug_id=&quot;'&#13;&#10;- Declared visibility: 'private'&#13;&#10;- Replace occurrences of expression with constant" description="Extract constant 'BUG_ID'" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylar.internal.bugzilla.ui.tasklist{BugzillaRepositoryConnector.java" name="BUG_ID" qualify="false" replace="true" selection="15760 10" stamp="1150242097949" version="1.0" visibility="2"/>
+</session>
