@@ -48,7 +48,7 @@
           definitionId="org.eclipse.mylar.web.browser.new"
           icon="icons/etool16/browser-new.gif" 
           id="org.eclipse.mylar.browser.editor.new"
-          label="New Browser"
+          label="New Web Browser"
           style="push"
           toolbarPath="org.eclipse.ui.edit.text.actionSet.presentation/Presentation"
           tooltip="New Browser"> 
