@@ -21,7 +21,7 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
-import org.eclipse.mylar.internal.tasklist.ui.views.RetrieveTitleFromUrlJob;
+import org.eclipse.mylar.internal.tasklist.RetrieveTitleFromUrlJob;
 import org.eclipse.mylar.provisional.core.IMylarContext;
 import org.eclipse.mylar.provisional.core.IMylarContextListener;
 import org.eclipse.mylar.provisional.core.IMylarElement;
