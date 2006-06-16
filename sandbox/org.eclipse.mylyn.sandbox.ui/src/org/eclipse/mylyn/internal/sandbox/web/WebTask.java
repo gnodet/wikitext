@@ -11,31 +11,38 @@
 
 package org.eclipse.mylar.internal.sandbox.web;
 
-import org.eclipse.mylar.provisional.tasklist.TaskRepository;
+import org.eclipse.mylar.provisional.tasklist.AbstractRepositoryTask;
 
 
 /**
- * Task repository for generic web-based system 
+ * Task used with generic web-based repositories 
  * 
  * @author Eugene Kuleshov
  */
-public class WebTaskRepository extends TaskRepository {
+public class WebTask extends AbstractRepositoryTask {
 
-	private final String newTaskUrl;
-	private final String taskPrefixUrl;
+	private String id;
+	
+	public WebTask(String handle, String label, String id) {
+		super(handle, label, false);
+		this.id = id;
+	}
 
-	public WebTaskRepository(String kind, String serverUrl, String newTaskUrl, String taskPrefixUrl) {
-		super(kind, serverUrl);
-		this.newTaskUrl = newTaskUrl;
-		this.taskPrefixUrl = taskPrefixUrl;
+	public String getId() {
+		return this.id;
 	}
 	
-	public String getNewTaskUrl() {
-		return this.newTaskUrl;
+	public String getRepositoryKind() {
+		return WebRepositoryConnector.REPOSITORY_TYPE;
 	}
-	
-	public String getTaskPrefixUrl() {
-		return this.taskPrefixUrl;
+
+	public boolean isDownloaded() {
+		return false;
+	}
+
+	public boolean isPersistentInWorkspace() {
+		return false;
 	}
 
 }
+

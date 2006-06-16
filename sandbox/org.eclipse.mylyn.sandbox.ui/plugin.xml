@@ -40,7 +40,7 @@
       <decorator
             lightweight="true"
             label="Mylar Sandbox: Interest Level Decorator"
-            class="org.eclipse.mylar.internal.sandbox.misc.InterestDebuggingDecorator"
+            class="org.eclipse.mylar.internal.sandbox.devtools.InterestDebuggingDecorator"
             state="false"
             id="org.eclipse.mylar.sandbox.ui.decorator.interest">
          <description>
@@ -56,13 +56,13 @@
 	  <view name="Sandbox: Context Tree"
             icon="icons/eview16/model.gif"
             category="org.eclipse.mylar"
-            class="org.eclipse.mylar.internal.sandbox.viz.MylarContextTreeView"
+            class="org.eclipse.mylar.internal.sandbox.devtools.MylarContextTreeView"
             id="org.eclipse.mylar.ui.views.TaskscapeTreeView">
       </view> 
 	  <view name="Sandbox: Context Control Panel"
         icon="icons/eview16/control-panel.gif"
         category="org.eclipse.mylar"
-        class="org.eclipse.mylar.internal.sandbox.viz.MylarControlPanelView"
+        class="org.eclipse.mylar.internal.sandbox.devtools.MylarControlPanelView"
         id="org.eclipse.mylar.ui.views.MylarControlPanelView">
       </view>
   </extension>
@@ -75,7 +75,7 @@
   		  	label="Mylar Sanbox: Introspect Object" 
 	  		menubarPath="mylar" 
 	  		id="org.eclipse.mylar.sandbox.actions.introspect" 
-	  		class="org.eclipse.mylar.internal.sandbox.misc.IntrospectObjectAction"
+	  		class="org.eclipse.mylar.internal.sandbox.devtools.IntrospectObjectAction"
 	  		enablesFor="1"/>
 	 </objectContribution>
 	</extension>
@@ -120,4 +120,22 @@
 	 </objectContribution>
   </extension>
   -->
+  
+   <extension
+         id="org.eclipse.mylar.web.repository"
+         name="Generic web-based Repository"
+         point="org.eclipse.mylar.tasklist.repositories">
+      <repositoryType
+            brandingIcon="icons/obj16/repository-web.gif"
+            class="org.eclipse.mylar.internal.sandbox.web.WebRepositoryConnector"
+            id="org.eclipse.mylar.web.tasklist.repositories"
+            name="Generic web-based repository"
+            type="web"/>
+      <!--            
+      <externalizer
+            class="org.eclipse.mylar.internal.sandbox.web.WebTaskExternalizer" 
+            id="org.eclipse.mylar.web.tasklist.externalizer"/>
+      -->      
+   </extension>  
+  
 </plugin>

@@ -23,5 +23,7 @@ Eclipse-AutoStart: true
 Bundle-Vendor: Eclipse.org
 Bundle-ClassPath: mylar-sandbox.jar
 Export-Package: org.eclipse.mylar.internal.sandbox,
- org.eclipse.mylar.internal.sandbox.viz
+ org.eclipse.mylar.internal.sandbox.devtools,
+ org.eclipse.mylar.internal.sandbox.share,
+ org.eclipse.mylar.internal.sandbox.web
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

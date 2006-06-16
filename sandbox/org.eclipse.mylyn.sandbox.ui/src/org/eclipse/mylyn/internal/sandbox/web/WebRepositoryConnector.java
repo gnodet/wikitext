@@ -18,7 +18,9 @@ import java.util.Set;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.jface.wizard.IWizard;
+import org.eclipse.mylar.internal.tasklist.ui.wizards.AbstractAddExistingTaskWizard;
 import org.eclipse.mylar.internal.tasklist.ui.wizards.AbstractRepositorySettingsPage;
+import org.eclipse.mylar.internal.tasklist.ui.wizards.ExistingTaskWizardPage;
 import org.eclipse.mylar.provisional.tasklist.AbstractQueryHit;
 import org.eclipse.mylar.provisional.tasklist.AbstractRepositoryConnector;
 import org.eclipse.mylar.provisional.tasklist.AbstractRepositoryQuery;
@@ -26,6 +28,7 @@ import org.eclipse.mylar.provisional.tasklist.AbstractRepositoryTask;
 import org.eclipse.mylar.provisional.tasklist.IAttachmentHandler;
 import org.eclipse.mylar.provisional.tasklist.IOfflineTaskHandler;
 import org.eclipse.mylar.provisional.tasklist.ITask;
+import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
 import org.eclipse.mylar.provisional.tasklist.TaskRepository;
 
 /**
@@ -35,12 +38,24 @@ import org.eclipse.mylar.provisional.tasklist.TaskRepository;
  */
 public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
+	public static final String REPOSITORY_TYPE = "web";
+	
+	public static final String PROPERTY_NEW_TASK_URL = "newtaskurl";
+	
+	public static final String PROPERTY_TASK_PREFIX_URL = "taskprefixurl";
+
+	
+	public String getRepositoryType() {
+		return REPOSITORY_TYPE;
+	}
+	
 	public String getLabel() {
 		return "Generic web-based repository";
 	}
 	
-	public String getRepositoryType() {
-		return "web";
+	@Override
+	public String[] repositoryPropertyNames() {
+		return new String[] { PROPERTY_NEW_TASK_URL, PROPERTY_TASK_PREFIX_URL};
 	}
 	
 	public List<String> getSupportedVersions() {
@@ -59,12 +74,30 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	// Support
 	
 	public ITask createTaskFromExistingKey(TaskRepository repository, String id) {
-		// TODO
+		if(REPOSITORY_TYPE.equals(repository.getKind())) {
+			String taskUrl = repository.getProperty(PROPERTY_TASK_PREFIX_URL) + id;
+			String label = "#"+id;
+			// TODO fetch the task description?
+			
+			String handle = AbstractRepositoryTask.getHandle(repository.getUrl(), id);
+			WebTask task = new WebTask(handle, label, id);
+			task.setUrl(taskUrl);
+			return task;
+		}
+		
 		return null;
 	}
 
 	public String getRepositoryUrlFromTaskUrl(String url) {
-		// TODO
+		// lookup repository using task prefix url 
+		for (TaskRepository repository : MylarTaskListPlugin.getRepositoryManager().getAllRepositories()) {
+			if(getRepositoryType().equals(repository.getKind())) {
+				if(url.startsWith(repository.getProperty(PROPERTY_TASK_PREFIX_URL))) {
+					return repository.getUrl();
+				}
+			}
+		}
+		
 		return null;
 	}
 	
@@ -86,8 +119,20 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	
 	
 	public IWizard getAddExistingTaskWizard(TaskRepository repository) {
-		// TODO
-		return null;
+		return new AbstractAddExistingTaskWizard(repository) {
+			private ExistingTaskWizardPage page;
+
+			@Override
+			public void addPages() {
+				super.addPages();
+				this.page = new ExistingTaskWizardPage();
+				addPage(page);
+			}
+
+			protected String getTaskId() {
+				return page.getTaskId();
+			}
+		};
 	}
 
 	public IWizard getNewTaskWizard(TaskRepository taskRepository) {

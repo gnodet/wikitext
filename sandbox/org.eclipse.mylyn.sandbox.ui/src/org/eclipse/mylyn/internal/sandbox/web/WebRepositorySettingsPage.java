@@ -11,6 +11,9 @@
 
 package org.eclipse.mylar.internal.sandbox.web;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -42,6 +45,11 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 		
 		newTaskUrlEditor = new StringFieldEditor("newTaskUrl", "New task URL:", StringFieldEditor.UNLIMITED, parent);
 		newTaskUrlEditor.setPropertyChangeListener(this);
+		
+		if(repository!=null) {
+			taskPrefixUrlEditor.setStringValue(repository.getProperty(WebRepositoryConnector.PROPERTY_TASK_PREFIX_URL));
+			newTaskUrlEditor.setStringValue(repository.getProperty(WebRepositoryConnector.PROPERTY_NEW_TASK_URL));
+		}
 	}
 
 	protected boolean isValidUrl(String name) {
@@ -64,9 +72,10 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 
 	@Override
 	public TaskRepository createTaskRepository() {
-		// ignore
-		return new WebTaskRepository(getConnector().getRepositoryType(), 
-				getServerUrl(), taskPrefixUrlEditor.getStringValue(), newTaskUrlEditor.getStringValue());
+		Map<String, String> properties = new HashMap<String, String>();
+		properties.put(WebRepositoryConnector.PROPERTY_TASK_PREFIX_URL, taskPrefixUrlEditor.getStringValue()); 
+		properties.put(WebRepositoryConnector.PROPERTY_NEW_TASK_URL, newTaskUrlEditor.getStringValue());
+		return new TaskRepository(getConnector().getRepositoryType(), getServerUrl(), properties);
 	}
 	
 }
