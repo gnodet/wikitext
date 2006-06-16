@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource '/org.eclipse.mylar.doc/doc/images/faq/changesets-model-based[1].gif' to 'changesets-model-based.gif'&#13;&#10;- Original element: 'changesets-model-based[1].gif'" description="Rename resource 'changesets-model-based[1].gif'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="doc/images/faq/changesets-model-based[1].gif" name="changesets-model-based.gif" stamp="1150493615215" version="1.0"/>
+<refactoring comment="Rename resource '/org.eclipse.mylar.doc/doc/images/faq/changeset-subclipse[1].gif' to 'changeset-subclipse.gif'&#13;&#10;- Original element: 'changeset-subclipse[1].gif'" description="Rename resource 'changeset-subclipse[1].gif'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="doc/images/faq/changeset-subclipse[1].gif" name="changeset-subclipse.gif" stamp="1150493628234" version="1.0"/>
+</session>

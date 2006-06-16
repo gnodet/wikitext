@@ -18,6 +18,10 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.mylar.provisional.core.IMylarElement;
 import org.eclipse.mylar.provisional.core.IMylarStructureBridge;
 import org.eclipse.mylar.provisional.core.MylarPlugin;
+import org.eclipse.mylar.provisional.tasklist.AbstractQueryHit;
+import org.eclipse.mylar.provisional.tasklist.AbstractRepositoryTask;
+import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
+import org.eclipse.mylar.provisional.tasklist.TaskRepository;
 import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
 
@@ -50,6 +54,21 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 				text += "<no structure bridge>";
 			}
 
+			if (object instanceof AbstractRepositoryTask || object instanceof AbstractQueryHit) {
+				
+				AbstractRepositoryTask task;
+				if (object instanceof AbstractRepositoryTask) {
+					task = (AbstractRepositoryTask)object;
+				} else {
+					task = ((AbstractQueryHit)object).getCorrespondingTask();
+				}
+				if (task != null) {
+					TaskRepository repository = MylarTaskListPlugin.getRepositoryManager().getRepository(task.getRepositoryKind(), task.getRepositoryUrl());
+					text += "\nlast synchronized: " + task.getLastSynchronized();
+					text += "\nrepository last synched: " + repository.getSyncTime();
+				}
+			}
+			
 			MessageDialog.openInformation(null, "Mylar Sandbox", text);
 		}
 	}
