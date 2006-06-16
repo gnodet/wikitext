@@ -17,6 +17,8 @@ import java.net.URL;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.swt.dnd.Clipboard;
+import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
@@ -30,7 +32,11 @@ import org.eclipse.ui.internal.browser.WorkbenchBrowserSupport;
 public class NewWebBrowserAction implements IWorkbenchWindowActionDelegate {
 
 	public void run(IAction action) {
-		String url = "http://google.com";
+		String url = getUrlFromClipboard();
+		if (url == null) {
+			url = "http://google.com";
+		}
+		
 		try {
 			IWebBrowser browser = null;
 			int flags = 0;
@@ -54,6 +60,18 @@ public class NewWebBrowserAction implements IWorkbenchWindowActionDelegate {
 		}
 	}
 
+	protected String getUrlFromClipboard() {
+		Clipboard clipboard = new Clipboard(Display.getDefault());
+		TextTransfer transfer = TextTransfer.getInstance();
+		String contents = (String) clipboard.getContents(transfer);
+		if (contents != null) {
+			if ((contents.startsWith("http://") || contents.startsWith("https://") && contents.length() > 10)) {
+				return contents;
+			} 
+		}
+		return null;
+	}
+	
 	public void selectionChanged(IAction action, ISelection selection) {
 		// ignore
 	}
