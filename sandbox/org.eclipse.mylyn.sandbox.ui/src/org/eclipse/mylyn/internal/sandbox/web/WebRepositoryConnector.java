@@ -136,8 +136,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	public IWizard getNewTaskWizard(TaskRepository taskRepository) {
-		// TODO
-		return null;
+		return new WebTaskWizard(taskRepository);
 	}
 
 	
