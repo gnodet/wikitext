@@ -7,7 +7,6 @@ Bundle-Activator: org.eclipse.mylar.internal.sandbox.MylarSandboxPlugin
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.gef,
  org.eclipse.mylar.core,
  org.eclipse.mylar.ui,
  org.eclipse.mylar.java,

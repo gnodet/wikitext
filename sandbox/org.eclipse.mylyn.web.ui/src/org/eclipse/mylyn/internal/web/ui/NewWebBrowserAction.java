@@ -32,10 +32,11 @@ import org.eclipse.ui.internal.browser.WorkbenchBrowserSupport;
 public class NewWebBrowserAction implements IWorkbenchWindowActionDelegate {
 
 	public void run(IAction action) {
-		String url = getUrlFromClipboard();
-		if (url == null) {
-			url = "http://google.com";
-		}
+		String url = "http://google.com";
+//		String url = getUrlFromClipboard();
+//		if (url == null) {
+//			url = "http://google.com";
+//		}
 		
 		try {
 			IWebBrowser browser = null;
