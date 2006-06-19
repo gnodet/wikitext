@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename method 'org.eclipse.mylar.provisional.tasklist.TaskRepository.setSyncTime(...)' to 'setSyncTimeStamp'&#13;&#10;- Original element: 'org.eclipse.mylar.provisional.tasklist.TaskRepository.setSyncTime(...)'&#13;&#10;- Renamed element: 'org.eclipse.mylar.provisional.tasklist.TaskRepository.setSyncTimeStamp(...)'&#13;&#10;- Update references to refactored element" delegate="false" deprecate="true" description="Rename method 'setSyncTime'" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylar.provisional.tasklist{TaskRepository.java[TaskRepository~setSyncTime~QString;" name="setSyncTimeStamp" references="true" stamp="1150741936718" version="1.0"/>
+</session>

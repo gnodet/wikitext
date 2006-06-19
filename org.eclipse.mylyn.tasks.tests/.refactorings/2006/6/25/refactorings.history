@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Move 'org.eclipse.mylar.tasklist.tests.BugzillaTaskTest.creation_ts_date_format' to 'org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaTask'&#13;&#10;- Original element: 'org.eclipse.mylar.tasklist.tests.BugzillaTaskTest.creation_ts_date_format'&#13;&#10;- Destination type: 'org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaTask'" delegate="false" deprecate="true" description="Move member 'creation_ts_date_format'" element1="/src&lt;org.eclipse.mylar.tasklist.tests{BugzillaTaskTest.java[BugzillaTaskTest^creation_ts_date_format" flags="589830" id="org.eclipse.jdt.ui.move.static" input="/src&lt;org.eclipse.mylar.internal.bugzilla.ui.tasklist{BugzillaTask.java[BugzillaTask" stamp="1150736097734" version="1.0"/>
+</session>

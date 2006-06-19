@@ -1,4 +1,8 @@
 1150142684959	Rename method 'createTaskDirectoryControl'
+1150513098125	Rename method 'getSyncTime'
+1150512390156	Rename field 'syncTime'
+1150508526375	Rename method 'getLastSynchronized'
+1150508503390	Rename method 'setLastSynchronized'
 1150413249874	Extract method 'createReportHeaderLayout'
 1150408865092	Pull up members to 'AbstractBugEditorInput'
 1150321966343	Extract constant 'TIME_BUFFER'

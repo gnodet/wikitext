@@ -1,2 +1,6 @@
 1150727681714	Extract constant 'ATTR_DIRTY'
+1150737308468	Extract constant 'DATE_FORMAT_2'
+1150737292343	Extract constant 'DATE_FORMAT_1'
+1150736720390	Rename field 'creation_ts_date_format'
+1150732893640	Rename field 'KEY_LAST_DATE'
 1150727695434	Extract constant 'ATTR_LAST_DATE'
