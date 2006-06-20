@@ -484,7 +484,7 @@ public abstract class AbstractRepositoryTaskEditor extends EditorPart {
 		
 		Composite headerInfoComposite = toolkit.createComposite(composite);
 		headerInfoComposite.setLayout(new GridLayout(6, false));
-		toolkit.createLabel(headerInfoComposite, "Task# ").setFont(TITLE_FONT);
+		toolkit.createLabel(headerInfoComposite, "ID: ").setFont(TITLE_FONT);
 		toolkit.createText(headerInfoComposite, "" + getRepositoryTaskData().getId(), SWT.FLAT | SWT.READ_ONLY);
 
 		toolkit.createLabel(headerInfoComposite, " Opened: ").setFont(TITLE_FONT);
@@ -772,7 +772,7 @@ public abstract class AbstractRepositoryTaskEditor extends EditorPart {
 					case 2:
 						return attachment.getCreator();
 					case 3:
-						return attachment.getDateCreated().toString();
+						return attachment.getDateCreated();
 					}
 					return "unrecognized column";
 				}
