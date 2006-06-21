@@ -1,4 +1,7 @@
 1150131719204	Rename type 'IInterestPreservedOnClose'
+1150550384734	Extract constant 'ATTR_CLASS'
+1150549813843	Extract constant 'ELEM_REPOSITORY_PROVIDER'
+1150549559031	Extract constant 'EXT_POINT_TEAM_REPOSITORY_PROVIDER'
 1150169479370	Rename type 'ProblemsListDoiSorter'
 1150164700148	Rename method 'setIgnoredResourcePatterns'
 1150164648243	Rename method 'getIgnoredResourcePatterns'
