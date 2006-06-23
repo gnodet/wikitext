@@ -11,13 +11,26 @@
 
 package org.eclipse.mylar.internal.sandbox.web;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.IWizard;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
 import org.eclipse.mylar.internal.tasklist.ui.wizards.AbstractAddExistingTaskWizard;
 import org.eclipse.mylar.internal.tasklist.ui.wizards.AbstractRepositorySettingsPage;
 import org.eclipse.mylar.internal.tasklist.ui.wizards.ExistingTaskWizardPage;
@@ -30,6 +43,8 @@ import org.eclipse.mylar.provisional.tasklist.IOfflineTaskHandler;
 import org.eclipse.mylar.provisional.tasklist.ITask;
 import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
 import org.eclipse.mylar.provisional.tasklist.TaskRepository;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 
 /**
  * Generic connector for web based issue tracking systems
@@ -98,12 +113,54 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			}
 		}
 		
+		for (AbstractRepositoryQuery query : MylarTaskListPlugin.getTaskListManager().getTaskList().getQueries()) {
+			if(query instanceof WebQuery) {
+				WebQuery webQuery = (WebQuery) query;
+				if(url.startsWith(webQuery.getTaskPrefix())) {
+					return webQuery.getRepositoryUrl();
+				}
+			}			
+		}
+		
 		return null;
 	}
 	
 	public List<AbstractQueryHit> performQuery(AbstractRepositoryQuery query, IProgressMonitor monitor, MultiStatus queryStatus) {
-		// TODO
-		return null;
+		List<AbstractQueryHit> hits = new ArrayList<AbstractQueryHit>();
+		
+		if(query instanceof WebQuery) {
+			StringBuffer resource = null;
+			try {
+				resource = fetchResource(query.getQueryUrl());
+			} catch (IOException ex) {
+				queryStatus.add(new Status(IStatus.OK, MylarTaskListPlugin.PLUGIN_ID, IStatus.OK,
+						"Could not fetch resource: " + query.getQueryUrl(), ex));
+			}
+			
+			String regexp = ((WebQuery) query).getRegexp();
+			
+		    Pattern p = Pattern.compile(regexp, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL | Pattern.UNICODE_CASE | Pattern.CANON_EQ);
+		    Matcher matcher = p.matcher(resource);
+
+		    if(matcher.find()) {
+		    	if(matcher.groupCount()<2) {
+		    		queryStatus.add(new Status(IStatus.OK, MylarTaskListPlugin.PLUGIN_ID, IStatus.OK,
+		    				"Unable to parse fetched resource. Check query regexp", null));
+		    	} else {
+			    	do {
+			    		String id = matcher.group(1);
+			    		String description = matcher.group(2);
+			    		hits.add(new WebQueryHit(id, description, query.getRepositoryUrl()));
+			    	} while(matcher.find());
+			    	queryStatus.add(Status.OK_STATUS);
+			    }
+		    } else {
+				queryStatus.add(new Status(IStatus.OK, MylarTaskListPlugin.PLUGIN_ID, IStatus.OK,
+						"Unable to parse fetched resource. Check query regexp", null));
+		    }
+			
+		}
+		return hits;
 	}
 
 	protected void updateTaskState(AbstractRepositoryTask repositoryTask) {
@@ -140,13 +197,36 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	
-	public IWizard getNewQueryWizard(TaskRepository repository) {
-		// TODO
-		return null;
+	public IWizard getNewQueryWizard(TaskRepository taskRepository) {
+		return new WebQueryWizard(taskRepository);
 	}
 	
 	public void openEditQueryDialog(AbstractRepositoryQuery query) {
-		// TODO
+		try {
+			TaskRepository repository = MylarTaskListPlugin.getRepositoryManager().getRepository(
+					query.getRepositoryKind(), query.getRepositoryUrl());
+			if (repository == null)
+				return;
+
+			IWizard wizard = null;
+			if (query instanceof WebQuery) {
+				wizard = new WebQueryEditWizard(repository, query);
+			}
+
+			Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+			if (wizard != null && shell != null && !shell.isDisposed()) {
+				WizardDialog dialog = new WizardDialog(shell, wizard);
+				dialog.create();
+				dialog.setTitle("Edit Web Query");
+				dialog.setBlockOnOpen(true);
+				if (dialog.open() == Window.CANCEL) {
+					dialog.close();
+					return;
+				}
+			}
+		} catch (Exception e) {
+			MylarStatusHandler.fail(e, e.getMessage(), true);
+		}
 	}
 	
 	
@@ -165,5 +245,27 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return null;
 	}
 	
+	
+	public static StringBuffer fetchResource(String url) throws IOException {
+		URL u = new URL(url);
+		InputStream is = null;
+		try {
+			is = u.openStream();
+		    BufferedReader r = new BufferedReader(new InputStreamReader(is));
+
+		    StringBuffer resource = new StringBuffer();
+		    String line;
+		    while((line = r.readLine())!=null) {
+		    	resource.append(line).append("\n");
+		    }
+		    return resource;
+		    
+		} finally {
+			if(is!=null) {
+				is.close();
+			}
+		}
+		
+	}
 }
 
