@@ -55,7 +55,6 @@ public class WebSiteNavigatorActionProvider extends CommonActionProvider {
 			menuManager.insertAfter(ICommonMenuConstants.GROUP_OPEN, openAction);
 		}
 		menuManager.add(new Separator(ICommonMenuConstants.GROUP_ADDITIONS));
-		// addOpenWithMenu(menuManager);
 	}
 
 	public void fillActionBars(IActionBars actionBars) {
@@ -65,42 +64,4 @@ public class WebSiteNavigatorActionProvider extends CommonActionProvider {
 			actionBars.setGlobalActionHandler(ICommonActionConstants.OPEN, openAction);
 		}
 	}
-
-	// private void addOpenWithMenu(IMenuManager aMenu) {
-	// IStructuredSelection ss = (IStructuredSelection)
-	// getContext().getSelection();
-	//
-	// if (ss == null || ss.size() != 1) {
-	// return;
-	// }
-	//
-	// Object o = ss.getFirstElement();
-	//
-	// // first try IResource
-	// IAdaptable openable = (IAdaptable) AdaptabilityUtility.getAdapter(o,
-	// IResource.class);
-	// // otherwise try ResourceMapping
-	// if (openable == null) {
-	// openable = (IAdaptable) AdaptabilityUtility.getAdapter(o,
-	// ResourceMapping.class);
-	// } else if (((IResource) openable).getType() != IResource.FILE) {
-	// openable = null;
-	// }
-	//
-	// if (openable != null) {
-	// // Create a menu flyout.
-	// IMenuManager submenu = new
-	// MenuManager(WorkbenchNavigatorMessages.OpenActionProvider_OpenWithMenu_label,
-	// ICommonMenuConstants.GROUP_OPEN_WITH);
-	// submenu.add(new GroupMarker(ICommonMenuConstants.GROUP_TOP));
-	// submenu.add(new OpenWithMenu(viewSite.getPage(), openable));
-	// submenu.add(new GroupMarker(ICommonMenuConstants.GROUP_ADDITIONS));
-	//
-	// // Add the submenu.
-	// if (submenu.getItems().length > 2 && submenu.isEnabled()) {
-	// aMenu.appendToGroup(ICommonMenuConstants.GROUP_OPEN_WITH, submenu);
-	// }
-	// }
-	// }
-
 }
