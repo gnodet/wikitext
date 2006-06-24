@@ -1,4 +1,6 @@
 1150741936718	Rename method 'setSyncTime'
+1151095352342	Rename method 'hasChanges'
+1151095326201	Rename method 'setHasChanged'
 1151021835186	Extract constant 'REPOSITORIES_EXTENSION'
 1151021816982	Extract constant 'REPOSITORIES_FILENAME'
 1151013178373	Rename type 'TaskRepositoryExternalizer'
