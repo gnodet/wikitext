@@ -1,1 +1,5 @@
-1151258867531	Change method 'getSubMenuManager'
+1151266649774	Rename type 'SaveRepositoryAttachmentAction'
+1151252466943	Rename method 'getAttachmentContents'
+1151252376195	Extract constant 'ATTACHMENT_URL_SUFFIX'
+1151197662345	Rename local variable 'c'
+1151196568462	Extract method 'openUrl'
