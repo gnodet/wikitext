@@ -1,4 +1,7 @@
 1151266649774	Rename type 'SaveRepositoryAttachmentAction'
+1151351708476	Rename type 'AttachmentWizardDialog'
+1151350192015	Rename field 'fHasNewDialogSettings'
+1151349338500	Rename field 'PATCH_WIZARD_SETTINGS_SECTION'
 1151302583546	Rename method 'saveTaskListAndContexts'
 1151252466943	Rename method 'getAttachmentContents'
 1151252376195	Extract constant 'ATTACHMENT_URL_SUFFIX'
