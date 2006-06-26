@@ -173,7 +173,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 	 */
 	public void switchTaskDataFolder(String targetFolder) {
 
-		MylarTaskListPlugin.getDefault().getTaskListSaveManager().saveTaskListAndContexts();
+		MylarTaskListPlugin.getDefault().getTaskListSaveManager().saveTaskList(true);
 
 		if (targetFolder.equals(MAIN_LOCAL_DATA_DIR)) {
 			MylarSandboxPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectoryEnabled(false);
