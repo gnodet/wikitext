@@ -1,4 +1,5 @@
 1151266649774	Rename type 'SaveRepositoryAttachmentAction'
+1151525213203	Rename method 'addAll'
 1151446492718	Extract constant 'ATTACHMENT_DEFAULT_NAME'
 1151446432750	Extract constant 'CTYPE_ZIP'
 1151446421562	Extract constant 'CTYPE_OCTET_STREAM'
