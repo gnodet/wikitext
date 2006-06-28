@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable 'fDialogSettings' in 'org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchPage.saveWidgetValues()' to 'settings'&#10;- Original element: 'org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchPage.saveWidgetValues().fDialogSettings'&#10;- Renamed element: 'org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchPage.saveWidgetValues().settings'&#10;- Update references to refactored element" description="Rename local variable 'fDialogSettings'" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;org.eclipse.mylar.internal.bugzilla.ui.search{BugzillaSearchPage.java" name="settings" references="true" selection="52688 15" stamp="1151428183880" version="1.0"/>
+</session>
