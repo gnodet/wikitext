@@ -1,4 +1,7 @@
 1151266649774	Rename type 'SaveRepositoryAttachmentAction'
+1151604250140	Extract constant 'LABEL_DESCRIPTION'
+1151603705234	Extract constant 'LABEL_COMMENTS'
+1151603689312	Extract constant 'LABEL_NEW_COMMENT'
 1151557573080	Move member 'TASK_EDITOR_FONT'
 1151557539244	Rename field 'REPOSITORY_TEXT_ID'
 1151543215609	Rename method 'createPlanningGroup'
