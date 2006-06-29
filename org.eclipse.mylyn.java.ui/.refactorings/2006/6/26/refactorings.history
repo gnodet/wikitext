@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename field 'workingSet' in 'org.eclipse.mylar.internal.java.ui.wizards.MylarPreferenceWizardPage' to 'createWorkingSet'&#13;&#10;- Original element: 'org.eclipse.mylar.internal.java.ui.wizards.MylarPreferenceWizardPage.workingSet'&#13;&#10;- Renamed element: 'org.eclipse.mylar.internal.java.ui.wizards.MylarPreferenceWizardPage.createWorkingSet'&#13;&#10;- Update references to refactored element&#13;&#10;- Update textual occurrences in comments and strings&#13;&#10;- Rename getter method for field" delegate="false" deprecate="true" description="Rename field 'workingSet'" flags="589826" getter="true" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;org.eclipse.mylar.internal.java.ui.wizards{MylarPreferenceWizardPage.java[MylarPreferenceWizardPage^workingSet" name="createWorkingSet" references="true" setter="false" stamp="1151608641359" textual="false" version="1.0"/>
+</session>
