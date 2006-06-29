@@ -53,6 +53,7 @@ mylar.core.tests
   
 - mylar.tasklist
   - ui
+    - GridDataFactory
     - TaskListNotificationPopup
 	- TaskListPatternFilter
 	- TaskListNotificationManager
