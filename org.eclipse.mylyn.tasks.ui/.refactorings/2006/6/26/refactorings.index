@@ -1,4 +1,6 @@
 1151266649774	Rename type 'SaveRepositoryAttachmentAction'
+1151557573080	Move member 'TASK_EDITOR_FONT'
+1151557539244	Rename field 'REPOSITORY_TEXT_ID'
 1151543215609	Rename method 'createPlanningGroup'
 1151525213203	Rename method 'addAll'
 1151446492718	Extract constant 'ATTACHMENT_DEFAULT_NAME'
