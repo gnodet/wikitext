@@ -1,0 +1,4 @@
+1152054519328	Rename method 'writeContextToXML'
+1152055773328	Rename method 'setEventAttributes'
+1152055655953	Extract method 'createEventFromAttributes'
+1152055194734	Extract method 'setEventAttributes'
