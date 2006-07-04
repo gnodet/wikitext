@@ -22,5 +22,4 @@ Export-Package: org.eclipse.mylar.internal.monitor.reports,
  org.eclipse.mylar.internal.monitor.reports.ui.actions,
  org.eclipse.mylar.internal.monitor.reports.ui.views,
  org.eclipse.mylar.monitor.reports
-Bundle-ClassPath: mylar-reports.jar
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

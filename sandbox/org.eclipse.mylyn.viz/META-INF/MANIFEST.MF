@@ -19,4 +19,3 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.mylar.zest.layouts
 Eclipse-AutoStart: true
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Bundle-ClassPath: mylar-viz.jar

@@ -20,7 +20,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.mylar.bugzilla.ui
 Eclipse-AutoStart: true
 Bundle-Vendor: Eclipse.org
-Bundle-ClassPath: mylar-sandbox.jar
 Export-Package: org.eclipse.mylar.internal.sandbox,
  org.eclipse.mylar.internal.sandbox.devtools,
  org.eclipse.mylar.internal.sandbox.share,
