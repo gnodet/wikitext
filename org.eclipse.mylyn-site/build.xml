@@ -4,7 +4,7 @@
 		<pde.exportPlugins destination="${basedir}/archives" 
 			exportSource="true" 
 			exportType="zip" 
-			filename="mylar-archive-0.5.3.zip" 
+			filename="mylar-archive-0.6.0.zip" 
 			plugins="org.eclipse.mylar,
 				org.eclipse.mylar.bugs,
 				org.eclipse.mylar.bugzilla.core,
