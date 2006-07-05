@@ -11,7 +11,7 @@
 /*
  * Created on Apr 6, 2005
  */
-package org.eclipse.mylar.internal.bugs;
+package org.eclipse.mylar.internal.sandbox.bridge.bugs;
 
 import java.util.ArrayList;
 import java.util.List;

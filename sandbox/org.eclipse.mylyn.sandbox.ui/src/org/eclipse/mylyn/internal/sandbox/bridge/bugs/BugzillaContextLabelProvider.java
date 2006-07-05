@@ -9,9 +9,8 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.bugs;
+package org.eclipse.mylar.internal.sandbox.bridge.bugs;
 
-import org.eclipse.mylar.internal.bugs.search.BugzillaReferencesProvider;
 import org.eclipse.mylar.internal.tasklist.ui.TaskListImages;
 import org.eclipse.mylar.internal.ui.AbstractContextLabelProvider;
 import org.eclipse.mylar.internal.ui.MylarImages;
@@ -33,7 +32,7 @@ public class BugzillaContextLabelProvider extends AbstractContextLabelProvider {
 
 	@Override
 	protected Image getImage(IMylarRelation edge) {
-		return MylarImages.getImage(MylarBugsPlugin.EDGE_REF_BUGZILLA);
+		return MylarImages.getImage(MylarBugsManager.EDGE_REF_BUGZILLA);
 	}
 
 	@Override
@@ -53,7 +52,7 @@ public class BugzillaContextLabelProvider extends AbstractContextLabelProvider {
 	protected String getText(IMylarElement node) {
 		// try to get from the cache before downloading
 		Object report;
-		BugzillaReportInfo reportNode = MylarBugsPlugin.getReferenceProvider().getCached(node.getHandleIdentifier());
+		BugzillaReportInfo reportNode = MylarBugsManager.getReferenceProvider().getCached(node.getHandleIdentifier());
 //		BugzillaReport cachedReport = MylarBugsPlugin.getDefault().getCache().getCached(node.getHandleIdentifier());
 		IMylarStructureBridge bridge = MylarPlugin.getDefault()
 				.getStructureBridge(BugzillaStructureBridge.CONTENT_TYPE);

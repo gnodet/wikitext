@@ -11,7 +11,7 @@
 /*
  * Created on Nov 19, 2004
  */
-package org.eclipse.mylar.tests.misc;
+package org.eclipse.mylar.sandbox.tests;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +20,13 @@ import junit.framework.TestCase;
 
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
-import org.eclipse.mylar.internal.bugs.BugzillaReportInfo;
-import org.eclipse.mylar.internal.bugs.MylarBugsPlugin;
-import org.eclipse.mylar.internal.bugs.search.BugzillaMylarSearch;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
 import org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaTask;
 import org.eclipse.mylar.internal.core.search.IActiveSearchListener;
+import org.eclipse.mylar.internal.sandbox.bridge.bugs.BugzillaMylarSearch;
+import org.eclipse.mylar.internal.sandbox.bridge.bugs.BugzillaReportInfo;
+import org.eclipse.mylar.internal.sandbox.bridge.bugs.MylarBugsManager;
 import org.eclipse.mylar.java.tests.search.SearchPluginTestHelper;
 import org.eclipse.mylar.java.tests.search.WorkspaceSetupHelper;
 import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
@@ -130,7 +130,7 @@ public class BugzillaSearchPluginTest extends TestCase {
 		assertTrue("listener was not added", lists.size() == 1);
 
 		// display the time it took for the search
-		MylarBugsPlugin.getBridge().removeFromLandmarksHash(astNodeType);
+		MylarBugsManager.getBridge().removeFromLandmarksHash(astNodeType);
 	}
 
 	/**
@@ -168,7 +168,7 @@ public class BugzillaSearchPluginTest extends TestCase {
 																// size
 
 		// display the time it took for the search and the results returned
-		MylarBugsPlugin.getBridge().removeFromLandmarksHash(astNodeType);
+		MylarBugsManager.getBridge().removeFromLandmarksHash(astNodeType);
 
 	}
 
@@ -207,7 +207,7 @@ public class BugzillaSearchPluginTest extends TestCase {
 																// size
 
 		// check that the search has been saved
-		List<BugzillaReportInfo> saved = MylarBugsPlugin.getBridge().getFromLandmarksHash(astNodeType,
+		List<BugzillaReportInfo> saved = MylarBugsManager.getBridge().getFromLandmarksHash(astNodeType,
 				BugzillaMylarSearch.UNQUAL);
 		assertTrue("Results not cached", saved != null);
 		assertTrue("Results not the right size", saved.size() > 0); // TODO
@@ -218,7 +218,7 @@ public class BugzillaSearchPluginTest extends TestCase {
 																	// size
 
 		assertTrue(c.containsAll(saved) && saved.containsAll(c));
-		MylarBugsPlugin.getBridge().removeFromLandmarksHash(astNodeType);
+		MylarBugsManager.getBridge().removeFromLandmarksHash(astNodeType);
 	}
 
 	public void testLocalBugUnqual() throws InterruptedException {
@@ -282,7 +282,7 @@ public class BugzillaSearchPluginTest extends TestCase {
 		List<?> c = lists.get(0);
 		assertEquals("Results not the right size", 3, c.size());
 
-		MylarBugsPlugin.getBridge().removeFromLandmarksHash(astNodeType);
+		MylarBugsManager.getBridge().removeFromLandmarksHash(astNodeType);
 		MylarTaskListPlugin.getTaskListManager().getTaskList().deleteCategory(cat);
 	}
 
@@ -342,7 +342,7 @@ public class BugzillaSearchPluginTest extends TestCase {
 		List<?> c = lists.get(0);
 		assertEquals("Results not the right size", 1, c.size());
 
-		MylarBugsPlugin.getBridge().removeFromLandmarksHash(astNodeType);
+		MylarBugsManager.getBridge().removeFromLandmarksHash(astNodeType);
 		MylarTaskListPlugin.getTaskListManager().getTaskList().deleteCategory(cat);
 	}
 

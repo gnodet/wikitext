@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.bugs;
+package org.eclipse.mylar.internal.sandbox.bridge.bugs;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

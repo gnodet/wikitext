@@ -8,10 +8,9 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.bugs;
+package org.eclipse.mylar.internal.sandbox.bridge.bugs;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylar.internal.bugs.search.BugzillaReferencesProvider;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -24,29 +23,21 @@ import org.osgi.framework.BundleContext;
  * @author Mik Kersten
  * @author Shawn Minto
  */
-public class MylarBugsPlugin extends AbstractUIPlugin {
+public class MylarBugsManager {
 
 	public static ImageDescriptor EDGE_REF_BUGZILLA = getImageDescriptor("icons/elcl16/edge-ref-bug.gif");
 
-	// private BugzillaEditingMonitor bugzillaEditingMonitor;
 
 	private static BugzillaSearchManager bridge = null;
 
 	private static BugzillaReferencesProvider referencesProvider = new BugzillaReferencesProvider();
 
-	private static MylarBugsPlugin plugin;
+	private static MylarBugsManager INSTANCE;
 
-//	private BugzillaReportCache cache;
+//	private BugzillaReportCache cache
 
-	public MylarBugsPlugin() {
-		plugin = this;
-	}
-
-	/**
-	 * This method is called upon plug-in activation
-	 */
-	public void start(BundleContext context) throws Exception {
-		super.start(context);
+	public MylarBugsManager() {
+		INSTANCE = this;
 //		cache = new BugzillaReportCache();
 //		cache.readCacheFile();
 
@@ -64,20 +55,15 @@ public class MylarBugsPlugin extends AbstractUIPlugin {
 		});
 	}
 
-	/**
-	 * This method is called when the plug-in is stopped
-	 */
-	public void stop(BundleContext context) throws Exception {
-		super.stop(context);
-		plugin = null;
+	public void dispose(BundleContext context) throws Exception {
 		// MylarPlugin.getDefault().getSelectionMonitors().remove(bugzillaEditingMonitor);
 	}
 
 	/**
 	 * Returns the shared instance.
 	 */
-	public static MylarBugsPlugin getDefault() {
-		return plugin;
+	public static MylarBugsManager getDefault() {
+		return INSTANCE;
 	}
 
 	/**

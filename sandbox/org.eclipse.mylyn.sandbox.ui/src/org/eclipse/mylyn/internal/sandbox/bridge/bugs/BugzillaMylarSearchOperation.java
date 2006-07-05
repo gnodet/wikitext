@@ -11,7 +11,7 @@
 /*
  * Created on Oct 14, 2004
  */
-package org.eclipse.mylar.internal.bugs.search;
+package org.eclipse.mylar.internal.sandbox.bridge.bugs;
 
 import java.net.Proxy;
 import java.util.ArrayList;
@@ -29,8 +29,6 @@ import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylar.internal.bugs.BugzillaReportInfo;
-import org.eclipse.mylar.internal.bugs.MylarBugsPlugin;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
 import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaResultCollector;
 import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchEngine;
@@ -133,7 +131,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 
 		// we completed the search, so notify all of the listeners
 		// that the search has been completed
-		MylarBugsPlugin.getBridge().addToLandmarksHash(doiList, javaElement, scope);
+		MylarBugsManager.getBridge().addToLandmarksHash(doiList, javaElement, scope);
 		search.notifySearchCompleted(doiList);
 		// MIK: commmented out logging
 		// MonitorPlugin.log(this, "There were " + doiList.size() + " items

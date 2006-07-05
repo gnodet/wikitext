@@ -11,7 +11,7 @@
 /*
  * Created on Feb 2, 2005
  */
-package org.eclipse.mylar.internal.bugs.search;
+package org.eclipse.mylar.internal.sandbox.bridge.bugs;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -25,10 +25,6 @@ import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.mylar.internal.bugs.BugzillaReportInfo;
-import org.eclipse.mylar.internal.bugs.BugzillaSearchManager;
-import org.eclipse.mylar.internal.bugs.BugzillaStructureBridge;
-import org.eclipse.mylar.internal.bugs.MylarBugsPlugin;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
 import org.eclipse.mylar.internal.core.search.IActiveSearchListener;
 import org.eclipse.mylar.internal.core.search.IMylarSearchOperation;
@@ -91,7 +87,7 @@ public class BugzillaReferencesProvider extends AbstractRelationProvider {
 			public void searchCompleted(List<?> nodes) {
 				Iterator<?> itr = nodes.iterator();
 
-				if (MylarBugsPlugin.getDefault() == null)
+				if (MylarBugsManager.getDefault() == null)
 					return;
 
 				while (itr.hasNext()) {

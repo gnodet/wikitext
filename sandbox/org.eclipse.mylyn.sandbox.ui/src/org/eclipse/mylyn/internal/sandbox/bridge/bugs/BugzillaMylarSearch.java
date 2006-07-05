@@ -11,7 +11,7 @@
 /*
  * Created on Oct 13, 2004
  */
-package org.eclipse.mylar.internal.bugs.search;
+package org.eclipse.mylar.internal.sandbox.bridge.bugs;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,8 +23,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IMember;
-import org.eclipse.mylar.internal.bugs.BugzillaReportInfo;
-import org.eclipse.mylar.internal.bugs.BugzillaSearchManager;
 import org.eclipse.mylar.internal.core.search.IActiveSearchListener;
 import org.eclipse.mylar.internal.core.search.IMylarSearchOperation;
 import org.eclipse.mylar.provisional.core.InterestComparator;

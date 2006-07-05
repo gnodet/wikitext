@@ -11,7 +11,7 @@
 /*
  * Created on Nov 19, 2004
  */
-package org.eclipse.mylar.internal.bugs.search;
+package org.eclipse.mylar.internal.sandbox.bridge.bugs;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
