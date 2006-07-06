@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Extract constant 'org.eclipse.mylar.internal.bugzilla.ui.editor.ExistingBugEditor.LABEL_TIME_TRACKING' from expression '&quot;Bugzilla Time Tracking&quot;'&#13;&#10;- Constant name: 'LABEL_TIME_TRACKING'&#13;&#10;- Constant expression: '&quot;Bugzilla Time Tracking&quot;'&#13;&#10;- Declared visibility: 'private'&#13;&#10;- Replace occurrences of expression with constant" description="Extract constant 'LABEL_TIME_TRACKING'" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylar.internal.bugzilla.ui.editor{ExistingBugEditor.java" name="LABEL_TIME_TRACKING" qualify="false" replace="true" selection="16016 24" stamp="1152210893889" version="1.0" visibility="2"/>
+</session>
