@@ -29,11 +29,9 @@ import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.IWizard;
-import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
 import org.eclipse.mylar.internal.tasklist.RetrieveTitleFromUrlJob;
-import org.eclipse.mylar.internal.tasklist.ui.wizards.AbstractAddExistingTaskWizard;
 import org.eclipse.mylar.internal.tasklist.ui.wizards.AbstractRepositorySettingsPage;
 import org.eclipse.mylar.provisional.tasklist.AbstractQueryHit;
 import org.eclipse.mylar.provisional.tasklist.AbstractRepositoryConnector;
@@ -180,12 +178,6 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return new WebRepositorySettingsPage(this);
 	}
 	
-	
-	public Wizard getAddExistingTaskWizard(TaskRepository repository) {
-		return new AbstractAddExistingTaskWizard(repository) {
-		};
-	}
-
 	public IWizard getNewTaskWizard(TaskRepository taskRepository) {
 		return new WebTaskWizard(taskRepository);
 	}
