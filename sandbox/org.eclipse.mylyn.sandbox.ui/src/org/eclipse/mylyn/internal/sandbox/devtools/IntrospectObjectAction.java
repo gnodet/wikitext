@@ -64,9 +64,10 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 				}
 				if (task != null) {
 					TaskRepository repository = MylarTaskListPlugin.getRepositoryManager().getRepository(task.getRepositoryKind(), task.getRepositoryUrl());
-					text += "\nlast modified: " + task.getLastModifiedDateStamp();
-					text += "\nrepository synch time stamp: " + repository.getSyncTimeStamp();
-					text += "\n sync state: "+ task.getSyncState();
+					text += "\nLast modified: " + task.getLastModifiedDateStamp();
+					text += "\nRepository synch time stamp: " + repository.getSyncTimeStamp();
+					text += "\nSync state: "+ task.getSyncState();
+					text += "\nParent: "+ task.getContainer();
 				}
 			}
 			
