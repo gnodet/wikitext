@@ -8,18 +8,18 @@
  * Contributors:
  *     Mylar project committers - initial API and implementation
  *******************************************************************************/
-
-package org.eclipse.mylar.internal.jira.ui.wizards;
+package org.eclipse.mylar.internal.trac.ui.wizard;
 
 import org.eclipse.mylar.internal.tasklist.ui.wizards.AbstractAddExistingTaskWizard;
 import org.eclipse.mylar.provisional.tasklist.TaskRepository;
 
 /**
- * @author Mik Kersten
+ * @author Steffen Pingel
  */
-public class AddExistingJiraTaskWizard extends AbstractAddExistingTaskWizard {
-	
-	public AddExistingJiraTaskWizard(TaskRepository repository) {
+public class AddExistingTracTaskWizard extends AbstractAddExistingTaskWizard {
+
+	public AddExistingTracTaskWizard(TaskRepository repository) {
 		super(repository);
 	}
-} 
+
+}

@@ -29,12 +29,12 @@ import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.IWizard;
+import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
 import org.eclipse.mylar.internal.tasklist.RetrieveTitleFromUrlJob;
 import org.eclipse.mylar.internal.tasklist.ui.wizards.AbstractAddExistingTaskWizard;
 import org.eclipse.mylar.internal.tasklist.ui.wizards.AbstractRepositorySettingsPage;
-import org.eclipse.mylar.internal.tasklist.ui.wizards.ExistingTaskWizardPage;
 import org.eclipse.mylar.provisional.tasklist.AbstractQueryHit;
 import org.eclipse.mylar.provisional.tasklist.AbstractRepositoryConnector;
 import org.eclipse.mylar.provisional.tasklist.AbstractRepositoryQuery;
@@ -181,20 +181,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 	
 	
-	public IWizard getAddExistingTaskWizard(TaskRepository repository) {
+	public Wizard getAddExistingTaskWizard(TaskRepository repository) {
 		return new AbstractAddExistingTaskWizard(repository) {
-			private ExistingTaskWizardPage page;
-
-			@Override
-			public void addPages() {
-				super.addPages();
-				this.page = new ExistingTaskWizardPage();
-				addPage(page);
-			}
-
-			protected String getTaskId() {
-				return page.getTaskId();
-			}
 		};
 	}
 
