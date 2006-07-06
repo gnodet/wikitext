@@ -219,20 +219,20 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 
 				// we have a bugzilla task, so get the bug report
 				BugzillaTask bugTask = (BugzillaTask) task;
-				RepositoryTaskData bug = bugTask.getTaskData();
+				RepositoryTaskData bugTaskData = bugTask.getTaskData();
 
 				// parse the bug report for the element that we are searching
 				// for
-				boolean isHit = search(elementName, bug);
+				boolean isHit = search(elementName, bugTaskData);
 
 				// determine if we have a hit or not
 				if (isHit) {
 
-					// make a search hit from the bug and then add it to the
-					// collector
-					BugzillaSearchHit hit = new BugzillaSearchHit(bug.getRepositoryUrl(), bug.getId(), bug
-							.getDescription(), "", "", "", "", "", "", "");
+					// make a search hit from the bug and then add it to the collector
 					try {
+						int id = Integer.parseInt(bugTaskData.getId());
+						BugzillaSearchHit hit = new BugzillaSearchHit(bugTaskData.getRepositoryUrl(), id, bugTaskData
+							.getDescription(), "", "", "", "", "", "", "");
 						searchCollector.accept(hit);
 					} catch (CoreException e) {
 						MylarStatusHandler.log(e, "bug search failed");

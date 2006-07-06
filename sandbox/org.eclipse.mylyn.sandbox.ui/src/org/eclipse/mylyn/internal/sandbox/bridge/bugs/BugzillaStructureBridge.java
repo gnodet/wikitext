@@ -19,7 +19,7 @@ import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchHit;
 import org.eclipse.mylar.internal.core.DegreeOfSeparation;
 import org.eclipse.mylar.internal.tasklist.ui.editors.RepositoryTaskOutlineNode;
 import org.eclipse.mylar.internal.tasklist.ui.editors.RepositoryTaskSelection;
-import org.eclipse.mylar.internal.tasklist.ui.editors.OutlineTools;
+import org.eclipse.mylar.internal.tasklist.ui.editors.ContentOutlineTools;
 import org.eclipse.mylar.provisional.core.AbstractRelationProvider;
 import org.eclipse.mylar.provisional.core.IDegreeOfSeparation;
 import org.eclipse.mylar.provisional.core.IMylarStructureBridge;
@@ -53,10 +53,10 @@ public class BugzillaStructureBridge implements IMylarStructureBridge {
 	public String getHandleIdentifier(Object object) {
 		if (object instanceof RepositoryTaskOutlineNode) {
 			RepositoryTaskOutlineNode node = (RepositoryTaskOutlineNode) object;
-			return OutlineTools.getHandle(node);
+			return ContentOutlineTools.getHandle(node);
 		} else if (object instanceof RepositoryTaskSelection) {
 			RepositoryTaskSelection n = (RepositoryTaskSelection) object;
-			return OutlineTools.getHandle(n);
+			return ContentOutlineTools.getHandle(n);
 		}
 		return null;
 	}
@@ -166,7 +166,7 @@ public class BugzillaStructureBridge implements IMylarStructureBridge {
 
 		RepositoryTaskOutlineNode bon = (RepositoryTaskOutlineNode) getObjectForHandle(handle);
 		if (bon != null && bon.getParent() != null)
-			return OutlineTools.getHandle(bon.getParent());
+			return ContentOutlineTools.getHandle(bon.getParent());
 		else
 			return null;
 		// String [] parts = handle.split(";");
@@ -185,7 +185,7 @@ public class BugzillaStructureBridge implements IMylarStructureBridge {
 	public String getName(Object object) {
 		if (object instanceof RepositoryTaskOutlineNode) {
 			RepositoryTaskOutlineNode b = (RepositoryTaskOutlineNode) object;
-			return OutlineTools.getName(b);
+			return ContentOutlineTools.getName(b);
 		} else if (object instanceof BugzillaReportInfo) {
 			BugzillaSearchHit hit = ((BugzillaReportInfo) object).getHit();
 			return hit.getRepositoryUrl() + ": Bug#: " + hit.getId() + ": " + hit.getDescription();

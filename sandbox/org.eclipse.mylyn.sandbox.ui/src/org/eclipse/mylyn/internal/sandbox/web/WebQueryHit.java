@@ -22,7 +22,7 @@ public class WebQueryHit extends AbstractQueryHit {
 
 
 	public WebQueryHit(String id, String description, String repositoryUrl) {
-		super(repositoryUrl, description, Integer.parseInt(id));
+		super(repositoryUrl, description, id);
 	}
 
 	public String getDescription() {
