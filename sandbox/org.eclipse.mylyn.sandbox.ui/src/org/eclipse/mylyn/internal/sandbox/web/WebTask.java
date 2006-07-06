@@ -21,17 +21,18 @@ import org.eclipse.mylar.provisional.tasklist.AbstractRepositoryTask;
  */
 public class WebTask extends AbstractRepositoryTask {
 
-	private String id;
+	private final String id;
+	private final String taskPrefix;
+	private final String repositoryUrl;
 	
-	public WebTask(String handle, String label, String id) {
-		super(handle, label, false);
+	public WebTask(String id, String label, String taskPrefix, String repositoryUrl) {
+		super(taskPrefix + id, label, false);
 		this.id = id;
+		this.taskPrefix = taskPrefix;
+		this.repositoryUrl = repositoryUrl;
+		setUrl(taskPrefix + id);
 	}
 
-	public String getId() {
-		return this.id;
-	}
-	
 	public String getRepositoryKind() {
 		return WebRepositoryConnector.REPOSITORY_TYPE;
 	}
@@ -43,6 +44,19 @@ public class WebTask extends AbstractRepositoryTask {
 	public boolean isPersistentInWorkspace() {
 		return false;
 	}
-
+	
+	public String getTaskPrefix() {
+		return this.taskPrefix;
+	}
+	
+	public String getId() {
+		return this.id;
+	}
+	
+	@Override
+	public String getRepositoryUrl() {
+		return repositoryUrl;
+	}
+	
 }
 

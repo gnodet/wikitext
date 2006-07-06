@@ -131,11 +131,9 @@
             id="org.eclipse.mylar.web.tasklist.repositories"
             name="Generic web-based repository"
             type="web"/>
-      <!--            
       <externalizer
             class="org.eclipse.mylar.internal.sandbox.web.WebTaskExternalizer" 
             id="org.eclipse.mylar.web.tasklist.externalizer"/>
-      -->      
    </extension>  
   
 </plugin>

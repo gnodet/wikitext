@@ -31,6 +31,7 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
+import org.eclipse.mylar.internal.tasklist.RetrieveTitleFromUrlJob;
 import org.eclipse.mylar.internal.tasklist.ui.wizards.AbstractAddExistingTaskWizard;
 import org.eclipse.mylar.internal.tasklist.ui.wizards.AbstractRepositorySettingsPage;
 import org.eclipse.mylar.internal.tasklist.ui.wizards.ExistingTaskWizardPage;
@@ -88,15 +89,20 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	
 	// Support
 	
-	public ITask createTaskFromExistingKey(TaskRepository repository, String id) {
+	public ITask createTaskFromExistingKey(TaskRepository repository, final String id) {
 		if(REPOSITORY_TYPE.equals(repository.getKind())) {
-			String taskUrl = repository.getProperty(PROPERTY_TASK_PREFIX_URL) + id;
-			String label = "#"+id;
-			// TODO fetch the task description?
+			String taskPrefix = repository.getProperty(PROPERTY_TASK_PREFIX_URL);
 			
-			String handle = AbstractRepositoryTask.getHandle(repository.getUrl(), id);
-			WebTask task = new WebTask(handle, label, id);
-			task.setUrl(taskUrl);
+			final WebTask task = new WebTask(id, id, taskPrefix, repository.getUrl());
+
+			RetrieveTitleFromUrlJob job = new RetrieveTitleFromUrlJob(taskPrefix+id) {
+					protected void setTitle(String pageTitle) {
+						task.setDescription(id+": "+pageTitle);
+						MylarTaskListPlugin.getTaskListManager().getTaskList().notifyLocalInfoChanged(task);
+					}
+				};
+			job.schedule();
+			
 			return task;
 		}
 		
@@ -150,7 +156,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			    	do {
 			    		String id = matcher.group(1);
 			    		String description = matcher.group(2);
-			    		hits.add(new WebQueryHit(id, description, query.getRepositoryUrl()));
+			    		hits.add(new WebQueryHit(id, id+": "+description, ((WebQuery) query).getTaskPrefix(), query.getRepositoryUrl()));
 			    	} while(matcher.find());
 			    	queryStatus.add(Status.OK_STATUS);
 			    }
@@ -255,7 +261,22 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 		    StringBuffer resource = new StringBuffer();
 		    String line;
-		    while((line = r.readLine())!=null) {
+		    while(true) {
+		    	int retryCount = 0;
+		    	do {
+		    		if(retryCount>0) {
+		    			try {
+							Thread.sleep(1000L);
+						} catch (InterruptedException ex) {
+							// ignore
+						}
+		    		}
+		    		line = r.readLine();
+		    		retryCount++;
+		    	} while(line==null && retryCount<5);
+		    	if(line==null) {
+		    		break;
+		    	}
 		    	resource.append(line).append("\n");
 		    }
 		    return resource;

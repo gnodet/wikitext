@@ -67,8 +67,8 @@ public class WebQueryWizardPage extends WizardPage {
 		this.query = query;
 
 		setTitle("Create web query");
-		setDescription("http://subclipse.tigris.org/issues/buglist.cgi?issue_status=NEW;issue_status=STARTED;issue_status=REOPENED&order=issues.issue_id\n" +
-			"<a href=\"show_bug.cgi\\?id\\=(.+?)\">.+?<span class=\"summary\">(.+?)</span>");
+		setDescription("Specify URL for web page that show query results and regexp to extract id and description " +
+				repository.getUrl());
 	}
 
 	public void createControl(Composite parent) {
@@ -102,6 +102,7 @@ public class WebQueryWizardPage extends WizardPage {
 		preview.setText("Preview");
 		preview.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(final SelectionEvent e) {
+				webPage = null;
 				updatePreview();
 			}
 		});
@@ -118,7 +119,7 @@ public class WebQueryWizardPage extends WizardPage {
 		regexpLabel.setText("Regexp:");
 		regexpLabel.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, true));
 
-		regexpText = new Text(composite, SWT.V_SCROLL | SWT.MULTI | SWT.BORDER);
+		regexpText = new Text(composite, SWT.V_SCROLL | SWT.MULTI | SWT.BORDER | SWT.WRAP);
 		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		gridData.heightHint = 39;
 		regexpText.setLayoutData(gridData);
@@ -129,6 +130,10 @@ public class WebQueryWizardPage extends WizardPage {
 				}
 			}
 		});
+		
+		
+//		ContentProposalAdapter adapter = new ContentProposalAdapter(regexpText, new TextContentAdapter(),
+//				new RegExpProposalProvider(), KeyStroke.getInstance(SWT.CTRL, ' '), null);
 
 		previewTable = new Table(sashForm, SWT.BORDER);
 		previewTable.setLinesVisible(true);
@@ -206,5 +211,50 @@ public class WebQueryWizardPage extends WizardPage {
 		}
 		return webPage;
 	}
+
+
+//	/**
+//	 * Simple proposal provider for regexps  
+//	 */
+//	private static final class RegExpProposalProvider implements IContentProposalProvider {
+//		private static final String[] LABELS = {
+//				"IssueZilla",
+//				"GForge",
+//				"Trac",
+//				"Jira",
+//				"vBulletin"
+//			};
+//		private static final String[] PROPOSALS = {
+//				"<a href=\"show_bug.cgi\\?id\\=(.+?)\">.+?<span class=\"summary\">(.+?)</span>",
+//				"<a class=\"tracker\" href=\"/tracker/index.php\\?func=detail&aid=(.+?)&group_id=GROUP&atid=ATID\">(.+?)</a></td>",
+//				"<td class=\"summary\"><a title=\"View ticket\" href=\"/project/ticket/(.+?)\">(.+?)</a></td>",
+//				"<td class=\"nav summary\">\\s+?<a href=\"/browse/(.+?)\".+?>(.+?)</a>",
+//				"<a href=\"showthread.php\\?.+?t=(\\d+?)\" id=\"thread_title_\\1\">(.+?)</a>"
+//			};
+//
+//		public IContentProposal[] getProposals(String contents, int position) {
+//			IContentProposal[] res = new IContentProposal[LABELS.length]; 
+//			for (int i = 0; i < LABELS.length; i++) {
+//				final String label = LABELS[i];
+//				final String content = PROPOSALS[i];
+//				res[i] = new IContentProposal() {
+//						public String getContent() {
+//							return content;
+//						}
+//						public int getCursorPosition() {
+//							return content.length();
+//						}
+//						public String getDescription() {
+//							return content;
+//						}
+//						public String getLabel() {
+//							return label;
+//						}
+//					};
+//			}
+//			return res;
+//		}
+//	}
 	
 }
+
