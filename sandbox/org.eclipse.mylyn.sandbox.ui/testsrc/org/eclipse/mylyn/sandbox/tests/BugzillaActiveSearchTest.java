@@ -48,7 +48,7 @@ import org.eclipse.mylar.provisional.tasklist.TaskRepository;
  * 
  * @author Shawn Minto
  */
-public class BugzillaSearchPluginTest extends TestCase {
+public class BugzillaActiveSearchTest extends TestCase {
 
 	private TaskRepository repository;
 
