@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Extract constant 'org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin.ERROR_DELETING_CONFIGURATION' from expression '&quot;Error removing corrupt repository configuration file.&quot;'&#13;&#10;- Constant name: 'ERROR_DELETING_CONFIGURATION'&#13;&#10;- Constant expression: '&quot;Error removing corrupt repository configuration file.&quot;'&#13;&#10;- Declared visibility: 'private'&#13;&#10;- Replace occurrences of expression with constant" description="Extract constant 'ERROR_DELETING_CONFIGURATION'" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylar.internal.bugzilla.core{BugzillaPlugin.java" name="ERROR_DELETING_CONFIGURATION" qualify="false" replace="true" selection="5350 55" stamp="1152291953905" version="1.0" visibility="2"/>
+</session>
