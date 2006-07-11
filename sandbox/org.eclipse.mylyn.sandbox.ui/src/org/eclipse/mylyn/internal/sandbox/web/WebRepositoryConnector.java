@@ -27,6 +27,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
@@ -130,41 +131,21 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 	
 	public List<AbstractQueryHit> performQuery(AbstractRepositoryQuery query, IProgressMonitor monitor, MultiStatus queryStatus) {
-		List<AbstractQueryHit> hits = new ArrayList<AbstractQueryHit>();
-		
 		if(query instanceof WebQuery) {
-			StringBuffer resource = null;
+			String queryUrl = query.getQueryUrl();
+			String regexp = ((WebQuery) query).getRegexp();
+			String taskPrefix = ((WebQuery) query).getTaskPrefix();
+			String repositoryUrl = query.getRepositoryUrl();
+			
 			try {
-				resource = fetchResource(query.getQueryUrl());
+				return performQuery(fetchResource(queryUrl), regexp, taskPrefix, repositoryUrl, monitor, queryStatus);
+
 			} catch (IOException ex) {
 				queryStatus.add(new Status(IStatus.OK, MylarTaskListPlugin.PLUGIN_ID, IStatus.OK,
-						"Could not fetch resource: " + query.getQueryUrl(), ex));
+						"Could not fetch resource: " + queryUrl, ex));
 			}
-			
-			String regexp = ((WebQuery) query).getRegexp();
-			
-		    Pattern p = Pattern.compile(regexp, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL | Pattern.UNICODE_CASE | Pattern.CANON_EQ);
-		    Matcher matcher = p.matcher(resource);
-
-		    if(matcher.find()) {
-		    	if(matcher.groupCount()<2) {
-		    		queryStatus.add(new Status(IStatus.OK, MylarTaskListPlugin.PLUGIN_ID, IStatus.OK,
-		    				"Unable to parse fetched resource. Check query regexp", null));
-		    	} else {
-			    	do {
-			    		String id = matcher.group(1);
-			    		String description = matcher.group(2);
-			    		hits.add(new WebQueryHit(id, id+": "+description, ((WebQuery) query).getTaskPrefix(), query.getRepositoryUrl()));
-			    	} while(matcher.find());
-			    	queryStatus.add(Status.OK_STATUS);
-			    }
-		    } else {
-				queryStatus.add(new Status(IStatus.OK, MylarTaskListPlugin.PLUGIN_ID, IStatus.OK,
-						"Unable to parse fetched resource. Check query regexp", null));
-		    }
-			
 		}
-		return hits;
+		return new ArrayList<AbstractQueryHit>();
 	}
 
 	protected void updateTaskState(AbstractRepositoryTask repositoryTask) {
@@ -178,12 +159,12 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return new WebRepositorySettingsPage(this);
 	}
 	
-	public IWizard getNewTaskWizard(TaskRepository taskRepository) {
+	public IWizard getNewTaskWizard(TaskRepository taskRepository, IStructuredSelection selection) {
 		return new WebTaskWizard(taskRepository);
 	}
 
 	
-	public IWizard getNewQueryWizard(TaskRepository taskRepository) {
+	public IWizard getNewQueryWizard(TaskRepository taskRepository, IStructuredSelection selection) {
 		return new WebQueryWizard(taskRepository);
 	}
 	
@@ -232,6 +213,39 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 	
 	
+	protected static List<AbstractQueryHit> performQuery(StringBuffer resource, String regexp, String taskPrefix, String repositoryUrl, IProgressMonitor monitor, MultiStatus queryStatus) {
+		List<AbstractQueryHit> hits = new ArrayList<AbstractQueryHit>();
+		
+		Pattern p = Pattern.compile(regexp, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL | Pattern.UNICODE_CASE | Pattern.CANON_EQ);
+		Matcher matcher = p.matcher(resource);
+
+		if(!matcher.find()) {
+			queryStatus.add(new Status(IStatus.ERROR, MylarTaskListPlugin.PLUGIN_ID, IStatus.ERROR,
+					"Unable to parse fetched resource. Check query regexp", null));
+		} else {
+			boolean isCorrect = true;
+	    	do {
+	    		if (matcher.groupCount() < 2) {
+	    			isCorrect = false;
+	    		}
+	    		if (matcher.groupCount() >= 1) {
+	    			String id = matcher.group(1);
+	    			String description = matcher.groupCount()>1 ? matcher.group(2) : null;
+	    			hits.add(new WebQueryHit(id, id+": "+description, taskPrefix, repositoryUrl));
+	    		}
+	    	} while(matcher.find() && !monitor.isCanceled());
+
+	    	if(isCorrect) {
+	    		queryStatus.add(Status.OK_STATUS);
+	    	} else {
+	    		queryStatus.add(new Status(IStatus.ERROR, MylarTaskListPlugin.PLUGIN_ID, IStatus.ERROR,
+	    				"Require two matching groups (id and description). Check query regexp", null));
+	    	}
+		}
+		
+		return hits;
+	}
+
 	public static StringBuffer fetchResource(String url) throws IOException {
 		URL u = new URL(url);
 		InputStream is = null;
