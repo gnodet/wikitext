@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename method 'org.eclipse.mylar.internal.core.MylarContextManager.transferContext(...)' to 'transferContextAndActivate'&#13;&#10;- Original element: 'org.eclipse.mylar.internal.core.MylarContextManager.transferContext(...)'&#13;&#10;- Renamed element: 'org.eclipse.mylar.internal.core.MylarContextManager.transferContextAndActivate(...)'&#13;&#10;- Update references to refactored element" delegate="false" deprecate="true" description="Rename method 'transferContext'" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylar.internal.core{MylarContextManager.java[MylarContextManager~transferContext~QString;~QFile;~Z" name="transferContextAndActivate" references="true" stamp="1152658334937" version="1.0"/>
+</session>
