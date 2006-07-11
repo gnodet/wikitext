@@ -8,10 +8,21 @@
 
 package org.eclipse.mylar.internal.sandbox.web;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.io.IOException;
+import java.util.List;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.MultiStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jface.bindings.keys.KeyStroke;
+import org.eclipse.jface.fieldassist.ContentProposalAdapter;
+import org.eclipse.jface.fieldassist.IContentProposal;
+import org.eclipse.jface.fieldassist.IContentProposalProvider;
+import org.eclipse.jface.fieldassist.TextContentAdapter;
 import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.mylar.provisional.tasklist.AbstractQueryHit;
 import org.eclipse.mylar.provisional.tasklist.AbstractRepositoryQuery;
 import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
 import org.eclipse.mylar.provisional.tasklist.TaskRepository;
@@ -25,6 +36,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -56,6 +68,7 @@ public class WebQueryWizardPage extends WizardPage {
 	
 	private TaskRepository repository;
 	private WebQuery query;
+	private UpdatePreviewJob updatePreviewJob;
 
 	public WebQueryWizardPage(TaskRepository repository) {
 		this(repository, null);
@@ -97,8 +110,30 @@ public class WebQueryWizardPage extends WizardPage {
 			}
 		});
 		queryUrlText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		new Label(composite, SWT.NONE);
+
+		Label regexpLabel = new Label(composite, SWT.NONE);
+		regexpLabel.setText("Regexp:");
+		regexpLabel.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, true));
+
+		regexpText = new Text(composite, SWT.V_SCROLL | SWT.MULTI | SWT.BORDER | SWT.WRAP);
+		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
+		gridData.heightHint = 39;
+		regexpText.setLayoutData(gridData);
+		
+		regexpText.addModifyListener(new ModifyListener() {
+				public void modifyText(final ModifyEvent e) {
+					if(webPage!=null) {
+						updatePreview();
+					}
+				}
+			});
+
+		new ContentProposalAdapter(regexpText, new TextContentAdapter(),
+				new RegExpProposalProvider(), KeyStroke.getInstance(SWT.CTRL, ' '), null);
 
 		Button preview = new Button(composite, SWT.NONE);
+		preview.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, true));
 		preview.setText("Preview");
 		preview.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(final SelectionEvent e) {
@@ -114,27 +149,7 @@ public class WebQueryWizardPage extends WizardPage {
 		taskPrefixText = new Text(composite, SWT.BORDER);
 		taskPrefixText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		new Label(composite, SWT.NONE);
-
-		Label regexpLabel = new Label(composite, SWT.NONE);
-		regexpLabel.setText("Regexp:");
-		regexpLabel.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, true));
-
-		regexpText = new Text(composite, SWT.V_SCROLL | SWT.MULTI | SWT.BORDER | SWT.WRAP);
-		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
-		gridData.heightHint = 39;
-		regexpText.setLayoutData(gridData);
-		regexpText.addModifyListener(new ModifyListener() {
-			public void modifyText(final ModifyEvent e) {
-				if(webPage!=null) {
-					updatePreview();
-				}
-			}
-		});
 		
-		
-//		ContentProposalAdapter adapter = new ContentProposalAdapter(regexpText, new TextContentAdapter(),
-//				new RegExpProposalProvider(), KeyStroke.getInstance(SWT.CTRL, ' '), null);
-
 		previewTable = new Table(sashForm, SWT.BORDER);
 		previewTable.setLinesVisible(true);
 		previewTable.setHeaderVisible(true);
@@ -152,11 +167,10 @@ public class WebQueryWizardPage extends WizardPage {
 		if(query!=null) {
 			descriptionText.setText(query.getDescription());
 			queryUrlText.setText(query.getQueryUrl());
-			taskPrefixText.setText(query.getTaskPrefix());
 			regexpText.setText(query.getRegexp());
+			taskPrefixText.setText(query.getTaskPrefix());
 		}
-		new Label(composite, SWT.NONE);
-		sashForm.setWeights(new int[] {123, 166 });
+		sashForm.setWeights(new int[] {141, 172 });
 	}
 
 	public AbstractRepositoryQuery getQuery() {
@@ -168,93 +182,145 @@ public class WebQueryWizardPage extends WizardPage {
 				MylarTaskListPlugin.getTaskListManager().getTaskList(), repository.getUrl());
 	}
 
-	// TODO run asynchronously
 	synchronized void updatePreview() {
-		String regexp = regexpText.getText();
-		try {
-		    Pattern p = Pattern.compile(regexp, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL | Pattern.UNICODE_CASE | Pattern.CANON_EQ);
-		    Matcher matcher = p.matcher(getWebPage());
-		    
-		    previewTable.removeAll();
+		if(updatePreviewJob==null) {
+			updatePreviewJob = new UpdatePreviewJob("Updating preview");
+			updatePreviewJob.setPriority(Job.DECORATE);
+		}
+		updatePreviewJob.setParams(queryUrlText.getText(), regexpText.getText());
+		if(!updatePreviewJob.isActive()) {
+			updatePreviewJob.schedule();
+		}
+		
+	}
+	
+	void updatePreviewTable(List<AbstractQueryHit> hits, MultiStatus queryStatus) {
+		if(previewTable.isDisposed()) {
+			return;
+		}
+		
+		previewTable.removeAll();
 
-		    while(matcher.find()) {
-		    	if(matcher.groupCount()>0) {
-		    		TableItem item = new TableItem(previewTable, SWT.NONE);
-		    		for (int i = 0; i < matcher.groupCount(); i++) {
-		    			item.setText(i, matcher.group(i+1));
+		if(hits!=null) {
+			for (AbstractQueryHit hit : hits) {
+				TableItem item = new TableItem(previewTable, SWT.NONE);
+				if(hit.getId()!=null) {
+					item.setText(0, hit.getId());
+					if(hit.getDescription()!=null) {
+						item.setText(1, hit.getDescription());
 					}
-		    	}
-		    	
-		    	if(matcher.groupCount()<2) {
-		    		setErrorMessage("Require two matching groups (id and description)");
-					setPageComplete(false);
-		    	} else {
-		    		setErrorMessage(null);
-		    		setPageComplete(true);
-		    	}
-		    }
-			
-		} catch(Exception ex) {
-			setErrorMessage("Parsing error: "+ex.getMessage());
+				}
+			}
+		}
+
+		if(queryStatus.isOK()) {
+			setErrorMessage(null);
+			setPageComplete(true);
+		} else {
+			StringBuffer sb = new StringBuffer();
+			for (IStatus status : queryStatus.getChildren()) {
+				sb.append(status.getMessage()).append("\n");
+			}
+			setErrorMessage(sb.toString());
 			setPageComplete(false);
 		}
 	}
 	
-	private StringBuffer getWebPage() {
-		if(webPage==null) {
-			try {
-				webPage = WebRepositoryConnector.fetchResource(queryUrlText.getText());
-			} catch(Exception ex) {
-				setErrorMessage("Unable to fetch resource: "+ex.getMessage());
-				setPageComplete(false);
-			}
+	private final class UpdatePreviewJob extends Job {
+		private volatile String url;
+		private volatile String regexp;
+		private volatile boolean active = false;
+
+		private UpdatePreviewJob(String name) {
+			super(name);
 		}
-		return webPage;
+		
+		public boolean isActive() {
+			return active;
+		}
+
+		public void setParams(String url, String regexp) {
+			this.url = url;
+			this.regexp = regexp;
+		}
+
+		protected IStatus run(IProgressMonitor monitor) {
+			String currentUrl = url;
+			String currentRegexp = regexp;
+			active = true;
+			do {
+				final MultiStatus queryStatus = new MultiStatus(MylarTaskListPlugin.PLUGIN_ID, IStatus.OK, "Query result", null);
+				List<AbstractQueryHit> hits = null;
+				try {
+					if(webPage==null) {
+						webPage = WebRepositoryConnector.fetchResource(currentUrl);
+					}
+
+					hits = WebRepositoryConnector.performQuery(webPage, currentRegexp, null, null, monitor, queryStatus);
+					
+				} catch (final IOException ex) {
+					queryStatus.add(new Status(IStatus.ERROR, MylarTaskListPlugin.PLUGIN_ID, IStatus.ERROR,
+							"Unable to fetch resource: "+ex.getMessage(), null));
+				} catch (final Exception ex) {
+					queryStatus.add(new Status(IStatus.ERROR, MylarTaskListPlugin.PLUGIN_ID, IStatus.ERROR,
+							"Parsing error: "+ex.getMessage(), null));
+				}
+				
+				final List<AbstractQueryHit> queryHits = hits;
+				Display.getDefault().asyncExec(new Runnable() {
+					public void run() {
+						updatePreviewTable(queryHits, queryStatus);
+					}
+				});
+			} while(currentRegexp!=regexp && !monitor.isCanceled());
+			active = false;
+			return Status.OK_STATUS;
+		}
 	}
 
 
-//	/**
-//	 * Simple proposal provider for regexps  
-//	 */
-//	private static final class RegExpProposalProvider implements IContentProposalProvider {
-//		private static final String[] LABELS = {
-//				"IssueZilla",
-//				"GForge",
-//				"Trac",
-//				"Jira",
-//				"vBulletin"
-//			};
-//		private static final String[] PROPOSALS = {
-//				"<a href=\"show_bug.cgi\\?id\\=(.+?)\">.+?<span class=\"summary\">(.+?)</span>",
-//				"<a class=\"tracker\" href=\"/tracker/index.php\\?func=detail&aid=(.+?)&group_id=GROUP&atid=ATID\">(.+?)</a></td>",
-//				"<td class=\"summary\"><a title=\"View ticket\" href=\"/project/ticket/(.+?)\">(.+?)</a></td>",
-//				"<td class=\"nav summary\">\\s+?<a href=\"/browse/(.+?)\".+?>(.+?)</a>",
-//				"<a href=\"showthread.php\\?.+?t=(\\d+?)\" id=\"thread_title_\\1\">(.+?)</a>"
-//			};
-//
-//		public IContentProposal[] getProposals(String contents, int position) {
-//			IContentProposal[] res = new IContentProposal[LABELS.length]; 
-//			for (int i = 0; i < LABELS.length; i++) {
-//				final String label = LABELS[i];
-//				final String content = PROPOSALS[i];
-//				res[i] = new IContentProposal() {
-//						public String getContent() {
-//							return content;
-//						}
-//						public int getCursorPosition() {
-//							return content.length();
-//						}
-//						public String getDescription() {
-//							return content;
-//						}
-//						public String getLabel() {
-//							return label;
-//						}
-//					};
-//			}
-//			return res;
-//		}
-//	}
+	/**
+	 * Simple proposal provider for regexps  
+	 */
+	private static final class RegExpProposalProvider implements IContentProposalProvider {
+		private static final String[] LABELS = {
+				"IssueZilla",
+				"GForge",
+				"Trac",
+				"Jira",
+				"vBulletin"
+			};
+		private static final String[] PROPOSALS = {
+				"<a href=\"show_bug.cgi\\?id\\=(.+?)\">.+?<span class=\"summary\">(.+?)</span>",
+				"<a class=\"tracker\" href=\"/tracker/index.php\\?func=detail&aid=(.+?)&group_id=GROUP&atid=ATID\">(.+?)</a></td>",
+				"<td class=\"summary\"><a title=\"View ticket\" href=\"/project/ticket/(.+?)\">(.+?)</a></td>",
+				"<td class=\"nav summary\">\\s+?<a href=\"/browse/(.+?)\".+?>(.+?)</a>",
+				"<a href=\"showthread.php\\?.+?t=(\\d+?)\" id=\"thread_title_\\1\">(.+?)</a>"
+			};
+
+		public IContentProposal[] getProposals(String contents, int position) {
+			IContentProposal[] res = new IContentProposal[LABELS.length]; 
+			for (int i = 0; i < LABELS.length; i++) {
+				final String label = LABELS[i];
+				final String content = PROPOSALS[i];
+				res[i] = new IContentProposal() {
+						public String getContent() {
+							return content;
+						}
+						public int getCursorPosition() {
+							return content.length();
+						}
+						public String getDescription() {
+							return content;
+						}
+						public String getLabel() {
+							return label;
+						}
+					};
+			}
+			return res;
+		}
+	}
 	
 }
 
