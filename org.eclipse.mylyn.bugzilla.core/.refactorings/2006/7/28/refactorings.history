@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Extract constant 'org.eclipse.mylar.internal.bugzilla.core.AbstractReportFactory.ENCODING_GZIP' from expression '&quot;gzip&quot;'&#13;&#10;- Constant name: 'ENCODING_GZIP'&#13;&#10;- Constant expression: '&quot;gzip&quot;'&#13;&#10;- Declared visibility: 'private'&#13;&#10;- Replace occurrences of expression with constant" description="Extract constant 'ENCODING_GZIP'" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylar.internal.bugzilla.core{AbstractReportFactory.java" name="ENCODING_GZIP" qualify="false" replace="true" selection="3141 6" stamp="1152646062953" version="1.0" visibility="2"/>
+</session>
