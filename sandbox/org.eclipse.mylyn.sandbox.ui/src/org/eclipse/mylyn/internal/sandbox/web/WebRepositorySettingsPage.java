@@ -11,9 +11,6 @@
 
 package org.eclipse.mylar.internal.sandbox.web;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -25,17 +22,19 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Composite;
 
 /**
- * Settings page for generic web-based repository connector 
+ * Settings page for generic web-based repository connector
  * 
  * @author Eugene Kuleshov
  */
 public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage implements IPropertyChangeListener {
 	private static final String TITLE = "Web Repository Settings";
+
 	private static final String DESCRIPTION = "Generic web-based repository connector";
 
 	protected StringFieldEditor taskPrefixUrlEditor;
+
 	protected StringFieldEditor newTaskUrlEditor;
-	
+
 	private static WebRepositoryInfo[] REPOSITORY_TEMPLATES = {
 			new WebRepositoryInfo(
 					"Subclipse (IssueZilla)",
@@ -49,20 +48,18 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 					"https://glassfish.dev.java.net/servlets/ProjectIssues",
 					"https://glassfish.dev.java.net/issues/enter_bug.cgi?issue_type=DEFECT",
 					"https://glassfish.dev.java.net/issues/show_bug.cgi?id="),
-			new WebRepositoryInfo("Spring Framework (Jira)", 
+			new WebRepositoryInfo("Spring Framework (Jira)",
 					"http://opensource.atlassian.com/projects/spring/browse/SPR",
 					"http://opensource.atlassian.com/projects/spring/secure/CreateIssue!default.jspa",
 					"http://opensource.atlassian.com/projects/spring/browse/"),
-			new WebRepositoryInfo("ASM (GForge)", 
-					"http://forge.objectweb.org/tracker/?atid=100023&group_id=23",
+			new WebRepositoryInfo("ASM (GForge)", "http://forge.objectweb.org/tracker/?atid=100023&group_id=23",
 					"http://forge.objectweb.org/tracker/?func=add&group_id=23&atid=100023",
 					"http://forge.objectweb.org/tracker/index.php?func=detail&group_id=23&atid=100023&aid="),
 			new WebRepositoryInfo("edgewall.org (Trac)",
 					// "http://trac.edgewall.org/query?status=new&status=assigned&status=reopened&order=id"
-					"http://trac.edgewall.org/",
-					"http://trac.edgewall.org/newticket",
+					"http://trac.edgewall.org/", "http://trac.edgewall.org/newticket",
 					"http://trac.edgewall.org/ticket/"), };
-	
+
 	public WebRepositorySettingsPage(AbstractRepositoryConnector connector) {
 		super(TITLE, DESCRIPTION, connector);
 	}
@@ -70,43 +67,44 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 	@Override
 	protected void createAdditionalControls(Composite parent) {
 		for (WebRepositoryInfo info : REPOSITORY_TEMPLATES) {
-			if(repositoryLabelCombo.indexOf(info.label)==-1) { 
+			if (repositoryLabelCombo.indexOf(info.label) == -1) {
 				repositoryLabelCombo.add(info.label);
 			}
 		}
-		
+
 		repositoryLabelCombo.addSelectionListener(new SelectionListener() {
 
-				public void widgetSelected(SelectionEvent e) {
-					WebRepositoryInfo info = getInfo(repositoryLabelCombo.getText());
-					if(info!=null) {
-						serverUrlEditor.setStringValue(info.repositoryUrl);
-						taskPrefixUrlEditor.setStringValue(info.taskPrefix);
-						newTaskUrlEditor.setStringValue(info.newTaskUrl);
-					}
+			public void widgetSelected(SelectionEvent e) {
+				WebRepositoryInfo info = getInfo(repositoryLabelCombo.getText());
+				if (info != null) {
+					serverUrlEditor.setStringValue(info.repositoryUrl);
+					taskPrefixUrlEditor.setStringValue(info.taskPrefix);
+					newTaskUrlEditor.setStringValue(info.newTaskUrl);
 				}
+			}
 
-				public void widgetDefaultSelected(SelectionEvent e) {
-					// ignore
-				}
-				
-				private WebRepositoryInfo getInfo(String text) {
-					for (WebRepositoryInfo info : REPOSITORY_TEMPLATES) {
-						if(text.equals(info.label)) {
-							return info;
-						}
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// ignore
+			}
+
+			private WebRepositoryInfo getInfo(String text) {
+				for (WebRepositoryInfo info : REPOSITORY_TEMPLATES) {
+					if (text.equals(info.label)) {
+						return info;
 					}
-					return null;
 				}
-			});
-		
-		taskPrefixUrlEditor = new StringFieldEditor("taskPrefixUrl", "Task prefix URL:", StringFieldEditor.UNLIMITED, parent);
+				return null;
+			}
+		});
+
+		taskPrefixUrlEditor = new StringFieldEditor("taskPrefixUrl", "Task prefix URL:", StringFieldEditor.UNLIMITED,
+				parent);
 		taskPrefixUrlEditor.setPropertyChangeListener(this);
-		
+
 		newTaskUrlEditor = new StringFieldEditor("newTaskUrl", "New task URL:", StringFieldEditor.UNLIMITED, parent);
 		newTaskUrlEditor.setPropertyChangeListener(this);
-		
-		if(repository!=null) {
+
+		if (repository != null) {
 			taskPrefixUrlEditor.setStringValue(repository.getProperty(WebRepositoryConnector.PROPERTY_TASK_PREFIX_URL));
 			newTaskUrlEditor.setStringValue(repository.getProperty(WebRepositoryConnector.PROPERTY_NEW_TASK_URL));
 		}
@@ -120,12 +118,11 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 		// ignore
 	}
 
-	
 	// IPropertyChangeListener
-	
+
 	public void propertyChange(PropertyChangeEvent event) {
 		Object source = event.getSource();
-		if(source==taskPrefixUrlEditor || source == newTaskUrlEditor) {
+		if (source == taskPrefixUrlEditor || source == newTaskUrlEditor) {
 			getWizard().getContainer().updateButtons();
 		}
 	}
@@ -133,26 +130,27 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 	@Override
 	public TaskRepository createTaskRepository() {
 		TaskRepository repository = super.createTaskRepository();
-		repository.setProperty(WebRepositoryConnector.PROPERTY_TASK_PREFIX_URL, taskPrefixUrlEditor.getStringValue()); 
-		repository.setProperty(WebRepositoryConnector.PROPERTY_NEW_TASK_URL, newTaskUrlEditor.getStringValue()); 
+		repository.setProperty(WebRepositoryConnector.PROPERTY_TASK_PREFIX_URL, taskPrefixUrlEditor.getStringValue());
+		repository.setProperty(WebRepositoryConnector.PROPERTY_NEW_TASK_URL, newTaskUrlEditor.getStringValue());
 		return repository;
 	}
-	
-	
+
 	private static class WebRepositoryInfo {
 		public final String label;
+
 		public final String repositoryUrl;
+
 		public final String newTaskUrl;
+
 		public final String taskPrefix;
-		
+
 		public WebRepositoryInfo(String label, String repositoryUrl, String newTaskUrl, String taskPrefix) {
 			this.label = label;
 			this.repositoryUrl = repositoryUrl;
 			this.newTaskUrl = newTaskUrl;
 			this.taskPrefix = taskPrefix;
 		}
-		
-	}
-	
-}
 
+	}
+
+}
