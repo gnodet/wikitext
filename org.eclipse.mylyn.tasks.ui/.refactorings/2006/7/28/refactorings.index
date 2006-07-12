@@ -1,2 +1,3 @@
-1152586779499	Rename method 'setCurrentlyDownloading'
+1152640834757	Rename method 'setCommentText'
+1152542212351	Convert anonymous class to nested
 1152655848562	Extract method 'getTextForTask'
