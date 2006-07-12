@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Extract constant 'org.eclipse.mylar.bugzilla.tests.BugzillaTaskHyperlinkDetectorTest.DUPLICATE' from expression '&quot;duplicate of 112233&quot;'&#13;&#10;- Constant name: 'DUPLICATE'&#13;&#10;- Constant expression: '&quot;duplicate of 112233&quot;'&#13;&#10;- Declared visibility: 'private'&#13;&#10;- Replace occurrences of expression with constant" description="Extract constant 'DUPLICATE'" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylar.bugzilla.tests{BugzillaTaskHyperlinkDetectorTest.java" name="DUPLICATE" qualify="false" replace="true" selection="4735 21" stamp="1152662860186" version="1.0" visibility="2"/>
+</session>

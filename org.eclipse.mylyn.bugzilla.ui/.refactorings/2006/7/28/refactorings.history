@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Extract constant 'org.eclipse.mylar.internal.bugzilla.ui.BugzillaHyperlinkUtil.TASK_NUM_GROUP' from expression '3'&#13;&#10;- Constant name: 'TASK_NUM_GROUP'&#13;&#10;- Constant expression: '3'&#13;&#10;- Declared visibility: 'private'" description="Extract constant 'TASK_NUM_GROUP'" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylar.internal.bugzilla.ui{BugzillaHyperlinkUtil.java" name="TASK_NUM_GROUP" qualify="false" replace="false" selection="1956 1" stamp="1152663306780" version="1.0" visibility="2"/>
+</session>
