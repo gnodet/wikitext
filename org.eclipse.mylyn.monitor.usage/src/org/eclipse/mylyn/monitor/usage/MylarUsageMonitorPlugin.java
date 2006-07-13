@@ -30,18 +30,16 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Preferences;
-import org.eclipse.core.runtime.Preferences.IPropertyChangeListener;
-import org.eclipse.core.runtime.Preferences.PropertyChangeEvent;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.mylar.context.core.IContextStoreListener;
 import org.eclipse.mylar.context.core.IInteractionEventListener;
 import org.eclipse.mylar.context.core.MylarPlugin;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.context.core.MylarContextManager;
-import org.eclipse.mylar.internal.context.core.MylarPreferenceContstants;
 import org.eclipse.mylar.internal.monitor.usage.InteractionEventLogger;
 import org.eclipse.mylar.internal.monitor.usage.MylarMonitorPreferenceConstants;
 import org.eclipse.mylar.internal.monitor.usage.StudyParameters;
@@ -213,21 +211,32 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		}
 	};
 
-	private IPropertyChangeListener DATA_DIR_MOVE_LISTENER = new IPropertyChangeListener() {
-		public void propertyChange(PropertyChangeEvent event) {
-			if (event.getProperty().equals(MylarPreferenceContstants.PREF_DATA_DIR)) {
-				if (event.getOldValue() instanceof String) {
-					if (!isPerformingUpload()) {
-						for (IInteractionEventListener listener : MylarMonitorPlugin.getDefault().getInteractionListeners())
-							listener.stopObserving();
-						interactionLogger.moveOutputFile(getMonitorLogFile().getAbsolutePath());
-						for (IInteractionEventListener listener : MylarMonitorPlugin.getDefault().getInteractionListeners())
-							listener.startObserving();
-					}
-				}
-			} else {
+	private IContextStoreListener DATA_DIR_MOVE_LISTENER = new IContextStoreListener() {
+
+		public void contextStoreMoved() {
+			if (!isPerformingUpload()) {
+				for (IInteractionEventListener listener : MylarMonitorPlugin.getDefault().getInteractionListeners())
+					listener.stopObserving();
+				interactionLogger.moveOutputFile(getMonitorLogFile().getAbsolutePath());
+				for (IInteractionEventListener listener : MylarMonitorPlugin.getDefault().getInteractionListeners())
+					listener.startObserving();
 			}
 		}
+
+		//		public void propertyChange(PropertyChangeEvent event) {
+//			if (event.getProperty().equals(MylarPreferenceContstants.PREF_DATA_DIR)) {
+//				if (event.getOldValue() instanceof String) {
+//					if (!isPerformingUpload()) {
+//						for (IInteractionEventListener listener : MylarMonitorPlugin.getDefault().getInteractionListeners())
+//							listener.stopObserving();
+//						interactionLogger.moveOutputFile(getMonitorLogFile().getAbsolutePath());
+//						for (IInteractionEventListener listener : MylarMonitorPlugin.getDefault().getInteractionListeners())
+//							listener.startObserving();
+//					}
+//				}
+//			} else {
+//			}
+//		}
 	};
 
 	public MylarUsageMonitorPlugin() {
@@ -306,7 +315,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 				w.getShell().addShellListener(SHELL_LISTENER);
 			}
 		}
-		MylarPlugin.getDefault().getPluginPreferences().addPropertyChangeListener(DATA_DIR_MOVE_LISTENER);
+		MylarPlugin.getDefault().getContextStore().addListener(DATA_DIR_MOVE_LISTENER);
 		MylarMonitorPlugin.getDefault().addWindowPerspectiveListener(perspectiveMonitor);
 		workbench.getActivitySupport().getActivityManager().addActivityManagerListener(activityMonitor);
 		workbench.getDisplay().addFilter(SWT.Selection, menuMonitor);
@@ -360,7 +369,8 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 				w.getShell().removeShellListener(SHELL_LISTENER);
 			}
 		}
-		MylarPlugin.getDefault().getPluginPreferences().removePropertyChangeListener(DATA_DIR_MOVE_LISTENER);
+		MylarPlugin.getDefault().getContextStore().removeListener(DATA_DIR_MOVE_LISTENER);
+//		MylarPlugin.getDefault().getPluginPreferences().removePropertyChangeListener(DATA_DIR_MOVE_LISTENER);
 
 		MylarMonitorPlugin.getDefault().removeWindowPerspectiveListener(perspectiveMonitor);
 		workbench.getActivitySupport().getActivityManager().removeActivityManagerListener(activityMonitor);

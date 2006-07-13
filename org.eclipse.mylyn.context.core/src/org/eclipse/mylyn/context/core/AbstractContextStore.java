@@ -9,21 +9,33 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.tasklist;
+package org.eclipse.mylar.context.core;
 
 import java.io.File;
-
-import org.eclipse.mylar.context.core.AbstractContextStore;
-import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Mik Kersten
  */
-public class FileBasedContextStore extends AbstractContextStore {
+public abstract class AbstractContextStore {
 
-	public File getRootDirectory() {
-//		return new File(MylarTaskListPlugin.getDefault().getDefaultDataDirectory());
-		return new File(MylarTaskListPlugin.getDefault().getDataDirectory());
+	private List<IContextStoreListener> listeners = new ArrayList<IContextStoreListener>();
+	
+	public abstract File getRootDirectory();
+	
+	public void notifyContextStoreMoved() {
+		for (IContextStoreListener listener : listeners) {
+			listener.contextStoreMoved();
+		}
 	}
-
+	
+	public void addListener(IContextStoreListener listener) {
+		listeners.add(listener);
+	}
+	
+	public void removeListener(IContextStoreListener listener) {
+		listeners.remove(listener);
+	}
+	
 }
