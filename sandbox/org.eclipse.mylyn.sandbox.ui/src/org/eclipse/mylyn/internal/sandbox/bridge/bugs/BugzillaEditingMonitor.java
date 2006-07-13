@@ -16,7 +16,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaTaskEditor;
 import org.eclipse.mylar.internal.tasklist.ui.editors.AbstractRepositoryTaskEditor;
 import org.eclipse.mylar.internal.tasklist.ui.editors.RepositoryTaskSelection;
-import org.eclipse.mylar.provisional.core.AbstractUserInteractionMonitor;
+import org.eclipse.mylar.monitor.AbstractUserInteractionMonitor;
 import org.eclipse.ui.IWorkbenchPart;
 
 /**

@@ -15,13 +15,14 @@ import java.util.List;
 
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.mylar.context.core.IMylarElement;
+import org.eclipse.mylar.context.core.IMylarStructureBridge;
+import org.eclipse.mylar.context.core.MylarPlugin;
+import org.eclipse.mylar.context.ui.IMylarUiBridge;
 import org.eclipse.mylar.internal.web.WebPage;
 import org.eclipse.mylar.internal.web.WebResource;
+import org.eclipse.mylar.internal.web.WebResourceStructureBridge;
 import org.eclipse.mylar.internal.web.WebSite;
-import org.eclipse.mylar.provisional.core.IMylarElement;
-import org.eclipse.mylar.provisional.core.IMylarStructureBridge;
-import org.eclipse.mylar.provisional.core.MylarPlugin;
-import org.eclipse.mylar.provisional.ui.IMylarUiBridge;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 
@@ -64,5 +65,9 @@ public class WebResourceUiBridge implements IMylarUiBridge {
 	
 	public IMylarElement getElement(IEditorInput input) {
 		return null;
+	}
+
+	public String getContentType() {
+		return WebResourceStructureBridge.CONTENT_TYPE;
 	}
 }

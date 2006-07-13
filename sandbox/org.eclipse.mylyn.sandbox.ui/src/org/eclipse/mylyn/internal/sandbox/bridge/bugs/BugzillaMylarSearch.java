@@ -23,9 +23,9 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IMember;
-import org.eclipse.mylar.internal.core.search.IActiveSearchListener;
-import org.eclipse.mylar.internal.core.search.IMylarSearchOperation;
-import org.eclipse.mylar.provisional.core.InterestComparator;
+import org.eclipse.mylar.context.core.InterestComparator;
+import org.eclipse.mylar.internal.context.core.IActiveSearchListener;
+import org.eclipse.mylar.internal.context.core.IMylarSearchOperation;
 
 /**
  * Used to facilitate bugzilla searches based on IJavaElements

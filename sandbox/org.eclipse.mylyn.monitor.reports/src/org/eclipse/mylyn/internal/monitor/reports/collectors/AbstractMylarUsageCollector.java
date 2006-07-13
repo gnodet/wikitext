@@ -14,8 +14,8 @@ package org.eclipse.mylar.internal.monitor.reports.collectors;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.mylar.context.core.InteractionEvent;
 import org.eclipse.mylar.monitor.reports.DelegatingUsageCollector;
-import org.eclipse.mylar.provisional.core.InteractionEvent;
 
 /**
  * @author Mik Kersten

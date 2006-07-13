@@ -9,16 +9,16 @@ import java.io.OutputStream;
 
 import junit.framework.TestCase;
 
-import org.eclipse.mylar.internal.core.MylarContext;
+import org.eclipse.mylar.context.core.InteractionEvent;
+import org.eclipse.mylar.context.core.MylarPlugin;
+import org.eclipse.mylar.internal.context.core.MylarContext;
 import org.eclipse.mylar.internal.monitor.reports.MylarReportsPlugin;
 import org.eclipse.mylar.internal.sandbox.MylarSandboxPlugin;
 import org.eclipse.mylar.internal.sandbox.share.SwitchTaskDataFolderAction;
-import org.eclipse.mylar.provisional.core.InteractionEvent;
-import org.eclipse.mylar.provisional.core.MylarPlugin;
-import org.eclipse.mylar.provisional.tasklist.ITask;
 import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
-import org.eclipse.mylar.provisional.tasklist.Task;
 import org.eclipse.mylar.provisional.tasklist.TaskListManager;
+import org.eclipse.mylar.tasks.core.ITask;
+import org.eclipse.mylar.tasks.core.Task;
 
 /**
  * Tests changing the shared task directory
@@ -43,13 +43,13 @@ public class SharedTaskFolderTest extends TestCase{
 		super.setUp();
 		
 		//Get the original main data directory so that it can be reset later
-		originalMainDataDir = MylarPlugin.getDefault().getDataDirectory();
+		originalMainDataDir = MylarTaskListPlugin.getDefault().getDataDirectory();
 		
 		//Create a task to make sure there is some data in the main directory
 		createAndSaveTask("Task1");
 		
 		//Create the shared data directory structure
-		sharedDataRootDir = new File(MylarPlugin.getDefault().getDataDirectory() + File.separator + "SharedDataDir");
+		sharedDataRootDir = new File(MylarTaskListPlugin.getDefault().getDataDirectory() + File.separator + "SharedDataDir");
 		sharedDataRootDir.mkdir();
 		assertTrue(sharedDataRootDir.exists());	
 		
@@ -74,7 +74,7 @@ public class SharedTaskFolderTest extends TestCase{
 		originalSharedDataDir = MylarSandboxPlugin.getDefault().getSharedDataDirectoryManager().getSharedDataDirectory();
 		MylarReportsPlugin.getDefault().getPreferenceStore().setValue(MylarReportsPlugin.SHARED_TASK_DATA_ROOT_DIR, sharedDataRootDir.getPath());
 		MylarSandboxPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectory(sharedDataRootDir.getPath());
-		assertFalse(MylarPlugin.getDefault().getDataDirectory().equals(sharedDataRootDir.getPath()));
+		assertFalse(MylarTaskListPlugin.getDefault().getDataDirectory().equals(sharedDataRootDir.getPath()));
 	}
 	
 	/**

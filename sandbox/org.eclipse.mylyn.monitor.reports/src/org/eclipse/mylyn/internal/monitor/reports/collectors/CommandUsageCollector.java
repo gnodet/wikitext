@@ -16,10 +16,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.mylar.context.core.InteractionEvent;
 import org.eclipse.mylar.internal.monitor.reports.InteractionByTypeSummary;
 import org.eclipse.mylar.internal.monitor.reports.ReportGenerator;
 import org.eclipse.mylar.monitor.reports.IUsageCollector;
-import org.eclipse.mylar.provisional.core.InteractionEvent;
 
 /**
  * @author Mik Kersten and Leah Findlater

@@ -8,8 +8,8 @@
 
 package org.eclipse.mylar.internal.sandbox.web;
 
-import org.eclipse.mylar.provisional.tasklist.AbstractRepositoryQuery;
-import org.eclipse.mylar.provisional.tasklist.TaskList;
+import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylar.tasks.core.TaskList;
 
 /**
  * Represents regexp-based query on repository web page  

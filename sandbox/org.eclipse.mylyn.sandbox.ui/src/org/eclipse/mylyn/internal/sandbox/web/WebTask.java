@@ -11,7 +11,7 @@
 
 package org.eclipse.mylar.internal.sandbox.web;
 
-import org.eclipse.mylar.provisional.tasklist.AbstractRepositoryTask;
+import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
 
 
 /**

@@ -7,8 +7,8 @@ Bundle-Activator: org.eclipse.mylar.internal.sandbox.MylarSandboxPlugin
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.mylar.core,
- org.eclipse.mylar.ui,
+ org.eclipse.mylar.context.core,
+ org.eclipse.mylar.context.ui,
  org.eclipse.mylar.java,
  org.eclipse.jdt.core,
  org.eclipse.mylar.tasklist,
@@ -20,7 +20,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.mylar.bugzilla.ui,
  org.eclipse.jface.text,
  org.eclipse.ui.ide,
- org.eclipse.mylar.java.tests
+ org.eclipse.mylar.java.tests,
+ org.eclipse.mylar.tasks.core,
+ org.eclipse.mylar.monitor
 Eclipse-AutoStart: true
 Bundle-Vendor: Eclipse.org
 Export-Package: org.eclipse.mylar.internal.sandbox,

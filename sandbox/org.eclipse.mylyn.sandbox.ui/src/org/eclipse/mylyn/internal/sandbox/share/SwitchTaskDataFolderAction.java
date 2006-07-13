@@ -18,13 +18,13 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
+import org.eclipse.mylar.context.core.MylarPlugin;
+import org.eclipse.mylar.context.core.MylarStatusHandler;
+import org.eclipse.mylar.internal.context.ui.actions.ToggleContextCaptureAction;
 import org.eclipse.mylar.internal.monitor.reports.MylarReportsPlugin;
 import org.eclipse.mylar.internal.sandbox.MylarSandboxPlugin;
 import org.eclipse.mylar.internal.tasklist.ui.ComboSelectionDialog;
 import org.eclipse.mylar.internal.tasklist.ui.views.TaskListView;
-import org.eclipse.mylar.internal.ui.actions.ToggleContextCaptureAction;
-import org.eclipse.mylar.provisional.core.MylarPlugin;
 import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IViewActionDelegate;
@@ -119,7 +119,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 			for (int i = 0; i < files.length; i++) {
 				File currFile = files[i];
 				if (currFile.isDirectory() && containsTaskData(currFile)
-						&& !MylarPlugin.getDefault().getDataDirectory().endsWith(currFile.getName())) {
+						&& !MylarTaskListPlugin.getDefault().getDataDirectory().endsWith(currFile.getName())) {
 					folders.add(currFile.getName());
 				}
 			}

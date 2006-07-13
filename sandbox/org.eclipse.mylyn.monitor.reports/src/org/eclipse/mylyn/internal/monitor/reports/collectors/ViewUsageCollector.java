@@ -17,8 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.mylar.context.core.InteractionEvent;
 import org.eclipse.mylar.monitor.reports.IUsageCollector;
-import org.eclipse.mylar.provisional.core.InteractionEvent;
 
 /**
  * @author Mik Kersten

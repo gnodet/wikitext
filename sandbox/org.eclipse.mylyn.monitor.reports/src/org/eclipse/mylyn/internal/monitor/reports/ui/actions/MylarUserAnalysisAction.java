@@ -17,13 +17,13 @@ import java.util.List;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
-import org.eclipse.mylar.internal.monitor.MylarMonitorPlugin;
+import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.monitor.reports.MylarReportsPlugin;
 import org.eclipse.mylar.internal.monitor.reports.ReportGenerator;
 import org.eclipse.mylar.internal.monitor.reports.collectors.MylarUsageAnalysisCollector;
 import org.eclipse.mylar.internal.monitor.reports.ui.views.UsageStatsEditorInput;
 import org.eclipse.mylar.monitor.reports.IUsageCollector;
+import org.eclipse.mylar.monitor.usage.MylarUsageMonitorPlugin;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
@@ -46,14 +46,14 @@ public class MylarUserAnalysisAction implements IViewActionDelegate {
 			ViewPluginAction objectAction = (ViewPluginAction) action;
 			final List<File> files = EclipseUsageSummaryAction.getStatsFilesFromSelection(objectAction);
 			if (files.isEmpty()) {
-				files.add(MylarMonitorPlugin.getDefault().getMonitorLogFile());
+				files.add(MylarUsageMonitorPlugin.getDefault().getMonitorLogFile());
 			}
 			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 				public void run() {
 					try {
 						List<IUsageCollector> collectors = new ArrayList<IUsageCollector>();
 						collectors.add(new MylarUsageAnalysisCollector());
-						ReportGenerator generator = new ReportGenerator(MylarMonitorPlugin.getDefault()
+						ReportGenerator generator = new ReportGenerator(MylarUsageMonitorPlugin.getDefault()
 								.getInteractionLogger(), collectors);
 
 						IWorkbenchPage page = MylarReportsPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow()

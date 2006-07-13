@@ -2,13 +2,13 @@
 <?eclipse version="3.0"?>
 <plugin>
 <extension
-         point="org.eclipse.mylar.core.context">
+         point="org.eclipse.mylar.context.core.context">
       <structureBridge
             class="org.eclipse.mylar.internal.web.WebResourceStructureBridge"
             name="Web Resource Structure Bridge"/>
    </extension> 
    <extension
-         point="org.eclipse.mylar.ui.context">
+         point="org.eclipse.mylar.context.ui.context">
       <uiBridge
             class="org.eclipse.mylar.internal.web.ui.WebResourceUiBridge"
             contentType="http"
@@ -24,7 +24,7 @@
 	  		tooltip="Mark selected element as uninteresting"
 	  		menubarPath="mylar" 
 	  		id="org.eclipse.mylar.ui.actions.InterestDecrementAction" 
-	  		class="org.eclipse.mylar.internal.ui.actions.InterestDecrementAction"
+	  		class="org.eclipse.mylar.internal.context.ui.actions.InterestDecrementAction"
 	  		icon="icons/elcl16/interest-decrease.gif"
 	  		enablesFor="*"/>
 	    <action  
@@ -32,7 +32,7 @@
 	  		tooltip="Make selected element a landmark"
 	  		menubarPath="mylar" 
 	  		id="org.eclipse.mylar.ui.actions.InterestIncrementAction" 
-	  		class="org.eclipse.mylar.internal.ui.actions.InterestIncrementAction"
+	  		class="org.eclipse.mylar.internal.context.ui.actions.InterestIncrementAction"
 	  		icon="icons/elcl16/interest-increase.gif"
 	  		enablesFor="*"/>
 	 </objectContribution>
@@ -114,7 +114,7 @@
 		 
 		 
 		<commonSorter
-              class="org.eclipse.mylar.provisional.ui.InterestSorter"
+              class="org.eclipse.mylar.context.ui.InterestSorter"
               id="org.eclipse.mylar.web.sorter.interest">
            <parentExpression>
            		  <or>           

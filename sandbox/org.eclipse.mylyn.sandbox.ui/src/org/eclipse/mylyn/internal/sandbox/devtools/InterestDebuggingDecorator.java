@@ -14,12 +14,12 @@ package org.eclipse.mylar.internal.sandbox.devtools;
 import java.util.ConcurrentModificationException;
 
 import org.eclipse.jface.viewers.*;
-import org.eclipse.mylar.internal.core.MylarContextRelation;
-import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
-import org.eclipse.mylar.provisional.core.IMylarElement;
-import org.eclipse.mylar.provisional.core.IMylarStructureBridge;
-import org.eclipse.mylar.provisional.core.MylarPlugin;
-import org.eclipse.mylar.provisional.ui.MylarUiPlugin;
+import org.eclipse.mylar.context.core.IMylarElement;
+import org.eclipse.mylar.context.core.IMylarStructureBridge;
+import org.eclipse.mylar.context.core.MylarPlugin;
+import org.eclipse.mylar.context.core.MylarStatusHandler;
+import org.eclipse.mylar.context.ui.MylarUiPlugin;
+import org.eclipse.mylar.internal.context.core.MylarContextRelation;
 
 /**
  * @author Mik Kersten

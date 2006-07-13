@@ -8,14 +8,14 @@
 
 package org.eclipse.mylar.internal.sandbox.web;
 
-import org.eclipse.mylar.internal.tasklist.TaskExternalizationException;
-import org.eclipse.mylar.provisional.tasklist.AbstractQueryHit;
-import org.eclipse.mylar.provisional.tasklist.AbstractRepositoryQuery;
-import org.eclipse.mylar.provisional.tasklist.AbstractTaskContainer;
-import org.eclipse.mylar.provisional.tasklist.DelegatingTaskExternalizer;
-import org.eclipse.mylar.provisional.tasklist.ITask;
 import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
-import org.eclipse.mylar.provisional.tasklist.TaskList;
+import org.eclipse.mylar.tasks.core.AbstractQueryHit;
+import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylar.tasks.core.AbstractTaskContainer;
+import org.eclipse.mylar.tasks.core.DelegatingTaskExternalizer;
+import org.eclipse.mylar.tasks.core.ITask;
+import org.eclipse.mylar.tasks.core.TaskExternalizationException;
+import org.eclipse.mylar.tasks.core.TaskList;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -178,7 +178,7 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 		String description = element.getAttribute(KEY_NAME);
 
 		WebQueryHit hit = new WebQueryHit(id, description, ((WebQuery) query).getTaskPrefix(), query.getRepositoryUrl());
-		query.addHit(hit);
+		query.addHit(hit, taskList);
 	}
 
 	@Override

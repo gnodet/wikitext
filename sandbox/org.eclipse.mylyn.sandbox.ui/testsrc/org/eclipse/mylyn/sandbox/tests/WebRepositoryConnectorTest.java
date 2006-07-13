@@ -24,8 +24,8 @@ import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.mylar.internal.sandbox.web.WebRepositoryConnector;
 import org.eclipse.mylar.internal.sandbox.web.WebRepositoryTemplate;
-import org.eclipse.mylar.provisional.tasklist.AbstractQueryHit;
 import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
+import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 
 /**
  * @author Eugene Kuleshov 

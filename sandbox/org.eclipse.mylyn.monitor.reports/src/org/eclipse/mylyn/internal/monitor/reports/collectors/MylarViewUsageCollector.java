@@ -18,10 +18,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.mylar.context.core.InteractionEvent;
+import org.eclipse.mylar.internal.context.ui.actions.AbstractApplyMylarAction;
 import org.eclipse.mylar.internal.tasklist.ui.actions.TaskActivateAction;
 import org.eclipse.mylar.internal.tasklist.ui.actions.TaskDeactivateAction;
-import org.eclipse.mylar.internal.ui.actions.AbstractApplyMylarAction;
-import org.eclipse.mylar.provisional.core.InteractionEvent;
 
 /**
  * @author Mik Kersten

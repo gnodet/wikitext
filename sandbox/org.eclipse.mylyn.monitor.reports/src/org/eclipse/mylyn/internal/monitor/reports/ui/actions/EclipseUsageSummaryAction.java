@@ -20,8 +20,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
-import org.eclipse.mylar.internal.monitor.MylarMonitorPlugin;
+import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.monitor.reports.MylarReportsPlugin;
 import org.eclipse.mylar.internal.monitor.reports.ReportGenerator;
 import org.eclipse.mylar.internal.monitor.reports.collectors.CommandUsageCollector;
@@ -31,6 +30,7 @@ import org.eclipse.mylar.internal.monitor.reports.collectors.ViewUsageCollector;
 import org.eclipse.mylar.internal.monitor.reports.ui.views.UsageStatsEditorInput;
 import org.eclipse.mylar.monitor.reports.DelegatingUsageCollector;
 import org.eclipse.mylar.monitor.reports.IUsageCollector;
+import org.eclipse.mylar.monitor.usage.MylarUsageMonitorPlugin;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
@@ -65,7 +65,7 @@ public class EclipseUsageSummaryAction implements IViewActionDelegate {
 						DelegatingUsageCollector collector = new DelegatingUsageCollector();
 						collector.setReportTitle("Usage Summary");
 						collector.setDelegates(delegates);
-						ReportGenerator generator = new ReportGenerator(MylarMonitorPlugin.getDefault()
+						ReportGenerator generator = new ReportGenerator(MylarUsageMonitorPlugin.getDefault()
 								.getInteractionLogger(), collector);
 
 						IWorkbenchPage page = MylarReportsPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow()
@@ -100,7 +100,7 @@ public class EclipseUsageSummaryAction implements IViewActionDelegate {
 		Collections.sort(files); // ensure that they are sorted by date
 
 		if (files.isEmpty()) {
-			files.add(MylarMonitorPlugin.getDefault().getMonitorLogFile());
+			files.add(MylarUsageMonitorPlugin.getDefault().getMonitorLogFile());
 		}
 		return files;
 	}

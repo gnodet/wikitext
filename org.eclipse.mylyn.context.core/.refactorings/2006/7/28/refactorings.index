@@ -1,1 +1,5 @@
 1152658334937	Rename method 'transferContext'
+1152775563187	Rename method 'setDumpErrors'
+1152773664687	Rename package 'org.eclipse.mylar.internal.core'
+1152773537171	Rename package 'org.eclipse.mylar.provisional.core'
+1152748552375	Rename type 'MylarWorkingSetUpdater'

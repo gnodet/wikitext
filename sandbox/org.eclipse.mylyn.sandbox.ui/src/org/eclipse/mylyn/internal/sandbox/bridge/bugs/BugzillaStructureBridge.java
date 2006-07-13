@@ -15,14 +15,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.mylar.context.core.AbstractRelationProvider;
+import org.eclipse.mylar.context.core.IDegreeOfSeparation;
+import org.eclipse.mylar.context.core.IMylarStructureBridge;
 import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchHit;
-import org.eclipse.mylar.internal.core.DegreeOfSeparation;
+import org.eclipse.mylar.internal.context.core.DegreeOfSeparation;
+import org.eclipse.mylar.internal.tasklist.ui.editors.ContentOutlineTools;
 import org.eclipse.mylar.internal.tasklist.ui.editors.RepositoryTaskOutlineNode;
 import org.eclipse.mylar.internal.tasklist.ui.editors.RepositoryTaskSelection;
-import org.eclipse.mylar.internal.tasklist.ui.editors.ContentOutlineTools;
-import org.eclipse.mylar.provisional.core.AbstractRelationProvider;
-import org.eclipse.mylar.provisional.core.IDegreeOfSeparation;
-import org.eclipse.mylar.provisional.core.IMylarStructureBridge;
 import org.eclipse.ui.views.markers.internal.ProblemMarker;
 
 /**

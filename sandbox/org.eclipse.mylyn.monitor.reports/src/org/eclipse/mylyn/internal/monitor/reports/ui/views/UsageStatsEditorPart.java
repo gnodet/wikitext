@@ -22,7 +22,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
+import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.monitor.reports.InteractionEventSummarySorter;
 import org.eclipse.mylar.monitor.reports.IUsageCollector;
 import org.eclipse.swt.SWT;

@@ -25,13 +25,13 @@ import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.mylar.context.core.AbstractRelationProvider;
+import org.eclipse.mylar.context.core.IMylarElement;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
-import org.eclipse.mylar.internal.core.search.IActiveSearchListener;
-import org.eclipse.mylar.internal.core.search.IMylarSearchOperation;
-import org.eclipse.mylar.provisional.core.AbstractRelationProvider;
-import org.eclipse.mylar.provisional.core.IMylarElement;
+import org.eclipse.mylar.internal.context.core.IActiveSearchListener;
+import org.eclipse.mylar.internal.context.core.IMylarSearchOperation;
 import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
-import org.eclipse.mylar.provisional.tasklist.TaskRepository;
+import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.ui.PlatformUI;
 
 /**

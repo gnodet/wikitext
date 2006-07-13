@@ -19,15 +19,15 @@ import java.util.List;
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.mylar.context.core.IMylarElement;
+import org.eclipse.mylar.context.ui.IMylarUiBridge;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaRepositoryUtil;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaTaskEditor;
 import org.eclipse.mylar.internal.tasklist.ui.TaskUiUtil;
 import org.eclipse.mylar.internal.tasklist.ui.editors.AbstractRepositoryTaskEditor;
 import org.eclipse.mylar.internal.tasklist.ui.editors.RepositoryTaskOutlinePage;
-import org.eclipse.mylar.provisional.core.IMylarElement;
-import org.eclipse.mylar.provisional.tasklist.ITask;
 import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
-import org.eclipse.mylar.provisional.ui.IMylarUiBridge;
+import org.eclipse.mylar.tasks.core.ITask;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
@@ -129,5 +129,9 @@ public class BugzillaUiBridge implements IMylarUiBridge {
 
 	public IMylarElement getElement(IEditorInput input) {
 		return null;
+	}
+
+	public String getContentType() {
+		return BugzillaStructureBridge.CONTENT_TYPE;
 	}
 }

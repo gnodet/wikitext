@@ -13,14 +13,20 @@
  */
 package org.eclipse.mylar.internal.sandbox.devtools;
 
-import org.eclipse.mylar.internal.core.MylarContextManager;
-import org.eclipse.mylar.provisional.core.IMylarContextListener;
-import org.eclipse.mylar.provisional.core.MylarPlugin;
+import org.eclipse.mylar.context.core.IMylarContextListener;
+import org.eclipse.mylar.context.core.MylarPlugin;
+import org.eclipse.mylar.context.ui.MylarUiPlugin;
+import org.eclipse.mylar.internal.context.core.MylarContextManager;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.*;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.*;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Scale;
 import org.eclipse.ui.part.ViewPart;
 
 /**
@@ -161,7 +167,7 @@ public class MylarControlPanel extends Composite {
 
 			public void mouseUp(MouseEvent e) {
 				MylarContextManager.getScalingFactors().setDegreeOfSeparation(dosScale.getSelection());
-				MylarPlugin.getContextManager().refreshRelatedElements();
+				MylarUiPlugin.getDefault().refreshRelatedElements();
 			}
 
 		});

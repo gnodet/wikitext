@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.eclipse.mylar.context.core.InteractionEvent;
 import org.eclipse.mylar.monitor.reports.IUsageCollector;
-import org.eclipse.mylar.provisional.core.InteractionEvent;
 
 /**
  * @author Mik Kersten

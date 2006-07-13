@@ -12,7 +12,7 @@ package org.eclipse.mylar.internal.monitor.reports.preferences;
 
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.mylar.internal.monitor.reports.MylarReportsPlugin;
-import org.eclipse.mylar.provisional.core.MylarPlugin;
+import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -71,7 +71,7 @@ public class MylarReportsPreferencePage extends PreferencePage implements IWorkb
 		// ResourcesPlugin.getWorkspace().getRoot().getLocation();
 		// String taskDirectory = rootPath.toString() + "/" +
 		// MylarPlugin.DATA_DIR_NAME;
-		mylarDataDirectory.setText(MylarPlugin.getDefault().getDataDirectory());
+		mylarDataDirectory.setText(MylarTaskListPlugin.getDefault().getDataDirectory());
 	}
 
 	private void createTaskDirectoryControl(Composite parent) {
@@ -81,7 +81,7 @@ public class MylarReportsPreferencePage extends PreferencePage implements IWorkb
 		taskDirComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		String taskDirectory = getPreferenceStore().getString(MylarReportsPlugin.SHARED_TASK_DATA_ROOT_DIR);
 		if (taskDirectory.trim().equals("")) {
-			taskDirectory = MylarPlugin.getDefault().getDataDirectory();
+			taskDirectory = MylarTaskListPlugin.getDefault().getDataDirectory();
 			// getPreferenceStore().getString(MylarPlugin.PREF_DATA_DIR);
 		}
 		taskDirectory = taskDirectory.replaceAll("\\\\", "/");

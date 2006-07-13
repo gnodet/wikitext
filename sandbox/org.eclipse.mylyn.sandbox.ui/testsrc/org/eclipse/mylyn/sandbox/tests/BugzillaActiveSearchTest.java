@@ -23,16 +23,16 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
 import org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaTask;
-import org.eclipse.mylar.internal.core.search.IActiveSearchListener;
+import org.eclipse.mylar.internal.context.core.IActiveSearchListener;
 import org.eclipse.mylar.internal.sandbox.bridge.bugs.BugzillaMylarSearch;
 import org.eclipse.mylar.internal.sandbox.bridge.bugs.BugzillaReportInfo;
 import org.eclipse.mylar.internal.sandbox.bridge.bugs.MylarBugsManager;
 import org.eclipse.mylar.java.tests.search.SearchPluginTestHelper;
 import org.eclipse.mylar.java.tests.search.WorkspaceSetupHelper;
 import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
-import org.eclipse.mylar.provisional.tasklist.TaskCategory;
 import org.eclipse.mylar.provisional.tasklist.TaskListManager;
-import org.eclipse.mylar.provisional.tasklist.TaskRepository;
+import org.eclipse.mylar.tasks.core.TaskCategory;
+import org.eclipse.mylar.tasks.core.TaskRepository;
 
 /*
  * TEST CASES TO HANDLE 1. what is here 2. different scopes ( local and remote )

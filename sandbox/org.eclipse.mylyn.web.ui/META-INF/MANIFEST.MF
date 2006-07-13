@@ -8,15 +8,16 @@ Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.ui.browser,
- org.eclipse.mylar.core,
- org.eclipse.mylar.ui,
+ org.eclipse.mylar.context.core,
+ org.eclipse.mylar.context.ui,
  org.eclipse.core.resources,
  org.eclipse.mylar.tasklist,
  org.eclipse.ui.forms,
  org.eclipse.jface.text,
  org.eclipse.ui.navigator,
  org.eclipse.ui.navigator.resources,
- org.eclipse.ui.ide
+ org.eclipse.ui.ide,
+ org.eclipse.mylar.monitor
 Eclipse-AutoStart: true
 Export-Package: org.eclipse.mylar.internal.web,
  org.eclipse.mylar.internal.web.ui

@@ -13,7 +13,7 @@ package org.eclipse.mylar.monitor.reports;
 
 import java.util.List;
 
-import org.eclipse.mylar.provisional.core.InteractionEvent;
+import org.eclipse.mylar.context.core.InteractionEvent;
 
 /**
  * @author Mik Kersten

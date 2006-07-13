@@ -11,8 +11,8 @@
 package org.eclipse.mylar.internal.web;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
-import org.eclipse.mylar.provisional.core.MylarPlugin;
+import org.eclipse.mylar.context.core.MylarStatusHandler;
+import org.eclipse.mylar.monitor.MylarMonitorPlugin;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -41,13 +41,15 @@ public class MylarWebPlugin extends AbstractUIPlugin {
 	
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-		webResourceManager = new WebResourceManager();
 		final IWorkbench workbench = PlatformUI.getWorkbench();
 		workbench.getDisplay().asyncExec(new Runnable() {
 			public void run() {
 				try {
+					// TODO: move back out of async?
+					webResourceManager = new WebResourceManager();
+					
 					browserTracker = new BrowserTracker();
-					MylarPlugin.getDefault().addWindowPartListener(browserTracker);
+					MylarMonitorPlugin.getDefault().addWindowPartListener(browserTracker);
 										
 //					workbench.addWindowListener(browserTracker);
 //					IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
@@ -66,7 +68,7 @@ public class MylarWebPlugin extends AbstractUIPlugin {
 	}
 
 	public void stop(BundleContext context) throws Exception {
-		MylarPlugin.getDefault().removeWindowPartListener(browserTracker);
+		MylarMonitorPlugin.getDefault().removeWindowPartListener(browserTracker);
 		webResourceManager.dispose();
 		super.stop(context);
 		INSTANCE = null;
