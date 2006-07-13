@@ -238,6 +238,13 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		getPreferenceStore().setDefault(MylarMonitorPreferenceConstants.PREF_MONITORING_OBFUSCATE, true);
 	}
 
+	@Override
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
+		initDefaultPrefs();
+		new MonitorExtensionPointReader().initExtensions();
+	}
+	
 	/**
 	 * Used to start plugin on startup -> entry in plugin.xml to invoke this
 	 */
@@ -246,11 +253,8 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		workbench.getDisplay().asyncExec(new Runnable() {
 			public void run() {
 				try {
-					initDefaultPrefs();
-					new MonitorExtensionPointReader().initExtensions();
-
 					interactionLogger = new InteractionEventLogger(getMonitorLogFile());
-
+					
 					perspectiveMonitor = new PerspectiveChangeMonitor();
 					activityMonitor = new ActivityChangeMonitor();
 					windowMonitor = new WindowChangeMonitor();
@@ -301,6 +305,8 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 			}
 		}
 		MylarPlugin.getDefault().getPluginPreferences().addPropertyChangeListener(DATA_DIR_MOVE_LISTENER);
+		
+		System.err.println(">>>>>>> " + perspectiveMonitor);
 		MylarMonitorPlugin.getDefault().addWindowPerspectiveListener(perspectiveMonitor);
 		workbench.getActivitySupport().getActivityManager().addActivityManagerListener(activityMonitor);
 		workbench.getDisplay().addFilter(SWT.Selection, menuMonitor);
@@ -379,11 +385,6 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		lifecycleListeners.remove(listener);
 	}
 	
-
-	@Override
-	public void start(BundleContext context) throws Exception {
-		super.start(context);
-	}
 
 	@Override
 	public void stop(BundleContext context) throws Exception {
