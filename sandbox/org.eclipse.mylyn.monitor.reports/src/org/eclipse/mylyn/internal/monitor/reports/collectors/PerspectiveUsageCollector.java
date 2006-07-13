@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.mylar.context.core.InteractionEvent;
-import org.eclipse.mylar.monitor.monitors.PerspectiveChangeMonitor;
 import org.eclipse.mylar.monitor.reports.IUsageCollector;
+import org.eclipse.mylar.monitor.workbench.PerspectiveChangeMonitor;
 
 /**
  * @author Mik Kersten and Leah Findlater
@@ -41,7 +41,7 @@ public class PerspectiveUsageCollector implements IUsageCollector {
 	private int numEvents = 0;
 
 	public void consumeEvent(InteractionEvent event, int userId) {
-		numEvents++;
+		numEvents++; 
 		if (event.getKind().equals(InteractionEvent.Kind.PREFERENCE)) {
 			if (event.getDelta().equals(PerspectiveChangeMonitor.PERSPECTIVE_ACTIVATED)) {
 				currentPerspective = event.getOriginId();
@@ -93,8 +93,8 @@ public class PerspectiveUsageCollector implements IUsageCollector {
 	public String getReportTitle() {
 		return "Perspective Usage";
 	}
-
-	public void exportAsCSVFile(String directory) {
+  
+	public void exportAsCSVFile(String directory) { 
 		String filename = directory + File.separator + "PerspectiveUsage.csv";
 
 		try {
@@ -128,5 +128,4 @@ public class PerspectiveUsageCollector implements IUsageCollector {
 		}
 
 	}
-
-}
+} 

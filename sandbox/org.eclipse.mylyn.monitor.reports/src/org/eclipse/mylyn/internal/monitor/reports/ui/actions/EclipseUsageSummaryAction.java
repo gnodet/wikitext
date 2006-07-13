@@ -36,7 +36,7 @@ import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.PlatformUI; 
 import org.eclipse.ui.internal.ViewPluginAction;
 
 /**
@@ -67,7 +67,7 @@ public class EclipseUsageSummaryAction implements IViewActionDelegate {
 						collector.setDelegates(delegates);
 						ReportGenerator generator = new ReportGenerator(MylarUsageMonitorPlugin.getDefault()
 								.getInteractionLogger(), collector);
-
+ 
 						IWorkbenchPage page = MylarReportsPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow()
 								.getActivePage();
 						if (page == null)
