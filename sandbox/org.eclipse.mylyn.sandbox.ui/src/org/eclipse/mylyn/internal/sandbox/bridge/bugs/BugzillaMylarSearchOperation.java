@@ -40,7 +40,7 @@ import org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaTask;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.StackTrace;
 import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
 import org.eclipse.mylar.tasks.core.AbstractTaskContainer;
-import org.eclipse.mylar.tasks.core.Comment;
+import org.eclipse.mylar.tasks.core.TaskComment;
 import org.eclipse.mylar.tasks.core.ITask;
 import org.eclipse.mylar.tasks.core.RepositoryTaskData;
 import org.eclipse.mylar.tasks.core.TaskRepository;
@@ -257,7 +257,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 			return false; // MIK: added null check here
 		String description = bug.getDescription();
 		String summary = bug.getSummary();
-		List<Comment> comments = bug.getComments();
+		List<TaskComment> taskComments = bug.getComments();
 
 		// search the description and the summary
 		if (Util.hasElementName(elementName, summary))
@@ -266,10 +266,10 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 		if (Util.hasElementName(elementName, description))
 			return true;
 
-		Iterator<Comment> comItr = comments.iterator();
+		Iterator<TaskComment> comItr = taskComments.iterator();
 		while (comItr.hasNext()) {
-			Comment comment = comItr.next();
-			String commentText = comment.getText();
+			TaskComment taskComment = comItr.next();
+			String commentText = taskComment.getText();
 			// search the text for a reference to the element
 			if (Util.hasElementName(elementName, commentText))
 				return true;
@@ -394,13 +394,13 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 			}
 
 			// go through all of the comments for the bug
-			Iterator<Comment> comItr = b.getComments().iterator();
+			Iterator<TaskComment> comItr = b.getComments().iterator();
 			while (comItr.hasNext()) {
-				Comment comment = comItr.next();
-				String commentText = comment.getText();
+				TaskComment taskComment = comItr.next();
+				String commentText = taskComment.getText();
 
 				// see if the comment has a stack trace in it
-				stackTrace = StackTrace.getStackTrace(commentText, comment);
+				stackTrace = StackTrace.getStackTrace(commentText, taskComment);
 				if (stackTrace != null) {
 
 					// add the stack trace to the doi info
