@@ -9,15 +9,19 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.monitor;
-
-import org.eclipse.jface.action.IAction;
+package org.eclipse.mylar.internal.monitor.usage;
 
 /**
  * @author Mik Kersten
  */
-public interface IActionExecutionListener {
- 
-	public void actionObserved(IAction action);
+public class MylarMonitorPreferenceConstants {
+
+	public static final String PREF_PREVIOUS_TRANSMIT_DATE = "org.eclipse.mylar.monitor.upload.previousTransmit";
+
+	public static final String PREF_NUM_USER_EVENTS = "org.eclipse.mylar.monitor.events.observed";
+
+	public static final String PREF_MONITORING_ENABLED = "org.eclipse.mylar.monitor.enabled";
+
+	public static final String PREF_MONITORING_OBFUSCATE = "org.eclipse.mylar.monitor.obfuscate";
 
 }

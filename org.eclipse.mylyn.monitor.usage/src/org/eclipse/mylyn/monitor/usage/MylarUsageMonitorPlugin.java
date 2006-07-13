@@ -42,24 +42,22 @@ import org.eclipse.mylar.context.core.MylarPlugin;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.context.core.MylarContextManager;
 import org.eclipse.mylar.internal.context.core.MylarPreferenceContstants;
-import org.eclipse.mylar.internal.monitor.IActionExecutionListener;
-import org.eclipse.mylar.internal.monitor.IBackgroundPage;
-import org.eclipse.mylar.internal.monitor.IMylarMonitorLifecycleListener;
-import org.eclipse.mylar.internal.monitor.IQuestionnairePage;
-import org.eclipse.mylar.internal.monitor.InteractionEventLogger;
-import org.eclipse.mylar.internal.monitor.MylarMonitorPreferenceConstants;
-import org.eclipse.mylar.internal.monitor.StudyParameters;
-import org.eclipse.mylar.internal.monitor.monitors.ActionExecutionMonitor;
-import org.eclipse.mylar.internal.monitor.monitors.ActivityChangeMonitor;
-import org.eclipse.mylar.internal.monitor.monitors.BrowserMonitor;
-import org.eclipse.mylar.internal.monitor.monitors.KeybindingCommandMonitor;
-import org.eclipse.mylar.internal.monitor.monitors.MenuCommandMonitor;
-import org.eclipse.mylar.internal.monitor.monitors.PerspectiveChangeMonitor;
-import org.eclipse.mylar.internal.monitor.monitors.PreferenceChangeMonitor;
-import org.eclipse.mylar.internal.monitor.monitors.WindowChangeMonitor;
-import org.eclipse.mylar.internal.monitor.ui.wizards.UsageSubmissionWizard;
+import org.eclipse.mylar.internal.monitor.usage.InteractionEventLogger;
+import org.eclipse.mylar.internal.monitor.usage.MylarMonitorPreferenceConstants;
+import org.eclipse.mylar.internal.monitor.usage.StudyParameters;
+import org.eclipse.mylar.internal.monitor.usage.ui.wizards.UsageSubmissionWizard;
 import org.eclipse.mylar.monitor.AbstractCommandMonitor;
+import org.eclipse.mylar.monitor.IActionExecutionListener;
+import org.eclipse.mylar.monitor.IMylarMonitorLifecycleListener;
 import org.eclipse.mylar.monitor.MylarMonitorPlugin;
+import org.eclipse.mylar.monitor.workbench.ActionExecutionMonitor;
+import org.eclipse.mylar.monitor.workbench.ActivityChangeMonitor;
+import org.eclipse.mylar.monitor.workbench.BrowserMonitor;
+import org.eclipse.mylar.monitor.workbench.KeybindingCommandMonitor;
+import org.eclipse.mylar.monitor.workbench.MenuCommandMonitor;
+import org.eclipse.mylar.monitor.workbench.PerspectiveChangeMonitor;
+import org.eclipse.mylar.monitor.workbench.PreferenceChangeMonitor;
+import org.eclipse.mylar.monitor.workbench.WindowChangeMonitor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.events.ShellListener;
@@ -122,8 +120,6 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 	public static final String MONITOR_LOG_NAME_OLD = "workspace";
 
 	public static final String PLUGIN_ID = "org.eclipse.mylar.monitor";
-
-	public static final String OBFUSCATED_LABEL = "[obfuscated]";
 
 	private InteractionEventLogger interactionLogger;
 
@@ -330,6 +326,11 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		preferences.removePropertyChangeListener(preferenceMonitor);
 	}
 
+	public boolean isObfuscationEnabled() {
+		return MylarUsageMonitorPlugin.getPrefs()
+			.getBoolean(MylarMonitorPreferenceConstants.PREF_MONITORING_OBFUSCATE);
+	}
+	
 	public void stopMonitoring() {
 		if (!getPreferenceStore().getBoolean(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED))
 			return;

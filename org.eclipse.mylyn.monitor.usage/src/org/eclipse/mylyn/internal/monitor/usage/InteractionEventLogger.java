@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.monitor;
+package org.eclipse.mylar.internal.monitor.usage;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -33,7 +33,8 @@ import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.context.core.InteractionEvent.Kind;
 import org.eclipse.mylar.internal.context.core.MylarContextExternalizer;
 import org.eclipse.mylar.internal.context.core.util.XmlStringConverter;
-import org.eclipse.mylar.internal.monitor.HtmlStreamTokenizer.Token;
+import org.eclipse.mylar.internal.monitor.usage.HtmlStreamTokenizer.Token;
+import org.eclipse.mylar.monitor.HandleObfuscator;
 import org.eclipse.mylar.monitor.usage.MylarUsageMonitorPlugin;
 
 /**
@@ -62,7 +63,7 @@ public class InteractionEventLogger implements IInteractionEventListener {
 
 	public void interactionObserved(InteractionEvent event) {
 //		System.err.println("> " + event);
-		if (handleObfuscator.isObfuscationEnabled()) {
+		if (MylarUsageMonitorPlugin.getDefault().isObfuscationEnabled()) {
 			String obfuscatedHandle = handleObfuscator.obfuscateHandle(event.getStructureKind(), event.getStructureHandle());
 			event = new InteractionEvent(event.getKind(), event.getStructureKind(), obfuscatedHandle, event.getOriginId(), event.getNavigation(), event.getDelta(), event.getInterestContribution());
 		}
