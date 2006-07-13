@@ -243,47 +243,49 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		super.start(context);
 		initDefaultPrefs();
 		new MonitorExtensionPointReader().initExtensions();
+		
+		try {
+			interactionLogger = new InteractionEventLogger(getMonitorLogFile());
+			
+			perspectiveMonitor = new PerspectiveChangeMonitor();
+			activityMonitor = new ActivityChangeMonitor();
+			windowMonitor = new WindowChangeMonitor();
+			menuMonitor = new MenuCommandMonitor();
+			keybindingCommandMonitor = new KeybindingCommandMonitor();
+			browserMonitor = new BrowserMonitor();
+
+			setAcceptedUrlMatchList(studyParameters.getAcceptedUrlList());
+
+			if (getPreferenceStore().getBoolean(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED)) {
+				// will be reset
+				getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED, false); 
+				startMonitoring();
+			}
+
+			if (plugin.getPreferenceStore().contains(
+					MylarMonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE)) {
+				lastTransmit = new Date(plugin.getPreferenceStore().getLong(
+						MylarMonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE));
+			} else {
+				lastTransmit = new Date();
+				plugin.getPreferenceStore().setValue(
+						MylarMonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE, lastTransmit.getTime());
+			}
+		} catch (Throwable t) {
+			MylarStatusHandler.fail(t, "monitor failed to start", false);
+		}
 	}
 	
 	/**
 	 * Used to start plugin on startup -> entry in plugin.xml to invoke this
 	 */
 	public void earlyStartup() {
-		final IWorkbench workbench = PlatformUI.getWorkbench();
-		workbench.getDisplay().asyncExec(new Runnable() {
-			public void run() {
-				try {
-					interactionLogger = new InteractionEventLogger(getMonitorLogFile());
-					
-					perspectiveMonitor = new PerspectiveChangeMonitor();
-					activityMonitor = new ActivityChangeMonitor();
-					windowMonitor = new WindowChangeMonitor();
-					menuMonitor = new MenuCommandMonitor();
-					keybindingCommandMonitor = new KeybindingCommandMonitor();
-					browserMonitor = new BrowserMonitor();
-
-					setAcceptedUrlMatchList(studyParameters.getAcceptedUrlList());
-
-					if (getPreferenceStore().getBoolean(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED)) {
-						// will be reset
-						getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED, false); 
-						startMonitoring();
-					}
-
-					if (plugin.getPreferenceStore().contains(
-							MylarMonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE)) {
-						lastTransmit = new Date(plugin.getPreferenceStore().getLong(
-								MylarMonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE));
-					} else {
-						lastTransmit = new Date();
-						plugin.getPreferenceStore().setValue(
-								MylarMonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE, lastTransmit.getTime());
-					}
-				} catch (Throwable t) {
-					MylarStatusHandler.fail(t, "monitor failed to start", false);
-				}
-			}
-		});
+//		final IWorkbench workbench = PlatformUI.getWorkbench();
+//		workbench.getDisplay().asyncExec(new Runnable() {
+//			public void run() {
+//
+//			}
+//		});
 	}
 
 	public void startMonitoring() {
@@ -305,8 +307,6 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 			}
 		}
 		MylarPlugin.getDefault().getPluginPreferences().addPropertyChangeListener(DATA_DIR_MOVE_LISTENER);
-		
-		System.err.println(">>>>>>> " + perspectiveMonitor);
 		MylarMonitorPlugin.getDefault().addWindowPerspectiveListener(perspectiveMonitor);
 		workbench.getActivitySupport().getActivityManager().addActivityManagerListener(activityMonitor);
 		workbench.getDisplay().addFilter(SWT.Selection, menuMonitor);
