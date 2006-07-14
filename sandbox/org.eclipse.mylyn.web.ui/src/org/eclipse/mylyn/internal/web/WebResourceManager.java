@@ -20,12 +20,12 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
+import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.IMylarContext;
 import org.eclipse.mylar.context.core.IMylarContextListener;
 import org.eclipse.mylar.context.core.IMylarElement;
-import org.eclipse.mylar.context.core.MylarPlugin;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
-import org.eclipse.mylar.internal.tasklist.RetrieveTitleFromUrlJob;
+import org.eclipse.mylar.internal.tasks.ui.RetrieveTitleFromUrlJob;
 
 /**
  * @author Mik Kersten
@@ -91,7 +91,7 @@ public class WebResourceManager {
 
 	public WebResourceManager() {
 		webRoot = new WebRoot();
-		MylarPlugin.getContextManager().addListener(UPDATE_LISTENER);
+		ContextCorePlugin.getContextManager().addListener(UPDATE_LISTENER);
 
 		try {
 			titleCache.load(new FileInputStream(getTitleCacheFile()));
@@ -101,7 +101,7 @@ public class WebResourceManager {
 	}
 
 	public void dispose() {
-		MylarPlugin.getContextManager().removeListener(UPDATE_LISTENER);
+		ContextCorePlugin.getContextManager().removeListener(UPDATE_LISTENER);
 		try {
 			titleCache.store(new FileOutputStream(getTitleCacheFile()), null);
 		} catch (IOException e) {
@@ -120,7 +120,7 @@ public class WebResourceManager {
 
 	protected void updateContents(boolean populate) {
 		if (populate) {
-			List<IMylarElement> interestingElements = MylarPlugin.getContextManager().getInterestingDocuments();
+			List<IMylarElement> interestingElements = ContextCorePlugin.getContextManager().getInterestingDocuments();
 			for (IMylarElement element : interestingElements) {
 				if (WebResourceStructureBridge.CONTENT_TYPE.equals(element.getContentType())) {
 					addUrl(element.getHandleIdentifier(), true);

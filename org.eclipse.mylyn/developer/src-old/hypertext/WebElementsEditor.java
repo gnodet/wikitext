@@ -150,7 +150,7 @@ public class WebElementsEditor extends EditorPart {
 
 	@Override
 	public void dispose() {
-		MylarPlugin.getContextManager().removeListener(REFRESH_UPDATE_LISTENER);
+		ContextCorePlugin.getContextManager().removeListener(REFRESH_UPDATE_LISTENER);
 	}
 
 	@Override
@@ -176,7 +176,7 @@ public class WebElementsEditor extends EditorPart {
 		// Put the info onto the editor
 		createContent(editorComposite, toolkit);
 		form.setFocus();
-		MylarPlugin.getContextManager().addListener(REFRESH_UPDATE_LISTENER);
+		ContextCorePlugin.getContextManager().addListener(REFRESH_UPDATE_LISTENER);
 	}
 
 	private void createContent(Composite parent, FormToolkit toolkit) {
@@ -251,7 +251,7 @@ public class WebElementsEditor extends EditorPart {
 
 	private List<String> getWebDocs() {
 		links = new ArrayList<String>();
-		List<IMylarElement> elements = MylarPlugin.getContextManager().getInterestingDocuments();
+		List<IMylarElement> elements = ContextCorePlugin.getContextManager().getInterestingDocuments();
 		for (IMylarElement element : elements) {
 			if (element.getContentType().equals(HypertextStructureBridge.CONTENT_TYPE)) {
 				links.add(element.getHandleIdentifier());
@@ -346,7 +346,7 @@ public class WebElementsEditor extends EditorPart {
 	private void removeLinkFromTable() {
 		String url = (String) ((IStructuredSelection) treeViewer.getSelection()).getFirstElement();
 		if (url != null) {
-			MylarPlugin.getContextManager().delete(MylarPlugin.getContextManager().getElement(url));
+			ContextCorePlugin.getContextManager().delete(ContextCorePlugin.getContextManager().getElement(url));
 		}
 		treeViewer.setInput(getWebDocs());
 	}

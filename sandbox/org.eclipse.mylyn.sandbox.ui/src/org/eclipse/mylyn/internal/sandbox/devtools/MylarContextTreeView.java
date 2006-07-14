@@ -26,10 +26,10 @@ import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.mylar.context.core.IMylarContext;
 import org.eclipse.mylar.context.core.IMylarContextListener;
 import org.eclipse.mylar.context.core.IMylarElement;
-import org.eclipse.mylar.context.core.MylarPlugin;
+import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.context.ui.InterestSorter;
-import org.eclipse.mylar.context.ui.MylarUiPlugin;
+import org.eclipse.mylar.context.ui.ContextUiPlugin;
 import org.eclipse.mylar.internal.context.ui.MylarImages;
 import org.eclipse.mylar.internal.context.ui.actions.ToggleDecorateInterestLevelAction;
 import org.eclipse.mylar.internal.context.ui.views.ContextContentProvider;
@@ -56,7 +56,7 @@ public class MylarContextTreeView extends ViewPart {
 
 	private Action linkRefresh;
 
-	private boolean activeRefresh = true;// MylarPlugin.DEBUG_MODE;
+	private boolean activeRefresh = true;// ContextCorePlugin.DEBUG_MODE;
 
 	private final IMylarContextListener REFRESH_UPDATE_LISTENER = new IMylarContextListener() {
 
@@ -121,7 +121,7 @@ public class MylarContextTreeView extends ViewPart {
 	};
 
 	public MylarContextTreeView() {
-		MylarPlugin.getContextManager().addListener(REFRESH_UPDATE_LISTENER);
+		ContextCorePlugin.getContextManager().addListener(REFRESH_UPDATE_LISTENER);
 	}
 
 	@Override
@@ -139,17 +139,17 @@ public class MylarContextTreeView extends ViewPart {
 		makeActions();
 		hookContextMenu();
 		contributeToActionBars();
-		viewer.getTree().setBackground(MylarUiPlugin.getDefault().getColorMap().BACKGROUND_COLOR);
+		viewer.getTree().setBackground(ContextUiPlugin.getDefault().getColorMap().BACKGROUND_COLOR);
 
 		viewer.addOpenListener(new ContextNodeOpenListener(viewer));
 	}
 
 	protected Object[] refreshView(Object parent) {
-		if (MylarPlugin.getContextManager() == null) {
+		if (ContextCorePlugin.getContextManager() == null) {
 			return new String[] { "No model" };
 		} else {
 			try {
-				return MylarPlugin.getContextManager().getActiveContext().getAllElements().toArray();
+				return ContextCorePlugin.getContextManager().getActiveContext().getAllElements().toArray();
 			} catch (Throwable t) {
 				MylarStatusHandler.fail(t, "failed to show model", false);
 				return new String[] { "Absent or incompatible model data: " + t.getMessage(),
@@ -220,9 +220,9 @@ public class MylarContextTreeView extends ViewPart {
 			activeRefresh = !activeRefresh;
 			setChecked(activeRefresh);
 			if (activeRefresh) {
-				MylarPlugin.getContextManager().addListener(REFRESH_UPDATE_LISTENER);
+				ContextCorePlugin.getContextManager().addListener(REFRESH_UPDATE_LISTENER);
 			} else {
-				MylarPlugin.getContextManager().removeListener(REFRESH_UPDATE_LISTENER);
+				ContextCorePlugin.getContextManager().removeListener(REFRESH_UPDATE_LISTENER);
 			}
 		}
 	}

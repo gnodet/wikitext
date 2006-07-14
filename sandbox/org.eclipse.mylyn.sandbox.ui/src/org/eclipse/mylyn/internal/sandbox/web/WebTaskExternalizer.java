@@ -8,7 +8,6 @@
 
 package org.eclipse.mylar.internal.sandbox.web;
 
-import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.AbstractTaskContainer;
@@ -16,6 +15,7 @@ import org.eclipse.mylar.tasks.core.DelegatingTaskExternalizer;
 import org.eclipse.mylar.tasks.core.ITask;
 import org.eclipse.mylar.tasks.core.TaskExternalizationException;
 import org.eclipse.mylar.tasks.core.TaskList;
+import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -151,7 +151,7 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 		String repositoryUrl = element.getAttribute(KEY_REPOSITORY_URL);
 		
 		AbstractRepositoryQuery query = new WebQuery(description, queryUrl, taskPrefix, regexp, 
-				MylarTaskListPlugin.getTaskListManager().getTaskList(), repositoryUrl);
+				TasksUiPlugin.getTaskListManager().getTaskList(), repositoryUrl);
 		
 		boolean hasCaughtException = false;
 		NodeList list = node.getChildNodes();

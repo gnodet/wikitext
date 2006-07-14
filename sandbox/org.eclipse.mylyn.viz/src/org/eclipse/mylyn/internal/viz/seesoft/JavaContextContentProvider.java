@@ -29,7 +29,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylar.context.core.IMylarContext;
 import org.eclipse.mylar.context.core.IMylarContextListener;
 import org.eclipse.mylar.context.core.IMylarElement;
-import org.eclipse.mylar.context.core.MylarPlugin;
+import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.java.JavaStructureBridge;
 
@@ -55,7 +55,7 @@ public class JavaContextContentProvider implements IContentProvider, IMylarConte
 	protected boolean viewActive = false;
 
 	public void initialise() {
-		MylarPlugin.getContextManager().addListener(this);
+		ContextCorePlugin.getContextManager().addListener(this);
 	}
 
 	/**
@@ -112,7 +112,7 @@ public class JavaContextContentProvider implements IContentProvider, IMylarConte
 				return;
 			}
 
-			List<IMylarElement> interestingNodes = MylarPlugin.getContextManager().getActiveContext().getInteresting();
+			List<IMylarElement> interestingNodes = ContextCorePlugin.getContextManager().getActiveContext().getInteresting();
 			JavaStructureBridge jBridge = new JavaStructureBridge();
 
 			for (int i = 0; i < interestingNodes.size(); i++) {

@@ -45,7 +45,7 @@ public class MylarClassFileEditor extends ClassFileEditor {
 
         PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
             public void run() {
-                MylarPlugin.getTaskscapeManager().addListener(FOLDING_LISTENER);
+                ContextCorePlugin.getTaskscapeManager().addListener(FOLDING_LISTENER);
             }
         });
     } 
@@ -95,7 +95,7 @@ public class MylarClassFileEditor extends ClassFileEditor {
 			try {
 				srcRange= container.getSourceRange();
 			} catch (JavaModelException e) {
-				MylarPlugin.log(this.getClass().toString(), e);
+				ContextCorePlugin.log(this.getClass().toString(), e);
 			}
 			
 			if (srcRange != null && srcRange.getOffset() == caret)
@@ -128,7 +128,7 @@ public class MylarClassFileEditor extends ClassFileEditor {
 				IClassFileEditorInput input= (IClassFileEditorInput) getEditorInput();
 				return input.getClassFile().getElementAt(offset);
 			} catch (JavaModelException e) {
-				MylarPlugin.log(this.getClass().toString(), e);
+				ContextCorePlugin.log(this.getClass().toString(), e);
 			}
 		}
 		return null;

@@ -58,7 +58,7 @@ public class DoiViewerFilter extends ViewerFilter {
 //                     element instanceof IImportContainer) {
 //              return false;
 //            } else 
-            if (MylarPlugin.getTaskscapeManager().isTempRaised(element.getParent().getHandleIdentifier())) {
+            if (ContextCorePlugin.getTaskscapeManager().isTempRaised(element.getParent().getHandleIdentifier())) {
                 return true;
             } else {  
                 if (isDeclaration(element) && filterDeclarationsEnabled) {
@@ -66,12 +66,12 @@ public class DoiViewerFilter extends ViewerFilter {
                 } else if (!filterUninterestingEnabled) {
                     return true;
                 } else {
-                    ITaskscapeNode info = MylarPlugin.getTaskscapeManager().getDoi(element.getHandleIdentifier());
+                    ITaskscapeNode info = ContextCorePlugin.getTaskscapeManager().getDoi(element.getHandleIdentifier());
                     return info != null && info.getDegreeOfInterest().getDegreeOfInterest().isInteresting();
                 }
             }
         } else if (object instanceof File) {
-            ITaskscapeNode info = MylarPlugin.getTaskscapeManager().getDoi(((File)object).getFullPath().toPortableString());
+            ITaskscapeNode info = ContextCorePlugin.getTaskscapeManager().getDoi(((File)object).getFullPath().toPortableString());
             boolean interesting = info != null && info.getDegreeOfInterest().getDegreeOfInterest().isInteresting();
             if (!filterUninterestingEnabled) {
                 return true;
@@ -91,7 +91,7 @@ public class DoiViewerFilter extends ViewerFilter {
             if (fragment.getChildren() == null) return false;
             if (fragment.getChildren().length == 0) return false;
         } catch (JavaModelException e) {
-            MylarPlugin.fail(e, "Could not determine if package fragment had children", false);
+            ContextCorePlugin.fail(e, "Could not determine if package fragment had children", false);
         }
         return true;
     }

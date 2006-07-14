@@ -9,10 +9,10 @@
 package org.eclipse.mylar.internal.sandbox.web;
 
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.mylar.provisional.tasklist.AbstractRepositoryConnector;
-import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.TaskRepository;
+import org.eclipse.mylar.tasks.ui.AbstractRepositoryConnector;
+import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 
 /**
  * Wizard used to create query for web based connector
@@ -45,8 +45,8 @@ public class WebQueryWizard extends Wizard {
 
 		AbstractRepositoryQuery query = queryPage.getQuery();
 		if (query != null) {
-			MylarTaskListPlugin.getTaskListManager().getTaskList().addQuery(query);
-			AbstractRepositoryConnector connector = MylarTaskListPlugin.getRepositoryManager().getRepositoryConnector(repository.getKind());
+			TasksUiPlugin.getTaskListManager().getTaskList().addQuery(query);
+			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getKind());
 			if (connector != null) {
 				connector.synchronize(query, null);
 			}

@@ -30,8 +30,8 @@ import org.eclipse.mylar.context.core.IMylarElement;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
 import org.eclipse.mylar.internal.context.core.IActiveSearchListener;
 import org.eclipse.mylar.internal.context.core.IMylarSearchOperation;
-import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
 import org.eclipse.mylar.tasks.core.TaskRepository;
+import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.ui.PlatformUI;
 
 /**
@@ -72,7 +72,7 @@ public class BugzillaReferencesProvider extends AbstractRelationProvider {
 	public IMylarSearchOperation getSearchOperation(IMylarElement node, int limitTo, int degreeOfSepatation) {
 		IJavaElement javaElement = JavaCore.create(node.getHandleIdentifier());
 
-		TaskRepository repository = MylarTaskListPlugin.getRepositoryManager().getRepositoryForActiveTask(
+		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepositoryForActiveTask(
 				BugzillaPlugin.REPOSITORY_KIND);
 		return new BugzillaMylarSearch(degreeOfSepatation, javaElement, repository.getUrl());
 	}

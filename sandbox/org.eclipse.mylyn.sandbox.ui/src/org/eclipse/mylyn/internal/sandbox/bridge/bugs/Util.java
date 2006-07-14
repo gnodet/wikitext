@@ -22,8 +22,8 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
 import org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants;
 import org.eclipse.mylar.internal.bugzilla.ui.BugzillaUiPlugin;
-import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
 import org.eclipse.mylar.tasks.core.TaskRepository;
+import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 
 /**
  * Utilities methods for the BugzillaMylarBridge
@@ -148,7 +148,7 @@ public class Util {
 		}
 		sb.append("buglist.cgi?");
 
-		TaskRepository repository = MylarTaskListPlugin.getRepositoryManager().getRepository(
+		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
 				BugzillaPlugin.REPOSITORY_KIND, repositoryUrl);
 		if (repository != null && repository.hasCredentials()) {
 			// if (BugzillaPreferencePage.getUserName() != null

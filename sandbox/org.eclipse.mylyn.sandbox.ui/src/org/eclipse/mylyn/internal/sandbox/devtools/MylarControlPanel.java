@@ -14,8 +14,8 @@
 package org.eclipse.mylar.internal.sandbox.devtools;
 
 import org.eclipse.mylar.context.core.IMylarContextListener;
-import org.eclipse.mylar.context.core.MylarPlugin;
-import org.eclipse.mylar.context.ui.MylarUiPlugin;
+import org.eclipse.mylar.context.core.ContextCorePlugin;
+import org.eclipse.mylar.context.ui.ContextUiPlugin;
 import org.eclipse.mylar.internal.context.core.MylarContextManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
@@ -101,7 +101,7 @@ public class MylarControlPanel extends Composite {
 		doiScale.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
 				MylarContextManager.getScalingFactors().setInteresting(scaleDoiSelection(doiScale.getSelection()));
-				MylarPlugin.getContextManager().notifyActivePresentationSettingsChange(
+				ContextCorePlugin.getContextManager().notifyActivePresentationSettingsChange(
 						IMylarContextListener.UpdateKind.SCALING);
 			}
 
@@ -120,7 +120,7 @@ public class MylarControlPanel extends Composite {
 
 			public void mouseUp(MouseEvent e) {
 				MylarContextManager.getScalingFactors().setInteresting(scaleDoiSelection(doiScale.getSelection()));
-				MylarPlugin.getContextManager().notifyPostPresentationSettingsChange(
+				ContextCorePlugin.getContextManager().notifyPostPresentationSettingsChange(
 						IMylarContextListener.UpdateKind.SCALING);
 			}
 		});
@@ -167,7 +167,7 @@ public class MylarControlPanel extends Composite {
 
 			public void mouseUp(MouseEvent e) {
 				MylarContextManager.getScalingFactors().setDegreeOfSeparation(dosScale.getSelection());
-				MylarUiPlugin.getDefault().refreshRelatedElements();
+				ContextUiPlugin.getDefault().refreshRelatedElements();
 			}
 
 		});

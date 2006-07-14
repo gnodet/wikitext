@@ -8,11 +8,11 @@
 
 package org.eclipse.mylar.internal.sandbox.web;
 
-import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
 import org.eclipse.mylar.tasks.core.ITask;
 import org.eclipse.mylar.tasks.core.TaskList;
+import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 
 /**
  * Represents issue returned by <code>WebQuery</code> 
@@ -51,7 +51,7 @@ public class WebQueryHit extends AbstractQueryHit {
 	}
 
 	public AbstractRepositoryTask getOrCreateCorrespondingTask() {
-		TaskList taskList = MylarTaskListPlugin.getTaskListManager().getTaskList();
+		TaskList taskList = TasksUiPlugin.getTaskListManager().getTaskList();
 		
 		ITask existingTask = taskList.getTask(getHandleIdentifier());		 
 		if (existingTask instanceof WebTask) {

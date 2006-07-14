@@ -33,11 +33,11 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.mylar.context.core.IDegreeOfInterest;
 import org.eclipse.mylar.context.core.IMylarElement;
-import org.eclipse.mylar.context.core.MylarPlugin;
+import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.context.ui.UiUtil;
-import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
 import org.eclipse.mylar.tasks.core.ITask;
+import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 
@@ -107,7 +107,7 @@ public class JavaContextMarkupProvider implements IMarkupProvider {
 	protected Stripe makeStripeForJavaMember(IJavaElement member) {
 		try {
 
-			IMylarElement memberMylarElement = MylarPlugin.getContextManager().getElement(member.getHandleIdentifier());
+			IMylarElement memberMylarElement = ContextCorePlugin.getContextManager().getElement(member.getHandleIdentifier());
 
 			if (memberMylarElement != null) {
 
@@ -138,12 +138,12 @@ public class JavaContextMarkupProvider implements IMarkupProvider {
 				stripe.setOffset(offset);
 
 				// Set the task description
-				String taskHandle = MylarPlugin.getContextManager().getDominantContextHandleForElement(
+				String taskHandle = ContextCorePlugin.getContextManager().getDominantContextHandleForElement(
 						memberMylarElement);
 				if (taskHandle == null) {
 					return null;
 				}
-				ITask task = MylarTaskListPlugin.getTaskListManager().getTaskList().getTask(taskHandle);
+				ITask task = TasksUiPlugin.getTaskListManager().getTaskList().getTask(taskHandle);
 				if (task == null) {
 					return null;
 				}

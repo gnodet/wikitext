@@ -57,7 +57,7 @@ public class UsageStatsEditorInput implements IEditorInput {
 		// }
 		// }
 		// } catch (Exception e) {
-		// MylarPlugin.log(e, "Could not unzip usage files");
+		// ContextCorePlugin.log(e, "Could not unzip usage files");
 		// }
 
 		// parser = new

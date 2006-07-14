@@ -32,10 +32,8 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
-import org.eclipse.mylar.internal.tasklist.RetrieveTitleFromUrlJob;
-import org.eclipse.mylar.internal.tasklist.ui.wizards.AbstractRepositorySettingsPage;
-import org.eclipse.mylar.provisional.tasklist.AbstractRepositoryConnector;
-import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
+import org.eclipse.mylar.internal.tasks.ui.RetrieveTitleFromUrlJob;
+import org.eclipse.mylar.internal.tasks.ui.ui.wizards.AbstractRepositorySettingsPage;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
@@ -43,6 +41,8 @@ import org.eclipse.mylar.tasks.core.IAttachmentHandler;
 import org.eclipse.mylar.tasks.core.IOfflineTaskHandler;
 import org.eclipse.mylar.tasks.core.ITask;
 import org.eclipse.mylar.tasks.core.TaskRepository;
+import org.eclipse.mylar.tasks.ui.AbstractRepositoryConnector;
+import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
@@ -144,7 +144,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			RetrieveTitleFromUrlJob job = new RetrieveTitleFromUrlJob(taskPrefix+id) {
 					protected void setTitle(String pageTitle) {
 						task.setDescription(id+": "+pageTitle);
-						MylarTaskListPlugin.getTaskListManager().getTaskList().notifyLocalInfoChanged(task);
+						TasksUiPlugin.getTaskListManager().getTaskList().notifyLocalInfoChanged(task);
 					}
 				};
 			job.schedule();
@@ -157,7 +157,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	public String getRepositoryUrlFromTaskUrl(String url) {
 		// lookup repository using task prefix url 
-		for (TaskRepository repository : MylarTaskListPlugin.getRepositoryManager().getAllRepositories()) {
+		for (TaskRepository repository : TasksUiPlugin.getRepositoryManager().getAllRepositories()) {
 			if(getRepositoryType().equals(repository.getKind())) {
 				if(url.startsWith(repository.getProperty(PROPERTY_TASK_PREFIX_URL))) {
 					return repository.getUrl();
@@ -165,7 +165,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			}
 		}
 		
-		for (AbstractRepositoryQuery query : MylarTaskListPlugin.getTaskListManager().getTaskList().getQueries()) {
+		for (AbstractRepositoryQuery query : TasksUiPlugin.getTaskListManager().getTaskList().getQueries()) {
 			if(query instanceof WebQuery) {
 				WebQuery webQuery = (WebQuery) query;
 				if(url.startsWith(webQuery.getTaskPrefix())) {
@@ -188,7 +188,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 				return performQuery(fetchResource(queryUrl), regexp, taskPrefix, repositoryUrl, monitor, queryStatus);
 
 			} catch (IOException ex) {
-				queryStatus.add(new Status(IStatus.OK, MylarTaskListPlugin.PLUGIN_ID, IStatus.OK,
+				queryStatus.add(new Status(IStatus.OK, TasksUiPlugin.PLUGIN_ID, IStatus.OK,
 						"Could not fetch resource: " + queryUrl, ex));
 			}
 		}
@@ -217,7 +217,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	
 	public void openEditQueryDialog(AbstractRepositoryQuery query) {
 		try {
-			TaskRepository repository = MylarTaskListPlugin.getRepositoryManager().getRepository(
+			TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
 					query.getRepositoryKind(), query.getRepositoryUrl());
 			if (repository == null)
 				return;
@@ -267,7 +267,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		Matcher matcher = p.matcher(resource);
 
 		if(!matcher.find()) {
-			queryStatus.add(new Status(IStatus.ERROR, MylarTaskListPlugin.PLUGIN_ID, IStatus.ERROR,
+			queryStatus.add(new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
 					"Unable to parse resource. Check query regexp", null));
 		} else {
 			boolean isCorrect = true;
@@ -285,7 +285,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	    	if(isCorrect) {
 	    		queryStatus.add(Status.OK_STATUS);
 	    	} else {
-	    		queryStatus.add(new Status(IStatus.ERROR, MylarTaskListPlugin.PLUGIN_ID, IStatus.ERROR,
+	    		queryStatus.add(new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
 	    				"Require two matching groups (id and description). Check query regexp", null));
 	    	}
 		}

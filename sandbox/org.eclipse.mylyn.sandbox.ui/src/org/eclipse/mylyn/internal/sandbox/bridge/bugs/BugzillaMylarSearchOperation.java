@@ -38,12 +38,12 @@ import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchQuery;
 import org.eclipse.mylar.internal.bugzilla.ui.search.IBugzillaSearchOperation;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaTask;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.StackTrace;
-import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
 import org.eclipse.mylar.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylar.tasks.core.TaskComment;
 import org.eclipse.mylar.tasks.core.ITask;
 import org.eclipse.mylar.tasks.core.RepositoryTaskData;
 import org.eclipse.mylar.tasks.core.TaskRepository;
+import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
@@ -156,9 +156,9 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 		collector.setProgressMonitor(monitor);
 
 		// get all of the root tasks and start the search
-		Set<ITask> tasks = MylarTaskListPlugin.getTaskListManager().getTaskList().getRootTasks();
+		Set<ITask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getRootTasks();
 		searchLocal(tasks, collector, elementName, monitor);
-		for (AbstractTaskContainer cat : MylarTaskListPlugin.getTaskListManager().getTaskList().getTaskContainers()) {
+		for (AbstractTaskContainer cat : TasksUiPlugin.getTaskListManager().getTaskList().getTaskContainers()) {
 			searchLocal(cat.getChildren(), collector, elementName, monitor);
 		}
 
@@ -184,9 +184,9 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 		collector.setProgressMonitor(monitor);
 
 		// get all of the root tasks and start the search
-		Set<ITask> tasks = MylarTaskListPlugin.getTaskListManager().getTaskList().getRootTasks();
+		Set<ITask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getRootTasks();
 		searchLocal(tasks, collector, elementName, monitor);
-		for (AbstractTaskContainer cat : MylarTaskListPlugin.getTaskListManager().getTaskList().getTaskContainers()) {
+		for (AbstractTaskContainer cat : TasksUiPlugin.getTaskListManager().getTaskList().getTaskContainers()) {
 			searchLocal(cat.getChildren(), collector, elementName, monitor);
 		}
 		// return the collector
@@ -295,7 +295,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 		int matches = 0;
 		// setup the progress monitor and start the search
 		searchCollector.setProgressMonitor(monitor);
-		Proxy proxySettings = MylarTaskListPlugin.getDefault().getProxySettings();
+		Proxy proxySettings = TasksUiPlugin.getDefault().getProxySettings();
 		BugzillaSearchEngine engine = new BugzillaSearchEngine(repository, url, proxySettings);
 		try {
 			// perform the search
@@ -333,7 +333,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 
 		// get the search url
 		String url = Util.getExactSearchURL(repositoryUrl, javaElement);
-		TaskRepository repository = MylarTaskListPlugin.getRepositoryManager().getRepository(
+		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
 				BugzillaPlugin.REPOSITORY_KIND, repositoryUrl);
 		return search(url, repository, collector, monitor);
 	}
@@ -353,7 +353,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 
 		// get the search url
 		String url = Util.getInexactSearchURL(repositoryUrl, javaElement);
-		TaskRepository repository = MylarTaskListPlugin.getRepositoryManager().getRepository(
+		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
 				BugzillaPlugin.REPOSITORY_KIND, repositoryUrl);
 
 		return search(url, repository, collector, monitor);

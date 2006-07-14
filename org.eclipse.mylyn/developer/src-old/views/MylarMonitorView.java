@@ -33,7 +33,7 @@ public abstract class MylarMonitorView extends ViewPart {
 	private Action refresh;
 	private Action deleteUsageFile;
 	private Action linkRefresh;
-	private boolean activeRefresh = MylarPlugin.DEBUG_MODE;
+	private boolean activeRefresh = ContextCorePlugin.DEBUG_MODE;
 	
 	class ViewContentProvider implements IStructuredContentProvider {
 		public void inputChanged(Viewer v, Object oldInput, Object newInput) {
@@ -51,7 +51,7 @@ public abstract class MylarMonitorView extends ViewPart {
         this.labelProvider = labelProvider;
         this.viewerSorter = viewerSorter;
         
-//        if (activeRefresh) MylarPlugin.getTaskscapeManager().addListener(REFRESH_UPDATE_LISTENER);
+//        if (activeRefresh) ContextCorePlugin.getTaskscapeManager().addListener(REFRESH_UPDATE_LISTENER);
     }
     
 	/**
@@ -138,7 +138,7 @@ public abstract class MylarMonitorView extends ViewPart {
 								"Delete the underlying file?");
 							if (delete) resetUnderlyingModel();
 						} catch (Throwable t) {
-						    MylarPlugin.fail(t, "Could not delete usage file", true);
+						    ContextCorePlugin.fail(t, "Could not delete usage file", true);
 						}
 					}
 				});
@@ -168,9 +168,9 @@ public abstract class MylarMonitorView extends ViewPart {
 		    activeRefresh = !activeRefresh;
 		    setChecked(activeRefresh);
 		    if (activeRefresh) {
-//		        MylarPlugin.getTaskscapeManager().addListener(REFRESH_UPDATE_LISTENER);
+//		        ContextCorePlugin.getTaskscapeManager().addListener(REFRESH_UPDATE_LISTENER);
 		    } else {
-//		        MylarPlugin.getTaskscapeManager().removeListener(REFRESH_UPDATE_LISTENER);
+//		        ContextCorePlugin.getTaskscapeManager().removeListener(REFRESH_UPDATE_LISTENER);
 		    }
 		}
 	};

@@ -25,8 +25,8 @@ import org.eclipse.mylar.context.core.InteractionEvent;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.context.core.util.DateUtil;
 import org.eclipse.mylar.internal.monitor.reports.ReportGenerator;
-import org.eclipse.mylar.internal.tasklist.ui.actions.TaskActivateAction;
-import org.eclipse.mylar.internal.tasklist.ui.actions.TaskDeactivateAction;
+import org.eclipse.mylar.internal.tasks.ui.ui.actions.TaskActivateAction;
+import org.eclipse.mylar.internal.tasks.ui.ui.actions.TaskDeactivateAction;
 
 /**
  * Delagates to other collectors for additional info.

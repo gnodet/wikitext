@@ -19,10 +19,10 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.DecoratingLabelProvider;
+import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.IMylarContext;
 import org.eclipse.mylar.context.core.IMylarContextListener;
 import org.eclipse.mylar.context.core.IMylarElement;
-import org.eclipse.mylar.context.core.MylarPlugin;
 import org.eclipse.mylar.internal.context.ui.MylarImages;
 import org.eclipse.mylar.internal.context.ui.views.DelegatingContextLabelProvider;
 import org.eclipse.mylar.zest.core.ZestStyles;
@@ -102,7 +102,7 @@ public class TaskscapeGraphView extends ViewPart {
 	};
 
 	public TaskscapeGraphView() {
-		MylarPlugin.getContextManager().addListener(REFRESH_UPDATE_LISTENER);
+		ContextCorePlugin.getContextManager().addListener(REFRESH_UPDATE_LISTENER);
 	}
 
 	/**

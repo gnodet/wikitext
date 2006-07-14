@@ -118,7 +118,7 @@ public class MylarProblemView extends ProblemView {
                             currentViewer.refresh();
                         } 
                     } catch (Throwable t) {
-                        MylarPlugin.fail(t, "Could not update viewer", false);
+                        ContextCorePlugin.fail(t, "Could not update viewer", false);
                     }
                 }
             });
@@ -135,7 +135,7 @@ public class MylarProblemView extends ProblemView {
 	
 	public MylarProblemView() {
 		super();
-		MylarPlugin.getTaskscapeManager().addListener(MODEL_LISTENER);
+		ContextCorePlugin.getTaskscapeManager().addListener(MODEL_LISTENER);
 	}    
 
 	public void init(IViewSite viewSite, IMemento memento) throws PartInitException {
@@ -230,8 +230,8 @@ class ProblemsListDoiSorter extends TableSorter {
 //            IJavaElement element2 = Util.getJavaElement((ProblemMarker)e2);
 //            if (element1 != null && element2 != null) {
 //                return comparator.compare(
-//                    MylarPlugin.getTaskscapeManager().getActiveTaskscape().get(element1.getHandleIdentifier()),
-//                    MylarPlugin.getTaskscapeManager().getActiveTaskscape().get(element1.getHandleIdentifier()));
+//                    ContextCorePlugin.getTaskscapeManager().getActiveTaskscape().get(element1.getHandleIdentifier()),
+//                    ContextCorePlugin.getTaskscapeManager().getActiveTaskscape().get(element1.getHandleIdentifier()));
 //            }
 //        } 
 //        
@@ -267,7 +267,7 @@ class MylarLabelProvider extends DecoratingLabelProvider implements IFontProvide
         ProblemMarker marker = (ProblemMarker)element;
         IJavaElement javaElement = JavaUiUtil.getJavaElement(marker);
         if (javaElement != null) {
-            ITaskscapeNode node = MylarPlugin.getTaskscapeManager().getNode(javaElement.getHandleIdentifier());
+            ITaskscapeNode node = ContextCorePlugin.getTaskscapeManager().getNode(javaElement.getHandleIdentifier());
             return UiUtil.getForegroundForElement(node);
         } else {
             return null;
@@ -279,7 +279,7 @@ class MylarLabelProvider extends DecoratingLabelProvider implements IFontProvide
         ProblemMarker marker = (ProblemMarker)element;
         IJavaElement javaElement = JavaUiUtil.getJavaElement(marker);
         if (javaElement != null) {
-            ITaskscapeNode node = MylarPlugin.getTaskscapeManager().getNode(javaElement.getHandleIdentifier());
+            ITaskscapeNode node = ContextCorePlugin.getTaskscapeManager().getNode(javaElement.getHandleIdentifier());
             return UiUtil.getBackgroundForElement(node);
         } else {
             return null;

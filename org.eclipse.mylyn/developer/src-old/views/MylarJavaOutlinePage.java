@@ -99,7 +99,7 @@ public class MylarJavaOutlinePage extends JavaOutlinePage implements IContentOut
                                 fOutlineViewer.expandAll();
                             }
                         } catch (Throwable t) {
-                            MylarPlugin.fail(t, "Could not update viewer", false);
+                            ContextCorePlugin.fail(t, "Could not update viewer", false);
                         }    
                     }
                 });
@@ -125,7 +125,7 @@ public class MylarJavaOutlinePage extends JavaOutlinePage implements IContentOut
     private FilterUniterestingAction filterUniterestingAction;
     
     public void extendControl(IActionBars actionBars) {
-        MylarPlugin.getTaskscapeManager().addListener(MODEL_LISTENER);
+        ContextCorePlugin.getTaskscapeManager().addListener(MODEL_LISTENER);
         
         mylarLabelProvider = new MylarAppearanceAwareLabelProvider(
                 AppearanceAwareLabelProvider.DEFAULT_TEXTFLAGS |  JavaElementLabels.F_APP_TYPE_SIGNATURE,
@@ -154,7 +154,7 @@ public class MylarJavaOutlinePage extends JavaOutlinePage implements IContentOut
             setImageDescriptor(MylarImages.AUTO_EXPAND);    
             setToolTipText("Filter uninteresting elements"); //$NON-NLS-1$
             
-            boolean checked= MylarPlugin.getDefault().getPreferenceStore().getBoolean("org.eclipse.mylar.ui.outline.filter.isChecked"); //$NON-NLS-1$
+            boolean checked= ContextCorePlugin.getDefault().getPreferenceStore().getBoolean("org.eclipse.mylar.ui.outline.filter.isChecked"); //$NON-NLS-1$
             valueChanged(checked, false);
         }
         
@@ -173,7 +173,7 @@ public class MylarJavaOutlinePage extends JavaOutlinePage implements IContentOut
             }
 
             if (store)
-                MylarPlugin.getDefault().getPreferenceStore().setValue("org.eclipse.mylar.ui.outline.filter.isChecked", on); //$NON-NLS-1$
+                ContextCorePlugin.getDefault().getPreferenceStore().setValue("org.eclipse.mylar.ui.outline.filter.isChecked", on); //$NON-NLS-1$
         }
     }
     
@@ -183,7 +183,7 @@ public class MylarJavaOutlinePage extends JavaOutlinePage implements IContentOut
             if (object instanceof IJavaElement) {
                 IJavaElement element = (IJavaElement)object;
             
-                ITaskscapeNode info = MylarPlugin.getTaskscapeManager().getDoi(element.getHandleIdentifier());
+                ITaskscapeNode info = ContextCorePlugin.getTaskscapeManager().getDoi(element.getHandleIdentifier());
                 return info != null && info.getDegreeOfInterest().getDegreeOfInterest().isInteresting();
             } else {
                 return false;

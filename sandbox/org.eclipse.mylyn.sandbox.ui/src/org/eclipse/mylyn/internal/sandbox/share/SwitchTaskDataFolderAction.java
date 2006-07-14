@@ -18,14 +18,14 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.mylar.context.core.MylarPlugin;
+import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.context.ui.actions.ToggleContextCaptureAction;
 import org.eclipse.mylar.internal.monitor.reports.MylarReportsPlugin;
 import org.eclipse.mylar.internal.sandbox.MylarSandboxPlugin;
-import org.eclipse.mylar.internal.tasklist.ui.ComboSelectionDialog;
-import org.eclipse.mylar.internal.tasklist.ui.views.TaskListView;
-import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
+import org.eclipse.mylar.internal.tasks.ui.ui.ComboSelectionDialog;
+import org.eclipse.mylar.internal.tasks.ui.ui.views.TaskListView;
+import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
@@ -119,7 +119,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 			for (int i = 0; i < files.length; i++) {
 				File currFile = files[i];
 				if (currFile.isDirectory() && containsTaskData(currFile)
-						&& !MylarTaskListPlugin.getDefault().getDataDirectory().endsWith(currFile.getName())) {
+						&& !TasksUiPlugin.getDefault().getDataDirectory().endsWith(currFile.getName())) {
 					folders.add(currFile.getName());
 				}
 			}
@@ -153,7 +153,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 		File[] files = folder.listFiles();
 		for (int i = 0; i < files.length; i++) {
 			File currFile = files[i];
-			if (currFile.isFile() && currFile.getName().equals(MylarTaskListPlugin.DEFAULT_TASK_LIST_FILE)) {
+			if (currFile.isFile() && currFile.getName().equals(TasksUiPlugin.DEFAULT_TASK_LIST_FILE)) {
 				return true;
 			}
 		}
@@ -173,15 +173,15 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 	 */
 	public void switchTaskDataFolder(String targetFolder) {
 
-		MylarTaskListPlugin.getDefault().getTaskListSaveManager().saveTaskList(true);
+		TasksUiPlugin.getDefault().getTaskListSaveManager().saveTaskList(true);
 
 		if (targetFolder.equals(MAIN_LOCAL_DATA_DIR)) {
 			MylarSandboxPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectoryEnabled(false);
-			// MylarTaskListPlugin.getDefault().setDataDirectory(MylarPlugin.getDefault().getDataDirectory());
+			// MylarTaskListPlugin.getDefault().setDataDirectory(ContextCorePlugin.getDefault().getDataDirectory());
 			(new ToggleContextCaptureAction()).resume(); // TODO: don't use
 			// actions directly
 			TaskListView.getFromActivePerspective().indicateSharedFolder("");
-			MylarPlugin.getContextManager().setActivationHistorySuppressed(false);
+			ContextCorePlugin.getContextManager().setActivationHistorySuppressed(false);
 		} else {
 			String dataDirPath = MylarReportsPlugin.getDefault().getRootSharedDataDirectory() + File.separator
 					+ targetFolder;
@@ -190,7 +190,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 			// MylarTaskListPlugin.getDefault().setDataDirectory(dataDirPath);
 			(new ToggleContextCaptureAction()).pause();
 			TaskListView.getFromActivePerspective().indicateSharedFolder(targetFolder);
-			MylarPlugin.getContextManager().setActivationHistorySuppressed(true);
+			ContextCorePlugin.getContextManager().setActivationHistorySuppressed(true);
 		}
 	}
 

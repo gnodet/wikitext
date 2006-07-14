@@ -48,7 +48,7 @@ public class UsageStatisticsView extends MylarMonitorView {
 				super.setContentDescription(summary); 
                 return MonitorPlugin.getStatisticsManager().getGlobalMergedSession().getStatistics().toArray();
 			} catch (Throwable t) { 
-			    MylarPlugin.fail(t, "Failed to show usage data", false);
+			    ContextCorePlugin.fail(t, "Failed to show usage data", false);
                 return new String[] { 
                         "Absent or incompatible usage data: " + t.getMessage(), 
                         "Consider resetting usage file." };
@@ -107,7 +107,7 @@ public class UsageStatisticsView extends MylarMonitorView {
  
     protected void resetUnderlyingModel() {
         if(!MonitorPlugin.getStatisticsManager().clearUsageDataAndStore()) {
-            MylarPlugin.fail(null, "Could not delete usage file", true);
+            ContextCorePlugin.fail(null, "Could not delete usage file", true);
         }
     }
     public static UsageStatisticsView getDefault() {

@@ -20,9 +20,9 @@ import org.eclipse.mylar.context.core.IDegreeOfSeparation;
 import org.eclipse.mylar.context.core.IMylarStructureBridge;
 import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchHit;
 import org.eclipse.mylar.internal.context.core.DegreeOfSeparation;
-import org.eclipse.mylar.internal.tasklist.ui.editors.ContentOutlineTools;
-import org.eclipse.mylar.internal.tasklist.ui.editors.RepositoryTaskOutlineNode;
-import org.eclipse.mylar.internal.tasklist.ui.editors.RepositoryTaskSelection;
+import org.eclipse.mylar.internal.tasks.ui.ui.editors.ContentOutlineTools;
+import org.eclipse.mylar.internal.tasks.ui.ui.editors.RepositoryTaskOutlineNode;
+import org.eclipse.mylar.internal.tasks.ui.ui.editors.RepositoryTaskSelection;
 import org.eclipse.ui.views.markers.internal.ProblemMarker;
 
 /**

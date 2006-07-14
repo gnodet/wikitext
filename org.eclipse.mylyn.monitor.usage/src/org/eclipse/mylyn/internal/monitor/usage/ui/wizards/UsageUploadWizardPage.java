@@ -135,7 +135,7 @@ public class UsageUploadWizardPage extends WizardPage {
 		// try {
 		// FileDisplayDialog.openShowFile(null, filename, "", file);
 		// }catch(FileNotFoundException fnfe){
-		// MylarPlugin.log(this.getClass().toString(), fnfe);
+		// ContextCorePlugin.log(this.getClass().toString(), fnfe);
 		// }
 		// }
 		//

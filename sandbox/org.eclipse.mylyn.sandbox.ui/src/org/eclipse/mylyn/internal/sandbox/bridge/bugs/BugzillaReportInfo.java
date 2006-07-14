@@ -23,9 +23,9 @@ import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaServerFacade;
 import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchHit;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.StackTrace;
-import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
 import org.eclipse.mylar.tasks.core.RepositoryTaskData;
 import org.eclipse.mylar.tasks.core.TaskRepository;
+import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 
 /**
  * Class to store the DoiInfo of a BugzillaSearchHit
@@ -118,8 +118,8 @@ public class BugzillaReportInfo {
 	public RepositoryTaskData getBug() throws IOException, GeneralSecurityException, BugzillaException {
 		if (bug == null) {
 			// get the bug report
-			TaskRepository repository = MylarTaskListPlugin.getRepositoryManager().getRepository(BugzillaPlugin.REPOSITORY_KIND, hit.getRepositoryUrl());
-			Proxy proxySettings = MylarTaskListPlugin.getDefault().getProxySettings();
+			TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(BugzillaPlugin.REPOSITORY_KIND, hit.getRepositoryUrl());
+			Proxy proxySettings = TasksUiPlugin.getDefault().getProxySettings();
 			bug = BugzillaServerFacade.getBug(repository.getUrl(), repository.getUserName(), repository.getPassword(), proxySettings, repository.getCharacterEncoding(), hit.getId());
 		}
 		return bug;

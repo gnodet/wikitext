@@ -50,13 +50,13 @@ public class MylarBugsManager {
 		workbench.getDisplay().asyncExec(new Runnable() {
 			public void run() {
 				// bugzillaEditingMonitor = new BugzillaEditingMonitor();
-				// MylarPlugin.getDefault().getSelectionMonitors().add(bugzillaEditingMonitor);
+				// ContextCorePlugin.getDefault().getSelectionMonitors().add(bugzillaEditingMonitor);
 			}
 		});
 	}
 
 	public void dispose(BundleContext context) throws Exception {
-		// MylarPlugin.getDefault().getSelectionMonitors().remove(bugzillaEditingMonitor);
+		// ContextCorePlugin.getDefault().getSelectionMonitors().remove(bugzillaEditingMonitor);
 	}
 
 	/**

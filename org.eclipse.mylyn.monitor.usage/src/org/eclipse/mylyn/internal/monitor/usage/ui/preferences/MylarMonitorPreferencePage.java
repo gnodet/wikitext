@@ -199,7 +199,7 @@ public class MylarMonitorPreferencePage extends PreferencePage implements IWorkb
 
 		// String taskDirectory = logFileText.getText();
 		// taskDirectory = taskDirectory.replaceAll("\\\\", "/");
-		// getPreferenceStore().setValue(MylarPlugin.PREF_DATA_DIR,
+		// getPreferenceStore().setValue(ContextCorePlugin.PREF_DATA_DIR,
 		// taskDirectory);
 
 		int uidNum = -1;

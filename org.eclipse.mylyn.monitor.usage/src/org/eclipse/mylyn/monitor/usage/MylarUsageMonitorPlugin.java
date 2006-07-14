@@ -37,7 +37,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylar.context.core.IContextStoreListener;
 import org.eclipse.mylar.context.core.IInteractionEventListener;
-import org.eclipse.mylar.context.core.MylarPlugin;
+import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.context.core.MylarContextManager;
 import org.eclipse.mylar.internal.monitor.usage.InteractionEventLogger;
@@ -184,18 +184,18 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 	private ShellListener SHELL_LISTENER = new ShellListener() {
 
 		public void shellDeactivated(ShellEvent arg0) {
-			if (!isPerformingUpload() && MylarPlugin.getDefault() != null) {
+			if (!isPerformingUpload() && ContextCorePlugin.getDefault() != null) {
 				for (IInteractionEventListener listener : MylarMonitorPlugin.getDefault().getInteractionListeners())
 					listener.stopObserving();
 			}
 		}
 
 		public void shellActivated(ShellEvent arg0) {
-			if (!MylarPlugin.getDefault().suppressWizardsOnStartup() && MylarPlugin.getDefault() != null) {
+			if (!ContextCorePlugin.getDefault().suppressWizardsOnStartup() && ContextCorePlugin.getDefault() != null) {
 				// checkForStudyPhasePromotion();
 				checkForStatisticsUpload();
 			}
-			if (!isPerformingUpload() && MylarPlugin.getDefault() != null) {
+			if (!isPerformingUpload() && ContextCorePlugin.getDefault() != null) {
 				for (IInteractionEventListener listener : MylarMonitorPlugin.getDefault().getInteractionListeners())
 					listener.startObserving();
 			}
@@ -315,7 +315,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 				w.getShell().addShellListener(SHELL_LISTENER);
 			}
 		}
-		MylarPlugin.getDefault().getContextStore().addListener(DATA_DIR_MOVE_LISTENER);
+		ContextCorePlugin.getDefault().getContextStore().addListener(DATA_DIR_MOVE_LISTENER);
 		MylarMonitorPlugin.getDefault().addWindowPerspectiveListener(perspectiveMonitor);
 		workbench.getActivitySupport().getActivityManager().addActivityManagerListener(activityMonitor);
 		workbench.getDisplay().addFilter(SWT.Selection, menuMonitor);
@@ -327,7 +327,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 			((IMylarMonitorLifecycleListener)listener).startMonitoring();
 		}
 
-		if (!MylarPlugin.getDefault().suppressWizardsOnStartup()) {
+		if (!ContextCorePlugin.getDefault().suppressWizardsOnStartup()) {
 			checkForFirstMonitorUse();
 		}
 		getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED, true);
@@ -369,8 +369,8 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 				w.getShell().removeShellListener(SHELL_LISTENER);
 			}
 		}
-		MylarPlugin.getDefault().getContextStore().removeListener(DATA_DIR_MOVE_LISTENER);
-//		MylarPlugin.getDefault().getPluginPreferences().removePropertyChangeListener(DATA_DIR_MOVE_LISTENER);
+		ContextCorePlugin.getDefault().getContextStore().removeListener(DATA_DIR_MOVE_LISTENER);
+//		ContextCorePlugin.getDefault().getPluginPreferences().removePropertyChangeListener(DATA_DIR_MOVE_LISTENER);
 
 		MylarMonitorPlugin.getDefault().removeWindowPerspectiveListener(perspectiveMonitor);
 		workbench.getActivitySupport().getActivityManager().removeActivityManagerListener(activityMonitor);
@@ -442,10 +442,10 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 	}
 
 	public File getMonitorLogFile() {
-		File file = new File(MylarPlugin.getDefault().getContextStore().getRootDirectory(), MONITOR_LOG_NAME
+		File file = new File(ContextCorePlugin.getDefault().getContextStore().getRootDirectory(), MONITOR_LOG_NAME
 				+ MylarContextManager.CONTEXT_FILE_EXTENSION);
 
-		File oldFile = new File(MylarPlugin.getDefault().getContextStore().getRootDirectory(), MONITOR_LOG_NAME_OLD
+		File oldFile = new File(ContextCorePlugin.getDefault().getContextStore().getRootDirectory(), MONITOR_LOG_NAME_OLD
 				+ MylarContextManager.CONTEXT_FILE_EXTENSION);
 		if (oldFile.exists()) {
 			oldFile.renameTo(file);

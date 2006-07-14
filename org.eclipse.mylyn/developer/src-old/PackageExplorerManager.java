@@ -34,7 +34,7 @@ public class PackageExplorerManager implements IMylarContextListener {
     
     public void contextActivated(IMylarContext taskscape) {
     	try {
-	    	if (MylarPlugin.getContextManager().hasActiveContext()
+	    	if (ContextCorePlugin.getContextManager().hasActiveContext()
 	    		&& ApplyMylarToPackageExplorerAction.getDefault() != null
 	        	&& ApplyMylarToPackageExplorerAction.getDefault().isChecked()) {
 				PackageExplorerPart packageExplorer = PackageExplorerPart.getFromActivePerspective();
@@ -43,7 +43,7 @@ public class PackageExplorerManager implements IMylarContextListener {
 				}
 	    	}	
     	} catch (Throwable t) {
-    		MylarPlugin.log(t, "Could not update package explorer");
+    		ContextCorePlugin.log(t, "Could not update package explorer");
     	}
     }
 
@@ -64,11 +64,11 @@ public class PackageExplorerManager implements IMylarContextListener {
 
     public void presentationSettingsChanged(UpdateKind kind) {
 //        if (kind == ITaskscapeListener.UpdateKind.FILTER) {
-//            IJavaElement selected = JavaCore.create(MylarPlugin.getTaskscapeManager().getActiveNode().getElementHandle());
+//            IJavaElement selected = JavaCore.create(ContextCorePlugin.getTaskscapeManager().getActiveNode().getElementHandle());
 //            
 //            PackageExplorerPart packageExplorer = PackageExplorerPart.getFromActivePerspective();
 //            if (packageExplorer != null && selected!= null) packageExplorer.getTreeViewer().expandToLevel(selected, 1);
-//            ITaskscapeNode currentNode = MylarPlugin.getTaskscapeManager().getActiveNode();
+//            ITaskscapeNode currentNode = ContextCorePlugin.getTaskscapeManager().getActiveNode();
 //            
 //            IJavaElement activeElement = JavaCore.create(currentNode.getElementHandle());
 //            if (activeElement != null && activeElement.exists()) refreshPackageExplorer(activeElement);
@@ -102,8 +102,8 @@ public class PackageExplorerManager implements IMylarContextListener {
     	if (nodes.size() == 0) return;
     	IMylarContextNode lastNode = nodes.get(nodes.size()-1);
     	interestChanged(lastNode);
-//        if (MylarPlugin.getTaskscapeManager().getTempRaisedHandle() != null) {
-//            final IJavaElement raisedElement = JavaCore.create(MylarPlugin.getTaskscapeManager().getTempRaisedHandle());
+//        if (ContextCorePlugin.getTaskscapeManager().getTempRaisedHandle() != null) {
+//            final IJavaElement raisedElement = JavaCore.create(ContextCorePlugin.getTaskscapeManager().getTempRaisedHandle());
 //            final PackageExplorerPart packageExplorer = PackageExplorerPart.getFromActivePerspective();
 //            if (packageExplorer != null) {
 //              PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
@@ -156,7 +156,7 @@ public class PackageExplorerManager implements IMylarContextListener {
     
     public void interestChanged(IMylarContextNode node) {
 	    try {
-    		if (MylarPlugin.getContextManager().hasActiveContext()
+    		if (ContextCorePlugin.getContextManager().hasActiveContext()
 	    		&& ApplyMylarToPackageExplorerAction.getDefault() != null
 	    		&& ApplyMylarToPackageExplorerAction.getDefault().isChecked()) {
 		    	IJavaElement lastElement = JavaCore.create(node.getElementHandle()); 
@@ -166,11 +166,11 @@ public class PackageExplorerManager implements IMylarContextListener {
 				}
 	    	}
 	    } catch (Throwable t) {
-			MylarPlugin.log(t, "Could not update package explorer");
+			ContextCorePlugin.log(t, "Could not update package explorer");
 		}
 //        IJavaElement element = JavaCore.create(node.getElementHandle()); 
 //        if(element == null) { 
-//        	IMylarStructureBridge bridge = MylarPlugin.getDefault().getStructureBridge(node.getStructureKind());
+//        	IMylarStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(node.getStructureKind());
 //        	Object object = bridge.getObjectForHandle(node.getElementHandle());
 //        	if(object != null) refreshPackageExplorer(object);
 //        } else {

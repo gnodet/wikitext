@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.IMylarElement;
 import org.eclipse.mylar.context.core.IMylarRelation;
-import org.eclipse.mylar.context.core.MylarPlugin;
 import org.eclipse.mylar.zest.core.viewers.IGraphContentProvider;
 
 /**
@@ -43,7 +43,7 @@ public class TaskscapeGraphContentProvider implements IGraphContentProvider {
 	}
 
 	public Object[] getRelationships() {
-		List<IMylarElement> nodes = MylarPlugin.getContextManager().getActiveContext().getAllElements();
+		List<IMylarElement> nodes = ContextCorePlugin.getContextManager().getActiveContext().getAllElements();
 		Set<IMylarRelation> edges = new HashSet<IMylarRelation>();
 		for (IMylarElement node : nodes)
 			edges.addAll(node.getRelations());

@@ -82,7 +82,7 @@ public class MylarPackageExplorer extends PackageExplorerPart {
                                 MylarPackageExplorer.this.getTreeViewer().expandAll();
                         }
                     } catch (Throwable t) {
-                        MylarPlugin.fail(t, "Could not update viewer", false);
+                        ContextCorePlugin.fail(t, "Could not update viewer", false);
                     }    
                 }
             });
@@ -90,7 +90,7 @@ public class MylarPackageExplorer extends PackageExplorerPart {
 	};
     
     public MylarPackageExplorer() {
-        MylarPlugin.getTaskscapeManager().addListener(MODEL_LISTENER);
+        ContextCorePlugin.getTaskscapeManager().addListener(MODEL_LISTENER);
         INSTANCE = this;
     }
     
@@ -128,7 +128,7 @@ public class MylarPackageExplorer extends PackageExplorerPart {
     // TODO: still too slow?
     public void expandAllInteresting() {
         if (autoExpandModeEnabled) getTreeViewer().expandAll();
-//        List<ITaskscapeNode> elements = MylarPlugin.getTaskscapeManager().getActiveTaskscape().getInteresting();
+//        List<ITaskscapeNode> elements = ContextCorePlugin.getTaskscapeManager().getActiveTaskscape().getInteresting();
 //        if (elements == null) return;
 //        List<IJavaElement> prunedElements = new ArrayList<IJavaElement>();
 //        for (ITaskscapeNode node : elements) {

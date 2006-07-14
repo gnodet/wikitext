@@ -237,7 +237,7 @@ public class BugzillaTaskHandler implements ITaskHandler {
 //
 // // task.removeReport();
 // MylarTaskListPlugin.getTaskListManager().deleteTask(task);
-// MylarPlugin.getContextManager().contextDeleted(task.getHandleIdentifier());
+// ContextCorePlugin.getContextManager().contextDeleted(task.getHandleIdentifier());
 // IWorkbenchPage page =
 // MylarTaskListPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow()
 // .getActivePage();

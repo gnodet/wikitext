@@ -17,10 +17,10 @@ import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.TaskRepository;
+import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.ModifyEvent;
@@ -185,7 +185,7 @@ public class WebQueryWizardPage extends WizardPage {
 		String taskPrefix = taskPrefixText.getText();
 		String regexp = regexpText.getText();
 		return new WebQuery(description, queryUrl, taskPrefix, regexp, 
-				MylarTaskListPlugin.getTaskListManager().getTaskList(), repository.getUrl());
+				TasksUiPlugin.getTaskListManager().getTaskList(), repository.getUrl());
 	}
 
 	synchronized void updatePreview() {
@@ -255,7 +255,7 @@ public class WebQueryWizardPage extends WizardPage {
 			String currentRegexp = regexp;
 			active = true;
 			do {
-				final MultiStatus queryStatus = new MultiStatus(MylarTaskListPlugin.PLUGIN_ID, IStatus.OK, "Query result", null);
+				final MultiStatus queryStatus = new MultiStatus(TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Query result", null);
 				List<AbstractQueryHit> hits = null;
 				try {
 					if(webPage==null) {
@@ -265,10 +265,10 @@ public class WebQueryWizardPage extends WizardPage {
 					hits = WebRepositoryConnector.performQuery(webPage, currentRegexp, null, null, monitor, queryStatus);
 					
 				} catch (final IOException ex) {
-					queryStatus.add(new Status(IStatus.ERROR, MylarTaskListPlugin.PLUGIN_ID, IStatus.ERROR,
+					queryStatus.add(new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
 							"Unable to fetch resource: "+ex.getMessage(), null));
 				} catch (final Exception ex) {
-					queryStatus.add(new Status(IStatus.ERROR, MylarTaskListPlugin.PLUGIN_ID, IStatus.ERROR,
+					queryStatus.add(new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
 							"Parsing error: "+ex.getMessage(), null));
 				}
 				

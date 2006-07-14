@@ -141,9 +141,9 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		// MylarMonitorPlugin.getPrefs().getInt(MylarMonitorPlugin.PREF_NUM_USER_EVENTS)
 		// -
 		// MylarMonitorPlugin.getPrefs().getInt(MylarMonitorPlugin.PREF_NUM_USER_EVENTS_LAST_PHASE);
-		// MylarPlugin.log("Number user events: " + numEvents, this);
-		// MylarPlugin.log("Number events needed: " + numSinceLastPhase, this);
-		// MylarPlugin.log("Date next release: " +
+		// ContextCorePlugin.log("Number user events: " + numEvents, this);
+		// ContextCorePlugin.log("Number events needed: " + numSinceLastPhase, this);
+		// ContextCorePlugin.log("Date next release: " +
 		// DateUtil.getFormattedDateTime(MylarMonitorPlugin.NEXT_RELEASE_AVAILABLE.getTimeInMillis()),
 		// this);
 
@@ -775,7 +775,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		List<File> files = new ArrayList<File>();
 		files.add(monitorFile);
 
-//		File zipFile = new File(MylarPlugin.getDefault().getDataDirectory() + "/mylarUpload.zip");
+//		File zipFile = new File(ContextCorePlugin.getDefault().getDataDirectory() + "/mylarUpload.zip");
 
 		try {
 			File zipFile = File.createTempFile("mylarUpload", "zip");

@@ -115,7 +115,7 @@ public class SelectionMonitor extends AbstractUserInteractionMonitor {
 				}
 			}
 		}
-		IMylarElement node = MylarPlugin.getContextManager().getElement(elementHandle);
+		IMylarElement node = ContextCorePlugin.getContextManager().getElement(elementHandle);
 		String delta = "";
 		float selectionFactor = MylarContextManager.getScalingFactors().get(InteractionEvent.Kind.SELECTION).getValue();
 
@@ -137,7 +137,7 @@ public class SelectionMonitor extends AbstractUserInteractionMonitor {
 
 		InteractionEvent event = new InteractionEvent(interactionKind, structureKind, obfuscatedElementHandle, part
 				.getSite().getId(), "null", delta, 0);
-		MylarPlugin.getDefault().notifyInteractionObserved(event);
+		ContextCorePlugin.getDefault().notifyInteractionObserved(event);
 	}
 
 	private String obfuscateJavaElementHandle(IJavaElement javaElement) {

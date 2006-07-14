@@ -29,10 +29,10 @@ import org.eclipse.mylar.internal.sandbox.bridge.bugs.BugzillaReportInfo;
 import org.eclipse.mylar.internal.sandbox.bridge.bugs.MylarBugsManager;
 import org.eclipse.mylar.java.tests.search.SearchPluginTestHelper;
 import org.eclipse.mylar.java.tests.search.WorkspaceSetupHelper;
-import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
-import org.eclipse.mylar.provisional.tasklist.TaskListManager;
 import org.eclipse.mylar.tasks.core.TaskCategory;
 import org.eclipse.mylar.tasks.core.TaskRepository;
+import org.eclipse.mylar.tasks.ui.TaskListManager;
+import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 
 /*
  * TEST CASES TO HANDLE 1. what is here 2. different scopes ( local and remote )
@@ -70,7 +70,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 		WorkspaceSetupHelper.setupWorkspace();
 		repository = new TaskRepository(BugzillaPlugin.REPOSITORY_KIND,
 				IBugzillaConstants.ECLIPSE_BUGZILLA_URL);
-		MylarTaskListPlugin.getRepositoryManager().addRepository(repository);
+		TasksUiPlugin.getRepositoryManager().addRepository(repository);
 
 		IJavaProject jp = WorkspaceSetupHelper.getJdtCoreDomProject();
 		astNodeType = WorkspaceSetupHelper.getType(jp, "org.eclipse.jdt.core.dom.ASTNode");
@@ -79,7 +79,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 	@Override
 	protected void tearDown() throws Exception {
 		WorkspaceSetupHelper.clearDoiModel();
-		MylarTaskListPlugin.getRepositoryManager().removeRepository(repository);
+		TasksUiPlugin.getRepositoryManager().removeRepository(repository);
 	}
 
 	/**
@@ -228,7 +228,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 
 		// TaskList t = MylarTaskListPlugin.getTaskListManager().getTaskList();
 		// MylarTaskListPlugin.getTaskListManager().setTaskList(t);
-		TaskListManager manager = MylarTaskListPlugin.getTaskListManager();
+		TaskListManager manager = TasksUiPlugin.getTaskListManager();
 		TaskCategory cat = new TaskCategory("Testing Category", manager.getTaskList());
 		manager.getTaskList().addCategory(cat);
 		BugzillaTask bugTask1 = new BugzillaTask(bugPrefix + 94185, "<bugzilla info>", true);
@@ -283,7 +283,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 		assertEquals("Results not the right size", 3, c.size());
 
 		MylarBugsManager.getBridge().removeFromLandmarksHash(astNodeType);
-		MylarTaskListPlugin.getTaskListManager().getTaskList().deleteCategory(cat);
+		TasksUiPlugin.getTaskListManager().getTaskList().deleteCategory(cat);
 	}
 
 	// TODO need to test a bug that wraps...should fail since we can only search
@@ -295,7 +295,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 
 		// TaskList t = MylarTaskListPlugin.getTaskListManager().getTaskList();
 		// MylarTaskListPlugin.getTaskListManager().setTaskList(t);
-		TaskListManager manager = MylarTaskListPlugin.getTaskListManager();
+		TaskListManager manager = TasksUiPlugin.getTaskListManager();
 		TaskCategory cat = new TaskCategory("Testing Category", manager.getTaskList());
 		manager.getTaskList().addCategory(cat);
 		BugzillaTask bugTask1 = new BugzillaTask(bugPrefix + 94185, "<bugzilla info>", true);
@@ -343,7 +343,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 		assertEquals("Results not the right size", 1, c.size());
 
 		MylarBugsManager.getBridge().removeFromLandmarksHash(astNodeType);
-		MylarTaskListPlugin.getTaskListManager().getTaskList().deleteCategory(cat);
+		TasksUiPlugin.getTaskListManager().getTaskList().deleteCategory(cat);
 	}
 
 }

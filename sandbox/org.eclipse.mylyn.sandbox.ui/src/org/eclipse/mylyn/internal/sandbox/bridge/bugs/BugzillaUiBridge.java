@@ -23,11 +23,11 @@ import org.eclipse.mylar.context.core.IMylarElement;
 import org.eclipse.mylar.context.ui.IMylarUiBridge;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaServerFacade;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaTaskEditor;
-import org.eclipse.mylar.internal.tasklist.ui.TaskUiUtil;
-import org.eclipse.mylar.internal.tasklist.ui.editors.AbstractRepositoryTaskEditor;
-import org.eclipse.mylar.internal.tasklist.ui.editors.RepositoryTaskOutlinePage;
-import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
+import org.eclipse.mylar.internal.tasks.ui.ui.TaskUiUtil;
+import org.eclipse.mylar.internal.tasks.ui.ui.editors.AbstractRepositoryTaskEditor;
+import org.eclipse.mylar.internal.tasks.ui.ui.editors.RepositoryTaskOutlinePage;
 import org.eclipse.mylar.tasks.core.ITask;
+import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
@@ -60,7 +60,7 @@ public class BugzillaUiBridge implements IMylarUiBridge {
 			bugHandle = bugHandle.substring(0, next);
 		}
 
-		ITask task = MylarTaskListPlugin.getTaskListManager().getTaskList().getTask(handle);
+		ITask task = TasksUiPlugin.getTaskListManager().getTaskList().getTask(handle);
 		if (task != null) {
 			TaskUiUtil.openEditor(task, false);
 //			BugzillaTask bugzillaTask = (BugzillaTask) task;

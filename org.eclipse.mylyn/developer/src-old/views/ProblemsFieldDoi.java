@@ -61,7 +61,7 @@ public class ProblemsFieldDoi implements org.eclipse.ui.views.markers.internal.I
 		ConcreteMarker marker = (ConcreteMarker) obj;
 		IJavaElement javaElement= JavaUiUtil.getJavaElement(marker);//SearchUtil.getJavaElement(marker);
 		if (javaElement != null) {
-            return "" + MylarPlugin.getTaskscapeManager().getActiveTaskscape().get(javaElement.getHandleIdentifier()).getDegreeOfInterest().getDegreeOfInterest().getValue();
+            return "" + ContextCorePlugin.getTaskscapeManager().getActiveTaskscape().get(javaElement.getHandleIdentifier()).getDegreeOfInterest().getDegreeOfInterest().getValue();
 //			return marker.getResourceName();
 		} else {
 		    return "<undefined>";
@@ -80,8 +80,8 @@ public class ProblemsFieldDoi implements org.eclipse.ui.views.markers.internal.I
             IJavaElement j1 = JavaUiUtil.getJavaElement(m1);//SearchUtil.getJavaElement(marker);
             IJavaElement j2 = JavaUiUtil.getJavaElement(m2);//SearchUtil.getJavaElement(marker);
             if (j1 != null && j2 != null) {
-                ITaskscapeNode n1 = MylarPlugin.getTaskscapeManager().getActiveTaskscape().get(j1.getHandleIdentifier());
-                ITaskscapeNode n2 = MylarPlugin.getTaskscapeManager().getActiveTaskscape().get(j2.getHandleIdentifier());
+                ITaskscapeNode n1 = ContextCorePlugin.getTaskscapeManager().getActiveTaskscape().get(j1.getHandleIdentifier());
+                ITaskscapeNode n2 = ContextCorePlugin.getTaskscapeManager().getActiveTaskscape().get(j2.getHandleIdentifier());
                 return  (int)(n1.getDegreeOfInterest().getDegreeOfInterest().getValue() - n2.getDegreeOfInterest().getDegreeOfInterest().getValue());
             }
         }

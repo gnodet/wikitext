@@ -14,8 +14,8 @@ package org.eclipse.mylar.internal.sandbox.bridge.bugs;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaTaskEditor;
-import org.eclipse.mylar.internal.tasklist.ui.editors.AbstractRepositoryTaskEditor;
-import org.eclipse.mylar.internal.tasklist.ui.editors.RepositoryTaskSelection;
+import org.eclipse.mylar.internal.tasks.ui.ui.editors.AbstractRepositoryTaskEditor;
+import org.eclipse.mylar.internal.tasks.ui.ui.editors.RepositoryTaskSelection;
 import org.eclipse.mylar.monitor.AbstractUserInteractionMonitor;
 import org.eclipse.ui.IWorkbenchPart;
 

@@ -17,11 +17,11 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.mylar.context.core.IMylarElement;
 import org.eclipse.mylar.context.core.IMylarStructureBridge;
-import org.eclipse.mylar.context.core.MylarPlugin;
-import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
+import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
 import org.eclipse.mylar.tasks.core.TaskRepository;
+import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
 
@@ -44,8 +44,8 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 			String text = "Object class: " + object.getClass() + "\n\n";
 
 			try {
-				IMylarStructureBridge bridge = MylarPlugin.getDefault().getStructureBridge(object);
-				IMylarElement node = MylarPlugin.getContextManager().getElement(bridge.getHandleIdentifier(object));
+				IMylarStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(object);
+				IMylarElement node = ContextCorePlugin.getContextManager().getElement(bridge.getHandleIdentifier(object));
 				if (node != null) {
 					text += "Interest value: " + node.getInterest().getValue() + "\n";
 					text += node.getInterest().toString();
@@ -63,7 +63,7 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 					task = ((AbstractQueryHit)object).getCorrespondingTask();
 				}
 				if (task != null) {
-					TaskRepository repository = MylarTaskListPlugin.getRepositoryManager().getRepository(task.getRepositoryKind(), task.getRepositoryUrl());
+					TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(task.getRepositoryKind(), task.getRepositoryUrl());
 					text += "\nLast modified: " + task.getLastModifiedDateStamp();
 					text += "\nRepository synch time stamp: " + repository.getSyncTimeStamp();
 					text += "\nSync state: "+ task.getSyncState();

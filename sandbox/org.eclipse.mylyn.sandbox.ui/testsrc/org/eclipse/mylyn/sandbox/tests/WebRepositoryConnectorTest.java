@@ -24,8 +24,8 @@ import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.mylar.internal.sandbox.web.WebRepositoryConnector;
 import org.eclipse.mylar.internal.sandbox.web.WebRepositoryTemplate;
-import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
+import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 
 /**
  * @author Eugene Kuleshov 
@@ -43,7 +43,7 @@ public class WebRepositoryConnectorTest extends TestCase {
 		StringBuffer buffer = WebRepositoryConnector.fetchResource(template.query);
 		
 		IProgressMonitor monitor = new NullProgressMonitor();
-		MultiStatus queryStatus = new MultiStatus(MylarTaskListPlugin.PLUGIN_ID, IStatus.OK, "Query result", null);
+		MultiStatus queryStatus = new MultiStatus(TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Query result", null);
 		
 		List<AbstractQueryHit> hits = WebRepositoryConnector.performQuery(buffer, template.regexp, template.prefix, template.url, monitor, queryStatus);
 		
