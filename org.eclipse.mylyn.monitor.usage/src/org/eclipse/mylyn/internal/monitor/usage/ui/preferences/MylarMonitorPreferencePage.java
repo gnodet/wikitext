@@ -16,7 +16,7 @@ import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.mylar.internal.monitor.usage.MylarMonitorPreferenceConstants;
-import org.eclipse.mylar.monitor.HandleObfuscator;
+import org.eclipse.mylar.monitor.usage.HandleObfuscator;
 import org.eclipse.mylar.monitor.usage.MylarUsageMonitorPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;

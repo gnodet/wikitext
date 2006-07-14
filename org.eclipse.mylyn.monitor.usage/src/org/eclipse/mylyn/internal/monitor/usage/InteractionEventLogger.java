@@ -34,7 +34,7 @@ import org.eclipse.mylar.context.core.InteractionEvent.Kind;
 import org.eclipse.mylar.internal.context.core.MylarContextExternalizer;
 import org.eclipse.mylar.internal.context.core.util.XmlStringConverter;
 import org.eclipse.mylar.internal.monitor.usage.HtmlStreamTokenizer.Token;
-import org.eclipse.mylar.monitor.HandleObfuscator;
+import org.eclipse.mylar.monitor.usage.HandleObfuscator;
 import org.eclipse.mylar.monitor.usage.MylarUsageMonitorPlugin;
 
 /**

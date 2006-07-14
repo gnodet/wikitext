@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.monitor;
+package org.eclipse.mylar.monitor.usage;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -32,8 +32,6 @@ public class HandleObfuscator {
 	public static final String LABEL_FAILED_TO_OBFUSCATE = "<failed to obfuscate>";
 		
 	public static final String ENCRYPTION_ALGORITHM = "SHA";
-	
-	public static final String OBFUSCATED_LABEL = "[obfuscated]";
 	
 	public String obfuscateHandle(String structureKind, String structureHandle) {
 		if (structureHandle == null || structureHandle.equals("")) {
