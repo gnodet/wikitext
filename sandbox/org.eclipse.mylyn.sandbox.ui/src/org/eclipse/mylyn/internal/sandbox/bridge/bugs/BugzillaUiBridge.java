@@ -21,7 +21,7 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.mylar.context.core.IMylarElement;
 import org.eclipse.mylar.context.ui.IMylarUiBridge;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaRepositoryUtil;
+import org.eclipse.mylar.internal.bugzilla.core.BugzillaServerFacade;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaTaskEditor;
 import org.eclipse.mylar.internal.tasklist.ui.TaskUiUtil;
 import org.eclipse.mylar.internal.tasklist.ui.editors.AbstractRepositoryTaskEditor;
@@ -66,7 +66,7 @@ public class BugzillaUiBridge implements IMylarUiBridge {
 //			BugzillaTask bugzillaTask = (BugzillaTask) task;
 //			bugzillaTask.openTask(commentNumer, true);
 		} else {
-			String bugUrl = BugzillaRepositoryUtil.getBugUrlWithoutLogin(server, bugId);
+			String bugUrl = BugzillaServerFacade.getBugUrlWithoutLogin(server, bugId);
 			TaskUiUtil.openRepositoryTask(server, "" + bugId, bugUrl);
 
 //			List<BugzillaOpenStructure> openList = new ArrayList<BugzillaOpenStructure>(1);

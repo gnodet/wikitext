@@ -20,7 +20,7 @@ import java.util.List;
 
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaException;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaRepositoryUtil;
+import org.eclipse.mylar.internal.bugzilla.core.BugzillaServerFacade;
 import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchHit;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.StackTrace;
 import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
@@ -120,7 +120,7 @@ public class BugzillaReportInfo {
 			// get the bug report
 			TaskRepository repository = MylarTaskListPlugin.getRepositoryManager().getRepository(BugzillaPlugin.REPOSITORY_KIND, hit.getRepositoryUrl());
 			Proxy proxySettings = MylarTaskListPlugin.getDefault().getProxySettings();
-			bug = BugzillaRepositoryUtil.getBug(repository.getUrl(), repository.getUserName(), repository.getPassword(), proxySettings, repository.getCharacterEncoding(), hit.getId());
+			bug = BugzillaServerFacade.getBug(repository.getUrl(), repository.getUserName(), repository.getPassword(), proxySettings, repository.getCharacterEncoding(), hit.getId());
 		}
 		return bug;
 	}
