@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Move 'org.eclipse.mylar.internal.trac.model.TracTicket.parseDate(...)' to 'org.eclipse.mylar.internal.trac.core.TracUtils'&#10;- Original element: 'org.eclipse.mylar.internal.trac.model.TracTicket.parseDate(...)'&#10;- Destination type: 'org.eclipse.mylar.internal.trac.core.TracUtils'" delegate="false" deprecate="true" description="Move member 'parseDate'" element1="/src&lt;org.eclipse.mylar.internal.trac.model{TracTicket.java[TracTicket~parseDate~I" flags="589830" id="org.eclipse.jdt.ui.move.static" input="/src&lt;org.eclipse.mylar.internal.trac.core{TracUtils.java[TracUtils" stamp="1152722280126" version="1.0"/>
+</session>

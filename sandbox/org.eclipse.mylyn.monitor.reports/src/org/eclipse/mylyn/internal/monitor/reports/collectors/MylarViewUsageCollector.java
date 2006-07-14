@@ -20,8 +20,8 @@ import java.util.Set;
 
 import org.eclipse.mylar.context.core.InteractionEvent;
 import org.eclipse.mylar.internal.context.ui.actions.AbstractApplyMylarAction;
-import org.eclipse.mylar.internal.tasks.ui.ui.actions.TaskActivateAction;
-import org.eclipse.mylar.internal.tasks.ui.ui.actions.TaskDeactivateAction;
+import org.eclipse.mylar.internal.tasks.ui.actions.TaskActivateAction;
+import org.eclipse.mylar.internal.tasks.ui.actions.TaskDeactivateAction;
 
 /**
  * @author Mik Kersten

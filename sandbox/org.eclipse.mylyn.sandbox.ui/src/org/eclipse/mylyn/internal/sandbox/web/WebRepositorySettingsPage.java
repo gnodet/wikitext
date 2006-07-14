@@ -14,7 +14,7 @@ package org.eclipse.mylar.internal.sandbox.web;
 import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
-import org.eclipse.mylar.internal.tasks.ui.ui.wizards.AbstractRepositorySettingsPage;
+import org.eclipse.mylar.internal.tasks.ui.wizards.AbstractRepositorySettingsPage;
 import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.mylar.tasks.ui.AbstractRepositoryConnector;
 import org.eclipse.swt.events.SelectionEvent;

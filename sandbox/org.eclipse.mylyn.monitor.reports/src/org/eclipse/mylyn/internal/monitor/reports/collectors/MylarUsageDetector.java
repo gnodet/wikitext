@@ -11,8 +11,8 @@
 package org.eclipse.mylar.internal.monitor.reports.collectors;
 
 import org.eclipse.mylar.context.core.InteractionEvent;
-import org.eclipse.mylar.internal.tasks.ui.ui.actions.TaskActivateAction;
-import org.eclipse.mylar.internal.tasks.ui.ui.actions.TaskDeactivateAction;
+import org.eclipse.mylar.internal.tasks.ui.actions.TaskActivateAction;
+import org.eclipse.mylar.internal.tasks.ui.actions.TaskDeactivateAction;
 
 public abstract class MylarUsageDetector {
 

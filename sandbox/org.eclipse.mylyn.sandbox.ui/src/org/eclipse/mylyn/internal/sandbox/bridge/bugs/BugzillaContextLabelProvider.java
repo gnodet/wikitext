@@ -17,7 +17,7 @@ import org.eclipse.mylar.context.core.IMylarStructureBridge;
 import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.internal.context.ui.AbstractContextLabelProvider;
 import org.eclipse.mylar.internal.context.ui.MylarImages;
-import org.eclipse.mylar.internal.tasks.ui.ui.TaskListImages;
+import org.eclipse.mylar.internal.tasks.ui.TaskListImages;
 import org.eclipse.swt.graphics.Image;
 
 /**
