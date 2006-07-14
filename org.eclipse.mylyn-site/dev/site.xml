@@ -3,21 +3,25 @@
    <description url="http://download.eclipse.org/technology/mylar/update-site/e3.2">
       Mylar update site for Eclipse 3.2
    </description>
-   <feature url="features/org.eclipse.mylar_feature_0.6.0.v20060707-1900.jar" id="org.eclipse.mylar_feature" version="0.6.0.v20060707-1900">
+   <feature url="features/org.eclipse.mylar_feature_0.6.0.v20060714-1330.jar" id="org.eclipse.mylar_feature" version="0.6.0.v20060714-1330">
       <category name="Mylar for Eclipse 3.2"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.ide_feature_0.6.0.v20060707-1900.jar" id="org.eclipse.mylar.ide_feature" version="0.6.0.v20060707-1900">
+   <feature url="features/org.eclipse.mylar.ide_feature_0.6.0.v20060714-1330.jar" id="org.eclipse.mylar.ide_feature" version="0.6.0.v20060714-1330">
       <category name="Mylar for Eclipse 3.2"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.bugzilla_feature_0.6.0.v20060707-1900.jar" id="org.eclipse.mylar.bugzilla_feature" version="0.6.0.v20060707-1900">
+   <feature url="features/org.eclipse.mylar.bugzilla_feature_0.6.0.v20060714-1330.jar" id="org.eclipse.mylar.bugzilla_feature" version="0.6.0.v20060714-1330">
       <category name="Task Repository Integration"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.jira_feature_0.6.0.v20060707-1900.jar" id="org.eclipse.mylar.jira_feature" version="0.6.0.v20060707-1900">
+   <feature url="features/org.eclipse.mylar.jira_feature_0.6.0.v20060714-1330.jar" id="org.eclipse.mylar.jira_feature" version="0.6.0.v20060714-1330">
       <category name="Task Repository Integration"/>
    </feature>
    <feature url="http://jira-dashboard.tigris.org/update/features/org.tigris.jira.core_0.9.1.jar" id="org.tigris.jira.core" version="0.9.1">
       <category name="Tigris.org Dependencies"/>
    </feature>
+   <feature url="features/org.eclipse.mylar.trac_feature_0.6.0.v20060714-1330.jar" id="org.eclipse.mylar.trac_feature" version="0.6.0.v20060714-1330">
+      <category name="Sandbox"/>
+   </feature>
+   <archive path="plugins/org.apache.axis_2.0.1.jar" url="http://jira-dashboard.tigris.org/update/plugins/org.apache.axis_2.0.1.jar"/>
    <archive path="plugins/org.tigris.jira.core.soap_0.9.1.jar" url="http://jira-dashboard.tigris.org/update/plugins/org.tigris.jira.core.soap_0.9.1.jar"/>
    <archive path="plugins/org.apache.xmlrpc_2.0.1.jar" url="http://steffenpingel.de/update/plugins/org.apache.xmlrpc_2.0.1.jar"/>
    <archive path="plugins/org.apache.commons.httpclient_3.0.0.jar" url="http://jira-dashboard.tigris.org/update/plugins/org.apache.commons.httpclient_3.0.0.jar"/>
@@ -26,4 +30,5 @@
    <category-def name="Mylar for Eclipse 3.2" label="Mylar for Eclipse 3.2"/>
    <category-def name="Task Repository Integration" label="Task Repository Integration"/>
    <category-def name="Tigris.org Dependencies" label="Tigris.org Dependencies"/>
+   <category-def name="Sandbox" label="Sandbox"/>
 </site>
