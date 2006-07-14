@@ -124,7 +124,7 @@
    <extension
          id="org.eclipse.mylar.web.repository"
          name="Generic web-based Repository"
-         point="org.eclipse.mylar.tasklist.repositories">
+         point="org.eclipse.mylar.tasks.ui.repositories">
       <repositoryType
             brandingIcon="icons/obj16/repository-web.gif"
             class="org.eclipse.mylar.internal.sandbox.web.WebRepositoryConnector"
