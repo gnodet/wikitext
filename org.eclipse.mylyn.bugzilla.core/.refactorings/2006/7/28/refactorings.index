@@ -1,1 +1,3 @@
 1152646062953	Extract constant 'ENCODING_GZIP'
+1152831605296	Rename method 'setConfigurationCachFile'
+1152831589906	Rename method 'setConfigurationLocation'
