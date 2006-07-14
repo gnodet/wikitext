@@ -104,6 +104,18 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			"http://sourceforge.net/tracker/index.php?func=detail&group_id=84122&atid=575154&aid=",
 			"http://sourceforge.net/tracker/?atid=575154&group_id=84122",
 		    "<a href=\"/tracker/index.php\\?func=detail&amp;aid=(.+?)&amp;group_id=84122&amp;atid=575154\">(.+?)</a>"),
+		new WebRepositoryTemplate("phpbb.com (phpBB)", 
+			"http://www.phpbb.com/phpBB/",
+			"http://www.phpbb.com/phpBB/posting.php?mode=newtopic&f=1",
+			"http://www.phpbb.com/phpBB/viewtopic.php?t=",
+			"http://www.phpbb.com/phpBB/viewforum.php?f=1",
+		    "<a href=\"viewtopic.php\\?t=(\\d+?)(?:&.+?)?\" class=\"topictitle\">(.+?)</a>"),
+		new WebRepositoryTemplate("Spring IDE Forum (vBulletin)", 
+			"http://forum.springframework.org/forumdisplay.php?f=32",
+			"http://forum.springframework.org/newthread.php?do=newthread&f=32",
+			"http://forum.springframework.org/showthread.php?t=",
+			"http://forum.springframework.org/forumdisplay.php?f=32",
+		    "<a href=\"showthread.php\\?.+?t=(\\d+?)\" id=\"thread_title_\\1\">(.+?)</a>"),
 	};
 	
 	
