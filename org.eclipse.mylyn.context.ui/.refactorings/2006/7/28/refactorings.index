@@ -1,4 +1,5 @@
 1152751263296	Rename field 'bridge'
+1152841247953	Rename resource 'context.exsd'
 1152832007171	Rename method 'addWorkingSetUpdater'
 1152774222562	Rename package 'org.eclipse.mylar.internal.ui'
 1152774182843	Rename package 'org.eclipse.mylar.provisional.ui'

@@ -2,13 +2,13 @@
 <?eclipse version="3.0"?>
 <plugin>
 <extension
-         point="org.eclipse.mylar.context.core.context">
+         point="org.eclipse.mylar.context.core.bridges">
       <structureBridge
             class="org.eclipse.mylar.internal.web.WebResourceStructureBridge"
             name="Web Resource Structure Bridge"/>
    </extension> 
    <extension
-         point="org.eclipse.mylar.context.ui.context">
+         point="org.eclipse.mylar.context.ui.bridges">
       <uiBridge
             class="org.eclipse.mylar.internal.web.ui.WebResourceUiBridge"
             contentType="http"

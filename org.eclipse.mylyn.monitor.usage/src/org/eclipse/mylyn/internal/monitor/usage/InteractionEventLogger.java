@@ -44,7 +44,7 @@ import org.eclipse.mylar.monitor.usage.MylarUsageMonitorPlugin;
  * TODO: use buffered output stream for better performance?
  */
 public class InteractionEventLogger implements IInteractionEventListener {
-
+ 
 	private File outputFile;
 
 	private static FileOutputStream outputStream;

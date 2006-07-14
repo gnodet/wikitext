@@ -1,4 +1,5 @@
 1152658334937	Rename method 'transferContext'
+1152841105921	Rename resource 'context.exsd'
 1152835774359	Rename type 'AbstractStatusNotifier'
 1152830998593	Rename type 'IMylarContextStore'
 1152775563187	Rename method 'setDumpErrors'
