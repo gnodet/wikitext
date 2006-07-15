@@ -1,4 +1,5 @@
 1152640834757	Rename method 'setCommentText'
+1152923529859	Rename method 'createButtonLayouts'
 1152890867968	Rename package 'org.eclipse.mylar.internal.tasks.ui.ui.wizards'
 1152890836171	Rename package 'org.eclipse.mylar.internal.tasks.ui.ui.views'
 1152890810437	Rename package 'org.eclipse.mylar.internal.tasks.ui.ui.preferences'
