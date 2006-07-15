@@ -1,5 +1,5 @@
-1152640834757	Rename method 'setCommentText'
-1152923529859	Rename method 'createButtonLayouts'
+1152925202785	Rename type 'TaskListExtensionReader'
+1152923862400	Rename type 'AddRepositoryWizard'
 1152890867968	Rename package 'org.eclipse.mylar.internal.tasks.ui.ui.wizards'
 1152890836171	Rename package 'org.eclipse.mylar.internal.tasks.ui.ui.views'
 1152890810437	Rename package 'org.eclipse.mylar.internal.tasks.ui.ui.preferences'
@@ -18,5 +18,6 @@
 1152737849703	Move member 'PROPERTY_TIMEZONE'
 1152737843812	Move member 'PROPERTY_SYNCTIMESTAMP'
 1152737836156	Move member 'OLD_PROPERTY_SYNCTIME'
-1152542212351	Convert anonymous class to nested
 1152655848562	Extract method 'getTextForTask'
+1152640834757	Rename method 'setCommentText'
+1152542212351	Convert anonymous class to nested
