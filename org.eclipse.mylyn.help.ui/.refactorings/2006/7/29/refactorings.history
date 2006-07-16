@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource '/org.eclipse.mylar.doc/doc/images/tips/icon-task-note.gif' to 'icon-task-notes.gif'&#13;&#10;- Original element: 'icon-task-note.gif'" description="Rename resource 'icon-task-note.gif'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="doc/images/tips/icon-task-note.gif" name="icon-task-notes.gif" stamp="1153015414186" version="1.0"/>
+</session>
