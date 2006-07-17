@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Convert member type 'org.eclipse.mylar.internal.context.ui.ActiveSearchView.DoiOrderSorter' in 'org.eclipse.mylar.internal.context.ui.ActiveSearchView' to top level type&#13;&#10;- Original element: 'org.eclipse.mylar.internal.context.ui.ActiveSearchView.DoiOrderSorter'&#13;&#10;- Field name: 'view'&#13;&#10;- Declare field 'final'" description="Convert member type 'DoiOrderSorter' to top level" field="false" fieldName="view" final="true" flags="786438" id="org.eclipse.jdt.ui.move.inner" input="/src&lt;org.eclipse.mylar.internal.context.ui{ActiveSearchView.java[ActiveSearchView[DoiOrderSorter" mandatory="false" possible="false" stamp="1153047640250" version="1.0"/>
+</session>
