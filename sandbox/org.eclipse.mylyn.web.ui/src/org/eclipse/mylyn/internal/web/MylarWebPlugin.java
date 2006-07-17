@@ -13,8 +13,6 @@ package org.eclipse.mylar.internal.web;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.monitor.MylarMonitorPlugin;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -28,7 +26,7 @@ public class MylarWebPlugin extends AbstractUIPlugin {
 	private static MylarWebPlugin INSTANCE;
 
 	private WebResourceManager webResourceManager;
-	
+
 	private BrowserTracker browserTracker;
 
 	public MylarWebPlugin() {
@@ -38,33 +36,17 @@ public class MylarWebPlugin extends AbstractUIPlugin {
 	public static WebResourceManager getWebResourceManager() {
 		return INSTANCE.webResourceManager;
 	}
-	
+
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-		final IWorkbench workbench = PlatformUI.getWorkbench();
-		workbench.getDisplay().asyncExec(new Runnable() {
-			public void run() {
-				try {
-					// TODO: move back out of async?
-					webResourceManager = new WebResourceManager();
-					
-					browserTracker = new BrowserTracker();
-					MylarMonitorPlugin.getDefault().addWindowPartListener(browserTracker);
-										
-//					workbench.addWindowListener(browserTracker);
-//					IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
-//					for (int i = 0; i < windows.length; i++) {
-//						windows[i].addPageListener(browserTracker);
-//						IWorkbenchPage[] pages = windows[i].getPages();
-//						for (int j = 0; j < pages.length; j++) {
-//							pages[j].addPartListener(browserTracker);
-//						}
-//					}
-				} catch (Exception e) {
-					MylarStatusHandler.fail(e, "Mylar Hypertext initialization failed", false);
-				}
-			}
-		});
+		webResourceManager = new WebResourceManager();
+		try {
+			browserTracker = new BrowserTracker();
+			MylarMonitorPlugin.getDefault().addWindowPartListener(browserTracker);
+
+		} catch (Exception e) {
+			MylarStatusHandler.fail(e, "Mylar Hypertext initialization failed", false);
+		}
 	}
 
 	public void stop(BundleContext context) throws Exception {
