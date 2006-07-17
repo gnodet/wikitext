@@ -23,7 +23,7 @@ import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.IMylarContext;
 import org.eclipse.mylar.context.core.IMylarContextListener;
 import org.eclipse.mylar.context.core.IMylarElement;
-import org.eclipse.mylar.internal.context.ui.MylarImages;
+import org.eclipse.mylar.internal.context.ui.ContextUiImages;
 import org.eclipse.mylar.internal.context.ui.views.DelegatingContextLabelProvider;
 import org.eclipse.mylar.zest.core.ZestStyles;
 import org.eclipse.mylar.zest.core.viewers.StaticGraphViewer;
@@ -181,7 +181,7 @@ public class TaskscapeGraphView extends ViewPart {
 
 		refreshAction.setText("Run Layout");
 		refreshAction.setToolTipText("Runs the layout algorithm again");
-		refreshAction.setImageDescriptor(MylarImages.EDGE_REFERENCE);
+		refreshAction.setImageDescriptor(ContextUiImages.EDGE_REFERENCE);
 
 	}
 

@@ -30,7 +30,7 @@ import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.context.ui.InterestSorter;
 import org.eclipse.mylar.context.ui.ContextUiPlugin;
-import org.eclipse.mylar.internal.context.ui.MylarImages;
+import org.eclipse.mylar.internal.context.ui.ContextUiImages;
 import org.eclipse.mylar.internal.context.ui.actions.ToggleDecorateInterestLevelAction;
 import org.eclipse.mylar.internal.context.ui.views.ContextContentProvider;
 import org.eclipse.mylar.internal.context.ui.views.ContextNodeOpenListener;
@@ -196,7 +196,7 @@ public class MylarContextTreeView extends ViewPart {
 	private void makeActions() {
 		linkRefresh = new ActiveRefreshAction();
 		linkRefresh.setToolTipText("Active Refresh");
-		linkRefresh.setImageDescriptor(MylarImages.SYNCHED);
+		linkRefresh.setImageDescriptor(ContextUiImages.SYNCHED);
 		linkRefresh.setChecked(activeRefresh);
 
 		decorateInterestLevel = new ToggleDecorateInterestLevelAction();

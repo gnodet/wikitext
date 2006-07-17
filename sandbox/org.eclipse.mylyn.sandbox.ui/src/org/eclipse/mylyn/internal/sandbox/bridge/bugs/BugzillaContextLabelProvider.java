@@ -16,7 +16,7 @@ import org.eclipse.mylar.context.core.IMylarRelation;
 import org.eclipse.mylar.context.core.IMylarStructureBridge;
 import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.internal.context.ui.AbstractContextLabelProvider;
-import org.eclipse.mylar.internal.context.ui.MylarImages;
+import org.eclipse.mylar.internal.context.ui.ContextUiImages;
 import org.eclipse.mylar.internal.tasks.ui.TaskListImages;
 import org.eclipse.swt.graphics.Image;
 
@@ -32,7 +32,7 @@ public class BugzillaContextLabelProvider extends AbstractContextLabelProvider {
 
 	@Override
 	protected Image getImage(IMylarRelation edge) {
-		return MylarImages.getImage(MylarBugsManager.EDGE_REF_BUGZILLA);
+		return ContextUiImages.getImage(MylarBugsManager.EDGE_REF_BUGZILLA);
 	}
 
 	@Override

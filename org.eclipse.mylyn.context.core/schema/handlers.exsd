@@ -12,6 +12,9 @@
 
    <element name="extension">
       <complexType>
+         <sequence>
+            <element ref="status"/>
+         </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
                <documentation>
@@ -47,7 +50,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="org.eclipse.mylar.context.core.IStatusHandler"/>
+                  <meta.attribute kind="java"/>
                </appInfo>
             </annotation>
          </attribute>

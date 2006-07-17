@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename method 'org.eclipse.mylar.internal.java.MylarJavaPlugin.setPreferenceDefaults()' to 'initDefaultPrefs'&#13;&#10;- Original element: 'org.eclipse.mylar.internal.java.MylarJavaPlugin.setPreferenceDefaults()'&#13;&#10;- Renamed element: 'org.eclipse.mylar.internal.java.MylarJavaPlugin.initDefaultPrefs()'&#13;&#10;- Update references to refactored element" delegate="false" deprecate="true" description="Rename method 'setPreferenceDefaults'" flags="589826" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylar.internal.java{MylarJavaPlugin.java[MylarJavaPlugin~setPreferenceDefaults" name="initDefaultPrefs" references="true" stamp="1153121256578" version="1.0"/>
+</session>
