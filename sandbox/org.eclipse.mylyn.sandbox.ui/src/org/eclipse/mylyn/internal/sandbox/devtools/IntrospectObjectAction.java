@@ -68,6 +68,8 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 					text += "\nRepository synch time stamp: " + repository.getSyncTimeStamp();
 					text += "\nSync state: "+ task.getSyncState();
 					text += "\nParent: "+ task.getContainer();
+					
+					text += "\n\nTask List size: " + TasksUiPlugin.getTaskListManager().getTaskList().getAllTasks().size();
 				}
 			}
 			
