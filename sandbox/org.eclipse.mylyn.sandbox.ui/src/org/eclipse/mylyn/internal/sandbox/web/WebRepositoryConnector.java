@@ -59,6 +59,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	
 	public static final String PROPERTY_TASK_PREFIX_URL = "taskprefixurl";
 
+	// TODO: Remove, replaced by extension point org.eclipse.mylar.tasks.ui.templates
 	public static WebRepositoryTemplate[] REPOSITORY_TEMPLATES = {
 		new WebRepositoryTemplate(
 			"Subclipse (IssueZilla)",
@@ -343,13 +344,13 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		
 	}
 
-	public static WebRepositoryTemplate getTemplate(String label) {
-		for (WebRepositoryTemplate template : REPOSITORY_TEMPLATES) {
-			if(label.equals(template.label)) {
-				return template;
-			}
-		}
-		return null;
-	}
+//	public static WebRepositoryTemplate getTemplate(String label) {
+//		for (WebRepositoryTemplate template : templates) {
+//			if(label.equals(template.label)) {
+//				return template;
+//			}
+//		}
+//		return null;
+//	}
 }
 

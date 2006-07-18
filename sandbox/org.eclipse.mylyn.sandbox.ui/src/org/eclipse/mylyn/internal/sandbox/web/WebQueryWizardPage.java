@@ -19,7 +19,9 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylar.tasks.core.RepositoryTemplate;
 import org.eclipse.mylar.tasks.core.TaskRepository;
+import org.eclipse.mylar.tasks.ui.AbstractRepositoryConnector;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -55,6 +57,7 @@ public class WebQueryWizardPage extends WizardPage {
 	private StringBuffer webPage;
 	
 	private TaskRepository repository;
+	private AbstractRepositoryConnector connector;
 	private WebQuery query;
 	private UpdatePreviewJob updatePreviewJob;
 
@@ -66,7 +69,7 @@ public class WebQueryWizardPage extends WizardPage {
 		super("New web query");
 		this.repository = repository;
 		this.query = query;
-
+		this.connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getKind());
 		setTitle("Create web query");
 		setDescription("Specify URL for web page that show query results and regexp to extract id and description " +
 				repository.getUrl());
@@ -88,22 +91,30 @@ public class WebQueryWizardPage extends WizardPage {
 		descriptionText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		descriptionText.addSelectionListener(new SelectionListener() {
 
-				public void widgetDefaultSelected(SelectionEvent e) {
-					// ignore
-				}
-	
-				public void widgetSelected(SelectionEvent e) {
-					WebRepositoryTemplate template = WebRepositoryConnector.getTemplate(descriptionText.getText());
-					if(template!=null) {
-						queryUrlText.setText(template.query);
-						regexpText.setText(template.regexp);
-						taskPrefixText.setText(template.prefix);
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// ignore
+			}
+
+			public void widgetSelected(SelectionEvent e) {
+
+				for (RepositoryTemplate template : connector.getTemplates()) {
+					if (template.label.equals(descriptionText.getText())) {
+						// WebRepositoryTemplate template =
+						// WebRepositoryConnector.getTemplate(descriptionText.getText());
+						// if(template!=null) {
+						queryUrlText.setText(template.taskQueryUrl);
+						regexpText.setText(template.taskRegexp);
+						taskPrefixText.setText(template.taskPrefixUrl);
+						// }
+						return;
 					}
 				}
 
-			});
+			}
+
+		});
 		
-		for (WebRepositoryTemplate template : WebRepositoryConnector.REPOSITORY_TEMPLATES) {
+		for (RepositoryTemplate template : connector.getTemplates()) {
 			descriptionText.add(template.label);
 		}
 		

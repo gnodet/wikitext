@@ -1,2 +1,5 @@
 1153144519218	Rename type 'TaskListPreferencePage'
+1153253684609	Rename type 'TasksUitExtensionReader'
+1153249815125	Rename field 'ELMNT_TMPL_SERVERURL'
+1153249484093	Rename field 'ELMNT_TMPL_TASKURLPREFIX'
 1153121623921	Rename type 'RepositoryAwareStatusNotifier'

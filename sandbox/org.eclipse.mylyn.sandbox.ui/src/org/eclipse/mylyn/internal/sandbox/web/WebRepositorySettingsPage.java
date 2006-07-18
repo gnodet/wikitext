@@ -15,6 +15,7 @@ import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.mylar.internal.tasks.ui.wizards.AbstractRepositorySettingsPage;
+import org.eclipse.mylar.tasks.core.RepositoryTemplate;
 import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.mylar.tasks.ui.AbstractRepositoryConnector;
 import org.eclipse.swt.events.SelectionEvent;
@@ -22,54 +23,64 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Composite;
 
 /**
- * Settings page for generic web-based repository connector 
+ * Settings page for generic web-based repository connector
  * 
  * @author Eugene Kuleshov
  */
 public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage implements IPropertyChangeListener {
 	private static final String TITLE = "Web Repository Settings";
+
 	private static final String DESCRIPTION = "Generic web-based repository connector";
 
 	protected StringFieldEditor taskPrefixUrlEditor;
+
 	protected StringFieldEditor newTaskUrlEditor;
-	
-	
+
 	public WebRepositorySettingsPage(AbstractRepositoryConnector connector) {
 		super(TITLE, DESCRIPTION, connector);
 	}
 
 	@Override
 	protected void createAdditionalControls(Composite parent) {
-		for (WebRepositoryTemplate template : WebRepositoryConnector.REPOSITORY_TEMPLATES) {
-			if(repositoryLabelCombo.indexOf(template.label)==-1) { 
+		for (RepositoryTemplate template : connector.getTemplates()) {
+			if (repositoryLabelCombo.indexOf(template.label) == -1) {
 				repositoryLabelCombo.add(template.label);
 			}
 		}
-		
+
 		repositoryLabelCombo.addSelectionListener(new SelectionListener() {
 
-				public void widgetSelected(SelectionEvent e) {
-					WebRepositoryTemplate template = WebRepositoryConnector.getTemplate(repositoryLabelCombo.getText());
-					if(template!=null) {
-						serverUrlEditor.setStringValue(template.url);
-						taskPrefixUrlEditor.setStringValue(template.prefix);
-						newTaskUrlEditor.setStringValue(template.newTask);
+			public void widgetSelected(SelectionEvent e) {
+
+				String text = repositoryLabelCombo.getText();
+				for (RepositoryTemplate template : connector.getTemplates()) {
+
+					// WebRepositoryTemplate template =
+					// WebRepositoryConnector.getTemplate(repositoryLabelCombo.getText());
+					if (template.label.equals(text)) {
+						serverUrlEditor.setStringValue(template.repositoryUrl);
+						taskPrefixUrlEditor.setStringValue(template.taskPrefixUrl);
+						newTaskUrlEditor.setStringValue(template.newTaskUrl);
+						getContainer().updateButtons();
+						return;
 					}
 				}
+			}
 
-				public void widgetDefaultSelected(SelectionEvent e) {
-					// ignore
-				}
-				
-			});
-		
-		taskPrefixUrlEditor = new StringFieldEditor("taskPrefixUrl", "Task prefix URL:", StringFieldEditor.UNLIMITED, parent);
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// ignore
+			}
+
+		});
+
+		taskPrefixUrlEditor = new StringFieldEditor("taskPrefixUrl", "Task prefix URL:", StringFieldEditor.UNLIMITED,
+				parent);
 		taskPrefixUrlEditor.setPropertyChangeListener(this);
-		
+
 		newTaskUrlEditor = new StringFieldEditor("newTaskUrl", "New task URL:", StringFieldEditor.UNLIMITED, parent);
 		newTaskUrlEditor.setPropertyChangeListener(this);
-		
-		if(repository!=null) {
+
+		if (repository != null) {
 			taskPrefixUrlEditor.setStringValue(repository.getProperty(WebRepositoryConnector.PROPERTY_TASK_PREFIX_URL));
 			newTaskUrlEditor.setStringValue(repository.getProperty(WebRepositoryConnector.PROPERTY_NEW_TASK_URL));
 		}
@@ -83,12 +94,11 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 		// ignore
 	}
 
-	
 	// IPropertyChangeListener
-	
+
 	public void propertyChange(PropertyChangeEvent event) {
 		Object source = event.getSource();
-		if(source==taskPrefixUrlEditor || source == newTaskUrlEditor) {
+		if (source == taskPrefixUrlEditor || source == newTaskUrlEditor) {
 			getWizard().getContainer().updateButtons();
 		}
 	}
@@ -96,9 +106,9 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 	@Override
 	public TaskRepository createTaskRepository() {
 		TaskRepository repository = super.createTaskRepository();
-		repository.setProperty(WebRepositoryConnector.PROPERTY_TASK_PREFIX_URL, taskPrefixUrlEditor.getStringValue()); 
-		repository.setProperty(WebRepositoryConnector.PROPERTY_NEW_TASK_URL, newTaskUrlEditor.getStringValue()); 
+		repository.setProperty(WebRepositoryConnector.PROPERTY_TASK_PREFIX_URL, taskPrefixUrlEditor.getStringValue());
+		repository.setProperty(WebRepositoryConnector.PROPERTY_NEW_TASK_URL, newTaskUrlEditor.getStringValue());
 		return repository;
 	}
-	
+
 }
