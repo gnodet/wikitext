@@ -106,9 +106,14 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 	@Override
 	public TaskRepository createTaskRepository() {
 		TaskRepository repository = super.createTaskRepository();
+		updateProperties(repository);
+		return repository;
+	}
+
+	@Override
+	public void updateProperties(TaskRepository repository) {
 		repository.setProperty(WebRepositoryConnector.PROPERTY_TASK_PREFIX_URL, taskPrefixUrlEditor.getStringValue());
 		repository.setProperty(WebRepositoryConnector.PROPERTY_NEW_TASK_URL, newTaskUrlEditor.getStringValue());
-		return repository;
 	}
 
 }
