@@ -35,25 +35,25 @@ public class NextTaskDropDownAction extends TaskNavigateDropDownAction {
 	}
 
 	protected void addActionsToMenu() {
-		List<ITask> tasks = taskHistory.getNextTasks();
-
-		if (tasks.size() > MAX_ITEMS_TO_DISPLAY) {
-			tasks = tasks.subList(0, MAX_ITEMS_TO_DISPLAY);
-		}
-
-		for (int i = 0; i < tasks.size(); i++) {
-			ITask currTask = tasks.get(i);
-			Action taskNavAction = new TaskNavigateAction(currTask);
-			ActionContributionItem item = new ActionContributionItem(taskNavAction);
-			item.fill(dropDownMenu, -1);
-		}
+//		List<ITask> tasks = taskHistory.getNextTasks();
+//
+//		if (tasks.size() > MAX_ITEMS_TO_DISPLAY) {
+//			tasks = tasks.subList(0, MAX_ITEMS_TO_DISPLAY);
+//		}
+//
+//		for (int i = 0; i < tasks.size(); i++) {
+//			ITask currTask = tasks.get(i);
+//			Action taskNavAction = new TaskNavigateAction(currTask);
+//			ActionContributionItem item = new ActionContributionItem(taskNavAction);
+//			item.fill(dropDownMenu, -1);
+//		}
 	}
 
 	public void run() {
-		if (taskHistory.hasNext()) {
-			new TaskActivateAction().run(taskHistory.getNextTask());
-			setButtonStatus();
-			view.refreshAndFocus(false);
-		}
+//		if (taskHistory.hasNext()) {
+//			new TaskActivateAction().run(taskHistory.getNextTask());
+//			setButtonStatus();
+//			view.refreshAndFocus(false);
+//		}
 	}
 }
