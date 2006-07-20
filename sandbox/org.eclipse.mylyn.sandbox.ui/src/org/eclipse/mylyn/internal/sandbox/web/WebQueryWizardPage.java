@@ -96,20 +96,17 @@ public class WebQueryWizardPage extends WizardPage {
 			}
 
 			public void widgetSelected(SelectionEvent e) {
-
-				for (RepositoryTemplate template : connector.getTemplates()) {
-					if (template.label.equals(descriptionText.getText())) {
-						// WebRepositoryTemplate template =
-						// WebRepositoryConnector.getTemplate(descriptionText.getText());
-						// if(template!=null) {
-						queryUrlText.setText(template.taskQueryUrl);
-						regexpText.setText(template.taskRegexp);
-						taskPrefixText.setText(template.taskPrefixUrl);
-						// }
-						return;
-					}
+				RepositoryTemplate template = connector.getTemplate(descriptionText.getText());
+				if (template != null) {
+					// WebRepositoryTemplate template =
+					// WebRepositoryConnector.getTemplate(descriptionText.getText());
+					// if(template!=null) {
+					queryUrlText.setText(template.taskQueryUrl);
+					regexpText.setText(template.taskRegexp);
+					taskPrefixText.setText(template.taskPrefixUrl);
+					// }
+					return;
 				}
-
 			}
 
 		});

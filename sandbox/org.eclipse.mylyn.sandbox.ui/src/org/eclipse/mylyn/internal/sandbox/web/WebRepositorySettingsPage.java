@@ -51,20 +51,15 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 		repositoryLabelCombo.addSelectionListener(new SelectionListener() {
 
 			public void widgetSelected(SelectionEvent e) {
-
 				String text = repositoryLabelCombo.getText();
-				for (RepositoryTemplate template : connector.getTemplates()) {
-
-					// WebRepositoryTemplate template =
-					// WebRepositoryConnector.getTemplate(repositoryLabelCombo.getText());
-					if (template.label.equals(text)) {
-						serverUrlEditor.setStringValue(template.repositoryUrl);
-						taskPrefixUrlEditor.setStringValue(template.taskPrefixUrl);
-						newTaskUrlEditor.setStringValue(template.newTaskUrl);
-						getContainer().updateButtons();
-						return;
-					}
-				}
+				RepositoryTemplate template = connector.getTemplate(text);
+				if(template != null) {
+					serverUrlEditor.setStringValue(template.repositoryUrl);
+					taskPrefixUrlEditor.setStringValue(template.taskPrefixUrl);
+					newTaskUrlEditor.setStringValue(template.newTaskUrl);
+					getContainer().updateButtons();
+					return;
+				}			
 			}
 
 			public void widgetDefaultSelected(SelectionEvent e) {
