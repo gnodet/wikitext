@@ -28,7 +28,7 @@ public class WebQuery extends AbstractRepositoryQuery {
 
 		this.regexp = regexp;
 		
-		setQueryUrl(queryUrl);
+		setUrl(queryUrl);
 		setRepositoryUrl(repositoryUrl);
 	}
 

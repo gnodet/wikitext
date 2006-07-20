@@ -192,7 +192,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	
 	public List<AbstractQueryHit> performQuery(AbstractRepositoryQuery query, IProgressMonitor monitor, MultiStatus queryStatus) {
 		if(query instanceof WebQuery) {
-			String queryUrl = query.getQueryUrl();
+			String queryUrl = query.getUrl();
 			String regexp = ((WebQuery) query).getRegexp();
 			String taskPrefix = ((WebQuery) query).getTaskPrefix();
 			String repositoryUrl = query.getRepositoryUrl();

@@ -183,7 +183,7 @@ public class WebQueryWizardPage extends WizardPage {
 		
 		if(query!=null) {
 			descriptionText.setText(query.getDescription());
-			queryUrlText.setText(query.getQueryUrl());
+			queryUrlText.setText(query.getUrl());
 			regexpText.setText(query.getRegexp());
 			taskPrefixText.setText(query.getTaskPrefix());
 		}
