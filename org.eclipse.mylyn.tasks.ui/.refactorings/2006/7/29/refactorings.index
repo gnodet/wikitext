@@ -1,4 +1,5 @@
 1153144519218	Rename type 'TaskListPreferencePage'
+1153343986885	Rename method 'createFileSelectionControl'
 1153330764104	Rename method 'addCustomProperties'
 1153253684609	Rename type 'TasksUitExtensionReader'
 1153249815125	Rename field 'ELMNT_TMPL_SERVERURL'
