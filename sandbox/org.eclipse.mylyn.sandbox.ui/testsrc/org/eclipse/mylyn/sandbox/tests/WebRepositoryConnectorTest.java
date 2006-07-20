@@ -23,8 +23,9 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.mylar.internal.sandbox.web.WebRepositoryConnector;
-import org.eclipse.mylar.internal.sandbox.web.WebRepositoryTemplate;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
+import org.eclipse.mylar.tasks.core.RepositoryTemplate;
+import org.eclipse.mylar.tasks.ui.AbstractRepositoryConnector;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 
 /**
@@ -32,24 +33,23 @@ import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
  */
 public class WebRepositoryConnectorTest extends TestCase {
 
-	private final WebRepositoryTemplate template;
+	private final RepositoryTemplate template;
 	
-	public WebRepositoryConnectorTest(WebRepositoryTemplate template) {
+	public WebRepositoryConnectorTest(RepositoryTemplate template) {
 		super("testRepositoryTemplate");
 		this.template = template;
 	}
 
 	public void testRepositoryTemplate() throws Exception {
-		StringBuffer buffer = WebRepositoryConnector.fetchResource(template.query);
+		StringBuffer buffer = WebRepositoryConnector.fetchResource(template.taskQueryUrl);
 		
 		IProgressMonitor monitor = new NullProgressMonitor();
 		MultiStatus queryStatus = new MultiStatus(TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Query result", null);
 		
-		List<AbstractQueryHit> hits = WebRepositoryConnector.performQuery(buffer, template.regexp, template.prefix, template.url, monitor, queryStatus);
+		List<AbstractQueryHit> hits = WebRepositoryConnector.performQuery(buffer, template.taskRegexp, template.taskPrefixUrl, template.repositoryUrl, monitor, queryStatus);
 		
-		assertTrue(Arrays.asList(queryStatus.getChildren()).toString(), queryStatus.isOK());
-		assertTrue("Expected non-empty query result", hits.size()>0);
-		
+		assertTrue(template.taskQueryUrl+"\n"+template.taskRegexp+"\n"+Arrays.asList(queryStatus.getChildren()).toString(), queryStatus.isOK());
+		assertTrue("Expected non-empty query result\n"+template.taskQueryUrl+"\n"+template.taskRegexp, hits.size()>0);
 	}
 
 	public String getName() {
@@ -58,9 +58,9 @@ public class WebRepositoryConnectorTest extends TestCase {
 	
 	public static TestSuite suite() {
 		TestSuite suite = new ActiveTestSuite(WebRepositoryConnectorTest.class.getName());
-		// TestSuite suite = new TestSuite(WebRepositoryConnectorTest.class.getName());
 		
-		for (WebRepositoryTemplate template : WebRepositoryConnector.REPOSITORY_TEMPLATES) {
+		AbstractRepositoryConnector repositoryConnector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(WebRepositoryConnector.REPOSITORY_TYPE);
+		for (RepositoryTemplate template : repositoryConnector.getTemplates()) {
 			suite.addTest(new WebRepositoryConnectorTest(template));
 		}
 		

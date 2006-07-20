@@ -59,67 +59,6 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	
 	public static final String PROPERTY_TASK_PREFIX_URL = "taskprefixurl";
 
-	// TODO: Remove, replaced by extension point org.eclipse.mylar.tasks.ui.templates
-	public static WebRepositoryTemplate[] REPOSITORY_TEMPLATES = {
-		new WebRepositoryTemplate(
-			"Subclipse (IssueZilla)",
-			"http://subclipse.tigris.org/issues/",
-			"http://subclipse.tigris.org/issues/enter_bug.cgi?component=subclipse",
-			"http://subclipse.tigris.org/issues/show_bug.cgi?id=",
-			"http://subclipse.tigris.org/issues/buglist.cgi?issue_status=NEW&issue_status=STARTED&issue_status=REOPENED&order=Issue+Number",
-			"<a href=\"show_bug.cgi\\?id\\=(.+?)\">.+?<span class=\"summary\">(.+?)</span>"),
-		new WebRepositoryTemplate(
-			"GlasFish (IssueZilla)",
-			"https://glassfish.dev.java.net/servlets/ProjectIssues",
-			"https://glassfish.dev.java.net/issues/enter_bug.cgi?issue_type=DEFECT",
-			"https://glassfish.dev.java.net/issues/show_bug.cgi?id=",
-			"https://glassfish.dev.java.net/issues/buglist.cgi?component=glassfish&issue_status=NEW&issue_status=STARTED&issue_status=REOPENED&order=Issue+Number",
-			"<a href=\"show_bug.cgi\\?id\\=(.+?)\">.+?<span class=\"summary\">(.+?)</span>"),
-		new WebRepositoryTemplate("Spring Framework (Jira)", 
-			"http://opensource.atlassian.com/projects/spring/browse/SPR",
-			"http://opensource.atlassian.com/projects/spring/secure/CreateIssue!default.jspa",
-			"http://opensource.atlassian.com/projects/spring/browse/",
-			"http://opensource.atlassian.com/projects/spring/secure/IssueNavigator.jspa?reset=true&mode=hide&pid=10000&resolution=-1&sorter/field=updated&sorter/order=DESC",
-			"<td class=\"nav summary\">\\s+?<a href=\"/projects/spring/browse/(.+?)\".+?>(.+?)</a>"),
-		new WebRepositoryTemplate("SpringIDE (Trac)",
-			"http://springide.org/project/",
-			"http://springide.org/project/newticket",
-			"http://springide.org/project/ticket/", 
-			"http://springide.org/project/query?status=new&status=assigned&status=reopened&order=id",
-			"<td class=\"summary\"><a href=\"/project/ticket/(.+?)\" title=\"View ticket\">(.+?)</a></td>"), 
-		new WebRepositoryTemplate("edgewall.org (Trac)",
-			"http://trac.edgewall.org/",
-			"http://trac.edgewall.org/newticket",
-			"http://trac.edgewall.org/ticket/",
-			"http://trac.edgewall.org/query?status=new&status=assigned&status=reopened&order=id",
-			"<td class=\"summary\"><a href=\"/ticket/(.+?)\" title=\"View ticket\">(.+?)</a></td>"),
-		new WebRepositoryTemplate("ASM (GForge)", 
-			"http://forge.objectweb.org/tracker/?atid=100023&group_id=23",
-			"http://forge.objectweb.org/tracker/?func=add&group_id=23&atid=100023",
-			"http://forge.objectweb.org/tracker/index.php?func=detail&group_id=23&atid=100023&aid=",
-			"http://forge.objectweb.org/tracker/?atid=100023&group_id=23",
-			"<a class=\"tracker\" href=\"/tracker/index.php\\?func=detail&aid=(.+?)&group_id=23&atid=100023\">(.+?)</a></td>"),
-		new WebRepositoryTemplate("Azureus (SourceForge)", 
-			"http://sourceforge.net/tracker/?atid=575154&group_id=84122",
-			"http://sourceforge.net/tracker/?func=add&group_id=84122&atid=575154",
-			"http://sourceforge.net/tracker/index.php?func=detail&group_id=84122&atid=575154&aid=",
-			"http://sourceforge.net/tracker/?atid=575154&group_id=84122",
-		    "<a href=\"/tracker/index.php\\?func=detail&amp;aid=(.+?)&amp;group_id=84122&amp;atid=575154\">(.+?)</a>"),
-		new WebRepositoryTemplate("phpbb.com (phpBB)", 
-			"http://www.phpbb.com/phpBB/",
-			"http://www.phpbb.com/phpBB/posting.php?mode=newtopic&f=1",
-			"http://www.phpbb.com/phpBB/viewtopic.php?t=",
-			"http://www.phpbb.com/phpBB/viewforum.php?f=1",
-		    "<a href=\"viewtopic.php\\?t=(\\d+?)(?:&.+?)?\" class=\"topictitle\">(.+?)</a>"),
-		new WebRepositoryTemplate("Spring IDE Forum (vBulletin)", 
-			"http://forum.springframework.org/forumdisplay.php?f=32",
-			"http://forum.springframework.org/newthread.php?do=newthread&f=32",
-			"http://forum.springframework.org/showthread.php?t=",
-			"http://forum.springframework.org/forumdisplay.php?f=32",
-		    "<a href=\"showthread.php\\?.+?t=(\\d+?)\" id=\"thread_title_\\1\">(.+?)</a>"),
-	};
-	
-	
 	public String getRepositoryType() {
 		return REPOSITORY_TYPE;
 	}
@@ -344,13 +283,5 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		
 	}
 
-//	public static WebRepositoryTemplate getTemplate(String label) {
-//		for (WebRepositoryTemplate template : templates) {
-//			if(label.equals(template.label)) {
-//				return template;
-//			}
-//		}
-//		return null;
-//	}
 }
 

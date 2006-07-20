@@ -289,7 +289,7 @@ public class WebQueryWizardPage extends WizardPage {
 						updatePreviewTable(queryHits, queryStatus);
 					}
 				});
-			} while(currentRegexp!=regexp && !monitor.isCanceled());
+			} while(!currentRegexp.equals(regexp) && !monitor.isCanceled());
 			active = false;
 			return Status.OK_STATUS;
 		}
