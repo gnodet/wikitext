@@ -1,3 +1,5 @@
 1153105897703	Rename package 'org.eclipse.mylar.tasks.core.util'
+1153449563640	Rename type 'TrustAllSslProtocolSocketFactory'
+1153449550187	Rename type 'TrustAll'
 1153390743681	Rename method 'getQueryUrl'
 1153390688602	Rename field 'queryUrl'

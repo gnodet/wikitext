@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Move 'org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin.getUrlConnection(...)' to 'org.eclipse.mylar.internal.tasks.core.UrlConnectionUtil'&#13;&#10;- Original element: 'org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin.getUrlConnection(...)'&#13;&#10;- Destination type: 'org.eclipse.mylar.internal.tasks.core.UrlConnectionUtil'" delegate="false" deprecate="true" description="Move member 'getUrlConnection'" element1="/src&lt;org.eclipse.mylar.internal.bugzilla.core{BugzillaPlugin.java[BugzillaPlugin~getUrlConnection~QURL;~QProxy;" flags="589830" id="org.eclipse.jdt.ui.move.static" input="/src&lt;org.eclipse.mylar.internal.tasks.core{UrlConnectionUtil.java[UrlConnectionUtil" stamp="1153449354765" version="1.0"/>
+</session>
