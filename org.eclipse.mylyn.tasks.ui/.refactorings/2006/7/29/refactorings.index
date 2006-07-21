@@ -1,4 +1,7 @@
 1153144519218	Rename type 'TaskListPreferencePage'
+1153519651875	Extract constant 'LABEL_IMPORT_FOLDER'
+1153519633906	Extract constant 'LABEL_IMPORT_ZIP'
+1153519609515	Extract constant 'LABEL_IMPORT_BACKUP'
 1153343986885	Rename method 'createFileSelectionControl'
 1153330764104	Rename method 'addCustomProperties'
 1153253684609	Rename type 'TasksUitExtensionReader'
