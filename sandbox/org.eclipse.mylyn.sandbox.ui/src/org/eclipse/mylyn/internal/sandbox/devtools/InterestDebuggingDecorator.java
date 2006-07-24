@@ -13,13 +13,15 @@ package org.eclipse.mylar.internal.sandbox.devtools;
 
 import java.util.ConcurrentModificationException;
 
-import org.eclipse.jface.viewers.*;
+import org.eclipse.jface.viewers.IDecoration;
+import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.jface.viewers.ILightweightLabelDecorator;
+import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.IMylarElement;
 import org.eclipse.mylar.context.core.IMylarStructureBridge;
-import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
-import org.eclipse.mylar.context.ui.ContextUiPlugin;
 import org.eclipse.mylar.internal.context.core.MylarContextRelation;
+import org.eclipse.mylar.internal.context.ui.ColorMap;
 
 /**
  * @author Mik Kersten
@@ -42,7 +44,7 @@ public class InterestDebuggingDecorator implements ILightweightLabelDecorator {
 		try {
 			IMylarElement node = null;
 			if (element instanceof MylarContextRelation) {
-				decoration.setForegroundColor(ContextUiPlugin.getDefault().getColorMap().RELATIONSHIP);
+				decoration.setForegroundColor(ColorMap.RELATIONSHIP);
 			} else if (element instanceof IMylarElement) {
 				node = (IMylarElement) element;
 			} else {

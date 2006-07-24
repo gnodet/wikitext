@@ -23,13 +23,13 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.DecoratingLabelProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerSorter;
+import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.IMylarContext;
 import org.eclipse.mylar.context.core.IMylarContextListener;
 import org.eclipse.mylar.context.core.IMylarElement;
-import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.context.ui.InterestSorter;
-import org.eclipse.mylar.context.ui.ContextUiPlugin;
+import org.eclipse.mylar.internal.context.ui.ColorMap;
 import org.eclipse.mylar.internal.context.ui.ContextUiImages;
 import org.eclipse.mylar.internal.context.ui.actions.ToggleDecorateInterestLevelAction;
 import org.eclipse.mylar.internal.context.ui.views.ContextContentProvider;
@@ -139,7 +139,7 @@ public class MylarContextTreeView extends ViewPart {
 		makeActions();
 		hookContextMenu();
 		contributeToActionBars();
-		viewer.getTree().setBackground(ContextUiPlugin.getDefault().getColorMap().BACKGROUND_COLOR);
+		viewer.getTree().setBackground(ColorMap.BACKGROUND_COLOR);
 
 		viewer.addOpenListener(new ContextNodeOpenListener(viewer));
 	}
