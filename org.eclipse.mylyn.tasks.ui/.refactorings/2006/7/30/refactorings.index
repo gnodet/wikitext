@@ -1,0 +1,3 @@
+1153635844639	Extract method 'textChangeRefreshPolicy'
+1153636787671	Rename field 'filterTreeRefresh'
+1153636771952	Rename type 'AdaptiveFilterTreeRefresh'

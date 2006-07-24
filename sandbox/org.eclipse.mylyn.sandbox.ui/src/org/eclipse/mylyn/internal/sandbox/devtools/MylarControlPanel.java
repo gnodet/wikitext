@@ -48,7 +48,7 @@ public class MylarControlPanel extends Composite {
 		setLayout(gridLayout_3);
 
 		final Label activeLabel = new Label(this, SWT.NONE);
-		activeLabel.setText("Active tasks ");
+		activeLabel.setText("Active tfasks ");
 		activeLabel
 				.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING | GridData.VERTICAL_ALIGN_BEGINNING));
 
