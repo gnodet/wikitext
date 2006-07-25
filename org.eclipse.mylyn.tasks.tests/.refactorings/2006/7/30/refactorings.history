@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename field 'REPOSITORY_TYPE' in 'org.eclipse.mylar.tasks.tests.connector.MockRepositoryConnector' to 'REPOSITORY_KIND'&#13;&#10;- Original element: 'org.eclipse.mylar.tasks.tests.connector.MockRepositoryConnector.REPOSITORY_TYPE'&#13;&#10;- Renamed element: 'org.eclipse.mylar.tasks.tests.connector.MockRepositoryConnector.REPOSITORY_KIND'&#13;&#10;- Update references to refactored element&#13;&#10;- Update textual occurrences in comments and strings" delegate="false" deprecate="true" description="Rename field 'REPOSITORY_TYPE'" flags="589830" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;org.eclipse.mylar.tasks.tests.connector{MockRepositoryConnector.java[MockRepositoryConnector^REPOSITORY_TYPE" name="REPOSITORY_KIND" references="true" setter="false" stamp="1153791862043" textual="false" version="1.0"/>
+</session>
