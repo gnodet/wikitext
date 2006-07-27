@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename method 'org.eclipse.mylar.internal.tasks.core.UrlConnectionUtil.getSslPort(...)' to 'getPort'&#10;- Original element: 'org.eclipse.mylar.internal.tasks.core.UrlConnectionUtil.getSslPort(...)'&#10;- Renamed element: 'org.eclipse.mylar.internal.tasks.core.UrlConnectionUtil.getPort(...)'&#10;- Update references to refactored element" delegate="false" deprecate="true" description="Rename method 'getSslPort'" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylar.internal.tasks.core{UrlConnectionUtil.java[UrlConnectionUtil~getSslPort~QString;" name="getPort" references="true" stamp="1154018801211" version="1.0"/>
+</session>
