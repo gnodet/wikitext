@@ -1,3 +1,4 @@
 1153635844639	Extract method 'textChangeRefreshPolicy'
+1154035602390	Rename type 'FileBasedContextStore'
 1153636787671	Rename field 'filterTreeRefresh'
 1153636771952	Rename type 'AdaptiveFilterTreeRefresh'
