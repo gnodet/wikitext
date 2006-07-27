@@ -34,6 +34,7 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.tasks.ui.RetrieveTitleFromUrlJob;
 import org.eclipse.mylar.internal.tasks.ui.wizards.AbstractRepositorySettingsPage;
+import org.eclipse.mylar.internal.tasks.ui.wizards.NewWebTaskWizard;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
@@ -159,7 +160,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 	
 	public IWizard getNewTaskWizard(TaskRepository taskRepository, IStructuredSelection selection) {
-		return new WebTaskWizard(taskRepository);
+//		return new WebTaskWizard(taskRepository);
+		return new NewWebTaskWizard(taskRepository, taskRepository.getProperty(WebRepositoryConnector.PROPERTY_NEW_TASK_URL)); 
 	}
 
 	

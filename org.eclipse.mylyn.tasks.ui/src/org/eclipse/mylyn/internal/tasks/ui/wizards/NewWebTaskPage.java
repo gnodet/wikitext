@@ -9,39 +9,35 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.jira.ui.wizards;
+package org.eclipse.mylar.internal.tasks.ui.wizards;
 
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
-
+import org.eclipse.swt.widgets.Text;
 
 /**
- * Wizard page for web-based new Jira task wizard
+ * Wizard page for creating new tickets through a web browser.
  * 
  * @author Eugene Kuleshov 
  * @author Mik Kersten
+ * @author Steffen Pingel
  */
-public class NewJiraTaskPage extends WizardPage {
-	
-	public NewJiraTaskPage() {
-		super("New Jira task");
+public class NewWebTaskPage extends WizardPage {
+
+	public NewWebTaskPage() {
+		super("New Task");
+
 		setTitle("Create via Web Browser");
-		setDescription("Once submitted synchronize queries or add the task to a category.\n"
-				+ "Note: you may need to log in via the Web UI.");
+		setDescription("This will open a web browser that can be used to create a new task.\n"
+				+ "Note: you may need to log in via the web UI.");
 	}
 
 	public void createControl(Composite parent) {
-		Label label = new Label(parent, SWT.NULL);
-		setControl(label);
-//		Text text = new Text(parent, SWT.WRAP);
-//		text.setEditable(false);
-//		text.setText("\nThis will open a web browser that can be used to create new task.\n" +
-//				"Once submitted you can refresh a corresponding query or add the task to a category.");
-//		setControl(text);
-//		parent.setFocus();
+		Text text = new Text(parent, SWT.WRAP);
+		text.setEditable(false);
+		text.setText("Once submitted synchronize queries or add the task to a category.\n");
+		setControl(text);
 	}
-	
-}
 
+}
