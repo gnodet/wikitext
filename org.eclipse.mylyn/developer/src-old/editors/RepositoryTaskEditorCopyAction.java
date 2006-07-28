@@ -12,28 +12,37 @@
 package org.eclipse.mylar.internal.tasks.ui.editors;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.viewers.ISelection;
 
 /**
  * Action used to copy selected text from a bug editor to the clipboard.
  */
 public class RepositoryTaskEditorCopyAction extends Action {
 	/** The editor to copy text selections from. */
-	private AbstractRepositoryTaskEditor bugEditor;
+	private MylarTaskEditor bugEditor;
 
+	private ISelection selection;
+	
 	/**
 	 * Creates a new <code>RepositoryTaskEditorCopyAction</code>.
 	 * 
 	 * @param editor
 	 *            The editor that this action is copying text selections from.
 	 */
-	public RepositoryTaskEditorCopyAction(AbstractRepositoryTaskEditor editor) {
+	public RepositoryTaskEditorCopyAction(MylarTaskEditor editor) {
 		bugEditor = editor;
 		setText("AbstractRepositoryTaskEditor.copy.text");
 	}
 
 	@Override
 	public void run() {
-		bugEditor.getCurrentText().copy();
+		bugEditor.copyToClipboard(selection);		
+		//bugEditor.getCurrentText().copy();
+	}
+	
+	public void selectionChanged(ISelection selection) {
+		this.selection = selection;
+		setEnabled(bugEditor.canCopy(selection));
 	}
 
 }

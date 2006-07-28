@@ -1,4 +1,5 @@
 1153635844639	Extract method 'textChangeRefreshPolicy'
+1154046118421	Rename type 'TaskFormEditor'
 1154035602390	Rename type 'FileBasedContextStore'
 1153636787671	Rename field 'filterTreeRefresh'
 1153636771952	Rename type 'AdaptiveFilterTreeRefresh'
