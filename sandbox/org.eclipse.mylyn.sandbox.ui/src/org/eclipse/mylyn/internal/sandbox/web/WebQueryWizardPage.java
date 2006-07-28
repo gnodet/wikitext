@@ -48,6 +48,9 @@ import org.eclipse.swt.widgets.Text;
  * @author Eugene Kuleshov
  */
 public class WebQueryWizardPage extends WizardPage {
+	
+	public static final String TASK_REGEXP = "taskRegexp";
+
 	private Text taskPrefixText;
 	private Combo descriptionText;
 	private Text queryUrlText;
@@ -102,7 +105,7 @@ public class WebQueryWizardPage extends WizardPage {
 					// WebRepositoryConnector.getTemplate(descriptionText.getText());
 					// if(template!=null) {
 					queryUrlText.setText(template.taskQueryUrl);
-					regexpText.setText(template.taskRegexp);
+					regexpText.setText(template.getAttribute(TASK_REGEXP));
 					taskPrefixText.setText(template.taskPrefixUrl);
 					// }
 					return;

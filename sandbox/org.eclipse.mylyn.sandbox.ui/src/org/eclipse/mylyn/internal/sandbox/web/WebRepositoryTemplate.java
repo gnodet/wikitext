@@ -11,6 +11,7 @@ package org.eclipse.mylar.internal.sandbox.web;
 /**
  * @author Eugene Kuleshov
  */
+@Deprecated
 public class WebRepositoryTemplate {
 	
 	public final String label;

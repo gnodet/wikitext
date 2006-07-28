@@ -139,76 +139,94 @@
          point="org.eclipse.mylar.tasks.ui.templates">
       <repository
             label="Subclipse (IssueZilla)"
-            newTaskUrl="http://subclipse.tigris.org/issues/enter_bug.cgi?component=subclipse"
+            urlNewTask="http://subclipse.tigris.org/issues/enter_bug.cgi?component=subclipse"
             repositoryKind="web"
-            repositoryUrl="http://subclipse.tigris.org/issues/"
-            taskPrefixUrl="http://subclipse.tigris.org/issues/show_bug.cgi?id="
-            taskQueryUrl="http://subclipse.tigris.org/issues/buglist.cgi?issue_status=NEW&amp;issue_status=STARTED&amp;issue_status=REOPENED&amp;order=Issue+Number"
-            taskRegexp="&lt;a href=&quot;show_bug.cgi\?id\=(.+?)&quot;&gt;.+?&lt;span class=&quot;summary&quot;&gt;(.+?)&lt;/span&gt;"/>
-      <repository
+            urlRepository="http://subclipse.tigris.org/issues/"
+            urlTask="http://subclipse.tigris.org/issues/show_bug.cgi?id="
+            urlTaskQuery="http://subclipse.tigris.org/issues/buglist.cgi?issue_status=NEW&amp;issue_status=STARTED&amp;issue_status=REOPENED&amp;order=Issue+Number">            
+             <attribute 
+        	name="taskRegexp" value="&lt;a href=&quot;show_bug.cgi\?id\=(.+?)&quot;&gt;.+?&lt;span class=&quot;summary&quot;&gt;(.+?)&lt;/span&gt;"/>        	
+        	</repository>
+   <repository
             label="GlasFish (IssueZilla)"
-            newTaskUrl="https://glassfish.dev.java.net/issues/enter_bug.cgi?issue_type=DEFECT"
+            urlNewTask="https://glassfish.dev.java.net/issues/enter_bug.cgi?issue_type=DEFECT"
             repositoryKind="web"
-            repositoryUrl="https://glassfish.dev.java.net/servlets/ProjectIssues"
-            taskPrefixUrl="https://glassfish.dev.java.net/issues/show_bug.cgi?id="
-            taskQueryUrl="https://glassfish.dev.java.net/issues/buglist.cgi?component=glassfish&amp;issue_status=NEW&amp;issue_status=STARTED&amp;issue_status=REOPENED&amp;order=Issue+Number"
-            taskRegexp="&lt;a href=&quot;show_bug.cgi\?id\=(.+?)&quot;&gt;.+?&lt;span class=&quot;summary&quot;&gt;(.+?)&lt;/span&gt;"/>
+            urlRepository="https://glassfish.dev.java.net/servlets/ProjectIssues"
+            urlTask="https://glassfish.dev.java.net/issues/show_bug.cgi?id="
+            urlTaskQuery="https://glassfish.dev.java.net/issues/buglist.cgi?component=glassfish&amp;issue_status=NEW&amp;issue_status=STARTED&amp;issue_status=REOPENED&amp;order=Issue+Number">
+            <attribute 
+        	name="taskRegexp" value="&lt;a href=&quot;show_bug.cgi\?id\=(.+?)&quot;&gt;.+?&lt;span class=&quot;summary&quot;&gt;(.+?)&lt;/span&gt;"/>        	
+        	</repository>
       <repository
             label="Spring Framework (Jira)"
-            newTaskUrl="http://opensource.atlassian.com/projects/spring/secure/CreateIssue!default.jspa"
+            urlNewTask="http://opensource.atlassian.com/projects/spring/secure/CreateIssue!default.jspa"
             repositoryKind="web"
-            repositoryUrl="http://opensource.atlassian.com/projects/spring/browse/SPR"
-            taskPrefixUrl="http://opensource.atlassian.com/projects/spring/browse/"
-            taskQueryUrl="http://opensource.atlassian.com/projects/spring/secure/IssueNavigator.jspa?reset=true&amp;mode=hide&amp;pid=10000&amp;resolution=-1&amp;sorter/field=updated&amp;sorter/order=DESC"
-            taskRegexp="&lt;td class=&quot;nav summary&quot;&gt;\s+?&lt;a href=&quot;/projects/spring/browse/(.+?)&quot;.+?&gt;(.+?)&lt;/a&gt;"/>
+            urlRepository="http://opensource.atlassian.com/projects/spring/browse/SPR"
+            urlTask="http://opensource.atlassian.com/projects/spring/browse/"
+            urlTaskQuery="http://opensource.atlassian.com/projects/spring/secure/IssueNavigator.jspa?reset=true&amp;mode=hide&amp;pid=10000&amp;resolution=-1&amp;sorter/field=updated&amp;sorter/order=DESC">
+             <attribute 
+        	name="taskRegexp" value="&lt;td class=&quot;nav summary&quot;&gt;\s+?&lt;a href=&quot;/projects/spring/browse/(.+?)&quot;.+?&gt;(.+?)&lt;/a&gt;"/>        	
+        	</repository>           
       <repository
             label="SpringIDE (Trac)"
-            newTaskUrl="http://springide.org/project/newticket"
+            urlNewTask="http://springide.org/project/newticket"
             repositoryKind="web"
-            repositoryUrl="http://springide.org/project/"
-            taskPrefixUrl="http://springide.org/project/ticket/"
-            taskQueryUrl="http://springide.org/project/query?status=new&amp;status=assigned&amp;status=reopened&amp;order=id"
-            taskRegexp="&lt;td class=&quot;summary&quot;&gt;&lt;a href=&quot;/project/ticket/(.+?)&quot; title=&quot;View ticket&quot;&gt;(.+?)&lt;/a&gt;&lt;/td&gt;"/>
+            urlRepository="http://springide.org/project/"
+            urlTask="http://springide.org/project/ticket/"
+            urlTaskQuery="http://springide.org/project/query?status=new&amp;status=assigned&amp;status=reopened&amp;order=id">
+             <attribute 
+        	name="taskRegexp" value="&lt;td class=&quot;summary&quot;&gt;&lt;a href=&quot;/project/ticket/(.+?)&quot; title=&quot;View ticket&quot;&gt;(.+?)&lt;/a&gt;&lt;/td&gt;"/>        	
+        	</repository>  
       <repository
             label="edgewall.org (Trac)"
-            newTaskUrl="http://trac.edgewall.org/newticket"
+            urlNewTask="http://trac.edgewall.org/newticket"
             repositoryKind="web"
-            repositoryUrl="http://trac.edgewall.org/"
-            taskPrefixUrl="http://trac.edgewall.org/ticket/"
-            taskQueryUrl="http://trac.edgewall.org/query?status=new&amp;status=assigned&amp;status=reopened&amp;order=id"
-            taskRegexp="&lt;td class=&quot;summary&quot;&gt;&lt;a href=&quot;/ticket/(.+?)&quot; title=&quot;View ticket&quot;&gt;(.+?)&lt;/a&gt;&lt;/td&gt;"/>
+            urlRepository="http://trac.edgewall.org/"
+            urlTask="http://trac.edgewall.org/ticket/"
+            urlTaskQuery="http://trac.edgewall.org/query?status=new&amp;status=assigned&amp;status=reopened&amp;order=id">
+             <attribute 
+        	name="taskRegexp" value="&lt;td class=&quot;summary&quot;&gt;&lt;a href=&quot;/ticket/(.+?)&quot; title=&quot;View ticket&quot;&gt;(.+?)&lt;/a&gt;&lt;/td&gt;"/>        	
+        	</repository>             
       <repository
             label="ASM (GForge)"
-            newTaskUrl="http://forge.objectweb.org/tracker/?func=add&amp;group_id=23&amp;atid=100023"
+            urlNewTask="http://forge.objectweb.org/tracker/?func=add&amp;group_id=23&amp;atid=100023"
             repositoryKind="web"
-            repositoryUrl="http://forge.objectweb.org/tracker/?atid=100023&amp;group_id=23"
-            taskPrefixUrl="http://forge.objectweb.org/tracker/index.php?func=detail&amp;group_id=23&amp;atid=100023&amp;aid="
-            taskQueryUrl="http://forge.objectweb.org/tracker/?atid=100023&amp;group_id=23"
-            taskRegexp="&lt;a class=&quot;tracker&quot; href=&quot;/tracker/index.php\?func=detail&amp;aid=(.+?)&amp;group_id=23&amp;atid=100023&quot;&gt;(.+?)&lt;/a&gt;&lt;/td&gt;"/>
+            urlRepository="http://forge.objectweb.org/tracker/?atid=100023&amp;group_id=23"
+            urlTask="http://forge.objectweb.org/tracker/index.php?func=detail&amp;group_id=23&amp;atid=100023&amp;aid="
+            urlTaskQuery="http://forge.objectweb.org/tracker/?atid=100023&amp;group_id=23">
+               <attribute 
+        	name="taskRegexp" value="&lt;a class=&quot;tracker&quot; href=&quot;/tracker/index.php\?func=detail&amp;aid=(.+?)&amp;group_id=23&amp;atid=100023&quot;&gt;(.+?)&lt;/a&gt;&lt;/td&gt;"/>        	
+        	</repository>  
       <repository
             label="Azureus (SourceForge)"
-            newTaskUrl="http://sourceforge.net/tracker/?func=add&amp;group_id=84122&amp;atid=575154"
+            urlNewTask="http://sourceforge.net/tracker/?func=add&amp;group_id=84122&amp;atid=575154"
             repositoryKind="web"
-            repositoryUrl="http://sourceforge.net/tracker/?atid=575154&amp;group_id=84122"
-            taskPrefixUrl="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=84122&amp;atid=575154&amp;aid="
-            taskQueryUrl="http://sourceforge.net/tracker/?atid=575154&amp;group_id=84122"
-            taskRegexp="&lt;a href=&quot;/tracker/index.php\?func=detail&amp;amp;aid=(.+?)&amp;amp;group_id=84122&amp;amp;atid=575154&quot;&gt;(.+?)&lt;/a&gt;"/>
+            urlRepository="http://sourceforge.net/tracker/?atid=575154&amp;group_id=84122"
+            urlTask="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=84122&amp;atid=575154&amp;aid="
+            urlTaskQuery="http://sourceforge.net/tracker/?atid=575154&amp;group_id=84122">
+              <attribute 
+        	name="taskRegexp" value="&lt;a href=&quot;/tracker/index.php\?func=detail&amp;amp;aid=(.+?)&amp;amp;group_id=84122&amp;amp;atid=575154&quot;&gt;(.+?)&lt;/a&gt;"/>        	
+        	</repository>  
       <repository
             label="phpbb.com (phpBB)"
-            newTaskUrl="http://www.phpbb.com/phpBB/posting.php?mode=newtopic&amp;f=1"
+            urlNewTask="http://www.phpbb.com/phpBB/posting.php?mode=newtopic&amp;f=1"
             repositoryKind="web"
-            repositoryUrl="http://www.phpbb.com/phpBB/"
-            taskPrefixUrl="http://www.phpbb.com/phpBB/viewtopic.php?t="
-            taskQueryUrl="http://www.phpbb.com/phpBB/viewforum.php?f=1"
-            taskRegexp="&lt;a href=&quot;viewtopic.php\?t=(\d+?)(?:&amp;.+?)?&quot; class=&quot;topictitle&quot;&gt;(.+?)&lt;/a&gt;"/>
+            urlRepository="http://www.phpbb.com/phpBB/"
+            urlTask="http://www.phpbb.com/phpBB/viewtopic.php?t="
+            urlTaskQuery="http://www.phpbb.com/phpBB/viewforum.php?f=1">
+              <attribute 
+        	name="taskRegexp" value="&lt;a href=&quot;viewtopic.php\?t=(\d+?)(?:&amp;.+?)?&quot; class=&quot;topictitle&quot;&gt;(.+?)&lt;/a&gt;"/>        	
+        	</repository>           
       <repository
             label="Spring IDE Forum (vBulletin)"
-            newTaskUrl="http://forum.springframework.org/newthread.php?do=newthread&amp;f=32"
+            urlNewTask="http://forum.springframework.org/newthread.php?do=newthread&amp;f=32"
             repositoryKind="web"
-            repositoryUrl="http://forum.springframework.org/forumdisplay.php?f=32"
-            taskPrefixUrl="http://forum.springframework.org/showthread.php?t="
-            taskQueryUrl="http://forum.springframework.org/forumdisplay.php?f=32"
-            taskRegexp="&lt;a href=&quot;showthread.php\?.+?t=(\d+?)&quot; id=&quot;thread_title_\1&quot;&gt;(.+?)&lt;/a&gt;"/>
+            urlRepository="http://forum.springframework.org/forumdisplay.php?f=32"
+            urlTask="http://forum.springframework.org/showthread.php?t="
+            urlTaskQuery="http://forum.springframework.org/forumdisplay.php?f=32">
+               <attribute 
+        	name="taskRegexp" value="&lt;a href=&quot;showthread.php\?.+?t=(\d+?)&quot; id=&quot;thread_title_\1&quot;&gt;(.+?)&lt;/a&gt;"/>        	
+        	</repository>            
    </extension>  
   
 </plugin>
