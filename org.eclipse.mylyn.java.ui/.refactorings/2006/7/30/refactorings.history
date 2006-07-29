@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Extract constant 'org.eclipse.mylar.internal.java.ui.JavaContextLabelProvider.LABEL_ELEMENT_MISSING' from expression '&quot;&lt;missing element&gt;&quot;'&#13;&#10;- Constant name: 'LABEL_ELEMENT_MISSING'&#13;&#10;- Constant expression: '&quot;&lt;missing element&gt;&quot;'&#13;&#10;- Declared visibility: 'private'&#13;&#10;- Replace occurrences of expression with constant" description="Extract constant 'LABEL_ELEMENT_MISSING'" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylar.internal.java.ui{JavaContextLabelProvider.java" name="LABEL_ELEMENT_MISSING" qualify="false" replace="true" selection="2881 19" stamp="1154208056734" version="1.0" visibility="2"/>
+</session>
