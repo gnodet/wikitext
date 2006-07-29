@@ -3,22 +3,22 @@
    <description url="http://download.eclipse.org/technology/mylar/update-site/e3.2">
       Mylar update site for Eclipse 3.2
    </description>
-   <feature url="features/org.eclipse.mylar_feature_0.6.0.v20060727-1630.jar" id="org.eclipse.mylar_feature" version="0.6.0.v20060727-1630">
+   <feature url="features/org.eclipse.mylar_feature_0.6.0.v20060728-1800.jar" id="org.eclipse.mylar_feature" version="0.6.0.v20060728-1800">
       <category name="Features"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.ide_feature_0.6.0.v20060727-1630.jar" id="org.eclipse.mylar.ide_feature" version="0.6.0.v20060727-1630">
+   <feature url="features/org.eclipse.mylar.ide_feature_0.6.0.v20060728-1800.jar" id="org.eclipse.mylar.ide_feature" version="0.6.0.v20060728-1800">
       <category name="Features"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.bugzilla_feature_0.6.0.v20060727-1630.jar" id="org.eclipse.mylar.bugzilla_feature" version="0.6.0.v20060727-1630">
+   <feature url="features/org.eclipse.mylar.bugzilla_feature_0.6.0.v20060728-1800.jar" id="org.eclipse.mylar.bugzilla_feature" version="0.6.0.v20060728-1800">
       <category name="Integration"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.jira_feature_0.6.0.v20060727-1630.jar" id="org.eclipse.mylar.jira_feature" version="0.6.0.v20060727-1630">
+   <feature url="features/org.eclipse.mylar.jira_feature_0.6.0.v20060728-1800.jar" id="org.eclipse.mylar.jira_feature" version="0.6.0.v20060728-1800">
       <category name="Integration"/>
    </feature>
    <feature url="http://jira-dashboard.tigris.org/update/features/org.tigris.jira.core_0.9.1.jar" id="org.tigris.jira.core" version="0.9.1">
       <category name="Tigris.org Dependencies"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.trac_feature_0.6.0.v20060727-1630.jar" id="org.eclipse.mylar.trac_feature" version="0.6.0.v20060727-1630">
+   <feature url="features/org.eclipse.mylar.trac_feature_0.6.0.v20060728-1800.jar" id="org.eclipse.mylar.trac_feature" version="0.6.0.v20060728-1800">
       <category name="Integration"/>
    </feature>
    <archive path="plugins/org.apache.axis_2.0.1.jar" url="http://jira-dashboard.tigris.org/update/plugins/org.apache.axis_2.0.1.jar"/>
