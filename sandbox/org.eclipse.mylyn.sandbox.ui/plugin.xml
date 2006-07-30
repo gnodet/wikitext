@@ -17,6 +17,16 @@
    </viewContribution>
    </extension>
    
+    <extension point="org.eclipse.ui.preferencePages">
+      <page 
+         name="Java (Sandbox)"
+         class="org.eclipse.mylar.internal.java.ui.preferences.MylarJavaPreferencePage"
+         id="org.eclipse.mylar.java.ui.preferences"
+         category="org.eclipse.mylar.ui.preferences">
+      </page>  
+   </extension>
+   
+   
    <!--
    <extension point="org.eclipse.ui.viewActions"> 
 		<viewContribution 
