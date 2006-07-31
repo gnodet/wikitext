@@ -84,7 +84,6 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	public boolean canCreateTaskFromKey() {
 		return true;
 	}
-
 	
 	// Support
 	
@@ -283,6 +282,11 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			}
 		}
 		
+	}
+
+	@Override
+	public void updateAttributes(TaskRepository repository, IProgressMonitor monitor) {
+		// ignore
 	}
 
 }
