@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="plugin_export" name="build">
+	<target name="plugin_export">
+		<pde.exportPlugins destination="C:\Dev\build-3.2\org.eclipse.mylar-site\archives" 
+			exportSource="true" 
+			exportType="zip" 
+			filename="mylar-lib-0.6.1.zip" 
+			plugins="org.eclipse.mylar.bugzilla.core,org.eclipse.mylar.context.core,org.eclipse.mylar.tasks.core" 
+			useJARFormat="true"/>
+	</target>
+</project>
