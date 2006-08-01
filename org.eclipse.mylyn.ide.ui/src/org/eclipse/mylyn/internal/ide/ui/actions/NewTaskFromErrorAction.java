@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.tasks.ui.actions;
+package org.eclipse.mylar.internal.ide.ui.actions;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -47,14 +47,6 @@ public class NewTaskFromErrorAction implements IViewActionDelegate, ISelectionCh
 	private TreeViewer treeViewer;
 
 	public void run() {
-		// boolean offline =
-		// MylarTaskListPlugin.getDefault().getPreferenceStore().getBoolean(TaskListPreferenceConstants.WORK_OFFLINE);
-		// if (offline) {
-		// MessageDialog.openInformation(null, "Unable to create bug report",
-		// "Unable to create a new bug report since you are currently offline");
-		// return;
-		// }
-
 		TreeItem[] items = treeViewer.getTree().getSelection();
 		LogEntry selection = null;
 		if (items.length > 0) {
