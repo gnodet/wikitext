@@ -76,13 +76,13 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	public List<String> getSupportedVersions() {
 		return Collections.emptyList();
 	}
-	
-	public boolean canCreateNewTask() {
-		return true;
+
+	public boolean canCreateNewTask(TaskRepository repository) {
+		return repository.hasProperty(PROPERTY_NEW_TASK_URL);
 	}
 
-	public boolean canCreateTaskFromKey() {
-		return true;
+	public boolean canCreateTaskFromKey(TaskRepository repository) {
+		return repository.hasProperty(PROPERTY_TASK_PREFIX_URL);
 	}
 	
 	// Support

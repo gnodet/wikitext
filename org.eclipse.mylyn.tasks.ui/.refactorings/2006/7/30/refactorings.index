@@ -1,4 +1,6 @@
 1153635844639	Extract method 'textChangeRefreshPolicy'
+1154283549288	Change method 'canCreateNewTask'
+1154283487052	Change method 'canCreateTaskFromKey'
 1154046118421	Rename type 'TaskFormEditor'
 1154035602390	Rename type 'FileBasedContextStore'
 1153636787671	Rename field 'filterTreeRefresh'
