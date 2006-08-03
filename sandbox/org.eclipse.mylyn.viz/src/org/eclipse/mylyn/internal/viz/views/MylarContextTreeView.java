@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.sandbox.devtools;
+package org.eclipse.mylar.internal.viz.views;
 
 
 import java.util.List;

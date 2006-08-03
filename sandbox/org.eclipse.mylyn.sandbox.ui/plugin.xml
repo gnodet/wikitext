@@ -2,21 +2,6 @@
 <?eclipse version="3.0"?>
 <plugin>
 
-   <extension point="org.eclipse.ui.viewActions"> 
-   <viewContribution
-         id="org.eclipse.mylar.monitor.reports.ui.switchTaskFolder"
-         targetID="org.eclipse.mylar.tasks.ui.views.TaskListView">
-      <action
-            class="org.eclipse.mylar.internal.sandbox.share.SwitchTaskDataFolderAction"
-            icon="icons/eview16/folder.gif"
-            id="org.eclipse.mylar.monitor.reports.ui.actions.switchTask"
-            label="Sandbox: Switch Task Data Folder..."
-            menubarPath="context"
-            style="push">
-      </action>
-   </viewContribution>
-   </extension>
-   
     <extension point="org.eclipse.ui.preferencePages">
       <page 
          name="Java (Sandbox)"
@@ -25,26 +10,6 @@
          category="org.eclipse.mylar.ui.preferences">
       </page>  
    </extension>
-   
-   
-   <!--
-   <extension point="org.eclipse.ui.viewActions"> 
-		<viewContribution 
-			id="org.eclipse.mylar.jira.ui.tasklist.actions" 
-	   		targetID="org.eclipse.mylar.tasks.ui.views.TaskListView">	  			
-    		<action
-            class="org.eclipse.mylar.sandbox.jira.CreateJiraTaskAction"
-            enablesFor="*"
-            icon="icons/eview16/icons-task-jira.gif"
-            id="org.eclipse.mylar.bugzilla.tasklist.addExisting"
-            label="Add Existing Jira Report"
-            menubarPath="reports"
-            style="push"
-            tooltip="Add Existing Jira Report"> 
-  			</action>
-	    </viewContribution> 
-   </extension>
-   -->
 
    <extension point="org.eclipse.ui.decorators">
       <decorator
@@ -62,21 +27,6 @@
       </decorator>
    </extension>
 
-   <extension point="org.eclipse.ui.views"> 
-	  <view name="Sandbox: Context Tree"
-            icon="icons/eview16/model.gif"
-            category="org.eclipse.mylar"
-            class="org.eclipse.mylar.internal.sandbox.devtools.MylarContextTreeView"
-            id="org.eclipse.mylar.ui.views.TaskscapeTreeView">
-      </view> 
-	  <view name="Sandbox: Context Control Panel"
-        icon="icons/eview16/control-panel.gif"
-        category="org.eclipse.mylar"
-        class="org.eclipse.mylar.internal.sandbox.devtools.MylarControlPanelView"
-        id="org.eclipse.mylar.ui.views.MylarControlPanelView">
-      </view>
-  </extension>
-
   	<extension point = "org.eclipse.ui.popupMenus">
      <objectContribution
         id="org.eclipse.mylar.ui.instrospection"
@@ -89,47 +39,6 @@
 	  		enablesFor="1"/>
 	 </objectContribution>
 	</extension>
-
-      <!--
-        <provider 
-         	markupProviderClass="org.eclipse.mylar.sandbox.viz.MylarJavaMarkupProvider" 
-         	name="Mylar Provider" 
-         	priority="9" 
-         	description="Provider that shows java declarations that are part of a Mylar context for a task." 
-         	emptyMessage="No active Mylar context to display" 
-         	contentProviderClass="org.eclipse.mylar.sandbox.viz.MylarJavaContentProvider" 
-         	id="mylarprovider" />
-        -->
-        
-      
-		<!-- This schema works for the older (1.1?) CVS version of the Visualiser from AJDT  
-		<provider
-		    class="org.eclipse.mylar.sandbox.viz.MylarJavaContentProvider"
-		    markupclass="org.eclipse.mylar.sandbox.viz.MylarJavaMarkupProvider"
-		    name="Mylar Java Provider"
-		    title="Mylar Java Task Context"
-		    priority="8"
-		    description="Provider that shows java declarations that are part of a Mylar context for a task."
-		    emptyMessage="No active Mylar context to display"
-		    id="mylarprovider">
-		</provider>
-		 --> 
-  
-  <!--
-   <extension point = "org.eclipse.ui.popupMenus">
-     <objectContribution
-        id="org.eclipse.mylar.interest"
-        objectClass="org.eclipse.jdt.core.IJavaElement">
-        <action id="org.eclipse.mylar.ui.actions.OpenRelatedElementsQuickView" 
-              label="Related elements" 
-	      	  menubarPath="mylar" 
-              icon="icons/eview16/active-search.gif" 
-              tooltip="Active Search quick view" 
-              class="org.eclipse.mylar.ui.actions.OpenRelatedElementsQuickView" 
-              enablesFor="1"/> 
-	 </objectContribution>
-  </extension>
-  -->
   
    <extension
          id="org.eclipse.mylar.web.repository"
@@ -240,3 +149,63 @@
    </extension>  
   
 </plugin>
+
+
+   <!--
+   <extension point="org.eclipse.ui.viewActions"> 
+   <viewContribution
+         id="org.eclipse.mylar.monitor.reports.ui.switchTaskFolder"
+         targetID="org.eclipse.mylar.tasks.ui.views.TaskListView">
+      <action
+            class="org.eclipse.mylar.internal.sandbox.share.SwitchTaskDataFolderAction"
+            icon="icons/eview16/folder.gif"
+            id="org.eclipse.mylar.monitor.reports.ui.actions.switchTask"
+            label="Sandbox: Switch Task Data Folder..."
+            menubarPath="context"
+            style="push">
+      </action>
+   </viewContribution>
+   </extension>
+   -->
+   
+
+      <!--
+        <provider 
+         	markupProviderClass="org.eclipse.mylar.sandbox.viz.MylarJavaMarkupProvider" 
+         	name="Mylar Provider" 
+         	priority="9" 
+         	description="Provider that shows java declarations that are part of a Mylar context for a task." 
+         	emptyMessage="No active Mylar context to display" 
+         	contentProviderClass="org.eclipse.mylar.sandbox.viz.MylarJavaContentProvider" 
+         	id="mylarprovider" />
+        -->
+        
+      
+		<!-- This schema works for the older (1.1?) CVS version of the Visualiser from AJDT  
+		<provider
+		    class="org.eclipse.mylar.sandbox.viz.MylarJavaContentProvider"
+		    markupclass="org.eclipse.mylar.sandbox.viz.MylarJavaMarkupProvider"
+		    name="Mylar Java Provider"
+		    title="Mylar Java Task Context"
+		    priority="8"
+		    description="Provider that shows java declarations that are part of a Mylar context for a task."
+		    emptyMessage="No active Mylar context to display"
+		    id="mylarprovider">
+		</provider>
+		 --> 
+  
+  <!--
+   <extension point = "org.eclipse.ui.popupMenus">
+     <objectContribution
+        id="org.eclipse.mylar.interest"
+        objectClass="org.eclipse.jdt.core.IJavaElement">
+        <action id="org.eclipse.mylar.ui.actions.OpenRelatedElementsQuickView" 
+              label="Related elements" 
+	      	  menubarPath="mylar" 
+              icon="icons/eview16/active-search.gif" 
+              tooltip="Active Search quick view" 
+              class="org.eclipse.mylar.ui.actions.OpenRelatedElementsQuickView" 
+              enablesFor="1"/> 
+	 </objectContribution>
+  </extension>
+  -->

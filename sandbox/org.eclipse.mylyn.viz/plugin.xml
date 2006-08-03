@@ -29,6 +29,21 @@
   </extension>     
 
    <extension point="org.eclipse.ui.views"> 
+	  <view name="Sandbox: Context Tree"
+            icon="icons/eview16/model.gif"
+            category="org.eclipse.mylar"
+            class="org.eclipse.mylar.internal.viz.views.MylarContextTreeView"
+            id="org.eclipse.mylar.ui.views.TaskscapeTreeView">
+      </view> 
+	  <view name="Sandbox: Context Control Panel"
+        icon="icons/eview16/control-panel.gif"
+        category="org.eclipse.mylar"
+        class="org.eclipse.mylar.internal.viz.views.MylarControlPanelView"
+        id="org.eclipse.mylar.ui.views.MylarControlPanelView">
+      </view>
+  </extension>
+
+   <extension point="org.eclipse.ui.views"> 
 	  <view name="Context Viz" 
 	    icon="icons/eview16/taskscape.gif"
 	  	category="org.eclipse.mylar" 

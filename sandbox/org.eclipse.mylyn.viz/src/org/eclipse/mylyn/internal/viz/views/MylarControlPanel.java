@@ -11,7 +11,7 @@
 /*
  * Created on Feb 8, 2005
  */
-package org.eclipse.mylar.internal.sandbox.devtools;
+package org.eclipse.mylar.internal.viz.views;
 
 import org.eclipse.mylar.context.core.IMylarContextListener;
 import org.eclipse.mylar.context.core.ContextCorePlugin;
