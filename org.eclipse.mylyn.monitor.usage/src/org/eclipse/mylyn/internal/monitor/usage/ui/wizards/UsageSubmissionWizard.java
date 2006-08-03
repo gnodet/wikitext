@@ -245,7 +245,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		}
 
 		// MylarMonitorPlugin.getDefault().startLog();
-		MylarUsageMonitorPlugin.getDefault().getInteractionLogger().startObserving();
+		MylarUsageMonitorPlugin.getDefault().getInteractionLogger().startMonitoring();
 		MylarUsageMonitorPlugin.setPerformingUpload(false);
 		return;
 	}
@@ -769,7 +769,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 	private File zipFilesForUpload() {
 		MylarUsageMonitorPlugin.setPerformingUpload(true);
-		MylarUsageMonitorPlugin.getDefault().getInteractionLogger().stopObserving();
+		MylarUsageMonitorPlugin.getDefault().getInteractionLogger().stopMonitoring();
 		// MylarMonitorPlugin.getDefault().stopLog();
 
 		List<File> files = new ArrayList<File>();

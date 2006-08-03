@@ -13,7 +13,6 @@ package org.eclipse.mylar.internal.monitor.usage;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,14 +42,8 @@ import org.eclipse.mylar.monitor.usage.MylarUsageMonitorPlugin;
  * 
  * TODO: use buffered output stream for better performance?
  */
-public class InteractionEventLogger implements IInteractionEventListener {
+public class InteractionEventLogger extends AbstractMonitorLog implements IInteractionEventListener {
  
-	private File outputFile;
-
-	private static FileOutputStream outputStream;
-
-	private boolean started = false;
-
 	private int eventAccumulartor = 0;
 
 	private List<InteractionEvent> queue = new ArrayList<InteractionEvent>();
@@ -69,7 +62,6 @@ public class InteractionEventLogger implements IInteractionEventListener {
 		}
 		try {
 			if (started) {
-//				String xml = writeLegacyEvent(event);
 				String xml = getXmlForEvent(event);
 				outputStream.write(xml.getBytes());
 			} else {
@@ -83,83 +75,38 @@ public class InteractionEventLogger implements IInteractionEventListener {
 		}
 	}
 
+	@Override
+	public void startMonitoring() {
+		super.startMonitoring();
+		for (InteractionEvent queuedEvent : queue) {
+			interactionObserved(queuedEvent);
+		}
+		queue.clear();
+	}
+	
+	@Override
+	public void stopMonitoring() {
+		super.stopMonitoring();
+		if (MylarUsageMonitorPlugin.getDefault() != null)
+			MylarUsageMonitorPlugin.getDefault().incrementObservedEvents(eventAccumulartor);
+		eventAccumulartor = 0;
+	}
+	
 	private String getXmlForEvent(InteractionEvent event) {
 		return writeLegacyEvent(event);
-	}
-
-	public void startObserving() {
-		synchronized(this) {
-			if (started) {
-				return;
-			} else {
-				started = true;
-			}
-		}
-		try {
-			if (!outputFile.exists())
-				outputFile.createNewFile();
-			outputStream = new FileOutputStream(outputFile, true);
-
-			for (InteractionEvent queuedEvent : queue)
-				interactionObserved(queuedEvent);
-			queue.clear();
-		} catch (FileNotFoundException e) {
-			MylarStatusHandler.log(e, "could not resolve file");
-		} catch (Throwable t) {
-			MylarStatusHandler.log(t, "could not create new file");
-		}
-	}
-
-	public void stopObserving() {
-		try {
-			if (outputStream != null) {
-				outputStream.flush();
-				outputStream.close();
-			}
-			started = false;
-			if (MylarUsageMonitorPlugin.getDefault() != null)
-				MylarUsageMonitorPlugin.getDefault().incrementObservedEvents(eventAccumulartor);
-			eventAccumulartor = 0;
-		} catch (IOException e) {
-			MylarStatusHandler.fail(e, "could not close interaction event stream", false);
-		}
-	}
-
-	public File moveOutputFile(String newPath) {
-		stopObserving();
-		File newFile = new File(newPath);
-		try {
-			if (outputFile.exists() && !newFile.exists()) {
-				outputFile.renameTo(newFile);
-			} else if (!newFile.exists()) {
-				newFile.createNewFile();
-				outputFile.delete();
-			} else {
-				outputFile.delete();
-			}
-			this.outputFile = newFile;
-		} catch (Exception e) {
-			MylarStatusHandler.fail(e, "Could not set logger output file", true);
-		}
-		startObserving();
-		return newFile;
 	}
 
 	/**
 	 * @return true if successfully cleared
 	 */
 	public synchronized void clearInteractionHistory() throws IOException {
-		stopObserving();
+		stopMonitoring();
 		outputStream = new FileOutputStream(outputFile, false);
 		outputStream.flush();
 		outputStream.close();
 		outputFile.delete();
 		outputFile.createNewFile();
-		startObserving();
-	}
-
-	public File getOutputFile() {
-		return outputFile;
+		startMonitoring();
 	}
 
 	public List<InteractionEvent> getHistoryFromFile(File file) {

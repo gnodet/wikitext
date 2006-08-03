@@ -186,7 +186,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		public void shellDeactivated(ShellEvent arg0) {
 			if (!isPerformingUpload() && ContextCorePlugin.getDefault() != null) {
 				for (IInteractionEventListener listener : MylarMonitorPlugin.getDefault().getInteractionListeners())
-					listener.stopObserving();
+					listener.stopMonitoring();
 			}
 		}
 
@@ -197,7 +197,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 			}
 			if (!isPerformingUpload() && ContextCorePlugin.getDefault() != null) {
 				for (IInteractionEventListener listener : MylarMonitorPlugin.getDefault().getInteractionListeners())
-					listener.startObserving();
+					listener.startMonitoring();
 			}
 		}
 
@@ -216,31 +216,12 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		public void contextStoreMoved() {
 			if (!isPerformingUpload()) {
 				for (IInteractionEventListener listener : MylarMonitorPlugin.getDefault().getInteractionListeners())
-					listener.stopObserving();
+					listener.stopMonitoring();
 				interactionLogger.moveOutputFile(getMonitorLogFile().getAbsolutePath());
 				for (IInteractionEventListener listener : MylarMonitorPlugin.getDefault().getInteractionListeners())
-					listener.startObserving();
+					listener.startMonitoring();
 			}
 		}
-
-		// public void propertyChange(PropertyChangeEvent event) {
-		// if
-		// (event.getProperty().equals(MylarPreferenceContstants.PREF_DATA_DIR))
-		// {
-		// if (event.getOldValue() instanceof String) {
-		// if (!isPerformingUpload()) {
-		// for (IInteractionEventListener listener :
-		// MylarMonitorPlugin.getDefault().getInteractionListeners())
-		// listener.stopObserving();
-		// interactionLogger.moveOutputFile(getMonitorLogFile().getAbsolutePath());
-		// for (IInteractionEventListener listener :
-		// MylarMonitorPlugin.getDefault().getInteractionListeners())
-		// listener.startObserving();
-		// }
-		// }
-		// } else {
-		// }
-		// }
 	};
 
 	public MylarUsageMonitorPlugin() {
@@ -316,9 +297,9 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 	public void startMonitoring() {
 		if (getPreferenceStore().getBoolean(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED))
 			return;
-		interactionLogger.startObserving();
+		interactionLogger.startMonitoring();
 		for (IInteractionEventListener listener : MylarMonitorPlugin.getDefault().getInteractionListeners())
-			listener.startObserving();
+			listener.startMonitoring();
 
 		IWorkbench workbench = PlatformUI.getWorkbench();
 		MylarMonitorPlugin.getDefault().addInteractionListener(interactionLogger);
@@ -370,7 +351,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		}
 
 		for (IInteractionEventListener listener : MylarMonitorPlugin.getDefault().getInteractionListeners())
-			listener.stopObserving();
+			listener.stopMonitoring();
 
 		IWorkbench workbench = PlatformUI.getWorkbench();
 		MylarMonitorPlugin.getDefault().removeInteractionListener(interactionLogger);
@@ -394,7 +375,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 
 		uninstallBrowserMonitor(workbench);
 
-		interactionLogger.stopObserving();
+		interactionLogger.stopMonitoring();
 
 		getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED, false);
 	}
