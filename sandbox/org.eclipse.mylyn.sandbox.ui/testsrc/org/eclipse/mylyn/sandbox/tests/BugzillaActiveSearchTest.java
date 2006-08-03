@@ -20,7 +20,7 @@ import junit.framework.TestCase;
 
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
+import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaTask;
 import org.eclipse.mylar.internal.context.core.IActiveSearchListener;
@@ -68,7 +68,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		WorkspaceSetupHelper.setupWorkspace();
-		repository = new TaskRepository(BugzillaPlugin.REPOSITORY_KIND,
+		repository = new TaskRepository(BugzillaCorePlugin.REPOSITORY_KIND,
 				IBugzillaConstants.ECLIPSE_BUGZILLA_URL);
 		TasksUiPlugin.getRepositoryManager().addRepository(repository);
 

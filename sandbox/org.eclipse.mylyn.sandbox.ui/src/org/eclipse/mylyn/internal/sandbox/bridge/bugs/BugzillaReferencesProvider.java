@@ -27,7 +27,7 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.mylar.context.core.AbstractRelationProvider;
 import org.eclipse.mylar.context.core.IMylarElement;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
+import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylar.internal.context.core.IActiveSearchListener;
 import org.eclipse.mylar.internal.context.core.IMylarSearchOperation;
 import org.eclipse.mylar.tasks.core.TaskRepository;
@@ -73,7 +73,7 @@ public class BugzillaReferencesProvider extends AbstractRelationProvider {
 		IJavaElement javaElement = JavaCore.create(node.getHandleIdentifier());
 
 		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepositoryForActiveTask(
-				BugzillaPlugin.REPOSITORY_KIND);
+				BugzillaCorePlugin.REPOSITORY_KIND);
 		return new BugzillaMylarSearch(degreeOfSepatation, javaElement, repository.getUrl());
 	}
 

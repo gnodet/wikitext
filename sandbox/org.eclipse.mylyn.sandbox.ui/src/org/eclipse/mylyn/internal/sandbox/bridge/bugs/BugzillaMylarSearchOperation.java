@@ -30,7 +30,7 @@ import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
+import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaResultCollector;
 import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchEngine;
 import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchHit;
@@ -334,7 +334,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 		// get the search url
 		String url = Util.getExactSearchURL(repositoryUrl, javaElement);
 		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
-				BugzillaPlugin.REPOSITORY_KIND, repositoryUrl);
+				BugzillaCorePlugin.REPOSITORY_KIND, repositoryUrl);
 		return search(url, repository, collector, monitor);
 	}
 
@@ -354,7 +354,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 		// get the search url
 		String url = Util.getInexactSearchURL(repositoryUrl, javaElement);
 		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
-				BugzillaPlugin.REPOSITORY_KIND, repositoryUrl);
+				BugzillaCorePlugin.REPOSITORY_KIND, repositoryUrl);
 
 		return search(url, repository, collector, monitor);
 	}

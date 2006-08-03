@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaException;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
+import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaServerFacade;
 import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchHit;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.StackTrace;
@@ -118,7 +118,7 @@ public class BugzillaReportInfo {
 	public RepositoryTaskData getBug() throws IOException, GeneralSecurityException, BugzillaException {
 		if (bug == null) {
 			// get the bug report
-			TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(BugzillaPlugin.REPOSITORY_KIND, hit.getRepositoryUrl());
+			TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(BugzillaCorePlugin.REPOSITORY_KIND, hit.getRepositoryUrl());
 			Proxy proxySettings = TasksUiPlugin.getDefault().getProxySettings();
 			bug = BugzillaServerFacade.getBug(repository.getUrl(), repository.getUserName(), repository.getPassword(), proxySettings, repository.getCharacterEncoding(), hit.getId());
 		}

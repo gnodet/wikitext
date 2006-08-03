@@ -19,7 +19,7 @@ import java.nio.charset.Charset;
 
 import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.IType;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
+import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants;
 import org.eclipse.mylar.internal.bugzilla.ui.BugzillaUiPlugin;
 import org.eclipse.mylar.tasks.core.TaskRepository;
@@ -149,7 +149,7 @@ public class Util {
 		sb.append("buglist.cgi?");
 
 		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
-				BugzillaPlugin.REPOSITORY_KIND, repositoryUrl);
+				BugzillaCorePlugin.REPOSITORY_KIND, repositoryUrl);
 		if (repository != null && repository.hasCredentials()) {
 			// if (BugzillaPreferencePage.getUserName() != null
 			// && !BugzillaPreferencePage.getUserName().equals("")
