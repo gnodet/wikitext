@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename field 'ATTR_FILENAME' in 'org.eclipse.mylar.tasks.core.RepositoryTaskAttribute' to 'ATTACHMENT_FILENAME'&#10;- Original element: 'org.eclipse.mylar.tasks.core.RepositoryTaskAttribute.ATTR_FILENAME'&#10;- Renamed element: 'org.eclipse.mylar.tasks.core.RepositoryTaskAttribute.ATTACHMENT_FILENAME'&#10;- Update references to refactored element&#10;- Update textual occurrences in comments and strings" delegate="false" deprecate="true" description="Rename field 'ATTR_FILENAME'" flags="589830" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;org.eclipse.mylar.tasks.core{RepositoryTaskAttribute.java[RepositoryTaskAttribute^ATTR_FILENAME" name="ATTACHMENT_FILENAME" references="true" setter="false" stamp="1154544096119" textual="false" version="1.0"/>
+</session>

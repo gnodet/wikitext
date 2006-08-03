@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Move 'org.eclipse.mylar.internal.bugzilla.core.SaxBugReportContentHandler.ATTACHMENT_URL_SUFFIX' to 'org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants'&#13;&#10;- Original element: 'org.eclipse.mylar.internal.bugzilla.core.SaxBugReportContentHandler.ATTACHMENT_URL_SUFFIX'&#13;&#10;- Destination type: 'org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants'" delegate="false" deprecate="true" description="Move member 'ATTACHMENT_URL_SUFFIX'" element1="/src&lt;org.eclipse.mylar.internal.bugzilla.core{SaxBugReportContentHandler.java[SaxBugReportContentHandler^ATTACHMENT_URL_SUFFIX" flags="589830" id="org.eclipse.jdt.ui.move.static" input="/src&lt;org.eclipse.mylar.internal.bugzilla.core{IBugzillaConstants.java[IBugzillaConstants" stamp="1154566482651" version="1.0"/>
+</session>
