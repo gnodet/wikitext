@@ -2,27 +2,23 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Mylar Sandbox Plug-in
 Bundle-SymbolicName: org.eclipse.mylar.sandbox; singleton:=true
-Bundle-Version: 0.6.1.v200608030-1800
+Bundle-Version: 0.6.1.v20060804-0100
 Bundle-Activator: org.eclipse.mylar.internal.sandbox.MylarSandboxPlugin
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.mylar.context.core,
  org.eclipse.mylar.context.ui,
- org.eclipse.mylar.java,
  org.eclipse.jdt.core,
  org.eclipse.mylar.tasks.ui,
- org.eclipse.core.resources,
- org.eclipse.ui.browser,
- org.junit,
  org.eclipse.mylar.bugzilla.core,
  org.eclipse.mylar.bugzilla.ui,
  org.eclipse.jface.text,
  org.eclipse.ui.ide,
- org.eclipse.mylar.java.tests,
  org.eclipse.mylar.tasks.core,
  org.eclipse.mylar.monitor,
- org.eclipse.ui.forms
+ org.eclipse.ui.forms,
+ org.eclipse.mylar.java
 Eclipse-AutoStart: true
 Bundle-Vendor: Eclipse.org
 Export-Package: org.eclipse.mylar.internal.sandbox,
