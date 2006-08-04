@@ -289,5 +289,10 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		// ignore
 	}
 
+	@Override
+	public boolean hasRichEditor() {
+		return false;
+	}
+
 }
 
