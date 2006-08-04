@@ -13,18 +13,19 @@ package org.eclipse.mylar.internal.sandbox.web;
 
 import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
 
-
 /**
- * Task used with generic web-based repositories 
+ * Task used with generic web-based repositories
  * 
  * @author Eugene Kuleshov
  */
 public class WebTask extends AbstractRepositoryTask {
 
 	private final String id;
+
 	private final String taskPrefix;
+
 	private final String repositoryUrl;
-	
+
 	public WebTask(String id, String label, String taskPrefix, String repositoryUrl) {
 		super(taskPrefix + id, label, false);
 		this.id = id;
@@ -44,19 +45,18 @@ public class WebTask extends AbstractRepositoryTask {
 	public boolean isPersistentInWorkspace() {
 		return false;
 	}
-	
+
 	public String getTaskPrefix() {
 		return this.taskPrefix;
 	}
-	
+
 	public String getId() {
 		return this.id;
 	}
-	
+
 	@Override
 	public String getRepositoryUrl() {
 		return repositoryUrl;
 	}
-	
-}
 
+}

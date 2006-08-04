@@ -42,7 +42,7 @@
   
    <extension
          id="org.eclipse.mylar.web.repository"
-         name="Generic web-based Repository"
+         name="Generic web-based access (Advanced)"
          point="org.eclipse.mylar.tasks.ui.repositories">
       <repositoryType
             brandingIcon="icons/obj16/repository-web.gif"
@@ -146,6 +146,16 @@
                <attribute 
         	name="taskRegexp" value="&lt;a href=&quot;showthread.php\?.+?t=(\d+?)&quot; id=&quot;thread_title_\1&quot;&gt;(.+?)&lt;/a&gt;"/>        	
         	</repository>            
+      <repository
+            label="Eclipse Outliner (Google Code)"
+            urlNewTask="http://code.google.com/p/eclipse-outliner/issues/entry"
+            repositoryKind="web"
+            urlRepository="http://code.google.com/p/eclipse-outliner/"
+            urlTask="http://code.google.com/p/eclipse-outliner/issues/detail?id="
+            urlTaskQuery="http://code.google.com/p/eclipse-outliner/issues/list">
+        <attribute name="taskRegexp" 
+          value="&lt;td class=&quot;vt col_6&quot; .+?&lt;a href=&quot;detail\?id=(.+?).+?&quot;&gt;(.+?)&lt;/a&gt;.+?&lt;/td&gt;"/>
+      </repository>
    </extension>  
   
 </plugin>

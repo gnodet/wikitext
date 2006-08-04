@@ -65,7 +65,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 	
 	public String getLabel() {
-		return "Generic web-based repository";
+		return "Generic web-based access (Advanced)";
 	}
 	
 	@Override
