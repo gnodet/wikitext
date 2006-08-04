@@ -21,7 +21,6 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.context.ui.actions.ToggleContextCaptureAction;
-import org.eclipse.mylar.internal.monitor.reports.MylarReportsPlugin;
 import org.eclipse.mylar.internal.sandbox.MylarSandboxPlugin;
 import org.eclipse.mylar.internal.tasks.ui.ComboSelectionDialog;
 import org.eclipse.mylar.internal.tasks.ui.views.TaskListView;
@@ -94,7 +93,8 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 			List<String> folders = new ArrayList<String>();
 
 			// Check that a shared data path has been specified
-			String sharedDataPath = MylarReportsPlugin.getDefault().getRootSharedDataDirectory();
+//			String sharedDataPath = MylarReportsPlugin.getDefault().getRootSharedDataDirectory();
+			String sharedDataPath = "<not implemented>";
 			if (sharedDataPath.trim().equals("")) {
 				MessageDialog.openError(shell, "Switch Task Folder Error",
 						"Please specify a root shared task folder in the Mylar Reports preference page.");
@@ -183,8 +183,9 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 			TaskListView.getFromActivePerspective().indicateSharedFolder("");
 			ContextCorePlugin.getContextManager().setActivationHistorySuppressed(false);
 		} else {
-			String dataDirPath = MylarReportsPlugin.getDefault().getRootSharedDataDirectory() + File.separator
-					+ targetFolder;
+			String dataDirPath = "<not implemented>";
+//			String dataDirPath = MylarReportsPlugin.getDefault().getRootSharedDataDirectory() + File.separator
+//					+ targetFolder;
 			MylarSandboxPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectory(dataDirPath);
 			MylarSandboxPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectoryEnabled(true);
 			// MylarTaskListPlugin.getDefault().setDataDirectory(dataDirPath);
