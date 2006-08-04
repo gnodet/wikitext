@@ -142,7 +142,7 @@ public class ReportGenerator {
 
 		if (source.getName().indexOf(terminator) >= 0) {
 			try {
-				userIDText = userIDText.substring(0, userIDText.indexOf(terminator) - 1);
+				phase = userIDText.substring(0, userIDText.indexOf(terminator) - 1);
 			} catch (Throwable t) {
 				MylarStatusHandler.log(t, "could not parse user ID from source file");
 			}
