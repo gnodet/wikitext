@@ -86,7 +86,11 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 		node.setAttribute(KEY_NAME, queryHit.getDescription());
 		// node.setAttribute(KEY_PREFIX, ((WebQueryHit) queryHit).getTaskPrefix());
 		// node.setAttribute(KEY_REPOSITORY_URL, queryHit.getRepositoryUrl());
-		
+		if (queryHit.isNotified()) {
+			node.setAttribute(KEY_NOTIFIED_INCOMING, VAL_TRUE);
+		} else {
+			node.setAttribute(KEY_NOTIFIED_INCOMING, VAL_FALSE);
+		}
 		parent.appendChild(node);
 		return null;
 	}
@@ -178,6 +182,13 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 		String description = element.getAttribute(KEY_NAME);
 
 		WebQueryHit hit = new WebQueryHit(id, description, ((WebQuery) query).getTaskPrefix(), query.getRepositoryUrl());
+		
+		if (element.hasAttribute(KEY_NOTIFIED_INCOMING) && element.getAttribute(KEY_NOTIFIED_INCOMING).compareTo(VAL_TRUE) == 0) {
+			hit.setNotified(true);
+		} else {
+			hit.setNotified(false);
+		}
+		
 		query.addHit(hit, taskList);
 	}
 
