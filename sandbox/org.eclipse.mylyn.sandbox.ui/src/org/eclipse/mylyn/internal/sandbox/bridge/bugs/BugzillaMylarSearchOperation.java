@@ -34,10 +34,10 @@ import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaResultCollector;
 import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchEngine;
 import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchHit;
-import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchQuery;
 import org.eclipse.mylar.internal.bugzilla.ui.search.IBugzillaSearchOperation;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaTask;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.StackTrace;
+import org.eclipse.mylar.internal.tasks.ui.search.AbstractRepositorySearchQuery;
 import org.eclipse.mylar.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylar.tasks.core.TaskComment;
 import org.eclipse.mylar.tasks.core.ITask;
@@ -70,7 +70,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	private String name;
 
 	/** The bugzilla search query */
-	private BugzillaSearchQuery query;
+	private AbstractRepositorySearchQuery query;
 
 	private BugzillaMylarSearch search;
 
@@ -493,14 +493,14 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	/**
 	 * @see org.eclipse.mylar.internal.bugs.core.search.IBugzillaSearchOperation#getQuery()
 	 */
-	public BugzillaSearchQuery getQuery() {
+	public AbstractRepositorySearchQuery getQuery() {
 		return query;
 	}
 
 	/**
-	 * @see org.eclipse.mylar.internal.bugs.core.search.IBugzillaSearchOperation#setQuery(org.eclipse.mylar.internal.bugs.core.search.BugzillaSearchQuery)
+	 * @see org.eclipse.mylar.internal.bugs.core.search.IBugzillaSearchOperation#setQuery(org.eclipse.mylar.internal.bugs.core.search.AbstractRepositorySearchQuery)
 	 */
-	public void setQuery(BugzillaSearchQuery newQuery) {
+	public void setQuery(AbstractRepositorySearchQuery newQuery) {
 		this.query = newQuery;
 	}
 
