@@ -60,6 +60,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	
 	public static final String PROPERTY_TASK_PREFIX_URL = "taskprefixurl";
 
+	public static final String TASK_REGEXP = "taskRegexp";
+
 	public String getRepositoryType() {
 		return REPOSITORY_TYPE;
 	}

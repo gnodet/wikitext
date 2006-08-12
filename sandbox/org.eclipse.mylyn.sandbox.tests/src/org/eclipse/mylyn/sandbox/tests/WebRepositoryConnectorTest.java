@@ -22,7 +22,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.mylar.internal.sandbox.web.WebQueryWizardPage;
 import org.eclipse.mylar.internal.sandbox.web.WebRepositoryConnector;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.RepositoryTemplate;
@@ -47,10 +46,10 @@ public class WebRepositoryConnectorTest extends TestCase {
 		IProgressMonitor monitor = new NullProgressMonitor();
 		MultiStatus queryStatus = new MultiStatus(TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Query result", null);
 		
-		List<AbstractQueryHit> hits = WebRepositoryConnector.performQuery(buffer, template.getAttribute(WebQueryWizardPage.TASK_REGEXP), template.taskPrefixUrl, template.repositoryUrl, monitor, queryStatus);
+		List<AbstractQueryHit> hits = WebRepositoryConnector.performQuery(buffer, template.getAttribute(WebRepositoryConnector.TASK_REGEXP), template.taskPrefixUrl, template.repositoryUrl, monitor, queryStatus);
 		
-		assertTrue(template.taskQueryUrl+"\n"+WebQueryWizardPage.TASK_REGEXP+"\n"+Arrays.asList(queryStatus.getChildren()).toString(), queryStatus.isOK());
-		assertTrue("Expected non-empty query result\n"+template.taskQueryUrl+"\n"+WebQueryWizardPage.TASK_REGEXP, hits.size()>0);
+		assertTrue(template.taskQueryUrl+"\n"+template.getAttribute(WebRepositoryConnector.TASK_REGEXP)+"\n"+Arrays.asList(queryStatus.getChildren()).toString(), queryStatus.isOK());
+		assertTrue("Expected non-empty query result\n"+template.taskQueryUrl+"\n"+template.getAttribute(WebRepositoryConnector.TASK_REGEXP), hits.size()>0);
 	}
 
 	public String getName() {
