@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Extract constant 'org.eclipse.mylar.tasks.tests.TaskListManagerTest.MOCK_REPOSITORY_URL' from expression '&quot;http://mock.repository&quot;'&#13;&#10;- Constant name: 'MOCK_REPOSITORY_URL'&#13;&#10;- Constant expression: '&quot;http://mock.repository&quot;'&#13;&#10;- Declared visibility: 'private'&#13;&#10;- Replace occurrences of expression with constant" description="Extract constant 'MOCK_REPOSITORY_URL'" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylar.tasks.tests{TaskListManagerTest.java" name="MOCK_REPOSITORY_URL" qualify="false" replace="true" selection="2496 24" stamp="1155666695718" version="1.0" visibility="2"/>
+</session>
