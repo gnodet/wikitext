@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource '/org.eclipse.mylar.bugzilla.tests/testdata/configuration/rdfoutput222.txt' to 'rdfconfig222.txt'&#13;&#10;- Original element: 'rdfoutput222.txt'" description="Rename resource 'rdfoutput222.txt'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="testdata/configuration/rdfoutput222.txt" name="rdfconfig222.txt" stamp="1155933401593" version="1.0"/>
+</session>
