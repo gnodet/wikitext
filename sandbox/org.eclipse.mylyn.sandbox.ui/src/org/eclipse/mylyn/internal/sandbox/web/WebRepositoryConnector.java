@@ -296,5 +296,10 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return false;
 	}
 
+	@Override
+	public boolean validate(TaskRepository repository) {
+		return true;
+	}
+
 }
 
