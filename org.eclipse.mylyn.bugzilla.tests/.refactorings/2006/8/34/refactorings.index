@@ -1,0 +1,3 @@
+1156205226109	Extract superclass 'AbstractBugzillaTest'
+1156205631781	Rename type 'BugzillaTaskDataMigration'
+1156205387328	Pull up members to 'AbstractBugzillaTest'
