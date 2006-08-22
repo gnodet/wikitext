@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 2 element(s) from project 'org.eclipse.mylar-site'&#13;&#10;- Original project: 'org.eclipse.mylar-site'&#13;&#10;- Original elements:&#13;&#10;     features&#13;&#10;     plugins" description="Delete elements" element1="dev/features" element2="dev/plugins" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="2" stamp="1156210943781" subPackages="false" version="1.0"/>
+</session>
