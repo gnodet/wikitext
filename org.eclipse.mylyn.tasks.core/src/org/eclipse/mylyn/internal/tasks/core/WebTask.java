@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.sandbox.web;
+package org.eclipse.mylar.internal.tasks.core;
 
 import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
 
@@ -25,17 +25,20 @@ public class WebTask extends AbstractRepositoryTask {
 	private final String taskPrefix;
 
 	private final String repositoryUrl;
+	
+	private final String repsitoryType;
 
-	public WebTask(String id, String label, String taskPrefix, String repositoryUrl) {
+	public WebTask(String id, String label, String taskPrefix, String repositoryUrl, String repsitoryType) {
 		super(taskPrefix + id, label, false);
 		this.id = id;
 		this.taskPrefix = taskPrefix;
 		this.repositoryUrl = repositoryUrl;
+		this.repsitoryType = repsitoryType;
 		setUrl(taskPrefix + id);
 	}
 
 	public String getRepositoryKind() {
-		return WebRepositoryConnector.REPOSITORY_TYPE;
+		return repsitoryType;
 	}
 
 	public boolean isDownloaded() {

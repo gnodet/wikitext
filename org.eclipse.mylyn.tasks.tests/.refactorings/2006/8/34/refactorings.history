@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 1 element(s) from project 'org.eclipse.mylar.tasks.tests'&#13;&#10;- Original project: 'org.eclipse.mylar.tasks.tests'&#13;&#10;- Original element: 'org.eclipse.mylar.tasks.tests.CompletionChangeTest.java'" description="Delete element" element1="/src&lt;org.eclipse.mylar.tasks.tests{CompletionChangeTest.java" elements="1" flags="589830" id="org.eclipse.jdt.ui.delete" resources="0" stamp="1156373618750" subPackages="false" version="1.0"/>
+</session>

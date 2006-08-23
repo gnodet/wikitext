@@ -32,6 +32,7 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
+import org.eclipse.mylar.internal.tasks.core.WebTask;
 import org.eclipse.mylar.internal.tasks.ui.RetrieveTitleFromUrlJob;
 import org.eclipse.mylar.internal.tasks.ui.wizards.AbstractRepositorySettingsPage;
 import org.eclipse.mylar.internal.tasks.ui.wizards.NewWebTaskWizard;
@@ -93,7 +94,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		if(REPOSITORY_TYPE.equals(repository.getKind())) {
 			String taskPrefix = repository.getProperty(PROPERTY_TASK_PREFIX_URL);
 			
-			final WebTask task = new WebTask(id, id, taskPrefix, repository.getUrl());
+			final WebTask task = new WebTask(id, id, taskPrefix, repository.getUrl(), WebRepositoryConnector.REPOSITORY_TYPE);
 
 			RetrieveTitleFromUrlJob job = new RetrieveTitleFromUrlJob(taskPrefix+id) {
 					protected void setTitle(String pageTitle) {

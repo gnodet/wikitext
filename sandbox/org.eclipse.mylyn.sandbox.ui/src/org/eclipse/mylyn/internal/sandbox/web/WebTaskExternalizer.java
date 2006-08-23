@@ -8,6 +8,7 @@
 
 package org.eclipse.mylar.internal.sandbox.web;
 
+import org.eclipse.mylar.internal.tasks.core.WebTask;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.AbstractTaskContainer;
@@ -138,7 +139,7 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 			throw new TaskExternalizationException("Repository URL not stored for bug report");
 		}
 		
-		WebTask task = new WebTask(id, label, prefix, repositoryUrl);
+		WebTask task = new WebTask(id, label, prefix, repositoryUrl, WebRepositoryConnector.REPOSITORY_TYPE);
 
 		readTaskInfo(task, taskList, element, parent, category);
 		return task;

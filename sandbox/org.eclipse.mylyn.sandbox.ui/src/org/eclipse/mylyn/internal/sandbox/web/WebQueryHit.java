@@ -8,6 +8,7 @@
 
 package org.eclipse.mylar.internal.sandbox.web;
 
+import org.eclipse.mylar.internal.tasks.core.WebTask;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
 import org.eclipse.mylar.tasks.core.ITask;
@@ -57,7 +58,7 @@ public class WebQueryHit extends AbstractQueryHit {
 		if (existingTask instanceof WebTask) {
 			this.task = (WebTask) existingTask;
 		} else {
-			task = new WebTask(id, description, taskPrefix, repositoryUrl);
+			task = new WebTask(id, description, taskPrefix, repositoryUrl, WebRepositoryConnector.REPOSITORY_TYPE);
 			taskList.addTask(task);			
 		} 	
 		return task;
