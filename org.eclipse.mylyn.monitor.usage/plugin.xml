@@ -25,8 +25,17 @@
          class="org.eclipse.mylar.internal.monitor.usage.ui.preferences.MylarMonitorPreferencePage"
          id="org.eclipse.mylar.monitor.ui.preferences"
 		 category="org.eclipse.mylar.ui.preferences">
-      </page>  
+         <keywordReference id="org.eclipse.mylar.monitor.keywords"/>
+      </page> 
    </extension>
+   
+   <extension
+   		point="org.eclipse.ui.keywords">
+      <keyword
+            label="Mylar Monitor"
+            id="org.eclipse.mylar.monitor.keywords"/>
+   </extension>
+ 
    
    <!--
    	<extension

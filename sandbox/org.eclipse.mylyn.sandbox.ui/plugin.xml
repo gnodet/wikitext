@@ -8,7 +8,15 @@
          class="org.eclipse.mylar.internal.java.ui.preferences.MylarJavaPreferencePage"
          id="org.eclipse.mylar.java.ui.preferences"
          category="org.eclipse.mylar.ui.preferences">
-      </page>  
+         <keywordReference id="org.eclipse.mylar.java.keywords"/>
+      </page> 
+   </extension>
+   
+   <extension
+   		point="org.eclipse.ui.keywords">
+      <keyword
+            label="mylar java"
+            id="org.eclipse.mylar.java.keywords"/>
    </extension>
 
    <extension point="org.eclipse.ui.decorators">
