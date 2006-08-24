@@ -9,7 +9,6 @@
 package org.eclipse.mylar.internal.sandbox.web;
 
 import org.eclipse.mylar.internal.tasks.core.WebTask;
-import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylar.tasks.core.DelegatingTaskExternalizer;
@@ -79,23 +78,6 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 		return node;
 	}
 
-	@Override
-	public Element createQueryHitElement(AbstractQueryHit queryHit, Document doc, Element parent) {
-		Element node = doc.createElement(getQueryHitTagName());
-		
-		node.setAttribute(KEY_KEY, queryHit.getId());
-		node.setAttribute(KEY_NAME, queryHit.getDescription());
-		// node.setAttribute(KEY_PREFIX, ((WebQueryHit) queryHit).getTaskPrefix());
-		// node.setAttribute(KEY_REPOSITORY_URL, queryHit.getRepositoryUrl());
-		if (queryHit.isNotified()) {
-			node.setAttribute(KEY_NOTIFIED_INCOMING, VAL_TRUE);
-		} else {
-			node.setAttribute(KEY_NOTIFIED_INCOMING, VAL_FALSE);
-		}
-		parent.appendChild(node);
-		return null;
-	}
-	
 	@Override
 	public Element createTaskElement(ITask task, Document doc, Element parent) {
 		Element node = super.createTaskElement(task, doc, parent);
@@ -180,17 +162,9 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 		Element element = (Element) node;
 
 		String id = element.getAttribute(KEY_KEY);
-		String description = element.getAttribute(KEY_NAME);
 
-		WebQueryHit hit = new WebQueryHit(id, description, ((WebQuery) query).getTaskPrefix(), query.getRepositoryUrl());
-		
-		if (element.hasAttribute(KEY_NOTIFIED_INCOMING) && element.getAttribute(KEY_NOTIFIED_INCOMING).compareTo(VAL_TRUE) == 0) {
-			hit.setNotified(true);
-		} else {
-			hit.setNotified(false);
-		}
-		
-		query.addHit(hit, taskList);
+		WebQueryHit hit = new WebQueryHit(id, "", ((WebQuery) query).getTaskPrefix(), query.getRepositoryUrl());
+		readQueryHitInfo(hit, taskList, query, element);
 	}
 
 	@Override

@@ -31,10 +31,6 @@ public class WebQueryHit extends AbstractQueryHit {
 		this.taskPrefix = taskPrefix;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-	
 	public String getPriority() {
 		return "?";
 	}
@@ -64,10 +60,6 @@ public class WebQueryHit extends AbstractQueryHit {
 		return task;
 	}
 	
-	public void setHandleIdentifier(String id) {
-		task.setHandleIdentifier(id);
-	}
-
 	@Override
 	public String getHandleIdentifier() {
 		return taskPrefix + getId();
