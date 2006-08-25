@@ -1,4 +1,5 @@
 1156187652531	Rename field 'newDescriptionTextViewer'
+1156450989574	Convert member type 'RepositoryViewerConfig' to top level
 1156187749375	Rename method 'selectNewDescription'
 1156459222515	Delete element
 1156480209234	Move compilation unit
