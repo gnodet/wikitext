@@ -16,3 +16,12 @@
 1156521421109	Rename method 'getRepositoryConnectorUi'
 1156521430781	Rename method 'getRepositoryConnectorsUis'
 1156521838796	Rename type 'AbstractRepositoryUi'
+1156522176359	Move method
+1156522182671	Move method
+1156522190874	Move method
+1156522228734	Rename method 'addRepositoryUi'
+1156522592749	Move compilation unit
+1156523848140	Rename method 'readRepositoryConnector'
+1156523855812	Rename method 'readRepositoryUi'
+1156523870390	Rename local variable 'repository'
+1156523875859	Rename local variable 'repository'
