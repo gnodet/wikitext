@@ -70,7 +70,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 		WorkspaceSetupHelper.setupWorkspace();
 		repository = new TaskRepository(BugzillaCorePlugin.REPOSITORY_KIND,
 				IBugzillaConstants.ECLIPSE_BUGZILLA_URL);
-		TasksUiPlugin.getRepositoryManager().addRepository(repository);
+		TasksUiPlugin.getRepositoryManager().addRepository(repository, TasksUiPlugin.getDefault().getRepositoriesFilePath());
 
 		IJavaProject jp = WorkspaceSetupHelper.getJdtCoreDomProject();
 		astNodeType = WorkspaceSetupHelper.getType(jp, "org.eclipse.jdt.core.dom.ASTNode");
@@ -79,7 +79,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 	@Override
 	protected void tearDown() throws Exception {
 		WorkspaceSetupHelper.clearDoiModel();
-		TasksUiPlugin.getRepositoryManager().removeRepository(repository);
+		TasksUiPlugin.getRepositoryManager().removeRepository(repository, TasksUiPlugin.getDefault().getRepositoriesFilePath());
 	}
 
 	/**
