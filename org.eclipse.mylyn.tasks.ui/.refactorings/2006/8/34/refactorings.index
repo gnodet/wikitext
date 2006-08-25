@@ -15,3 +15,4 @@
 1156521411281	Rename method 'addRepositoryConnectorUi'
 1156521421109	Rename method 'getRepositoryConnectorUi'
 1156521430781	Rename method 'getRepositoryConnectorsUis'
+1156521838796	Rename type 'AbstractRepositoryUi'

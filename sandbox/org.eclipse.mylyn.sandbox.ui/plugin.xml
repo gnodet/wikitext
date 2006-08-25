@@ -52,12 +52,12 @@
          id="org.eclipse.mylar.web.repository"
          name="Generic web-based access (Advanced)"
          point="org.eclipse.mylar.tasks.ui.repositories">
-      <repositoryConnector
+      <connectorCore
             class="org.eclipse.mylar.internal.sandbox.web.WebRepositoryConnector"
             id="org.eclipse.mylar.web.tasklist.repositories"
             name="Generic web-based repository"
             type="web"/>
-      <repositoryUi
+      <connectorUi
             brandingIcon="icons/obj16/repository-web.gif"
             class="org.eclipse.mylar.internal.sandbox.web.WebRepositoryUi"
             name="Generic web-based repsoitory UI"/>

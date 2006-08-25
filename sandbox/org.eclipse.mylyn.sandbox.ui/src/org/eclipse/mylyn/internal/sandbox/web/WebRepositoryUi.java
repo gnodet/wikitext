@@ -17,7 +17,7 @@ import org.eclipse.mylar.internal.tasks.ui.wizards.AbstractRepositorySettingsPag
 import org.eclipse.mylar.internal.tasks.ui.wizards.NewWebTaskWizard;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.AbstractRepositoryUi;
+import org.eclipse.mylar.tasks.ui.AbstractRepositoryConnectorUi;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
@@ -28,7 +28,7 @@ import org.eclipse.ui.PlatformUI;
  * @author Mik Kersten
  * @author Eugene Kuleshov
  */
-public class WebRepositoryUi extends AbstractRepositoryUi {
+public class WebRepositoryUi extends AbstractRepositoryConnectorUi {
 	
 	public AbstractRepositorySettingsPage getSettingsPage() {
 		return new WebRepositorySettingsPage(this);
