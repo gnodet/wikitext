@@ -17,7 +17,7 @@ import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.mylar.internal.tasks.ui.wizards.AbstractRepositorySettingsPage;
 import org.eclipse.mylar.tasks.core.RepositoryTemplate;
 import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.AbstractRepositoryConnector;
+import org.eclipse.mylar.tasks.ui.AbstractConnectorUi;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Composite;
@@ -36,8 +36,8 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 
 	protected StringFieldEditor newTaskUrlEditor;
 
-	public WebRepositorySettingsPage(AbstractRepositoryConnector connector) {
-		super(TITLE, DESCRIPTION, connector);
+	public WebRepositorySettingsPage(AbstractConnectorUi repositoryUi) {
+		super(TITLE, DESCRIPTION, repositoryUi);
 	}
 
 	@Override

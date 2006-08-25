@@ -9,9 +9,9 @@
 package org.eclipse.mylar.internal.sandbox.web;
 
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.mylar.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.AbstractRepositoryConnector;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 
 /**
@@ -48,7 +48,7 @@ public class WebQueryWizard extends Wizard {
 			TasksUiPlugin.getTaskListManager().getTaskList().addQuery(query);
 			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getKind());
 			if (connector != null) {
-				connector.synchronize(query, null);
+				TasksUiPlugin.getSynchronizationManager().synchronize(connector, query, null);
 			}
 //			filter.refreshHits();
 		} 

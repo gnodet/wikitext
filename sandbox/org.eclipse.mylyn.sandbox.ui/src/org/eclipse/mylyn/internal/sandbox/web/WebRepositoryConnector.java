@@ -27,26 +27,17 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.window.Window;
-import org.eclipse.jface.wizard.IWizard;
-import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.tasks.core.WebTask;
 import org.eclipse.mylar.internal.tasks.ui.RetrieveTitleFromUrlJob;
-import org.eclipse.mylar.internal.tasks.ui.wizards.AbstractRepositorySettingsPage;
-import org.eclipse.mylar.internal.tasks.ui.wizards.NewWebTaskWizard;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
+import org.eclipse.mylar.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
 import org.eclipse.mylar.tasks.core.IAttachmentHandler;
 import org.eclipse.mylar.tasks.core.IOfflineTaskHandler;
 import org.eclipse.mylar.tasks.core.ITask;
 import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.AbstractRepositoryConnector;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI;
 
 /**
  * Generic connector for web based issue tracking systems
@@ -150,55 +141,9 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return new ArrayList<AbstractQueryHit>();
 	}
 
-	protected void updateTaskState(AbstractRepositoryTask repositoryTask) {
+	public void updateTaskState(AbstractRepositoryTask repositoryTask) {
 		// TODO
 	}
-	
-
-	// UI
-	
-	public AbstractRepositorySettingsPage getSettingsPage() {
-		return new WebRepositorySettingsPage(this);
-	}
-	
-	public IWizard getNewTaskWizard(TaskRepository taskRepository, IStructuredSelection selection) {
-//		return new WebTaskWizard(taskRepository);
-		return new NewWebTaskWizard(taskRepository, taskRepository.getProperty(WebRepositoryConnector.PROPERTY_NEW_TASK_URL)); 
-	}
-
-	
-	public IWizard getNewQueryWizard(TaskRepository taskRepository, IStructuredSelection selection) {
-		return new WebQueryWizard(taskRepository);
-	}
-	
-	public void openEditQueryDialog(AbstractRepositoryQuery query) {
-		try {
-			TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
-					query.getRepositoryKind(), query.getRepositoryUrl());
-			if (repository == null)
-				return;
-
-			IWizard wizard = null;
-			if (query instanceof WebQuery) {
-				wizard = new WebQueryEditWizard(repository, query);
-			}
-
-			Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-			if (wizard != null && shell != null && !shell.isDisposed()) {
-				WizardDialog dialog = new WizardDialog(shell, wizard);
-				dialog.create();
-				dialog.setTitle("Edit Web Query");
-				dialog.setBlockOnOpen(true);
-				if (dialog.open() == Window.CANCEL) {
-					dialog.close();
-					return;
-				}
-			}
-		} catch (Exception e) {
-			MylarStatusHandler.fail(e, e.getMessage(), true);
-		}
-	}
-	
 	
 	public IAttachmentHandler getAttachmentHandler() {
 		// not supported
@@ -290,11 +235,6 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	@Override
 	public void updateAttributes(TaskRepository repository, IProgressMonitor monitor) {
 		// ignore
-	}
-
-	@Override
-	public boolean hasRichEditor() {
-		return false;
 	}
 
 	@Override

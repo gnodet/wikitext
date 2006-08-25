@@ -9,9 +9,9 @@
 package org.eclipse.mylar.internal.sandbox.web;
 
 import org.eclipse.mylar.internal.tasks.ui.wizards.AbstractEditQueryWizard;
+import org.eclipse.mylar.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.AbstractRepositoryConnector;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 
 /**
@@ -51,7 +51,7 @@ public class WebQueryEditWizard extends AbstractEditQueryWizard {
 			
 			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getKind());
 			if (connector != null) {
-				connector.synchronize(q, null);
+				TasksUiPlugin.getSynchronizationManager().synchronize(connector, q, null);
 			}
 //			filter.refreshHits();
 		} 

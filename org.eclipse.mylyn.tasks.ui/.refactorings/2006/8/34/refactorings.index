@@ -1,3 +1,12 @@
 1156187652531	Rename field 'newDescriptionTextViewer'
 1156187749375	Rename method 'selectNewDescription'
 1156459222515	Delete element
+1156480209234	Move compilation unit
+1156481530031	Rename type 'TaskSynchronizationManager'
+1156483094062	Rename type 'TaskListSynchronizationManager'
+1156483117296	Rename field 'synchronizationManager'
+1156483646437	Rename type 'AbstractRepositoryUi'
+1156489305750	Rename method 'setRepositoryClient'
+1156489735109	Rename method 'getRepositoryClient'
+1156490136078	Rename type 'AbstractRepositoryConnectorUi'
+1156490388640	Rename method 'readRepositoryClient'
