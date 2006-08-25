@@ -17,16 +17,18 @@ import org.eclipse.mylar.internal.tasks.ui.wizards.AbstractRepositorySettingsPag
 import org.eclipse.mylar.internal.tasks.ui.wizards.NewWebTaskWizard;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.AbstractConnectorUi;
+import org.eclipse.mylar.tasks.ui.AbstractRepositoryUi;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
 /**
+ * TODO: refactor into extension points?
+ * 
  * @author Mik Kersten
  * @author Eugene Kuleshov
  */
-public class WebConnectorUi extends AbstractConnectorUi {
+public class WebRepositoryUi extends AbstractRepositoryUi {
 	
 	public AbstractRepositorySettingsPage getSettingsPage() {
 		return new WebRepositorySettingsPage(this);
@@ -77,6 +79,11 @@ public class WebConnectorUi extends AbstractConnectorUi {
 	@Override
 	public String getRepositoryType() {
 		return WebRepositoryConnector.REPOSITORY_TYPE;
+	}
+
+	@Override
+	public boolean hasSearchPage() {
+		return false;
 	}
 
 }
