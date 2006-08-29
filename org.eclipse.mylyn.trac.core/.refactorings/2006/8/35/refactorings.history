@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename package 'org.eclipse.mylar.internal.trac.model' to 'org.eclipse.mylar.internal.trac.core.model'&#10;- Original element: 'org.eclipse.mylar.trac.core/src/org.eclipse.mylar.internal.trac.model'&#10;- Renamed element: 'org.eclipse.mylar.trac.core/src/org.eclipse.mylar.internal.trac.core.model'&#10;- Update references to refactored element&#10;- Update textual occurrences in comments and strings" description="Rename package 'org.eclipse.mylar.internal.trac.model'" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;org.eclipse.mylar.internal.trac.model" name="org.eclipse.mylar.internal.trac.core.model" qualified="false" references="true" stamp="1156881242305" textual="false" version="1.0"/>
+</session>
