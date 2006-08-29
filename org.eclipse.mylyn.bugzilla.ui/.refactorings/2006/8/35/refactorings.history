@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Extract constant 'org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaRepositorySettingsPage.LABEL_AUTOMATIC_VERSION' from expression '&quot;Automatic (Use Validate Settings)&quot;'&#13;&#10;- Constant name: 'LABEL_AUTOMATIC_VERSION'&#13;&#10;- Constant expression: '&quot;Automatic (Use Validate Settings)&quot;'&#13;&#10;- Declared visibility: 'public'&#13;&#10;- Replace occurrences of expression with constant" description="Extract constant 'LABEL_AUTOMATIC_VERSION'" flags="786434" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylar.internal.bugzilla.ui.tasklist{BugzillaRepositorySettingsPage.java" name="LABEL_AUTOMATIC_VERSION" qualify="false" replace="true" selection="3668 35" stamp="1156815061718" version="1.0" visibility="1"/>
+</session>
