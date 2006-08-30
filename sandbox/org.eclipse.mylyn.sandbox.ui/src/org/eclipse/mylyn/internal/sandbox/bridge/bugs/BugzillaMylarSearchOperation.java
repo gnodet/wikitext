@@ -33,11 +33,12 @@ import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaResultCollector;
 import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchEngine;
-import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchHit;
 import org.eclipse.mylar.internal.bugzilla.ui.search.IBugzillaSearchOperation;
+import org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaQueryHit;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaTask;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.StackTrace;
 import org.eclipse.mylar.internal.tasks.ui.search.AbstractRepositorySearchQuery;
+import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylar.tasks.core.TaskComment;
 import org.eclipse.mylar.tasks.core.ITask;
@@ -124,7 +125,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 			return;
 		}
 
-		List<BugzillaSearchHit> l = searchCollector.getResults();
+		List<AbstractQueryHit> l = searchCollector.getResults();
 
 		// get the list of doi elements
 		List<BugzillaReportInfo> doiList = getDoiList(l);
@@ -229,10 +230,8 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 				if (isHit) {
 
 					// make a search hit from the bug and then add it to the collector
-					try {
-						int id = Integer.parseInt(bugTaskData.getId());
-						BugzillaSearchHit hit = new BugzillaSearchHit(bugTaskData.getRepositoryUrl(), id, bugTaskData
-							.getDescription(), "", "", "", "", "", "", "");
+					try {						
+						BugzillaQueryHit hit = new BugzillaQueryHit(bugTaskData.getDescription(), "", bugTaskData.getRepositoryUrl(), bugTaskData.getId(), null, "");
 						searchCollector.accept(hit);
 					} catch (CoreException e) {
 						MylarStatusHandler.log(e, "bug search failed");
@@ -419,7 +418,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	 * @param isExact
 	 *            whether the search was exact or not
 	 */
-	private List<BugzillaReportInfo> getDoiList(List<BugzillaSearchHit> results) {
+	private List<BugzillaReportInfo> getDoiList(List<AbstractQueryHit> results) {
 		List<BugzillaReportInfo> doiList = new ArrayList<BugzillaReportInfo>();
 
 		boolean isExact = (scope == BugzillaMylarSearch.FULLY_QUAL || scope == BugzillaMylarSearch.LOCAL_QUAL) ? true
@@ -427,11 +426,11 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 
 		BugzillaReportInfo info = null;
 		// go through all of the results and create a DoiInfo list
-		for (BugzillaSearchHit hit : results) {
+		for (AbstractQueryHit hit : results) {
 
 			try {
 				float value = 0;
-				info = new BugzillaReportInfo(value, hit, isExact);
+				info = new BugzillaReportInfo(value, (BugzillaQueryHit)hit, isExact);
 
 				// only download the bug for the exact matches
 				// downloading bugs kills the time - can we do this elsewhere? -

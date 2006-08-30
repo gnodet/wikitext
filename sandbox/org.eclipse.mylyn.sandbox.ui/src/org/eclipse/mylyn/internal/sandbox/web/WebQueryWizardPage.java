@@ -9,6 +9,7 @@
 package org.eclipse.mylar.internal.sandbox.web;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -17,6 +18,7 @@ import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.mylar.internal.tasks.ui.search.AbstractQueryHitCollector;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
@@ -265,13 +267,24 @@ public class WebQueryWizardPage extends WizardPage {
 			active = true;
 			do {
 				final MultiStatus queryStatus = new MultiStatus(TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Query result", null);
-				List<AbstractQueryHit> hits = null;
+				final List<AbstractQueryHit> hits = new ArrayList<AbstractQueryHit>();
 				try {
 					if(webPage==null) {
 						webPage = WebRepositoryConnector.fetchResource(currentUrl);
 					}
 
-					hits = WebRepositoryConnector.performQuery(webPage, currentRegexp, null, null, monitor, queryStatus);
+					AbstractQueryHitCollector collector = new AbstractQueryHitCollector() {
+
+						@Override
+						public void addMatch(AbstractQueryHit hit) {
+							hits.add(hit);
+							
+						}
+						
+					};
+					
+					// TODO: Handle returned status
+					WebRepositoryConnector.performQuery(webPage, currentRegexp, null, null, monitor, collector);
 					
 				} catch (final IOException ex) {
 					queryStatus.add(new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,

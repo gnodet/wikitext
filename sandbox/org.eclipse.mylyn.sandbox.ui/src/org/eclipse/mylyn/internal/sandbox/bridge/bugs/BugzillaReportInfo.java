@@ -18,10 +18,10 @@ import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaException;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
+import org.eclipse.mylar.internal.bugzilla.core.BugzillaException;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaServerFacade;
-import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchHit;
+import org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaQueryHit;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.StackTrace;
 import org.eclipse.mylar.tasks.core.RepositoryTaskData;
 import org.eclipse.mylar.tasks.core.TaskRepository;
@@ -41,7 +41,7 @@ public class BugzillaReportInfo {
 	private static final long serialVersionUID = 3257004367222419506L;
 
 	/** The BugzillaSearchHit associated with this DoiInfo */
-	private BugzillaSearchHit hit;
+	private BugzillaQueryHit hit;
 
 	/** Whether this search hit was from an exact search like a stack trace */
 	private boolean isExact = false;
@@ -62,7 +62,7 @@ public class BugzillaReportInfo {
 	 * @param isExact
 	 *            Whether the search was exact or not
 	 */
-	public BugzillaReportInfo(float initialValue, BugzillaSearchHit hit, boolean isExact) {
+	public BugzillaReportInfo(float initialValue, BugzillaQueryHit hit, boolean isExact) {
 		this.hit = hit;
 		this.isExact = isExact;
 		bug = null;
@@ -74,7 +74,7 @@ public class BugzillaReportInfo {
 	 * 
 	 * @return The BugzillaSearchHit related to this DoiInfo
 	 */
-	public BugzillaSearchHit getHit() {
+	public BugzillaQueryHit getHit() {
 		return hit;
 	}
 
@@ -120,7 +120,7 @@ public class BugzillaReportInfo {
 			// get the bug report
 			TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(BugzillaCorePlugin.REPOSITORY_KIND, hit.getRepositoryUrl());
 			Proxy proxySettings = TasksUiPlugin.getDefault().getProxySettings();
-			bug = BugzillaServerFacade.getBug(repository.getUrl(), repository.getUserName(), repository.getPassword(), proxySettings, repository.getCharacterEncoding(), hit.getId());
+			bug = BugzillaServerFacade.getBug(repository.getUrl(), repository.getUserName(), repository.getPassword(), proxySettings, repository.getCharacterEncoding(), Integer.parseInt(hit.getId()));
 		}
 		return bug;
 	}

@@ -18,7 +18,7 @@ import java.util.List;
 import org.eclipse.mylar.context.core.AbstractRelationProvider;
 import org.eclipse.mylar.context.core.IDegreeOfSeparation;
 import org.eclipse.mylar.context.core.IMylarStructureBridge;
-import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchHit;
+import org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaQueryHit;
 import org.eclipse.mylar.internal.context.core.DegreeOfSeparation;
 import org.eclipse.mylar.internal.tasks.ui.editors.ContentOutlineTools;
 import org.eclipse.mylar.internal.tasks.ui.editors.RepositoryTaskOutlineNode;
@@ -187,7 +187,7 @@ public class BugzillaStructureBridge implements IMylarStructureBridge {
 			RepositoryTaskOutlineNode b = (RepositoryTaskOutlineNode) object;
 			return ContentOutlineTools.getName(b);
 		} else if (object instanceof BugzillaReportInfo) {
-			BugzillaSearchHit hit = ((BugzillaReportInfo) object).getHit();
+			BugzillaQueryHit hit = ((BugzillaReportInfo) object).getHit();
 			return hit.getRepositoryUrl() + ": Bug#: " + hit.getId() + ": " + hit.getDescription();
 		}
 		return "";

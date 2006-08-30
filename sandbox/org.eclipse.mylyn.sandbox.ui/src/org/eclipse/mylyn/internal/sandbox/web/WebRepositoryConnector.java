@@ -16,25 +16,24 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylar.internal.tasks.core.WebTask;
 import org.eclipse.mylar.internal.tasks.ui.RetrieveTitleFromUrlJob;
-import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
 import org.eclipse.mylar.tasks.core.IAttachmentHandler;
 import org.eclipse.mylar.tasks.core.IOfflineTaskHandler;
+import org.eclipse.mylar.tasks.core.IQueryHitCollector;
 import org.eclipse.mylar.tasks.core.ITask;
 import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
@@ -123,7 +122,26 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return null;
 	}
 	
-	public List<AbstractQueryHit> performQuery(AbstractRepositoryQuery query, IProgressMonitor monitor, MultiStatus queryStatus) {
+//	public List<AbstractQueryHit> performQuery(AbstractRepositoryQuery query, IProgressMonitor monitor, MultiStatus queryStatus) {
+//		if(query instanceof WebQuery) {
+//			String queryUrl = query.getUrl();
+//			String regexp = ((WebQuery) query).getRegexp();
+//			String taskPrefix = ((WebQuery) query).getTaskPrefix();
+//			String repositoryUrl = query.getRepositoryUrl();
+//			
+//			try {
+//				return performQuery(fetchResource(queryUrl), regexp, taskPrefix, repositoryUrl, monitor, queryStatus);
+//
+//			} catch (IOException ex) {
+//				queryStatus.add(new Status(IStatus.OK, TasksUiPlugin.PLUGIN_ID, IStatus.OK,
+//						"Could not fetch resource: " + queryUrl, ex));
+//			}
+//		}
+//		return new ArrayList<AbstractQueryHit>();
+//	}
+
+	@Override
+	public IStatus performQuery(AbstractRepositoryQuery query, IProgressMonitor monitor, IQueryHitCollector resultCollector) {
 		if(query instanceof WebQuery) {
 			String queryUrl = query.getUrl();
 			String regexp = ((WebQuery) query).getRegexp();
@@ -131,16 +149,16 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			String repositoryUrl = query.getRepositoryUrl();
 			
 			try {
-				return performQuery(fetchResource(queryUrl), regexp, taskPrefix, repositoryUrl, monitor, queryStatus);
+				return performQuery(fetchResource(queryUrl), regexp, taskPrefix, repositoryUrl, monitor, resultCollector);
 
 			} catch (IOException ex) {
-				queryStatus.add(new Status(IStatus.OK, TasksUiPlugin.PLUGIN_ID, IStatus.OK,
-						"Could not fetch resource: " + queryUrl, ex));
+				return new Status(IStatus.OK, TasksUiPlugin.PLUGIN_ID, IStatus.OK,
+						"Could not fetch resource: " + queryUrl, ex);
 			}
 		}
-		return new ArrayList<AbstractQueryHit>();
+		return Status.OK_STATUS;
 	}
-
+	
 	public void updateTaskState(AbstractRepositoryTask repositoryTask) {
 		// TODO
 	}
@@ -161,15 +179,15 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 	
 	
-	public static List<AbstractQueryHit> performQuery(StringBuffer resource, String regexp, String taskPrefix, String repositoryUrl, IProgressMonitor monitor, MultiStatus queryStatus) {
-		List<AbstractQueryHit> hits = new ArrayList<AbstractQueryHit>();
+	public static IStatus performQuery(StringBuffer resource, String regexp, String taskPrefix, String repositoryUrl, IProgressMonitor monitor, IQueryHitCollector collector) {
+		//List<AbstractQueryHit> hits = new ArrayList<AbstractQueryHit>();
 		
 		Pattern p = Pattern.compile(regexp, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL | Pattern.UNICODE_CASE | Pattern.CANON_EQ);
 		Matcher matcher = p.matcher(resource);
 
 		if(!matcher.find()) {
-			queryStatus.add(new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
-					"Unable to parse resource. Check query regexp", null));
+			return new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
+					"Unable to parse resource. Check query regexp", null);
 		} else {
 			boolean isCorrect = true;
 	    	do {
@@ -179,19 +197,22 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	    		if (matcher.groupCount() >= 1) {
 	    			String id = matcher.group(1);
 	    			String description = matcher.groupCount()>1 ? matcher.group(2) : null;
-	    			hits.add(new WebQueryHit(id, id+": "+description, taskPrefix, repositoryUrl));
+	    			try {
+						collector.accept(new WebQueryHit(id, id+": "+description, taskPrefix, repositoryUrl));
+					} catch (CoreException e) {
+						return new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
+								"Unable collect results.", e);
+					}
 	    		}
 	    	} while(matcher.find() && !monitor.isCanceled());
 
 	    	if(isCorrect) {
-	    		queryStatus.add(Status.OK_STATUS);
+	    		return Status.OK_STATUS;
 	    	} else {
-	    		queryStatus.add(new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
-	    				"Require two matching groups (id and description). Check query regexp", null));
+	    		return new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
+	    				"Require two matching groups (id and description). Check query regexp", null);
 	    	}
 		}
-		
-		return hits;
 	}
 
 	// TODO use commons http client

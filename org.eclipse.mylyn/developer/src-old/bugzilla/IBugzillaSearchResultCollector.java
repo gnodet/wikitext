@@ -9,21 +9,20 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.trac.ui.search;
+package org.eclipse.mylar.internal.bugzilla.ui.search;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 
 /**
- * Interface for the Mylar search result collector.
+ * Interface for the bugzilla search result collector.
  * 
  * @author Shawn Minto
  */
-public interface IQueryHitCollector {
+interface IBugzillaSearchResultCollector {
 
 	/**
-	 * Called before the actual search starts.
+	 * Called before the actual search starts
 	 * 
 	 * @param startCount -
 	 *            The starting count for the number of matches
@@ -32,13 +31,13 @@ public interface IQueryHitCollector {
 	public void aboutToStart(int startCount) throws CoreException;
 
 	/**
-	 * Accept a search hit and add it as a match and set the markers.
+	 * Accept a search hit and add it as a match and set the markers
 	 * 
 	 * @param hit
 	 *            The search hit that was a match
 	 * @throws CoreException
 	 */
-	public void accept(AbstractQueryHit hit) throws CoreException;
+	public void accept(BugzillaSearchHit hit) throws CoreException;
 
 	/**
 	 * Called when the search has ended.
@@ -46,18 +45,32 @@ public interface IQueryHitCollector {
 	public void done();
 
 	/**
-	 * Get the progress monitor for the search.
+	 * Get the progress monitor for the search
 	 * 
 	 * @return The progress monitor
 	 */
 	public IProgressMonitor getProgressMonitor();
 
 	/**
-	 * Set the progress monitor.
+	 * Set the progress monitor
 	 * 
 	 * @param monitor
 	 *            The progress monitor the search should use
 	 */
 	public void setProgressMonitor(IProgressMonitor monitor);
 
+	/**
+	 * Set the current search operation
+	 * 
+	 * @param operation
+	 *            The operation to set the search to
+	 */
+	public void setOperation(IBugzillaSearchOperation operation);
+
+	/**
+	 * Get the current operation
+	 * 
+	 * @return The current search operation
+	 */
+	public IBugzillaSearchOperation getOperation();
 }

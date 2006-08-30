@@ -11,7 +11,7 @@
 
 package org.eclipse.mylar.sandbox.tests;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 import junit.extensions.ActiveTestSuite;
@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.mylar.internal.sandbox.web.WebRepositoryConnector;
+import org.eclipse.mylar.internal.tasks.ui.search.AbstractQueryHitCollector;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylar.tasks.core.RepositoryTemplate;
@@ -45,10 +46,19 @@ public class WebRepositoryConnectorTest extends TestCase {
 		
 		IProgressMonitor monitor = new NullProgressMonitor();
 		MultiStatus queryStatus = new MultiStatus(TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Query result", null);
+		final List<AbstractQueryHit> hits = new ArrayList<AbstractQueryHit>();
+		AbstractQueryHitCollector collector = new AbstractQueryHitCollector() {
+
+			@Override
+			public void addMatch(AbstractQueryHit hit) {
+				hits.add(hit);
+				
+			}
+			
+		};
 		
-		List<AbstractQueryHit> hits = WebRepositoryConnector.performQuery(buffer, template.getAttribute(WebRepositoryConnector.TASK_REGEXP), template.taskPrefixUrl, template.repositoryUrl, monitor, queryStatus);
-		
-		assertTrue(template.taskQueryUrl+"\n"+template.getAttribute(WebRepositoryConnector.TASK_REGEXP)+"\n"+Arrays.asList(queryStatus.getChildren()).toString(), queryStatus.isOK());
+		IStatus resultingStatus = WebRepositoryConnector.performQuery(buffer, template.getAttribute(WebRepositoryConnector.TASK_REGEXP), template.taskPrefixUrl, template.repositoryUrl, monitor, collector);		
+		assertTrue(template.taskQueryUrl+"\n"+template.getAttribute(WebRepositoryConnector.TASK_REGEXP)+"\n"+resultingStatus.toString(), queryStatus.isOK());
 		assertTrue("Expected non-empty query result\n"+template.taskQueryUrl+"\n"+template.getAttribute(WebRepositoryConnector.TASK_REGEXP), hits.size()>0);
 	}
 
