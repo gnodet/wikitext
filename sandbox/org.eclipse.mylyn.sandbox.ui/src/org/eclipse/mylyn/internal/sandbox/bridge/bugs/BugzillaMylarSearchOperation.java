@@ -31,18 +31,19 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
-import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaResultCollector;
+import org.eclipse.mylar.internal.bugzilla.core.BugzillaQueryHit;
+import org.eclipse.mylar.internal.bugzilla.core.BugzillaResultCollector;
+import org.eclipse.mylar.internal.bugzilla.core.BugzillaTask;
 import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchEngine;
+import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchResultCollector;
 import org.eclipse.mylar.internal.bugzilla.ui.search.IBugzillaSearchOperation;
-import org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaQueryHit;
-import org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaTask;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.StackTrace;
 import org.eclipse.mylar.internal.tasks.ui.search.AbstractRepositorySearchQuery;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractTaskContainer;
-import org.eclipse.mylar.tasks.core.TaskComment;
 import org.eclipse.mylar.tasks.core.ITask;
 import org.eclipse.mylar.tasks.core.RepositoryTaskData;
+import org.eclipse.mylar.tasks.core.TaskComment;
 import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
@@ -59,7 +60,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	private IMember javaElement;
 
 	/** The bugzilla collector for the search */
-	private BugzillaResultCollector collector = null;
+	private BugzillaSearchResultCollector collector = null;
 
 	/** The status of the search operation */
 	private IStatus status;
@@ -152,7 +153,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 		String elementName = getFullyQualifiedName(javaElement);
 
 		// setup the search result collector
-		collector = new BugzillaResultCollector();
+		collector = new BugzillaSearchResultCollector(TasksUiPlugin.getTaskListManager().getTaskList());
 		collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
 
@@ -180,7 +181,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 		String elementName = javaElement.getElementName();
 
 		// setup the search result collector
-		collector = new BugzillaResultCollector();
+		collector = new BugzillaSearchResultCollector(TasksUiPlugin.getTaskListManager().getTaskList());
 		collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
 
@@ -231,7 +232,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 
 					// make a search hit from the bug and then add it to the collector
 					try {						
-						BugzillaQueryHit hit = new BugzillaQueryHit(bugTaskData.getDescription(), "", bugTaskData.getRepositoryUrl(), bugTaskData.getId(), null, "");
+						BugzillaQueryHit hit = new BugzillaQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), bugTaskData.getDescription(), "", bugTaskData.getRepositoryUrl(), bugTaskData.getId(), null, "");
 						searchCollector.accept(hit);
 					} catch (CoreException e) {
 						MylarStatusHandler.log(e, "bug search failed");
@@ -326,7 +327,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	 */
 	private BugzillaResultCollector searchQualified(String repositoryUrl, IProgressMonitor monitor) {
 		// create a new collector for the results
-		collector = new BugzillaResultCollector();
+		collector = new BugzillaSearchResultCollector(TasksUiPlugin.getTaskListManager().getTaskList());
 		collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
 
@@ -346,7 +347,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	 */
 	private BugzillaResultCollector searchUnqualified(String repositoryUrl, IProgressMonitor monitor) {
 		// create a new collector for the results
-		collector = new BugzillaResultCollector();
+		collector = new BugzillaSearchResultCollector(TasksUiPlugin.getTaskListManager().getTaskList());
 		collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
 

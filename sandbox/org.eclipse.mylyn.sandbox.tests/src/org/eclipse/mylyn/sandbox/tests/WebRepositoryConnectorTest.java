@@ -23,8 +23,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.mylar.internal.sandbox.web.WebRepositoryConnector;
-import org.eclipse.mylar.internal.tasks.ui.search.AbstractQueryHitCollector;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
+import org.eclipse.mylar.tasks.core.AbstractQueryHitCollector;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylar.tasks.core.RepositoryTemplate;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
@@ -47,7 +47,7 @@ public class WebRepositoryConnectorTest extends TestCase {
 		IProgressMonitor monitor = new NullProgressMonitor();
 		MultiStatus queryStatus = new MultiStatus(TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Query result", null);
 		final List<AbstractQueryHit> hits = new ArrayList<AbstractQueryHit>();
-		AbstractQueryHitCollector collector = new AbstractQueryHitCollector() {
+		AbstractQueryHitCollector collector = new AbstractQueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList()) {
 
 			@Override
 			public void addMatch(AbstractQueryHit hit) {

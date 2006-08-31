@@ -18,7 +18,7 @@ import java.util.List;
 import org.eclipse.mylar.context.core.AbstractRelationProvider;
 import org.eclipse.mylar.context.core.IDegreeOfSeparation;
 import org.eclipse.mylar.context.core.IMylarStructureBridge;
-import org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaQueryHit;
+import org.eclipse.mylar.internal.bugzilla.core.BugzillaQueryHit;
 import org.eclipse.mylar.internal.context.core.DegreeOfSeparation;
 import org.eclipse.mylar.internal.tasks.ui.editors.ContentOutlineTools;
 import org.eclipse.mylar.internal.tasks.ui.editors.RepositoryTaskOutlineNode;

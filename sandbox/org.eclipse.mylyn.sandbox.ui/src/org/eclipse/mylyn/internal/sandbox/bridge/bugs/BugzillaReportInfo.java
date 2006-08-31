@@ -20,8 +20,8 @@ import java.util.List;
 
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaException;
+import org.eclipse.mylar.internal.bugzilla.core.BugzillaQueryHit;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaServerFacade;
-import org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaQueryHit;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.StackTrace;
 import org.eclipse.mylar.tasks.core.RepositoryTaskData;
 import org.eclipse.mylar.tasks.core.TaskRepository;
