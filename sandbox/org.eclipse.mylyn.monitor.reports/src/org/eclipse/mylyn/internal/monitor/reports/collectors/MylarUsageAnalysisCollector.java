@@ -250,6 +250,12 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 				report.add("Task activations: " + numTaskActivations + ", ");
 				report.add("deactivations: " + numTaskDeactivations + "<br>");
 
+				int numIncrement = commandUsageCollector.getCommands().getUserCount(id, "org.eclipse.mylar.ui.interest.increment");
+				int numDecrement = commandUsageCollector.getCommands()
+						.getUserCount(id, "org.eclipse.mylar.ui.interest.decrement");
+				report.add("Interest increments: " + numIncrement + ", ");
+				report.add("Interest decrements: " + numDecrement + "<br>");
+				
 				report.addAll(viewUsageCollector.getSummary(id));
 				report.add(ReportGenerator.SUMMARY_SEPARATOR);
 			} else {
@@ -380,7 +386,30 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 	}
 
 	public boolean acceptUser(int id) {
-
+		// XXX: delete
+//		int[] ACCEPTED = { 
+//				1922, 
+//				970,
+//				1650,
+//				1548,
+//				1565,
+//				1752,
+//				2194,
+//				2364,
+//				1735,
+//				936,
+//				1803,
+//				2007,
+//				1208,
+//				1684,
+//				919,
+//				2041,
+//				1174
+//		};
+//		for (int i : ACCEPTED) { 
+//			if (i == id) return true;
+//		}
+//		return false;
 		if (!numMylarActiveJavaEdits.containsKey(id)) {
 			return false;
 		} else {

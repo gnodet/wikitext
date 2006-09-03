@@ -72,7 +72,7 @@ public class ViewUsageCollector implements IUsageCollector {
 		Collections.sort(viewUsage, new PercentUsageComparator());
 		int numViewsToReport = 0;
 		for (String viewUsageSummary : viewUsage) {
-			if (numViewsToReport == -1 || numViewsToReport < maxViewsToReport) {
+			if (numViewsToReport == -1 || numViewsToReport < maxViewsToReport || viewUsageSummary.contains("mylar")) {
 				summaries.add(viewUsageSummary);
 				numViewsToReport++;
 			}
