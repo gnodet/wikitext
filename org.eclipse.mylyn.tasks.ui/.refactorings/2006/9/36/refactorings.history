@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Extract constant 'org.eclipse.mylar.internal.tasks.ui.editors.AbstractRepositoryTaskEditor.HEADER_DATE_FORMAT' from expression '&quot;EEE d MMM yyyy HH:mm:ss&quot;'&#13;&#10;- Constant name: 'HEADER_DATE_FORMAT'&#13;&#10;- Constant expression: '&quot;EEE d MMM yyyy HH:mm:ss&quot;'&#13;&#10;- Declared visibility: 'protected'&#13;&#10;- Replace occurrences of expression with constant" description="Extract constant 'HEADER_DATE_FORMAT'" flags="786434" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylar.internal.tasks.ui.editors{AbstractRepositoryTaskEditor.java" name="HEADER_DATE_FORMAT" qualify="false" replace="true" selection="19681 25" stamp="1157490645234" version="1.0" visibility="4"/>
+</session>
