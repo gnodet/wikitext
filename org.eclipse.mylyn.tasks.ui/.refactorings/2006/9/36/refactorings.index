@@ -1,2 +1,3 @@
 1157490645234	Extract constant 'HEADER_DATE_FORMAT'
+1157581957062	Rename field 'LABEL_TEMPLATE'
 1157497106703	Extract method 'checkForExistingTasklist'

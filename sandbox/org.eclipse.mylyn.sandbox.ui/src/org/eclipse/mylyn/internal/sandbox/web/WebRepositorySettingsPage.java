@@ -43,18 +43,17 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 	@Override
 	protected void createAdditionalControls(Composite parent) {
 		for (RepositoryTemplate template : connector.getTemplates()) {
-			if (repositoryLabelCombo.indexOf(template.label) == -1) {
-				repositoryLabelCombo.add(template.label);
-			}
-		}
-
-		repositoryLabelCombo.addSelectionListener(new SelectionListener() {
+			serverUrlCombo.add(template.label);
+		}		
+		
+		serverUrlCombo.addSelectionListener(new SelectionListener() {
 
 			public void widgetSelected(SelectionEvent e) {
-				String text = repositoryLabelCombo.getText();
+				String text = serverUrlCombo.getText();
 				RepositoryTemplate template = connector.getTemplate(text);
 				if(template != null) {
-					serverUrlEditor.setStringValue(template.repositoryUrl);
+					repositoryLabelEditor.setStringValue(template.label);
+					setUrl(template.repositoryUrl);					
 					taskPrefixUrlEditor.setStringValue(template.taskPrefixUrl);
 					newTaskUrlEditor.setStringValue(template.newTaskUrl);
 					getContainer().updateButtons();
