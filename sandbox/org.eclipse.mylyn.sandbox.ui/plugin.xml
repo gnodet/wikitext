@@ -167,6 +167,16 @@
         <attribute name="taskRegexp" 
           value="&lt;td class=&quot;vt col_6&quot; .+?&lt;a href=&quot;detail\?id=(.+?).+?&quot;&gt;(.+?)&lt;/a&gt;.+?&lt;/td&gt;"/>
       </repository>
+      <repository
+            label="Eclipse Plugin for Mantis (Mantis)"
+            urlNewTask="http://www.futureware.biz/mantis/bug_report_page.php"
+            repositoryKind="web"
+            urlRepository="http://www.futureware.biz/mantis/"
+            urlTask="http://www.futureware.biz/mantis/view.php?id="
+            urlTaskQuery="http://www.futureware.biz/mantis/view_all_set.php?f=3&amp;type=1&amp;page_number=1&amp;view_type=simple&amp;reporter_id[]=0&amp;user_monitor[]=0&amp;handler_id[]=0&amp;show_category[]=Eclipse+Plugin&amp;show_severity[]=0&amp;show_resolution[]=0&amp;show_profile[]=0&amp;show_status[]=0&amp;hide_status[]=80&amp;show_build[]=0&amp;show_version[]=0&amp;fixed_in_version[]=0&amp;show_priority[]=0&amp;per_page=50&amp;view_state=0&amp;sticky_issues=on&amp;highlight_changed=6&amp;relationship_type=-1&amp;relationship_bug=0&amp;sort_0=last_updated&amp;dir_0=DESC&amp;search=&amp;filter=Apply+Filter&amp;type=3&amp;source_query_id=-1">
+        <attribute name="taskRegexp" 
+          value="&lt;tr .+?&lt;a href=&quot;view.php\?id=(.+?)&quot;&gt;.+?&lt;td class=&quot;left&quot;&gt;(.+?)&lt;/td&gt;&lt;/tr&gt;"/>
+      </repository>
    </extension>  
   
 </plugin>
