@@ -11,21 +11,22 @@
 
 package org.eclipse.mylar.internal.sandbox.web;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
+import java.net.Proxy;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.httpclient.Header;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.mylar.internal.tasks.core.WebClientUtil;
 import org.eclipse.mylar.internal.tasks.core.WebTask;
 import org.eclipse.mylar.internal.tasks.ui.RetrieveTitleFromUrlJob;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryConnector;
@@ -179,7 +180,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 	
 	
-	public static IStatus performQuery(StringBuffer resource, String regexp, String taskPrefix, String repositoryUrl, IProgressMonitor monitor, IQueryHitCollector collector) {
+	public static IStatus performQuery(String resource, String regexp, String taskPrefix, String repositoryUrl, IProgressMonitor monitor, IQueryHitCollector collector) {
 		//List<AbstractQueryHit> hits = new ArrayList<AbstractQueryHit>();
 		
 		Pattern p = Pattern.compile(regexp, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL | Pattern.UNICODE_CASE | Pattern.CANON_EQ);
@@ -215,42 +216,46 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		}
 	}
 
-	// TODO use commons http client
-	public static StringBuffer fetchResource(String url) throws IOException {
-		URL u = new URL(url);
-		InputStream is = null;
-		try {
-			is = u.openStream();
-		    BufferedReader r = new BufferedReader(new InputStreamReader(is));
-
-		    StringBuffer resource = new StringBuffer();
-		    String line;
-		    while(true) {
-		    	int retryCount = 0;
-		    	do {
-		    		if(retryCount>0) {
-		    			try {
-							Thread.sleep(1000L);
-						} catch (InterruptedException ex) {
-							// ignore
-						}
-		    		}
-		    		line = r.readLine();
-		    		retryCount++;
-		    	} while(line==null && retryCount<5);
-		    	if(line==null) {
-		    		break;
-		    	}
-		    	resource.append(line).append("\n");
-		    }
-		    return resource;
-		    
-		} finally {
-			if(is!=null) {
-				is.close();
-			}
-		}
+	public static String fetchResource(String url) throws IOException {
+		HttpClient client = new HttpClient();
+		Proxy proxySettings = TasksUiPlugin.getDefault().getProxySettings();
+		WebClientUtil.setupHttpClient(client, proxySettings, url);
 		
+		GetMethod get = new GetMethod(url);
+		try {
+			client.executeMethod(get);
+			
+			Header refreshHeader = get.getResponseHeader("Refresh");
+			if(refreshHeader!=null) {
+				String value = refreshHeader.getValue();
+				int n = value.indexOf(";url=");
+				if(n!=-1) {
+					value = value.substring(n + 5);
+					
+					int requestPath;
+					if(value.charAt(0)=='/') {
+						int colonSlashSlash = url.indexOf("://");
+						requestPath = url.indexOf('/', colonSlashSlash + 3);
+					} else {
+						requestPath = url.lastIndexOf('/');
+					}
+					
+					String refreshUrl;
+					if (requestPath==-1) {
+						refreshUrl = url + "/" + value;
+					} else {
+						refreshUrl = url.substring(0, requestPath+1) + value;
+					}
+					
+					get = new GetMethod(refreshUrl);
+					client.executeMethod(get);
+				}
+			}
+			
+			return get.getResponseBodyAsString();
+		} finally {
+			get.releaseConnection();
+		}
 	}
 
 	@Override

@@ -57,7 +57,7 @@ public class WebQueryWizardPage extends WizardPage {
 	private Text regexpText;
 	private Table previewTable;
 	
-	private StringBuffer webPage;
+	private String webPage;
 	
 	private TaskRepository repository;
 	private AbstractRepositoryConnector connector;
@@ -267,20 +267,17 @@ public class WebQueryWizardPage extends WizardPage {
 			active = true;
 			do {
 				final MultiStatus queryStatus = new MultiStatus(TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Query result", null);
-				final List<AbstractQueryHit> hits = new ArrayList<AbstractQueryHit>();
+				final List<AbstractQueryHit> queryHits = new ArrayList<AbstractQueryHit>();
 				try {
 					if(webPage==null) {
 						webPage = WebRepositoryConnector.fetchResource(currentUrl);
 					}
 
 					AbstractQueryHitCollector collector = new AbstractQueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList()) {
-
 						@Override
 						public void addMatch(AbstractQueryHit hit) {
-							hits.add(hit);
-							
+							queryHits.add(hit);
 						}
-						
 					};
 					
 					// TODO: Handle returned status
@@ -294,7 +291,6 @@ public class WebQueryWizardPage extends WizardPage {
 							"Parsing error: "+ex.getMessage(), null));
 				}
 				
-				final List<AbstractQueryHit> queryHits = hits;
 				Display.getDefault().asyncExec(new Runnable() {
 					public void run() {
 						updatePreviewTable(queryHits, queryStatus);
