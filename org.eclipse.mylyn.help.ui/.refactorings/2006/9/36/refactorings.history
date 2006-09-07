@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename field 'MYLAR_NOTIFICATION_LABEL' in 'org.eclipse.mylar.doc.internal.dialogs.UiLegendDialog' to 'LABEL'&#13;&#10;- Original project: 'org.eclipse.mylar.doc'&#13;&#10;- Original element: 'org.eclipse.mylar.doc.internal.dialogs.UiLegendDialog.MYLAR_NOTIFICATION_LABEL'&#13;&#10;- Renamed element: 'org.eclipse.mylar.doc.internal.dialogs.UiLegendDialog.LABEL'&#13;&#10;- Update references to refactored element&#13;&#10;- Update textual occurrences in comments and strings" delegate="false" deprecate="true" description="Rename field 'MYLAR_NOTIFICATION_LABEL'" flags="589826" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;org.eclipse.mylar.doc.internal.dialogs{UiLegendDialog.java[UiLegendDialog^MYLAR_NOTIFICATION_LABEL" name="LABEL" references="true" setter="false" stamp="1157650455312" textual="true" version="1.0"/>
+</session>
