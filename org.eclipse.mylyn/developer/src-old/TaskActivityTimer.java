@@ -76,9 +76,9 @@ public class TaskActivityTimer implements ITimerThreadListener, IInteractionEven
 	}
 
 	private void addElapsedToActivityTime() {
-		long elapsed = Calendar.getInstance().getTimeInMillis() - lastActivity;
-		task.setElapsedTime(task.getElapsedTime() + elapsed);
-		lastActivity = Calendar.getInstance().getTimeInMillis();
+//		long elapsed = Calendar.getInstance().getTimeInMillis() - lastActivity;
+//		task.setElapsedTime(task.getElapsedTime() + elapsed);
+//		lastActivity = Calendar.getInstance().getTimeInMillis();
 	}
 
 	public void startMonitoring() {
