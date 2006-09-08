@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Move 'org.eclipse.mylar.internal.trac.ui.TracUiPlugin.toStatus(...)' to 'org.eclipse.mylar.internal.trac.core.TracCorePlugin'&#10;- Original element: 'org.eclipse.mylar.internal.trac.ui.TracUiPlugin.toStatus(...)'&#10;- Destination type: 'org.eclipse.mylar.internal.trac.core.TracCorePlugin'" delegate="false" deprecate="true" description="Move member 'toStatus'" element1="/src&lt;org.eclipse.mylar.internal.trac.ui{TracUiPlugin.java[TracUiPlugin~toStatus~QThrowable;" flags="589830" id="org.eclipse.jdt.ui.move.static" input="/src&lt;org.eclipse.mylar.internal.trac.core{TracCorePlugin.java[TracCorePlugin" stamp="1157718574967" version="1.0"/>
+</session>
