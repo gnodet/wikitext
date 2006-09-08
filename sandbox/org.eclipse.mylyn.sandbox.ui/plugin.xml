@@ -60,7 +60,8 @@
       <connectorUi
             brandingIcon="icons/obj16/repository-web.gif"
             class="org.eclipse.mylar.internal.sandbox.web.WebRepositoryUi"
-            name="Generic web-based repsoitory UI"/>
+            name="Generic web-based repsoitory UI"
+            overlayIcon="icons/obj16/overlay-web.gif"/>
       <externalizer
             class="org.eclipse.mylar.internal.sandbox.web.WebTaskExternalizer" 
             id="org.eclipse.mylar.web.tasklist.externalizer"/>
