@@ -42,7 +42,7 @@ public class WebRepositoryConnectorTest extends TestCase {
 	}
 
 	public void testRepositoryTemplate() throws Exception {
-		StringBuffer buffer = WebRepositoryConnector.fetchResource(template.taskQueryUrl);
+		String buffer = WebRepositoryConnector.fetchResource(template.taskQueryUrl);
 		
 		IProgressMonitor monitor = new NullProgressMonitor();
 		MultiStatus queryStatus = new MultiStatus(TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Query result", null);

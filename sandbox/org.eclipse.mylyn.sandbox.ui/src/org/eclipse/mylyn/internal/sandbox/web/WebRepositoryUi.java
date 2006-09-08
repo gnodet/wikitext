@@ -84,6 +84,5 @@ public class WebRepositoryUi extends AbstractRepositoryConnectorUi {
 	@Override
 	public boolean hasSearchPage() {
 		return false;
-	}
-
+	}	
 }

@@ -5,4 +5,5 @@
 
 
 <refactoring comment="Rename field 'LABEL_TEMPLATE' in 'org.eclipse.mylar.internal.tasks.ui.wizards.AbstractRepositorySettingsPage' to 'LABEL_REPOSITORY_LABEL'&#13;&#10;- Original element: 'org.eclipse.mylar.internal.tasks.ui.wizards.AbstractRepositorySettingsPage.LABEL_TEMPLATE'&#13;&#10;- Renamed element: 'org.eclipse.mylar.internal.tasks.ui.wizards.AbstractRepositorySettingsPage.LABEL_REPOSITORY_LABEL'&#13;&#10;- Update references to refactored element&#13;&#10;- Update textual occurrences in comments and strings" delegate="false" deprecate="true" description="Rename field 'LABEL_TEMPLATE'" flags="589830" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;org.eclipse.mylar.internal.tasks.ui.wizards{AbstractRepositorySettingsPage.java[AbstractRepositorySettingsPage^LABEL_TEMPLATE" name="LABEL_REPOSITORY_LABEL" references="true" setter="false" stamp="1157581957062" textual="true" version="1.0"/>
+
 </session>
