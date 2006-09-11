@@ -20,7 +20,7 @@ import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.mylar.internal.tasks.ui.search.AbstractRepositorySearchQuery;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylar.tasks.core.IQueryHitCollector;
+import org.eclipse.mylar.tasks.core.QueryHitCollector;
 import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.ui.PlatformUI;
@@ -32,7 +32,7 @@ import org.eclipse.ui.PlatformUI;
  */
 public class RepositorySearchQuery extends AbstractRepositorySearchQuery {
 
-	private IQueryHitCollector collector;
+	private QueryHitCollector collector;
 
 	private TaskRepository repository;
 
@@ -43,11 +43,11 @@ public class RepositorySearchQuery extends AbstractRepositorySearchQuery {
 		this.query = query;
 	}
 
-	public IQueryHitCollector getCollector() {
+	public QueryHitCollector getCollector() {
 		return collector;
 	}
 
-	public void setCollector(IQueryHitCollector collector) {
+	public void setCollector(QueryHitCollector collector) {
 		this.collector = collector;
 	}
 

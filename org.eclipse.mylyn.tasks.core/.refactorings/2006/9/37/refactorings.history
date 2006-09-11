@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename method 'org.eclipse.mylar.tasks.core.QueryHitCollector.getResults()' to 'getHits'&#13;&#10;- Original element: 'org.eclipse.mylar.tasks.core.QueryHitCollector.getResults()'&#13;&#10;- Renamed element: 'org.eclipse.mylar.tasks.core.QueryHitCollector.getHits()'&#13;&#10;- Update references to refactored element" delegate="false" deprecate="true" description="Rename method 'getResults'" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylar.tasks.core{QueryHitCollector.java[QueryHitCollector~getResults" name="getHits" references="true" stamp="1157931543046" version="1.0"/>
+</session>

@@ -13,7 +13,6 @@ package org.eclipse.mylar.internal.sandbox.web;
 
 import java.io.IOException;
 import java.net.Proxy;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -21,17 +20,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.httpclient.Header;
-
 import org.apache.commons.httpclient.HttpClient;
-
 import org.apache.commons.httpclient.methods.GetMethod;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylar.internal.tasks.core.WebClientUtil;
-
 import org.eclipse.mylar.internal.tasks.core.WebTask;
 import org.eclipse.mylar.internal.tasks.ui.RetrieveTitleFromUrlJob;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryConnector;
@@ -39,8 +34,8 @@ import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
 import org.eclipse.mylar.tasks.core.IAttachmentHandler;
 import org.eclipse.mylar.tasks.core.IOfflineTaskHandler;
-import org.eclipse.mylar.tasks.core.IQueryHitCollector;
 import org.eclipse.mylar.tasks.core.ITask;
+import org.eclipse.mylar.tasks.core.QueryHitCollector;
 import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 
@@ -153,7 +148,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	@Override
 	public IStatus performQuery(AbstractRepositoryQuery query, TaskRepository repository, Proxy proxySettings,
-			IProgressMonitor monitor, IQueryHitCollector resultCollector) {
+			IProgressMonitor monitor, QueryHitCollector resultCollector) {
 		if (query instanceof WebQuery) {
 			String queryUrl = query.getUrl();
 			String regexp = ((WebQuery) query).getRegexp();
@@ -198,7 +193,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	public static IStatus performQuery(String resource, String regexp, String taskPrefix, String repositoryUrl,
-			IProgressMonitor monitor, IQueryHitCollector collector) {
+			IProgressMonitor monitor, QueryHitCollector collector) {
 
 		// List<AbstractQueryHit> hits = new ArrayList<AbstractQueryHit>();
 

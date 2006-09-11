@@ -32,16 +32,15 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaQueryHit;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaResultCollector;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaTask;
 import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchEngine;
-import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchResultCollector;
 import org.eclipse.mylar.internal.bugzilla.ui.search.IBugzillaSearchOperation;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.StackTrace;
 import org.eclipse.mylar.internal.tasks.ui.search.AbstractRepositorySearchQuery;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylar.tasks.core.ITask;
+import org.eclipse.mylar.tasks.core.QueryHitCollector;
 import org.eclipse.mylar.tasks.core.RepositoryTaskData;
 import org.eclipse.mylar.tasks.core.TaskComment;
 import org.eclipse.mylar.tasks.core.TaskRepository;
@@ -60,7 +59,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	private IMember javaElement;
 
 	/** The bugzilla collector for the search */
-	private BugzillaSearchResultCollector collector = null;
+	private  QueryHitCollector collector = null;//SearchHitCollector
 
 	/** The status of the search operation */
 	private IStatus status;
@@ -106,7 +105,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	@Override
 	public void execute(IProgressMonitor monitor) {
 
-		BugzillaResultCollector searchCollector = null;
+		QueryHitCollector searchCollector = null;
 
 		if (scope == BugzillaMylarSearch.FULLY_QUAL) {
 			searchCollector = searchQualified(search.getServerUrl(), monitor);
@@ -126,7 +125,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 			return;
 		}
 
-		List<AbstractQueryHit> l = searchCollector.getResults();
+		List<AbstractQueryHit> l = searchCollector.getHits();
 
 		// get the list of doi elements
 		List<BugzillaReportInfo> doiList = getDoiList(l);
@@ -145,16 +144,16 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	 * 
 	 * @param monitor
 	 *            The progress monitor to search with
-	 * @return The BugzillaResultCollector with the results of the search
+	 * @return The QueryHitCollector with the results of the search
 	 */
-	private BugzillaResultCollector searchLocalQual(IProgressMonitor monitor) {
+	private QueryHitCollector searchLocalQual(IProgressMonitor monitor) {
 
 		// get the fully qualified name for searching
 		String elementName = getFullyQualifiedName(javaElement);
 
 		// setup the search result collector
-		collector = new BugzillaSearchResultCollector(TasksUiPlugin.getTaskListManager().getTaskList());
-		collector.setOperation(this);
+		collector = new QueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());//SearchHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());
+		//collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
 
 		// get all of the root tasks and start the search
@@ -173,16 +172,16 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	 * 
 	 * @param monitor
 	 *            The progress monitor to search with
-	 * @return The BugzillaResultCollector with the results of the search
+	 * @return The QueryHitCollector with the results of the search
 	 */
-	private BugzillaResultCollector searchLocalUnQual(IProgressMonitor monitor) {
+	private QueryHitCollector searchLocalUnQual(IProgressMonitor monitor) {
 
 		// get the element name for searching
 		String elementName = javaElement.getElementName();
 
 		// setup the search result collector
-		collector = new BugzillaSearchResultCollector(TasksUiPlugin.getTaskListManager().getTaskList());
-		collector.setOperation(this);
+		collector = new QueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());//SearchHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());
+		//collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
 
 		// get all of the root tasks and start the search
@@ -207,7 +206,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	 * @param monitor
 	 *            The progress monitor
 	 */
-	private void searchLocal(Set<ITask> tasks, BugzillaResultCollector searchCollector, String elementName,
+	private void searchLocal(Set<ITask> tasks, QueryHitCollector searchCollector, String elementName,
 			IProgressMonitor monitor) {
 		if (tasks == null)
 			return;
@@ -286,10 +285,10 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	 *            The collector to put the search results into
 	 * @param monitor
 	 *            The progress monitor to use for the search
-	 * @return The BugzillaResultCollector with the search results
+	 * @return The QueryHitCollector with the search results
 	 */
-	private BugzillaResultCollector search(String url, TaskRepository repository,
-			BugzillaResultCollector searchCollector, IProgressMonitor monitor) {
+	private QueryHitCollector search(String url, TaskRepository repository,
+			QueryHitCollector searchCollector, IProgressMonitor monitor) {
 
 		// set the initial number of matches to 0
 		int matches = 0;
@@ -323,12 +322,12 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	 * 
 	 * @param monitor
 	 *            The progress monitor to use
-	 * @return The BugzillaResultCollector with the search results
+	 * @return The QueryHitCollector with the search results
 	 */
-	private BugzillaResultCollector searchQualified(String repositoryUrl, IProgressMonitor monitor) {
+	private QueryHitCollector searchQualified(String repositoryUrl, IProgressMonitor monitor) {
 		// create a new collector for the results
-		collector = new BugzillaSearchResultCollector(TasksUiPlugin.getTaskListManager().getTaskList());
-		collector.setOperation(this);
+		collector = new QueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());//SearchHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());
+		//collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
 
 		// get the search url
@@ -343,12 +342,12 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	 * 
 	 * @param monitor
 	 *            The progress monitor to use
-	 * @return The BugzillaResultCollector with the search results
+	 * @return The QueryHitCollector with the search results
 	 */
-	private BugzillaResultCollector searchUnqualified(String repositoryUrl, IProgressMonitor monitor) {
+	private QueryHitCollector searchUnqualified(String repositoryUrl, IProgressMonitor monitor) {
 		// create a new collector for the results
-		collector = new BugzillaSearchResultCollector(TasksUiPlugin.getTaskListManager().getTaskList());
-		collector.setOperation(this);
+		collector = new QueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());//SearchHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());
+		//collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
 
 		// get the search url

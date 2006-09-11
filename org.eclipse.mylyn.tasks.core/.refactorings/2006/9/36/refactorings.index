@@ -1,4 +1,6 @@
 1157671180500	Change method 'downloadTaskData'
+1157759929609	Rename type 'AbstractQueryHitCollector'
+1157759743531	Rename type 'BugzillaResultCollector'
 1157671241187	Change method 'getChangedSinceLastSync'
 1157672758125	Change method 'createTaskFromExistingKey'
 1157672944859	Change method 'performQuery'

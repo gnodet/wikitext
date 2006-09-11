@@ -16,8 +16,8 @@ import javax.security.auth.login.LoginException;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaResultCollector;
 import org.eclipse.mylar.internal.tasks.ui.search.AbstractRepositorySearchQuery;
+import org.eclipse.mylar.tasks.core.QueryHitCollector;
 import org.eclipse.mylar.tasks.core.TaskRepository;
 
 /**
@@ -28,7 +28,7 @@ import org.eclipse.mylar.tasks.core.TaskRepository;
 public class BugzillaSearchOperation implements IBugzillaSearchOperation {
 	private String queryUrl;
 
-	private BugzillaResultCollector collector;
+	private QueryHitCollector collector;
 
 	private AbstractRepositorySearchQuery query;
 

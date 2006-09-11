@@ -26,7 +26,7 @@ import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchEngine;
 import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchResultCollector;
 import org.eclipse.mylar.internal.bugzilla.ui.search.IBugzillaSearchOperation;
 import org.eclipse.mylar.internal.tasks.ui.search.AbstractRepositorySearchQuery;
-import org.eclipse.mylar.tasks.core.IQueryHitCollector;
+import org.eclipse.mylar.tasks.core.QueryHitCollector;
 import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
@@ -40,11 +40,11 @@ public class BugzillaCategorySearchOperation extends WorkspaceModifyOperation im
 	/** The IMember we are doing the search for */
 
 	public interface ICategorySearchListener {
-		public void searchCompleted(IQueryHitCollector collector);
+		public void searchCompleted(QueryHitCollector collector);
 	}
 
 	/** The bugzilla collector for the search */
-	private IQueryHitCollector collector = null;
+	private QueryHitCollector collector = null;
 
 	/** The status of the search operation */
 	private IStatus status;
@@ -67,7 +67,7 @@ public class BugzillaCategorySearchOperation extends WorkspaceModifyOperation im
 	 *            The member that we are doing the search for
 	 */
 	public BugzillaCategorySearchOperation(TaskRepository repository, String queryUrl, int maxHits,
-			IQueryHitCollector collector) {
+			QueryHitCollector collector) {
 		this.queryUrl = queryUrl;
 		this.maxHits = maxHits;
 		this.repository = repository;
@@ -96,9 +96,9 @@ public class BugzillaCategorySearchOperation extends WorkspaceModifyOperation im
 	 *            The collector to put the search results into
 	 * @param monitor
 	 *            The progress monitor to use for the search
-	 * @return The BugzillaResultCollector with the search results
+	 * @return The QueryHitCollector with the search results
 	 */
-	private IQueryHitCollector search(String queryUrl, Proxy proxySettings, IProgressMonitor monitor) {
+	private QueryHitCollector search(String queryUrl, Proxy proxySettings, IProgressMonitor monitor) {
 
 		// set the initial number of matches to 0
 		int matches = 0;

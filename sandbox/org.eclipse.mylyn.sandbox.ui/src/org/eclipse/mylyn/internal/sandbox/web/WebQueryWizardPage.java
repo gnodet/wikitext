@@ -19,7 +19,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
-import org.eclipse.mylar.tasks.core.AbstractQueryHitCollector;
+import org.eclipse.mylar.tasks.core.QueryHitCollector;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.RepositoryTemplate;
@@ -273,7 +273,7 @@ public class WebQueryWizardPage extends WizardPage {
 						webPage = WebRepositoryConnector.fetchResource(currentUrl);
 					}
 
-					AbstractQueryHitCollector collector = new AbstractQueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList()) {
+					QueryHitCollector collector = new QueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList()) {
 						@Override
 						public void addMatch(AbstractQueryHit hit) {
 							queryHits.add(hit);
