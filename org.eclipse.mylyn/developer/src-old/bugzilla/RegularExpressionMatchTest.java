@@ -20,7 +20,7 @@ import junit.framework.TestCase;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaQueryHit;
 import org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants;
-import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchEngine;
+import org.eclipse.mylar.internal.sandbox.bridge.bugs.BugzillaSearchEngine;
 
 public class RegularExpressionMatchTest extends TestCase {
 

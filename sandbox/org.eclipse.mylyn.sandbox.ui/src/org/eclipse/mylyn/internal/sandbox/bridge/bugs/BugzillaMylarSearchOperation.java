@@ -33,8 +33,6 @@ import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaQueryHit;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaTask;
-import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchEngine;
-import org.eclipse.mylar.internal.bugzilla.ui.search.IBugzillaSearchOperation;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.StackTrace;
 import org.eclipse.mylar.internal.tasks.ui.search.AbstractRepositorySearchQuery;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
