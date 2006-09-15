@@ -438,10 +438,10 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 
 	public File getMonitorLogFile() {
 		File file = new File(ContextCorePlugin.getDefault().getContextStore().getRootDirectory(), MONITOR_LOG_NAME
-				+ MylarContextManager.CONTEXT_FILE_EXTENSION);
+				+ MylarContextManager.OLD_CONTEXT_FILE_EXTENSION);
 
 		File oldFile = new File(ContextCorePlugin.getDefault().getContextStore().getRootDirectory(),
-				MONITOR_LOG_NAME_OLD + MylarContextManager.CONTEXT_FILE_EXTENSION);
+				MONITOR_LOG_NAME_OLD + MylarContextManager.OLD_CONTEXT_FILE_EXTENSION);
 		if (oldFile.exists()) {
 			oldFile.renameTo(file);
 		} else if (!file.exists() || !file.canWrite()) {

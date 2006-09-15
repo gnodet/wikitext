@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource '/org.eclipse.mylar.tasks.tests/testdata/tasklistdatamigration' to 'tasklistdatamigrationtest'&#13;&#10;- Original element: 'tasklistdatamigration'" description="Rename resource 'tasklistdatamigration'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="testdata/tasklistdatamigration" name="tasklistdatamigrationtest" stamp="1158093237156" version="1.0"/>
+</session>
