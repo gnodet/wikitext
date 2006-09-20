@@ -4,8 +4,8 @@
 
     <extension point="org.eclipse.ui.preferencePages">
       <page 
-         name="Java (Sandbox)"
-         class="org.eclipse.mylar.internal.java.ui.preferences.MylarJavaPreferencePage"
+         name="Sandbox"
+         class="org.eclipse.mylar.internal.sandbox.MylarSandboxPreferencePage"
          id="org.eclipse.mylar.java.ui.preferences"
          category="org.eclipse.mylar.ui.preferences">
          <keywordReference id="org.eclipse.mylar.java.keywords"/>

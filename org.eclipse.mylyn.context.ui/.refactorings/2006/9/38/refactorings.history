@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename method 'org.eclipse.mylar.internal.context.ui.preferences.ContextUiPreferencePage.createTable(...)' to 'createHighlightersTable'&#13;&#10;- Original project: 'org.eclipse.mylar.context.ui'&#13;&#10;- Original element: 'org.eclipse.mylar.internal.context.ui.preferences.ContextUiPreferencePage.createTable(...)'&#13;&#10;- Renamed element: 'org.eclipse.mylar.internal.context.ui.preferences.ContextUiPreferencePage.createHighlightersTable(...)'&#13;&#10;- Update references to refactored element" delegate="false" deprecate="true" description="Rename method 'createTable'" flags="589826" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylar.internal.context.ui.preferences{ContextUiPreferencePage.java[ContextUiPreferencePage~createTable~QComposite;" name="createHighlightersTable" references="true" stamp="1158729289440" version="1.0"/>
+</session>
