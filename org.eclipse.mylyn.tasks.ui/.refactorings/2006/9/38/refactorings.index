@@ -1,3 +1,6 @@
 1158615549437	Extract constant 'ACTION_NAME'
+1158716100390	Extract constant 'NOTIFICATIONS_HIDDEN'
+1158712349859	Extract constant 'NUM_NOTIFICATIONS_TO_DISPLAY'
+1158710806343	Infer generic type arguments
 1158615579656	Extract constant 'ACTION_NAME'
 1158707674212	Extract method 'scheduleNewTask'
