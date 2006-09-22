@@ -9,10 +9,8 @@
 package org.eclipse.mylar.internal.sandbox.web;
 
 import org.eclipse.mylar.internal.tasks.ui.wizards.AbstractEditQueryWizard;
-import org.eclipse.mylar.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 
 /**
  * @author Eugene Kuleshov
@@ -33,31 +31,22 @@ public class WebQueryEditWizard extends AbstractEditQueryWizard {
 		addPage(queryPage);
 	}
 
-	@Override
-	public boolean performFinish() {
-
-		AbstractRepositoryQuery q = queryPage.getQuery();
-		if (q != null) {
-			
-//			String name;
-//			if (q instanceof JiraRepositoryQuery) {
-//				name = ((JiraRepositoryQuery) q).getNamedFilter().getName();
-//			} else {
-//				name = ((JiraCustomQuery) query).getFilterDefinition().getName();
+//	@Override
+//	public boolean performFinish() {
+//
+//		AbstractRepositoryQuery q = queryPage.getQuery();
+//		if (q != null) {
+//			TasksUiPlugin.getTaskListManager().getTaskList().deleteQuery(query);
+//			TasksUiPlugin.getTaskListManager().getTaskList().addQuery(q);
+//			
+//			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getKind());
+//			if (connector != null) {
+//				TasksUiPlugin.getSynchronizationManager().synchronize(connector, q, null);
 //			}
-			
-			TasksUiPlugin.getTaskListManager().getTaskList().deleteQuery(query);
-			TasksUiPlugin.getTaskListManager().getTaskList().addQuery(q);
-			
-			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getKind());
-			if (connector != null) {
-				TasksUiPlugin.getSynchronizationManager().synchronize(connector, q, null);
-			}
-//			filter.refreshHits();
-		} 
-
-		return true;
-	}
+//		} 
+//
+//		return true;
+//	}
 
 	@Override
 	public boolean canFinish() {

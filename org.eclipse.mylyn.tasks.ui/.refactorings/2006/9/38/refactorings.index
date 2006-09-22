@@ -1,7 +1,9 @@
 1158615549437	Extract constant 'ACTION_NAME'
-1158784722234	Extract constant 'ACTION_NAME'
-1158716100390	Extract constant 'NOTIFICATIONS_HIDDEN'
-1158712349859	Extract constant 'NUM_NOTIFICATIONS_TO_DISPLAY'
-1158710806343	Infer generic type arguments
 1158615579656	Extract constant 'ACTION_NAME'
 1158707674212	Extract method 'scheduleNewTask'
+1158710806343	Infer generic type arguments
+1158712349859	Extract constant 'NUM_NOTIFICATIONS_TO_DISPLAY'
+1158716100390	Extract constant 'NOTIFICATIONS_HIDDEN'
+1158944328071	Rename method 'getEditQueryWizard'
+1158944344144	Rename local variable 'query'
+1158944448794	Change method 'getNewQueryWizard'
