@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Move 'org.eclipse.mylar.internal.bugzilla.core.BugzillaServerFacade.POST_ARGS_SHOW_BUG' to 'org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants'&#13;&#10;- Original element: 'org.eclipse.mylar.internal.bugzilla.core.BugzillaServerFacade.POST_ARGS_SHOW_BUG'&#13;&#10;- Destination type: 'org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants'" delegate="false" deprecate="true" description="Move member 'POST_ARGS_SHOW_BUG'" element1="/src&lt;org.eclipse.mylar.internal.bugzilla.core{BugzillaServerFacade.java[BugzillaServerFacade^POST_ARGS_SHOW_BUG" flags="589830" id="org.eclipse.jdt.ui.move.static" input="/src&lt;org.eclipse.mylar.internal.bugzilla.core{IBugzillaConstants.java[IBugzillaConstants" stamp="1158972779828" version="1.0"/>
+</session>
