@@ -12,10 +12,11 @@
       </page> 
    </extension>
    
+   <!--
    <extension point="org.eclipse.mylar.tasks.ui.providers"> 
       <dynamicPopupMenu class="org.eclipse.mylar.internal.context.ui.TaskListHighlighterMenuContributor"/>
    </extension>
- 
+   -->
    
    <extension
    		point="org.eclipse.ui.keywords">
