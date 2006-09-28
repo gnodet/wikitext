@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Extract constant 'org.eclipse.mylar.internal.bugzilla.ui.editor.ExistingBugEditor.SECTION_TITLE_PEOPLE' from expression '&quot;People&quot;'&#13;&#10;- Original project: 'org.eclipse.mylar.bugzilla.ui'&#13;&#10;- Constant name: 'SECTION_TITLE_PEOPLE'&#13;&#10;- Constant expression: '&quot;People&quot;'&#13;&#10;- Declared visibility: 'private'&#13;&#10;- Replace occurrences of expression with constant" description="Extract constant 'SECTION_TITLE_PEOPLE'" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylar.internal.bugzilla.ui.editor{ExistingBugEditor.java" name="SECTION_TITLE_PEOPLE" qualify="false" replace="true" selection="10112 8" stamp="1159466266950" version="1.0" visibility="2"/>
+</session>
