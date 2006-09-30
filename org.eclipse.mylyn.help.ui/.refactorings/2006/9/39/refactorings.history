@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource '/org.eclipse.mylar.doc/doc/images/0.7.0/mark-undread.gif' to 'task-mark-unread.gif'&#13;&#10;- Original project: 'org.eclipse.mylar.doc'&#13;&#10;- Original element: 'mark-undread.gif'" description="Rename resource 'mark-undread.gif'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="doc/images/0.7.0/mark-undread.gif" name="task-mark-unread.gif" stamp="1159583637077" version="1.0"/>
+</session>
