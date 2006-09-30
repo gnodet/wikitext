@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <description url="http://download.eclipse.org/technology/mylar/update-site/e3.2">
-      Mylar update site for Eclipse 3.2
+   <description url="http://download.eclipse.org/technology/mylar/update-site/e3.3">
+      Mylar update site for Eclipse 3.3
    </description>
    <feature url="features/org.eclipse.mylar_feature_0.7.0.jar" id="org.eclipse.mylar_feature" version="0.7.0">
       <category name="Features"/>
