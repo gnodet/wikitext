@@ -73,7 +73,7 @@
             id="org.eclipse.mylar.web.tasklist.externalizer"/>
    </extension>
    <extension
-         point="org.eclipse.mylar.tasks.ui.templates">
+         point="org.eclipse.mylar.tasks.core.templates">
       <repository
             label="Subclipse (IssueZilla)"
             urlNewTask="http://subclipse.tigris.org/issues/enter_bug.cgi?component=subclipse"
