@@ -116,11 +116,18 @@ public class TaskscapeGraphView extends ViewPart {
 		viewer.setContentProvider(new TaskscapeGraphContentProvider());
 		viewer.setLabelProvider(new DecoratingLabelProvider(new DelegatingContextLabelProvider(), PlatformUI
 				.getWorkbench().getDecoratorManager().getLabelDecorator()));
+		
+		
+		viewer.setConnectionStyle(ZestStyles.CONNECTIONS_DIRECTED);
+		
+		
+		
+		
 		// viewer.setLabelProvider(new TaskscapeNodeLabelProvider());
 		// viewer.setLabelProvider(new SampleGraphLabelProvider());
 		// viewer.setSorter(new NameSorter());
 
-		SpringLayoutAlgorithm springLayout = new SpringLayoutAlgorithm(LayoutStyles.NONE);
+		SpringLayoutAlgorithm springLayout = new SpringLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING);
 		springLayout.setRandom(false);
 		springLayout.setIterations(20);
 		viewer.setLayoutAlgorithm(springLayout, false);

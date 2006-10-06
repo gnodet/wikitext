@@ -42,16 +42,12 @@ public class TaskscapeGraphContentProvider implements IGraphContentProvider {
 		}
 	}
 
-	public Object[] getRelationships() {
+	public Object[] getElements(Object o) {
 		List<IMylarElement> nodes = ContextCorePlugin.getContextManager().getActiveContext().getAllElements();
 		Set<IMylarRelation> edges = new HashSet<IMylarRelation>();
 		for (IMylarElement node : nodes)
 			edges.addAll(node.getRelations());
 		return edges.toArray();
-	}
-
-	public Object[] getElements(Object o) {
-		return null;
 	}
 
 	public double getWeight(Object rel) {
