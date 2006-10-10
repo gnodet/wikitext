@@ -44,7 +44,7 @@
   </extension>
 
    <extension point="org.eclipse.ui.views"> 
-	  <view name="Context Viz" 
+	  <view name="Sandbox: Context Graph" 
 	    icon="icons/eview16/taskscape.gif"
 	  	category="org.eclipse.mylar" 
 	  	class="org.eclipse.mylar.internal.viz.graph.TaskscapeGraphView" 
