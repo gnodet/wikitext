@@ -69,9 +69,12 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 					text += "\nSync state: "+ task.getSyncState();
 					text += "\nParent: "+ task.getContainer();
 					
-					text += "\n\nTask List size: " + TasksUiPlugin.getTaskListManager().getTaskList().getAllTasks().size();
 				}
 			}
+			text += "\n\nNum tasks: " + TasksUiPlugin.getTaskListManager().getTaskList().getAllTasks().size();
+			text += "\nNum queries: " + TasksUiPlugin.getTaskListManager().getTaskList().getQueries().size();	
+			
+			System.err.println(">>> " + TasksUiPlugin.getTaskListManager().getTaskList().getQueries());
 			
 			MessageDialog.openInformation(null, "Mylar Sandbox", text);
 		}
