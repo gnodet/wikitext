@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Extract constant 'org.eclipse.mylar.internal.tasks.ui.editors.AbstractRepositoryTaskEditor.EXPANDED_STATE_ATTRIBUTES' from expression 'false'&#13;&#10;- Original project: 'org.eclipse.mylar.tasks.ui'&#13;&#10;- Constant name: 'EXPANDED_STATE_ATTRIBUTES'&#13;&#10;- Constant expression: 'false'&#13;&#10;- Declared visibility: 'private'" description="Extract constant 'EXPANDED_STATE_ATTRIBUTES'" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylar.internal.tasks.ui.editors{AbstractRepositoryTaskEditor.java" name="EXPANDED_STATE_ATTRIBUTES" qualify="false" replace="false" selection="21288 5" stamp="1161018493875" version="1.0" visibility="2"/>
+</session>
