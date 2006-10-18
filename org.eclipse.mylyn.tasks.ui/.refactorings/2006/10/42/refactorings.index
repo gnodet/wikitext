@@ -1,3 +1,4 @@
 1161018493875	Extract constant 'EXPANDED_STATE_ATTRIBUTES'
 1161047353875	Rename resource 'providers.exsd'
 1161048546421	Rename method 'getDynamicMenuContributers'
+1161060459671	Extract method 'updateTaskProgressBar'
