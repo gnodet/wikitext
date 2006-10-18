@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Copy 1 elements(s) to 'org.eclipse.mylar.trac.ui/src/org.eclipse.mylar.internal.trac.ui.editor'&#10;- Original project: 'org.eclipse.mylar.trac.ui'&#10;- Destination element: 'org.eclipse.mylar.trac.ui/src/org.eclipse.mylar.internal.trac.ui.editor'&#10;- Original element: 'org.eclipse.mylar.internal.trac.ui.editor.TracTaskEditor.java'" description="Copy compilation unit" destination="/src&lt;org.eclipse.mylar.internal.trac.ui.editor" element1="/src&lt;org.eclipse.mylar.internal.trac.ui.editor{TracTaskEditor.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" log="/src&lt;org.eclipse.mylar.internal.trac.ui.editor{TracTaskEditor.java&#9;true&#9;true&#9;NewTracTaskEditor.java" policy="org.eclipse.jdt.ui.copyResources" stamp="1159727883341" units="1" version="1.0"/>
+</session>
