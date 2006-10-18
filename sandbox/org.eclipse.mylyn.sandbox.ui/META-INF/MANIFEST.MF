@@ -18,7 +18,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.mylar.tasks.core,
  org.eclipse.mylar.monitor,
  org.eclipse.ui.forms,
- org.eclipse.mylar.java
+ org.eclipse.mylar.java,
+ org.eclipse.core.resources
 Eclipse-AutoStart: true
 Bundle-Vendor: Eclipse.org
 Export-Package: org.eclipse.mylar.internal.sandbox,

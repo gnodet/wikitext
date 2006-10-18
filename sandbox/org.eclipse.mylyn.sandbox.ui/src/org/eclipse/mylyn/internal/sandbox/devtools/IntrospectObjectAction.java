@@ -11,13 +11,15 @@
 
 package org.eclipse.mylar.internal.sandbox.devtools;
 
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.IMylarElement;
 import org.eclipse.mylar.context.core.IMylarStructureBridge;
-import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
 import org.eclipse.mylar.tasks.core.TaskRepository;
@@ -52,6 +54,13 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 				}
 			} catch (Throwable t) {
 				text += "<no structure bridge>";
+			}
+			
+			if (object instanceof IAdaptable) {
+				Object resourceAdapter = ((IAdaptable)object).getAdapter(IResource.class);
+				if (resourceAdapter != null) {
+					text += "\nResource adapter: " + ((IResource)resourceAdapter).getFullPath().toOSString();
+				}
 			}
 
 			if (object instanceof AbstractRepositoryTask || object instanceof AbstractQueryHit) {
