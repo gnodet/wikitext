@@ -1,1 +1,5 @@
 1161014894843	Rename method 'getTaskPrefix'
+1161028408796	Rename method 'getQueryHitForHandle'
+1161028429812	Rename method 'getQueryHitsForHandle'
+1161028465562	Change method 'getQueryHits'
+1161030783687	Change method 'addHit'
