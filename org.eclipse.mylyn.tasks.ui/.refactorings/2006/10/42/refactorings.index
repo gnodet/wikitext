@@ -14,3 +14,5 @@
 1161296156593	Rename field 'fCurrentTickCount'
 1161296161625	Rename field 'fMaxTickCount'
 1161298661375	Rename type 'ActivateTaskAction'
+1161361025796	Extract method 'initActivityHistory'
+1161361159125	Rename field 'taskActivationHistory'
