@@ -1,1 +1,3 @@
 1161304295265	Rename field 'ELEMENT_UI_CLASS'
+1161367193656	Rename type 'TaskListHighlighterMenuContributor'
+1161367294093	Extract constant 'ID_PREFS_HIGHLIGHTERS'

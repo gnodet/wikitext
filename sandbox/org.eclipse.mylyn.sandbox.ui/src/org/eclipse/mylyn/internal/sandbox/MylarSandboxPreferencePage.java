@@ -32,7 +32,6 @@ import org.eclipse.mylar.internal.context.ui.ContextUiPrefContstants;
 import org.eclipse.mylar.internal.context.ui.Highlighter;
 import org.eclipse.mylar.internal.context.ui.HighlighterImageDescriptor;
 import org.eclipse.mylar.internal.context.ui.HighlighterList;
-import org.eclipse.mylar.internal.java.MylarJavaPlugin;
 import org.eclipse.mylar.internal.java.MylarJavaPrefConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -62,7 +61,7 @@ public class MylarSandboxPreferencePage extends PreferencePage implements IWorkb
 	private Table table;
 
 	private TableViewer tableViewer;
-	
+
 	private Button enableErrorInterest = null;
 
 	private ColorCellEditor colorDialogEditor;
@@ -70,7 +69,7 @@ public class MylarSandboxPreferencePage extends PreferencePage implements IWorkb
 	private Highlighter selection = null;
 
 	private HighlighterContentProvider contentProvider = null;
-	
+
 	private static final String LABEL_COLUMN = "Label";
 
 	private static final String COLOR_COLUMN = "Color";
@@ -80,10 +79,10 @@ public class MylarSandboxPreferencePage extends PreferencePage implements IWorkb
 	private static String[] columnNames = new String[] { LABEL_COLUMN, COLOR_COLUMN, TYPE_COLUMN, };
 
 	static final String[] TYPE_ARRAY = { "Gradient", "Solid" };
-	
+
 	public MylarSandboxPreferencePage() {
 		super();
-		setPreferenceStore(MylarJavaPlugin.getDefault().getPreferenceStore());
+		setPreferenceStore(ContextUiPlugin.getDefault().getPreferenceStore());
 	}
 
 	@Override
@@ -93,14 +92,14 @@ public class MylarSandboxPreferencePage extends PreferencePage implements IWorkb
 		container.setLayout(layout);
 
 		createUserbooleanControl(container);
-		
+
 		createHighlightersTable(container);
 		createTableViewer();
 		contentProvider = new HighlighterContentProvider();
 		tableViewer.setContentProvider(contentProvider);
 		tableViewer.setLabelProvider(new HighlighterLabelProvider());
 		tableViewer.setInput(ContextUiPlugin.getDefault().getHighlighterList());
-		
+
 		return container;
 	}
 
@@ -113,7 +112,7 @@ public class MylarSandboxPreferencePage extends PreferencePage implements IWorkb
 		group.setText("Java");
 		GridLayout gl = new GridLayout(1, false);
 		group.setLayout(gl);
-		
+
 		enableErrorInterest = new Button(group, SWT.CHECK);
 		enableErrorInterest.setText("Enable predicted interest of errors (significantly increases view refresh).");
 		enableErrorInterest.setSelection(getPreferenceStore().getBoolean(
@@ -178,7 +177,7 @@ public class MylarSandboxPreferencePage extends PreferencePage implements IWorkb
 		});
 		createAddRemoveButtons(tableComposite);
 	}
-	
+
 	@Override
 	public boolean performOk() {
 		getPreferenceStore().setValue(MylarJavaPrefConstants.PREDICTED_INTEREST_ERRORS,
@@ -190,7 +189,7 @@ public class MylarSandboxPreferencePage extends PreferencePage implements IWorkb
 	public boolean performCancel() {
 		enableErrorInterest.setSelection(getPreferenceStore().getBoolean(
 				MylarJavaPrefConstants.PREDICTED_INTEREST_ERRORS));
-		
+
 		String highlighters = getPreferenceStore().getString(ContextUiPrefContstants.HIGHLIGHTER_PREFIX);
 		ContextUiPlugin.getDefault().getHighlighterList().internalizeFromString(highlighters);
 
@@ -203,12 +202,12 @@ public class MylarSandboxPreferencePage extends PreferencePage implements IWorkb
 		super.performDefaults();
 		enableErrorInterest.setSelection(getPreferenceStore().getDefaultBoolean(
 				MylarJavaPrefConstants.PREDICTED_INTEREST_ERRORS));
-		
+
 		contentProvider = new HighlighterContentProvider();
 		tableViewer.setContentProvider(contentProvider);
 		ContextUiPlugin.getDefault().getHighlighterList().setToDefaultList();
 	}
-	
+
 	/**
 	 * Class HighlighterLabelProvider - Label and image provider for tableViewer
 	 */
@@ -493,8 +492,6 @@ public class MylarSandboxPreferencePage extends PreferencePage implements IWorkb
 		}
 	}
 
-	
-
 	private void createTableViewer() {
 
 		tableViewer = new TableViewer(table);
@@ -556,7 +553,7 @@ public class MylarSandboxPreferencePage extends PreferencePage implements IWorkb
 			}
 		});
 	}
-	
+
 	/**
 	 * applyEditorValue - method called when Color selected
 	 */
@@ -578,7 +575,7 @@ public class MylarSandboxPreferencePage extends PreferencePage implements IWorkb
 			// ignore
 		}
 	}
-	
+
 	public void cancelEditor() {
 		// don't care about this
 	}

@@ -6,7 +6,7 @@
       <page 
          name="Sandbox"
          class="org.eclipse.mylar.internal.sandbox.MylarSandboxPreferencePage"
-         id="org.eclipse.mylar.java.ui.preferences"
+         id="org.eclipse.mylar.sandbox.ui.preferences"
          category="org.eclipse.mylar.ui.preferences">
          <keywordReference id="org.eclipse.mylar.java.keywords"/>
       </page> 
@@ -14,7 +14,7 @@
    
    <extension point="org.eclipse.mylar.tasks.ui.actions"> 
       <dynamicPopupMenu
-            class="org.eclipse.mylar.internal.context.ui.TaskListHighlighterMenuContributor"
+            class="org.eclipse.mylar.internal.context.ui.TaskHighlighterMenuContributor"
             menuPath="context"/>
    </extension>
    
