@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource '/org.eclipse.mylar.doc/doc/images/0.8.0/track-editor-new.gif' to 'trac-editor-new.gif'&#13;&#10;- Original project: 'org.eclipse.mylar.doc'&#13;&#10;- Original element: 'track-editor-new.gif'" description="Rename resource 'track-editor-new.gif'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="doc/images/0.8.0/track-editor-new.gif" name="trac-editor-new.gif" stamp="1161446440218" version="1.0"/>
+</session>
