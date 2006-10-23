@@ -8,7 +8,6 @@
 
 package org.eclipse.mylar.internal.sandbox.web;
 
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.mylar.internal.tasks.ui.wizards.AbstractRepositorySettingsPage;
 import org.eclipse.mylar.internal.tasks.ui.wizards.NewWebTaskWizard;
@@ -28,7 +27,7 @@ public class WebRepositoryUi extends AbstractRepositoryConnectorUi {
 		return new WebRepositorySettingsPage(this);
 	}
 
-	public IWizard getNewTaskWizard(TaskRepository taskRepository, IStructuredSelection selection) {
+	public IWizard getNewTaskWizard(TaskRepository taskRepository) {
 		return new NewWebTaskWizard(taskRepository, taskRepository.getProperty(WebRepositoryConnector.PROPERTY_NEW_TASK_URL)); 
 	}
 	
