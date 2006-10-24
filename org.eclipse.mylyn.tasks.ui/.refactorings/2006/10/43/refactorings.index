@@ -4,3 +4,5 @@
 1161667300125	Rename type 'AbstractNewRepositoryTaskEditor'
 1161670058812	Rename type 'AbstractRepositoryTaskFormPage'
 1161670085906	Rename type 'AbstractNewRepositoryTaskFormPage'
+1161723440421	Rename type 'TaskReminderMenuContributor'
+1161725265656	Extract method 'getTaskForElement'
