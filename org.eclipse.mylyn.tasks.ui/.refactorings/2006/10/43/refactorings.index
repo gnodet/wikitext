@@ -1,2 +1,6 @@
 1161642634265	Extract constant 'SEPARATOR'
 1161653754000	Extract method 'updateContainerProgressBar'
+1161667170218	Rename type 'AbstractRepositoryTaskEditor'
+1161667300125	Rename type 'AbstractNewRepositoryTaskEditor'
+1161670058812	Rename type 'AbstractRepositoryTaskFormPage'
+1161670085906	Rename type 'AbstractNewRepositoryTaskFormPage'

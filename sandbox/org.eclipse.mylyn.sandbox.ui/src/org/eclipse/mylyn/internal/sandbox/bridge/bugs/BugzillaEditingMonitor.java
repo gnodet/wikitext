@@ -13,8 +13,8 @@ package org.eclipse.mylar.internal.sandbox.bridge.bugs;
 
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaTaskEditor;
 import org.eclipse.mylar.internal.tasks.ui.editors.AbstractRepositoryTaskEditor;
+import org.eclipse.mylar.internal.tasks.ui.editors.MylarTaskEditor;
 import org.eclipse.mylar.internal.tasks.ui.editors.RepositoryTaskSelection;
 import org.eclipse.mylar.monitor.AbstractUserInteractionMonitor;
 import org.eclipse.ui.IWorkbenchPart;
@@ -30,7 +30,7 @@ public class BugzillaEditingMonitor extends AbstractUserInteractionMonitor {
 
 	@Override
 	protected void handleWorkbenchPartSelection(IWorkbenchPart part, ISelection selection, boolean contributeToContext) {
-		if (!(part instanceof AbstractRepositoryTaskEditor) && !(part instanceof BugzillaTaskEditor))
+		if (!(part instanceof AbstractRepositoryTaskEditor) && !(part instanceof MylarTaskEditor))
 			return;
 
 		if (selection instanceof StructuredSelection) {
