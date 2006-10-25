@@ -39,6 +39,13 @@ import org.eclipse.mylar.tasks.core.QueryHitCollector;
 import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 
+//import com.sun.syndication.feed.module.DCModule;
+//import com.sun.syndication.feed.synd.SyndEntry;
+//import com.sun.syndication.feed.synd.SyndFeed;
+//import com.sun.syndication.io.SyndFeedInput;
+//import com.sun.syndication.io.XmlReader;
+
+
 /**
  * Generic connector for web based issue tracking systems
  * 
@@ -125,27 +132,6 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return null;
 	}
 
-	// public List<AbstractQueryHit> performQuery(AbstractRepositoryQuery query,
-	// IProgressMonitor monitor, MultiStatus queryStatus) {
-	// if(query instanceof WebQuery) {
-	// String queryUrl = query.getUrl();
-	// String regexp = ((WebQuery) query).getRegexp();
-	// String taskPrefix = ((WebQuery) query).getTaskPrefix();
-	// String repositoryUrl = query.getRepositoryUrl();
-	//			
-	// try {
-	// return performQuery(fetchResource(queryUrl), regexp, taskPrefix,
-	// repositoryUrl, monitor, queryStatus);
-	//
-	// } catch (IOException ex) {
-	// queryStatus.add(new Status(IStatus.OK, TasksUiPlugin.PLUGIN_ID,
-	// IStatus.OK,
-	// "Could not fetch resource: " + queryUrl, ex));
-	// }
-	// }
-	// return new ArrayList<AbstractQueryHit>();
-	// }
-
 	@Override
 	public IStatus performQuery(AbstractRepositoryQuery query, TaskRepository repository, Proxy proxySettings,
 			IProgressMonitor monitor, QueryHitCollector resultCollector) {
@@ -154,10 +140,17 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			String regexp = ((WebQuery) query).getRegexp();
 			String taskPrefix = ((WebQuery) query).getTaskPrefix();
 			String repositoryUrl = query.getRepositoryUrl();
-
+			String repositoryUser = repository.getUserName();
+			String repositoryPassword = repository.getPassword();
+			
 			try {
-				return performQuery(fetchResource(queryUrl), regexp, taskPrefix, repositoryUrl, monitor,
-						resultCollector);
+//				if (regexp != null && regexp.trim().length() > 0) {
+					return performQuery(fetchResource(queryUrl, repositoryUser, repositoryPassword), regexp,
+							taskPrefix, repositoryUrl, monitor, resultCollector);
+//				} else {
+//					return performRssQuery(queryUrl, taskPrefix, repositoryUrl, repositoryUser, repositoryPassword,
+//							monitor, resultCollector);
+//				}				
 
 			} catch (IOException ex) {
 				return new Status(IStatus.OK, TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Could not fetch resource: "
@@ -231,71 +224,89 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		}
 	}
 
-	public static String fetchResource(String url) throws IOException {
+/*	
+	public static IStatus performRssQuery(String queryUrl, String taskPrefix, String repositoryUrl, 
+			String repositoryUser, String repositoryPassword, IProgressMonitor monitor, QueryHitCollector collector) {
+        SyndFeedInput input = new SyndFeedInput();
+        try {
+			SyndFeed feed = input.build(new XmlReader(new URL(queryUrl)));
 
+			SimpleDateFormat df = new SimpleDateFormat("MMM dd, HH:mm");
+			
+			for (Iterator it = feed.getEntries().iterator(); it.hasNext(); ) {
+				SyndEntry entry = (SyndEntry) it.next();
+
+				Date date = entry.getUpdatedDate();
+				if(date==null) {
+					date = entry.getPublishedDate();
+				}
+				if(date==null) {
+					DCModule module = (DCModule) entry.getModule("http://purl.org/dc/elements/1.1/");
+					date = module.getDate();
+				}
+				if(date==null) {
+					// TODO 
+				}
+				
+				String entryUri = entry.getUri();
+				if(entryUri.startsWith(taskPrefix)) {
+					String id = df.format(date);  // entryUri.substring(taskPrefix.length());
+					
+	    			try {
+						collector.accept(new WebQueryHit(id, id+": "+entry.getTitle(), taskPrefix, repositoryUrl));
+					} catch (CoreException e) {
+						return new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
+								"Unable collect results.", e);
+	    			}
+				}
+			}
+			return Status.OK_STATUS;			
+			
+		} catch (Exception ex) {
+			return new Status(IStatus.OK, TasksUiPlugin.PLUGIN_ID, IStatus.OK,
+					"Could not fetch resource: " + queryUrl, ex);
+		}
+	}
+*/
+
+	public static String fetchResource(String url, String user, String password) throws IOException {
 		HttpClient client = new HttpClient();
-
 		Proxy proxySettings = TasksUiPlugin.getDefault().getProxySettings();
-
-		WebClientUtil.setupHttpClient(client, proxySettings, url);
-
+		WebClientUtil.setupHttpClient(client, proxySettings, url, user, password);	
+		
 		GetMethod get = new GetMethod(url);
-
 		try {
 			client.executeMethod(get);
-
 			Header refreshHeader = get.getResponseHeader("Refresh");
 
 			if (refreshHeader != null) {
-
 				String value = refreshHeader.getValue();
-
 				int n = value.indexOf(";url=");
-
 				if (n != -1) {
-
 					value = value.substring(n + 5);
-
 					int requestPath;
-
 					if (value.charAt(0) == '/') {
-
 						int colonSlashSlash = url.indexOf("://");
-
 						requestPath = url.indexOf('/', colonSlashSlash + 3);
-
 					} else {
-
 						requestPath = url.lastIndexOf('/');
-
 					}
 
 					String refreshUrl;
-
 					if (requestPath == -1) {
-
 						refreshUrl = url + "/" + value;
-
 					} else {
-
 						refreshUrl = url.substring(0, requestPath + 1) + value;
-
 					}
 
 					get = new GetMethod(refreshUrl);
-
 					client.executeMethod(get);
-
 				}
-
 			}
-
 			return get.getResponseBodyAsString();
 
 		} finally {
-
 			get.releaseConnection();
-
 		}
 	}
 

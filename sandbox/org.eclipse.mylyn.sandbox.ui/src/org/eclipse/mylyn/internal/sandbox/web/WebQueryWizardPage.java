@@ -270,7 +270,7 @@ public class WebQueryWizardPage extends WizardPage {
 				final List<AbstractQueryHit> queryHits = new ArrayList<AbstractQueryHit>();
 				try {
 					if(webPage==null) {
-						webPage = WebRepositoryConnector.fetchResource(currentUrl);
+						webPage = WebRepositoryConnector.fetchResource(currentUrl, repository.getUserName(), repository.getPassword());
 					}
 
 					QueryHitCollector collector = new QueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList()) {
