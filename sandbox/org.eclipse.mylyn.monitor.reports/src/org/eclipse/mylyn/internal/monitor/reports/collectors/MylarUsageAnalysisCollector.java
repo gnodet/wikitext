@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -206,8 +205,7 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 		int rejectedUsers = 0;
 		summaryEditRatioDelta = 0;
 		List<String> report = new ArrayList<String>();
-		for (Iterator it = userIds.iterator(); it.hasNext();) {
-			int id = (Integer) it.next();
+		for (int id : userIds) {
 			if (acceptUser(id)) {
 				report.add("<h3>USER ID: " + id + " (from: " + getStartDate(id) + " to " + getEndDate(id) + ")</h3>");
 				acceptedUsers++;
@@ -286,9 +284,7 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 					+ "task-activations, task-deactivations, sel-interesting, sel-predicted, sel-decayed, sel-new, sel-unknown\n");
 			// "filtered-explorer, filtered-outline, filtered-problems, ");
 
-			for (Iterator it = userIds.iterator(); it.hasNext();) {
-				int userId = (Integer) it.next();
-
+			for (int userId : userIds) {
 				if (acceptUser(userId)) {
 					writer.write(userId + ", ");
 					float baselineRatio = getBaselineRatio(userId);

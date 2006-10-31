@@ -118,7 +118,7 @@ public class BrowserTracker extends AbstractUserInteractionMonitor implements IP
 
 	private Browser getBrowser(final WebBrowserEditor browserEditor) {
 		try { // HACK: using reflection to gain accessibility
-			Class browserClass = browserEditor.getClass();
+			Class<?> browserClass = browserEditor.getClass();
 			Field browserField = browserClass.getDeclaredField("webBrowser");
 			browserField.setAccessible(true);
 			Object browserObject = browserField.get(browserEditor);

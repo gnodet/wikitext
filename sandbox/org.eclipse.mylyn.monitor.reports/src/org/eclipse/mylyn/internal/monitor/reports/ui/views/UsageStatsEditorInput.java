@@ -86,6 +86,7 @@ public class UsageStatsEditorInput implements IEditorInput {
 		return "Mylar Usage Statistics";
 	}
 
+	@SuppressWarnings("unchecked")
 	public Object getAdapter(Class adapter) {
 		return null;
 	}
