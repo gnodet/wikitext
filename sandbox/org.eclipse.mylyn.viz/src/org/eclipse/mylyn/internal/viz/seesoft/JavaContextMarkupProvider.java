@@ -75,7 +75,7 @@ public class JavaContextMarkupProvider implements IMarkupProvider {
 	 * Returns a list of Stripes representing the interesting declarations in
 	 * the specified IMember where the IMember represents a Java class.
 	 */
-	public List getMemberMarkups(IMember member) {
+	public List<Stripe> getMemberMarkups(IMember member) {
 		try {
 			List<Stripe> stripeList = new ArrayList<Stripe>();
 			IJavaElement classElt = (IJavaElement) ((JDTMember) member).getResource();
@@ -186,7 +186,8 @@ public class JavaContextMarkupProvider implements IMarkupProvider {
 	 * markups. Note: copied from
 	 * org.eclipse.contribution.visualiser.SimpleMarkupProvider
 	 */
-	public List getGroupMarkups(IGroup group) {
+	@SuppressWarnings("unchecked")
+	public List<Stripe> getGroupMarkups(IGroup group) {
 		List<Stripe> stripes = new ArrayList<Stripe>();
 		List kids = group.getMembers();
 		int accumulatedOffset = 0;
@@ -194,10 +195,10 @@ public class JavaContextMarkupProvider implements IMarkupProvider {
 		// Go through all the children of the group
 		for (Iterator iter = kids.iterator(); iter.hasNext();) {
 			IMember element = (IMember) iter.next();
-			List l = getMemberMarkups(element);
+			List<Stripe> l = getMemberMarkups(element);
 			if (l != null) {
-				for (Iterator iterator = l.iterator(); iterator.hasNext();) {
-					Stripe elem = (Stripe) iterator.next();
+				for (Iterator<Stripe> iterator = l.iterator(); iterator.hasNext();) {
+					Stripe elem = iterator.next();
 					stripes.add(new Stripe(elem.getKinds(), elem.getOffset() + accumulatedOffset, elem.getDepth()));
 				}
 			}
@@ -206,7 +207,7 @@ public class JavaContextMarkupProvider implements IMarkupProvider {
 		return stripes;
 	}
 
-	public SortedSet getAllMarkupKinds() {
+	public SortedSet<IMarkupKind> getAllMarkupKinds() {
 		return markupKindSet;
 	}
 

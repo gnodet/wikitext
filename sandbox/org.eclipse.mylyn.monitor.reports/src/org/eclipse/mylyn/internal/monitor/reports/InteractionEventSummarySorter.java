@@ -93,8 +93,9 @@ public class InteractionEventSummarySorter extends ViewerSorter {
 	 *         to the second element; and a positive number if the first element
 	 *         is greater than the second element
 	 */
+	@SuppressWarnings("unchecked")
 	protected int compareNames(InteractionEventSummary summary1, InteractionEventSummary summary2) {
-		return collator.compare(summary1.getName(), summary2.getName());
+		return getComparator().compare(summary1.getName(), summary2.getName());
 	}
 
 	/**
@@ -110,8 +111,9 @@ public class InteractionEventSummarySorter extends ViewerSorter {
 	 *         to the second element; and a positive number if the first element
 	 *         is greater than the second element
 	 */
+	@SuppressWarnings("unchecked")
 	protected int compareTypes(InteractionEventSummary summary1, InteractionEventSummary summary2) {
-		return collator.compare(summary1.getType(), summary2.getType());
+		return getComparator().compare(summary1.getType(), summary2.getType());
 	}
 
 	/**

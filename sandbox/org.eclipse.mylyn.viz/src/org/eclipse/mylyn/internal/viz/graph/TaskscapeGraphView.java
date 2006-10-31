@@ -163,6 +163,7 @@ public class TaskscapeGraphView extends ViewPart {
 	 * 
 	 * @see org.eclipse.ui.part.WorkbenchPart#getAdapter(java.lang.Class)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public Object getAdapter(Class type) {
 		// the CommandStack is needed for the delete action

@@ -46,7 +46,7 @@ import org.eclipse.mylar.internal.java.JavaStructureBridge;
 public class JavaContextContentProvider implements IContentProvider, IMylarContextListener {
 
 	/** IGroups representing packages with interesting elements in them */
-	protected List<JDTGroup> groups = new ArrayList<JDTGroup>();
+	protected List<IGroup> groups = new ArrayList<IGroup>();
 
 	/** True if there is currently an active context */
 	protected boolean contextActive = false;
@@ -64,12 +64,13 @@ public class JavaContextContentProvider implements IContentProvider, IMylarConte
 	 * @see org.eclipse.contribution.visualiser.interfaces.IContentProvider#getAllGroups()
 	 * @return List of IGroups
 	 */
-	public List getAllGroups() {
+	public List<IGroup> getAllGroups() {
 		buildModel();
 		return groups;
 	}
 
-	public List getAllMembers(IGroup group) {
+	@SuppressWarnings("unchecked")
+	public List<IMember> getAllMembers(IGroup group) {
 		return group.getMembers();
 	}
 
@@ -77,16 +78,16 @@ public class JavaContextContentProvider implements IContentProvider, IMylarConte
 	 * Returns the List of all IMembers in all registered groups Adapted from
 	 * org.eclipse.contribution.visualiser.SimpleContentProvider
 	 */
-	public List getAllMembers() {
-		List grps = getAllGroups();
+	public List<IMember> getAllMembers() {
+		List<IGroup> grps = getAllGroups();
 		List<IMember> members = new ArrayList<IMember>();
 		if (grps == null)
 			return members;
-		Iterator iter = grps.iterator();
+		Iterator<IGroup> iter = grps.iterator();
 		while (iter.hasNext()) {
 			IGroup grp = (IGroup) iter.next();
-			List membersInGroup = getAllMembers(grp);
-			Iterator iter2 = membersInGroup.iterator();
+			List<IMember> membersInGroup = getAllMembers(grp);
+			Iterator<IMember> iter2 = membersInGroup.iterator();
 			while (iter2.hasNext()) {
 				IMember im = (IMember) iter2.next();
 				members.add(im);
@@ -172,7 +173,7 @@ public class JavaContextContentProvider implements IContentProvider, IMylarConte
 
 		// Check for an existing group for this package
 		for (int i = 0; i < groups.size(); i++) {
-			JDTGroup currGroup = groups.get(i);
+			JDTGroup currGroup = (JDTGroup)groups.get(i);
 
 			if (currGroup.getFullname().equals(parentGroup.getFullname())) {
 				parentGroup = currGroup;
