@@ -137,7 +137,7 @@ public class BugzillaSearchEngine {
 					"" + maxHits, TasksUiPlugin.getTaskListManager().getTaskList());
 			BugzillaClient client = BugzillaCorePlugin.getDefault().getConnector().getClientManager().getClient(
 					repository);
-			client.search(query, collector, TasksUiPlugin.getTaskListManager().getTaskList());
+			client.getSearchHits(query, collector, TasksUiPlugin.getTaskListManager().getTaskList());
 
 		} catch (CoreException e) {
 			status = new MultiStatus(BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR,
