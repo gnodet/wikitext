@@ -12,7 +12,6 @@ package org.eclipse.mylar.internal.sandbox.bridge.bugs;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.Proxy;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -71,17 +70,17 @@ public class BugzillaSearchEngine {
 		// urlString = urlString.concat(IBugzillaConstants.CONTENT_TYPE_RDF);
 		this.repository = repository;
 //		this.proxySettings = proxySettings;
-		if (repository.hasCredentials()) {
-			try {
-				urlString = BugzillaClient.addCredentials(urlString, repository.getCharacterEncoding(), repository
-						.getUserName(), repository.getPassword());
-			} catch (UnsupportedEncodingException e) {
-				/*
-				 * Do nothing. Every implementation of the Java platform is
-				 * required to support the standard charset "UTF-8"
-				 */
-			}
-		}
+//		if (repository.hasCredentials()) {
+//			try {
+//				urlString = BugzillaClient.addCredentials(urlString, repository.getCharacterEncoding(), repository
+//						.getUserName(), repository.getPassword());
+//			} catch (UnsupportedEncodingException e) {
+//				/*
+//				 * Do nothing. Every implementation of the Java platform is
+//				 * required to support the standard charset "UTF-8"
+//				 */
+//			}
+//		}
 	}
 
 	/**
