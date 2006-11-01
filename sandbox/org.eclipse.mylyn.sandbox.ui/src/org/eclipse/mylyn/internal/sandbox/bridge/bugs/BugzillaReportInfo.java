@@ -11,18 +11,16 @@
 
 package org.eclipse.mylar.internal.sandbox.bridge.bugs;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.Proxy;
-import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaException;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaQueryHit;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaServerFacade;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.StackTrace;
+import org.eclipse.mylar.internal.tasks.core.WebClientUtil;
+import org.eclipse.mylar.tasks.core.IOfflineTaskHandler;
 import org.eclipse.mylar.tasks.core.RepositoryTaskData;
 import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
@@ -109,18 +107,14 @@ public class BugzillaReportInfo {
 	 * The bug is downloaded if it was not previously
 	 * 
 	 * @return Returns the BugReport
-	 * 
-	 * @throws IOException
-	 * @throws MalformedURLException
-	 * @throws GeneralSecurityException 
-	 * @throws BugzillaException 
 	 */
-	public RepositoryTaskData getBug() throws IOException, GeneralSecurityException, BugzillaException {
+	public RepositoryTaskData getBug() throws CoreException {
 		if (bug == null) {
 			// get the bug report
 			TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(BugzillaCorePlugin.REPOSITORY_KIND, hit.getRepositoryUrl());
-			Proxy proxySettings = TasksUiPlugin.getDefault().getProxySettings();
-			bug = BugzillaServerFacade.getBug(repository.getUrl(), repository.getUserName(), repository.getPassword(), proxySettings, repository.getCharacterEncoding(), Integer.parseInt(hit.getId()));
+			Proxy proxySettings = WebClientUtil.getProxySettings();
+			IOfflineTaskHandler handler = BugzillaCorePlugin.getDefault().getConnector().getOfflineTaskHandler();
+			bug = handler.downloadTaskData(repository, hit.getId(), proxySettings);			
 		}
 		return bug;
 	}

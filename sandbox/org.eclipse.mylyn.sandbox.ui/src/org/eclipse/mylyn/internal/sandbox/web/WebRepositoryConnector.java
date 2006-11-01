@@ -181,7 +181,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public void updateAttributes(TaskRepository repository, Proxy proxySettings, IProgressMonitor monitor) throws CoreException {
+	public void updateAttributes(TaskRepository repository, IProgressMonitor monitor) throws CoreException {
 		// ignore
 	}
 

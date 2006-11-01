@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource '/org.eclipse.mylar/developer/src-old/bugzilla/CopyOfRepositoryConfiguration.java' to 'RepositoryConfiguration.java'&#13;&#10;- Original project: 'org.eclipse.mylar'&#13;&#10;- Original element: 'CopyOfRepositoryConfiguration.java'" description="Rename resource 'CopyOfRepositoryConfiguration.java'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="developer/src-old/bugzilla/CopyOfRepositoryConfiguration.java" name="RepositoryConfiguration.java" stamp="1162163292640" version="1.0"/>
+</session>
