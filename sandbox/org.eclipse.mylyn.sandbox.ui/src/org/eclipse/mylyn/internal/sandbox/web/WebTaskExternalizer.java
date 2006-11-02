@@ -163,7 +163,7 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 
 		String id = element.getAttribute(KEY_KEY);
 
-		WebQueryHit hit = new WebQueryHit(id, "", ((WebQuery) query).getTaskPrefix(), query.getRepositoryUrl());
+		WebQueryHit hit = new WebQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), id, "", ((WebQuery) query).getTaskPrefix(), query.getRepositoryUrl());
 		readQueryHitInfo(hit, taskList, query, element);
 	}
 

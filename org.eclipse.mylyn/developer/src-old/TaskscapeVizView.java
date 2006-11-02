@@ -52,7 +52,6 @@ public class TaskscapeVizView extends ViewPart {
         java.awt.Frame frame = SWT_AWT.new_Frame(stuff);
 //        final java.awt.Label statusLabel = new java.awt.Label();
 //        statusFrame.add(statusLabel);
-//        statusLabel.setText("!!!!!!!!!!!");
         
 //        String file = ("C:/Dev/mylar-workspace/prefuse/etc/friendster.xml");
         Graph g = GraphLib.getGrid(5,5);

@@ -11,9 +11,7 @@ package org.eclipse.mylar.internal.sandbox.web;
 import org.eclipse.mylar.internal.tasks.core.WebTask;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
-import org.eclipse.mylar.tasks.core.ITask;
 import org.eclipse.mylar.tasks.core.TaskList;
-import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 
 /**
  * Represents issue returned by <code>WebQuery</code> 
@@ -21,13 +19,11 @@ import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
  * @author Eugene Kuleshov
  */
 public class WebQueryHit extends AbstractQueryHit {
+	
 	private final String taskPrefix;
 
-	private AbstractRepositoryTask task;
-
-
-	public WebQueryHit(String id, String description, String taskPrefix, String repositoryUrl) {
-		super(repositoryUrl, description, id);
+	public WebQueryHit(TaskList taskList, String id, String description, String taskPrefix, String repositoryUrl) {
+		super(taskList, repositoryUrl, description, id);
 		this.taskPrefix = taskPrefix;
 	}
 
@@ -39,25 +35,8 @@ public class WebQueryHit extends AbstractQueryHit {
 		return false;
 	}
 
-	public AbstractRepositoryTask getCorrespondingTask() {
-		return task;
-	}
-
-	public void setCorrespondingTask(AbstractRepositoryTask task) {
-		this.task = task;
-	}
-
-	public AbstractRepositoryTask getOrCreateCorrespondingTask() {
-		TaskList taskList = TasksUiPlugin.getTaskListManager().getTaskList();
-		
-		ITask existingTask = taskList.getTask(getHandleIdentifier());		 
-		if (existingTask instanceof WebTask) {
-			this.task = (WebTask) existingTask;
-		} else {
-			task = new WebTask(id, description, taskPrefix, repositoryUrl, WebRepositoryConnector.REPOSITORY_TYPE);
-			taskList.addTask(task);			
-		} 	
-		return task;
+	protected AbstractRepositoryTask createTask() {
+		return new WebTask(id, description, taskPrefix, repositoryUrl, WebRepositoryConnector.REPOSITORY_TYPE);
 	}
 	
 	@Override

@@ -207,7 +207,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 					String id = matcher.group(1);
 					String description = matcher.groupCount() > 1 ? matcher.group(2) : null;
 					try {
-						collector.accept(new WebQueryHit(id, id + ": " + description, taskPrefix, repositoryUrl));
+						collector.accept(new WebQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), id, id + ": " + description, taskPrefix, repositoryUrl));
 					} catch (CoreException e) {
 						return new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
 								"Unable collect results.", e);
