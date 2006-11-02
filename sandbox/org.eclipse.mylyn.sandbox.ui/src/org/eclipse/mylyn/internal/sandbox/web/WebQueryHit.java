@@ -26,7 +26,7 @@ public class WebQueryHit extends AbstractQueryHit {
 		super(taskList, repositoryUrl, description, id);
 		this.taskPrefix = taskPrefix;
 	}
-
+ 
 	public String getPriority() {
 		return "?";
 	}
