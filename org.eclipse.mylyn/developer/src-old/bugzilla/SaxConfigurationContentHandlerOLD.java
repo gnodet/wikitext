@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.mylar.internal.tasks.core.RepositoryConfiguration;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -24,7 +25,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * Quick config rdf parser.
  * 
  * <pre>
- *        config.cgi?ctype=rdf
+ *  config.cgi?ctype=rdf
  * </pre>
  * 
  * Populates a <link>ProductConfiguration</link> data structure.
@@ -62,7 +63,7 @@ public class SaxConfigurationContentHandler extends DefaultHandler {
 	private static final String ELEMENT_SEVERITY = "severity";
 
 	private static final String ELEMENT_PRIORITY = "priority";
-
+	
 	private static final String ELEMENT_KEYWORD = "keyword";
 
 	private static final String ELEMENT_OP_SYS = "op_sys";
@@ -108,22 +109,18 @@ public class SaxConfigurationContentHandler extends DefaultHandler {
 	private static final int IN_TARGET_MILESTONE = 1 << 16;
 
 	private static final int IN_STATUS_OPEN = 1 << 17;
-
+	
 	private static final int IN_RESOLUTION = 1 << 18;
-
+	
 	private static final int IN_KEYWORD = 1 << 19;
-
-	private static final int IN_STATUS_CLOSED = 1 << 20;
 
 	private int state = EXPECTING_ROOT;
 
-	private String currentProduct = "";
-
-	private StringBuffer characters = new StringBuffer();
+	private String currentProduct;
 
 	private String about;
 
-	private RepositoryConfiguration configuration = new RepositoryConfiguration();
+	private RepositoryConfiguration configuration = new RepositoryConfiguration(new BugzillaAttributeFactory());
 
 	private Map<String, List<String>> components = new HashMap<String, List<String>>();
 
@@ -143,12 +140,68 @@ public class SaxConfigurationContentHandler extends DefaultHandler {
 
 	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
-		characters.append(ch, start, length);
+		switch (state) {
+
+		case IN_PRODUCTS | IN_LI | IN_NAME:
+			configuration.addProduct(String.copyValueOf(ch, start, length));
+			currentProduct = String.copyValueOf(ch, start, length);
+			break;
+		case IN_COMPONENTS | IN_LI | IN_COMPONENT | IN_NAME:
+			if (about != null) {
+				String name = String.copyValueOf(ch, start, length);
+				componentNames.put(about, name);
+				// System.err.println("Component: "+about+" ---> "+name);
+			}
+			break;
+		case IN_VERSIONS | IN_LI | IN_VERSION | IN_NAME:
+			if (about != null) {
+				String name = String.copyValueOf(ch, start, length);
+				versionNames.put(about, name);
+				// System.err.println("Version: "+about+" ---> "+name);
+			}
+			break;
+		case IN_TARGET_MILESTONES | IN_LI | IN_TARGET_MILESTONE | IN_NAME:
+			if (about != null) {
+				String name = String.copyValueOf(ch, start, length);
+				milestoneNames.put(about, name);
+				// System.err.println("Version: "+about+" ---> "+name);
+			}
+			break;
+		case IN_PLATFORM | IN_LI:
+			configuration.addPlatform(String.copyValueOf(ch, start, length));
+			break;
+		case IN_OP_SYS | IN_LI:
+			configuration.addAttributeValue(BugzillaReportElement.OP_SYS.getKeyString(), String.copyValueOf(ch, start, length));
+			configuration.addOS(String.copyValueOf(ch, start, length));
+			break;
+		case IN_PRIORITY | IN_LI:
+			configuration.addPriority(String.copyValueOf(ch, start, length));
+			break;
+		case IN_SEVERITY | IN_LI:
+			configuration.addSeverity(String.copyValueOf(ch, start, length));
+			break;
+		case IN_INSTALL_VERSION:
+			configuration.setInstallVersion(String.copyValueOf(ch, start, length));
+			break;
+		case IN_STATUS | IN_LI:
+			configuration.addStatus(String.copyValueOf(ch, start, length));
+			break;
+		case IN_RESOLUTION | IN_LI:
+			configuration.addResolution(String.copyValueOf(ch, start, length));
+			break;
+		case IN_KEYWORD | IN_LI:
+			configuration.addAttributeValue(BugzillaReportElement.KEYWORDS.getKeyString(), String.copyValueOf(ch, start, length));
+			configuration.addKeyword(String.copyValueOf(ch, start, length));
+			break;
+		case IN_STATUS_OPEN | IN_LI:
+			configuration.addOpenStatusValue(String.copyValueOf(ch, start, length));
+			break;
+		}
 	}
 
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-		characters = new StringBuffer();
+
 		if (localName.equals(ELEMENT_STATUS)) {
 			state = state | IN_STATUS;
 		} else if (localName.equals(ELEMENT_LI) && ((state & IN_LI) == IN_LI)) {
@@ -194,102 +247,7 @@ public class SaxConfigurationContentHandler extends DefaultHandler {
 		} else if (localName.equals(ELEMENT_KEYWORD)) {
 			state = state | IN_KEYWORD;
 		}
-	}
 
-	@Override
-	public void endElement(String uri, String localName, String qName) throws SAXException {
-
-		// KEEP: && ((state & IN_LI) == IN_LI)
-
-		if (localName.equals(ELEMENT_STATUS)) {
-			state = state & ~IN_STATUS;
-		} else if (localName.equals(ELEMENT_LI) && ((state & IN_LI_LI) == IN_LI_LI)) {
-			state = state & ~IN_LI_LI;
-		} else if (localName.equals(ELEMENT_LI) && ((state & IN_LI_LI) != IN_LI_LI)) {
-			state = state & ~IN_LI;
-			if (characters.length() == 0)
-				return;
-			if (state == (IN_STATUS)) {
-				configuration.addStatus(characters.toString());
-			} else if (state == (IN_STATUS_OPEN)) {
-				configuration.addOpenStatusValue(characters.toString());
-			} else if (state == (IN_STATUS_CLOSED)) {
-				// TODO: Add closed status values to configuration
-			} else if (state == (IN_RESOLUTION)) {
-				configuration.addResolution(characters.toString());
-			} else if (state == (IN_KEYWORD)) {
-				configuration.addKeyword(characters.toString());
-			} else if (state == (IN_PLATFORM)) {
-				configuration.addPlatform(characters.toString());
-			} else if (state == (IN_OP_SYS)) {
-				configuration.addOS(characters.toString());
-			} else if (state == (IN_PRIORITY)) {
-				configuration.addPriority(characters.toString());
-			} else if (state == (IN_SEVERITY)) {
-				configuration.addSeverity(characters.toString());
-			}
-		} else if (localName.equals(ELEMENT_PLATFORM)) {
-			state = state & ~IN_PLATFORM;
-		} else if (localName.equals(ELEMENT_OP_SYS)) {
-			state = state & ~IN_OP_SYS;
-		} else if (localName.equals(ELEMENT_PRIORITY)) {
-			state = state & ~IN_PRIORITY;
-		} else if (localName.equals(ELEMENT_SEVERITY)) {
-			state = state & ~IN_SEVERITY;
-		} else if (localName.equals(ELEMENT_PRODUCTS)) {
-			state = state & ~IN_PRODUCTS;
-		} else if (localName.equals(ELEMENT_OP_SYS)) {
-			state = state & ~IN_OP_SYS;
-		} else if (localName.equals(ELEMENT_NAME)) {
-			state = state & ~IN_NAME;
-			if (state == (IN_PRODUCTS | IN_LI)) {
-				// PRODUCT NAME
-				currentProduct = characters.toString();
-				configuration.addProduct(currentProduct);
-			} else if (state == (IN_VERSIONS | IN_LI | IN_VERSION)) {
-				// VERSION NAME
-				if (about != null && !versionNames.containsValue(about)) {
-					if (characters.length() > 0) {
-						versionNames.put(about, characters.toString());
-					}
-				}
-			} else if (state == (IN_COMPONENTS | IN_LI | IN_COMPONENT)) {
-				// COMPONENT NAME
-				if (about != null && !componentNames.containsValue(about)) {
-					if (characters.length() > 0) {
-						componentNames.put(about, characters.toString());
-					}
-				}
-			} else if (state == (IN_TARGET_MILESTONES | IN_LI | IN_TARGET_MILESTONE)) {
-				// MILESTONE NAME
-				if (about != null && !milestoneNames.containsValue(about)) {
-					if (characters.length() > 0) {
-						milestoneNames.put(about, characters.toString());
-					}
-				}
-			}
-		} else if (localName.equals(ELEMENT_COMPONENTS)) {
-			state = state & ~IN_COMPONENTS;
-		} else if (localName.equals(ELEMENT_COMPONENT)) {
-			state = state & ~IN_COMPONENT;
-		} else if (localName.equals(ELEMENT_VERSION)) {
-			state = state & ~IN_VERSION;
-		} else if (localName.equals(ELEMENT_VERSIONS)) {
-			state = state & ~IN_VERSIONS;
-		} else if (localName.equals(ELEMENT_INSTALL_VERSION)) {
-			state = state & ~IN_INSTALL_VERSION;
-			configuration.setInstallVersion(characters.toString());
-		} else if (localName.equals(ELEMENT_TARGET_MILESTONE)) {
-			state = state & ~IN_TARGET_MILESTONE;
-		} else if (localName.equals(ELEMENT_TARGET_MILESTONES)) {
-			state = state & ~IN_TARGET_MILESTONES;
-		} else if (localName.equals(ELEMENT_STATUS_OPEN)) {
-			state = state & ~IN_STATUS_OPEN;
-		} else if (localName.equals(ELEMENT_RESOLUTION)) {
-			state = state & ~IN_RESOLUTION;
-		} else if (localName.equals(ELEMENT_KEYWORD)) {
-			state = state & ~IN_KEYWORD;
-		}
 	}
 
 	private void parseResource(Attributes attributes) {
@@ -298,24 +256,26 @@ public class SaxConfigurationContentHandler extends DefaultHandler {
 		case IN_PRODUCTS | IN_LI | IN_COMPONENTS | IN_LI_LI:
 			if (attributes != null) {
 				String compURI = attributes.getValue(ATTRIBUTE_RESOURCE);
-				if (compURI != null && currentProduct.length() > 0) {
-					List<String> compURIs = components.get(currentProduct.toString());
+				if (compURI != null) {
+
+					List<String> compURIs = components.get(currentProduct);
 					if (compURIs == null) {
 						compURIs = new ArrayList<String>();
 						components.put(currentProduct, compURIs);
 					}
 					compURIs.add(compURI);
+
 				}
 			}
 			break;
 		case IN_PRODUCTS | IN_LI | IN_VERSIONS | IN_LI_LI:
 			if (attributes != null) {
 				String resourceURI = attributes.getValue(ATTRIBUTE_RESOURCE);
-				if (resourceURI != null && currentProduct.length() > 0) {
-					List<String> versionUris = versions.get(currentProduct.toString());
+				if (resourceURI != null) {
+					List<String> versionUris = versions.get(currentProduct);
 					if (versionUris == null) {
 						versionUris = new ArrayList<String>();
-						versions.put(currentProduct.toString(), versionUris);
+						versions.put(currentProduct, versionUris);
 					}
 					versionUris.add(resourceURI);
 				}
@@ -325,10 +285,10 @@ public class SaxConfigurationContentHandler extends DefaultHandler {
 			if (attributes != null) {
 				String resourceURI = attributes.getValue(ATTRIBUTE_RESOURCE);
 				if (resourceURI != null) {
-					List<String> milestoneUris = milestones.get(currentProduct.toString());
+					List<String> milestoneUris = milestones.get(currentProduct);
 					if (milestoneUris == null) {
 						milestoneUris = new ArrayList<String>();
-						milestones.put(currentProduct.toString(), milestoneUris);
+						milestones.put(currentProduct, milestoneUris);
 					}
 					milestoneUris.add(resourceURI);
 				}
@@ -355,8 +315,57 @@ public class SaxConfigurationContentHandler extends DefaultHandler {
 	}
 
 	@Override
-	public void endDocument() throws SAXException {
+	public void endElement(String uri, String localName, String qName) throws SAXException {
 
+		// KEEP: && ((state & IN_LI) == IN_LI)
+
+		if (localName.equals(ELEMENT_STATUS)) {
+			state = state & ~IN_STATUS;
+		} else if (localName.equals(ELEMENT_LI) && ((state & IN_LI_LI) == IN_LI_LI)) {
+			state = state & ~IN_LI_LI;
+		} else if (localName.equals(ELEMENT_LI) && ((state & IN_LI_LI) != IN_LI_LI)) {
+			state = state & ~IN_LI;
+		} else if (localName.equals(ELEMENT_PLATFORM)) {
+			state = state & ~IN_PLATFORM;
+		} else if (localName.equals(ELEMENT_OP_SYS)) {
+			state = state & ~IN_OP_SYS;
+		} else if (localName.equals(ELEMENT_PRIORITY)) {
+			state = state & ~IN_PRIORITY;
+		} else if (localName.equals(ELEMENT_SEVERITY)) {
+			state = state & ~IN_SEVERITY;
+		} else if (localName.equals(ELEMENT_PRODUCTS)) {
+			state = state & ~IN_PRODUCTS;
+		} else if (localName.equals(ELEMENT_OP_SYS)) {
+			state = state & ~IN_OP_SYS;
+		} else if (localName.equals(ELEMENT_NAME)) {
+			state = state & ~IN_NAME;
+		} else if (localName.equals(ELEMENT_COMPONENTS)) {
+			state = state & ~IN_COMPONENTS;
+		} else if (localName.equals(ELEMENT_COMPONENT)) {
+			state = state & ~IN_COMPONENT;
+		} else if (localName.equals(ELEMENT_VERSION)) {
+			state = state & ~IN_VERSION;
+		} else if (localName.equals(ELEMENT_VERSIONS)) {
+			state = state & ~IN_VERSIONS;
+		} else if (localName.equals(ELEMENT_INSTALL_VERSION)) {
+			state = state & ~IN_INSTALL_VERSION;
+		} else if (localName.equals(ELEMENT_TARGET_MILESTONE)) {
+			state = state & ~IN_TARGET_MILESTONE;
+		} else if (localName.equals(ELEMENT_TARGET_MILESTONES)) {
+			state = state & ~IN_TARGET_MILESTONES;
+		} else if (localName.equals(ELEMENT_STATUS_OPEN)) {
+			state = state & ~IN_STATUS_OPEN;
+		} else if (localName.equals(ELEMENT_RESOLUTION)) {
+			state = state & ~IN_RESOLUTION;
+		} else if (localName.equals(ELEMENT_KEYWORD)) {
+			state = state & ~IN_KEYWORD;
+		}
+
+	}
+
+	@Override
+	public void endDocument() throws SAXException {
+  
 		for (String product : components.keySet()) {
 			List<String> componentURIs = components.get(product);
 			for (String uri : componentURIs) {
@@ -364,8 +373,8 @@ public class SaxConfigurationContentHandler extends DefaultHandler {
 				if (realName != null) {
 					configuration.addComponent(product, realName);
 				}
-			}
-		}
+			} 
+		} 
 
 		for (String product : versions.keySet()) {
 			List<String> versionURIs = versions.get(product);
