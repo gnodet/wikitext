@@ -10,32 +10,30 @@ package org.eclipse.mylar.internal.sandbox.web;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.mylar.internal.tasks.ui.search.AbstractRepositoryQueryPage;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
-import org.eclipse.mylar.tasks.core.QueryHitCollector;
-import org.eclipse.mylar.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylar.tasks.core.RepositoryTemplate;
+import org.eclipse.mylar.tasks.core.QueryHitCollector;
 import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
@@ -43,114 +41,136 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.forms.events.ExpansionAdapter;
+import org.eclipse.ui.forms.events.ExpansionEvent;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.Section;
 
 /**
  * Wizard page for configuring and preview web query
  * 
  * @author Eugene Kuleshov
  */
-public class WebQueryWizardPage extends WizardPage {
-	
-	private Text taskPrefixText;
-	private Combo descriptionText;
+public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 	private Text queryUrlText;
-	private Text regexpText;
+	private Text queryPatternText;
 	private Table previewTable;
 	
 	private String webPage;
 	
 	private TaskRepository repository;
-	private AbstractRepositoryConnector connector;
 	private WebQuery query;
 	private UpdatePreviewJob updatePreviewJob;
 
+	private FormToolkit toolkit = new FormToolkit(Display.getCurrent());
+	private ParametersEditor parametersEditor;
+	private Map<String, String> oldProperties;
+	
+	
 	public WebQueryWizardPage(TaskRepository repository) {
 		this(repository, null);
 	}
 
 	public WebQueryWizardPage(TaskRepository repository, WebQuery query) {
-		super("New web query");
+		super("New web query", query==null ? getDefaultQueryTitle(repository) : query.getDescription());
 		this.repository = repository;
 		this.query = query;
-		this.connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getKind());
 		setTitle("Create web query");
-		setDescription("Specify URL for web page that show query results and regexp to extract id and description " +
-				repository.getUrl());
+		setDescription("Specify query parameters for " + repository.getUrl());
+	}
+
+	private static String getDefaultQueryTitle(TaskRepository repository) {
+		String label = repository.getRepositoryLabel();
+		String title = label;
+		Set<AbstractRepositoryQuery> queries = TasksUiPlugin.getTaskListManager().getTaskList().getRepositoryQueries(repository.getUrl());
+	    for(int n = 1; true; n++) {
+			for (AbstractRepositoryQuery query : queries) {
+				if(query.getDescription().equals(title)) {
+					title = label + " " + n;
+				}
+			}
+			return title;
+	    }
 	}
 
 	public void createControl(Composite parent) {
-		SashForm sashForm = new SashForm(parent, SWT.VERTICAL);
-
-		Composite composite = new Composite(sashForm, SWT.NONE);
+		final Composite composite = new Composite(parent, SWT.NONE);
 		GridLayout gridLayout = new GridLayout();
-		gridLayout.numColumns = 3;
+		gridLayout.marginHeight = 0;
+		gridLayout.marginWidth = 0;
+		gridLayout.verticalSpacing = 0;
+		gridLayout.numColumns = 1;
 		composite.setLayout(gridLayout);
 
-		Label descriptionLabel = new Label(composite, SWT.NONE);
-		descriptionLabel.setLayoutData(new GridData());
-		descriptionLabel.setText("Description:");
+		super.createControl(composite);
 
-		descriptionText = new Combo(composite, SWT.NONE);
-		descriptionText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		descriptionText.addSelectionListener(new SelectionListener() {
+//		Label descriptionLabel = new Label(composite, SWT.NONE);
+//		descriptionLabel.setLayoutData(new GridData());
+//		descriptionLabel.setText("Query Title:");
 
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// ignore
+//		queryTitleText = new Text(composite, SWT.BORDER);
+//		queryTitleText.addModifyListener(new ModifyListener() {
+//			public void modifyText(ModifyEvent e) {
+//				setPageComplete(isPageComplete());
+//			}
+//		});
+//		queryTitleText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		
+		parametersEditor = new ParametersEditor(composite, SWT.NONE);
+		GridData gridData1 = new GridData(SWT.FILL, SWT.FILL, true, true);
+		gridData1.heightHint = 80;
+		gridData1.minimumHeight = 80;
+		parametersEditor.setLayoutData(gridData1);
+
+		ExpandableComposite expComposite = toolkit.createExpandableComposite(composite, Section.COMPACT | Section.TWISTIE);
+		expComposite.setFont(parent.getFont());
+		GridData gridData_1 = new GridData(SWT.FILL, SWT.FILL, true, false);
+		gridData_1.heightHint = 150;
+		gridData_1.minimumHeight = 150;
+		expComposite.setLayoutData(gridData_1);
+		expComposite.setBackground(parent.getBackground());
+		expComposite.setText("Advanced &Configuration");
+		expComposite.addExpansionListener(new ExpansionAdapter() {
+			public void expansionStateChanged(ExpansionEvent e) {
+				composite.layout();
 			}
-
-			public void widgetSelected(SelectionEvent e) {
-				RepositoryTemplate template = connector.getTemplate(descriptionText.getText());
-				if (template != null) {
-					// WebRepositoryTemplate template =
-					// WebRepositoryConnector.getTemplate(descriptionText.getText());
-					// if(template!=null) {
-					queryUrlText.setText(template.taskQueryUrl);
-					regexpText.setText(template.getAttribute(WebRepositoryConnector.TASK_REGEXP));
-					taskPrefixText.setText(template.taskPrefixUrl);
-					// }
-					return;
-				}
-			}
-
 		});
-		
-		for (RepositoryTemplate template : connector.getTemplates()) {
-			descriptionText.add(template.label);
-		}
-		
-		new Label(composite, SWT.NONE);
+		toolkit.paintBordersFor(expComposite);
 
-		Label queryUrlLabel = new Label(composite, SWT.NONE);
-		queryUrlLabel.setText("URL:");
+		Composite composite1 = toolkit.createComposite(expComposite, SWT.BORDER);
+		composite1.setLayout(new GridLayout(3, false));
+		expComposite.setClient(composite1);
 
-		queryUrlText = new Text(composite, SWT.BORDER);
+		toolkit.createLabel(composite1, "&Query URL:", SWT.NONE);
+
+		queryUrlText = new Text(composite1, SWT.BORDER);
+		queryUrlText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		queryUrlText.addModifyListener(new ModifyListener() {
 			public void modifyText(final ModifyEvent e) {
 				webPage = null;
 			}
 		});
-		queryUrlText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		new Label(composite, SWT.NONE);
+		new Label(composite1, SWT.NONE);
 
-		Label regexpLabel = new Label(composite, SWT.NONE);
-		regexpLabel.setText("Regexp:");
-		regexpLabel.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, true));
+		Label queryPatternLabel = toolkit.createLabel(composite1, "Query &Pattern:", SWT.NONE);
+		queryPatternLabel.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, false));
 
-		regexpText = new Text(composite, SWT.V_SCROLL | SWT.MULTI | SWT.BORDER | SWT.WRAP);
-		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
-		gridData.heightHint = 39;
-		regexpText.setLayoutData(gridData);
+		queryPatternText = new Text(composite1, SWT.V_SCROLL | SWT.MULTI | SWT.BORDER | SWT.WRAP);
+		GridData gridData = new GridData(SWT.FILL, SWT.TOP, true, false);
+		gridData.heightHint = 45;
+		queryPatternText.setLayoutData(gridData);
 		
-		regexpText.addModifyListener(new ModifyListener() {
-				public void modifyText(final ModifyEvent e) {
-					if(webPage!=null) {
-						updatePreview();
-					}
-				}
-			});
+//		regexpText.addModifyListener(new ModifyListener() {
+//				public void modifyText(final ModifyEvent e) {
+//					if(webPage!=null) {
+//						updatePreview();
+//					}
+//				}
+//			});
 
-		Button preview = new Button(composite, SWT.NONE);
-		preview.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, true));
+		Button preview = new Button(composite1, SWT.NONE);
+		preview.setLayoutData(new GridData(SWT.FILL, SWT.TOP, false, false));
 		preview.setText("Preview");
 		preview.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(final SelectionEvent e) {
@@ -158,16 +178,11 @@ public class WebQueryWizardPage extends WizardPage {
 				updatePreview();
 			}
 		});
-
-		Label taskPrefixLabel = new Label(composite, SWT.NONE);
-		taskPrefixLabel.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false));
-		taskPrefixLabel.setText("Task prefix:");
-
-		taskPrefixText = new Text(composite, SWT.BORDER);
-		taskPrefixText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		new Label(composite, SWT.NONE);
 		
-		previewTable = new Table(sashForm, SWT.BORDER);
+		previewTable = new Table(composite1, SWT.BORDER);
+		GridData gridData2 = new GridData(SWT.FILL, SWT.FILL, false, true, 3, 1);
+		gridData2.heightHint = 60;
+		previewTable.setLayoutData(gridData2);
 		previewTable.setLinesVisible(true);
 		previewTable.setHeaderVisible(true);
 
@@ -179,24 +194,43 @@ public class WebQueryWizardPage extends WizardPage {
 		colDescription.setWidth(328);
 		colDescription.setText("Description");
 
-		setControl(sashForm);
+		setControl(composite);
 		
-		if(query!=null) {
-			descriptionText.setText(query.getDescription());
-			queryUrlText.setText(query.getUrl());
-			regexpText.setText(query.getRegexp());
-			taskPrefixText.setText(query.getTaskPrefix());
+		LinkedHashMap<String, String> vars = new LinkedHashMap<String, String>();
+		Map<String, String> params = new LinkedHashMap<String, String>();
+		if(repository!=null) {
+			
+			
+			queryUrlText.setText(addVars(vars, repository.getProperty(WebRepositoryConnector.PROPERTY_QUERY_URL)));
+			queryPatternText.setText(addVars(vars, repository.getProperty(WebRepositoryConnector.PROPERTY_QUERY_REGEXP)));
+			
+			oldProperties = repository.getProperties();
+			params.putAll(oldProperties);
 		}
-		sashForm.setWeights(new int[] {145, 107 });
+		if(query!=null) {
+			setTitle(query.getDescription());
+			queryUrlText.setText(addVars(vars, query.getUrl()));
+			queryPatternText.setText(addVars(vars, query.getQueryPattern()));
+			params.putAll(((WebQuery) query).getQueryParameters());
+		}
+		parametersEditor.addParams(params, vars);
+	}
+
+	private static String addVars(LinkedHashMap<String, String> vars, String property) {
+		for(String var : WebRepositoryConnector.getTemplateVariables(property)) {
+			vars.put(var, "");
+		}
+		return property;
 	}
 
 	public AbstractRepositoryQuery getQuery() {
-		String description = descriptionText.getText();
+		String description = getQueryTitle();
 		String queryUrl = queryUrlText.getText();
-		String taskPrefix = taskPrefixText.getText();
-		String regexp = regexpText.getText();
-		return new WebQuery(description, queryUrl, taskPrefix, regexp, 
-				TasksUiPlugin.getTaskListManager().getTaskList(), repository.getUrl());
+		String queryPattern = queryPatternText.getText();
+		Map<String, String> params = parametersEditor.getParameters();
+		return new WebQuery(TasksUiPlugin.getTaskListManager().getTaskList(), description, queryUrl, queryPattern,
+				repository.getProperty(WebRepositoryConnector.PROPERTY_TASK_URL),
+				repository.getUrl(), params);
 	}
 
 	synchronized void updatePreview() {
@@ -204,7 +238,7 @@ public class WebQueryWizardPage extends WizardPage {
 			updatePreviewJob = new UpdatePreviewJob("Updating preview");
 			updatePreviewJob.setPriority(Job.DECORATE);
 		}
-		updatePreviewJob.setParams(queryUrlText.getText(), regexpText.getText());
+		updatePreviewJob.setParams(queryUrlText.getText(), queryPatternText.getText(), parametersEditor.getParameters());
 		if(!updatePreviewJob.isActive()) {
 			updatePreviewJob.schedule();
 		}
@@ -246,6 +280,7 @@ public class WebQueryWizardPage extends WizardPage {
 	private final class UpdatePreviewJob extends Job {
 		private volatile String url;
 		private volatile String regexp;
+		private volatile Map<String, String> params;
 		private volatile boolean active = false;
 
 		private UpdatePreviewJob(String name) {
@@ -256,21 +291,23 @@ public class WebQueryWizardPage extends WizardPage {
 			return active;
 		}
 
-		public void setParams(String url, String regexp) {
+		public void setParams(String url, String regexp, Map<String, String> params) {
 			this.url = url;
 			this.regexp = regexp;
+			this.params = params;
 		}
 
 		protected IStatus run(IProgressMonitor monitor) {
-			String currentUrl = url;
 			String currentRegexp = regexp;
+			String evaluatedRegexp = WebRepositoryConnector.evaluateParams(currentRegexp, params, repository);
+			String evaluatedUrl = WebRepositoryConnector.evaluateParams(url, params, repository);
 			active = true;
 			do {
 				final MultiStatus queryStatus = new MultiStatus(TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Query result", null);
 				final List<AbstractQueryHit> queryHits = new ArrayList<AbstractQueryHit>();
 				try {
 					if(webPage==null) {
-						webPage = WebRepositoryConnector.fetchResource(currentUrl, repository.getUserName(), repository.getPassword());
+						webPage = WebRepositoryConnector.fetchResource(evaluatedUrl, repository.getUserName(), repository.getPassword());
 					}
 
 					QueryHitCollector collector = new QueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList()) {
@@ -281,7 +318,7 @@ public class WebQueryWizardPage extends WizardPage {
 					};
 					
 					// TODO: Handle returned status
-					WebRepositoryConnector.performQuery(webPage, currentRegexp, null, null, monitor, collector);
+					WebRepositoryConnector.performQuery(webPage, evaluatedRegexp, null, null, monitor, collector);
 					
 				} catch (final IOException ex) {
 					queryStatus.add(new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
@@ -296,7 +333,7 @@ public class WebQueryWizardPage extends WizardPage {
 						updatePreviewTable(queryHits, queryStatus);
 					}
 				});
-			} while(!currentRegexp.equals(regexp) && !monitor.isCanceled());
+			} while(!currentRegexp.equals(currentRegexp) && !monitor.isCanceled());
 			active = false;
 			return Status.OK_STATUS;
 		}

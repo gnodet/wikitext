@@ -12,7 +12,9 @@
 package org.eclipse.mylar.sandbox.tests;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import junit.extensions.ActiveTestSuite;
 import junit.framework.TestCase;
@@ -27,6 +29,7 @@ import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.QueryHitCollector;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylar.tasks.core.RepositoryTemplate;
+import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 
 /**
@@ -42,24 +45,34 @@ public class WebRepositoryConnectorTest extends TestCase {
 	}
 
 	public void testRepositoryTemplate() throws Exception {
-		String buffer = WebRepositoryConnector.fetchResource(template.taskQueryUrl, null, null);
-		
-		IProgressMonitor monitor = new NullProgressMonitor();
-		MultiStatus queryStatus = new MultiStatus(TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Query result", null);
-		final List<AbstractQueryHit> hits = new ArrayList<AbstractQueryHit>();
-		QueryHitCollector collector = new QueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList()) {
+  	    IProgressMonitor monitor = new NullProgressMonitor();
+  	    MultiStatus queryStatus = new MultiStatus(TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Query result", null);
+  	    final List<AbstractQueryHit> hits = new ArrayList<AbstractQueryHit>();
+  	    QueryHitCollector collector = new QueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList()) {
+  	        @Override
+  	        public void addMatch(AbstractQueryHit hit) {
+  	          hits.add(hit);
+  	        }
+  	    };
+	  
+	    Map<String, String> params = new HashMap<String, String>();
+	    Map<String, String> attributes = new HashMap<String, String>(template.getAttributes());
+	    for(Map.Entry<String, String> e : attributes.entrySet()) {
+	        String key = e.getKey();
+	        if(key.startsWith(WebRepositoryConnector.PARAM_PREFIX)) {
+	            params.put(key, e.getValue());
+	        }
+	    }
+	  
+        TaskRepository repository = new TaskRepository(WebRepositoryConnector.REPOSITORY_TYPE, template.repositoryUrl, params);
+        repository.setAuthenticationCredentials("user", "pwd");
 
-			@Override
-			public void addMatch(AbstractQueryHit hit) {
-				hits.add(hit);
-				
-			}
-			
-		};
-		
-		IStatus resultingStatus = WebRepositoryConnector.performQuery(buffer, template.getAttribute(WebRepositoryConnector.TASK_REGEXP), template.taskPrefixUrl, template.repositoryUrl, monitor, collector);		
-		assertTrue(template.taskQueryUrl+"\n"+template.getAttribute(WebRepositoryConnector.TASK_REGEXP)+"\n"+resultingStatus.toString(), queryStatus.isOK());
-		assertTrue("Expected non-empty query result\n"+template.taskQueryUrl+"\n"+template.getAttribute(WebRepositoryConnector.TASK_REGEXP), hits.size()>0);
+        String taskQueryUrl = WebRepositoryConnector.evaluateParams(template.taskQueryUrl, repository);
+        String regexp = WebRepositoryConnector.evaluateParams(template.getAttribute(WebRepositoryConnector.PROPERTY_QUERY_REGEXP), repository);
+        String buffer = WebRepositoryConnector.fetchResource(taskQueryUrl, null, null);
+        IStatus resultingStatus = WebRepositoryConnector.performQuery(buffer, regexp, null, null, monitor, collector);		
+		assertTrue("Query failed\n"+taskQueryUrl+"\n"+regexp+"\n"+resultingStatus.toString(), queryStatus.isOK());
+		assertTrue("Expected non-empty query result\n"+taskQueryUrl+"\n"+regexp, hits.size()>0);
 	}
 
 	public String getName() {

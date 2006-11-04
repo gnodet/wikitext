@@ -17,8 +17,6 @@ import org.eclipse.mylar.tasks.core.TaskRepository;
  */
 public class WebQueryEditWizard extends AbstractEditQueryWizard {
 
-	private WebQueryWizardPage queryPage;
-
 	public WebQueryEditWizard(TaskRepository repository, AbstractRepositoryQuery query) {
 		super(repository, query);
 		setForcePreviousAndNextButtons(true);
@@ -26,9 +24,9 @@ public class WebQueryEditWizard extends AbstractEditQueryWizard {
 
 	@Override
 	public void addPages() {
-		queryPage = new WebQueryWizardPage(repository, (WebQuery) query);
-		queryPage.setWizard(this);
-		addPage(queryPage);
+		page = new WebQueryWizardPage(repository, (WebQuery) query);
+		page.setWizard(this);
+		addPage(page);
 	}
 
 //	@Override
@@ -50,10 +48,10 @@ public class WebQueryEditWizard extends AbstractEditQueryWizard {
 
 	@Override
 	public boolean canFinish() {
-		if(queryPage.getNextPage() == null) {
-			return queryPage.isPageComplete();
+		if(page.getNextPage() == null) {
+			return page.isPageComplete();
 		}
-		return queryPage.getNextPage().isPageComplete();
+		return page.getNextPage().isPageComplete();
 	}
 }
 

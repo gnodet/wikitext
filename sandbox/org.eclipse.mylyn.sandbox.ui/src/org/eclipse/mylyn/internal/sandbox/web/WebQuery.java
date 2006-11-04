@@ -8,26 +8,31 @@
 
 package org.eclipse.mylar.internal.sandbox.web;
 
+import java.util.Map;
+
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.TaskList;
 
 /**
- * Represents regexp-based query on repository web page  
+ * Represents pattern-based query on repository web page  
  * 
  * @author Eugene Kuleshov
  */
 public class WebQuery extends AbstractRepositoryQuery {
 
-	private final String regexp;
 	private final String taskPrefix;
+	private final String queryPattern;
+	private final Map<String, String> params;
 
-	public WebQuery(String description, String queryUrl, String taskPrefix, String regexp, 
-			TaskList taskList, String repositoryUrl) {
+	public WebQuery(TaskList taskList, String description, 
+			String queryUrl, String queryPattern, String taskPrefix,
+			String repositoryUrl, Map<String, String> params) {
 		super(description, taskList);
-		this.taskPrefix = taskPrefix;
 
-		this.regexp = regexp;
-		
+		this.queryPattern = queryPattern;
+		this.taskPrefix = taskPrefix;
+		this.params = params;
+
 		setUrl(queryUrl);
 		setRepositoryUrl(repositoryUrl);
 	}
@@ -35,13 +40,18 @@ public class WebQuery extends AbstractRepositoryQuery {
 	public String getRepositoryKind() {
 		return WebRepositoryConnector.REPOSITORY_TYPE;
 	}
-	
-	public String getRegexp() {
-		return this.regexp;
-	}
 
 	public String getTaskPrefix() {
 		return this.taskPrefix;
 	}
+	
+	public String getQueryPattern() {
+		return this.queryPattern;
+	}
+	
+	public Map<String, String> getQueryParameters() {
+		return this.params;
+	}
 
 }
+

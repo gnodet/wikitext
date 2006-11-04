@@ -76,115 +76,121 @@
    <extension
          point="org.eclipse.mylar.tasks.core.templates">
       <repository
-            label="Subclipse (IssueZilla)"
-            urlNewTask="http://subclipse.tigris.org/issues/enter_bug.cgi?component=subclipse"
+           repositoryKind="web"
+           label="Subclipse (IssueZilla)"
+           urlRepository="http://subclipse.tigris.org/issues"
+           urlTask="${serverUrl}/show_bug.cgi?id="
+           urlNewTask="${serverUrl}/enter_bug.cgi?component=subclipse"
+           urlTaskQuery="${serverUrl}/buglist.cgi?issue_status=NEW&amp;issue_status=STARTED&amp;issue_status=REOPENED&amp;order=Issue+Number">
+         <attribute name="queryPattern" 
+                    value="&lt;a href=&quot;show_bug.cgi\?id\=(.+?)&quot;&gt;.+?&lt;span class=&quot;summary&quot;&gt;(.+?)&lt;/span&gt;"/>        	
+     </repository>
+     <repository
+           repositoryKind="web"
+           label="GlasFish (IssueZilla)"
+           urlRepository="https://glassfish.dev.java.net/issues"
+           urlNewTask="${serverUrl}/enter_bug.cgi?issue_type=DEFECT"
+           urlTask="${serverUrl}/show_bug.cgi?id="
+           urlTaskQuery="${serverUrl}/buglist.cgi?component=glassfish&amp;issue_status=NEW&amp;issue_status=STARTED&amp;issue_status=REOPENED&amp;order=Issue+Number">
+        <attribute name="queryPattern" 
+                   value="&lt;a href=&quot;show_bug.cgi\?id\=(.+?)&quot;&gt;.+?&lt;span class=&quot;summary&quot;&gt;(.+?)&lt;/span&gt;"/>
+     </repository>
+     <repository
+           repositoryKind="web"
+           label="Spring Framework (Jira)"
+           urlRepository="http://opensource.atlassian.com/projects/spring"
+           urlNewTask="${serverUrl}/secure/CreateIssue!default.jspa?pid=${projectId}"
+           urlTask="${serverUrl}/browse/SPR"
+           urlTaskQuery="${serverUrl}/secure/IssueNavigator.jspa?reset=true&amp;mode=hide&amp;pid=${projectId}&amp;resolution=-1&amp;sorter/field=updated&amp;sorter/order=DESC">
+        <attribute name="queryPattern" 
+                   value="&lt;td class=&quot;nav summary&quot;&gt;\s+?&lt;a href=&quot;/projects/spring/browse/(.+?)&quot;.+?&gt;(.+?)&lt;/a&gt;"/>
+        <attribute name="param_projectId" value="10000"/>
+     </repository>           
+     <repository
+           repositoryKind="web"
+           label="SpringIDE (Trac)"
+           urlRepository="http://springide.org/project"
+           urlTask="${serverUrl}/ticket/"
+           urlNewTask="${serverUrl}/newticket"
+           urlTaskQuery="${serverUrl}/query?status=new&amp;status=assigned&amp;status=reopened&amp;order=id">
+        <attribute name="queryPattern" 
+                   value="&lt;td class=&quot;summary&quot;&gt;&lt;a href=&quot;/project/ticket/(.+?)&quot; title=&quot;View ticket&quot;&gt;(.+?)&lt;/a&gt;&lt;/td&gt;"/>
+     </repository>
+     <repository
             repositoryKind="web"
-            urlRepository="http://subclipse.tigris.org/issues/"
-            urlTask="http://subclipse.tigris.org/issues/show_bug.cgi?id="
-            urlTaskQuery="http://subclipse.tigris.org/issues/buglist.cgi?issue_status=NEW&amp;issue_status=STARTED&amp;issue_status=REOPENED&amp;order=Issue+Number">            
-             <attribute 
-        	name="taskRegexp" value="&lt;a href=&quot;show_bug.cgi\?id\=(.+?)&quot;&gt;.+?&lt;span class=&quot;summary&quot;&gt;(.+?)&lt;/span&gt;"/>        	
-        	</repository>
-   <repository
-            label="GlasFish (IssueZilla)"
-            urlNewTask="https://glassfish.dev.java.net/issues/enter_bug.cgi?issue_type=DEFECT"
-            repositoryKind="web"
-            urlRepository="https://glassfish.dev.java.net/servlets/ProjectIssues"
-            urlTask="https://glassfish.dev.java.net/issues/show_bug.cgi?id="
-            urlTaskQuery="https://glassfish.dev.java.net/issues/buglist.cgi?component=glassfish&amp;issue_status=NEW&amp;issue_status=STARTED&amp;issue_status=REOPENED&amp;order=Issue+Number">
-            <attribute 
-        	name="taskRegexp" value="&lt;a href=&quot;show_bug.cgi\?id\=(.+?)&quot;&gt;.+?&lt;span class=&quot;summary&quot;&gt;(.+?)&lt;/span&gt;"/>        	
-        	</repository>
-      <repository
-            label="Spring Framework (Jira)"
-            urlNewTask="http://opensource.atlassian.com/projects/spring/secure/CreateIssue!default.jspa"
-            repositoryKind="web"
-            urlRepository="http://opensource.atlassian.com/projects/spring/browse/SPR"
-            urlTask="http://opensource.atlassian.com/projects/spring/browse/"
-            urlTaskQuery="http://opensource.atlassian.com/projects/spring/secure/IssueNavigator.jspa?reset=true&amp;mode=hide&amp;pid=10000&amp;resolution=-1&amp;sorter/field=updated&amp;sorter/order=DESC">
-             <attribute 
-        	name="taskRegexp" value="&lt;td class=&quot;nav summary&quot;&gt;\s+?&lt;a href=&quot;/projects/spring/browse/(.+?)&quot;.+?&gt;(.+?)&lt;/a&gt;"/>        	
-        	</repository>           
-      <repository
-            label="SpringIDE (Trac)"
-            urlNewTask="http://springide.org/project/newticket"
-            repositoryKind="web"
-            urlRepository="http://springide.org/project/"
-            urlTask="http://springide.org/project/ticket/"
-            urlTaskQuery="http://springide.org/project/query?status=new&amp;status=assigned&amp;status=reopened&amp;order=id">
-             <attribute 
-        	name="taskRegexp" value="&lt;td class=&quot;summary&quot;&gt;&lt;a href=&quot;/project/ticket/(.+?)&quot; title=&quot;View ticket&quot;&gt;(.+?)&lt;/a&gt;&lt;/td&gt;"/>        	
-        	</repository>  
-      <repository
             label="edgewall.org (Trac)"
-            urlNewTask="http://trac.edgewall.org/newticket"
+            urlRepository="http://trac.edgewall.org"
+            urlTask="${serverUrl}/ticket/"
+            urlNewTask="${serverUrl}/newticket"
+            urlTaskQuery="${serverUrl}/query?status=new&amp;status=assigned&amp;status=reopened&amp;order=id">
+        <attribute name="queryPattern" 
+                   value="&lt;td class=&quot;summary&quot;&gt;&lt;a href=&quot;/ticket/(.+?)&quot; title=&quot;View ticket&quot;&gt;(.+?)&lt;/a&gt;&lt;/td&gt;"/>
+     </repository>             
+     <repository
             repositoryKind="web"
-            urlRepository="http://trac.edgewall.org/"
-            urlTask="http://trac.edgewall.org/ticket/"
-            urlTaskQuery="http://trac.edgewall.org/query?status=new&amp;status=assigned&amp;status=reopened&amp;order=id">
-             <attribute 
-        	name="taskRegexp" value="&lt;td class=&quot;summary&quot;&gt;&lt;a href=&quot;/ticket/(.+?)&quot; title=&quot;View ticket&quot;&gt;(.+?)&lt;/a&gt;&lt;/td&gt;"/>        	
-        	</repository>             
-      <repository
             label="ASM (GForge)"
-            urlNewTask="http://forge.objectweb.org/tracker/?func=add&amp;group_id=23&amp;atid=100023"
+            urlRepository="http://forge.objectweb.org/tracker/index.php?group_id=23"
+            urlTask="${serverUrl}&amp;func=detail&amp;atid=${categoryId}&amp;aid="
+            urlNewTask="${serverUrl}&amp;func=add"
+            urlTaskQuery="${serverUrl}&amp;atid=${categoryId}">
+        <attribute name="param_projectId" value="23"/>
+        <attribute name="param_categoryId" value="350023"/>
+        <attribute name="queryPattern"
+                   value="&lt;a class=&quot;tracker&quot; href=&quot;/tracker/index.php\?func=detail&amp;aid=(.+?)&amp;group_id=${projectId}&amp;atid=${categoryId}&quot;&gt;(.+?)&lt;/a&gt;&lt;/td&gt;"/>        	
+     </repository>  
+     <repository
             repositoryKind="web"
-            urlRepository="http://forge.objectweb.org/tracker/?atid=100023&amp;group_id=23"
-            urlTask="http://forge.objectweb.org/tracker/index.php?func=detail&amp;group_id=23&amp;atid=100023&amp;aid="
-            urlTaskQuery="http://forge.objectweb.org/tracker/?atid=100023&amp;group_id=23">
-               <attribute 
-        	name="taskRegexp" value="&lt;a class=&quot;tracker&quot; href=&quot;/tracker/index.php\?func=detail&amp;aid=(.+?)&amp;group_id=23&amp;atid=100023&quot;&gt;(.+?)&lt;/a&gt;&lt;/td&gt;"/>        	
-        	</repository>  
-      <repository
             label="Azureus (SourceForge)"
-            urlNewTask="http://sourceforge.net/tracker/?func=add&amp;group_id=84122&amp;atid=575154"
+            urlRepository="http://sourceforge.net/tracker/?group_id=84122"
+            urlTask="${serverUrl}&amp;func=detail&amp;atid=${categoryId}&amp;aid="
+            urlNewTask="${serverUrl}&amp;func=add"
+            urlTaskQuery="${serverUrl}&amp;atid=${categoryId}">
+        <attribute name="param_projectId" value="84122"/>
+        <attribute name="param_categoryId" value="575154"/>
+        <attribute name="queryPattern" 
+                   value="&lt;a href=&quot;/tracker/index.php\?func=detail&amp;amp;aid=(.+?)&amp;amp;group_id=${projectId}&amp;amp;atid=${categoryId}&quot;&gt;(.+?)&lt;/a&gt;"/>
+     </repository>  
+     <repository
             repositoryKind="web"
-            urlRepository="http://sourceforge.net/tracker/?atid=575154&amp;group_id=84122"
-            urlTask="http://sourceforge.net/tracker/index.php?func=detail&amp;group_id=84122&amp;atid=575154&amp;aid="
-            urlTaskQuery="http://sourceforge.net/tracker/?atid=575154&amp;group_id=84122">
-              <attribute 
-        	name="taskRegexp" value="&lt;a href=&quot;/tracker/index.php\?func=detail&amp;amp;aid=(.+?)&amp;amp;group_id=84122&amp;amp;atid=575154&quot;&gt;(.+?)&lt;/a&gt;"/>        	
-        	</repository>  
-      <repository
             label="phpbb.com (phpBB)"
-            urlNewTask="http://www.phpbb.com/phpBB/posting.php?mode=newtopic&amp;f=1"
+            urlRepository="http://www.phpbb.com/phpBB"
+            urlTask="${serverUrl}/viewtopic.php?t="
+            urlNewTask="${serverUrl}/posting.php?mode=newtopic&amp;f=1"
+            urlTaskQuery="${serverUrl}/viewforum.php?f=1">
+        <attribute name="queryPattern" 
+                   value="&lt;a href=&quot;viewtopic.php\?t=(\d+?)(?:&amp;.+?)?&quot; class=&quot;topictitle&quot;&gt;(.+?)&lt;/a&gt;"/>
+     </repository>           
+     <repository
             repositoryKind="web"
-            urlRepository="http://www.phpbb.com/phpBB/"
-            urlTask="http://www.phpbb.com/phpBB/viewtopic.php?t="
-            urlTaskQuery="http://www.phpbb.com/phpBB/viewforum.php?f=1">
-              <attribute 
-        	name="taskRegexp" value="&lt;a href=&quot;viewtopic.php\?t=(\d+?)(?:&amp;.+?)?&quot; class=&quot;topictitle&quot;&gt;(.+?)&lt;/a&gt;"/>        	
-        	</repository>           
-      <repository
             label="Spring IDE Forum (vBulletin)"
-            urlNewTask="http://forum.springframework.org/newthread.php?do=newthread&amp;f=32"
+            urlRepository="http://forum.springframework.org"
+            urlTask="${serverUrl}/showthread.php?t="
+            urlNewTask="${serverUrl}"
+            urlTaskQuery="${serverUrl}/forumdisplay.php?f=${forumId}">
+        <attribute name="param_forumId" value="32"/>
+        <attribute name="queryPattern" 
+                   value="&lt;a href=&quot;showthread.php\?.+?t=(\d+?)&quot; id=&quot;thread_title_\1&quot;&gt;(.+?)&lt;/a&gt;"/>
+     </repository>            
+     <repository
             repositoryKind="web"
-            urlRepository="http://forum.springframework.org/forumdisplay.php?f=32"
-            urlTask="http://forum.springframework.org/showthread.php?t="
-            urlTaskQuery="http://forum.springframework.org/forumdisplay.php?f=32">
-               <attribute 
-        	name="taskRegexp" value="&lt;a href=&quot;showthread.php\?.+?t=(\d+?)&quot; id=&quot;thread_title_\1&quot;&gt;(.+?)&lt;/a&gt;"/>        	
-        	</repository>            
-      <repository
             label="Eclipse Outliner (Google Code)"
-            urlNewTask="http://code.google.com/p/eclipse-outliner/issues/entry"
+            urlRepository="http://code.google.com/p/eclipse-outliner/issues"
+            urlTask="${serverUrl}/detail?id="
+            urlNewTask="${serverUrl}/entry"
+            urlTaskQuery="${serverUrl}/list">
+        <attribute name="queryPattern" 
+                   value="&lt;td class=&quot;vt col_6&quot; .+?&lt;a href=&quot;detail\?id=([0-9]+).+?&quot;&gt;(.+?)&lt;/a&gt;.+?&lt;/td&gt;"/>
+     </repository>
+     <repository
             repositoryKind="web"
-            urlRepository="http://code.google.com/p/eclipse-outliner/"
-            urlTask="http://code.google.com/p/eclipse-outliner/issues/detail?id="
-            urlTaskQuery="http://code.google.com/p/eclipse-outliner/issues/list">
-        <attribute name="taskRegexp" 
-          value="&lt;td class=&quot;vt col_6&quot; .+?&lt;a href=&quot;detail\?id=([0-9]+).+?&quot;&gt;(.+?)&lt;/a&gt;.+?&lt;/td&gt;"/>
-      </repository>
-      <repository
             label="Eclipse Plugin for Mantis (Mantis)"
-            urlNewTask="http://www.futureware.biz/mantis/bug_report_page.php"
-            repositoryKind="web"
-            urlRepository="http://www.futureware.biz/mantis/"
-            urlTask="http://www.futureware.biz/mantis/view.php?id="
-            urlTaskQuery="http://www.futureware.biz/mantis/view_all_set.php?f=3&amp;type=1&amp;page_number=1&amp;view_type=simple&amp;reporter_id[]=0&amp;user_monitor[]=0&amp;handler_id[]=0&amp;show_category[]=Eclipse+Plugin&amp;show_severity[]=0&amp;show_resolution[]=0&amp;show_profile[]=0&amp;show_status[]=0&amp;hide_status[]=80&amp;show_build[]=0&amp;show_version[]=0&amp;fixed_in_version[]=0&amp;show_priority[]=0&amp;per_page=50&amp;view_state=0&amp;sticky_issues=on&amp;highlight_changed=6&amp;relationship_type=-1&amp;relationship_bug=0&amp;sort_0=last_updated&amp;dir_0=DESC&amp;search=&amp;filter=Apply+Filter&amp;type=3&amp;source_query_id=-1">
-        <attribute name="taskRegexp" 
-          value="&lt;tr .+?&lt;a href=&quot;view.php\?id=(.+?)&quot;&gt;.+?&lt;td class=&quot;left&quot;&gt;(.+?)&lt;/td&gt;&lt;/tr&gt;"/>
-      </repository>
+            urlRepository="http://www.futureware.biz/mantis"
+            urlTask="${serverUrl}/view.php?id="
+            urlNewTask="${serverUrl}/bug_report_page.php"
+            urlTaskQuery="${serverUrl}/view_all_set.php?f=3&amp;type=1&amp;page_number=1&amp;view_type=simple&amp;reporter_id[]=0&amp;user_monitor[]=0&amp;handler_id[]=0&amp;show_category[]=Eclipse+Plugin&amp;show_severity[]=0&amp;show_resolution[]=0&amp;show_profile[]=0&amp;show_status[]=0&amp;hide_status[]=80&amp;show_build[]=0&amp;show_version[]=0&amp;fixed_in_version[]=0&amp;show_priority[]=0&amp;per_page=50&amp;view_state=0&amp;sticky_issues=on&amp;highlight_changed=6&amp;relationship_type=-1&amp;relationship_bug=0&amp;sort_0=last_updated&amp;dir_0=DESC&amp;search=&amp;filter=Apply+Filter&amp;type=3&amp;source_query_id=-1">
+        <attribute name="queryPattern" 
+                   value="&lt;tr .+?&lt;a href=&quot;view.php\?id=(.+?)&quot;&gt;.+?&lt;td class=&quot;left&quot;&gt;(.+?)&lt;/td&gt;&lt;/tr&gt;"/>
+     </repository>
    </extension>  
   
 </plugin>

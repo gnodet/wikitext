@@ -22,7 +22,7 @@ public class WebQueryHit extends AbstractQueryHit {
 	
 	private final String taskPrefix;
 
-	public WebQueryHit(TaskList taskList, String id, String description, String taskPrefix, String repositoryUrl) {
+	public WebQueryHit(TaskList taskList, String repositoryUrl, String description, String id, String taskPrefix) {
 		super(taskList, repositoryUrl, description, id);
 		this.taskPrefix = taskPrefix;
 	}

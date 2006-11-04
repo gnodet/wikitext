@@ -13,8 +13,10 @@ package org.eclipse.mylar.internal.sandbox.web;
 
 import java.io.IOException;
 import java.net.Proxy;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,6 +39,7 @@ import org.eclipse.mylar.tasks.core.IOfflineTaskHandler;
 import org.eclipse.mylar.tasks.core.ITask;
 import org.eclipse.mylar.tasks.core.QueryHitCollector;
 import org.eclipse.mylar.tasks.core.TaskRepository;
+import org.eclipse.mylar.tasks.core.TaskRepositoryManager;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 
 //import com.sun.syndication.feed.module.DCModule;
@@ -55,11 +58,22 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	public static final String REPOSITORY_TYPE = "web";
 
-	public static final String PROPERTY_NEW_TASK_URL = "newtaskurl";
+	public static final String PROPERTY_TASK_CREATION_URL = "taskCreationUrl";
 
-	public static final String PROPERTY_TASK_PREFIX_URL = "taskprefixurl";
+	public static final String PROPERTY_TASK_URL = "taskUrl";
 
-	public static final String TASK_REGEXP = "taskRegexp";
+	public static final String PROPERTY_QUERY_URL = "queryUrl";
+	
+	public static final String PROPERTY_QUERY_REGEXP = "queryPattern";
+	
+	public static final String PARAM_PREFIX = "param_";
+	
+	public static final String PARAM_SERVER_URL = "serverUrl";
+
+	public static final String PARAM_USER_ID = "userId";
+
+	public static final String PARAM_PASSWORD = "password";
+
 
 	public String getRepositoryType() {
 		return REPOSITORY_TYPE;
@@ -71,7 +85,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	@Override
 	public String[] repositoryPropertyNames() {
-		return new String[] { PROPERTY_NEW_TASK_URL, PROPERTY_TASK_PREFIX_URL };
+		return new String[] { PROPERTY_TASK_URL, PROPERTY_TASK_CREATION_URL };
 	}
 
 	public List<String> getSupportedVersions() {
@@ -79,19 +93,20 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	public boolean canCreateNewTask(TaskRepository repository) {
-		return repository.hasProperty(PROPERTY_NEW_TASK_URL);
+		return repository.hasProperty(PROPERTY_TASK_CREATION_URL);
 	}
 
 	public boolean canCreateTaskFromKey(TaskRepository repository) {
-		return repository.hasProperty(PROPERTY_TASK_PREFIX_URL);
+		return repository.hasProperty(PROPERTY_TASK_URL);
 	}
 
 	// Support
 
+	@Override
 	public ITask createTaskFromExistingKey(TaskRepository repository, final String id, Proxy proxySettings)
 			throws CoreException {
 		if (REPOSITORY_TYPE.equals(repository.getKind())) {
-			String taskPrefix = repository.getProperty(PROPERTY_TASK_PREFIX_URL);
+			String taskPrefix = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
 
 			final WebTask task = new WebTask(id, id, taskPrefix, repository.getUrl(),
 					WebRepositoryConnector.REPOSITORY_TYPE);
@@ -110,11 +125,13 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return null;
 	}
 
+	@Override
 	public String getRepositoryUrlFromTaskUrl(String url) {
 		// lookup repository using task prefix url
-		for (TaskRepository repository : TasksUiPlugin.getRepositoryManager().getAllRepositories()) {
+		TaskRepositoryManager repositoryManager = TasksUiPlugin.getRepositoryManager();
+		for (TaskRepository repository : repositoryManager.getAllRepositories()) {
 			if (getRepositoryType().equals(repository.getKind())) {
-				if (url.startsWith(repository.getProperty(PROPERTY_TASK_PREFIX_URL))) {
+				if (url.startsWith(evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository))) {
 					return repository.getUrl();
 				}
 			}
@@ -123,8 +140,11 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		for (AbstractRepositoryQuery query : TasksUiPlugin.getTaskListManager().getTaskList().getQueries()) {
 			if (query instanceof WebQuery) {
 				WebQuery webQuery = (WebQuery) query;
-				if (url.startsWith(webQuery.getTaskPrefix())) {
-					return webQuery.getRepositoryUrl();
+				TaskRepository repository = repositoryManager.getRepository(webQuery.getRepositoryKind(), webQuery.getRepositoryUrl());
+				if(repository!=null) {
+					if (url.startsWith(evaluateParams(webQuery.getTaskPrefix(), webQuery.getQueryParameters(), repository))) {
+						return webQuery.getRepositoryUrl();
+					}
 				}
 			}
 		}
@@ -136,16 +156,19 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	public IStatus performQuery(AbstractRepositoryQuery query, TaskRepository repository, Proxy proxySettings,
 			IProgressMonitor monitor, QueryHitCollector resultCollector) {
 		if (query instanceof WebQuery) {
-			String queryUrl = query.getUrl();
-			String regexp = ((WebQuery) query).getRegexp();
-			String taskPrefix = ((WebQuery) query).getTaskPrefix();
-			String repositoryUrl = query.getRepositoryUrl();
+			String repositoryUrl = repository.getUrl();
 			String repositoryUser = repository.getUserName();
 			String repositoryPassword = repository.getPassword();
 			
+			WebQuery webQuery = (WebQuery) query;
+			Map<String, String> queryParameters = webQuery.getQueryParameters();
+			String queryUrl = evaluateParams(query.getUrl(), queryParameters, repository);
+			String queryPattern = evaluateParams(webQuery.getQueryPattern(), queryParameters, repository);
+			String taskPrefix = evaluateParams(webQuery.getTaskPrefix(), queryParameters, repository);
+			
 			try {
 //				if (regexp != null && regexp.trim().length() > 0) {
-					return performQuery(fetchResource(queryUrl, repositoryUser, repositoryPassword), regexp,
+					return performQuery(fetchResource(queryUrl, repositoryUser, repositoryPassword), queryPattern,
 							taskPrefix, repositoryUrl, monitor, resultCollector);
 //				} else {
 //					return performRssQuery(queryUrl, taskPrefix, repositoryUrl, repositoryUser, repositoryPassword,
@@ -207,7 +230,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 					String id = matcher.group(1);
 					String description = matcher.groupCount() > 1 ? matcher.group(2) : null;
 					try {
-						collector.accept(new WebQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), id, id + ": " + description, taskPrefix, repositoryUrl));
+						collector.accept(new WebQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), repositoryUrl, description, id, taskPrefix));
 					} catch (CoreException e) {
 						return new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
 								"Unable collect results.", e);
@@ -310,4 +333,38 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		}
 	}
 
+	public static String evaluateParams(String value, Map<String, String> params, TaskRepository repository) {
+		return evaluateParams(evaluateParams(value, params), repository);
+	}
+	
+	public static String evaluateParams(String value, TaskRepository repository) {
+		if(value.indexOf("${")>-1) {
+			value = value.replaceAll("\\$\\{" + PARAM_SERVER_URL + "\\}", repository.getUrl());
+			value = value.replaceAll("\\$\\{" + PARAM_USER_ID + "\\}", repository.getUserName());
+			value = value.replaceAll("\\$\\{" + PARAM_PASSWORD + "\\}", repository.getPassword());
+			value = evaluateParams(value, repository.getProperties());
+		}
+		return value;
+	}
+
+	public static String evaluateParams(String value, Map<String, String> params) {
+		for (Map.Entry<String, String> e : params.entrySet()) {
+			String key = e.getKey();
+			if(key.startsWith(PARAM_PREFIX)) {
+				value = value.replaceAll("\\$\\{" + key.substring(PARAM_PREFIX.length()) + "\\}", e.getValue());
+			}
+		}
+		return value;
+	}
+
+	public static List<String> getTemplateVariables(String value) {
+		List<String> vars = new ArrayList<String>();
+		Matcher m = Pattern.compile("\\$\\{(.+?)\\}").matcher(value);
+		while(m.find()) {
+			vars.add(m.group(1));
+		}
+		return vars;
+	}
+	
 }
+

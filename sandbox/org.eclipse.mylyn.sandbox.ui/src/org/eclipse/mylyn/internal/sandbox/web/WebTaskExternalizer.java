@@ -8,16 +8,23 @@
 
 package org.eclipse.mylar.internal.sandbox.web;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.eclipse.mylar.internal.tasks.core.WebTask;
+import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylar.tasks.core.DelegatingTaskExternalizer;
 import org.eclipse.mylar.tasks.core.ITask;
 import org.eclipse.mylar.tasks.core.TaskExternalizationException;
 import org.eclipse.mylar.tasks.core.TaskList;
+import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -71,11 +78,23 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 
 		if (query instanceof WebQuery) {
 			WebQuery webQuery = (WebQuery) query;
-			node.setAttribute(KEY_REGEXP, webQuery.getRegexp());
+			node.setAttribute(KEY_REGEXP, webQuery.getQueryPattern());
 			node.setAttribute(KEY_PREFIX, webQuery.getTaskPrefix());
+			
+			for( Map.Entry<String, String> e : webQuery.getQueryParameters().entrySet()) {
+				node.setAttribute(e.getKey(), e.getValue());
+			}
 		}
 
 		return node;
+	}
+	
+	@Override
+	public Element createQueryHitElement(AbstractQueryHit queryHit, Document doc, Element parent) {
+		Element element = super.createQueryHitElement(queryHit, doc, parent);
+		element.setAttribute(KEY_KEY, queryHit.getId());
+		element.setAttribute(KEY_PREFIX, ((WebQueryHit) queryHit).getTaskPrefix());
+		return element;
 	}
 
 	@Override
@@ -133,12 +152,22 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 
 		String description = element.getAttribute(KEY_NAME);
 		String queryUrl = element.getAttribute(KEY_QUERY_STRING);
-		String taskPrefix = element.getAttribute(KEY_PREFIX);
-		String regexp = element.getAttribute(KEY_REGEXP);
+		String queryPattern = element.getAttribute(KEY_REGEXP);
 		String repositoryUrl = element.getAttribute(KEY_REPOSITORY_URL);
+		String taskPrefix = element.getAttribute(KEY_PREFIX);
 		
-		AbstractRepositoryQuery query = new WebQuery(description, queryUrl, taskPrefix, regexp, 
-				TasksUiPlugin.getTaskListManager().getTaskList(), repositoryUrl);
+		Map<String, String> params = new LinkedHashMap<String, String>();
+		NamedNodeMap attributes = element.getAttributes();
+		for (int i = 0; i < attributes.getLength(); i++) {
+			Attr attr = (Attr) attributes.item(i);
+			String name = attr.getName();
+			if(name.startsWith(WebRepositoryConnector.PARAM_PREFIX)) {
+				params.put(name, attr.getValue());
+			}
+		}
+		
+		AbstractRepositoryQuery query = new WebQuery(taskList, description,
+				queryUrl, queryPattern, taskPrefix, repositoryUrl, params);
 		
 		boolean hasCaughtException = false;
 		NodeList list = node.getChildNodes();
@@ -162,8 +191,11 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 		Element element = (Element) node;
 
 		String id = element.getAttribute(KEY_KEY);
-
-		WebQueryHit hit = new WebQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), id, "", ((WebQuery) query).getTaskPrefix(), query.getRepositoryUrl());
+		
+		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(query.getRepositoryKind(), query.getRepositoryUrl());
+		String prefix = WebRepositoryConnector.evaluateParams(((WebQuery) query).getTaskPrefix(), ((WebQuery) query).getQueryParameters(), repository);
+		
+		WebQueryHit hit = new WebQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), query.getRepositoryUrl(), "", id, prefix);
 		readQueryHitInfo(hit, taskList, query, element);
 	}
 

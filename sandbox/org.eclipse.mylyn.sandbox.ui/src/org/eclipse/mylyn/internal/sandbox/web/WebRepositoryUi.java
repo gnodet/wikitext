@@ -28,7 +28,8 @@ public class WebRepositoryUi extends AbstractRepositoryConnectorUi {
 	}
 
 	public IWizard getNewTaskWizard(TaskRepository taskRepository) {
-		return new NewWebTaskWizard(taskRepository, taskRepository.getProperty(WebRepositoryConnector.PROPERTY_NEW_TASK_URL)); 
+		return new NewWebTaskWizard(taskRepository, WebRepositoryConnector.evaluateParams(taskRepository
+				.getProperty(WebRepositoryConnector.PROPERTY_TASK_CREATION_URL), taskRepository));
 	}
 	
 	public IWizard getQueryWizard(TaskRepository repository, AbstractRepositoryQuery query) {
