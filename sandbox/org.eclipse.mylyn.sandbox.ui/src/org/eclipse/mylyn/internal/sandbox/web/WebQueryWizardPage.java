@@ -217,6 +217,9 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 	}
 
 	private static String addVars(LinkedHashMap<String, String> vars, String property) {
+		if(property==null) {
+			return "";
+		}
 		for(String var : WebRepositoryConnector.getTemplateVariables(property)) {
 			vars.put(var, "");
 		}

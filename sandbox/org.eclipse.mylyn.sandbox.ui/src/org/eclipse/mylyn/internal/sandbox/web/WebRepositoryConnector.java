@@ -358,6 +358,10 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	public static List<String> getTemplateVariables(String value) {
+		if(value==null) {
+			return Collections.emptyList();
+		}
+		
 		List<String> vars = new ArrayList<String>();
 		Matcher m = Pattern.compile("\\$\\{(.+?)\\}").matcher(value);
 		while(m.find()) {
