@@ -106,14 +106,22 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 		GridDataFactory.fillDefaults().hint(SWT.DEFAULT, 240).grab(true, true).span(2, 1).applyTo(editor);
 		
 		if (repository != null) {
-			taskUrlText.setText(repository.getProperty(WebRepositoryConnector.PROPERTY_TASK_URL));
-			newTaskText.setText(repository.getProperty(WebRepositoryConnector.PROPERTY_TASK_CREATION_URL));
-			queryUrlText.setText(repository.getProperty(WebRepositoryConnector.PROPERTY_QUERY_URL));
-			queryPatternText.setText(repository.getProperty(WebRepositoryConnector.PROPERTY_QUERY_REGEXP));
+			taskUrlText.setText(getTextProperty(WebRepositoryConnector.PROPERTY_TASK_URL));
+			newTaskText.setText(getTextProperty(WebRepositoryConnector.PROPERTY_TASK_CREATION_URL));
+			queryUrlText.setText(getTextProperty(WebRepositoryConnector.PROPERTY_QUERY_URL));
+			queryPatternText.setText(getTextProperty(WebRepositoryConnector.PROPERTY_QUERY_REGEXP));
 			
 			oldProperties = repository.getProperties();
 			parametersEditor.addParams(oldProperties, new LinkedHashMap<String, String>());
 		}
+	}
+
+	private String getTextProperty(String name) {
+		String value = repository.getProperty(name);
+		if(value==null) {
+			return "";
+		}
+		return value;
 	}
 
 	protected boolean isValidUrl(String name) {
