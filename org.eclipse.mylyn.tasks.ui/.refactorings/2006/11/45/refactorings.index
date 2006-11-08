@@ -1,2 +1,4 @@
 1162929151046	Move compilation unit
 1162950135000	Rename type 'CopyDetailsAction'
+1162973562937	Rename method 'submitBug'
+1162973598671	Rename method 'updateBug'
