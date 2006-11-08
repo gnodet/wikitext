@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Copy 1 elements(s) to 'elcl16'&#13;&#10;- Original project: 'org.eclipse.mylar.ide'&#13;&#10;- Destination element: 'elcl16'&#13;&#10;- Original element: 'edge-ref-xml.gif'" description="Copy file" destination="icons/elcl16" element1="icons/elcl16/edge-ref-xml.gif" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" log="icons/elcl16/edge-ref-xml.gif&#9;true&#9;false" policy="org.eclipse.jdt.ui.copyResources" stamp="1162876605312" units="0" version="1.0"/>
+</session>

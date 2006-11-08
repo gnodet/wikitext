@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Move 1 elements(s) to 'org.eclipse.mylar.team/src/org.eclipse.mylar.internal.team.ui.actions'&#13;&#10;- Original project: 'org.eclipse.mylar.tasks.ui'&#13;&#10;- Destination element: 'org.eclipse.mylar.team/src/org.eclipse.mylar.internal.team.ui.actions'&#13;&#10;- Original element: 'org.eclipse.mylar.internal.tasks.ui.actions.ApplyPatchAction.java'&#13;&#10;- Update references to refactored element" description="Move compilation unit" destination="/src&lt;org.eclipse.mylar.internal.team.ui.actions" element1="/src&lt;org.eclipse.mylar.internal.tasks.ui.actions{ApplyPatchAction.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" patterns="*.xml, *.mf" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1162929151046" units="1" version="1.0"/>
+</session>
