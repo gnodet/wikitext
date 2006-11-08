@@ -183,9 +183,9 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return Status.OK_STATUS;
 	}
 
-	public void updateTaskState(AbstractRepositoryTask repositoryTask) {
-		// TODO
-	}
+//	public void updateTaskState(AbstractRepositoryTask repositoryTask) {
+//		// TODO
+//	}
 
 	public IAttachmentHandler getAttachmentHandler() {
 		// not supported
