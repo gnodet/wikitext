@@ -5,17 +5,16 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.internal.trac.ui.editor;
+
+package org.eclipse.mylar.internal.jira.ui.editor;
 
 import org.eclipse.mylar.context.core.MylarStatusHandler;
+import org.eclipse.mylar.internal.jira.JiraTask;
+import org.eclipse.mylar.internal.jira.MylarJiraPlugin;
 import org.eclipse.mylar.internal.tasks.ui.ITaskEditorFactory;
-import org.eclipse.mylar.internal.tasks.ui.editors.RepositoryTaskEditorInput;
 import org.eclipse.mylar.internal.tasks.ui.editors.MylarTaskEditor;
-import org.eclipse.mylar.internal.tasks.ui.editors.NewBugEditorInput;
+import org.eclipse.mylar.internal.tasks.ui.editors.RepositoryTaskEditorInput;
 import org.eclipse.mylar.internal.tasks.ui.editors.TaskEditorInput;
-import org.eclipse.mylar.internal.trac.core.TracCorePlugin;
-import org.eclipse.mylar.internal.trac.core.TracRepositoryConnector;
-import org.eclipse.mylar.internal.trac.core.TracTask;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
 import org.eclipse.mylar.tasks.core.ITask;
 import org.eclipse.mylar.tasks.core.TaskRepository;
@@ -24,48 +23,36 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 
 /**
- * @author Steffen Pingel
+ * @author Mik Kersten
  */
-public class TracTaskEditorFactory implements ITaskEditorFactory {
+public class JiraTaskEditorFactory implements ITaskEditorFactory {
 
 	public boolean canCreateEditorFor(ITask task) {
-		if (task instanceof TracTask) {
-			TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
-					TracCorePlugin.REPOSITORY_KIND, ((TracTask) task).getRepositoryUrl());
-			return TracRepositoryConnector.hasRichEditor(repository);
-		}
-		return task instanceof TracTask;
+		return task instanceof JiraTask;
 	}
 
 	public boolean canCreateEditorFor(IEditorInput input) {
 		if (input instanceof RepositoryTaskEditorInput) {
 			RepositoryTaskEditorInput existingInput = (RepositoryTaskEditorInput) input;
 			return existingInput.getRepositoryTaskData() != null
-					&& TracCorePlugin.REPOSITORY_KIND.equals(existingInput.getRepository().getKind());
-		} else if (input instanceof NewBugEditorInput) {
-			NewBugEditorInput newInput = (NewBugEditorInput) input;
-			return newInput.getRepositoryTaskData() != null
-					&& TracCorePlugin.REPOSITORY_KIND.equals(newInput.getRepository().getKind());
-		}
+					&& MylarJiraPlugin.REPOSITORY_KIND.equals(existingInput.getRepository().getKind());
+		} 
 		return false;
 	}
 
 	public IEditorPart createEditor(MylarTaskEditor parentEditor, IEditorInput editorInput) {
 		if (editorInput instanceof RepositoryTaskEditorInput  || editorInput instanceof TaskEditorInput) {
-			return new TracTaskEditor(parentEditor);
-		} else if (editorInput instanceof NewBugEditorInput) {
-			return new NewTracTaskEditor(parentEditor);
+			return new JiraTaskEditor(parentEditor);
 		} 
 		return null;
 	}
 
 	public IEditorInput createEditorInput(ITask task) {
-		TracTask tracTask = (TracTask) task;
-		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(TracCorePlugin.REPOSITORY_KIND,
-				tracTask.getRepositoryUrl());
+		JiraTask jiraTask = (JiraTask) task;
+		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(MylarJiraPlugin.REPOSITORY_KIND,
+				jiraTask.getRepositoryUrl());
 		try {
-			return new RepositoryTaskEditorInput(repository, tracTask.getTaskData(), AbstractRepositoryTask.getTaskId(tracTask.getHandleIdentifier()));
-//			return new RepositoryTaskEditorInput(repository, tracTask);
+			return new RepositoryTaskEditorInput(repository, jiraTask.getTaskData(), AbstractRepositoryTask.getTaskId(jiraTask.getHandleIdentifier()));
 		} catch (Exception e) {
 			MylarStatusHandler.fail(e, "Could not create Trac editor input", true);
 		}
@@ -73,10 +60,10 @@ public class TracTaskEditorFactory implements ITaskEditorFactory {
 	}
 
 	public String getTitle() {
-		return "Trac";
+		return "JIRA";
 	}
 
 	public boolean providesOutline() {
-		return true;
+		return false;
 	}
 }
