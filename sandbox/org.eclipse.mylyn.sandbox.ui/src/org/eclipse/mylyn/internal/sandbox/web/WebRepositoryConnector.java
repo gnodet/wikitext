@@ -370,5 +370,9 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return vars;
 	}
 
+	@Override
+	public void updateTaskState(AbstractRepositoryTask repositoryTask) {
+		// ignore
+	}
 }
 
