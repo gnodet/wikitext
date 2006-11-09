@@ -46,8 +46,8 @@
         id="org.eclipse.mylar.ui.instrospection"
         objectClass="java.lang.Object">
 	    <action  
-  		  	label="Mylar Sanbox: Introspect Object" 
-	  		menubarPath="mylar" 
+  		  	label="Sanbox: Introspect Object" 
+	  		menubarPath="context" 
 	  		id="org.eclipse.mylar.sandbox.actions.introspect" 
 	  		class="org.eclipse.mylar.internal.sandbox.devtools.IntrospectObjectAction"
 	  		enablesFor="1"/>
