@@ -47,7 +47,7 @@
         objectClass="java.lang.Object">
 	    <action  
   		  	label="Sanbox: Introspect Object" 
-	  		menubarPath="context" 
+	  		menubarPath="additions" 
 	  		id="org.eclipse.mylar.sandbox.actions.introspect" 
 	  		class="org.eclipse.mylar.internal.sandbox.devtools.IntrospectObjectAction"
 	  		enablesFor="1"/>
