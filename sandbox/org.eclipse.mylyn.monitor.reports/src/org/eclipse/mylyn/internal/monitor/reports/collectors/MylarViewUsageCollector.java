@@ -146,8 +146,13 @@ public class MylarViewUsageCollector extends ViewUsageCollector {
 			summaries.add(view + " filtered: " + filteredSelections + " vs. unfiltered: ");
 			summaries.add(unfilteredSelections + "<br>");
 		}
-		summaries.add("<h4>View Usage (top " + maxViewsToReport + ")</h4>");
-		summaries.addAll(super.getSummary(userId));
+		summaries.add("<h4>View Usage ");
+		List<String> allSummaries = super.getSummary(userId);
+		if (maxViewsToReport != -1 && allSummaries.size() == maxViewsToReport) {
+			summaries.add("(top "+ maxViewsToReport + ")");
+		}
+		summaries.add("</h4>");
+		summaries.addAll(allSummaries);
 
 //		summaries.add("<h4>Interest Model</h4>");
 //		int numNew = 0;
