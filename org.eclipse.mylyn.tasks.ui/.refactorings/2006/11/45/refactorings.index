@@ -4,3 +4,4 @@
 1162973598671	Rename method 'updateBug'
 1162974336687	Rename type 'ExistingBugEditorInput'
 1162974371218	Rename type 'AbstractBugEditorInput'
+1163110516421	Rename type 'NewBugEditorInput'
