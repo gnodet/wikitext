@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.mylar.sandbox_feature"
-      label="Dev Tools"
+      label="DevTools &amp; Web Connector"
       version="0.8.0.v20061110-1330"
       provider-name="Eclipse.org">
 
