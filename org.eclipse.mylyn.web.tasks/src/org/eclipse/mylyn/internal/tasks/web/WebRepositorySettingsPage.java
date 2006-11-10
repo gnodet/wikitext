@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.sandbox.web;
+package org.eclipse.mylar.internal.tasks.web;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.sandbox.web;
+package org.eclipse.mylar.internal.tasks.web;
 
 import java.io.IOException;
 import java.util.ArrayList;
