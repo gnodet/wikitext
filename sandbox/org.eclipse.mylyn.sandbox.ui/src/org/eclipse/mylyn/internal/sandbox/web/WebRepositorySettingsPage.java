@@ -42,23 +42,26 @@ import org.eclipse.ui.forms.widgets.Section;
  * @author Eugene Kuleshov
  */
 public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage implements IPropertyChangeListener {
-	
+
 	private static final String TITLE = "Web Repository Settings";
 
-	private static final String DESCRIPTION = "Generic web-based repository connector";
+	private static final String DESCRIPTION = "Select a server template example and modify the parameters to match the settings "
+			+ "for your project, usually found in the query URL.";
 
 	private Text taskUrlText;
+
 	private Text newTaskText;
+
 	private Text queryUrlText;
+
 	private Text queryPatternText;
 
 	private ParametersEditor parametersEditor;
-	
+
 	private FormToolkit toolkit = new FormToolkit(Display.getCurrent());
 
 	private Map<String, String> oldProperties;
 
-	
 	public WebRepositorySettingsPage(AbstractRepositoryConnectorUi repositoryUi) {
 		super(TITLE, DESCRIPTION, repositoryUi);
 	}
@@ -67,14 +70,14 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 	protected void createAdditionalControls(Composite parent) {
 		for (RepositoryTemplate template : connector.getTemplates()) {
 			serverUrlCombo.add(template.label);
-		}		
-		
+		}
+
 		serverUrlCombo.addSelectionListener(new SelectionListener() {
 
 			public void widgetSelected(SelectionEvent e) {
 				String text = serverUrlCombo.getText();
 				RepositoryTemplate template = connector.getTemplate(text);
-				if(template != null) {
+				if (template != null) {
 					repositoryLabelEditor.setStringValue(template.label);
 					setUrl(template.repositoryUrl);
 					taskUrlText.setText(template.taskPrefixUrl);
@@ -83,34 +86,35 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 					queryPatternText.setText(template.getAttribute(WebRepositoryConnector.PROPERTY_QUERY_REGEXP));
 
 					parametersEditor.removeAll();
-					
-					for(Map.Entry<String, String> entry : template.getAttributes().entrySet()) {
+
+					for (Map.Entry<String, String> entry : template.getAttributes().entrySet()) {
 						String key = entry.getKey();
-						if(key.startsWith(WebRepositoryConnector.PARAM_PREFIX)) {
-							parametersEditor.add(key.substring(WebRepositoryConnector.PARAM_PREFIX.length()), entry.getValue());
+						if (key.startsWith(WebRepositoryConnector.PARAM_PREFIX)) {
+							parametersEditor.add(key.substring(WebRepositoryConnector.PARAM_PREFIX.length()), entry
+									.getValue());
 						}
 					}
-					
+
 					getContainer().updateButtons();
-					return; 
-				}			
-			}  
+					return;
+				}
+			}
 
 			public void widgetDefaultSelected(SelectionEvent e) {
-				// ignore 
+				// ignore
 			}
 
 		});
 
 		Composite editor = getParameterEditor(parent);
 		GridDataFactory.fillDefaults().hint(SWT.DEFAULT, 240).grab(true, true).span(2, 1).applyTo(editor);
-		
+
 		if (repository != null) {
 			taskUrlText.setText(getTextProperty(WebRepositoryConnector.PROPERTY_TASK_URL));
 			newTaskText.setText(getTextProperty(WebRepositoryConnector.PROPERTY_TASK_CREATION_URL));
 			queryUrlText.setText(getTextProperty(WebRepositoryConnector.PROPERTY_QUERY_URL));
 			queryPatternText.setText(getTextProperty(WebRepositoryConnector.PROPERTY_QUERY_REGEXP));
-			
+
 			oldProperties = repository.getProperties();
 			parametersEditor.addParams(oldProperties, new LinkedHashMap<String, String>());
 		}
@@ -118,7 +122,7 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 
 	private String getTextProperty(String name) {
 		String value = repository.getProperty(name);
-		if(value==null) {
+		if (value == null) {
 			return "";
 		}
 		return value;
@@ -149,7 +153,8 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 		gridData_1.minimumHeight = 80;
 		parametersEditor.setLayoutData(gridData_1);
 
-		ExpandableComposite expComposite = toolkit.createExpandableComposite(composite, Section.COMPACT | Section.TWISTIE | Section.TITLE_BAR);
+		ExpandableComposite expComposite = toolkit.createExpandableComposite(composite, Section.COMPACT
+				| Section.TWISTIE | Section.TITLE_BAR);
 		expComposite.clientVerticalSpacing = 0;
 		GridData gridData_2 = new GridData(SWT.FILL, SWT.FILL, true, false);
 		gridData_2.horizontalIndent = -5;
@@ -199,7 +204,7 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 
 		return composite;
 	}
-	
+
 	public void propertyChange(PropertyChangeEvent event) {
 		Object source = event.getSource();
 		if (source == taskUrlText || source == taskUrlText) {
@@ -214,19 +219,18 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 		repository.setProperty(WebRepositoryConnector.PROPERTY_QUERY_URL, queryUrlText.getText());
 		repository.setProperty(WebRepositoryConnector.PROPERTY_QUERY_REGEXP, queryPatternText.getText());
 
-		if(oldProperties!=null) {
-			for(Map.Entry<String, String> e : oldProperties.entrySet()) {
+		if (oldProperties != null) {
+			for (Map.Entry<String, String> e : oldProperties.entrySet()) {
 				String key = e.getKey();
-				if(key.startsWith(WebRepositoryConnector.PARAM_PREFIX)) {
+				if (key.startsWith(WebRepositoryConnector.PARAM_PREFIX)) {
 					repository.removeProperty(key);
 				}
 			}
 		}
-		
-		for(Map.Entry<String, String> e : parametersEditor.getParameters().entrySet()) {
+
+		for (Map.Entry<String, String> e : parametersEditor.getParameters().entrySet()) {
 			repository.setProperty(e.getKey(), e.getValue());
 		}
 	}
 
 }
-
