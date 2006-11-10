@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.mylar.sandbox_feature"
-      label="DevTools &amp; Web Connector"
-      version="0.8.0.v20061109-0200"
+      label="Dev Tools"
+      version="0.8.0.v20061110-1330"
       provider-name="Eclipse.org">
 
    <description>
@@ -234,7 +234,7 @@ litigation.
          id="org.eclipse.mylar.sandbox"
          download-size="0"
          install-size="0"
-         version="0.8.0.v20061109-0200"
+         version="0.8.0.v20061110-1330"
          unpack="false"/>
 
 </feature>
