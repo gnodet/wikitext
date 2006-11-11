@@ -11,6 +11,7 @@ package org.eclipse.mylar.internal.tasks.web;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.eclipse.mylar.internal.tasks.core.WebQueryHit;
 import org.eclipse.mylar.internal.tasks.core.WebTask;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
@@ -140,7 +141,7 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 			throw new TaskExternalizationException("Repository URL not stored for bug report");
 		}
 		
-		WebTask task = new WebTask(id, label, prefix, repositoryUrl, WebRepositoryConnector.REPOSITORY_TYPE);
+		WebTask task = new WebTask(id, label, prefix, repositoryUrl, WebTask.REPOSITORY_TYPE);
 
 		readTaskInfo(task, taskList, element, parent, category);
 		return task;

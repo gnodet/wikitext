@@ -6,9 +6,8 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.tasks.web;
+package org.eclipse.mylar.internal.tasks.core;
 
-import org.eclipse.mylar.internal.tasks.core.WebTask;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
 import org.eclipse.mylar.tasks.core.TaskList;
@@ -36,7 +35,7 @@ public class WebQueryHit extends AbstractQueryHit {
 	}
 
 	protected AbstractRepositoryTask createTask() {
-		return new WebTask(id, description, taskPrefix, repositoryUrl, WebRepositoryConnector.REPOSITORY_TYPE);
+		return new WebTask(id, description, taskPrefix, repositoryUrl, WebTask.REPOSITORY_TYPE);
 	}
 	
 	@Override

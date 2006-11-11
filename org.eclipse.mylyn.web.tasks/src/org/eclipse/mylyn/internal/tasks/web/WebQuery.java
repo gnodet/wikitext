@@ -10,6 +10,7 @@ package org.eclipse.mylar.internal.tasks.web;
 
 import java.util.Map;
 
+import org.eclipse.mylar.internal.tasks.core.WebTask;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.TaskList;
 
@@ -38,7 +39,7 @@ public class WebQuery extends AbstractRepositoryQuery {
 	}
 
 	public String getRepositoryKind() {
-		return WebRepositoryConnector.REPOSITORY_TYPE;
+		return WebTask.REPOSITORY_TYPE;
 	}
 
 	public String getTaskPrefix() {

@@ -29,6 +29,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylar.internal.tasks.core.WebClientUtil;
+import org.eclipse.mylar.internal.tasks.core.WebQueryHit;
 import org.eclipse.mylar.internal.tasks.core.WebTask;
 import org.eclipse.mylar.internal.tasks.ui.RetrieveTitleFromUrlJob;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryConnector;
@@ -56,8 +57,6 @@ import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
  */
 public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
-	public static final String REPOSITORY_TYPE = "web";
-
 	public static final String PROPERTY_TASK_CREATION_URL = "taskCreationUrl";
 
 	public static final String PROPERTY_TASK_URL = "taskUrl";
@@ -76,7 +75,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 
 	public String getRepositoryType() {
-		return REPOSITORY_TYPE;
+		return WebTask.REPOSITORY_TYPE;
 	}
 
 	public String getLabel() {
@@ -105,11 +104,11 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	@Override
 	public ITask createTaskFromExistingKey(TaskRepository repository, final String id, Proxy proxySettings)
 			throws CoreException {
-		if (REPOSITORY_TYPE.equals(repository.getKind())) {
+		if (WebTask.REPOSITORY_TYPE.equals(repository.getKind())) {
 			String taskPrefix = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
 
 			final WebTask task = new WebTask(id, id, taskPrefix, repository.getUrl(),
-					WebRepositoryConnector.REPOSITORY_TYPE);
+					WebTask.REPOSITORY_TYPE);
 
 			RetrieveTitleFromUrlJob job = new RetrieveTitleFromUrlJob(taskPrefix + id) {
 				protected void setTitle(String pageTitle) {

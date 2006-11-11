@@ -9,6 +9,7 @@
 package org.eclipse.mylar.internal.tasks.web;
 
 import org.eclipse.jface.wizard.IWizard;
+import org.eclipse.mylar.internal.tasks.core.WebTask;
 import org.eclipse.mylar.internal.tasks.ui.wizards.AbstractRepositorySettingsPage;
 import org.eclipse.mylar.internal.tasks.ui.wizards.NewWebTaskWizard;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
@@ -47,7 +48,7 @@ public class WebRepositoryUi extends AbstractRepositoryConnectorUi {
 
 	@Override
 	public String getRepositoryType() {
-		return WebRepositoryConnector.REPOSITORY_TYPE;
+		return WebTask.REPOSITORY_TYPE;
 	}
 
 	@Override
