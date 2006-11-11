@@ -130,7 +130,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		TaskRepositoryManager repositoryManager = TasksUiPlugin.getRepositoryManager();
 		for (TaskRepository repository : repositoryManager.getAllRepositories()) {
 			if (getRepositoryType().equals(repository.getKind())) {
-				if (url.startsWith(evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository))) {
+				String start = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
+				if (start != null && url.startsWith(start)) {
 					return repository.getUrl();
 				}
 			}
@@ -181,10 +182,6 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		}
 		return Status.OK_STATUS;
 	}
-
-//	public void updateTaskState(AbstractRepositoryTask repositoryTask) {
-//		// TODO
-//	}
 
 	public IAttachmentHandler getAttachmentHandler() {
 		// not supported
