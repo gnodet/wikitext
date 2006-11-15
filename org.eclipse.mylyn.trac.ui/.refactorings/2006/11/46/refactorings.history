@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Extract method 'private void attachContext(final AbstractRepositoryTask task)' from 'org.eclipse.mylar.internal.trac.ui.editor.TracTaskEditor.submitToRepository().new JobChangeAdapter() {...}.done().new Runnable() {...}.run()' to 'org.eclipse.mylar.internal.trac.ui.editor.TracTaskEditor'&#10;- Original project: 'org.eclipse.mylar.trac.ui'&#10;- Method name: 'attachContext'&#10;- Destination type: 'org.eclipse.mylar.internal.trac.ui.editor.TracTaskEditor'&#10;- Declared visibility: 'private'" comments="false" description="Extract method 'attachContext'" destination="2" exceptions="false" flags="786434" id="org.eclipse.jdt.ui.extract.method" input="/src&lt;org.eclipse.mylar.internal.trac.ui.editor{TracTaskEditor.java" name="attachContext" replace="false" selection="4274 1082" stamp="1163381295635" version="1.0" visibility="2"/>
+</session>
