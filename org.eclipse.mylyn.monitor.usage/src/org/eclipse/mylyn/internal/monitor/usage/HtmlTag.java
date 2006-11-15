@@ -238,11 +238,11 @@ public class HtmlTag {
 			sb.append(' ');
 			sb.append(name);
 			String value = values.next();
+			sb.append("=\"");
 			if (value.length() > 0) {
-				sb.append("=\"");
 				sb.append(value);
-				sb.append('"');
 			}
+			sb.append('"');
 		}
 		sb.append('>');
 
