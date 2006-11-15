@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 1 element(s) from project 'org.eclipse.mylar.tasks.web'&#13;&#10;- Original project: 'org.eclipse.mylar.tasks.web'&#13;&#10;- Original element: 'WebRepositoryConnector.java.rej'" description="Delete element" element1="src/org/eclipse/mylar/internal/tasks/web/WebRepositoryConnector.java.rej" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="1" stamp="1163562741468" subPackages="false" version="1.0"/>
+</session>

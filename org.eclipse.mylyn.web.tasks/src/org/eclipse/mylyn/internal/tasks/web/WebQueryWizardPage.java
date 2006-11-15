@@ -49,16 +49,16 @@ import org.eclipse.ui.forms.widgets.Section;
 
 /**
  * Wizard page for configuring and preview web query
- * 
+ *
  * @author Eugene Kuleshov
  */
 public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 	private Text queryUrlText;
 	private Text queryPatternText;
 	private Table previewTable;
-	
+
 	private String webPage;
-	
+
 	private TaskRepository repository;
 	private WebQuery query;
 	private UpdatePreviewJob updatePreviewJob;
@@ -66,8 +66,8 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 	private FormToolkit toolkit = new FormToolkit(Display.getCurrent());
 	private ParametersEditor parametersEditor;
 	private Map<String, String> oldProperties;
-	
-	
+
+
 	public WebQueryWizardPage(TaskRepository repository) {
 		this(repository, null);
 	}
@@ -116,7 +116,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 //			}
 //		});
 //		queryTitleText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		
+
 		parametersEditor = new ParametersEditor(composite, SWT.NONE);
 		GridData gridData1 = new GridData(SWT.FILL, SWT.FILL, true, true);
 		gridData1.heightHint = 80;
@@ -160,7 +160,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		GridData gridData = new GridData(SWT.FILL, SWT.TOP, true, false);
 		gridData.heightHint = 45;
 		queryPatternText.setLayoutData(gridData);
-		
+
 //		regexpText.addModifyListener(new ModifyListener() {
 //				public void modifyText(final ModifyEvent e) {
 //					if(webPage!=null) {
@@ -178,7 +178,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 				updatePreview();
 			}
 		});
-		
+
 		previewTable = new Table(composite1, SWT.BORDER);
 		GridData gridData2 = new GridData(SWT.FILL, SWT.FILL, false, true, 3, 1);
 		gridData2.heightHint = 60;
@@ -195,15 +195,15 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		colDescription.setText("Description");
 
 		setControl(composite);
-		
+
 		LinkedHashMap<String, String> vars = new LinkedHashMap<String, String>();
 		Map<String, String> params = new LinkedHashMap<String, String>();
 		if(repository!=null) {
-			
-			
+
+
 			queryUrlText.setText(addVars(vars, repository.getProperty(WebRepositoryConnector.PROPERTY_QUERY_URL)));
 			queryPatternText.setText(addVars(vars, repository.getProperty(WebRepositoryConnector.PROPERTY_QUERY_REGEXP)));
-			
+
 			oldProperties = repository.getProperties();
 			params.putAll(oldProperties);
 		}
@@ -245,14 +245,14 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		if(!updatePreviewJob.isActive()) {
 			updatePreviewJob.schedule();
 		}
-		
+
 	}
-	
+
 	void updatePreviewTable(List<AbstractQueryHit> hits, MultiStatus queryStatus) {
 		if(previewTable.isDisposed()) {
 			return;
 		}
-		
+
 		previewTable.removeAll();
 
 		if(hits!=null) {
@@ -279,7 +279,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 			setPageComplete(false);
 		}
 	}
-	
+
 	private final class UpdatePreviewJob extends Job {
 		private volatile String url;
 		private volatile String regexp;
@@ -289,7 +289,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		private UpdatePreviewJob(String name) {
 			super(name);
 		}
-		
+
 		public boolean isActive() {
 			return active;
 		}
@@ -319,10 +319,13 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 							queryHits.add(hit);
 						}
 					};
-					
+
 					// TODO: Handle returned status
-					WebRepositoryConnector.performQuery(webPage, evaluatedRegexp, null, null, monitor, collector);
-					
+					IStatus status = WebRepositoryConnector.performQuery(webPage, evaluatedRegexp, null, monitor, collector, repository);
+					if(!status.isOK()) {
+						queryStatus.add(status);
+					}
+
 				} catch (final IOException ex) {
 					queryStatus.add(new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
 							"Unable to fetch resource: "+ex.getMessage(), null));
@@ -330,7 +333,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 					queryStatus.add(new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
 							"Parsing error: "+ex.getMessage(), null));
 				}
-				
+
 				Display.getDefault().asyncExec(new Runnable() {
 					public void run() {
 						updatePreviewTable(queryHits, queryStatus);
@@ -341,6 +344,6 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 			return Status.OK_STATUS;
 		}
 	}
-	
+
 }
 
