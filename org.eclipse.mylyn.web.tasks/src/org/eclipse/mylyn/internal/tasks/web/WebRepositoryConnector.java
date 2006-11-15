@@ -43,13 +43,6 @@ import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.mylar.tasks.core.TaskRepositoryManager;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 
-//import com.sun.syndication.feed.module.DCModule;
-//import com.sun.syndication.feed.synd.SyndEntry;
-//import com.sun.syndication.feed.synd.SyndFeed;
-//import com.sun.syndication.io.SyndFeedInput;
-//import com.sun.syndication.io.XmlReader;
-
-
 /**
  * Generic connector for web based issue tracking systems
  *
@@ -367,8 +360,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public void updateTaskState(AbstractRepositoryTask repositoryTask) {
-		// ignore
+	public void updateTask(TaskRepository repository, AbstractRepositoryTask repositoryTask) throws CoreException {
 	}
+
 }
 
