@@ -3,3 +3,4 @@
 1163554049734	Rename resource 'synch-warning.gif'
 1163554450500	Delete element
 1163554477984	Rename field 'OVERLAY_ERROR'
+1163631817244	Extract constant 'UPDATE_ATTRIBUTES_FREQUENCY'
