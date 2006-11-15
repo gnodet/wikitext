@@ -84,21 +84,31 @@ public class FileDisplayDialog extends MessageDialog {
 	 * @return The <code>String</code> representing the contents
 	 */
 	public static String getContents(File f) throws FileNotFoundException {
-		String fileContents = "";
 
 		// create a new reader for the stream
 		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
+		StringBuilder sb = new StringBuilder();
 		try {
 
 			// get the contents
 			String s = "";
 			while ((s = br.readLine()) != null) {
-				fileContents += s + "\n";
+				sb.append(s);
+				sb.append("\n");
 			}
+			
 		} catch (IOException e) {
 			MylarStatusHandler.log(e, "couldn't get contents");
 		}
-		return fileContents;
+		return sb.toString();
 	}
 
 }
+
+
+/* stringbuffer sb = new stringbuffer();
+for (int i = 1; i <= n; i++) {
+sb.append("*");
+}
+string str2 = sb.tostring();
+*/
