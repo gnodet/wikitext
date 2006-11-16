@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Move 'org.eclipse.mylar.internal.trac.core.TracRepositoryConnector.isInternalAttribute(...)' to 'org.eclipse.mylar.internal.trac.core.TracAttributeFactory'&#10;- Original project: 'org.eclipse.mylar.trac.core'&#10;- Original element: 'org.eclipse.mylar.internal.trac.core.TracRepositoryConnector.isInternalAttribute(...)'&#10;- Destination type: 'org.eclipse.mylar.internal.trac.core.TracAttributeFactory'" delegate="false" deprecate="true" description="Move member 'isInternalAttribute'" element1="/src&lt;org.eclipse.mylar.internal.trac.core{TracRepositoryConnector.java[TracRepositoryConnector~isInternalAttribute~QString;" flags="589830" id="org.eclipse.jdt.ui.move.static" input="/src&lt;org.eclipse.mylar.internal.trac.core{TracAttributeFactory.java[TracAttributeFactory" stamp="1163565816357" version="1.0"/>
+</session>
