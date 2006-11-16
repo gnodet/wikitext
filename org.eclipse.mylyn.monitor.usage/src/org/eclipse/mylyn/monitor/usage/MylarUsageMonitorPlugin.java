@@ -115,8 +115,6 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 
 	public static final String MONITOR_LOG_NAME = "monitor-history";
 
-	public static final String MONITOR_LOG_NAME_OLD = "workspace";
-
 	public static final String PLUGIN_ID = "org.eclipse.mylar.monitor";
 
 	private InteractionEventLogger interactionLogger;
@@ -437,14 +435,22 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 	}
 
 	public File getMonitorLogFile() {
-		File file = new File(ContextCorePlugin.getDefault().getContextStore().getRootDirectory(), MONITOR_LOG_NAME
-				+ MylarContextManager.OLD_CONTEXT_FILE_EXTENSION);
-
-		File oldFile = new File(ContextCorePlugin.getDefault().getContextStore().getRootDirectory(),
-				MONITOR_LOG_NAME_OLD + MylarContextManager.OLD_CONTEXT_FILE_EXTENSION);
-		if (oldFile.exists()) {
-			oldFile.renameTo(file);
-		} else if (!file.exists() || !file.canWrite()) {
+		File rootDir;
+		if (ContextCorePlugin.getDefault().getContextStore() != null) {
+			rootDir = ContextCorePlugin.getDefault().getContextStore().getRootDirectory();
+		} else {
+			rootDir = new File(getStateLocation().toString());
+		}
+		
+		File file = new File(rootDir, MONITOR_LOG_NAME
+				+ MylarContextManager.CONTEXT_FILE_EXTENSION_OLD);
+		
+//		File oldFile = new File(ContextCorePlugin.getDefault().getContextStore().getRootDirectory(),
+//				"workspace" + MylarContextManager.CONTEXT_FILE_EXTENSION_OLD);
+//		if (oldFile.exists()) {
+//			oldFile.renameTo(file);
+//		} else 
+		if (!file.exists() || !file.canWrite()) {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
