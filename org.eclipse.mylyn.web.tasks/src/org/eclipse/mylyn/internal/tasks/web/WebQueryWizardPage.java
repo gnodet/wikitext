@@ -245,7 +245,13 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		if(!updatePreviewJob.isActive()) {
 			updatePreviewJob.schedule();
 		}
+	}
 
+	public boolean isPageComplete() {
+		if(getErrorMessage()!=null) {
+			return false;
+		}
+		return super.isPageComplete();
 	}
 
 	void updatePreviewTable(List<AbstractQueryHit> hits, MultiStatus queryStatus) {
@@ -320,7 +326,6 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 						}
 					};
 
-					// TODO: Handle returned status
 					IStatus status = WebRepositoryConnector.performQuery(webPage, evaluatedRegexp, null, monitor, collector, repository);
 					if(!status.isOK()) {
 						queryStatus.add(status);
