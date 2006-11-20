@@ -1,1 +1,7 @@
 1163294073598	Change method 'updateTaskState'
+1163810407734	Change method 'performQuery'
+1163810603671	Change method 'attachContext'
+1163810623609	Change method 'uploadAttachment'
+1163810812984	Change method 'downloadTaskData'
+1163810888593	Change method 'retrieveContext'
+1163810923171	Change method 'getChangedSinceLastSync'

@@ -12,7 +12,6 @@ package org.eclipse.mylar.internal.sandbox.bridge.bugs;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.Proxy;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -64,7 +63,7 @@ public class BugzillaSearchEngine {
 
 	private String queryStringWithoutLogin;
 
-	public BugzillaSearchEngine(TaskRepository repository, String queryUrl, Proxy proxySettings) {
+	public BugzillaSearchEngine(TaskRepository repository, String queryUrl) {
 		urlString = queryUrl;
 		queryStringWithoutLogin = urlString;
 		// urlString = urlString.concat(IBugzillaConstants.CONTENT_TYPE_RDF);

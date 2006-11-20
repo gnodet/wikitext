@@ -1,1 +1,3 @@
 1163645722104	Change method 'makeExistingBugPost'
+1163791248750	Extract constant 'MAX_RETRY'
+1163810957000	Change method 'queryForChanged'

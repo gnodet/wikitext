@@ -13,7 +13,6 @@
  */
 package org.eclipse.mylar.internal.sandbox.bridge.bugs;
 
-import java.net.Proxy;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -292,8 +291,8 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 		int matches = 0;
 		// setup the progress monitor and start the search
 		searchCollector.setProgressMonitor(monitor);
-		Proxy proxySettings = TasksUiPlugin.getDefault().getProxySettings();
-		BugzillaSearchEngine engine = new BugzillaSearchEngine(repository, url, proxySettings);
+		
+		BugzillaSearchEngine engine = new BugzillaSearchEngine(repository, url);
 		try {
 			// perform the search
 			status = engine.search(searchCollector, matches);

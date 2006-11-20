@@ -11,7 +11,6 @@
 
 package org.eclipse.mylar.internal.sandbox.bridge.bugs;
 
-import java.net.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +18,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaQueryHit;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.StackTrace;
-import org.eclipse.mylar.internal.tasks.core.WebClientUtil;
 import org.eclipse.mylar.tasks.core.IOfflineTaskHandler;
 import org.eclipse.mylar.tasks.core.RepositoryTaskData;
 import org.eclipse.mylar.tasks.core.TaskRepository;
@@ -112,9 +110,8 @@ public class BugzillaReportInfo {
 		if (bug == null) {
 			// get the bug report
 			TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(BugzillaCorePlugin.REPOSITORY_KIND, hit.getRepositoryUrl());
-			Proxy proxySettings = WebClientUtil.getProxySettings();
 			IOfflineTaskHandler handler = BugzillaCorePlugin.getDefault().getConnector().getOfflineTaskHandler();
-			bug = handler.downloadTaskData(repository, hit.getId(), proxySettings);			
+			bug = handler.downloadTaskData(repository, hit.getId());			
 		}
 		return bug;
 	}

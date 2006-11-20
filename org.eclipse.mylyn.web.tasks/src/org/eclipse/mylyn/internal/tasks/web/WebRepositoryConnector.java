@@ -148,8 +148,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public IStatus performQuery(AbstractRepositoryQuery query, TaskRepository repository, Proxy proxySettings,
-			IProgressMonitor monitor, QueryHitCollector resultCollector) {
+	public IStatus performQuery(AbstractRepositoryQuery query, TaskRepository repository, IProgressMonitor monitor,
+			QueryHitCollector resultCollector) {
 		if (query instanceof WebQuery) {
 			String repositoryUser = repository.getUserName();
 			String repositoryPassword = repository.getPassword();
@@ -162,7 +162,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 			try {
 				// if (regexp != null && regexp.trim().length() > 0) {
-				return performQuery(fetchResource(queryUrl, repositoryUser, repositoryPassword), queryPattern,
+				return performQuery(fetchResource(queryUrl, repositoryUser, repositoryPassword, repository.getProxy()), queryPattern,
 						taskPrefix, monitor, resultCollector, repository);
 				// } else {
 				// return performRssQuery(queryUrl, taskPrefix, repositoryUrl,
@@ -270,15 +270,13 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	 * try { collector.accept(new WebQueryHit(id, id+": "+entry.getTitle(),
 	 * taskPrefix, repositoryUrl)); } catch (CoreException e) { return new
 	 * Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR, "Unable
-	 * collect results.", e); } } } return Status.OK_STATUS;
-	 *  } catch (Exception ex) { return new Status(IStatus.OK,
-	 * TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Could not fetch resource: " +
-	 * queryUrl, ex); } }
+	 * collect results.", e); } } } return Status.OK_STATUS; } catch (Exception
+	 * ex) { return new Status(IStatus.OK, TasksUiPlugin.PLUGIN_ID, IStatus.OK,
+	 * "Could not fetch resource: " + queryUrl, ex); } }
 	 */
 
-	public static String fetchResource(String url, String user, String password) throws IOException {
+	public static String fetchResource(String url, String user, String password, Proxy proxySettings) throws IOException {
 		HttpClient client = new HttpClient();
-		Proxy proxySettings = TasksUiPlugin.getDefault().getProxySettings();
 		WebClientUtil.setupHttpClient(client, proxySettings, url, user, password);
 
 		GetMethod get = new GetMethod(url);
