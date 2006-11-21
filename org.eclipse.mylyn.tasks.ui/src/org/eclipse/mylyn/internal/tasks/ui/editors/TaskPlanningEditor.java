@@ -105,7 +105,7 @@ public class TaskPlanningEditor extends TaskFormPage {
 
 	private ScrolledForm form;
 
-	private Text summary;
+	private Text description;
 
 	private Text issueReportURL;
 
@@ -187,12 +187,12 @@ public class TaskPlanningEditor extends TaskFormPage {
 			}
 		}
 
-		if (summary == null)
+		if (description == null)
 			return;
-		if (!summary.isDisposed()) {
-			if (!summary.getText().equals(updateTask.getDescription())) {
+		if (!description.isDisposed()) {
+			if (!description.getText().equals(updateTask.getDescription())) {
 				boolean wasDirty = TaskPlanningEditor.this.isDirty;
-				summary.setText(updateTask.getDescription());
+				description.setText(updateTask.getDescription());
 				TaskPlanningEditor.this.markDirty(wasDirty);
 			}
 			if (parentEditor != null) {
@@ -226,7 +226,7 @@ public class TaskPlanningEditor extends TaskFormPage {
 	@Override
 	public void doSave(IProgressMonitor monitor) {
 		if (!(task instanceof AbstractRepositoryTask)) {
-			String label = summary.getText();
+			String label = description.getText();
 			// task.setDescription(label);
 			TasksUiPlugin.getTaskListManager().getTaskList().renameTask((Task) task, label);
 
@@ -321,13 +321,13 @@ public class TaskPlanningEditor extends TaskFormPage {
 		// } catch (SWTException e) {
 		// MylarStatusHandler.log(e, "content failed");
 		// }
-		if (summary != null && NewLocalTaskAction.DESCRIPTION_DEFAULT.equals(summary.getText())) {
-			summary.setSelection(0);
-			summary.setFocus();
+		if (description != null && NewLocalTaskAction.DESCRIPTION_DEFAULT.equals(description.getText())) {
+			description.setSelection(0);
+			description.setFocus();
 		}
 
 		// createContextMenu();
-		summary.setFocus();
+
 	}
 
 	// protected void createContextMenu() {
@@ -451,15 +451,15 @@ public class TaskPlanningEditor extends TaskFormPage {
 
 		Label l = toolkit.createLabel(container, "Summary: ");
 		l.setForeground(toolkit.getColors().getColor(FormColors.TITLE));
-		summary = toolkit.createText(container, task.getDescription(), SWT.NONE);
-		summary.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER);
-		summary.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		description = toolkit.createText(container, task.getDescription(), SWT.NONE);
+		description.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER);
+		description.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		toolkit.paintBordersFor(container);
 
 		if (task instanceof AbstractRepositoryTask) {
-			summary.setEnabled(false);
+			description.setEnabled(false);
 		} else {
-			summary.addModifyListener(new ModifyListener() {
+			description.addModifyListener(new ModifyListener() {
 				public void modifyText(ModifyEvent e) {
 					markDirty(true);
 				}
@@ -593,7 +593,7 @@ public class TaskPlanningEditor extends TaskFormPage {
 
 				@Override
 				protected void setTitle(final String pageTitle) {
-					summary.setText(pageTitle);
+					description.setText(pageTitle);
 					TaskPlanningEditor.this.markDirty(true);
 				}
 
@@ -941,12 +941,12 @@ public class TaskPlanningEditor extends TaskFormPage {
 
 	/** for testing - should cause dirty state */
 	public void setDescription(String desc) {
-		this.summary.setText(desc);
+		this.description.setText(desc);
 	}
 
 	/** for testing */
 	public String getDescription() {
-		return this.summary.getText();
+		return this.description.getText();
 	}
 	
 	/** for testing */
