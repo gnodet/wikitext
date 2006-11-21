@@ -23,7 +23,6 @@ import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.context.ui.actions.ContextCapturePauseAction;
 import org.eclipse.mylar.internal.sandbox.MylarSandboxPlugin;
 import org.eclipse.mylar.internal.tasks.ui.ComboSelectionDialog;
-import org.eclipse.mylar.internal.tasks.ui.views.TaskListView;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IViewActionDelegate;
@@ -180,7 +179,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 			// MylarTaskListPlugin.getDefault().setDataDirectory(ContextCorePlugin.getDefault().getDataDirectory());
 			(new ContextCapturePauseAction()).resume(); // TODO: don't use
 			// actions directly
-			TaskListView.getFromActivePerspective().indicateSharedFolder("");
+//			TaskListView.getFromActivePerspective().indicateSharedFolder("");
 			ContextCorePlugin.getContextManager().setActivationHistorySuppressed(false);
 		} else {
 			String dataDirPath = "<not implemented>";
@@ -190,7 +189,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 			MylarSandboxPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectoryEnabled(true);
 			// MylarTaskListPlugin.getDefault().setDataDirectory(dataDirPath);
 			(new ContextCapturePauseAction()).pause();
-			TaskListView.getFromActivePerspective().indicateSharedFolder(targetFolder);
+//			TaskListView.getFromActivePerspective().indicateSharedFolder(targetFolder);
 			ContextCorePlugin.getContextManager().setActivationHistorySuppressed(true);
 		}
 	}
