@@ -1,1 +1,3 @@
 1164139965250	Rename field 'description'
+1164148383171	Extract constant 'FILTER_PRIORITY_LABEL'
+1164148404062	Extract constant 'FILTER_PRIORITY_TOOLTIP'
