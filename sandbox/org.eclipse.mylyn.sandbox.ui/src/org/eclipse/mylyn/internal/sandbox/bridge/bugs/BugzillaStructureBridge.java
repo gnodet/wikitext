@@ -188,7 +188,7 @@ public class BugzillaStructureBridge implements IMylarStructureBridge {
 			return ContentOutlineTools.getName(b);
 		} else if (object instanceof BugzillaReportInfo) {
 			BugzillaQueryHit hit = ((BugzillaReportInfo) object).getHit();
-			return hit.getRepositoryUrl() + ": Bug#: " + hit.getId() + ": " + hit.getDescription();
+			return hit.getRepositoryUrl() + ": Bug#: " + hit.getId() + ": " + hit.getSummary();
 		}
 		return "";
 	}

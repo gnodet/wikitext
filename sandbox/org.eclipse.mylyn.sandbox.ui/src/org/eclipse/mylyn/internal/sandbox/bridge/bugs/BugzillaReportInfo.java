@@ -172,7 +172,7 @@ public class BugzillaReportInfo {
 	 * @return The name of the bug report, max 20 characters
 	 */
 	public String getName() {
-		String description = hit.getDescription();
+		String description = hit.getSummary();
 		int length = description.length();
 		if (length > MAX_LABEL_LENGTH)
 			description = description.substring(0, MAX_LABEL_LENGTH) + "..";

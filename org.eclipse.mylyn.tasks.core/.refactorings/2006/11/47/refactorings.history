@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename method 'org.eclipse.mylar.tasks.core.ITaskListElement.getDescription()' to 'getSummary'&#13;&#10;- Original project: 'org.eclipse.mylar.tasks.core'&#13;&#10;- Original element: 'org.eclipse.mylar.tasks.core.ITaskListElement.getDescription()'&#13;&#10;- Renamed element: 'org.eclipse.mylar.tasks.core.ITaskListElement.getSummary()'&#13;&#10;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method 'getDescription'" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylar.tasks.core{ITaskListElement.java[ITaskListElement~getDescription" name="getSummary" references="true" stamp="1164223460390" version="1.0"/>
+</session>

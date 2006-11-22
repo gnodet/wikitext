@@ -73,7 +73,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 	}
 
 	public WebQueryWizardPage(TaskRepository repository, WebQuery query) {
-		super("New web query", query==null ? getDefaultQueryTitle(repository) : query.getDescription());
+		super("New web query", query==null ? getDefaultQueryTitle(repository) : query.getSummary());
 		this.repository = repository;
 		this.query = query;
 		setTitle("Create web query");
@@ -86,7 +86,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		Set<AbstractRepositoryQuery> queries = TasksUiPlugin.getTaskListManager().getTaskList().getRepositoryQueries(repository.getUrl());
 	    for(int n = 1; true; n++) {
 			for (AbstractRepositoryQuery query : queries) {
-				if(query.getDescription().equals(title)) {
+				if(query.getSummary().equals(title)) {
 					title = label + " " + n;
 				}
 			}
@@ -208,7 +208,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 			params.putAll(oldProperties);
 		}
 		if(query!=null) {
-			setTitle(query.getDescription());
+			setTitle(query.getSummary());
 			queryUrlText.setText(addVars(vars, query.getUrl()));
 			queryPatternText.setText(addVars(vars, query.getQueryPattern()));
 			params.putAll(((WebQuery) query).getQueryParameters());
@@ -266,8 +266,8 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 				TableItem item = new TableItem(previewTable, SWT.NONE);
 				if(hit.getId()!=null) {
 					item.setText(0, hit.getId());
-					if(hit.getDescription()!=null) {
-						item.setText(1, hit.getDescription());
+					if(hit.getSummary()!=null) {
+						item.setText(1, hit.getSummary());
 					}
 				}
 			}

@@ -147,7 +147,7 @@ public class JavaContextMarkupProvider implements IMarkupProvider {
 				if (task == null) {
 					return null;
 				}
-				IMarkupKind kind = new SimpleMarkupKind(task.getDescription());
+				IMarkupKind kind = new SimpleMarkupKind(task.getSummary());
 				markupKindSet.add(kind);
 
 				// Set the color
