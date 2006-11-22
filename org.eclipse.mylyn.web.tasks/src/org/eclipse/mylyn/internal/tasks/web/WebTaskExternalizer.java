@@ -11,6 +11,7 @@ package org.eclipse.mylar.internal.tasks.web;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.eclipse.mylar.internal.context.core.util.XmlStringConverter;
 import org.eclipse.mylar.internal.tasks.core.WebQueryHit;
 import org.eclipse.mylar.internal.tasks.core.WebTask;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
@@ -31,7 +32,7 @@ import org.w3c.dom.NodeList;
 
 /**
  * Task externalizer for generic web based issue tracking systems
- * 
+ *
  * @author Eugene Kuleshov
  */
 public class WebTaskExternalizer extends DelegatingTaskExternalizer {
@@ -67,7 +68,7 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 	public boolean canCreateElementFor(ITask task) {
 		return task instanceof WebTask;
 	}
-	
+
 	@Override
 	public boolean canReadQueryHit(Node node) {
 		return node.getNodeName().equals(getQueryHitTagName());
@@ -81,15 +82,16 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 			WebQuery webQuery = (WebQuery) query;
 			node.setAttribute(KEY_REGEXP, webQuery.getQueryPattern());
 			node.setAttribute(KEY_PREFIX, webQuery.getTaskPrefix());
-			
-			for( Map.Entry<String, String> e : webQuery.getQueryParameters().entrySet()) {
-				node.setAttribute(e.getKey(), e.getValue());
+
+			for (Map.Entry<String, String> e : webQuery.getQueryParameters().entrySet()) {
+				node.setAttribute(XmlStringConverter.convertToXmlString(e.getKey()), //
+						XmlStringConverter.convertToXmlString(e.getValue()));
 			}
 		}
 
 		return node;
 	}
-	
+
 	@Override
 	public Element createQueryHitElement(AbstractQueryHit queryHit, Document doc, Element parent) {
 		Element element = super.createQueryHitElement(queryHit, doc, parent);
@@ -107,7 +109,7 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 		node.setAttribute(KEY_REPOSITORY_URL, ((WebTask) task).getRepositoryUrl());
 		return node;
 	}
-	
+
 	@Override
 	public ITask readTask(Node node, TaskList taskList, AbstractTaskContainer category, ITask parent)
 			throws TaskExternalizationException {
@@ -119,7 +121,7 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 		} else {
 			throw new TaskExternalizationException("Id not stored for bug report");
 		}
-		
+
 		String label;
 		if (element.hasAttribute(KEY_NAME)) {
 			label = element.getAttribute(KEY_NAME);
@@ -133,14 +135,14 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 		} else {
 			throw new TaskExternalizationException("Prefix not stored for bug report");
 		}
-		
+
 		String repositoryUrl = null;
 		if (element.hasAttribute(KEY_REPOSITORY_URL)) {
 			repositoryUrl = element.getAttribute(KEY_REPOSITORY_URL);
 		} else {
 			throw new TaskExternalizationException("Repository URL not stored for bug report");
 		}
-		
+
 		WebTask task = new WebTask(id, label, prefix, repositoryUrl, WebTask.REPOSITORY_TYPE);
 
 		readTaskInfo(task, taskList, element, parent, category);
@@ -156,20 +158,21 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 		String queryPattern = element.getAttribute(KEY_REGEXP);
 		String repositoryUrl = element.getAttribute(KEY_REPOSITORY_URL);
 		String taskPrefix = element.getAttribute(KEY_PREFIX);
-		
+
 		Map<String, String> params = new LinkedHashMap<String, String>();
 		NamedNodeMap attributes = element.getAttributes();
 		for (int i = 0; i < attributes.getLength(); i++) {
 			Attr attr = (Attr) attributes.item(i);
 			String name = attr.getName();
-			if(name.startsWith(WebRepositoryConnector.PARAM_PREFIX)) {
-				params.put(name, attr.getValue());
+			if (name.startsWith(WebRepositoryConnector.PARAM_PREFIX)) {
+				params.put(XmlStringConverter.convertXmlToString(name), //
+						XmlStringConverter.convertXmlToString(attr.getValue()));
 			}
 		}
-		
+
 		AbstractRepositoryQuery query = new WebQuery(taskList, description,
 				queryUrl, queryPattern, taskPrefix, repositoryUrl, params);
-		
+
 		boolean hasCaughtException = false;
 		NodeList list = node.getChildNodes();
 		for (int i = 0; i < list.getLength(); i++) {
@@ -192,10 +195,10 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 		Element element = (Element) node;
 
 		String id = element.getAttribute(KEY_KEY);
-		
+
 		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(query.getRepositoryKind(), query.getRepositoryUrl());
 		String prefix = WebRepositoryConnector.evaluateParams(((WebQuery) query).getTaskPrefix(), ((WebQuery) query).getQueryParameters(), repository);
-		
+
 		WebQueryHit hit = new WebQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), query.getRepositoryUrl(), "", id, prefix);
 		readQueryHitInfo(hit, taskList, query, element);
 	}

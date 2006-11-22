@@ -23,31 +23,31 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * Property editor dialog
- * 
+ *
  * @author Eugene Kuleshov
  */
 public class ParameterEditorDialog extends Dialog {
 	private String title;
 	private String name;
 	private String value;
-	
 
 	private Text valueText;
 	private Text nameText;
+	private Text status;
 
-	
+
 	public ParameterEditorDialog(Shell parent) {
 		super(parent);
 		this.title = "New Property";
 	}
-	
+
 	public ParameterEditorDialog(Shell parent, String name, String value) {
 		super(parent);
 		this.title = "Edit Property";
 		this.name = name;
 		this.value = value;
 	}
-	
+
 	protected Control createDialogArea(Composite parent) {
 		Composite composite = (Composite) super.createDialogArea(parent);
 		GridLayout gridLayout = new GridLayout();
@@ -79,7 +79,7 @@ public class ParameterEditorDialog extends Dialog {
 			valueText.setText(value);
 			valueText.setSelection(0, value.length());
 		}
-		
+
 		ModifyListener updateListener = new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				updateButtons();
@@ -87,10 +87,14 @@ public class ParameterEditorDialog extends Dialog {
 		};
 		nameText.addModifyListener(updateListener);
 		valueText.addModifyListener(updateListener);
-		
+		new Label(composite, SWT.NONE);
+
+		status = new Text(composite, SWT.READ_ONLY);
+		status.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+
 		return composite;
 	}
-	
+
 	protected void configureShell(Shell shell) {
 		super.configureShell(shell);
 		if (title != null) {
@@ -102,19 +106,35 @@ public class ParameterEditorDialog extends Dialog {
 		super.create();
 		updateButtons();
 	}
-	
+
 	private void updateButtons() {
 	    name = nameText.getText().trim();
 	    value = valueText.getText();
-		
-		getButton(IDialogConstants.OK_ID).setEnabled(name.length()>0);
+
+		getButton(IDialogConstants.OK_ID).setEnabled(isValid());
 	}
 
-	
+	private boolean isValid() {
+		if (name.length() == 0 || !Character.isLetter(name.charAt(0))) {
+			status.setText("Name should be a Java identifier");
+			return false;
+		}
+		for (int i = 1; i < name.length(); i++) {
+			char c = name.charAt(i);
+			if (Character.isLetterOrDigit(c) || c=='_' || c=='-') {
+				continue;
+			}
+			status.setText("Name should be a Java identifier");
+			return false;
+		}
+		status.setText("");
+		return true;
+	}
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public String getValue() {
 		return value;
 	}
