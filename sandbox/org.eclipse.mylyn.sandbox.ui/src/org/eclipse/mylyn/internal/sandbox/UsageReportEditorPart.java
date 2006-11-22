@@ -26,15 +26,16 @@ import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * @author Meghan Allen
+ */
 public class UsageReportEditorPart extends UsageEditorPart {
-	
+
 	private static final String DATE_FORMAT_STRING = "h:mm a z, MMMMM d, yyyy";
-	
-	
+
 	@Override
 	protected void createActionSection(Composite parent, FormToolkit toolkit) {
 		Section section = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR);
@@ -55,9 +56,9 @@ public class UsageReportEditorPart extends UsageEditorPart {
 			}
 		});
 	}
-	
+
 	private void viewFile() {
-	
+
 		File monitorFile = MylarUsageMonitorPlugin.getDefault().getMonitorLogFile();
 		try {
 			FileDisplayDialog.openShowFile(null, "Mylar - Usage History", "", monitorFile);
@@ -66,7 +67,6 @@ public class UsageReportEditorPart extends UsageEditorPart {
 			MylarStatusHandler.log(e, "Couldn't display the monitor history file");
 
 		}
-		
+
 	}
 }
-

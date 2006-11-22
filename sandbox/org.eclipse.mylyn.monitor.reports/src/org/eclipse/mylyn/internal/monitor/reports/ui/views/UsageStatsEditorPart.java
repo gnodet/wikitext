@@ -36,7 +36,6 @@ import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
 
-
 /**
  * @author Mik Kersten
  * @author Meghan Allen (re-factoring)
@@ -48,17 +47,16 @@ public class UsageStatsEditorPart extends UsageEditorPart {
 	private TableViewer tableViewer;
 
 	private String[] columnNames = new String[] { "Kind", "ID", "Num", "Last Delta", "Users" };
-	
-	
+
 	@Override
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
-		
+
 		if (editorInput.getReportGenerator().getLastParsedSummary().getSingleSummaries().size() > 0) {
 			createUsageSection(editorComposite, toolkit);
 		}
 	}
-	
+
 	private void createUsageSection(Composite parent, FormToolkit toolkit) {
 		Section section = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR);
 		section.setText("Usage Details");
@@ -141,10 +139,8 @@ public class UsageStatsEditorPart extends UsageEditorPart {
 		tableViewer.setLabelProvider(new UsageCountLabelProvider());
 		tableViewer.setInput(editorInput);
 	}
-	
 
-	
-	@Override	
+	@Override
 	protected void exportToCSV() {
 
 		// Ask the user to pick a directory into which to place multiple CSV
@@ -166,22 +162,21 @@ public class UsageStatsEditorPart extends UsageEditorPart {
 			for (IUsageCollector collector : editorInput.getReportGenerator().getCollectors()) {
 				collector.exportAsCSVFile(directoryName);
 			}
-			
+
 			int columnCount = table.getColumnCount();
 			for (TableItem item : table.getItems()) {
 
 				for (int i = 0; i < columnCount - 1; i++) {
-	
+
 					outputStream.write((item.getText(i) + ",").getBytes());
-				} 
-	
+				}
+
 				outputStream.write(item.getText(columnCount - 1).getBytes());
 				outputStream.write(("\n").getBytes());
-			
+
 			}
 			outputStream.flush();
 			outputStream.close();
-			
 
 		} catch (SWTException swe) {
 			MylarStatusHandler.log(swe, "unable to get directory name");
@@ -191,6 +186,5 @@ public class UsageStatsEditorPart extends UsageEditorPart {
 			MylarStatusHandler.log(e, "could not write to file");
 		}
 	}
-
 
 }

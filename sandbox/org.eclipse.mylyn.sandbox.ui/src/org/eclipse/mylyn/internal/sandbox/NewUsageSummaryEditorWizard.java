@@ -28,11 +28,13 @@ import org.eclipse.mylar.monitor.usage.MylarUsageMonitorPlugin;
 import org.eclipse.mylar.internal.monitor.reports.collectors.MylarViewUsageCollector;
 import org.eclipse.mylar.internal.monitor.reports.collectors.PerspectiveUsageCollector;
 
-
+/**
+ * @author Meghan Allen
+ */
 public class NewUsageSummaryEditorWizard extends Wizard implements INewWizard {
 
 	private static final String TITLE = "New Usage Summary Report";
-	
+
 	private UsageSummaryEditorWizardPage usageSummaryPage;
 
 	public NewUsageSummaryEditorWizard() {
@@ -40,24 +42,22 @@ public class NewUsageSummaryEditorWizard extends Wizard implements INewWizard {
 		init();
 		setWindowTitle(TITLE);
 	}
-	
+
 	private void init() {
 		usageSummaryPage = new UsageSummaryEditorWizardPage();
 	}
-	
-	
+
 	@Override
 	public boolean performFinish() {
 		try {
-			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-					.getActivePage();
+			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 			if (page == null)
 				return false;
-			
+
 			if (!usageSummaryPage.includePerspective() && !usageSummaryPage.includeViews()) {
 				return false;
 			}
-			
+
 			List<IUsageCollector> collectors = new ArrayList<IUsageCollector>();
 
 			if (usageSummaryPage.includePerspective()) {
@@ -67,18 +67,18 @@ public class NewUsageSummaryEditorWizard extends Wizard implements INewWizard {
 				MylarViewUsageCollector mylarViewUsageCollector = new MylarViewUsageCollector();
 				collectors.add(mylarViewUsageCollector);
 			}
-			
-			ReportGenerator generator = new ReportGenerator(MylarUsageMonitorPlugin.getDefault().getInteractionLogger(), collectors);
+
+			ReportGenerator generator = new ReportGenerator(
+					MylarUsageMonitorPlugin.getDefault().getInteractionLogger(), collectors);
 
 			List<File> files = new ArrayList<File>();
-			
+
 			File monitorFile = MylarUsageMonitorPlugin.getDefault().getMonitorLogFile();
 			files.add(monitorFile);
-			
+
 			IEditorInput input = new UsageStatsEditorInput(files, generator);
 			page.openEditor(input, "org.eclipse.mylar.internal.sandbox.usageReport");
-			
-			
+
 		} catch (PartInitException ex) {
 			MylarStatusHandler.log(ex, "couldn't open summary editor");
 		}
@@ -94,5 +94,5 @@ public class NewUsageSummaryEditorWizard extends Wizard implements INewWizard {
 	public void addPages() {
 		addPage(usageSummaryPage);
 	}
-	
+
 }

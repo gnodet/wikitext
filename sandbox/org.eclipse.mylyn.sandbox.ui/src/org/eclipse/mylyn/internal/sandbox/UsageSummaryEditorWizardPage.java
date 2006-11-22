@@ -19,8 +19,11 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 
+/**
+ * @author Meghan Allen
+ */
 public class UsageSummaryEditorWizardPage extends WizardPage implements IWizardPage {
-	
+
 	private static final String TITLE = "Mylar Usage Summary Report";
 
 	private static final String DESCRIPTION = "Summarizes Eclipse and Mylar usage activity.";
@@ -28,20 +31,19 @@ public class UsageSummaryEditorWizardPage extends WizardPage implements IWizardP
 	private Button perspectiveCheckbox = null;
 
 	private Button viewCheckbox = null;
-	
+
 	protected UsageSummaryEditorWizardPage(String pageName) {
 		super(pageName);
 		setTitle(pageName);
 		setDescription(DESCRIPTION);
 	}
 
-	
 	public UsageSummaryEditorWizardPage() {
 		super(TITLE);
 		setTitle(TITLE);
 		setDescription(DESCRIPTION);
 	}
-	
+
 	public void createControl(Composite parent) {
 		Composite container = new Composite(parent, SWT.FILL);
 		GridLayout layout = new GridLayout();
@@ -58,7 +60,7 @@ public class UsageSummaryEditorWizardPage extends WizardPage implements IWizardP
 		Group checkboxGroup = new Group(parent, SWT.NONE);
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 1;
-		
+
 		checkboxGroup.setLayout(layout);
 		checkboxGroup.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL));
 		checkboxGroup.setText("Show usage summaries for:");
@@ -74,28 +76,25 @@ public class UsageSummaryEditorWizardPage extends WizardPage implements IWizardP
 		viewCheckbox.setSelection(true);
 		viewCheckbox.addSelectionListener(new CheckboxSelectionListener());
 	}
-	
-	public boolean includePerspective()
-	{
+
+	public boolean includePerspective() {
 		return perspectiveCheckbox.getSelection();
 	}
-	
-	public boolean includeViews()
-	{
+
+	public boolean includeViews() {
 		return viewCheckbox.getSelection();
 	}
-	
+
 	private class CheckboxSelectionListener extends SelectionAdapter {
-		
+
 		public void widgetSelected(SelectionEvent e) {
 			if (!perspectiveCheckbox.getSelection() && !viewCheckbox.getSelection()) {
 				setPageComplete(false);
-			}
-			else {
+			} else {
 				setPageComplete(true);
 			}
 		}
-		
+
 	}
 
 }

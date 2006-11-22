@@ -53,7 +53,23 @@
 	  		enablesFor="1"/>
 	 </objectContribution>
 	</extension>
-  
+     <extension point="org.eclipse.ui.newWizards">
+     <wizard
+            canFinishEarly="false" 
+            category="org.eclipse.mylar.wizards"
+            class="org.eclipse.mylar.internal.sandbox.NewUsageSummaryEditorWizard"
+            hasPages="true"
+            icon="icons/eview16/monitor.gif"
+            id="org.eclipse.mylar.sandbox.wizard.usageSummary"
+            name="Usage Summary"/>
+   </extension>
+   <extension point="org.eclipse.ui.editors">
+        <editor
+           icon="icons/eview16/monitor.gif"
+           class="org.eclipse.mylar.internal.sandbox.UsageReportEditorPart"
+           name="User Analysis"
+           id="org.eclipse.mylar.internal.sandbox.usageReport"/>
+  </extension>
 </plugin>
 
 
