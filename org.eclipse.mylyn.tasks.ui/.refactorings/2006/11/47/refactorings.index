@@ -10,3 +10,7 @@
 1164257681475	Rename method 'getRepositoryTaskData'
 1164299575828	Convert member type 'OfflineDataStore' to top level
 1164299730687	Rename method 'add'
+1164314293656	Convert member type 'PriorityDropDownAction' to top level
+1164315003859	Extract method 'updateCheckedState'
+1164315111593	Rename field 'P1'
+1164315117125	Rename field 'P2'
