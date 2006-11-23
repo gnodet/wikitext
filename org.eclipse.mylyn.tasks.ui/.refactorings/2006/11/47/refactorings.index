@@ -1,3 +1,12 @@
 1164139965250	Rename field 'description'
 1164148383171	Extract constant 'FILTER_PRIORITY_LABEL'
 1164148404062	Extract constant 'FILTER_PRIORITY_TOOLTIP'
+1164240530210	Extract method 'createTextField'
+1164250693522	Rename method 'getOfflineReportsFile'
+1164250737335	Rename type 'OfflineTaskManager'
+1164252873413	Rename method 'getNextOfflineBugId'
+1164257355975	Rename type 'OfflineTaskDataManager'
+1164257386241	Rename method 'getOfflineTaskDataManager'
+1164257681475	Rename method 'getRepositoryTaskData'
+1164299575828	Convert member type 'OfflineDataStore' to top level
+1164299730687	Rename method 'add'
