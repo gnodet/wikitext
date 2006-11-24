@@ -16,3 +16,7 @@
 1163908873359	Extract local variable 'taskList'
 1163910505687	Change method 'AddExistingTaskJob'
 1163910564718	Convert member type 'AddExistingTaskJob' to top level
+1164388757703	Rename method 'getNextLocalTaskId'
+1164388986312	Rename method 'setNextTaskNumber'
+1164389043484	Rename method 'getNextTaskNumber'
+1164389784187	Rename method 'reloadFromFile'
