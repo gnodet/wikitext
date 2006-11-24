@@ -1,0 +1,9 @@
+1164067203546	Rename package 'org.eclipse.mylar.tasks.ui.commands'
+1164070332281	Move compilation units
+1164243262640	Inline local variable 'gd'
+1164243663859	Inline local variable 'control'
+1164248172734	Extract local variable 'element'
+1164249186250	Extract method 'openRemoteTask'
+1164335170312	Extract local variable 'task'
+1164335242906	Extract local variable 'currentRepository'
+1164335848796	Convert local variable 'repositoriesViewer' to field
