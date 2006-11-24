@@ -8,6 +8,7 @@
 
 package org.eclipse.mylar.internal.tasks.web;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.eclipse.mylar.internal.tasks.core.WebTask;
@@ -15,8 +16,8 @@ import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.TaskList;
 
 /**
- * Represents pattern-based query on repository web page  
- * 
+ * Represents pattern-based query on repository web page
+ *
  * @author Eugene Kuleshov
  */
 public class WebQuery extends AbstractRepositoryQuery {
@@ -25,7 +26,7 @@ public class WebQuery extends AbstractRepositoryQuery {
 	private final String queryPattern;
 	private final Map<String, String> params;
 
-	public WebQuery(TaskList taskList, String description, 
+	public WebQuery(TaskList taskList, String description,
 			String queryUrl, String queryPattern, String taskPrefix,
 			String repositoryUrl, Map<String, String> params) {
 		super(description, taskList);
@@ -45,13 +46,13 @@ public class WebQuery extends AbstractRepositoryQuery {
 	public String getTaskPrefix() {
 		return this.taskPrefix;
 	}
-	
+
 	public String getQueryPattern() {
 		return this.queryPattern;
 	}
-	
+
 	public Map<String, String> getQueryParameters() {
-		return this.params;
+		return new LinkedHashMap<String, String>(this.params);
 	}
 
 }

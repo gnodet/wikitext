@@ -81,10 +81,10 @@
             label="ASM (GForge)"
             urlRepository="http://forge.objectweb.org/tracker"
             urlTask="${serverUrl}/?group_id=${group_id}&amp;func=detail&amp;atid=${atid}&amp;aid="
-            urlNewTask="${serverUrl}?group_id=${group_id}&amp;func=add"
-            urlTaskQuery="${serverUrl}?group_id=${group_id}&amp;atid=${atid}">
+            urlNewTask="${serverUrl}/?group_id=${group_id}&amp;func=add"
+            urlTaskQuery="${serverUrl}/?group_id=${group_id}&amp;atid=${atid}&amp;_status=100&amp;set=custom">
         <attribute name="param_group_id" value="23"/>
-        <attribute name="param_atid" value="350023"/>
+        <attribute name="param_atid" value="100023"/>
         <attribute name="queryPattern"
                    value="&lt;a class=&quot;tracker&quot; href=&quot;/tracker/index.php\?func=detail&amp;aid=(.+?)&amp;group_id=${group_id}&amp;atid=${atid}&quot;&gt;(.+?)&lt;/a&gt;&lt;/td&gt;"/>
      </repository>
@@ -93,8 +93,8 @@
             label="Azureus (SourceForge)"
             urlRepository="http://sourceforge.net/tracker"
             urlTask="${serverUrl}/?group_id=${group_id}&amp;func=detail&amp;atid=${atid}&amp;aid="
-            urlNewTask="${serverUrl}?group_id=${group_id}&amp;func=add"
-            urlTaskQuery="${serverUrl}?group_id=${group_id}&amp;atid=${atid}">
+            urlNewTask="${serverUrl}/?group_id=${group_id}&amp;func=add"
+            urlTaskQuery="${serverUrl}/?group_id=${group_id}&amp;atid=${atid}">
         <attribute name="param_group_id" value="84122"/>
         <attribute name="param_atid" value="575154"/>
         <attribute name="queryPattern"
@@ -141,6 +141,71 @@
         <attribute name="queryPattern"
                    value="&lt;tr .+?&lt;a href=&quot;view.php\?id=(.+?)&quot;&gt;.+?&lt;td class=&quot;left&quot;&gt;(.+?)&lt;/td&gt;&lt;/tr&gt;"/>
      </repository>
+     <!--
+     <repository
+           anonymous="true"
+           label="ChangeLogic (anonymous)"
+           repositoryKind="web"
+           urlNewTask="${serverUrl}/index.php?event=Add_task"
+           urlRepository="http://changelogic.araneaframework.org"
+           urlTask="${serverUrl}/index.php?event=Show_public_task&amp;task_id="
+           urlTaskQuery="${serverUrl}/index.php?event=Show_public_task_list">
+        <attribute name="queryPattern"
+              value="&lt;a href=&quot;index.php\?event\=Show_public_task&amp;amp;task_id\=.+?&amp;amp;project_id\=0&quot;&gt;(.+?)&lt;/a&gt;.+?&lt;/td&gt;.+?&lt;td&gt;.+?&lt;/td&gt;.+?&lt;td&gt;.+?&lt;/td&gt;.+?&lt;td&gt;.+?&lt;/td&gt;.+?&lt;td&gt;(.+?)&lt;/td&gt;"/>
+     </repository>
+     -->
+     <repository
+           anonymous="false"
+           label="Aranea Framework (ChangeLogic)"
+           repositoryKind="web"
+           urlRepository="http://changelogic.araneaframework.org"
+           urlTask="${serverUrl}/index.php?event=Show_task&amp;task_id="
+           urlNewTask="${serverUrl}/index.php?event=Add_task&amp;project_id=${project_id}"
+           urlTaskQuery="${serverUrl}/index.php?event=Show_public_task_list&amp;project_id=${project_id}&amp;page=-1&amp;cookietest=2">
+        <attribute
+              name="loginFormUrl"
+              value="${serverUrl}">
+        </attribute>
+        <attribute name="loginTokenPattern"
+              value="&lt;form name=&quot;Login_form&quot; method=&quot;POST&quot; action=&quot;index.php\?event\=Login&amp;amp;project_id\=0&amp;amp;link_uid\=(\p{Alnum}+?)\&quot;(?:.*?)&gt;"/>
+        <attribute name="loginRequestMethod" value="POST"/>
+        <attribute name="loginRequestUrl"
+              value="${serverUrl}/index.php?event=Login&amp;link_uid=${loginToken}&amp;username=${userId}&amp;password=${password}"/>
+        <attribute name="queryPattern"
+              value="&lt;a href=&quot;index.php\?event\=Show_.+?task.+?task_id=(.+?)&amp;.+?&lt;/td&gt;.+?&lt;td&gt;.+?&lt;/td&gt;.+?&lt;td&gt;.+?&lt;/td&gt;.+?&lt;td&gt;.+?&lt;/td&gt;.+?&lt;td&gt;.+?&lt;/td&gt;.+?&lt;td&gt;(.+?)&lt;/td&gt;"/>
+        <attribute name="param_project_id" value="1"/>
+     </repository>
+
+     <repository
+			anonymous="false"
+			label="OTRS"
+			repositoryKind="web"
+			urlRepository="http://demo.otrs.org"
+			urlNewTask="${serverUrl}/otrs/index.pl?Action=AgentTicketPhone"
+			urlTask="${serverUrl}/otrs/index.pl?Action=AgentTicketZoom&amp;TicketID="
+			urlTaskQuery="${serverUrl}/otrs/index.pl?Action=AgentTicketMailbox">
+		<attribute name="queryPattern"
+                value="&lt;a href=\&quot;/otrs/index.pl\?Action=AgentTicketZoom&amp;TicketID=(.+?)&quot;.+?&lt;b&gt;Subject:&lt;/b&gt;.+?&lt;div title=&quot;.+?&quot;&gt;(.+?)&lt;/div&gt;&lt;/td&gt;"/>
+		<attribute name="loginRequestUrl"
+		        value="${serverUrl}/otrs/index.pl?Action=Login&amp;User=${userId}&amp;Password=${password}"/>
+     </repository>
+
+     <repository
+			anonymous="false"
+			label="JavaForge (CodeLogic)"
+			repositoryKind="web"
+			urlRepository="http://www.javaforge.com/proj/tracker"
+			urlTask="${serverUrl}/itemDetails.do?navigation=true&amp;task_id="
+			urlNewTask="${serverUrl}/submitNew.do?tracker_id=${tracker_id}"
+			urlTaskQuery="${serverUrl}/browseAllTrackers.do?proj_id=${proj_id}&amp;tracker_type_id=${tracker_type_id}&amp;onlyOpen=false&amp;pagesize=0">
+		<attribute
+				name="queryPattern"
+                value="&lt;a href=&quot;/proj/tracker/itemDetails.do\?.+?task_id=(\d+?)&quot;&gt;(.+?)&lt;/a&gt;"/>
+        <attribute name="param_tracker_id" value="41"/>
+        <attribute name="param_tracker_type_id" value="2"/>
+        <attribute name="param_proj_id" value="11"/>
+     </repository>
+
    </extension>
 
 </plugin>

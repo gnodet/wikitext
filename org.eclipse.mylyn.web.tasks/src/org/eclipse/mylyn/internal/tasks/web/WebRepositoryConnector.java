@@ -25,7 +25,10 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -45,9 +48,12 @@ import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.mylar.tasks.core.TaskRepositoryManager;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 
+import static org.eclipse.mylar.internal.tasks.web.Util.*;
+
+
 /**
  * Generic connector for web based issue tracking systems
- * 
+ *
  * @author Eugene Kuleshov
  */
 public class WebRepositoryConnector extends AbstractRepositoryConnector {
@@ -58,7 +64,17 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	public static final String PROPERTY_QUERY_URL = "queryUrl";
 
+	public static final String PROPERTY_QUERY_METHOD = "queryMethod";
+
 	public static final String PROPERTY_QUERY_REGEXP = "queryPattern";
+
+	public static final String PROPERTY_LOGIN_FORM_URL = "loginFormUrl";
+
+	public static final String PROPERTY_LOGIN_TOKEN_REGEXP = "loginTokenPattern";
+
+	public static final String PROPERTY_LOGIN_REQUEST_METHOD = "loginRequestMethod";
+
+	public static final String PROPERTY_LOGIN_REQUEST_URL = "loginRequestUrl";
 
 	public static final String PARAM_PREFIX = "param_";
 
@@ -67,6 +83,14 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	public static final String PARAM_USER_ID = "userId";
 
 	public static final String PARAM_PASSWORD = "password";
+
+	public static final String PARAM_LOGIN_TOKEN = "loginToken";
+
+	public static final String REQUEST_POST = "POST";
+
+	public static final String REQUEST_GET = "GET";
+
+
 
 	public String getRepositoryType() {
 		return WebTask.REPOSITORY_TYPE;
@@ -151,9 +175,6 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	public IStatus performQuery(AbstractRepositoryQuery query, TaskRepository repository, IProgressMonitor monitor,
 			QueryHitCollector resultCollector) {
 		if (query instanceof WebQuery) {
-			String repositoryUser = repository.getUserName();
-			String repositoryPassword = repository.getPassword();
-
 			WebQuery webQuery = (WebQuery) query;
 			Map<String, String> queryParameters = webQuery.getQueryParameters();
 			String queryUrl = evaluateParams(query.getUrl(), queryParameters, repository);
@@ -162,7 +183,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 			try {
 				// if (regexp != null && regexp.trim().length() > 0) {
-				return performQuery(fetchResource(queryUrl, repositoryUser, repositoryPassword, repository.getProxy()), queryPattern,
+				return performQuery(fetchResource(queryUrl, queryParameters, repository), queryPattern,
 						taskPrefix, monitor, resultCollector, repository);
 				// } else {
 				// return performRssQuery(queryUrl, taskPrefix, repositoryUrl,
@@ -198,6 +219,13 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	public void updateAttributes(TaskRepository repository, IProgressMonitor monitor) throws CoreException {
 		// ignore
 	}
+
+	@Override
+	public void updateTask(TaskRepository repository, AbstractRepositoryTask repositoryTask) throws CoreException {
+	}
+
+
+	// utility methods
 
 	public static IStatus performQuery(String resource, String regexp, String taskPrefix, IProgressMonitor monitor,
 			QueryHitCollector collector, TaskRepository repository) {
@@ -247,72 +275,171 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return text.trim();
 	}
 
-	/*
-	 * public static IStatus performRssQuery(String queryUrl, String taskPrefix,
-	 * String repositoryUrl, String repositoryUser, String repositoryPassword,
-	 * IProgressMonitor monitor, QueryHitCollector collector) { SyndFeedInput
-	 * input = new SyndFeedInput(); try { SyndFeed feed = input.build(new
-	 * XmlReader(new URL(queryUrl)));
-	 * 
-	 * SimpleDateFormat df = new SimpleDateFormat("MMM dd, HH:mm");
-	 * 
-	 * for (Iterator it = feed.getEntries().iterator(); it.hasNext(); ) {
-	 * SyndEntry entry = (SyndEntry) it.next();
-	 * 
-	 * Date date = entry.getUpdatedDate(); if(date==null) { date =
-	 * entry.getPublishedDate(); } if(date==null) { DCModule module = (DCModule)
-	 * entry.getModule("http://purl.org/dc/elements/1.1/"); date =
-	 * module.getDate(); } if(date==null) { // TODO }
-	 * 
-	 * String entryUri = entry.getUri(); if(entryUri.startsWith(taskPrefix)) {
-	 * String id = df.format(date); // entryUri.substring(taskPrefix.length());
-	 * 
-	 * try { collector.accept(new WebQueryHit(id, id+": "+entry.getTitle(),
-	 * taskPrefix, repositoryUrl)); } catch (CoreException e) { return new
-	 * Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR, "Unable
-	 * collect results.", e); } } } return Status.OK_STATUS; } catch (Exception
-	 * ex) { return new Status(IStatus.OK, TasksUiPlugin.PLUGIN_ID, IStatus.OK,
-	 * "Could not fetch resource: " + queryUrl, ex); } }
-	 */
 
-	public static String fetchResource(String url, String user, String password, Proxy proxySettings) throws IOException {
+//	 public static IStatus performRssQuery(String queryUrl, String taskPrefix, String repositoryUrl,
+//			String repositoryUser, String repositoryPassword, IProgressMonitor monitor, QueryHitCollector collector) {
+//		SyndFeedInput input = new SyndFeedInput();
+//		try {
+//			SyndFeed feed = input.build(new XmlReader(new URL(queryUrl)));
+//
+//			SimpleDateFormat df = new SimpleDateFormat("MMM dd, HH:mm");
+//
+//			for (Iterator it = feed.getEntries().iterator(); it.hasNext();) {
+//				SyndEntry entry = (SyndEntry) it.next();
+//
+//				Date date = entry.getUpdatedDate();
+//				if (date == null) {
+//					date = entry.getPublishedDate();
+//				}
+//				if (date == null) {
+//					DCModule module = (DCModule) entry.getModule("http://purl.org/dc/elements/1.1/");
+//					date = module.getDate();
+//				}
+//				if (date == null) {
+//					// TODO
+//				}
+//
+//				String entryUri = entry.getUri();
+//				if (entryUri.startsWith(taskPrefix)) {
+//					String id = df.format(date); // entryUri.substring(taskPrefix.length());
+//
+//					try {
+//						collector.accept(new WebQueryHit(id, id + ": " + entry.getTitle(), taskPrefix, repositoryUrl));
+//					} catch (CoreException e) {
+//						return new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
+//								"Unable collect results.", e);
+//					}
+//				}
+//			}
+//			return Status.OK_STATUS;
+//		} catch (Exception ex) {
+//			return new Status(IStatus.OK, TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Could not fetch resource: " + queryUrl,
+//					ex);
+//		}
+//	}
+
+
+	public static String fetchResource(String url, Map<String, String> params, TaskRepository repository) throws IOException {
 		HttpClient client = new HttpClient();
-		WebClientUtil.setupHttpClient(client, proxySettings, url, user, password);
+		WebClientUtil.setupHttpClient(client, repository.getProxy(), url, //
+				repository.getUserName(), repository.getPassword());
 
-		GetMethod get = new GetMethod(url);
-		try {
-			client.executeMethod(get);
-			Header refreshHeader = get.getResponseHeader("Refresh");
+		loginRequestIfNeeded(client, params, repository);
 
-			if (refreshHeader != null) {
-				String value = refreshHeader.getValue();
-				int n = value.indexOf(";url=");
-				if (n != -1) {
-					value = value.substring(n + 5);
-					int requestPath;
-					if (value.charAt(0) == '/') {
-						int colonSlashSlash = url.indexOf("://");
-						requestPath = url.indexOf('/', colonSlashSlash + 3);
-					} else {
-						requestPath = url.lastIndexOf('/');
-					}
+		GetMethod method = new GetMethod(url);
+		method.setFollowRedirects(false);
+		return requestResource(url, client, method);
+	}
 
-					String refreshUrl;
-					if (requestPath == -1) {
-						refreshUrl = url + "/" + value;
-					} else {
-						refreshUrl = url.substring(0, requestPath + 1) + value;
-					}
+	private static void loginRequestIfNeeded(HttpClient client, Map<String, String> params, TaskRepository repository)
+			throws HttpException, IOException {
+		if (!isPresent(repository.getUserName()) || !isPresent(repository.getPassword())
+				|| !isPresent(repository.getProperty(PROPERTY_LOGIN_REQUEST_URL))) {
+			return;
+		}
 
-					get = new GetMethod(refreshUrl);
-					client.executeMethod(get);
+		String loginFormUrl = evaluateParams(repository.getProperty(PROPERTY_LOGIN_FORM_URL), params, repository);
+		String loginToken = evaluateParams(repository.getProperty(PROPERTY_LOGIN_TOKEN_REGEXP), params, repository);
+		if (isPresent(loginFormUrl) || isPresent(loginToken)) {
+			GetMethod method = new GetMethod(loginFormUrl);
+			method.setFollowRedirects(false);
+			String loginFormPage = requestResource(loginFormUrl, client, method);
+			if (loginFormPage != null) {
+				Pattern p = Pattern.compile(loginToken);
+				Matcher m = p.matcher(loginFormPage);
+				if (m.find()) {
+					params.put(PARAM_PREFIX + PARAM_LOGIN_TOKEN, m.group(1));
 				}
 			}
-			return get.getResponseBodyAsString();
+		}
+
+		String loginRequestUrl = evaluateParams(repository.getProperty(PROPERTY_LOGIN_REQUEST_URL), params, repository);
+		String loginRequestMethod = repository.getProperty(PROPERTY_LOGIN_REQUEST_METHOD);
+
+		HttpMethod method = null;
+		if (REQUEST_POST.equals(loginRequestMethod)) {
+			int n = loginRequestUrl.indexOf('?');
+			if (n == -1) {
+				method = new PostMethod(loginRequestUrl);
+			} else {
+				PostMethod postMethod = new PostMethod(loginRequestUrl.substring(0, n - 1));
+				// TODO this does not take into account escaped values
+				String[] requestParams = loginRequestUrl.substring(n + 1).split("&");
+				for (String requestParam : requestParams) {
+					String[] nv = requestParam.split("=");
+					postMethod.addParameter(nv[0], nv.length == 1 ? "" : nv[1]);
+				}
+				method = postMethod;
+			}
+		} else {
+			method = new GetMethod(loginRequestUrl);
+			method.setFollowRedirects(false);
+		}
+
+		requestResource(loginRequestUrl, client, method);
+	}
+
+	private static String requestResource(String url, HttpClient client, HttpMethod method) throws IOException,
+			HttpException {
+		String refreshUrl = null;
+		try {
+			client.executeMethod(method);
+
+			if(method.getStatusCode()==302) {
+				Header location = method.getResponseHeader("Location");
+				if (location!=null) {
+					refreshUrl = location.getValue();
+				}
+			}
+			if(refreshUrl == null) {
+				refreshUrl = getRefreshUrl(url, method);
+			}
+			if (refreshUrl == null) {
+				return method.getResponseBodyAsString();
+			}
 
 		} finally {
-			get.releaseConnection();
+			method.releaseConnection();
 		}
+
+		if (refreshUrl != null) {
+			method = new GetMethod(refreshUrl);
+			try {
+				client.executeMethod(method);
+				return method.getResponseBodyAsString();
+			} finally {
+				method.releaseConnection();
+			}
+		}
+		return null;
+	}
+
+	private static String getRefreshUrl(String url, HttpMethod method) {
+		Header refreshHeader = method.getResponseHeader("Refresh");
+		if (refreshHeader == null) {
+			return null;
+		}
+		String value = refreshHeader.getValue();
+		int n = value.indexOf(";url=");
+		if (n == -1) {
+			return null;
+		}
+		value = value.substring(n + 5);
+		int requestPath;
+		if (value.charAt(0) == '/') {
+			int colonSlashSlash = url.indexOf("://");
+			requestPath = url.indexOf('/', colonSlashSlash + 3);
+		} else {
+			requestPath = url.lastIndexOf('/');
+		}
+
+		String refreshUrl;
+		if (requestPath == -1) {
+			refreshUrl = url + "/" + value;
+		} else {
+			refreshUrl = url.substring(0, requestPath + 1) + value;
+		}
+		return refreshUrl;
 	}
 
 	public static String evaluateParams(String value, Map<String, String> params, TaskRepository repository) {
@@ -352,7 +479,4 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return vars;
 	}
 
-	@Override
-	public void updateTask(TaskRepository repository, AbstractRepositoryTask repositoryTask) throws CoreException {
-	}
 }

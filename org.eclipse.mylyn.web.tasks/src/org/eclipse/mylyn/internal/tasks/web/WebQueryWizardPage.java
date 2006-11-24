@@ -133,7 +133,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		expComposite.setText("Advanced &Configuration");
 		expComposite.addExpansionListener(new ExpansionAdapter() {
 			public void expansionStateChanged(ExpansionEvent e) {
-				composite.layout();
+				getControl().getShell().pack();
 			}
 		});
 		toolkit.paintBordersFor(expComposite);
@@ -145,7 +145,9 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		toolkit.createLabel(composite1, "&Query URL:", SWT.NONE);
 
 		queryUrlText = new Text(composite1, SWT.BORDER);
-		queryUrlText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		final GridData gridData_2 = new GridData(SWT.FILL, SWT.CENTER, true, false);
+		gridData_2.widthHint = 200;
+		queryUrlText.setLayoutData(gridData_2);
 		queryUrlText.addModifyListener(new ModifyListener() {
 			public void modifyText(final ModifyEvent e) {
 				webPage = null;
@@ -158,6 +160,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 
 		queryPatternText = new Text(composite1, SWT.V_SCROLL | SWT.MULTI | SWT.BORDER | SWT.WRAP);
 		GridData gridData = new GridData(SWT.FILL, SWT.TOP, true, false);
+		gridData.widthHint = 200;
 		gridData.heightHint = 45;
 		queryPatternText.setLayoutData(gridData);
 
@@ -316,7 +319,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 				final List<AbstractQueryHit> queryHits = new ArrayList<AbstractQueryHit>();
 				try {
 					if(webPage==null) {
-						webPage = WebRepositoryConnector.fetchResource(evaluatedUrl, repository.getUserName(), repository.getPassword(), repository.getProxy());
+						webPage = WebRepositoryConnector.fetchResource(evaluatedUrl, params, repository);
 					}
 
 					QueryHitCollector collector = new QueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList()) {
