@@ -20,3 +20,4 @@
 1164388986312	Rename method 'setNextTaskNumber'
 1164389043484	Rename method 'getNextTaskNumber'
 1164389784187	Rename method 'reloadFromFile'
+1164416887937	Rename method 'hasAtributeChanges'
