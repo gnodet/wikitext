@@ -35,6 +35,7 @@ public class WebSiteNavigatorActionProvider extends CommonActionProvider {
 		super();
 	}
 
+	@Override
 	public void init(ICommonActionExtensionSite extensionSite) {
 		 super.init(extensionSite);
 		// createActions();
@@ -47,6 +48,7 @@ public class WebSiteNavigatorActionProvider extends CommonActionProvider {
 
 	}
 
+	@Override
 	public void fillContextMenu(IMenuManager menuManager) {
 		IStructuredSelection selection = (IStructuredSelection) getContext().getSelection();
 
@@ -57,6 +59,7 @@ public class WebSiteNavigatorActionProvider extends CommonActionProvider {
 		menuManager.add(new Separator(ICommonMenuConstants.GROUP_ADDITIONS));
 	}
 
+	@Override
 	public void fillActionBars(IActionBars actionBars) {
 		IStructuredSelection selection = (IStructuredSelection) getContext().getSelection();
 		if (selection.size() == 1 && selection.getFirstElement() instanceof WebResource) {

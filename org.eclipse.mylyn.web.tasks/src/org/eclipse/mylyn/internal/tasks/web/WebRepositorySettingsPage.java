@@ -173,10 +173,12 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 		return nvl(repository.getProperty(name));
 	}
 
+	@Override
 	protected boolean isValidUrl(String name) {
 		return true;
 	}
 
+	@Override
 	protected void validateSettings() {
 		// ignore
 	}
@@ -214,6 +216,7 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 		expComposite.setBackground(parent.getBackground());
 		expComposite.setText("Advanced &Configuration");
 		expComposite.addExpansionListener(new ExpansionAdapter() {
+			@Override
 			public void expansionStateChanged(ExpansionEvent e) {
 				getControl().getShell().pack();
 			}

@@ -39,6 +39,7 @@ public class WebQuery extends AbstractRepositoryQuery {
 		setRepositoryUrl(repositoryUrl);
 	}
 
+	@Override
 	public String getRepositoryKind() {
 		return WebTask.REPOSITORY_TYPE;
 	}

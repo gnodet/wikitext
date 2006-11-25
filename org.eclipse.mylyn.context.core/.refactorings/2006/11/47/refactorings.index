@@ -1,2 +1,8 @@
 1164141532500	Delete element
 1164141537046	Delete element
+1164406850750	Rename type 'IMylarStructureBridge'
+1164407022375	Rename type 'AbstractStructureBridge'
+1164410648359	Rename method 'getChildBridges'
+1164411016812	Rename field 'childContentTypes'
+1164411884078	Rename method 'adaptParent'
+1164411889500	Rename method 'getAdapteParent'

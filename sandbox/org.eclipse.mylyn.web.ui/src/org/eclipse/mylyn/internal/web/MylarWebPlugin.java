@@ -37,6 +37,7 @@ public class MylarWebPlugin extends AbstractUIPlugin {
 		return INSTANCE.webResourceManager;
 	}
 
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		webResourceManager = new WebResourceManager();
@@ -49,6 +50,7 @@ public class MylarWebPlugin extends AbstractUIPlugin {
 		}
 	}
 
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		MylarMonitorPlugin.getDefault().removeWindowPartListener(browserTracker);
 		webResourceManager.dispose();

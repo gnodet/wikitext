@@ -181,6 +181,7 @@ public class MylarMonitorPreferencePage extends PreferencePage implements IWorkb
 		}
 	}
 
+	@Override
 	public void performDefaults() {
 		super.performDefaults();
 		logFileText.setText(MylarUsageMonitorPlugin.getDefault().getMonitorLogFile().getPath());

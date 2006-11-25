@@ -58,6 +58,7 @@ public class WebQueryWizard extends Wizard {
 
 	
 	
+	@Override
 	public boolean canFinish() {
 		if(queryPage.getNextPage() == null) {
 			return queryPage.isPageComplete();

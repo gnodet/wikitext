@@ -20,7 +20,7 @@ import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.mylar.context.core.IMylarElement;
-import org.eclipse.mylar.context.ui.IMylarUiBridge;
+import org.eclipse.mylar.context.ui.AbstractContextUiBridge;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaClient;
 import org.eclipse.mylar.internal.tasks.ui.TaskUiUtil;
 import org.eclipse.mylar.internal.tasks.ui.editors.AbstractRepositoryTaskEditor;
@@ -38,7 +38,7 @@ import org.eclipse.ui.PlatformUI;
  * @author Mik Kersten
  * @author Shawn Minto
  */
-public class BugzillaUiBridge implements IMylarUiBridge {
+public class BugzillaUiBridge extends AbstractContextUiBridge {
 
 	protected BugzillaContextLabelProvider labelProvider = new BugzillaContextLabelProvider();
 

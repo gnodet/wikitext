@@ -94,6 +94,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 	    }
 	}
 
+	@Override
 	public void createControl(Composite parent) {
 		final Composite composite = new Composite(parent, SWT.NONE);
 		GridLayout gridLayout = new GridLayout();
@@ -132,6 +133,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		expComposite.setBackground(parent.getBackground());
 		expComposite.setText("Advanced &Configuration");
 		expComposite.addExpansionListener(new ExpansionAdapter() {
+			@Override
 			public void expansionStateChanged(ExpansionEvent e) {
 				getControl().getShell().pack();
 			}
@@ -176,6 +178,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		preview.setLayoutData(new GridData(SWT.FILL, SWT.TOP, false, false));
 		preview.setText("Preview");
 		preview.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(final SelectionEvent e) {
 				webPage = null;
 				updatePreview();
@@ -214,7 +217,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 			setTitle(query.getSummary());
 			queryUrlText.setText(addVars(vars, query.getUrl()));
 			queryPatternText.setText(addVars(vars, query.getQueryPattern()));
-			params.putAll(((WebQuery) query).getQueryParameters());
+			params.putAll((query).getQueryParameters());
 		}
 		parametersEditor.addParams(params, vars);
 	}
@@ -229,6 +232,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		return property;
 	}
 
+	@Override
 	public AbstractRepositoryQuery getQuery() {
 		String description = getQueryTitle();
 		String queryUrl = queryUrlText.getText();
@@ -250,6 +254,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		}
 	}
 
+	@Override
 	public boolean isPageComplete() {
 		if(getErrorMessage()!=null) {
 			return false;
@@ -309,6 +314,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 			this.params = params;
 		}
 
+		@Override
 		protected IStatus run(IProgressMonitor monitor) {
 			String currentRegexp = regexp;
 			String evaluatedRegexp = WebRepositoryConnector.evaluateParams(currentRegexp, params, repository);

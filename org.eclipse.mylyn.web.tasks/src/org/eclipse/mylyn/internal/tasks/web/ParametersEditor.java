@@ -61,6 +61,7 @@ public class ParametersEditor extends Composite {
 		bAdd.setLayoutData(new GridData(SWT.FILL, SWT.TOP, false, false));
 		bAdd.setText("&Add...");
 		bAdd.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				ParameterEditorDialog dlg = new ParameterEditorDialog(Display.getCurrent().getActiveShell());
 				if(dlg.open()==Window.OK) {
@@ -75,6 +76,7 @@ public class ParametersEditor extends Composite {
 		bRemove.setText("&Remove");
 		bRemove.setEnabled(false);
 		bRemove.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int[] indices = paramsTable.getSelectionIndices();
 				paramsTable.remove(indices);
@@ -86,6 +88,7 @@ public class ParametersEditor extends Composite {
 		bEdit.setText("&Edit...");
 		bEdit.setEnabled(false);
 		bEdit.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				TableItem item = paramsTable.getSelection()[0];
 				ParameterEditorDialog dlg = new ParameterEditorDialog(Display.getCurrent().getActiveShell(), item.getText(0), item.getText(1));
@@ -97,6 +100,7 @@ public class ParametersEditor extends Composite {
 		});
 		
 		paramsTable.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent e) {
 				bRemove.setEnabled(paramsTable.getSelectionCount()>0);
 				bEdit.setEnabled(paramsTable.getSelectionCount()==1);

@@ -92,10 +92,12 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 
 
+	@Override
 	public String getRepositoryType() {
 		return WebTask.REPOSITORY_TYPE;
 	}
 
+	@Override
 	public String getLabel() {
 		return "Generic web-based access (Advanced)";
 	}
@@ -105,14 +107,17 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return new String[] { PROPERTY_TASK_URL, PROPERTY_TASK_CREATION_URL };
 	}
 
+	@Override
 	public List<String> getSupportedVersions() {
 		return Collections.emptyList();
 	}
 
+	@Override
 	public boolean canCreateNewTask(TaskRepository repository) {
 		return repository.hasProperty(PROPERTY_TASK_CREATION_URL);
 	}
 
+	@Override
 	public boolean canCreateTaskFromKey(TaskRepository repository) {
 		return repository.hasProperty(PROPERTY_TASK_URL);
 	}
@@ -128,6 +133,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			final WebTask task = new WebTask(id, id, taskPrefix, repository.getUrl(), WebTask.REPOSITORY_TYPE);
 
 			RetrieveTitleFromUrlJob job = new RetrieveTitleFromUrlJob(taskPrefix + id) {
+				@Override
 				protected void setTitle(String pageTitle) {
 					task.setDescription(id + ": " + pageTitle);
 					TasksUiPlugin.getTaskListManager().getTaskList().notifyLocalInfoChanged(task);
@@ -199,6 +205,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return Status.OK_STATUS;
 	}
 
+	@Override
 	public IAttachmentHandler getAttachmentHandler() {
 		// not supported
 		return null;
@@ -210,6 +217,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return Collections.emptySet();
 	}
 
+	@Override
 	public IOfflineTaskHandler getOfflineTaskHandler() {
 		// not supported
 		return null;

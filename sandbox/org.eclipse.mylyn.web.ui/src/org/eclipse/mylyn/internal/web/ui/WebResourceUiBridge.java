@@ -17,8 +17,8 @@ import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.IMylarElement;
-import org.eclipse.mylar.context.core.IMylarStructureBridge;
-import org.eclipse.mylar.context.ui.IMylarUiBridge;
+import org.eclipse.mylar.context.core.AbstractContextStructureBridge;
+import org.eclipse.mylar.context.ui.AbstractContextUiBridge;
 import org.eclipse.mylar.internal.web.WebPage;
 import org.eclipse.mylar.internal.web.WebResource;
 import org.eclipse.mylar.internal.web.WebResourceStructureBridge;
@@ -29,10 +29,11 @@ import org.eclipse.ui.IEditorPart;
 /**
  * @author Mik Kersten
  */
-public class WebResourceUiBridge implements IMylarUiBridge {
+public class WebResourceUiBridge extends AbstractContextUiBridge {
 
+	@Override
 	public void open(IMylarElement element) {
-		IMylarStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(element.getContentType());
+		AbstractContextStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(element.getContentType());
 		if (bridge == null) {
 			return;
 		} else {
@@ -43,30 +44,37 @@ public class WebResourceUiBridge implements IMylarUiBridge {
 		}
 	} 
 
+	@Override
 	public void restoreEditor(IMylarElement document) {
 		open(document);
 	}
 	
+	@Override
 	public void close(IMylarElement node) {
 		// ignore
 	}
 
+	@Override
 	public boolean acceptsEditor(IEditorPart editorPart) {
 		return false;
 	}
 
+	@Override
 	public List<TreeViewer> getContentOutlineViewers(IEditorPart editorPart) {
 		return null;
 	}
 
+	@Override
 	public Object getObjectForTextSelection(TextSelection selection, IEditorPart editor) {
 		return null;
 	}
 	
+	@Override
 	public IMylarElement getElement(IEditorInput input) {
 		return null;
 	}
 
+	@Override
 	public String getContentType() {
 		return WebResourceStructureBridge.CONTENT_TYPE;
 	}

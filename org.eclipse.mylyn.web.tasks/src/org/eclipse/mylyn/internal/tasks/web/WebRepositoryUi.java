@@ -24,15 +24,18 @@ import org.eclipse.mylar.tasks.ui.AbstractRepositoryConnectorUi;
  */
 public class WebRepositoryUi extends AbstractRepositoryConnectorUi {
 	
+	@Override
 	public AbstractRepositorySettingsPage getSettingsPage() {
 		return new WebRepositorySettingsPage(this);
 	}
 
+	@Override
 	public IWizard getNewTaskWizard(TaskRepository taskRepository) {
 		return new NewWebTaskWizard(taskRepository, WebRepositoryConnector.evaluateParams(taskRepository
 				.getProperty(WebRepositoryConnector.PROPERTY_TASK_CREATION_URL), taskRepository));
 	}
 	
+	@Override
 	public IWizard getQueryWizard(TaskRepository repository, AbstractRepositoryQuery query) {
 		if (query instanceof WebQuery) {
 			return new WebQueryEditWizard(repository, query);

@@ -129,6 +129,7 @@ public class MylarViewUsageCollector extends ViewUsageCollector {
 		}
 	}
 
+	@Override
 	public List<String> getSummary(int userId) {
 
 		List<String> summaries = new ArrayList<String>();
@@ -188,6 +189,7 @@ public class MylarViewUsageCollector extends ViewUsageCollector {
 		return summaries;
 	}
 
+	@Override
 	public List<String> getReport() {
 		List<String> summaries = new ArrayList<String>();
 		for (int userId : usersNormalViewSelections.keySet()) {
@@ -196,6 +198,7 @@ public class MylarViewUsageCollector extends ViewUsageCollector {
 		return summaries;
 	}
 
+	@Override
 	public String getReportTitle() {
 		return "Mylar View Usage";
 	}

@@ -17,7 +17,7 @@ import java.util.List;
 
 import org.eclipse.mylar.context.core.AbstractRelationProvider;
 import org.eclipse.mylar.context.core.IDegreeOfSeparation;
-import org.eclipse.mylar.context.core.IMylarStructureBridge;
+import org.eclipse.mylar.context.core.AbstractContextStructureBridge;
 import org.eclipse.swt.browser.LocationEvent;
 
 /**
@@ -25,24 +25,23 @@ import org.eclipse.swt.browser.LocationEvent;
  * 
  * @author Mik Kersten
  */
-public class WebResourceStructureBridge implements IMylarStructureBridge {
+public class WebResourceStructureBridge extends AbstractContextStructureBridge {
 
 	private static final String DELIM_PROTOCOL = "//";
 	
 	public static final String CONTENT_TYPE = "http"; 
 
-	public void setParentBridge(IMylarStructureBridge bridge) {
-		// ignore
-	}
-
+	@Override
 	public String getContentType() {
 		return CONTENT_TYPE;
 	}
 
+	@Override
 	public String getContentType(String elementHandle) {
 		return CONTENT_TYPE;
 	}
 
+	@Override
 	public boolean acceptsObject(Object object) {
 		if (object instanceof LocationEvent || object instanceof WebResource || object instanceof URL) {
 			return true;
@@ -51,6 +50,7 @@ public class WebResourceStructureBridge implements IMylarStructureBridge {
 		}
 	}
 	
+	@Override
 	public String getHandleIdentifier(Object object) {
 		if (object instanceof LocationEvent) {
 			return ((LocationEvent) object).location;
@@ -63,10 +63,12 @@ public class WebResourceStructureBridge implements IMylarStructureBridge {
 		}
 	}
 
+	@Override
 	public Object getObjectForHandle(String handle) {
 		return MylarWebPlugin.getWebResourceManager().find(handle);
 	}
 
+	@Override
 	public String getParentHandle(String handle) {
 		if (handle == null || "".equals(handle)) {
 			return null;
@@ -91,37 +93,45 @@ public class WebResourceStructureBridge implements IMylarStructureBridge {
 		return site;
 	}
 
+	@Override
 	public String getName(Object object) {
 		return null;
 	}
 
+	@Override
 	public boolean canBeLandmark(String handle) {
 		return getSite(handle) != null;
 	}
 
+	@Override
 	public boolean canFilter(Object element) {
 		return element instanceof WebResource;
 	}
 
+	@Override
 	public boolean isDocument(String handle) {
 		return true;
 	}
 
+	@Override
 	public String getHandleForOffsetInObject(Object resource, int offset) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
 	public List<AbstractRelationProvider> getRelationshipProviders() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
 	public List<IDegreeOfSeparation> getDegreesOfSeparation() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
 	public List<String> getChildHandles(String handle) {
 		return Collections.emptyList();
 	}

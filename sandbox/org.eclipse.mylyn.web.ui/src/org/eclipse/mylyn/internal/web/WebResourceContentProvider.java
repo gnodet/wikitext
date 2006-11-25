@@ -53,6 +53,7 @@ public class WebResourceContentProvider extends BaseWorkbenchContentProvider imp
 		MylarWebPlugin.getWebResourceManager().addListener(WEB_RESOURCE_LISTENER);
 	}
 
+	@Override
 	public void dispose() {
 		super.dispose();
 		MylarWebPlugin.getWebResourceManager().removeListener(WEB_RESOURCE_LISTENER);
@@ -70,6 +71,7 @@ public class WebResourceContentProvider extends BaseWorkbenchContentProvider imp
 		return extensionSite;
 	}
 
+	@Override
 	public Object[] getElements(Object element) {
 		if (MylarWebPlugin.getWebResourceManager() != null && !MylarWebPlugin.getWebResourceManager().isWebContextEnabled()) {
 			return null;
@@ -83,10 +85,12 @@ public class WebResourceContentProvider extends BaseWorkbenchContentProvider imp
 		}
 	}
 
+	@Override
 	public Object getParent(Object element) {
 		return super.getParent(element);
 	}
 
+	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		this.viewer = viewer;
 		super.inputChanged(viewer, oldInput, newInput);

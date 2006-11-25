@@ -94,10 +94,12 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 		super.getDelegates().add(viewUsageCollector);
 	}
 
+	@Override
 	public String getReportTitle() {
 		return "Mylar Usage";
 	}
 
+	@Override
 	public void consumeEvent(InteractionEvent event, int userId) {
 		super.consumeEvent(event, userId);
 		if (!startDates.containsKey(userId))
@@ -198,6 +200,7 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 		incrementCount(userId, map, 1);
 	}
 
+	@Override
 	public List<String> getReport() {
 		usersImproved.clear();
 		usersDegraded.clear();
@@ -262,7 +265,7 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 		}
 		report.add("<h3>Summary</h3>");
 		String acceptedSummary = " (based on " + acceptedUsers + " accepted, " + rejectedUsers + " rejected users)";
-		float percentage = summaryEditRatioDelta / (float) acceptedUsers;
+		float percentage = summaryEditRatioDelta / acceptedUsers;
 		String ratioChange = ReportGenerator.formatPercentage(100 * (percentage - 1));
 		if (percentage >= 1) {
 			report.add("Overall edit ratio improved by: " + ratioChange + "% " + acceptedSummary + "<br>");
@@ -274,6 +277,7 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 		return report;
 	}
 
+	@Override
 	public void exportAsCSVFile(String directory) {
 		FileWriter writer;
 		try {

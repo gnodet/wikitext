@@ -64,6 +64,7 @@ public class MylarReportsPreferencePage extends PreferencePage implements IWorkb
 		return true;
 	}
 
+	@Override
 	public void performDefaults() {
 		super.performDefaults();
 

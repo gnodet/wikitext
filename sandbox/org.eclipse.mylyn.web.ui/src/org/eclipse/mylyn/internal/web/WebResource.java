@@ -51,6 +51,7 @@ public abstract class WebResource extends PlatformObject implements IWorkbenchAd
 
 	public abstract WebResource getParent();
 	
+	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof WebResource) {
 			WebResource webResource = (WebResource) obj;
@@ -64,6 +65,7 @@ public abstract class WebResource extends PlatformObject implements IWorkbenchAd
 		return url;
 	}
 
+	@Override
 	public int hashCode() {
 		return url.hashCode();
 	}

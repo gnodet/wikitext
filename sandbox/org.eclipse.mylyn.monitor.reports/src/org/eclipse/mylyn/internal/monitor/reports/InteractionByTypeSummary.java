@@ -12,7 +12,6 @@
 package org.eclipse.mylar.internal.monitor.reports;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -75,7 +74,7 @@ public class InteractionByTypeSummary {
 	}
 
 	public ArrayList<String> getOriginIdList() {
-		ArrayList<String> originIdList = new ArrayList<String>((Collection<String>) usageMap.keySet());
+		ArrayList<String> originIdList = new ArrayList<String>(usageMap.keySet());
 
 		return originIdList;
 	}

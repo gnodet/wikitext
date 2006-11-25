@@ -60,7 +60,7 @@ public class ViewUsageCollector implements IUsageCollector {
 	public List<String> getSummary(int userId) {
 		Map<String, Integer> normalViewSelections = usersNormalViewSelections.get(userId);
 
-		float numSelections = (float) usersNumSelections.get(userId);
+		float numSelections = usersNumSelections.get(userId);
 
 		List<String> summaries = new ArrayList<String>();
 		List<String> viewUsage = new ArrayList<String>();

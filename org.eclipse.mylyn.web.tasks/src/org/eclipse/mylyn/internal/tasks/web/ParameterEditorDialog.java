@@ -48,6 +48,7 @@ public class ParameterEditorDialog extends Dialog {
 		this.value = value;
 	}
 
+	@Override
 	protected Control createDialogArea(Composite parent) {
 		Composite composite = (Composite) super.createDialogArea(parent);
 		GridLayout gridLayout = new GridLayout();
@@ -95,6 +96,7 @@ public class ParameterEditorDialog extends Dialog {
 		return composite;
 	}
 
+	@Override
 	protected void configureShell(Shell shell) {
 		super.configureShell(shell);
 		if (title != null) {
@@ -102,6 +104,7 @@ public class ParameterEditorDialog extends Dialog {
 		}
 	}
 
+	@Override
 	public void create() {
 		super.create();
 		updateButtons();

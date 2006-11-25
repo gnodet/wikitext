@@ -17,7 +17,7 @@ import java.util.List;
 
 import org.eclipse.mylar.context.core.AbstractRelationProvider;
 import org.eclipse.mylar.context.core.IDegreeOfSeparation;
-import org.eclipse.mylar.context.core.IMylarStructureBridge;
+import org.eclipse.mylar.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaQueryHit;
 import org.eclipse.mylar.internal.context.core.DegreeOfSeparation;
 import org.eclipse.mylar.internal.tasks.ui.editors.ContentOutlineTools;
@@ -29,12 +29,13 @@ import org.eclipse.ui.views.markers.internal.ProblemMarker;
  * @author Mik Kersten
  * @author Shawn Minto
  */
-public class BugzillaStructureBridge implements IMylarStructureBridge {
+public class BugzillaStructureBridge extends AbstractContextStructureBridge {
 
 	public final static String CONTENT_TYPE = "bugzilla";
 
 	public List<AbstractRelationProvider> providers;
 
+	@Override
 	public String getContentType() {
 		return CONTENT_TYPE;
 	}
@@ -50,6 +51,7 @@ public class BugzillaStructureBridge implements IMylarStructureBridge {
 	 * 
 	 * Use: OutlineTools ???
 	 */
+	@Override
 	public String getHandleIdentifier(Object object) {
 		if (object instanceof RepositoryTaskOutlineNode) {
 			RepositoryTaskOutlineNode node = (RepositoryTaskOutlineNode) object;
@@ -66,6 +68,7 @@ public class BugzillaStructureBridge implements IMylarStructureBridge {
 	/**
 	 * TODO: this will not return a non-cached handle
 	 */
+	@Override
 	public Object getObjectForHandle(final String handle) {
 //		result = null;
 //
@@ -157,6 +160,7 @@ public class BugzillaStructureBridge implements IMylarStructureBridge {
 //		return null;
 //	}
 
+	@Override
 	public String getParentHandle(String handle) {
 
 		// check so that we don't need to try to get the parent if we are
@@ -182,6 +186,7 @@ public class BugzillaStructureBridge implements IMylarStructureBridge {
 		// return null;
 	}
 
+	@Override
 	public String getName(Object object) {
 		if (object instanceof RepositoryTaskOutlineNode) {
 			RepositoryTaskOutlineNode b = (RepositoryTaskOutlineNode) object;
@@ -193,18 +198,22 @@ public class BugzillaStructureBridge implements IMylarStructureBridge {
 		return "";
 	}
 
+	@Override
 	public boolean canBeLandmark(String handle) {
 		return false;
 	}
 
+	@Override
 	public boolean acceptsObject(Object object) {
 		return object instanceof RepositoryTaskOutlineNode || object instanceof RepositoryTaskSelection;
 	}
 
+	@Override
 	public boolean canFilter(Object element) {
 		return true;
 	}
 
+	@Override
 	public boolean isDocument(String handle) {
 		return (handle.indexOf(';') == handle.lastIndexOf(';') && handle.indexOf(";") != -1);
 	}
@@ -213,14 +222,17 @@ public class BugzillaStructureBridge implements IMylarStructureBridge {
 		return null;
 	}
 
+	@Override
 	public String getContentType(String elementHandle) {
 		return getContentType();
 	}
 
+	@Override
 	public List<AbstractRelationProvider> getRelationshipProviders() {
 		return providers;
 	}
 
+	@Override
 	public List<IDegreeOfSeparation> getDegreesOfSeparation() {
 		List<IDegreeOfSeparation> separations = new ArrayList<IDegreeOfSeparation>();
 		separations.add(new DegreeOfSeparation("disabled", 0));
@@ -232,14 +244,12 @@ public class BugzillaStructureBridge implements IMylarStructureBridge {
 		return separations;
 	}
 
+	@Override
 	public String getHandleForOffsetInObject(Object resource, int offset) {
 		return null;
 	}
 
-	public void setParentBridge(IMylarStructureBridge bridge) {
-		// ignore
-	}
-
+	@Override
 	public List<String> getChildHandles(String handle) {
 		return Collections.emptyList();
 	}
