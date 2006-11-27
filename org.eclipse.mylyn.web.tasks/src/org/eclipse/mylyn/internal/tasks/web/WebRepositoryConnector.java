@@ -11,6 +11,8 @@
 
 package org.eclipse.mylar.internal.tasks.web;
 
+import static org.eclipse.mylar.internal.tasks.web.Util.isPresent;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.Proxy;
@@ -48,12 +50,9 @@ import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.mylar.tasks.core.TaskRepositoryManager;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 
-import static org.eclipse.mylar.internal.tasks.web.Util.*;
-
-
 /**
  * Generic connector for web based issue tracking systems
- *
+ * 
  * @author Eugene Kuleshov
  */
 public class WebRepositoryConnector extends AbstractRepositoryConnector {
@@ -89,8 +88,6 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	public static final String REQUEST_POST = "POST";
 
 	public static final String REQUEST_GET = "GET";
-
-
 
 	@Override
 	public String getRepositoryType() {
@@ -189,8 +186,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 			try {
 				// if (regexp != null && regexp.trim().length() > 0) {
-				return performQuery(fetchResource(queryUrl, queryParameters, repository), queryPattern,
-						taskPrefix, monitor, resultCollector, repository);
+				return performQuery(fetchResource(queryUrl, queryParameters, repository), queryPattern, taskPrefix,
+						monitor, resultCollector, repository);
 				// } else {
 				// return performRssQuery(queryUrl, taskPrefix, repositoryUrl,
 				// repositoryUser, repositoryPassword,
@@ -231,7 +228,6 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	@Override
 	public void updateTask(TaskRepository repository, AbstractRepositoryTask repositoryTask) throws CoreException {
 	}
-
 
 	// utility methods
 
@@ -283,51 +279,55 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return text.trim();
 	}
 
+	// public static IStatus performRssQuery(String queryUrl, String taskPrefix,
+	// String repositoryUrl,
+	// String repositoryUser, String repositoryPassword, IProgressMonitor
+	// monitor, QueryHitCollector collector) {
+	// SyndFeedInput input = new SyndFeedInput();
+	// try {
+	// SyndFeed feed = input.build(new XmlReader(new URL(queryUrl)));
+	//
+	// SimpleDateFormat df = new SimpleDateFormat("MMM dd, HH:mm");
+	//
+	// for (Iterator it = feed.getEntries().iterator(); it.hasNext();) {
+	// SyndEntry entry = (SyndEntry) it.next();
+	//
+	// Date date = entry.getUpdatedDate();
+	// if (date == null) {
+	// date = entry.getPublishedDate();
+	// }
+	// if (date == null) {
+	// DCModule module = (DCModule)
+	// entry.getModule("http://purl.org/dc/elements/1.1/");
+	// date = module.getDate();
+	// }
+	// if (date == null) {
+	// // TODO
+	// }
+	//
+	// String entryUri = entry.getUri();
+	// if (entryUri.startsWith(taskPrefix)) {
+	// String id = df.format(date); // entryUri.substring(taskPrefix.length());
+	//
+	// try {
+	// collector.accept(new WebQueryHit(id, id + ": " + entry.getTitle(),
+	// taskPrefix, repositoryUrl));
+	// } catch (CoreException e) {
+	// return new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
+	// "Unable collect results.", e);
+	// }
+	// }
+	// }
+	// return Status.OK_STATUS;
+	// } catch (Exception ex) {
+	// return new Status(IStatus.OK, TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Could
+	// not fetch resource: " + queryUrl,
+	// ex);
+	// }
+	// }
 
-//	 public static IStatus performRssQuery(String queryUrl, String taskPrefix, String repositoryUrl,
-//			String repositoryUser, String repositoryPassword, IProgressMonitor monitor, QueryHitCollector collector) {
-//		SyndFeedInput input = new SyndFeedInput();
-//		try {
-//			SyndFeed feed = input.build(new XmlReader(new URL(queryUrl)));
-//
-//			SimpleDateFormat df = new SimpleDateFormat("MMM dd, HH:mm");
-//
-//			for (Iterator it = feed.getEntries().iterator(); it.hasNext();) {
-//				SyndEntry entry = (SyndEntry) it.next();
-//
-//				Date date = entry.getUpdatedDate();
-//				if (date == null) {
-//					date = entry.getPublishedDate();
-//				}
-//				if (date == null) {
-//					DCModule module = (DCModule) entry.getModule("http://purl.org/dc/elements/1.1/");
-//					date = module.getDate();
-//				}
-//				if (date == null) {
-//					// TODO
-//				}
-//
-//				String entryUri = entry.getUri();
-//				if (entryUri.startsWith(taskPrefix)) {
-//					String id = df.format(date); // entryUri.substring(taskPrefix.length());
-//
-//					try {
-//						collector.accept(new WebQueryHit(id, id + ": " + entry.getTitle(), taskPrefix, repositoryUrl));
-//					} catch (CoreException e) {
-//						return new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
-//								"Unable collect results.", e);
-//					}
-//				}
-//			}
-//			return Status.OK_STATUS;
-//		} catch (Exception ex) {
-//			return new Status(IStatus.OK, TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Could not fetch resource: " + queryUrl,
-//					ex);
-//		}
-//	}
-
-
-	public static String fetchResource(String url, Map<String, String> params, TaskRepository repository) throws IOException {
+	public static String fetchResource(String url, Map<String, String> params, TaskRepository repository)
+			throws IOException {
 		HttpClient client = new HttpClient();
 		WebClientUtil.setupHttpClient(client, repository.getProxy(), url, //
 				repository.getUserName(), repository.getPassword());
@@ -370,7 +370,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			if (n == -1) {
 				method = new PostMethod(loginRequestUrl);
 			} else {
-				PostMethod postMethod = new PostMethod(loginRequestUrl.substring(0, n - 1));
+				PostMethod postMethod = new PostMethod(loginRequestUrl.substring(0, n));
 				// TODO this does not take into account escaped values
 				String[] requestParams = loginRequestUrl.substring(n + 1).split("&");
 				for (String requestParam : requestParams) {
@@ -391,15 +391,17 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			HttpException {
 		String refreshUrl = null;
 		try {
-			client.executeMethod(method);
-
-			if(method.getStatusCode()==302) {
+			int statusCode = client.executeMethod(method);
+			if (statusCode == 300 || statusCode == 301 || statusCode == 302 || statusCode == 303 || statusCode == 307) {
 				Header location = method.getResponseHeader("Location");
-				if (location!=null) {
+				if (location != null) {
 					refreshUrl = location.getValue();
+					if (!refreshUrl.startsWith("/")) {
+						refreshUrl = "/" + refreshUrl;
+					}
 				}
 			}
-			if(refreshUrl == null) {
+			if (refreshUrl == null) {
 				refreshUrl = getRefreshUrl(url, method);
 			}
 			if (refreshUrl == null) {
