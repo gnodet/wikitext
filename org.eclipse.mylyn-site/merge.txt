@@ -1,3 +1,12 @@
+The following files should not be overriden/updated when merging with 3.2
+
+org.eclipse.mylar.java
+  - org.eclipse.mylar.java.ui.junit
+
+org.eclipse.mylar.team
+  - ApplyPatchAction
+
+-------------------------------------------------------------------------
 The following files should not be overriden/updated when merging with 3.1
 
 mylar.bugs
