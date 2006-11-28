@@ -12,6 +12,16 @@
       </page> 
    </extension>
    
+   <extension point="org.eclipse.ui.views"> 
+   	  <view
+          allowMultiple="false"
+          category="org.eclipse.mylar"
+          class="org.eclipse.mylar.internal.context.ui.views.ActiveSearchView"
+          icon="icons/eview16/active-search.gif"
+          id="org.eclipse.mylar.ui.views.active.search"
+          name="Context Search (Experimental)"/>
+   </extension>
+   
    <extension point="org.eclipse.mylar.tasks.ui.actions"> 
       <dynamicPopupMenu
             class="org.eclipse.mylar.internal.context.ui.TaskHighlighterMenuContributor"
