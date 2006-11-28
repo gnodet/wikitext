@@ -1,0 +1,6 @@
+1164531815500	Rename method 'isLocallyCreated'
+1164558306828	Rename type 'IOfflineTaskHandler'
+1164558345500	Rename method 'downloadTaskData'
+1164559678000	Rename method 'getOfflineTaskHandler'
+1164571814359	Change method 'createTaskFromExistingKey'
+1164576574906	Change method 'createTaskFromExistingKey'

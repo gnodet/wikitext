@@ -87,13 +87,13 @@ public class BugzillaReportSubmitForm {
 
 	private static final String KEY_SHORT_DESC = "short_desc";
 
-	public static final String FORM_POSTFIX_218 = " Submitted";
+	public static final String FORM_POSTFIX_218 = IBugzillaConstants.FORM_POSTFIX_218;
 
-	public static final String FORM_POSTFIX_216 = " posted";
+	public static final String FORM_POSTFIX_216 = IBugzillaConstants.FORM_POSTFIX_216;
 
-	public static final String FORM_PREFIX_BUG_218 = "Bug ";
+	public static final String FORM_PREFIX_BUG_218 = IBugzillaConstants.FORM_PREFIX_BUG_218;
 
-	public static final String FORM_PREFIX_BUG_220 = "Issue ";
+	public static final String FORM_PREFIX_BUG_220 = IBugzillaConstants.FORM_PREFIX_BUG_220;
 
 	/** The fields that are to be changed/maintained */
 	// private List<NameValuePair> fields = new ArrayList<NameValuePair>();
@@ -135,11 +135,11 @@ public class BugzillaReportSubmitForm {
 
 		form.setTaskData(model);
 
-		form.setPrefix(BugzillaReportSubmitForm.FORM_PREFIX_BUG_218);
-		form.setPrefix2(BugzillaReportSubmitForm.FORM_PREFIX_BUG_220);
+		form.setPrefix(IBugzillaConstants.FORM_PREFIX_BUG_218);
+		form.setPrefix2(IBugzillaConstants.FORM_PREFIX_BUG_220);
 
-		form.setPostfix(BugzillaReportSubmitForm.FORM_POSTFIX_216);
-		form.setPostfix2(BugzillaReportSubmitForm.FORM_POSTFIX_218);
+		form.setPostfix(IBugzillaConstants.FORM_POSTFIX_216);
+		form.setPostfix2(IBugzillaConstants.FORM_POSTFIX_218);
 
 		// setConnectionsSettings(form, repositoryUrl, userName, password,
 		// proxySettings, POST_BUG_CGI);

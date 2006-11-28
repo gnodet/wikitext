@@ -7,8 +7,5 @@
 1164335170312	Extract local variable 'task'
 1164335242906	Extract local variable 'currentRepository'
 1164335848796	Convert local variable 'repositoriesViewer' to field
-1164655470171	Rename method 'setPriorityButtonEnabled'
-1164656167312	Rename type 'TaskUiUtil'
-1164657513687	Rename type 'OpenRemoteTaskJob'
-1164657524671	Rename type 'OpenRemoteTaskHandler'
-1164657639000	Delete element
+1164568200625	Rename method 'handleErrorStatus'
+1164576651140	Change method 'handleNewBugPost'

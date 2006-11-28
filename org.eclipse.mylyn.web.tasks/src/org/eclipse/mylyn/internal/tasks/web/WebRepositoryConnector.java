@@ -15,7 +15,6 @@ import static org.eclipse.mylar.internal.tasks.web.Util.isPresent;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.Proxy;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,8 +42,7 @@ import org.eclipse.mylar.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
 import org.eclipse.mylar.tasks.core.IAttachmentHandler;
-import org.eclipse.mylar.tasks.core.IOfflineTaskHandler;
-import org.eclipse.mylar.tasks.core.ITask;
+import org.eclipse.mylar.tasks.core.ITaskDataHandler;
 import org.eclipse.mylar.tasks.core.QueryHitCollector;
 import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.mylar.tasks.core.TaskRepositoryManager;
@@ -119,10 +117,9 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return repository.hasProperty(PROPERTY_TASK_URL);
 	}
 
-	// Support
 
 	@Override
-	public ITask createTaskFromExistingKey(TaskRepository repository, final String id, Proxy proxySettings)
+	public AbstractRepositoryTask createTaskFromExistingKey(TaskRepository repository, final String id)
 			throws CoreException {
 		if (WebTask.REPOSITORY_TYPE.equals(repository.getKind())) {
 			String taskPrefix = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
@@ -215,7 +212,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public IOfflineTaskHandler getOfflineTaskHandler() {
+	public ITaskDataHandler getTaskDataHandler() {
 		// not supported
 		return null;
 	}
