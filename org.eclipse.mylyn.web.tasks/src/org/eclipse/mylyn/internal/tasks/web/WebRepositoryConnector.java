@@ -50,7 +50,7 @@ import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 
 /**
  * Generic connector for web based issue tracking systems
- * 
+ *
  * @author Eugene Kuleshov
  */
 public class WebRepositoryConnector extends AbstractRepositoryConnector {
@@ -86,6 +86,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	public static final String REQUEST_POST = "POST";
 
 	public static final String REQUEST_GET = "GET";
+
+
 
 	@Override
 	public String getRepositoryType() {
@@ -143,14 +145,16 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	@Override
 	public String getRepositoryUrlFromTaskUrl(String url) {
+		if (url == null) {
+			return null;
+		}
+
 		// lookup repository using task prefix url
 		TaskRepositoryManager repositoryManager = TasksUiPlugin.getRepositoryManager();
-		for (TaskRepository repository : repositoryManager.getAllRepositories()) {
-			if (getRepositoryType().equals(repository.getKind())) {
-				String start = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
-				if (start != null && url.startsWith(start)) {
-					return repository.getUrl();
-				}
+		for (TaskRepository repository : repositoryManager.getRepositories(getRepositoryType())) {
+			String start = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
+			if (start != null && url.startsWith(start)) {
+				return repository.getUrl();
 			}
 		}
 
@@ -167,7 +171,33 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 				}
 			}
 		}
+		return null;
+	}
 
+	@Override
+	public String getTaskIdFromTaskUrl(String url) {
+		if (url == null) {
+			return null;
+		}
+
+		TaskRepositoryManager repositoryManager = TasksUiPlugin.getRepositoryManager();
+		for (TaskRepository repository : repositoryManager.getRepositories(getRepositoryType())) {
+			String start = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
+			if (start != null && url.startsWith(start)) {
+				return url.substring(start.length());
+			}
+		}
+		return null;
+	}
+	
+	@Override
+	public String getTaskWebUrl(String repositoryUrl, String taskId) {
+		TaskRepositoryManager repositoryManager = TasksUiPlugin.getRepositoryManager();
+		TaskRepository repository = repositoryManager.getRepository(getRepositoryType(), repositoryUrl);
+		if (repository != null) {
+			String prefix = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
+			return prefix + taskId;
+		}
 		return null;
 	}
 
@@ -226,6 +256,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	public void updateTask(TaskRepository repository, AbstractRepositoryTask repositoryTask) throws CoreException {
 	}
 
+
 	// utility methods
 
 	public static IStatus performQuery(String resource, String regexp, String taskPrefix, IProgressMonitor monitor,
@@ -276,52 +307,48 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return text.trim();
 	}
 
-	// public static IStatus performRssQuery(String queryUrl, String taskPrefix,
-	// String repositoryUrl,
-	// String repositoryUser, String repositoryPassword, IProgressMonitor
-	// monitor, QueryHitCollector collector) {
-	// SyndFeedInput input = new SyndFeedInput();
-	// try {
-	// SyndFeed feed = input.build(new XmlReader(new URL(queryUrl)));
-	//
-	// SimpleDateFormat df = new SimpleDateFormat("MMM dd, HH:mm");
-	//
-	// for (Iterator it = feed.getEntries().iterator(); it.hasNext();) {
-	// SyndEntry entry = (SyndEntry) it.next();
-	//
-	// Date date = entry.getUpdatedDate();
-	// if (date == null) {
-	// date = entry.getPublishedDate();
-	// }
-	// if (date == null) {
-	// DCModule module = (DCModule)
-	// entry.getModule("http://purl.org/dc/elements/1.1/");
-	// date = module.getDate();
-	// }
-	// if (date == null) {
-	// // TODO
-	// }
-	//
-	// String entryUri = entry.getUri();
-	// if (entryUri.startsWith(taskPrefix)) {
-	// String id = df.format(date); // entryUri.substring(taskPrefix.length());
-	//
-	// try {
-	// collector.accept(new WebQueryHit(id, id + ": " + entry.getTitle(),
-	// taskPrefix, repositoryUrl));
-	// } catch (CoreException e) {
-	// return new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
-	// "Unable collect results.", e);
-	// }
-	// }
-	// }
-	// return Status.OK_STATUS;
-	// } catch (Exception ex) {
-	// return new Status(IStatus.OK, TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Could
-	// not fetch resource: " + queryUrl,
-	// ex);
-	// }
-	// }
+
+//	 public static IStatus performRssQuery(String queryUrl, String taskPrefix, String repositoryUrl,
+//			String repositoryUser, String repositoryPassword, IProgressMonitor monitor, QueryHitCollector collector) {
+//		SyndFeedInput input = new SyndFeedInput();
+//		try {
+//			SyndFeed feed = input.build(new XmlReader(new URL(queryUrl)));
+//
+//			SimpleDateFormat df = new SimpleDateFormat("MMM dd, HH:mm");
+//
+//			for (Iterator it = feed.getEntries().iterator(); it.hasNext();) {
+//				SyndEntry entry = (SyndEntry) it.next();
+//
+//				Date date = entry.getUpdatedDate();
+//				if (date == null) {
+//					date = entry.getPublishedDate();
+//				}
+//				if (date == null) {
+//					DCModule module = (DCModule) entry.getModule("http://purl.org/dc/elements/1.1/");
+//					date = module.getDate();
+//				}
+//				if (date == null) {
+//					// TODO
+//				}
+//
+//				String entryUri = entry.getUri();
+//				if (entryUri.startsWith(taskPrefix)) {
+//					String id = df.format(date); // entryUri.substring(taskPrefix.length());
+//
+//					try {
+//						collector.accept(new WebQueryHit(id, id + ": " + entry.getTitle(), taskPrefix, repositoryUrl));
+//					} catch (CoreException e) {
+//						return new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
+//								"Unable collect results.", e);
+//					}
+//				}
+//			}
+//			return Status.OK_STATUS;
+//		} catch (Exception ex) {
+//			return new Status(IStatus.OK, TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Could not fetch resource: " + queryUrl,
+//					ex);
+//		}
+//	}
 
 	public static String fetchResource(String url, Map<String, String> params, TaskRepository repository)
 			throws IOException {
@@ -391,14 +418,14 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			int statusCode = client.executeMethod(method);
 			if (statusCode == 300 || statusCode == 301 || statusCode == 302 || statusCode == 303 || statusCode == 307) {
 				Header location = method.getResponseHeader("Location");
-				if (location != null) {
+				if (location!=null) {
 					refreshUrl = location.getValue();
 					if (!refreshUrl.startsWith("/")) {
 						refreshUrl = "/" + refreshUrl;
 					}
 				}
 			}
-			if (refreshUrl == null) {
+			if(refreshUrl == null) {
 				refreshUrl = getRefreshUrl(url, method);
 			}
 			if (refreshUrl == null) {
