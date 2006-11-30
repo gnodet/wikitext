@@ -17,6 +17,7 @@ import java.util.List;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaQueryHit;
+import org.eclipse.mylar.internal.bugzilla.core.BugzillaRepositoryConnector;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.StackTrace;
 import org.eclipse.mylar.tasks.core.ITaskDataHandler;
 import org.eclipse.mylar.tasks.core.RepositoryTaskData;
@@ -109,9 +110,12 @@ public class BugzillaReportInfo {
 	public RepositoryTaskData getBug() throws CoreException {
 		if (bug == null) {
 			// get the bug report
-			TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(BugzillaCorePlugin.REPOSITORY_KIND, hit.getRepositoryUrl());
-			ITaskDataHandler handler = BugzillaCorePlugin.getDefault().getConnector().getTaskDataHandler();
-			bug = handler.getTaskData(repository, hit.getId());			
+			TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
+					BugzillaCorePlugin.REPOSITORY_KIND, hit.getRepositoryUrl());
+			BugzillaRepositoryConnector bugzillaConnector = (BugzillaRepositoryConnector) TasksUiPlugin
+					.getRepositoryManager().getRepositoryConnector(BugzillaCorePlugin.REPOSITORY_KIND);
+			ITaskDataHandler handler = bugzillaConnector.getTaskDataHandler();
+			bug = handler.getTaskData(repository, hit.getId());
 		}
 		return bug;
 	}

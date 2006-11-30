@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaClient;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaQueryHit;
+import org.eclipse.mylar.internal.bugzilla.core.BugzillaRepositoryConnector;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaRepositoryQuery;
 import org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants;
 import org.eclipse.mylar.internal.bugzilla.ui.BugzillaUiPlugin;
@@ -68,18 +69,19 @@ public class BugzillaSearchEngine {
 		queryStringWithoutLogin = urlString;
 		// urlString = urlString.concat(IBugzillaConstants.CONTENT_TYPE_RDF);
 		this.repository = repository;
-//		this.proxySettings = proxySettings;
-//		if (repository.hasCredentials()) {
-//			try {
-//				urlString = BugzillaClient.addCredentials(urlString, repository.getCharacterEncoding(), repository
-//						.getUserName(), repository.getPassword());
-//			} catch (UnsupportedEncodingException e) {
-//				/*
-//				 * Do nothing. Every implementation of the Java platform is
-//				 * required to support the standard charset "UTF-8"
-//				 */
-//			}
-//		}
+		// this.proxySettings = proxySettings;
+		// if (repository.hasCredentials()) {
+		// try {
+		// urlString = BugzillaClient.addCredentials(urlString,
+		// repository.getCharacterEncoding(), repository
+		// .getUserName(), repository.getPassword());
+		// } catch (UnsupportedEncodingException e) {
+		// /*
+		// * Do nothing. Every implementation of the Java platform is
+		// * required to support the standard charset "UTF-8"
+		// */
+		// }
+		// }
 	}
 
 	/**
@@ -133,8 +135,11 @@ public class BugzillaSearchEngine {
 
 			BugzillaRepositoryQuery query = new BugzillaRepositoryQuery(repository.getUrl(), urlString, "description",
 					"" + maxHits, TasksUiPlugin.getTaskListManager().getTaskList());
-			BugzillaClient client = BugzillaCorePlugin.getDefault().getConnector().getClientManager().getClient(
-					repository);
+
+			BugzillaRepositoryConnector bugzillaConnector = (BugzillaRepositoryConnector) TasksUiPlugin
+					.getRepositoryManager().getRepositoryConnector(BugzillaCorePlugin.REPOSITORY_KIND);
+
+			BugzillaClient client = bugzillaConnector.getClientManager().getClient(repository);
 			client.getSearchHits(query, collector, TasksUiPlugin.getTaskListManager().getTaskList());
 
 		} catch (CoreException e) {
