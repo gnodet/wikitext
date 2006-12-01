@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Extract constant 'org.eclipse.mylar.tasks.ui.SynchronizeQueryJob.NUM_HITS_TO_PRIME' from expression '19'&#13;&#10;- Original project: 'org.eclipse.mylar.tasks.ui'&#13;&#10;- Constant name: 'NUM_HITS_TO_PRIME'&#13;&#10;- Constant expression: '19'&#13;&#10;- Declared visibility: 'private'" description="Extract constant 'NUM_HITS_TO_PRIME'" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylar.tasks.ui{SynchronizeQueryJob.java" name="NUM_HITS_TO_PRIME" qualify="false" replace="false" selection="3911 2" stamp="1164934604468" version="1.0" visibility="2"/>
+</session>
