@@ -2,6 +2,10 @@
 <?eclipse version="3.0"?>
 <plugin>
 
+	<extension point="org.eclipse.ui.views">
+     	<category name="Sandbox" id="org.eclipse.mylar.sandbox"/>
+    </extension>
+
     <extension point="org.eclipse.ui.preferencePages">
       <page 
          name="Sandbox"
@@ -10,16 +14,6 @@
          category="org.eclipse.mylar.ui.preferences">
          <keywordReference id="org.eclipse.mylar.java.keywords"/>
       </page> 
-   </extension>
-   
-   <extension point="org.eclipse.ui.views"> 
-   	  <view
-          allowMultiple="false"
-          category="org.eclipse.mylar"
-          class="org.eclipse.mylar.internal.context.ui.views.ActiveSearchView"
-          icon="icons/eview16/active-search.gif"
-          id="org.eclipse.mylar.ui.views.active.search"
-          name="Context Search (Experimental)"/>
    </extension>
    
    <extension point="org.eclipse.mylar.tasks.ui.actions"> 
@@ -38,7 +32,7 @@
    <extension point="org.eclipse.ui.decorators">
       <decorator
             lightweight="true"
-            label="Mylar Sandbox: Interest Level Decorator"
+            label="Sandbox: Interest Level Decorator"
             class="org.eclipse.mylar.internal.sandbox.devtools.InterestDebuggingDecorator"
             state="false"
             id="org.eclipse.mylar.sandbox.ui.decorator.interest">
@@ -51,7 +45,25 @@
       </decorator>
    </extension>
 
-  	<extension point = "org.eclipse.ui.popupMenus">
+   <extension point="org.eclipse.ui.views"> 
+   	  <view
+          allowMultiple="false"
+          category="org.eclipse.mylar.sandbox"
+          class="org.eclipse.mylar.internal.context.ui.views.ActiveSearchView"
+          icon="icons/eview16/active-search.gif"
+          id="org.eclipse.mylar.ui.views.active.search"
+          name="Context Search"/>
+          
+	  <view
+            allowMultiple="false"
+            category="org.eclipse.mylar.sandbox"
+            class="org.eclipse.mylar.internal.java.ui.views.ActiveHierarchyView"
+            icon="icons/eview16/active-hierarchy.gif"
+            id="org.eclipse.mylar.ui.views.active.hierarchy"
+            name="Context Hierarchy"/>
+   </extension>
+
+   <extension point = "org.eclipse.ui.popupMenus">
      <objectContribution
         id="org.eclipse.mylar.ui.instrospection"
         objectClass="java.lang.Object">
@@ -63,23 +75,6 @@
 	  		enablesFor="1"/>
 	 </objectContribution>
 	</extension>
-     <extension point="org.eclipse.ui.newWizards">
-     <wizard
-            canFinishEarly="false" 
-            category="org.eclipse.mylar.wizards"
-            class="org.eclipse.mylar.internal.sandbox.NewUsageSummaryEditorWizard"
-            hasPages="true"
-            icon="icons/eview16/monitor.gif"
-            id="org.eclipse.mylar.sandbox.wizard.usageSummary"
-            name="Usage Summary"/>
-   </extension>
-   <extension point="org.eclipse.ui.editors">
-        <editor
-           icon="icons/eview16/monitor.gif"
-           class="org.eclipse.mylar.internal.sandbox.UsageReportEditorPart"
-           name="User Analysis"
-           id="org.eclipse.mylar.internal.sandbox.usageReport"/>
-  </extension>
 </plugin>
 
 
