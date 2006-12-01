@@ -45,6 +45,7 @@
 	 </viewerContribution> 
    </extension>
 	  		
+	<!--
 	<extension
         point="org.eclipse.ui.editors">
      <editor
@@ -58,6 +59,8 @@
            name="User Analysis"
            id="org.eclipse.mylar.monitor.reports.ui.actions.monitorUsersReport"/>
   </extension>
+    -->
+  
   
   <!--
    <extension point="org.eclipse.ui.preferencePages">

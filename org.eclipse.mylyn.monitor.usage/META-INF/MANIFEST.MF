@@ -21,7 +21,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.mylar.context.ui
 Eclipse-AutoStart: true
 Bundle-Vendor: Eclipse.org
-Export-Package: 
+Export-Package: org.eclipse.mylar.internal.monitor.reports.collectors,
  org.eclipse.mylar.internal.monitor.usage,
  org.eclipse.mylar.internal.monitor.usage.ui,
  org.eclipse.mylar.internal.monitor.usage.ui.editors,
