@@ -15,12 +15,19 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.browser,
  org.eclipse.ui.editors,
  org.eclipse.ui.workbench.texteditor,
- org.eclipse.mylar.monitor
+ org.eclipse.mylar.monitor,
+ org.eclipse.ui.forms,
+ org.eclipse.mylar.tasks.ui,
+ org.eclipse.mylar.context.ui
 Eclipse-AutoStart: true
 Bundle-Vendor: Eclipse.org
-Export-Package: org.eclipse.mylar.internal.monitor.usage,
+Export-Package: 
+ org.eclipse.mylar.internal.monitor.usage,
  org.eclipse.mylar.internal.monitor.usage.ui,
+ org.eclipse.mylar.internal.monitor.usage.ui.editors,
  org.eclipse.mylar.internal.monitor.usage.ui.preferences,
  org.eclipse.mylar.internal.monitor.usage.ui.wizards,
- org.eclipse.mylar.monitor.usage
+ org.eclipse.mylar.monitor.usage,
+ org.eclipse.mylar.monitor.usage.core,
+ org.eclipse.mylar.monitor.usage.core.collectors
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

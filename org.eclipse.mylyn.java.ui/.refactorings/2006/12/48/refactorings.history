@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Copy 1 elements(s) to 'eview16'&#13;&#10;- Original project: 'org.eclipse.mylar.java'&#13;&#10;- Destination element: 'eview16'&#13;&#10;- Original element: 'active-hierarchy.gif'" description="Copy file" destination="icons/eview16" element1="icons/eview16/active-hierarchy.gif" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" log="icons/eview16/active-hierarchy.gif&#9;true&#9;false" policy="org.eclipse.jdt.ui.copyResources" stamp="1164992604000" units="0" version="1.0"/>
+</session>

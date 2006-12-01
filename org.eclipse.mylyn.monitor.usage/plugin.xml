@@ -36,6 +36,24 @@
             id="org.eclipse.mylar.monitor.keywords"/>
    </extension>
  
+	<extension point="org.eclipse.ui.newWizards">
+    	<wizard
+            canFinishEarly="false" 
+            category="org.eclipse.mylar.wizards"
+            class="org.eclipse.mylar.internal.monitor.usage.ui.wizards.NewUsageSummaryEditorWizard"
+            hasPages="true"
+            icon="icons/etool16/monitor.gif"
+            id="org.eclipse.mylar.sandbox.wizard.usageSummary"
+            name="Usage Summary"/>
+   	</extension>
+   	<extension point="org.eclipse.ui.editors">
+        <editor
+           icon="icons/etool16/monitor.gif"
+           class="org.eclipse.mylar.internal.monitor.usage.ui.editors.UsageReportEditorPart"
+           name="User Analysis"
+           id="org.eclipse.mylar.internal.sandbox.usageReport"/>
+  	</extension>
+   
    
    <!--
    	<extension
