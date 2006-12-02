@@ -1,1 +1,3 @@
 1164976685125	Rename field 'altDown'
+1165068444000	Rename type 'MylarPerspectiveManager'
+1165078084843	Extract method 'showPerspective'
