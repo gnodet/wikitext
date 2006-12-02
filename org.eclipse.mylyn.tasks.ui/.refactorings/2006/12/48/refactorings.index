@@ -1,1 +1,3 @@
 1164934604468	Extract constant 'NUM_HITS_TO_PRIME'
+1165020165828	Rename method 'saveBug'
+1165020272890	Change method 'saveTaskOffline'
