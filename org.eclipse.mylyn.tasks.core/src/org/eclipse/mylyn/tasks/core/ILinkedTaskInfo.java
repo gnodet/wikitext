@@ -9,27 +9,23 @@
  *     Eugene Kuleshov - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.team;
-
-import org.eclipse.mylar.tasks.core.ITask;
+package org.eclipse.mylar.tasks.core;
 
 /**
  * Task information linked to artifacts from version control integration 
- * 
- * TODO move to mylar core?
  * 
  * @author Eugene Kuleshov
  */
 public interface ILinkedTaskInfo {
 
-	String getTaskId();
+	public abstract String getTaskId();
 
-	String getTaskFullUrl();
+	public abstract String getTaskFullUrl();
 
-	String getRepositoryUrl();
+	public abstract String getRepositoryUrl();
 	
-	ITask getTask();
+	public abstract ITask getTask();
 	
-	String getComment();
+	public abstract String getComment();
 	
 }
