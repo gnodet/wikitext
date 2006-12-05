@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.mylar.context.core.InteractionEvent;
-import org.eclipse.mylar.internal.context.ui.actions.AbstractApplyMylarAction;
+import org.eclipse.mylar.internal.context.ui.actions.AbstractFocusViewAction;
 import org.eclipse.mylar.internal.tasks.ui.actions.TaskActivateAction;
 import org.eclipse.mylar.internal.tasks.ui.actions.TaskDeactivateAction;
 
@@ -109,8 +109,8 @@ public class MylarViewUsageCollector extends ViewUsageCollector {
 			}
 
 		} else if (event.getKind().equals(InteractionEvent.Kind.PREFERENCE)) {
-			if (event.getOriginId().startsWith(AbstractApplyMylarAction.PREF_ID_PREFIX)) {
-				String viewId = event.getOriginId().substring(AbstractApplyMylarAction.PREF_ID_PREFIX.length());
+			if (event.getOriginId().startsWith(AbstractFocusViewAction.PREF_ID_PREFIX)) {
+				String viewId = event.getOriginId().substring(AbstractFocusViewAction.PREF_ID_PREFIX.length());
 				if (event.getDelta().equals("true")) {
 					filteredViews.add(viewId);
 				} else {
