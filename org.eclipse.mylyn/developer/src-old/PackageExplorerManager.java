@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004 - 2005 University Of British Columbia and others.
+ * Copyright (c) 2004 - 2006 University Of British Columbia and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -8,289 +8,157 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.java;
+package org.eclipse.mylar.internal.java;
 
+import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
-import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.IMember;
+import org.eclipse.jdt.internal.ui.actions.SelectionConverter;
+import org.eclipse.jdt.internal.ui.javaeditor.JavaEditor;
 import org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart;
+import org.eclipse.jface.text.TextSelection;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.mylar.core.IMylarContext;
-import org.eclipse.mylar.core.IMylarContextListener;
-import org.eclipse.mylar.core.IMylarContextNode;
-import org.eclipse.mylar.core.MylarPlugin;
-import org.eclipse.mylar.java.ui.actions.ApplyMylarToPackageExplorerAction;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.ViewerFilter;
+import org.eclipse.mylar.context.core.ContextCorePlugin;
+import org.eclipse.mylar.context.core.IMylarContext;
+import org.eclipse.mylar.context.core.IMylarContextListener;
+import org.eclipse.mylar.context.core.IMylarElement;
+import org.eclipse.mylar.context.core.MylarStatusHandler;
+import org.eclipse.mylar.internal.context.ui.actions.AbstractFocusViewAction;
+import org.eclipse.mylar.internal.java.ui.JavaDeclarationsFilter;
+import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.IWorkbenchPart;
 
 /**
- * @author Mik Kersten
+ * Sets member selections on the Package Explorer when appropriate, and manages
+ * tree expansion state.
  * 
- * TODO: get rid of the old delta-based code
+ * @author Mik Kersten
  */
-public class PackageExplorerManager implements IMylarContextListener {
-	
-//    private enum ChangeKind { ADDED, REMOVED, CHANGED }
-//	private boolean firstExplorerRefresh = true;
-    
-    public void contextActivated(IMylarContext taskscape) {
-    	try {
-	    	if (ContextCorePlugin.getContextManager().hasActiveContext()
-	    		&& ApplyMylarToPackageExplorerAction.getDefault() != null
-	        	&& ApplyMylarToPackageExplorerAction.getDefault().isChecked()) {
-				PackageExplorerPart packageExplorer = PackageExplorerPart.getFromActivePerspective();
-				if (packageExplorer != null) { 
-					packageExplorer.getTreeViewer().expandAll();
-				}
-	    	}	
-    	} catch (Throwable t) {
-    		ContextCorePlugin.log(t, "Could not update package explorer");
-    	}
-    }
+public class PackageExplorerManager implements IMylarContextListener, ISelectionListener {
 
-    public void contextDeactivated(IMylarContext taskscape) {
-//        refreshPackageExplorer(null);
-    }
-    
-    public void revealInteresting() {
-//        refreshPackageExplorer(null);       
-    }
-    
-    /**
-     * TODO: should be more lazy
-     */
-    public void presentationSettingsChanging(UpdateKind kind) {
-//        refreshPackageExplorer(null);
-    }
-
-    public void presentationSettingsChanged(UpdateKind kind) {
-//        if (kind == ITaskscapeListener.UpdateKind.FILTER) {
-//            IJavaElement selected = JavaCore.create(ContextCorePlugin.getTaskscapeManager().getActiveNode().getElementHandle());
-//            
-//            PackageExplorerPart packageExplorer = PackageExplorerPart.getFromActivePerspective();
-//            if (packageExplorer != null && selected!= null) packageExplorer.getTreeViewer().expandToLevel(selected, 1);
-//            ITaskscapeNode currentNode = ContextCorePlugin.getTaskscapeManager().getActiveNode();
-//            
-//            IJavaElement activeElement = JavaCore.create(currentNode.getElementHandle());
-//            if (activeElement != null && activeElement.exists()) refreshPackageExplorer(activeElement);
-//        } else { 
-//            refreshPackageExplorer(null);
-//        }
-    }
-
-    public void landmarkAdded(IMylarContextNode node) {
-//        PackageExplorerPart packageExplorer = PackageExplorerPart.getFromActivePerspective();
-//        IJavaElement element = JavaCore.create(node.getElementHandle());
-//        if (packageExplorer != null) {
-//            packageExplorer.getTreeViewer().getControl().setRedraw(false);
-//            packageExplorer.getTreeViewer().refresh(element, true);
-//            packageExplorer.getTreeViewer().getControl().setRedraw(true);
-//        }
-    } 
-
-    public void landmarkRemoved(IMylarContextNode node) {
-//        PackageExplorerPart packageExplorer = PackageExplorerPart.getFromActivePerspective();
-//        IJavaElement element = JavaCore.create(node.getElementHandle());
-//        if (packageExplorer != null) packageExplorer.getTreeViewer().refresh(element, true);
-    }
-    
-    /**
-     * Lazy update policy of the package explorer.
-     * 
-     * TODO: currently punts if there was something temporarily raised
-     */
-    public void interestChanged(List<IMylarContextNode> nodes) {
-    	if (nodes.size() == 0) return;
-    	IMylarContextNode lastNode = nodes.get(nodes.size()-1);
-    	interestChanged(lastNode);
-//        if (ContextCorePlugin.getTaskscapeManager().getTempRaisedHandle() != null) {
-//            final IJavaElement raisedElement = JavaCore.create(ContextCorePlugin.getTaskscapeManager().getTempRaisedHandle());
-//            final PackageExplorerPart packageExplorer = PackageExplorerPart.getFromActivePerspective();
-//            if (packageExplorer != null) {
-//              PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-//                  public void run() { 
-//                      packageExplorer.getTreeViewer().refresh(raisedElement.getParent());
-//                  }
-//              });
-//            }
-//        } else {
-//            ITaskscapeNode lastNode = nodes.get(nodes.size()-1);
-//            IJavaElement lastElement = JavaCore.create(lastNode.getElementHandle());            
-            
-//            PackageExplorerPart packageExplorer = PackageExplorerPart.getFromActivePerspective();
-
-//            for (ITaskscapeNode node : nodes) {
-//            	IJavaElement element = JavaCore.create(node.getElementHandle());
-//            	packageExplorer.getTreeViewer().refresh(element, false);
-//            }
-//            revealInPackageExplorer(lastElement); 
-            
-//            if (!suppressJavaModelAddition(lastElement, packageExplorer)) {
-//	            for (ITaskscapeNode node : nodes) {
-//	                IJavaElement element = JavaCore.create(node.getElementHandle());
-//	                if (element != null && element.exists()) {
-//	                    if (node.getDegreeOfInterest().isInteresting()) {
-//	                        fireModelUpdate(element, ChangeKind.ADDED);
-//	                    } 
-//	                }
-//	            }
-//            } else if (lastElement != null) {
-//            	if (!lastNode.getDegreeOfInterest().isInteresting()) {
-//            		if (PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActivePart() instanceof PackageExplorerPart) {
-//            			if (FilterPackageExplorerAction.getDefault() != null && FilterPackageExplorerAction.getDefault().isChecked()) {
-//            				fireModelUpdate(lastElement, ChangeKind.REMOVED);
-//            			}
-//            		} else {
-//            			fireModelUpdate(lastElement, ChangeKind.REMOVED);
-//            		}
-//                }
-//            }
-//            if (lastElement != null && packageExplorer != null && packageExplorer.getTreeViewer().getControl().isVisible()) {
-//            	revealInPackageExplorer(lastElement);
-//            }
-//        }
-    }
-    
-//    private boolean suppressJavaModelAddition(IJavaElement lastElement, PackageExplorerPart explorer) {
-//    	return lastElement != null && explorer != null && explorer.getTreeViewer().testFindItem(lastElement) != null; // HACK: use more sensible method
-//    }
-    
-    public void interestChanged(IMylarContextNode node) {
-	    try {
-    		if (ContextCorePlugin.getContextManager().hasActiveContext()
-	    		&& ApplyMylarToPackageExplorerAction.getDefault() != null
-	    		&& ApplyMylarToPackageExplorerAction.getDefault().isChecked()) {
-		    	IJavaElement lastElement = JavaCore.create(node.getElementHandle()); 
-				PackageExplorerPart packageExplorer = PackageExplorerPart.getFromActivePerspective();
-				if (packageExplorer != null && lastElement != null) { 
-					packageExplorer.getTreeViewer().setSelection(new StructuredSelection(lastElement), true);
-				}
-	    	}
-	    } catch (Throwable t) {
-			ContextCorePlugin.log(t, "Could not update package explorer");
+	public void selectionChanged(IWorkbenchPart part, ISelection changedSelection) {
+		if (!(part instanceof PackageExplorerPart)) {
+			return;
+		}		
+		AbstractFocusViewAction applyAction = AbstractFocusViewAction.getActionForPart((PackageExplorerPart)part);		
+		if (!ContextCorePlugin.getContextManager().isContextActive()
+			|| (applyAction != null && !applyAction.isChecked())) {
+			return;
 		}
-//        IJavaElement element = JavaCore.create(node.getElementHandle()); 
-//        if(element == null) { 
-//        	IMylarStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(node.getStructureKind());
-//        	Object object = bridge.getObjectForHandle(node.getElementHandle());
-//        	if(object != null) refreshPackageExplorer(object);
-//        } else {
-//	        if (node.getDegreeOfInterest().isInteresting()) {
-//	            fireModelUpdate(element, ChangeKind.ADDED);
-//	        } else {
-//	            fireModelUpdate(element, ChangeKind.REMOVED);
-//	        }
-//	        revealInPackageExplorer(element);
-//        }
-    }
-    
-    public void nodeDeleted(IMylarContextNode node) {
-//        IJavaElement element = JavaCore.create(node.getElementHandle());
-//        fireModelUpdate(element, ChangeKind.REMOVED);
-    }
-    
-    /**
-     * TODO: could use pakcage explorer's tryToReveal method to prompt for filter removal
-     * 
-     * @see{JavaElementContentProvider}
-     */
-//    private void fireModelUpdate(final IJavaElement element, ChangeKind changeKind) {
-//        if (element == null) return;
-//        JavaElementDelta mylarUpdateDelta = new JavaElementDelta(element);
-//        switch(changeKind) {
-//            case ADDED: mylarUpdateDelta.added(); break;
-//            case REMOVED: mylarUpdateDelta.removed(); break;
-////            case CHANGED: mylarUpdateDelta.changed(element, IJavaElementDelta.F_CLOSED); break;
-//        }
-//            
-//        IElementChangedListener[] listeners = JavaModelManager.getJavaModelManager().deltaState.elementChangedListeners;
-//        for (int i = 0; i < listeners.length; i++) {
-//            IElementChangedListener listener = listeners[i];
-//            
-//            if (listener != null) {
-//                if (listener instanceof StandardJavaElementContentProvider) {
-//                    listener.elementChanged(new ElementChangedEvent(mylarUpdateDelta, ElementChangedEvent.POST_CHANGE));
-//                } 
-////                else {  
-////                    Class enclosingClass = listener.getClass().getEnclosingClass();
-////                    if (enclosingClass != null && enclosingClass.getSimpleName().equals("JavaOutlinePage")) {
-////                        IJavaElement compilationUnit = element.getAncestor(IJavaElement.COMPILATION_UNIT);
-////                        if (compilationUnit != null) {
-////                            JavaElementDelta outlineViewDelta = new JavaElementDelta(compilationUnit);
-////                            outlineViewDelta.changed(IJavaElementDelta.F_CONTENT | IJavaElementDelta.F_REORDER);
-////                            listener.elementChanged(new ElementChangedEvent(outlineViewDelta, ElementChangedEvent.POST_CHANGE));
-////                        }
-////                    }
-////                }
-//            }
-//        }
-//    }
+		try {
+			Object elementToSelect = null;
+			if (changedSelection instanceof TextSelection && part instanceof JavaEditor) {
+				TextSelection textSelection = (TextSelection) changedSelection;
+				IJavaElement javaElement = SelectionConverter.resolveEnclosingElement((JavaEditor) part, textSelection);
+				if (javaElement != null)
+					elementToSelect = javaElement;
+			} else if (changedSelection instanceof TextSelection) {
+//				if (part instanceof EditorPart) {
+//					elementToSelect = ((EditorPart) part).getEditorInput().getAdapter(IResource.class);
+//				}
+			} else {
+				return;
+			}
 
-//    private void revealInPackageExplorer(final Object element) {
-//    	if (element == null) return;
-//         PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-//            public void run() {
+			if (elementToSelect != null) {
+				PackageExplorerPart packageExplorer = PackageExplorerPart.getFromActivePerspective();
+				if (packageExplorer != null) {
+					TreeViewer viewer = packageExplorer.getTreeViewer();
+					StructuredSelection currentSelection = (StructuredSelection)viewer.getSelection();
+					if (currentSelection.size() <= 1) {
+						boolean membersFilteredMode = false;
+						for (ViewerFilter filter : Arrays.asList(viewer.getFilters())) {
+							if (filter instanceof JavaDeclarationsFilter)
+								membersFilteredMode = true;
+						}
+						if (membersFilteredMode) {
+							if (elementToSelect instanceof IMember) {
+								ICompilationUnit toSelect = ((IMember) elementToSelect).getCompilationUnit();
+								if (toSelect != null) {
+									viewer.setSelection(new StructuredSelection(toSelect), true);
+								}
+							}
+						} else if (elementToSelect != null) {
+							if (!elementToSelect.equals(currentSelection.getFirstElement())) {
+								viewer.setSelection(new StructuredSelection(elementToSelect), true);
+							}
+						}
+					}
+//						if (elementToSelect != null
+//								&& MylarJavaPlugin.getDefault().getPluginPreferences().getBoolean(
+//										MylarJavaPrefConstants.PACKAGE_EXPLORER_AUTO_EXPAND)) {
+//							viewer.expandAll();
+//						}
+				}
+			}
+		} catch (Throwable t) {
+			MylarStatusHandler.log(t, "Could not update package explorer");
+		}
+	}
+
+	public void contextActivated(IMylarContext taskscape) {
+//		try {
+//			if (ContextCorePlugin.getContextManager().isContextActive()
+//					&& FocusPackageExplorerAction.getDefault() != null
+//					&& FocusPackageExplorerAction.getDefault().isChecked()) {
 //
-//            	PackageExplorerPart packageExplorer = PackageExplorerPart.getFromActivePerspective();
-//		        if (packageExplorer != null 
-//		        		&& FilterPackageExplorerAction.getDefault() != null 
-//		        		&& FilterPackageExplorerAction.getDefault().isChecked()) {
-//		        	packageExplorer.selectAndReveal(element);
-//                }
-//            }
-//        });
-//    }	
-    
-    public void relationshipsChanged() {
-    	// don't care when the relationships are changed
-    }
-    
-//    public void refreshPackageExplorer(Object element) {         
-//        final PackageExplorerPart packageExplorer = PackageExplorerPart.getFromActivePerspective();
-//        if (packageExplorer != null && packageExplorer.getTreeViewer() != null) {
-//            if (firstExplorerRefresh) {
-////            	installExplorerListeners(packageExplorer);
-//            	firstExplorerRefresh = false;
-//            }
-//        	if (element == null) {
-//                packageExplorer.getTreeViewer().setInput(packageExplorer.getTreeViewer().getInput()); 
-//                packageExplorer.getTreeViewer().refresh();
-//                if (ApplyMylarToPackageExplorerAction.getDefault() != null && ApplyMylarToPackageExplorerAction.getDefault().isChecked()) packageExplorer.getTreeViewer().expandAll();
-//            } else {
-//                packageExplorer.getTreeViewer().refresh(element);
-//            }
-//        }
-//    }
+//				PackageExplorerPart packageExplorer = PackageExplorerPart.getFromActivePerspective();
+//				if (packageExplorer != null) { 
+//					packageExplorer.setLinkingEnabled(false);
+//					packageExplorer.getTreeViewer().expandAll();
+//				}
+//			}
+//		} catch (Throwable t) {
+//			MylarStatusHandler.log(t, "Could not update package explorer");
+//		}
+	}
+
+	public void contextDeactivated(IMylarContext taskscape) {
+		PackageExplorerPart packageExplorer = PackageExplorerPart.getFromActivePerspective();
+		if (packageExplorer != null) {
+			packageExplorer.getTreeViewer().collapseAll();
+		}
+	}
+
+//	private boolean isInLinkToEditorMode(PackageExplorerPart packageExplorer) {
+//		return JavaPlugin.getDefault().getPreferenceStore().getBoolean(PreferenceConstants.LINK_PACKAGES_TO_EDITOR);
+//	}
+	
+	public void interestChanged(List<IMylarElement> nodes) {
+		// ignore
+	}
+
+	public void revealInteresting() {
+		// ignore
+	}
+
+	public void presentationSettingsChanging(UpdateKind kind) {
+		// ignore
+	}
+
+	public void presentationSettingsChanged(UpdateKind kind) {
+		// ignore
+	}
+
+	public void landmarkAdded(IMylarElement node) {
+		// ignore
+	}
+
+	public void landmarkRemoved(IMylarElement node) {
+		// ignore
+	}
+
+	public void nodeDeleted(IMylarElement node) {
+		// ignore
+	}
+
+	public void edgesChanged(IMylarElement node) {
+		// ignore
+	}
 }
-
-//public void tryToReveal(List<IJavaElement> elements) {
-//PackageExplorerPart packageExplorer = PackageExplorerPart.getFromActivePerspective();
-//for (IJavaElement element : elements) {
-//  if (packageExplorer != null) {
-//      if (element != null &&
-//          ((FilterPackageExplorerAction.getDefault() != null 
-//            && FilterPackageExplorerAction.getDefault().isChecked()) ||
-//          element.getElementType() <= IJavaElement.COMPILATION_UNIT)) {
-//          packageExplorer.tryToReveal(element);
-//      }
-//  }
-//}
-//}
-
-//PackageExplorerPart packageExplorer = PackageExplorerPart.getFromActivePerspective();
-//IJavaElement element = JavaCore.create(node.getElementHandle());
-//if (element == null) { // files, etc.
-//  packageExplorer.getTreeViewer().refresh(); // TODO: make more lazy
-//} else {
-//  IJavaElement parent = element.getParent();
-//  if (packageExplorer != null) {
-//      if (parent != null) packageExplorer.getTreeViewer().refresh(element.getParent(), false);
-//      boolean revealed = packageExplorer.tryToReveal(element);
-//      if (!revealed) {
-//          packageExplorer.getTreeViewer().refresh();
-//          refreshPackageExplorer();
-//          revealLandmarks();
-//      } else {
-//          if (parent != null) refreshOutline(parent, false);
-//      }
-//  }
-//}
