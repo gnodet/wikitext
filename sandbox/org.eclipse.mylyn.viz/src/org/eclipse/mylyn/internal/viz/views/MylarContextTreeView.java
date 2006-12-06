@@ -89,7 +89,7 @@ public class MylarContextTreeView extends ViewPart {
 			refresh();
 		}
 
-		public void edgesChanged(IMylarElement node) {
+		public void relationsChanged(IMylarElement node) {
 			refresh();
 		}
 
@@ -115,7 +115,7 @@ public class MylarContextTreeView extends ViewPart {
 			});
 		}
 
-		public void nodeDeleted(IMylarElement node) {
+		public void elementDeleted(IMylarElement node) {
 			refresh();
 		}
 	};

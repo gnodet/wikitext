@@ -258,7 +258,7 @@ public class JavaContextContentProvider implements IContentProvider, IMylarConte
 		VisualiserPlugin.refresh();
 	}
 
-	public void nodeDeleted(IMylarElement node) {
+	public void elementDeleted(IMylarElement node) {
 		VisualiserPlugin.refresh();
 	}
 
@@ -270,7 +270,7 @@ public class JavaContextContentProvider implements IContentProvider, IMylarConte
 		VisualiserPlugin.refresh();
 	}
 
-	public void edgesChanged(IMylarElement node) {
+	public void relationsChanged(IMylarElement node) {
 
 	}
 

@@ -1,1 +1,12 @@
 1165283658204	Move compilation unit
+1165436741671	Copy compilation unit
+1165436747078	Delete element
+1165436934406	Extract superclass 'AbstractContextChangeSetManager'
+1165439329671	Rename type 'ContextChangeSetManager'
+1165439493671	Move compilation unit
+1165440002609	Rename resource 'providers.exsd'
+1165440611046	Rename field 'ELEM_REPOSITORY_PROVIDER'
+1165440883765	Rename type 'AbstractTeamRepositoryProvider'
+1165440966500	Rename type 'CvsRepositoryProvider'
+1165441374203	Rename type 'TeamRespositoriesManager'
+1165441729859	Rename type 'TeamExtensionPointReader'

@@ -72,7 +72,7 @@ public class TaskscapeGraphView extends ViewPart {
 			refresh();
 		}
 
-		public void edgesChanged(IMylarElement node) {
+		public void relationsChanged(IMylarElement node) {
 			refresh();
 		}
 
@@ -96,7 +96,7 @@ public class TaskscapeGraphView extends ViewPart {
 				viewer.refresh();
 		}
 
-		public void nodeDeleted(IMylarElement node) {
+		public void elementDeleted(IMylarElement node) {
 			refresh();
 		}
 	};

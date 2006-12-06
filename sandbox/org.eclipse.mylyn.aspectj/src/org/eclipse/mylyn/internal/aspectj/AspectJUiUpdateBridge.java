@@ -48,7 +48,7 @@ public class AspectJUiUpdateBridge implements IMylarContextListener {
 
 	}
 
-	public void nodeDeleted(IMylarElement node) {
+	public void elementDeleted(IMylarElement node) {
 		// TODO Auto-generated method stub
 
 	}
@@ -63,7 +63,7 @@ public class AspectJUiUpdateBridge implements IMylarContextListener {
 
 	}
 
-	public void edgesChanged(IMylarElement node) {
+	public void relationsChanged(IMylarElement node) {
 		// TODO Auto-generated method stub
 
 	}
