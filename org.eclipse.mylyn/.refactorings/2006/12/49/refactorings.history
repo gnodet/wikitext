@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Copy 1 elements(s) to 'org.eclipse.mylar.team/src/org.eclipse.mylar.internal.team.ui.actions'&#13;&#10;- Original project: 'org.eclipse.mylar'&#13;&#10;- Destination element: 'org.eclipse.mylar.team/src/org.eclipse.mylar.internal.team.ui.actions'&#13;&#10;- Original element: 'CommitContextAction.java'" description="Copy file" destination="/src&lt;org.eclipse.mylar.internal.team.ui.actions" element1="developer/src-old/CommitContextAction.java" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" log="developer/src-old/CommitContextAction.java&#9;true&#9;false" policy="org.eclipse.jdt.ui.copyResources" stamp="1165446139281" units="0" version="1.0"/>
+</session>
