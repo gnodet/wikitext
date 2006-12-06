@@ -14,8 +14,6 @@ package org.eclipse.mylar.internal.tasks.web;
 import static org.eclipse.mylar.internal.tasks.web.Util.isPresent;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -297,14 +295,26 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	private static String cleanup(String text, TaskRepository repository) {
-		try {
-			text = URLDecoder.decode(text, repository.getCharacterEncoding());
-		} catch (UnsupportedEncodingException ex) {
-			// ignore
-		}
+		// Has to disable this for now. See bug 166737 and 166936
+		// try {
+		// 	text = URLDecoder.decode(text, repository.getCharacterEncoding());
+		// } catch (UnsupportedEncodingException ex) {
+		// 	// ignore
+		// }
 
 		text = text.replaceAll("<!--.+?-->", "");
-		return text.trim();
+
+		String[] tokens = text.split(" |\\t|\\n|\\r");
+	    StringBuilder sb = new StringBuilder();
+	    String sep = "";
+	    for (String token : tokens) {
+	      if(token.length()>0) {
+	        sb.append(sep).append(token);
+	        sep = " ";
+	      }
+	    }
+
+		return sb.toString();
 	}
 
 
