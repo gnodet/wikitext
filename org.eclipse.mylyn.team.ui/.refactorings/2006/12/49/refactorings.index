@@ -10,3 +10,4 @@
 1165440966500	Rename type 'CvsRepositoryProvider'
 1165441374203	Rename type 'TeamRespositoriesManager'
 1165441729859	Rename type 'TeamExtensionPointReader'
+1165447394609	Move compilation unit
