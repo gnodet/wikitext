@@ -9,3 +9,4 @@
 1165281253157	Change method 'resolveSelection'
 1165281409126	Change method 'select'
 1165282637782	Rename type 'ContextViewerManager'
+1165451494250	Rename type 'CopyContextToAction'
