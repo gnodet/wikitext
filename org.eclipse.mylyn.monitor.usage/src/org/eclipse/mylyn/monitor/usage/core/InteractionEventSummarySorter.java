@@ -38,7 +38,7 @@ public class InteractionEventSummarySorter extends ViewerSorter {
 	 * Creates a resource sorter that will use the given sort criteria.
 	 * 
 	 * @param criteria
-	 *            the sort criterion to use: one of <code>NAME</code> or
+	 *            the sort criterion to use: one of <code>LABEL_VIEW_REPOSITORIES</code> or
 	 *            <code>TYPE</code>
 	 */
 	public InteractionEventSummarySorter(int criteria) {

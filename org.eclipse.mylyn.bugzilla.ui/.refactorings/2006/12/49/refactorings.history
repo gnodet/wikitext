@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename field 'model' in 'org.eclipse.mylar.internal.bugzilla.ui.wizard.NewBugzillaTaskWizard' to 'taskData'&#13;&#10;- Original project: 'org.eclipse.mylar.bugzilla.ui'&#13;&#10;- Original element: 'org.eclipse.mylar.internal.bugzilla.ui.wizard.NewBugzillaTaskWizard.model'&#13;&#10;- Renamed element: 'org.eclipse.mylar.internal.bugzilla.ui.wizard.NewBugzillaTaskWizard.taskData'&#13;&#10;- Update references to refactored element&#13;&#10;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field 'model'" flags="589830" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;org.eclipse.mylar.internal.bugzilla.ui.wizard{NewBugzillaTaskWizard.java[NewBugzillaTaskWizard^model" name="taskData" references="true" setter="false" stamp="1165462898140" textual="true" version="1.0"/>
+</session>

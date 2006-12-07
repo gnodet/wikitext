@@ -22,12 +22,12 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.mylar.context.core.IMylarElement;
 import org.eclipse.mylar.context.ui.AbstractContextUiBridge;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaClient;
-import org.eclipse.mylar.internal.tasks.ui.TasksUiUtil;
-import org.eclipse.mylar.internal.tasks.ui.editors.AbstractRepositoryTaskEditor;
-import org.eclipse.mylar.internal.tasks.ui.editors.MylarTaskEditor;
 import org.eclipse.mylar.internal.tasks.ui.editors.RepositoryTaskOutlinePage;
 import org.eclipse.mylar.tasks.core.ITask;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylar.tasks.ui.TasksUiUtil;
+import org.eclipse.mylar.tasks.ui.editors.AbstractRepositoryTaskEditor;
+import org.eclipse.mylar.tasks.ui.editors.TaskEditor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
@@ -80,8 +80,8 @@ public class BugzillaUiBridge extends AbstractContextUiBridge {
 				if (part != null) {
 					if (part instanceof AbstractRepositoryTaskEditor) {
 						((AbstractRepositoryTaskEditor) part).close();
-					} else if (part instanceof MylarTaskEditor) {
-						((MylarTaskEditor) part).close(true);
+					} else if (part instanceof TaskEditor) {
+						((TaskEditor) part).close(true);
 					}
 				}
 			}

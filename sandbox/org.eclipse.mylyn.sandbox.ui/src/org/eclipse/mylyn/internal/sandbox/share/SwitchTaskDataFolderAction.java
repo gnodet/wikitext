@@ -23,6 +23,7 @@ import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.context.ui.actions.ContextCapturePauseAction;
 import org.eclipse.mylar.internal.sandbox.MylarSandboxPlugin;
 import org.eclipse.mylar.internal.tasks.ui.ComboSelectionDialog;
+import org.eclipse.mylar.internal.tasks.ui.ITasksUiConstants;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IViewActionDelegate;
@@ -152,7 +153,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 		File[] files = folder.listFiles();
 		for (int i = 0; i < files.length; i++) {
 			File currFile = files[i];
-			if (currFile.isFile() && currFile.getName().equals(TasksUiPlugin.DEFAULT_TASK_LIST_FILE)) {
+			if (currFile.isFile() && currFile.getName().equals(ITasksUiConstants.DEFAULT_TASK_LIST_FILE)) {
 				return true;
 			}
 		}

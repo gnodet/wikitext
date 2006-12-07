@@ -85,9 +85,9 @@ public class BrowserTracker extends AbstractUserInteractionMonitor implements IP
 //				browser.addLocationListener(urlTrackingListener);
 			} 
 		} 
-//		else if (part instanceof MylarTaskEditor) {
+//		else if (part instanceof TaskEditor) {
 //			currentBrowserPart = part;
-//			Browser browser = ((MylarTaskEditor) part).getWebBrowser();
+//			Browser browser = ((TaskEditor) part).getWebBrowser();
 //			if (browser != null)
 //				browser.addLocationListener(urlTrackingListener);
 //		}

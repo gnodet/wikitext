@@ -30,11 +30,10 @@ import org.eclipse.mylar.internal.bugzilla.core.BugzillaRepositoryConnector;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaRepositoryQuery;
 import org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants;
 import org.eclipse.mylar.internal.bugzilla.ui.BugzillaUiPlugin;
-import org.eclipse.mylar.internal.tasks.core.UnrecognizedReponseException;
 import org.eclipse.mylar.internal.tasks.ui.util.WebBrowserDialog;
-import org.eclipse.mylar.internal.tasks.ui.views.TaskRepositoriesView;
 import org.eclipse.mylar.tasks.core.QueryHitCollector;
 import org.eclipse.mylar.tasks.core.TaskRepository;
+import org.eclipse.mylar.tasks.core.UnrecognizedReponseException;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.ui.PlatformUI;
 
@@ -155,7 +154,7 @@ public class BugzillaSearchEngine {
 		} catch (LoginException e) {
 			status = new MultiStatus(BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR,
 					"Login error occurred while querying Bugzilla Server " + repository.getUrl() + ".\n"
-							+ "\nEnsure proper configuration in " + TaskRepositoriesView.NAME + ".", e);
+							+ "\nEnsure proper configuration in " + TasksUiPlugin.LABEL_VIEW_REPOSITORIES + ".", e);
 
 			IStatus s = new Status(IStatus.ERROR, BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR, e.getClass().toString()
 					+ ":  ", e);
@@ -183,7 +182,7 @@ public class BugzillaSearchEngine {
 		} catch (Exception e) {
 			status = new MultiStatus(BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR,
 					"An error occurred while querying Bugzilla Server " + repository.getUrl() + ".\n"
-							+ "\nCheck network connection and repository configuration in " + TaskRepositoriesView.NAME
+							+ "\nCheck network connection and repository configuration in " + TasksUiPlugin.LABEL_VIEW_REPOSITORIES
 							+ ".", e);
 
 			IStatus s = new Status(IStatus.ERROR, BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR, e.getClass().toString()

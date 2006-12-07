@@ -8,9 +8,9 @@
 
 package org.eclipse.mylar.internal.tasks.web;
 
-import org.eclipse.mylar.internal.tasks.ui.wizards.AbstractEditQueryWizard;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.TaskRepository;
+import org.eclipse.mylar.tasks.ui.wizards.AbstractEditQueryWizard;
 
 /**
  * @author Eugene Kuleshov
