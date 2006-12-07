@@ -47,6 +47,8 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 
 	private static final String KEY_WEB_ISSUE = "WebIssue";
 
+	private static final String KEY_URL_TEMPLATE = "UrlTemplate";
+	
 	private static final String KEY_REGEXP = "Regexp";
 
 	private static final String KEY_PREFIX = "TaskPrefix";
@@ -80,6 +82,7 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 
 		if (query instanceof WebQuery) {
 			WebQuery webQuery = (WebQuery) query;
+			node.setAttribute(KEY_URL_TEMPLATE, webQuery.getQueryUrlTemplate());
 			node.setAttribute(KEY_REGEXP, webQuery.getQueryPattern());
 			node.setAttribute(KEY_PREFIX, webQuery.getTaskPrefix());
 
@@ -155,6 +158,7 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 
 		String description = element.getAttribute(KEY_NAME);
 		String queryUrl = element.getAttribute(KEY_QUERY_STRING);
+		String queryUrlTemplate = element.getAttribute(KEY_URL_TEMPLATE);
 		String queryPattern = element.getAttribute(KEY_REGEXP);
 		String repositoryUrl = element.getAttribute(KEY_REPOSITORY_URL);
 		String taskPrefix = element.getAttribute(KEY_PREFIX);
@@ -170,8 +174,14 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 			}
 		}
 
-		AbstractRepositoryQuery query = new WebQuery(taskList, description,
-				queryUrl, queryPattern, taskPrefix, repositoryUrl, params);
+		if(queryUrlTemplate==null || queryUrlTemplate.length()==0) {
+			queryUrlTemplate = queryUrl;
+			TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(WebTask.REPOSITORY_TYPE, repositoryUrl);
+			queryUrl = WebRepositoryConnector.evaluateParams(queryUrlTemplate, params, repository);
+		}
+		
+		AbstractRepositoryQuery query = new WebQuery(taskList, description, queryUrl,
+				queryUrlTemplate, queryPattern, taskPrefix, repositoryUrl, params);
 
 		boolean hasCaughtException = false;
 		NodeList list = node.getChildNodes();

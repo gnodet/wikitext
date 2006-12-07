@@ -157,6 +157,25 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		});
 		new Label(composite1, SWT.NONE);
 
+    /*		
+		final Button openButton = new Button(composite1, SWT.NONE);
+		openButton.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				String url = WebRepositoryConnector.evaluateParams(queryUrlText.getText(), 
+						parametersEditor.getParameters(), repository);
+				IWorkbenchBrowserSupport support = PlatformUI.getWorkbench().getBrowserSupport();
+				try {
+					support.getExternalBrowser().openURL(new URL(url));
+				} catch (Exception ex) {
+					// XXX log the error
+				}
+			}
+		});
+		openButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false));
+		toolkit.adapt(openButton, true, true);
+		openButton.setText("Open");
+    */
+
 		Label queryPatternLabel = toolkit.createLabel(composite1, "Query &Pattern:", SWT.NONE);
 		queryPatternLabel.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, false));
 
@@ -215,7 +234,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		}
 		if(query!=null) {
 			setTitle(query.getSummary());
-			queryUrlText.setText(addVars(vars, query.getUrl()));
+			queryUrlText.setText(addVars(vars, query.getQueryUrlTemplate()));
 			queryPatternText.setText(addVars(vars, query.getQueryPattern()));
 			params.putAll((query).getQueryParameters());
 		}
@@ -235,11 +254,14 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 	@Override
 	public AbstractRepositoryQuery getQuery() {
 		String description = getQueryTitle();
-		String queryUrl = queryUrlText.getText();
+		String queryUrlTemplate = queryUrlText.getText();
 		String queryPattern = queryPatternText.getText();
 		Map<String, String> params = parametersEditor.getParameters();
-		return new WebQuery(TasksUiPlugin.getTaskListManager().getTaskList(), description, queryUrl, queryPattern,
-				repository.getProperty(WebRepositoryConnector.PROPERTY_TASK_URL),
+		
+		String queryUrl = WebRepositoryConnector.evaluateParams(queryUrlTemplate, params, repository);
+		
+		return new WebQuery(TasksUiPlugin.getTaskListManager().getTaskList(), description, queryUrl, queryUrlTemplate,
+				queryPattern, repository.getProperty(WebRepositoryConnector.PROPERTY_TASK_URL), 
 				repository.getUrl(), params);
 	}
 
