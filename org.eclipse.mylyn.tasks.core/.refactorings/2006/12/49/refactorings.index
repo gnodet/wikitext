@@ -3,3 +3,5 @@
 1165461200656	Move compilation unit
 1165461226062	Rename package 'org.eclipse.mylar.tasks.core.html'
 1165462200562	Move compilation unit
+1165522905015	Rename method 'getTaskType'
+1165522986609	Rename method 'setReminderDate'
