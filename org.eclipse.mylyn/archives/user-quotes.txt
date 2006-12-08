@@ -1,15 +1,27 @@
 
-2006-11-30: Joseph Marques [simcoen@gmail.com] from: mylar-dev
-"to really fully understand, people need to believe (or perhaps experience) that once they start thinking and working in contexts...they'll never go back.
+2006-12-07: Eugene Kuleshov
+"I was immediately exited about idea of context focused UI and couldn't wait for the 
+public preview of Mylar project after I saw slides of Mik's presentation from 
+EclipseCon 2005(?). Since that public preview I've been using Mylar for my daily work, 
+submitted hundreds (literally) of bug reports and enhancement requests, few dozen 
+patches and even contributed whole connector for web-based issue trackers. I couldn't 
+think how I was been able to work without Mylar before and believe that this is just 
+the beginning, because Mylar has great potential for helping users completing their 
+tasks faster. We should see more great things from Mylar team in the future."
 
+2006-11-30: Joseph Marques [simcoen@gmail.com] from: mylar-dev
+"to really fully understand, people need to believe (or perhaps experience) that once 
+they start thinking and working in contexts...they'll never go back.
 
 David Orme, from: https://bugs.eclipse.org/bugs/show_bug.cgi?id=119197
-"..Mylar, arguably the most productivity-enhancing idea since background compilation and all of the things
-that enables (namely refactoring and syntax hilighting).  
+"..Mylar, arguably the most productivity-enhancing idea since background compilation 
+and all of the thingsthat enables (namely refactoring and syntax hilighting).  
 I just don't know how I ever was able to read and understand the Eclipse
 sources (or the sources of other large projects I've worked on) before Mylar,
 it's just that good."
  
 Deepak Devje <deepak.devje@gs.com>
 https://bugs.eclipse.org/bugs/show_bug.cgi?id=142727
-I would like to commend you on this very good tool. It has increased my productivity by 3 folds - no kidding... I use it to manage my subprojects & frameworks - very friendly and very useful.
+I would like to commend you on this very good tool. It has increased my productivity 
+by 3 folds - no kidding... I use it to manage my subprojects & frameworks - very 
+friendly and very useful.
