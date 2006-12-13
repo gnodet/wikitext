@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable 'id' in 'org.eclipse.mylar.internal.web.ui.NewWebBrowserAction.run(...)' to 'generatedId'&#13;&#10;- Original project: 'org.eclipse.mylar.web'&#13;&#10;- Original element: 'org.eclipse.mylar.internal.web.ui.NewWebBrowserAction.run(IAction).id'&#13;&#10;- Renamed element: 'org.eclipse.mylar.internal.web.ui.NewWebBrowserAction.run(IAction).generatedId'&#13;&#10;- Update references to refactored element" description="Rename local variable 'id'" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;org.eclipse.mylar.internal.web.ui{NewWebBrowserAction.java" name="generatedId" references="true" selection="1870 2" stamp="1165975048062" version="1.0"/>
+</session>

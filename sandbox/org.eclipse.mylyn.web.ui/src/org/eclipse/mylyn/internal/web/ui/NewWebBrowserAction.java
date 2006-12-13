@@ -13,6 +13,7 @@ package org.eclipse.mylar.internal.web.ui;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Calendar;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -33,11 +34,7 @@ public class NewWebBrowserAction implements IWorkbenchWindowActionDelegate {
 
 	public void run(IAction action) {
 		String url = "http://google.com";
-//		String url = getUrlFromClipboard();
-//		if (url == null) {
-//			url = "http://google.com";
-//		}
-		
+
 		try {
 			IWebBrowser browser = null;
 			int flags = 0;
@@ -48,9 +45,11 @@ public class NewWebBrowserAction implements IWorkbenchWindowActionDelegate {
 			} else {
 				flags = WorkbenchBrowserSupport.AS_EXTERNAL | WorkbenchBrowserSupport.LOCATION_BAR
 						| WorkbenchBrowserSupport.NAVIGATION_BAR;
-			}
-			browser = WorkbenchBrowserSupport.getInstance().createBrowser(flags, "org.eclipse.mylar.tasklist", null,
-					null);
+			}  
+			
+			String generatedId = "org.eclipse.mylar.web.browser-" + Calendar.getInstance().getTimeInMillis();
+			browser = WorkbenchBrowserSupport.getInstance().createBrowser(flags, generatedId, null, null);
+			
 			browser.openURL(new URL(url));
 		} catch (PartInitException e) {
 			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
@@ -68,11 +67,11 @@ public class NewWebBrowserAction implements IWorkbenchWindowActionDelegate {
 		if (contents != null) {
 			if ((contents.startsWith("http://") || contents.startsWith("https://") && contents.length() > 10)) {
 				return contents;
-			} 
+			}
 		}
 		return null;
 	}
-	
+
 	public void selectionChanged(IAction action, ISelection selection) {
 		// ignore
 	}
