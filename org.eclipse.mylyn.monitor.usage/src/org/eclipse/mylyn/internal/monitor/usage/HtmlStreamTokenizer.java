@@ -510,583 +510,583 @@ public class HtmlStreamTokenizer {
 	static {
 		entities = new HashMap<String, Character>();
 		entities.put(new String("nbsp"), new Character('\240')); // no-break
-																	// space =
-																	// non-breaking
-																	// space
+		// space =
+		// non-breaking
+		// space
 		entities.put(new String("iexcl"), new Character('\241')); // inverted
-																	// exclamation
-																	// mark
+		// exclamation
+		// mark
 		entities.put(new String("cent"), new Character('\242')); // cent sign
 		entities.put(new String("pound"), new Character('\243')); // pound
-																	// sign
+		// sign
 		entities.put(new String("curren"), new Character('\244')); // currency
-																	// sign
+		// sign
 		entities.put(new String("yen"), new Character('\245')); // yen sign =
-																// yuan sign
+		// yuan sign
 		entities.put(new String("brvbar"), new Character('\246')); // broken
-																	// bar =
-																	// broken
-																	// vertical
-																	// bar
+		// bar =
+		// broken
+		// vertical
+		// bar
 		entities.put(new String("sect"), new Character('\247')); // section
-																	// sign
+		// sign
 		entities.put(new String("uml"), new Character('\250')); // diaeresis =
-																// spacing
-																// diaeresis
+		// spacing
+		// diaeresis
 		entities.put(new String("copy"), new Character('\251')); // copyright
-																	// sign
+		// sign
 		entities.put(new String("ordf"), new Character('\252')); // feminine
-																	// ordinal
-																	// indicator
+		// ordinal
+		// indicator
 		entities.put(new String("laquo"), new Character('\253')); // left-pointing
-																	// double
-																	// angle
-																	// quotation
-																	// mark =
-																	// left
-																	// pointing
-																	// guillemet
+		// double
+		// angle
+		// quotation
+		// mark =
+		// left
+		// pointing
+		// guillemet
 		entities.put(new String("not"), new Character('\254')); // not sign
 		entities.put(new String("shy"), new Character('\255')); // soft hyphen =
-																// discretionary
-																// hyphen
+		// discretionary
+		// hyphen
 		entities.put(new String("reg"), new Character('\256')); // registered
-																// sign =
-																// registered
-																// trade mark
-																// sign
+		// sign =
+		// registered
+		// trade mark
+		// sign
 		entities.put(new String("macr"), new Character('\257')); // macron =
-																	// spacing
-																	// macron =
-																	// overline
-																	// = APL
-																	// overbar
+		// spacing
+		// macron =
+		// overline
+		// = APL
+		// overbar
 		entities.put(new String("deg"), new Character('\260')); // degree sign
 		entities.put(new String("plusmn"), new Character('\261')); // plus-minus
-																	// sign =
-																	// plus-or-minus
-																	// sign
+		// sign =
+		// plus-or-minus
+		// sign
 		entities.put(new String("sup2"), new Character('\262')); // superscript
-																	// two =
-																	// superscript
-																	// digit two
-																	// = squared
+		// two =
+		// superscript
+		// digit two
+		// = squared
 		entities.put(new String("sup3"), new Character('\263')); // superscript
-																	// three =
-																	// superscript
-																	// digit
-																	// three =
-																	// cubed
+		// three =
+		// superscript
+		// digit
+		// three =
+		// cubed
 		entities.put(new String("acute"), new Character('\264')); // acute
-																	// accent =
-																	// spacing
-																	// acute
+		// accent =
+		// spacing
+		// acute
 		entities.put(new String("micro"), new Character('\265')); // micro
-																	// sign
+		// sign
 		entities.put(new String("para"), new Character('\266')); // pilcrow
-																	// sign =
-																	// paragraph
-																	// sign
+		// sign =
+		// paragraph
+		// sign
 		entities.put(new String("middot"), new Character('\267')); // middle
-																	// dot =
-																	// Georgian
-																	// comma =
-																	// Greek
-																	// middle
-																	// dot
+		// dot =
+		// Georgian
+		// comma =
+		// Greek
+		// middle
+		// dot
 		entities.put(new String("cedil"), new Character('\270')); // cedilla =
-																	// spacing
-																	// cedilla
+		// spacing
+		// cedilla
 		entities.put(new String("sup1"), new Character('\271')); // superscript
-																	// one =
-																	// superscript
-																	// digit one
+		// one =
+		// superscript
+		// digit one
 		entities.put(new String("ordm"), new Character('\272')); // masculine
-																	// ordinal
-																	// indicator
+		// ordinal
+		// indicator
 		entities.put(new String("raquo"), new Character('\273')); // right-pointing
-																	// double
-																	// angle
-																	// quotation
-																	// mark =
-																	// right
-																	// pointing
-																	// guillemet
+		// double
+		// angle
+		// quotation
+		// mark =
+		// right
+		// pointing
+		// guillemet
 		entities.put(new String("frac14"), new Character('\274')); // vulgar
-																	// fraction
-																	// one
-																	// quarter =
-																	// fraction
-																	// one
-																	// quarter
+		// fraction
+		// one
+		// quarter =
+		// fraction
+		// one
+		// quarter
 		entities.put(new String("frac12"), new Character('\275')); // vulgar
-																	// fraction
-																	// one half
-																	// =
-																	// fraction
-																	// one half
+		// fraction
+		// one half
+		// =
+		// fraction
+		// one half
 		entities.put(new String("frac34"), new Character('\276')); // vulgar
-																	// fraction
-																	// three
-																	// quarters
-																	// =
-																	// fraction
-																	// three
-																	// quarters
+		// fraction
+		// three
+		// quarters
+		// =
+		// fraction
+		// three
+		// quarters
 		entities.put(new String("iquest"), new Character('\277')); // inverted
-																	// question
-																	// mark =
-																	// turned
-																	// question
-																	// mark
+		// question
+		// mark =
+		// turned
+		// question
+		// mark
 		entities.put(new String("Agrave"), new Character('\300')); // latin
-																	// capital
-																	// letter A
-																	// with
-																	// grave =
-																	// latin
-																	// capital
-																	// letter A
-																	// grave
+		// capital
+		// letter A
+		// with
+		// grave =
+		// latin
+		// capital
+		// letter A
+		// grave
 		entities.put(new String("Aacute"), new Character('\301')); // latin
-																	// capital
-																	// letter A
-																	// with
-																	// acute
+		// capital
+		// letter A
+		// with
+		// acute
 		entities.put(new String("Acirc"), new Character('\302')); // latin
-																	// capital
-																	// letter A
-																	// with
-																	// circumflex
+		// capital
+		// letter A
+		// with
+		// circumflex
 		entities.put(new String("Atilde"), new Character('\303')); // latin
-																	// capital
-																	// letter A
-																	// with
-																	// tilde
+		// capital
+		// letter A
+		// with
+		// tilde
 		entities.put(new String("Auml"), new Character('\304')); // latin
-																	// capital
-																	// letter A
-																	// with
-																	// diaeresis
+		// capital
+		// letter A
+		// with
+		// diaeresis
 		entities.put(new String("Aring"), new Character('\305')); // latin
-																	// capital
-																	// letter A
-																	// with ring
-																	// above =
-																	// latin
-																	// capital
-																	// letter A
-																	// ring
+		// capital
+		// letter A
+		// with ring
+		// above =
+		// latin
+		// capital
+		// letter A
+		// ring
 		entities.put(new String("AElig"), new Character('\306')); // latin
-																	// capital
-																	// letter AE
-																	// = latin
-																	// capital
-																	// ligature
-																	// AE
+		// capital
+		// letter AE
+		// = latin
+		// capital
+		// ligature
+		// AE
 		entities.put(new String("Ccedil"), new Character('\307')); // latin
-																	// capital
-																	// letter C
-																	// with
-																	// cedilla
+		// capital
+		// letter C
+		// with
+		// cedilla
 		entities.put(new String("Egrave"), new Character('\310')); // latin
-																	// capital
-																	// letter E
-																	// with
-																	// grave
+		// capital
+		// letter E
+		// with
+		// grave
 		entities.put(new String("Eacute"), new Character('\311')); // latin
-																	// capital
-																	// letter E
-																	// with
-																	// acute
+		// capital
+		// letter E
+		// with
+		// acute
 		entities.put(new String("Ecirc"), new Character('\312')); // latin
-																	// capital
-																	// letter E
-																	// with
-																	// circumflex
+		// capital
+		// letter E
+		// with
+		// circumflex
 		entities.put(new String("Euml"), new Character('\313')); // latin
-																	// capital
-																	// letter E
-																	// with
-																	// diaeresis
+		// capital
+		// letter E
+		// with
+		// diaeresis
 		entities.put(new String("Igrave"), new Character('\314')); // latin
-																	// capital
-																	// letter I
-																	// with
-																	// grave
+		// capital
+		// letter I
+		// with
+		// grave
 		entities.put(new String("Iacute"), new Character('\315')); // latin
-																	// capital
-																	// letter I
-																	// with
-																	// acute
+		// capital
+		// letter I
+		// with
+		// acute
 		entities.put(new String("Icirc"), new Character('\316')); // latin
-																	// capital
-																	// letter I
-																	// with
-																	// circumflex
+		// capital
+		// letter I
+		// with
+		// circumflex
 		entities.put(new String("Iuml"), new Character('\317')); // latin
-																	// capital
-																	// letter I
-																	// with
-																	// diaeresis
+		// capital
+		// letter I
+		// with
+		// diaeresis
 		entities.put(new String("ETH"), new Character('\320')); // latin capital
-																// letter ETH
+		// letter ETH
 		entities.put(new String("Ntilde"), new Character('\321')); // latin
-																	// capital
-																	// letter N
-																	// with
-																	// tilde
+		// capital
+		// letter N
+		// with
+		// tilde
 		entities.put(new String("Ograve"), new Character('\322')); // latin
-																	// capital
-																	// letter O
-																	// with
-																	// grave
+		// capital
+		// letter O
+		// with
+		// grave
 		entities.put(new String("Oacute"), new Character('\323')); // latin
-																	// capital
-																	// letter O
-																	// with
-																	// acute
+		// capital
+		// letter O
+		// with
+		// acute
 		entities.put(new String("Ocirc"), new Character('\324')); // latin
-																	// capital
-																	// letter O
-																	// with
-																	// circumflex
+		// capital
+		// letter O
+		// with
+		// circumflex
 		entities.put(new String("Otilde"), new Character('\325')); // latin
-																	// capital
-																	// letter O
-																	// with
-																	// tilde
+		// capital
+		// letter O
+		// with
+		// tilde
 		entities.put(new String("Ouml"), new Character('\326')); // latin
-																	// capital
-																	// letter O
-																	// with
-																	// diaeresis
+		// capital
+		// letter O
+		// with
+		// diaeresis
 		entities.put(new String("times"), new Character('\327')); // multiplication
-																	// sign
+		// sign
 		entities.put(new String("Oslash"), new Character('\330')); // latin
-																	// capital
-																	// letter O
-																	// with
-																	// stroke =
-																	// latin
-																	// capital
-																	// letter O
-																	// slash
+		// capital
+		// letter O
+		// with
+		// stroke =
+		// latin
+		// capital
+		// letter O
+		// slash
 		entities.put(new String("Ugrave"), new Character('\331')); // latin
-																	// capital
-																	// letter U
-																	// with
-																	// grave
+		// capital
+		// letter U
+		// with
+		// grave
 		entities.put(new String("Uacute"), new Character('\332')); // latin
-																	// capital
-																	// letter U
-																	// with
-																	// acute
+		// capital
+		// letter U
+		// with
+		// acute
 		entities.put(new String("Ucirc"), new Character('\333')); // latin
-																	// capital
-																	// letter U
-																	// with
-																	// circumflex
+		// capital
+		// letter U
+		// with
+		// circumflex
 		entities.put(new String("Uuml"), new Character('\334')); // latin
-																	// capital
-																	// letter U
-																	// with
-																	// diaeresis
+		// capital
+		// letter U
+		// with
+		// diaeresis
 		entities.put(new String("Yacute"), new Character('\335')); // latin
-																	// capital
-																	// letter Y
-																	// with
-																	// acute
+		// capital
+		// letter Y
+		// with
+		// acute
 		entities.put(new String("THORN"), new Character('\336')); // latin
-																	// capital
-																	// letter
-																	// THORN
+		// capital
+		// letter
+		// THORN
 		entities.put(new String("szlig"), new Character('\337')); // latin
-																	// small
-																	// letter
-																	// sharp s =
-																	// ess-zed
+		// small
+		// letter
+		// sharp s =
+		// ess-zed
 		entities.put(new String("agrave"), new Character('\340')); // latin
-																	// small
-																	// letter a
-																	// with
-																	// grave =
-																	// latin
-																	// small
-																	// letter a
-																	// grave
+		// small
+		// letter a
+		// with
+		// grave =
+		// latin
+		// small
+		// letter a
+		// grave
 		entities.put(new String("aacute"), new Character('\341')); // latin
-																	// small
-																	// letter a
-																	// with
-																	// acute
+		// small
+		// letter a
+		// with
+		// acute
 		entities.put(new String("acirc"), new Character('\342')); // latin
-																	// small
-																	// letter a
-																	// with
-																	// circumflex
+		// small
+		// letter a
+		// with
+		// circumflex
 		entities.put(new String("atilde"), new Character('\343')); // latin
-																	// small
-																	// letter a
-																	// with
-																	// tilde
+		// small
+		// letter a
+		// with
+		// tilde
 		entities.put(new String("auml"), new Character('\344')); // latin
-																	// small
-																	// letter a
-																	// with
-																	// diaeresis
+		// small
+		// letter a
+		// with
+		// diaeresis
 		entities.put(new String("aring"), new Character('\345')); // latin
-																	// small
-																	// letter a
-																	// with ring
-																	// above =
-																	// latin
-																	// small
-																	// letter a
-																	// ring
+		// small
+		// letter a
+		// with ring
+		// above =
+		// latin
+		// small
+		// letter a
+		// ring
 		entities.put(new String("aelig"), new Character('\346')); // latin
-																	// small
-																	// letter ae
-																	// = latin
-																	// small
-																	// ligature
-																	// ae
+		// small
+		// letter ae
+		// = latin
+		// small
+		// ligature
+		// ae
 		entities.put(new String("ccedil"), new Character('\347')); // latin
-																	// small
-																	// letter c
-																	// with
-																	// cedilla
+		// small
+		// letter c
+		// with
+		// cedilla
 		entities.put(new String("egrave"), new Character('\350')); // latin
-																	// small
-																	// letter e
-																	// with
-																	// grave
+		// small
+		// letter e
+		// with
+		// grave
 		entities.put(new String("eacute"), new Character('\351')); // latin
-																	// small
-																	// letter e
-																	// with
-																	// acute
+		// small
+		// letter e
+		// with
+		// acute
 		entities.put(new String("ecirc"), new Character('\352')); // latin
-																	// small
-																	// letter e
-																	// with
-																	// circumflex
+		// small
+		// letter e
+		// with
+		// circumflex
 		entities.put(new String("euml"), new Character('\353')); // latin
-																	// small
-																	// letter e
-																	// with
-																	// diaeresis
+		// small
+		// letter e
+		// with
+		// diaeresis
 		entities.put(new String("igrave"), new Character('\354')); // latin
-																	// small
-																	// letter i
-																	// with
-																	// grave
+		// small
+		// letter i
+		// with
+		// grave
 		entities.put(new String("iacute"), new Character('\355')); // latin
-																	// small
-																	// letter i
-																	// with
-																	// acute
+		// small
+		// letter i
+		// with
+		// acute
 		entities.put(new String("icirc"), new Character('\356')); // latin
-																	// small
-																	// letter i
-																	// with
-																	// circumflex
+		// small
+		// letter i
+		// with
+		// circumflex
 		entities.put(new String("iuml"), new Character('\357')); // latin
-																	// small
-																	// letter i
-																	// with
-																	// diaeresis
+		// small
+		// letter i
+		// with
+		// diaeresis
 		entities.put(new String("eth"), new Character('\360')); // latin small
-																// letter eth
+		// letter eth
 		entities.put(new String("ntilde"), new Character('\361')); // latin
-																	// small
-																	// letter n
-																	// with
-																	// tilde
+		// small
+		// letter n
+		// with
+		// tilde
 		entities.put(new String("ograve"), new Character('\362')); // latin
-																	// small
-																	// letter o
-																	// with
-																	// grave
+		// small
+		// letter o
+		// with
+		// grave
 		entities.put(new String("oacute"), new Character('\363')); // latin
-																	// small
-																	// letter o
-																	// with
-																	// acute
+		// small
+		// letter o
+		// with
+		// acute
 		entities.put(new String("ocirc"), new Character('\364')); // latin
-																	// small
-																	// letter o
-																	// with
-																	// circumflex
+		// small
+		// letter o
+		// with
+		// circumflex
 		entities.put(new String("otilde"), new Character('\365')); // latin
-																	// small
-																	// letter o
-																	// with
-																	// tilde
+		// small
+		// letter o
+		// with
+		// tilde
 		entities.put(new String("ouml"), new Character('\366')); // latin
-																	// small
-																	// letter o
-																	// with
-																	// diaeresis
+		// small
+		// letter o
+		// with
+		// diaeresis
 		entities.put(new String("divide"), new Character('\367')); // division
-																	// sign
+		// sign
 		entities.put(new String("oslash"), new Character('\370')); // latin
-																	// small
-																	// letter o
-																	// with
-																	// stroke =
-																	// latin
-																	// small
-																	// letter o
-																	// slash
+		// small
+		// letter o
+		// with
+		// stroke =
+		// latin
+		// small
+		// letter o
+		// slash
 		entities.put(new String("ugrave"), new Character('\371')); // latin
-																	// small
-																	// letter u
-																	// with
-																	// grave
+		// small
+		// letter u
+		// with
+		// grave
 		entities.put(new String("uacute"), new Character('\372')); // latin
-																	// small
-																	// letter u
-																	// with
-																	// acute
+		// small
+		// letter u
+		// with
+		// acute
 		entities.put(new String("ucirc"), new Character('\373')); // latin
-																	// small
-																	// letter u
-																	// with
-																	// circumflex
+		// small
+		// letter u
+		// with
+		// circumflex
 		entities.put(new String("uuml"), new Character('\374')); // latin
-																	// small
-																	// letter u
-																	// with
-																	// diaeresis
+		// small
+		// letter u
+		// with
+		// diaeresis
 		entities.put(new String("yacute"), new Character('\375')); // latin
-																	// small
-																	// letter y
-																	// with
-																	// acute
+		// small
+		// letter y
+		// with
+		// acute
 		entities.put(new String("thorn"), new Character('\376')); // latin
-																	// small
-																	// letter
-																	// thorn
+		// small
+		// letter
+		// thorn
 		entities.put(new String("yuml"), new Character('\377')); // latin
-																	// small
-																	// letter y
-																	// with
-																	// diaeresis
+		// small
+		// letter y
+		// with
+		// diaeresis
 
 		// Special characters
 		entities.put(new String("quot"), new Character('\42')); // quotation
-																// mark = APL
-																// quote
+		// mark = APL
+		// quote
 		entities.put(new String("amp"), new Character('\46')); // ampersand
 		entities.put(new String("lt"), new Character('\74')); // less-than
-																// sign
+		// sign
 		entities.put(new String("gt"), new Character('\76')); // greater-than
-																// sign
+		// sign
 		// Latin Extended-A
 		entities.put(new String("OElig"), new Character('\u0152')); // latin
-																	// capital
-																	// ligature
-																	// OE
+		// capital
+		// ligature
+		// OE
 		entities.put(new String("oelig"), new Character('\u0153')); // latin
-																	// small
-																	// ligature
-																	// oe,
-																	// ligature
-																	// is a
-																	// misnomer,
-																	// this is a
-																	// separate
-																	// character
-																	// in some
-																	// languages
+		// small
+		// ligature
+		// oe,
+		// ligature
+		// is a
+		// misnomer,
+		// this is a
+		// separate
+		// character
+		// in some
+		// languages
 		entities.put(new String("Scaron"), new Character('\u0160')); // latin
-																		// capital
-																		// letter
-																		// S
-																		// with
-																		// caron
+		// capital
+		// letter
+		// S
+		// with
+		// caron
 		entities.put(new String("scaron"), new Character('\u0161')); // latin
-																		// small
-																		// letter
-																		// s
-																		// with
-																		// caron
+		// small
+		// letter
+		// s
+		// with
+		// caron
 		entities.put(new String("Yuml"), new Character('\u0178')); // latin
-																	// capital
-																	// letter Y
-																	// with
-																	// diaeresis
+		// capital
+		// letter Y
+		// with
+		// diaeresis
 		// Spacing Modifier Letters
 		entities.put(new String("circ"), new Character('\u02c6')); // modifier
-																	// letter
-																	// circumflex
-																	// accent
+		// letter
+		// circumflex
+		// accent
 		entities.put(new String("tilde"), new Character('\u02dc')); // small
-																	// tilde
+		// tilde
 		// General punctuation
 		entities.put(new String("ensp"), new Character('\u2002')); // en space
 		entities.put(new String("emsp"), new Character('\u2003')); // em space
 		entities.put(new String("thinsp"), new Character('\u2009')); // thin
-																		// space
+		// space
 		entities.put(new String("zwnj"), new Character('\u200c')); // zero
-																	// width
-																	// non-joiner
+		// width
+		// non-joiner
 		entities.put(new String("zwj"), new Character('\u200d')); // zero
-																	// width
-																	// joiner
+		// width
+		// joiner
 		entities.put(new String("lrm"), new Character('\u200e')); // left-to-right
-																	// mark
+		// mark
 		entities.put(new String("rlm"), new Character('\u200f')); // right-to-left
-																	// mark
+		// mark
 		entities.put(new String("ndash"), new Character('\u2013')); // en dash
 		entities.put(new String("mdash"), new Character('\u2014')); // em dash
 		entities.put(new String("lsquo"), new Character('\u2018')); // left
-																	// single
-																	// quotation
-																	// mark
+		// single
+		// quotation
+		// mark
 		entities.put(new String("rsquo"), new Character('\u2019')); // right
-																	// single
-																	// quotation
-																	// mark
+		// single
+		// quotation
+		// mark
 		entities.put(new String("sbquo"), new Character('\u201a')); // single
-																	// low-9
-																	// quotation
-																	// mark
+		// low-9
+		// quotation
+		// mark
 		entities.put(new String("ldquo"), new Character('\u201c')); // left
-																	// double
-																	// quotation
-																	// mark
+		// double
+		// quotation
+		// mark
 		entities.put(new String("rdquo"), new Character('\u201d')); // right
-																	// double
-																	// quotation
-																	// mark
+		// double
+		// quotation
+		// mark
 		entities.put(new String("bdquo"), new Character('\u201e')); // double
-																	// low-9
-																	// quotation
-																	// mark
+		// low-9
+		// quotation
+		// mark
 		entities.put(new String("dagger"), new Character('\u2020')); // dagger
 		entities.put(new String("Dagger"), new Character('\u2021')); // double
-																		// dagger
+		// dagger
 		entities.put(new String("permil"), new Character('\u2030')); // per
-																		// mille
-																		// sign
+		// mille
+		// sign
 		entities.put(new String("lsaquo"), new Character('\u2039')); // single
-																		// left-pointing
-																		// angle
-																		// quotation
-																		// mark,
-																		// not
-																		// yet
-																		// standardized
+		// left-pointing
+		// angle
+		// quotation
+		// mark,
+		// not
+		// yet
+		// standardized
 		entities.put(new String("rsaquo"), new Character('\u203a')); // single
-																		// right-pointing
-																		// angle
-																		// quotation
-																		// mark,
-																		// not
-																		// yet
-																		// standardized
+		// right-pointing
+		// angle
+		// quotation
+		// mark,
+		// not
+		// yet
+		// standardized
 		entities.put(new String("euro"), new Character('\u20ac')); // euro sign
 	}
 }
