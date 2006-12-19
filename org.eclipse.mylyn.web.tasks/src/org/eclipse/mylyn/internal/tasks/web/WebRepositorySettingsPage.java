@@ -54,8 +54,8 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 
 	private static final String TITLE = "Web Repository Settings";
 
-	private static final String DESCRIPTION = "Select a server template example and modify the parameters to match the settings "
-			+ "for your project, usually found in the query URL.";
+	private static final String DESCRIPTION = "Select a server template example and modify to match the settings for "
+			+ "your project, \nusually found in the query URL.  For more connectors see http://eclipse.org/mylar";
 
 	private ParametersEditor parametersEditor;
 

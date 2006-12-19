@@ -2,7 +2,7 @@
 <?eclipse version="3.0"?>
 <plugin>
 
-   <extension
+    <extension
          id="org.eclipse.mylar.web.repository"
          name="Generic web-based access (Advanced)"
          point="org.eclipse.mylar.tasks.ui.repositories">
