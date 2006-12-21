@@ -425,6 +425,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			HttpException {
 		String refreshUrl = null;
 		try {
+			client.executeMethod(method);
 //			int statusCode = client.executeMethod(method);
 //			if (statusCode == 300 || statusCode == 301 || statusCode == 302 || statusCode == 303 || statusCode == 307) {
 //				Header location = method.getResponseHeader("Location");
