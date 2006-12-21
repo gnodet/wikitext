@@ -369,7 +369,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		loginRequestIfNeeded(client, params, repository);
 
 		GetMethod method = new GetMethod(url);
-		method.setFollowRedirects(false);
+		// method.setFollowRedirects(false);
 		return requestResource(url, client, method);
 	}
 
@@ -384,7 +384,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		String loginToken = evaluateParams(repository.getProperty(PROPERTY_LOGIN_TOKEN_REGEXP), params, repository);
 		if (isPresent(loginFormUrl) || isPresent(loginToken)) {
 			GetMethod method = new GetMethod(loginFormUrl);
-			method.setFollowRedirects(false);
+			// method.setFollowRedirects(false);
 			String loginFormPage = requestResource(loginFormUrl, client, method);
 			if (loginFormPage != null) {
 				Pattern p = Pattern.compile(loginToken);
@@ -415,7 +415,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			}
 		} else {
 			method = new GetMethod(loginRequestUrl);
-			method.setFollowRedirects(false);
+			// method.setFollowRedirects(false);
 		}
 
 		requestResource(loginRequestUrl, client, method);
@@ -425,16 +425,16 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			HttpException {
 		String refreshUrl = null;
 		try {
-			int statusCode = client.executeMethod(method);
-			if (statusCode == 300 || statusCode == 301 || statusCode == 302 || statusCode == 303 || statusCode == 307) {
-				Header location = method.getResponseHeader("Location");
-				if (location!=null) {
-					refreshUrl = location.getValue();
-					if (!refreshUrl.startsWith("/")) {
-						refreshUrl = "/" + refreshUrl;
-					}
-				}
-			}
+//			int statusCode = client.executeMethod(method);
+//			if (statusCode == 300 || statusCode == 301 || statusCode == 302 || statusCode == 303 || statusCode == 307) {
+//				Header location = method.getResponseHeader("Location");
+//				if (location!=null) {
+//					refreshUrl = location.getValue();
+//					if (!refreshUrl.startsWith("/")) {
+//						refreshUrl = "/" + refreshUrl;
+//					}
+//				}
+//			}
 			if(refreshUrl == null) {
 				refreshUrl = getRefreshUrl(url, method);
 			}
