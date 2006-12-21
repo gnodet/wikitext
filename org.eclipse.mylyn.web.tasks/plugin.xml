@@ -173,10 +173,10 @@
            urlTaskQuery="${serverUrl}/index.php?event=Show_public_task_list&amp;project_id=${project_id}&amp;page=-1&amp;cookietest=2">
         <attribute
               name="loginFormUrl"
-              value="${serverUrl}">
+              value="${serverUrl}/index.php?cookietest=1">
         </attribute>
         <attribute name="loginTokenPattern"
-              value="&lt;form name=&quot;Login_form&quot; method=&quot;POST&quot; action=&quot;index.php\?event\=Login&amp;amp;project_id\=0&amp;amp;link_uid\=(\p{Alnum}+?)\&quot;(?:.*?)&gt;"/>
+              value="&lt;form name=&quot;Login_form&quot; method=&quot;.+?&quot; action=&quot;index.php\?event\=Login&amp;amp;.*?project_id\=0&amp;amp;link_uid\=(\p{Alnum}+?)\&quot;.*?&gt;"/>
         <attribute name="loginRequestMethod" value="POST"/>
         <attribute name="loginRequestUrl"
               value="${serverUrl}/index.php?event=Login&amp;link_uid=${loginToken}&amp;username=${userId}&amp;password=${password}"/>
