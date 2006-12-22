@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.mylar.sandbox_feature"
       label="Sandbox Tools"
-      version="1.0.0.v20061219-1530"
+      version="1.0.0.v20061222-1030"
       provider-name="Eclipse.org">
 
    <description>
@@ -236,7 +236,7 @@ litigation.
          id="org.eclipse.mylar.sandbox"
          download-size="0"
          install-size="0"
-         version="1.0.0.v20061219-1530"
+         version="1.0.0.v20061222-1030"
          unpack="false"/>
 
 </feature>
