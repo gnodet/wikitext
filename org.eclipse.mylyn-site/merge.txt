@@ -1,10 +1,12 @@
 The following files should not be overriden/updated when merging with 3.2
 
 org.eclipse.mylar.java
+  - JavaStructureBridge (merge)
   - TypeHistoryManager
   - org.eclipse.mylar.java.ui.junit/*
 org.eclipse.mylar.team
-  - 
+  - ApplyPatchAction
+  - plugin.xml (merge)
 
 -------------------------------------------------------------------------
 The following files should not be overriden/updated when merging with 3.1
