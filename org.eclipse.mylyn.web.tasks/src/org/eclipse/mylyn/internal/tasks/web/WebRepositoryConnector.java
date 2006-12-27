@@ -447,16 +447,13 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			method.releaseConnection();
 		}
 
-		if (refreshUrl != null) {
-			method = new GetMethod(refreshUrl);
-			try {
-				client.executeMethod(method);
-				return method.getResponseBodyAsString();
-			} finally {
-				method.releaseConnection();
-			}
+		method = new GetMethod(refreshUrl);
+		try {
+			client.executeMethod(method);
+			return method.getResponseBodyAsString();
+		} finally {
+			method.releaseConnection();
 		}
-		return null;
 	}
 
 	private static String getRefreshUrl(String url, HttpMethod method) {
