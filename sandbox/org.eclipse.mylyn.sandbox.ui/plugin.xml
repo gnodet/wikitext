@@ -3,7 +3,7 @@
 <plugin>
 
 	<extension point="org.eclipse.ui.views">
-     	<category name="Sandbox" id="org.eclipse.mylar.sandbox"/>
+     	<category name="Mylar Sandbox" id="org.eclipse.mylar.sandbox"/>
     </extension>
 
     <extension point="org.eclipse.ui.preferencePages">
