@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Extract method 'private void run()' from 'org.eclipse.mylar.internal.context.ui.actions.ContextRetrieveAction.run()' to 'org.eclipse.mylar.internal.context.ui.actions.ContextRetrieveAction'&#13;&#10;- Original project: 'org.eclipse.mylar.context.ui'&#13;&#10;- Method name: 'run'&#13;&#10;- Destination type: 'org.eclipse.mylar.internal.context.ui.actions.ContextRetrieveAction'&#13;&#10;- Declared visibility: 'private'" comments="false" description="Extract method 'run'" destination="0" exceptions="false" flags="786434" id="org.eclipse.jdt.ui.extract.method" input="/src&lt;org.eclipse.mylar.internal.context.ui.actions{ContextRetrieveAction.java" name="run" replace="false" selection="1864 467" stamp="1168013157683" version="1.0" visibility="2"/>
+</session>
