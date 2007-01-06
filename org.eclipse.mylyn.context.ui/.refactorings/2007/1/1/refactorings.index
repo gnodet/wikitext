@@ -1,1 +1,5 @@
 1168013157683	Extract method 'run'
+1168043720551	Delete element
+1168046277832	Rename type 'NavigatorFilterBar'
+1168046301459	Rename type 'ResourcePatternFilter'
+1168046308215	Convert member type 'CommonNavigatorPatternFilter' to top level
