@@ -24,7 +24,7 @@ public class WebRoot extends WebResource {
 
 	public static final String HANDLE_ROOT = "webroot";
 
-	private static final String LABEL = "Web Context";
+	private static final String LABEL = "Sites";
 
 	private HashMap<String, WebResource> sites = new HashMap<String, WebResource>();
 
