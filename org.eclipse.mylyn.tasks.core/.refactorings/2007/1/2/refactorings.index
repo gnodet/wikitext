@@ -1,0 +1,10 @@
+1168536788500	Move compilation unit
+1168537327562	Rename type 'ITaskStatus'
+1168537826500	Move compilation unit
+1168537933968	Rename type 'TaskStatus'
+1168540264296	Move compilation unit
+1168540351781	Rename resource 'messages.properties'
+1168542260390	Move elements
+1168544531375	Rename field 'NETWORK_ERROR'
+1168544557500	Rename field 'network_error'
+1168549961640	Rename field 'REPOSITORY_COMMENT_REQUIRED'

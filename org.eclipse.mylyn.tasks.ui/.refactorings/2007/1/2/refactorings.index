@@ -1,0 +1,3 @@
+1168569589578	Extract method 'enableButtons'
+1168629170750	Extract constant 'DEFAULT_FIELD_WIDTH'
+1168648513750	Rename method 'displayDialog'

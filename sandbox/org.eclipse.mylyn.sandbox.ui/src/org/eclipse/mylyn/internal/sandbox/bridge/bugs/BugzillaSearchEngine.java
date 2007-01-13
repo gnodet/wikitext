@@ -61,11 +61,11 @@ public class BugzillaSearchEngine {
 
 	private boolean maxReached = false;
 
-	private String queryStringWithoutLogin;
+//	private String queryStringWithoutLogin;
 
 	public BugzillaSearchEngine(TaskRepository repository, String queryUrl) {
 		urlString = queryUrl;
-		queryStringWithoutLogin = urlString;
+//		queryStringWithoutLogin = urlString;
 		// urlString = urlString.concat(IBugzillaConstants.CONTENT_TYPE_RDF);
 		this.repository = repository;
 		// this.proxySettings = proxySettings;
@@ -151,17 +151,17 @@ public class BugzillaSearchEngine {
 			BugzillaCorePlugin.log(status);
 		} catch (OperationCanceledException e) {
 			status = new Status(IStatus.CANCEL, BugzillaUiPlugin.PLUGIN_ID, IStatus.CANCEL, "", null);
-		} catch (LoginException e) {
-			status = new MultiStatus(BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR,
-					"Login error occurred while querying Bugzilla Server " + repository.getUrl() + ".\n"
-							+ "\nEnsure proper configuration in " + TasksUiPlugin.LABEL_VIEW_REPOSITORIES + ".", e);
-
-			IStatus s = new Status(IStatus.ERROR, BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR, e.getClass().toString()
-					+ ":  ", e);
-			((MultiStatus) status).add(s);
-			s = new Status(IStatus.ERROR, BugzillaUiPlugin.PLUGIN_ID, IStatus.OK, "search failed for query "
-					+ queryStringWithoutLogin, e);
-			((MultiStatus) status).add(s);
+//		} catch (LoginException e) {
+//			status = new MultiStatus(BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR,
+//					"Login error occurred while querying Bugzilla Server " + repository.getUrl() + ".\n"
+//							+ "\nEnsure proper configuration in " + TasksUiPlugin.LABEL_VIEW_REPOSITORIES + ".", e);
+//
+//			IStatus s = new Status(IStatus.ERROR, BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR, e.getClass().toString()
+//					+ ":  ", e);
+//			((MultiStatus) status).add(s);
+//			s = new Status(IStatus.ERROR, BugzillaUiPlugin.PLUGIN_ID, IStatus.OK, "search failed for query "
+//					+ queryStringWithoutLogin, e);
+//			((MultiStatus) status).add(s);
 		} catch (final UnrecognizedReponseException e) {
 
 			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {

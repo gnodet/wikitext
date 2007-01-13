@@ -1,2 +1,11 @@
 1168284159171	Copy compilation unit
 1168284266031	Delete element
+1168479918703	Extract constant 'INVALID_CREDENTIALS'
+1168479960578	Move member 'INVALID_CREDENTIALS'
+1168556117515	Extract method 'checkAuthenticated'
+1168562060484	Move member 'CHANGES_SUBMITTED'
+1168646641875	Copy compilation unit
+1168646651734	Delete element
+1168646719953	Delete element
+1168646781203	Copy compilation unit
+1168646800843	Delete element
