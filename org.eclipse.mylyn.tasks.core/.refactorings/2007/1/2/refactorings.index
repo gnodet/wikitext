@@ -8,3 +8,5 @@
 1168544531375	Rename field 'NETWORK_ERROR'
 1168544557500	Rename field 'network_error'
 1168549961640	Rename field 'REPOSITORY_COMMENT_REQUIRED'
+1168712712468	Rename field 'comment_required'
+1168720407066	Rename field 'COMMENT_REQUIRED'
