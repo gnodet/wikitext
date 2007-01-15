@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename method 'org.eclipse.mylar.context.core.IStatusHandler.notify(...)' to 'fail'&#13;&#10;- Original project: 'org.eclipse.mylar.context.core'&#13;&#10;- Original element: 'org.eclipse.mylar.context.core.IStatusHandler.notify(...)'&#13;&#10;- Renamed element: 'org.eclipse.mylar.context.core.IStatusHandler.fail(...)'&#13;&#10;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method 'notify'" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylar.context.core{IStatusHandler.java[IStatusHandler~notify~QIStatus;~Z" name="fail" references="true" stamp="1168886363000" version="1.0"/>
+</session>
