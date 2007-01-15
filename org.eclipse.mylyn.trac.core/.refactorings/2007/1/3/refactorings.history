@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Rename type 'org.eclipse.mylar.internal.trac.core.TracOfflineTaskHandler' to 'TracTaskDataHandler'&#10;- Original project: 'org.eclipse.mylar.trac.core'&#10;- Original element: 'org.eclipse.mylar.internal.trac.core.TracOfflineTaskHandler'&#10;- Renamed element: 'org.eclipse.mylar.internal.trac.core.TracTaskDataHandler'&#10;- Update references to refactored element&#10;- Update textual occurrences in comments and strings" description="Rename type 'TracOfflineTaskHandler'" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;org.eclipse.mylar.internal.trac.core{TracOfflineTaskHandler.java[TracOfflineTaskHandler" matchStrategy="1" name="TracTaskDataHandler" qualified="false" references="true" similarDeclarations="false" stamp="1168847087614" textual="false" version="1.0"/>
+</session>
