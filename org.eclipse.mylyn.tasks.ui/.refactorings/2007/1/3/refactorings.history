@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename method 'org.eclipse.mylar.tasks.ui.editors.AbstractRepositoryTaskEditor.hasAttributeChanges()' to 'hasVisibleAttributeChanges'&#13;&#10;- Original project: 'org.eclipse.mylar.tasks.ui'&#13;&#10;- Original element: 'org.eclipse.mylar.tasks.ui.editors.AbstractRepositoryTaskEditor.hasAttributeChanges()'&#13;&#10;- Renamed element: 'org.eclipse.mylar.tasks.ui.editors.AbstractRepositoryTaskEditor.hasVisibleAttributeChanges()'&#13;&#10;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method 'hasAttributeChanges'" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylar.tasks.ui.editors{AbstractRepositoryTaskEditor.java[AbstractRepositoryTaskEditor~hasAttributeChanges" name="hasVisibleAttributeChanges" references="true" stamp="1168980397468" version="1.0"/>
+</session>
