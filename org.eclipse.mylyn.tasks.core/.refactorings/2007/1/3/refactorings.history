@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Extract constant 'org.eclipse.mylar.tasks.core.TaskRepository.KIND_UNKNOWN' from expression '&quot;&lt;unknown&gt;&quot;'&#13;&#10;- Original project: 'org.eclipse.mylar.tasks.core'&#13;&#10;- Constant name: 'KIND_UNKNOWN'&#13;&#10;- Constant expression: '&quot;&lt;unknown&gt;&quot;'&#13;&#10;- Declared visibility: 'private'&#13;&#10;- Replace occurrences of expression with constant" description="Extract constant 'KIND_UNKNOWN'" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylar.tasks.core{TaskRepository.java" name="KIND_UNKNOWN" qualify="false" replace="true" selection="10088 11" stamp="1169061235030" version="1.0" visibility="2"/>
+</session>
