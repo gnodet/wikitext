@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Extract method 'private void addButtonField(Composite rolesComposite,RepositoryTaskAttribute attribute)' from 'org.eclipse.mylar.internal.bugzilla.ui.editor.BugzillaTaskEditor.addRoles()' to 'org.eclipse.mylar.internal.bugzilla.ui.editor.BugzillaTaskEditor'&#13;&#10;- Original project: 'org.eclipse.mylar.bugzilla.ui'&#13;&#10;- Method name: 'addButtonField'&#13;&#10;- Destination type: 'org.eclipse.mylar.internal.bugzilla.ui.editor.BugzillaTaskEditor'&#13;&#10;- Declared visibility: 'private'" comments="false" description="Extract method 'addButtonField'" destination="0" exceptions="false" flags="786434" id="org.eclipse.jdt.ui.extract.method" input="/src&lt;org.eclipse.mylar.internal.bugzilla.ui.editor{BugzillaTaskEditor.java" name="addButtonField" replace="false" selection="18419 695" stamp="1168989579609" version="1.0" visibility="2"/>
+</session>
