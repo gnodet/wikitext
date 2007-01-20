@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 3 element(s) from project 'org.eclipse.mylar.java'&#13;&#10;- Original project: 'org.eclipse.mylar.java'&#13;&#10;- Original elements:&#13;&#10;     MylarContextTestUtil.java.rej&#13;&#10;     MylarJUnitLaunchConfiguration.java.rej&#13;&#10;     MylarPdeJUnitLaunchConfiguration.java.rej" description="Delete elements" element1="src/org/eclipse/mylar/internal/java/ui/junit/MylarPdeJUnitLaunchConfiguration.java.rej" element2="src/org/eclipse/mylar/internal/java/ui/junit/MylarContextTestUtil.java.rej" element3="src/org/eclipse/mylar/internal/java/ui/junit/MylarJUnitLaunchConfiguration.java.rej" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="3" stamp="1169253645397" subPackages="false" version="1.0"/>
+</session>
