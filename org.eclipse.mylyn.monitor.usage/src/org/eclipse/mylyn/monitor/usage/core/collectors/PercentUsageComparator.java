@@ -21,8 +21,8 @@ class PercentUsageComparator implements Comparator<String> {
 		int index1 = o1.indexOf('%');
 		int index2 = o2.indexOf('%');
 		if (index1 != -1 && index2 != -1) {
-			String s1 = o1.substring(0, index1 - 1);
-			String s2 = o2.substring(0, index2 - 1);
+			String s1 = o1.substring(0, index1);
+			String s2 = o2.substring(0, index2);
 			return (-1) * new Float(s1).compareTo(new Float(s2));
 		} else {
 			return 0;
