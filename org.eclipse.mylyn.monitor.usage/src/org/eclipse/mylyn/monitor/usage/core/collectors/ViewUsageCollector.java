@@ -82,6 +82,15 @@ public class ViewUsageCollector implements IUsageCollector {
 
 	private String formatAsPercentage(float viewUse) {
 		String formattedViewUse = ("" + viewUse * 100);
+
+		// sometimes the floats are so small that formattedViewUsage ends up
+		// being
+		// something like 7.68334E-4, which would get formatted to 7.68% without
+		// this check
+		if (formattedViewUse.contains("E")) {
+			return "0.00%";
+		}
+
 		int indexOf2ndDecimal = formattedViewUse.indexOf('.') + 3;
 		if (indexOf2ndDecimal <= formattedViewUse.length()) {
 			formattedViewUse = formattedViewUse.substring(0, indexOf2ndDecimal);
