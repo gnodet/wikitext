@@ -11,21 +11,14 @@
 
 package org.eclipse.mylar.internal.web.ui;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Calendar;
-
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.mylar.tasks.ui.TasksUiUtil;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.browser.IWebBrowser;
-import org.eclipse.ui.internal.browser.WorkbenchBrowserSupport;
 
 /**
  * @author Mik Kersten
@@ -34,30 +27,30 @@ public class NewWebBrowserAction implements IWorkbenchWindowActionDelegate {
 
 	public void run(IAction action) {
 		String url = "http://google.com";
-
-		try {
-			IWebBrowser browser = null;
-			int flags = 0;
-			if (WorkbenchBrowserSupport.getInstance().isInternalWebBrowserAvailable()) {
-				flags = WorkbenchBrowserSupport.AS_EDITOR | WorkbenchBrowserSupport.LOCATION_BAR
-						| WorkbenchBrowserSupport.NAVIGATION_BAR;
-
-			} else {
-				flags = WorkbenchBrowserSupport.AS_EXTERNAL | WorkbenchBrowserSupport.LOCATION_BAR
-						| WorkbenchBrowserSupport.NAVIGATION_BAR;
-			}  
-			
-			String generatedId = "org.eclipse.mylar.web.browser-" + Calendar.getInstance().getTimeInMillis();
-			browser = WorkbenchBrowserSupport.getInstance().createBrowser(flags, generatedId, null, null);
-			
-			browser.openURL(new URL(url));
-		} catch (PartInitException e) {
-			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
-					+ " could not be opened");
-		} catch (MalformedURLException e) {
-			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
-					+ " could not be opened");
-		}
+		TasksUiUtil.openBrowser(url);
+//		try {
+//			IWebBrowser browser = null;
+//			int flags = 0;
+//			if (WorkbenchBrowserSupport.getInstance().isInternalWebBrowserAvailable()) {
+//				flags = WorkbenchBrowserSupport.AS_EDITOR | WorkbenchBrowserSupport.LOCATION_BAR
+//						| WorkbenchBrowserSupport.NAVIGATION_BAR;
+//
+//			} else {
+//				flags = WorkbenchBrowserSupport.AS_EXTERNAL | WorkbenchBrowserSupport.LOCATION_BAR
+//						| WorkbenchBrowserSupport.NAVIGATION_BAR;
+//			}  
+//			
+//			String generatedId = generateUniqueWebBrowserId();
+//			browser = WorkbenchBrowserSupport.getInstance().createBrowser(flags, generatedId, null, null);
+//			
+//			browser.openURL(new URL(url));
+//		} catch (PartInitException e) {
+//			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
+//					+ " could not be opened");
+//		} catch (MalformedURLException e) {
+//			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
+//					+ " could not be opened");
+//		}
 	}
 
 	protected String getUrlFromClipboard() {

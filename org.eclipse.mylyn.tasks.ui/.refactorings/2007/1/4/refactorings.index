@@ -3,3 +3,6 @@
 1169435667210	Rename field 'searchDuplicatesButton'
 1169435684381	Rename field 'estimated'
 1169435779019	Rename field 'categoryCombo'
+1169590777544	Rename method 'openUrl'
+1169590812537	Rename method 'openWithBrowser'
+1169590899684	Rename method 'openUrl'
