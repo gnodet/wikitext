@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Rename method 'org.eclipse.mylar.internal.resources.ui.ContextEditorManager.isUnsubmittedEdtior(...)' to 'isUnsubmittedTaskEditor'&#13;&#10;- Original project: 'org.eclipse.mylar.resources'&#13;&#10;- Original element: 'org.eclipse.mylar.internal.resources.ui.ContextEditorManager.isUnsubmittedEdtior(...)'&#13;&#10;- Renamed element: 'org.eclipse.mylar.internal.resources.ui.ContextEditorManager.isUnsubmittedTaskEditor(...)'&#13;&#10;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method 'isUnsubmittedEdtior'" flags="589826" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylar.internal.resources.ui{ContextEditorManager.java[ContextEditorManager~isUnsubmittedEdtior~QIEditorReference;" name="isUnsubmittedTaskEditor" references="true" stamp="1169573870083" version="1.0"/>
+</session>
