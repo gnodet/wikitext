@@ -15,7 +15,6 @@ import java.net.URL;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Iterator;
-
 import javax.swing.text.html.HTML.Tag;
 
 /**
@@ -36,6 +35,9 @@ public class HtmlTag {
 
 	/** tag's base url */
 	private URL baseUrl;
+	
+	/** tag is self terminated */
+	private boolean selfTerminating;
 
 	/**
 	 * Basic constructor. The tag is uninitialized.
@@ -57,7 +59,7 @@ public class HtmlTag {
 		tagType = Type.UNKNOWN;
 		isEndTag = false;
 		attributes = new HashMap<String, String>();
-		tagName = new String(htmltag.tagName);
+		tagName = htmltag.tagName;
 		baseUrl = htmltag.baseUrl;
 		tagType = htmltag.tagType;
 		isEndTag = htmltag.isEndTag;
@@ -245,6 +247,9 @@ public class HtmlTag {
 			}
 			sb.append('"');
 		}
+		if(selfTerminating) {
+			sb.append('/');
+		}
 		sb.append('>');
 
 		return sb.toString();
@@ -256,41 +261,11 @@ public class HtmlTag {
 	public static class Type extends Tag {
 		public static final Tag UNKNOWN = new Tag();
 
-		// public static final Tag THEAD = new Type("THEAD");
-		// public static final Tag DOCTYPE = new Type("!DOCTYPE");
-		// public static final Tag LABEL = new Type("LABEL");
+		public static final Tag THEAD = new Type("THEAD");
 
-		// <interactionEvent>
-		// <kind>PREFERENCE</kind>
-		// <date>2005-07-04 20:11:53.490 PDT</date>
-		// <endDate>2005-07-04 20:11:53.490 PDT</endDate>
-		// <originId>org.eclipse.mylar.ui.auto.fold.isChecked</originId>
-		// <structureKind>null</structureKind>
-		// <structureHandle>null</structureHandle>
-		// <navigation>null</navigation>
-		// <delta>true</delta>
-		// <interestContribution>1.0</interestContribution>
-		// </interactionEvent>
+		public static final Tag DOCTYPE = new Type("!DOCTYPE");
 
-		public static final Tag INTERACTION_EVENT = new Type("interactionEvent");
-
-		public static final Tag KIND = new Type("kind");
-
-		public static final Tag START_DATE = new Type("date");
-
-		public static final Tag END_DATE = new Type("endDate");
-
-		public static final Tag ORIGIN_ID = new Type("originId");
-
-		public static final Tag STRUCTURE_KIND = new Type("structureKind");
-
-		public static final Tag STRUCTURE_HANDLE = new Type("structureHandle");
-
-		public static final Tag NAVIGATION = new Type("navigation");
-
-		public static final Tag DELTA = new Type("delta");
-
-		public static final Tag INTEREST_CONTRIBUTION = new Type("interestContribution");
+		public static final Tag LABEL = new Type("LABEL");
 
 		private Type(String name) {
 			super(name);
@@ -300,15 +275,88 @@ public class HtmlTag {
 	private static HashMap<String, Tag> tags;
 	static {
 		tags = new HashMap<String, Tag>();
-		tags.put(new String(Type.INTERACTION_EVENT.toString()), Type.INTERACTION_EVENT);
-		tags.put(new String(Type.KIND.toString()), Type.KIND);
-		tags.put(new String(Type.START_DATE.toString()), Type.START_DATE);
-		tags.put(new String(Type.END_DATE.toString()), Type.END_DATE);
-		tags.put(new String(Type.ORIGIN_ID.toString()), Type.ORIGIN_ID);
-		tags.put(new String(Type.STRUCTURE_KIND.toString()), Type.STRUCTURE_KIND);
-		tags.put(new String(Type.STRUCTURE_HANDLE.toString()), Type.STRUCTURE_HANDLE);
-		tags.put(new String(Type.NAVIGATION.toString()), Type.NAVIGATION);
-		tags.put(new String(Type.DELTA.toString()), Type.DELTA);
-		tags.put(new String(Type.INTEREST_CONTRIBUTION.toString()), Type.INTEREST_CONTRIBUTION);
+		tags.put("A", Tag.A);
+		tags.put("ADDRESS", Tag.ADDRESS);
+		tags.put("APPLET", Tag.APPLET);
+		tags.put("AREA", Tag.AREA);
+		tags.put("B", Tag.B);
+		tags.put("BASE", Tag.BASE);
+		tags.put("BASEFONT", Tag.BASEFONT);
+		tags.put("BIG", Tag.BIG);
+		tags.put("BLOCKQUOTE", Tag.BLOCKQUOTE);
+		tags.put("BODY", Tag.BODY);
+		tags.put("BR", Tag.BR);
+		tags.put("CAPTION", Tag.CAPTION);
+		tags.put("CENTER", Tag.CENTER);
+		tags.put("CITE", Tag.CITE);
+		tags.put("CODE", Tag.CODE);
+		tags.put("DD", Tag.DD);
+		tags.put("DFN", Tag.DFN);
+		tags.put("DIR", Tag.DIR);
+		tags.put("DIV", Tag.DIV);
+		tags.put("DL", Tag.DL);
+		tags.put("!DOCTYPE", Type.DOCTYPE);
+		tags.put("DT", Tag.DT);
+		tags.put("EM", Tag.EM);
+		tags.put("FONT", Tag.FONT);
+		tags.put("FORM", Tag.FORM);
+		tags.put("FRAME", Tag.FRAME);
+		tags.put("FRAMESET", Tag.FRAMESET);
+		tags.put("H1", Tag.H1);
+		tags.put("H2", Tag.H2);
+		tags.put("H3", Tag.H3);
+		tags.put("H4", Tag.H4);
+		tags.put("H5", Tag.H5);
+		tags.put("H6", Tag.H6);
+		tags.put("HEAD", Tag.HEAD);
+		tags.put("HTML", Tag.HTML);
+		tags.put("HR", Tag.HR);
+		tags.put("I", Tag.I);
+		tags.put("IMG", Tag.IMG);
+		tags.put("INPUT", Tag.INPUT);
+		tags.put("ISINDEX", Tag.ISINDEX);
+		tags.put("KBD", Tag.KBD);
+		tags.put("LI", Tag.LI);
+		tags.put("LABEL", Type.LABEL);
+		tags.put("LINK", Tag.LINK);
+		tags.put("MAP", Tag.MAP);
+		tags.put("MENU", Tag.MENU);
+		tags.put("META", Tag.META);
+		tags.put("NOFRAMES", Tag.NOFRAMES);
+		tags.put("OBJECT", Tag.OBJECT);
+		tags.put("OL", Tag.OL);
+		tags.put("OPTION", Tag.OPTION);
+		tags.put("P", Tag.P);
+		tags.put("PARAM", Tag.PARAM);
+		tags.put("PRE", Tag.PRE);
+		tags.put("S", Tag.S);
+		tags.put("SAMP", Tag.SAMP);
+		tags.put("SCRIPT", Tag.SCRIPT);
+		tags.put("SELECT", Tag.SELECT);
+		tags.put("SMALL", Tag.SMALL);
+		tags.put("STRONG", Tag.STRONG);
+		tags.put("STYLE", Tag.STYLE);
+		tags.put("SUB", Tag.SUB);
+		tags.put("SUP", Tag.SUP);
+		tags.put("TABLE", Tag.TABLE);
+		tags.put("TD", Tag.TD);
+		tags.put("TEXTAREA", Tag.TEXTAREA);
+		tags.put("TH", Tag.TH);
+		tags.put("THEAD", Type.THEAD);
+		tags.put("TITLE", Tag.TITLE);
+		tags.put("TR", Tag.TR);
+		tags.put("TT", Tag.TT);
+		tags.put("U", Tag.U);
+		tags.put("UL", Tag.UL);
+		tags.put("VAR", Tag.VAR);
+	}
+	
+	public void setSelfTerminating(boolean terminating) {
+		this.selfTerminating = terminating;
+		
+	}
+	
+	public boolean isSelfTerminating() {
+		return selfTerminating;
 	}
 }
