@@ -7,7 +7,7 @@
         id="org.eclipse.mylar.monitor.commands"
         targetID="org.eclipse.jdt.ui.PackageExplorer">
 	    <action  
-  		  	label="Reports: Eclipse Usage Summary" 
+  		  	label="Reports: My Usage Summary" 
 	  		tooltip="Mylar Reports: Usage Summary"
 	  		menubarPath="mylar.monitor" 
 	  		id="org.eclipse.mylar.monitor.reports.ui.actions.ComputeSummaryAction" 
@@ -27,8 +27,8 @@
         id="org.eclipse.mylar.monitor.commands"
         targetID="org.eclipse.ui.views.ResourceNavigator">
 	    <action  
-  		  	label="Reports: Eclipse Usage Summary" 
-	  		tooltip="Mylar Reports: Usage Summary"
+  		  	label="Reports: My Usage Summary" 
+	  		tooltip="Mylar Reports: My Usage Summary"
 	  		menubarPath="mylar.monitor" 
 	  		id="org.eclipse.mylar.monitor.reports.ui.actions.ComputeSummaryAction" 
 	  		class="org.eclipse.mylar.internal.monitor.reports.ui.actions.EclipseUsageSummaryAction"

@@ -50,10 +50,14 @@
         <editor
            icon="icons/etool16/monitor.gif"
            class="org.eclipse.mylar.internal.monitor.usage.ui.editors.UsageReportEditorPart"
-           name="User Analysis"
-           id="org.eclipse.mylar.internal.sandbox.usageReport"/>
+           name="My Usage Summary"
+           id="org.eclipse.mylar.monitor.reports.ui.actions.monitorSummaryReport"/>
+        <editor
+           icon="icons/etool16/monitor.gif"
+           class="org.eclipse.mylar.internal.monitor.usage.ui.editors.UsageReportEditorPart"
+           name="Multi-user Analysis"
+           id="org.eclipse.mylar.monitor.reports.ui.actions.monitorUsersReport"/>
   	</extension>
-   
    
    <!--
    	<extension
