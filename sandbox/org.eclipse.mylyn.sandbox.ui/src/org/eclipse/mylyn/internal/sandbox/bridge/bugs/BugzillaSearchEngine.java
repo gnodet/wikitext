@@ -427,7 +427,7 @@ public class BugzillaSearchEngine {
 // Pattern emailRe = Pattern.compile(".*<title>.*check e-mail.*</title>.*");
 // Pattern errorRe = Pattern.compile(".*<title>.*error.*</title>.*");
 //
-// String lowerLine = line.toLowerCase();
+// String lowerLine = line.toLowerCase(Locale.ENGLISH);
 //
 // // check if we have anything that suggests bad login info
 // if (loginRe.matcher(lowerLine).find() ||

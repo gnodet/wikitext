@@ -220,7 +220,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 				if (token.getValue().toString().equals("<kind>")) {
 					token = tokenizer.nextToken();
 					if (!token.getValue().toString().equals("</kind>")) {
-						kind = token.getValue().toString().toLowerCase();
+						kind = token.getValue().toString().toLowerCase(Locale.ENGLISH);
 						token = tokenizer.nextToken();
 					}
 				} else if (token.getValue().toString().equals("<date>")) {

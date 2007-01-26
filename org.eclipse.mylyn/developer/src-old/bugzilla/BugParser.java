@@ -184,7 +184,7 @@ public class BugParser {
 
 		// if we found an attachment attribute, forget about it, else add the
 		// attribute to the bug report
-		if (attributeName.toLowerCase().startsWith("attachments")) {
+		if (attributeName.toLowerCase()).startsWith("attachments")) {
 			// do nothing
 		} else {
 			if (attributeName.equals(KEY_BUG_NUM))
