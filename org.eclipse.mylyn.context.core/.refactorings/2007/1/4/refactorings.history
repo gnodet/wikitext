@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Rename method 'org.eclipse.mylar.context.core.AbstractContextStore.notifyContextStoreMoved()' to 'contextStoreMoved'&#13;&#10;- Original project: 'org.eclipse.mylar.context.core'&#13;&#10;- Original element: 'org.eclipse.mylar.context.core.AbstractContextStore.notifyContextStoreMoved()'&#13;&#10;- Renamed element: 'org.eclipse.mylar.context.core.AbstractContextStore.contextStoreMoved()'&#13;&#10;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method 'notifyContextStoreMoved'" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylar.context.core{AbstractContextStore.java[AbstractContextStore~notifyContextStoreMoved" name="contextStoreMoved" references="true" stamp="1169830343036" version="1.0"/>
+</session>
