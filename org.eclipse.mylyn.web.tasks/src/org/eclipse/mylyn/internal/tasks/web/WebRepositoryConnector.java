@@ -234,7 +234,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	public Set<AbstractRepositoryTask> getChangedSinceLastSync(TaskRepository repository,
-			Set<AbstractRepositoryTask> tasks) throws Exception {
+			Set<AbstractRepositoryTask> tasks) throws CoreException {
 		// not supported
 		return Collections.emptySet();
 	}
