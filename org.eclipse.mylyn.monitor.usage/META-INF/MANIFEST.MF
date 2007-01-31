@@ -4,7 +4,6 @@ Bundle-Name: Mylar Usage Monitor Plug-in
 Bundle-SymbolicName: org.eclipse.mylar.monitor.usage;singleton:=true
 Bundle-Version: 0.8.0
 Bundle-Activator: org.eclipse.mylar.monitor.usage.MylarUsageMonitorPlugin
-Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
@@ -21,7 +20,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.mylar.context.ui
 Eclipse-AutoStart: true
 Bundle-Vendor: Eclipse.org
-Export-Package: org.eclipse.mylar.internal.monitor.reports.collectors,
+Export-Package: 
  org.eclipse.mylar.internal.monitor.usage,
  org.eclipse.mylar.internal.monitor.usage.ui,
  org.eclipse.mylar.internal.monitor.usage.ui.editors,
