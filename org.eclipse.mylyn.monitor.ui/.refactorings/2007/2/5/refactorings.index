@@ -6,3 +6,7 @@
 1170464532968	Delete element
 1170464659498	Delete element
 1170465837187	Rename field 'platformSpecificActivityTimer'
+1170466216644	Rename field 'timer'
+1170466285959	Rename type 'WorkbenchActivityTimer'
+1170467102797	Rename field 'activityListener'
+1170467185464	Rename method 'stopTimer'
