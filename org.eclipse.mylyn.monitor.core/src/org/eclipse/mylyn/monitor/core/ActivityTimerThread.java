@@ -11,18 +11,16 @@
 /*
  * Created on Jul 16, 2004
  */
-package org.eclipse.mylar.internal.context.core.util;
+package org.eclipse.mylar.monitor.core;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.eclipse.mylar.context.core.MylarStatusHandler;
 
 /**
  * @author Mik Kersten
  * @author Shawn Minto
  */
-public class TimerThread extends Thread implements Runnable {
+public class ActivityTimerThread extends Thread implements Runnable {
 
 	private static final int SECOND = 1000;
 
@@ -40,12 +38,12 @@ public class TimerThread extends Thread implements Runnable {
 
 	boolean killed = false;
 
-	public TimerThread(int timeoutInMillis, int sleepInterval) {
+	public ActivityTimerThread(int timeoutInMillis, int sleepInterval) {
 		this.sleepInterval = sleepInterval;
 		setTimeoutMillis(timeoutInMillis);
 	}
 
-	public TimerThread(int millis) {
+	public ActivityTimerThread(int millis) {
 		this(millis, DEFAULT_SLEEP_INTERVAL);
 	}
 
@@ -80,7 +78,7 @@ public class TimerThread extends Thread implements Runnable {
 				sleep(sleepInterval);
 			}
 		} catch (InterruptedException e) {
-			MylarStatusHandler.log(e, "timer interrupted");
+			// ignore
 		}
 	}
 

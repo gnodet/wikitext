@@ -11,7 +11,7 @@
 
 package org.eclipse.mylar.monitor.ui;
 
-import org.eclipse.mylar.internal.context.core.util.IActivityTimerListener;
+import org.eclipse.mylar.monitor.core.IActivityTimerListener;
 
 /**
  * @author Mik Kersten
