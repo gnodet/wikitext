@@ -234,7 +234,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		initDefaultPrefs();
-		new MonitorExtensionPointReader().initExtensions();
+		new MonitorUsageExtensionPointReader().initExtensions();
 
 		try {
 			interactionLogger = new InteractionEventLogger(getMonitorLogFile());
@@ -626,7 +626,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		this.questionnaireEnabled = questionnaireEnabled;
 	}
 
-	class MonitorExtensionPointReader {
+	class MonitorUsageExtensionPointReader {
 
 		public static final String EXTENSION_ID_STUDY = "org.eclipse.mylar.monitor.study";
 
@@ -664,8 +664,8 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 
 		private boolean extensionsRead = false;
 
-		// private MonitorExtensionPointReader thisReader = new
-		// MonitorExtensionPointReader();
+		// private MonitorUsageExtensionPointReader thisReader = new
+		// MonitorUsageExtensionPointReader();
 
 		@SuppressWarnings("deprecation")
 		public void initExtensions() {
