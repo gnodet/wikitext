@@ -10,3 +10,5 @@
 1170466285959	Rename type 'WorkbenchActivityTimer'
 1170467102797	Rename field 'activityListener'
 1170467185464	Rename method 'stopTimer'
+1170467659747	Rename type 'ActivityContextManager'
+1170467858935	Rename type 'ActivityMetaContextManager'
