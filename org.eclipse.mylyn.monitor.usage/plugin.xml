@@ -13,7 +13,7 @@
             category="org.eclipse.mylar.wizards"
             class="org.eclipse.mylar.internal.monitor.usage.ui.wizards.UsageSubmissionWizard"
             icon="icons/etool16/wizard-study.gif"
-            id="org.eclipse.mylar.monitor.ui.uploadStatistics.StatisticsUploadWizard"
+            id="org.eclipse.mylar.monitor.ui.ui.uploadStatistics.StatisticsUploadWizard"
             name="Usage Feedback">
       </wizard>
    </extension>
@@ -22,9 +22,9 @@
       <page 
          name="Monitor"
          class="org.eclipse.mylar.internal.monitor.usage.ui.preferences.MylarMonitorPreferencePage"
-         id="org.eclipse.mylar.monitor.ui.preferences"
+         id="org.eclipse.mylar.monitor.ui.ui.preferences"
 		 category="org.eclipse.mylar.ui.preferences">
-         <keywordReference id="org.eclipse.mylar.monitor.keywords"/>
+         <keywordReference id="org.eclipse.mylar.monitor.ui.keywords"/>
       </page> 
    </extension>
    
@@ -32,7 +32,7 @@
    		point="org.eclipse.ui.keywords">
       <keyword
             label="Mylar Monitor"
-            id="org.eclipse.mylar.monitor.keywords"/>
+            id="org.eclipse.mylar.monitor.ui.keywords"/>
    </extension>
  
 	<extension point="org.eclipse.ui.newWizards">
@@ -50,12 +50,12 @@
            icon="icons/etool16/monitor.gif"
            class="org.eclipse.mylar.internal.monitor.usage.ui.editors.UsageReportEditorPart"
            name="My Usage Summary"
-           id="org.eclipse.mylar.monitor.reports.ui.actions.monitorSummaryReport"/>
+           id="org.eclipse.mylar.monitor.ui.reports.ui.actions.monitorSummaryReport"/>
         <editor
            icon="icons/etool16/monitor.gif"
            class="org.eclipse.mylar.internal.monitor.usage.ui.editors.UsageReportEditorPart"
            name="Multi-user Analysis"
-           id="org.eclipse.mylar.monitor.reports.ui.actions.monitorUsersReport"/>
+           id="org.eclipse.mylar.monitor.ui.reports.ui.actions.monitorUsersReport"/>
   	</extension>
    
    <!--

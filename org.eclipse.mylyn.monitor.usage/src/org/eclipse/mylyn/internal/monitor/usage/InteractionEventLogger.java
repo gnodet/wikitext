@@ -26,13 +26,13 @@ import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import org.eclipse.mylar.context.core.IInteractionEventListener;
-import org.eclipse.mylar.context.core.InteractionEvent;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
-import org.eclipse.mylar.context.core.InteractionEvent.Kind;
 import org.eclipse.mylar.internal.context.core.MylarContextExternalizer;
 import org.eclipse.mylar.internal.context.core.util.XmlStringConverter;
 import org.eclipse.mylar.internal.monitor.usage.HtmlStreamTokenizer.Token;
+import org.eclipse.mylar.monitor.core.IInteractionEventListener;
+import org.eclipse.mylar.monitor.core.InteractionEvent;
+import org.eclipse.mylar.monitor.core.InteractionEvent.Kind;
 import org.eclipse.mylar.monitor.usage.HandleObfuscator;
 import org.eclipse.mylar.monitor.usage.MylarUsageMonitorPlugin;
 

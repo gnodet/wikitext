@@ -14,7 +14,7 @@ package org.eclipse.mylar.monitor.usage.core.collectors;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.eclipse.mylar.context.core.InteractionEvent;
+import org.eclipse.mylar.monitor.core.InteractionEvent;
 
 /**
  * @author Mik Kersten

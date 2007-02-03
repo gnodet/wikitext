@@ -11,7 +11,7 @@
 
 package org.eclipse.mylar.monitor.usage.core;
 
-import org.eclipse.mylar.context.core.InteractionEvent;
+import org.eclipse.mylar.monitor.core.InteractionEvent;
 
 /**
  * Test whether an InteractionEvent meets particular criteria

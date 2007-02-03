@@ -37,25 +37,25 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.IContextStoreListener;
-import org.eclipse.mylar.context.core.IInteractionEventListener;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.context.core.MylarContextManager;
 import org.eclipse.mylar.internal.monitor.usage.InteractionEventLogger;
 import org.eclipse.mylar.internal.monitor.usage.MylarMonitorPreferenceConstants;
 import org.eclipse.mylar.internal.monitor.usage.StudyParameters;
 import org.eclipse.mylar.internal.monitor.usage.ui.wizards.UsageSubmissionWizard;
-import org.eclipse.mylar.monitor.AbstractCommandMonitor;
-import org.eclipse.mylar.monitor.IActionExecutionListener;
-import org.eclipse.mylar.monitor.IMylarMonitorLifecycleListener;
-import org.eclipse.mylar.monitor.MylarMonitorPlugin;
-import org.eclipse.mylar.monitor.workbench.ActionExecutionMonitor;
-import org.eclipse.mylar.monitor.workbench.ActivityChangeMonitor;
-import org.eclipse.mylar.monitor.workbench.BrowserMonitor;
-import org.eclipse.mylar.monitor.workbench.KeybindingCommandMonitor;
-import org.eclipse.mylar.monitor.workbench.MenuCommandMonitor;
-import org.eclipse.mylar.monitor.workbench.PerspectiveChangeMonitor;
-import org.eclipse.mylar.monitor.workbench.PreferenceChangeMonitor;
-import org.eclipse.mylar.monitor.workbench.WindowChangeMonitor;
+import org.eclipse.mylar.monitor.core.IInteractionEventListener;
+import org.eclipse.mylar.monitor.ui.AbstractCommandMonitor;
+import org.eclipse.mylar.monitor.ui.IActionExecutionListener;
+import org.eclipse.mylar.monitor.ui.IMylarMonitorLifecycleListener;
+import org.eclipse.mylar.monitor.ui.MylarMonitorUiPlugin;
+import org.eclipse.mylar.monitor.ui.workbench.ActionExecutionMonitor;
+import org.eclipse.mylar.monitor.ui.workbench.ActivityChangeMonitor;
+import org.eclipse.mylar.monitor.ui.workbench.BrowserMonitor;
+import org.eclipse.mylar.monitor.ui.workbench.KeybindingCommandMonitor;
+import org.eclipse.mylar.monitor.ui.workbench.MenuCommandMonitor;
+import org.eclipse.mylar.monitor.ui.workbench.PerspectiveChangeMonitor;
+import org.eclipse.mylar.monitor.ui.workbench.PreferenceChangeMonitor;
+import org.eclipse.mylar.monitor.ui.workbench.WindowChangeMonitor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.events.ShellListener;
@@ -115,7 +115,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 
 	public static final String MONITOR_LOG_NAME = "monitor-history";
 
-	public static final String PLUGIN_ID = "org.eclipse.mylar.monitor";
+	public static final String PLUGIN_ID = "org.eclipse.mylar.monitor.ui";
 
 	private InteractionEventLogger interactionLogger;
 
@@ -183,7 +183,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 
 		public void shellDeactivated(ShellEvent arg0) {
 			if (!isPerformingUpload() && ContextCorePlugin.getDefault() != null) {
-				for (IInteractionEventListener listener : MylarMonitorPlugin.getDefault().getInteractionListeners())
+				for (IInteractionEventListener listener : MylarMonitorUiPlugin.getDefault().getInteractionListeners())
 					listener.stopMonitoring();
 			}
 		}
@@ -194,7 +194,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 				checkForStatisticsUpload();
 			}
 			if (!isPerformingUpload() && ContextCorePlugin.getDefault() != null) {
-				for (IInteractionEventListener listener : MylarMonitorPlugin.getDefault().getInteractionListeners())
+				for (IInteractionEventListener listener : MylarMonitorUiPlugin.getDefault().getInteractionListeners())
 					listener.startMonitoring();
 			}
 		}
@@ -213,10 +213,10 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 
 		public void contextStoreMoved() {
 			if (!isPerformingUpload()) {
-				for (IInteractionEventListener listener : MylarMonitorPlugin.getDefault().getInteractionListeners())
+				for (IInteractionEventListener listener : MylarMonitorUiPlugin.getDefault().getInteractionListeners())
 					listener.stopMonitoring();
 				interactionLogger.moveOutputFile(getMonitorLogFile().getAbsolutePath());
-				for (IInteractionEventListener listener : MylarMonitorPlugin.getDefault().getInteractionListeners())
+				for (IInteractionEventListener listener : MylarMonitorUiPlugin.getDefault().getInteractionListeners())
 					listener.startMonitoring();
 			}
 		}
@@ -296,11 +296,11 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		if (getPreferenceStore().getBoolean(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED))
 			return;
 		interactionLogger.startMonitoring();
-		for (IInteractionEventListener listener : MylarMonitorPlugin.getDefault().getInteractionListeners())
+		for (IInteractionEventListener listener : MylarMonitorUiPlugin.getDefault().getInteractionListeners())
 			listener.startMonitoring();
 
 		IWorkbench workbench = PlatformUI.getWorkbench();
-		MylarMonitorPlugin.getDefault().addInteractionListener(interactionLogger);
+		MylarMonitorUiPlugin.getDefault().addInteractionListener(interactionLogger);
 		getCommandMonitors().add(keybindingCommandMonitor);
 
 		getActionExecutionListeners().add(new ActionExecutionMonitor());
@@ -311,7 +311,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 			}
 		}
 		ContextCorePlugin.getDefault().getContextStore().addListener(DATA_DIR_MOVE_LISTENER);
-		MylarMonitorPlugin.getDefault().addWindowPerspectiveListener(perspectiveMonitor);
+		MylarMonitorUiPlugin.getDefault().addWindowPerspectiveListener(perspectiveMonitor);
 		workbench.getActivitySupport().getActivityManager().addActivityManagerListener(activityMonitor);
 		workbench.getDisplay().addFilter(SWT.Selection, menuMonitor);
 		workbench.addWindowListener(windowMonitor);
@@ -348,11 +348,11 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 			((IMylarMonitorLifecycleListener) listener).stopMonitoring();
 		}
 
-		for (IInteractionEventListener listener : MylarMonitorPlugin.getDefault().getInteractionListeners())
+		for (IInteractionEventListener listener : MylarMonitorUiPlugin.getDefault().getInteractionListeners())
 			listener.stopMonitoring();
 
 		IWorkbench workbench = PlatformUI.getWorkbench();
-		MylarMonitorPlugin.getDefault().removeInteractionListener(interactionLogger);
+		MylarMonitorUiPlugin.getDefault().removeInteractionListener(interactionLogger);
 
 		getCommandMonitors().remove(keybindingCommandMonitor);
 		getActionExecutionListeners().remove(new ActionExecutionMonitor());
@@ -366,7 +366,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		ContextCorePlugin.getDefault().getContextStore().removeListener(DATA_DIR_MOVE_LISTENER);
 		// ContextCorePlugin.getDefault().getPluginPreferences().removePropertyChangeListener(DATA_DIR_MOVE_LISTENER);
 
-		MylarMonitorPlugin.getDefault().removeWindowPerspectiveListener(perspectiveMonitor);
+		MylarMonitorUiPlugin.getDefault().removeWindowPerspectiveListener(perspectiveMonitor);
 		workbench.getActivitySupport().getActivityManager().removeActivityManagerListener(activityMonitor);
 		workbench.getDisplay().removeFilter(SWT.Selection, menuMonitor);
 		workbench.removeWindowListener(windowMonitor);
@@ -504,7 +504,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 	public ResourceBundle getResourceBundle() {
 		try {
 			if (resourceBundle == null)
-				resourceBundle = ResourceBundle.getBundle("org.eclipse.mylar.monitor.MonitorPluginResources");
+				resourceBundle = ResourceBundle.getBundle("org.eclipse.mylar.monitor.ui.MonitorPluginResources");
 		} catch (MissingResourceException x) {
 			resourceBundle = null;
 		}
@@ -628,7 +628,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 
 	class MonitorUsageExtensionPointReader {
 
-		public static final String EXTENSION_ID_STUDY = "org.eclipse.mylar.monitor.study";
+		public static final String EXTENSION_ID_STUDY = "org.eclipse.mylar.monitor.ui.study";
 
 		public static final String ELEMENT_SCRIPTS = "scripts";
 

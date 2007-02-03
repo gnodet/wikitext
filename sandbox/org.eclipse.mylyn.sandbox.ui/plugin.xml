@@ -81,12 +81,12 @@
    <!--
    <extension point="org.eclipse.ui.viewActions"> 
    <viewContribution
-         id="org.eclipse.mylar.monitor.reports.ui.switchTaskFolder"
+         id="org.eclipse.mylar.monitor.ui.reports.ui.switchTaskFolder"
          targetID="org.eclipse.mylar.tasks.ui.views.TaskListView">
       <action
             class="org.eclipse.mylar.internal.sandbox.share.SwitchTaskDataFolderAction"
             icon="icons/eview16/folder.gif"
-            id="org.eclipse.mylar.monitor.reports.ui.actions.switchTask"
+            id="org.eclipse.mylar.monitor.ui.reports.ui.actions.switchTask"
             label="Sandbox: Switch Task Data Folder..."
             menubarPath="context"
             style="push">

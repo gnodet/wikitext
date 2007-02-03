@@ -13,7 +13,7 @@ package org.eclipse.mylar.monitor.usage.core;
 
 import java.util.Comparator;
 
-import org.eclipse.mylar.context.core.InteractionEvent;
+import org.eclipse.mylar.monitor.core.InteractionEvent;
 
 /**
  * Comparator of InteractionEvents

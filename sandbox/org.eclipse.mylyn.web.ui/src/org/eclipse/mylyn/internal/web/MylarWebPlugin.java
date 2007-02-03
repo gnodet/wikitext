@@ -12,7 +12,7 @@ package org.eclipse.mylar.internal.web;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
-import org.eclipse.mylar.monitor.MylarMonitorPlugin;
+import org.eclipse.mylar.monitor.ui.MylarMonitorUiPlugin;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -43,7 +43,7 @@ public class MylarWebPlugin extends AbstractUIPlugin {
 		webResourceManager = new WebResourceManager();
 		try {
 			browserTracker = new BrowserTracker();
-			MylarMonitorPlugin.getDefault().addWindowPartListener(browserTracker);
+			MylarMonitorUiPlugin.getDefault().addWindowPartListener(browserTracker);
 
 		} catch (Exception e) {
 			MylarStatusHandler.fail(e, "Mylar Hypertext initialization failed", false);
@@ -52,7 +52,7 @@ public class MylarWebPlugin extends AbstractUIPlugin {
 
 	@Override
 	public void stop(BundleContext context) throws Exception {
-		MylarMonitorPlugin.getDefault().removeWindowPartListener(browserTracker);
+		MylarMonitorUiPlugin.getDefault().removeWindowPartListener(browserTracker);
 		webResourceManager.dispose();
 		super.stop(context);
 		INSTANCE = null;

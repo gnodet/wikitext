@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.eclipse.mylar.monitor">
+<schema targetNamespace="org.eclipse.mylar.monitor.usage">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.mylar.monitor" id="study" name="Mylar Monitor Study"/>
+         <meta.schema plugin="org.eclipse.mylar.monitor.ui" id="study" name="Mylar Monitor Study"/>
       </appInfo>
       <documentation>
          

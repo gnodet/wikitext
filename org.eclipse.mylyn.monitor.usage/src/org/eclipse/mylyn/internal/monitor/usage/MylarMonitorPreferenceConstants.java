@@ -16,12 +16,12 @@ package org.eclipse.mylar.internal.monitor.usage;
  */
 public class MylarMonitorPreferenceConstants {
 
-	public static final String PREF_PREVIOUS_TRANSMIT_DATE = "org.eclipse.mylar.monitor.upload.previousTransmit";
+	public static final String PREF_PREVIOUS_TRANSMIT_DATE = "org.eclipse.mylar.monitor.ui.upload.previousTransmit";
 
-	public static final String PREF_NUM_USER_EVENTS = "org.eclipse.mylar.monitor.events.observed";
+	public static final String PREF_NUM_USER_EVENTS = "org.eclipse.mylar.monitor.ui.events.observed";
 
-	public static final String PREF_MONITORING_ENABLED = "org.eclipse.mylar.monitor.enabled";
+	public static final String PREF_MONITORING_ENABLED = "org.eclipse.mylar.monitor.ui.enabled";
 
-	public static final String PREF_MONITORING_OBFUSCATE = "org.eclipse.mylar.monitor.obfuscate";
+	public static final String PREF_MONITORING_OBFUSCATE = "org.eclipse.mylar.monitor.ui.obfuscate";
 
 }

@@ -14,7 +14,7 @@ package org.eclipse.mylar.monitor.usage.core.collectors;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.mylar.context.core.InteractionEvent;
+import org.eclipse.mylar.monitor.core.InteractionEvent;
 import org.eclipse.mylar.monitor.usage.core.IUsageCollector;
 import org.eclipse.mylar.monitor.usage.core.IUsageScanner;
 

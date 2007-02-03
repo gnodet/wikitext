@@ -20,12 +20,12 @@ import junit.framework.TestSuite;
 public class AllMonitorReportTests {
 
 	public static Test suite() {
-		TestSuite suite = new TestSuite("Test for org.eclipse.mylar.monitor.report.tests");
+		TestSuite suite = new TestSuite("Test for org.eclipse.mylar.monitor.ui.report.tests");
 
 		// $JUnit-BEGIN$
 		// TODO: Add tests as they are developed
 		suite.addTestSuite(DataOverviewCollectorTest.class);
-		suite.addTestSuite(ContextHistoryParsingTest.class);
+		suite.addTestSuite(ContextParsingTest.class);
 		// $JUnit-END$
 
 		return suite;

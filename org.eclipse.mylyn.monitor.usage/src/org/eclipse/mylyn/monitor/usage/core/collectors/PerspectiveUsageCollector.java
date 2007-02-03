@@ -21,9 +21,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.mylar.context.core.InteractionEvent;
+import org.eclipse.mylar.monitor.core.InteractionEvent;
+import org.eclipse.mylar.monitor.ui.workbench.PerspectiveChangeMonitor;
 import org.eclipse.mylar.monitor.usage.core.IUsageCollector;
-import org.eclipse.mylar.monitor.workbench.PerspectiveChangeMonitor;
 
 /**
  * @author Mik Kersten and Leah Findlater

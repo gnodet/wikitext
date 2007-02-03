@@ -13,7 +13,7 @@ package org.eclipse.mylar.monitor.usage.core;
 
 import java.util.Set;
 
-import org.eclipse.mylar.context.core.InteractionEvent;
+import org.eclipse.mylar.monitor.core.InteractionEvent;
 
 /**
  * A usage scanner will see all events for a user before any consumers

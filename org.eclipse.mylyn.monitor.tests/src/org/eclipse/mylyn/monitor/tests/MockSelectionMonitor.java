@@ -12,7 +12,7 @@
 package org.eclipse.mylar.monitor.tests;
 
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.mylar.monitor.AbstractUserInteractionMonitor;
+import org.eclipse.mylar.monitor.ui.AbstractUserInteractionMonitor;
 import org.eclipse.ui.IWorkbenchPart;
 
 /**

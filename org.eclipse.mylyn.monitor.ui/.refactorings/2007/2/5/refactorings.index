@@ -12,3 +12,5 @@
 1170467185464	Rename method 'stopTimer'
 1170467659747	Rename type 'ActivityContextManager'
 1170467858935	Rename type 'ActivityMetaContextManager'
+1170469409298	Rename package 'org.eclipse.mylar.monitor'
+1170469491187	Rename type 'MylarMonitorPlugin'
