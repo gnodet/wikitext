@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename method 'org.eclipse.mylar.internal.tasks.core.TaskDataManager.put(...)' to 'push'&#13;&#10;- Original project: 'org.eclipse.mylar.tasks.core'&#13;&#10;- Original element: 'org.eclipse.mylar.internal.tasks.core.TaskDataManager.put(...)'&#13;&#10;- Renamed element: 'org.eclipse.mylar.internal.tasks.core.TaskDataManager.push(...)'&#13;&#10;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method 'put'" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylar.internal.tasks.core{TaskDataManager.java[TaskDataManager~put~QRepositoryTaskData;" name="push" references="true" stamp="1170351519375" version="1.0"/>
+</session>

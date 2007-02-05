@@ -1,0 +1,5 @@
+1170609845218	Rename field 'newTaskData'
+1170609928171	Rename method 'setNewTaskData'
+1170609939093	Rename local variable 'newTaskData'
+1170708664140	Rename method 'saveIncomingChanges'
+1170708685078	Rename method 'saveOutgoingChanges'
