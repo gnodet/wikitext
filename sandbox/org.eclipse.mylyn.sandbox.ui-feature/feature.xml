@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.mylar.sandbox_feature"
-      label="Sandbox Tools"
+      label="Mylar Sandbox"
       version="1.0.1.v20070202-1900"
       provider-name="Eclipse.org">
 
