@@ -9,7 +9,7 @@
  *     Mylar project committers - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.tasks.tests;
+package org.eclipse.mylar.tests.integration;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,11 +36,11 @@ import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 /**
  * @author Eugene Kuleshov
  */
-public class WebRepositoryConnectorTest extends TestCase {
+public class LiveWebConnectorTemplatesTest extends TestCase {
 
 	private final RepositoryTemplate template;
 
-	public WebRepositoryConnectorTest(RepositoryTemplate template) {
+	public LiveWebConnectorTemplatesTest(RepositoryTemplate template) {
 		super("testRepositoryTemplate");
 		this.template = template;
 	}
@@ -100,12 +100,12 @@ public class WebRepositoryConnectorTest extends TestCase {
 	private static final String excluded = "http://demo.otrs.org,";
 	
 	public static TestSuite suite() {
-		TestSuite suite = new ActiveTestSuite(WebRepositoryConnectorTest.class.getName());
+		TestSuite suite = new ActiveTestSuite(LiveWebConnectorTemplatesTest.class.getName());
 
 		AbstractRepositoryConnector repositoryConnector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(WebTask.REPOSITORY_TYPE);
 		for (RepositoryTemplate template : repositoryConnector.getTemplates()) {
 			if (excluded.indexOf(template.repositoryUrl + ",") == -1) {
-				suite.addTest(new WebRepositoryConnectorTest(template));
+				suite.addTest(new LiveWebConnectorTemplatesTest(template));
 			}
 		}
 
