@@ -36,7 +36,7 @@ import org.eclipse.mylar.monitor.core.AbstractMonitorLog;
 import org.eclipse.mylar.monitor.core.IInteractionEventListener;
 import org.eclipse.mylar.monitor.core.InteractionEvent;
 import org.eclipse.mylar.monitor.core.InteractionEvent.Kind;
-import org.eclipse.mylar.monitor.usage.core.InteractionEventObfuscator;
+import org.eclipse.mylar.monitor.usage.InteractionEventObfuscator;
 
 /**
  * @author Mik Kersten

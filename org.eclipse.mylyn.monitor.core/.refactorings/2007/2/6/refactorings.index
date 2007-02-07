@@ -9,3 +9,5 @@
 1170820123682	Rename type 'Util'
 1170820374833	Move compilation unit
 1170820412668	Rename package 'org.eclipse.mylar.monitor.core.collectors'
+1170868071765	Delete element
+1170868139648	Rename package 'org.eclipse.mylar.monitor.core.collection'

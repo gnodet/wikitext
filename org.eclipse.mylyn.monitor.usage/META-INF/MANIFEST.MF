@@ -24,10 +24,9 @@ Eclipse-AutoStart: true
 Bundle-Vendor: Eclipse.org
 Export-Package: 
  org.eclipse.mylar.internal.monitor.usage,
- org.eclipse.mylar.internal.monitor.usage.ui,
- org.eclipse.mylar.internal.monitor.usage.ui.editors,
- org.eclipse.mylar.internal.monitor.usage.ui.preferences,
- org.eclipse.mylar.internal.monitor.usage.ui.wizards,
- org.eclipse.mylar.monitor.usage.core,
- org.eclipse.mylar.monitor.usage.core.collectors
+ org.eclipse.mylar.internal.monitor.usage.collectors,
+ org.eclipse.mylar.internal.monitor.usage.editors,
+ org.eclipse.mylar.internal.monitor.usage.preferences,
+ org.eclipse.mylar.internal.monitor.usage.wizards,
+ org.eclipse.mylar.monitor.usage
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
