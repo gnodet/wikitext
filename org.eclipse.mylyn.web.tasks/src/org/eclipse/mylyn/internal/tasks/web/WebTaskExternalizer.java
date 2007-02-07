@@ -11,7 +11,7 @@ package org.eclipse.mylar.internal.tasks.web;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.eclipse.mylar.internal.context.core.util.XmlStringConverter;
+import org.eclipse.mylar.internal.core.util.XmlStringConverter;
 import org.eclipse.mylar.internal.tasks.core.WebQueryHit;
 import org.eclipse.mylar.internal.tasks.core.WebTask;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;

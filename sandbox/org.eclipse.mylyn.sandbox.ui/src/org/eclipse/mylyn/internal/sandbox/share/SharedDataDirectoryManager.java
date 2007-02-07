@@ -11,7 +11,7 @@
 
 package org.eclipse.mylar.internal.sandbox.share;
 
-import org.eclipse.mylar.context.core.MylarStatusHandler;
+import org.eclipse.mylar.core.MylarStatusHandler;
 
 /**
  * @author Wesley Coelho
