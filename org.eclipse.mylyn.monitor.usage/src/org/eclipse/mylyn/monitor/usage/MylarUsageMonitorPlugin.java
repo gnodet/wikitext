@@ -79,7 +79,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 
 	public static final String PREF_USER_ID = "org.eclipse.mylar.user.id";
 
-	public static String VERSION = "0.6";
+	public static String VERSION = "1.0";
 
 	public static String UPLOAD_FILE_LABEL = "USAGE";
 
@@ -99,13 +99,11 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 
 	public static final String DEFAULT_VERSION = "";
 
-	public static final String DEFAULT_UPLOAD_SERVER = "http://mylar.eclipse.org/feedback/";
+	public static final String DEFAULT_UPLOAD_SERVER = "http://mylar.eclipse.org/monitor/upload";
 
-	public static final String DEFAULT_UPLOAD_SCRIPT_ID = "getUID.cgi";
+	public static final String DEFAULT_UPLOAD_SERVLET_ID = "/GetUserIDServlet";
 
-	public static final String DEFAULT_UPLOAD_SCRIPT = "upload.cgi";
-
-	public static final String DEFAULT_UPLAOD_SCRIPT_QUESTIONNAIRE = "questionnaire.cgi";
+	public static final String DEFAULT_UPLOAD_SERVLET = "/MylarUsageUploadServlet";
 
 	public static final String DEFAULT_ACCEPTED_URL_LIST = "";
 
@@ -247,6 +245,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 			browserMonitor = new BrowserMonitor();
 
 			setAcceptedUrlMatchList(studyParameters.getAcceptedUrlList());
+			studyParameters.setServletUrl(DEFAULT_UPLOAD_SERVER + DEFAULT_UPLOAD_SERVLET);
 
 			final IWorkbench workbench = PlatformUI.getWorkbench();
 			workbench.getDisplay().asyncExec(new Runnable() {
@@ -441,15 +440,15 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		} else {
 			rootDir = new File(getStateLocation().toString());
 		}
-		
-		File file = new File(rootDir, MONITOR_LOG_NAME
-				+ MylarContextManager.CONTEXT_FILE_EXTENSION_OLD);
-		
-//		File oldFile = new File(ContextCorePlugin.getDefault().getContextStore().getRootDirectory(),
-//				"workspace" + MylarContextManager.CONTEXT_FILE_EXTENSION_OLD);
-//		if (oldFile.exists()) {
-//			oldFile.renameTo(file);
-//		} else 
+
+		File file = new File(rootDir, MONITOR_LOG_NAME + MylarContextManager.CONTEXT_FILE_EXTENSION_OLD);
+
+		// File oldFile = new
+		// File(ContextCorePlugin.getDefault().getContextStore().getRootDirectory(),
+		// "workspace" + MylarContextManager.CONTEXT_FILE_EXTENSION_OLD);
+		// if (oldFile.exists()) {
+		// oldFile.renameTo(file);
+		// } else
 		if (!file.exists() || !file.canWrite()) {
 			try {
 				file.createNewFile();
@@ -531,7 +530,9 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 			return;
 		if (plugin == null || plugin.getPreferenceStore() == null)
 			return;
+
 		if (plugin.getPreferenceStore().contains(MylarMonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE)) {
+
 			lastTransmit = new Date(plugin.getPreferenceStore().getLong(
 					MylarMonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE));
 		} else {
@@ -540,7 +541,10 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 					lastTransmit.getTime());
 		}
 		Date currentTime = new Date();
-		if (currentTime.getTime() > lastTransmit.getTime() + studyParameters.getTransmitPromptPeriod()) {
+
+		if (currentTime.getTime() > lastTransmit.getTime() + studyParameters.getTransmitPromptPeriod()
+				&& getPreferenceStore().getBoolean(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION)) {
+
 			String ending = getUserTransimitDelay() == 1 ? "" : "s";
 			MessageDialog message = new MessageDialog(Display.getDefault().getActiveShell(), "Send Usage Feedback",
 					null, "Send Mylar Usage Statistics feedback now?", MessageDialog.QUESTION, new String[] {
@@ -553,6 +557,23 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 				lastTransmit.setTime(new Date().getTime());
 				plugin.getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE,
 						currentTime.getTime());
+
+				if (!plugin.getPreferenceStore().contains(
+						MylarMonitorPreferenceConstants.PREF_MONITORING_MYLAR_ECLIPSE_ORG_CONSENT_VIEWED)
+						|| !plugin.getPreferenceStore().getBoolean(
+								MylarMonitorPreferenceConstants.PREF_MONITORING_MYLAR_ECLIPSE_ORG_CONSENT_VIEWED)) {
+					MessageDialog consentMessage = new MessageDialog(
+							Display.getDefault().getActiveShell(),
+							"Consent",
+							null,
+							"All data that is submitted to mylar.eclipse.org will be publicly available under the "
+									+ "Eclipse Public License (EPL).  By submitting your data, you are agreeing that it can be publicly "
+									+ "available. Please press cancel on the submission dialog box if you do not wish to share your data.",
+							MessageDialog.INFORMATION, new String[] { IDialogConstants.OK_LABEL }, 0);
+					consentMessage.open();
+					plugin.getPreferenceStore().setValue(
+							MylarMonitorPreferenceConstants.PREF_MONITORING_MYLAR_ECLIPSE_ORG_CONSENT_VIEWED, true);
+				}
 
 				UsageSubmissionWizard wizard = new UsageSubmissionWizard();
 				wizard.init(PlatformUI.getWorkbench(), null);
@@ -700,10 +721,6 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 
 		private void readScripts(IConfigurationElement element) {
 			studyParameters.setVersion(element.getAttribute(ELEMENT_SCRIPTS_VERSION));
-			studyParameters.setScriptsUrl(element.getAttribute(ELEMENT_SCRIPTS_SERVER_URL));
-			studyParameters.setScriptsUpload(element.getAttribute(ELEMENT_SCRIPTS_UPLOAD_USAGE));
-			studyParameters.setScriptsUserId(element.getAttribute(ELEMENT_SCRIPTS_GET_USER_ID));
-			studyParameters.setScriptsQuestionnaire(element.getAttribute(ELEMENT_SCRIPTS_UPLOAD_QUESTIONNAIRE));
 		}
 
 		private void readForms(IConfigurationElement element) throws CoreException {

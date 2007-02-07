@@ -43,11 +43,11 @@ import org.eclipse.mylar.monitor.usage.MylarUsageMonitorPlugin;
  * TODO: use buffered output stream for better performance?
  */
 public class InteractionEventLogger extends AbstractMonitorLog implements IInteractionEventListener {
- 
+
 	private int eventAccumulartor = 0;
 
 	private List<InteractionEvent> queue = new ArrayList<InteractionEvent>();
-	
+
 	private HandleObfuscator handleObfuscator = new HandleObfuscator();
 
 	public InteractionEventLogger(File outputFile) {
@@ -55,10 +55,12 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 	}
 
 	public void interactionObserved(InteractionEvent event) {
-//		System.err.println("> " + event);
+		// System.err.println("> " + event);
 		if (MylarUsageMonitorPlugin.getDefault().isObfuscationEnabled()) {
-			String obfuscatedHandle = handleObfuscator.obfuscateHandle(event.getStructureKind(), event.getStructureHandle());
-			event = new InteractionEvent(event.getKind(), event.getStructureKind(), obfuscatedHandle, event.getOriginId(), event.getNavigation(), event.getDelta(), event.getInterestContribution());
+			String obfuscatedHandle = handleObfuscator.obfuscateHandle(event.getStructureKind(), event
+					.getStructureHandle());
+			event = new InteractionEvent(event.getKind(), event.getStructureKind(), obfuscatedHandle, event
+					.getOriginId(), event.getNavigation(), event.getDelta(), event.getInterestContribution());
 		}
 		try {
 			if (started) {
@@ -83,7 +85,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 		}
 		queue.clear();
 	}
-	
+
 	@Override
 	public void stopMonitoring() {
 		super.stopMonitoring();
@@ -91,7 +93,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 			MylarUsageMonitorPlugin.getDefault().incrementObservedEvents(eventAccumulartor);
 		eventAccumulartor = 0;
 	}
-	
+
 	private String getXmlForEvent(InteractionEvent event) {
 		return writeLegacyEvent(event);
 	}
@@ -301,8 +303,8 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 			} catch (NumberFormatException nfe) {
 				// ignore for empty interest values
 			}
-			InteractionEvent event = new InteractionEvent(Kind.fromString(kind), structureKind, structureHandle, originId,
-					navigation, delta, interestFloatVal, format.parse(startDate), format.parse(endDate));
+			InteractionEvent event = new InteractionEvent(Kind.fromString(kind), structureKind, structureHandle,
+					originId, navigation, delta, interestFloatVal, format.parse(startDate), format.parse(endDate));
 			return event;
 
 		} catch (ParseException e) {

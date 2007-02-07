@@ -51,11 +51,11 @@ import org.eclipse.ui.part.EditorPart;
 public class UsageEditorPart extends EditorPart {
 
 	protected UsageStatsEditorInput editorInput;
-	
+
 	protected FormToolkit toolkit;
-	
+
 	protected ScrolledForm sform;
-	
+
 	protected Composite editorComposite;
 
 	@Override
@@ -91,7 +91,7 @@ public class UsageEditorPart extends EditorPart {
 		sform = toolkit.createScrolledForm(parent);
 		sform.getBody().setLayout(new TableWrapLayout());
 		editorComposite = sform.getBody();
-		
+
 		createActionSection(editorComposite, toolkit);
 		createSummaryStatsSection(editorComposite, toolkit);
 	}
@@ -136,22 +136,21 @@ public class UsageEditorPart extends EditorPart {
 				summarySection.setText(collector.getReportTitle());
 				summarySection.setLayout(new TableWrapLayout());
 				summarySection.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
-				
+
 				Composite summaryContainer = toolkit.createComposite(summarySection);
-				
+
 				summarySection.setClient(summaryContainer);
 				TableWrapLayout layout = new TableWrapLayout();
-
 
 				// layout.numColumns = 2;
 				summaryContainer.setLayout(layout);
 				summaryContainer.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
 
 				Composite browserComposite = new Composite(summaryContainer, SWT.NULL);
-				
+
 				browserComposite.setLayout(new GridLayout());
 				Browser browser = new Browser(browserComposite, SWT.NONE);
-				
+
 				GridData browserLayout = new GridData(GridData.FILL_HORIZONTAL);
 				browserLayout.heightHint = 300;
 				browserLayout.widthHint = 800;
@@ -179,7 +178,6 @@ public class UsageEditorPart extends EditorPart {
 		}
 	}
 
-
 	protected void exportToCSV() {
 
 		// Ask the user to pick a directory into which to place multiple CSV
@@ -201,7 +199,7 @@ public class UsageEditorPart extends EditorPart {
 			for (IUsageCollector collector : editorInput.getReportGenerator().getCollectors()) {
 				collector.exportAsCSVFile(directoryName);
 			}
-			
+
 			outputStream.flush();
 			outputStream.close();
 
@@ -229,8 +227,8 @@ public class UsageEditorPart extends EditorPart {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
 			writer.write("<html><head>"
 			// + "<link rel=\"stylesheet\"
-			// href=\"http://eclipse.org/mylar/style.css\"
-			// type=\"text/css\"></head><body>"
+					// href=\"http://eclipse.org/mylar/style.css\"
+					// type=\"text/css\"></head><body>"
 					);
 			for (IUsageCollector collector : editorInput.getReportGenerator().getCollectors()) {
 				writer.write("<h3>" + collector.getReportTitle() + "</h3>");
@@ -247,6 +245,5 @@ public class UsageEditorPart extends EditorPart {
 			MylarStatusHandler.log(e, "could not write to file");
 		}
 	}
-	
 
 }

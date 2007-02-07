@@ -235,7 +235,8 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 				float editsActive = getNumMylarEdits(id);
 				float editsInactive = getNumInactiveEdits(id);
 				report.add("Proportion Mylar active (by edits): <b>"
-						+ ReportGenerator.formatPercentage(100 * ((editsActive) / (editsInactive + editsActive))) + "%</b><br>");
+						+ ReportGenerator.formatPercentage(100 * ((editsActive) / (editsInactive + editsActive)))
+						+ "%</b><br>");
 
 				report.add("Elapsed time baseline: " + getTime(id, timeBaseline) + ", active: "
 						+ getTime(id, timeMylarActive) + ", inactive: " + getTime(id, timeMylarInactive) + "<br>");
@@ -251,12 +252,13 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 				report.add("Task activations: " + numTaskActivations + ", ");
 				report.add("deactivations: " + numTaskDeactivations + "<br>");
 
-				int numIncrement = commandUsageCollector.getCommands().getUserCount(id, "org.eclipse.mylar.ui.interest.increment");
-				int numDecrement = commandUsageCollector.getCommands()
-						.getUserCount(id, "org.eclipse.mylar.ui.interest.decrement");
+				int numIncrement = commandUsageCollector.getCommands().getUserCount(id,
+						"org.eclipse.mylar.ui.interest.increment");
+				int numDecrement = commandUsageCollector.getCommands().getUserCount(id,
+						"org.eclipse.mylar.ui.interest.decrement");
 				report.add("Interest increments: " + numIncrement + ", ");
 				report.add("Interest decrements: " + numDecrement + "<br>");
-				
+
 				report.addAll(viewUsageCollector.getSummary(id));
 				report.add(ReportGenerator.SUMMARY_SEPARATOR);
 			} else {
@@ -282,10 +284,16 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 		FileWriter writer;
 		try {
 			writer = new FileWriter(directory + "/mylar-usage.csv");
-			writer.write("userid, " + "ratio-baseline, ratio-mylar, " + "ratio-improvement, " 
-					+ "filtered-explorer, " + "filtered-outline, " + "filtered-problems, "
-					+ "edits-active, " + "time-baseline, time-active, time-inactive, "
-					+ "task-activations, task-deactivations, sel-interesting, sel-predicted, sel-decayed, sel-new, sel-unknown\n");
+			writer
+					.write("userid, "
+							+ "ratio-baseline, ratio-mylar, "
+							+ "ratio-improvement, "
+							+ "filtered-explorer, "
+							+ "filtered-outline, "
+							+ "filtered-problems, "
+							+ "edits-active, "
+							+ "time-baseline, time-active, time-inactive, "
+							+ "task-activations, task-deactivations, sel-interesting, sel-predicted, sel-decayed, sel-new, sel-unknown\n");
 			// "filtered-explorer, filtered-outline, filtered-problems, ");
 
 			for (int userId : userIds) {
@@ -302,26 +310,30 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 					float ratioPercentage = (combinedMylarRatio - baselineRatio) / baselineRatio;
 					writer.write(100 * ratioPercentage + ", ");
 
-					Map<String, Integer> filteredViewSelections = viewUsageCollector.usersFilteredViewSelections.get(userId);
-					Map<String, Integer> normalViewSelections = viewUsageCollector.usersNormalViewSelections.get(userId);
-					 
-					String[] views = new String[] { "org.eclipse.jdt.ui.PackageExplorer", "org.eclipse.ui.views.ContentOutline", "org.eclipse.ui.views.ProblemView"};
+					Map<String, Integer> filteredViewSelections = viewUsageCollector.usersFilteredViewSelections
+							.get(userId);
+					Map<String, Integer> normalViewSelections = viewUsageCollector.usersNormalViewSelections
+							.get(userId);
+
+					String[] views = new String[] { "org.eclipse.jdt.ui.PackageExplorer",
+							"org.eclipse.ui.views.ContentOutline", "org.eclipse.ui.views.ProblemView" };
 					for (int i = 0; i < views.length; i++) {
 						if (normalViewSelections.containsKey(views[i]) && filteredViewSelections.containsKey(views[i])) {
 							float normalSelections = normalViewSelections.get(views[i]);
 							float filteredSelections = filteredViewSelections.get(views[i]);
-							float ratio = filteredSelections / (normalSelections+filteredSelections);
-//							int unfilteredSelections = normalSelections - filteredSelections;
+							float ratio = filteredSelections / (normalSelections + filteredSelections);
+							// int unfilteredSelections = normalSelections -
+							// filteredSelections;
 							if (ratio >= 0.01) {
 								writer.write(ratio + ", ");
-							} else { 
+							} else {
 								writer.write("0, ");
 							}
-						} else {	
+						} else {
 							writer.write("0, ");
 						}
 					}
-					
+
 					float editsActive = getNumMylarEdits(userId);
 					float editsInactive = getNumInactiveEdits(userId);
 					writer.write(100 * ((editsActive) / (editsInactive + editsActive)) + ", ");
@@ -330,14 +342,13 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 					writer.write(getTime(userId, timeMylarActive) + ", ");
 					writer.write(getTime(userId, timeMylarInactive) + ", ");
 
-					int numTaskActivations = commandUsageCollector.getCommands()
-							.getUserCount(userId, TaskActivateAction.ID);
+					int numTaskActivations = commandUsageCollector.getCommands().getUserCount(userId,
+							TaskActivateAction.ID);
 					int numTaskDeactivations = commandUsageCollector.getCommands().getUserCount(userId,
 							TaskDeactivateAction.ID);
 					writer.write(numTaskActivations + ", ");
 					writer.write(numTaskDeactivations + ", ");
-					
-					
+
 					int numNew = 0;
 					if (viewUsageCollector.usersNumNew.containsKey(userId))
 						numNew = viewUsageCollector.usersNumNew.get(userId);
@@ -354,14 +365,15 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 					if (viewUsageCollector.usersNumUnknown.containsKey(userId))
 						numUnknown = viewUsageCollector.usersNumUnknown.get(userId);
 
-//					float numSelections = numNew + numPredicted + numInteresting + numDecayed + numUnknown;
-//					writer.write(numSelections + ", ");
+					// float numSelections = numNew + numPredicted +
+					// numInteresting + numDecayed + numUnknown;
+					// writer.write(numSelections + ", ");
 					writer.write(numInteresting + ", ");
 					writer.write(numPredicted + ", ");
 					writer.write(numDecayed + ", ");
 					writer.write(numNew + ", ");
 					writer.write(numUnknown + ", ");
-					
+
 					writer.write("\n");
 				}
 			}
@@ -387,29 +399,29 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 
 	public boolean acceptUser(int id) {
 		// XXX: delete
-//		int[] ACCEPTED = { 
-//				1922, 
-//				970,
-//				1650,
-//				1548,
-//				1565,
-//				1752,
-//				2194,
-//				2364,
-//				1735,
-//				936,
-//				1803,
-//				2007,
-//				1208,
-//				1684,
-//				919,
-//				2041,
-//				1174
-//		};
-//		for (int i : ACCEPTED) { 
-//			if (i == id) return true;
-//		}
-//		return false;
+		// int[] ACCEPTED = {
+		// 1922,
+		// 970,
+		// 1650,
+		// 1548,
+		// 1565,
+		// 1752,
+		// 2194,
+		// 2364,
+		// 1735,
+		// 936,
+		// 1803,
+		// 2007,
+		// 1208,
+		// 1684,
+		// 919,
+		// 2041,
+		// 1174
+		// };
+		// for (int i : ACCEPTED) {
+		// if (i == id) return true;
+		// }
+		// return false;
 		if (!numMylarActiveJavaEdits.containsKey(id)) {
 			return false;
 		} else {

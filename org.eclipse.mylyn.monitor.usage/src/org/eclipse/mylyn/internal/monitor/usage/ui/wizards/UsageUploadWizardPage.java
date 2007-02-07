@@ -91,7 +91,7 @@ public class UsageUploadWizardPage extends WizardPage {
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		serverAddrText.setLayoutData(gd);
 		serverAddrText.setEditable(false);
-		serverAddrText.setText(MylarUsageMonitorPlugin.getDefault().getStudyParameters().getScriptsUrl());
+		serverAddrText.setText(MylarUsageMonitorPlugin.getDefault().getStudyParameters().getServletUrl());
 
 		label = new Label(container, SWT.NULL);
 		label.setText("Usage file location:");

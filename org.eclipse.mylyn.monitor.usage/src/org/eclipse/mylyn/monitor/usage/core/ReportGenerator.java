@@ -55,7 +55,7 @@ public class ReportGenerator {
 		this(logger, collector);
 		this.saveAllUserEvents = saveAllUserEvents;
 	}
-	
+
 	public ReportGenerator(InteractionEventLogger logger, List<IUsageCollector> collectors, boolean saveAllUserEvents) {
 		this(logger, collectors);
 		this.saveAllUserEvents = saveAllUserEvents;
@@ -199,10 +199,13 @@ public class ReportGenerator {
 
 					for (File aFile : filesPerUser.get(aUser)) {
 						String phase = getPhase(aFile);
-						
-						// orderedEvents must be a set because the monitor-history.xml file contains some duplicate
-						// events and we want to be sure that we ignore the duplicates in the reporting.  Sets
-						// cannot contain duplicates, so orderedEvents will only accept the unique events.
+
+						// orderedEvents must be a set because the
+						// monitor-history.xml file contains some duplicate
+						// events and we want to be sure that we ignore the
+						// duplicates in the reporting. Sets
+						// cannot contain duplicates, so orderedEvents will only
+						// accept the unique events.
 						SortedSet<InteractionEvent> orderedEvents;
 						if (userEvents.get(phase) == null) {
 							orderedEvents = new TreeSet<InteractionEvent>(new InteractionEventComparator());
@@ -350,7 +353,7 @@ public class ReportGenerator {
 		}
 		return percentageString;
 	}
-	
+
 	public List<IUsageCollector> getCollectors() {
 		return collectors;
 	}

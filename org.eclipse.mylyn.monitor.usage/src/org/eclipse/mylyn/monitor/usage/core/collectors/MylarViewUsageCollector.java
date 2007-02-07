@@ -70,36 +70,40 @@ public class MylarViewUsageCollector extends ViewUsageCollector {
 
 		if (event.getKind().equals(InteractionEvent.Kind.SELECTION)) {
 			String viewId = event.getOriginId();
-			
+
 			// TODO: put back?
-//			if (mylarUserIds.contains(userId)) {
-//				if (event.getDelta().equals(SelectionMonitor.SELECTION_DECAYED)) {
-//					if (!usersNumDecayed.containsKey(userId))
-//						usersNumDecayed.put(userId, 0);
-//					int numDecayed = usersNumDecayed.get(userId) + 1;
-//					usersNumDecayed.put(userId, numDecayed);
-//				} else if (event.getDelta().equals(SelectionMonitor.SELECTION_PREDICTED)) {
-//					if (!usersNumPredicted.containsKey(userId))
-//						usersNumPredicted.put(userId, 0);
-//					int numPredicted = usersNumPredicted.get(userId) + 1;
-//					usersNumPredicted.put(userId, numPredicted);
-//				} else if (event.getDelta().equals(SelectionMonitor.SELECTION_NEW)) {
-//					if (!usersNumNew.containsKey(userId))
-//						usersNumNew.put(userId, 0);
-//					int numNew = usersNumNew.get(userId) + 1;
-//					usersNumNew.put(userId, numNew);
-//				} else if (event.getDelta().equals(SelectionMonitor.SELECTION_DEFAULT)) {
-//					if (!usersNumDefault.containsKey(userId))
-//						usersNumDefault.put(userId, 0);
-//					int numDefault = usersNumDefault.get(userId) + 1;
-//					usersNumDefault.put(userId, numDefault);
-//				} else {
-//					if (!usersNumUnknown.containsKey(userId))
-//						usersNumUnknown.put(userId, 0);
-//					int numUnknownNew = usersNumUnknown.get(userId) + 1;
-//					usersNumUnknown.put(userId, numUnknownNew);
-//				}
-//			}
+			// if (mylarUserIds.contains(userId)) {
+			// if (event.getDelta().equals(SelectionMonitor.SELECTION_DECAYED))
+			// {
+			// if (!usersNumDecayed.containsKey(userId))
+			// usersNumDecayed.put(userId, 0);
+			// int numDecayed = usersNumDecayed.get(userId) + 1;
+			// usersNumDecayed.put(userId, numDecayed);
+			// } else if
+			// (event.getDelta().equals(SelectionMonitor.SELECTION_PREDICTED)) {
+			// if (!usersNumPredicted.containsKey(userId))
+			// usersNumPredicted.put(userId, 0);
+			// int numPredicted = usersNumPredicted.get(userId) + 1;
+			// usersNumPredicted.put(userId, numPredicted);
+			// } else if
+			// (event.getDelta().equals(SelectionMonitor.SELECTION_NEW)) {
+			// if (!usersNumNew.containsKey(userId))
+			// usersNumNew.put(userId, 0);
+			// int numNew = usersNumNew.get(userId) + 1;
+			// usersNumNew.put(userId, numNew);
+			// } else if
+			// (event.getDelta().equals(SelectionMonitor.SELECTION_DEFAULT)) {
+			// if (!usersNumDefault.containsKey(userId))
+			// usersNumDefault.put(userId, 0);
+			// int numDefault = usersNumDefault.get(userId) + 1;
+			// usersNumDefault.put(userId, numDefault);
+			// } else {
+			// if (!usersNumUnknown.containsKey(userId))
+			// usersNumUnknown.put(userId, 0);
+			// int numUnknownNew = usersNumUnknown.get(userId) + 1;
+			// usersNumUnknown.put(userId, numUnknownNew);
+			// }
+			// }
 
 			if (filteredViews.contains(viewId)) {
 				if (!filteredViewSelections.containsKey(viewId))
@@ -150,42 +154,53 @@ public class MylarViewUsageCollector extends ViewUsageCollector {
 		summaries.add("<h4>View Usage ");
 		List<String> allSummaries = super.getSummary(userId);
 		if (maxViewsToReport != -1 && allSummaries.size() == maxViewsToReport) {
-			summaries.add("(top "+ maxViewsToReport + ")");
+			summaries.add("(top " + maxViewsToReport + ")");
 		}
 		summaries.add("</h4>");
 		summaries.addAll(allSummaries);
 
-//		summaries.add("<h4>Interest Model</h4>");
-//		int numNew = 0;
-//		if (usersNumNew.containsKey(userId))
-//			numNew = usersNumNew.get(userId);
-//		int numPredicted = 0;
-//		if (usersNumPredicted.containsKey(userId))
-//			numPredicted = usersNumPredicted.get(userId);
-//		int numInteresting = 0;
-//		if (usersNumDefault.containsKey(userId))
-//			numInteresting = usersNumDefault.get(userId);
-//		int numDecayed = 0;
-//		if (usersNumDecayed.containsKey(userId))
-//			numDecayed = usersNumDecayed.get(userId);
-//		int numUnknown = 0;
-//		if (usersNumUnknown.containsKey(userId))
-//			numUnknown = usersNumUnknown.get(userId);
-//
-//		float numSelections = numNew + numPredicted + numInteresting + numDecayed + numUnknown;
-//		float inModel = (numPredicted + numInteresting + numDecayed);
-//		float notInModel = numNew;
-//		float hitRatio = inModel / (inModel + notInModel);
-//		summaries.add("In model (inModel / (inModel + notInModel): " + ReportGenerator.formatPercentage(hitRatio) + "<br>");
-// 
-//		summaries.add("New: " + ReportGenerator.formatPercentage(numNew / numSelections) + "(" + numNew + ")" + "; ");
-//		summaries.add("Predicted: " + ReportGenerator.formatPercentage(numPredicted / numSelections) + " (" + numPredicted + ")"
-//				+ "; ");
-//		summaries.add("Interesting: " + ReportGenerator.formatPercentage(numInteresting / numSelections) + " (" + numInteresting
-//				+ ")" + "; ");
-//		summaries.add("Decayed: " + ReportGenerator.formatPercentage(numDecayed / numSelections) + " (" + numDecayed + ")" + "; ");
-//		summaries.add("Unknown: " + ReportGenerator.formatPercentage(numUnknown / numSelections) + " (" + numUnknown + ")" + "<br>");
-	
+		// summaries.add("<h4>Interest Model</h4>");
+		// int numNew = 0;
+		// if (usersNumNew.containsKey(userId))
+		// numNew = usersNumNew.get(userId);
+		// int numPredicted = 0;
+		// if (usersNumPredicted.containsKey(userId))
+		// numPredicted = usersNumPredicted.get(userId);
+		// int numInteresting = 0;
+		// if (usersNumDefault.containsKey(userId))
+		// numInteresting = usersNumDefault.get(userId);
+		// int numDecayed = 0;
+		// if (usersNumDecayed.containsKey(userId))
+		// numDecayed = usersNumDecayed.get(userId);
+		// int numUnknown = 0;
+		// if (usersNumUnknown.containsKey(userId))
+		// numUnknown = usersNumUnknown.get(userId);
+		//
+		// float numSelections = numNew + numPredicted + numInteresting +
+		// numDecayed + numUnknown;
+		// float inModel = (numPredicted + numInteresting + numDecayed);
+		// float notInModel = numNew;
+		// float hitRatio = inModel / (inModel + notInModel);
+		// summaries.add("In model (inModel / (inModel + notInModel): " +
+		// ReportGenerator.formatPercentage(hitRatio) + "<br>");
+		// 
+		// summaries.add("New: " + ReportGenerator.formatPercentage(numNew /
+		// numSelections) + "(" + numNew + ")" + "; ");
+		// summaries.add("Predicted: " +
+		// ReportGenerator.formatPercentage(numPredicted / numSelections) + " ("
+		// + numPredicted + ")"
+		// + "; ");
+		// summaries.add("Interesting: " +
+		// ReportGenerator.formatPercentage(numInteresting / numSelections) + "
+		// (" + numInteresting
+		// + ")" + "; ");
+		// summaries.add("Decayed: " +
+		// ReportGenerator.formatPercentage(numDecayed / numSelections) + " (" +
+		// numDecayed + ")" + "; ");
+		// summaries.add("Unknown: " +
+		// ReportGenerator.formatPercentage(numUnknown / numSelections) + " (" +
+		// numUnknown + ")" + "<br>");
+
 		return summaries;
 	}
 

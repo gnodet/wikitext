@@ -13,14 +13,17 @@ import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylar.context.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.monitor.usage.ui.FileDisplayDialog;
+import org.eclipse.mylar.internal.monitor.usage.ui.wizards.UsageSubmissionWizard;
 import org.eclipse.mylar.monitor.usage.MylarUsageMonitorPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
@@ -53,6 +56,14 @@ public class UsageReportEditorPart extends UsageEditorPart {
 				viewFile();
 			}
 		});
+
+		Button submitData = toolkit.createButton(container, "Submit Data", SWT.PUSH | SWT.CENTER);
+		submitData.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				submitData();
+			}
+		});
 	}
 
 	private void viewFile() {
@@ -67,4 +78,15 @@ public class UsageReportEditorPart extends UsageEditorPart {
 		}
 
 	}
+
+	private void submitData() {
+
+		UsageSubmissionWizard submissionWizard = new UsageSubmissionWizard();
+
+		WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+				submissionWizard);
+		dialog.open();
+
+	}
+
 }

@@ -139,7 +139,7 @@ public class GetNewUserIdPage extends WizardPage {
 
 			URL url = Platform.getBundle(MylarUsageMonitorPlugin.getDefault().getCustomizingPlugin()).getEntry(
 					MylarUsageMonitorPlugin.getDefault().getStudyParameters().getFormsConsent());
-			try { 
+			try {
 				URL localURL = Platform.asLocalURL(url);
 				browser.setUrl(localURL.toString());
 			} catch (Exception e) {
@@ -378,13 +378,8 @@ public class GetNewUserIdPage extends WizardPage {
 							if (wizard.getUploadPage() != null)
 								wizard.getUploadPage().updateUid();
 							hasValidated = true;
-							MessageDialog
-									.openInformation(
-											Display.getDefault().getActiveShell(),
-											"Mylar User Study ID",
-											"Your mylar user study ID is: "
-													+ wizard.getUid()
-													+ "\n\nPlease record this number if you are using multiple copies of eclipse so that you do not have to register again.\n\nYou can also retrieve this ID by repeating the consent process at a later time.");
+							MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Mylar User Study ID",
+									"Your mylar user study ID is: " + wizard.getUid());
 						}
 					} else {
 						MessageDialog.openError(Display.getDefault().getActiveShell(), "Incomplete Form Input",

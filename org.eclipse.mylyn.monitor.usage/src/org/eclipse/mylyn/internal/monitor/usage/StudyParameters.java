@@ -15,7 +15,6 @@ import org.eclipse.mylar.monitor.usage.IBackgroundPage;
 import org.eclipse.mylar.monitor.usage.IQuestionnairePage;
 import org.eclipse.mylar.monitor.usage.MylarUsageMonitorPlugin;
 
-
 /**
  * @author Mik Kersten
  * @author Leah Findlater
@@ -40,48 +39,15 @@ public class StudyParameters {
 
 	private String version = MylarUsageMonitorPlugin.DEFAULT_VERSION;
 
-	private String scriptsUrl = MylarUsageMonitorPlugin.DEFAULT_UPLOAD_SERVER;
+	private String servletUrl = MylarUsageMonitorPlugin.DEFAULT_UPLOAD_SERVER;
 
-	private String scriptsUpload = MylarUsageMonitorPlugin.DEFAULT_UPLOAD_SCRIPT;
-
-	private String scriptsUserId = MylarUsageMonitorPlugin.DEFAULT_UPLOAD_SCRIPT_ID;
-
-	private String scriptsQuestionnaire = MylarUsageMonitorPlugin.DEFAULT_UPLAOD_SCRIPT_QUESTIONNAIRE;
-
-	public String getScriptsUserId() {
-		return scriptsUserId;
+	public String getServletUrl() {
+		return servletUrl;
 	}
 
-	public void setScriptsUserId(String scriptsGetUserId) {
-		if (scriptsGetUserId != null)
-			this.scriptsUserId = scriptsGetUserId;
-	}
-
-	public String getScriptsQuestionnaire() {
-		return scriptsQuestionnaire;
-	}
-
-	public void setScriptsQuestionnaire(String scriptsQuestionnaire) {
-		if (scriptsQuestionnaire != null)
-			this.scriptsQuestionnaire = scriptsQuestionnaire;
-	}
-
-	public String getScriptsUrl() {
-		return scriptsUrl;
-	}
-
-	public void setScriptsUrl(String scriptsServerUrl) {
-		if (scriptsServerUrl != null)
-			this.scriptsUrl = scriptsServerUrl;
-	}
-
-	public String getScriptsUpload() {
-		return scriptsUpload;
-	}
-
-	public void setScriptsUpload(String scriptsUpload) {
-		if (scriptsUpload != null)
-			this.scriptsUpload = scriptsUpload;
+	public void setServletUrl(String servletServerUrl) {
+		if (servletUrl != null)
+			this.servletUrl = servletServerUrl;
 	}
 
 	public String getFormsConsent() {

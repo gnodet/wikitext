@@ -41,7 +41,7 @@ public class PerspectiveUsageCollector implements IUsageCollector {
 	private int numEvents = 0;
 
 	public void consumeEvent(InteractionEvent event, int userId) {
-		numEvents++; 
+		numEvents++;
 		if (event.getKind().equals(InteractionEvent.Kind.PREFERENCE)) {
 			if (event.getDelta().equals(PerspectiveChangeMonitor.PERSPECTIVE_ACTIVATED)) {
 				currentPerspective = event.getOriginId();
@@ -49,13 +49,13 @@ public class PerspectiveUsageCollector implements IUsageCollector {
 					perspectiveUsage.put(event.getOriginId(), 1);
 				}
 			}
-		} 
-		
+		}
+
 		if (!perspectiveUsage.containsKey(currentPerspective)) {
 			numUnassociatedEvents++;
 			return;
-		} 
-		
+		}
+
 		perspectiveUsage.put(currentPerspective, perspectiveUsage.get(currentPerspective) + 1);
 	}
 
@@ -74,7 +74,7 @@ public class PerspectiveUsageCollector implements IUsageCollector {
 				formattedPerspectiveUse = formattedPerspectiveUse.substring(0, indexOf2ndDecimal);
 			}
 			String perspectiveName = perspective; // .substring(perspective.lastIndexOf(".")+1,
-													// perspective.length());
+			// perspective.length());
 			if (perspectiveName.contains("Perspective")) {
 				perspectiveName = perspectiveName.substring(0, perspectiveName.indexOf("Perspective"));
 			}
@@ -94,9 +94,8 @@ public class PerspectiveUsageCollector implements IUsageCollector {
 	public String getReportTitle() {
 		return "Perspective Usage";
 	}
-	
-	
-	public void exportAsCSVFile(String directory) { 
+
+	public void exportAsCSVFile(String directory) {
 		String filename = directory + File.separator + "PerspectiveUsage.csv";
 
 		try {
@@ -130,4 +129,4 @@ public class PerspectiveUsageCollector implements IUsageCollector {
 		}
 
 	}
-} 
+}

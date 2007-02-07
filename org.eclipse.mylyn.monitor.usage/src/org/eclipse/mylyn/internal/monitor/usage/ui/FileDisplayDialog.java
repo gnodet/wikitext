@@ -96,7 +96,7 @@ public class FileDisplayDialog extends MessageDialog {
 				sb.append(s);
 				sb.append("\n");
 			}
-			
+
 		} catch (IOException e) {
 			MylarStatusHandler.log(e, "couldn't get contents");
 		}
@@ -105,10 +105,7 @@ public class FileDisplayDialog extends MessageDialog {
 
 }
 
-
-/* stringbuffer sb = new stringbuffer();
-for (int i = 1; i <= n; i++) {
-sb.append("*");
-}
-string str2 = sb.tostring();
-*/
+/*
+ * stringbuffer sb = new stringbuffer(); for (int i = 1; i <= n; i++) {
+ * sb.append("*"); } string str2 = sb.tostring();
+ */

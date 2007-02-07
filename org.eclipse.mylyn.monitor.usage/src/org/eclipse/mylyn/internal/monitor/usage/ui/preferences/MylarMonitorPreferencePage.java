@@ -11,14 +11,14 @@
 
 package org.eclipse.mylar.internal.monitor.usage.ui.preferences;
 
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.mylar.internal.monitor.usage.MylarMonitorPreferenceConstants;
 import org.eclipse.mylar.monitor.usage.HandleObfuscator;
 import org.eclipse.mylar.monitor.usage.MylarUsageMonitorPlugin;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
@@ -26,7 +26,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -41,17 +40,22 @@ public class MylarMonitorPreferencePage extends PreferencePage implements IWorkb
 
 	private static final String DESCRIPTION = "If enabled the Mylar monitor logs selections, edits, commands, and preference changes. "
 			+ "If you would like to help improve the user experience by anonymously sharing non-private "
-			+ "parts of this data, run the Usage Feedback Wizard.";
+			+ "parts of this data, enable automatic feedback submission or submit your data via the "
+			+ "Usage Summary Wizard.";
 
-	private IntegerFieldEditor userStudyId;
+	private static final long DAYS_IN_MS = 1000 * 60 * 60 * 24;
 
 	private Button enableMonitoring;
 
 	private Button enableObfuscation;
 
+	private Button enableSubmission;
+
 	private Text logFileText;
 
 	private Text uploadUrl;
+
+	private Text submissionTime;
 
 	public MylarMonitorPreferencePage() {
 		super();
@@ -84,9 +88,18 @@ public class MylarMonitorPreferencePage extends PreferencePage implements IWorkb
 	private void updateEnablement() {
 		if (!enableMonitoring.getSelection()) {
 			logFileText.setEnabled(false);
+			enableSubmission.setEnabled(false);
+			submissionTime.setEnabled(false);
 		} else {
 			logFileText.setEnabled(true);
+			enableSubmission.setEnabled(true);
+			if (!enableSubmission.getSelection()) {
+				submissionTime.setEnabled(false);
+			} else {
+				submissionTime.setEnabled(true);
+			}
 		}
+
 	}
 
 	private void createLogFileSection(Composite parent) {
@@ -110,33 +123,12 @@ public class MylarMonitorPreferencePage extends PreferencePage implements IWorkb
 			}
 		});
 
-		// Label label = new Label(group, SWT.NULL);
-		// label.setText("");
-
 		String logFilePath = MylarUsageMonitorPlugin.getDefault().getMonitorLogFile().getPath();
 		logFilePath = logFilePath.replaceAll("\\\\", "/");
 		logFileText = new Text(group, SWT.BORDER);
 		logFileText.setText(logFilePath);
 		logFileText.setEditable(false);
 		logFileText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-
-		// Button browse = createButton(group, "Browse...");
-		// browse.addSelectionListener(new SelectionAdapter() {
-		// @Override
-		// public void widgetSelected(SelectionEvent e) {
-		// FileDialog dialog = new FileDialog(getShell());
-		// dialog.setText("Folder Selection");
-		// // dialog.setMessage("Specify the monitor log file");
-		// String dir = logFileText.getText();
-		// dir = dir.replaceAll("\\\\", "/");
-		// dialog.setFilterPath(dir);
-		//
-		// dir = dialog.open();
-		// if(dir == null || dir.equals(""))
-		// return;
-		// logFileText.setText(dir);
-		// }
-		// });
 
 		enableObfuscation = new Button(group, SWT.CHECK);
 		enableObfuscation.setText("Obfuscate elements using: ");
@@ -149,43 +141,65 @@ public class MylarMonitorPreferencePage extends PreferencePage implements IWorkb
 	private void createUsageSection(Composite parent) {
 		Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
 		group.setText("Usage Feedback");
-		group.setLayout(new GridLayout(1, false));
+		group.setLayout(new GridLayout(2, false));
 		group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-
-		userStudyId = new IntegerFieldEditor("", " Feedback User ID:", group); // HACK
-		userStudyId.setErrorMessage("Your user id must be an integer");
-		int uidNum = MylarUsageMonitorPlugin.getDefault().getPreferenceStore().getInt(MylarUsageMonitorPlugin.PREF_USER_ID);
-		if (uidNum > 0) {
-			userStudyId.setStringValue(uidNum + "");
-			userStudyId.setEmptyStringAllowed(false);
-		}
 
 		Label label = new Label(group, SWT.NULL);
 		label.setText(" Upload URL: ");
 		uploadUrl = new Text(group, SWT.BORDER);
 		uploadUrl.setEditable(false);
 		uploadUrl.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		uploadUrl.setText(MylarUsageMonitorPlugin.getDefault().getStudyParameters().getScriptsUrl());
+		uploadUrl.setText(MylarUsageMonitorPlugin.getDefault().getStudyParameters().getServletUrl());
 
 		Label events = new Label(group, SWT.NULL);
 		events.setText(" Events since upload:");
 		Label logged = new Label(group, SWT.NULL);
 		logged.setText("" + getPreferenceStore().getInt(MylarMonitorPreferenceConstants.PREF_NUM_USER_EVENTS));
 
-		if (uidNum <= 0) {
-			userStudyId.setEnabled(false, group);
-			uploadUrl.setEnabled(false);
-			label.setEnabled(false);
-			logged.setEnabled(false);
-			events.setEnabled(false);
+		Composite enableSubmissionComposite = new Composite(group, SWT.NULL);
+		GridLayout submissionGridLayout = new GridLayout(4, false);
+		submissionGridLayout.marginWidth = 0;
+		submissionGridLayout.marginHeight = 0;
+		enableSubmissionComposite.setLayout(submissionGridLayout);
+		enableSubmission = new Button(enableSubmissionComposite, SWT.CHECK);
+
+		enableSubmission.setText("Enable submission every");
+		enableSubmission.setSelection(getPreferenceStore().getBoolean(
+				MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION));
+		enableSubmission.addSelectionListener(new SelectionListener() {
+			public void widgetSelected(SelectionEvent e) {
+				updateEnablement();
+			}
+
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+		});
+		submissionTime = new Text(enableSubmissionComposite, SWT.BORDER | SWT.RIGHT);
+		GridData gridData = new GridData();
+		gridData.widthHint = 15;
+		submissionTime.setLayoutData(gridData);
+		long submissionFreq = MylarUsageMonitorPlugin.DEFAULT_DELAY_BETWEEN_TRANSMITS;
+		if (MylarUsageMonitorPlugin.getPrefs().contains(
+				MylarMonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY)) {
+			submissionFreq = MylarUsageMonitorPlugin.getPrefs().getLong(
+					MylarMonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY);
 		}
+		long submissionFreqInDays = (long) ((double) submissionFreq) / DAYS_IN_MS;
+		submissionTime.setText("" + submissionFreqInDays);
+		submissionTime.addModifyListener(new ModifyListener() {
+			public void modifyText(ModifyEvent e) {
+
+			}
+		});
+		Label label2 = new Label(enableSubmissionComposite, SWT.NONE);
+		label2.setText("days");
+
 	}
 
 	@Override
 	public void performDefaults() {
 		super.performDefaults();
 		logFileText.setText(MylarUsageMonitorPlugin.getDefault().getMonitorLogFile().getPath());
-		// logFileText.setText(getPreferenceStore().getDefaultString(MylarMonitorPlugin.PREF_LOG_FILE));
 	}
 
 	@Override
@@ -198,36 +212,25 @@ public class MylarMonitorPreferencePage extends PreferencePage implements IWorkb
 			MylarUsageMonitorPlugin.getDefault().stopMonitoring();
 		}
 
-		// String taskDirectory = logFileText.getText();
-		// taskDirectory = taskDirectory.replaceAll("\\\\", "/");
-		// getPreferenceStore().setValue(ContextCorePlugin.PREF_DATA_DIR,
-		// taskDirectory);
+		MylarUsageMonitorPlugin.getPrefs().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION,
+				enableSubmission.getSelection());
 
-		int uidNum = -1;
+		long transmitFrequency = MylarUsageMonitorPlugin.DEFAULT_DELAY_BETWEEN_TRANSMITS;
+
+		String submissionFrequency = submissionTime.getText();
+
 		try {
-			if (userStudyId.getStringValue() == null || userStudyId.getStringValue().equals("")) {
-				uidNum = -1;
-				userStudyId.setStringValue(uidNum + "");
-			} else {
-				uidNum = userStudyId.getIntValue();
-			}
-
-			if (uidNum <= 0 && uidNum != -1) {
-				MessageDialog.openError(Display.getDefault().getActiveShell(), "User ID Incorrect",
-						"The user study id must be a posative integer");
-				return false;
-			}
-			if (uidNum != -1 && uidNum % 17 != 1) {
-				MessageDialog.openError(Display.getDefault().getActiveShell(), "User ID Incorrect",
-						"Your user study id is not valid, please make sure it is correct or get a new id");
-				return false;
-			}
-		} catch (NumberFormatException e) {
-			MessageDialog.openError(Display.getDefault().getActiveShell(), "User ID Incorrect",
-					"The user study id must be a posative integer");
-			return false;
+			transmitFrequency = Integer.parseInt(submissionFrequency);
+			// we
+			transmitFrequency *= DAYS_IN_MS;
+		} catch (NumberFormatException nfe) {
+			// do nothing, transmitFrequency will have the default value
 		}
-		MylarUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(MylarUsageMonitorPlugin.PREF_USER_ID, uidNum);
+
+		MylarUsageMonitorPlugin.getPrefs().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY,
+				transmitFrequency);
+
+		MylarUsageMonitorPlugin.getDefault().getStudyParameters().setTransmitPromptPeriod(transmitFrequency);
 		return true;
 	}
 
@@ -237,16 +240,9 @@ public class MylarMonitorPreferencePage extends PreferencePage implements IWorkb
 				MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED));
 		enableObfuscation.setSelection(getPreferenceStore().getBoolean(
 				MylarMonitorPreferenceConstants.PREF_MONITORING_OBFUSCATE));
-		userStudyId.setStringValue(MylarUsageMonitorPlugin.getDefault().getPreferenceStore().getInt(
-				MylarUsageMonitorPlugin.PREF_USER_ID)
-				+ "");
+		// userStudyId.setStringValue(MylarUsageMonitorPlugin.getDefault().getPreferenceStore().getInt(
+		// MylarUsageMonitorPlugin.PREF_USER_ID)
+		// + "");
 		return true;
 	}
-
-	// private Button createButton(Composite parent, String text) {
-	// Button button = new Button(parent, SWT.TRAIL);
-	// button.setText(text);
-	// button.setVisible(true);
-	// return button;
-	// }
 }

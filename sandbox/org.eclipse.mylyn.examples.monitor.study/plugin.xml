@@ -18,14 +18,14 @@
          <ui
          	title="Mylar User Study Example"
          	daysBetweenUpload="6"
-         	questionnairePage="ca.ubc.mylar.study.QuestionnaireWizardPage"
+         	questionnairePage="org.eclipse.mylar.examples.monitor.study.QuestionnaireWizardPage"
          	consentForm="doc/study-ethics.html"/>
    </extension>
    
    <extension point="org.eclipse.ui.newWizards">
       <wizard
             category="org.eclipse.mylar.wizards"
-            class="ca.ubc.mylar.study.FeedbackWizard"
+            class="org.eclipse.mylar.examples.monitor.study.FeedbackWizard"
             icon="icons/eview16/wizard-feedback.gif"
             id="org.eclipse.mylar.monitor.ui.ui.wizards.FeedbackWizard"
             name="Feedback Submission">

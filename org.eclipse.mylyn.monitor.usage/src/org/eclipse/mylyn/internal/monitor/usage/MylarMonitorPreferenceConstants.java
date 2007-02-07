@@ -24,4 +24,10 @@ public class MylarMonitorPreferenceConstants {
 
 	public static final String PREF_MONITORING_OBFUSCATE = "org.eclipse.mylar.monitor.ui.obfuscate";
 
+	public static final String PREF_MONITORING_ENABLE_SUBMISSION = "org.eclipse.mylar.monitor.enable.submission";
+
+	public static final String PREF_MONITORING_SUBMIT_FREQUENCY = "org.eclipse.mylar.monitor.submission.frequency";
+
+	public static final String PREF_MONITORING_MYLAR_ECLIPSE_ORG_CONSENT_VIEWED = "org.eclipse.mylar.monitor.mylar.eclipse.org.consent.viewed";
+
 }

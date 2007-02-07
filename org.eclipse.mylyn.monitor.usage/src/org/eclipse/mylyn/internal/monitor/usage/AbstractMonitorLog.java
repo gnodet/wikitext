@@ -46,7 +46,7 @@ public class AbstractMonitorLog {
 			outputStream = new FileOutputStream(outputFile, true);
 		} catch (Exception e) {
 			MylarStatusHandler.fail(e, "could not resolve log to file: " + outputFile.getAbsolutePath(), true);
-		} 
+		}
 	}
 
 	public void stopMonitoring() {

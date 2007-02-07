@@ -14,7 +14,6 @@ package org.eclipse.mylar.monitor.usage.core;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Container for statistics
  * 

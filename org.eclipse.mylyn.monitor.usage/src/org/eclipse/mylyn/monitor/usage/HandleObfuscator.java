@@ -30,9 +30,9 @@ public class HandleObfuscator {
 	private static final char DELIM_PATH = '/';
 
 	public static final String LABEL_FAILED_TO_OBFUSCATE = "<failed to obfuscate>";
-		
+
 	public static final String ENCRYPTION_ALGORITHM = "SHA";
-	
+
 	public String obfuscateHandle(String structureKind, String structureHandle) {
 		if (structureHandle == null || structureHandle.equals("")) {
 			return structureHandle;
@@ -41,16 +41,16 @@ public class HandleObfuscator {
 		AbstractContextStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(structureKind);
 		Object object = bridge.getObjectForHandle(structureHandle);
 		if (object instanceof IAdaptable) {
-			Object adapter = ((IAdaptable)object).getAdapter(IResource.class);
+			Object adapter = ((IAdaptable) object).getAdapter(IResource.class);
 			if (adapter instanceof IResource) {
-				obfuscated.append(obfuscateResourcePath(((IResource)adapter).getFullPath()));				
+				obfuscated.append(obfuscateResourcePath(((IResource) adapter).getFullPath()));
 				obfuscated.append(DELIM_PATH);
-			} 
+			}
 		}
 		obfuscated.append(obfuscateString(structureHandle));
 		return obfuscated.toString();
 	}
-	
+
 	/**
 	 * Encrypts the string using SHA, then makes it reasonable to print.
 	 */
@@ -68,7 +68,7 @@ public class HandleObfuscator {
 		}
 		return obfuscatedString;
 	}
-	
+
 	public String obfuscateResourcePath(IPath path) {
 		if (path == null) {
 			return "";
@@ -82,5 +82,5 @@ public class HandleObfuscator {
 			return obfuscatedPath.toString();
 		}
 	}
-	
+
 }
