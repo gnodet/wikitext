@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+    <extension
+         name="Mylar User Study Example Plug-in"
+         point="org.eclipse.ui.startup">
+    </extension>
+
+   <extension
+         point="org.eclipse.mylar.monitor.usage.study">
+         <scripts
+         	url="http://my.server"
+         	upload="upload.cgi"
+         	userId="getUID.cgi"
+         	questionnaire="questionnaire.cgi"/>
+         <ui
+         	title="Mylar User Study Example"
+         	daysBetweenUpload="6"
+         	questionnairePage="ca.ubc.mylar.study.QuestionnaireWizardPage"
+         	consentForm="doc/study-ethics.html"/>
+   </extension>
+   
+   <extension point="org.eclipse.ui.newWizards">
+      <wizard
+            category="org.eclipse.mylar.wizards"
+            class="ca.ubc.mylar.study.FeedbackWizard"
+            icon="icons/eview16/wizard-feedback.gif"
+            id="org.eclipse.mylar.monitor.ui.ui.wizards.FeedbackWizard"
+            name="Feedback Submission">
+      </wizard>
+   </extension>
+</plugin> 
