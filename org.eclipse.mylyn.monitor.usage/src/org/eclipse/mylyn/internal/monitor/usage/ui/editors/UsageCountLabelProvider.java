@@ -13,7 +13,7 @@ package org.eclipse.mylar.internal.monitor.usage.ui.editors;
 
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.mylar.monitor.usage.core.InteractionEventSummary;
+import org.eclipse.mylar.monitor.core.collection.InteractionEventSummary;
 import org.eclipse.swt.graphics.Image;
 
 /**

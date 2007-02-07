@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.monitor.usage;
+package org.eclipse.mylar.monitor.usage.core;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -20,12 +20,12 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.mylar.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylar.context.core.ContextCorePlugin;
-import org.eclipse.mylar.context.core.MylarStatusHandler;
+import org.eclipse.mylar.core.MylarStatusHandler;
 
 /**
  * @author Mik Kersten
  */
-public class HandleObfuscator {
+public class InteractionEventObfuscator {
 
 	private static final char DELIM_PATH = '/';
 

@@ -14,6 +14,9 @@ package org.eclipse.mylar.monitor.usage.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.mylar.monitor.core.collection.IUsageCollector;
+import org.eclipse.mylar.monitor.core.collection.InteractionEventSummary;
+
 /**
  * Container for statistics
  * 

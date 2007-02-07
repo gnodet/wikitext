@@ -22,6 +22,7 @@ import org.eclipse.mylar.internal.context.ui.actions.AbstractFocusViewAction;
 import org.eclipse.mylar.internal.tasks.ui.actions.TaskActivateAction;
 import org.eclipse.mylar.internal.tasks.ui.actions.TaskDeactivateAction;
 import org.eclipse.mylar.monitor.core.InteractionEvent;
+import org.eclipse.mylar.monitor.core.collection.ViewUsageCollector;
 
 /**
  * @author Mik Kersten

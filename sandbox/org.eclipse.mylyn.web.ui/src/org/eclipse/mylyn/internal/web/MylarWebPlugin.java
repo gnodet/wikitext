@@ -11,7 +11,7 @@
 package org.eclipse.mylar.internal.web;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylar.context.core.MylarStatusHandler;
+import org.eclipse.mylar.core.MylarStatusHandler;
 import org.eclipse.mylar.monitor.ui.MylarMonitorUiPlugin;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;

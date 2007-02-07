@@ -15,7 +15,7 @@ import java.util.List;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.mylar.monitor.usage.core.InteractionEventSummary;
+import org.eclipse.mylar.monitor.core.collection.InteractionEventSummary;
 import org.eclipse.mylar.monitor.usage.core.ReportGenerator;
 
 /**

@@ -24,9 +24,14 @@ import java.util.TreeSet;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.mylar.context.core.MylarStatusHandler;
+import org.eclipse.mylar.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.monitor.usage.InteractionEventLogger;
 import org.eclipse.mylar.monitor.core.InteractionEvent;
+import org.eclipse.mylar.monitor.core.collection.IUsageCollector;
+import org.eclipse.mylar.monitor.core.collection.IUsageScanner;
+import org.eclipse.mylar.monitor.core.collection.InteractionEventComparator;
+import org.eclipse.mylar.monitor.core.collection.InteractionEventSummary;
+import org.eclipse.mylar.monitor.core.collection.InteractionEventUtil;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.progress.IProgressService;
 
@@ -309,7 +314,7 @@ public class ReportGenerator {
 
 			InteractionEventSummary summary = usersSummary.get(getIdentifier(event));
 			if (summary == null) {
-				summary = new InteractionEventSummary(event.getKind().toString(), getCleanOriginId(event), 0);
+				summary = new InteractionEventSummary(event.getKind().toString(), InteractionEventUtil.getCleanOriginId(event), 0);
 				usersSummary.put(getIdentifier(event), summary);
 			}
 			summary.setUsageCount(summary.getUsageCount() + 1);
@@ -319,30 +324,9 @@ public class ReportGenerator {
 		}
 
 		public String getIdentifier(InteractionEvent event) {
-			return event.getKind().toString() + ':' + getCleanOriginId(event);
+			return event.getKind().toString() + ':' + InteractionEventUtil.getCleanOriginId(event);
 		}
 
-	}
-
-	public static String getCleanOriginId(InteractionEvent event) {
-		String cleanOriginId = "";
-		String originId = event.getOriginId();
-
-		if (event.getKind().equals(InteractionEvent.Kind.COMMAND)) {
-			for (int i = 0; i < originId.length(); i++) {
-				char curChar = originId.charAt(i);
-				if (!(curChar == '&')) {
-					if (Character.getType(curChar) == Character.CONTROL) {
-						cleanOriginId = cleanOriginId.concat(" ");
-					} else {
-						cleanOriginId = cleanOriginId.concat(String.valueOf(curChar));
-					}
-				}
-			}
-			return cleanOriginId;
-		} else {
-			return originId;
-		}
 	}
 
 	public static String formatPercentage(float percentage) {

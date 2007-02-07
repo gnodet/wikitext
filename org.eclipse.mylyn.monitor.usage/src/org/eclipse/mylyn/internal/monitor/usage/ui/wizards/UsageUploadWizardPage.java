@@ -14,7 +14,7 @@ package org.eclipse.mylar.internal.monitor.usage.ui.wizards;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.mylar.monitor.usage.MylarUsageMonitorPlugin;
+import org.eclipse.mylar.internal.monitor.usage.MylarUsageMonitorPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;

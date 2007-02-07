@@ -20,8 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.mylar.context.core.MylarStatusHandler;
-import org.eclipse.mylar.internal.context.core.util.DateUtil;
+import org.eclipse.mylar.core.MylarStatusHandler;
+import org.eclipse.mylar.internal.core.util.DateUtil;
 import org.eclipse.mylar.internal.tasks.ui.actions.TaskActivateAction;
 import org.eclipse.mylar.internal.tasks.ui.actions.TaskDeactivateAction;
 import org.eclipse.mylar.monitor.core.InteractionEvent;
@@ -312,7 +312,7 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 
 					Map<String, Integer> filteredViewSelections = viewUsageCollector.usersFilteredViewSelections
 							.get(userId);
-					Map<String, Integer> normalViewSelections = viewUsageCollector.usersNormalViewSelections
+					Map<String, Integer> normalViewSelections = viewUsageCollector.getUsersNormalViewSelections()
 							.get(userId);
 
 					String[] views = new String[] { "org.eclipse.jdt.ui.PackageExplorer",

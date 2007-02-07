@@ -57,7 +57,7 @@ public class SelectionMonitor extends AbstractUserInteractionMonitor {
 
 	private IJavaElement lastSelectedElement = null;
 
-	// private HandleObfuscator obfuscator = new HandleObfuscator();
+	// private InteractionEventObfuscator obfuscator = new InteractionEventObfuscator();
 
 	@Override
 	protected void handleWorkbenchPartSelection(IWorkbenchPart part, ISelection selection, boolean contributeToContext) {

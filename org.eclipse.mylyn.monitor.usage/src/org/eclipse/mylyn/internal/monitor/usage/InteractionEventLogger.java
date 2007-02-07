@@ -21,20 +21,22 @@ import java.io.StringReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import org.eclipse.mylar.context.core.MylarStatusHandler;
+import org.eclipse.mylar.core.MylarStatusHandler;
+import org.eclipse.mylar.core.net.HtmlStreamTokenizer;
+import org.eclipse.mylar.core.net.HtmlStreamTokenizer.Token;
 import org.eclipse.mylar.internal.context.core.MylarContextExternalizer;
-import org.eclipse.mylar.internal.context.core.util.XmlStringConverter;
-import org.eclipse.mylar.internal.monitor.usage.HtmlStreamTokenizer.Token;
+import org.eclipse.mylar.internal.core.util.XmlStringConverter;
+import org.eclipse.mylar.monitor.core.AbstractMonitorLog;
 import org.eclipse.mylar.monitor.core.IInteractionEventListener;
 import org.eclipse.mylar.monitor.core.InteractionEvent;
 import org.eclipse.mylar.monitor.core.InteractionEvent.Kind;
-import org.eclipse.mylar.monitor.usage.HandleObfuscator;
-import org.eclipse.mylar.monitor.usage.MylarUsageMonitorPlugin;
+import org.eclipse.mylar.monitor.usage.core.InteractionEventObfuscator;
 
 /**
  * @author Mik Kersten
@@ -48,13 +50,15 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 
 	private List<InteractionEvent> queue = new ArrayList<InteractionEvent>();
 
-	private HandleObfuscator handleObfuscator = new HandleObfuscator();
+	private InteractionEventObfuscator handleObfuscator = new InteractionEventObfuscator();
+
+	private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S z", Locale.ENGLISH);
 
 	public InteractionEventLogger(File outputFile) {
 		this.outputFile = outputFile;
 	}
 
-	public void interactionObserved(InteractionEvent event) {
+	public synchronized void interactionObserved(InteractionEvent event) {
 		// System.err.println("> " + event);
 		if (MylarUsageMonitorPlugin.getDefault().isObfuscationEnabled()) {
 			String obfuscatedHandle = handleObfuscator.obfuscateHandle(event.getStructureKind(), event
@@ -181,28 +185,89 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 	public String writeLegacyEvent(InteractionEvent e) {
 		StringBuffer res = new StringBuffer();
 		String tag = "interactionEvent";
-		String f = "yyyy-MM-dd HH:mm:ss.S z";
-		SimpleDateFormat format = new SimpleDateFormat(f, Locale.ENGLISH);
-		res.append(OPEN + tag + CLOSE + ENDL);
-		res.append(TAB + OPEN + "kind" + CLOSE + e.getKind().toString() + OPEN + SLASH + "kind" + CLOSE + ENDL);
-		res.append(TAB + OPEN + "date" + CLOSE + format.format(e.getDate()) + OPEN + SLASH + "date" + CLOSE + ENDL);
-		res.append(TAB + OPEN + "endDate" + CLOSE + format.format(e.getEndDate()) + OPEN + SLASH + "endDate" + CLOSE
-				+ ENDL);
-		res.append(TAB + OPEN + "originId" + CLOSE + XmlStringConverter.convertToXmlString(e.getOriginId()) + OPEN
-				+ SLASH + "originId" + CLOSE + ENDL);
-		res.append(TAB + OPEN + "structureKind" + CLOSE + XmlStringConverter.convertToXmlString(e.getStructureKind())
-				+ OPEN + SLASH + "structureKind" + CLOSE + ENDL);
-		res.append(TAB + OPEN + "structureHandle" + CLOSE
-				+ XmlStringConverter.convertToXmlString(e.getStructureHandle()) + OPEN + SLASH + "structureHandle"
-				+ CLOSE + ENDL);
-		res.append(TAB + OPEN + "navigation" + CLOSE + XmlStringConverter.convertToXmlString(e.getNavigation()) + OPEN
-				+ SLASH + "navigation" + CLOSE + ENDL);
-		res.append(TAB + OPEN + "delta" + CLOSE + XmlStringConverter.convertToXmlString(e.getDelta()) + OPEN + SLASH
-				+ "delta" + CLOSE + ENDL);
-		res.append(TAB + OPEN + "interestContribution" + CLOSE + "" + e.getInterestContribution() + OPEN + SLASH
-				+ "interestContribution" + CLOSE + ENDL);
-		res.append(OPEN + SLASH + tag + CLOSE + ENDL);
+		res.append(OPEN);
+		res.append(tag);
+		res.append(CLOSE);
+		res.append(ENDL);
+
+		openElement(res, "kind");
+		formatContent(res, e.getKind());
+		closeElement(res, "kind");
+
+		openElement(res, "date");
+		formatContent(res, e.getDate());
+		closeElement(res, "date");
+
+		openElement(res, "endDate");
+		formatContent(res, e.getEndDate());
+		closeElement(res, "endDate");
+
+		openElement(res, "originId");
+		formatContent(res, e.getOriginId());
+		closeElement(res, "originId");
+
+		openElement(res, "structureKind");
+		formatContent(res, e.getStructureKind());
+		closeElement(res, "structureKind");
+
+		openElement(res, "structureHandle");
+		formatContent(res, e.getStructureHandle());
+		closeElement(res, "structureHandle");
+
+		openElement(res, "navigation");
+		formatContent(res, e.getNavigation());
+		closeElement(res, "navigation");
+
+		openElement(res, "delta");
+		formatContent(res, e.getDelta());
+		closeElement(res, "delta");
+
+		openElement(res, "interestContribution");
+		formatContent(res, e.getInterestContribution());
+		closeElement(res, "interestContribution");
+
+		res.append(OPEN);
+		res.append(SLASH);
+		res.append(tag);
+		res.append(CLOSE);
+		res.append(ENDL);
 		return res.toString();
+	}
+
+	private void formatContent(StringBuffer buffer, float interestContribution) {
+		buffer.append(interestContribution);
+	}
+
+	private void formatContent(StringBuffer buffer, String content) {
+		if (content != null && content.length() > 0) {
+			String xmlContent;
+			xmlContent = XmlStringConverter.convertToXmlString(content);
+			xmlContent = xmlContent.replace("\n", "\n\t\t");
+			buffer.append(xmlContent);
+		}
+	}
+
+	private void formatContent(StringBuffer buffer, Kind kind) {
+		buffer.append(kind.toString());
+	}
+
+	private void formatContent(StringBuffer buffer, Date date) {
+		buffer.append(dateFormat.format(date));
+	}
+
+	private void openElement(StringBuffer buffer, String tag) {
+		buffer.append(TAB);
+		buffer.append(OPEN);
+		buffer.append(tag);
+		buffer.append(CLOSE);
+	}
+
+	private void closeElement(StringBuffer buffer, String tag) {
+		buffer.append(OPEN);
+		buffer.append(SLASH);
+		buffer.append(tag);
+		buffer.append(CLOSE);
+		buffer.append(ENDL);
 	}
 
 	public InteractionEvent readLegacyEvent(String xml) {
@@ -220,83 +285,26 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 		try {
 			for (Token token = tokenizer.nextToken(); token.getType() != Token.EOF; token = tokenizer.nextToken()) {
 				if (token.getValue().toString().equals("<kind>")) {
-					token = tokenizer.nextToken();
-					if (!token.getValue().toString().equals("</kind>")) {
-						kind = token.getValue().toString().toLowerCase(Locale.ENGLISH);
-						token = tokenizer.nextToken();
-					}
+					kind = readStringContent(tokenizer, "</kind>");
+					kind = kind.toLowerCase(Locale.ENGLISH);
 				} else if (token.getValue().toString().equals("<date>")) {
-					token = tokenizer.nextToken();
-					while (!token.getValue().toString().equals("</date>")) {
-						startDate += token.getValue().toString() + " ";
-						token = tokenizer.nextToken();
-					}
-					startDate.trim();
+					startDate = readStringContent(tokenizer, "</date>");
 				} else if (token.getValue().toString().equals("<endDate>")) {
-					token = tokenizer.nextToken();
-					while (!token.getValue().toString().equals("</endDate>")) {
-						endDate += token.getValue().toString() + " ";
-						token = tokenizer.nextToken();
-					}
-					endDate.trim();
+					endDate = readStringContent(tokenizer, "</endDate>");
 				} else if (token.getValue().toString().equals("<originId>")) {
-					token = tokenizer.nextToken();
-					originId = XmlStringConverter.convertXmlToString(token.getValue().toString());
-					token = tokenizer.nextToken();
+					originId = readStringContent(tokenizer, "</originId>");
 				} else if (token.getValue().toString().equals("<structureKind>")) {
-					token = tokenizer.nextToken();
-					while (!token.getValue().toString().equals("</structureKind>")) {
-						if (structureKind.equals("")) {
-							structureKind += token.getValue().toString();
-						} else {
-							structureKind += " " + token.getValue().toString();
-						}
-						token = tokenizer.nextToken();
-					}
-					structureKind = XmlStringConverter.convertXmlToString(structureKind);
+					structureKind = readStringContent(tokenizer, "</structureKind>");
 				} else if (token.getValue().toString().equals("<structureHandle>")) {
-					token = tokenizer.nextToken();
-					while (!token.getValue().toString().equals("</structureHandle>")) {
-						if (structureHandle.equals("")) {
-							structureHandle += token.getValue().toString();
-						} else {
-							structureHandle += " " + token.getValue().toString();
-						}
-						token = tokenizer.nextToken();
-					}
-					structureHandle = XmlStringConverter.convertXmlToString(structureHandle);
+					structureHandle = readStringContent(tokenizer, "</structureHandle>");
 				} else if (token.getValue().toString().equals("<navigation>")) {
-					token = tokenizer.nextToken();
-					while (!token.getValue().toString().equals("</navigation>")) {
-						if (navigation.equals("")) {
-							navigation += token.getValue().toString();
-						} else {
-							navigation += " " + token.getValue().toString();
-						}
-						token = tokenizer.nextToken();
-					}
-					navigation = XmlStringConverter.convertXmlToString(navigation);
-					navigation.trim();
+					navigation = readStringContent(tokenizer, "</navigation>");
 				} else if (token.getValue().toString().equals("<delta>")) {
-					token = tokenizer.nextToken();
-					while (!token.getValue().toString().equals("</delta>")) {
-						if (delta.equals("")) {
-							delta += token.getValue().toString();
-						} else {
-							delta += " " + token.getValue().toString();
-						}
-						token = tokenizer.nextToken();
-					}
-					delta = XmlStringConverter.convertXmlToString(delta);
-					delta.trim();
+					delta = readStringContent(tokenizer, "</delta>");
 				} else if (token.getValue().toString().equals("<interestContribution>")) {
-					token = tokenizer.nextToken();
-					interest = XmlStringConverter.convertXmlToString(token.getValue().toString());
-					token = tokenizer.nextToken();
+					interest = readStringContent(tokenizer, "</interestContribution>");
 				}
 			}
-			String formatString = "yyyy-MM-dd HH:mm:ss.S z";
-			SimpleDateFormat format = new SimpleDateFormat(formatString, Locale.ENGLISH);
 			float interestFloatVal = 0;
 			try {
 				interestFloatVal = Float.parseFloat(interest);
@@ -304,7 +312,8 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 				// ignore for empty interest values
 			}
 			InteractionEvent event = new InteractionEvent(Kind.fromString(kind), structureKind, structureHandle,
-					originId, navigation, delta, interestFloatVal, format.parse(startDate), format.parse(endDate));
+					originId, navigation, delta, interestFloatVal, dateFormat.parse(startDate), dateFormat
+							.parse(endDate));
 			return event;
 
 		} catch (ParseException e) {
@@ -319,5 +328,18 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 		}
 
 		return null;
+	}
+
+	private String readStringContent(HtmlStreamTokenizer tokenizer, String endTag) throws IOException, ParseException {
+		StringBuffer content = new StringBuffer();
+		Token token = tokenizer.nextToken();
+		while (!token.getValue().toString().equals(endTag)) {
+			if (content.length() > 0) {
+				content.append(' ');
+			}
+			content.append(token.getValue().toString());
+			token = tokenizer.nextToken();
+		}
+		return XmlStringConverter.convertXmlToString(content.toString()).trim();
 	}
 }

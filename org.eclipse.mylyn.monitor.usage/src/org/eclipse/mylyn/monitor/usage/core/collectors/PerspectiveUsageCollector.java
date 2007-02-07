@@ -22,8 +22,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.mylar.monitor.core.InteractionEvent;
+import org.eclipse.mylar.monitor.core.collection.IUsageCollector;
+import org.eclipse.mylar.monitor.core.collection.PercentUsageComparator;
 import org.eclipse.mylar.monitor.ui.workbench.PerspectiveChangeMonitor;
-import org.eclipse.mylar.monitor.usage.core.IUsageCollector;
 
 /**
  * @author Mik Kersten and Leah Findlater

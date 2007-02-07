@@ -15,6 +15,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.mylar.monitor.core.InteractionEvent;
+import org.eclipse.mylar.monitor.core.collection.CommandUsageCollector;
+import org.eclipse.mylar.monitor.core.collection.DelegatingUsageCollector;
 
 /**
  * @author Mik Kersten

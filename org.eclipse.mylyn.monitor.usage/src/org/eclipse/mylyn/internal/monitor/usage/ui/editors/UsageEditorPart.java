@@ -20,8 +20,8 @@ import java.io.IOException;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.mylar.context.core.MylarStatusHandler;
-import org.eclipse.mylar.monitor.usage.core.IUsageCollector;
+import org.eclipse.mylar.core.MylarStatusHandler;
+import org.eclipse.mylar.monitor.core.collection.IUsageCollector;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.browser.Browser;

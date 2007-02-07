@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.monitor.usage;
+package org.eclipse.mylar.internal.monitor.usage;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,11 +37,8 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.IContextStoreListener;
-import org.eclipse.mylar.context.core.MylarStatusHandler;
+import org.eclipse.mylar.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.context.core.MylarContextManager;
-import org.eclipse.mylar.internal.monitor.usage.InteractionEventLogger;
-import org.eclipse.mylar.internal.monitor.usage.MylarMonitorPreferenceConstants;
-import org.eclipse.mylar.internal.monitor.usage.StudyParameters;
 import org.eclipse.mylar.internal.monitor.usage.ui.wizards.UsageSubmissionWizard;
 import org.eclipse.mylar.monitor.core.IInteractionEventListener;
 import org.eclipse.mylar.monitor.ui.AbstractCommandMonitor;
@@ -56,6 +53,8 @@ import org.eclipse.mylar.monitor.ui.workbench.MenuCommandMonitor;
 import org.eclipse.mylar.monitor.ui.workbench.PerspectiveChangeMonitor;
 import org.eclipse.mylar.monitor.ui.workbench.PreferenceChangeMonitor;
 import org.eclipse.mylar.monitor.ui.workbench.WindowChangeMonitor;
+import org.eclipse.mylar.monitor.usage.core.IBackgroundPage;
+import org.eclipse.mylar.monitor.usage.core.IQuestionnairePage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.events.ShellListener;

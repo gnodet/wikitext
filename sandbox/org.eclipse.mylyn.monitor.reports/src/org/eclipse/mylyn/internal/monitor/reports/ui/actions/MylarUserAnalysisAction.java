@@ -17,11 +17,11 @@ import java.util.List;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.mylar.context.core.MylarStatusHandler;
+import org.eclipse.mylar.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.monitor.reports.MylarReportsPlugin;
+import org.eclipse.mylar.internal.monitor.usage.MylarUsageMonitorPlugin;
 import org.eclipse.mylar.internal.monitor.usage.ui.editors.UsageStatsEditorInput;
-import org.eclipse.mylar.monitor.usage.MylarUsageMonitorPlugin;
-import org.eclipse.mylar.monitor.usage.core.IUsageCollector;
+import org.eclipse.mylar.monitor.core.collection.IUsageCollector;
 import org.eclipse.mylar.monitor.usage.core.ReportGenerator;
 import org.eclipse.mylar.monitor.usage.core.collectors.MylarUsageAnalysisCollector;
 import org.eclipse.ui.IEditorInput;

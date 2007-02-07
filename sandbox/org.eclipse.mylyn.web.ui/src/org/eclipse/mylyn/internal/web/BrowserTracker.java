@@ -16,7 +16,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.mylar.context.core.MylarStatusHandler;
+import org.eclipse.mylar.core.MylarStatusHandler;
 import org.eclipse.mylar.monitor.ui.AbstractUserInteractionMonitor;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.ProgressEvent;

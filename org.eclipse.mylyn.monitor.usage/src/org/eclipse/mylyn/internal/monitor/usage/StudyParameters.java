@@ -11,9 +11,8 @@
 
 package org.eclipse.mylar.internal.monitor.usage;
 
-import org.eclipse.mylar.monitor.usage.IBackgroundPage;
-import org.eclipse.mylar.monitor.usage.IQuestionnairePage;
-import org.eclipse.mylar.monitor.usage.MylarUsageMonitorPlugin;
+import org.eclipse.mylar.monitor.usage.core.IBackgroundPage;
+import org.eclipse.mylar.monitor.usage.core.IQuestionnairePage;
 
 /**
  * @author Mik Kersten

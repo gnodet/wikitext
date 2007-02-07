@@ -14,10 +14,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.mylar.context.core.MylarStatusHandler;
+import org.eclipse.mylar.core.MylarStatusHandler;
+import org.eclipse.mylar.internal.monitor.usage.MylarUsageMonitorPlugin;
 import org.eclipse.mylar.internal.monitor.usage.ui.FileDisplayDialog;
 import org.eclipse.mylar.internal.monitor.usage.ui.wizards.UsageSubmissionWizard;
-import org.eclipse.mylar.monitor.usage.MylarUsageMonitorPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;

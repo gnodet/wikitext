@@ -18,9 +18,9 @@ import java.io.IOException;
 
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.mylar.context.core.MylarStatusHandler;
-import org.eclipse.mylar.monitor.usage.core.IUsageCollector;
-import org.eclipse.mylar.monitor.usage.core.InteractionEventSummarySorter;
+import org.eclipse.mylar.core.MylarStatusHandler;
+import org.eclipse.mylar.internal.monitor.usage.ui.InteractionEventSummarySorter;
+import org.eclipse.mylar.monitor.core.collection.IUsageCollector;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.events.SelectionAdapter;
