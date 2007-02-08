@@ -3,3 +3,6 @@
 1170609939093	Rename local variable 'newTaskData'
 1170708664140	Rename method 'saveIncomingChanges'
 1170708685078	Rename method 'saveOutgoingChanges'
+1170963035515	Rename type 'LABEL_NAME'
+1170963257265	Rename method 'getLabel'
+1170966175890	Rename field 'labelMap'
