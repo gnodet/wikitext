@@ -63,7 +63,7 @@
 //		assertEquals("P2", hit.getPriority());
 //	}
 //
-//	BugzillaSearchHit createHit(IProgressMonitor monitor, BufferedReader in, Match match, String serverUrl, int id)
+//	BugzillaSearchHit createHit(IProgressMonitor monitor, BufferedReader in, Match match, String serverUrl, int taskId)
 //			throws IOException {
 //
 //		String severity = "none";
@@ -119,13 +119,13 @@
 //			// server = BugzillaPlugin.getDefault().getServerName();
 //		} catch (Exception exception1) {
 //		}
-//		return new BugzillaSearchHit(serverUrl, id, description, severity, priority, platform, state, result, owner,
+//		return new BugzillaSearchHit(serverUrl, taskId, description, severity, priority, platform, state, result, owner,
 //				query);
 //
 //	}
 //
 //	private static final String EXAMPLE_REPORT = "<tr class=\"b\">\n" + "<td>\n"
-//			+ "<a href=\"show_bug.cgi?id=1\">1</a>\n" + "</td>\n"
+//			+ "<a href=\"show_bug.cgi?taskId=1\">1</a>\n" + "</td>\n"
 //			+ "<td class=\"red\"><span class=\"issue_type\">nor</span>\n" + "</td>\n"
 //			+ "<td class=\"red\"><span class=\"priority\">P2</span>\n" + "</td>\n"
 //			+ "<td class=\"red\"><span class=\"platform\">All</span>\n" + "</td>\n"

@@ -115,7 +115,7 @@ public class BugzillaReportInfo {
 			BugzillaRepositoryConnector bugzillaConnector = (BugzillaRepositoryConnector) TasksUiPlugin
 					.getRepositoryManager().getRepositoryConnector(BugzillaCorePlugin.REPOSITORY_KIND);
 			ITaskDataHandler handler = bugzillaConnector.getTaskDataHandler();
-			bug = handler.getTaskData(repository, hit.getId());
+			bug = handler.getTaskData(repository, hit.getTaskId());
 		}
 		return bug;
 	}
@@ -180,10 +180,10 @@ public class BugzillaReportInfo {
 		int length = description.length();
 		if (length > MAX_LABEL_LENGTH)
 			description = description.substring(0, MAX_LABEL_LENGTH) + "..";
-		return "bug " + hit.getId() + ": " + description;
+		return "bug " + hit.getTaskId() + ": " + description;
 	}
 
 	public String getElementHandle() {
-		return hit.getRepositoryUrl() + ";" + hit.getId();
+		return hit.getRepositoryUrl() + ";" + hit.getTaskId();
 	}
 }

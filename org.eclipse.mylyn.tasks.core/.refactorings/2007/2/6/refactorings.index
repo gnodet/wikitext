@@ -19,3 +19,5 @@
 1171078530694	Rename method 'getIdLabel'
 1171079526936	Rename local variable 'oldUrl'
 1171079532514	Rename local variable 'newUrl'
+1171081266304	Rename field 'id'
+1171081290128	Rename method 'getId'

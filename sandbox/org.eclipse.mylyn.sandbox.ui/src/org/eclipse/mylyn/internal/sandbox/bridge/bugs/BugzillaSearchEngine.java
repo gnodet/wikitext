@@ -299,13 +299,13 @@ public class BugzillaSearchEngine {
 // /** regular expression matching Bugzilla query results format used in
 // Eclipse.org Bugzilla */
 // protected static final Pattern re = Pattern.compile("<a
-// href=\"show_bug.cgi\\?id=(\\d+)\">", Pattern.CASE_INSENSITIVE);
+// href=\"show_bug.cgi\\?taskId=(\\d+)\">", Pattern.CASE_INSENSITIVE);
 //
 //	
 // /** regular expression matching Bugzilla query results format used in
 // v2.12 */
 // protected static final Pattern reOld = Pattern.compile("<a
-// href=\"show_bug.cgi\\?id=(\\d+)\">\\d+</a>\\s*<td
+// href=\"show_bug.cgi\\?taskId=(\\d+)\">\\d+</a>\\s*<td
 // class=severity><nobr>([^>]+)</nobr><td
 // class=priority><nobr>([^>]+)</nobr><td
 // class=platform><nobr>([^>]*)</nobr><td
@@ -323,7 +323,7 @@ public class BugzillaSearchEngine {
 // * <tr class="bz_enhancement bz_P5 ">
 // *
 // * <td>
-// * <a href="show_bug.cgi?id=6747">6747</a>
+// * <a href="show_bug.cgi?taskId=6747">6747</a>
 // * </td>
 // *
 // * <td><nobr>enh</nobr>
@@ -346,7 +346,7 @@ public class BugzillaSearchEngine {
 // *
 // * <p>Or in the older format:
 // * <pre>
-// * <A HREF="show_bug.cgi?id=8">8</A> <td
+// * <A HREF="show_bug.cgi?taskId=8">8</A> <td
 // class=severity><nobr>blo</nobr><td class=priority><nobr>P1</nobr><td
 // class=platform><nobr>PC</nobr><td
 // class=owner><nobr>cubranic@cs.ubc.ca</nobr><td
@@ -439,7 +439,7 @@ public class BugzillaSearchEngine {
 //
 // Matcher matcher = reOld.matcher(line);
 // if (matcher.find()) {
-// int id = Integer.parseInt(matcher.group(1));
+// int taskId = Integer.parseInt(matcher.group(1));
 // String severity = matcher.group(2);
 // String priority = matcher.group(3);
 // String platform = matcher.group(4);
@@ -453,7 +453,7 @@ public class BugzillaSearchEngine {
 //
 // String server = repository.getUrl();
 //
-// BugzillaSearchHit hit = new BugzillaSearchHit(server, id, description,
+// BugzillaSearchHit hit = new BugzillaSearchHit(server, taskId, description,
 // severity, priority,
 // platform, state, result, owner, query);
 // collector.accept(hit);
@@ -473,9 +473,9 @@ public class BugzillaSearchEngine {
 // regularExpression = reValue;
 // }
 //	
-// int id = Integer.parseInt(matcher.group(1));
+// int taskId = Integer.parseInt(matcher.group(1));
 // BugzillaSearchHit hit = createHit(regularExpression, monitor, in,
-// repository.getUrl(), id);
+// repository.getUrl(), taskId);
 // collector.accept(hit);
 // numCollected++;
 // }
@@ -491,10 +491,10 @@ public class BugzillaSearchEngine {
 // // regularExpression = reValue;
 // // }
 // //
-// // int id = Integer.parseInt(match.getCapturedText(1));
+// // int taskId = Integer.parseInt(match.getCapturedText(1));
 // // BugzillaSearchHit hit = createHit(regularExpression, monitor, in,
 // match, repository.getUrl()
-// // .toExternalForm(), id);
+// // .toExternalForm(), taskId);
 // // collector.accept(hit);
 // // numCollected++;
 // // }

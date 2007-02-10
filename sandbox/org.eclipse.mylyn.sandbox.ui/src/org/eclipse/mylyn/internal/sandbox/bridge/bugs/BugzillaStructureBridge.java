@@ -47,7 +47,7 @@ public class BugzillaStructureBridge extends AbstractContextStructureBridge {
 	}
 
 	/**
-	 * Handle format: <server-name:port>;<bug-id>;<comment#>
+	 * Handle format: <server-name:port>;<bug-taskId>;<comment#>
 	 * 
 	 * Use: OutlineTools ???
 	 */
@@ -79,9 +79,9 @@ public class BugzillaStructureBridge extends AbstractContextStructureBridge {
 //		String[] parts = handle.split(";");
 //		if (parts.length >= 2) {
 //			String server = parts[0];
-//			final int id = Integer.parseInt(parts[1]);
+//			final int taskId = Integer.parseInt(parts[1]);
 //
-//			final String bugHandle = server + ";" + id;
+//			final String bugHandle = server + ";" + taskId;
 //
 //			int commentNumber = -1;
 //			if (parts.length == 3) {
@@ -111,11 +111,11 @@ public class BugzillaStructureBridge extends AbstractContextStructureBridge {
 //			} else if (result == null && reportNode == null) {
 //				IRunnableWithProgress op = new IRunnableWithProgress() {
 //					public void run(IProgressMonitor monitor) {
-//						monitor.beginTask("Downloading Bug# " + id, IProgressMonitor.UNKNOWN);
+//						monitor.beginTask("Downloading Bug# " + taskId, IProgressMonitor.UNKNOWN);
 //						try {
 //							Proxy proxySettings = MylarTaskListPlugin.getDefault().getProxySettings();
 //							// XXX: move this
-//							result = BugzillaRepositoryUtil.getBug(repository.getUrl(), repository.getUserName(), repository.getPassword(), proxySettings, repository.getCharacterEncoding(), id);
+//							result = BugzillaRepositoryUtil.getBug(repository.getUrl(), repository.getUserName(), repository.getPassword(), proxySettings, repository.getCharacterEncoding(), taskId);
 //							if (result != null) {
 //								MylarBugsPlugin.getDefault().getCache().cache(bugHandle, result);
 //							}
@@ -193,7 +193,7 @@ public class BugzillaStructureBridge extends AbstractContextStructureBridge {
 			return ContentOutlineTools.getName(b);
 		} else if (object instanceof BugzillaReportInfo) {
 			BugzillaQueryHit hit = ((BugzillaReportInfo) object).getHit();
-			return hit.getRepositoryUrl() + ": Bug#: " + hit.getId() + ": " + hit.getSummary();
+			return hit.getRepositoryUrl() + ": Bug#: " + hit.getTaskId() + ": " + hit.getSummary();
 		}
 		return "";
 	}

@@ -294,8 +294,8 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		if(hits!=null) {
 			for (AbstractQueryHit hit : hits) {
 				TableItem item = new TableItem(previewTable, SWT.NONE);
-				if(hit.getId()!=null) {
-					item.setText(0, hit.getId());
+				if(hit.getTaskId()!=null) {
+					item.setText(0, hit.getTaskId());
 					if(hit.getSummary()!=null) {
 						item.setText(1, hit.getSummary());
 					}

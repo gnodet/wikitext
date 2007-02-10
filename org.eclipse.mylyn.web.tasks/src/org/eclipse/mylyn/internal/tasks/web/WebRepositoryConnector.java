@@ -289,7 +289,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 				return Status.OK_STATUS;
 			} else {
 				return new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
-						"Require two matching groups (id and description). Check query regexp", null);
+						"Require two matching groups (taskId and description). Check query regexp", null);
 			}
 		}
 	}
@@ -343,10 +343,10 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 //
 //				String entryUri = entry.getUri();
 //				if (entryUri.startsWith(taskPrefix)) {
-//					String id = df.format(date); // entryUri.substring(taskPrefix.length());
+//					String taskId = df.format(date); // entryUri.substring(taskPrefix.length());
 //
 //					try {
-//						collector.accept(new WebQueryHit(id, id + ": " + entry.getTitle(), taskPrefix, repositoryUrl));
+//						collector.accept(new WebQueryHit(taskId, taskId + ": " + entry.getTitle(), taskPrefix, repositoryUrl));
 //					} catch (CoreException e) {
 //						return new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
 //								"Unable collect results.", e);

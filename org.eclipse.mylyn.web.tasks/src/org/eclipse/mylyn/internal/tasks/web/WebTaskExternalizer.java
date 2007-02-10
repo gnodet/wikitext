@@ -98,7 +98,7 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 	@Override
 	public Element createQueryHitElement(AbstractQueryHit queryHit, Document doc, Element parent) {
 		Element element = super.createQueryHitElement(queryHit, doc, parent);
-		element.setAttribute(KEY_KEY, queryHit.getId());
+		element.setAttribute(KEY_KEY, queryHit.getTaskId());
 		element.setAttribute(KEY_PREFIX, ((WebQueryHit) queryHit).getTaskPrefix());
 		return element;
 	}
@@ -149,6 +149,8 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 		WebTask task = new WebTask(id, label, prefix, repositoryUrl, WebTask.REPOSITORY_TYPE);
 
 		readTaskInfo(task, taskList, element, parent, category);
+		// TODO: remove after refactoring
+		task.setRepositoryUrl(repositoryUrl);
 		return task;
 	}
 
