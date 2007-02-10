@@ -7,3 +7,15 @@
 1170826070432	Move compilation unit
 1170826202188	Move compilation unit
 1170826389171	Move compilation unit
+1171076236550	Move member 'getHandle'
+1171076356720	Move member 'getHandle'
+1171076547638	Move member 'getRepositoryUrl'
+1171077035062	Move member 'HANDLE_DELIM'
+1171077141526	Move member 'getTaskId'
+1171077229610	Rename field 'MISSING_REPOSITORY_HANDLE'
+1171078206039	Rename field 'url'
+1171078309994	Rename method 'setUrl'
+1171078364246	Rename method 'getUrl'
+1171078530694	Rename method 'getIdLabel'
+1171079526936	Rename local variable 'oldUrl'
+1171079532514	Rename local variable 'newUrl'

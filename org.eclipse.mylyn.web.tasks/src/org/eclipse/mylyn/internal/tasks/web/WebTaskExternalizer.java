@@ -106,7 +106,7 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 	@Override
 	public Element createTaskElement(ITask task, Document doc, Element parent) {
 		Element node = super.createTaskElement(task, doc, parent);
-		node.setAttribute(KEY_KEY, ((WebTask) task).getId());
+		node.setAttribute(KEY_KEY, ((WebTask) task).getTaskId());
 		node.setAttribute(KEY_NAME, ((WebTask) task).getSummary());
 		node.setAttribute(KEY_PREFIX, ((WebTask) task).getTaskPrefix());
 		node.setAttribute(KEY_REPOSITORY_URL, ((WebTask) task).getRepositoryUrl());
