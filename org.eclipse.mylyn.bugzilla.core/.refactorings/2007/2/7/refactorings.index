@@ -1,0 +1,7 @@
+1171328287937	Move compilation units
+1171328292000	Delete element
+1171329980921	Rename package 'org.eclipse.mylar.internal.bugzilla.core.activity'
+1171330005500	Rename type 'TaskActivity'
+1171330173906	Rename type 'TaskActivityEvent'
+1171339444484	Move member 'SHOW_ACTIVITY'
+1171349421703	Rename type 'BugzillaActivityParser'
