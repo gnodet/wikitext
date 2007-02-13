@@ -28,12 +28,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  * Task externalizer for generic web based issue tracking systems
  *
  * @author Eugene Kuleshov
+ * @author Mik Kersten
  */
 public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 
@@ -114,10 +114,8 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 	}
 
 	@Override
-	public ITask readTask(Node node, TaskList taskList, AbstractTaskContainer category, ITask parent)
+	public ITask createTask(String repositoryUrl, String taskId, String summary, Element element, TaskList taskList, AbstractTaskContainer category, ITask parent)
 			throws TaskExternalizationException {
-		Element element = (Element) node;
-
 		String id = null;
 		if (element.hasAttribute(KEY_KEY)) {
 			id = element.getAttribute(KEY_KEY);
@@ -125,7 +123,8 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 			throw new TaskExternalizationException("Id not stored for bug report");
 		}
 
-		String label;
+		String label = summary;
+		// TODO: at some point this should be removed
 		if (element.hasAttribute(KEY_NAME)) {
 			label = element.getAttribute(KEY_NAME);
 		} else {
@@ -139,16 +138,14 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 			throw new TaskExternalizationException("Prefix not stored for bug report");
 		}
 
-		String repositoryUrl = null;
-		if (element.hasAttribute(KEY_REPOSITORY_URL)) {
-			repositoryUrl = element.getAttribute(KEY_REPOSITORY_URL);
-		} else {
-			throw new TaskExternalizationException("Repository URL not stored for bug report");
-		}
+//		String repositoryUrl = null;
+//		if (element.hasAttribute(KEY_REPOSITORY_URL)) {
+//			repositoryUrl = element.getAttribute(KEY_REPOSITORY_URL);
+//		} else {
+//			throw new TaskExternalizationException("Repository URL not stored for bug report");
+//		}
 
 		WebTask task = new WebTask(id, label, prefix, repositoryUrl, WebTask.REPOSITORY_TYPE);
-
-		readTaskInfo(task, taskList, element, parent, category);
 		// TODO: remove after refactoring
 		task.setRepositoryUrl(repositoryUrl);
 		return task;
@@ -182,37 +179,19 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 			queryUrl = WebRepositoryConnector.evaluateParams(queryUrlTemplate, params, repository);
 		}
 		
-		AbstractRepositoryQuery query = new WebQuery(taskList, description, queryUrl,
+		return new WebQuery(taskList, description, queryUrl,
 				queryUrlTemplate, queryPattern, taskPrefix, repositoryUrl, params);
-
-		boolean hasCaughtException = false;
-		NodeList list = node.getChildNodes();
-		for (int i = 0; i < list.getLength(); i++) {
-			Node child = list.item(i);
-			try {
-				readQueryHit(child, taskList, query);
-			} catch (TaskExternalizationException e) {
-				hasCaughtException = true;
-			}
-		}
-		if (hasCaughtException) {
-			throw new TaskExternalizationException("Failed to load all hits");
-		}
-		return query;
 	}
 
 	@Override
-	public void readQueryHit(Node node, TaskList taskList, AbstractRepositoryQuery query)
+	public AbstractQueryHit createQueryHit(String repositoryUrl, String taskId, String summary, Element element, TaskList taskList, AbstractRepositoryQuery query)
 			throws TaskExternalizationException {
-		Element element = (Element) node;
-
 		String id = element.getAttribute(KEY_KEY);
 
 		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(query.getRepositoryKind(), query.getRepositoryUrl());
 		String prefix = WebRepositoryConnector.evaluateParams(((WebQuery) query).getTaskPrefix(), ((WebQuery) query).getQueryParameters(), repository);
 
-		WebQueryHit hit = new WebQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), query.getRepositoryUrl(), "", id, prefix);
-		readQueryHitInfo(hit, taskList, query, element);
+		return new WebQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), repositoryUrl, summary, id, prefix);
 	}
 
 	@Override

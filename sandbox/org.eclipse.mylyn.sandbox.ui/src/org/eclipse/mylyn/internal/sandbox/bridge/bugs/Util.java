@@ -164,7 +164,7 @@ public class Util {
 				// should never get here since we are using the default encoding
 			}
 		}
-		// add the description search type
+		// add the summary search type
 		sb.append("long_desc_type=");
 		sb.append(patternOperationValues[0]); // search for all words
 		sb.append("&long_desc=");

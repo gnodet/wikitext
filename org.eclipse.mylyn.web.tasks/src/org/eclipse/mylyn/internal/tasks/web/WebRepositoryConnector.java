@@ -289,7 +289,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 				return Status.OK_STATUS;
 			} else {
 				return new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
-						"Require two matching groups (taskId and description). Check query regexp", null);
+						"Require two matching groups (taskId and summary). Check query regexp", null);
 			}
 		}
 	}

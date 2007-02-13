@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Extract constant 'org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaTaskExternalizer.TAG_BUGZILLA' from expression '&quot;Bugzilla&quot;'&#13;&#10;- Original project: 'org.eclipse.mylar.bugzilla.ui'&#13;&#10;- Constant name: 'TAG_BUGZILLA'&#13;&#10;- Constant expression: '&quot;Bugzilla&quot;'&#13;&#10;- Declared visibility: 'private'&#13;&#10;- Replace occurrences of expression with constant" description="Extract constant 'TAG_BUGZILLA'" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylar.internal.bugzilla.ui.tasklist{BugzillaTaskExternalizer.java" name="TAG_BUGZILLA" qualify="false" replace="true" selection="1578 10" stamp="1171408287007" version="1.0" visibility="2"/>
+</session>

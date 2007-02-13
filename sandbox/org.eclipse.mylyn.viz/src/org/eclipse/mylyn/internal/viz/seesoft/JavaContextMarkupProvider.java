@@ -137,7 +137,7 @@ public class JavaContextMarkupProvider implements IMarkupProvider {
 				}
 				stripe.setOffset(offset);
 
-				// Set the task description
+				// Set the task summary
 				String taskHandle = ContextCorePlugin.getContextManager().getDominantContextHandleForElement(
 						memberMylarElement);
 				if (taskHandle == null) {

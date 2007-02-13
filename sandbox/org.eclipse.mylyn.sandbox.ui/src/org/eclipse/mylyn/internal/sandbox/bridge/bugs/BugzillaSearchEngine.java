@@ -132,7 +132,7 @@ public class BugzillaSearchEngine {
 				throw new OperationCanceledException("Search cancelled");
 			}
 
-			BugzillaRepositoryQuery query = new BugzillaRepositoryQuery(repository.getUrl(), urlString, "description",
+			BugzillaRepositoryQuery query = new BugzillaRepositoryQuery(repository.getUrl(), urlString, "summary",
 					"" + maxHits, TasksUiPlugin.getTaskListManager().getTaskList());
 
 			BugzillaRepositoryConnector bugzillaConnector = (BugzillaRepositoryConnector) TasksUiPlugin
@@ -268,7 +268,7 @@ public class BugzillaSearchEngine {
 		line = in.readLine();
 		line = in.readLine();
 
-		String description = "<activate to view description>";
+		String description = "<activate to view summary>";
 		if (line != null) {
 			description = line.substring(8);
 		}
@@ -446,14 +446,14 @@ public class BugzillaSearchEngine {
 // String owner = matcher.group(5);
 // String state = matcher.group(6);
 // String result = matcher.group(7);
-// String description = matcher.group(8);
+// String summary = matcher.group(8);
 // String query = BugzillaPlugin.getMostRecentQuery();
 // if (query == null)
 // query = "";
 //
 // String server = repository.getUrl();
 //
-// BugzillaSearchHit hit = new BugzillaSearchHit(server, taskId, description,
+// BugzillaSearchHit hit = new BugzillaSearchHit(server, taskId, summary,
 // severity, priority,
 // platform, state, result, owner, query);
 // collector.accept(hit);

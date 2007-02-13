@@ -255,7 +255,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 		String summary = bug.getSummary();
 		List<TaskComment> taskComments = bug.getComments();
 
-		// search the description and the summary
+		// search the summary and the summary
 		if (Util.hasElementName(elementName, summary))
 			return true;
 
@@ -380,7 +380,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 			if (b == null)
 				continue;
 
-			// see if the description has a stack trace in it
+			// see if the summary has a stack trace in it
 			StackTrace[] stackTrace = StackTrace.getStackTrace(b.getDescription(), b.getDescription());
 			if (stackTrace != null) {
 

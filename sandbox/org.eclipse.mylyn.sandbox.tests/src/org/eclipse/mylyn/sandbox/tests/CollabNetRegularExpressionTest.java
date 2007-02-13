@@ -106,7 +106,7 @@
 //			}
 //		} while (summary.equals("none"));
 //
-//		String description = "<activate to view description>";
+//		String summary = "<activate to view summary>";
 //
 //		// String server = "<unknown server>";
 //
@@ -119,7 +119,7 @@
 //			// server = BugzillaPlugin.getDefault().getServerName();
 //		} catch (Exception exception1) {
 //		}
-//		return new BugzillaSearchHit(serverUrl, taskId, description, severity, priority, platform, state, result, owner,
+//		return new BugzillaSearchHit(serverUrl, taskId, summary, severity, priority, platform, state, result, owner,
 //				query);
 //
 //	}
