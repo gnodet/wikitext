@@ -7,3 +7,4 @@
 1171405186125	Rename method 'setDescription'
 1171405332803	Change method 'createQueryHit'
 1171405728692	Change method 'createTask'
+1171473699497	Rename method 'getIdLabel'
