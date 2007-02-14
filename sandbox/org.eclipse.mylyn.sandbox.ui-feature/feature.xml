@@ -222,6 +222,18 @@ litigation.
       <import plugin="org.eclipse.search"/>
       <import plugin="org.eclipse.jface.text"/>
       <import feature="org.eclipse.mylar_feature" version="1.0.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.mylar.context.core"/>
+      <import plugin="org.eclipse.mylar.context.ui"/>
+      <import plugin="org.eclipse.mylar.tasks.ui"/>
+      <import plugin="org.eclipse.mylar.bugzilla.core"/>
+      <import plugin="org.eclipse.mylar.bugzilla.ui"/>
+      <import plugin="org.eclipse.mylar.tasks.core"/>
+      <import plugin="org.eclipse.mylar.monitor.ui"/>
+      <import plugin="org.eclipse.mylar.java"/>
+      <import plugin="org.eclipse.mylar.monitor.core"/>
+      <import plugin="org.eclipse.mylar"/>
+      <import plugin="org.eclipse.ui.browser"/>
+      <import plugin="org.eclipse.ui.navigator"/>
    </requires>
 
    <plugin
