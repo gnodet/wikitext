@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Extract method 'private static ITask getTask(String fullUrl,ITask task)' from 'org.eclipse.mylar.tasks.ui.TasksUiUtil.openRepositoryTask()' to 'org.eclipse.mylar.tasks.ui.TasksUiUtil'&#13;&#10;- Original project: 'org.eclipse.mylar.tasks.ui'&#13;&#10;- Method name: 'getTask'&#13;&#10;- Destination type: 'org.eclipse.mylar.tasks.ui.TasksUiUtil'&#13;&#10;- Declared visibility: 'private'" comments="false" description="Extract method 'getTask'" destination="0" exceptions="false" flags="786434" id="org.eclipse.jdt.ui.extract.method" input="/src&lt;org.eclipse.mylar.tasks.ui{TasksUiUtil.java" name="getTask" replace="false" selection="5702 353" stamp="1171570223155" version="1.0" visibility="2"/>
+</session>
