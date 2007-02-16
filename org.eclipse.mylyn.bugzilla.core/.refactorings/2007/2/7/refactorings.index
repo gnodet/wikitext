@@ -5,3 +5,4 @@
 1171330173906	Rename type 'TaskActivityEvent'
 1171339444484	Move member 'SHOW_ACTIVITY'
 1171349421703	Rename type 'BugzillaActivityParser'
+1171654005062	Extract method 'cleanQAContact'
