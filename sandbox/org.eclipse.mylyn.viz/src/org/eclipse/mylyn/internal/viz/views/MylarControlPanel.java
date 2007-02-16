@@ -48,18 +48,9 @@ public class MylarControlPanel extends Composite {
 		setLayout(gridLayout_3);
 
 		final Label activeLabel = new Label(this, SWT.NONE);
-		activeLabel.setText("Active tfasks ");
+		activeLabel.setText("Active tasks ");
 		activeLabel
 				.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING | GridData.VERTICAL_ALIGN_BEGINNING));
-
-		// tableViewer = new TableViewer(this, SWT.BORDER);
-		// final GridData gridData = new GridData();
-		// gridData.widthHint = 141;
-		// tableViewer.getTable().setLayoutData(new
-		// GridData(GridData.FILL_BOTH));
-		// tableViewer.setContentProvider(new ItemContentProvider());
-		// tableViewer.setInput(part.getViewSite());
-		// tableViewer.setLabelProvider(new TasklistLabelProvider());
 
 		final Composite group = new Composite(this, SWT.NONE);
 		final GridLayout gridLayout_2 = new GridLayout();
