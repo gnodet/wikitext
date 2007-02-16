@@ -216,4 +216,17 @@
   </extension>
 -->
   
+  	<!-- ==================== Context Editing ==================== -->
+	
+    <extension
+         point="org.eclipse.ui.navigator.viewer">
+       <viewerContentBinding 
+             viewerId="org.eclipse.mylar.context.ui.navigator.context">
+          <includes>		       	      
+          	  <contentExtension pattern="org.eclipse.mylar.web.navigator"/>
+          </includes>
+       </viewerContentBinding>
+   </extension>	
+ 
+  
 </plugin>

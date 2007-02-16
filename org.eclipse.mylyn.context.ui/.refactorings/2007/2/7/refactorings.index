@@ -1,2 +1,4 @@
 1171551860080	Extract constant 'LABEL'
 1171552019574	Rename type 'ContextPreviewEdtiorFactory'
+1171582413795	Extract method 'fillBody'
+1171597016437	Extract constant 'ID_VIEWER'
