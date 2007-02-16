@@ -2,3 +2,7 @@
 1171552019574	Rename type 'ContextPreviewEdtiorFactory'
 1171582413795	Extract method 'fillBody'
 1171597016437	Extract constant 'ID_VIEWER'
+1171604125357	Rename method 'makeActions'
+1171604155386	Rename type 'DeleteFromContextAction'
+1171604557195	Extract constant 'LABEL'
+1171604905629	Extract method 'isInteresting'
