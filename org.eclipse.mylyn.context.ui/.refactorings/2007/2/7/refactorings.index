@@ -6,3 +6,6 @@
 1171604155386	Rename type 'DeleteFromContextAction'
 1171604557195	Extract constant 'LABEL'
 1171604905629	Extract method 'isInteresting'
+1171605562178	Delete element
+1171605990221	Extract method 'resolveElement'
+1171606856195	Extract method 'collectChildren'
