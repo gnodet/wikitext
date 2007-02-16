@@ -11,3 +11,4 @@
 1171606856195	Extract method 'collectChildren'
 1171607960676	Rename method 'createControlsSection'
 1171611153073	Extract method 'run'
+1171648043535	Rename type 'ContextEdtiorFactory'
