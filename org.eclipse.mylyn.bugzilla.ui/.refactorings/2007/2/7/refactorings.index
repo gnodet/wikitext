@@ -2,3 +2,4 @@
 1171563240687	Copy compilation unit
 1171565427359	Delete element
 1171652020500	Extract constant 'BUGZILLA_SHORT_LOGIN'
+1171657329875	Extract constant 'LABEL_SHORT_LOGINS'
