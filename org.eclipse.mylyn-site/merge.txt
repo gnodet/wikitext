@@ -1,5 +1,8 @@
 The following files should not be overriden/updated when merging with 3.2
 
+org.eclipse.mylar.bugzilla.ui
+  - plugin.xml (merge, no hyperlink extension point)
+  - BugzillaTaskHyperlinkDetector
 org.eclipse.mylar.java
   - JavaStructureBridge (merge)
   - TypeHistoryManager
