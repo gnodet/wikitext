@@ -10,3 +10,4 @@
 1171605990221	Extract method 'resolveElement'
 1171606856195	Extract method 'collectChildren'
 1171607960676	Rename method 'createControlsSection'
+1171611153073	Extract method 'run'
