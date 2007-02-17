@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.mylar.sandbox_feature"
       label="Mylar Sandbox"
-      version="2.0.0.v20070216-1630"
+      version="2.0.0.v20070216"
       provider-name="Eclipse.org">
 
    <description>
@@ -230,24 +230,24 @@ litigation.
       <import plugin="org.eclipse.mylar.monitor.ui"/>
       <import plugin="org.eclipse.mylar.java"/>
       <import plugin="org.eclipse.mylar.monitor.core"/>
-      <import plugin="org.eclipse.mylar" version="2.0.0.v20070216-1630" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.mylar" version="2.0.0.v20070216" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.browser"/>
       <import plugin="org.eclipse.ui.navigator"/>
-      <import feature="org.eclipse.mylar_feature" version="2.0.0.v20070216-1630" match="greaterOrEqual"/>
+      <import feature="org.eclipse.mylar_feature" version="2.0.0.v20070216" match="greaterOrEqual"/>
    </requires>
 
    <plugin
          id="org.eclipse.mylar.sandbox"
          download-size="0"
          install-size="0"
-         version="2.0.0.v20070216-1630"
+         version="2.0.0.v20070216"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.mylar.web"
          download-size="0"
          install-size="0"
-         version="2.0.0.v20070216-1630"
+         version="2.0.0.v20070216"
          unpack="false"/>
 
 </feature>
