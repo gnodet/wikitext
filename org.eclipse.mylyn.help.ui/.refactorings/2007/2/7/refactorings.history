@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Move 2 elements(s) to 'doc'&#13;&#10;- Original project: 'org.eclipse.mylar.doc'&#13;&#10;- Destination element: 'doc'&#13;&#10;- Original elements:&#13;&#10;     new.html&#13;&#10;     new-1.0.html" description="Move files" element1="doc/new.html" element2="doc/new-1.0.html" files="2" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1171683441914" target="/mylar/doc" units="0" version="1.0"/>
+</session>
