@@ -85,6 +85,8 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 
 	public WebRepositorySettingsPage(AbstractRepositoryConnectorUi repositoryUi) {
 		super(TITLE, DESCRIPTION, repositoryUi);
+		
+		setNeedsValidation(false);
 	}
 
 	@Override
@@ -176,11 +178,6 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 	@Override
 	protected boolean isValidUrl(String name) {
 		return true;
-	}
-
-	@Override
-	protected void validateSettings() {
-		// ignore
 	}
 
 	private Composite getParameterEditor(Composite parent) {
@@ -375,6 +372,11 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		}
 
+	}
+
+	@Override
+	protected Validator getValidator(TaskRepository repository) {
+		return null;
 	}
 
 }
