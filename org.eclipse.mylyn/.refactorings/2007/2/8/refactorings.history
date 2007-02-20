@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Extract method 'private static Credentials getCredentials(AuthenticatedProxy authProxy,InetSocketAddress address)' from 'org.eclipse.mylar.core.net.WebClientUtil.setupHttpClient()' to 'org.eclipse.mylar.core.net.WebClientUtil'&#10;- Original project: 'org.eclipse.mylar'&#10;- Method name: 'getCredentials'&#10;- Destination type: 'org.eclipse.mylar.core.net.WebClientUtil'&#10;- Declared visibility: 'private'" comments="false" description="Extract method 'getCredentials'" destination="0" exceptions="false" flags="786434" id="org.eclipse.jdt.ui.extract.method" input="/src&lt;org.eclipse.mylar.core.net{WebClientUtil.java" name="getCredentials" replace="false" selection="4895 379" stamp="1171947703083" version="1.0" visibility="2"/>
+</session>
