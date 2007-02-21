@@ -46,10 +46,10 @@ public final class RepositoryTaskData extends AttributeContainer implements Seri
 	private List<RepositoryAttachment> attachments = new ArrayList<RepositoryAttachment>();
 
 	/** The operation that was selected to do to the bug */
-	private RepositoryOperation selectedOperation = null;
+	protected RepositoryOperation selectedOperation = null;
 
 	/** The repositoryOperations that can be done on the report */
-	private List<RepositoryOperation> repositoryOperations = new ArrayList<RepositoryOperation>();
+	protected List<RepositoryOperation> repositoryOperations = new ArrayList<RepositoryOperation>();
 
 	public RepositoryTaskData(AbstractAttributeFactory factory, String repositoryKind, String repositoryURL, String id, String taskKind) {
 		super(factory);
