@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Move 'org.eclipse.mylar.tasks.core.RepositoryTaskData.DEFAULT_TASK_KIND' to 'org.eclipse.mylar.tasks.core.Task'&#13;&#10;- Original project: 'org.eclipse.mylar.tasks.core'&#13;&#10;- Original element: 'org.eclipse.mylar.tasks.core.RepositoryTaskData.DEFAULT_TASK_KIND'&#13;&#10;- Destination type: 'org.eclipse.mylar.tasks.core.Task'" delegate="false" deprecate="false" description="Move member 'DEFAULT_TASK_KIND'" element1="/src&lt;org.eclipse.mylar.tasks.core{RepositoryTaskData.java[RepositoryTaskData^DEFAULT_TASK_KIND" flags="589830" id="org.eclipse.jdt.ui.move.static" input="/src&lt;org.eclipse.mylar.tasks.core{Task.java[Task" stamp="1172018218343" version="1.0"/>
+</session>
