@@ -26,8 +26,12 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 public class NewWebBrowserAction implements IWorkbenchWindowActionDelegate {
 
 	public void run(IAction action) {
-		String url = "http://google.com";
-		TasksUiUtil.openBrowser(url);
+		String clipboardUrl = getUrlFromClipboard();
+		if (clipboardUrl != null) {
+			TasksUiUtil.openBrowser(clipboardUrl);
+		} else {
+			TasksUiUtil.openBrowser("http://google.com");
+		}
 //		try {
 //			IWebBrowser browser = null;
 //			int flags = 0;
@@ -53,7 +57,7 @@ public class NewWebBrowserAction implements IWorkbenchWindowActionDelegate {
 //		}
 	}
 
-	protected String getUrlFromClipboard() {
+	private String getUrlFromClipboard() {
 		Clipboard clipboard = new Clipboard(Display.getDefault());
 		TextTransfer transfer = TextTransfer.getInstance();
 		String contents = (String) clipboard.getContents(transfer);
