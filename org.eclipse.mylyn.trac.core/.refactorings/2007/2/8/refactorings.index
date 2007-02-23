@@ -1,3 +1,4 @@
 1171926013187	Move member 'CONNNECT_TIMEOUT'
 1171926020640	Move member 'SOCKET_TIMEOUT'
 1172173008053	Extract method 'addResolutionAndStatus'
+1172195006824	Rename type 'Trac09Client'
