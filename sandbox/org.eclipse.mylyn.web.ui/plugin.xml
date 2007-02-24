@@ -85,7 +85,8 @@
             icon="icons/obj16/web-root.gif"
             id="org.eclipse.mylar.web.navigator"
             labelProvider="org.eclipse.mylar.internal.web.ui.WebSiteNavigatorLabelProvider"
-            name="Mylar Web Context (Experimental)">
+            name="Mylar Web Context (Experimental)"
+            priority="lowest">
          <triggerPoints>
             <or> 
             	<instanceof value="org.eclipse.core.resources.IWorkspaceRoot"/>
@@ -204,7 +205,8 @@
 		</triggerPoints>              
       </navigatorContent>
   </extension>
-
+-->
+   
    <extension
          point="org.eclipse.ui.navigator.viewer">
 		<viewerContentBinding 
@@ -214,7 +216,6 @@
           </includes>
        </viewerContentBinding>
   </extension>
--->
   
   	<!-- ==================== Context Editing ==================== -->
 	

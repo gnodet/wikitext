@@ -40,7 +40,7 @@ public class WebResourceManager {
 
 	private Set<IWebResourceListener> listeners = new HashSet<IWebResourceListener>();
 
-	private boolean webContextEnabled = false;
+	private boolean webContextEnabled = true;
 
 	private Properties titleCache = new Properties();
 
