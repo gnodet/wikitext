@@ -14,9 +14,6 @@ package org.eclipse.mylar.internal.web.ui;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.mylar.tasks.ui.TasksUiUtil;
-import org.eclipse.swt.dnd.Clipboard;
-import org.eclipse.swt.dnd.TextTransfer;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 
@@ -26,47 +23,12 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 public class NewWebBrowserAction implements IWorkbenchWindowActionDelegate {
 
 	public void run(IAction action) {
-		String clipboardUrl = getUrlFromClipboard();
+		String clipboardUrl = WebUiUtil.getUrlFromClipboard();
 		if (clipboardUrl != null) {
 			TasksUiUtil.openBrowser(clipboardUrl);
 		} else {
 			TasksUiUtil.openBrowser("http://google.com");
 		}
-//		try {
-//			IWebBrowser browser = null;
-//			int flags = 0;
-//			if (WorkbenchBrowserSupport.getInstance().isInternalWebBrowserAvailable()) {
-//				flags = WorkbenchBrowserSupport.AS_EDITOR | WorkbenchBrowserSupport.LOCATION_BAR
-//						| WorkbenchBrowserSupport.NAVIGATION_BAR;
-//
-//			} else {
-//				flags = WorkbenchBrowserSupport.AS_EXTERNAL | WorkbenchBrowserSupport.LOCATION_BAR
-//						| WorkbenchBrowserSupport.NAVIGATION_BAR;
-//			}  
-//			
-//			String generatedId = generateUniqueWebBrowserId();
-//			browser = WorkbenchBrowserSupport.getInstance().createBrowser(flags, generatedId, null, null);
-//			
-//			browser.openURL(new URL(url));
-//		} catch (PartInitException e) {
-//			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
-//					+ " could not be opened");
-//		} catch (MalformedURLException e) {
-//			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
-//					+ " could not be opened");
-//		}
-	}
-
-	private String getUrlFromClipboard() {
-		Clipboard clipboard = new Clipboard(Display.getDefault());
-		TextTransfer transfer = TextTransfer.getInstance();
-		String contents = (String) clipboard.getContents(transfer);
-		if (contents != null) {
-			if ((contents.startsWith("http://") || contents.startsWith("https://") && contents.length() > 10)) {
-				return contents;
-			}
-		}
-		return null;
 	}
 
 	public void selectionChanged(IAction action, ISelection selection) {
