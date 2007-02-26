@@ -74,9 +74,18 @@ public class WebUiUtil {
 			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
 					+ " could not be opened");
 		} 
-//		catch (MalformedURLException e) {
-//			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
-//					+ " could not be opened");
-//		}
 	}
+	
+	public static String stripProtocol(String url) {
+		if (url == null) {
+			return null;
+		}
+		int indexStart = url.indexOf("//");
+		if (indexStart != -1) {
+			return url.substring(indexStart + 2);
+		} else {
+			return url;
+		}
+	}
+	
 }
