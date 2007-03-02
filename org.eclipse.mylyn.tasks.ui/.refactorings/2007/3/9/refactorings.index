@@ -1,2 +1,3 @@
 1172786255053	Rename method 'getDescription'
 1172786336787	Extract constant 'LABEL_ACTIVITY'
+1172859106208	Rename method 'isDue'
