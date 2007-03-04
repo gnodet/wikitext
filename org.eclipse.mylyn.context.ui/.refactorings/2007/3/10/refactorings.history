@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Rename method 'org.eclipse.mylar.internal.context.ui.actions.AbstractFocusViewAction.getPreservedFilters()' to 'getPreservedFilterClasses'&#13;&#10;- Original project: 'org.eclipse.mylar.context.ui'&#13;&#10;- Original element: 'org.eclipse.mylar.internal.context.ui.actions.AbstractFocusViewAction.getPreservedFilters()'&#13;&#10;- Renamed element: 'org.eclipse.mylar.internal.context.ui.actions.AbstractFocusViewAction.getPreservedFilterClasses()'&#13;&#10;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method 'getPreservedFilters'" flags="589826" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylar.internal.context.ui.actions{AbstractFocusViewAction.java[AbstractFocusViewAction~getPreservedFilters" name="getPreservedFilterClasses" references="true" stamp="1172973438051" version="1.0"/>
+</session>
