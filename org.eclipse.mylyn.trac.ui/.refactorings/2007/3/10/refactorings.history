@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Extract method 'private TaskRepository getRepository(ITextViewer textViewer,TaskRepository repository)' from 'org.eclipse.mylar.internal.trac.ui.TracHyperlinkDetector.detectHyperlinks()' to 'org.eclipse.mylar.internal.trac.ui.TracHyperlinkDetector'&#10;- Original project: 'org.eclipse.mylar.trac.ui'&#10;- Method name: 'getRepository'&#10;- Destination type: 'org.eclipse.mylar.internal.trac.ui.TracHyperlinkDetector'&#10;- Declared visibility: 'private'" comments="false" description="Extract method 'getRepository'" destination="0" exceptions="false" flags="786434" id="org.eclipse.jdt.ui.extract.method" input="/src&lt;org.eclipse.mylar.internal.trac.ui{TracHyperlinkDetector.java" name="getRepository" replace="false" selection="1474 749" stamp="1173311250806" version="1.0" visibility="2"/>
+</session>
