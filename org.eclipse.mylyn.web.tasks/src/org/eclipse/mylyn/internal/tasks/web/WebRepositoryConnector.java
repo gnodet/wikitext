@@ -102,12 +102,6 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return new String[] { PROPERTY_TASK_URL, PROPERTY_TASK_CREATION_URL };
 	}
 
-	@Override
-	public List<String> getSupportedVersions() {
-		return Collections.emptyList();
-	}
-
-	@Override
 	public boolean canCreateNewTask(TaskRepository repository) {
 		return repository.hasProperty(PROPERTY_TASK_CREATION_URL);
 	}
