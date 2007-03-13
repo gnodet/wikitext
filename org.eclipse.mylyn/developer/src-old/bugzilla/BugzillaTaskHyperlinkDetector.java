@@ -22,11 +22,12 @@ import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.mylar.tasks.ui.TaskHyperlink;
 import org.eclipse.mylar.tasks.ui.editors.AbstractTaskHyperlinkDetector;
+import org.eclipse.mylar.tasks.ui.editors.TaskHyperlinkDetector;
 
 /**
  * @author Rob Elves
  */
-public class BugzillaTaskHyperlinkDetector extends AbstractTaskHyperlinkDetector {
+public class BugzillaTaskHyperlinkDetector extends TaskHyperlinkDetector {
 
 	private static final int TASK_NUM_GROUP = 3;
 
