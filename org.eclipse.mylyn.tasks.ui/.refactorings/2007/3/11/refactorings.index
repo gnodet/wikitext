@@ -2,3 +2,5 @@
 1173902293355	Rename field 'PREFS_PAGE_ID_NET'
 1173902467830	Rename local variable 'adjust'
 1173902475514	Rename local variable 'changeProxySettings'
+1174068724452	Rename field 'CATEGORY_GRADIENT_END'
+1174068730472	Rename field 'CATEGORY_GRADIENT_BG'
