@@ -11,13 +11,21 @@
 
 package org.eclipse.mylar.internal.monitor.usage.wizards;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.mylar.core.MylarStatusHandler;
+import org.eclipse.mylar.internal.monitor.usage.FileDisplayDialog;
 import org.eclipse.mylar.internal.monitor.usage.MylarUsageMonitorPlugin;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -122,28 +130,27 @@ public class UsageUploadWizardPage extends WizardPage {
 		idText.setEditable(false);
 		idText.setText(wizard.getUid() + "");
 
-		// add back in if we want to view the file in a dialog
-		// Button b = new Button(container, SWT.PUSH);
-		// gd = new GridData(GridData.FILL_HORIZONTAL);
-		// b.setLayoutData(gd);
-		// b.setText("View File");
-		// b.addSelectionListener(new SelectionListener(){
-		//
-		// public void widgetSelected(SelectionEvent e) {
-		// String filename = wizard.getStatisticFileName();
-		// File file = new File(filename);
-		// try {
-		// FileDisplayDialog.openShowFile(null, filename, "", file);
-		// }catch(FileNotFoundException fnfe){
-		// ContextCorePlugin.log(this.getClass().toString(), fnfe);
-		// }
-		// }
-		//
-		// public void widgetDefaultSelected(SelectionEvent e) {
-		// // don't care about default selected
-		// }
-		//            
-		// });
+		Button b = new Button(container, SWT.PUSH);
+		gd = new GridData(GridData.FILL_HORIZONTAL);
+		b.setLayoutData(gd);
+		b.setText("View File");
+		b.addSelectionListener(new SelectionListener() {
+
+			public void widgetSelected(SelectionEvent e) {
+				String filename = wizard.getMonitorFileName();
+				File file = new File(filename);
+				try {
+					FileDisplayDialog.openShowFile(null, filename, "", file);
+				} catch (FileNotFoundException fnfe) {
+					MylarStatusHandler.log(this.getClass().toString(), fnfe);
+				}
+			}
+
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// don't care about default selected
+			}
+
+		});
 
 		setControl(container);
 	}
