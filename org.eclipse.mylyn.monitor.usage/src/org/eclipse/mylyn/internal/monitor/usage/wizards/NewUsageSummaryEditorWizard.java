@@ -77,7 +77,7 @@ public class NewUsageSummaryEditorWizard extends Wizard implements INewWizard {
 			files.add(monitorFile);
 
 			IEditorInput input = new UsageStatsEditorInput(files, generator);
-			page.openEditor(input, "org.eclipse.mylar.internal.sandbox.usageReport");
+			page.openEditor(input, "org.eclipse.mylar.monitor.usage.monitorUsageSummaryReport");
 
 		} catch (PartInitException ex) {
 			MylarStatusHandler.log(ex, "couldn't open summary editor");

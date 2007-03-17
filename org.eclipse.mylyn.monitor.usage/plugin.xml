@@ -50,7 +50,7 @@
            icon="icons/etool16/monitor.gif"
            class="org.eclipse.mylar.internal.monitor.usage.editors.UsageReportEditorPart"
            name="My Usage Summary"
-           id="org.eclipse.mylar.monitor.ui.reports.ui.actions.monitorSummaryReport"/>
+           id="org.eclipse.mylar.monitor.usage.monitorUsageSummaryReport"/>
         <editor
            icon="icons/etool16/monitor.gif"
            class="org.eclipse.mylar.internal.monitor.usage.editors.UsageReportEditorPart"
