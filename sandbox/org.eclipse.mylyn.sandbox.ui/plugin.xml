@@ -61,6 +61,14 @@
             icon="icons/eview16/active-hierarchy.gif"
             id="org.eclipse.mylar.ui.views.active.hierarchy"
             name="Context Hierarchy"/>
+            
+            <view
+            allowMultiple="false"
+            category="org.eclipse.mylar.sandbox"
+            class="org.eclipse.mylar.internal.sandbox.views.TaskActivityView"
+            icon="icons/eview16/task-activity.gif"
+            id="org.eclipse.mylar.tasklist.activity"
+            name="Task Activity"/>
    </extension>
 
    <extension point = "org.eclipse.ui.popupMenus">

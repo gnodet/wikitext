@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.tasks.ui.views;
+package org.eclipse.mylar.internal.sandbox.views;
 
 import java.text.DateFormat;
 import java.util.Arrays;
@@ -41,6 +41,9 @@ import org.eclipse.mylar.internal.tasks.ui.TaskListColorsAndFonts;
 import org.eclipse.mylar.internal.tasks.ui.actions.ActivityReportAction;
 import org.eclipse.mylar.internal.tasks.ui.actions.OpenTaskListElementAction;
 import org.eclipse.mylar.internal.tasks.ui.planner.ReminderCellEditor;
+import org.eclipse.mylar.internal.tasks.ui.views.TaskActivityLabelProvider;
+import org.eclipse.mylar.internal.tasks.ui.views.TaskElementLabelProvider;
+import org.eclipse.mylar.internal.tasks.ui.views.TaskListView;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylar.tasks.core.DateRangeActivityDelegate;
