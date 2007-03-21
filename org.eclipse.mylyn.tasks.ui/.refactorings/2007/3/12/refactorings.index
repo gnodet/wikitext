@@ -9,3 +9,4 @@
 1174421208453	Rename method 'setScheduledToday'
 1174509672578	Delete element
 1174514584265	Rename method 'getServer'
+1174517811921	Extract constant 'START_HOUR'
