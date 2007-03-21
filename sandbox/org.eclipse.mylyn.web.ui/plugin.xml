@@ -60,11 +60,15 @@
 
    <extension point="org.eclipse.ui.commands">
 	  <command
-         categoryId="org.eclipse.mylar.ui"
+         categoryId="org.eclipse.mylar.web.commands"
          description="Toggle Automatic Folding"
          id="org.eclipse.mylar.web.browser.new"
          name="New Browser">
       </command>
+   <category
+         id="org.eclipse.mylar.web.commands"
+         name="Mylar Web">
+   </category>
    </extension>
 
    <extension point="org.eclipse.ui.bindings">   
