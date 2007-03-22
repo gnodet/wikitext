@@ -15,6 +15,6 @@
 	<classpathentry kind="lib" path="/org.eclipse.mylar/lib-httpclient/commons-httpclient-3.0.1.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-io-1.2.jar"/>
 	<classpathentry kind="lib" path="WEB-INF/lib/commons-fileupload-1.2.jar"/>
-	<classpathentry kind="lib" path="WEB-INF/lib/servlet.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/servlet-api.jar"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>
