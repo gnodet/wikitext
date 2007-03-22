@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="WEB-INF/src"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins">
 		<accessrules>
 			<accessrule kind="accessible" pattern="**/TaskListImages"/>
@@ -12,5 +12,8 @@
 			<accessrule kind="nonaccessible" pattern="com/sun/**"/>
 		</accessrules>
 	</classpathentry>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="lib" path="/org.eclipse.mylar/lib-httpclient/commons-httpclient-3.0.1.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/commons-io-1.2.jar"/>
+	<classpathentry kind="lib" path="WEB-INF/lib/commons-fileupload-1.2.jar"/>
+	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>

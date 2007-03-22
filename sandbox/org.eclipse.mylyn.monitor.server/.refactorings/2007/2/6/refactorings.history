@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Move 1 elements(s) to 'WEB-INF'&#13;&#10;- Original project: 'org.eclipse.mylar.monitor.server'&#13;&#10;- Destination element: 'WEB-INF'&#13;&#10;- Original element: 'lib'" description="Move folder" element1="lib" files="0" flags="589830" folders="1" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1170886725833" target="/org.eclipse.mylar.monitor.server/WEB-INF" units="0" version="1.0"/>
+</session>
