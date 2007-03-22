@@ -7,6 +7,8 @@
 1174419634171	Move compilation units
 1174419979203	Copy file
 1174421208453	Rename method 'setScheduledToday'
-1174509672578	Delete element
-1174514584265	Rename method 'getServer'
-1174517811921	Extract constant 'START_HOUR'
+1174521644578	Extract method 'addCategoryGradientDrawing'
+1174521799888	Rename field 'gradientStart'
+1174521809722	Rename field 'gradientEnd'
+1174521885309	Rename field 'thememanager'
+1174522850508	Convert anonymous class to nested
