@@ -38,6 +38,8 @@ import org.eclipse.swt.widgets.Text;
  */
 public class UsageUploadWizardPage extends WizardPage {
 
+	private static final int MAX_NUM_LINES = 1000;
+	
 	/** A text box to hold the address of the server */
 	private Text serverAddrText;
 
@@ -140,7 +142,11 @@ public class UsageUploadWizardPage extends WizardPage {
 				String filename = wizard.getMonitorFileName();
 				File file = new File(filename);
 				try {
-					FileDisplayDialog.openShowFile(null, filename, "", file);
+					
+					FileDisplayDialog.openShowFile(null, "Mylar - Usage History", "Up to the first " + MAX_NUM_LINES
+							+ " lines of the file are displayed, if you'd like to see the entire file, it is located at "
+							+ MylarUsageMonitorPlugin.getDefault().getMonitorLogFile().getAbsolutePath() + ".", file, MAX_NUM_LINES);
+					
 				} catch (FileNotFoundException fnfe) {
 					MylarStatusHandler.log(this.getClass().toString(), fnfe);
 				}

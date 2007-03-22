@@ -36,6 +36,7 @@ import org.eclipse.ui.forms.widgets.TableWrapLayout;
 public class UsageReportEditorPart extends UsageEditorPart {
 
 	private static final String DATE_FORMAT_STRING = "h:mm a z, MMMMM d, yyyy";
+	private static final int MAX_NUM_LINES = 1000; 
 
 	@Override
 	protected void createActionSection(Composite parent, FormToolkit toolkit) {
@@ -70,7 +71,9 @@ public class UsageReportEditorPart extends UsageEditorPart {
 
 		File monitorFile = MylarUsageMonitorPlugin.getDefault().getMonitorLogFile();
 		try {
-			FileDisplayDialog.openShowFile(null, "Mylar - Usage History", "", monitorFile);
+			FileDisplayDialog.openShowFile(null, "Mylar - Usage History", "Up to the first " + MAX_NUM_LINES
+					+ " lines of the file are displayed, if you'd like to see the entire file, it is located at "
+					+ MylarUsageMonitorPlugin.getDefault().getMonitorLogFile().getAbsolutePath() + ".", monitorFile, MAX_NUM_LINES);
 
 		} catch (FileNotFoundException e) {
 			MylarStatusHandler.log(e, "Couldn't display the monitor history file");

@@ -47,9 +47,20 @@ public class FileDisplayDialog extends MessageDialog {
 		super(parentShell, dialogTitle, dialogTitleImage, dialogMessage, dialogImageType, dialogButtonLabels,
 				defaultIndex);
 	}
+	
+	
 
 	public static int openShowFile(Shell parent, String title, String message, File file) throws FileNotFoundException {
 		contents = getContents(file);
+		return showFile(parent, title, message);
+	}
+	
+	public static int openShowFile(Shell parent, String title, String message, File file, int maxNumLines) throws FileNotFoundException {
+		contents = getContents(file,maxNumLines);
+		return showFile(parent, title, message);
+	}
+	
+	private static int showFile(Shell parent, String title, String message) {
 		FileDisplayDialog dialog = new FileDisplayDialog(parent, title, null, // accept
 				// the
 				// default
@@ -57,7 +68,7 @@ public class FileDisplayDialog extends MessageDialog {
 				// icon
 				message, NONE, new String[] { IDialogConstants.OK_LABEL }, 0, contents);
 		// ok is the default
-		return dialog.open();
+		return dialog.open();	
 	}
 
 	@Override
@@ -84,17 +95,31 @@ public class FileDisplayDialog extends MessageDialog {
 	 * @return The <code>String</code> representing the contents
 	 */
 	public static String getContents(File f) throws FileNotFoundException {
+		return getContents(f, -1);
+	}
+	
+	
+	/**
+	 * Get the contents of an InputStream
+	 * 
+	 * @param is
+	 *            The InputStream to get the contents for
+	 * @return The <code>String</code> representing the contents
+	 */
+	public static String getContents(File f, int maxNumLines) throws FileNotFoundException {
 
 		// create a new reader for the stream
 		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
 		StringBuilder sb = new StringBuilder();
+		int i = 0;
 		try {
 
 			// get the contents
 			String s = "";
-			while ((s = br.readLine()) != null) {
+			while ((s = br.readLine()) != null && (i < maxNumLines || maxNumLines == -1)) {
 				sb.append(s);
 				sb.append("\n");
+				i++;
 			}
 
 		} catch (IOException e) {
