@@ -31,4 +31,15 @@
             name="Feedback Submission">
       </wizard>
    </extension>
+   
+   <extension point="org.eclipse.ui.newWizards">
+      <wizard
+            category="org.eclipse.mylar.wizards"
+            class="org.eclipse.mylar.internal.monitor.usage.wizards.UsageSubmissionWizard"
+            icon="icons/eview16/wizard-feedback.gif"
+            id="org.eclipse.mylar.monitor.ui.ui.uploadStatistics.StatisticsUploadWizard"
+            name="Usage Feedback">
+      </wizard>
+   </extension>
+   
 </plugin> 

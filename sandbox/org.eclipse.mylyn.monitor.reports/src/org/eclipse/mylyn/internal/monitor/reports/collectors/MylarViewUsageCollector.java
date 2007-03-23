@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.monitor.usage.collectors;
+package org.eclipse.mylar.internal.monitor.reports.collectors;
 
 import java.util.ArrayList;
 import java.util.HashMap;

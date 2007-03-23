@@ -15,11 +15,12 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.editors,
  org.eclipse.ui.workbench.texteditor,
  org.eclipse.ui.forms,
- org.eclipse.mylar.tasks.ui,
  org.eclipse.mylar.context.ui,
  org.eclipse.mylar.monitor.ui,
  org.eclipse.mylar.monitor.core,
- org.eclipse.mylar
+ org.eclipse.mylar,
+ org.eclipse.core.filesystem,
+ org.eclipse.ui.ide
 Eclipse-AutoStart: true
 Bundle-Vendor: Eclipse.org
 Export-Package: 

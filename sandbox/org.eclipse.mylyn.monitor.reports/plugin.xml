@@ -45,6 +45,15 @@
 	 </viewerContribution> 
    </extension>
 	  		
+	  		
+	<extension point="org.eclipse.ui.editors">
+        <editor
+           icon="icons/eview16/monitor.gif"
+           class="org.eclipse.mylar.internal.monitor.usage.editors.UsageSummaryReportEditorPart"
+           name="Multi-user Analysis"
+           id="org.eclipse.mylar.monitor.ui.reports.ui.actions.monitorUsersReport"/>
+  	</extension>
+	  		
 	<!--
 	<extension
         point="org.eclipse.ui.editors">

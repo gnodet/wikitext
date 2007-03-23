@@ -75,7 +75,7 @@ public class UsageStatsEditorInput implements IEditorInput {
 	}
 
 	public String getName() {
-		return "Mylar Usage Statistics";
+		return "Usage Summary";
 	}
 
 	public IPersistableElement getPersistable() {

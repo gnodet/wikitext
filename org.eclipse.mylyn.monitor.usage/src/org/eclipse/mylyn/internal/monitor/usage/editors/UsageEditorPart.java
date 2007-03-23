@@ -151,9 +151,9 @@ public class UsageEditorPart extends EditorPart {
 				browserComposite.setLayout(new GridLayout());
 				Browser browser = new Browser(browserComposite, SWT.NONE);
 
-				GridData browserLayout = new GridData(GridData.FILL_HORIZONTAL);
-				browserLayout.heightHint = 300;
-				browserLayout.widthHint = 800;
+				GridData browserLayout = new GridData(GridData.FILL_BOTH);
+				browserLayout.heightHint = 100;
+				browserLayout.widthHint = 500;
 				browser.setLayoutData(browserLayout);
 				String htmlText = "<html><head><LINK REL=STYLESHEET HREF=\"http://eclipse.org/default_style.css\" TYPE=\"text/css\"></head><body>\n";
 				for (String description : summary)

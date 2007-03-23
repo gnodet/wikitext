@@ -10,6 +10,7 @@ package org.eclipse.mylar.internal.monitor.usage.wizards;
 
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.mylar.internal.monitor.usage.MylarUsageMonitorPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -24,24 +25,21 @@ import org.eclipse.swt.widgets.Group;
  */
 public class UsageSummaryEditorWizardPage extends WizardPage implements IWizardPage {
 
-	private static final String TITLE = "Mylar Usage Summary Report";
+	private static final String TITLE = "Usage Summary and Submission";
 
-	private static final String DESCRIPTION = "Summarizes Eclipse and Mylar usage activity.";
+	private static final String DESCRIPTION = "Summarizes Eclipse usage and provides mechanism for uploading\n" +
+			"to eclipse.org server for usage analysis.";
 
 	private Button perspectiveCheckbox = null;
 
 	private Button viewCheckbox = null;
 
-	protected UsageSummaryEditorWizardPage(String pageName) {
-		super(pageName);
-		setTitle(pageName);
-		setDescription(DESCRIPTION);
-	}
-
 	public UsageSummaryEditorWizardPage() {
 		super(TITLE);
 		setTitle(TITLE);
 		setDescription(DESCRIPTION);
+		setImageDescriptor(MylarUsageMonitorPlugin.imageDescriptorFromPlugin(
+				MylarUsageMonitorPlugin.PLUGIN_ID, "icons/wizban/banner-user.gif"));
 	}
 
 	public void createControl(Composite parent) {

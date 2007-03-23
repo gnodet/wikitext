@@ -11,21 +11,13 @@
 
 package org.eclipse.mylar.internal.monitor.usage.wizards;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.mylar.core.MylarStatusHandler;
-import org.eclipse.mylar.internal.monitor.usage.FileDisplayDialog;
 import org.eclipse.mylar.internal.monitor.usage.MylarUsageMonitorPlugin;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
@@ -38,7 +30,7 @@ import org.eclipse.swt.widgets.Text;
  */
 public class UsageUploadWizardPage extends WizardPage {
 
-	private static final int MAX_NUM_LINES = 1000;
+//	private static final int MAX_NUM_LINES = 1000;
 	
 	/** A text box to hold the address of the server */
 	private Text serverAddrText;
@@ -58,13 +50,13 @@ public class UsageUploadWizardPage extends WizardPage {
 	 * Constructor
 	 */
 	public UsageUploadWizardPage(UsageSubmissionWizard wizard) {
-		super("Usage Statistics Submission Wizard");
+		super("Usage Data Submission Wizard");
 
-		setTitle("Statistics Upload");
+		setTitle("Usage Data Submission");
 		if (MylarUsageMonitorPlugin.getDefault().getCustomizingPlugin() != null) {
 			String customizedTitle = MylarUsageMonitorPlugin.getDefault().getStudyParameters().getTitle();
 			if (!customizedTitle.equals("")) {
-				setTitle(customizedTitle + ": Statistics Upload");
+				setTitle(customizedTitle + ": Usage Data Upload");
 			}
 		}
 
@@ -123,40 +115,40 @@ public class UsageUploadWizardPage extends WizardPage {
 		//		
 		// logFileText.setText(wizard.getLogFileName());
 
-		label = new Label(container, SWT.NULL);
-		label.setText("User study ID:");
-
-		idText = new Text(container, SWT.BORDER | SWT.SINGLE);
-		gd = new GridData(GridData.FILL_HORIZONTAL);
-		idText.setLayoutData(gd);
-		idText.setEditable(false);
-		idText.setText(wizard.getUid() + "");
-
-		Button b = new Button(container, SWT.PUSH);
-		gd = new GridData(GridData.FILL_HORIZONTAL);
-		b.setLayoutData(gd);
-		b.setText("View File");
-		b.addSelectionListener(new SelectionListener() {
-
-			public void widgetSelected(SelectionEvent e) {
-				String filename = wizard.getMonitorFileName();
-				File file = new File(filename);
-				try {
-					
-					FileDisplayDialog.openShowFile(null, "Mylar - Usage History", "Up to the first " + MAX_NUM_LINES
-							+ " lines of the file are displayed, if you'd like to see the entire file, it is located at "
-							+ MylarUsageMonitorPlugin.getDefault().getMonitorLogFile().getAbsolutePath() + ".", file, MAX_NUM_LINES);
-					
-				} catch (FileNotFoundException fnfe) {
-					MylarStatusHandler.log(this.getClass().toString(), fnfe);
-				}
-			}
-
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// don't care about default selected
-			}
-
-		});
+//		label = new Label(container, SWT.NULL);
+//		label.setText("User study ID:");
+//
+//		idText = new Text(container, SWT.BORDER | SWT.SINGLE);
+//		gd = new GridData(GridData.FILL_HORIZONTAL);
+//		idText.setLayoutData(gd);
+//		idText.setEditable(false);
+//		idText.setText(wizard.getUid() + "");
+//
+//		Button b = new Button(container, SWT.PUSH);
+//		gd = new GridData(GridData.FILL_HORIZONTAL);
+//		b.setLayoutData(gd);
+//		b.setText("View File");
+//		b.addSelectionListener(new SelectionListener() {
+//
+//			public void widgetSelected(SelectionEvent e) {
+//				String filename = wizard.getMonitorFileName();
+//				File file = new File(filename);
+//				try {
+//					
+//					FileDisplayDialog.openShowFile(null, "Mylar - Usage History", "Up to the first " + MAX_NUM_LINES
+//							+ " lines of the file are displayed, if you'd like to see the entire file, it is located at "
+//							+ MylarUsageMonitorPlugin.getDefault().getMonitorLogFile().getAbsolutePath() + ".", file, MAX_NUM_LINES);
+//					
+//				} catch (FileNotFoundException fnfe) {
+//					MylarStatusHandler.log(this.getClass().toString(), fnfe);
+//				}
+//			}
+//
+//			public void widgetDefaultSelected(SelectionEvent e) {
+//				// don't care about default selected
+//			}
+//
+//		});
 
 		setControl(container);
 	}

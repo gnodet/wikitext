@@ -7,21 +7,11 @@
          name="Mylar user monitoring startup"
          point="org.eclipse.ui.startup">
    </extension>   
-   
-   <extension point="org.eclipse.ui.newWizards">
-      <wizard
-            category="org.eclipse.mylar.wizards"
-            class="org.eclipse.mylar.internal.monitor.usage.wizards.UsageSubmissionWizard"
-            icon="icons/etool16/wizard-study.gif"
-            id="org.eclipse.mylar.monitor.ui.ui.uploadStatistics.StatisticsUploadWizard"
-            name="Usage Feedback">
-      </wizard>
-   </extension>
     
    <extension point="org.eclipse.ui.preferencePages">
       <page 
-         name="Monitor"
-         class="org.eclipse.mylar.internal.monitor.usage.preferences.MylarMonitorPreferencePage"
+         name="Usage Data"
+         class="org.eclipse.mylar.internal.monitor.usage.preferences.UsageDataPreferencePage"
          id="org.eclipse.mylar.monitor.ui.ui.preferences"
 		 category="org.eclipse.mylar.ui.preferences">
          <keywordReference id="org.eclipse.mylar.monitor.ui.keywords"/>
@@ -31,7 +21,7 @@
    <extension
    		point="org.eclipse.ui.keywords">
       <keyword
-            label="Mylar Monitor"
+            label="Mylar Monitor Usage Data"
             id="org.eclipse.mylar.monitor.ui.keywords"/>
    </extension>
  
@@ -41,21 +31,17 @@
             category="org.eclipse.mylar.wizards"
             class="org.eclipse.mylar.internal.monitor.usage.wizards.NewUsageSummaryEditorWizard"
             hasPages="true"
-            icon="icons/etool16/monitor.gif"
+            icon="icons/eview16/editor-usage.gif"
             id="org.eclipse.mylar.sandbox.wizard.usageSummary"
-            name="Usage Summary"/>
+            name="Usage Summary &amp; Submission"/>
    	</extension>
+   
    	<extension point="org.eclipse.ui.editors">
         <editor
-           icon="icons/etool16/monitor.gif"
-           class="org.eclipse.mylar.internal.monitor.usage.editors.UsageReportEditorPart"
-           name="My Usage Summary"
+           icon="icons/eview16/editor-usage.gif"
+           class="org.eclipse.mylar.internal.monitor.usage.editors.UsageSummaryReportEditorPart"
+           name="Usage Summary"
            id="org.eclipse.mylar.monitor.usage.monitorUsageSummaryReport"/>
-        <editor
-           icon="icons/etool16/monitor.gif"
-           class="org.eclipse.mylar.internal.monitor.usage.editors.UsageReportEditorPart"
-           name="Multi-user Analysis"
-           id="org.eclipse.mylar.monitor.ui.reports.ui.actions.monitorUsersReport"/>
   	</extension>
    
    <!--

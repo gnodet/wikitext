@@ -40,7 +40,7 @@ import org.eclipse.ui.forms.widgets.TableWrapLayout;
  * @author Mik Kersten
  * @author Meghan Allen (re-factoring)
  */
-public class UsageStatsEditorPart extends UsageEditorPart {
+public class UserStudyEditorPart extends UsageEditorPart {
 
 	private Table table;
 

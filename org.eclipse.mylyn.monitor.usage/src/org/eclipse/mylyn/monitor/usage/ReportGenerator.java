@@ -153,7 +153,7 @@ public class ReportGenerator {
 
 	class GenerateStatisticsJob implements IRunnableWithProgress {
 
-		private static final String JOB_LABEL = "Mylar Usage Report Generation";
+		private static final String JOB_LABEL = "Mylar Usage Summary Generation";
 
 		private final ReportGenerator generator;
 

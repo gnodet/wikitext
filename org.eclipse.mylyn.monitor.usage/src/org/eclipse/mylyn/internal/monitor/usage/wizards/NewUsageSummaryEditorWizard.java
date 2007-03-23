@@ -16,8 +16,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.mylar.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.monitor.core.collection.IUsageCollector;
+import org.eclipse.mylar.internal.monitor.core.collection.ViewUsageCollector;
 import org.eclipse.mylar.internal.monitor.usage.MylarUsageMonitorPlugin;
-import org.eclipse.mylar.internal.monitor.usage.collectors.MylarViewUsageCollector;
 import org.eclipse.mylar.internal.monitor.usage.collectors.PerspectiveUsageCollector;
 import org.eclipse.mylar.internal.monitor.usage.editors.UsageStatsEditorInput;
 import org.eclipse.mylar.monitor.usage.ReportGenerator;
@@ -64,7 +64,7 @@ public class NewUsageSummaryEditorWizard extends Wizard implements INewWizard {
 				collectors.add(new PerspectiveUsageCollector());
 			}
 			if (usageSummaryPage.includeViews()) {
-				MylarViewUsageCollector mylarViewUsageCollector = new MylarViewUsageCollector();
+				ViewUsageCollector mylarViewUsageCollector = new ViewUsageCollector();
 				collectors.add(mylarViewUsageCollector);
 			}
 

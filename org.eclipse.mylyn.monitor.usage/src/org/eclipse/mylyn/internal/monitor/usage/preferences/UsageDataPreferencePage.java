@@ -36,7 +36,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
  * @author Mik Kersten
  * @author Ken Sueda
  */
-public class MylarMonitorPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
+public class UsageDataPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 
 	private static final String DESCRIPTION = "If enabled the Mylar monitor logs selections, edits, commands, and preference changes. "
 			+ "If you would like to help improve the user experience by anonymously sharing non-private "
@@ -57,7 +57,7 @@ public class MylarMonitorPreferencePage extends PreferencePage implements IWorkb
 
 	private Text submissionTime;
 
-	public MylarMonitorPreferencePage() {
+	public UsageDataPreferencePage() {
 		super();
 		setPreferenceStore(MylarUsageMonitorPlugin.getPrefs());
 		setDescription(DESCRIPTION);
