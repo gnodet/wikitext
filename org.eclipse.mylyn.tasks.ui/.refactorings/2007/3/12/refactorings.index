@@ -14,3 +14,5 @@
 1174522850508	Convert anonymous class to nested
 1174607409568	Rename type 'OpenTaskRepositoriesViewAction'
 1174608124284	Rename field 'BANNER_EXPORT'
+1174681263625	Extract constant 'MAX_HITS_REACHED'
+1174681283828	Move member 'MAX_HITS_REACHED'
