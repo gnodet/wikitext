@@ -233,6 +233,12 @@
           	  <contentExtension pattern="org.eclipse.mylar.web.navigator"/>
           </includes>
        </viewerContentBinding>
+       <viewerContentBinding 
+             viewerId="org.eclipse.mylar.context.ui.navigator.context.quick">
+          <includes>		       	      
+          	  <contentExtension pattern="org.eclipse.mylar.web.navigator"/>
+          </includes>
+       </viewerContentBinding>
    </extension>	
  
   

@@ -1,0 +1,5 @@
+1174608280822	Copy compilation unit
+1174609605786	Rename type 'OpenContextQuickView'
+1174611591746	Rename field 'fNamePatternFilter'
+1174612327319	Extract method 'hackToForceFlatLayoutForJava'
+1174612382367	Rename method 'hackToForceFlatLayoutForJava'
