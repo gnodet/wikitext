@@ -12,3 +12,5 @@
 1174521809722	Rename field 'gradientEnd'
 1174521885309	Rename field 'thememanager'
 1174522850508	Convert anonymous class to nested
+1174607409568	Rename type 'OpenTaskRepositoriesViewAction'
+1174608124284	Rename field 'BANNER_EXPORT'
