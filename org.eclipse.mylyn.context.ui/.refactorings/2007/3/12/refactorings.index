@@ -3,3 +3,5 @@
 1174611591746	Rename field 'fNamePatternFilter'
 1174612327319	Extract method 'hackToForceFlatLayoutForJava'
 1174612382367	Rename method 'hackToForceFlatLayoutForJava'
+1174613380616	Rename field 'fStringMatcher'
+1174613778636	Rename type 'QuickOutlineNamePatternFilter'
