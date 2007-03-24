@@ -17,11 +17,10 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.mylar.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.IMylarElement;
-import org.eclipse.mylar.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
-import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
 import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
@@ -62,10 +61,6 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 				if (resourceAdapter != null) {
 					text += "\nResource adapter: " + ((IResource)resourceAdapter).getFullPath().toOSString();
 				}
-			}
-			
-			if(object instanceof AbstractRepositoryQuery) {
-				text += "Max Query Hits: "+((AbstractRepositoryQuery)object).getMaxHits();
 			}
 
 			if (object instanceof AbstractRepositoryTask || object instanceof AbstractQueryHit) {

@@ -133,7 +133,7 @@ public class BugzillaSearchEngine {
 			}
 
 			BugzillaRepositoryQuery query = new BugzillaRepositoryQuery(repository.getUrl(), urlString, "summary",
-					"" + maxHits, TasksUiPlugin.getTaskListManager().getTaskList());
+					TasksUiPlugin.getTaskListManager().getTaskList());
 
 			BugzillaRepositoryConnector bugzillaConnector = (BugzillaRepositoryConnector) TasksUiPlugin
 					.getRepositoryManager().getRepositoryConnector(BugzillaCorePlugin.REPOSITORY_KIND);
