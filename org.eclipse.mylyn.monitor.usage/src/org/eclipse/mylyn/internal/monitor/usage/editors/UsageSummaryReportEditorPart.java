@@ -56,12 +56,12 @@ import org.eclipse.ui.internal.browser.WorkbenchBrowserSupport;
 public class UsageSummaryReportEditorPart extends UsageEditorPart {
 
 	public static final String ID = "org.eclipse.mylar.monitor.usage.summary.editor";
-	
+
 	private static final long MAX_FILE_LENGTH = 1024 * 1024;
-	
+
 	private static final String URL_SERVLET_USAGE = "http://mylar.eclipse.org/monitor/upload/UsageAnalysisServlet";
 
-	private static final String DATE_FORMAT_STRING = "h:mm a z, MMMMM d, yyyy";
+	private static final String DATE_FORMAT_STRING = "MMMMM d, h:mm a";
 
 	// private static final int MAX_NUM_LINES = 1000;
 
@@ -70,11 +70,14 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 	private TableViewer tableViewer;
 
 	private String[] columnNames = new String[] { "Kind", "ID", "Count" };
-	
+
 	@Override
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
+		sform.setText(new SimpleDateFormat(DATE_FORMAT_STRING).format(new Date()));
+	}
 
+	protected void addSections(Composite composite, FormToolkit toolkit) {
 		if (editorInput.getReportGenerator().getLastParsedSummary().getSingleSummaries().size() > 0) {
 			createUsageSection(editorComposite, toolkit);
 		}
@@ -99,7 +102,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 	@Override
 	protected void createActionSection(Composite parent, FormToolkit toolkit) {
 		Section section = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR);
-		section.setText(editorInput.getName() + " at " + new SimpleDateFormat(DATE_FORMAT_STRING).format(new Date()));
+		section.setText("Actions");
 		section.setLayout(new TableWrapLayout());
 		section.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
 		Composite container = toolkit.createComposite(section);
