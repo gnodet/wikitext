@@ -35,20 +35,19 @@ import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
-import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.forms.editor.FormPage;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.ui.forms.widgets.TableWrapData;
 import org.eclipse.ui.forms.widgets.TableWrapLayout;
-import org.eclipse.ui.part.EditorPart;
 
 /**
  * @author Mik Kersten
  * @author Meghan Allen (re-factoring)
  */
-public class UsageEditorPart extends EditorPart {
+public class UsageEditorPart extends FormPage {
 
 	protected UsageStatsEditorInput editorInput;
 
@@ -66,9 +65,12 @@ public class UsageEditorPart extends EditorPart {
 	public void doSaveAs() {
 	}
 
-	@SuppressWarnings("deprecation")
+	public UsageEditorPart(String id, String title) {
+		super(id, title);
+	}
+	
 	@Override
-	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+	public void init(IEditorSite site, IEditorInput input) {
 		setSite(site);
 		setInput(input);
 		editorInput = (UsageStatsEditorInput) input;

@@ -20,6 +20,7 @@ import org.eclipse.mylar.internal.monitor.core.collection.ViewUsageCollector;
 import org.eclipse.mylar.internal.monitor.usage.MylarUsageMonitorPlugin;
 import org.eclipse.mylar.internal.monitor.usage.collectors.PerspectiveUsageCollector;
 import org.eclipse.mylar.internal.monitor.usage.editors.UsageStatsEditorInput;
+import org.eclipse.mylar.internal.monitor.usage.editors.UsageSummaryReportEditorPart;
 import org.eclipse.mylar.monitor.usage.ReportGenerator;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.INewWizard;
@@ -77,7 +78,7 @@ public class NewUsageSummaryEditorWizard extends Wizard implements INewWizard {
 			files.add(monitorFile);
 
 			IEditorInput input = new UsageStatsEditorInput(files, generator);
-			page.openEditor(input, "org.eclipse.mylar.monitor.usage.monitorUsageSummaryReport");
+			page.openEditor(input, UsageSummaryReportEditorPart.ID);
 
 		} catch (PartInitException ex) {
 			MylarStatusHandler.log(ex, "couldn't open summary editor");

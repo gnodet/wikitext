@@ -29,6 +29,7 @@ import org.eclipse.mylar.internal.monitor.usage.wizards.UsageSubmissionWizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.program.Program;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -53,17 +54,26 @@ import org.eclipse.ui.internal.browser.WorkbenchBrowserSupport;
  */
 
 public class UsageSummaryReportEditorPart extends UsageEditorPart {
+
+	public static final String ID = "org.eclipse.mylar.monitor.usage.summary.editor";
+	
+	private static final long MAX_FILE_LENGTH = 1024 * 1024;
+	
 	private static final String URL_SERVLET_USAGE = "http://mylar.eclipse.org/monitor/upload/UsageAnalysisServlet";
 
 	private static final String DATE_FORMAT_STRING = "h:mm a z, MMMMM d, yyyy";
 
-//	private static final int MAX_NUM_LINES = 1000;
+	// private static final int MAX_NUM_LINES = 1000;
 
 	private Table table;
 
 	private TableViewer tableViewer;
 
-	private String[] columnNames = new String[] { "Kind", "ID", "Num", "Last Delta" };
+	private String[] columnNames = new String[] { "Kind", "ID", "Count" };
+
+	public UsageSummaryReportEditorPart() {
+		super(ID, "Usage Summary");
+	}
 	
 	@Override
 	public void createPartControl(Composite parent) {
@@ -73,7 +83,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 			createUsageSection(editorComposite, toolkit);
 		}
 	}
-	
+
 	private void createUsageSection(Composite parent, FormToolkit toolkit) {
 		Section section = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR);
 		section.setText("Usage Details");
@@ -89,7 +99,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 		createTableViewer();
 		toolkit.paintBordersFor(container);
 	}
-	
+
 	@Override
 	protected void createActionSection(Composite parent, FormToolkit toolkit) {
 		Section section = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR);
@@ -117,7 +127,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 				viewFile();
 			}
 		});
-		
+
 		Button viewStats = toolkit.createButton(container, "View Community Statistics", SWT.PUSH | SWT.CENTER);
 		viewStats.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -130,7 +140,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 	/**
 	 * TODO: move to Mylar Web UI stuff
 	 */
-	private void viewStats() {		
+	private void viewStats() {
 		try {
 			if (WebBrowserPreference.getBrowserChoice() == WebBrowserPreference.EXTERNAL) {
 				try {
@@ -162,28 +172,47 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", "URL Could not be opened");
 		}
 	}
-	
+
+	/**
+	 * Only opens in workbench if file is small enough not to blow it up.
+	 */
 	private void viewFile() {
 		File monitorFile = MylarUsageMonitorPlugin.getDefault().getMonitorLogFile();
-		
-		IFileStore fileStore= EFS.getLocalFileSystem().getStore(new Path(monitorFile.getAbsolutePath()));
-		if (!fileStore.fetchInfo().isDirectory() && fileStore.fetchInfo().exists()) {
-			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-			try {
-				IDE.openEditorOnFileStore(page, fileStore);
-			} catch (PartInitException e) {
+
+		if (monitorFile.length() <= MAX_FILE_LENGTH) {
+			IFileStore fileStore = EFS.getLocalFileSystem().getStore(new Path(monitorFile.getAbsolutePath()));
+			if (!fileStore.fetchInfo().isDirectory() && fileStore.fetchInfo().exists()) {
+				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+				try {
+					IDE.openEditorOnFileStore(page, fileStore);
+				} catch (PartInitException e) {
+				}
+			}
+		} else {
+			boolean failed = false;
+			failed = !Program.launch(monitorFile.getAbsolutePath());
+			if (failed) {
+				Program p = Program.findProgram(".txt");
+				if (p != null) {
+					p.execute(monitorFile.getAbsolutePath());
+				}
 			}
 		}
-//		try {
-//			FileDisplayDialog.openShowFile(null, "Mylar - Usage History", "Up to the first " + MAX_NUM_LINES
-//					+ " lines of the file are displayed, if you'd like to see the entire file, it is located at "
-//					+ MylarUsageMonitorPlugin.getDefault().getMonitorLogFile().getAbsolutePath() + ".", monitorFile,
-//					MAX_NUM_LINES);
-//
-//		} catch (FileNotFoundException e) {
-//			MylarStatusHandler.log(e, "Couldn't display the monitor history file");
-//
-//		}
+		// try {
+		// FileDisplayDialog.openShowFile(null, "Mylar - Usage History", "Up to
+		// the first " + MAX_NUM_LINES
+		// + " lines of the file are displayed, if you'd like to see the entire
+		// file, it is located at "
+		// +
+		// MylarUsageMonitorPlugin.getDefault().getMonitorLogFile().getAbsolutePath()
+		// + ".", monitorFile,
+		// MAX_NUM_LINES);
+		//
+		// } catch (FileNotFoundException e) {
+		// MylarStatusHandler.log(e, "Couldn't display the monitor history
+		// file");
+		//
+		// }
 	}
 
 	private void submitData() {
@@ -240,9 +269,6 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 			}
 		});
 
-		column = new TableColumn(table, SWT.LEFT, 3);
-		column.setText(columnNames[3]);
-		column.setWidth(60);
 	}
 
 	private void createTableViewer() {
@@ -254,5 +280,5 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 		tableViewer.setLabelProvider(new UsageCountLabelProvider());
 		tableViewer.setInput(editorInput);
 	}
-	
+
 }

@@ -41,7 +41,7 @@
            icon="icons/eview16/editor-usage.gif"
            class="org.eclipse.mylar.internal.monitor.usage.editors.UsageSummaryReportEditorPart"
            name="Usage Summary"
-           id="org.eclipse.mylar.monitor.usage.monitorUsageSummaryReport"/>
+           id="org.eclipse.mylar.monitor.usage.summary.editor"/>
   	</extension>
    
    <!--

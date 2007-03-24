@@ -27,8 +27,8 @@ public class UsageSummaryEditorWizardPage extends WizardPage implements IWizardP
 
 	private static final String TITLE = "Usage Summary and Submission";
 
-	private static final String DESCRIPTION = "Summarizes Eclipse usage and provides mechanism for uploading\n" +
-			"to eclipse.org server for usage analysis.";
+	private static final String DESCRIPTION = "Summarizes usage and provides mechanism for uploading to eclipse.org \n" +
+			"server for usage analysis.  May take a lot of memory for large histories.";
 
 	private Button perspectiveCheckbox = null;
 
