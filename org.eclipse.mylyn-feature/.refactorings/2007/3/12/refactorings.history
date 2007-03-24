@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Copy 2 elements(s) to 'org.eclipse.mylar.monitor-feature'&#13;&#10;- Original project: 'org.eclipse.mylar-feature'&#13;&#10;- Destination element: 'org.eclipse.mylar.monitor-feature'&#13;&#10;- Original elements:&#13;&#10;     about.html&#13;&#10;     license.html" description="Copy files" element1="about.html" element2="license.html" files="2" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" log="license.html&#9;true&#9;false&#10;about.html&#9;true&#9;false" policy="org.eclipse.jdt.ui.copyResources" stamp="1174699142148" target="/org.eclipse.mylar.monitor-feature" units="0" version="1.0"/>
+</session>
