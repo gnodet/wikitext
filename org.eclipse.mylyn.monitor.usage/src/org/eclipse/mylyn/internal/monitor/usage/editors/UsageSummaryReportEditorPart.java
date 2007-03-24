@@ -70,10 +70,6 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 	private TableViewer tableViewer;
 
 	private String[] columnNames = new String[] { "Kind", "ID", "Count" };
-
-	public UsageSummaryReportEditorPart() {
-		super(ID, "Usage Summary");
-	}
 	
 	@Override
 	public void createPartControl(Composite parent) {
