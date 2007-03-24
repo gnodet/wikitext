@@ -19,6 +19,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.mylar.monitor.core
 Eclipse-AutoStart: true
 Export-Package: org.eclipse.mylar.internal.monitor.reports,
+ org.eclipse.mylar.internal.monitor.reports.collectors,
  org.eclipse.mylar.internal.monitor.reports.preferences,
  org.eclipse.mylar.internal.monitor.reports.ui.actions
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
