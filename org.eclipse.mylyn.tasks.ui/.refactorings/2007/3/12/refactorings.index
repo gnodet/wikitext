@@ -17,3 +17,8 @@
 1174681263625	Extract constant 'MAX_HITS_REACHED'
 1174681283828	Move member 'MAX_HITS_REACHED'
 1174700588078	Move member 'MAX_HITS'
+1174718747046	Copy compilation unit
+1174724207578	Copy compilation unit
+1174724377859	Delete element
+1174761678781	Rename method 'refresh'
+1174761857921	Rename method 'updateEditor'
