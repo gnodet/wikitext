@@ -46,7 +46,7 @@ public class TaskActivityViewContentProvider implements IStructuredContentProvid
 	public Object[] getChildren(Object parent) {
 		if (parent instanceof DateRangeContainer) {
 			DateRangeContainer taskContainer = (DateRangeContainer) parent;
-			return taskContainer.getChildren().toArray();
+			return taskContainer.getDateRangeDelegates().toArray();
 		} else {
 			return new Object[0];
 		}
@@ -55,7 +55,7 @@ public class TaskActivityViewContentProvider implements IStructuredContentProvid
 	public boolean hasChildren(Object parent) {
 		if (parent instanceof DateRangeContainer) {
 			DateRangeContainer dateRangeTaskCategory = (DateRangeContainer) parent;
-			return dateRangeTaskCategory.getChildren() != null && dateRangeTaskCategory.getChildren().size() > 0;
+			return dateRangeTaskCategory.getDateRangeDelegates() != null && dateRangeTaskCategory.getDateRangeDelegates().size() > 0;
 		} else {
 			return false;
 		}
