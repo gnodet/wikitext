@@ -33,7 +33,7 @@
             hasPages="true"
             icon="icons/eview16/editor-usage.gif"
             id="org.eclipse.mylar.sandbox.wizard.usageSummary"
-            name="Usage Summary &amp; Submission"/>
+            name="Usage Summary and Submission"/>
    	</extension>
    
    	<extension point="org.eclipse.ui.editors">
