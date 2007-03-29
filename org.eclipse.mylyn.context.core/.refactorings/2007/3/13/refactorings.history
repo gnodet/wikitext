@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Extract method 'private void addAttentionEvents(List&lt;InteractionEvent&gt; attention,MylarContext temp)' from 'org.eclipse.mylar.internal.context.core.MylarContextManager.saveActivityHistoryContext()' to 'org.eclipse.mylar.internal.context.core.MylarContextManager'&#13;&#10;- Original project: 'org.eclipse.mylar.context.core'&#13;&#10;- Method name: 'addAttentionEvents'&#13;&#10;- Destination type: 'org.eclipse.mylar.internal.context.core.MylarContextManager'&#13;&#10;- Declared visibility: 'private'" comments="false" description="Extract method 'addAttentionEvents'" destination="0" exceptions="false" flags="786434" id="org.eclipse.jdt.ui.extract.method" input="/src&lt;org.eclipse.mylar.internal.context.core{MylarContextManager.java" name="addAttentionEvents" replace="false" selection="22628 821" stamp="1175198691750" version="1.0" visibility="2"/>
+</session>
