@@ -8,26 +8,17 @@
 
 package org.eclipse.mylar.internal.monitor.usage.wizards;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.mylar.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.monitor.core.collection.IUsageCollector;
 import org.eclipse.mylar.internal.monitor.core.collection.ViewUsageCollector;
-import org.eclipse.mylar.internal.monitor.usage.MylarUsageMonitorPlugin;
+import org.eclipse.mylar.internal.monitor.usage.MonitorFileRolloverJob;
 import org.eclipse.mylar.internal.monitor.usage.collectors.PerspectiveUsageCollector;
-import org.eclipse.mylar.internal.monitor.usage.editors.UsageStatsEditorInput;
-import org.eclipse.mylar.internal.monitor.usage.editors.UsageSummaryReportEditorPart;
-import org.eclipse.mylar.monitor.usage.ReportGenerator;
-import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
 
 /**
  * @author Meghan Allen
@@ -50,39 +41,25 @@ public class NewUsageSummaryEditorWizard extends Wizard implements INewWizard {
 
 	@Override
 	public boolean performFinish() {
-		try {
-			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-			if (page == null)
-				return false;
 
-			if (!usageSummaryPage.includePerspective() && !usageSummaryPage.includeViews()) {
-				return false;
-			}
-
-			List<IUsageCollector> collectors = new ArrayList<IUsageCollector>();
-
-			if (usageSummaryPage.includePerspective()) {
-				collectors.add(new PerspectiveUsageCollector());
-			}
-			if (usageSummaryPage.includeViews()) {
-				ViewUsageCollector mylarViewUsageCollector = new ViewUsageCollector();
-				collectors.add(mylarViewUsageCollector);
-			}
-
-			ReportGenerator generator = new ReportGenerator(
-					MylarUsageMonitorPlugin.getDefault().getInteractionLogger(), collectors);
-
-			List<File> files = new ArrayList<File>();
-
-			File monitorFile = MylarUsageMonitorPlugin.getDefault().getMonitorLogFile();
-			files.add(monitorFile);
-
-			IEditorInput input = new UsageStatsEditorInput(files, generator);
-			page.openEditor(input, UsageSummaryReportEditorPart.ID);
-
-		} catch (PartInitException ex) {
-			MylarStatusHandler.log(ex, "couldn't open summary editor");
+		if (!usageSummaryPage.includePerspective() && !usageSummaryPage.includeViews()) {
+			return false;
 		}
+
+		List<IUsageCollector> collectors = new ArrayList<IUsageCollector>();
+
+		if (usageSummaryPage.includePerspective()) {
+			collectors.add(new PerspectiveUsageCollector());
+		}
+		if (usageSummaryPage.includeViews()) {
+			ViewUsageCollector mylarViewUsageCollector = new ViewUsageCollector();
+			collectors.add(mylarViewUsageCollector);
+		}
+
+		MonitorFileRolloverJob job = new MonitorFileRolloverJob(collectors);
+		job.setPriority(MonitorFileRolloverJob.LONG);
+		job.schedule();
+
 		return true;
 	}
 

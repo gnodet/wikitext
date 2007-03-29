@@ -106,13 +106,19 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 	 * @return true if successfully cleared
 	 */
 	public synchronized void clearInteractionHistory() throws IOException {
+		this.clearInteractionHistory(true);
+	}
+	
+	public synchronized void clearInteractionHistory(boolean startMonitoring) throws IOException {
 		stopMonitoring();
 		outputStream = new FileOutputStream(outputFile, false);
 		outputStream.flush();
 		outputStream.close();
 		outputFile.delete();
 		outputFile.createNewFile();
-		startMonitoring();
+		if (startMonitoring) {
+			startMonitoring();
+		}
 	}
 
 	public List<InteractionEvent> getHistoryFromFile(File file) {
