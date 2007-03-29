@@ -6,3 +6,4 @@
 1175185987058	Rename resource 'apply-patch.gif'
 1175186528017	Extract method 'retrieveContext'
 1175187859108	Rename resource 'attachment-patch'
+1175203640312	Extract method 'setFormHeaderLabel'
