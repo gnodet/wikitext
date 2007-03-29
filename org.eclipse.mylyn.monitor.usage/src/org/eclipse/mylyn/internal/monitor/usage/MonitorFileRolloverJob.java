@@ -54,7 +54,7 @@ public class MonitorFileRolloverJob extends Job {
 
 	private static final String DIRECTORY_MONITOR_BACKUP = "monitor";
 
-	private static final String BACKUP_FILE_PREFIX = "monitor-history-backup-";
+	private static final String BACKUP_FILE_PREFIX = "monitor-log";
 
 	private static final String ZIP_EXTENSION = ".zip";
 
@@ -120,7 +120,7 @@ public class MonitorFileRolloverJob extends Job {
 		if (events.size() > 0 && events.get(0).getDate().getMonth() != nowMonth) {
 			int currMonth = events.get(0).getDate().getMonth();
 
-			String fileName = BACKUP_FILE_PREFIX + this.getMonth(currMonth) + "-" + this.getYear(events.get(0));
+			String fileName = this.getYear(events.get(0)) + "-" + this.getMonth(currMonth) + "-" + BACKUP_FILE_PREFIX;
 
 			File dir = new File(ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + File.separatorChar
 					+ NAME_DATA_DIR + File.separatorChar + DIRECTORY_MONITOR_BACKUP);

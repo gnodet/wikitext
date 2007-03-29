@@ -110,7 +110,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 
 	public static final String UI_PLUGIN_ID = "org.eclipse.mylar.ui";
 
-	public static final String MONITOR_LOG_NAME = "monitor-history";
+	public static final String MONITOR_LOG_NAME = "monitor-log";
 
 	public static final String PLUGIN_ID = "org.eclipse.mylar.monitor.usage";
 
