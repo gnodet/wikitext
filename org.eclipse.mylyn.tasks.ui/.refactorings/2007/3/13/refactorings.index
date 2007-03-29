@@ -1,2 +1,5 @@
 1174949902500	Rename type 'RefreshEditorAction'
 1175031802969	Change method 'select'
+1175128576427	Convert anonymous class to nested
+1175128823416	Delete element
+1175130506522	Convert member type 'AttachmentTableLabelProvider' to top level
