@@ -3,3 +3,6 @@
 1175128576427	Convert anonymous class to nested
 1175128823416	Delete element
 1175130506522	Convert member type 'AttachmentTableLabelProvider' to top level
+1175185987058	Rename resource 'apply-patch.gif'
+1175186528017	Extract method 'retrieveContext'
+1175187859108	Rename resource 'attachment-patch'
