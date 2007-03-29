@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
@@ -120,7 +121,7 @@ public class WebResourceManager {
 
 	protected void updateContents(boolean populate) {
 		if (populate) {
-			List<IMylarElement> interestingElements = ContextCorePlugin.getContextManager().getInterestingDocuments();
+			Collection<IMylarElement> interestingElements = ContextCorePlugin.getContextManager().getInterestingDocuments();
 			for (IMylarElement element : interestingElements) {
 				if (WebResourceStructureBridge.CONTENT_TYPE.equals(element.getContentType())) {
 					addUrl(element.getHandleIdentifier(), true);
