@@ -108,7 +108,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 	public synchronized void clearInteractionHistory() throws IOException {
 		this.clearInteractionHistory(true);
 	}
-	
+
 	public synchronized void clearInteractionHistory(boolean startMonitoring) throws IOException {
 		stopMonitoring();
 		outputStream = new FileOutputStream(outputFile, false);
@@ -189,55 +189,60 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 
 	@Deprecated
 	public String writeLegacyEvent(InteractionEvent e) {
-		StringBuffer res = new StringBuffer();
-		String tag = "interactionEvent";
-		res.append(OPEN);
-		res.append(tag);
-		res.append(CLOSE);
-		res.append(ENDL);
+		try {
+			StringBuffer res = new StringBuffer();
+			String tag = "interactionEvent";
+			res.append(OPEN);
+			res.append(tag);
+			res.append(CLOSE);
+			res.append(ENDL);
 
-		openElement(res, "kind");
-		formatContent(res, e.getKind());
-		closeElement(res, "kind");
+			openElement(res, "kind");
+			formatContent(res, e.getKind());
+			closeElement(res, "kind");
 
-		openElement(res, "date");
-		formatContent(res, e.getDate());
-		closeElement(res, "date");
+			openElement(res, "date");
+			formatContent(res, e.getDate());
+			closeElement(res, "date");
 
-		openElement(res, "endDate");
-		formatContent(res, e.getEndDate());
-		closeElement(res, "endDate");
+			openElement(res, "endDate");
+			formatContent(res, e.getEndDate());
+			closeElement(res, "endDate");
 
-		openElement(res, "originId");
-		formatContent(res, e.getOriginId());
-		closeElement(res, "originId");
+			openElement(res, "originId");
+			formatContent(res, e.getOriginId());
+			closeElement(res, "originId");
 
-		openElement(res, "structureKind");
-		formatContent(res, e.getStructureKind());
-		closeElement(res, "structureKind");
+			openElement(res, "structureKind");
+			formatContent(res, e.getStructureKind());
+			closeElement(res, "structureKind");
 
-		openElement(res, "structureHandle");
-		formatContent(res, e.getStructureHandle());
-		closeElement(res, "structureHandle");
+			openElement(res, "structureHandle");
+			formatContent(res, e.getStructureHandle());
+			closeElement(res, "structureHandle");
 
-		openElement(res, "navigation");
-		formatContent(res, e.getNavigation());
-		closeElement(res, "navigation");
+			openElement(res, "navigation");
+			formatContent(res, e.getNavigation());
+			closeElement(res, "navigation");
 
-		openElement(res, "delta");
-		formatContent(res, e.getDelta());
-		closeElement(res, "delta");
+			openElement(res, "delta");
+			formatContent(res, e.getDelta());
+			closeElement(res, "delta");
 
-		openElement(res, "interestContribution");
-		formatContent(res, e.getInterestContribution());
-		closeElement(res, "interestContribution");
+			openElement(res, "interestContribution");
+			formatContent(res, e.getInterestContribution());
+			closeElement(res, "interestContribution");
 
-		res.append(OPEN);
-		res.append(SLASH);
-		res.append(tag);
-		res.append(CLOSE);
-		res.append(ENDL);
-		return res.toString();
+			res.append(OPEN);
+			res.append(SLASH);
+			res.append(tag);
+			res.append(CLOSE);
+			res.append(ENDL);
+			return res.toString();
+		} catch (Throwable t) {
+			MylarStatusHandler.fail(t, "could not write event", false);
+			return "";
+		}
 	}
 
 	private void formatContent(StringBuffer buffer, float interestContribution) {

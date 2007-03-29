@@ -120,7 +120,7 @@ public class MonitorFileRolloverJob extends Job {
 		if (events.size() > 0 && events.get(0).getDate().getMonth() != nowMonth) {
 			int currMonth = events.get(0).getDate().getMonth();
 
-			String fileName = this.getYear(events.get(0)) + "-" + this.getMonth(currMonth) + "-" + BACKUP_FILE_PREFIX;
+			String fileName = getYear(events.get(0)) + "-" + getMonth(currMonth) + "-" + BACKUP_FILE_PREFIX;
 
 			File dir = new File(ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + File.separatorChar
 					+ NAME_DATA_DIR + File.separatorChar + DIRECTORY_MONITOR_BACKUP);
@@ -154,7 +154,7 @@ public class MonitorFileRolloverJob extends Job {
 						zipFileStream.closeEntry();
 						zipFileStream.close();
 
-						fileName = BACKUP_FILE_PREFIX + this.getMonth(monthOfCurrEvent) + "-" + this.getYear(event);
+						fileName = getYear(event) + "-" + getMonth(monthOfCurrEvent) + "-" + BACKUP_FILE_PREFIX;
 						currBackupZipFile = new File(dir, fileName + ZIP_EXTENSION);
 						if (!currBackupZipFile.exists()) {
 
