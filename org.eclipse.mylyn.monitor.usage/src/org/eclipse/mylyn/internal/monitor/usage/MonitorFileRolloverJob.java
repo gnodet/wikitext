@@ -217,7 +217,7 @@ public class MonitorFileRolloverJob extends Job {
 			}
 		});
 		progressMonitor.done();
-		return new Status(Status.OK, MylarUsageMonitorPlugin.PLUGIN_ID, "Mylar Usage Summary");
+		return Status.OK_STATUS;
 	}
 
 }
