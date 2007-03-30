@@ -17,7 +17,7 @@ import org.eclipse.mylar.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.internal.context.ui.AbstractContextLabelProvider;
 import org.eclipse.mylar.internal.context.ui.ContextUiImages;
-import org.eclipse.mylar.internal.tasks.ui.TaskListImages;
+import org.eclipse.mylar.internal.tasks.ui.TasksUiImages;
 import org.eclipse.swt.graphics.Image;
 
 /**
@@ -27,7 +27,7 @@ public class BugzillaContextLabelProvider extends AbstractContextLabelProvider {
 
 	@Override
 	protected Image getImage(IMylarElement node) {
-		return TaskListImages.getImage(TaskListImages.TASK_REMOTE);
+		return TasksUiImages.getImage(TasksUiImages.TASK_REMOTE);
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class BugzillaContextLabelProvider extends AbstractContextLabelProvider {
 
 	@Override
 	protected Image getImageForObject(Object object) {
-		return TaskListImages.getImage(TaskListImages.TASK_REMOTE);
+		return TasksUiImages.getImage(TasksUiImages.TASK_REMOTE);
 	}
 
 	@Override
