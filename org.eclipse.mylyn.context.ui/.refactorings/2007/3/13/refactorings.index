@@ -3,3 +3,4 @@
 1175185919115	Copy file
 1175205872184	Rename type 'ContextUiActionFilter'
 1175267394916	Delete element
+1175291788654	Extract method 'setSelection'
