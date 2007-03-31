@@ -616,24 +616,27 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 				// dialog to inform the user and log the exception
 			}
 
-//			NameValuePair first = new NameValuePair("firstName", firstName);
-//			NameValuePair last = new NameValuePair("lastName", lastName);
-//			NameValuePair email = new NameValuePair("email", emailAddress);
-//			NameValuePair job = new NameValuePair("jobFunction", jobFunction);
-//			NameValuePair size = new NameValuePair("companySize", companySize);
-//			NameValuePair buisness = new NameValuePair("companyBuisness", companyFunction);
-//			NameValuePair contact = null;
-//			if (contactEmail) {
-//				contact = new NameValuePair("contact", "true");
-//			} else {
-//				contact = new NameValuePair("contact", "false");
-//			}
-//			NameValuePair anon = null;
-//			if (anonymous) {
-//				anon = new NameValuePair("anonymous", "true");
-//			} else {
-//				anon = new NameValuePair("anonymous", "false");
-//			}
+			// NameValuePair first = new NameValuePair("firstName", firstName);
+			// NameValuePair last = new NameValuePair("lastName", lastName);
+			// NameValuePair email = new NameValuePair("email", emailAddress);
+			// NameValuePair job = new NameValuePair("jobFunction",
+			// jobFunction);
+			// NameValuePair size = new NameValuePair("companySize",
+			// companySize);
+			// NameValuePair buisness = new NameValuePair("companyBuisness",
+			// companyFunction);
+			// NameValuePair contact = null;
+			// if (contactEmail) {
+			// contact = new NameValuePair("contact", "true");
+			// } else {
+			// contact = new NameValuePair("contact", "false");
+			// }
+			// NameValuePair anon = null;
+			// if (anonymous) {
+			// anon = new NameValuePair("anonymous", "true");
+			// } else {
+			// anon = new NameValuePair("anonymous", "false");
+			// }
 
 			if (status != 200) {
 				// there was a problem with the file upload so throw up an error
