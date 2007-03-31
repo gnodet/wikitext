@@ -8,3 +8,8 @@
 1175187859108	Rename resource 'attachment-patch'
 1175203640312	Extract method 'setFormHeaderLabel'
 1175262589620	Rename type 'TaskListImages'
+1175306619001	Rename resource 'browser-medium.gif'
+1175306626644	Rename resource 'planning-medium.gif'
+1175306631007	Move files
+1175306634674	Delete element
+1175307053988	Rename resource 'planning-small.gif'
