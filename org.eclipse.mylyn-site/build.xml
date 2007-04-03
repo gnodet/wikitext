@@ -28,6 +28,7 @@
 				org.eclipse.mylar.track.tests,
 				org.eclipse.mylar.monitor.core,
 				org.eclipse.mylar.monitor.ui,
+				org.eclipse.mylar.monitor.usage,
 				org.eclipse.mylar.monitor.reports,
 				org.eclipse.mylar.monitor.tests,
 				org.eclipse.mylar.tasks.core,
