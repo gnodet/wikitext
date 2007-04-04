@@ -76,6 +76,7 @@ public class BrowserTracker extends AbstractUserInteractionMonitor implements IP
 
 	public void partOpened(IWorkbenchPart part) {
 		if (part instanceof IMonitoredWebBrowserPart) {
+			currentBrowserPart = part;
 			IMonitoredWebBrowserPart monitoredBrowser = (IMonitoredWebBrowserPart)part;
 			Browser browser = monitoredBrowser.getBrowser();
 			browser.addProgressListener(new UrlTrackingListener(browser));	
