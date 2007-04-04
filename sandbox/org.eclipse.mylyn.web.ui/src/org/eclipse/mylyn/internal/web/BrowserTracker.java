@@ -75,9 +75,12 @@ public class BrowserTracker extends AbstractUserInteractionMonitor implements IP
 	}
 
 	public void partOpened(IWorkbenchPart part) {
-		if (part instanceof WebBrowserEditor) {
+		if (part instanceof IMonitoredWebBrowserPart) {
+			IMonitoredWebBrowserPart monitoredBrowser = (IMonitoredWebBrowserPart)part;
+			Browser browser = monitoredBrowser.getBrowser();
+			browser.addProgressListener(new UrlTrackingListener(browser));	
+		} else if (part instanceof WebBrowserEditor) {
 			currentBrowserPart = part;
-//			((WebBrowserEditor)part).get`
 			final Browser browser = getBrowser((WebBrowserEditor) part);
 			if (browser != null) {
 				// NOTE: assuming they're disposed with the browser
@@ -85,12 +88,6 @@ public class BrowserTracker extends AbstractUserInteractionMonitor implements IP
 //				browser.addLocationListener(urlTrackingListener);
 			} 
 		} 
-//		else if (part instanceof TaskEditor) {
-//			currentBrowserPart = part;
-//			Browser browser = ((TaskEditor) part).getWebBrowser();
-//			if (browser != null)
-//				browser.addLocationListener(urlTrackingListener);
-//		}
 	}
 
 	public void partClosed(IWorkbenchPart part) {
