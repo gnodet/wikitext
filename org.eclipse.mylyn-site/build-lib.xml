@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="plugin_export" name="build">
 	<target name="plugin_export">
-		<pde.exportPlugins destination="C:\Dev\build-3.3\org.eclipse.mylar-site\archives" 
+		<pde.exportPlugins destination="C:\Dev\build-e3.3\org.eclipse.mylar-site\archives" 
 			exportSource="true" 
 			exportType="zip" 
-			filename="mylar-lib-1.0.1.zip" 
-			plugins="org.eclipse.mylar.bugzilla.core,
+			filename="mylar-lib-2.0M2.zip" 
+			plugins="org.eclipse.core.runtime,
+				org.eclipse.core.net,
+		    	org.eclipse.core.jobs,
+			    org.eclipse.osgi,
+			    org.eclipse.equinox.common,
+			    org.eclipse.equinox.registry,
+			    org.eclipse.equinox.preferences,
+			    org.eclipse.core.contenttype,
+			    org.eclipse.core.runtime.compatibility.auth,
+				org.eclipse.mylar.core,
+				org.eclipse.mylar.bugzilla.core,
 				org.eclipse.mylar.context.core,
 				org.eclipse.mylar.tasks.core,
 				org.eclipse.mylar.trac.core" 
