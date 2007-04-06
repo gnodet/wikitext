@@ -47,7 +47,6 @@ import org.eclipse.mylar.monitor.ui.IMylarMonitorLifecycleListener;
 import org.eclipse.mylar.monitor.ui.MylarMonitorUiPlugin;
 import org.eclipse.mylar.monitor.ui.workbench.ActionExecutionMonitor;
 import org.eclipse.mylar.monitor.ui.workbench.ActivityChangeMonitor;
-import org.eclipse.mylar.monitor.ui.workbench.BrowserMonitor;
 import org.eclipse.mylar.monitor.ui.workbench.KeybindingCommandMonitor;
 import org.eclipse.mylar.monitor.ui.workbench.MenuCommandMonitor;
 import org.eclipse.mylar.monitor.ui.workbench.PerspectiveChangeMonitor;
@@ -62,7 +61,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IStartup;
 import org.eclipse.ui.IWindowListener;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -130,7 +128,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 
 	private KeybindingCommandMonitor keybindingCommandMonitor;
 
-	private BrowserMonitor browserMonitor;
+//	private BrowserMonitor browserMonitor;
 
 	private static MylarUsageMonitorPlugin plugin;
 
@@ -241,9 +239,10 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 			windowMonitor = new WindowChangeMonitor();
 			menuMonitor = new MenuCommandMonitor();
 			keybindingCommandMonitor = new KeybindingCommandMonitor();
-			browserMonitor = new BrowserMonitor();
-
-			setAcceptedUrlMatchList(studyParameters.getAcceptedUrlList());
+			
+//			browserMonitor = new BrowserMonitor();
+//			setAcceptedUrlMatchList(studyParameters.getAcceptedUrlList());
+			
 			studyParameters.setServletUrl(DEFAULT_UPLOAD_SERVER + DEFAULT_UPLOAD_SERVLET);
 
 			final IWorkbench workbench = PlatformUI.getWorkbench();
@@ -314,7 +313,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		workbench.getDisplay().addFilter(SWT.Selection, menuMonitor);
 		workbench.addWindowListener(windowMonitor);
 
-		installBrowserMonitor(workbench);
+//		installBrowserMonitor(workbench);
 
 		for (Object listener : lifecycleListeners.getListeners()) {
 			((IMylarMonitorLifecycleListener) listener).startMonitoring();
@@ -369,8 +368,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		workbench.getDisplay().removeFilter(SWT.Selection, menuMonitor);
 		workbench.removeWindowListener(windowMonitor);
 
-		uninstallBrowserMonitor(workbench);
-
+//		uninstallBrowserMonitor(workbench);
 		interactionLogger.stopMonitoring();
 
 		getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED, false);
@@ -408,29 +406,40 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		return commandMonitors;
 	}
 
-	private void installBrowserMonitor(IWorkbench workbench) {
-		workbench.addWindowListener(browserMonitor);
-		IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
-		for (int i = 0; i < windows.length; i++) {
-			windows[i].addPageListener(browserMonitor);
-			IWorkbenchPage[] pages = windows[i].getPages();
-			for (int j = 0; j < pages.length; j++) {
-				pages[j].addPartListener(browserMonitor);
-			}
-		}
-	}
-
-	private void uninstallBrowserMonitor(IWorkbench workbench) {
-		workbench.removeWindowListener(browserMonitor);
-		IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
-		for (int i = 0; i < windows.length; i++) {
-			windows[i].removePageListener(browserMonitor);
-			IWorkbenchPage[] pages = windows[i].getPages();
-			for (int j = 0; j < pages.length; j++) {
-				pages[j].removePartListener(browserMonitor);
-			}
-		}
-	}
+//	/**
+//	 * @return true if the list was set
+//	 */
+//	public boolean setAcceptedUrlMatchList(String urlBuffer) {
+//		if (browserMonitor != null) {
+//			browserMonitor.setAcceptedUrls(urlBuffer);
+//			return true;
+//		} else {
+//			return false;
+//		}
+//	}
+//	private void installBrowserMonitor(IWorkbench workbench) {
+//		workbench.addWindowListener(browserMonitor);
+//		IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
+//		for (int i = 0; i < windows.length; i++) {
+//			windows[i].addPageListener(browserMonitor);
+//			IWorkbenchPage[] pages = windows[i].getPages();
+//			for (int j = 0; j < pages.length; j++) {
+//				pages[j].addPartListener(browserMonitor);
+//			}
+//		}
+//	}
+//
+//	private void uninstallBrowserMonitor(IWorkbench workbench) {
+//		workbench.removeWindowListener(browserMonitor);
+//		IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
+//		for (int i = 0; i < windows.length; i++) {
+//			windows[i].removePageListener(browserMonitor);
+//			IWorkbenchPage[] pages = windows[i].getPages();
+//			for (int j = 0; j < pages.length; j++) {
+//				pages[j].removePartListener(browserMonitor);
+//			}
+//		}
+//	}
 
 	public File getMonitorLogFile() {
 		File rootDir;
@@ -793,18 +802,6 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		String message = "NOTE: You have previously downloaded the Mylar monitor and a user study plug-in with id: "
 				+ customizedBy + "\n" + "If you are not familiar with this plug-in do not upload data.";
 		return message;
-	}
-
-	/**
-	 * @return true if the list was set
-	 */
-	public boolean setAcceptedUrlMatchList(String urlBuffer) {
-		if (browserMonitor != null) {
-			browserMonitor.setAcceptedUrls(urlBuffer);
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	public boolean isBackgroundEnabled() {
