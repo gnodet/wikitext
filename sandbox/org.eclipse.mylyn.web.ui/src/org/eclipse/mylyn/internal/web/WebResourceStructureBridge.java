@@ -15,8 +15,6 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.mylar.context.core.AbstractRelationProvider;
-import org.eclipse.mylar.context.core.IDegreeOfSeparation;
 import org.eclipse.mylar.context.core.AbstractContextStructureBridge;
 import org.eclipse.swt.browser.LocationEvent;
 
@@ -115,18 +113,6 @@ public class WebResourceStructureBridge extends AbstractContextStructureBridge {
 
 	@Override
 	public String getHandleForOffsetInObject(Object resource, int offset) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<AbstractRelationProvider> getRelationshipProviders() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<IDegreeOfSeparation> getDegreesOfSeparation() {
 		// TODO Auto-generated method stub
 		return null;
 	}

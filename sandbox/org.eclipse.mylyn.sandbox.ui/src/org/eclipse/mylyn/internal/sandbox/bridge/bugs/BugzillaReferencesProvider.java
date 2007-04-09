@@ -13,6 +13,7 @@
  */
 package org.eclipse.mylar.internal.sandbox.bridge.bugs;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -26,8 +27,10 @@ import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.mylar.context.core.AbstractRelationProvider;
+import org.eclipse.mylar.context.core.IDegreeOfSeparation;
 import org.eclipse.mylar.context.core.IMylarElement;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
+import org.eclipse.mylar.internal.context.core.DegreeOfSeparation;
 import org.eclipse.mylar.internal.context.core.IActiveSearchListener;
 import org.eclipse.mylar.internal.context.core.IMylarSearchOperation;
 import org.eclipse.mylar.tasks.core.TaskRepository;
@@ -49,6 +52,18 @@ public class BugzillaReferencesProvider extends AbstractRelationProvider {
 		super(BugzillaStructureBridge.CONTENT_TYPE, ID);
 	}
 
+	@Override
+	public List<IDegreeOfSeparation> getDegreesOfSeparation() {
+		List<IDegreeOfSeparation> separations = new ArrayList<IDegreeOfSeparation>();
+		separations.add(new DegreeOfSeparation("disabled", 0));
+		separations.add(new DegreeOfSeparation("local, fully qualified matches", 1));
+		separations.add(new DegreeOfSeparation("local, unqualified matches", 2));
+		separations.add(new DegreeOfSeparation("server, fully quaified matches", 3));
+		separations.add(new DegreeOfSeparation("server, unqualified matches", 4));
+
+		return separations;
+	}
+	
 	protected boolean acceptElement(IJavaElement javaElement) {
 		return javaElement != null && (javaElement instanceof IMember || javaElement instanceof IType)
 				&& javaElement.exists();

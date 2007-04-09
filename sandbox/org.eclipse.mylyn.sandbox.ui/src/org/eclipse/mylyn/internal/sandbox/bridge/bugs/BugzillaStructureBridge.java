@@ -15,11 +15,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.mylar.context.core.AbstractRelationProvider;
-import org.eclipse.mylar.context.core.IDegreeOfSeparation;
 import org.eclipse.mylar.context.core.AbstractContextStructureBridge;
+import org.eclipse.mylar.context.core.AbstractRelationProvider;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaQueryHit;
-import org.eclipse.mylar.internal.context.core.DegreeOfSeparation;
 import org.eclipse.mylar.internal.tasks.ui.editors.ContentOutlineTools;
 import org.eclipse.mylar.tasks.ui.editors.RepositoryTaskOutlineNode;
 import org.eclipse.mylar.tasks.ui.editors.RepositoryTaskSelection;
@@ -225,23 +223,6 @@ public class BugzillaStructureBridge extends AbstractContextStructureBridge {
 	@Override
 	public String getContentType(String elementHandle) {
 		return getContentType();
-	}
-
-	@Override
-	public List<AbstractRelationProvider> getRelationshipProviders() {
-		return providers;
-	}
-
-	@Override
-	public List<IDegreeOfSeparation> getDegreesOfSeparation() {
-		List<IDegreeOfSeparation> separations = new ArrayList<IDegreeOfSeparation>();
-		separations.add(new DegreeOfSeparation("disabled", 0));
-		separations.add(new DegreeOfSeparation("local, fully qualified matches", 1));
-		separations.add(new DegreeOfSeparation("local, unqualified matches", 2));
-		separations.add(new DegreeOfSeparation("server, fully quaified matches", 3));
-		separations.add(new DegreeOfSeparation("server, unqualified matches", 4));
-
-		return separations;
 	}
 
 	@Override

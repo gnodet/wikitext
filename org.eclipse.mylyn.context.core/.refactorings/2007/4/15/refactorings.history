@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring clone="true" comment="Infer generic type arguments on 'org.eclipse.mylar.context.core'&#13;&#10;- Original project: 'org.eclipse.mylar.context.core'&#13;&#10;- Original elements:&#13;&#10;     org.eclipse.mylar.context.core.ContextCorePlugin.java&#13;&#10;- Assume clone() returns an instance of the receiver type&#13;&#10;- Leave unconstrained type arguments raw" description="Infer generic type arguments" element1="/src&lt;org.eclipse.mylar.context.core{ContextCorePlugin.java" flags="6" id="org.eclipse.jdt.ui.infer.typearguments" leave="true" stamp="1176148261059" version="1.0"/>
+</session>
