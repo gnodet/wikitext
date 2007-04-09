@@ -17,6 +17,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.jobs.IJobChangeEvent;
+import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -43,6 +45,7 @@ import org.eclipse.ui.internal.ViewPluginAction;
  * @author Mik Kersten
  */
 public class EclipseUsageSummaryAction implements IViewActionDelegate {
+	ReportGenerator generator = null;
 
 	public void init(IViewPart view) {
 		// ignore
@@ -54,29 +57,33 @@ public class EclipseUsageSummaryAction implements IViewActionDelegate {
 			final List<File> files = getStatsFilesFromSelection(objectAction);
 			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 				public void run() {
-					try {
-						List<IUsageCollector> delegates = new ArrayList<IUsageCollector>();
-						delegates.add(new ViewUsageCollector());
-						delegates.add(new PerspectiveUsageCollector());
-						delegates.add(new CommandUsageCollector());
-						// delegates.add(new CsvOutputCollector());
-						delegates.add(new SummaryCollector());
 
-						DelegatingUsageCollector collector = new DelegatingUsageCollector();
-						collector.setReportTitle("Usage Summary");
-						collector.setDelegates(delegates);
-						ReportGenerator generator = new ReportGenerator(MylarUsageMonitorPlugin.getDefault()
-								.getInteractionLogger(), collector);
- 
-						IWorkbenchPage page = MylarReportsPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow()
-								.getActivePage();
-						if (page == null)
-							return;
-						IEditorInput input = new UsageStatsEditorInput(files, generator);
-						page.openEditor(input, MylarReportsPlugin.REPORT_SUMMARY_ID);
-					} catch (PartInitException ex) {
-						MylarStatusHandler.log(ex, "couldn't open summary editor");
-					}
+					List<IUsageCollector> delegates = new ArrayList<IUsageCollector>();
+					delegates.add(new ViewUsageCollector());
+					delegates.add(new PerspectiveUsageCollector());
+					delegates.add(new CommandUsageCollector());
+					// delegates.add(new CsvOutputCollector());
+					delegates.add(new SummaryCollector());
+
+					DelegatingUsageCollector collector = new DelegatingUsageCollector();
+					collector.setReportTitle("Usage Summary");
+					collector.setDelegates(delegates);
+					generator = new ReportGenerator(MylarUsageMonitorPlugin.getDefault().getInteractionLogger(),
+							collector, new JobChangeAdapter() {
+								public void done(IJobChangeEvent event) {
+									try {
+										IWorkbenchPage page = MylarReportsPlugin.getDefault().getWorkbench()
+												.getActiveWorkbenchWindow().getActivePage();
+										if (page == null)
+											return;
+										IEditorInput input = new UsageStatsEditorInput(files, generator);
+										page.openEditor(input, MylarReportsPlugin.REPORT_SUMMARY_ID);
+									} catch (PartInitException ex) {
+										MylarStatusHandler.log(ex, "couldn't open summary editor");
+									}
+								}
+							});
+
 				}
 			});
 		}
@@ -108,4 +115,5 @@ public class EclipseUsageSummaryAction implements IViewActionDelegate {
 	public void selectionChanged(IAction action, ISelection selection) {
 		// TODO Auto-generated method stub
 	}
+
 }

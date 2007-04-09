@@ -19,6 +19,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 
 /**
  * @author Meghan Allen
@@ -27,8 +28,8 @@ public class UsageSummaryEditorWizardPage extends WizardPage implements IWizardP
 
 	private static final String TITLE = "Usage Summary and Submission";
 
-	private static final String DESCRIPTION = "Summarizes usage and provides mechanism for uploading to eclipse.org \n" +
-			"server for usage analysis.  May take a lot of memory for large histories.";
+	private static final String DESCRIPTION = "Summarizes usage and provides mechanism for uploading to eclipse.org \n"
+			+ "server for usage analysis. May take a lot of memory for large histories.";
 
 	private Button perspectiveCheckbox = null;
 
@@ -38,8 +39,8 @@ public class UsageSummaryEditorWizardPage extends WizardPage implements IWizardP
 		super(TITLE);
 		setTitle(TITLE);
 		setDescription(DESCRIPTION);
-		setImageDescriptor(MylarUsageMonitorPlugin.imageDescriptorFromPlugin(
-				MylarUsageMonitorPlugin.PLUGIN_ID, "icons/wizban/banner-user.gif"));
+		setImageDescriptor(MylarUsageMonitorPlugin.imageDescriptorFromPlugin(MylarUsageMonitorPlugin.PLUGIN_ID,
+				"icons/wizban/banner-user.gif"));
 	}
 
 	public void createControl(Composite parent) {
@@ -47,6 +48,10 @@ public class UsageSummaryEditorWizardPage extends WizardPage implements IWizardP
 		GridLayout layout = new GridLayout();
 		container.setLayout(layout);
 		layout.numColumns = 1;
+
+		Label label = new Label(container, SWT.LEFT);
+		label.setText("This will run in the background because it may take a long time for large histories.\n"
+				+ "The editor will open when the summary has been generated.");
 
 		createCheckboxes(container);
 

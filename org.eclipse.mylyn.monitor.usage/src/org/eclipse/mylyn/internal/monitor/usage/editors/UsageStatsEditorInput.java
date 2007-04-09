@@ -63,7 +63,7 @@ public class UsageStatsEditorInput implements IEditorInput {
 		// parser = new
 		// ReportGenerator(MylarMonitorPlugin.getDefault().getInteractionLogger(),
 		// collectors);
-		reportGenerator.getStatisticsFromInteractionHistories(usageFiles);
+		reportGenerator.getStatisticsFromInteractionHistories(usageFiles, null);
 	}
 
 	public boolean exists() {

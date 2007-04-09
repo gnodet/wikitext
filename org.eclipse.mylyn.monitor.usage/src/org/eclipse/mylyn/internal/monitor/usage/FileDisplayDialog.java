@@ -47,19 +47,18 @@ public class FileDisplayDialog extends MessageDialog {
 		super(parentShell, dialogTitle, dialogTitleImage, dialogMessage, dialogImageType, dialogButtonLabels,
 				defaultIndex);
 	}
-	
-	
 
 	public static int openShowFile(Shell parent, String title, String message, File file) throws FileNotFoundException {
 		contents = getContents(file);
 		return showFile(parent, title, message);
 	}
-	
-	public static int openShowFile(Shell parent, String title, String message, File file, int maxNumLines) throws FileNotFoundException {
-		contents = getContents(file,maxNumLines);
+
+	public static int openShowFile(Shell parent, String title, String message, File file, int maxNumLines)
+			throws FileNotFoundException {
+		contents = getContents(file, maxNumLines);
 		return showFile(parent, title, message);
 	}
-	
+
 	private static int showFile(Shell parent, String title, String message) {
 		FileDisplayDialog dialog = new FileDisplayDialog(parent, title, null, // accept
 				// the
@@ -68,7 +67,7 @@ public class FileDisplayDialog extends MessageDialog {
 				// icon
 				message, NONE, new String[] { IDialogConstants.OK_LABEL }, 0, contents);
 		// ok is the default
-		return dialog.open();	
+		return dialog.open();
 	}
 
 	@Override
@@ -97,8 +96,7 @@ public class FileDisplayDialog extends MessageDialog {
 	public static String getContents(File f) throws FileNotFoundException {
 		return getContents(f, -1);
 	}
-	
-	
+
 	/**
 	 * Get the contents of an InputStream
 	 * 

@@ -49,9 +49,9 @@ public class UserStudyEditorPart extends UsageEditorPart {
 	private String[] columnNames = new String[] { "Kind", "ID", "Num", "Last Delta", "Users" };
 
 	public UserStudyEditorPart(String id, String title) {
-		//super(id, title);
+		// super(id, title);
 	}
-	
+
 	@Override
 	protected void addSections(Composite composite, FormToolkit toolkit) {
 		if (editorInput.getReportGenerator().getLastParsedSummary().getSingleSummaries().size() > 0) {

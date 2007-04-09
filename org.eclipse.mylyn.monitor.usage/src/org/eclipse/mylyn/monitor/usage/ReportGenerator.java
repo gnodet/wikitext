@@ -12,7 +12,6 @@
 package org.eclipse.mylar.monitor.usage;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -23,7 +22,11 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.IJobChangeListener;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.mylar.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.monitor.core.collection.IUsageCollector;
 import org.eclipse.mylar.internal.monitor.core.collection.IUsageScanner;
@@ -31,9 +34,8 @@ import org.eclipse.mylar.internal.monitor.core.collection.InteractionEventCompar
 import org.eclipse.mylar.internal.monitor.core.collection.InteractionEventSummary;
 import org.eclipse.mylar.internal.monitor.core.collection.InteractionEventUtil;
 import org.eclipse.mylar.internal.monitor.usage.InteractionEventLogger;
+import org.eclipse.mylar.internal.monitor.usage.MylarUsageMonitorPlugin;
 import org.eclipse.mylar.monitor.core.InteractionEvent;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.progress.IProgressService;
 
 /**
  * @author Mik Kersten
@@ -55,6 +57,10 @@ public class ReportGenerator {
 	private Map<Integer, Map<String, SortedSet<InteractionEvent>>> allUserEvents;
 
 	private boolean saveAllUserEvents = false;
+
+	private IJobChangeListener listener = null;
+
+	private boolean forceSyncForTesting = false;
 
 	public ReportGenerator(InteractionEventLogger logger, IUsageCollector collector, boolean saveAllUserEvents) {
 		this(logger, collector);
@@ -78,36 +84,50 @@ public class ReportGenerator {
 		this.collectors = collectors;
 	}
 
-	public ReportGenerator(InteractionEventLogger logger, List<IUsageCollector> collectors, List<IUsageScanner> scanners) {
+	public ReportGenerator(InteractionEventLogger logger, List<IUsageCollector> collectors,
+			List<IUsageScanner> scanners, IJobChangeListener listener) {
 		this(logger, collectors);
 		this.scanners = scanners;
+	}
+
+	public ReportGenerator(InteractionEventLogger logger, IUsageCollector collector, IJobChangeListener listener) {
+		this(logger, collector);
+		this.listener = listener;
+	}
+
+	public ReportGenerator(InteractionEventLogger logger, List<IUsageCollector> collectors,
+			IJobChangeListener listener, boolean forceSyncForTesting) {
+		this(logger, collectors);
+		this.listener = listener;
+		this.forceSyncForTesting = forceSyncForTesting;
 	}
 
 	public void setScanners(List<IUsageScanner> scanners) {
 		this.scanners = scanners;
 	}
 
-	public UsageStatisticsSummary getStatisticsFromInteractionHistory(File source) {
+	public void getStatisticsFromInteractionHistory(File source, IJobChangeListener listener) {
 		List<File> sources = new ArrayList<File>();
 		sources.add(source);
-		return getStatisticsFromInteractionHistories(sources);
+		getStatisticsFromInteractionHistories(sources, listener);
 	}
 
-	public UsageStatisticsSummary getStatisticsFromInteractionHistories(List<File> sources) {
-		lastParsedSummary = null;
-		try {
-			GenerateStatisticsJob job = new GenerateStatisticsJob(this, sources);
-			IProgressService service = PlatformUI.getWorkbench().getProgressService();
-			service.run(true, true, job);
+	public void getStatisticsFromInteractionHistories(List<File> sources, IJobChangeListener jobChangeListener) {
 
-			while (lastParsedSummary == null)
-				Thread.sleep(1000);
-		} catch (InvocationTargetException e) {
-			// RepositoryOperation was canceled
-		} catch (InterruptedException e) {
-			MylarStatusHandler.log(e, "Could not generate stats");
+		GenerateStatisticsJob job = new GenerateStatisticsJob(this, sources);
+		if (jobChangeListener != null) {
+			job.addJobChangeListener(jobChangeListener);
 		}
-		return lastParsedSummary;
+		if (this.listener != null) {
+			job.addJobChangeListener(this.listener);
+		}
+		job.setPriority(GenerateStatisticsJob.LONG);
+		if (forceSyncForTesting) {
+			job.run(new NullProgressMonitor());
+		} else {
+			job.schedule();
+		}
+
 	}
 
 	public UsageStatisticsSummary getLastParsedSummary() {
@@ -151,7 +171,7 @@ public class ReportGenerator {
 		return phase;
 	}
 
-	class GenerateStatisticsJob implements IRunnableWithProgress {
+	class GenerateStatisticsJob extends Job {
 
 		private static final String JOB_LABEL = "Mylar Usage Summary Generation";
 
@@ -160,11 +180,12 @@ public class ReportGenerator {
 		private List<File> sources;
 
 		public GenerateStatisticsJob(ReportGenerator generator, List<File> sources) {
+			super("Generate statistics job");
 			this.generator = generator;
 			this.sources = sources;
 		}
 
-		public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+		public IStatus run(IProgressMonitor monitor) {
 
 			if (saveAllUserEvents) {
 				allUserEvents = new HashMap<Integer, Map<String, SortedSet<InteractionEvent>>>();
@@ -302,6 +323,8 @@ public class ReportGenerator {
 				MylarStatusHandler.fail(t, "could not generate usage report", false);
 			}
 
+			return new Status(Status.OK, MylarUsageMonitorPlugin.PLUGIN_ID, "Generate Usage Statistics");
+
 		}
 
 		private void createUsageTableData(Map<Integer, Map<String, InteractionEventSummary>> summaryMap,
@@ -314,7 +337,8 @@ public class ReportGenerator {
 
 			InteractionEventSummary summary = usersSummary.get(getIdentifier(event));
 			if (summary == null) {
-				summary = new InteractionEventSummary(event.getKind().toString(), InteractionEventUtil.getCleanOriginId(event), 0);
+				summary = new InteractionEventSummary(event.getKind().toString(), InteractionEventUtil
+						.getCleanOriginId(event), 0);
 				usersSummary.put(getIdentifier(event), summary);
 			}
 			summary.setUsageCount(summary.getUsageCount() + 1);
@@ -344,5 +368,10 @@ public class ReportGenerator {
 
 	public Map<Integer, Map<String, SortedSet<InteractionEvent>>> getAllUsers() {
 		return allUserEvents;
+	}
+
+	public void forceSyncForTesting(boolean syncForTesting) {
+		this.forceSyncForTesting = syncForTesting;
+
 	}
 }
