@@ -1,1 +1,4 @@
 1176148261059	Infer generic type arguments
+1176167316305	Rename method 'getInfos'
+1176167369916	Rename method 'getComposed'
+1176167374642	Rename field 'infos'
