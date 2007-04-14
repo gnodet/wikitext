@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.mylar.monitor_feature"
       label="Mylar Usage Collection"
-      version="2.0.0.v20070405-1130"
+      version="2.0.0.v20070413-1700"
       plugin="org.eclipse.mylar">
 
    <description url="http://www.example.com/description">
@@ -18,34 +18,14 @@
    </license>
 
    <url>
-      <update label="Mylar for Eclipse 3.3" url="http://download.eclipse.org/technology/mylar/update-site/e3.3"/>
+      <update label="Mylar for Eclipse 3.3" url="http://download.eclipse.org/technology/mylar/update-site/dev/e3.3"/>
    </url>
-
-   <requires>
-      <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.jface.text"/>
-      <import plugin="org.eclipse.mylar.context.core"/>
-      <import plugin="org.eclipse.update.ui"/>
-      <import plugin="org.eclipse.update.core"/>
-      <import plugin="org.eclipse.ui.browser"/>
-      <import plugin="org.eclipse.ui.editors"/>
-      <import plugin="org.eclipse.ui.workbench.texteditor"/>
-      <import plugin="org.eclipse.ui.forms"/>
-      <import plugin="org.eclipse.mylar.context.ui"/>
-      <import plugin="org.eclipse.mylar.monitor.ui"/>
-      <import plugin="org.eclipse.mylar.monitor.core"/>
-      <import plugin="org.eclipse.mylar"/>
-      <import plugin="org.eclipse.core.filesystem"/>
-      <import plugin="org.eclipse.ui.ide"/>
-   </requires>
 
    <plugin
          id="org.eclipse.mylar.monitor.usage"
          download-size="0"
          install-size="0"
-         version="2.0.0.v20070405-1130"
+         version="2.0.0.v20070413-1700"
          unpack="false"/>
 
 </feature>
