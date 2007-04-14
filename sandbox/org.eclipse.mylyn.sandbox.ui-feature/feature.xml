@@ -214,11 +214,18 @@ litigation.
    </license>
 
    <requires>
-      <import feature="org.eclipse.mylar_feature" version="2.0.0.v20070413-1700" match="greaterOrEqual"/>
+      <import feature="org.eclipse.mylar_feature" version="2.0.0.v20070330-2000" match="greaterOrEqual"/>
    </requires>
 
    <plugin
          id="org.eclipse.mylar.sandbox"
+         download-size="0"
+         install-size="0"
+         version="2.0.0.v20070413-1700"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.mylar.web"
          download-size="0"
          install-size="0"
          version="2.0.0.v20070413-1700"
