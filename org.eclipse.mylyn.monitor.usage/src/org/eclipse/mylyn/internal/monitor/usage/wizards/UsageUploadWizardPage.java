@@ -76,8 +76,13 @@ public class UsageUploadWizardPage extends WizardPage {
 		Composite container = new Composite(parent, SWT.NULL);
 		GridLayout layout = new GridLayout();
 		container.setLayout(layout);
-		layout.numColumns = 2;
-		layout.verticalSpacing = 9;
+		layout.numColumns = 1;
+
+		Composite topContainer = new Composite(container, SWT.NULL);
+		GridLayout topContainerLayout = new GridLayout();
+		topContainer.setLayout(topContainerLayout);
+		topContainerLayout.numColumns = 2;
+		topContainerLayout.verticalSpacing = 9;
 
 		Label label;
 		if (MylarUsageMonitorPlugin.getDefault().getCustomizingPlugin() != null) {
@@ -86,24 +91,32 @@ public class UsageUploadWizardPage extends WizardPage {
 			label.setText(MylarUsageMonitorPlugin.getDefault().getCustomizedByMessage());
 		}
 
-		label = new Label(container, SWT.NULL);
+		label = new Label(topContainer, SWT.NULL);
 		label.setText("Upload URL:");
 
-		serverAddrText = new Text(container, SWT.BORDER | SWT.SINGLE);
+		serverAddrText = new Text(topContainer, SWT.BORDER | SWT.SINGLE);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		serverAddrText.setLayoutData(gd);
 		serverAddrText.setEditable(false);
 		serverAddrText.setText(MylarUsageMonitorPlugin.getDefault().getStudyParameters().getServletUrl());
 
-		label = new Label(container, SWT.NULL);
+		label = new Label(topContainer, SWT.NULL);
 		label.setText("Usage file location:");
 
-		usageFileText = new Text(container, SWT.BORDER | SWT.SINGLE);
+		usageFileText = new Text(topContainer, SWT.BORDER | SWT.SINGLE);
 		gd = new GridData(GridData.FILL_HORIZONTAL);
 		usageFileText.setLayoutData(gd);
 		usageFileText.setEditable(false);
 
 		usageFileText.setText(wizard.getMonitorFileName());
+
+		Composite bottomContainer = new Composite(container, SWT.NULL);
+		GridLayout bottomContainerLayout = new GridLayout();
+		bottomContainer.setLayout(bottomContainerLayout);
+		bottomContainerLayout.numColumns = 2;
+
+		Label submissionLabel = new Label(bottomContainer, SWT.NONE);
+		submissionLabel.setText("Only events from org.eclipse.* packages will be submitted to Eclipse.org");
 
 		// label = new Label(container, SWT.NULL);
 		// label.setText("Log file location:");

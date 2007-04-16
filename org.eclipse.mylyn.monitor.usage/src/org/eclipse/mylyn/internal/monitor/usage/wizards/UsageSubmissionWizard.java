@@ -40,7 +40,9 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.mylar.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.core.util.ZipFileUtil;
+import org.eclipse.mylar.internal.monitor.usage.InteractionEventLogger;
 import org.eclipse.mylar.internal.monitor.usage.MylarUsageMonitorPlugin;
+import org.eclipse.mylar.monitor.core.InteractionEvent;
 import org.eclipse.mylar.monitor.usage.IBackgroundPage;
 import org.eclipse.mylar.monitor.usage.IQuestionnairePage;
 import org.eclipse.swt.widgets.Display;
@@ -62,6 +64,8 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	public static final String QUESTIONAIRE = "questionaire";
 
 	public static final String BACKGROUND = "background";
+
+	private static final String ORG_ECLIPSE_PREFIX = "org.eclipse.";
 
 	public static final int HTTP_SERVLET_RESPONSE_SC_OK = 200;
 
@@ -111,8 +115,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		this.performUpload = performUpload;
 		setNeedsProgressMonitor(true);
 		uid = MylarUsageMonitorPlugin.getDefault().getPreferenceStore().getInt(MylarUsageMonitorPlugin.PREF_USER_ID);
-		if (uid == 0) {
-			// uid = -1;
+		if (uid == 0 || uid == -1) {
 			uid = this.getNewUid();
 			MylarUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(MylarUsageMonitorPlugin.PREF_USER_ID,
 					uid);
@@ -233,7 +236,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 					// popup a dialog telling the user that the upload was good
 					MessageDialog
 							.openInformation(Display.getCurrent().getActiveShell(), "Successful Upload",
-									"Your usage statistics have been successfully uploaded.\n Thank you for participating in the study.");
+									"Your usage statistics have been successfully uploaded.\n Thank you for participating.");
 				}
 			});
 
@@ -693,14 +696,33 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		return failed;
 	}
 
+	private File processMonitorFile(File monitorFile) {
+		File processedFile = new File("processed-" + MylarUsageMonitorPlugin.MONITOR_LOG_NAME + ".xml");
+		InteractionEventLogger logger = new InteractionEventLogger(processedFile);
+		logger.startMonitoring();
+		List<InteractionEvent> eventList = logger.getHistoryFromFile(monitorFile);
+
+		if (eventList.size() > 0) {
+			for (InteractionEvent event : eventList) {
+				if (event.getOriginId().startsWith(ORG_ECLIPSE_PREFIX)) {
+					logger.interactionObserved(event);
+				}
+			}
+		}
+
+		return processedFile;
+	}
+
 	private File zipFilesForUpload() {
 		MylarUsageMonitorPlugin.setPerformingUpload(true);
 		MylarUsageMonitorPlugin.getDefault().getInteractionLogger().stopMonitoring();
 
 		List<File> files = new ArrayList<File>();
 		File monitorFile = MylarUsageMonitorPlugin.getDefault().getMonitorLogFile();
-		files.add(monitorFile);
+		File fileToUpload = this.processMonitorFile(monitorFile);
+		files.add(fileToUpload);
 
+		MylarUsageMonitorPlugin.getDefault().getInteractionLogger().startMonitoring();
 		try {
 			File zipFile = File.createTempFile(uid + ".", ".zip");
 			ZipFileUtil.createZipFile(zipFile, files);
