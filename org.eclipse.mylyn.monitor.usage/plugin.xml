@@ -33,14 +33,14 @@
             hasPages="true"
             icon="icons/eview16/editor-usage.gif"
             id="org.eclipse.mylar.sandbox.wizard.usageSummary"
-            name="Usage Summary and Submission"/>
+            name="UI Usage Report"/>
    	</extension>
    
    	<extension point="org.eclipse.ui.editors">
         <editor
            icon="icons/eview16/editor-usage.gif"
            class="org.eclipse.mylar.internal.monitor.usage.editors.UsageSummaryReportEditorPart"
-           name="Usage Summary"
+           name="UI Usage Report"
            id="org.eclipse.mylar.monitor.usage.summary.editor"/>
   	</extension>
    

@@ -21,7 +21,6 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.CellEditor.LayoutData;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylar.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.monitor.usage.InteractionEventSummarySorter;
@@ -147,7 +146,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 		labelContainerLayout.numColumns = 1;
 		labelContainer.setLayout(labelContainerLayout);
 		Label submissionLabel = new Label(labelContainer, SWT.NONE);
-		submissionLabel.setText("Only events from org.eclipse.* packages will be submitted to Eclipse.org");
+		submissionLabel.setText("Only usage of org.eclipse.* IDs will be submitted to Eclipse.org");
 	}
 
 	/**
