@@ -234,9 +234,8 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 				public void run() {
 					// popup a dialog telling the user that the upload was good
-					MessageDialog
-							.openInformation(Display.getCurrent().getActiveShell(), "Successful Upload",
-									"Your usage statistics have been successfully uploaded.\n Thank you for participating.");
+					MessageDialog.openInformation(Display.getCurrent().getActiveShell(), "Successful Upload",
+							"Your usage statistics have been successfully uploaded.\n Thank you for participating.");
 				}
 			});
 
@@ -439,9 +438,9 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 			// TODO, do this method properly
 			// create a new post method
-			final GetMethod getUidMethod = new GetMethod(MylarUsageMonitorPlugin.getDefault().getStudyParameters()
-					.getServletUrl()
-					+ MylarUsageMonitorPlugin.getDefault().getStudyParameters().getServletUrl());
+			String url = MylarUsageMonitorPlugin.getDefault().getStudyParameters().getServletUrl()
+					+ MylarUsageMonitorPlugin.getDefault().getStudyParameters().getServletUrl();
+			final GetMethod getUidMethod = new GetMethod(url);
 
 			NameValuePair first = new NameValuePair("firstName", firstName);
 			NameValuePair last = new NameValuePair("lastName", lastName);
@@ -465,7 +464,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 			// create a new client and upload the file
 			final HttpClient client = new HttpClient();
-			MylarUsageMonitorPlugin.getDefault().configureProxy(client);
+			MylarUsageMonitorPlugin.getDefault().configureProxy(client, url);
 
 			ProgressMonitorDialog pmd = new ProgressMonitorDialog(Display.getCurrent().getActiveShell());
 			pmd.run(false, false, new IRunnableWithProgress() {

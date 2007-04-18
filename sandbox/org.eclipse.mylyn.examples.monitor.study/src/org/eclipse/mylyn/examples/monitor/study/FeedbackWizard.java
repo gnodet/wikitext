@@ -111,7 +111,7 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 			filePost.setRequestEntity(new MultipartRequestEntity(parts, filePost.getParams()));
 
 			final HttpClient client = new HttpClient();
-			MylarUsageMonitorPlugin.getDefault().configureProxy(client);
+			MylarUsageMonitorPlugin.getDefault().configureProxy(client, uploadScript);
 
 			ProgressMonitorDialog pmd = new ProgressMonitorDialog(Display.getCurrent().getActiveShell());
 			pmd.run(false, false, new IRunnableWithProgress() {

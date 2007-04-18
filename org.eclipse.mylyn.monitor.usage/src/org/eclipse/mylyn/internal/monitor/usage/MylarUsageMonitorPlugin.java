@@ -13,6 +13,7 @@ package org.eclipse.mylar.internal.monitor.usage;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.Proxy;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,8 +21,6 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.UsernamePasswordCredentials;
-import org.apache.commons.httpclient.auth.AuthScope;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -38,6 +37,7 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.IContextStoreListener;
 import org.eclipse.mylar.core.MylarStatusHandler;
+import org.eclipse.mylar.core.net.WebClientUtil;
 import org.eclipse.mylar.internal.context.core.MylarContextManager;
 import org.eclipse.mylar.internal.monitor.usage.wizards.UsageSubmissionWizard;
 import org.eclipse.mylar.monitor.core.IInteractionEventListener;
@@ -64,9 +64,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.eclipse.update.internal.core.UpdateCore;
 import org.eclipse.update.internal.ui.security.Authentication;
-import org.eclipse.update.internal.ui.security.UserValidationDialog;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -613,22 +611,22 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_NUM_USER_EVENTS, numEvents);
 	}
 
-	public void configureProxy(HttpClient httpClient) {
-		if (UpdateCore.getPlugin().getPluginPreferences().getBoolean(UpdateCore.HTTP_PROXY_ENABLE)) {
-			String proxyHost = UpdateCore.getPlugin().getPluginPreferences().getString(UpdateCore.HTTP_PROXY_HOST);
-			int proxyPort = UpdateCore.getPlugin().getPluginPreferences().getInt(UpdateCore.HTTP_PROXY_PORT);
-			httpClient.getHostConfiguration().setProxy(proxyHost, proxyPort);
-
-			if (uploadAuthentication == null)
-				uploadAuthentication = UserValidationDialog.getAuthentication(proxyHost,
-						"(Leave fields blank if authentication is not required)");
-			if (uploadAuthentication != null) {
-				httpClient.getState().setProxyCredentials(
-						new AuthScope(proxyHost, proxyPort),
-						new UsernamePasswordCredentials(uploadAuthentication.getUser(), uploadAuthentication
-								.getPassword()));
-			}
-		}
+	public void configureProxy(HttpClient httpClient, String uploadScript) {
+		Proxy proxy = WebClientUtil.getPlatformProxy();
+		WebClientUtil.setupHttpClient(httpClient, proxy, uploadScript, uploadAuthentication.getUser(), uploadAuthentication.getPassword());
+//		if (proxy != null) {
+//			String proxyHost = proxy.
+//			int proxyPort = UpdateCore.getPlugin().getPluginPreferences().getInt(UpdateCore.HTTP_PROXY_PORT);
+//			httpClient.getHostConfiguration().setProxy(proxyHost, proxyPort);
+//			if (uploadAuthentication == null)	
+//				uploadAuthentication = UserValidationDialog.getAuthentication(proxyHost,
+//						"(Leave fields blank if authentication is not required)");
+//			if (uploadAuthentication != null) {
+//				httpClient.getState().setProxyCredentials(
+//						new AuthScope(proxyHost, proxyPort),
+//						new UsernamePasswordCredentials(uploadAuthentication.getUser(), ));
+//			}
+//		}
 	}
 
 	public static IPreferenceStore getPrefs() {
