@@ -217,7 +217,8 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 
 				// we have a bugzilla task, so get the bug report
 				BugzillaTask bugTask = (BugzillaTask) task;
-				RepositoryTaskData bugTaskData = bugTask.getTaskData();
+				RepositoryTaskData bugTaskData = TasksUiPlugin.getDefault().getTaskDataManager().getRepositoryTaskData(bugTask.getHandleIdentifier());
+				//RepositoryTaskData bugTaskData = bugTask.getTaskData();
 
 				// parse the bug report for the element that we are searching
 				// for

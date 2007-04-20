@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Extract constant 'org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaTaskExternalizer.KEY_SEVERITY' from expression '&quot;Severity&quot;'&#13;&#10;- Original project: 'org.eclipse.mylar.bugzilla.ui'&#13;&#10;- Constant name: 'KEY_SEVERITY'&#13;&#10;- Constant expression: '&quot;Severity&quot;'&#13;&#10;- Declared visibility: 'private'&#13;&#10;- Replace occurrences of expression with constant" description="Extract constant 'KEY_SEVERITY'" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylar.internal.bugzilla.ui.tasklist{BugzillaTaskExternalizer.java" name="KEY_SEVERITY" qualify="false" replace="true" selection="3323 10" stamp="1176914356171" version="1.0" visibility="2"/>
+</session>
