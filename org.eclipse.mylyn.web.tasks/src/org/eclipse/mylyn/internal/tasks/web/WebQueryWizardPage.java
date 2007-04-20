@@ -120,8 +120,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 
 		parametersEditor = new ParametersEditor(composite, SWT.NONE);
 		GridData gridData1 = new GridData(SWT.FILL, SWT.FILL, true, true);
-		gridData1.heightHint = 80;
-		gridData1.minimumHeight = 80;
+		gridData1.minimumHeight = 90;
 		parametersEditor.setLayoutData(gridData1);
 
 		ExpandableComposite expComposite = toolkit.createExpandableComposite(composite, Section.COMPACT | Section.TWISTIE);

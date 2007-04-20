@@ -193,8 +193,7 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 
 		parametersEditor = new ParametersEditor(composite, SWT.NONE);
 		GridData gridData_1 = new GridData(SWT.FILL, SWT.FILL, true, true);
-		gridData_1.heightHint = 80;
-		gridData_1.minimumHeight = 80;
+		gridData_1.minimumHeight = 90;
 		parametersEditor.setLayoutData(gridData_1);
 
 		createAdvancedComposite(parent, composite);

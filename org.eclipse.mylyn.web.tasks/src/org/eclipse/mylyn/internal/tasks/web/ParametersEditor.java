@@ -42,9 +42,8 @@ public class ParametersEditor extends Composite {
 		setLayout(gridLayout);
 
 		paramsTable = new Table(this, SWT.FULL_SELECTION | SWT.BORDER | SWT.MULTI);
-		GridData gridData1 = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 3);
+		GridData gridData1 = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 3);
 		gridData1.minimumHeight = 70;
-		gridData1.heightHint = 70;
 		paramsTable.setLayoutData(gridData1);
 		paramsTable.setLinesVisible(true);
 		paramsTable.setHeaderVisible(true);
