@@ -31,8 +31,6 @@ import org.eclipse.ui.internal.browser.WebBrowserEditor;
  */
 public class BrowserTracker extends AbstractUserInteractionMonitor implements IPartListener {
 
-//	private UrlTrackingListener urlTrackingListener = new UrlTrackingListener();
-
 	private IWorkbenchPart currentBrowserPart = null;
 
 	private final class UrlTrackingListener implements ProgressListener {
@@ -55,19 +53,6 @@ public class BrowserTracker extends AbstractUserInteractionMonitor implements IP
 			}
 		}
 	}
-
-//	class UrlTrackingListener implements LocationListener {
-//
-//		public void changing(LocationEvent event) {
-//			// ignore
-//		}
-//
-//		public void changed(LocationEvent event) {
-//			if (event != null) {
-//				handleElementSelection(currentBrowserPart, event, true);
-//			}
-//		}
-//	}
 
 	@Override
 	protected void handleWorkbenchPartSelection(IWorkbenchPart part, ISelection selection, boolean contributeToContext) {
