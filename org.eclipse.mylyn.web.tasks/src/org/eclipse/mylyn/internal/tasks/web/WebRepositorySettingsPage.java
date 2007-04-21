@@ -85,7 +85,7 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 
 	public WebRepositorySettingsPage(AbstractRepositoryConnectorUi repositoryUi) {
 		super(TITLE, DESCRIPTION, repositoryUi);
-		
+		setNeedsAnonymousLogin(true);
 		setNeedsValidation(false);
 	}
 
