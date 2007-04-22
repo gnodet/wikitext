@@ -26,7 +26,7 @@ public class WebSite extends WebResource {
 	
 	private HashMap<String, WebResource> pages = new HashMap<String, WebResource>();
 	
-	public WebSite(String url, WebRoot project) {
+	public WebSite(String url) {
 		super(url);
 	}
 

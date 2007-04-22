@@ -159,7 +159,7 @@ public class WebResourceManager {
 		if (siteUrl != null) {
 			WebSite webSite = webRoot.getSite(siteUrl);
 			if (webSite == null) {
-				webSite = new WebSite(siteUrl, webRoot);
+				webSite = new WebSite(siteUrl);
 				webRoot.addSite(webSite);
 			}
 			if (!url.equals(siteUrl)) {

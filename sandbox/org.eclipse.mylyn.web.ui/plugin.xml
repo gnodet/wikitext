@@ -38,48 +38,6 @@
 	 </objectContribution>
    </extension>
 
-<extension point="org.eclipse.ui.actionSets">
-	<actionSet
-            id="org.eclipse.mylar.web.actionSet"
-            label="Mylar Web"
-            visible="true"> 
-        <!--
-  		<action
-          class="org.eclipse.mylar.internal.web.ui.NewWebBrowserAction"
-          definitionId="org.eclipse.mylar.web.browser.new"
-          icon="icons/etool16/browser-new.gif" 
-          id="org.eclipse.mylar.browser.editor.new"
-          label="New Web Browser"
-          style="push"
-          toolbarPath="org.eclipse.ui.edit.text.actionSet.presentation/Presentation"
-          tooltip="New Browser"> 
-      	</action>
-      	--> 
-    </actionSet>
-   </extension>
-
-   <extension point="org.eclipse.ui.commands">
-	  <command
-         categoryId="org.eclipse.mylar.web.commands"
-         description="Toggle Automatic Folding"
-         id="org.eclipse.mylar.web.browser.new"
-         name="New Browser">
-      </command>
-   <category
-         id="org.eclipse.mylar.web.commands"
-         name="Mylar Web">
-   </category>
-   </extension>
-
-   <extension point="org.eclipse.ui.bindings">   
-	  <key
-            sequence="M1+M2+M3+T"
-            contextId="org.eclipse.ui.globalScope"
-            commandId="org.eclipse.mylar.web.browser.new"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
-      </key>
-   </extension>
-
    <!-- ================================================================================ -->
    <!-- Common Navigator viewer for use in the Project Explorer							 -->
    <!-- ================================================================================ -->
@@ -119,7 +77,6 @@
 			</enablement>
 		 </actionProvider>
 		 
-		 
 		<commonSorter
               class="org.eclipse.mylar.context.ui.InterestSorter"
               id="org.eclipse.mylar.web.sorter.interest">
@@ -129,8 +86,7 @@
 		         </or>
 		   </parentExpression>
         </commonSorter>
-		 
-      </navigatorContent>
+   </navigatorContent>
       
    </extension>
       <extension
@@ -141,88 +97,20 @@
                   pattern="org.eclipse.mylar.web.navigator"/>
          </includes>
       </viewerContentBinding>
-      <!--
-	  <dragAssistant
-          class="org.eclipse.ui.navigator.resources.ResourceDragAdapterAssistant"
-          viewerId="org.eclipse.mylar.web.navigator.dragAssistant"/>
-      -->
-   </extension>
-   <!--
-   <extension
-         point="org.eclipse.ui.newWizards">
-         <category name="Team Logical Model Example" id="org.eclipse.mylar.web.newWizards">
-         </category>
-      <wizard
-            category="org.eclipse.mylar.web.newWizards"
-            icon="$nl$/icons/full/obj/root_obj.gif"
-            name="Model Project"
-            class="org.eclipse.mylar.web.ui.NewModelProjectWizard"
-            project="true"
-            id="org.eclipse.mylar.web.newModelProject">
-            <description> 
-              This wizard creates a model project that illustrates some of the logical model support in the Eclipse Platform
-            </description>
-      </wizard>
-   </extension>
-   -->
-   
-   <!-- ================================================================================ -->
-   <!-- Model provider for the model example											 -->
-   <!-- ================================================================================ -->
-   <!--
-   <extension
-         id="modelProvider"
-         name="Web Sites"
-         point="org.eclipse.core.resources.modelProviders">
-      <modelProvider class="org.eclipse.mylar.internal.web.WebSiteModelProvider"/>
-      <extends-model id="org.eclipse.core.resources.modelProvider"/>
-      <enablement>
-          <test property="org.eclipse.core.resources.projectNature" value="org.eclipse.team.examples.filesystem.modelNature" />
-      </enablement>
-   </extension>
-   -->
-   
-   
-   
-
-<!--
-   <extension
-         point="org.eclipse.mylar.tasklist.editors">
-      <editorFactory class="org.eclipse.mylar.internal.web.ui.editors.WebElementsEditorFactory"/>
-   </extension>
--->
-
-<!--
-  <extension  
-         point="org.eclipse.ui.navigator.navigatorContent">
-      <navigatorContent
-            activeByDefault="true"
-            contentProvider="org.eclipse.mylar.internal.web.ui.editors.WebResourceContentProvider"
-            icon="icons/etool16/browser-editor.gif"
-            id="org.eclipse.mylar.web.navigator.webContent"
-            labelProvider="org.eclipse.mylar.internal.web.ui.editors.WebResourceLabelProvider"
-            name="Web Pages"
-            priority="low">
-		 <triggerPoints> 
-		 	<or>
-			<instanceof
-				value="java.lang.String"/>
-			</or>
-		</triggerPoints>              
-      </navigatorContent>
-  </extension>
--->
-   
-   <extension
-         point="org.eclipse.ui.navigator.viewer">
-		<viewerContentBinding 
+      <viewerContentBinding 
              viewerId="org.eclipse.ui.navigator.ProjectExplorer">
           <includes>	       	      
 	          <contentExtension pattern="org.eclipse.mylar.web.navigator.webContent"/>
           </includes>
        </viewerContentBinding>
-  </extension>
-  
+      <!--
+	  <dragAssistant
+          class="org.eclipse.ui.navigator.resources.ResourceDragAdapterAssistant"
+          viewerId="org.eclipse.mylar.web.navigator.dragAssistant"/>
+      -->
+
+   </extension>
+
   	<!-- ==================== Context Editing ==================== -->
 	
     <extension
