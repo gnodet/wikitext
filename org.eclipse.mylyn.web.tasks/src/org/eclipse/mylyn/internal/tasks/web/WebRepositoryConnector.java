@@ -14,8 +14,12 @@ package org.eclipse.mylar.internal.tasks.web;
 import static org.eclipse.mylar.internal.tasks.web.Util.isPresent;
 
 import java.io.IOException;
+import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -47,9 +51,15 @@ import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.mylar.tasks.core.TaskRepositoryManager;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 
+import com.sun.syndication.feed.module.DCModule;
+import com.sun.syndication.feed.synd.SyndEntry;
+import com.sun.syndication.feed.synd.SyndFeed;
+import com.sun.syndication.io.SyndFeedInput;
+import com.sun.syndication.io.XmlReader;
+
 /**
  * Generic connector for web based issue tracking systems
- * 
+ *
  * @author Eugene Kuleshov
  */
 public class WebRepositoryConnector extends AbstractRepositoryConnector {
@@ -86,6 +96,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	public static final String REQUEST_GET = "GET";
 
+
+
 	@Override
 	public String getRepositoryType() {
 		return WebTask.REPOSITORY_TYPE;
@@ -109,6 +121,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	public boolean canCreateTaskFromKey(TaskRepository repository) {
 		return repository.hasProperty(PROPERTY_TASK_URL);
 	}
+
 
 	@Override
 	public AbstractRepositoryTask createTaskFromExistingId(TaskRepository repository, final String id)
@@ -179,7 +192,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		}
 		return null;
 	}
-
+	
 	@Override
 	public String getTaskWebUrl(String repositoryUrl, String taskId) {
 		TaskRepositoryManager repositoryManager = TasksUiPlugin.getRepositoryManager();
@@ -202,14 +215,12 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			String taskPrefix = evaluateParams(webQuery.getTaskPrefix(), queryParameters, repository);
 
 			try {
-				// if (regexp != null && regexp.trim().length() > 0) {
-				return performQuery(fetchResource(queryUrl, queryParameters, repository), queryPattern, taskPrefix,
-						monitor, resultCollector, repository);
-				// } else {
-				// return performRssQuery(queryUrl, taskPrefix, repositoryUrl,
-				// repositoryUser, repositoryPassword,
-				// monitor, resultCollector);
-				// }
+				if (queryPattern != null && queryPattern.trim().length() > 0) {
+					return performQuery(fetchResource(queryUrl, queryParameters, repository), queryPattern, taskPrefix,
+							monitor, resultCollector, repository);
+				 } else {
+					return performRssQuery(queryUrl, monitor, resultCollector, repository);
+				}
 
 			} catch (IOException ex) {
 				return new Status(IStatus.OK, TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Could not fetch resource: "
@@ -245,6 +256,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	@Override
 	public void updateTask(TaskRepository repository, AbstractRepositoryTask repositoryTask) throws CoreException {
 	}
+
 
 	// utility methods
 
@@ -288,73 +300,69 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	private static String cleanup(String text, TaskRepository repository) {
 		// Has to disable this for now. See bug 166737 and 166936
 		// try {
-		// text = URLDecoder.decode(text, repository.getCharacterEncoding());
+		// 	text = URLDecoder.decode(text, repository.getCharacterEncoding());
 		// } catch (UnsupportedEncodingException ex) {
-		// // ignore
+		// 	// ignore
 		// }
 
 		text = text.replaceAll("<!--.+?-->", "");
 
 		String[] tokens = text.split(" |\\t|\\n|\\r");
-		StringBuilder sb = new StringBuilder();
-		String sep = "";
-		for (String token : tokens) {
-			if (token.length() > 0) {
-				sb.append(sep).append(token);
-				sep = " ";
-			}
-		}
+	    StringBuilder sb = new StringBuilder();
+	    String sep = "";
+	    for (String token : tokens) {
+	      if(token.length()>0) {
+	        sb.append(sep).append(token);
+	        sep = " ";
+	      }
+	    }
 
 		return sb.toString();
 	}
 
-	// public static IStatus performRssQuery(String queryUrl, String taskPrefix,
-	// String repositoryUrl,
-	// String repositoryUser, String repositoryPassword, IProgressMonitor
-	// monitor, QueryHitCollector collector) {
-	// SyndFeedInput input = new SyndFeedInput();
-	// try {
-	// SyndFeed feed = input.build(new XmlReader(new URL(queryUrl)));
-	//
-	// SimpleDateFormat df = new SimpleDateFormat("MMM dd, HH:mm");
-	//
-	// for (Iterator it = feed.getEntries().iterator(); it.hasNext();) {
-	// SyndEntry entry = (SyndEntry) it.next();
-	//
-	// Date date = entry.getUpdatedDate();
-	// if (date == null) {
-	// date = entry.getPublishedDate();
-	// }
-	// if (date == null) {
-	// DCModule module = (DCModule)
-	// entry.getModule("http://purl.org/dc/elements/1.1/");
-	// date = module.getDate();
-	// }
-	// if (date == null) {
-	// // TODO
-	// }
-	//
-	// String entryUri = entry.getUri();
-	// if (entryUri.startsWith(taskPrefix)) {
-	// String taskId = df.format(date); //
-	// entryUri.substring(taskPrefix.length());
-	//
-	// try {
-	// collector.accept(new WebQueryHit(taskId, taskId + ": " +
-	// entry.getTitle(), taskPrefix, repositoryUrl));
-	// } catch (CoreException e) {
-	// return new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
-	// "Unable collect results.", e);
-	// }
-	// }
-	// }
-	// return Status.OK_STATUS;
-	// } catch (Exception ex) {
-	// return new Status(IStatus.OK, TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Could
-	// not fetch resource: " + queryUrl,
-	// ex);
-	// }
-	// }
+
+	public static IStatus performRssQuery(String queryUrl, IProgressMonitor monitor, QueryHitCollector collector,
+			TaskRepository repository) {
+		SyndFeedInput input = new SyndFeedInput();
+		try {
+			SyndFeed feed = input.build(new XmlReader(new URL(queryUrl)));
+
+			SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd HH:mm");
+
+			@SuppressWarnings("unchecked") Iterator it;
+			for (it = feed.getEntries().iterator(); it.hasNext();) {
+				SyndEntry entry = (SyndEntry) it.next();
+
+				Date date = entry.getUpdatedDate();
+				if (date == null) {
+					date = entry.getPublishedDate();
+				}
+				if (date == null) {
+					DCModule module = (DCModule) entry.getModule("http://purl.org/dc/elements/1.1/");
+					date = module.getDate();
+				}
+				if (date == null) {
+					// TODO
+				}
+
+				String entryTime = df.format(date); // entryUri.substring(taskPrefix.length());
+				String entryUri = entry.getUri();
+				String entrTitle = entry.getTitle();
+
+				try {
+					collector.accept(new WebQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), 
+							repository.getUrl(), entryTime + " - " + entrTitle, entryUri, ""));
+				} catch (CoreException e) {
+					return new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
+							"Unable collect results.", e);
+				}
+			}
+			return Status.OK_STATUS;
+		} catch (Exception ex) {
+			return new Status(IStatus.OK, TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Could not fetch resource: " + queryUrl,
+					ex);
+		}
+	}
 
 	public static String fetchResource(String url, Map<String, String> params, TaskRepository repository)
 			throws IOException {
@@ -422,18 +430,17 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		String refreshUrl = null;
 		try {
 			client.executeMethod(method);
-			// int statusCode = client.executeMethod(method);
-			// if (statusCode == 300 || statusCode == 301 || statusCode == 302
-			// || statusCode == 303 || statusCode == 307) {
-			// Header location = method.getResponseHeader("Location");
-			// if (location!=null) {
-			// refreshUrl = location.getValue();
-			// if (!refreshUrl.startsWith("/")) {
-			// refreshUrl = "/" + refreshUrl;
-			// }
-			// }
-			// }
-			if (refreshUrl == null) {
+//			int statusCode = client.executeMethod(method);
+//			if (statusCode == 300 || statusCode == 301 || statusCode == 302 || statusCode == 303 || statusCode == 307) {
+//				Header location = method.getResponseHeader("Location");
+//				if (location!=null) {
+//					refreshUrl = location.getValue();
+//					if (!refreshUrl.startsWith("/")) {
+//						refreshUrl = "/" + refreshUrl;
+//					}
+//				}
+//			}
+			if(refreshUrl == null) {
 				refreshUrl = getRefreshUrl(url, method);
 			}
 			if (refreshUrl == null) {
