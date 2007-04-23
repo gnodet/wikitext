@@ -341,19 +341,21 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 					DCModule module = (DCModule) entry.getModule("http://purl.org/dc/elements/1.1/");
 					date = module.getDate();
 				}
-				if (date == null) {
-					// TODO
+
+				String entryUri = entry.getLink();
+				if(entryUri==null) {
+					entryUri = entry.getUri();
 				}
 
-				String entryTime = df.format(date); // entryUri.substring(taskPrefix.length());
-				String entryUri = entry.getUri();
 				String entrTitle = entry.getTitle();
 
 				try {
-					collector.accept(new WebQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), 
-							repository.getUrl(), entryTime + " - " + entrTitle, entryUri, ""));
+					collector.accept(new WebQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), //
+							repository.getUrl(), // 
+							(date == null ? "" : df.format(date) + " - ") + entrTitle, //
+							entryUri, ""));
 				} catch (CoreException e) {
-					return new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
+					return new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR, //
 							"Unable collect results.", e);
 				}
 			}
