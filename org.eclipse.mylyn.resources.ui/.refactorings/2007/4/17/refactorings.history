@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Extract constant 'org.eclipse.mylar.internal.resources.ui.ContextEditorManager.PREFS_PREFIX' from expression '&quot;editors.&quot;'&#13;&#10;- Original project: 'org.eclipse.mylar.resources'&#13;&#10;- Constant name: 'PREFS_PREFIX'&#13;&#10;- Constant expression: '&quot;editors.&quot;'&#13;&#10;- Declared visibility: 'private'&#13;&#10;- Replace occurrences of expression with constant" description="Extract constant 'PREFS_PREFIX'" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylar.internal.resources.ui{ContextEditorManager.java" name="PREFS_PREFIX" qualify="false" replace="true" selection="3839 10" stamp="1177328195943" version="1.0" visibility="2"/>
+</session>
