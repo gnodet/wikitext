@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Rename resource '/org.eclipse.mylar.tasks.ui/src/org/eclipse/mylar/internal/tasks/ui/views/text.txt' to 'test.txt'&#13;&#10;- Original project: 'org.eclipse.mylar.tasks.ui'&#13;&#10;- Original element: 'text.txt'" description="Rename resource 'text.txt'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="src/org/eclipse/mylar/internal/tasks/ui/views/text.txt" name="test.txt" stamp="1177438212700" version="1.0"/>
+</session>
