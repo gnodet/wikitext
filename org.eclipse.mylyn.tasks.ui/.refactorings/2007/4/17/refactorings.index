@@ -5,3 +5,4 @@
 1177491579694	Copy file
 1177514486865	Extract method 'geContextActivationImage'
 1177514538560	Extract method 'getSynchronizationStateImage'
+1177549647164	Rename method 'geContextActivationImage'
