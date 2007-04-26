@@ -3,3 +3,5 @@
 1177457141447	Copy compilation unit
 1177457359764	Rename field 'ID_PAGE'
 1177491579694	Copy file
+1177514486865	Extract method 'geContextActivationImage'
+1177514538560	Extract method 'getSynchronizationStateImage'
