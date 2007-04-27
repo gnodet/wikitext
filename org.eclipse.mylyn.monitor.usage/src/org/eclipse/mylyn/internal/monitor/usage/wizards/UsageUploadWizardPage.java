@@ -60,7 +60,7 @@ public class UsageUploadWizardPage extends WizardPage {
 			}
 		}
 
-		setDescription("The usage file listed below will be uploaded. If you would to view the file first you may do so now.\n"
+		setDescription("The usage file listed below will be uploaded along with the archived files you selected (there may not have been any to select from).\n"
 				+ "Information about program elements that you worked with is obfuscated to ensure privacy.");
 		// setDescription(
 		// "The files listed below will be uploaded. Information about program

@@ -56,8 +56,6 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 
 	private static final String DIRECTORY_MONITOR_BACKUP = "monitor";
 
-	private static final String BACKUP_FILE_PREFIX = "monitor-log";
-
 	private static final String ZIP_EXTENSION = ".zip";
 
 	private List<IUsageCollector> collectors = null;
@@ -67,6 +65,8 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 	private IEditorInput input = null;
 
 	private boolean forceSyncForTesting = false;
+	
+	public static final String BACKUP_FILE_SUFFIX = "monitor-log";
 
 	public MonitorFileRolloverJob(List<IUsageCollector> collectors) {
 		super(JOB_LABEL);
@@ -115,6 +115,11 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 		}
 	}
 
+	public static String getZippedMonitorFileDirPath() {
+		return ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + File.separatorChar
+		+ NAME_DATA_DIR + File.separatorChar + DIRECTORY_MONITOR_BACKUP;
+	}
+	
 	@SuppressWarnings("deprecation")
 	public IStatus run(final IProgressMonitor progressMonitor) {
 
@@ -132,10 +137,9 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 		if (events.size() > 0 && events.get(0).getDate().getMonth() != nowMonth) {
 			int currMonth = events.get(0).getDate().getMonth();
 
-			String fileName = getYear(events.get(0)) + "-" + getMonth(currMonth) + "-" + BACKUP_FILE_PREFIX;
+			String fileName = getYear(events.get(0)) + "-" + getMonth(currMonth) + "-" + BACKUP_FILE_SUFFIX;
 
-			File dir = new File(ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + File.separatorChar
-					+ NAME_DATA_DIR + File.separatorChar + DIRECTORY_MONITOR_BACKUP);
+			File dir = new File(getZippedMonitorFileDirPath());
 
 			if (!dir.exists()) {
 				dir.mkdir();
@@ -166,7 +170,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 						zipFileStream.closeEntry();
 						zipFileStream.close();
 
-						fileName = getYear(event) + "-" + getMonth(monthOfCurrEvent) + "-" + BACKUP_FILE_PREFIX;
+						fileName = getYear(event) + "-" + getMonth(monthOfCurrEvent) + "-" + BACKUP_FILE_SUFFIX;
 						currBackupZipFile = new File(dir, fileName + ZIP_EXTENSION);
 						if (!currBackupZipFile.exists()) {
 

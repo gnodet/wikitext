@@ -12,6 +12,8 @@ package org.eclipse.mylar.internal.monitor.usage.wizards;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -41,6 +43,7 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.mylar.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.core.util.ZipFileUtil;
 import org.eclipse.mylar.internal.monitor.usage.InteractionEventLogger;
+import org.eclipse.mylar.internal.monitor.usage.MonitorFileRolloverJob;
 import org.eclipse.mylar.internal.monitor.usage.MylarUsageMonitorPlugin;
 import org.eclipse.mylar.monitor.core.InteractionEvent;
 import org.eclipse.mylar.monitor.usage.IBackgroundPage;
@@ -75,15 +78,21 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 	private boolean displayBackgroundPage = false;
 
+	private boolean displayFileSelectionPage = false;
+
 	/** The id of the user */
 	private int uid;
 
 	private final File monitorFile = MylarUsageMonitorPlugin.getDefault().getMonitorLogFile();
 
+	private static int processedFileCount = 1;
+
 	// private final File logFile =
 	// MylarMonitorPlugin.getDefault().getLogFile();
 
 	private UsageUploadWizardPage uploadPage;
+
+	private UsageFileSelectionWizardPage fileSelectionPage;
 
 	// private GetNewUserIdPage getUidPage;
 
@@ -92,6 +101,8 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	private IBackgroundPage backgroundPage;
 
 	private boolean performUpload = true;
+
+	private List<String> backupFilesToUpload;
 
 	public UsageSubmissionWizard() {
 		super();
@@ -121,6 +132,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 					uid);
 		}
 		uploadPage = new UsageUploadWizardPage(this);
+		fileSelectionPage = new UsageFileSelectionWizardPage("TODO, change this string");
 		if (MylarUsageMonitorPlugin.getDefault().isBackgroundEnabled()) {
 			IBackgroundPage page = MylarUsageMonitorPlugin.getDefault().getStudyParameters().getBackgroundPage();
 			backgroundPage = page;
@@ -130,6 +142,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			questionnairePage = page;
 		}
 		super.setForcePreviousAndNextButtons(true);
+
 	}
 
 	private File questionnaireFile = null;
@@ -162,6 +175,10 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		if (MylarUsageMonitorPlugin.getDefault().isBackgroundEnabled() && performUpload && displayBackgroundPage
 				&& backgroundPage != null) {
 			backgroundFile = backgroundPage.createFeedbackFile();
+		}
+
+		if (displayFileSelectionPage) {
+			backupFilesToUpload = fileSelectionPage.getZipFilesSelected();
 		}
 
 		// final WorkspaceModifyOperation op = new WorkspaceModifyOperation() {
@@ -283,6 +300,10 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			addPage(questionnairePage);
 		}
 		if (performUpload) {
+			if (UsageFileSelectionWizardPage.unsubmittedLogsExist()) {
+				addPage(fileSelectionPage);
+				displayFileSelectionPage = true;
+			}
 			addPage(uploadPage);
 		}
 	}
@@ -696,7 +717,8 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	}
 
 	private File processMonitorFile(File monitorFile) {
-		File processedFile = new File("processed-" + MylarUsageMonitorPlugin.MONITOR_LOG_NAME + ".xml");
+		File processedFile = new File("processed-" + MylarUsageMonitorPlugin.MONITOR_LOG_NAME + processedFileCount++
+				+ ".xml");
 		InteractionEventLogger logger = new InteractionEventLogger(processedFile);
 		logger.startMonitoring();
 		List<InteractionEvent> eventList = logger.getHistoryFromFile(monitorFile);
@@ -712,6 +734,23 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		return processedFile;
 	}
 
+	private void addToSubmittedLogFile(String fileName) {
+		File submissionLogFile = new File(MonitorFileRolloverJob.getZippedMonitorFileDirPath(),
+				UsageFileSelectionWizardPage.SUBMISSION_LOG_FILE_NAME);
+		try {
+			FileWriter fileWriter = new FileWriter(submissionLogFile, true);
+			fileWriter.append(fileName + "\n");
+			fileWriter.flush();
+			fileWriter.close();
+
+		} catch (FileNotFoundException e) {
+			MylarStatusHandler.log(e, "error unzipping backup monitor log files");
+		} catch (IOException e) {
+			MylarStatusHandler.log(e, "error unzipping backup monitor log files");
+		}
+
+	}
+
 	private File zipFilesForUpload() {
 		MylarUsageMonitorPlugin.setPerformingUpload(true);
 		MylarUsageMonitorPlugin.getDefault().getInteractionLogger().stopMonitoring();
@@ -720,6 +759,29 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		File monitorFile = MylarUsageMonitorPlugin.getDefault().getMonitorLogFile();
 		File fileToUpload = this.processMonitorFile(monitorFile);
 		files.add(fileToUpload);
+
+		if (displayFileSelectionPage && backupFilesToUpload.size() > 0) {
+			for (String currFilePath : backupFilesToUpload) {
+				File file = new File(MonitorFileRolloverJob.getZippedMonitorFileDirPath(), currFilePath);
+				if (file.exists()) {
+					List<File> unzippedFiles;
+					try {
+						unzippedFiles = ZipFileUtil.unzipFiles(file, System.getProperty("java.io.tmpdir"));
+
+						if (unzippedFiles.size() > 0) {
+							for (File f : unzippedFiles) {
+								files.add(this.processMonitorFile(f));
+								this.addToSubmittedLogFile(currFilePath);
+							}
+						}
+					} catch (FileNotFoundException e) {
+						MylarStatusHandler.log(e, "error unzipping backup monitor log files");
+					} catch (IOException e) {
+						MylarStatusHandler.log(e, "error unzipping backup monitor log files");
+					}
+				}
+			}
+		}
 
 		MylarUsageMonitorPlugin.getDefault().getInteractionLogger().startMonitoring();
 		try {
