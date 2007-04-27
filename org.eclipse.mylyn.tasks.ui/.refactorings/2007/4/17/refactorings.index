@@ -8,3 +8,4 @@
 1177549647164	Rename method 'geContextActivationImage'
 1177610697968	Copy compilation unit
 1177610718703	Delete element
+1177632527640	Extract method 'postAttachnemts'
