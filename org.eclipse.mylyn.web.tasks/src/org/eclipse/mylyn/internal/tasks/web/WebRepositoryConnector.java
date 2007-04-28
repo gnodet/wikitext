@@ -155,8 +155,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		// lookup repository using task prefix url
 		TaskRepositoryManager repositoryManager = TasksUiPlugin.getRepositoryManager();
 		for (TaskRepository repository : repositoryManager.getRepositories(getRepositoryType())) {
-			String start = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
-			if (start != null && url.startsWith(start)) {
+			String taskUrl = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
+			if (taskUrl != null && !taskUrl.equals("") && url.startsWith(taskUrl)) {
 				return repository.getUrl();
 			}
 		}
@@ -167,8 +167,9 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 				TaskRepository repository = repositoryManager.getRepository(webQuery.getRepositoryKind(), webQuery
 						.getRepositoryUrl());
 				if (repository != null) {
-					if (url.startsWith(evaluateParams(webQuery.getTaskPrefix(), webQuery.getQueryParameters(),
-							repository))) {
+					String queryUrl = evaluateParams(webQuery.getTaskPrefix(), //
+							webQuery.getQueryParameters(), repository);
+					if (queryUrl != null && !queryUrl.equals("") && url.startsWith(queryUrl)) {
 						return webQuery.getRepositoryUrl();
 					}
 				}
