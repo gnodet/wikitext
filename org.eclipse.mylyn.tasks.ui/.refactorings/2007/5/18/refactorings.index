@@ -1,2 +1,4 @@
 1177984290991	Extract method 'toggleActiveTask'
 1177984304932	Rename method 'toggleActiveTask'
+1178061192364	Rename type 'RepositoryTaskDecorator'
+1178061270564	Rename type 'TaskDecorator'
