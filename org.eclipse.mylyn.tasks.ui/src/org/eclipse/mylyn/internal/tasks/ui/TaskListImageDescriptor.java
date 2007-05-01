@@ -71,15 +71,6 @@ public class TaskListImageDescriptor extends CompositeImageDescriptor {
 		return data;
 	}
 
-	/**
-	 * Sets the size of the image created by calling
-	 * <code>createImage()</code>.
-	 * 
-	 * @param size
-	 *            the size of the image returned from calling
-	 *            <code>createImage()</code>
-	 * @see ImageDescriptor#createImage()
-	 */
 	public void setImageSize(Point size) {
 		this.size = size;
 	}
