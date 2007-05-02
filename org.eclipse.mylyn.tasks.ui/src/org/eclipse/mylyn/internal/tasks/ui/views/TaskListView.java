@@ -35,7 +35,6 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnPixelData;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.DoubleClickEvent;
-import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.IOpenListener;
 import org.eclipse.jface.viewers.ISelection;
@@ -642,8 +641,8 @@ public class TaskListView extends ViewPart {
 		m.putInteger(MEMENTO_KEY_SORT_INDEX, sortIndex);
 		m.putInteger(MEMENTO_KEY_SORT_DIRECTION, sortDirection);
 
-		// TODO: move to task list save policy
-		TasksUiPlugin.getTaskListManager().saveTaskList();
+		// TODO: move to task list save policy		
+		///TasksUiPlugin.getTaskListManager().saveTaskList();
 	}
 
 	private void restoreState() {
