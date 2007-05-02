@@ -1,3 +1,11 @@
+/*******************************************************************************
+ * Copyright (c) 2004 - 2006 Mylar committers and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
+
 package org.eclipse.mylar.jira.tests;
 
 import java.net.Proxy;
@@ -10,8 +18,13 @@ import org.eclipse.mylar.context.tests.support.MylarTestUtils.Credentials;
 import org.eclipse.mylar.context.tests.support.MylarTestUtils.PrivilegeLevel;
 import org.eclipse.mylar.internal.jira.core.model.Issue;
 import org.eclipse.mylar.internal.jira.core.service.AbstractJiraServer;
+import org.eclipse.mylar.internal.jira.core.service.JiraException;
+import org.eclipse.mylar.internal.jira.core.service.JiraRemoteMessageException;
 import org.eclipse.mylar.internal.jira.core.service.soap.JiraRpcServer;
 
+/**
+ * @author Steffen Pingel
+ */
 public class JiraRpcServerTest extends TestCase {
 
 	private AbstractJiraServer server;
@@ -21,15 +34,15 @@ public class JiraRpcServerTest extends TestCase {
 		super.setUp();
 
 		Credentials credentials = MylarTestUtils.readCredentials(PrivilegeLevel.USER);
-		server = new JiraRpcServer("server", JiraTestConstants.JIRA_381_URL, false,
-				credentials.username, credentials.password, Proxy.NO_PROXY, null, null);
+		server = new JiraRpcServer("server", JiraTestConstants.JIRA_381_URL, false, credentials.username,
+				credentials.password, Proxy.NO_PROXY, null, null);
 	}
 
 	@Override
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public void testLogin() throws Exception {
 		server.login();
@@ -38,26 +51,35 @@ public class JiraRpcServerTest extends TestCase {
 		server.refreshDetails(new NullProgressMonitor());
 	}
 
-	public void testStartIssue() throws Exception {
-		Issue issue = JiraTestUtils.createIssue(server, "testStartIssue");
+	public void testStartStopIssue() throws Exception {
+		Issue issue = JiraTestUtils.createIssue(server, "testStartStopIssue");
 		server.startIssue(issue);
-		// no way to tell if issue was actually started		
+		try {
+			server.startIssue(issue);
+			fail("Expected JiraRemoteMessageException");
+		} catch (JiraRemoteMessageException e) {
+			assertEquals("Workflow Action Invalid", e.getMessage());
+		}
+		server.stopIssue(issue);
+		try {
+			server.stopIssue(issue);
+			fail("Expected JiraRemoteMessageException");
+		} catch (JiraException e) {
+			assertEquals("Workflow Action Invalid", e.getMessage());
+		}
+		server.startIssue(issue);
 	}
 
-//	public void testStopIssue() {
-//		fail("Not yet implemented");
-//	}
+// public void testResolveIssue() {
+// fail("Not yet implemented");
+// }
 //
-//	public void testResolveIssue() {
-//		fail("Not yet implemented");
-//	}
+// public void testCloseIssue() {
+// fail("Not yet implemented");
+// }
 //
-//	public void testCloseIssue() {
-//		fail("Not yet implemented");
-//	}
-//
-//	public void testReopenIssue() {
-//		fail("Not yet implemented");
-//	}
+// public void testReopenIssue() {
+// fail("Not yet implemented");
+// }
 
 }
