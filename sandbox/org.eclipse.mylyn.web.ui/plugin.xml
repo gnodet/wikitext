@@ -39,8 +39,9 @@
    </extension>
 
    <!-- ================================================================================ -->
-   <!-- Common Navigator viewer for use in the Project Explorer							 -->
+   <!-- Common Navigator sample code for web resource content							 -->
    <!-- ================================================================================ -->
+   <!--
    <extension
          point="org.eclipse.ui.navigator.navigatorContent">
       <navigatorContent
@@ -61,11 +62,11 @@
             <instanceof value="org.eclipse.mylar.internal.web.WebResource"/>
          </possibleChildren>
         
-        <!--
+        !-
          <override
                policy="InvokeAlwaysRegardlessOfSuppressedExt"
                suppressedExtensionId="org.eclipse.ui.navigator.resourceContent"/>
-        -->
+        -
          <actionProvider
                class="org.eclipse.mylar.internal.web.ui.WebSiteNavigatorActionProvider"
                id="org.eclipse.mylar.web.actionProvider">
@@ -87,9 +88,10 @@
 		   </parentExpression>
         </commonSorter>
    </navigatorContent>
+  	</extension>
+   -->
       
-   </extension>
-      <extension
+  <extension
          point="org.eclipse.ui.navigator.viewer">
       <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
          <includes>
