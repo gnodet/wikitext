@@ -1,1 +1,3 @@
 1178234009107	Rename type 'IContextIgnoringEditor'
+1178235050914	Rename method 'isContextIgnoringEditor'
+1178235062705	Rename method 'isContextAwareEditor'

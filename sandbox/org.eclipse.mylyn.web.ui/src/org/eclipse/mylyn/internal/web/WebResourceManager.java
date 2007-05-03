@@ -65,10 +65,6 @@ public class WebResourceManager {
 			updateContents(false);
 		}
 
-		public void presentationSettingsChanging(UpdateKind kind) {
-			// ignore
-		}
-
 		public void landmarkAdded(IMylarElement node) {
 			// ignore
 		}
@@ -82,10 +78,6 @@ public class WebResourceManager {
 		}
 
 		public void elementDeleted(IMylarElement node) {
-			// ignore
-		}
-
-		public void presentationSettingsChanged(UpdateKind kind) {
 			// ignore
 		}
 	};
