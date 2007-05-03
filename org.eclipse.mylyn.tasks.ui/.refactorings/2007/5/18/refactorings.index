@@ -5,3 +5,4 @@
 1178069095703	Extract constant 'XML_VERSION'
 1178069145437	Extract constant 'TRANSFORM_PROPERTY_VERSION'
 1178153056321	Rename method 'openBrowser'
+1178226219862	Rename method 'updateGradientColors'
