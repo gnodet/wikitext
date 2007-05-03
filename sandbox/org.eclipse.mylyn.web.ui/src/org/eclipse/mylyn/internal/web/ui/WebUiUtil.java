@@ -31,7 +31,10 @@ import org.eclipse.ui.internal.browser.WebBrowserEditorInput;
  */
 public class WebUiUtil {
 
-	public static void openUrlInInternalBrowser(WebResource webResource) {
+	/**
+	 * Activates instead of opening if browser with that URL is already open.
+	 */
+	public static void openUrl(WebResource webResource) {
 		String url = webResource.getUrl();
 		try {
 			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
@@ -47,7 +50,7 @@ public class WebUiUtil {
 					}
 				}
 			}
-			TasksUiUtil.openBrowser(url);
+			TasksUiUtil.openUrl(url, true);
 		} catch (PartInitException e) {
 			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
 					+ " could not be opened");

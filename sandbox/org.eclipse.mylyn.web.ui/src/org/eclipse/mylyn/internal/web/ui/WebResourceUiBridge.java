@@ -39,7 +39,7 @@ public class WebResourceUiBridge extends AbstractContextUiBridge {
 		} else {
 			WebResource webResource = (WebResource)bridge.getObjectForHandle(element.getHandleIdentifier());
 			if (webResource instanceof WebPage || webResource instanceof WebSite) {
-				WebUiUtil.openUrlInInternalBrowser(webResource);
+				WebUiUtil.openUrl(webResource);
 			}
 		}
 	} 

@@ -4,3 +4,4 @@
 1178061270564	Rename type 'TaskDecorator'
 1178069095703	Extract constant 'XML_VERSION'
 1178069145437	Extract constant 'TRANSFORM_PROPERTY_VERSION'
+1178153056321	Rename method 'openBrowser'

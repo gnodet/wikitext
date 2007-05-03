@@ -13,6 +13,7 @@ package org.eclipse.mylar.internal.web.ui;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.mylar.internal.web.WebResource;
+import org.eclipse.mylar.tasks.ui.TasksUiUtil;
 import org.eclipse.ui.actions.BaseSelectionListenerAction;
 
 /**
@@ -29,7 +30,7 @@ public class OpenWebResourceAction extends BaseSelectionListenerAction {
 		IStructuredSelection selection = super.getStructuredSelection();
 		Object selectedElement = selection.getFirstElement();
 		if (selectedElement instanceof WebResource) {
-			WebUiUtil.openUrlInInternalBrowser((WebResource)selectedElement);
+			TasksUiUtil.openUrl(((WebResource)selectedElement).getUrl(), true);
 		}
 	}
 }
