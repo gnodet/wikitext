@@ -25,7 +25,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.IMylarElement;
-import org.eclipse.mylar.internal.context.core.MylarContextManager;
+import org.eclipse.mylar.internal.context.core.ContextManager;
 import org.eclipse.mylar.monitor.core.InteractionEvent;
 import org.eclipse.mylar.monitor.ui.AbstractUserInteractionMonitor;
 import org.eclipse.mylar.monitor.ui.MylarMonitorUiPlugin;
@@ -126,7 +126,7 @@ public class SelectionMonitor extends AbstractUserInteractionMonitor {
 		}
 		IMylarElement node = ContextCorePlugin.getContextManager().getElement(elementHandle);
 		String delta = "";
-		float selectionFactor = MylarContextManager.getScalingFactors().get(InteractionEvent.Kind.SELECTION).getValue();
+		float selectionFactor = ContextManager.getScalingFactors().get(InteractionEvent.Kind.SELECTION).getValue();
 
 		if (node != null) {
 			if (node.getInterest().getEncodedValue() <= selectionFactor

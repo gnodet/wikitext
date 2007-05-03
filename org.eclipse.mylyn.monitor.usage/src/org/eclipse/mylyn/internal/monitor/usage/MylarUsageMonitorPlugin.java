@@ -38,7 +38,7 @@ import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.IContextStoreListener;
 import org.eclipse.mylar.core.MylarStatusHandler;
 import org.eclipse.mylar.core.net.WebClientUtil;
-import org.eclipse.mylar.internal.context.core.MylarContextManager;
+import org.eclipse.mylar.internal.context.core.ContextManager;
 import org.eclipse.mylar.internal.monitor.usage.wizards.UsageSubmissionWizard;
 import org.eclipse.mylar.monitor.core.IInteractionEventListener;
 import org.eclipse.mylar.monitor.ui.AbstractCommandMonitor;
@@ -447,7 +447,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 			rootDir = new File(getStateLocation().toString());
 		}
 
-		File file = new File(rootDir, MONITOR_LOG_NAME + MylarContextManager.CONTEXT_FILE_EXTENSION_OLD);
+		File file = new File(rootDir, MONITOR_LOG_NAME + ContextManager.CONTEXT_FILE_EXTENSION_OLD);
 
 		// File oldFile = new
 		// File(ContextCorePlugin.getDefault().getContextStore().getRootDirectory(),
