@@ -8,3 +8,5 @@
 1178226219862	Rename method 'updateGradientColors'
 1178230717270	Extract method 'drawImage'
 1178230767456	Convert anonymous class to nested
+1178232701019	Rename resource 'bug.gif'
+1178232707691	Rename resource 'bug-report'
