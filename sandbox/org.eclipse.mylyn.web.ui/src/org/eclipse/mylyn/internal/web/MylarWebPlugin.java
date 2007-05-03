@@ -10,9 +10,14 @@
  *******************************************************************************/
 package org.eclipse.mylar.internal.web;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylar.core.MylarStatusHandler;
 import org.eclipse.mylar.monitor.ui.MylarMonitorUiPlugin;
+import org.eclipse.mylar.tasks.core.TaskRepository;
+import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -28,6 +33,8 @@ public class MylarWebPlugin extends AbstractUIPlugin {
 	private WebResourceManager webResourceManager;
 
 	private BrowserTracker browserTracker;
+	
+	private Set<String> excludedUrls = new HashSet<String>();
 
 	public MylarWebPlugin() {
 		INSTANCE = this;
@@ -45,6 +52,12 @@ public class MylarWebPlugin extends AbstractUIPlugin {
 			browserTracker = new BrowserTracker();
 			MylarMonitorUiPlugin.getDefault().addWindowPartListener(browserTracker);
 
+			for (TaskRepository repository : TasksUiPlugin.getRepositoryManager().getAllRepositories()) {
+				String url = repository.getUrl();
+				if (url != null) {
+					excludedUrls.add(url);
+				}
+			}
 		} catch (Exception e) {
 			MylarStatusHandler.fail(e, "Mylar Hypertext initialization failed", false);
 		}
@@ -61,6 +74,13 @@ public class MylarWebPlugin extends AbstractUIPlugin {
 	public static MylarWebPlugin getDefault() {
 		return INSTANCE;
 	}
+	
+	/**
+	 * @param url	String representation of URL to be excluded from context
+	 */
+	public void addExcludedUrl(String url) {
+		excludedUrls.add(url);
+	}
 
 	/**
 	 * Returns an image descriptor for the image file at the given plug-in
@@ -72,6 +92,10 @@ public class MylarWebPlugin extends AbstractUIPlugin {
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.mylar.internal.web", path);
+	}
+
+	public Set<String> getExcludedUrls() {
+		return excludedUrls;
 	}
 
 }

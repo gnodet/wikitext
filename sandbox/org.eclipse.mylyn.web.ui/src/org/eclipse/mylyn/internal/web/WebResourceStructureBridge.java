@@ -48,16 +48,28 @@ public class WebResourceStructureBridge extends AbstractContextStructureBridge {
 		}
 	}
 	
+	/**
+	 * Excluded URLs do not participate in the context.
+	 */
 	@Override
 	public String getHandleIdentifier(Object object) {
+		String url = null;
 		if (object instanceof LocationEvent) {
-			return ((LocationEvent) object).location;
+			url = ((LocationEvent) object).location;
 		} else if (object instanceof WebResource){
-			return ((WebResource)object).getUrl();
+			url = ((WebResource)object).getUrl();
 		} else if (object instanceof URL) {
-			return ((URL)object).toExternalForm();
+			url = ((URL)object).toExternalForm();
+		}
+		if (url != null) {
+			for (String excluded : MylarWebPlugin.getDefault().getExcludedUrls()) {
+				if (url.startsWith(excluded)) {
+					return null;
+				}
+			} 
+			return url;
 		} else {
-			return null;
+			return url;
 		}
 	}
 
