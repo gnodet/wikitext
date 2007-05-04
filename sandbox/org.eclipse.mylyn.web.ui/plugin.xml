@@ -110,10 +110,6 @@
           viewerId="org.eclipse.mylar.web.navigator.dragAssistant"/>
       -
    </extension>
-   -->
-
-  	<!-- ==================== Context Editing ==================== -->
-	
     <extension
          point="org.eclipse.ui.navigator.viewer">
        <viewerContentBinding 
@@ -129,6 +125,7 @@
           </includes>
        </viewerContentBinding>
    </extension>	
+  -->
  
   
 </plugin>
