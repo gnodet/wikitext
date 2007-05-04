@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.mylar.sandbox_feature"
-      label="Mylar Sandbox"
+      label="Developer Tools"
       version="2.0.0.v20070503-1930"
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylar">
@@ -223,13 +223,6 @@ litigation.
 
    <plugin
          id="org.eclipse.mylar.sandbox"
-         download-size="0"
-         install-size="0"
-         version="2.0.0.v20070503-1930"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.mylar.web"
          download-size="0"
          install-size="0"
          version="2.0.0.v20070503-1930"
