@@ -289,8 +289,10 @@ public class TaskListView extends ViewPart {
 
 	private FilterArchiveContainerAction filterArchiveCategory;
 
-	private PriorityDropDownAction filterOnPriority;
+	private PriorityDropDownAction filterOnPriorityAction;
 
+	private SortyByDropDownAction sortByAction;
+	
 	PreviousTaskDropDownAction previousTaskAction;
 
 	private PresentationDropDownSelectionAction presentationDropDownSelectionAction;
@@ -779,7 +781,6 @@ public class TaskListView extends ViewPart {
 				| SWT.FULL_SELECTION | SWT.HIDE_SELECTION, new TaskListPatternFilter());
 
 		getViewer().getTree().setHeaderVisible(false);
-// getViewer().getTree().setLinesVisible(true);
 		getViewer().setUseHashlookup(true);
 
 		configureColumns(columnNames, columnWidths);
@@ -796,10 +797,7 @@ public class TaskListView extends ViewPart {
 		((Text) textEditor.getControl()).setOrientation(SWT.LEFT_TO_RIGHT);
 		editors[0] = textEditor;
 		// editors[1] = new ComboBoxCellEditor(getViewer().getTree(),
-		// PRIORITY_LEVEL_DESCRIPTIONS, SWT.READ_ONLY);
-//		editors[1] = null;
-// editors[2] = null;
-// editors[2] = new CheckboxCellEditor();
+		// editors[2] = new CheckboxCellEditor();
 
 		getViewer().setCellEditors(editors);
 		getViewer().setCellModifier(taskListCellModifier);
@@ -1037,7 +1035,7 @@ public class TaskListView extends ViewPart {
 		manager.add(collapseAll);
 		manager.add(expandAll);
 		manager.add(new Separator(ID_SEPARATOR_FILTERS));
-		manager.add(filterOnPriority);
+		manager.add(filterOnPriorityAction);
 		manager.add(filterCompleteTask);
 		manager.add(filterArchiveCategory);
 
@@ -1049,7 +1047,7 @@ public class TaskListView extends ViewPart {
 
 		manager.addMenuListener(new IMenuListener() {
 			public void menuAboutToShow(IMenuManager manager) {
-				filterOnPriority.updateCheckedState();
+				filterOnPriorityAction.updateCheckedState();
 			}
 		});
 
@@ -1273,7 +1271,7 @@ public class TaskListView extends ViewPart {
 		synchronizeAutomatically = new SynchronizeAutomaticallyAction();
 		openPreferencesAction = new OpenTasksUiPreferencesAction();
 		filterArchiveCategory = new FilterArchiveContainerAction(this);
-		filterOnPriority = new PriorityDropDownAction(this);
+		filterOnPriorityAction = new PriorityDropDownAction(this);
 		previousTaskAction = new PreviousTaskDropDownAction(this, TasksUiPlugin.getTaskListManager()
 				.getTaskActivationHistory());
 		ITaskListPresentation[] presentations = { catagorizedPresentation, scheduledPresentation };
@@ -1650,7 +1648,7 @@ public class TaskListView extends ViewPart {
 	}
 
 	public void setManualFiltersEnabled(boolean enabled) {
-		filterOnPriority.setEnabled(enabled);
+		filterOnPriorityAction.setEnabled(enabled);
 		filterCompleteTask.setEnabled(enabled);
 		filterArchiveCategory.setEnabled(enabled);
 	}

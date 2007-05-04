@@ -10,3 +10,6 @@
 1178230767456	Convert anonymous class to nested
 1178232701019	Rename resource 'bug.gif'
 1178232707691	Rename resource 'bug-report'
+1178245680304	Copy compilation unit
+1178245843616	Rename type 'FilterDropDownAction'
+1178245884173	Rename field 'filterOnPriority'
