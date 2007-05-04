@@ -38,9 +38,9 @@ public class CompositeTaskContainerImageDescriptor extends CompositeImageDescrip
 	@Override
 	protected void drawCompositeImage(int width, int height) {
 		drawImage(base, 0, 0);
-//		if (overlay != null) {
-//			drawImage(overlay, base.width, 0);
-//		}
+		if (overlay != null) {
+			drawImage(overlay, base.width, CompositeTaskImageDescriptor.OFFSET_SYNCH);
+		}
 	}
 
 	private ImageData getImageData(ImageDescriptor descriptor) {
