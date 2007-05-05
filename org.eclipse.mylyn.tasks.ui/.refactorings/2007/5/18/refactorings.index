@@ -14,3 +14,4 @@
 1178245843616	Rename type 'FilterDropDownAction'
 1178245884173	Rename field 'filterOnPriority'
 1178249986053	Delete element
+1178327684267	Extract constant 'GRADIENT'
