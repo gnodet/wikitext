@@ -3,8 +3,8 @@
    <description url="http://download.eclipse.org/technology/mylar/update-site/e3.3">
       Mylar update site for Eclipse 3.3
    </description>
-   <feature url="features/org.eclipse.mylar.sandbox_feature_2.0.0.v20070503-1930.jar" id="org.eclipse.mylar.sandbox_feature" version="2.0.0.v20070503-1930">
-      <category name="Mylar Incubator"/>
+   <feature url="features/org.eclipse.mylar.sandbox_feature_2.0.0.v20070504-1700.jar" id="org.eclipse.mylar.sandbox_feature" version="2.0.0.v20070504-1700">
+      <category name="Mylar Sandbox"/>
    </feature>
-   <category-def name="Mylar Incubator" label="Mylar Incubator"/>
+   <category-def name="Mylar Sandbox" label="Mylar Sandbox"/>
 </site>

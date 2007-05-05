@@ -18,13 +18,9 @@
    <feature url="features/org.eclipse.mylar.trac_feature_2.0.0.v20070504-1700.jar" id="org.eclipse.mylar.trac_feature" version="2.0.0.v20070504-1700">
       <category name="Integration"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.sandbox_feature_2.0.0.v20070504-1700.jar" id="org.eclipse.mylar.sandbox_feature" version="2.0.0.v20070504-1700">
-      <category name="UI Usage Reports (Experimental)"/>
-   </feature>
    <feature url="features/org.eclipse.mylar.monitor_feature_2.0.0.v20070504-1700.jar" id="org.eclipse.mylar.monitor_feature" version="2.0.0.v20070504-1700">
       <category name="Features"/>
    </feature>
    <category-def name="Features" label="Features"/>
    <category-def name="Integration" label="Integration"/>
-   <category-def name="UI Usage Reports (Experimental)" label="Sandbox (Experimental)"/>
 </site>
