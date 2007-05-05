@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description url="http://download.eclipse.org/technology/mylar/update-site/e3.3">
+      Mylar update site for Eclipse 3.3
+   </description>
+   <feature url="features/org.eclipse.mylar.sandbox_feature_2.0.0.v20070503-1930.jar" id="org.eclipse.mylar.sandbox_feature" version="2.0.0.v20070503-1930">
+      <category name="Mylar Incubator"/>
+   </feature>
+   <category-def name="Mylar Incubator" label="Mylar Incubator"/>
+</site>

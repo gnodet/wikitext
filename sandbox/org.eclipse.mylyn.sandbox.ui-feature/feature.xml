@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.mylar.sandbox_feature"
       label="Developer Tools"
-      version="2.0.0.v20070503-1930"
+      version="2.0.0.v20070504-1700"
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylar">
 
@@ -225,7 +225,7 @@ litigation.
          id="org.eclipse.mylar.sandbox"
          download-size="0"
          install-size="0"
-         version="2.0.0.v20070503-1930"
+         version="2.0.0.v20070504-1700"
          unpack="false"/>
 
 </feature>
