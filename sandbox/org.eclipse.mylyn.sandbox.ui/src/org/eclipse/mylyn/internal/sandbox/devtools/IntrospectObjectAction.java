@@ -22,6 +22,7 @@ import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.IMylarElement;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
+import org.eclipse.mylar.tasks.core.ITask;
 import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.ui.IViewActionDelegate;
@@ -77,7 +78,12 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 					text += "\nRepository synch time stamp: " + repository.getSyncTimeStamp();
 					text += "\nSync state: "+ task.getSyncState();
 					text += "\nParent: "+ task.getContainer();
-					
+					if(task.getChildren() != null && !task.getChildren().isEmpty()){
+						text += "\nChildren: ";
+						for (ITask subTask : task.getChildren()) {
+							text += "\n"+subTask;							
+						}
+					}
 				}
 			}
 			text += "\n\nNum tasks: " + TasksUiPlugin.getTaskListManager().getTaskList().getAllTasks().size();
