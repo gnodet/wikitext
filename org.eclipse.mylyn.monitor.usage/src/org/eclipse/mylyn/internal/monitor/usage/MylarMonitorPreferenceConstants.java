@@ -30,4 +30,10 @@ public class MylarMonitorPreferenceConstants {
 
 	public static final String PREF_MONITORING_MYLAR_ECLIPSE_ORG_CONSENT_VIEWED = "org.eclipse.mylar.monitor.mylar.eclipse.org.consent.viewed";
 
+	public static final String PREF_MONITORING_STARTED = "org.eclipse.mylar.monitor.monitoring.started";
+
+	public static final String PREF_MONITORING_INITIALLY_ENABLED = "org.eclipse.mylar.monitor.initially.enabled";
+
+	public static final String PREF_MONITORING_ENABLE_SUBMISSION_INITITALLY_ENABLED = "org.eclipse.mylar.monitor.submission.initially.enabled";
+
 }

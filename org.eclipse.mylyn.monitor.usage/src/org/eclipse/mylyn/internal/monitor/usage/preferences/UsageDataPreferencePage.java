@@ -204,7 +204,7 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 
 	@Override
 	public boolean performOk() {
-		MylarUsageMonitorPlugin.getPrefs().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_OBFUSCATE,
+		getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_OBFUSCATE,
 				enableObfuscation.getSelection());
 		if (enableMonitoring.getSelection()) {
 			MylarUsageMonitorPlugin.getDefault().startMonitoring();
@@ -212,8 +212,11 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 			MylarUsageMonitorPlugin.getDefault().stopMonitoring();
 		}
 
-		MylarUsageMonitorPlugin.getPrefs().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION,
+		getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION,
 				enableSubmission.getSelection());
+
+		getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED,
+				enableMonitoring.getSelection());
 
 		long transmitFrequency = MylarUsageMonitorPlugin.DEFAULT_DELAY_BETWEEN_TRANSMITS;
 
@@ -221,13 +224,12 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 
 		try {
 			transmitFrequency = Integer.parseInt(submissionFrequency);
-			// we
 			transmitFrequency *= DAYS_IN_MS;
 		} catch (NumberFormatException nfe) {
 			// do nothing, transmitFrequency will have the default value
 		}
 
-		MylarUsageMonitorPlugin.getPrefs().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY,
+		getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY,
 				transmitFrequency);
 
 		MylarUsageMonitorPlugin.getDefault().getStudyParameters().setTransmitPromptPeriod(transmitFrequency);

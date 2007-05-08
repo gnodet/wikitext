@@ -39,6 +39,7 @@ import org.eclipse.mylar.context.core.IContextStoreListener;
 import org.eclipse.mylar.core.MylarStatusHandler;
 import org.eclipse.mylar.core.net.WebClientUtil;
 import org.eclipse.mylar.internal.context.core.ContextManager;
+import org.eclipse.mylar.internal.monitor.usage.wizards.NewUsageSummaryEditorWizard;
 import org.eclipse.mylar.internal.monitor.usage.wizards.UsageSubmissionWizard;
 import org.eclipse.mylar.monitor.core.IInteractionEventListener;
 import org.eclipse.mylar.monitor.ui.AbstractCommandMonitor;
@@ -80,15 +81,17 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 
 	private static final long HOUR = 3600 * 1000;
 
-	private static final long DELAY_ON_USER_REQUEST = 3 * HOUR;
+	private static final long DAY = HOUR * 24;
 
-	private static final long DELAY_ON_FAILURE = 5 * HOUR;
+	private static final long DELAY_ON_USER_REQUEST = 5 * DAY;
+
+	//private static final long DELAY_ON_FAILURE = 5 * HOUR;
 
 	public static final String DEFAULT_TITLE = "Mylar Feedback";
 
 	public static final String DEFAULT_DESCRIPTION = "Fill out the following form to help us improve Mylar based on your input.\n";
 
-	public static final long DEFAULT_DELAY_BETWEEN_TRANSMITS = 14 * 24 * HOUR;
+	public static final long DEFAULT_DELAY_BETWEEN_TRANSMITS = 21 * 24 * HOUR;
 
 	public static final String DEFAULT_ETHICS_FORM = "doc/study-ethics.html";
 
@@ -126,7 +129,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 
 	private KeybindingCommandMonitor keybindingCommandMonitor;
 
-//	private BrowserMonitor browserMonitor;
+	// private BrowserMonitor browserMonitor;
 
 	private static MylarUsageMonitorPlugin plugin;
 
@@ -217,10 +220,27 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 
 	public MylarUsageMonitorPlugin() {
 		plugin = this;
+
 	}
 
 	private void initDefaultPrefs() {
 		getPreferenceStore().setDefault(MylarMonitorPreferenceConstants.PREF_MONITORING_OBFUSCATE, true);
+
+		if (!getPreferenceStore().contains(MylarMonitorPreferenceConstants.PREF_MONITORING_INITIALLY_ENABLED)) {
+			getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_INITIALLY_ENABLED, true);
+			getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED, true);
+		}
+
+		if (!getPreferenceStore().contains(
+				MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION_INITITALLY_ENABLED)) {
+			getPreferenceStore().setValue(
+					MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION_INITITALLY_ENABLED, true);
+			getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION, true);
+
+		}
+
+		getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_STARTED, false);
+
 	}
 
 	@Override
@@ -237,10 +257,10 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 			windowMonitor = new WindowChangeMonitor();
 			menuMonitor = new MenuCommandMonitor();
 			keybindingCommandMonitor = new KeybindingCommandMonitor();
-			
-//			browserMonitor = new BrowserMonitor();
-//			setAcceptedUrlMatchList(studyParameters.getAcceptedUrlList());
-			
+
+			// browserMonitor = new BrowserMonitor();
+			// setAcceptedUrlMatchList(studyParameters.getAcceptedUrlList());
+
 			studyParameters.setServletUrl(DEFAULT_UPLOAD_SERVER + DEFAULT_UPLOAD_SERVLET);
 
 			final IWorkbench workbench = PlatformUI.getWorkbench();
@@ -249,9 +269,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 					try {
 
 						if (getPreferenceStore().getBoolean(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED)) {
-							// will be reset
-							getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED,
-									false);
+
 							startMonitoring();
 						}
 
@@ -285,10 +303,11 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		//
 		// }
 		// });
+
 	}
 
 	public void startMonitoring() {
-		if (getPreferenceStore().getBoolean(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED))
+		if (getPreferenceStore().contains(MylarMonitorPreferenceConstants.PREF_MONITORING_STARTED))
 			return;
 		interactionLogger.startMonitoring();
 		for (IInteractionEventListener listener : MylarMonitorUiPlugin.getDefault().getInteractionListeners())
@@ -311,7 +330,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		workbench.getDisplay().addFilter(SWT.Selection, menuMonitor);
 		workbench.addWindowListener(windowMonitor);
 
-//		installBrowserMonitor(workbench);
+		// installBrowserMonitor(workbench);
 
 		for (Object listener : lifecycleListeners.getListeners()) {
 			((IMylarMonitorLifecycleListener) listener).startMonitoring();
@@ -320,7 +339,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		if (!ContextCorePlugin.getDefault().suppressWizardsOnStartup()) {
 			checkForFirstMonitorUse();
 		}
-		getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED, true);
+		getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_STARTED, true);
 	}
 
 	public void addMonitoredPreferences(Preferences preferences) {
@@ -336,7 +355,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 	}
 
 	public void stopMonitoring() {
-		if (!getPreferenceStore().getBoolean(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED))
+		if (!getPreferenceStore().contains(MylarMonitorPreferenceConstants.PREF_MONITORING_STARTED))
 			return;
 
 		for (Object listener : lifecycleListeners.getListeners()) {
@@ -366,10 +385,10 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		workbench.getDisplay().removeFilter(SWT.Selection, menuMonitor);
 		workbench.removeWindowListener(windowMonitor);
 
-//		uninstallBrowserMonitor(workbench);
+		// uninstallBrowserMonitor(workbench);
 		interactionLogger.stopMonitoring();
 
-		getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED, false);
+		getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_STARTED, false);
 	}
 
 	public void addMonitoringLifecycleListener(IMylarMonitorLifecycleListener listener) {
@@ -404,40 +423,40 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		return commandMonitors;
 	}
 
-//	/**
-//	 * @return true if the list was set
-//	 */
-//	public boolean setAcceptedUrlMatchList(String urlBuffer) {
-//		if (browserMonitor != null) {
-//			browserMonitor.setAcceptedUrls(urlBuffer);
-//			return true;
-//		} else {
-//			return false;
-//		}
-//	}
-//	private void installBrowserMonitor(IWorkbench workbench) {
-//		workbench.addWindowListener(browserMonitor);
-//		IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
-//		for (int i = 0; i < windows.length; i++) {
-//			windows[i].addPageListener(browserMonitor);
-//			IWorkbenchPage[] pages = windows[i].getPages();
-//			for (int j = 0; j < pages.length; j++) {
-//				pages[j].addPartListener(browserMonitor);
-//			}
-//		}
-//	}
-//
-//	private void uninstallBrowserMonitor(IWorkbench workbench) {
-//		workbench.removeWindowListener(browserMonitor);
-//		IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
-//		for (int i = 0; i < windows.length; i++) {
-//			windows[i].removePageListener(browserMonitor);
-//			IWorkbenchPage[] pages = windows[i].getPages();
-//			for (int j = 0; j < pages.length; j++) {
-//				pages[j].removePartListener(browserMonitor);
-//			}
-//		}
-//	}
+	// /**
+	// * @return true if the list was set
+	// */
+	// public boolean setAcceptedUrlMatchList(String urlBuffer) {
+	// if (browserMonitor != null) {
+	// browserMonitor.setAcceptedUrls(urlBuffer);
+	// return true;
+	// } else {
+	// return false;
+	// }
+	// }
+	// private void installBrowserMonitor(IWorkbench workbench) {
+	// workbench.addWindowListener(browserMonitor);
+	// IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
+	// for (int i = 0; i < windows.length; i++) {
+	// windows[i].addPageListener(browserMonitor);
+	// IWorkbenchPage[] pages = windows[i].getPages();
+	// for (int j = 0; j < pages.length; j++) {
+	// pages[j].addPartListener(browserMonitor);
+	// }
+	// }
+	// }
+	//
+	// private void uninstallBrowserMonitor(IWorkbench workbench) {
+	// workbench.removeWindowListener(browserMonitor);
+	// IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
+	// for (int i = 0; i < windows.length; i++) {
+	// windows[i].removePageListener(browserMonitor);
+	// IWorkbenchPage[] pages = windows[i].getPages();
+	// for (int j = 0; j < pages.length; j++) {
+	// pages[j].removePartListener(browserMonitor);
+	// }
+	// }
+	// }
 
 	public File getMonitorLogFile() {
 		File rootDir;
@@ -465,8 +484,8 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		return file;
 	}
 
-	private long getUserTransimitDelay() {
-		return DELAY_ON_USER_REQUEST / HOUR;
+	private long getUserPromptDelay() {
+		return DELAY_ON_USER_REQUEST / DAY;
 	}
 
 	public void userCancelSubmitFeedback(Date currentTime, boolean wait3Hours) {
@@ -551,11 +570,14 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 		if (currentTime.getTime() > lastTransmit.getTime() + studyParameters.getTransmitPromptPeriod()
 				&& getPreferenceStore().getBoolean(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION)) {
 
-			String ending = getUserTransimitDelay() == 1 ? "" : "s";
-			MessageDialog message = new MessageDialog(Display.getDefault().getActiveShell(), "Send Usage Feedback",
-					null, "Send Mylar Usage Statistics feedback now?", MessageDialog.QUESTION, new String[] {
-							IDialogConstants.YES_LABEL, "Remind me in " + getUserTransimitDelay() + " hour" + ending,
-							"Remind me tomorrow" }, 0);
+			String ending = getUserPromptDelay() == 1 ? "" : "s";
+			MessageDialog message = new MessageDialog(
+					Display.getDefault().getActiveShell(),
+					"Send Usage Feedback",
+					null,
+					"To help improve the Eclipse and Mylar user experience please consider uploading your UI usage statistics.",
+					MessageDialog.QUESTION, new String[] { "Open UI Usage Report",
+							"Remind me in " + getUserPromptDelay() + " day" + ending, "Don't ask again" }, 0);
 			int result = 0;
 			if ((result = message.open()) == 0) {
 				// time must be stored right away into preferences, to prevent
@@ -581,24 +603,32 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 							MylarMonitorPreferenceConstants.PREF_MONITORING_MYLAR_ECLIPSE_ORG_CONSENT_VIEWED, true);
 				}
 
-				UsageSubmissionWizard wizard = new UsageSubmissionWizard();
+				
+				NewUsageSummaryEditorWizard wizard = new NewUsageSummaryEditorWizard();
 				wizard.init(PlatformUI.getWorkbench(), null);
 				// Instantiates the wizard container with the wizard and
 				// opens it
 				WizardDialog dialog = new WizardDialog(Display.getDefault().getActiveShell(), wizard);
 				dialog.create();
 				dialog.open();
-				if (wizard.failed()) {
+	/*		
+	 * the UI usage report is loaded asynchronously 
+	 * so there's no synchronous way to know if it failed
+	 * 	if (wizard.failed()) {
 					lastTransmit.setTime(currentTime.getTime() + DELAY_ON_FAILURE
 							- studyParameters.getTransmitPromptPeriod());
 					plugin.getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE,
 							currentTime.getTime());
 				}
+		*/		 
+
 			} else {
 				if (result == 1) {
 					userCancelSubmitFeedback(currentTime, true);
 				} else {
-					userCancelSubmitFeedback(currentTime, false);
+					plugin.getPreferenceStore().setValue(
+							MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION, false);
+
 				}
 				message.close();
 			}
@@ -613,20 +643,23 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 
 	public void configureProxy(HttpClient httpClient, String uploadScript) {
 		Proxy proxy = WebClientUtil.getPlatformProxy();
-		WebClientUtil.setupHttpClient(httpClient, proxy, uploadScript, uploadAuthentication.getUser(), uploadAuthentication.getPassword());
-//		if (proxy != null) {
-//			String proxyHost = proxy.
-//			int proxyPort = UpdateCore.getPlugin().getPluginPreferences().getInt(UpdateCore.HTTP_PROXY_PORT);
-//			httpClient.getHostConfiguration().setProxy(proxyHost, proxyPort);
-//			if (uploadAuthentication == null)	
-//				uploadAuthentication = UserValidationDialog.getAuthentication(proxyHost,
-//						"(Leave fields blank if authentication is not required)");
-//			if (uploadAuthentication != null) {
-//				httpClient.getState().setProxyCredentials(
-//						new AuthScope(proxyHost, proxyPort),
-//						new UsernamePasswordCredentials(uploadAuthentication.getUser(), ));
-//			}
-//		}
+		WebClientUtil.setupHttpClient(httpClient, proxy, uploadScript, uploadAuthentication.getUser(),
+				uploadAuthentication.getPassword());
+		// if (proxy != null) {
+		// String proxyHost = proxy.
+		// int proxyPort =
+		// UpdateCore.getPlugin().getPluginPreferences().getInt(UpdateCore.HTTP_PROXY_PORT);
+		// httpClient.getHostConfiguration().setProxy(proxyHost, proxyPort);
+		// if (uploadAuthentication == null)
+		// uploadAuthentication =
+		// UserValidationDialog.getAuthentication(proxyHost,
+		// "(Leave fields blank if authentication is not required)");
+		// if (uploadAuthentication != null) {
+		// httpClient.getState().setProxyCredentials(
+		// new AuthScope(proxyHost, proxyPort),
+		// new UsernamePasswordCredentials(uploadAuthentication.getUser(), ));
+		// }
+		// }
 	}
 
 	public static IPreferenceStore getPrefs() {
@@ -714,8 +747,9 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 								}
 							}
 							customizingPlugin = extensions[i].getNamespace();
-							getPreferenceStore()
-									.setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED, true);
+							// getPreferenceStore()
+							// .setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED,
+							// true);
 						}
 						extensionsRead = true;
 					}
