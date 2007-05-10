@@ -3,3 +3,4 @@
 1178666338578	Copy compilation unit
 1178670321890	Change method 'shouldAlwaysShow'
 1178737320718	Rename type 'DiscardOutgoingAction'
+1178827792342	Extract method 'openUrl'
