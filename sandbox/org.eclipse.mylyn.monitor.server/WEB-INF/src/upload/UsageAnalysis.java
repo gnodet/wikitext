@@ -6,9 +6,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipEntry;
@@ -21,23 +25,30 @@ public class UsageAnalysis {
 	Map<Integer, Integer> usersNumSelections = new HashMap<Integer, Integer>();
 
 	Map<String, Integer> totalNumSelections = new HashMap<String, Integer>();
-	
+
+	Map<String, Integer> totalNumCommands = new HashMap<String, Integer>();
+
 	final static String USAGE_DIRECTORY = MylarUsageUploadServlet.UPLOAD_DIRECTORY;
-	
+
 	final static String LOGGING_DIRECTORY = "home//study//logging//";
-		
+
 	final static String ERROR_LOGGING_FILE = "MylarUsageAnalysisErrorLog.txt";
 
 	final static String USAGE_SUMMARY_FILE = "usageSummary.txt";
 
 	int MAX_NUM_VIEWS_TO_REPORT = 10;
 
+	int MAX_NUM_COMMANDS_TO_REPORT = 25;
+
 	int totalSelections = 0;
 
-	public static void main(String []args) {
+	int totalCommands = 0;
+
+	public static void main(String[] args) {
 		UsageAnalysis ua = new UsageAnalysis();
 		ua.analyzeLogs();
 	}
+
 	public void analyzeLogs() {
 
 		try {
@@ -50,6 +61,7 @@ public class UsageAnalysis {
 				userID = this.getUserId(currFile);
 
 				int numSelections = 0;
+				int numCommands = 0;
 				if (usersNumSelections.containsKey(userID)) {
 					numSelections = usersNumSelections.get(userID);
 				}
@@ -70,7 +82,8 @@ public class UsageAnalysis {
 				String endTag = "</originId>";
 
 				String kindTag = "<kind>";
-				String matchKind = "selection";
+				String selectionKind = "selection";
+				String commandKind = "command";
 
 				// they should all be zip files, ignore anything that's not
 				if (currFile.getName().endsWith(".zip")) {
@@ -90,7 +103,9 @@ public class UsageAnalysis {
 								int kindIndex = buf.indexOf(kindTag);
 								kindIndex += kindTag.length();
 
-								if (buf.substring(kindIndex, kindIndex + matchKind.length()).equals(matchKind)) {
+								String currKind = buf.substring(kindIndex, kindIndex + selectionKind.length());
+
+								if (currKind.contains(selectionKind)) {
 
 									numSelections++;
 									totalSelections++;
@@ -109,6 +124,17 @@ public class UsageAnalysis {
 									int totalNumViews = totalNumSelections.get(currOriginId) + 1;
 									totalNumSelections.put(currOriginId, totalNumViews);
 
+								} else if (currKind.contains(commandKind)) {
+									numCommands++;
+									totalCommands++;
+									currOriginId = buf.substring(index, endIndex);
+
+									if (!totalNumCommands.containsKey(currOriginId)) {
+										totalNumCommands.put(currOriginId, 0);
+									}
+
+									int currNumCommands = totalNumCommands.get(currOriginId) + 1;
+									totalNumCommands.put(currOriginId, currNumCommands);
 								}
 
 								buf = buf.substring(endIndex + endTag.length(), buf.length());
@@ -214,29 +240,98 @@ public class UsageAnalysis {
 
 			PrintStream summaryLogStream = new PrintStream(new FileOutputStream(summaryFile, true));
 
-			summaryLogStream.println("Total events: " + totalSelections);
-			summaryLogStream.println("Number of unique users: " + userToViewMap.entrySet().size());
-			summaryLogStream.println();
+			summaryLogStream.println("<h2>Mylar Community Usage Statistics</h2>");
+			summaryLogStream.println("These statistics are updated once per day.  They were last updated at "
+					+ DateFormat.getTimeInstance(DateFormat.DEFAULT).format(Calendar.getInstance().getTime()) + " "
+					+ new SimpleDateFormat("z").format(Calendar.getInstance().getTime()) + " on "
+					+ DateFormat.getDateInstance().format(Calendar.getInstance().getTime()) + ".");
+			summaryLogStream.println("<br><br>");
 
-			summaryLogStream.println(MAX_NUM_VIEWS_TO_REPORT + " most used views:");
+			summaryLogStream.println("<b>Total events: " + (totalSelections + totalCommands) + "</b><br>");
+			summaryLogStream.println("<b>Number of unique users: " + userToViewMap.entrySet().size() + "</b><br><br>");
+			summaryLogStream.println("");
+
+			summaryLogStream.println("<b>" + " " + MAX_NUM_VIEWS_TO_REPORT + " most used views: </b>");
+
+			summaryLogStream.println("<table border=1 rules=rows|columns cellpadding=4>");
 
 			List<String> viewUsage = new ArrayList<String>();
 			for (String view : totalNumSelections.keySet()) {
 				float numSelections = (float) (totalNumSelections.get(view));
 				float viewUse = numSelections / totalSelections;
 				String formattedViewUse = formatAsPercentage(viewUse);
-				viewUsage.add(formattedViewUse + ": " + view + " (" + totalNumSelections.get(view) + ")");
+				viewUsage.add(formattedViewUse + "," + view + "," + totalNumSelections.get(view));
 			}
 			Collections.sort(viewUsage, new PercentUsageComparator());
 			int numViewsToReport = 0;
-			for (String viewUsageSummary : viewUsage) {
-				if (MAX_NUM_VIEWS_TO_REPORT == -1 || numViewsToReport < MAX_NUM_VIEWS_TO_REPORT) {
+			Iterator<String> listIterator = viewUsage.iterator();
+			while (listIterator.hasNext()
+					&& (MAX_NUM_VIEWS_TO_REPORT == -1 || numViewsToReport < MAX_NUM_VIEWS_TO_REPORT)) {
 
-					summaryLogStream.println(viewUsageSummary);
-					numViewsToReport++;
-				}
+				String[] nextRow = listIterator.next().split(",");
+
+				summaryLogStream.println("<tr>");
+
+				summaryLogStream.println("<td>");
+				summaryLogStream.println(nextRow[0]);
+				summaryLogStream.println("</td>");
+
+				summaryLogStream.println("<td>");
+				summaryLogStream.println(nextRow[1]);
+				summaryLogStream.println("</td>");
+
+				summaryLogStream.println("<td>");
+				summaryLogStream.println(nextRow[2]);
+				summaryLogStream.println("</td>");
+
+				summaryLogStream.println("</tr>");
+				numViewsToReport++;
 			}
 
+			summaryLogStream.println("</table>");
+			summaryLogStream.println("<br><br>");
+
+			summaryLogStream.println("<b>" + " " + MAX_NUM_COMMANDS_TO_REPORT + " most used commands: </b>");
+
+			//Commands
+			summaryLogStream.println("<table border=1 rules=rows|columns cellpadding=4>");
+
+			List<String> commandUsage = new ArrayList<String>();
+			for (String cmd : totalNumCommands.keySet()) {
+				float numCommands = (float) (totalNumCommands.get(cmd));
+				float commandUse = numCommands / totalCommands;
+				String formattedCmdUse = formatAsPercentage(commandUse);
+				commandUsage.add(formattedCmdUse + "," + cmd + "," + totalNumCommands.get(cmd));
+			}
+			Collections.sort(commandUsage, new PercentUsageComparator());
+			int numCommandsToReport = 0;
+
+			Iterator<String> cmdListIterator = commandUsage.iterator();
+			while (cmdListIterator.hasNext()
+					&& (MAX_NUM_COMMANDS_TO_REPORT == -1 || numCommandsToReport < MAX_NUM_COMMANDS_TO_REPORT)) {
+
+				String[] nextRow = cmdListIterator.next().split(",");
+
+				summaryLogStream.println("<tr>");
+
+				summaryLogStream.println("<td>");
+				summaryLogStream.println(nextRow[0]);
+				summaryLogStream.println("</td>");
+
+				summaryLogStream.println("<td>");
+				summaryLogStream.println(nextRow[1]);
+				summaryLogStream.println("</td>");
+
+				summaryLogStream.println("<td>");
+				summaryLogStream.println(nextRow[2]);
+				summaryLogStream.println("</td>");
+
+				summaryLogStream.println("</tr>");
+				numCommandsToReport++;
+			}
+
+			summaryLogStream.println("</table>");
+			summaryLogStream.close();
 		} catch (IOException e) {
 			logError(e.getMessage());
 		}
