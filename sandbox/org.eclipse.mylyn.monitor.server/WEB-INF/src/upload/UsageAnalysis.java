@@ -240,6 +240,7 @@ public class UsageAnalysis {
 
 			PrintStream summaryLogStream = new PrintStream(new FileOutputStream(summaryFile, true));
 
+			summaryLogStream.println("<html><body>");
 			summaryLogStream.println("<h2>Mylar Community Usage Statistics</h2>");
 			summaryLogStream.println("These statistics are updated once per day.  They were last updated at "
 					+ DateFormat.getTimeInstance(DateFormat.DEFAULT).format(Calendar.getInstance().getTime()) + " "
@@ -293,7 +294,7 @@ public class UsageAnalysis {
 
 			summaryLogStream.println("<b>" + " " + MAX_NUM_COMMANDS_TO_REPORT + " most used commands: </b>");
 
-			//Commands
+			// Commands
 			summaryLogStream.println("<table border=1 rules=rows|columns cellpadding=4>");
 
 			List<String> commandUsage = new ArrayList<String>();
@@ -331,6 +332,7 @@ public class UsageAnalysis {
 			}
 
 			summaryLogStream.println("</table>");
+			summaryLogStream.println("</html></body>");
 			summaryLogStream.close();
 		} catch (IOException e) {
 			logError(e.getMessage());
