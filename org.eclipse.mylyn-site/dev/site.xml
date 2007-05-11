@@ -3,22 +3,22 @@
    <description url="http://download.eclipse.org/technology/mylar/update-site/e3.3">
       Mylar update site for Eclipse 3.3
    </description>
-   <feature url="features/org.eclipse.mylar_feature_2.0.0.v20070510-2200.jar" id="org.eclipse.mylar_feature" version="2.0.0.v20070510-2200">
+   <feature url="features/org.eclipse.mylar_feature_2.0.0.v20070511-1630.jar" id="org.eclipse.mylar_feature" version="2.0.0.v20070511-1630">
       <category name="Features"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.ide_feature_2.0.0.v20070510-2200.jar" id="org.eclipse.mylar.ide_feature" version="2.0.0.v20070510-2200">
+   <feature url="features/org.eclipse.mylar.ide_feature_2.0.0.v20070511-1630.jar" id="org.eclipse.mylar.ide_feature" version="2.0.0.v20070511-1630">
       <category name="Features"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.bugzilla_feature_2.0.0.v20070510-2200.jar" id="org.eclipse.mylar.bugzilla_feature" version="2.0.0.v20070510-2200">
+   <feature url="features/org.eclipse.mylar.bugzilla_feature_2.0.0.v20070511-1630.jar" id="org.eclipse.mylar.bugzilla_feature" version="2.0.0.v20070511-1630">
       <category name="Integration"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.jira_feature_2.0.0.v20070510-2200.jar" id="org.eclipse.mylar.jira_feature" version="2.0.0.v20070510-2200">
+   <feature url="features/org.eclipse.mylar.jira_feature_2.0.0.v20070511-1630.jar" id="org.eclipse.mylar.jira_feature" version="2.0.0.v20070511-1630">
       <category name="Integration"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.trac_feature_2.0.0.v20070510-2200.jar" id="org.eclipse.mylar.trac_feature" version="2.0.0.v20070510-2200">
+   <feature url="features/org.eclipse.mylar.trac_feature_2.0.0.v20070511-1630.jar" id="org.eclipse.mylar.trac_feature" version="2.0.0.v20070511-1630">
       <category name="Integration"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.monitor_feature_2.0.0.v20070510-2200.jar" id="org.eclipse.mylar.monitor_feature" version="2.0.0.v20070510-2200">
+   <feature url="features/org.eclipse.mylar.monitor_feature_2.0.0.v20070511-1630.jar" id="org.eclipse.mylar.monitor_feature" version="2.0.0.v20070511-1630">
       <category name="Features"/>
    </feature>
    <category-def name="Features" label="Features"/>
