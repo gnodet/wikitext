@@ -64,6 +64,11 @@ public class WebResourceManager {
 			webContextEnabled = false;
 			updateContents(false);
 		}
+		
+		public void contextCleared(IMylarContext context) {
+			webContextEnabled = false;
+			updateContents(false);
+		}
 
 		public void landmarkAdded(IMylarElement node) {
 			// ignore

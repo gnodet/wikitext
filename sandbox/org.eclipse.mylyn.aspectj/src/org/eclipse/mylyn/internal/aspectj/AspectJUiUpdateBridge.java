@@ -32,6 +32,10 @@ public class AspectJUiUpdateBridge implements IMylarContextListener {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public void contextCleared(IMylarContext context) {
+		// ignore
+	}
 
 	public void interestChanged(List<IMylarElement> nodes) {
 		// TODO Auto-generated method stub
