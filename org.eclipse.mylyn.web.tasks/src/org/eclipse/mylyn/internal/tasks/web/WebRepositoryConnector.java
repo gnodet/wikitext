@@ -279,13 +279,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 				if (matcher.groupCount() >= 1) {
 					String id = matcher.group(1);
 					String description = matcher.groupCount() > 1 ? cleanup(matcher.group(2), repository) : null;
-					try {
-						collector.accept(new WebQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), repository
-								.getUrl(), description, id, taskPrefix));
-					} catch (CoreException e) {
-						return new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
-								"Unable collect results.", e);
-					}
+					collector.accept(new WebQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), repository
+							.getUrl(), description, id, taskPrefix));
 				}
 			} while (matcher.find() && !monitor.isCanceled());
 
@@ -350,15 +345,10 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 				String entrTitle = entry.getTitle();
 
-				try {
-					collector.accept(new WebQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), //
-							repository.getUrl(), // 
-							(date == null ? "" : df.format(date) + " - ") + entrTitle, //
-							entryUri, ""));
-				} catch (CoreException e) {
-					return new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR, //
-							"Unable collect results.", e);
-				}
+				collector.accept(new WebQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), //
+						repository.getUrl(), // 
+						(date == null ? "" : df.format(date) + " - ") + entrTitle, //
+						entryUri, ""));
 			}
 			return Status.OK_STATUS;
 		} catch (Exception ex) {

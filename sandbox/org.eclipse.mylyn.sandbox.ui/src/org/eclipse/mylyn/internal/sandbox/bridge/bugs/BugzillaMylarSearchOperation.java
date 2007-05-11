@@ -20,7 +20,6 @@ import java.util.Set;
 
 import javax.security.auth.login.LoginException;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -226,14 +225,9 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 
 				// determine if we have a hit or not
 				if (isHit) {
-
 					// make a search hit from the bug and then add it to the collector
-					try {						
-						BugzillaQueryHit hit = new BugzillaQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), bugTaskData.getDescription(), "", bugTaskData.getRepositoryUrl(), bugTaskData.getId(), null, "");
-						searchCollector.accept(hit);
-					} catch (CoreException e) {
-						MylarStatusHandler.log(e, "bug search failed");
-					}
+					BugzillaQueryHit hit = new BugzillaQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), bugTaskData.getDescription(), "", bugTaskData.getRepositoryUrl(), bugTaskData.getId(), null, "");
+					searchCollector.accept(hit);
 				}
 			}
 		}

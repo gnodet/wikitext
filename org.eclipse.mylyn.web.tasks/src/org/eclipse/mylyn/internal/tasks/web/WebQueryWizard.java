@@ -48,7 +48,7 @@ public class WebQueryWizard extends Wizard {
 			TasksUiPlugin.getTaskListManager().getTaskList().addQuery(query);
 			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getKind());
 			if (connector != null) {
-				TasksUiPlugin.getSynchronizationManager().synchronize(connector, query, null);
+				TasksUiPlugin.getSynchronizationManager().synchronize(connector, query, null, true);
 			}
 //			filter.refreshHits();
 		} 
