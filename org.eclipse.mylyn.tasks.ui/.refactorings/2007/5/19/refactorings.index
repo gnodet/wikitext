@@ -9,3 +9,7 @@
 1178844197817	Rename type 'CONTEXT_ACTIVATION_DRAWER'
 1178844207873	Rename type 'CUSTOM_IMAGE_DRAWER'
 1178849147386	Copy compilation unit
+1178853855148	Rename type 'CompositeTaskContainerImageDescriptor'
+1178855052216	Rename field 'overlaySynchronization'
+1178855093962	Rename type 'CUSTOM_DECORATION_DRAWER'
+1178855186705	Convert member type 'CustomTaskListDecorationDrawer' to top level
