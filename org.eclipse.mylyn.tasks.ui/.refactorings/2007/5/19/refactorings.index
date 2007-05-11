@@ -13,3 +13,12 @@
 1178855052216	Rename field 'overlaySynchronization'
 1178855093962	Rename type 'CUSTOM_DECORATION_DRAWER'
 1178855186705	Convert member type 'CustomTaskListDecorationDrawer' to top level
+1178907292421	Rename field 'repositoryTask'
+1178907311046	Rename field 'taskData'
+1178909509546	Convert member type 'EmailProposal' to top level
+1178909520437	Rename type 'EmailProposal'
+1178909565468	Rename type 'EmailProposalLabelProvider'
+1178915262286	Rename type 'EmailContentProposal'
+1178915290424	Rename type 'EmailContentProposalProvider'
+1178915306323	Rename type 'EmailContentProposalLabelProvider'
+1178915357616	Move compilation units
