@@ -22,3 +22,4 @@
 1178915290424	Rename type 'EmailContentProposalProvider'
 1178915306323	Rename type 'EmailContentProposalLabelProvider'
 1178915357616	Move compilation units
+1178929043728	Change method 'getLegendItems'
