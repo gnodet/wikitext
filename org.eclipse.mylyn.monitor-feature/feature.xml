@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.mylar.monitor_feature"
       label="UI Usage Reporting"
-      version="2.0.0.v20070511-2000"
+      version="2.0.0.v20070511-2100"
       plugin="org.eclipse.mylar">
 
    <description>
@@ -220,7 +220,7 @@ litigation.
          id="org.eclipse.mylar.monitor.usage"
          download-size="0"
          install-size="0"
-         version="2.0.0.v20070511-2000"
+         version="2.0.0.v20070511-2100"
          unpack="false"/>
 
 </feature>

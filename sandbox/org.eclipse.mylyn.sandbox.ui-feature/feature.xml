@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.mylar.sandbox_feature"
       label="Developer and Experimental Tools"
-      version="2.0.0.v20070511-2000"
+      version="2.0.0.v20070511-2100"
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylar">
 
