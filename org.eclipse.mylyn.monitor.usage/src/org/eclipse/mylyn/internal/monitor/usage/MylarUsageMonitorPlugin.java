@@ -40,7 +40,6 @@ import org.eclipse.mylar.core.MylarStatusHandler;
 import org.eclipse.mylar.core.net.WebClientUtil;
 import org.eclipse.mylar.internal.context.core.ContextManager;
 import org.eclipse.mylar.internal.monitor.usage.wizards.NewUsageSummaryEditorWizard;
-import org.eclipse.mylar.internal.monitor.usage.wizards.UsageSubmissionWizard;
 import org.eclipse.mylar.monitor.core.IInteractionEventListener;
 import org.eclipse.mylar.monitor.ui.AbstractCommandMonitor;
 import org.eclipse.mylar.monitor.ui.IActionExecutionListener;
@@ -141,7 +140,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 
 	private static Date lastTransmit = null;
 
-	private boolean notifiedOfUserIdSubmission = false;
+//	private boolean notifiedOfUserIdSubmission = false;
 
 	private Authentication uploadAuthentication = null;
 
@@ -536,18 +535,18 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 	}
 
 	private void checkForFirstMonitorUse() {
-		if (!isMonitoringEnabled())
-			return;
-		if (!notifiedOfUserIdSubmission
-				&& !MylarUsageMonitorPlugin.getDefault().getPreferenceStore().contains(
-						MylarUsageMonitorPlugin.PREF_USER_ID)) {
-			notifiedOfUserIdSubmission = true;
-			UsageSubmissionWizard wizard = new UsageSubmissionWizard(false);
-			wizard.init(PlatformUI.getWorkbench(), null);
-			WizardDialog dialog = new WizardDialog(Display.getDefault().getActiveShell(), wizard);
-			dialog.create();
-			dialog.open();
-		}
+//		if (!isMonitoringEnabled())
+//			return;
+//		if (!notifiedOfUserIdSubmission
+//				&& !MylarUsageMonitorPlugin.getDefault().getPreferenceStore().contains(
+//						MylarUsageMonitorPlugin.PREF_USER_ID)) {
+//			notifiedOfUserIdSubmission = true;
+//			UsageSubmissionWizard wizard = new UsageSubmissionWizard(false);
+//			wizard.init(PlatformUI.getWorkbench(), null);
+//			WizardDialog dialog = new WizardDialog(Display.getDefault().getActiveShell(), wizard);
+//			dialog.create();
+//			dialog.open();
+//		}
 	}
 
 	private void checkForStatisticsUpload() {
