@@ -1,17 +1,30 @@
 The following files should not be overriden/updated when merging with 3.2
 
+TODO:
+* trac.ui
+
+
 org.eclipse.mylar.bugzilla.tests
   - BugzillaTaskHyperlinkDetectorTest
+  
 org.eclipse.mylar.bugzilla.ui
   - plugin.xml (merge, no hyperlink extension point)
   - BugzillaTaskHyperlinkDetector
+  - BugzillaHyperlinkUtil (leave)
+  
 org.eclipse.mylar.java
   - JavaStructureBridge (merge)
   - TypeHistoryManager
+  - MylarUrlHyperlinkDetector
   - org.eclipse.mylar.java.ui.junit/*
+  
 org.eclipse.mylar.tasks.ui
-  - TaskHyperlinkDetector
+  - TaskHyperlinkDetector (leave)
+  - TaskEditorUrlHyperlinkDetector (leave)
   - RepositoryViewerConfig (merge)
+  - DatePicker (leave)
+  - no working set stuff
+  
 org.eclipse.mylar.team
   - ApplyPatchAction
   - plugin.xml (merge)
