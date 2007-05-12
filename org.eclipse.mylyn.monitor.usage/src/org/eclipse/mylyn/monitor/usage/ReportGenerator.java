@@ -34,7 +34,6 @@ import org.eclipse.mylar.internal.monitor.core.collection.InteractionEventCompar
 import org.eclipse.mylar.internal.monitor.core.collection.InteractionEventSummary;
 import org.eclipse.mylar.internal.monitor.core.collection.InteractionEventUtil;
 import org.eclipse.mylar.internal.monitor.usage.InteractionEventLogger;
-import org.eclipse.mylar.internal.monitor.usage.MylarUsageMonitorPlugin;
 import org.eclipse.mylar.monitor.core.InteractionEvent;
 
 /**
@@ -323,8 +322,7 @@ public class ReportGenerator {
 				MylarStatusHandler.fail(t, "could not generate usage report", false);
 			}
 
-			return new Status(Status.OK, MylarUsageMonitorPlugin.PLUGIN_ID, "Generate Usage Statistics");
-
+			return Status.OK_STATUS;
 		}
 
 		private void createUsageTableData(Map<Integer, Map<String, InteractionEventSummary>> summaryMap,

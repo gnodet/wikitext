@@ -259,7 +259,7 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 				report.add("Interest increments: " + numIncrement + ", ");
 				report.add("Interest decrements: " + numDecrement + "<br>");
 
-				report.addAll(viewUsageCollector.getSummary(id));
+				report.addAll(viewUsageCollector.getSummary(id, true));
 				report.add(ReportGenerator.SUMMARY_SEPARATOR);
 			} else {
 				rejectedUsers++;
@@ -312,8 +312,8 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 
 					Map<String, Integer> filteredViewSelections = viewUsageCollector.usersFilteredViewSelections
 							.get(userId);
-					Map<String, Integer> normalViewSelections = viewUsageCollector.getUsersNormalViewSelections()
-							.get(userId);
+					Map<String, Integer> normalViewSelections = viewUsageCollector.getUsersNormalViewSelections().get(
+							userId);
 
 					String[] views = new String[] { "org.eclipse.jdt.ui.PackageExplorer",
 							"org.eclipse.ui.views.ContentOutline", "org.eclipse.ui.views.ProblemView" };

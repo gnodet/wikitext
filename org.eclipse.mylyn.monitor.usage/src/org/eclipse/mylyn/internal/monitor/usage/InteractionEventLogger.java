@@ -60,7 +60,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 	}
 
 	public synchronized void interactionObserved(InteractionEvent event) {
-//		 System.err.println("> " + event);
+		// System.err.println("> " + event);
 		if (MylarUsageMonitorPlugin.getDefault().isObfuscationEnabled()) {
 			String obfuscatedHandle = handleObfuscator.obfuscateHandle(event.getStructureKind(), event
 					.getStructureHandle());

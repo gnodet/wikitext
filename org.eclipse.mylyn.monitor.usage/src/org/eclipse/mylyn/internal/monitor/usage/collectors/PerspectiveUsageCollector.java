@@ -61,35 +61,7 @@ public class PerspectiveUsageCollector implements IUsageCollector {
 	}
 
 	public List<String> getReport() {
-		List<String> summaries = new ArrayList<String>();
-		summaries.add("Perspectives (based on total user events, with " + numUnassociatedEvents
-				+ " unclassified events)");
-		summaries.add(" ");
-
-		List<String> perspectiveUsageList = new ArrayList<String>();
-		for (String perspective : perspectiveUsage.keySet()) {
-			float perspectiveUse = 100 * perspectiveUsage.get(perspective) / (numEvents);
-			String formattedPerspectiveUse = ("" + perspectiveUse);
-			int indexOf2ndDecimal = formattedPerspectiveUse.indexOf('.') + 3;
-			if (indexOf2ndDecimal <= formattedPerspectiveUse.length()) {
-				formattedPerspectiveUse = formattedPerspectiveUse.substring(0, indexOf2ndDecimal);
-			}
-			String perspectiveName = perspective; // .substring(perspective.lastIndexOf(".")+1,
-			// perspective.length());
-			if (perspectiveName.contains("Perspective")) {
-				perspectiveName = perspectiveName.substring(0, perspectiveName.indexOf("Perspective"));
-			}
-			perspectiveUsageList.add(formattedPerspectiveUse + "%: " + perspectiveName + " ("
-					+ perspectiveUsage.get(perspective) + ")");
-		}
-		Collections.sort(perspectiveUsageList, new PercentUsageComparator());
-		for (String perspectiveUsageSummary : perspectiveUsageList) {
-			summaries.add("<br>" + perspectiveUsageSummary);
-		}
-
-		if (perspectiveUsage.size() % 2 != 0)
-			summaries.add(" ");
-		return summaries;
+		return getReport(true);
 	}
 
 	public String getReportTitle() {
@@ -128,6 +100,47 @@ public class PerspectiveUsageCollector implements IUsageCollector {
 			System.err.println("Unable to write CVS file <" + filename + ">");
 			e.printStackTrace(System.err);
 		}
+
+	}
+
+	public List<String> getPlainTextReport() {
+		return getReport(false);
+	}
+
+	private List<String> getReport(boolean html) {
+		List<String> summaries = new ArrayList<String>();
+		summaries.add("Perspectives (based on total user events, with " + numUnassociatedEvents
+				+ " unclassified events)");
+		summaries.add(" ");
+
+		List<String> perspectiveUsageList = new ArrayList<String>();
+		for (String perspective : perspectiveUsage.keySet()) {
+			float perspectiveUse = 100 * perspectiveUsage.get(perspective) / (numEvents);
+			String formattedPerspectiveUse = ("" + perspectiveUse);
+			int indexOf2ndDecimal = formattedPerspectiveUse.indexOf('.') + 3;
+			if (indexOf2ndDecimal <= formattedPerspectiveUse.length()) {
+				formattedPerspectiveUse = formattedPerspectiveUse.substring(0, indexOf2ndDecimal);
+			}
+			String perspectiveName = perspective; // .substring(perspective.lastIndexOf(".")+1,
+			// perspective.length());
+			if (perspectiveName.contains("Perspective")) {
+				perspectiveName = perspectiveName.substring(0, perspectiveName.indexOf("Perspective"));
+			}
+			perspectiveUsageList.add(formattedPerspectiveUse + "%: " + perspectiveName + " ("
+					+ perspectiveUsage.get(perspective) + ")");
+		}
+		Collections.sort(perspectiveUsageList, new PercentUsageComparator());
+		for (String perspectiveUsageSummary : perspectiveUsageList) {
+			if (html) {
+				summaries.add("<br>" + perspectiveUsageSummary);
+			} else {
+				summaries.add(perspectiveUsageSummary);
+			}
+		}
+
+		if (perspectiveUsage.size() % 2 != 0)
+			summaries.add(" ");
+		return summaries;
 
 	}
 }

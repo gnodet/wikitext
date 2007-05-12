@@ -85,7 +85,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 
 	private static final long DELAY_ON_USER_REQUEST = 5 * DAY;
 
-	//private static final long DELAY_ON_FAILURE = 5 * HOUR;
+	// private static final long DELAY_ON_FAILURE = 5 * HOUR;
 
 	public static final String DEFAULT_TITLE = "Mylar Feedback";
 
@@ -603,7 +603,6 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 							MylarMonitorPreferenceConstants.PREF_MONITORING_MYLAR_ECLIPSE_ORG_CONSENT_VIEWED, true);
 				}
 
-				
 				NewUsageSummaryEditorWizard wizard = new NewUsageSummaryEditorWizard();
 				wizard.init(PlatformUI.getWorkbench(), null);
 				// Instantiates the wizard container with the wizard and
@@ -611,16 +610,14 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 				WizardDialog dialog = new WizardDialog(Display.getDefault().getActiveShell(), wizard);
 				dialog.create();
 				dialog.open();
-	/*		
-	 * the UI usage report is loaded asynchronously 
-	 * so there's no synchronous way to know if it failed
-	 * 	if (wizard.failed()) {
-					lastTransmit.setTime(currentTime.getTime() + DELAY_ON_FAILURE
-							- studyParameters.getTransmitPromptPeriod());
-					plugin.getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE,
-							currentTime.getTime());
-				}
-		*/		 
+				/*
+				 * the UI usage report is loaded asynchronously so there's no
+				 * synchronous way to know if it failed if (wizard.failed()) {
+				 * lastTransmit.setTime(currentTime.getTime() + DELAY_ON_FAILURE -
+				 * studyParameters.getTransmitPromptPeriod());
+				 * plugin.getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE,
+				 * currentTime.getTime()); }
+				 */
 
 			} else {
 				if (result == 1) {

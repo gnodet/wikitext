@@ -29,6 +29,8 @@ import org.eclipse.mylar.internal.monitor.usage.wizards.UsageSubmissionWizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.program.Program;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -44,8 +46,6 @@ import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
-import org.eclipse.ui.forms.widgets.TableWrapData;
-import org.eclipse.ui.forms.widgets.TableWrapLayout;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.internal.browser.WebBrowserPreference;
 import org.eclipse.ui.internal.browser.WorkbenchBrowserSupport;
@@ -75,7 +75,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 	@Override
 	public void createPartControl(Composite parent) {
 		super.createPartControl(parent);
-		sform.setText(new SimpleDateFormat(DATE_FORMAT_STRING).format(new Date()));
+		sForm.setText(new SimpleDateFormat(DATE_FORMAT_STRING).format(new Date()));
 	}
 
 	protected void addSections(Composite composite, FormToolkit toolkit) {
@@ -87,11 +87,11 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 	private void createUsageSection(Composite parent, FormToolkit toolkit) {
 		Section section = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR);
 		section.setText("Usage Details");
-		section.setLayout(new TableWrapLayout());
-		section.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
+		section.setLayout(new GridLayout());
+		section.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		Composite container = toolkit.createComposite(section);
 		section.setClient(container);
-		TableWrapLayout layout = new TableWrapLayout();
+		GridLayout layout = new GridLayout();
 		layout.numColumns = 2;
 		container.setLayout(layout);
 
@@ -104,17 +104,17 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 	protected void createActionSection(Composite parent, FormToolkit toolkit) {
 		Section section = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR);
 		section.setText("Actions");
-		section.setLayout(new TableWrapLayout());
-		section.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
+		section.setLayout(new GridLayout());
+		section.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Composite topContainer = toolkit.createComposite(section);
-		TableWrapLayout topContainerLayout = new TableWrapLayout();
+		GridLayout topContainerLayout = new GridLayout();
 		topContainerLayout.numColumns = 1;
 		topContainer.setLayout(topContainerLayout);
 		section.setClient(topContainer);
 
 		Composite buttonContainer = toolkit.createComposite(topContainer);
-		TableWrapLayout buttonContainerLayout = new TableWrapLayout();
+		GridLayout buttonContainerLayout = new GridLayout();
 		buttonContainerLayout.numColumns = 3;
 		buttonContainer.setLayout(buttonContainerLayout);
 
@@ -142,7 +142,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 			}
 		});
 		Composite labelContainer = toolkit.createComposite(topContainer);
-		TableWrapLayout labelContainerLayout = new TableWrapLayout();
+		GridLayout labelContainerLayout = new GridLayout();
 		labelContainerLayout.numColumns = 1;
 		labelContainer.setLayout(labelContainerLayout);
 		Label submissionLabel = new Label(labelContainer, SWT.NONE);
@@ -242,9 +242,8 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 		table = toolkit.createTable(parent, style);
 		TableLayout tlayout = new TableLayout();
 		table.setLayout(tlayout);
-		TableWrapData wd = new TableWrapData(TableWrapData.FILL_GRAB);
+		GridData wd = new GridData(GridData.FILL_HORIZONTAL);
 		wd.heightHint = 300;
-		wd.grabVertical = true;
 		table.setLayoutData(wd);
 
 		table.setLinesVisible(true);

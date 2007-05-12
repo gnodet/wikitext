@@ -135,14 +135,19 @@ public class MylarViewUsageCollector extends ViewUsageCollector {
 	}
 
 	@Override
-	public List<String> getSummary(int userId) {
+	public List<String> getSummary(int userId, boolean html) {
 
 		List<String> summaries = new ArrayList<String>();
 		Map<String, Integer> filteredViewSelections = usersFilteredViewSelections.get(userId);
 		Map<String, Integer> normalViewSelections = usersNormalViewSelections.get(userId);
 
 		if (!filteredViewSelections.keySet().isEmpty()) {
-			summaries.add("<h4>Interest Filtering</h4>");
+			if (html) {
+				summaries.add("<h4>Interest Filtering</h4>");
+			} else {
+				summaries.add("Interest Filtering");
+			}
+
 		}
 
 		for (String view : filteredViewSelections.keySet()) {
@@ -150,14 +155,26 @@ public class MylarViewUsageCollector extends ViewUsageCollector {
 			int filteredSelections = filteredViewSelections.get(view);
 			int unfilteredSelections = normalSelections - filteredSelections;
 			summaries.add(view + " filtered: " + filteredSelections + " vs. unfiltered: ");
-			summaries.add(unfilteredSelections + "<br>");
+			if (html) {
+				summaries.add(unfilteredSelections + "<br>");
+			} else {
+				summaries.add(unfilteredSelections + "");
+			}
 		}
-		summaries.add("<h4>View Usage ");
-		List<String> allSummaries = super.getSummary(userId);
+
+		if (html) {
+			summaries.add("<h4>View Usage ");
+		} else {
+			summaries.add("View Usage ");
+		}
+
+		List<String> allSummaries = super.getSummary(userId, true);
 		if (maxViewsToReport != -1 && allSummaries.size() == maxViewsToReport) {
 			summaries.add("(top " + maxViewsToReport + ")");
 		}
-		summaries.add("</h4>");
+		if (html) {
+			summaries.add("</h4>");
+		}
 		summaries.addAll(allSummaries);
 
 		// summaries.add("<h4>Interest Model</h4>");
@@ -209,7 +226,16 @@ public class MylarViewUsageCollector extends ViewUsageCollector {
 	public List<String> getReport() {
 		List<String> summaries = new ArrayList<String>();
 		for (int userId : usersNormalViewSelections.keySet()) {
-			summaries.addAll(getSummary(userId));
+			summaries.addAll(getSummary(userId, true));
+		}
+		return summaries;
+	}
+
+	@Override
+	public List<String> getPlainTextReport() {
+		List<String> summaries = new ArrayList<String>();
+		for (int userId : usersNormalViewSelections.keySet()) {
+			summaries.addAll(getSummary(userId, false));
 		}
 		return summaries;
 	}

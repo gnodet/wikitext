@@ -65,7 +65,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 	private IEditorInput input = null;
 
 	private boolean forceSyncForTesting = false;
-	
+
 	public static final String BACKUP_FILE_SUFFIX = "monitor-log";
 
 	public MonitorFileRolloverJob(List<IUsageCollector> collectors) {
@@ -116,10 +116,10 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 	}
 
 	public static String getZippedMonitorFileDirPath() {
-		return ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + File.separatorChar
-		+ NAME_DATA_DIR + File.separatorChar + DIRECTORY_MONITOR_BACKUP;
+		return ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + File.separatorChar + NAME_DATA_DIR
+				+ File.separatorChar + DIRECTORY_MONITOR_BACKUP;
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public IStatus run(final IProgressMonitor progressMonitor) {
 
@@ -223,7 +223,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 				IWorkbenchPage page = MylarUsageMonitorPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow()
 						.getActivePage();
 				if (page == null) {
-					return new Status(Status.ERROR, MylarUsageMonitorPlugin.PLUGIN_ID, "Mylar Usage Summary");
+					return new Status(Status.ERROR, MylarUsageMonitorPlugin.PLUGIN_ID, Status.OK, "Mylar Usage Summary", null);
 				}
 				if (input != null) {
 					page.openEditor(input, UsageSummaryReportEditorPart.ID);
@@ -235,7 +235,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 
 		}
 
-		return new Status(Status.OK, MylarUsageMonitorPlugin.PLUGIN_ID, "Mylar Usage Summary");
+		return Status.OK_STATUS;
 	}
 
 	public void aboutToRun(IJobChangeEvent event) {
@@ -250,7 +250,6 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 
 	public void done(IJobChangeEvent event) {
 
-
 		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 			public void run() {
 				try {
@@ -259,33 +258,33 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 					if (page == null) {
 						return;
 					}
-				
+
 					if (input != null) {
 						page.openEditor(input, UsageSummaryReportEditorPart.ID);
 					}
-				
+
 				} catch (PartInitException e1) {
 					MylarStatusHandler.fail(e1, "Could not show usage summary", true);
 				}
 
 			}
 		});
-		
+
 	}
 
 	public void running(IJobChangeEvent event) {
 		// ignore
-		
+
 	}
 
 	public void scheduled(IJobChangeEvent event) {
 		// ignore
-		
+
 	}
 
 	public void sleeping(IJobChangeEvent event) {
 		// ignore
-		
+
 	}
 
 }
