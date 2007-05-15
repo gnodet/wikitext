@@ -3,19 +3,19 @@
    <description url="http://download.eclipse.org/technology/mylar/update-site/e3.2">
       Mylar update site for Eclipse 3.2
    </description>
-   <feature url="features/org.eclipse.mylar_feature_2.0.0.v20070511-2000.jar" id="org.eclipse.mylar_feature" version="2.0.0.v20070511-2000">
+   <feature url="features/org.eclipse.mylar_feature_2.0.0.v20070514-1800.jar" id="org.eclipse.mylar_feature" version="2.0.0.v20070514-1800">
       <category name="Features"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.ide_feature_2.0.0.v20070511-2000.jar" id="org.eclipse.mylar.ide_feature" version="2.0.0.v20070511-2000">
+   <feature url="features/org.eclipse.mylar.ide_feature_2.0.0.v20070514-1800.jar" id="org.eclipse.mylar.ide_feature" version="2.0.0.v20070514-1800">
       <category name="Features"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.bugzilla_feature_2.0.0.v20070511-2000.jar" id="org.eclipse.mylar.bugzilla_feature" version="2.0.0.v20070511-2000">
+   <feature url="features/org.eclipse.mylar.bugzilla_feature_2.0.0.v20070514-1800.jar" id="org.eclipse.mylar.bugzilla_feature" version="2.0.0.v20070514-1800">
       <category name="Integration"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.jira_feature_2.0.0.v20070511-2000.jar" id="org.eclipse.mylar.jira_feature" version="2.0.0.v20070511-2000">
+   <feature url="features/org.eclipse.mylar.jira_feature_2.0.0.v20070514-1800.jar" id="org.eclipse.mylar.jira_feature" version="2.0.0.v20070514-1800">
       <category name="Integration"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.trac_feature_2.0.0.v20070511-2000.jar" id="org.eclipse.mylar.trac_feature" version="2.0.0.v20070511-2000">
+   <feature url="features/org.eclipse.mylar.trac_feature_2.0.0.v20070514-1800.jar" id="org.eclipse.mylar.trac_feature" version="2.0.0.v20070514-1800">
       <category name="Integration"/>
    </feature>
    <category-def name="Features" label="Features"/>
