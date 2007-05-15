@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="plugin_export" name="build">
 	<target name="plugin_export">
-		<pde.exportPlugins destination="C:\Dev\build-e3.3\org.eclipse.mylar-site\archives" 
+		<pde.exportPlugins destination="${basedir}/archives" 
 			exportSource="true" 
 			exportType="zip" 
 			filename="mylar-lib-2.0M3.zip" 
