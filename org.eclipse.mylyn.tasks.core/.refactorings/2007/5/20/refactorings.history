@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Extract constant 'org.eclipse.mylar.internal.tasks.core.TaskDataManager.OFFLINE_REPORTS' from expression '&quot;offlineReports&quot;'&#13;&#10;- Original project: 'org.eclipse.mylar.tasks.core'&#13;&#10;- Constant name: 'OFFLINE_REPORTS'&#13;&#10;- Constant expression: '&quot;offlineReports&quot;'&#13;&#10;- Declared visibility: 'private'&#13;&#10;- Replace occurrences of expression with constant" description="Extract constant 'OFFLINE_REPORTS'" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylar.internal.tasks.core{TaskDataManager.java" name="OFFLINE_REPORTS" qualify="false" replace="true" selection="2259 16" stamp="1179361290890" version="1.0" visibility="2"/>
+</session>
