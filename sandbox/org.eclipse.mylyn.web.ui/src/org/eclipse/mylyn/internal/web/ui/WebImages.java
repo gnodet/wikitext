@@ -34,11 +34,11 @@ public class WebImages {
 
 	private static final URL baseURL = MylarWebPlugin.getDefault().getBundle().getEntry("/icons/");
 	
-	public static final ImageDescriptor WEB_PAGE = create(T_OBJ, "web-page.gif");
+	public static final ImageDescriptor WEB_PAGE = create(T_OBJ, "web-page.png");
 
 	public static final ImageDescriptor WEB_SITE = create(T_OBJ, "web-site.gif");
 	
-	public static final ImageDescriptor WEB_ROOT = create(T_OBJ, "web-root.gif");
+	public static final ImageDescriptor WEB_ROOT = create(T_OBJ, "web-root.png");
 	
 	public static ImageDescriptor create(String prefix, String name) {
 		return create(prefix, name, baseURL);
