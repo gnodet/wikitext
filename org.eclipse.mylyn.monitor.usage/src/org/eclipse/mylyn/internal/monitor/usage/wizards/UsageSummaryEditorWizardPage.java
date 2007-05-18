@@ -40,7 +40,7 @@ public class UsageSummaryEditorWizardPage extends WizardPage implements IWizardP
 		setTitle(TITLE);
 		setDescription(DESCRIPTION);
 		setImageDescriptor(MylarUsageMonitorPlugin.imageDescriptorFromPlugin(MylarUsageMonitorPlugin.PLUGIN_ID,
-				"icons/wizban/banner-user.gif"));
+				"icons/wizban/banner-usage.gif"));
 	}
 
 	public void createControl(Composite parent) {
