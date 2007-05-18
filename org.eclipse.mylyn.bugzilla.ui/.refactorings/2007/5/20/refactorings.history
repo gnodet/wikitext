@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Copy 1 elements(s) to 'org.eclipse.mylar.trac.ui/src/org.eclipse.mylar.internal.trac.ui'&#10;- Original project: 'org.eclipse.mylar.bugzilla.ui'&#10;- Destination element: 'org.eclipse.mylar.trac.ui/src/org.eclipse.mylar.internal.trac.ui'&#10;- Original element: 'org.eclipse.mylar.internal.bugzilla.ui.BugzillaImages.java'" description="Copy compilation unit" destination="/src&lt;org.eclipse.mylar.internal.trac.ui" element1="/src&lt;org.eclipse.mylar.internal.bugzilla.ui{BugzillaImages.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" log="/src&lt;org.eclipse.mylar.internal.bugzilla.ui{BugzillaImages.java&#9;true&#9;false" policy="org.eclipse.jdt.ui.copyResources" stamp="1179450213425" units="1" version="1.0"/>
+</session>
