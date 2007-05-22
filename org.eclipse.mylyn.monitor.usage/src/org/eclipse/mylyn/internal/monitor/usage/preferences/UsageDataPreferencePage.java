@@ -13,7 +13,7 @@ package org.eclipse.mylar.internal.monitor.usage.preferences;
 
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.resource.JFaceResources;
-import org.eclipse.mylar.internal.monitor.usage.MylarMonitorPreferenceConstants;
+import org.eclipse.mylar.internal.monitor.usage.MonitorPreferenceConstants;
 import org.eclipse.mylar.internal.monitor.usage.MylarUsageMonitorPlugin;
 import org.eclipse.mylar.monitor.usage.InteractionEventObfuscator;
 import org.eclipse.swt.SWT;
@@ -111,7 +111,7 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		enableMonitoring = new Button(group, SWT.CHECK);
 		enableMonitoring.setText("Enable logging to: ");
 		enableMonitoring.setSelection(getPreferenceStore().getBoolean(
-				MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED));
+				MonitorPreferenceConstants.PREF_MONITORING_ENABLED));
 		enableMonitoring.addSelectionListener(new SelectionListener() {
 
 			public void widgetSelected(SelectionEvent e) {
@@ -133,7 +133,7 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		enableObfuscation = new Button(group, SWT.CHECK);
 		enableObfuscation.setText("Obfuscate elements using: ");
 		enableObfuscation.setSelection(getPreferenceStore().getBoolean(
-				MylarMonitorPreferenceConstants.PREF_MONITORING_OBFUSCATE));
+				MonitorPreferenceConstants.PREF_MONITORING_OBFUSCATE));
 		Label obfuscationLablel = new Label(group, SWT.NULL);
 		obfuscationLablel.setText(InteractionEventObfuscator.ENCRYPTION_ALGORITHM + " message digest one-way hash");
 	}
@@ -154,7 +154,7 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		Label events = new Label(group, SWT.NULL);
 		events.setText(" Events since upload:");
 		Label logged = new Label(group, SWT.NULL);
-		logged.setText("" + getPreferenceStore().getInt(MylarMonitorPreferenceConstants.PREF_NUM_USER_EVENTS));
+		logged.setText("" + getPreferenceStore().getInt(MonitorPreferenceConstants.PREF_NUM_USER_EVENTS));
 
 		Composite enableSubmissionComposite = new Composite(group, SWT.NULL);
 		GridLayout submissionGridLayout = new GridLayout(4, false);
@@ -165,7 +165,7 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 
 		enableSubmission.setText("Enable submission every");
 		enableSubmission.setSelection(getPreferenceStore().getBoolean(
-				MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION));
+				MonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION));
 		enableSubmission.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
 				updateEnablement();
@@ -180,9 +180,9 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		submissionTime.setLayoutData(gridData);
 		long submissionFreq = MylarUsageMonitorPlugin.DEFAULT_DELAY_BETWEEN_TRANSMITS;
 		if (MylarUsageMonitorPlugin.getPrefs().contains(
-				MylarMonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY)) {
+				MonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY)) {
 			submissionFreq = MylarUsageMonitorPlugin.getPrefs().getLong(
-					MylarMonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY);
+					MonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY);
 		}
 		long submissionFreqInDays = (long) ((double) submissionFreq) / DAYS_IN_MS;
 		submissionTime.setText("" + submissionFreqInDays);
@@ -204,7 +204,7 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 
 	@Override
 	public boolean performOk() {
-		getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_OBFUSCATE,
+		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_MONITORING_OBFUSCATE,
 				enableObfuscation.getSelection());
 		if (enableMonitoring.getSelection()) {
 			MylarUsageMonitorPlugin.getDefault().startMonitoring();
@@ -212,10 +212,10 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 			MylarUsageMonitorPlugin.getDefault().stopMonitoring();
 		}
 
-		getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION,
+		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION,
 				enableSubmission.getSelection());
 
-		getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED,
+		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_MONITORING_ENABLED,
 				enableMonitoring.getSelection());
 
 		long transmitFrequency = MylarUsageMonitorPlugin.DEFAULT_DELAY_BETWEEN_TRANSMITS;
@@ -229,7 +229,7 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 			// do nothing, transmitFrequency will have the default value
 		}
 
-		getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY,
+		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY,
 				transmitFrequency);
 
 		MylarUsageMonitorPlugin.getDefault().getStudyParameters().setTransmitPromptPeriod(transmitFrequency);
@@ -239,9 +239,9 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 	@Override
 	public boolean performCancel() {
 		enableMonitoring.setSelection(getPreferenceStore().getBoolean(
-				MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED));
+				MonitorPreferenceConstants.PREF_MONITORING_ENABLED));
 		enableObfuscation.setSelection(getPreferenceStore().getBoolean(
-				MylarMonitorPreferenceConstants.PREF_MONITORING_OBFUSCATE));
+				MonitorPreferenceConstants.PREF_MONITORING_OBFUSCATE));
 		// userStudyId.setStringValue(MylarUsageMonitorPlugin.getDefault().getPreferenceStore().getInt(
 		// MylarUsageMonitorPlugin.PREF_USER_ID)
 		// + "");

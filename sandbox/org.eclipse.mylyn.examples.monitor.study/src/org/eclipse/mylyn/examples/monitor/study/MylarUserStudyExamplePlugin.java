@@ -4,7 +4,7 @@ import org.eclipse.jdt.internal.ui.JavaPlugin;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.internal.monitor.usage.MylarUsageMonitorPlugin;
-import org.eclipse.mylar.monitor.ui.MylarMonitorUiPlugin;
+import org.eclipse.mylar.monitor.ui.MonitorUiPlugin;
 import org.eclipse.pde.internal.ui.PDEPlugin;
 import org.eclipse.ui.IStartup;
 import org.eclipse.ui.IWorkbench;
@@ -36,7 +36,7 @@ public class MylarUserStudyExamplePlugin extends AbstractUIPlugin implements ISt
 		workbench.getDisplay().asyncExec(new Runnable() {
 			public void run() {
 				selectionMonitor = new SelectionMonitor();
-				MylarMonitorUiPlugin.getDefault().getSelectionMonitors().add(selectionMonitor);
+				MonitorUiPlugin.getDefault().getSelectionMonitors().add(selectionMonitor);
 
 				MylarUsageMonitorPlugin.getDefault().addMonitoredPreferences(
 						WorkbenchPlugin.getDefault().getPluginPreferences());
@@ -58,7 +58,7 @@ public class MylarUserStudyExamplePlugin extends AbstractUIPlugin implements ISt
 		super.stop(context);
 		plugin = null;
 
-		MylarMonitorUiPlugin.getDefault().getSelectionMonitors().remove(selectionMonitor);
+		MonitorUiPlugin.getDefault().getSelectionMonitors().remove(selectionMonitor);
 		MylarUsageMonitorPlugin.getDefault().removeMonitoredPreferences(
 				WorkbenchPlugin.getDefault().getPluginPreferences());
 		MylarUsageMonitorPlugin.getDefault().removeMonitoredPreferences(

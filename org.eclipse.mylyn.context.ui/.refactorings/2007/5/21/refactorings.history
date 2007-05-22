@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Extract method 'private void cleanActionSets(IWorkbenchPage page)' from 'org.eclipse.mylar.internal.context.ui.ContextPerspectiveManager.perspectiveActivated()' to 'org.eclipse.mylar.internal.context.ui.ContextPerspectiveManager'&#13;&#10;- Original project: 'org.eclipse.mylar.context.ui'&#13;&#10;- Method name: 'cleanActionSets'&#13;&#10;- Destination type: 'org.eclipse.mylar.internal.context.ui.ContextPerspectiveManager'&#13;&#10;- Declared visibility: 'private'" comments="false" description="Extract method 'cleanActionSets'" destination="0" exceptions="false" flags="786434" id="org.eclipse.jdt.ui.extract.method" input="/src&lt;org.eclipse.mylar.internal.context.ui{ContextPerspectiveManager.java" name="cleanActionSets" replace="false" selection="5161 622" stamp="1179797343554" version="1.0" visibility="2"/>
+</session>

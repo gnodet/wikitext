@@ -14,7 +14,7 @@ package org.eclipse.mylar.internal.monitor.usage;
 /**
  * @author Mik Kersten
  */
-public class MylarMonitorPreferenceConstants {
+public class MonitorPreferenceConstants {
 
 	public static final String PREF_PREVIOUS_TRANSMIT_DATE = "org.eclipse.mylar.monitor.ui.upload.previousTransmit";
 

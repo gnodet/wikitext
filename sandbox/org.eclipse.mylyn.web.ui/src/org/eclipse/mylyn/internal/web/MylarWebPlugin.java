@@ -15,7 +15,7 @@ import java.util.Set;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylar.core.MylarStatusHandler;
-import org.eclipse.mylar.monitor.ui.MylarMonitorUiPlugin;
+import org.eclipse.mylar.monitor.ui.MonitorUiPlugin;
 import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -50,7 +50,7 @@ public class MylarWebPlugin extends AbstractUIPlugin {
 		webResourceManager = new WebResourceManager();
 		try {
 			browserTracker = new BrowserTracker();
-			MylarMonitorUiPlugin.getDefault().addWindowPartListener(browserTracker);
+			MonitorUiPlugin.getDefault().addWindowPartListener(browserTracker);
 
 			for (TaskRepository repository : TasksUiPlugin.getRepositoryManager().getAllRepositories()) {
 				String url = repository.getUrl();
@@ -65,7 +65,7 @@ public class MylarWebPlugin extends AbstractUIPlugin {
 
 	@Override
 	public void stop(BundleContext context) throws Exception {
-		MylarMonitorUiPlugin.getDefault().removeWindowPartListener(browserTracker);
+		MonitorUiPlugin.getDefault().removeWindowPartListener(browserTracker);
 		webResourceManager.dispose();
 		super.stop(context);
 		INSTANCE = null;

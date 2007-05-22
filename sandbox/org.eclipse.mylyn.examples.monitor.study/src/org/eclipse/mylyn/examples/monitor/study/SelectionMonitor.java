@@ -28,7 +28,7 @@ import org.eclipse.mylar.context.core.IMylarElement;
 import org.eclipse.mylar.internal.context.core.ContextManager;
 import org.eclipse.mylar.monitor.core.InteractionEvent;
 import org.eclipse.mylar.monitor.ui.AbstractUserInteractionMonitor;
-import org.eclipse.mylar.monitor.ui.MylarMonitorUiPlugin;
+import org.eclipse.mylar.monitor.ui.MonitorUiPlugin;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IPathEditorInput;
 import org.eclipse.ui.IWorkbenchPart;
@@ -145,7 +145,7 @@ public class SelectionMonitor extends AbstractUserInteractionMonitor {
 
 		InteractionEvent event = new InteractionEvent(interactionKind, structureKind, elementHandle, part.getSite()
 				.getId(), "null", delta, 0);
-		MylarMonitorUiPlugin.getDefault().notifyInteractionObserved(event);
+		MonitorUiPlugin.getDefault().notifyInteractionObserved(event);
 	}
 
 	// private String obfuscateJavaElementHandle(IJavaElement javaElement) {
