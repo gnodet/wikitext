@@ -2,3 +2,5 @@
 1179777303961	Rename field 'refreshDelay'
 1179936680240	Move file
 1179936811208	Rename type 'TaskListTableLabelProvider'
+1180029019703	Rename method 'setSynchTasks'
+1180029977125	Extract method 'addHitsToPrime'
