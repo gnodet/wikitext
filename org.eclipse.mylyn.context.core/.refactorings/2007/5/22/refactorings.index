@@ -1,0 +1,9 @@
+1180238406001	Rename method 'getActivityHistoryMetaContext'
+1180239224606	Rename method 'saveActivityHistoryContext'
+1180239659679	Extract method 'saveContext'
+1180240817088	Rename type 'IContextWriter'
+1180240835195	Rename type 'IContextReader'
+1180240909421	Rename type 'IMylarContextListener'
+1180241439795	Rename field 'ATTRIBUTE_CONTENT_LIMITED'
+1180241797425	Rename field 'ATTRIBUTE_CONTENT_LIMITED_TO'
+1180242847126	Delete element

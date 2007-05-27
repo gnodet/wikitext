@@ -28,7 +28,7 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.mylar.context.core.AbstractRelationProvider;
 import org.eclipse.mylar.context.core.IDegreeOfSeparation;
-import org.eclipse.mylar.context.core.IMylarElement;
+import org.eclipse.mylar.context.core.IInteractionElement;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylar.internal.context.core.DegreeOfSeparation;
 import org.eclipse.mylar.internal.context.core.IActiveSearchListener;
@@ -73,7 +73,7 @@ public class BugzillaReferencesProvider extends AbstractRelationProvider {
 	 * HACK: checking kind as string - don't want the dependancy to mylar.java
 	 */
 	@Override
-	protected void findRelated(final IMylarElement node, int degreeOfSeparation) {
+	protected void findRelated(final IInteractionElement node, int degreeOfSeparation) {
 		if (!node.getContentType().equals("java"))
 			return;
 		IJavaElement javaElement = JavaCore.create(node.getHandleIdentifier());
@@ -84,7 +84,7 @@ public class BugzillaReferencesProvider extends AbstractRelationProvider {
 	}
 
 	@Override
-	public IMylarSearchOperation getSearchOperation(IMylarElement node, int limitTo, int degreeOfSepatation) {
+	public IMylarSearchOperation getSearchOperation(IInteractionElement node, int limitTo, int degreeOfSepatation) {
 		IJavaElement javaElement = JavaCore.create(node.getHandleIdentifier());
 
 		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepositoryForActiveTask(
@@ -92,7 +92,7 @@ public class BugzillaReferencesProvider extends AbstractRelationProvider {
 		return new BugzillaMylarSearch(degreeOfSepatation, javaElement, repository.getUrl());
 	}
 
-	private void runJob(final IMylarElement node, final int degreeOfSeparation) {
+	private void runJob(final IInteractionElement node, final int degreeOfSeparation) {
 		BugzillaMylarSearch search = (BugzillaMylarSearch) getSearchOperation(node, 0, degreeOfSeparation);
 
 		search.addListener(new IActiveSearchListener() {

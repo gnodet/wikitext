@@ -9,21 +9,11 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.context.tests;
-
-import org.eclipse.mylar.internal.context.core.MylarContext;
-import org.eclipse.mylar.internal.context.core.ScalingFactors;
-import org.eclipse.mylar.monitor.core.InteractionEvent;
+package org.eclipse.mylar.internal.web;
 
 /**
  * @author Mik Kersten
  */
-public class MylarContextTest extends AbstractContextTest {
+public class AbstractWebContextProvider {
 
-	public void testParseEventWithNullHandle() {
-		InteractionEvent event = mockSelection(null);
-		MylarContext context = new MylarContext("test", new ScalingFactors());
-		assertNull(context.parseEvent(event));
-	}
-	
 }

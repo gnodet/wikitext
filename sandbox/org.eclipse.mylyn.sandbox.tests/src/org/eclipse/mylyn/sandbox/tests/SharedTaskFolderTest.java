@@ -10,7 +10,7 @@ import java.io.OutputStream;
 import junit.framework.TestCase;
 
 import org.eclipse.mylar.context.core.ContextCorePlugin;
-import org.eclipse.mylar.internal.context.core.MylarContext;
+import org.eclipse.mylar.internal.context.core.InteractionContext;
 import org.eclipse.mylar.internal.sandbox.MylarSandboxPlugin;
 import org.eclipse.mylar.internal.sandbox.share.SwitchTaskDataFolderAction;
 import org.eclipse.mylar.monitor.core.InteractionEvent;
@@ -147,7 +147,7 @@ public class SharedTaskFolderTest extends TestCase{
 		//Create the task and add it to the root of the task list
 		ITask newTask = new Task(TasksUiPlugin.getTaskListManager().genUniqueTaskHandle(), taskName, true);
 		manager.getTaskList().moveToRoot(newTask);
-		MylarContext mockContext = ContextCorePlugin.getContextManager().loadContext(newTask.getHandleIdentifier());//, newTask.getContextPath());
+		InteractionContext mockContext = ContextCorePlugin.getContextManager().loadContext(newTask.getHandleIdentifier());//, newTask.getContextPath());
 		InteractionEvent event = new InteractionEvent(InteractionEvent.Kind.EDIT,"structureKind","handle","originId");
 		mockContext.parseEvent(event);
 		ContextCorePlugin.getContextManager().activateContext(mockContext);

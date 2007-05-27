@@ -31,7 +31,7 @@ import java.util.zip.ZipFile;
 import org.eclipse.mylar.core.MylarStatusHandler;
 import org.eclipse.mylar.core.net.HtmlStreamTokenizer;
 import org.eclipse.mylar.core.net.HtmlStreamTokenizer.Token;
-import org.eclipse.mylar.internal.context.core.MylarContextExternalizer;
+import org.eclipse.mylar.internal.context.core.InteractionContextExternalizer;
 import org.eclipse.mylar.internal.core.util.XmlStringConverter;
 import org.eclipse.mylar.monitor.core.AbstractMonitorLog;
 import org.eclipse.mylar.monitor.core.IInteractionEventListener;
@@ -155,7 +155,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 		String xml;
 		int index;
 		String buf = "";
-		String tag = "</" + MylarContextExternalizer.ELMNT_INTERACTION_HISTORY_OLD + ">";
+		String tag = "</" + InteractionContextExternalizer.ELMNT_INTERACTION_HISTORY_OLD + ">";
 		String endl = "\r\n";
 		byte[] buffer = new byte[1000];
 		int bytesRead = 0;

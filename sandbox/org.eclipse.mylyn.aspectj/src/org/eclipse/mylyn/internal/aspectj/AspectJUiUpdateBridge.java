@@ -14,50 +14,50 @@ package org.eclipse.mylar.internal.aspectj;
 
 import java.util.List;
 
-import org.eclipse.mylar.context.core.IMylarContext;
-import org.eclipse.mylar.context.core.IMylarContextListener;
-import org.eclipse.mylar.context.core.IMylarElement;
+import org.eclipse.mylar.context.core.IInteractionContext;
+import org.eclipse.mylar.context.core.IInteractionContextListener;
+import org.eclipse.mylar.context.core.IInteractionElement;
 
 /**
  * @author Mik Kersten
  */
-public class AspectJUiUpdateBridge implements IMylarContextListener {
+public class AspectJUiUpdateBridge implements IInteractionContextListener {
 
-	public void contextActivated(IMylarContext context) {
+	public void contextActivated(IInteractionContext context) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public void contextDeactivated(IMylarContext context) {
+	public void contextDeactivated(IInteractionContext context) {
 		// TODO Auto-generated method stub
 
 	}
 	
-	public void contextCleared(IMylarContext context) {
+	public void contextCleared(IInteractionContext context) {
 		// ignore
 	}
 
-	public void interestChanged(List<IMylarElement> nodes) {
+	public void interestChanged(List<IInteractionElement> nodes) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public void elementDeleted(IMylarElement node) {
+	public void elementDeleted(IInteractionElement node) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public void landmarkAdded(IMylarElement node) {
+	public void landmarkAdded(IInteractionElement node) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public void landmarkRemoved(IMylarElement node) {
+	public void landmarkRemoved(IInteractionElement node) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public void relationsChanged(IMylarElement node) {
+	public void relationsChanged(IInteractionElement node) {
 		// TODO Auto-generated method stub
 
 	}

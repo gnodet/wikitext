@@ -30,7 +30,7 @@ public class MylarWebPlugin extends AbstractUIPlugin {
 
 	private static MylarWebPlugin INSTANCE;
 
-	private WebResourceManager webResourceManager;
+	private WebContextManager webResourceManager;
 
 	private BrowserTracker browserTracker;
 	
@@ -40,14 +40,14 @@ public class MylarWebPlugin extends AbstractUIPlugin {
 		INSTANCE = this;
 	}
 
-	public static WebResourceManager getWebResourceManager() {
+	public static WebContextManager getWebResourceManager() {
 		return INSTANCE.webResourceManager;
 	}
 
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-		webResourceManager = new WebResourceManager();
+		webResourceManager = new WebContextManager();
 		try {
 			browserTracker = new BrowserTracker();
 			MonitorUiPlugin.getDefault().addWindowPartListener(browserTracker);

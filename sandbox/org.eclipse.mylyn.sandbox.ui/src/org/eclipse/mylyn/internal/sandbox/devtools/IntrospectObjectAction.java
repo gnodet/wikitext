@@ -19,7 +19,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.mylar.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylar.context.core.ContextCorePlugin;
-import org.eclipse.mylar.context.core.IMylarElement;
+import org.eclipse.mylar.context.core.IInteractionElement;
 import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
 import org.eclipse.mylar.tasks.core.ITask;
@@ -48,7 +48,7 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 
 			try {
 				AbstractContextStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(object);
-				IMylarElement node = ContextCorePlugin.getContextManager().getElement(bridge.getHandleIdentifier(object));
+				IInteractionElement node = ContextCorePlugin.getContextManager().getElement(bridge.getHandleIdentifier(object));
 				if (node != null) {
 					text += "Interest value: " + node.getInterest().getValue() + "\n";
 					text += node.getInterest().toString();

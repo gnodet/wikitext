@@ -17,7 +17,7 @@ import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.mylar.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylar.context.core.ContextCorePlugin;
-import org.eclipse.mylar.context.core.IMylarElement;
+import org.eclipse.mylar.context.core.IInteractionElement;
 import org.eclipse.mylar.context.ui.AbstractContextUiBridge;
 import org.eclipse.mylar.internal.web.WebPage;
 import org.eclipse.mylar.internal.web.WebResource;
@@ -32,7 +32,7 @@ import org.eclipse.ui.IEditorPart;
 public class WebResourceUiBridge extends AbstractContextUiBridge {
 
 	@Override
-	public void open(IMylarElement element) {
+	public void open(IInteractionElement element) {
 		AbstractContextStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(element.getContentType());
 		if (bridge == null) {
 			return;
@@ -45,7 +45,7 @@ public class WebResourceUiBridge extends AbstractContextUiBridge {
 	} 
 	
 	@Override
-	public void close(IMylarElement node) {
+	public void close(IInteractionElement node) {
 		// ignore
 	}
 
@@ -65,7 +65,7 @@ public class WebResourceUiBridge extends AbstractContextUiBridge {
 	}
 	
 	@Override
-	public IMylarElement getElement(IEditorInput input) {
+	public IInteractionElement getElement(IEditorInput input) {
 		return null;
 	}
 

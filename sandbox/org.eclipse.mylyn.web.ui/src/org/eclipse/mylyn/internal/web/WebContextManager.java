@@ -22,16 +22,17 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.eclipse.mylar.context.core.ContextCorePlugin;
-import org.eclipse.mylar.context.core.IMylarContext;
-import org.eclipse.mylar.context.core.IMylarContextListener;
-import org.eclipse.mylar.context.core.IMylarElement;
+import org.eclipse.mylar.context.core.IInteractionContext;
+import org.eclipse.mylar.context.core.IInteractionContextListener;
+import org.eclipse.mylar.context.core.IInteractionElement;
 import org.eclipse.mylar.core.MylarStatusHandler;
+import org.eclipse.mylar.internal.context.core.InteractionContext;
 import org.eclipse.mylar.internal.tasks.ui.RetrieveTitleFromUrlJob;
 
 /**
  * @author Mik Kersten
  */
-public class WebResourceManager {
+public class WebContextManager {
 
 	private static final String FILENAME_CACHE = "title-cache.properties";
 
@@ -45,49 +46,53 @@ public class WebResourceManager {
 
 	private Properties titleCache = new Properties();
 
-	private final IMylarContextListener UPDATE_LISTENER = new IMylarContextListener() {
+	private final IInteractionContextListener UPDATE_LISTENER = new IInteractionContextListener() {
 
-		public void interestChanged(List<IMylarElement> elements) {
-			for (IMylarElement element : elements) {
+		public void interestChanged(List<IInteractionElement> elements) {
+			for (IInteractionElement element : elements) {
 				if (WebResourceStructureBridge.CONTENT_TYPE.equals(element.getContentType())) {
-					addUrl(element.getHandleIdentifier(), false);
+					processUrl(element.getHandleIdentifier(), false);
 				}
 			}
 		}
 
-		public void contextActivated(IMylarContext context) {
+		public void contextActivated(IInteractionContext context) {
 			webContextEnabled = true;
 			updateContents(true);
 		}
 
-		public void contextDeactivated(IMylarContext context) {
-			webContextEnabled = false;
+		public void contextDeactivated(IInteractionContext context) {
+			if (getGlobalContext() == null) {
+				webContextEnabled = false;
+			}
 			updateContents(false);
 		}
 		
-		public void contextCleared(IMylarContext context) {
-			webContextEnabled = false;
+		public void contextCleared(IInteractionContext context) {
+			if (getGlobalContext() == null) {
+				webContextEnabled = false;
+			}
 			updateContents(false);
 		}
 
-		public void landmarkAdded(IMylarElement node) {
+		public void landmarkAdded(IInteractionElement node) {
 			// ignore
 		}
 
-		public void landmarkRemoved(IMylarElement node) {
+		public void landmarkRemoved(IInteractionElement node) {
 			// ignore
 		}
 
-		public void relationsChanged(IMylarElement node) {
+		public void relationsChanged(IInteractionElement node) {
 			// ignore
 		}
 
-		public void elementDeleted(IMylarElement node) {
+		public void elementDeleted(IInteractionElement node) {
 			// ignore
 		}
 	};
 
-	public WebResourceManager() {
+	public WebContextManager() {
 		webRoot = new WebRoot();
 		ContextCorePlugin.getContextManager().addListener(UPDATE_LISTENER);
 
@@ -118,10 +123,16 @@ public class WebResourceManager {
 
 	protected void updateContents(boolean populate) {
 		if (populate) {
-			Collection<IMylarElement> interestingElements = ContextCorePlugin.getContextManager().getInterestingDocuments();
-			for (IMylarElement element : interestingElements) {
-				if (WebResourceStructureBridge.CONTENT_TYPE.equals(element.getContentType())) {
-					addUrl(element.getHandleIdentifier(), true);
+			IInteractionContext context = ContextCorePlugin.getContextManager().getActiveContext();
+			if (context == null) {
+				context = getGlobalContext();
+			}
+			if (context != null) {
+				Collection<IInteractionElement> interestingElements = ContextCorePlugin.getContextManager().getInterestingDocuments(context);
+				for (IInteractionElement element : interestingElements) {
+					if (WebResourceStructureBridge.CONTENT_TYPE.equals(element.getContentType())) {
+						processUrl(element.getHandleIdentifier(), true);
+					}
 				}
 			}
 		} else {
@@ -130,6 +141,18 @@ public class WebResourceManager {
 		for (IWebResourceListener listener : listeners) {
 			listener.webContextUpdated();
 		}
+	}
+
+	/**
+	 * NOTE: returns first found
+	 */
+	private IInteractionContext getGlobalContext() {
+		for (InteractionContext globalContext : ContextCorePlugin.getContextManager().getGlobalContexts()) {
+			if (globalContext.getContentLimitedTo().equals(WebResourceStructureBridge.CONTENT_TYPE)) {
+				return globalContext;
+			}
+		}
+		return null;
 	}
 
 	public WebResource find(String url) {
@@ -151,7 +174,7 @@ public class WebResourceManager {
 		}
 	}
 
-	private void addUrl(String url, boolean restore) {
+	private void processUrl(String url, boolean restore) {
 		String siteUrl = structureBridge.getSite(url);
 		if (siteUrl != null) {
 			WebSite webSite = webRoot.getSite(siteUrl);

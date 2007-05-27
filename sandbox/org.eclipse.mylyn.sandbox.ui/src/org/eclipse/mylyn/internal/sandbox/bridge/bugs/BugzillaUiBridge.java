@@ -19,7 +19,7 @@ import java.util.List;
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.mylar.context.core.IMylarElement;
+import org.eclipse.mylar.context.core.IInteractionElement;
 import org.eclipse.mylar.context.ui.AbstractContextUiBridge;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaClient;
 import org.eclipse.mylar.internal.tasks.ui.editors.RepositoryTaskOutlinePage;
@@ -42,7 +42,7 @@ public class BugzillaUiBridge extends AbstractContextUiBridge {
 
 	protected BugzillaContextLabelProvider labelProvider = new BugzillaContextLabelProvider();
 
-	public void open(IMylarElement node) {
+	public void open(IInteractionElement node) {
 		String handle = node.getHandleIdentifier();
 		String bugHandle = handle;
 		String server = handle.substring(0, handle.indexOf(";"));
@@ -71,7 +71,7 @@ public class BugzillaUiBridge extends AbstractContextUiBridge {
 		return labelProvider;
 	}
 
-	public void close(IMylarElement node) {
+	public void close(IInteractionElement node) {
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 		if (page != null) {
 			IEditorReference[] references = page.getEditorReferences();
@@ -114,11 +114,11 @@ public class BugzillaUiBridge extends AbstractContextUiBridge {
 		return null;
 	}
 
-	public void restoreEditor(IMylarElement document) {
+	public void restoreEditor(IInteractionElement document) {
 		// ignore
 	}
 
-	public IMylarElement getElement(IEditorInput input) {
+	public IInteractionElement getElement(IEditorInput input) {
 		return null;
 	}
 

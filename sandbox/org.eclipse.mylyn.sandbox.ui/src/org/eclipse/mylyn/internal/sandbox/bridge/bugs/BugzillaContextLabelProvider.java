@@ -11,8 +11,8 @@
 
 package org.eclipse.mylar.internal.sandbox.bridge.bugs;
 
-import org.eclipse.mylar.context.core.IMylarElement;
-import org.eclipse.mylar.context.core.IMylarRelation;
+import org.eclipse.mylar.context.core.IInteractionElement;
+import org.eclipse.mylar.context.core.IInteractionRelation;
 import org.eclipse.mylar.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.internal.context.ui.AbstractContextLabelProvider;
@@ -26,12 +26,12 @@ import org.eclipse.swt.graphics.Image;
 public class BugzillaContextLabelProvider extends AbstractContextLabelProvider {
 
 	@Override
-	protected Image getImage(IMylarElement node) {
+	protected Image getImage(IInteractionElement node) {
 		return TasksUiImages.getImage(TasksUiImages.TASK_REMOTE);
 	}
 
 	@Override
-	protected Image getImage(IMylarRelation edge) {
+	protected Image getImage(IInteractionRelation edge) {
 		return ContextUiImages.getImage(MylarBugsManager.EDGE_REF_BUGZILLA);
 	}
 
@@ -49,7 +49,7 @@ public class BugzillaContextLabelProvider extends AbstractContextLabelProvider {
 	 * TODO: slow?
 	 */
 	@Override
-	protected String getText(IMylarElement node) {
+	protected String getText(IInteractionElement node) {
 		// try to get from the cache before downloading
 		Object report;
 		BugzillaReportInfo reportNode = MylarBugsManager.getReferenceProvider().getCached(node.getHandleIdentifier());
@@ -66,7 +66,7 @@ public class BugzillaContextLabelProvider extends AbstractContextLabelProvider {
 	}
 
 	@Override
-	protected String getText(IMylarRelation edge) {
+	protected String getText(IInteractionRelation edge) {
 		return BugzillaReferencesProvider.NAME;
 	}
 }
