@@ -11,8 +11,10 @@
 
 package org.eclipse.mylar.internal.web;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylar.internal.web.ui.WebImages;
@@ -28,6 +30,8 @@ public class WebRoot extends WebResource {
 
 	private HashMap<String, WebResource> sites = new HashMap<String, WebResource>();
 
+	private HashMap<String, WebPage> pages = new HashMap<String, WebPage>();
+	
 	@Override
 	public String getLabel(Object object) {
 		return LABEL;
@@ -36,15 +40,24 @@ public class WebRoot extends WebResource {
 	public WebRoot() {
 		super(HANDLE_ROOT);
 	}
+	
+	protected WebRoot(String handleIdentifier) {
+		super(handleIdentifier);
+	}
 
 	public void clear() {
 		sites.clear();
+		pages.clear();
 	}
 
 	public void addSite(WebSite site) {
 		sites.put(site.getUrl(), site);
 	}
 
+	public void addPage(WebPage page) {
+		pages.put(page.getUrl(), page);
+	}
+	
 	public WebSite getSite(String url) {
 		return (WebSite) sites.get(url);
 	}
@@ -60,7 +73,10 @@ public class WebRoot extends WebResource {
 
 	@Override
 	public Collection<WebResource> getChildren() {
-		return sites.values();
+		List<WebResource> children = new ArrayList<WebResource>();
+		children.addAll(pages.values());
+		children.addAll(sites.values());
+		return children;
 	}
 
 	@Override

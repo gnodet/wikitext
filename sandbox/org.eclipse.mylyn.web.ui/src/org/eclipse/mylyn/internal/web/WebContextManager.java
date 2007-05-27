@@ -51,28 +51,28 @@ public class WebContextManager {
 		public void interestChanged(List<IInteractionElement> elements) {
 			for (IInteractionElement element : elements) {
 				if (WebResourceStructureBridge.CONTENT_TYPE.equals(element.getContentType())) {
-					processUrl(element.getHandleIdentifier(), false);
+					processUrl(webRoot, element.getHandleIdentifier(), false, true);
 				}
 			}
 		}
 
 		public void contextActivated(IInteractionContext context) {
 			webContextEnabled = true;
-			updateContents(true);
+			updateContents();
 		}
 
 		public void contextDeactivated(IInteractionContext context) {
 			if (getGlobalContext() == null) {
 				webContextEnabled = false;
 			}
-			updateContents(false);
+			updateContents();
 		}
-		
+
 		public void contextCleared(IInteractionContext context) {
 			if (getGlobalContext() == null) {
 				webContextEnabled = false;
 			}
-			updateContents(false);
+			updateContents();
 		}
 
 		public void landmarkAdded(IInteractionElement node) {
@@ -121,18 +121,20 @@ public class WebContextManager {
 		return file;
 	}
 
-	protected void updateContents(boolean populate) {
-		if (populate) {
-			IInteractionContext context = ContextCorePlugin.getContextManager().getActiveContext();
-			if (context == null) {
-				context = getGlobalContext();
-			}
-			if (context != null) {
-				Collection<IInteractionElement> interestingElements = ContextCorePlugin.getContextManager().getInterestingDocuments(context);
-				for (IInteractionElement element : interestingElements) {
-					if (WebResourceStructureBridge.CONTENT_TYPE.equals(element.getContentType())) {
-						processUrl(element.getHandleIdentifier(), true);
-					}
+	public void updateContents() {
+		IInteractionContext context;
+		if (ContextCorePlugin.getContextManager().isContextActive()) {
+			context = ContextCorePlugin.getContextManager().getActiveContext();
+		} else {
+			context = getGlobalContext();
+		}
+		if (context != null) {
+			Collection<IInteractionElement> interestingElements = ContextCorePlugin.getContextManager()
+					.getInterestingDocuments(context);
+			for (IInteractionElement element : interestingElements) {
+				// TODO: this check is unnecessary for the global context
+				if (WebResourceStructureBridge.CONTENT_TYPE.equals(element.getContentType())) {
+					processUrl(webRoot, element.getHandleIdentifier(), true, true);
 				}
 			}
 		} else {
@@ -174,18 +176,27 @@ public class WebContextManager {
 		}
 	}
 
-	private void processUrl(String url, boolean restore) {
+	public void processUrl(WebRoot webRootToAdd, String url, boolean restore, boolean nestSites) {
 		String siteUrl = structureBridge.getSite(url);
 		if (siteUrl != null) {
-			WebSite webSite = webRoot.getSite(siteUrl);
-			if (webSite == null) {
-				webSite = new WebSite(siteUrl);
-				webRoot.addSite(webSite);
+			WebPage page = null;
+			WebSite webSite = null;
+			if (nestSites) {
+				webSite = webRootToAdd.getSite(siteUrl);
+				if (webSite == null) {
+					webSite = new WebSite(siteUrl);
+					webRootToAdd.addSite(webSite);
+				}
+				if (!url.equals(siteUrl)) {
+					WebPage existingPage = webSite.getPage(url);
+					page = (existingPage == null) ? new WebPage(url, webSite) : existingPage;
+					webSite.addPage(page);
+				}
+			} else {
+				page = new WebPage(url, null);
+				webRootToAdd.addPage(page);
 			}
-			if (!url.equals(siteUrl)) {
-				WebPage existingPage = webSite.getPage(url);
-				final WebPage page = (existingPage == null) ? new WebPage(url, webSite) : existingPage;
-				webSite.addPage(page);
+			if (page != null) {
 				if (restore) {
 					String cachedtitle = titleCache.getProperty(url);
 					if (cachedtitle != null) {
@@ -194,10 +205,16 @@ public class WebContextManager {
 				} else {
 					updateTitle(page);
 				}
-			}
-			if (!restore) {
-				for (IWebResourceListener listener : listeners) {
-					listener.webSiteUpdated(webSite);
+				if (!restore) {
+					if (nestSites) {
+						for (IWebResourceListener listener : listeners) {
+							listener.webSiteUpdated(webSite);
+						}
+					} else {
+						for (IWebResourceListener listener : listeners) {
+							listener.webContextUpdated();
+						}
+					}
 				}
 			}
 		}
