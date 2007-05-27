@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Change method 'public String org.eclipse.mylar.tasks.ui.AbstractRepositoryConnectorUi.getNewAccountCreationUrl()' to 'public String getAccountCreationUrl(TaskRepository taskRepository)'&#13;&#10;- Original project: 'org.eclipse.mylar.tasks.ui'&#13;&#10;- New name: 'getAccountCreationUrl'&#13;&#10;- Added parameters:&#13;&#10;     TaskRepository taskRepository" default1="null" delegate="false" deprecate="true" description="Change method 'getNewAccountCreationUrl'" flags="589830" id="org.eclipse.jdt.ui.change.method.signature" input="/src&lt;org.eclipse.mylar.tasks.ui{AbstractRepositoryConnectorUi.java[AbstractRepositoryConnectorUi~getNewAccountCreationUrl" name="getAccountCreationUrl" parameter1="  -1 TaskRepository taskRepository false" stamp="1180249380875" version="1.0"/>
+</session>

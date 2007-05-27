@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Move 1 elements(s) to 'org.eclipse.mylar.doc'&#13;&#10;- Original project: 'org.eclipse.mylar.doc'&#13;&#10;- Destination element: 'org.eclipse.mylar.doc'&#13;&#10;- Original element: 'images'" description="Move folder" destination="=org.eclipse.mylar.doc" element1="doc/images" files="0" flags="589830" folders="1" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1180248300680" units="0" version="1.0"/>
+</session>
