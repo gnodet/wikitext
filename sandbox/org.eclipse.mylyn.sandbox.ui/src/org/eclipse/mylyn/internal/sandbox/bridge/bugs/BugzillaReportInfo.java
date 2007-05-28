@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaQueryHit;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaRepositoryConnector;
@@ -115,7 +116,7 @@ public class BugzillaReportInfo {
 			BugzillaRepositoryConnector bugzillaConnector = (BugzillaRepositoryConnector) TasksUiPlugin
 					.getRepositoryManager().getRepositoryConnector(BugzillaCorePlugin.REPOSITORY_KIND);
 			ITaskDataHandler handler = bugzillaConnector.getTaskDataHandler();
-			bug = handler.getTaskData(repository, hit.getTaskId());
+			bug = handler.getTaskData(repository, hit.getTaskId(), new NullProgressMonitor());
 		}
 		return bug;
 	}
