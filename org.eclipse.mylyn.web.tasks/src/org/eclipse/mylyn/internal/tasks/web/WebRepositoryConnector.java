@@ -219,7 +219,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 				if (queryPattern != null && queryPattern.trim().length() > 0) {
 					return performQuery(fetchResource(queryUrl, queryParameters, repository), queryPattern, taskPrefix,
 							monitor, resultCollector, repository);
-				 } else {
+				} else {
 					return performRssQuery(queryUrl, monitor, resultCollector, repository);
 				}
 

@@ -223,8 +223,6 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		LinkedHashMap<String, String> vars = new LinkedHashMap<String, String>();
 		Map<String, String> params = new LinkedHashMap<String, String>();
 		if(repository!=null) {
-
-
 			queryUrlText.setText(addVars(vars, repository.getProperty(WebRepositoryConnector.PROPERTY_QUERY_URL)));
 			queryPatternText.setText(addVars(vars, repository.getProperty(WebRepositoryConnector.PROPERTY_QUERY_REGEXP)));
 
@@ -338,7 +336,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		@Override
 		protected IStatus run(IProgressMonitor monitor) {
 			String currentRegexp = regexp;
-			String evaluatedRegexp = WebRepositoryConnector.evaluateParams(currentRegexp, params, repository);
+			String queryPattern = WebRepositoryConnector.evaluateParams(currentRegexp, params, repository);
 			String evaluatedUrl = WebRepositoryConnector.evaluateParams(url, params, repository);
 			active = true;
 			do {
@@ -356,7 +354,13 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 						}
 					};
 
-					IStatus status = WebRepositoryConnector.performQuery(webPage, evaluatedRegexp, null, monitor, collector, repository);
+					IStatus status;
+					if (queryPattern != null && queryPattern.trim().length() > 0) {
+						status = WebRepositoryConnector.performQuery(webPage, queryPattern, null, monitor, collector, repository);
+					} else {
+						status = WebRepositoryConnector.performRssQuery(evaluatedUrl, monitor, collector, repository);
+					}
+					
 					if(!status.isOK()) {
 						queryStatus.add(status);
 					}
