@@ -1,0 +1,1881 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://xplanner.org:8080/soap/XPlanner" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://xplanner.org:8080/soap/XPlanner" xmlns:intf="http://xplanner.org:8080/soap/XPlanner" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="http://xplanner.org/soap" xmlns:tns2="http://domain.soap.xplanner.technoetic.com" xmlns:tns3="http://db.xplanner.technoetic.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.3
+Built on Oct 05, 2005 (05:23:37 EDT)-->
+ <wsdl:types>
+  <schema targetNamespace="http://xml.apache.org/xml-soap" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://xplanner.org/soap"/>
+   <import namespace="http://domain.soap.xplanner.technoetic.com"/>
+   <import namespace="http://db.xplanner.technoetic.com"/>
+   <import namespace="http://xplanner.org:8080/soap/XPlanner"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="mapItem">
+    <sequence>
+     <element name="key" nillable="true" type="xsd:anyType"/>
+     <element name="value" nillable="true" type="xsd:anyType"/>
+    </sequence>
+   </complexType>
+   <complexType name="Map">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="apachesoap:mapItem"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://domain.soap.xplanner.technoetic.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://xplanner.org/soap"/>
+   <import namespace="http://db.xplanner.technoetic.com"/>
+   <import namespace="http://xml.apache.org/xml-soap"/>
+   <import namespace="http://xplanner.org:8080/soap/XPlanner"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType abstract="true" name="DomainData">
+    <sequence>
+     <element name="id" type="xsd:int"/>
+     <element name="lastUpdateTime" nillable="true" type="xsd:dateTime"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://xplanner.org/soap" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://domain.soap.xplanner.technoetic.com"/>
+   <import namespace="http://db.xplanner.technoetic.com"/>
+   <import namespace="http://xml.apache.org/xml-soap"/>
+   <import namespace="http://xplanner.org:8080/soap/XPlanner"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="ProjectData">
+    <complexContent>
+     <extension base="tns2:DomainData">
+      <sequence>
+       <element name="description" nillable="true" type="soapenc:string"/>
+       <element name="name" nillable="true" type="soapenc:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="PersonData">
+    <complexContent>
+     <extension base="tns2:DomainData">
+      <sequence>
+       <element name="email" nillable="true" type="soapenc:string"/>
+       <element name="initials" nillable="true" type="soapenc:string"/>
+       <element name="name" nillable="true" type="soapenc:string"/>
+       <element name="phone" nillable="true" type="soapenc:string"/>
+       <element name="userId" nillable="true" type="soapenc:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="NoteData">
+    <complexContent>
+     <extension base="tns2:DomainData">
+      <sequence>
+       <element name="attachedToId" type="xsd:int"/>
+       <element name="attachmentId" type="xsd:int"/>
+       <element name="authorId" type="xsd:int"/>
+       <element name="body" nillable="true" type="soapenc:string"/>
+       <element name="subject" nillable="true" type="soapenc:string"/>
+       <element name="submissionTime" nillable="true" type="xsd:dateTime"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="TimeEntryData">
+    <complexContent>
+     <extension base="tns2:DomainData">
+      <sequence>
+       <element name="description" nillable="true" type="soapenc:string"/>
+       <element name="duration" type="xsd:double"/>
+       <element name="endTime" nillable="true" type="xsd:dateTime"/>
+       <element name="person1Id" type="xsd:int"/>
+       <element name="person2Id" type="xsd:int"/>
+       <element name="reportDate" nillable="true" type="xsd:dateTime"/>
+       <element name="startTime" nillable="true" type="xsd:dateTime"/>
+       <element name="taskId" type="xsd:int"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="TaskData">
+    <complexContent>
+     <extension base="tns2:DomainData">
+      <sequence>
+       <element name="acceptorId" type="xsd:int"/>
+       <element name="actualHours" type="xsd:double"/>
+       <element name="adjustedEstimatedHours" type="xsd:double"/>
+       <element name="completed" type="xsd:boolean"/>
+       <element name="createdDate" nillable="true" type="xsd:dateTime"/>
+       <element name="description" nillable="true" type="soapenc:string"/>
+       <element name="dispositionName" nillable="true" type="soapenc:string"/>
+       <element name="estimatedHours" type="xsd:double"/>
+       <element name="estimatedOriginalHours" type="xsd:double"/>
+       <element name="name" nillable="true" type="soapenc:string"/>
+       <element name="remainingHours" type="xsd:double"/>
+       <element name="storyId" type="xsd:int"/>
+       <element name="type" nillable="true" type="soapenc:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="IterationData">
+    <complexContent>
+     <extension base="tns2:DomainData">
+      <sequence>
+       <element name="actualHours" type="xsd:double"/>
+       <element name="addedHours" type="xsd:double"/>
+       <element name="adjustedEstimatedHours" type="xsd:double"/>
+       <element name="daysWorked" type="xsd:double"/>
+       <element name="description" nillable="true" type="soapenc:string"/>
+       <element name="endDate" nillable="true" type="xsd:dateTime"/>
+       <element name="estimatedHours" type="xsd:double"/>
+       <element name="name" nillable="true" type="soapenc:string"/>
+       <element name="overestimatedHours" type="xsd:double"/>
+       <element name="postponedHours" type="xsd:double"/>
+       <element name="projectId" type="xsd:int"/>
+       <element name="remainingHours" type="xsd:double"/>
+       <element name="startDate" nillable="true" type="xsd:dateTime"/>
+       <element name="statusKey" nillable="true" type="soapenc:string"/>
+       <element name="underestimatedHours" type="xsd:double"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+   <complexType name="UserStoryData">
+    <complexContent>
+     <extension base="tns2:DomainData">
+      <sequence>
+       <element name="actualHours" type="xsd:double"/>
+       <element name="adjustedEstimatedHours" type="xsd:double"/>
+       <element name="completed" type="xsd:boolean"/>
+       <element name="customerId" type="xsd:int"/>
+       <element name="description" nillable="true" type="soapenc:string"/>
+       <element name="dispositionName" nillable="true" type="soapenc:string"/>
+       <element name="estimatedHours" type="xsd:double"/>
+       <element name="estimatedOriginalHours" type="xsd:double"/>
+       <element name="iterationId" type="xsd:int"/>
+       <element name="name" nillable="true" type="soapenc:string"/>
+       <element name="postponedHours" type="xsd:double"/>
+       <element name="priority" type="xsd:int"/>
+       <element name="remainingHours" type="xsd:double"/>
+       <element name="trackerId" type="xsd:int"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://xplanner.org:8080/soap/XPlanner" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://xplanner.org/soap"/>
+   <import namespace="http://domain.soap.xplanner.technoetic.com"/>
+   <import namespace="http://db.xplanner.technoetic.com"/>
+   <import namespace="http://xml.apache.org/xml-soap"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="ArrayOf_tns1_UserStoryData">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:UserStoryData[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_TaskData">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:TaskData[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_TimeEntryData">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:TimeEntryData[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_IterationData">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:IterationData[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_PersonData">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:PersonData[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_ProjectData">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:ProjectData[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_NoteData">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:NoteData[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+  </schema>
+  <schema targetNamespace="http://db.xplanner.technoetic.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://xplanner.org/soap"/>
+   <import namespace="http://domain.soap.xplanner.technoetic.com"/>
+   <import namespace="http://xml.apache.org/xml-soap"/>
+   <import namespace="http://xplanner.org:8080/soap/XPlanner"/>
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="QueryException">
+    <sequence/>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="removeProjectRequest">
+
+      <wsdl:part name="id" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateResponse1">
+
+   </wsdl:message>
+
+   <wsdl:message name="updateResponse6">
+
+   </wsdl:message>
+
+   <wsdl:message name="addNoteRequest">
+
+      <wsdl:part name="note" type="tns1:NoteData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeIterationResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectsRequest">
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectResponse">
+
+      <wsdl:part name="getProjectReturn" type="tns1:ProjectData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addPersonRequest">
+
+      <wsdl:part name="object" type="tns1:PersonData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateRequest">
+
+      <wsdl:part name="object" type="tns1:ProjectData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addTaskRequest">
+
+      <wsdl:part name="task" type="tns1:TaskData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeUserStoryRequest">
+
+      <wsdl:part name="id" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getTimeEntryResponse">
+
+      <wsdl:part name="getTimeEntryReturn" type="tns1:TimeEntryData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeTimeEntryResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="addIterationResponse">
+
+      <wsdl:part name="addIterationReturn" type="tns1:IterationData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addTimeEntryResponse">
+
+      <wsdl:part name="addTimeEntryReturn" type="tns1:TimeEntryData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getTimeEntriesResponse">
+
+      <wsdl:part name="getTimeEntriesReturn" type="impl:ArrayOf_tns1_TimeEntryData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addTimeEntryRequest">
+
+      <wsdl:part name="timeEntry" type="tns1:TimeEntryData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getCurrentIterationRequest">
+
+      <wsdl:part name="projectId" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getNoteResponse">
+
+      <wsdl:part name="getNoteReturn" type="tns1:NoteData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateRequest6">
+
+      <wsdl:part name="object" type="tns1:UserStoryData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAttributeRequest">
+
+      <wsdl:part name="objectId" type="xsd:int"/>
+
+      <wsdl:part name="key" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addUserStoryResponse">
+
+      <wsdl:part name="addUserStoryReturn" type="tns1:UserStoryData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setAttributeResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="getPersonResponse">
+
+      <wsdl:part name="getPersonReturn" type="tns1:PersonData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getUserStoryRequest">
+
+      <wsdl:part name="id" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeProjectResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="removeIterationRequest">
+
+      <wsdl:part name="id" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getTasksRequest">
+
+      <wsdl:part name="containerId" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateResponse5">
+
+   </wsdl:message>
+
+   <wsdl:message name="removeTaskResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="removeTaskRequest">
+
+      <wsdl:part name="id" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateResponse2">
+
+   </wsdl:message>
+
+   <wsdl:message name="addProjectRequest">
+
+      <wsdl:part name="project" type="tns1:ProjectData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getNotesForObjectRequest">
+
+      <wsdl:part name="attachedToId" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPersonRequest">
+
+      <wsdl:part name="id" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addUserStoryRequest">
+
+      <wsdl:part name="story" type="tns1:UserStoryData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getTimeEntryRequest">
+
+      <wsdl:part name="id" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAttributesResponse">
+
+      <wsdl:part name="getAttributesReturn" type="apachesoap:Map"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getCurrentTasksForPersonRequest">
+
+      <wsdl:part name="personId" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateRequest2">
+
+      <wsdl:part name="note" type="tns1:NoteData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getIterationsResponse">
+
+      <wsdl:part name="getIterationsReturn" type="impl:ArrayOf_tns1_IterationData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="setAttributeRequest">
+
+      <wsdl:part name="objectId" type="xsd:int"/>
+
+      <wsdl:part name="key" type="soapenc:string"/>
+
+      <wsdl:part name="value" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getUserStoriesResponse">
+
+      <wsdl:part name="getUserStoriesReturn" type="impl:ArrayOf_tns1_UserStoryData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateRequest3">
+
+      <wsdl:part name="object" type="tns1:TimeEntryData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getTaskRequest">
+
+      <wsdl:part name="id" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPeopleRequest">
+
+   </wsdl:message>
+
+   <wsdl:message name="getAttributeResponse">
+
+      <wsdl:part name="getAttributeReturn" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getIterationsRequest">
+
+      <wsdl:part name="projectId" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateRequest4">
+
+      <wsdl:part name="object" type="tns1:TaskData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getNotesForObjectResponse">
+
+      <wsdl:part name="getNotesForObjectReturn" type="impl:ArrayOf_tns1_NoteData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeUserStoryResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="updateResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="addNoteResponse">
+
+      <wsdl:part name="addNoteReturn" type="tns1:NoteData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addIterationRequest">
+
+      <wsdl:part name="iteration" type="tns1:IterationData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getCurrentIterationResponse">
+
+      <wsdl:part name="getCurrentIterationReturn" type="tns1:IterationData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="QueryException">
+
+      <wsdl:part name="fault" type="tns3:QueryException"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectsResponse">
+
+      <wsdl:part name="getProjectsReturn" type="impl:ArrayOf_tns1_ProjectData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteAttributeResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="updateRequest1">
+
+      <wsdl:part name="object" type="tns1:PersonData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="removePersonResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="getTaskResponse">
+
+      <wsdl:part name="getTaskReturn" type="tns1:TaskData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeNoteRequest">
+
+      <wsdl:part name="id" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAttributesRequest">
+
+      <wsdl:part name="objectId" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPlannedTasksForPersonResponse">
+
+      <wsdl:part name="getPlannedTasksForPersonReturn" type="impl:ArrayOf_tns1_TaskData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getIterationRequest">
+
+      <wsdl:part name="id" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPeopleResponse">
+
+      <wsdl:part name="getPeopleReturn" type="impl:ArrayOf_tns1_PersonData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getCurrentTasksForPersonResponse">
+
+      <wsdl:part name="getCurrentTasksForPersonReturn" type="impl:ArrayOf_tns1_TaskData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addProjectResponse">
+
+      <wsdl:part name="addProjectReturn" type="tns1:ProjectData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeTimeEntryRequest">
+
+      <wsdl:part name="id" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getTasksResponse">
+
+      <wsdl:part name="getTasksReturn" type="impl:ArrayOf_tns1_TaskData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteAttributeRequest">
+
+      <wsdl:part name="objectId" type="xsd:int"/>
+
+      <wsdl:part name="key" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAttributesWithPrefixRequest">
+
+      <wsdl:part name="objectId" type="xsd:int"/>
+
+      <wsdl:part name="prefix" type="soapenc:string"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getAttributesWithPrefixResponse">
+
+      <wsdl:part name="getAttributesWithPrefixReturn" type="apachesoap:Map"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getIterationResponse">
+
+      <wsdl:part name="getIterationReturn" type="tns1:IterationData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateRequest5">
+
+      <wsdl:part name="object" type="tns1:IterationData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addPersonResponse">
+
+      <wsdl:part name="addPersonReturn" type="tns1:PersonData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getTimeEntriesRequest">
+
+      <wsdl:part name="containerId" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getUserStoryResponse">
+
+      <wsdl:part name="getUserStoryReturn" type="tns1:UserStoryData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="removePersonRequest">
+
+      <wsdl:part name="id" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getUserStoriesRequest">
+
+      <wsdl:part name="containerId" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="removeNoteResponse">
+
+   </wsdl:message>
+
+   <wsdl:message name="addTaskResponse">
+
+      <wsdl:part name="addTaskReturn" type="tns1:TaskData"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateResponse3">
+
+   </wsdl:message>
+
+   <wsdl:message name="getPlannedTasksForPersonRequest">
+
+      <wsdl:part name="personId" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getNoteRequest">
+
+      <wsdl:part name="id" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="updateResponse4">
+
+   </wsdl:message>
+
+   <wsdl:message name="getProjectRequest">
+
+      <wsdl:part name="id" type="xsd:int"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="XPlanner">
+
+      <wsdl:operation name="getAttributes" parameterOrder="objectId">
+
+         <wsdl:input message="impl:getAttributesRequest" name="getAttributesRequest"/>
+
+         <wsdl:output message="impl:getAttributesResponse" name="getAttributesResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="update" parameterOrder="object">
+
+         <wsdl:input message="impl:updateRequest" name="updateRequest"/>
+
+         <wsdl:output message="impl:updateResponse" name="updateResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="update" parameterOrder="object">
+
+         <wsdl:input message="impl:updateRequest1" name="updateRequest1"/>
+
+         <wsdl:output message="impl:updateResponse1" name="updateResponse1"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="update" parameterOrder="note">
+
+         <wsdl:input message="impl:updateRequest2" name="updateRequest2"/>
+
+         <wsdl:output message="impl:updateResponse2" name="updateResponse2"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="update" parameterOrder="object">
+
+         <wsdl:input message="impl:updateRequest3" name="updateRequest3"/>
+
+         <wsdl:output message="impl:updateResponse3" name="updateResponse3"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="update" parameterOrder="object">
+
+         <wsdl:input message="impl:updateRequest4" name="updateRequest4"/>
+
+         <wsdl:output message="impl:updateResponse4" name="updateResponse4"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="update" parameterOrder="object">
+
+         <wsdl:input message="impl:updateRequest5" name="updateRequest5"/>
+
+         <wsdl:output message="impl:updateResponse5" name="updateResponse5"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="update" parameterOrder="object">
+
+         <wsdl:input message="impl:updateRequest6" name="updateRequest6"/>
+
+         <wsdl:output message="impl:updateResponse6" name="updateResponse6"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAttribute" parameterOrder="objectId key">
+
+         <wsdl:input message="impl:getAttributeRequest" name="getAttributeRequest"/>
+
+         <wsdl:output message="impl:getAttributeResponse" name="getAttributeResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setAttribute" parameterOrder="objectId key value">
+
+         <wsdl:input message="impl:setAttributeRequest" name="setAttributeRequest"/>
+
+         <wsdl:output message="impl:setAttributeResponse" name="setAttributeResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getNote" parameterOrder="id">
+
+         <wsdl:input message="impl:getNoteRequest" name="getNoteRequest"/>
+
+         <wsdl:output message="impl:getNoteResponse" name="getNoteResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeNote" parameterOrder="id">
+
+         <wsdl:input message="impl:removeNoteRequest" name="removeNoteRequest"/>
+
+         <wsdl:output message="impl:removeNoteResponse" name="removeNoteResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPerson" parameterOrder="id">
+
+         <wsdl:input message="impl:getPersonRequest" name="getPersonRequest"/>
+
+         <wsdl:output message="impl:getPersonResponse" name="getPersonResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getUserStories" parameterOrder="containerId">
+
+         <wsdl:input message="impl:getUserStoriesRequest" name="getUserStoriesRequest"/>
+
+         <wsdl:output message="impl:getUserStoriesResponse" name="getUserStoriesResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getTasks" parameterOrder="containerId">
+
+         <wsdl:input message="impl:getTasksRequest" name="getTasksRequest"/>
+
+         <wsdl:output message="impl:getTasksResponse" name="getTasksResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getTimeEntries" parameterOrder="containerId">
+
+         <wsdl:input message="impl:getTimeEntriesRequest" name="getTimeEntriesRequest"/>
+
+         <wsdl:output message="impl:getTimeEntriesResponse" name="getTimeEntriesResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addTask" parameterOrder="task">
+
+         <wsdl:input message="impl:addTaskRequest" name="addTaskRequest"/>
+
+         <wsdl:output message="impl:addTaskResponse" name="addTaskResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getIterations" parameterOrder="projectId">
+
+         <wsdl:input message="impl:getIterationsRequest" name="getIterationsRequest"/>
+
+         <wsdl:output message="impl:getIterationsResponse" name="getIterationsResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getCurrentIteration" parameterOrder="projectId">
+
+         <wsdl:input message="impl:getCurrentIterationRequest" name="getCurrentIterationRequest"/>
+
+         <wsdl:output message="impl:getCurrentIterationResponse" name="getCurrentIterationResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPeople">
+
+         <wsdl:input message="impl:getPeopleRequest" name="getPeopleRequest"/>
+
+         <wsdl:output message="impl:getPeopleResponse" name="getPeopleResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProject" parameterOrder="id">
+
+         <wsdl:input message="impl:getProjectRequest" name="getProjectRequest"/>
+
+         <wsdl:output message="impl:getProjectResponse" name="getProjectResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getUserStory" parameterOrder="id">
+
+         <wsdl:input message="impl:getUserStoryRequest" name="getUserStoryRequest"/>
+
+         <wsdl:output message="impl:getUserStoryResponse" name="getUserStoryResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getIteration" parameterOrder="id">
+
+         <wsdl:input message="impl:getIterationRequest" name="getIterationRequest"/>
+
+         <wsdl:output message="impl:getIterationResponse" name="getIterationResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getTask" parameterOrder="id">
+
+         <wsdl:input message="impl:getTaskRequest" name="getTaskRequest"/>
+
+         <wsdl:output message="impl:getTaskResponse" name="getTaskResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProjects">
+
+         <wsdl:input message="impl:getProjectsRequest" name="getProjectsRequest"/>
+
+         <wsdl:output message="impl:getProjectsResponse" name="getProjectsResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addProject" parameterOrder="project">
+
+         <wsdl:input message="impl:addProjectRequest" name="addProjectRequest"/>
+
+         <wsdl:output message="impl:addProjectResponse" name="addProjectResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeProject" parameterOrder="id">
+
+         <wsdl:input message="impl:removeProjectRequest" name="removeProjectRequest"/>
+
+         <wsdl:output message="impl:removeProjectResponse" name="removeProjectResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addIteration" parameterOrder="iteration">
+
+         <wsdl:input message="impl:addIterationRequest" name="addIterationRequest"/>
+
+         <wsdl:output message="impl:addIterationResponse" name="addIterationResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeIteration" parameterOrder="id">
+
+         <wsdl:input message="impl:removeIterationRequest" name="removeIterationRequest"/>
+
+         <wsdl:output message="impl:removeIterationResponse" name="removeIterationResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addUserStory" parameterOrder="story">
+
+         <wsdl:input message="impl:addUserStoryRequest" name="addUserStoryRequest"/>
+
+         <wsdl:output message="impl:addUserStoryResponse" name="addUserStoryResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeUserStory" parameterOrder="id">
+
+         <wsdl:input message="impl:removeUserStoryRequest" name="removeUserStoryRequest"/>
+
+         <wsdl:output message="impl:removeUserStoryResponse" name="removeUserStoryResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getCurrentTasksForPerson" parameterOrder="personId">
+
+         <wsdl:input message="impl:getCurrentTasksForPersonRequest" name="getCurrentTasksForPersonRequest"/>
+
+         <wsdl:output message="impl:getCurrentTasksForPersonResponse" name="getCurrentTasksForPersonResponse"/>
+
+         <wsdl:fault message="impl:QueryException" name="QueryException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPlannedTasksForPerson" parameterOrder="personId">
+
+         <wsdl:input message="impl:getPlannedTasksForPersonRequest" name="getPlannedTasksForPersonRequest"/>
+
+         <wsdl:output message="impl:getPlannedTasksForPersonResponse" name="getPlannedTasksForPersonResponse"/>
+
+         <wsdl:fault message="impl:QueryException" name="QueryException"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeTask" parameterOrder="id">
+
+         <wsdl:input message="impl:removeTaskRequest" name="removeTaskRequest"/>
+
+         <wsdl:output message="impl:removeTaskResponse" name="removeTaskResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getTimeEntry" parameterOrder="id">
+
+         <wsdl:input message="impl:getTimeEntryRequest" name="getTimeEntryRequest"/>
+
+         <wsdl:output message="impl:getTimeEntryResponse" name="getTimeEntryResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addTimeEntry" parameterOrder="timeEntry">
+
+         <wsdl:input message="impl:addTimeEntryRequest" name="addTimeEntryRequest"/>
+
+         <wsdl:output message="impl:addTimeEntryResponse" name="addTimeEntryResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeTimeEntry" parameterOrder="id">
+
+         <wsdl:input message="impl:removeTimeEntryRequest" name="removeTimeEntryRequest"/>
+
+         <wsdl:output message="impl:removeTimeEntryResponse" name="removeTimeEntryResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addNote" parameterOrder="note">
+
+         <wsdl:input message="impl:addNoteRequest" name="addNoteRequest"/>
+
+         <wsdl:output message="impl:addNoteResponse" name="addNoteResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getNotesForObject" parameterOrder="attachedToId">
+
+         <wsdl:input message="impl:getNotesForObjectRequest" name="getNotesForObjectRequest"/>
+
+         <wsdl:output message="impl:getNotesForObjectResponse" name="getNotesForObjectResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addPerson" parameterOrder="object">
+
+         <wsdl:input message="impl:addPersonRequest" name="addPersonRequest"/>
+
+         <wsdl:output message="impl:addPersonResponse" name="addPersonResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removePerson" parameterOrder="id">
+
+         <wsdl:input message="impl:removePersonRequest" name="removePersonRequest"/>
+
+         <wsdl:output message="impl:removePersonResponse" name="removePersonResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteAttribute" parameterOrder="objectId key">
+
+         <wsdl:input message="impl:deleteAttributeRequest" name="deleteAttributeRequest"/>
+
+         <wsdl:output message="impl:deleteAttributeResponse" name="deleteAttributeResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAttributesWithPrefix" parameterOrder="objectId prefix">
+
+         <wsdl:input message="impl:getAttributesWithPrefixRequest" name="getAttributesWithPrefixRequest"/>
+
+         <wsdl:output message="impl:getAttributesWithPrefixResponse" name="getAttributesWithPrefixResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="XPlannerSoapBinding" type="impl:XPlanner">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getAttributes">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAttributesRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAttributesResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="update">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="updateRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="updateResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="update">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="updateRequest1">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="updateResponse1">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="update">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="updateRequest2">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="updateResponse2">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="update">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="updateRequest3">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="updateResponse3">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="update">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="updateRequest4">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="updateResponse4">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="update">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="updateRequest5">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="updateResponse5">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="update">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="updateRequest6">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="updateResponse6">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAttribute">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAttributeRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAttributeResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="setAttribute">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="setAttributeRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="setAttributeResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getNote">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getNoteRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getNoteResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeNote">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="removeNoteRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="removeNoteResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPerson">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getPersonRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getPersonResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getUserStories">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getUserStoriesRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getUserStoriesResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getTasks">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getTasksRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getTasksResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getTimeEntries">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getTimeEntriesRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getTimeEntriesResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addTask">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addTaskRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addTaskResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getIterations">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getIterationsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getIterationsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getCurrentIteration">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getCurrentIterationRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getCurrentIterationResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPeople">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getPeopleRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getPeopleResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProject">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getProjectRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getProjectResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getUserStory">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getUserStoryRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getUserStoryResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getIteration">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getIterationRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getIterationResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getTask">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getTaskRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getTaskResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getProjects">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getProjectsRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getProjectsResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addProject">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addProjectRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addProjectResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeProject">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="removeProjectRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="removeProjectResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addIteration">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addIterationRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addIterationResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeIteration">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="removeIterationRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="removeIterationResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addUserStory">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addUserStoryRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addUserStoryResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeUserStory">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="removeUserStoryRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="removeUserStoryResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getCurrentTasksForPerson">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getCurrentTasksForPersonRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getCurrentTasksForPersonResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="QueryException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="QueryException" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPlannedTasksForPerson">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getPlannedTasksForPersonRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getPlannedTasksForPersonResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+         <wsdl:fault name="QueryException">
+
+            <wsdlsoap:fault encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" name="QueryException" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:fault>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeTask">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="removeTaskRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="removeTaskResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getTimeEntry">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getTimeEntryRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getTimeEntryResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addTimeEntry">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addTimeEntryRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addTimeEntryResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removeTimeEntry">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="removeTimeEntryRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="removeTimeEntryResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addNote">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addNoteRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addNoteResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getNotesForObject">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getNotesForObjectRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getNotesForObjectResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addPerson">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addPersonRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addPersonResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removePerson">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="removePersonRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="removePersonResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteAttribute">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="deleteAttributeRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="deleteAttributeResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getAttributesWithPrefix">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getAttributesWithPrefixRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.xplanner.technoetic.com" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getAttributesWithPrefixResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://xplanner.org:8080/soap/XPlanner" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="XPlannerService">
+
+      <wsdl:port binding="impl:XPlannerSoapBinding" name="XPlanner">
+
+         <wsdlsoap:address location="http://jbproxy.inprise.com:7070/soap/XPlanner"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

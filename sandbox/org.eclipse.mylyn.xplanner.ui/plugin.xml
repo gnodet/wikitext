@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+   <extension
+         id="org.eclipse.mylar.xplanner.repository"
+         name="%repositoryName"
+         point="org.eclipse.mylar.tasks.ui.repositories">
+
+      <connectorCore
+            class="org.eclipse.mylar.xplanner.ui.XPlannerRepositoryConnector"
+            id="org.eclipse.mylar.xplanner.tasklist.repositories"
+            name="%connectorName"
+            type="xPlanner"/>
+	  <connectorUi
+         brandingIcon="icons/eview16/xplanner-logo.gif"
+         class="org.eclipse.mylar.xplanner.ui.XPlannerRepositoryUi"
+         name="%connectorUiName"
+         overlayIcon="icons/eview16/overlay-xplanner.gif"/>
+            
+      <externalizer 
+            class="org.eclipse.mylar.xplanner.ui.XPlannerTaskExternalizer"
+            id="org.eclipse.mylar.xplanner.tasklist.externalizer"/>
+   </extension>  
+   
+   <extension point="org.eclipse.ui.decorators">
+      <decorator
+            class="org.eclipse.mylar.xplanner.ui.XPlannerTaskDecorator"
+            id="org.eclipse.mylar.xplanner.ui.decorator.task"
+            label="%decoratorLabelTask"
+            lightweight="true"
+            state="true">
+         <description>%decoratorDescriptionTask</description>
+         <enablement>
+            <objectClass name="org.eclipse.mylar.tasks.core.ITaskListElement"/>
+         </enablement>
+      </decorator>
+   </extension>
+   <!--
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.eclipse.mylar.xplanner.ui.XPlannerTaskEditor"
+            default="false"
+            id="org.eclipse.mylar.xplanner.task.editor"
+            name="%editorNameTask"/>
+   </extension>
+   -->
+   <extension
+         point="org.eclipse.mylar.tasks.ui.editors">
+      <editorFactory
+            class="org.eclipse.mylar.xplanner.ui.editor.XPlannerTaskEditorFactory"
+            id="org.eclipse.mylar.xplanner.ui.XPlannerTaskEditorFactory"/>
+   </extension>
+
+</plugin>

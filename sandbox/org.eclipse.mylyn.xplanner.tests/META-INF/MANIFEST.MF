@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: @bundleName
+Bundle-SymbolicName: org.eclipse.mylar.xplanner.tests
+Bundle-Version: 1.0.0
+Bundle-Localization: plugin
+Require-Bundle: org.junit,
+ org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.mylar.tasks.core, 
+ org.eclipse.mylar.tasks.ui,
+ org.eclipse.mylar.xplanner.core,
+ org.eclipse.mylar.xplanner.ui

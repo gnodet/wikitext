@@ -1,0 +1,5 @@
+#Fri Mar 09 19:35:44 PST 2007
+eclipse.preferences.version=1
+org.eclipse.jdt.core.compiler.problem.missingSerialVersion=ignore
+org.eclipse.jdt.core.compiler.problem.uncheckedTypeOperation=ignore
+org.eclipse.jdt.core.compiler.problem.unusedLocal=ignore

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension-point 
+         id="serviceProviderFactory"
+         name="%extensionPointNameServiceProviderFactory"
+         schema="schema/serviceProviderFactory.exsd"/>
+
+   <extension
+         point="org.eclipse.mylar.xplanner.core.serviceProviderFactory">
+      <serviceProviderFactory
+            class="org.eclipse.mylar.xplanner.core.service.soap.SoapXPlannerServiceFactory"
+            name="%serviceProviderFactoryNameSoap"/>
+   </extension>
+</plugin>
