@@ -98,6 +98,8 @@ public class WebResourceStructureBridge extends AbstractContextStructureBridge {
 			int siteEnd = withoutProtocol.indexOf("/");
 			if (siteEnd != -1) {
 				site = url.substring(0, protocolEnd + siteEnd);
+			} else {
+				return url;
 			}
 		}
 		return site;
