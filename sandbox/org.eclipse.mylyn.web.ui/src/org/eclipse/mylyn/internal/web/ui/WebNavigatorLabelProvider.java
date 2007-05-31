@@ -21,7 +21,7 @@ import org.eclipse.ui.navigator.ICommonLabelProvider;
 /**
  * @author Mik Kersten
  */
-public class WebSiteNavigatorLabelProvider extends WorkbenchLabelProvider implements
+public class WebNavigatorLabelProvider extends WorkbenchLabelProvider implements
 		ICommonLabelProvider {
 
 	private ICommonContentExtensionSite extensionSite;

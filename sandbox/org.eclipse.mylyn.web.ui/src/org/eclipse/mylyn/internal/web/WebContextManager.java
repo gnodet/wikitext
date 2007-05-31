@@ -193,11 +193,11 @@ public class WebContextManager {
 					webSite.addPage(page);
 				}
 			} else {
-				page = new WebPage(url, null);
-				webRootToAdd.addPage(page);
+				webSite = new WebSite(url);
+				webRootToAdd.addSite(webSite);
 			}
 			if (page != null) {
-				if (restore) {
+				if (restore && page != null) {
 					String cachedtitle = titleCache.getProperty(url);
 					if (cachedtitle != null) {
 						page.setTitle(cachedtitle);
@@ -205,15 +205,15 @@ public class WebContextManager {
 				} else {
 					updateTitle(page);
 				}
-				if (!restore) {
-					if (nestSites) {
-						for (IWebResourceListener listener : listeners) {
-							listener.webSiteUpdated(webSite);
-						}
-					} else {
-						for (IWebResourceListener listener : listeners) {
-							listener.webContextUpdated();
-						}
+			}
+			if (!restore) {
+				if (nestSites) {
+					for (IWebResourceListener listener : listeners) {
+						listener.webSiteUpdated(webSite);
+					}
+				} else {
+					for (IWebResourceListener listener : listeners) {
+						listener.webContextUpdated();
 					}
 				}
 			}

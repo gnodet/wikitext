@@ -50,7 +50,7 @@
             contentProvider="org.eclipse.mylar.internal.web.WebResourceContentProvider"
             icon="icons/obj16/web-root.gif"
             id="org.eclipse.mylar.web.navigator"
-            labelProvider="org.eclipse.mylar.internal.web.ui.WebSiteNavigatorLabelProvider"
+            labelProvider="org.eclipse.mylar.internal.web.ui.WebNavigatorLabelProvider"
             name="Mylar Web Context (Experimental)"
             priority="lowest">
          <triggerPoints>
