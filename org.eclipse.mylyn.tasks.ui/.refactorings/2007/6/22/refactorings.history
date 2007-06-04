@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Rename field 'dropDown' in 'org.eclipse.mylar.internal.tasks.ui.TaskTrimWidget' to 'navigateAction'&#13;&#10;- Original project: 'org.eclipse.mylar.tasks.ui'&#13;&#10;- Original element: 'org.eclipse.mylar.internal.tasks.ui.TaskTrimWidget.dropDown'&#13;&#10;- Renamed element: 'org.eclipse.mylar.internal.tasks.ui.TaskTrimWidget.navigateAction'&#13;&#10;- Update references to refactored element&#13;&#10;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field 'dropDown'" flags="589826" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;org.eclipse.mylar.internal.tasks.ui{TaskTrimWidget.java[TaskTrimWidget^dropDown" name="navigateAction" references="true" setter="false" stamp="1180821018521" textual="false" version="1.0"/>
+</session>
