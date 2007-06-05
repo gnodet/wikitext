@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 7 element(s) from project 'org.eclipse.mylar.tests'&#13;&#10;- Original project: 'org.eclipse.mylar.tests'&#13;&#10;- Original elements:&#13;&#10;     dom-out.xml&#13;&#10;     extern.xml&#13;&#10;     repositories.xml&#13;&#10;     sax-out.xml&#13;&#10;     TaskAttachmentActionsTest.testfile&#13;&#10;     temptasklist.xml&#13;&#10;     test-log.xml" description="Delete elements" element1="dom-out.xml" element2="temptasklist.xml" element3="TaskAttachmentActionsTest.testfile" element4="extern.xml" element5="sax-out.xml" element6="repositories.xml" element7="test-log.xml" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="7" stamp="1181004682545" subPackages="false" version="1.0"/>
+</session>
