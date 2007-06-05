@@ -20,9 +20,11 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
+import org.eclipse.mylar.tasks.core.ITaskFactory;
 import org.eclipse.mylar.tasks.core.QueryHitCollector;
+import org.eclipse.mylar.tasks.core.RepositoryTaskData;
 import org.eclipse.mylar.tasks.core.TaskRepository;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylar.tasks.ui.search.AbstractRepositoryQueryPage;
@@ -281,7 +283,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		return super.isPageComplete();
 	}
 
-	void updatePreviewTable(List<AbstractQueryHit> hits, MultiStatus queryStatus) {
+	void updatePreviewTable(List<AbstractRepositoryTask> hits, MultiStatus queryStatus) {
 		if(previewTable.isDisposed()) {
 			return;
 		}
@@ -289,7 +291,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		previewTable.removeAll();
 
 		if(hits!=null) {
-			for (AbstractQueryHit hit : hits) {
+			for (AbstractRepositoryTask hit : hits) {
 				TableItem item = new TableItem(previewTable, SWT.NONE);
 				if(hit.getTaskId()!=null) {
 					item.setText(0, hit.getTaskId());
@@ -341,15 +343,22 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 			active = true;
 			do {
 				final MultiStatus queryStatus = new MultiStatus(TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Query result", null);
-				final List<AbstractQueryHit> queryHits = new ArrayList<AbstractQueryHit>();
+				final List<AbstractRepositoryTask> queryHits = new ArrayList<AbstractRepositoryTask>();
 				try {
 					if(webPage==null) {
 						webPage = WebRepositoryConnector.fetchResource(evaluatedUrl, params, repository);
 					}
 
-					QueryHitCollector collector = new QueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList()) {
+					QueryHitCollector collector = new QueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList(), new ITaskFactory() {
+
+						public AbstractRepositoryTask createTask(RepositoryTaskData taskData, boolean synchData,
+								boolean forced) {
+							// ignore
+							return null;
+						}}) {
+						
 						@Override
-						public void addMatch(AbstractQueryHit hit) {
+						public void accept(AbstractRepositoryTask hit) {
 							queryHits.add(hit);
 						}
 					};

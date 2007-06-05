@@ -44,7 +44,6 @@ import org.eclipse.mylar.internal.tasks.ui.planner.ReminderCellEditor;
 import org.eclipse.mylar.internal.tasks.ui.views.TaskActivityLabelProvider;
 import org.eclipse.mylar.internal.tasks.ui.views.TaskElementLabelProvider;
 import org.eclipse.mylar.internal.tasks.ui.views.TaskListView;
-import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylar.tasks.core.DateRangeActivityDelegate;
 import org.eclipse.mylar.tasks.core.DateRangeContainer;
@@ -153,7 +152,7 @@ public class TaskActivityView extends ViewPart {
 		public void calendarChanged() {
 			refresh();
 		}
-		
+
 	};
 
 	private ITaskListChangeListener TASK_CHANGE_LISTENER = new ITaskListChangeListener() {
@@ -290,14 +289,13 @@ public class TaskActivityView extends ViewPart {
 		getSite().setSelectionProvider(getViewer());
 	}
 
-	
 	private void contributeToActionBars() {
 		IActionBars bars = getViewSite().getActionBars();
 		fillLocalPullDown(bars.getMenuManager());
 		fillLocalToolBar(bars.getToolBarManager());
 	}
 
-	private void fillLocalPullDown(IMenuManager manager) {		
+	private void fillLocalPullDown(IMenuManager manager) {
 		manager.add(new ActivityReportAction());
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
@@ -305,8 +303,7 @@ public class TaskActivityView extends ViewPart {
 	private void fillLocalToolBar(IToolBarManager manager) {
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
-	
-	
+
 	private void initDrop() {
 		Transfer[] types = new Transfer[] { TextTransfer.getInstance() };
 
@@ -318,8 +315,8 @@ public class TaskActivityView extends ViewPart {
 			@Override
 			public boolean performDrop(Object data) {
 
-				IStructuredSelection selection = ((IStructuredSelection) TaskListView.getFromActivePerspective().getViewer()
-						.getSelection());
+				IStructuredSelection selection = ((IStructuredSelection) TaskListView.getFromActivePerspective()
+						.getViewer().getSelection());
 
 				Object target = getCurrentTarget();
 				DateRangeContainer container;
@@ -349,8 +346,6 @@ public class TaskActivityView extends ViewPart {
 					ITask task = null;
 					if (selectedObject instanceof ITask) {
 						task = (ITask) selectedObject;
-					} else if (selectedObject instanceof AbstractQueryHit) {
-						task = ((AbstractQueryHit) selectedObject).getOrCreateCorrespondingTask();
 					}
 					if (task != null) {
 						TasksUiPlugin.getTaskListManager().setScheduledFor(task, reminderCalendar.getTime());
@@ -361,8 +356,8 @@ public class TaskActivityView extends ViewPart {
 
 			@Override
 			public boolean validateDrop(Object targetObject, int operation, TransferData transferType) {
-				Object selectedObject = ((IStructuredSelection) TaskListView.getFromActivePerspective().getViewer().getSelection())
-						.getFirstElement();
+				Object selectedObject = ((IStructuredSelection) TaskListView.getFromActivePerspective().getViewer()
+						.getSelection()).getFirstElement();
 
 				if (selectedObject instanceof AbstractTaskContainer) {
 					return false;
@@ -397,7 +392,7 @@ public class TaskActivityView extends ViewPart {
 			}
 		});
 	}
-	
+
 	private void hookContextMenu() {
 		MenuManager menuMgr = new MenuManager("#PopupMenu");
 		menuMgr.setRemoveAllWhenShown(true);
@@ -473,7 +468,7 @@ public class TaskActivityView extends ViewPart {
 					Date newReminder = reminderEditor.getReminderDate();
 					if (newReminder != null) {
 						TasksUiPlugin.getTaskListManager().setScheduledFor(
-								dateRangeActivityDelegate.getCorrespondingTask(), newReminder);						
+								dateRangeActivityDelegate.getCorrespondingTask(), newReminder);
 					}
 				}
 			}

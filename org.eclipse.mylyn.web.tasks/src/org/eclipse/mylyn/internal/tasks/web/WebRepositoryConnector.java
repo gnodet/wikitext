@@ -37,7 +37,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylar.core.net.WebClientUtil;
-import org.eclipse.mylar.internal.tasks.core.WebQueryHit;
 import org.eclipse.mylar.internal.tasks.core.WebTask;
 import org.eclipse.mylar.internal.tasks.ui.RetrieveTitleFromUrlJob;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryConnector;
@@ -59,7 +58,7 @@ import com.sun.syndication.io.XmlReader;
 
 /**
  * Generic connector for web based issue tracking systems
- *
+ * 
  * @author Eugene Kuleshov
  */
 public class WebRepositoryConnector extends AbstractRepositoryConnector {
@@ -96,8 +95,6 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	public static final String REQUEST_GET = "GET";
 
-
-
 	@Override
 	public String getRepositoryType() {
 		return WebTask.REPOSITORY_TYPE;
@@ -122,10 +119,9 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return repository.hasProperty(PROPERTY_TASK_URL);
 	}
 
-
 	@Override
-	public AbstractRepositoryTask createTaskFromExistingId(TaskRepository repository, final String id, IProgressMonitor monitor)
-			throws CoreException {
+	public AbstractRepositoryTask createTaskFromExistingId(TaskRepository repository, final String id,
+			IProgressMonitor monitor) throws CoreException {
 		if (WebTask.REPOSITORY_TYPE.equals(repository.getKind())) {
 			String taskPrefix = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
 
@@ -193,7 +189,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public String getTaskWebUrl(String repositoryUrl, String taskId) {
 		TaskRepositoryManager repositoryManager = TasksUiPlugin.getRepositoryManager();
@@ -207,7 +203,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	@Override
 	public IStatus performQuery(AbstractRepositoryQuery query, TaskRepository repository, IProgressMonitor monitor,
-			QueryHitCollector resultCollector) {
+			QueryHitCollector resultCollector, boolean forced) {
 		if (query instanceof WebQuery) {
 			WebQuery webQuery = (WebQuery) query;
 			Map<String, String> queryParameters = webQuery.getQueryParameters();
@@ -255,9 +251,9 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public void updateTaskFromRepository(TaskRepository repository, AbstractRepositoryTask repositoryTask, IProgressMonitor monitor) throws CoreException {
+	public void updateTaskFromRepository(TaskRepository repository, AbstractRepositoryTask repositoryTask,
+			IProgressMonitor monitor) throws CoreException {
 	}
-
 
 	// utility methods
 
@@ -279,8 +275,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 				if (matcher.groupCount() >= 1) {
 					String id = matcher.group(1);
 					String description = matcher.groupCount() > 1 ? cleanup(matcher.group(2), repository) : null;
-					collector.accept(new WebQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), repository
-							.getUrl(), description, id, taskPrefix));
+					collector.accept(new WebTask(id, description, taskPrefix, repository.getUrl(), WebTask.REPOSITORY_TYPE));
 				}
 			} while (matcher.find() && !monitor.isCanceled());
 
@@ -296,26 +291,25 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	private static String cleanup(String text, TaskRepository repository) {
 		// Has to disable this for now. See bug 166737 and 166936
 		// try {
-		// 	text = URLDecoder.decode(text, repository.getCharacterEncoding());
+		// text = URLDecoder.decode(text, repository.getCharacterEncoding());
 		// } catch (UnsupportedEncodingException ex) {
-		// 	// ignore
+		// // ignore
 		// }
 
 		text = text.replaceAll("<!--.+?-->", "");
 
 		String[] tokens = text.split(" |\\t|\\n|\\r");
-	    StringBuilder sb = new StringBuilder();
-	    String sep = "";
-	    for (String token : tokens) {
-	      if(token.length()>0) {
-	        sb.append(sep).append(token);
-	        sep = " ";
-	      }
-	    }
+		StringBuilder sb = new StringBuilder();
+		String sep = "";
+		for (String token : tokens) {
+			if (token.length() > 0) {
+				sb.append(sep).append(token);
+				sep = " ";
+			}
+		}
 
 		return sb.toString();
 	}
-
 
 	public static IStatus performRssQuery(String queryUrl, IProgressMonitor monitor, QueryHitCollector collector,
 			TaskRepository repository) {
@@ -325,7 +319,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 			SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd HH:mm");
 
-			@SuppressWarnings("unchecked") Iterator it;
+			@SuppressWarnings("unchecked")
+			Iterator it;
 			for (it = feed.getEntries().iterator(); it.hasNext();) {
 				SyndEntry entry = (SyndEntry) it.next();
 
@@ -339,16 +334,16 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 				}
 
 				String entryUri = entry.getLink();
-				if(entryUri==null) {
+				if (entryUri == null) {
 					entryUri = entry.getUri();
 				}
 
 				String entrTitle = entry.getTitle();
-
-				collector.accept(new WebQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), //
-						repository.getUrl(), // 
-						(date == null ? "" : df.format(date) + " - ") + entrTitle, //
-						entryUri, ""));
+// XXX: Needs attention...
+//				collector.accept(new WebQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), //
+//						repository.getUrl(), // 
+//						(date == null ? "" : df.format(date) + " - ") + entrTitle, //
+//						entryUri, ""));
 			}
 			return Status.OK_STATUS;
 		} catch (Exception ex) {
@@ -423,17 +418,18 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		String refreshUrl = null;
 		try {
 			client.executeMethod(method);
-//			int statusCode = client.executeMethod(method);
-//			if (statusCode == 300 || statusCode == 301 || statusCode == 302 || statusCode == 303 || statusCode == 307) {
-//				Header location = method.getResponseHeader("Location");
-//				if (location!=null) {
-//					refreshUrl = location.getValue();
-//					if (!refreshUrl.startsWith("/")) {
-//						refreshUrl = "/" + refreshUrl;
-//					}
-//				}
-//			}
-			if(refreshUrl == null) {
+// int statusCode = client.executeMethod(method);
+// if (statusCode == 300 || statusCode == 301 || statusCode == 302 || statusCode
+// == 303 || statusCode == 307) {
+// Header location = method.getResponseHeader("Location");
+// if (location!=null) {
+// refreshUrl = location.getValue();
+// if (!refreshUrl.startsWith("/")) {
+// refreshUrl = "/" + refreshUrl;
+// }
+// }
+// }
+			if (refreshUrl == null) {
 				refreshUrl = getRefreshUrl(url, method);
 			}
 			if (refreshUrl == null) {
@@ -519,12 +515,13 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	protected AbstractRepositoryTask makeTask(String repositoryUrl, String id, String summary) {
+	public AbstractRepositoryTask createTask(String repositoryUrl, String id, String summary) {
 		return null;
 	}
 
 	@Override
-	public void updateTaskFromTaskData(TaskRepository repository, AbstractRepositoryTask repositoryTask, RepositoryTaskData taskData, boolean retrieveSubTasks) {
+	public void updateTaskFromTaskData(TaskRepository repository, AbstractRepositoryTask repositoryTask,
+			RepositoryTaskData taskData, boolean retrieveSubTasks) {
 		// ignore
 	}
 

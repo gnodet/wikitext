@@ -12,9 +12,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.eclipse.mylar.internal.core.util.XmlStringConverter;
-import org.eclipse.mylar.internal.tasks.core.WebQueryHit;
 import org.eclipse.mylar.internal.tasks.core.WebTask;
-import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylar.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylar.tasks.core.DelegatingTaskExternalizer;
@@ -41,7 +39,7 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 
 	private static final String KEY_WEB_CATEGORY = "WebQuery" + KEY_CATEGORY;
 
-	private static final String KEY_WEB_QUERY_HIT = KEY_WEB + KEY_QUERY_HIT;
+//	private static final String KEY_WEB_QUERY_HIT = KEY_WEB + KEY_QUERY_HIT;
 
 	private static final String KEY_WEB_QUERY = KEY_WEB + KEY_QUERY;
 
@@ -71,10 +69,10 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 		return task instanceof WebTask;
 	}
 
-	@Override
-	public boolean canReadQueryHit(Node node) {
-		return node.getNodeName().equals(getQueryHitTagName());
-	}
+//	@Override
+//	public boolean canReadQueryHit(Node node) {
+//		return node.getNodeName().equals(getQueryHitTagName());
+//	}
 
 	@Override
 	public Element createQueryElement(AbstractRepositoryQuery query, Document doc, Element parent) {
@@ -95,13 +93,13 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 		return node;
 	}
 
-	@Override
-	public Element createQueryHitElement(AbstractQueryHit queryHit, Document doc, Element parent) {
-		Element element = super.createQueryHitElement(queryHit, doc, parent);
-		element.setAttribute(KEY_KEY, queryHit.getTaskId());
-		element.setAttribute(KEY_PREFIX, ((WebQueryHit) queryHit).getTaskPrefix());
-		return element;
-	}
+//	@Override
+//	public Element createQueryHitElement(AbstractQueryHit queryHit, Document doc, Element parent) {
+//		Element element = super.createQueryHitElement(queryHit, doc, parent);
+//		element.setAttribute(KEY_KEY, queryHit.getTaskId());
+//		element.setAttribute(KEY_PREFIX, ((WebQueryHit) queryHit).getTaskPrefix());
+//		return element;
+//	}
 
 	@Override
 	public Element createTaskElement(ITask task, Document doc, Element parent) {
@@ -183,16 +181,16 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 				queryUrlTemplate, queryPattern, taskPrefix, repositoryUrl, params);
 	}
 
-	@Override
-	public AbstractQueryHit createQueryHit(String repositoryUrl, String taskId, String summary, Element element, TaskList taskList, AbstractRepositoryQuery query)
-			throws TaskExternalizationException {
-		String id = element.getAttribute(KEY_KEY);
-
-		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(query.getRepositoryKind(), query.getRepositoryUrl());
-		String prefix = WebRepositoryConnector.evaluateParams(((WebQuery) query).getTaskPrefix(), ((WebQuery) query).getQueryParameters(), repository);
-
-		return new WebQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), repositoryUrl, summary, id, prefix);
-	}
+//	@Override
+//	public AbstractQueryHit createQueryHit(String repositoryUrl, String taskId, String summary, Element element, TaskList taskList, AbstractRepositoryQuery query)
+//			throws TaskExternalizationException {
+//		String id = element.getAttribute(KEY_KEY);
+//
+//		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(query.getRepositoryKind(), query.getRepositoryUrl());
+//		String prefix = WebRepositoryConnector.evaluateParams(((WebQuery) query).getTaskPrefix(), ((WebQuery) query).getQueryParameters(), repository);
+//
+//		return new WebQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), repositoryUrl, summary, id, prefix);
+//	}
 
 	@Override
 	public String getQueryTagNameForElement(AbstractRepositoryQuery query) {
@@ -204,10 +202,10 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 		return KEY_WEB_CATEGORY;
 	}
 
-	@Override
-	public String getQueryHitTagName() {
-		return KEY_WEB_QUERY_HIT;
-	}
+//	@Override
+//	public String getQueryHitTagName() {
+//		return KEY_WEB_QUERY_HIT;
+//	}
 
 	@Override
 	public String getTaskTagName() {

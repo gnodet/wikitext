@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Extract constant 'org.eclipse.mylar.internal.bugzilla.core.BugzillaClient.MAX_RETRIEVED_PER_QUERY' from expression '100'&#13;&#10;- Original project: 'org.eclipse.mylar.bugzilla.core'&#13;&#10;- Constant name: 'MAX_RETRIEVED_PER_QUERY'&#13;&#10;- Constant expression: '100'&#13;&#10;- Declared visibility: 'private'" description="Extract constant 'MAX_RETRIEVED_PER_QUERY'" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylar.internal.bugzilla.core{BugzillaClient.java" name="MAX_RETRIEVED_PER_QUERY" qualify="false" replace="false" selection="41109 3" stamp="1180726527843" version="1.0" visibility="2"/>
+</session>

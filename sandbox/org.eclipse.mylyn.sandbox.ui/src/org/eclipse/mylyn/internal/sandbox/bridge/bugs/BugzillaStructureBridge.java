@@ -17,7 +17,7 @@ import java.util.List;
 
 import org.eclipse.mylar.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylar.context.core.AbstractRelationProvider;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaQueryHit;
+import org.eclipse.mylar.internal.bugzilla.core.BugzillaTask;
 import org.eclipse.mylar.internal.tasks.ui.editors.ContentOutlineTools;
 import org.eclipse.mylar.tasks.ui.editors.RepositoryTaskOutlineNode;
 import org.eclipse.mylar.tasks.ui.editors.RepositoryTaskSelection;
@@ -190,7 +190,7 @@ public class BugzillaStructureBridge extends AbstractContextStructureBridge {
 			RepositoryTaskOutlineNode b = (RepositoryTaskOutlineNode) object;
 			return ContentOutlineTools.getName(b);
 		} else if (object instanceof BugzillaReportInfo) {
-			BugzillaQueryHit hit = ((BugzillaReportInfo) object).getHit();
+			BugzillaTask hit = ((BugzillaReportInfo) object).getHit();
 			return hit.getRepositoryUrl() + ": Bug#: " + hit.getTaskId() + ": " + hit.getSummary();
 		}
 		return "";

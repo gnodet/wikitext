@@ -20,7 +20,6 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.mylar.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylar.context.core.ContextCorePlugin;
 import org.eclipse.mylar.context.core.IInteractionElement;
-import org.eclipse.mylar.tasks.core.AbstractQueryHit;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
 import org.eclipse.mylar.tasks.core.ITask;
 import org.eclipse.mylar.tasks.core.TaskRepository;
@@ -48,7 +47,8 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 
 			try {
 				AbstractContextStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(object);
-				IInteractionElement node = ContextCorePlugin.getContextManager().getElement(bridge.getHandleIdentifier(object));
+				IInteractionElement node = ContextCorePlugin.getContextManager().getElement(
+						bridge.getHandleIdentifier(object));
 				if (node != null) {
 					text += "Interest value: " + node.getInterest().getValue() + "\n";
 					text += node.getInterest().toString();
@@ -56,39 +56,38 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 			} catch (Throwable t) {
 				text += "<no structure bridge>";
 			}
-			
+
 			if (object instanceof IAdaptable) {
-				Object resourceAdapter = ((IAdaptable)object).getAdapter(IResource.class);
+				Object resourceAdapter = ((IAdaptable) object).getAdapter(IResource.class);
 				if (resourceAdapter != null) {
-					text += "\nResource adapter: " + ((IResource)resourceAdapter).getFullPath().toOSString();
+					text += "\nResource adapter: " + ((IResource) resourceAdapter).getFullPath().toOSString();
 				}
 			}
 
-			if (object instanceof AbstractRepositoryTask || object instanceof AbstractQueryHit) {
-				
-				AbstractRepositoryTask task;
+			if (object instanceof AbstractRepositoryTask) {
+
+				AbstractRepositoryTask task = null;
 				if (object instanceof AbstractRepositoryTask) {
-					task = (AbstractRepositoryTask)object;
-				} else {
-					task = ((AbstractQueryHit)object).getCorrespondingTask();
+					task = (AbstractRepositoryTask) object;
 				}
 				if (task != null) {
-					TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(task.getRepositoryKind(), task.getRepositoryUrl());
+					TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
+							task.getRepositoryKind(), task.getRepositoryUrl());
 					text += "\nLast time in SYNCHRONIZED state: " + task.getLastSyncDateStamp();
 					text += "\nRepository synch time stamp: " + repository.getSyncTimeStamp();
-					text += "\nSync state: "+ task.getSyncState();
-					text += "\nParent: "+ task.getContainer();
-					if(task.getChildren() != null && !task.getChildren().isEmpty()){
+					text += "\nSync state: " + task.getSyncState();
+					text += "\nParent: " + task.getContainer();
+					if (task.getChildren() != null && !task.getChildren().isEmpty()) {
 						text += "\nChildren: ";
 						for (ITask subTask : task.getChildren()) {
-							text += "\n"+subTask;							
+							text += "\n" + subTask;
 						}
 					}
 				}
 			}
 			text += "\n\nNum tasks: " + TasksUiPlugin.getTaskListManager().getTaskList().getAllTasks().size();
-			text += "\nNum queries: " + TasksUiPlugin.getTaskListManager().getTaskList().getQueries().size();	
-			
+			text += "\nNum queries: " + TasksUiPlugin.getTaskListManager().getTaskList().getQueries().size();
+
 			MessageDialog.openInformation(null, "Mylar Sandbox", text);
 		}
 	}

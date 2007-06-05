@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Rename method 'org.eclipse.mylar.tasks.core.AbstractRepositoryConnector.makeTask(...)' to 'createTask'&#13;&#10;- Original project: 'org.eclipse.mylar.tasks.core'&#13;&#10;- Original element: 'org.eclipse.mylar.tasks.core.AbstractRepositoryConnector.makeTask(...)'&#13;&#10;- Renamed element: 'org.eclipse.mylar.tasks.core.AbstractRepositoryConnector.createTask(...)'&#13;&#10;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method 'makeTask'" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylar.tasks.core{AbstractRepositoryConnector.java[AbstractRepositoryConnector~makeTask~QString;~QString;~QString;" name="createTask" references="true" stamp="1180711984062" version="1.0"/>
+</session>

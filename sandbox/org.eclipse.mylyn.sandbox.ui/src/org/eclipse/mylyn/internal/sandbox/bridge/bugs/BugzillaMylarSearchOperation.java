@@ -29,17 +29,17 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylar.core.MylarStatusHandler;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaQueryHit;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaTask;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.StackTrace;
 import org.eclipse.mylar.internal.tasks.ui.search.AbstractRepositorySearchQuery;
-import org.eclipse.mylar.tasks.core.AbstractQueryHit;
+import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
 import org.eclipse.mylar.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylar.tasks.core.ITask;
 import org.eclipse.mylar.tasks.core.QueryHitCollector;
 import org.eclipse.mylar.tasks.core.RepositoryTaskData;
 import org.eclipse.mylar.tasks.core.TaskComment;
 import org.eclipse.mylar.tasks.core.TaskRepository;
+import org.eclipse.mylar.tasks.ui.TaskFactory;
 import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
@@ -121,7 +121,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 			return;
 		}
 
-		List<AbstractQueryHit> l = searchCollector.getHits();
+		Set<AbstractRepositoryTask> l = searchCollector.getTaskHits();
 
 		// get the list of doi elements
 		List<BugzillaReportInfo> doiList = getDoiList(l);
@@ -148,7 +148,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 		String elementName = getFullyQualifiedName(javaElement);
 
 		// setup the search result collector
-		collector = new QueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());//SearchHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());
+		collector = new QueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList(), new TaskFactory(null));//SearchHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());
 		//collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
 
@@ -176,7 +176,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 		String elementName = javaElement.getElementName();
 
 		// setup the search result collector
-		collector = new QueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());//SearchHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());
+		collector = new QueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList(), new TaskFactory(null));//SearchHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());
 		//collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
 
@@ -225,9 +225,10 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 
 				// determine if we have a hit or not
 				if (isHit) {
-					// make a search hit from the bug and then add it to the collector
-					BugzillaQueryHit hit = new BugzillaQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), bugTaskData.getDescription(), "", bugTaskData.getRepositoryUrl(), bugTaskData.getId(), null, "");
-					searchCollector.accept(hit);
+//					// make a search hit from the bug and then add it to the collector
+//					BugzillaQueryHit hit = new BugzillaQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), bugTaskData.getDescription(), "", bugTaskData.getRepositoryUrl(), bugTaskData.getId(), null, "");
+//					BugzillaTask task = new BugzillaTask();
+					searchCollector.accept(bugTask);
 				}
 			}
 		}
@@ -318,7 +319,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	 */
 	private QueryHitCollector searchQualified(String repositoryUrl, IProgressMonitor monitor) {
 		// create a new collector for the results
-		collector = new QueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());//SearchHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());
+		collector = new QueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList(), new TaskFactory(null));//SearchHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());
 		//collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
 
@@ -338,7 +339,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	 */
 	private QueryHitCollector searchUnqualified(String repositoryUrl, IProgressMonitor monitor) {
 		// create a new collector for the results
-		collector = new QueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());//SearchHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());
+		collector = new QueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList(), new TaskFactory(null));//SearchHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());
 		//collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
 
@@ -410,7 +411,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	 * @param isExact
 	 *            whether the search was exact or not
 	 */
-	private List<BugzillaReportInfo> getDoiList(List<AbstractQueryHit> results) {
+	private List<BugzillaReportInfo> getDoiList(Set<AbstractRepositoryTask> results) {
 		List<BugzillaReportInfo> doiList = new ArrayList<BugzillaReportInfo>();
 
 		boolean isExact = (scope == BugzillaMylarSearch.FULLY_QUAL || scope == BugzillaMylarSearch.LOCAL_QUAL) ? true
@@ -418,11 +419,11 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 
 		BugzillaReportInfo info = null;
 		// go through all of the results and create a DoiInfo list
-		for (AbstractQueryHit hit : results) {
+		for (AbstractRepositoryTask hit : results) {
 
 			try {
 				float value = 0;
-				info = new BugzillaReportInfo(value, (BugzillaQueryHit)hit, isExact);
+				info = new BugzillaReportInfo(value, (BugzillaTask)hit, isExact);
 
 				// only download the bug for the exact matches
 				// downloading bugs kills the time - can we do this elsewhere? -

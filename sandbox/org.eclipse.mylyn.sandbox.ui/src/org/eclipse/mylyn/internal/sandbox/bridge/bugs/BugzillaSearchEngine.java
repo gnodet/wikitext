@@ -12,7 +12,6 @@ package org.eclipse.mylar.internal.sandbox.bridge.bugs;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.security.auth.login.LoginException;
@@ -25,7 +24,6 @@ import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaClient;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaQueryHit;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaRepositoryConnector;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaRepositoryQuery;
 import org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants;
@@ -139,7 +137,7 @@ public class BugzillaSearchEngine {
 					.getRepositoryManager().getRepositoryConnector(BugzillaCorePlugin.REPOSITORY_KIND);
 
 			BugzillaClient client = bugzillaConnector.getClientManager().getClient(repository);
-			client.getSearchHits(query, collector, TasksUiPlugin.getTaskListManager().getTaskList());
+			client.getSearchHits(query);
 
 		} catch (CoreException e) {
 			status = new MultiStatus(BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR,
@@ -218,78 +216,78 @@ public class BugzillaSearchEngine {
 	}
 
 	// /** Old code used by a unit test. */
-	public static BugzillaQueryHit createHit(Pattern regularExpression, IProgressMonitor monitor, BufferedReader in,
-			String serverUrl, int id) throws IOException {
-		String line;
-		// String severity = null;
-		String priority = null;
-		// String platform = null;
-		// String owner = null;
-		String state = null;
-		// String result = null;
-		for (int i = 0; i < 6; i++) {
-			Matcher matcher;
-			do {
-				matcher = null;
-				if (monitor.isCanceled()) {
-					throw new OperationCanceledException("Search cancelled");
-				}
-				line = in.readLine();
-				if (line == null)
-					break;
-				line = line.trim();
-				matcher = regularExpression.matcher(line);
-			} while (!matcher.find());
-			if (null != matcher) {
-				switch (i) {
-				// case 0:
-				// severity = matcher.group(1);
-				// break;
-				case 1:
-					priority = matcher.group(1);
-					break;
-				// case 2:
-				// platform = matcher.group(1);
-				// break;
-				// case 3:
-				// owner = matcher.group(1);
-				// break;
-				case 4:
-					state = matcher.group(1);
-					break;
-				case 5:
-					// result = matcher.group(1);
-					// break;
-				}
-			}
-		}
-
-		// two more
-		line = in.readLine();
-		line = in.readLine();
-
-		String description = "<activate to view summary>";
-		if (line != null) {
-			description = line.substring(8);
-		}
-		if (description.startsWith(">")) {
-			description = description.substring(1);
-		}
-
-		// String query = "";
-		// try {
-		// String recentQuery = BugzillaUiPlugin.getMostRecentQuery();
-		// if (recentQuery != null)
-		// query = recentQuery;
-		// } catch (Exception e) {
-		// // ignore, for testing
-		// }
-
-		BugzillaQueryHit hit = new BugzillaQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), description,
-				priority, serverUrl, String.valueOf(id), null, state);
-
-		return hit;
-	}
+//	public static BugzillaQueryHit createHit(Pattern regularExpression, IProgressMonitor monitor, BufferedReader in,
+//			String serverUrl, int id) throws IOException {
+//		String line;
+//		// String severity = null;
+//		String priority = null;
+//		// String platform = null;
+//		// String owner = null;
+//		String state = null;
+//		// String result = null;
+//		for (int i = 0; i < 6; i++) {
+//			Matcher matcher;
+//			do {
+//				matcher = null;
+//				if (monitor.isCanceled()) {
+//					throw new OperationCanceledException("Search cancelled");
+//				}
+//				line = in.readLine();
+//				if (line == null)
+//					break;
+//				line = line.trim();
+//				matcher = regularExpression.matcher(line);
+//			} while (!matcher.find());
+//			if (null != matcher) {
+//				switch (i) {
+//				// case 0:
+//				// severity = matcher.group(1);
+//				// break;
+//				case 1:
+//					priority = matcher.group(1);
+//					break;
+//				// case 2:
+//				// platform = matcher.group(1);
+//				// break;
+//				// case 3:
+//				// owner = matcher.group(1);
+//				// break;
+//				case 4:
+//					state = matcher.group(1);
+//					break;
+//				case 5:
+//					// result = matcher.group(1);
+//					// break;
+//				}
+//			}
+//		}
+//
+//		// two more
+//		line = in.readLine();
+//		line = in.readLine();
+//
+//		String description = "<activate to view summary>";
+//		if (line != null) {
+//			description = line.substring(8);
+//		}
+//		if (description.startsWith(">")) {
+//			description = description.substring(1);
+//		}
+//
+//		// String query = "";
+//		// try {
+//		// String recentQuery = BugzillaUiPlugin.getMostRecentQuery();
+//		// if (recentQuery != null)
+//		// query = recentQuery;
+//		// } catch (Exception e) {
+//		// // ignore, for testing
+//		// }
+//
+//		BugzillaQueryHit hit = new BugzillaQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), description,
+//				priority, serverUrl, String.valueOf(id), null, state);
+//
+//		return hit;
+//	}
 
 	public boolean isMaxReached() {
 		return maxReached;

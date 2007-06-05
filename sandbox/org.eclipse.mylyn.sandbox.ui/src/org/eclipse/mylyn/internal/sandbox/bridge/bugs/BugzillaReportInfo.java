@@ -17,8 +17,8 @@ import java.util.List;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaQueryHit;
 import org.eclipse.mylar.internal.bugzilla.core.BugzillaRepositoryConnector;
+import org.eclipse.mylar.internal.bugzilla.core.BugzillaTask;
 import org.eclipse.mylar.internal.bugzilla.ui.tasklist.StackTrace;
 import org.eclipse.mylar.tasks.core.ITaskDataHandler;
 import org.eclipse.mylar.tasks.core.RepositoryTaskData;
@@ -39,7 +39,7 @@ public class BugzillaReportInfo {
 	private static final long serialVersionUID = 3257004367222419506L;
 
 	/** The BugzillaSearchHit associated with this DoiInfo */
-	private BugzillaQueryHit hit;
+	private BugzillaTask hit;
 
 	/** Whether this search hit was from an exact search like a stack trace */
 	private boolean isExact = false;
@@ -60,7 +60,7 @@ public class BugzillaReportInfo {
 	 * @param isExact
 	 *            Whether the search was exact or not
 	 */
-	public BugzillaReportInfo(float initialValue, BugzillaQueryHit hit, boolean isExact) {
+	public BugzillaReportInfo(float initialValue, BugzillaTask hit, boolean isExact) {
 		this.hit = hit;
 		this.isExact = isExact;
 		bug = null;
@@ -72,7 +72,7 @@ public class BugzillaReportInfo {
 	 * 
 	 * @return The BugzillaSearchHit related to this DoiInfo
 	 */
-	public BugzillaQueryHit getHit() {
+	public BugzillaTask getHit() {
 		return hit;
 	}
 
