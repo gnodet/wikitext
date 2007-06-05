@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable 'mySearchString' in 'org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin.setPlatformOptions(...)' to 'searchOSString'&#10;- Original project: 'org.eclipse.mylar.bugzilla.core'&#10;- Original element: 'org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin.setPlatformOptions(RepositoryTaskData).mySearchString'&#10;- Renamed element: 'org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin.setPlatformOptions(RepositoryTaskData).searchOSString'&#10;- Update references to refactored element" description="Rename local variable 'mySearchString'" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;org.eclipse.mylar.internal.bugzilla.core{BugzillaCorePlugin.java" name="searchOSString" references="true" selection="8992 14" stamp="1180496939450" version="1.0"/>
+</session>
