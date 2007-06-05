@@ -339,11 +339,10 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 				}
 
 				String entrTitle = entry.getTitle();
-// XXX: Needs attention...
-//				collector.accept(new WebQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), //
-//						repository.getUrl(), // 
-//						(date == null ? "" : df.format(date) + " - ") + entrTitle, //
-//						entryUri, ""));
+
+				collector.accept(new WebTask(entryUri, //
+						(date == null ? "" : df.format(date) + " - ") + entrTitle, //
+						"", repository.getUrl(), WebTask.REPOSITORY_TYPE));
 			}
 			return Status.OK_STATUS;
 		} catch (Exception ex) {
