@@ -145,7 +145,7 @@ public class SharedTaskFolderTest extends TestCase{
 	protected ITask createAndSaveTask(String taskName){
 		
 		//Create the task and add it to the root of the task list
-		ITask newTask = new Task(TasksUiPlugin.getTaskListManager().genUniqueTaskHandle(), taskName, true);
+		ITask newTask = new Task(TasksUiPlugin.getTaskListManager().genUniqueTaskHandle(), taskName);
 		manager.getTaskList().moveToRoot(newTask);
 		InteractionContext mockContext = ContextCorePlugin.getContextManager().loadContext(newTask.getHandleIdentifier());//, newTask.getContextPath());
 		InteractionEvent event = new InteractionEvent(InteractionEvent.Kind.EDIT,"structureKind","handle","originId");
