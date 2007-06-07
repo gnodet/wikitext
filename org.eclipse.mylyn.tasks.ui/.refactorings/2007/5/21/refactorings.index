@@ -1,6 +1,11 @@
 1179777278867	Rename field 'DELAY_REFRESH'
 1179777303961	Rename field 'refreshDelay'
+<<<<<<< refactorings.index
+1179853414515	Delete element
+1180119748828	Delete element
+=======
 1179936680240	Move file
 1179936811208	Rename type 'TaskListTableLabelProvider'
 1180029019703	Rename method 'setSynchTasks'
 1180029977125	Extract method 'addHitsToPrime'
+>>>>>>> 1.3
