@@ -229,7 +229,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 		// TaskList t = MylarTaskListPlugin.getTaskListManager().getTaskList();
 		// MylarTaskListPlugin.getTaskListManager().setTaskList(t);
 		TaskListManager manager = TasksUiPlugin.getTaskListManager();
-		TaskCategory cat = new TaskCategory("Testing Category", manager.getTaskList());
+		TaskCategory cat = new TaskCategory("Testing Category");
 		manager.getTaskList().addCategory(cat);
 		BugzillaTask bugTask1 = new BugzillaTask(bugPrefix, ""+94185, "<bugzilla info>");
 
@@ -296,7 +296,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 		// TaskList t = MylarTaskListPlugin.getTaskListManager().getTaskList();
 		// MylarTaskListPlugin.getTaskListManager().setTaskList(t);
 		TaskListManager manager = TasksUiPlugin.getTaskListManager();
-		TaskCategory cat = new TaskCategory("Testing Category", manager.getTaskList());
+		TaskCategory cat = new TaskCategory("Testing Category");
 		manager.getTaskList().addCategory(cat);
 		BugzillaTask bugTask1 = new BugzillaTask(bugPrefix, ""+94185, "<bugzilla info>");
 		manager.getTaskList().moveToContainer(cat, bugTask1);

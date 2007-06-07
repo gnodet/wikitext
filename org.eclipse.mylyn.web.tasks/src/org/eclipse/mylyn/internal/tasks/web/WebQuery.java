@@ -13,7 +13,6 @@ import java.util.Map;
 
 import org.eclipse.mylar.internal.tasks.core.WebTask;
 import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylar.tasks.core.TaskList;
 
 /**
  * Represents pattern-based query on repository web page
@@ -27,10 +26,10 @@ public class WebQuery extends AbstractRepositoryQuery {
 	private final String queryPattern;
 	private final Map<String, String> params;
 
-	public WebQuery(TaskList taskList, String description, String queryUrl, 
-			String queryUrlTemplate, String queryPattern, String taskPrefix,
-			String repositoryUrl, Map<String, String> params) {
-		super(description, taskList);
+	public WebQuery(String description, String queryUrl, String queryUrlTemplate, 
+			String queryPattern, String taskPrefix, String repositoryUrl,
+			Map<String, String> params) {
+		super(description);
 
 		this.queryUrlTemplate = queryUrlTemplate;
 		this.queryPattern = queryPattern;

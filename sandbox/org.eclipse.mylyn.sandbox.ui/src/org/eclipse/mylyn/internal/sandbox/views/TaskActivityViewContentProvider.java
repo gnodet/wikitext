@@ -14,7 +14,6 @@ package org.eclipse.mylar.internal.sandbox.views;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.mylar.tasks.core.DateRangeActivityDelegate;
 import org.eclipse.mylar.tasks.core.DateRangeContainer;
 import org.eclipse.mylar.tasks.ui.TaskListManager;
 
@@ -35,12 +34,12 @@ public class TaskActivityViewContentProvider implements IStructuredContentProvid
 	}
 
 	public Object getParent(Object child) {
-		if (child instanceof DateRangeActivityDelegate) {
-			DateRangeActivityDelegate dateRangeTaskWrapper = (DateRangeActivityDelegate) child;
-			return dateRangeTaskWrapper.getParent();
-		} else {
-			return new Object[0];
-		}
+//		if (child instanceof DateRangeActivityDelegate) {
+//			DateRangeActivityDelegate dateRangeTaskWrapper = (DateRangeActivityDelegate) child;
+//			return dateRangeTaskWrapper.getParent();
+//		} else {
+			return null;
+//		}
 	}
 
 	public Object[] getChildren(Object parent) {

@@ -177,8 +177,8 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 			queryUrl = WebRepositoryConnector.evaluateParams(queryUrlTemplate, params, repository);
 		}
 		
-		return new WebQuery(taskList, description, queryUrl,
-				queryUrlTemplate, queryPattern, taskPrefix, repositoryUrl, params);
+		return new WebQuery(description, queryUrl, queryUrlTemplate,
+				queryPattern, taskPrefix, repositoryUrl, params);
 	}
 
 //	@Override

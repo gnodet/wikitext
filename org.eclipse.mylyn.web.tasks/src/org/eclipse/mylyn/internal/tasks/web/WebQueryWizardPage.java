@@ -265,9 +265,8 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 
 		String queryUrl = WebRepositoryConnector.evaluateParams(queryUrlTemplate, params, repository);
 
-		return new WebQuery(TasksUiPlugin.getTaskListManager().getTaskList(), description, queryUrl, queryUrlTemplate,
-				queryPattern, repository.getProperty(WebRepositoryConnector.PROPERTY_TASK_URL), repository.getUrl(),
-				params);
+		return new WebQuery(description, queryUrl, queryUrlTemplate, queryPattern,
+				repository.getProperty(WebRepositoryConnector.PROPERTY_TASK_URL), repository.getUrl(), params);
 	}
 
 	synchronized void updatePreview() {

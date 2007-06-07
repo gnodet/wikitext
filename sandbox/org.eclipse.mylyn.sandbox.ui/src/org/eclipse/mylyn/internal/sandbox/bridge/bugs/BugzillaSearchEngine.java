@@ -130,8 +130,7 @@ public class BugzillaSearchEngine {
 				throw new OperationCanceledException("Search cancelled");
 			}
 
-			BugzillaRepositoryQuery query = new BugzillaRepositoryQuery(repository.getUrl(), urlString, "summary",
-					TasksUiPlugin.getTaskListManager().getTaskList());
+			BugzillaRepositoryQuery query = new BugzillaRepositoryQuery(repository.getUrl(), urlString, "summary");
 
 			BugzillaRepositoryConnector bugzillaConnector = (BugzillaRepositoryConnector) TasksUiPlugin
 					.getRepositoryManager().getRepositoryConnector(BugzillaCorePlugin.REPOSITORY_KIND);
