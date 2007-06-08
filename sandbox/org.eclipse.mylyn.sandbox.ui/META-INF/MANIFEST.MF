@@ -19,7 +19,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.mylyn.bugzilla.ui,
  org.eclipse.mylyn.tasks.core,
  org.eclipse.mylyn.monitor.ui,
- org.eclipse.mylyn.java,
+ org.eclipse.mylyn.java.ui,
  org.eclipse.mylyn.monitor.core,
  org.eclipse.mylyn
 Eclipse-AutoStart: true
