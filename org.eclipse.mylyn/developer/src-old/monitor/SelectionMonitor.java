@@ -11,7 +11,7 @@
 /*
  * Created on Jun 10, 2005
  */
-package org.eclipse.mylar.internal.monitor.monitors;
+package org.eclipse.mylyn.internal.monitor.monitors;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -23,12 +23,12 @@ import org.eclipse.jdt.internal.ui.javaeditor.JavaEditor;
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.mylar.internal.core.MylarContextManager;
-import org.eclipse.mylar.internal.monitor.HandleObfuscator;
-import org.eclipse.mylar.provisional.core.AbstractUserInteractionMonitor;
-import org.eclipse.mylar.provisional.core.IMylarElement;
-import org.eclipse.mylar.provisional.core.InteractionEvent;
-import org.eclipse.mylar.provisional.core.MylarPlugin;
+import org.eclipse.mylyn.internal.core.MylarContextManager;
+import org.eclipse.mylyn.internal.monitor.HandleObfuscator;
+import org.eclipse.mylyn.provisional.core.AbstractUserInteractionMonitor;
+import org.eclipse.mylyn.provisional.core.IMylarElement;
+import org.eclipse.mylyn.provisional.core.InteractionEvent;
+import org.eclipse.mylyn.provisional.core.MylarPlugin;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IPathEditorInput;
 import org.eclipse.ui.IWorkbenchPart;

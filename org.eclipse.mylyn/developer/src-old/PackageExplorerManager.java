@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.java;
+package org.eclipse.mylyn.internal.java;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,13 +24,13 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerFilter;
-import org.eclipse.mylar.context.core.ContextCorePlugin;
-import org.eclipse.mylar.context.core.IMylarContext;
-import org.eclipse.mylar.context.core.IMylarContextListener;
-import org.eclipse.mylar.context.core.IMylarElement;
-import org.eclipse.mylar.context.core.MylarStatusHandler;
-import org.eclipse.mylar.internal.context.ui.actions.AbstractFocusViewAction;
-import org.eclipse.mylar.internal.java.ui.JavaDeclarationsFilter;
+import org.eclipse.mylyn.context.core.ContextCorePlugin;
+import org.eclipse.mylyn.context.core.IMylarContext;
+import org.eclipse.mylyn.context.core.IMylarContextListener;
+import org.eclipse.mylyn.context.core.IMylarElement;
+import org.eclipse.mylyn.context.core.MylarStatusHandler;
+import org.eclipse.mylyn.internal.context.ui.actions.AbstractFocusViewAction;
+import org.eclipse.mylyn.internal.java.ui.JavaDeclarationsFilter;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 

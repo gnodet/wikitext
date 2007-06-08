@@ -6,16 +6,16 @@
    <feature url="features/org.eclipse.mylar_feature_2.0.0.v20070514-1800.jar" id="org.eclipse.mylar_feature" version="2.0.0.v20070514-1800">
       <category name="Features"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.ide_feature_2.0.0.v20070514-1800.jar" id="org.eclipse.mylar.ide_feature" version="2.0.0.v20070514-1800">
+   <feature url="features/org.eclipse.mylyn.ide_feature_2.0.0.v20070514-1800.jar" id="org.eclipse.mylyn.ide_feature" version="2.0.0.v20070514-1800">
       <category name="Features"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.bugzilla_feature_2.0.0.v20070514-1800.jar" id="org.eclipse.mylar.bugzilla_feature" version="2.0.0.v20070514-1800">
+   <feature url="features/org.eclipse.mylyn.bugzilla_feature_2.0.0.v20070514-1800.jar" id="org.eclipse.mylyn.bugzilla_feature" version="2.0.0.v20070514-1800">
       <category name="Integration"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.jira_feature_2.0.0.v20070514-1800.jar" id="org.eclipse.mylar.jira_feature" version="2.0.0.v20070514-1800">
+   <feature url="features/org.eclipse.mylyn.jira_feature_2.0.0.v20070514-1800.jar" id="org.eclipse.mylyn.jira_feature" version="2.0.0.v20070514-1800">
       <category name="Integration"/>
    </feature>
-   <feature url="features/org.eclipse.mylar.trac_feature_2.0.0.v20070514-1800.jar" id="org.eclipse.mylar.trac_feature" version="2.0.0.v20070514-1800">
+   <feature url="features/org.eclipse.mylyn.trac_feature_2.0.0.v20070514-1800.jar" id="org.eclipse.mylyn.trac_feature" version="2.0.0.v20070514-1800">
       <category name="Integration"/>
    </feature>
    <category-def name="Features" label="Features"/>

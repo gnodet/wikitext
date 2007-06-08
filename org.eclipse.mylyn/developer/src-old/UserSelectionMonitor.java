@@ -11,7 +11,7 @@
 /*
  * Created on Feb 8, 2005
   */
-package org.eclipse.mylar.monitor;
+package org.eclipse.mylyn.monitor;
 
 import org.eclipse.core.internal.resources.File;
 import org.eclipse.jdt.core.IJavaElement;
@@ -26,9 +26,9 @@ import org.eclipse.ui.texteditor.AbstractTextEditor;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.eclipse.ui.views.markers.internal.ProblemView;
 
-import org.eclipse.mylar.core.AbstractSelectionMonitor;
-import org.eclipse.mylar.monitor.stats.UsageSession;
-import org.eclipse.mylar.monitor.views.UsageStatisticsView;
+import org.eclipse.mylyn.core.AbstractSelectionMonitor;
+import org.eclipse.mylyn.monitor.stats.UsageSession;
+import org.eclipse.mylyn.monitor.views.UsageStatisticsView;
 
 /**
  * @author Mik Kersten

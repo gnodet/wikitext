@@ -11,7 +11,7 @@
 /*
  * Created on Jul 26, 2004
   */
-package org.eclipse.mylar.ui.views.support;
+package org.eclipse.mylyn.ui.views.support;
 
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.JavaCore;
@@ -20,8 +20,8 @@ import org.eclipse.jface.viewers.IFontProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.*;
 
-import org.eclipse.mylar.model.*;
-import org.eclipse.mylar.ui.UiUtil;
+import org.eclipse.mylyn.model.*;
+import org.eclipse.mylyn.ui.UiUtil;
 
 /**
  * @author Mik Kersten

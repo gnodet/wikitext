@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.bugzilla.core.internal;
+package org.eclipse.mylyn.internal.bugzilla.core.internal;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,13 +29,13 @@ import javax.security.auth.login.LoginException;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.mylar.bugzilla.core.AbstractRepositoryReportAttribute;
-import org.eclipse.mylar.bugzilla.core.BugReport;
-import org.eclipse.mylar.bugzilla.core.Comment;
-import org.eclipse.mylar.bugzilla.core.Operation;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
-import org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants;
-import org.eclipse.mylar.internal.bugzilla.core.internal.HtmlStreamTokenizer.Token;
+import org.eclipse.mylyn.bugzilla.core.AbstractRepositoryReportAttribute;
+import org.eclipse.mylyn.bugzilla.core.BugReport;
+import org.eclipse.mylyn.bugzilla.core.Comment;
+import org.eclipse.mylyn.bugzilla.core.Operation;
+import org.eclipse.mylyn.internal.bugzilla.core.BugzillaPlugin;
+import org.eclipse.mylyn.internal.bugzilla.core.IBugzillaConstants;
+import org.eclipse.mylyn.internal.bugzilla.core.internal.HtmlStreamTokenizer.Token;
 
 /**
  * @author Shawn Minto

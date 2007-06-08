@@ -11,7 +11,7 @@
 /*
  * Created on Aug 6, 2004
   */
-package org.eclipse.mylar.java.ui;
+package org.eclipse.mylyn.java.ui;
 
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.internal.ui.viewsupport.DecoratingJavaLabelProvider;

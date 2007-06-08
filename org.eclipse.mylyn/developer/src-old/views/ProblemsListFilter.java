@@ -11,15 +11,15 @@
 /*
  * Created on Apr 18, 2005
   */
-package org.eclipse.mylar.java.ui.views;
+package org.eclipse.mylyn.java.ui.views;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.ui.views.markers.internal.ProblemMarker;
 
-import org.eclipse.mylar.java.ui.JavaUiUtil;
-import org.eclipse.mylar.ui.InterestFilter;
+import org.eclipse.mylyn.java.ui.JavaUiUtil;
+import org.eclipse.mylyn.ui.InterestFilter;
 
 public class ProblemsListFilter extends InterestFilter{
 

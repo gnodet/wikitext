@@ -14,15 +14,15 @@
  * TODO To change the template for this generated file go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-package org.eclipse.mylar.java.ui.views;
+package org.eclipse.mylyn.java.ui.views;
 
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.views.markers.internal.*;
 
-import org.eclipse.mylar.core.MylarPlugin;
-import org.eclipse.mylar.core.model.ITaskscapeNode;
-import org.eclipse.mylar.java.ui.JavaUiUtil;
+import org.eclipse.mylyn.core.MylarPlugin;
+import org.eclipse.mylyn.core.model.ITaskscapeNode;
+import org.eclipse.mylyn.java.ui.JavaUiUtil;
 
 /**
  * @author beatmik

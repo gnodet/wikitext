@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.bugzilla.ui;
+package org.eclipse.mylyn.internal.bugzilla.ui;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -18,11 +18,11 @@ import java.util.regex.Pattern;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.hyperlink.IHyperlink;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
-import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.TaskHyperlink;
-import org.eclipse.mylar.tasks.ui.editors.AbstractTaskHyperlinkDetector;
-import org.eclipse.mylar.tasks.ui.editors.TaskHyperlinkDetector;
+import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TaskHyperlink;
+import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskHyperlinkDetector;
+import org.eclipse.mylyn.tasks.ui.editors.TaskHyperlinkDetector;
 
 /**
  * @author Rob Elves

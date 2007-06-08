@@ -1,4 +1,4 @@
-package org.eclipse.mylar.internal.browser.views;
+package org.eclipse.mylyn.internal.browser.views;
 ///*******************************************************************************
 // * Copyright (c) 2004 - 2006 University Of British Columbia and others.
 // * All rights reserved. This program and the accompanying materials
@@ -10,10 +10,10 @@ package org.eclipse.mylar.internal.browser.views;
 // *     University Of British Columbia - initial API and implementation
 // *******************************************************************************/
 //
-//package org.eclipse.mylar.internal.browser.views;
+//package org.eclipse.mylyn.internal.browser.views;
 //
 //import org.eclipse.jface.viewers.TreeViewer;
-//import org.eclipse.mylar.internal.tasks.ui.TaskListPatternFilter;
+//import org.eclipse.mylyn.internal.tasks.ui.TaskListPatternFilter;
 //import org.eclipse.swt.SWT;
 //import org.eclipse.swt.widgets.Composite;
 //import org.eclipse.ui.dialogs.FilteredTree;
@@ -24,7 +24,7 @@ package org.eclipse.mylar.internal.browser.views;
 // */
 //public class ExplorerView extends ResourceNavigator {
 //
-//	public static final String ID = "org.eclipse.mylar.explorer.ui.explorer";
+//	public static final String ID = "org.eclipse.mylyn.explorer.ui.explorer";
 //	
 //	protected TreeViewer createViewer(Composite parent) {
 //		FilteredTree filteredTree = new ExplorerFilteredTree(ID, parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL,

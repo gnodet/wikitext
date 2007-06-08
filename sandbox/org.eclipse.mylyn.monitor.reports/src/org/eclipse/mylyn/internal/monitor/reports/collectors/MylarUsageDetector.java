@@ -8,11 +8,11 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.monitor.reports.collectors;
+package org.eclipse.mylyn.internal.monitor.reports.collectors;
 
-import org.eclipse.mylar.internal.tasks.ui.actions.TaskActivateAction;
-import org.eclipse.mylar.internal.tasks.ui.actions.TaskDeactivateAction;
-import org.eclipse.mylar.monitor.core.InteractionEvent;
+import org.eclipse.mylyn.internal.tasks.ui.actions.TaskActivateAction;
+import org.eclipse.mylyn.internal.tasks.ui.actions.TaskDeactivateAction;
+import org.eclipse.mylyn.monitor.core.InteractionEvent;
 
 public abstract class MylarUsageDetector {
 

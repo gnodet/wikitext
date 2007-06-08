@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.tasklist.ui.views;
+package org.eclipse.mylyn.internal.tasklist.ui.views;
 
 
 import java.text.MessageFormat;

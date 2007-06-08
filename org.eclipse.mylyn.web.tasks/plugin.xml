@@ -3,26 +3,26 @@
 <plugin>
 
     <extension
-         id="org.eclipse.mylar.web.repository"
+         id="org.eclipse.mylyn.web.repository"
          name="Generic web-based access (Advanced)"
-         point="org.eclipse.mylar.tasks.ui.repositories">
+         point="org.eclipse.mylyn.tasks.ui.repositories">
       <connectorCore
-            class="org.eclipse.mylar.internal.tasks.web.WebRepositoryConnector"
-            id="org.eclipse.mylar.web.tasklist.repositories"
+            class="org.eclipse.mylyn.internal.tasks.web.WebRepositoryConnector"
+            id="org.eclipse.mylyn.web.tasklist.repositories"
             name="Generic web-based repository"
             type="web"/>
       <connectorUi
             brandingIcon="icons/obj16/repository-web.gif"
-            class="org.eclipse.mylar.internal.tasks.web.WebRepositoryUi"
+            class="org.eclipse.mylyn.internal.tasks.web.WebRepositoryUi"
             name="Generic web-based repsoitory UI"
             overlayIcon="icons/obj16/overlay-web.gif"/>
       <externalizer
-            class="org.eclipse.mylar.internal.tasks.web.WebTaskExternalizer"
-            id="org.eclipse.mylar.web.tasklist.externalizer"/>
+            class="org.eclipse.mylyn.internal.tasks.web.WebTaskExternalizer"
+            id="org.eclipse.mylyn.web.tasklist.externalizer"/>
    </extension>
 
    <extension
-         point="org.eclipse.mylar.tasks.core.templates">
+         point="org.eclipse.mylyn.tasks.core.templates">
       <repository
            repositoryKind="web"
            label="Subclipse (IssueZilla)"

@@ -1,11 +1,11 @@
 
 
       	<action
-             class="org.eclipse.mylar.ui.actions.ToggleGlobalFilteringActionDelegate"
-             definitionId="org.eclipse.mylar.ui.interest.filter.global2"
+             class="org.eclipse.mylyn.ui.actions.ToggleGlobalFilteringActionDelegate"
+             definitionId="org.eclipse.mylyn.ui.interest.filter.global2"
              disabledIcon="icons/elcl16/auto-expand.gif"
              icon="icons/elcl16/auto-expand.gif"
-             id="org.eclipse.mylar.ui.interest.filter.global.action"
+             id="org.eclipse.mylyn.ui.interest.filter.global.action"
              label="Toggle Mylar global filtering"
              retarget="false"
              style="toggle"
@@ -18,9 +18,9 @@
             label="Mylar interest filtering"
          	style="toggle" 
          	state="true"
-         	id="org.eclipse.mylar.ui.actions.ToggleGlobalFilteringAction" 
-         	class="org.eclipse.mylar.ui.actions.ToggleGlobalFilteringAction" 
-         	definitionId="org.eclipse.mylar.ui.actions.ToggleGlobalFilteringAction" 
+         	id="org.eclipse.mylyn.ui.actions.ToggleGlobalFilteringAction" 
+         	class="org.eclipse.mylyn.ui.actions.ToggleGlobalFilteringAction" 
+         	definitionId="org.eclipse.mylyn.ui.actions.ToggleGlobalFilteringAction" 
          	hoverIcon="icons/elcl16/auto-expand.gif"
          	disabledIcon="icons/elcl16/auto-expand.gif" 
          	icon="icons/elcl16/auto-expand.gif" 
@@ -28,14 +28,14 @@
 
 
    <extension
-         id="org.eclipse.mylar.reports.views.UsageCountView"
+         id="org.eclipse.mylyn.reports.views.UsageCountView"
          name="Simple Usage Count"
          point="org.eclipse.ui.views">
       <view
             category="org.eclipse.mylar"
-            class="org.eclipse.mylar.monitor.reports.ui.views.UsageCountView"
+            class="org.eclipse.mylyn.monitor.reports.ui.views.UsageCountView"
             icon="icons/eview16/monitor.gif"
-            id="org.eclipse.mylar.monitor.reports.ui.UsageCountView"
+            id="org.eclipse.mylyn.monitor.reports.ui.UsageCountView"
             name="Usage Statistics"/>
    </extension>
 

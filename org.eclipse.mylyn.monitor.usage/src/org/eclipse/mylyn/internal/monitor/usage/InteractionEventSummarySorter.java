@@ -9,11 +9,11 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.monitor.usage;
+package org.eclipse.mylyn.internal.monitor.usage;
 
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
-import org.eclipse.mylar.internal.monitor.core.collection.InteractionEventSummary;
+import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventSummary;
 
 /**
  * Sorts SingleSummary objects based on type, id, name, or usage count.

@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.bugzilla.core;
+package org.eclipse.mylyn.internal.bugzilla.core;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -18,9 +18,9 @@ import java.util.List;
 
 import javax.security.auth.login.LoginException;
 
-import org.eclipse.mylar.tasks.core.web.HtmlStreamTokenizer;
-import org.eclipse.mylar.tasks.core.web.HtmlTag;
-import org.eclipse.mylar.tasks.core.web.HtmlStreamTokenizer.Token;
+import org.eclipse.mylyn.tasks.core.web.HtmlStreamTokenizer;
+import org.eclipse.mylyn.tasks.core.web.HtmlTag;
+import org.eclipse.mylyn.tasks.core.web.HtmlStreamTokenizer.Token;
 
 /**
  * Parses Bugzilla keywords page to determine keywords valid in this

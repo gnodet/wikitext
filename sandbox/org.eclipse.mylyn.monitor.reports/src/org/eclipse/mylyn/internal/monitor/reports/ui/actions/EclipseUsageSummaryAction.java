@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.monitor.reports.ui.actions;
+package org.eclipse.mylyn.internal.monitor.reports.ui.actions;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -22,17 +22,17 @@ import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.mylar.core.MylarStatusHandler;
-import org.eclipse.mylar.internal.monitor.core.collection.CommandUsageCollector;
-import org.eclipse.mylar.internal.monitor.core.collection.DelegatingUsageCollector;
-import org.eclipse.mylar.internal.monitor.core.collection.IUsageCollector;
-import org.eclipse.mylar.internal.monitor.core.collection.SummaryCollector;
-import org.eclipse.mylar.internal.monitor.core.collection.ViewUsageCollector;
-import org.eclipse.mylar.internal.monitor.reports.MylarReportsPlugin;
-import org.eclipse.mylar.internal.monitor.usage.MylarUsageMonitorPlugin;
-import org.eclipse.mylar.internal.monitor.usage.collectors.PerspectiveUsageCollector;
-import org.eclipse.mylar.internal.monitor.usage.editors.UsageStatsEditorInput;
-import org.eclipse.mylar.monitor.usage.ReportGenerator;
+import org.eclipse.mylyn.core.MylarStatusHandler;
+import org.eclipse.mylyn.internal.monitor.core.collection.CommandUsageCollector;
+import org.eclipse.mylyn.internal.monitor.core.collection.DelegatingUsageCollector;
+import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
+import org.eclipse.mylyn.internal.monitor.core.collection.SummaryCollector;
+import org.eclipse.mylyn.internal.monitor.core.collection.ViewUsageCollector;
+import org.eclipse.mylyn.internal.monitor.reports.MylarReportsPlugin;
+import org.eclipse.mylyn.internal.monitor.usage.MylarUsageMonitorPlugin;
+import org.eclipse.mylyn.internal.monitor.usage.collectors.PerspectiveUsageCollector;
+import org.eclipse.mylyn.internal.monitor.usage.editors.UsageStatsEditorInput;
+import org.eclipse.mylyn.monitor.usage.ReportGenerator;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;

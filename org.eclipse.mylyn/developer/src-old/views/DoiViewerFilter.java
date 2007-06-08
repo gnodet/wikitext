@@ -11,7 +11,7 @@
 /*
  * Created on Jul 27, 2004
   */
-package org.eclipse.mylar.java.ui;
+package org.eclipse.mylyn.java.ui;
 
 import org.eclipse.core.internal.resources.File;
 import org.eclipse.core.resources.IMarker;
@@ -22,9 +22,9 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.ui.views.markers.internal.ProblemMarker;
 
-import org.eclipse.mylar.core.MylarPlugin;
-import org.eclipse.mylar.core.model.ITaskscapeNode;
-import org.eclipse.mylar.java.JavaUiUtil;
+import org.eclipse.mylyn.core.MylarPlugin;
+import org.eclipse.mylyn.core.model.ITaskscapeNode;
+import org.eclipse.mylyn.java.JavaUiUtil;
 
 /**
  * @author Mik Kersten

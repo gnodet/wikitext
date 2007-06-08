@@ -9,14 +9,14 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.web.ui;
+package org.eclipse.mylyn.internal.web.ui;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
-import org.eclipse.mylar.internal.web.MylarWebPlugin;
+import org.eclipse.mylyn.internal.web.MylarWebPlugin;
 import org.eclipse.swt.graphics.Image;
 
 /**

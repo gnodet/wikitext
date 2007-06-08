@@ -11,7 +11,7 @@
 /*
  * Created on Jun 23, 2004
  */
-package org.eclipse.mylar.model;
+package org.eclipse.mylyn.model;
 
 import java.io.Serializable;
 

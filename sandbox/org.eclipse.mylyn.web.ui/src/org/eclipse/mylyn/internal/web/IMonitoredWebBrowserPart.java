@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.web;
+package org.eclipse.mylyn.internal.web;
 
 import org.eclipse.swt.browser.Browser;
 

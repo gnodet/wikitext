@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.bugzilla.ui.search;
+package org.eclipse.mylyn.internal.bugzilla.ui.search;
 
 import java.net.Proxy;
 
@@ -16,9 +16,9 @@ import javax.security.auth.login.LoginException;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.mylar.internal.tasks.ui.search.AbstractRepositorySearchQuery;
-import org.eclipse.mylar.tasks.core.QueryHitCollector;
-import org.eclipse.mylar.tasks.core.TaskRepository;
+import org.eclipse.mylyn.internal.tasks.ui.search.AbstractRepositorySearchQuery;
+import org.eclipse.mylyn.tasks.core.QueryHitCollector;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
 
 /**
  * An operation to perform Bugzilla search query.
@@ -73,7 +73,7 @@ public class BugzillaSearchOperation implements IBugzillaSearchOperation {
 	}
 
 	/**
-	 * @see org.eclipse.mylar.internal.bugzilla.ui.search.IBugzillaSearchOperation#getStatus()
+	 * @see org.eclipse.mylyn.internal.bugzilla.ui.search.IBugzillaSearchOperation#getStatus()
 	 */
 	public IStatus getStatus() throws LoginException {
 		// if a LoginException was thrown while trying to search, throw this
@@ -84,14 +84,14 @@ public class BugzillaSearchOperation implements IBugzillaSearchOperation {
 	}
 
 	/**
-	 * @see org.eclipse.mylar.internal.bugzilla.core.search.IBugzillaSearchOperation#getQuery()
+	 * @see org.eclipse.mylyn.internal.bugzilla.core.search.IBugzillaSearchOperation#getQuery()
 	 */
 	public AbstractRepositorySearchQuery getQuery() {
 		return query;
 	}
 
 	/**
-	 * @see org.eclipse.mylar.internal.bugzilla.core.search.IBugzillaSearchOperation#setQuery(org.eclipse.mylar.internal.tasks.ui.search.AbstractRepositorySearchQuery)
+	 * @see org.eclipse.mylyn.internal.bugzilla.core.search.IBugzillaSearchOperation#setQuery(org.eclipse.mylyn.internal.tasks.ui.search.AbstractRepositorySearchQuery)
 	 */
 	public void setQuery(AbstractRepositorySearchQuery newQuery) {
 		this.query = newQuery;

@@ -9,13 +9,13 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.web;
+package org.eclipse.mylyn.internal.web;
 
 import java.util.Collection;
 import java.util.HashMap;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylar.internal.web.ui.WebImages;
+import org.eclipse.mylyn.internal.web.ui.WebImages;
 
 /**
  * @author Mik Kersten

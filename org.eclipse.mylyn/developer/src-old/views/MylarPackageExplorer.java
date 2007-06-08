@@ -11,7 +11,7 @@
 /*
  * Created on Jul 22, 2004
   */
-package org.eclipse.mylar.java.ui.views;
+package org.eclipse.mylyn.java.ui.views;
 
 import org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart;
 import org.eclipse.jface.action.IToolBarManager;
@@ -19,12 +19,12 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.internal.Workbench;
 
-import org.eclipse.mylar.core.ITaskscapeListener;
-import org.eclipse.mylar.core.MylarPlugin;
-import org.eclipse.mylar.core.model.ITaskscapeNode;
-import org.eclipse.mylar.java.ui.*;
-import org.eclipse.mylar.java.ui.actions.*;
-import org.eclipse.mylar.tasklist.TaskListPlugin;
+import org.eclipse.mylyn.core.ITaskscapeListener;
+import org.eclipse.mylyn.core.MylarPlugin;
+import org.eclipse.mylyn.core.model.ITaskscapeNode;
+import org.eclipse.mylyn.java.ui.*;
+import org.eclipse.mylyn.java.ui.actions.*;
+import org.eclipse.mylyn.tasklist.TaskListPlugin;
 
 /**
  * @author Mik Kersten

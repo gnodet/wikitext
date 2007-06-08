@@ -14,7 +14,7 @@
  * TODO To change the template for this generated file go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-package org.eclipse.mylar.java.ui.views;
+package org.eclipse.mylyn.java.ui.views;
 
 import org.eclipse.jdt.core.*;
 import org.eclipse.jdt.internal.ui.viewsupport.JavaElementImageProvider;
@@ -22,7 +22,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.views.markers.internal.ConcreteMarker;
 import org.eclipse.ui.views.markers.internal.Messages;
 
-import org.eclipse.mylar.java.ui.JavaUiUtil;
+import org.eclipse.mylyn.java.ui.JavaUiUtil;
 
 /**
  * @author beatmik

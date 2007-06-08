@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.bugzilla.core.search;
+package org.eclipse.mylyn.internal.bugzilla.core.search;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,12 +30,12 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
-import org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants;
-import org.eclipse.mylar.internal.bugzilla.core.internal.HtmlStreamTokenizer;
-import org.eclipse.mylar.internal.bugzilla.core.internal.HtmlTag;
-import org.eclipse.mylar.internal.bugzilla.core.internal.HtmlStreamTokenizer.Token;
-import org.eclipse.mylar.provisional.tasklist.TaskRepository;
+import org.eclipse.mylyn.internal.bugzilla.core.BugzillaPlugin;
+import org.eclipse.mylyn.internal.bugzilla.core.IBugzillaConstants;
+import org.eclipse.mylyn.internal.bugzilla.core.internal.HtmlStreamTokenizer;
+import org.eclipse.mylyn.internal.bugzilla.core.internal.HtmlTag;
+import org.eclipse.mylyn.internal.bugzilla.core.internal.HtmlStreamTokenizer.Token;
+import org.eclipse.mylyn.provisional.tasklist.TaskRepository;
 
 /**
  * Class to parse the update data from the server

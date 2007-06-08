@@ -9,24 +9,24 @@
 // *     University Of British Columbia - initial API and implementation
 // *******************************************************************************/
 //
-//package org.eclipse.mylar.bugzilla.ui.actions;
+//package org.eclipse.mylyn.bugzilla.ui.actions;
 //
 //import org.eclipse.jface.action.Action;
 //import org.eclipse.jface.action.IAction;
 //import org.eclipse.jface.viewers.ISelection;
 //import org.eclipse.jface.viewers.IStructuredSelection;
 //import org.eclipse.jface.viewers.StructuredSelection;
-//import org.eclipse.mylar.bugzilla.core.BugzillaPlugin;
-//import org.eclipse.mylar.bugzilla.ui.BugzillaImages;
-//import org.eclipse.mylar.bugzilla.ui.BugzillaUiPlugin;
-//import org.eclipse.mylar.bugzilla.ui.tasklist.BugzillaTask;
-//import org.eclipse.mylar.tasklist.ITask;
-//import org.eclipse.mylar.tasklist.ITaskHandler;
-//import org.eclipse.mylar.tasklist.MylarTaskListPlugin;
-//import org.eclipse.mylar.tasklist.TaskRepository;
-//import org.eclipse.mylar.tasklist.internal.TaskCategory;
-//import org.eclipse.mylar.tasklist.internal.TaskRepositoryManager;
-//import org.eclipse.mylar.tasklist.ui.views.TaskListView;
+//import org.eclipse.mylyn.bugzilla.core.BugzillaPlugin;
+//import org.eclipse.mylyn.bugzilla.ui.BugzillaImages;
+//import org.eclipse.mylyn.bugzilla.ui.BugzillaUiPlugin;
+//import org.eclipse.mylyn.bugzilla.ui.tasklist.BugzillaTask;
+//import org.eclipse.mylyn.tasklist.ITask;
+//import org.eclipse.mylyn.tasklist.ITaskHandler;
+//import org.eclipse.mylyn.tasklist.MylarTaskListPlugin;
+//import org.eclipse.mylyn.tasklist.TaskRepository;
+//import org.eclipse.mylyn.tasklist.internal.TaskCategory;
+//import org.eclipse.mylyn.tasklist.internal.TaskRepositoryManager;
+//import org.eclipse.mylyn.tasklist.ui.views.TaskListView;
 //import org.eclipse.ui.IViewActionDelegate;
 //import org.eclipse.ui.IViewPart;
 //
@@ -38,7 +38,7 @@
 //	
 //	private static final String LABEL = "Add Existing Bugzilla Report";
 //
-//	public static final String ID = "org.eclipse.mylar.tasklist.actions.create.bug";
+//	public static final String ID = "org.eclipse.mylyn.tasklist.actions.create.bug";
 //		
 //	public CreateBugzillaTaskAction() {
 //		setText(LABEL);

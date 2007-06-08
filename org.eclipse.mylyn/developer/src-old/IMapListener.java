@@ -11,7 +11,7 @@
 /*
  * Created on Jul 8, 2004
   */
-package org.eclipse.mylar.monitor;
+package org.eclipse.mylyn.monitor;
 
 /**
  * @author Mik Kersten

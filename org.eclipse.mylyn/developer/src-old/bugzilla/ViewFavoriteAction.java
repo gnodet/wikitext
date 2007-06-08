@@ -9,14 +9,14 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.bugzilla.ui.actions;
+package org.eclipse.mylyn.internal.bugzilla.ui.actions;
 
 import java.util.List;
 
-import org.eclipse.mylar.internal.bugzilla.ui.BugzillaImages;
-import org.eclipse.mylar.internal.bugzilla.ui.BugzillaOpenStructure;
-import org.eclipse.mylar.internal.bugzilla.ui.FavoritesView;
-import org.eclipse.mylar.internal.bugzilla.ui.ViewBugzillaAction;
+import org.eclipse.mylyn.internal.bugzilla.ui.BugzillaImages;
+import org.eclipse.mylyn.internal.bugzilla.ui.BugzillaOpenStructure;
+import org.eclipse.mylyn.internal.bugzilla.ui.FavoritesView;
+import org.eclipse.mylyn.internal.bugzilla.ui.ViewBugzillaAction;
 
 /**
  * View a bug from the favorites menu

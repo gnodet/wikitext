@@ -9,20 +9,20 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.web.ui;
+package org.eclipse.mylyn.internal.web.ui;
 
 import java.util.List;
 
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.mylar.context.core.AbstractContextStructureBridge;
-import org.eclipse.mylar.context.core.ContextCorePlugin;
-import org.eclipse.mylar.context.core.IInteractionElement;
-import org.eclipse.mylar.context.ui.AbstractContextUiBridge;
-import org.eclipse.mylar.internal.web.WebPage;
-import org.eclipse.mylar.internal.web.WebResource;
-import org.eclipse.mylar.internal.web.WebResourceStructureBridge;
-import org.eclipse.mylar.internal.web.WebSite;
+import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
+import org.eclipse.mylyn.context.core.ContextCorePlugin;
+import org.eclipse.mylyn.context.core.IInteractionElement;
+import org.eclipse.mylyn.context.ui.AbstractContextUiBridge;
+import org.eclipse.mylyn.internal.web.WebPage;
+import org.eclipse.mylyn.internal.web.WebResource;
+import org.eclipse.mylyn.internal.web.WebResourceStructureBridge;
+import org.eclipse.mylyn.internal.web.WebSite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 

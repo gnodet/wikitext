@@ -11,7 +11,7 @@
 /*
  * Created on Jan 24, 2005
  */
-package org.eclipse.mylar.tasklist.tests;
+package org.eclipse.mylyn.tasklist.tests;
 
 import java.util.ArrayList;
 import java.util.List;

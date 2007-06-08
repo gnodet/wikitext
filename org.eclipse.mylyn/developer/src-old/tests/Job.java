@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.tasklist.tests;
+package org.eclipse.mylyn.tasklist.tests;
 
 public class Job {
 	private String company;

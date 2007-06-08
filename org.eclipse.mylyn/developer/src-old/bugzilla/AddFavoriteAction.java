@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.bugzilla.ui.actions;
+package org.eclipse.mylyn.internal.bugzilla.ui.actions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,12 +20,12 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
-import org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants;
-import org.eclipse.mylar.internal.bugzilla.core.internal.Favorite;
-import org.eclipse.mylar.internal.bugzilla.ui.BugzillaImages;
-import org.eclipse.mylar.internal.bugzilla.ui.FavoritesView;
-import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchResultView;
+import org.eclipse.mylyn.internal.bugzilla.core.BugzillaPlugin;
+import org.eclipse.mylyn.internal.bugzilla.core.IBugzillaConstants;
+import org.eclipse.mylyn.internal.bugzilla.core.internal.Favorite;
+import org.eclipse.mylyn.internal.bugzilla.ui.BugzillaImages;
+import org.eclipse.mylyn.internal.bugzilla.ui.FavoritesView;
+import org.eclipse.mylyn.internal.bugzilla.ui.search.BugzillaSearchResultView;
 
 /**
  * Bookmark a returned Bugzilla Search result.

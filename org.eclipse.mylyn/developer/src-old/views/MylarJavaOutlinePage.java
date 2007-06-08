@@ -11,7 +11,7 @@
 /*
  * Created on Aug 6, 2004
   */
-package org.eclipse.mylar.java.ui.editor;
+package org.eclipse.mylyn.java.ui.editor;
 
 import java.util.*;
 import java.util.List;
@@ -56,12 +56,12 @@ import org.eclipse.ui.texteditor.*;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.navigator.LocalSelectionTransfer;
 
-import org.eclipse.mylar.core.ITaskscapeListener;
-import org.eclipse.mylar.core.MylarPlugin;
-import org.eclipse.mylar.core.model.ITaskscapeNode;
-import org.eclipse.mylar.java.ui.MylarAppearanceAwareLabelProvider;
-import org.eclipse.mylar.tasklist.MylarImages;
-import org.eclipse.mylar.tasklist.TaskListPlugin;
+import org.eclipse.mylyn.core.ITaskscapeListener;
+import org.eclipse.mylyn.core.MylarPlugin;
+import org.eclipse.mylyn.core.model.ITaskscapeNode;
+import org.eclipse.mylyn.java.ui.MylarAppearanceAwareLabelProvider;
+import org.eclipse.mylyn.tasklist.MylarImages;
+import org.eclipse.mylyn.tasklist.TaskListPlugin;
 
 /**
  * @author Mik Kersten
@@ -154,7 +154,7 @@ public class MylarJavaOutlinePage extends JavaOutlinePage implements IContentOut
             setImageDescriptor(MylarImages.AUTO_EXPAND);    
             setToolTipText("Filter uninteresting elements"); //$NON-NLS-1$
             
-            boolean checked= ContextCorePlugin.getDefault().getPreferenceStore().getBoolean("org.eclipse.mylar.ui.outline.filter.isChecked"); //$NON-NLS-1$
+            boolean checked= ContextCorePlugin.getDefault().getPreferenceStore().getBoolean("org.eclipse.mylyn.ui.outline.filter.isChecked"); //$NON-NLS-1$
             valueChanged(checked, false);
         }
         
@@ -173,7 +173,7 @@ public class MylarJavaOutlinePage extends JavaOutlinePage implements IContentOut
             }
 
             if (store)
-                ContextCorePlugin.getDefault().getPreferenceStore().setValue("org.eclipse.mylar.ui.outline.filter.isChecked", on); //$NON-NLS-1$
+                ContextCorePlugin.getDefault().getPreferenceStore().setValue("org.eclipse.mylyn.ui.outline.filter.isChecked", on); //$NON-NLS-1$
         }
     }
     

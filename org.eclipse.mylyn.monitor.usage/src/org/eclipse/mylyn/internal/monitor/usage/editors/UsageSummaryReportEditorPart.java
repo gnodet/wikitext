@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.monitor.usage.editors;
+package org.eclipse.mylyn.internal.monitor.usage.editors;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -22,10 +22,10 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.mylar.core.MylarStatusHandler;
-import org.eclipse.mylar.internal.monitor.usage.InteractionEventSummarySorter;
-import org.eclipse.mylar.internal.monitor.usage.MylarUsageMonitorPlugin;
-import org.eclipse.mylar.internal.monitor.usage.wizards.UsageSubmissionWizard;
+import org.eclipse.mylyn.core.MylarStatusHandler;
+import org.eclipse.mylyn.internal.monitor.usage.InteractionEventSummarySorter;
+import org.eclipse.mylyn.internal.monitor.usage.MylarUsageMonitorPlugin;
+import org.eclipse.mylyn.internal.monitor.usage.wizards.UsageSubmissionWizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -56,7 +56,7 @@ import org.eclipse.ui.internal.browser.WorkbenchBrowserSupport;
 
 public class UsageSummaryReportEditorPart extends UsageEditorPart {
 
-	public static final String ID = "org.eclipse.mylar.monitor.usage.summary.editor";
+	public static final String ID = "org.eclipse.mylyn.monitor.usage.summary.editor";
 
 	private static final long MAX_FILE_LENGTH = 1024 * 1024;
 
@@ -173,7 +173,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 							| WorkbenchBrowserSupport.NAVIGATION_BAR;
 				}
 
-				String generatedId = "org.eclipse.mylar.web.browser-" + Calendar.getInstance().getTimeInMillis();
+				String generatedId = "org.eclipse.mylyn.web.browser-" + Calendar.getInstance().getTimeInMillis();
 				browser = WorkbenchBrowserSupport.getInstance().createBrowser(flags, generatedId, null, null);
 				browser.openURL(new URL(URL_SERVLET_USAGE));
 			}

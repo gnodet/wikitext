@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.monitor.usage;
+package org.eclipse.mylyn.internal.monitor.usage;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,16 +28,16 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import org.eclipse.mylar.core.MylarStatusHandler;
-import org.eclipse.mylar.core.net.HtmlStreamTokenizer;
-import org.eclipse.mylar.core.net.HtmlStreamTokenizer.Token;
-import org.eclipse.mylar.internal.context.core.InteractionContextExternalizer;
-import org.eclipse.mylar.internal.core.util.XmlStringConverter;
-import org.eclipse.mylar.monitor.core.AbstractMonitorLog;
-import org.eclipse.mylar.monitor.core.IInteractionEventListener;
-import org.eclipse.mylar.monitor.core.InteractionEvent;
-import org.eclipse.mylar.monitor.core.InteractionEvent.Kind;
-import org.eclipse.mylar.monitor.usage.InteractionEventObfuscator;
+import org.eclipse.mylyn.core.MylarStatusHandler;
+import org.eclipse.mylyn.core.net.HtmlStreamTokenizer;
+import org.eclipse.mylyn.core.net.HtmlStreamTokenizer.Token;
+import org.eclipse.mylyn.internal.context.core.InteractionContextExternalizer;
+import org.eclipse.mylyn.internal.core.util.XmlStringConverter;
+import org.eclipse.mylyn.monitor.core.AbstractMonitorLog;
+import org.eclipse.mylyn.monitor.core.IInteractionEventListener;
+import org.eclipse.mylyn.monitor.core.InteractionEvent;
+import org.eclipse.mylyn.monitor.core.InteractionEvent.Kind;
+import org.eclipse.mylyn.monitor.usage.InteractionEventObfuscator;
 
 /**
  * @author Mik Kersten

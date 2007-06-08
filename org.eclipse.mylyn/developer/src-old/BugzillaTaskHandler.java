@@ -9,19 +9,19 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.bugzilla.ui.tasklist;
+package org.eclipse.mylyn.internal.bugzilla.ui.tasklist;
 
 import org.eclipse.jface.action.Action;
-import org.eclipse.mylar.internal.tasklist.ITaskHandler;
-import org.eclipse.mylar.internal.tasklist.ui.ITaskListElement;
-import org.eclipse.mylar.internal.tasklist.ui.actions.CopyDescriptionAction;
-import org.eclipse.mylar.internal.tasklist.ui.actions.DeleteAction;
-import org.eclipse.mylar.internal.tasklist.ui.actions.GoIntoAction;
-import org.eclipse.mylar.internal.tasklist.ui.actions.OpenTaskInExternalBrowserAction;
-import org.eclipse.mylar.internal.tasklist.ui.actions.OpenTaskListElementAction;
-import org.eclipse.mylar.internal.tasklist.ui.actions.RemoveFromCategoryAction;
-import org.eclipse.mylar.internal.tasklist.ui.actions.RenameAction;
-import org.eclipse.mylar.tasklist.ITask;
+import org.eclipse.mylyn.internal.tasklist.ITaskHandler;
+import org.eclipse.mylyn.internal.tasklist.ui.ITaskListElement;
+import org.eclipse.mylyn.internal.tasklist.ui.actions.CopyDescriptionAction;
+import org.eclipse.mylyn.internal.tasklist.ui.actions.DeleteAction;
+import org.eclipse.mylyn.internal.tasklist.ui.actions.GoIntoAction;
+import org.eclipse.mylyn.internal.tasklist.ui.actions.OpenTaskInExternalBrowserAction;
+import org.eclipse.mylyn.internal.tasklist.ui.actions.OpenTaskListElementAction;
+import org.eclipse.mylyn.internal.tasklist.ui.actions.RemoveFromCategoryAction;
+import org.eclipse.mylyn.internal.tasklist.ui.actions.RenameAction;
+import org.eclipse.mylyn.tasklist.ITask;
 
 /**
  * @author Mik Kersten and Ken Sueda

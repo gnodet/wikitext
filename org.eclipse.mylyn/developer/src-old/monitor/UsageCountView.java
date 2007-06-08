@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.monitor.reports.ui.views;import java.io.File;
+package org.eclipse.mylyn.monitor.reports.ui.views;import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,13 +25,13 @@ import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.mylar.core.MylarPlugin;
-import org.eclipse.mylar.monitor.MylarMonitorPlugin;
-import org.eclipse.mylar.monitor.reports.IUsageCollector;
-import org.eclipse.mylar.monitor.reports.ReportGenerator;
-import org.eclipse.mylar.monitor.reports.collectors.SummaryCollector;
-import org.eclipse.mylar.monitor.reports.internal.InteractionEventSummarySorter;
-import org.eclipse.mylar.monitor.ui.MonitorImages;
+import org.eclipse.mylyn.core.MylarPlugin;
+import org.eclipse.mylyn.monitor.MylarMonitorPlugin;
+import org.eclipse.mylyn.monitor.reports.IUsageCollector;
+import org.eclipse.mylyn.monitor.reports.ReportGenerator;
+import org.eclipse.mylyn.monitor.reports.collectors.SummaryCollector;
+import org.eclipse.mylyn.monitor.reports.internal.InteractionEventSummarySorter;
+import org.eclipse.mylyn.monitor.ui.MonitorImages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;

@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.sandbox.misc;
+package org.eclipse.mylyn.internal.sandbox.misc;
 
 /**
  * Check against the system clock--doesn't need to run as thread.

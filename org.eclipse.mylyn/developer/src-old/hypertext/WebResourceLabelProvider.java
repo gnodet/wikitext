@@ -9,15 +9,15 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.hypertext.ui.editors;
+package org.eclipse.mylyn.internal.hypertext.ui.editors;
 
 import org.eclipse.jface.viewers.IColorProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.mylar.internal.hypertext.MylarHypertextPlugin;
-import org.eclipse.mylar.internal.hypertext.ui.HypertextImages;
-import org.eclipse.mylar.internal.tasklist.ui.TaskListColorsAndFonts;
-import org.eclipse.mylar.internal.ui.MylarImages;
+import org.eclipse.mylyn.internal.hypertext.MylarHypertextPlugin;
+import org.eclipse.mylyn.internal.hypertext.ui.HypertextImages;
+import org.eclipse.mylyn.internal.tasklist.ui.TaskListColorsAndFonts;
+import org.eclipse.mylyn.internal.ui.MylarImages;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 

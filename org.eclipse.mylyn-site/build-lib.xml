@@ -14,11 +14,11 @@
 			    org.eclipse.equinox.preferences,
 			    org.eclipse.core.contenttype,
 			    org.eclipse.core.runtime.compatibility.auth,
-				org.eclipse.mylar.core,
-				org.eclipse.mylar.bugzilla.core,
-				org.eclipse.mylar.context.core,
-				org.eclipse.mylar.tasks.core,
-				org.eclipse.mylar.trac.core" 
+				org.eclipse.mylyn.core,
+				org.eclipse.mylyn.bugzilla.core,
+				org.eclipse.mylyn.context.core,
+				org.eclipse.mylyn.tasks.core,
+				org.eclipse.mylyn.trac.core" 
 			useJARFormat="true"/>
 	</target>
 </project>

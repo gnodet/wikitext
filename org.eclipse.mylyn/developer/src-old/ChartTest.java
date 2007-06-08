@@ -11,7 +11,7 @@
 /*
  * Created on Jul 12, 2004
   */
-package org.eclipse.mylar.tests.chart;
+package org.eclipse.mylyn.tests.chart;
 
 import javax.swing.JFrame;
 

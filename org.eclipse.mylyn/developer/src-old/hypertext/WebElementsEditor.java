@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.hypertext.ui.editors;
+package org.eclipse.mylyn.internal.hypertext.ui.editors;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -26,12 +26,12 @@ import org.eclipse.jface.viewers.IOpenListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.OpenEvent;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.mylar.internal.hypertext.HypertextStructureBridge;
-import org.eclipse.mylar.internal.tasklist.ui.TaskListImages;
-import org.eclipse.mylar.provisional.core.IMylarContext;
-import org.eclipse.mylar.provisional.core.IMylarContextListener;
-import org.eclipse.mylar.provisional.core.IMylarElement;
-import org.eclipse.mylar.provisional.core.MylarPlugin;
+import org.eclipse.mylyn.internal.hypertext.HypertextStructureBridge;
+import org.eclipse.mylyn.internal.tasklist.ui.TaskListImages;
+import org.eclipse.mylyn.provisional.core.IMylarContext;
+import org.eclipse.mylyn.provisional.core.IMylarContextListener;
+import org.eclipse.mylyn.provisional.core.IMylarElement;
+import org.eclipse.mylyn.provisional.core.MylarPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseTrackListener;
@@ -399,7 +399,7 @@ public class WebElementsEditor extends EditorPart {
 				flags = WorkbenchBrowserSupport.AS_EXTERNAL | WorkbenchBrowserSupport.LOCATION_BAR
 						| WorkbenchBrowserSupport.NAVIGATION_BAR;
 			}
-			browser = WorkbenchBrowserSupport.getInstance().createBrowser(flags, "org.eclipse.mylar.tasklist",
+			browser = WorkbenchBrowserSupport.getInstance().createBrowser(flags, "org.eclipse.mylyn.tasklist",
 					"Mylar Context Browser", "tasktooltip");
 			browser.openURL(new URL(url));
 		} catch (PartInitException e) {

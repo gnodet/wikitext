@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.java.ui.views;
+package org.eclipse.mylyn.java.ui.views;
 
 import java.util.List;
 
@@ -26,14 +26,14 @@ import org.eclipse.ui.*;
 import org.eclipse.ui.internal.Workbench;
 import org.eclipse.ui.views.markers.internal.*;
 
-import org.eclipse.mylar.core.ITaskscapeListener;
-import org.eclipse.mylar.core.MylarPlugin;
-import org.eclipse.mylar.core.model.*;
-import org.eclipse.mylar.core.model.ITaskscapeNode;
-import org.eclipse.mylar.core.model.InterestComparator;
-import org.eclipse.mylar.java.ui.JavaUiUtil;
-import org.eclipse.mylar.java.ui.actions.ToggleAutoManagerProblemsAction;
-import org.eclipse.mylar.ui.*;
+import org.eclipse.mylyn.core.ITaskscapeListener;
+import org.eclipse.mylyn.core.MylarPlugin;
+import org.eclipse.mylyn.core.model.*;
+import org.eclipse.mylyn.core.model.ITaskscapeNode;
+import org.eclipse.mylyn.core.model.InterestComparator;
+import org.eclipse.mylyn.java.ui.JavaUiUtil;
+import org.eclipse.mylyn.java.ui.actions.ToggleAutoManagerProblemsAction;
+import org.eclipse.mylyn.ui.*;
 
 /**
  * @author Mik Kersten
@@ -41,7 +41,7 @@ import org.eclipse.mylar.ui.*;
 public class MylarProblemView extends ProblemView {
 
     private static TableViewer currentViewer = null;
-    private final static String TAG_DIALOG_SECTION = "org.eclipse.mylar.ui.views.problem";
+    private final static String TAG_DIALOG_SECTION = "org.eclipse.mylyn.ui.views.problem";
     private ProblemsListFilter doiFilter = new ProblemsListFilter();
     private TableSorter sorter = null;
     

@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.monitor.usage;
+package org.eclipse.mylyn.monitor.usage;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -27,14 +27,14 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.IJobChangeListener;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.mylar.core.MylarStatusHandler;
-import org.eclipse.mylar.internal.monitor.core.collection.IUsageCollector;
-import org.eclipse.mylar.internal.monitor.core.collection.IUsageScanner;
-import org.eclipse.mylar.internal.monitor.core.collection.InteractionEventComparator;
-import org.eclipse.mylar.internal.monitor.core.collection.InteractionEventSummary;
-import org.eclipse.mylar.internal.monitor.core.collection.InteractionEventUtil;
-import org.eclipse.mylar.internal.monitor.usage.InteractionEventLogger;
-import org.eclipse.mylar.monitor.core.InteractionEvent;
+import org.eclipse.mylyn.core.MylarStatusHandler;
+import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
+import org.eclipse.mylyn.internal.monitor.core.collection.IUsageScanner;
+import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventComparator;
+import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventSummary;
+import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventUtil;
+import org.eclipse.mylyn.internal.monitor.usage.InteractionEventLogger;
+import org.eclipse.mylyn.monitor.core.InteractionEvent;
 
 /**
  * @author Mik Kersten

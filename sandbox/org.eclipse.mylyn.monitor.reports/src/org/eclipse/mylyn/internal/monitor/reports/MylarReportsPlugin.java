@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.monitor.reports;
+package org.eclipse.mylyn.internal.monitor.reports;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -20,11 +20,11 @@ import org.osgi.framework.BundleContext;
  */
 public class MylarReportsPlugin extends AbstractUIPlugin {
 
-	public static final String REPORT_SUMMARY_ID = "org.eclipse.mylar.monitor.ui.reports.ui.actions.monitorSummaryReport";
+	public static final String REPORT_SUMMARY_ID = "org.eclipse.mylyn.monitor.ui.reports.ui.actions.monitorSummaryReport";
 
-	public static final String REPORT_USERS_ID = "org.eclipse.mylar.monitor.ui.reports.ui.actions.monitorUsersReport";
+	public static final String REPORT_USERS_ID = "org.eclipse.mylyn.monitor.ui.reports.ui.actions.monitorUsersReport";
 
-	public static final String SHARED_TASK_DATA_ROOT_DIR = "org.eclipse.mylar.monitor.ui.reports.preferences.sharedTaskDataRootDir";
+	public static final String SHARED_TASK_DATA_ROOT_DIR = "org.eclipse.mylyn.monitor.ui.reports.preferences.sharedTaskDataRootDir";
 
 	private static MylarReportsPlugin plugin;
 
@@ -56,7 +56,7 @@ public class MylarReportsPlugin extends AbstractUIPlugin {
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
-		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.mylar.internal.monitor.reports", path);
+		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.mylyn.internal.monitor.reports", path);
 	}
 
 	/**

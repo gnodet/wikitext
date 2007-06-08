@@ -11,7 +11,7 @@
 /*
  * Created on Jul 20, 2004
   */
-package org.eclipse.mylar.monitor.internal;
+package org.eclipse.mylyn.monitor.internal;
 
 
 /**

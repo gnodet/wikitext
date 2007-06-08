@@ -11,20 +11,20 @@
 /*
  * Created on Jul 27, 2004
   */
-package org.eclipse.mylar.java.ui.actions;
+package org.eclipse.mylyn.java.ui.actions;
 
 import org.eclipse.jface.action.Action;
 
-import org.eclipse.mylar.core.MylarPlugin;
-import org.eclipse.mylar.java.ui.views.MylarProblemView;
-import org.eclipse.mylar.ui.MylarImages;
+import org.eclipse.mylyn.core.MylarPlugin;
+import org.eclipse.mylyn.java.ui.views.MylarProblemView;
+import org.eclipse.mylyn.ui.MylarImages;
 
 /**
  * @author Mik Kersten
  */
 public class ToggleAutoManagerProblemsAction extends Action {
     
-    public static final String PREF_ID = "org.eclipse.mylar.ui.problems.manage.isChecked";
+    public static final String PREF_ID = "org.eclipse.mylyn.ui.problems.manage.isChecked";
     
     private MylarProblemView problemsView;
     

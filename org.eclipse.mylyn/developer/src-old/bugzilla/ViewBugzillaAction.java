@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.bugzilla.ui;
+package org.eclipse.mylyn.internal.bugzilla.ui;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -20,12 +20,12 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
-import org.eclipse.mylar.internal.bugzilla.ui.editor.AbstractBugEditor;
-import org.eclipse.mylar.internal.bugzilla.ui.editor.ExistingBugEditorInput;
-import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
-import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
-import org.eclipse.mylar.provisional.tasklist.TaskRepository;
+import org.eclipse.mylyn.internal.bugzilla.core.BugzillaPlugin;
+import org.eclipse.mylyn.internal.bugzilla.ui.editor.AbstractBugEditor;
+import org.eclipse.mylyn.internal.bugzilla.ui.editor.ExistingBugEditorInput;
+import org.eclipse.mylyn.internal.core.util.MylarStatusHandler;
+import org.eclipse.mylyn.provisional.tasklist.MylarTaskListPlugin;
+import org.eclipse.mylyn.provisional.tasklist.TaskRepository;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;

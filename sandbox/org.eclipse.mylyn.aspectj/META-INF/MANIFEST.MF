@@ -1,16 +1,16 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Mylar Aspectj Plug-in
-Bundle-SymbolicName: org.eclipse.mylar.aspectj;singleton:=true
+Bundle-SymbolicName: org.eclipse.mylyn.aspectj;singleton:=true
 Bundle-Version: 0.3.0
-Bundle-Activator: org.eclipse.mylar.internal.aspectj.MylarAspectJPlugin
+Bundle-Activator: org.eclipse.mylyn.internal.aspectj.MylarAspectJPlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.mylar.java,
+ org.eclipse.mylyn.java,
  org.eclipse.core.resources,
  org.eclipse.jdt.ui,
  org.eclipse.jdt.core,
- org.eclipse.mylar.context.core,
+ org.eclipse.mylyn.context.core,
  org.eclipse.ui.editors,
  org.eclipse.ui.workbench.texteditor
 Eclipse-AutoStart: true

@@ -6,13 +6,13 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.tasks.web;
+package org.eclipse.mylyn.internal.tasks.web;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.eclipse.mylar.internal.tasks.core.WebTask;
-import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.internal.tasks.core.WebTask;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 
 /**
  * Represents pattern-based query on repository web page

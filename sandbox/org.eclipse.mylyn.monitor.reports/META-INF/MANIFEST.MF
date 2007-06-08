@@ -1,25 +1,25 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Mylar Monitor Reports Plug-in
-Bundle-SymbolicName: org.eclipse.mylar.monitor.reports; singleton:=true
+Bundle-SymbolicName: org.eclipse.mylyn.monitor.reports; singleton:=true
 Bundle-Version: 0.4.1
-Bundle-Activator: org.eclipse.mylar.internal.monitor.reports.MylarReportsPlugin
+Bundle-Activator: org.eclipse.mylyn.internal.monitor.reports.MylarReportsPlugin
 Bundle-Vendor: Eclipse.org
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.jdt.ui,
  org.eclipse.ui.forms,
- org.eclipse.mylar.context.core,
- org.eclipse.mylar.monitor.usage,
- org.eclipse.mylar.context.ui,
- org.eclipse.mylar.tasks.ui,
- org.eclipse.mylar.monitor.ui,
- org.eclipse.mylar,
- org.eclipse.mylar.monitor.core
+ org.eclipse.mylyn.context.core,
+ org.eclipse.mylyn.monitor.usage,
+ org.eclipse.mylyn.context.ui,
+ org.eclipse.mylyn.tasks.ui,
+ org.eclipse.mylyn.monitor.ui,
+ org.eclipse.mylyn,
+ org.eclipse.mylyn.monitor.core
 Eclipse-AutoStart: true
-Export-Package: org.eclipse.mylar.internal.monitor.reports,
- org.eclipse.mylar.internal.monitor.reports.collectors,
- org.eclipse.mylar.internal.monitor.reports.preferences,
- org.eclipse.mylar.internal.monitor.reports.ui.actions
+Export-Package: org.eclipse.mylyn.internal.monitor.reports,
+ org.eclipse.mylyn.internal.monitor.reports.collectors,
+ org.eclipse.mylyn.internal.monitor.reports.preferences,
+ org.eclipse.mylyn.internal.monitor.reports.ui.actions
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

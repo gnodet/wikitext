@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.hypertext.ui.editors;
+package org.eclipse.mylyn.internal.hypertext.ui.editors;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,10 +19,10 @@ import java.util.Set;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.mylar.internal.hypertext.HypertextStructureBridge;
-import org.eclipse.mylar.internal.hypertext.MylarHypertextPlugin;
-import org.eclipse.mylar.provisional.core.IMylarStructureBridge;
-import org.eclipse.mylar.provisional.core.MylarPlugin;
+import org.eclipse.mylyn.internal.hypertext.HypertextStructureBridge;
+import org.eclipse.mylyn.internal.hypertext.MylarHypertextPlugin;
+import org.eclipse.mylyn.provisional.core.IMylarStructureBridge;
+import org.eclipse.mylyn.provisional.core.MylarPlugin;
 
 /**
  * @author Mik Kersten

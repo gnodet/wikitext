@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.monitor.reports.collectors;
+package org.eclipse.mylyn.internal.monitor.reports.collectors;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,12 +20,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.mylar.core.MylarStatusHandler;
-import org.eclipse.mylar.internal.core.util.DateUtil;
-import org.eclipse.mylar.internal.tasks.ui.actions.TaskActivateAction;
-import org.eclipse.mylar.internal.tasks.ui.actions.TaskDeactivateAction;
-import org.eclipse.mylar.monitor.core.InteractionEvent;
-import org.eclipse.mylar.monitor.usage.ReportGenerator;
+import org.eclipse.mylyn.core.MylarStatusHandler;
+import org.eclipse.mylyn.internal.core.util.DateUtil;
+import org.eclipse.mylyn.internal.tasks.ui.actions.TaskActivateAction;
+import org.eclipse.mylyn.internal.tasks.ui.actions.TaskDeactivateAction;
+import org.eclipse.mylyn.monitor.core.InteractionEvent;
+import org.eclipse.mylyn.monitor.usage.ReportGenerator;
 
 /**
  * Delagates to other collectors for additional info.
@@ -253,9 +253,9 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 				report.add("deactivations: " + numTaskDeactivations + "<br>");
 
 				int numIncrement = commandUsageCollector.getCommands().getUserCount(id,
-						"org.eclipse.mylar.ui.interest.increment");
+						"org.eclipse.mylyn.ui.interest.increment");
 				int numDecrement = commandUsageCollector.getCommands().getUserCount(id,
-						"org.eclipse.mylar.ui.interest.decrement");
+						"org.eclipse.mylyn.ui.interest.decrement");
 				report.add("Interest increments: " + numIncrement + ", ");
 				report.add("Interest decrements: " + numDecrement + "<br>");
 
@@ -525,9 +525,9 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 }
 
 // int numIncrements = commandUsageCollector.getCommands().getUserCount(id,
-// "org.eclipse.mylar.internal.ui.actions.InterestIncrementAction");
+// "org.eclipse.mylyn.internal.ui.actions.InterestIncrementAction");
 // int numDecrements = commandUsageCollector.getCommands().getUserCount(id,
-// "org.eclipse.mylar.internal.ui.actions.InterestDecrementAction");
+// "org.eclipse.mylyn.internal.ui.actions.InterestDecrementAction");
 // report.add("Interest increments: " + numIncrements + ", decrements: " +
 // numDecrements + "<br>");
 
@@ -559,14 +559,14 @@ public class MylarUsageAnalysisCollector extends AbstractMylarUsageCollector {
 // }
 
 // String[] REJECTED_IDs = {
-// "org.eclipse.mylar.java.ui.editor.MylarCompilationUnitEditor",
+// "org.eclipse.mylyn.java.ui.editor.MylarCompilationUnitEditor",
 // "org.eclipse.jdt.ui.CompilationUnitEditor",
 // "org.eclipse.jdt.ui.DefaultTextEditor",
 // "org.eclipse.jdt.ui.ClassFileEditor"
 // };
 
 // String[] ACCEPTED_EDITORS = {
-// "org.eclipse.mylar.java.ui.editor.MylarCompilationUnitEditor",
+// "org.eclipse.mylyn.java.ui.editor.MylarCompilationUnitEditor",
 // "org.eclipse.jdt.ui.CompilationUnitEditor"
 // };
 // String originId = event.getOriginId();

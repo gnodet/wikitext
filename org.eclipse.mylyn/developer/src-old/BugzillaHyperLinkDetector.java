@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.bugs.java;
+package org.eclipse.mylyn.internal.bugs.java;
 
 import java.util.List;
 
@@ -27,9 +27,9 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.hyperlink.IHyperlink;
-import org.eclipse.mylar.internal.bugzilla.ui.BugzillaHyperlinkUtil;
-import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
-import org.eclipse.mylar.provisional.tasklist.TaskRepository;
+import org.eclipse.mylyn.internal.bugzilla.ui.BugzillaHyperlinkUtil;
+import org.eclipse.mylyn.internal.core.util.MylarStatusHandler;
+import org.eclipse.mylyn.provisional.tasklist.TaskRepository;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.texteditor.ITextEditor;
 

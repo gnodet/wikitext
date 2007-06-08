@@ -9,11 +9,11 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.hypertext.ui.editors;
+package org.eclipse.mylyn.internal.hypertext.ui.editors;
 
-import org.eclipse.mylar.internal.tasklist.ui.ITaskEditorFactory;
-import org.eclipse.mylar.internal.tasklist.ui.editors.MylarTaskEditor;
-import org.eclipse.mylar.provisional.tasklist.ITask;
+import org.eclipse.mylyn.internal.tasklist.ui.ITaskEditorFactory;
+import org.eclipse.mylyn.internal.tasklist.ui.editors.MylarTaskEditor;
+import org.eclipse.mylyn.provisional.tasklist.ITask;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.part.EditorPart;

@@ -11,7 +11,7 @@
 /*
  * Created on Jul 26, 2004
   */
-package org.eclipse.mylar.monitor.views;
+package org.eclipse.mylyn.monitor.views;
 
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.graphics.Image;
@@ -19,9 +19,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
-import org.eclipse.mylar.core.MylarPlugin;
-import org.eclipse.mylar.monitor.MonitorPlugin;
-import org.eclipse.mylar.monitor.stats.UsageStatistic;
+import org.eclipse.mylyn.core.MylarPlugin;
+import org.eclipse.mylyn.monitor.MonitorPlugin;
+import org.eclipse.mylyn.monitor.stats.UsageStatistic;
 
 /**
  * @author Mik Kersten

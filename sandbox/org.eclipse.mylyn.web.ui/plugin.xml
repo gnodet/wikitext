@@ -3,37 +3,37 @@
 <plugin>
 	
 	<extension
-         point="org.eclipse.mylar.context.core.bridges">
+         point="org.eclipse.mylyn.context.core.bridges">
       <structureBridge
-            class="org.eclipse.mylar.internal.web.WebResourceStructureBridge"
+            class="org.eclipse.mylyn.internal.web.WebResourceStructureBridge"
             name="Web Resource Structure Bridge"/>
    </extension> 
    <extension
-         point="org.eclipse.mylar.context.ui.bridges">
+         point="org.eclipse.mylyn.context.ui.bridges">
       <uiBridge
-            class="org.eclipse.mylar.internal.web.ui.WebResourceUiBridge"
+            class="org.eclipse.mylyn.internal.web.ui.WebResourceUiBridge"
             contentType="http"
-            id="org.eclipse.mylar.web.uiBridge"/>
+            id="org.eclipse.mylyn.web.uiBridge"/>
    </extension>
 
   	<extension point = "org.eclipse.ui.popupMenus">
      <objectContribution
-        id="org.eclipse.mylar.ui.interest"
-        objectClass="org.eclipse.mylar.internal.web.WebResource">
+        id="org.eclipse.mylyn.ui.interest"
+        objectClass="org.eclipse.mylyn.internal.web.WebResource">
      	<action  
   		  	label="Make Less Interesting" 
 	  		tooltip="Mark selected element as uninteresting"
 	  		menubarPath="mylar" 
-	  		id="org.eclipse.mylar.web.ui.actions.InterestDecrementAction" 
-	  		class="org.eclipse.mylar.internal.context.ui.actions.InterestDecrementAction"
+	  		id="org.eclipse.mylyn.web.ui.actions.InterestDecrementAction" 
+	  		class="org.eclipse.mylyn.internal.context.ui.actions.InterestDecrementAction"
 	  		icon="icons/elcl16/interest-decrease.gif"
 	  		enablesFor="*"/>
 	    <action  
   		  	label="Mark as Landmark" 
 	  		tooltip="Make selected element a landmark"
 	  		menubarPath="mylar" 
-	  		id="org.eclipse.mylar.web.ui.actions.InterestIncrementAction" 
-	  		class="org.eclipse.mylar.internal.context.ui.actions.InterestIncrementAction"
+	  		id="org.eclipse.mylyn.web.ui.actions.InterestIncrementAction" 
+	  		class="org.eclipse.mylyn.internal.context.ui.actions.InterestIncrementAction"
 	  		icon="icons/elcl16/interest-increase.gif"
 	  		enablesFor="*"/>
 	 </objectContribution>
@@ -47,20 +47,20 @@
          point="org.eclipse.ui.navigator.navigatorContent">
       <navigatorContent
             activeByDefault="true"
-            contentProvider="org.eclipse.mylar.internal.web.WebResourceContentProvider"
+            contentProvider="org.eclipse.mylyn.internal.web.WebResourceContentProvider"
             icon="icons/obj16/web-root.gif"
-            id="org.eclipse.mylar.web.navigator"
-            labelProvider="org.eclipse.mylar.internal.web.ui.WebNavigatorLabelProvider"
+            id="org.eclipse.mylyn.web.navigator"
+            labelProvider="org.eclipse.mylyn.internal.web.ui.WebNavigatorLabelProvider"
             name="Mylar Web Context (Experimental)"
             priority="lowest">
          <triggerPoints>
             <or> 
             	<instanceof value="org.eclipse.core.resources.IWorkspaceRoot"/>
-            	<instanceof value="org.eclipse.mylar.internal.web.WebResource"/>
+            	<instanceof value="org.eclipse.mylyn.internal.web.WebResource"/>
             </or>
          </triggerPoints>
          <possibleChildren>
-            <instanceof value="org.eclipse.mylar.internal.web.WebResource"/>
+            <instanceof value="org.eclipse.mylyn.internal.web.WebResource"/>
          </possibleChildren>
         
         !-
@@ -69,22 +69,22 @@
                suppressedExtensionId="org.eclipse.ui.navigator.resourceContent"/>
         -
          <actionProvider
-               class="org.eclipse.mylar.internal.web.ui.WebSiteNavigatorActionProvider"
-               id="org.eclipse.mylar.web.actionProvider">
+               class="org.eclipse.mylyn.internal.web.ui.WebSiteNavigatorActionProvider"
+               id="org.eclipse.mylyn.web.actionProvider">
               <enablement>
 				<or>
-					<adapt type="org.eclipse.mylar.internal.web.WebSite"/> 	
-					<adapt type="org.eclipse.mylar.internal.web.WebPage"/> 	
+					<adapt type="org.eclipse.mylyn.internal.web.WebSite"/> 	
+					<adapt type="org.eclipse.mylyn.internal.web.WebPage"/> 	
 				</or>
 			</enablement>
 		 </actionProvider>
 		 
 		<commonSorter
-              class="org.eclipse.mylar.context.ui.InterestSorter"
-              id="org.eclipse.mylar.web.sorter.interest">
+              class="org.eclipse.mylyn.context.ui.InterestSorter"
+              id="org.eclipse.mylyn.web.sorter.interest">
            <parentExpression>
            		  <or>           
-		            <instanceof value="org.eclipse.mylar.internal.web.WebResource" /> 
+		            <instanceof value="org.eclipse.mylyn.internal.web.WebResource" /> 
 		         </or>
 		   </parentExpression>
         </commonSorter>
@@ -96,33 +96,33 @@
       <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
          <includes>
             <contentExtension
-                  pattern="org.eclipse.mylar.web.navigator"/>
+                  pattern="org.eclipse.mylyn.web.navigator"/>
          </includes>
       </viewerContentBinding>
       <viewerContentBinding 
              viewerId="org.eclipse.ui.navigator.ProjectExplorer">
           <includes>	       	      
-	          <contentExtension pattern="org.eclipse.mylar.web.navigator.webContent"/>
+	          <contentExtension pattern="org.eclipse.mylyn.web.navigator.webContent"/>
           </includes>
        </viewerContentBinding>
       !-
 	  <dragAssistant
           class="org.eclipse.ui.navigator.resources.ResourceDragAdapterAssistant"
-          viewerId="org.eclipse.mylar.web.navigator.dragAssistant"/>
+          viewerId="org.eclipse.mylyn.web.navigator.dragAssistant"/>
       -
    </extension>
     <extension
          point="org.eclipse.ui.navigator.viewer">
        <viewerContentBinding 
-             viewerId="org.eclipse.mylar.context.ui.navigator.context">
+             viewerId="org.eclipse.mylyn.context.ui.navigator.context">
           <includes>		       	      
-          	  <contentExtension pattern="org.eclipse.mylar.web.navigator"/>
+          	  <contentExtension pattern="org.eclipse.mylyn.web.navigator"/>
           </includes>
        </viewerContentBinding>
        <viewerContentBinding 
-             viewerId="org.eclipse.mylar.context.ui.navigator.context.quick">
+             viewerId="org.eclipse.mylyn.context.ui.navigator.context.quick">
           <includes>		       	      
-          	  <contentExtension pattern="org.eclipse.mylar.web.navigator"/>
+          	  <contentExtension pattern="org.eclipse.mylyn.web.navigator"/>
           </includes>
        </viewerContentBinding>
    </extension>	

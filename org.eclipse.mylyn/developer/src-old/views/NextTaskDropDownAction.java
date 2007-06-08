@@ -8,22 +8,22 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.tasks.ui.actions;
+package org.eclipse.mylyn.internal.tasks.ui.actions;
 
 import java.util.List;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
-import org.eclipse.mylar.internal.tasks.ui.TaskListImages;
-import org.eclipse.mylar.internal.tasks.ui.views.TaskActivationHistory;
-import org.eclipse.mylar.internal.tasks.ui.views.TaskListView;
-import org.eclipse.mylar.tasks.core.ITask;
+import org.eclipse.mylyn.internal.tasks.ui.TaskListImages;
+import org.eclipse.mylyn.internal.tasks.ui.views.TaskActivationHistory;
+import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
+import org.eclipse.mylyn.tasks.core.ITask;
 
 /**
  * @author Wesley Coelho
  */
 public class NextTaskDropDownAction extends TaskNavigateDropDownAction {
-	public static final String ID = "org.eclipse.mylar.tasklist.actions.navigate.next";
+	public static final String ID = "org.eclipse.mylyn.tasklist.actions.navigate.next";
 
 	public NextTaskDropDownAction(TaskListView view, TaskActivationHistory history) {
 		super(view, history);

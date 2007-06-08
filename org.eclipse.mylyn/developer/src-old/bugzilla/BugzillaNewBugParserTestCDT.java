@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.bugzilla.tests;
+package org.eclipse.mylyn.bugzilla.tests;
 
 import java.io.File;
 import java.io.FileReader;
@@ -21,10 +21,10 @@ import java.util.Map;
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.Path;
-import org.eclipse.mylar.bugzilla.core.AbstractRepositoryReportAttribute;
-import org.eclipse.mylar.core.tests.support.FileTool;
-import org.eclipse.mylar.internal.bugzilla.core.NewBugzillaReport;
-import org.eclipse.mylar.internal.bugzilla.core.internal.NewBugParser;
+import org.eclipse.mylyn.bugzilla.core.AbstractRepositoryReportAttribute;
+import org.eclipse.mylyn.core.tests.support.FileTool;
+import org.eclipse.mylyn.internal.bugzilla.core.NewBugzillaReport;
+import org.eclipse.mylyn.internal.bugzilla.core.internal.NewBugParser;
 
 /**
  * Tests NewBugParser -- parses product attributes for new bug reports

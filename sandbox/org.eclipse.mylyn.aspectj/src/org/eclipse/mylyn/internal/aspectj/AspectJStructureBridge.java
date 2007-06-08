@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.aspectj;
+package org.eclipse.mylyn.internal.aspectj;
 
 // /*******************************************************************************
 // * Copyright (c) 2004 - 2005 University Of British Columbia and others.
@@ -24,14 +24,14 @@ package org.eclipse.mylar.internal.aspectj;
 // /*
 // * Created on Apr 7, 2005
 // */
-// package org.eclipse.mylar.internal.aspectj;
+// package org.eclipse.mylyn.internal.aspectj;
 //
 // import org.eclipse.ajdt.core.AspectJCore;
 // import org.eclipse.ajdt.core.javaelements.IAspectJElement;
 // import org.eclipse.jdt.core.IJavaElement;
 //
 // public class AjStructureBridge extends
-// org.eclipse.mylar.internal.java.JavaStructureBridge {
+// org.eclipse.mylyn.internal.java.JavaStructureBridge {
 //
 // // -----------------------------------------------------------
 // // ---------------------- Interface --------------------------

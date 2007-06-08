@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.bugzilla.ui;
+package org.eclipse.mylyn.internal.bugzilla.ui;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -33,13 +33,13 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
-import org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants;
-import org.eclipse.mylar.internal.bugzilla.core.internal.Favorite;
-import org.eclipse.mylar.internal.bugzilla.core.internal.FavoritesFile;
-import org.eclipse.mylar.internal.bugzilla.ui.actions.AbstractFavoritesAction;
-import org.eclipse.mylar.internal.bugzilla.ui.actions.DeleteFavoriteAction;
-import org.eclipse.mylar.internal.bugzilla.ui.actions.ViewFavoriteAction;
+import org.eclipse.mylyn.internal.bugzilla.core.BugzillaPlugin;
+import org.eclipse.mylyn.internal.bugzilla.core.IBugzillaConstants;
+import org.eclipse.mylyn.internal.bugzilla.core.internal.Favorite;
+import org.eclipse.mylyn.internal.bugzilla.core.internal.FavoritesFile;
+import org.eclipse.mylyn.internal.bugzilla.ui.actions.AbstractFavoritesAction;
+import org.eclipse.mylyn.internal.bugzilla.ui.actions.DeleteFavoriteAction;
+import org.eclipse.mylyn.internal.bugzilla.ui.actions.ViewFavoriteAction;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;

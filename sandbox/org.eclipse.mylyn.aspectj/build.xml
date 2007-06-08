@@ -4,18 +4,18 @@
               Any modifications will be overwritten.
               Please edit build-user.xml instead.
 -->
-<project basedir="." default="build" name="org.eclipse.mylar.internal.aspectj">
+<project basedir="." default="build" name="org.eclipse.mylyn.internal.aspectj">
     &buildfile;
     <property name="org.eclipse.ajdt.core.location" value="C:/Dev/mylar-bootstrap/org.eclipse.ajdt.core"/>
     <property name="org.eclipse.ajdt.ui.location" value="C:/Dev/mylar-bootstrap/org.eclipse.ajdt.ui"/>
-    <property name="org.eclipse.mylar.core.location" value="C:/Dev/mylar-bootstrap/org.eclipse.mylar.core"/>
-    <property name="org.eclipse.mylar.java.location" value="C:/Dev/mylar-bootstrap/org.eclipse.mylar.java"/>
+    <property name="org.eclipse.mylyn.core.location" value="C:/Dev/mylar-bootstrap/org.eclipse.mylyn.core"/>
+    <property name="org.eclipse.mylyn.java.location" value="C:/Dev/mylar-bootstrap/org.eclipse.mylyn.java"/>
     <path id="project.classpath">
         <path refid="mainproject.classpath"/>
         <path refid="org.eclipse.ajdt.core.classpath"/>
         <path refid="org.eclipse.ajdt.ui.classpath"/>
-        <path refid="org.eclipse.mylar.core.classpath"/>
-        <path refid="org.eclipse.mylar.java.classpath"/>
+        <path refid="org.eclipse.mylyn.core.classpath"/>
+        <path refid="org.eclipse.mylyn.java.classpath"/>
     </path>
     <path id="mainproject.classpath">
         <pathelement location="bin"/>
@@ -112,8 +112,8 @@
         <pathelement location="C:/Apps/eclipse-3.2m2/plugins/org.apache.ant_1.6.5/lib/ant-xslp.jar"/>
         <pathelement location="C:/Apps/eclipse-3.2m2/plugins/org.eclipse.ltk.core.refactoring_3.1.0.jar"/>
     </path>
-    <path id="org.eclipse.mylar.core.classpath">
-        <pathelement location="${org.eclipse.mylar.core.location}/bin"/>
+    <path id="org.eclipse.mylyn.core.classpath">
+        <pathelement location="${org.eclipse.mylyn.core.location}/bin"/>
         <pathelement location="C:/Apps/eclipse-3.2m2/plugins/org.eclipse.core.runtime_3.1.0.jar"/>
         <pathelement location="C:/Apps/eclipse-3.2m2/plugins/org.eclipse.osgi_3.2.0.jar"/>
         <pathelement location="C:/Apps/eclipse-3.2m2/plugins/org.eclipse.ui_3.2.0.jar"/>
@@ -124,8 +124,8 @@
         <pathelement location="C:/Apps/eclipse-3.2m2/plugins/org.eclipse.ui.workbench_3.2.0.jar"/>
         <pathelement location="C:/Apps/eclipse-3.2m2/plugins/org.eclipse.core.resources_3.1.0.jar"/>
     </path>
-    <path id="org.eclipse.mylar.java.classpath">
-        <pathelement location="${org.eclipse.mylar.java.location}/bin"/>
+    <path id="org.eclipse.mylyn.java.classpath">
+        <pathelement location="${org.eclipse.mylyn.java.location}/bin"/>
         <pathelement location="C:/Apps/eclipse-3.2m2/plugins/org.eclipse.ui_3.2.0.jar"/>
         <pathelement location="C:/Apps/eclipse-3.2m2/plugins/org.eclipse.swt_3.1.0.jar"/>
         <pathelement location="C:/Apps/eclipse-3.2m2/plugins/org.eclipse.swt.win32.win32.x86_3.1.0.jar"/>
@@ -162,8 +162,8 @@
     <target depends="init" name="build">
         <ant antfile="${org.eclipse.ajdt.core.location}/build.xml" inheritAll="false"/>
         <ant antfile="${org.eclipse.ajdt.ui.location}/build.xml" inheritAll="false"/>
-        <ant antfile="${org.eclipse.mylar.core.location}/build.xml" inheritAll="false"/>
-        <ant antfile="${org.eclipse.mylar.java.location}/build.xml" inheritAll="false"/>
+        <ant antfile="${org.eclipse.mylyn.core.location}/build.xml" inheritAll="false"/>
+        <ant antfile="${org.eclipse.mylyn.java.location}/build.xml" inheritAll="false"/>
         <echo message="${ant.project.name}: ${ant.file}"/>
         <javac destdir="bin">
             <src path="src"/>

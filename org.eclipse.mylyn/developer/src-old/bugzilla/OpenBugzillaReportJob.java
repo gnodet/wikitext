@@ -9,16 +9,16 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.bugs;
+package org.eclipse.mylyn.internal.bugs;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.mylar.internal.bugzilla.ui.BugzillaOpenStructure;
-import org.eclipse.mylar.internal.bugzilla.ui.ViewBugzillaAction;
-import org.eclipse.mylar.internal.core.util.MylarStatusHandler;
+import org.eclipse.mylyn.internal.bugzilla.ui.BugzillaOpenStructure;
+import org.eclipse.mylyn.internal.bugzilla.ui.ViewBugzillaAction;
+import org.eclipse.mylyn.internal.core.util.MylarStatusHandler;
 
 /**
  * @author Mik Kersten

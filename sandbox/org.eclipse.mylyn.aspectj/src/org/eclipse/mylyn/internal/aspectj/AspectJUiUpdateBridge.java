@@ -9,14 +9,14 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.aspectj;
+package org.eclipse.mylyn.internal.aspectj;
 
 
 import java.util.List;
 
-import org.eclipse.mylar.context.core.IInteractionContext;
-import org.eclipse.mylar.context.core.IInteractionContextListener;
-import org.eclipse.mylar.context.core.IInteractionElement;
+import org.eclipse.mylyn.context.core.IInteractionContext;
+import org.eclipse.mylyn.context.core.IInteractionContextListener;
+import org.eclipse.mylyn.context.core.IInteractionElement;
 
 /**
  * @author Mik Kersten

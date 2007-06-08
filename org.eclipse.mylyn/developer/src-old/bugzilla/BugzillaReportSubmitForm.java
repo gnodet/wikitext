@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.bugzilla.core;
+package org.eclipse.mylyn.internal.bugzilla.core;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,12 +25,12 @@ import java.util.Map;
 
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PostMethod;
-import org.eclipse.mylar.internal.tasks.core.HtmlStreamTokenizer;
-import org.eclipse.mylar.internal.tasks.core.HtmlTag;
-import org.eclipse.mylar.internal.tasks.core.HtmlStreamTokenizer.Token;
-import org.eclipse.mylar.tasks.core.RepositoryOperation;
-import org.eclipse.mylar.tasks.core.RepositoryTaskAttribute;
-import org.eclipse.mylar.tasks.core.RepositoryTaskData;
+import org.eclipse.mylyn.internal.tasks.core.HtmlStreamTokenizer;
+import org.eclipse.mylyn.internal.tasks.core.HtmlTag;
+import org.eclipse.mylyn.internal.tasks.core.HtmlStreamTokenizer.Token;
+import org.eclipse.mylyn.tasks.core.RepositoryOperation;
+import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
+import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 
 /**
  * 

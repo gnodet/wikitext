@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.bugzilla.tests;
+package org.eclipse.mylyn.bugzilla.tests;
 
 import java.io.File;
 import java.io.FileReader;
@@ -18,10 +18,10 @@ import java.util.Iterator;
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.Path;
-import org.eclipse.mylar.bugzilla.core.BugReport;
-import org.eclipse.mylar.bugzilla.core.Comment;
-import org.eclipse.mylar.core.tests.support.FileTool;
-import org.eclipse.mylar.internal.bugzilla.core.internal.BugParser;
+import org.eclipse.mylyn.bugzilla.core.BugReport;
+import org.eclipse.mylyn.bugzilla.core.Comment;
+import org.eclipse.mylyn.core.tests.support.FileTool;
+import org.eclipse.mylyn.internal.bugzilla.core.internal.BugParser;
 
 /**
  * Tests for parsing Bugzilla reports

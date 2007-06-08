@@ -6,17 +6,17 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.monitor.usage.wizards;
+package org.eclipse.mylyn.internal.monitor.usage.wizards;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.mylar.internal.monitor.core.collection.IUsageCollector;
-import org.eclipse.mylar.internal.monitor.core.collection.ViewUsageCollector;
-import org.eclipse.mylar.internal.monitor.usage.MonitorFileRolloverJob;
-import org.eclipse.mylar.internal.monitor.usage.collectors.PerspectiveUsageCollector;
+import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
+import org.eclipse.mylyn.internal.monitor.core.collection.ViewUsageCollector;
+import org.eclipse.mylyn.internal.monitor.usage.MonitorFileRolloverJob;
+import org.eclipse.mylyn.internal.monitor.usage.collectors.PerspectiveUsageCollector;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 

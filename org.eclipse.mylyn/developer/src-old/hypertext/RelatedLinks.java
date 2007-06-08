@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.hypertext.ui.editors;
+package org.eclipse.mylyn.internal.hypertext.ui.editors;
 
 import java.util.ArrayList;
 import java.util.List;

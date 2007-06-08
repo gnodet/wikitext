@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 ////Created on Oct 12, 2004
-package org.eclipse.mylar.tests.misc;
+package org.eclipse.mylyn.tests.misc;
 
 import java.io.File;
 import java.io.FileReader;
@@ -20,13 +20,13 @@ import java.util.List;
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.Path;
-import org.eclipse.mylar.bugzilla.tests.BugzillaTestPlugin;
-import org.eclipse.mylar.core.tests.support.FileTool;
-import org.eclipse.mylar.internal.bugs.search.BugzillaMylarSearchOperation;
-import org.eclipse.mylar.internal.bugzilla.core.internal.BugParser;
-import org.eclipse.mylar.internal.bugzilla.core.search.BugzillaSearchHit;
-import org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaReportNode;
-import org.eclipse.mylar.internal.bugzilla.ui.tasklist.StackTrace;
+import org.eclipse.mylyn.bugzilla.tests.BugzillaTestPlugin;
+import org.eclipse.mylyn.core.tests.support.FileTool;
+import org.eclipse.mylyn.internal.bugs.search.BugzillaMylarSearchOperation;
+import org.eclipse.mylyn.internal.bugzilla.core.internal.BugParser;
+import org.eclipse.mylyn.internal.bugzilla.core.search.BugzillaSearchHit;
+import org.eclipse.mylyn.internal.bugzilla.ui.tasklist.BugzillaReportNode;
+import org.eclipse.mylyn.internal.bugzilla.ui.tasklist.StackTrace;
 
 /**
  * Class to test the Bridge methods that do not require server queries

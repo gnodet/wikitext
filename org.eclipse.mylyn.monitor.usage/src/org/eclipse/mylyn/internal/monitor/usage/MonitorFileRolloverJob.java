@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.monitor.usage;
+package org.eclipse.mylyn.internal.monitor.usage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,12 +27,12 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.IJobChangeListener;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.mylar.core.MylarStatusHandler;
-import org.eclipse.mylar.internal.monitor.core.collection.IUsageCollector;
-import org.eclipse.mylar.internal.monitor.usage.editors.UsageStatsEditorInput;
-import org.eclipse.mylar.internal.monitor.usage.editors.UsageSummaryReportEditorPart;
-import org.eclipse.mylar.monitor.core.InteractionEvent;
-import org.eclipse.mylar.monitor.usage.ReportGenerator;
+import org.eclipse.mylyn.core.MylarStatusHandler;
+import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
+import org.eclipse.mylyn.internal.monitor.usage.editors.UsageStatsEditorInput;
+import org.eclipse.mylyn.internal.monitor.usage.editors.UsageSummaryReportEditorPart;
+import org.eclipse.mylyn.monitor.core.InteractionEvent;
+import org.eclipse.mylyn.monitor.usage.ReportGenerator;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
@@ -43,7 +43,7 @@ import org.eclipse.ui.PlatformUI;
  * file. Overwrites destination if exists!
  * 
  * @author Meghan Allen (modelled after
- *         org.eclipse.mylar.internal.tasks.ui.util.TaskDataExportJob)
+ *         org.eclipse.mylyn.internal.tasks.ui.util.TaskDataExportJob)
  * 
  */
 public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
@@ -51,7 +51,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 	private static final String JOB_LABEL = "Mylar Monitor Log Rollover";
 
 	// needs to be the same as NAME_DATA_DIR in
-	// org.eclipse.mylar.tasks.ui.TasksUIPlugin
+	// org.eclipse.mylyn.tasks.ui.TasksUIPlugin
 	private static final String NAME_DATA_DIR = ".mylar";
 
 	private static final String DIRECTORY_MONITOR_BACKUP = "monitor";

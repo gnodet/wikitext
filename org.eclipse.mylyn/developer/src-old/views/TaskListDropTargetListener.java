@@ -11,7 +11,7 @@
 /*
  * Created on Feb 9, 2005
   */
-package org.eclipse.mylar.tasklist.ui.views;
+package org.eclipse.mylyn.tasklist.ui.views;
 
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.dnd.DND;
@@ -20,8 +20,8 @@ import org.eclipse.swt.dnd.DropTargetListener;
 import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.widgets.Composite;
 
-import org.eclipse.mylar.tasklist.ITask;
-import org.eclipse.mylar.tasklist.TaskListPlugin;
+import org.eclipse.mylyn.tasklist.ITask;
+import org.eclipse.mylyn.tasklist.TaskListPlugin;
 
 
 final class TaskListDropTargetListener implements DropTargetListener {

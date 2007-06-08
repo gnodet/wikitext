@@ -9,10 +9,10 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.web.ui;
+package org.eclipse.mylyn.internal.web.ui;
 
 import org.eclipse.jface.viewers.ILabelProviderListener;
-import org.eclipse.mylar.internal.web.WebResource;
+import org.eclipse.mylyn.internal.web.WebResource;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.navigator.ICommonContentExtensionSite;

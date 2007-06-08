@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.monitor.views;
+package org.eclipse.mylyn.monitor.views;
 
 
 import org.eclipse.jface.action.*;
@@ -21,9 +21,9 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.internal.Workbench;
 import org.eclipse.ui.part.ViewPart;
 
-import org.eclipse.mylar.core.MylarPlugin;
-import org.eclipse.mylar.monitor.MonitorImages;
-import org.eclipse.mylar.monitor.MonitorPlugin;
+import org.eclipse.mylyn.core.MylarPlugin;
+import org.eclipse.mylyn.monitor.MonitorImages;
+import org.eclipse.mylyn.monitor.MonitorPlugin;
 
 
 public abstract class MylarMonitorView extends ViewPart {

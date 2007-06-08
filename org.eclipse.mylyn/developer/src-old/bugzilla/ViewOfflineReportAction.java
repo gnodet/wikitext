@@ -8,22 +8,22 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.bugzilla.ui.actions;
+package org.eclipse.mylyn.internal.bugzilla.ui.actions;
 
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.mylar.bugzilla.core.BugReport;
-import org.eclipse.mylar.bugzilla.core.IBugzillaBug;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
-import org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants;
-import org.eclipse.mylar.internal.bugzilla.core.NewBugModel;
-import org.eclipse.mylar.internal.bugzilla.ui.BugzillaImages;
-import org.eclipse.mylar.internal.bugzilla.ui.OfflineView;
-import org.eclipse.mylar.internal.bugzilla.ui.editor.ExistingBugEditorInput;
-import org.eclipse.mylar.internal.bugzilla.ui.editor.NewBugEditorInput;
-import org.eclipse.mylar.internal.tasklist.MylarTaskListPlugin;
-import org.eclipse.mylar.internal.tasklist.TaskRepository;
+import org.eclipse.mylyn.bugzilla.core.BugReport;
+import org.eclipse.mylyn.bugzilla.core.IBugzillaBug;
+import org.eclipse.mylyn.internal.bugzilla.core.BugzillaPlugin;
+import org.eclipse.mylyn.internal.bugzilla.core.IBugzillaConstants;
+import org.eclipse.mylyn.internal.bugzilla.core.NewBugModel;
+import org.eclipse.mylyn.internal.bugzilla.ui.BugzillaImages;
+import org.eclipse.mylyn.internal.bugzilla.ui.OfflineView;
+import org.eclipse.mylyn.internal.bugzilla.ui.editor.ExistingBugEditorInput;
+import org.eclipse.mylyn.internal.bugzilla.ui.editor.NewBugEditorInput;
+import org.eclipse.mylyn.internal.tasklist.MylarTaskListPlugin;
+import org.eclipse.mylyn.internal.tasklist.TaskRepository;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 

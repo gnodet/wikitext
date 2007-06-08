@@ -9,20 +9,20 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.bugzilla.ui.tasklist;
+package org.eclipse.mylyn.internal.bugzilla.ui.tasklist;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaTask;
-import org.eclipse.mylar.internal.bugzilla.ui.editor.ExistingBugEditor;
-import org.eclipse.mylar.internal.tasks.ui.TaskListImages;
-import org.eclipse.mylar.internal.tasks.ui.editors.IRepositoryTaskAttributeListener;
-import org.eclipse.mylar.internal.tasks.ui.editors.MylarTaskEditor;
-import org.eclipse.mylar.internal.tasks.ui.editors.RepositoryTaskOutlineNode;
-import org.eclipse.mylar.internal.tasks.ui.editors.TaskEditorInput;
-import org.eclipse.mylar.internal.tasks.ui.editors.TaskFormPage;
-import org.eclipse.mylar.tasks.core.RepositoryTaskData;
+import org.eclipse.mylyn.internal.bugzilla.core.BugzillaTask;
+import org.eclipse.mylyn.internal.bugzilla.ui.editor.ExistingBugEditor;
+import org.eclipse.mylyn.internal.tasks.ui.TaskListImages;
+import org.eclipse.mylyn.internal.tasks.ui.editors.IRepositoryTaskAttributeListener;
+import org.eclipse.mylyn.internal.tasks.ui.editors.MylarTaskEditor;
+import org.eclipse.mylyn.internal.tasks.ui.editors.RepositoryTaskOutlineNode;
+import org.eclipse.mylyn.internal.tasks.ui.editors.TaskEditorInput;
+import org.eclipse.mylyn.internal.tasks.ui.editors.TaskFormPage;
+import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;

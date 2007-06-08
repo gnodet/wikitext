@@ -1,4 +1,4 @@
-package org.eclipse.mylar.tasks.web;
+package org.eclipse.mylyn.tasks.web;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -9,7 +9,7 @@ import org.osgi.framework.BundleContext;
 public class TasksWebPlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.eclipse.mylar.tasks.web";
+	public static final String PLUGIN_ID = "org.eclipse.mylyn.tasks.web";
 
 	// The shared instance
 	private static TasksWebPlugin plugin;

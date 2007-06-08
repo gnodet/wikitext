@@ -11,11 +11,11 @@
 /*
  * Created on Jul 13, 2004
   */
-package org.eclipse.mylar.monitor.internal;
+package org.eclipse.mylyn.monitor.internal;
 
 import java.util.*;
 
-import org.eclipse.mylar.core.util.DateUtil;
+import org.eclipse.mylyn.core.util.DateUtil;
 
 
 

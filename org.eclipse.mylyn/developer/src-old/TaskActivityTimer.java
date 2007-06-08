@@ -9,16 +9,16 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.tasks.ui.util;
+package org.eclipse.mylyn.internal.tasks.ui.util;
 
 import java.util.Calendar;
 
-import org.eclipse.mylar.context.core.IInteractionEventListener;
-import org.eclipse.mylar.context.core.InteractionEvent;
-import org.eclipse.mylar.internal.context.core.util.ITimerThreadListener;
-import org.eclipse.mylar.internal.context.core.util.TimerThread;
-import org.eclipse.mylar.monitor.MylarMonitorPlugin;
-import org.eclipse.mylar.tasks.core.ITask;
+import org.eclipse.mylyn.context.core.IInteractionEventListener;
+import org.eclipse.mylyn.context.core.InteractionEvent;
+import org.eclipse.mylyn.internal.context.core.util.ITimerThreadListener;
+import org.eclipse.mylyn.internal.context.core.util.TimerThread;
+import org.eclipse.mylyn.monitor.MylarMonitorPlugin;
+import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.ui.IWindowListener;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;

@@ -11,10 +11,10 @@
    <extension point="org.eclipse.ui.preferencePages">
       <page 
          name="Usage Data"
-         class="org.eclipse.mylar.internal.monitor.usage.preferences.UsageDataPreferencePage"
-         id="org.eclipse.mylar.monitor.ui.ui.preferences"
-		 category="org.eclipse.mylar.ui.preferences">
-         <keywordReference id="org.eclipse.mylar.monitor.ui.keywords"/>
+         class="org.eclipse.mylyn.internal.monitor.usage.preferences.UsageDataPreferencePage"
+         id="org.eclipse.mylyn.monitor.ui.ui.preferences"
+		 category="org.eclipse.mylyn.ui.preferences">
+         <keywordReference id="org.eclipse.mylyn.monitor.ui.keywords"/>
       </page> 
    </extension>
    
@@ -22,31 +22,31 @@
    		point="org.eclipse.ui.keywords">
       <keyword
             label="Mylar Monitor Usage Data"
-            id="org.eclipse.mylar.monitor.ui.keywords"/>
+            id="org.eclipse.mylyn.monitor.ui.keywords"/>
    </extension>
  
 	<extension point="org.eclipse.ui.newWizards">
     	<wizard
             canFinishEarly="false" 
-            category="org.eclipse.mylar.wizards"
-            class="org.eclipse.mylar.internal.monitor.usage.wizards.NewUsageSummaryEditorWizard"
+            category="org.eclipse.mylyn.wizards"
+            class="org.eclipse.mylyn.internal.monitor.usage.wizards.NewUsageSummaryEditorWizard"
             hasPages="true"
             icon="icons/eview16/editor-usage.gif"
-            id="org.eclipse.mylar.sandbox.wizard.usageSummary"
+            id="org.eclipse.mylyn.sandbox.wizard.usageSummary"
             name="UI Usage Report"/>
    	</extension>
    
    	<extension point="org.eclipse.ui.editors">
         <editor
            icon="icons/eview16/editor-usage.gif"
-           class="org.eclipse.mylar.internal.monitor.usage.editors.UsageSummaryReportEditorPart"
+           class="org.eclipse.mylyn.internal.monitor.usage.editors.UsageSummaryReportEditorPart"
            name="UI Usage Report"
-           id="org.eclipse.mylar.monitor.usage.summary.editor"/>
+           id="org.eclipse.mylyn.monitor.usage.summary.editor"/>
   	</extension>
    
    <!--
    	<extension
-         id="org.eclipse.mylar.helpDocs"
+         id="org.eclipse.mylyn.helpDocs"
          name="Mylar Help"
          point="org.eclipse.help.toc">
       <toc

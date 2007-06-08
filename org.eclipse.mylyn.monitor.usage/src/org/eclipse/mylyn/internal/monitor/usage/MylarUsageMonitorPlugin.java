@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.monitor.usage;
+package org.eclipse.mylyn.internal.monitor.usage;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,26 +34,26 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.mylar.context.core.ContextCorePlugin;
-import org.eclipse.mylar.context.core.IContextStoreListener;
-import org.eclipse.mylar.core.MylarStatusHandler;
-import org.eclipse.mylar.core.net.WebClientUtil;
-import org.eclipse.mylar.internal.context.core.InteractionContextManager;
-import org.eclipse.mylar.internal.monitor.usage.wizards.NewUsageSummaryEditorWizard;
-import org.eclipse.mylar.monitor.core.IInteractionEventListener;
-import org.eclipse.mylar.monitor.ui.AbstractCommandMonitor;
-import org.eclipse.mylar.monitor.ui.IActionExecutionListener;
-import org.eclipse.mylar.monitor.ui.IMylarMonitorLifecycleListener;
-import org.eclipse.mylar.monitor.ui.MonitorUiPlugin;
-import org.eclipse.mylar.monitor.ui.workbench.ActionExecutionMonitor;
-import org.eclipse.mylar.monitor.ui.workbench.ActivityChangeMonitor;
-import org.eclipse.mylar.monitor.ui.workbench.KeybindingCommandMonitor;
-import org.eclipse.mylar.monitor.ui.workbench.MenuCommandMonitor;
-import org.eclipse.mylar.monitor.ui.workbench.PerspectiveChangeMonitor;
-import org.eclipse.mylar.monitor.ui.workbench.PreferenceChangeMonitor;
-import org.eclipse.mylar.monitor.ui.workbench.WindowChangeMonitor;
-import org.eclipse.mylar.monitor.usage.IBackgroundPage;
-import org.eclipse.mylar.monitor.usage.IQuestionnairePage;
+import org.eclipse.mylyn.context.core.ContextCorePlugin;
+import org.eclipse.mylyn.context.core.IContextStoreListener;
+import org.eclipse.mylyn.core.MylarStatusHandler;
+import org.eclipse.mylyn.core.net.WebClientUtil;
+import org.eclipse.mylyn.internal.context.core.InteractionContextManager;
+import org.eclipse.mylyn.internal.monitor.usage.wizards.NewUsageSummaryEditorWizard;
+import org.eclipse.mylyn.monitor.core.IInteractionEventListener;
+import org.eclipse.mylyn.monitor.ui.AbstractCommandMonitor;
+import org.eclipse.mylyn.monitor.ui.IActionExecutionListener;
+import org.eclipse.mylyn.monitor.ui.IMylarMonitorLifecycleListener;
+import org.eclipse.mylyn.monitor.ui.MonitorUiPlugin;
+import org.eclipse.mylyn.monitor.ui.workbench.ActionExecutionMonitor;
+import org.eclipse.mylyn.monitor.ui.workbench.ActivityChangeMonitor;
+import org.eclipse.mylyn.monitor.ui.workbench.KeybindingCommandMonitor;
+import org.eclipse.mylyn.monitor.ui.workbench.MenuCommandMonitor;
+import org.eclipse.mylyn.monitor.ui.workbench.PerspectiveChangeMonitor;
+import org.eclipse.mylyn.monitor.ui.workbench.PreferenceChangeMonitor;
+import org.eclipse.mylyn.monitor.ui.workbench.WindowChangeMonitor;
+import org.eclipse.mylyn.monitor.usage.IBackgroundPage;
+import org.eclipse.mylyn.monitor.usage.IQuestionnairePage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.events.ShellListener;
@@ -72,7 +72,7 @@ import org.osgi.framework.BundleContext;
  */
 public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 
-	public static final String PREF_USER_ID = "org.eclipse.mylar.user.id";
+	public static final String PREF_USER_ID = "org.eclipse.mylyn.user.id";
 
 	public static String VERSION = "1.0";
 
@@ -106,11 +106,11 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 
 	public static final String DEFAULT_CONTACT_CONSENT_FIELD = "false";
 
-	public static final String UI_PLUGIN_ID = "org.eclipse.mylar.ui";
+	public static final String UI_PLUGIN_ID = "org.eclipse.mylyn.ui";
 
 	public static final String MONITOR_LOG_NAME = "monitor-log";
 
-	public static final String PLUGIN_ID = "org.eclipse.mylar.monitor.usage";
+	public static final String PLUGIN_ID = "org.eclipse.mylyn.monitor.usage";
 
 	private InteractionEventLogger interactionLogger;
 
@@ -527,7 +527,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 	public ResourceBundle getResourceBundle() {
 		try {
 			if (resourceBundle == null)
-				resourceBundle = ResourceBundle.getBundle("org.eclipse.mylar.monitor.ui.MonitorPluginResources");
+				resourceBundle = ResourceBundle.getBundle("org.eclipse.mylyn.monitor.ui.MonitorPluginResources");
 		} catch (MissingResourceException x) {
 			resourceBundle = null;
 		}
@@ -684,7 +684,7 @@ public class MylarUsageMonitorPlugin extends AbstractUIPlugin implements IStartu
 
 	class MonitorUsageExtensionPointReader {
 
-		public static final String EXTENSION_ID_STUDY = "org.eclipse.mylar.monitor.ui.study";
+		public static final String EXTENSION_ID_STUDY = "org.eclipse.mylyn.monitor.ui.study";
 
 		public static final String ELEMENT_SCRIPTS = "scripts";
 

@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.team.ui.actions;
+package org.eclipse.mylyn.internal.team.ui.actions;
 
 import java.util.List;
 
@@ -17,12 +17,12 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.mylar.context.core.MylarStatusHandler;
-import org.eclipse.mylar.internal.tasks.ui.views.TaskListView;
-import org.eclipse.mylar.internal.team.TeamRespositoriesManager;
-import org.eclipse.mylar.tasks.core.ITask;
-import org.eclipse.mylar.team.MylarTeamPlugin;
-import org.eclipse.mylar.team.AbstractTeamRepositoryProvider;
+import org.eclipse.mylyn.context.core.MylarStatusHandler;
+import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
+import org.eclipse.mylyn.internal.team.TeamRespositoriesManager;
+import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.team.MylarTeamPlugin;
+import org.eclipse.mylyn.team.AbstractTeamRepositoryProvider;
 import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
 

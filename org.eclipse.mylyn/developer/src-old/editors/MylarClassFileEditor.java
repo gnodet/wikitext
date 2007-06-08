@@ -11,7 +11,7 @@
 /*
  * Created on Aug 6, 2004
   */
-package org.eclipse.mylar.java.ui.editor;
+package org.eclipse.mylyn.java.ui.editor;
 
 import org.eclipse.jdt.core.IImportContainer;
 import org.eclipse.jdt.core.IImportDeclaration;
@@ -30,7 +30,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
 
-import org.eclipse.mylar.core.MylarPlugin;
+import org.eclipse.mylyn.core.MylarPlugin;
 
 /**
  * @author Mik Kersten

@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.monitor.reports.collectors;
+package org.eclipse.mylyn.internal.monitor.reports.collectors;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,11 +18,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.mylar.internal.context.ui.actions.AbstractFocusViewAction;
-import org.eclipse.mylar.internal.monitor.core.collection.ViewUsageCollector;
-import org.eclipse.mylar.internal.tasks.ui.actions.TaskActivateAction;
-import org.eclipse.mylar.internal.tasks.ui.actions.TaskDeactivateAction;
-import org.eclipse.mylar.monitor.core.InteractionEvent;
+import org.eclipse.mylyn.internal.context.ui.actions.AbstractFocusViewAction;
+import org.eclipse.mylyn.internal.monitor.core.collection.ViewUsageCollector;
+import org.eclipse.mylyn.internal.tasks.ui.actions.TaskActivateAction;
+import org.eclipse.mylyn.internal.tasks.ui.actions.TaskDeactivateAction;
+import org.eclipse.mylyn.monitor.core.InteractionEvent;
 
 /**
  * @author Mik Kersten

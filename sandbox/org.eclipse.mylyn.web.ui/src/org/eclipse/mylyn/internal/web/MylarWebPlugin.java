@@ -8,16 +8,16 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.web;
+package org.eclipse.mylyn.internal.web;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylar.core.MylarStatusHandler;
-import org.eclipse.mylar.monitor.ui.MonitorUiPlugin;
-import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.core.MylarStatusHandler;
+import org.eclipse.mylyn.monitor.ui.MonitorUiPlugin;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -26,7 +26,7 @@ import org.osgi.framework.BundleContext;
  */
 public class MylarWebPlugin extends AbstractUIPlugin {
 
-	protected static final String ID = "org.eclipse.mylar.web";
+	protected static final String ID = "org.eclipse.mylyn.web";
 
 	private static MylarWebPlugin INSTANCE;
 
@@ -91,7 +91,7 @@ public class MylarWebPlugin extends AbstractUIPlugin {
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
-		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.mylar.internal.web", path);
+		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.mylyn.internal.web", path);
 	}
 
 	public Set<String> getExcludedUrls() {

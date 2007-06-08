@@ -12,18 +12,18 @@
  * Copied from newsgroup, forwarded from Make Technologies
  */
 
-package org.eclipse.mylar.internal.tasklist.ui.views;
+package org.eclipse.mylyn.internal.tasklist.ui.views;
 
 import java.net.URL;
 import java.util.Date;
 
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.mylar.provisional.tasklist.AbstractQueryHit;
-import org.eclipse.mylar.provisional.tasklist.AbstractRepositoryConnector;
-import org.eclipse.mylar.provisional.tasklist.AbstractRepositoryQuery;
-import org.eclipse.mylar.provisional.tasklist.AbstractRepositoryTask;
-import org.eclipse.mylar.provisional.tasklist.ITaskListElement;
-import org.eclipse.mylar.provisional.tasklist.MylarTaskListPlugin;
+import org.eclipse.mylyn.provisional.tasklist.AbstractQueryHit;
+import org.eclipse.mylyn.provisional.tasklist.AbstractRepositoryConnector;
+import org.eclipse.mylyn.provisional.tasklist.AbstractRepositoryQuery;
+import org.eclipse.mylyn.provisional.tasklist.AbstractRepositoryTask;
+import org.eclipse.mylyn.provisional.tasklist.ITaskListElement;
+import org.eclipse.mylyn.provisional.tasklist.MylarTaskListPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;

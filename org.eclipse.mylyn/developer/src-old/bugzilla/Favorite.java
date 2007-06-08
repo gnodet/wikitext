@@ -8,14 +8,14 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.bugzilla.core.internal;
+package org.eclipse.mylyn.internal.bugzilla.core.internal;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 
-import org.eclipse.mylar.bugzilla.core.BugzillaReport;
-import org.eclipse.mylar.internal.bugzilla.core.search.BugzillaSearchResultCollector;
+import org.eclipse.mylyn.bugzilla.core.BugzillaReport;
+import org.eclipse.mylyn.internal.bugzilla.core.search.BugzillaSearchResultCollector;
 
 /**
  * Class representing an item in the favorites view

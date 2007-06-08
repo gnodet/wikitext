@@ -8,18 +8,18 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.tasks.tests;
+package org.eclipse.mylyn.tasks.tests;
 
 import junit.framework.TestCase;
 
-import org.eclipse.mylar.context.core.InteractionEvent;
-import org.eclipse.mylar.internal.context.core.util.TimerThread;
-import org.eclipse.mylar.internal.tasks.ui.util.TaskActivityTimer;
-import org.eclipse.mylar.monitor.MylarMonitorPlugin;
-import org.eclipse.mylar.tasks.core.ITask;
-import org.eclipse.mylar.tasks.core.Task;
-import org.eclipse.mylar.tasks.ui.TaskListManager;
-import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.context.core.InteractionEvent;
+import org.eclipse.mylyn.internal.context.core.util.TimerThread;
+import org.eclipse.mylyn.internal.tasks.ui.util.TaskActivityTimer;
+import org.eclipse.mylyn.monitor.MylarMonitorPlugin;
+import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.Task;
+import org.eclipse.mylyn.tasks.ui.TaskListManager;
+import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 
 /**
  * @author Mik Kersten

@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.tasklist;
+package org.eclipse.mylyn.internal.tasklist;
 
 public class RelativePathUtil {
 	public static String findRelativePath(String baseDirectory, String filePath) {

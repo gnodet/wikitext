@@ -9,12 +9,12 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.bugzilla.core.search;
+package org.eclipse.mylyn.internal.bugzilla.core.search;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants;
-import org.eclipse.mylar.internal.bugzilla.core.internal.HtmlStreamTokenizer;
+import org.eclipse.mylyn.internal.bugzilla.core.IBugzillaConstants;
+import org.eclipse.mylyn.internal.bugzilla.core.internal.HtmlStreamTokenizer;
 
 /**
  * Label provider for Bugzilla search items.

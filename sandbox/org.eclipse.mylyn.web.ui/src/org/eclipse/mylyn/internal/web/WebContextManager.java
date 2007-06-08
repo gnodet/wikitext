@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.web;
+package org.eclipse.mylyn.internal.web;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,13 +21,13 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
-import org.eclipse.mylar.context.core.ContextCorePlugin;
-import org.eclipse.mylar.context.core.IInteractionContext;
-import org.eclipse.mylar.context.core.IInteractionContextListener;
-import org.eclipse.mylar.context.core.IInteractionElement;
-import org.eclipse.mylar.core.MylarStatusHandler;
-import org.eclipse.mylar.internal.context.core.InteractionContext;
-import org.eclipse.mylar.internal.tasks.ui.RetrieveTitleFromUrlJob;
+import org.eclipse.mylyn.context.core.ContextCorePlugin;
+import org.eclipse.mylyn.context.core.IInteractionContext;
+import org.eclipse.mylyn.context.core.IInteractionContextListener;
+import org.eclipse.mylyn.context.core.IInteractionElement;
+import org.eclipse.mylyn.core.MylarStatusHandler;
+import org.eclipse.mylyn.internal.context.core.InteractionContext;
+import org.eclipse.mylyn.internal.tasks.ui.RetrieveTitleFromUrlJob;
 
 /**
  * @author Mik Kersten

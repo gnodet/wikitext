@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  ******************************************************************************
 
- package org.eclipse.mylar.internal.monitor.usage.wizards;
+ package org.eclipse.mylyn.internal.monitor.usage.wizards;
 
  import org.eclipse.jface.wizard.WizardPage;
  import org.eclipse.swt.widgets.Composite;
@@ -34,7 +34,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.monitor.usage.wizards;
+package org.eclipse.mylyn.internal.monitor.usage.wizards;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -47,9 +47,9 @@ import java.util.List;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.mylar.core.MylarStatusHandler;
-import org.eclipse.mylar.internal.monitor.usage.MonitorFileRolloverJob;
-import org.eclipse.mylar.internal.monitor.usage.MylarUsageMonitorPlugin;
+import org.eclipse.mylyn.core.MylarStatusHandler;
+import org.eclipse.mylyn.internal.monitor.usage.MonitorFileRolloverJob;
+import org.eclipse.mylyn.internal.monitor.usage.MylarUsageMonitorPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -68,7 +68,7 @@ public class UsageFileSelectionWizardPage extends WizardPage {
 	public static final String SUBMISSION_LOG_FILE_NAME = "submittedUsageLogs.txt";
 
 	protected UsageFileSelectionWizardPage(String pageName) {
-		super("org.eclipse.mylar.monitor.usage.fileSelectionPage", PAGE_TITLE, MylarUsageMonitorPlugin
+		super("org.eclipse.mylyn.monitor.usage.fileSelectionPage", PAGE_TITLE, MylarUsageMonitorPlugin
 				.imageDescriptorFromPlugin(MylarUsageMonitorPlugin.PLUGIN_ID, "icons/wizban/banner-submission.gif"));
 		setDescription(DESCRIPTION);
 	}

@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.java.ui.editor;
+package org.eclipse.mylyn.java.ui.editor;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,10 +57,10 @@ import org.eclipse.jface.text.source.projection.IProjectionPosition;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotation;
 import org.eclipse.jface.text.source.projection.ProjectionAnnotationModel;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
-import org.eclipse.mylar.core.IMylarElement;
-import org.eclipse.mylar.core.MylarPlugin;
-import org.eclipse.mylar.core.util.MylarStatusHandler;
-import org.eclipse.mylar.ui.MylarUiPlugin;
+import org.eclipse.mylyn.core.IMylarElement;
+import org.eclipse.mylyn.core.MylarPlugin;
+import org.eclipse.mylyn.core.util.MylarStatusHandler;
+import org.eclipse.mylyn.ui.MylarUiPlugin;
 import org.eclipse.ui.texteditor.IDocumentProvider;
 import org.eclipse.ui.texteditor.ITextEditor;
 
@@ -73,7 +73,7 @@ import org.eclipse.ui.texteditor.ITextEditor;
 @SuppressWarnings("unchecked")
 public class AutoFoldingStructureProvider implements IProjectionListener, IJavaFoldingStructureProvider {
 
-    public static final String ID = "org.eclipse.mylar.java.ui.editor.foldingprovider";
+    public static final String ID = "org.eclipse.mylyn.java.ui.editor.foldingprovider";
     
     private void computeAdditions(IJavaElement element, Map map) {
         boolean createProjection= false;

@@ -11,7 +11,7 @@
 /*
  * Created on Oct 14, 2004
  */
-package org.eclipse.mylar.internal.bugzilla.ui.tasklist;
+package org.eclipse.mylyn.internal.bugzilla.ui.tasklist;
 
 import java.net.Proxy;
 import java.util.ArrayList;
@@ -22,13 +22,13 @@ import javax.security.auth.login.LoginException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchEngine;
-import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchResultCollector;
-import org.eclipse.mylar.internal.bugzilla.ui.search.IBugzillaSearchOperation;
-import org.eclipse.mylar.internal.tasks.ui.search.AbstractRepositorySearchQuery;
-import org.eclipse.mylar.tasks.core.QueryHitCollector;
-import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.internal.bugzilla.ui.search.BugzillaSearchEngine;
+import org.eclipse.mylyn.internal.bugzilla.ui.search.BugzillaSearchResultCollector;
+import org.eclipse.mylyn.internal.bugzilla.ui.search.IBugzillaSearchOperation;
+import org.eclipse.mylyn.internal.tasks.ui.search.AbstractRepositorySearchQuery;
+import org.eclipse.mylyn.tasks.core.QueryHitCollector;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
@@ -126,7 +126,7 @@ public class BugzillaCategorySearchOperation extends WorkspaceModifyOperation im
 	}
 
 	/**
-	 * @see org.eclipse.mylar.internal.bugzilla.ui.search.IBugzillaSearchOperation#getStatus()
+	 * @see org.eclipse.mylyn.internal.bugzilla.ui.search.IBugzillaSearchOperation#getStatus()
 	 */
 	public IStatus getStatus() throws LoginException {
 		// if a LoginException was thrown while trying to search, throw this

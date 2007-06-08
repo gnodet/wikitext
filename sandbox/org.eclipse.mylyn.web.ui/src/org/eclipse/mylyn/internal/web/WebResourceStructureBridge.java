@@ -9,13 +9,13 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.web;
+package org.eclipse.mylyn.internal.web;
 
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.mylar.context.core.AbstractContextStructureBridge;
+import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
 import org.eclipse.swt.browser.LocationEvent;
 
 /**

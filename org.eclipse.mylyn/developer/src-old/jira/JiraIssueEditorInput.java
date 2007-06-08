@@ -8,11 +8,11 @@
  * Contributors:
  *    Brock Janiczak - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.jira.ui;
+package org.eclipse.mylyn.internal.jira.ui;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylar.internal.jira.JiraTask;
+import org.eclipse.mylyn.internal.jira.JiraTask;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IPersistableElement;
 

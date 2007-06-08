@@ -9,14 +9,14 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.bugzilla.ui.actions;
+package org.eclipse.mylyn.internal.bugzilla.ui.actions;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaPlugin;
+import org.eclipse.mylyn.internal.bugzilla.core.BugzillaPlugin;
 import org.eclipse.swt.widgets.Shell;
 
 /**

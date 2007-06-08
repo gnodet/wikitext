@@ -8,11 +8,11 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.monitor.reports.preferences;
+package org.eclipse.mylyn.internal.monitor.reports.preferences;
 
 import org.eclipse.jface.preference.PreferencePage;
-import org.eclipse.mylar.internal.monitor.reports.MylarReportsPlugin;
-import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.internal.monitor.reports.MylarReportsPlugin;
+import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;

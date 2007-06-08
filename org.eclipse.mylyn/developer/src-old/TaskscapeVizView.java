@@ -11,7 +11,7 @@
 /*
  * Created on Feb 4, 2005
   */
-package org.eclipse.mylar.sandbox.springviz;
+package org.eclipse.mylyn.sandbox.springviz;
 
 import java.awt.*;
 import java.awt.event.*;

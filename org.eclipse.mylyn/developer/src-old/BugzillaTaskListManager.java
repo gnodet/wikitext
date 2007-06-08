@@ -9,19 +9,19 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.bugzilla.ui.tasklist;
+package org.eclipse.mylyn.internal.bugzilla.ui.tasklist;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.mylar.bugzilla.core.IBugzillaBug;
-import org.eclipse.mylar.internal.bugzilla.core.IOfflineBugListener;
-import org.eclipse.mylar.internal.bugzilla.ui.tasklist.BugzillaTask.BugReportSyncState;
-import org.eclipse.mylar.internal.tasklist.TaskCategory;
-import org.eclipse.mylar.internal.tasklist.TaskRepositoryManager;
-import org.eclipse.mylar.internal.tasklist.ui.views.TaskListView;
-import org.eclipse.mylar.tasklist.ITask;
-import org.eclipse.mylar.tasklist.MylarTaskListPlugin;
+import org.eclipse.mylyn.bugzilla.core.IBugzillaBug;
+import org.eclipse.mylyn.internal.bugzilla.core.IOfflineBugListener;
+import org.eclipse.mylyn.internal.bugzilla.ui.tasklist.BugzillaTask.BugReportSyncState;
+import org.eclipse.mylyn.internal.tasklist.TaskCategory;
+import org.eclipse.mylyn.internal.tasklist.TaskRepositoryManager;
+import org.eclipse.mylyn.internal.tasklist.ui.views.TaskListView;
+import org.eclipse.mylyn.tasklist.ITask;
+import org.eclipse.mylyn.tasklist.MylarTaskListPlugin;
 
 /**
  * @author Mik Kersten and Ken Sueda

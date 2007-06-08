@@ -9,11 +9,11 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.browser.views;
+package org.eclipse.mylyn.internal.browser.views;
 
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.mylar.context.ui.InterestFilter;
-import org.eclipse.mylar.internal.tasks.ui.views.AbstractMylarFilteredTree;
+import org.eclipse.mylyn.context.ui.InterestFilter;
+import org.eclipse.mylyn.internal.tasks.ui.views.AbstractMylarFilteredTree;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;

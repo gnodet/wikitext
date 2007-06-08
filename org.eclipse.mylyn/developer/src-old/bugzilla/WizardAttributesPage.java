@@ -9,10 +9,10 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.bugzilla.ui.wizard;
+package org.eclipse.mylyn.internal.bugzilla.ui.wizard;
 
-import org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants;
-import org.eclipse.mylar.internal.bugzilla.ui.BugzillaUiPlugin;
+import org.eclipse.mylyn.internal.bugzilla.core.IBugzillaConstants;
+import org.eclipse.mylyn.internal.bugzilla.ui.BugzillaUiPlugin;
 import org.eclipse.ui.IWorkbench;
 
 /**
@@ -26,7 +26,7 @@ public class WizardAttributesPage extends AbstractBugzillaWizardPage {
 
 	public WizardAttributesPage(IWorkbench workbench) {
 		super("Page2", IBugzillaConstants.TITLE_NEW_BUG, DESCRIPTION, workbench);
-		setImageDescriptor(BugzillaUiPlugin.imageDescriptorFromPlugin("org.eclipse.mylar.bugzilla.ui",
+		setImageDescriptor(BugzillaUiPlugin.imageDescriptorFromPlugin("org.eclipse.mylyn.bugzilla.ui",
 			"icons/wizban/bug-wizard.gif"));
 	}
 
