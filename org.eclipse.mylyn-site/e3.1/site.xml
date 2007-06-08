@@ -3,7 +3,7 @@
    <description url="http://download.eclipse.org/technology/mylar/update-site/e3.1">
       Mylar update site for Eclipse 3.1
    </description>
-   <feature url="features/org.eclipse.mylar_feature_0.6.0.jar" id="org.eclipse.mylar_feature" version="0.6.0">
+   <feature url="features/org.eclipse.mylyn_feature_0.6.0.jar" id="org.eclipse.mylar_feature" version="0.6.0">
       <category name="Mylar for Eclipse 3.1"/>
    </feature>
    <feature url="features/org.eclipse.mylyn.ide_feature_0.6.0.jar" id="org.eclipse.mylyn.ide_feature" version="0.6.0">

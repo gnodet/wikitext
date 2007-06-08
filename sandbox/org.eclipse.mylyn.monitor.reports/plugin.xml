@@ -98,7 +98,7 @@
          id="org.eclipse.mylyn.reports.views.UsageCountView"
          point="org.eclipse.ui.views">
       <view
-            category="org.eclipse.mylar"
+            category="org.eclipse.mylyn.ui"
             class="org.eclipse.mylyn.monitor.ui.reports.ui.views.UsageCountView"
             icon="icons/eview16/monitor.gif"
             id="org.eclipse.mylyn.monitor.ui.reports.ui.UsageCountView"
