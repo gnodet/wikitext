@@ -9,7 +9,7 @@
     </extension>
 
    <extension
-         point="org.eclipse.mylar.monitor.usage.study">
+         point="org.eclipse.mylyn.monitor.usage.study">
          <scripts
          	url="http://my.server"
          	upload="upload.cgi"
@@ -18,26 +18,26 @@
          <ui
          	title="Mylar User Study Example"
          	daysBetweenUpload="6"
-         	questionnairePage="org.eclipse.mylar.examples.monitor.study.QuestionnaireWizardPage"
+         	questionnairePage="org.eclipse.mylyn.examples.monitor.study.QuestionnaireWizardPage"
          	consentForm="doc/study-ethics.html"/>
    </extension>
    
    <extension point="org.eclipse.ui.newWizards">
       <wizard
-            category="org.eclipse.mylar.wizards"
-            class="org.eclipse.mylar.examples.monitor.study.FeedbackWizard"
+            category="org.eclipse.mylyn.wizards"
+            class="org.eclipse.mylyn.examples.monitor.study.FeedbackWizard"
             icon="icons/eview16/wizard-feedback.gif"
-            id="org.eclipse.mylar.monitor.ui.ui.wizards.FeedbackWizard"
+            id="org.eclipse.mylyn.monitor.ui.ui.wizards.FeedbackWizard"
             name="Feedback Submission">
       </wizard>
    </extension>
    
    <extension point="org.eclipse.ui.newWizards">
       <wizard
-            category="org.eclipse.mylar.wizards"
-            class="org.eclipse.mylar.internal.monitor.usage.wizards.UsageSubmissionWizard"
+            category="org.eclipse.mylyn.wizards"
+            class="org.eclipse.mylyn.internal.monitor.usage.wizards.UsageSubmissionWizard"
             icon="icons/eview16/wizard-feedback.gif"
-            id="org.eclipse.mylar.monitor.ui.ui.uploadStatistics.StatisticsUploadWizard"
+            id="org.eclipse.mylyn.monitor.ui.ui.uploadStatistics.StatisticsUploadWizard"
             name="Usage Feedback">
       </wizard>
    </extension>

@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Mylar Monitor Server
-Bundle-SymbolicName: org.eclipse.mylar.monitor.server;singleton:=true
+Bundle-SymbolicName: org.eclipse.mylyn.monitor.server;singleton:=true
 Bundle-Version: 0.1.0
 Bundle-Vendor: Eclipse.org
 Eclipse-AutoStart: true

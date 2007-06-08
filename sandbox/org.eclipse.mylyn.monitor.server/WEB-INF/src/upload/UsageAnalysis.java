@@ -176,7 +176,7 @@ public class UsageAnalysis {
 	 * Assuming the file naming convention of <phase>-<version>-usage-<userID>-<date
 	 * and time>.zip
 	 * 
-	 * copied from: org.eclipse.mylar.monitor.usage.core.ReportGenerator author:
+	 * copied from: org.eclipse.mylyn.monitor.usage.core.ReportGenerator author:
 	 * Mik Kersten
 	 */
 	private int getUserId(File source) {

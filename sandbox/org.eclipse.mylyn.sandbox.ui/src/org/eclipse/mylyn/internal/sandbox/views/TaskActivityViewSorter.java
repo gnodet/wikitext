@@ -9,16 +9,16 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.sandbox.views;
+package org.eclipse.mylyn.internal.sandbox.views;
 
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
-import org.eclipse.mylar.tasks.core.AbstractTaskContainer;
-import org.eclipse.mylar.tasks.core.DateRangeActivityDelegate;
-import org.eclipse.mylar.tasks.core.DateRangeContainer;
-import org.eclipse.mylar.tasks.core.ITask;
-import org.eclipse.mylar.tasks.core.Task;
-import org.eclipse.mylar.tasks.core.Task.PriorityLevel;
+import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
+import org.eclipse.mylyn.tasks.core.DateRangeActivityDelegate;
+import org.eclipse.mylyn.tasks.core.DateRangeContainer;
+import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.Task;
+import org.eclipse.mylyn.tasks.core.Task.PriorityLevel;
 import org.eclipse.ui.IMemento;
 
 /**
@@ -26,9 +26,9 @@ import org.eclipse.ui.IMemento;
  */
 public class TaskActivityViewSorter extends ViewerSorter {
 
-	private static final String activitySortColumn = "org.eclipse.mylar.tasklist.ui.views.taskactivitysorter.sortcolumn";
+	private static final String activitySortColumn = "org.eclipse.mylyn.tasklist.ui.views.taskactivitysorter.sortcolumn";
 
-	private static final String activityViewSorterSettings = "org.eclipse.mylar.tasklist.ui.views.taskactivitysorter.sortsettings";
+	private static final String activityViewSorterSettings = "org.eclipse.mylyn.tasklist.ui.views.taskactivitysorter.sortsettings";
 
 	private int[] directions;
 

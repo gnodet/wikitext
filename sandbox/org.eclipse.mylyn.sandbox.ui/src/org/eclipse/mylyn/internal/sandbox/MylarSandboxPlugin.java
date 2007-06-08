@@ -9,10 +9,10 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.sandbox;
+package org.eclipse.mylyn.internal.sandbox;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylar.internal.sandbox.share.SharedDataDirectoryManager;
+import org.eclipse.mylyn.internal.sandbox.share.SharedDataDirectoryManager;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -57,7 +57,7 @@ public class MylarSandboxPlugin extends AbstractUIPlugin {
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
-		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.mylar.internal.sandbox", path);
+		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.mylyn.internal.sandbox", path);
 	}
 
 	public SharedDataDirectoryManager getSharedDataDirectoryManager() {

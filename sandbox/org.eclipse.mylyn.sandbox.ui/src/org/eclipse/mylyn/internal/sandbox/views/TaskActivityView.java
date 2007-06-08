@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.sandbox.views;
+package org.eclipse.mylyn.internal.sandbox.views;
 
 import java.text.DateFormat;
 import java.util.Arrays;
@@ -37,21 +37,21 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerDropAdapter;
-import org.eclipse.mylar.internal.tasks.ui.TaskListColorsAndFonts;
-import org.eclipse.mylar.internal.tasks.ui.actions.ActivityReportAction;
-import org.eclipse.mylar.internal.tasks.ui.actions.OpenTaskListElementAction;
-import org.eclipse.mylar.internal.tasks.ui.planner.ReminderCellEditor;
-import org.eclipse.mylar.internal.tasks.ui.views.TaskActivityLabelProvider;
-import org.eclipse.mylar.internal.tasks.ui.views.TaskElementLabelProvider;
-import org.eclipse.mylar.internal.tasks.ui.views.TaskListView;
-import org.eclipse.mylar.tasks.core.AbstractTaskContainer;
-import org.eclipse.mylar.tasks.core.DateRangeActivityDelegate;
-import org.eclipse.mylar.tasks.core.DateRangeContainer;
-import org.eclipse.mylar.tasks.core.ITask;
-import org.eclipse.mylar.tasks.core.ITaskActivityListener;
-import org.eclipse.mylar.tasks.core.ITaskListChangeListener;
-import org.eclipse.mylar.tasks.ui.TaskListManager;
-import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.internal.tasks.ui.TaskListColorsAndFonts;
+import org.eclipse.mylyn.internal.tasks.ui.actions.ActivityReportAction;
+import org.eclipse.mylyn.internal.tasks.ui.actions.OpenTaskListElementAction;
+import org.eclipse.mylyn.internal.tasks.ui.planner.ReminderCellEditor;
+import org.eclipse.mylyn.internal.tasks.ui.views.TaskActivityLabelProvider;
+import org.eclipse.mylyn.internal.tasks.ui.views.TaskElementLabelProvider;
+import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
+import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
+import org.eclipse.mylyn.tasks.core.DateRangeActivityDelegate;
+import org.eclipse.mylyn.tasks.core.DateRangeContainer;
+import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.ITaskActivityListener;
+import org.eclipse.mylyn.tasks.core.ITaskListChangeListener;
+import org.eclipse.mylyn.tasks.ui.TaskListManager;
+import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.TextTransfer;
@@ -81,11 +81,11 @@ public class TaskActivityView extends ViewPart {
 
 	private static final String MEMENTO_KEY_WIDTH = "colwidth";
 
-	public static final String ID = "org.eclipse.mylar.tasklist.activity";
+	public static final String ID = "org.eclipse.mylyn.tasklist.activity";
 
-	public static final String columnWidthIdentifier = "org.eclipse.mylar.tasklist.ui.views.taskactivity.columnwidth";
+	public static final String columnWidthIdentifier = "org.eclipse.mylyn.tasklist.ui.views.taskactivity.columnwidth";
 
-	public static final String tableSortIdentifier = "org.eclipse.mylar.tasklist.ui.views.taskactivity.sortIndex";
+	public static final String tableSortIdentifier = "org.eclipse.mylyn.tasklist.ui.views.taskactivity.sortIndex";
 
 	private static TaskActivityView INSTANCE;
 

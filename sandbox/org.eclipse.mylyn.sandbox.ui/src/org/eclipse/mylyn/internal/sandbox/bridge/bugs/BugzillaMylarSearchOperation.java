@@ -11,7 +11,7 @@
 /*
  * Created on Oct 14, 2004
  */
-package org.eclipse.mylar.internal.sandbox.bridge.bugs;
+package org.eclipse.mylyn.internal.sandbox.bridge.bugs;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -27,20 +27,20 @@ import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylar.core.MylarStatusHandler;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaTask;
-import org.eclipse.mylar.internal.bugzilla.ui.tasklist.StackTrace;
-import org.eclipse.mylar.internal.tasks.ui.search.AbstractRepositorySearchQuery;
-import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
-import org.eclipse.mylar.tasks.core.AbstractTaskContainer;
-import org.eclipse.mylar.tasks.core.ITask;
-import org.eclipse.mylar.tasks.core.QueryHitCollector;
-import org.eclipse.mylar.tasks.core.RepositoryTaskData;
-import org.eclipse.mylar.tasks.core.TaskComment;
-import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.TaskFactory;
-import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.core.MylarStatusHandler;
+import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
+import org.eclipse.mylyn.internal.bugzilla.core.BugzillaTask;
+import org.eclipse.mylyn.internal.bugzilla.ui.tasklist.StackTrace;
+import org.eclipse.mylyn.internal.tasks.ui.search.AbstractRepositorySearchQuery;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryTask;
+import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
+import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.QueryHitCollector;
+import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
+import org.eclipse.mylyn.tasks.core.TaskComment;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TaskFactory;
+import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
@@ -446,7 +446,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	}
 
 	/**
-	 * @see org.eclipse.mylar.internal.bugs.core.search.IBugzillaSearchOperation#getStatus()
+	 * @see org.eclipse.mylyn.internal.bugs.core.search.IBugzillaSearchOperation#getStatus()
 	 */
 	public IStatus getStatus() throws LoginException {
 		// if a LoginException was thrown while trying to search, throw this
@@ -458,7 +458,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	}
 
 	/**
-	 * @see org.eclipse.mylar.internal.bugs.core.search.IBugzillaSearchOperation#getImageDescriptor()
+	 * @see org.eclipse.mylyn.internal.bugs.core.search.IBugzillaSearchOperation#getImageDescriptor()
 	 */
 	public ImageDescriptor getImageDescriptor() {
 		return null;
@@ -483,14 +483,14 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	}
 
 	/**
-	 * @see org.eclipse.mylar.internal.bugs.core.search.IBugzillaSearchOperation#getQuery()
+	 * @see org.eclipse.mylyn.internal.bugs.core.search.IBugzillaSearchOperation#getQuery()
 	 */
 	public AbstractRepositorySearchQuery getQuery() {
 		return query;
 	}
 
 	/**
-	 * @see org.eclipse.mylar.internal.bugs.core.search.IBugzillaSearchOperation#setQuery(org.eclipse.mylar.internal.bugs.core.search.AbstractRepositorySearchQuery)
+	 * @see org.eclipse.mylyn.internal.bugs.core.search.IBugzillaSearchOperation#setQuery(org.eclipse.mylyn.internal.bugs.core.search.AbstractRepositorySearchQuery)
 	 */
 	public void setQuery(AbstractRepositorySearchQuery newQuery) {
 		this.query = newQuery;

@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.sandbox.bridge.bugs;
+package org.eclipse.mylyn.internal.sandbox.bridge.bugs;
 
 import java.util.Collection;
 import java.util.Collections;

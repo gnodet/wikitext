@@ -15,7 +15,7 @@ import java.util.Comparator;
 
 /**
  * This class was copied from
- * org.eclipse.mylar.internal.monitor.core.collection.
+ * org.eclipse.mylyn.internal.monitor.core.collection.
  * 
  * 
  * @author Mik Kersten and Leah Findlater

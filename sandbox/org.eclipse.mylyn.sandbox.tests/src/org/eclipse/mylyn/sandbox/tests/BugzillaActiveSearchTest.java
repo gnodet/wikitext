@@ -11,7 +11,7 @@
 /*
  * Created on Nov 19, 2004
  */
-package org.eclipse.mylar.sandbox.tests;
+package org.eclipse.mylyn.sandbox.tests;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,19 +20,19 @@ import junit.framework.TestCase;
 
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaTask;
-import org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants;
-import org.eclipse.mylar.internal.context.core.IActiveSearchListener;
-import org.eclipse.mylar.internal.sandbox.bridge.bugs.BugzillaMylarSearch;
-import org.eclipse.mylar.internal.sandbox.bridge.bugs.BugzillaReportInfo;
-import org.eclipse.mylar.internal.sandbox.bridge.bugs.MylarBugsManager;
-import org.eclipse.mylar.java.tests.search.SearchPluginTestHelper;
-import org.eclipse.mylar.java.tests.search.WorkspaceSetupHelper;
-import org.eclipse.mylar.tasks.core.TaskCategory;
-import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.TaskListManager;
-import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
+import org.eclipse.mylyn.internal.bugzilla.core.BugzillaTask;
+import org.eclipse.mylyn.internal.bugzilla.core.IBugzillaConstants;
+import org.eclipse.mylyn.internal.context.core.IActiveSearchListener;
+import org.eclipse.mylyn.internal.sandbox.bridge.bugs.BugzillaMylarSearch;
+import org.eclipse.mylyn.internal.sandbox.bridge.bugs.BugzillaReportInfo;
+import org.eclipse.mylyn.internal.sandbox.bridge.bugs.MylarBugsManager;
+import org.eclipse.mylyn.java.tests.search.SearchPluginTestHelper;
+import org.eclipse.mylyn.java.tests.search.WorkspaceSetupHelper;
+import org.eclipse.mylyn.tasks.core.TaskCategory;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TaskListManager;
+import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 
 /*
  * TEST CASES TO HANDLE 1. what is here 2. different scopes ( local and remote )

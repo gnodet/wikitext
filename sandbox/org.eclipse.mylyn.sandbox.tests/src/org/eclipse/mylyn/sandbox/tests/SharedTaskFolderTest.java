@@ -1,4 +1,4 @@
-package org.eclipse.mylar.sandbox.tests;
+package org.eclipse.mylyn.sandbox.tests;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,15 +9,15 @@ import java.io.OutputStream;
 
 import junit.framework.TestCase;
 
-import org.eclipse.mylar.context.core.ContextCorePlugin;
-import org.eclipse.mylar.internal.context.core.InteractionContext;
-import org.eclipse.mylar.internal.sandbox.MylarSandboxPlugin;
-import org.eclipse.mylar.internal.sandbox.share.SwitchTaskDataFolderAction;
-import org.eclipse.mylar.monitor.core.InteractionEvent;
-import org.eclipse.mylar.tasks.core.ITask;
-import org.eclipse.mylar.tasks.core.Task;
-import org.eclipse.mylar.tasks.ui.TaskListManager;
-import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.context.core.ContextCorePlugin;
+import org.eclipse.mylyn.internal.context.core.InteractionContext;
+import org.eclipse.mylyn.internal.sandbox.MylarSandboxPlugin;
+import org.eclipse.mylyn.internal.sandbox.share.SwitchTaskDataFolderAction;
+import org.eclipse.mylyn.monitor.core.InteractionEvent;
+import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.Task;
+import org.eclipse.mylyn.tasks.ui.TaskListManager;
+import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 
 /**
  * Tests changing the shared task directory

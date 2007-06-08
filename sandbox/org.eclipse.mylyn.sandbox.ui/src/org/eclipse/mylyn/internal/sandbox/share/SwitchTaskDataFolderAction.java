@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.sandbox.share;
+package org.eclipse.mylyn.internal.sandbox.share;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,13 +18,13 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.mylar.context.core.ContextCorePlugin;
-import org.eclipse.mylar.core.MylarStatusHandler;
-import org.eclipse.mylar.internal.context.ui.actions.ContextCapturePauseAction;
-import org.eclipse.mylar.internal.sandbox.MylarSandboxPlugin;
-import org.eclipse.mylar.internal.tasks.ui.ComboSelectionDialog;
-import org.eclipse.mylar.internal.tasks.ui.ITasksUiConstants;
-import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.context.core.ContextCorePlugin;
+import org.eclipse.mylyn.core.MylarStatusHandler;
+import org.eclipse.mylyn.internal.context.ui.actions.ContextCapturePauseAction;
+import org.eclipse.mylyn.internal.sandbox.MylarSandboxPlugin;
+import org.eclipse.mylyn.internal.tasks.ui.ComboSelectionDialog;
+import org.eclipse.mylyn.internal.tasks.ui.ITasksUiConstants;
+import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;

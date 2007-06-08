@@ -9,7 +9,7 @@
 // *     University Of British Columbia - initial API and implementation
 // *******************************************************************************/
 //
-//package org.eclipse.mylar.sandbox.tests;
+//package org.eclipse.mylyn.sandbox.tests;
 //
 //import java.io.BufferedReader;
 //import java.io.IOException;
@@ -20,9 +20,9 @@
 //import org.eclipse.core.runtime.IProgressMonitor;
 //import org.eclipse.core.runtime.NullProgressMonitor;
 //import org.eclipse.core.runtime.OperationCanceledException;
-//import org.eclipse.mylar.internal.bugzilla.core.IBugzillaConstants;
-//import org.eclipse.mylar.internal.bugzilla.ui.BugzillaUiPlugin;
-//import org.eclipse.mylar.internal.bugzilla.ui.search.BugzillaSearchHit;
+//import org.eclipse.mylyn.internal.bugzilla.core.IBugzillaConstants;
+//import org.eclipse.mylyn.internal.bugzilla.ui.BugzillaUiPlugin;
+//import org.eclipse.mylyn.internal.bugzilla.ui.search.BugzillaSearchHit;
 //
 //import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 //import com.sun.org.apache.xerces.internal.impl.xpath.regex.RegularExpression;

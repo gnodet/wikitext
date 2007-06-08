@@ -9,13 +9,13 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.sandbox.bridge.bugs;
+package org.eclipse.mylyn.internal.sandbox.bridge.bugs;
 
 import javax.security.auth.login.LoginException;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.mylar.internal.tasks.ui.search.AbstractRepositorySearchQuery;
+import org.eclipse.mylyn.internal.tasks.ui.search.AbstractRepositorySearchQuery;
 
 /**
  * Interface for the bugzilla search operation

@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Mylar Sandbox Plug-in
-Bundle-SymbolicName: org.eclipse.mylar.sandbox; singleton:=true
+Bundle-SymbolicName: org.eclipse.mylyn.sandbox; singleton:=true
 Bundle-Version: 2.0.0.v20070607-1200
-Bundle-Activator: org.eclipse.mylar.internal.sandbox.MylarSandboxPlugin
+Bundle-Activator: org.eclipse.mylyn.internal.sandbox.MylarSandboxPlugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.ui.ide,
@@ -12,20 +12,20 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.search,
  org.eclipse.jface.text,
- org.eclipse.mylar.context.core,
- org.eclipse.mylar.context.ui,
- org.eclipse.mylar.tasks.ui,
- org.eclipse.mylar.bugzilla.core,
- org.eclipse.mylar.bugzilla.ui,
- org.eclipse.mylar.tasks.core,
- org.eclipse.mylar.monitor.ui,
- org.eclipse.mylar.java,
- org.eclipse.mylar.monitor.core,
- org.eclipse.mylar
+ org.eclipse.mylyn.context.core,
+ org.eclipse.mylyn.context.ui,
+ org.eclipse.mylyn.tasks.ui,
+ org.eclipse.mylyn.bugzilla.core,
+ org.eclipse.mylyn.bugzilla.ui,
+ org.eclipse.mylyn.tasks.core,
+ org.eclipse.mylyn.monitor.ui,
+ org.eclipse.mylyn.java,
+ org.eclipse.mylyn.monitor.core,
+ org.eclipse.mylyn
 Eclipse-AutoStart: true
 Bundle-Vendor: Eclipse.org
-Export-Package: org.eclipse.mylar.internal.sandbox,
- org.eclipse.mylar.internal.sandbox.bridge.bugs,
- org.eclipse.mylar.internal.sandbox.devtools,
- org.eclipse.mylar.internal.sandbox.share
+Export-Package: org.eclipse.mylyn.internal.sandbox,
+ org.eclipse.mylyn.internal.sandbox.bridge.bugs,
+ org.eclipse.mylyn.internal.sandbox.devtools,
+ org.eclipse.mylyn.internal.sandbox.share
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

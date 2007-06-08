@@ -9,18 +9,18 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylar.internal.sandbox.bridge.bugs;
+package org.eclipse.mylyn.internal.sandbox.bridge.bugs;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.mylar.context.core.AbstractContextStructureBridge;
-import org.eclipse.mylar.context.core.AbstractRelationProvider;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaTask;
-import org.eclipse.mylar.internal.tasks.ui.editors.ContentOutlineTools;
-import org.eclipse.mylar.tasks.ui.editors.RepositoryTaskOutlineNode;
-import org.eclipse.mylar.tasks.ui.editors.RepositoryTaskSelection;
+import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
+import org.eclipse.mylyn.context.core.AbstractRelationProvider;
+import org.eclipse.mylyn.internal.bugzilla.core.BugzillaTask;
+import org.eclipse.mylyn.internal.tasks.ui.editors.ContentOutlineTools;
+import org.eclipse.mylyn.tasks.ui.editors.RepositoryTaskOutlineNode;
+import org.eclipse.mylyn.tasks.ui.editors.RepositoryTaskSelection;
 import org.eclipse.ui.views.markers.internal.ProblemMarker;
 
 /**

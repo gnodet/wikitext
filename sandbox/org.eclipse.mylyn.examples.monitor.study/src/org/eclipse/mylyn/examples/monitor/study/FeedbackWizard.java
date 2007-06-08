@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.examples.monitor.study;
+package org.eclipse.mylyn.examples.monitor.study;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -27,10 +27,10 @@ import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.mylar.core.MylarStatusHandler;
-import org.eclipse.mylar.internal.core.util.DateUtil;
-import org.eclipse.mylar.internal.monitor.usage.MylarUsageMonitorPlugin;
-import org.eclipse.mylar.internal.monitor.usage.wizards.UsageSubmissionWizard;
+import org.eclipse.mylyn.core.MylarStatusHandler;
+import org.eclipse.mylyn.internal.core.util.DateUtil;
+import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
+import org.eclipse.mylyn.internal.monitor.usage.wizards.UsageSubmissionWizard;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
@@ -58,8 +58,8 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 	public FeedbackWizard() {
 		super();
 		setNeedsProgressMonitor(true);
-		super.setDefaultPageImageDescriptor(MylarUsageMonitorPlugin.imageDescriptorFromPlugin(
-				MylarUsageMonitorPlugin.PLUGIN_ID, "icons/wizban/banner-user.gif"));
+		super.setDefaultPageImageDescriptor(UiUsageMonitorPlugin.imageDescriptorFromPlugin(
+				UiUsageMonitorPlugin.PLUGIN_ID, "icons/wizban/banner-user.gif"));
 		super.setWindowTitle("Mylar Feedback");
 		feedbackPage = new SubmitFeedbackPage(null);
 	}
@@ -103,15 +103,15 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 			long time = new Date().getTime();
 
 			Part[] parts;
-			Part[] p = { new FilePart("MYLAR" + uid, MylarUsageMonitorPlugin.UPLOAD_FILE_LABEL + "-"
-					+ MylarUsageMonitorPlugin.VERSION + "-" + "feedback" + "-" + uid + "-"
+			Part[] p = { new FilePart("MYLAR" + uid, UiUsageMonitorPlugin.UPLOAD_FILE_LABEL + "-"
+					+ UiUsageMonitorPlugin.VERSION + "-" + "feedback" + "-" + uid + "-"
 					+ DateUtil.getFormattedDateTime(time) + ".txt", f) };
 			parts = p;
 
 			filePost.setRequestEntity(new MultipartRequestEntity(parts, filePost.getParams()));
 
 			final HttpClient client = new HttpClient();
-			MylarUsageMonitorPlugin.getDefault().configureProxy(client, uploadScript);
+			UiUsageMonitorPlugin.getDefault().configureProxy(client, uploadScript);
 
 			ProgressMonitorDialog pmd = new ProgressMonitorDialog(Display.getCurrent().getActiveShell());
 			pmd.run(false, false, new IRunnableWithProgress() {

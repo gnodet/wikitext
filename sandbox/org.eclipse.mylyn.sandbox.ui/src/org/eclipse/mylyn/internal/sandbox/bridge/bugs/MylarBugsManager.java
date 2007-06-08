@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylar.internal.sandbox.bridge.bugs;
+package org.eclipse.mylyn.internal.sandbox.bridge.bugs;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IWorkbench;
@@ -75,7 +75,7 @@ public class MylarBugsManager {
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
-		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.mylar.internal.bugs.bridge", path);
+		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.mylyn.internal.bugs.bridge", path);
 	}
 
 	public static BugzillaSearchManager getBridge() {

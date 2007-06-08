@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.eclipse.mylar.sandbox_feature"
+      id="org.eclipse.mylyn.sandbox_feature"
       label="Developer and Experimental Tools"
       version="2.0.0.v20070607-1200"
       provider-name="Eclipse.org"
-      plugin="org.eclipse.mylar">
+      plugin="org.eclipse.mylyn">
 
    <description>
       Mylar Sandbox Tools: http://wiki.eclipse.org/index.php/Mylar_Contributor_Reference#Sandbox
@@ -218,11 +218,11 @@ litigation.
    </url>
 
    <requires>
-      <import feature="org.eclipse.mylar_feature" version="2.0.0.v20070513-1500" match="greaterOrEqual"/>
+      <import feature="org.eclipse.mylyn_feature" version="2.0.0.v20070513-1500" match="greaterOrEqual"/>
    </requires>
 
    <plugin
-         id="org.eclipse.mylar.sandbox"
+         id="org.eclipse.mylyn.sandbox"
          download-size="0"
          install-size="0"
          version="2.0.0.v20070607-1200"

@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylar.sandbox.tests;
+package org.eclipse.mylyn.sandbox.tests;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -14,7 +14,7 @@ import junit.framework.TestSuite;
 public class AllSandboxTests {
 
 	public static Test suite() {
-		TestSuite suite = new TestSuite("Test for org.eclipse.mylar.sandbox.tests");
+		TestSuite suite = new TestSuite("Test for org.eclipse.mylyn.sandbox.tests");
 		//$JUnit-BEGIN$
 		
 //		suite.addTestSuite(SharedTaskFolderTest.class);

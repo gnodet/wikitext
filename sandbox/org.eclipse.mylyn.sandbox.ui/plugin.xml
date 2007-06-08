@@ -3,22 +3,22 @@
 <plugin>
 
 	<extension point="org.eclipse.ui.views">
-     	<category name="Mylar Sandbox" id="org.eclipse.mylar.sandbox"/>
+     	<category name="Mylar Sandbox" id="org.eclipse.mylyn.sandbox"/>
     </extension>
 
     <extension point="org.eclipse.ui.preferencePages">
       <page 
          name="Sandbox"
-         class="org.eclipse.mylar.internal.sandbox.MylarSandboxPreferencePage"
-         id="org.eclipse.mylar.sandbox.ui.preferences"
-         category="org.eclipse.mylar.ui.preferences">
-         <keywordReference id="org.eclipse.mylar.java.keywords"/>
+         class="org.eclipse.mylyn.internal.sandbox.MylarSandboxPreferencePage"
+         id="org.eclipse.mylyn.sandbox.ui.preferences"
+         category="org.eclipse.mylyn.ui.preferences">
+         <keywordReference id="org.eclipse.mylyn.java.keywords"/>
       </page> 
    </extension>
    
-   <extension point="org.eclipse.mylar.tasks.ui.actions"> 
+   <extension point="org.eclipse.mylyn.tasks.ui.actions"> 
       <dynamicPopupMenu
-            class="org.eclipse.mylar.internal.context.ui.TaskHighlighterMenuContributor"
+            class="org.eclipse.mylyn.internal.context.ui.TaskHighlighterMenuContributor"
             menuPath="context"/>
    </extension>
    
@@ -26,16 +26,16 @@
    		point="org.eclipse.ui.keywords">
       <keyword
             label="mylar java"
-            id="org.eclipse.mylar.java.keywords"/>
+            id="org.eclipse.mylyn.java.keywords"/>
    </extension>
 
    <extension point="org.eclipse.ui.decorators">
       <decorator
             lightweight="true"
             label="Sandbox: Interest Level Decorator"
-            class="org.eclipse.mylar.internal.sandbox.devtools.InterestDebuggingDecorator"
+            class="org.eclipse.mylyn.internal.sandbox.devtools.InterestDebuggingDecorator"
             state="false"
-            id="org.eclipse.mylar.sandbox.ui.decorator.interest">
+            id="org.eclipse.mylyn.sandbox.ui.decorator.interest">
          <description>
 			Appends interest level to nodes
 		 </description>
@@ -48,38 +48,38 @@
    <extension point="org.eclipse.ui.views"> 
    	  <view
           allowMultiple="false"
-          category="org.eclipse.mylar.sandbox"
-          class="org.eclipse.mylar.internal.context.ui.views.ActiveSearchView"
+          category="org.eclipse.mylyn.sandbox"
+          class="org.eclipse.mylyn.internal.context.ui.views.ActiveSearchView"
           icon="icons/eview16/active-search.gif"
-          id="org.eclipse.mylar.ui.views.active.search"
+          id="org.eclipse.mylyn.ui.views.active.search"
           name="Context Search"/>
           
 	  <view
             allowMultiple="false"
-            category="org.eclipse.mylar.sandbox"
-            class="org.eclipse.mylar.internal.java.ui.views.ActiveHierarchyView"
+            category="org.eclipse.mylyn.sandbox"
+            class="org.eclipse.mylyn.internal.java.ui.views.ActiveHierarchyView"
             icon="icons/eview16/active-hierarchy.gif"
-            id="org.eclipse.mylar.ui.views.active.hierarchy"
+            id="org.eclipse.mylyn.ui.views.active.hierarchy"
             name="Context Hierarchy"/>
             
             <view
             allowMultiple="false"
-            category="org.eclipse.mylar.sandbox"
-            class="org.eclipse.mylar.internal.sandbox.views.TaskActivityView"
+            category="org.eclipse.mylyn.sandbox"
+            class="org.eclipse.mylyn.internal.sandbox.views.TaskActivityView"
             icon="icons/eview16/task-activity.gif"
-            id="org.eclipse.mylar.tasklist.activity"
+            id="org.eclipse.mylyn.tasklist.activity"
             name="Task Activity"/>
    </extension>
 
    <extension point = "org.eclipse.ui.popupMenus">
      <objectContribution
-        id="org.eclipse.mylar.ui.instrospection"
+        id="org.eclipse.mylyn.ui.instrospection"
         objectClass="java.lang.Object">
 	    <action  
   		  	label="Sanbox: Introspect Object" 
 	  		menubarPath="additions" 
-	  		id="org.eclipse.mylar.sandbox.actions.introspect" 
-	  		class="org.eclipse.mylar.internal.sandbox.devtools.IntrospectObjectAction"
+	  		id="org.eclipse.mylyn.sandbox.actions.introspect" 
+	  		class="org.eclipse.mylyn.internal.sandbox.devtools.IntrospectObjectAction"
 	  		enablesFor="1"/>
 	 </objectContribution>
 	</extension>
@@ -89,12 +89,12 @@
    <!--
    <extension point="org.eclipse.ui.viewActions"> 
    <viewContribution
-         id="org.eclipse.mylar.monitor.ui.reports.ui.switchTaskFolder"
-         targetID="org.eclipse.mylar.tasks.ui.views.TaskListView">
+         id="org.eclipse.mylyn.monitor.ui.reports.ui.switchTaskFolder"
+         targetID="org.eclipse.mylyn.tasks.ui.views.TaskListView">
       <action
-            class="org.eclipse.mylar.internal.sandbox.share.SwitchTaskDataFolderAction"
+            class="org.eclipse.mylyn.internal.sandbox.share.SwitchTaskDataFolderAction"
             icon="icons/eview16/folder.gif"
-            id="org.eclipse.mylar.monitor.ui.reports.ui.actions.switchTask"
+            id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.switchTask"
             label="Sandbox: Switch Task Data Folder..."
             menubarPath="context"
             style="push">
@@ -106,20 +106,20 @@
 
       <!--
         <provider 
-         	markupProviderClass="org.eclipse.mylar.sandbox.viz.MylarJavaMarkupProvider" 
+         	markupProviderClass="org.eclipse.mylyn.sandbox.viz.MylarJavaMarkupProvider" 
          	name="Mylar Provider" 
          	priority="9" 
          	description="Provider that shows java declarations that are part of a Mylar context for a task." 
          	emptyMessage="No active Mylar context to display" 
-         	contentProviderClass="org.eclipse.mylar.sandbox.viz.MylarJavaContentProvider" 
+         	contentProviderClass="org.eclipse.mylyn.sandbox.viz.MylarJavaContentProvider" 
          	id="mylarprovider" />
         -->
         
       
 		<!-- This schema works for the older (1.1?) CVS version of the Visualiser from AJDT  
 		<provider
-		    class="org.eclipse.mylar.sandbox.viz.MylarJavaContentProvider"
-		    markupclass="org.eclipse.mylar.sandbox.viz.MylarJavaMarkupProvider"
+		    class="org.eclipse.mylyn.sandbox.viz.MylarJavaContentProvider"
+		    markupclass="org.eclipse.mylyn.sandbox.viz.MylarJavaMarkupProvider"
 		    name="Mylar Java Provider"
 		    title="Mylar Java Task Context"
 		    priority="8"
@@ -132,14 +132,14 @@
   <!--
    <extension point = "org.eclipse.ui.popupMenus">
      <objectContribution
-        id="org.eclipse.mylar.interest"
+        id="org.eclipse.mylyn.interest"
         objectClass="org.eclipse.jdt.core.IJavaElement">
-        <action id="org.eclipse.mylar.ui.actions.OpenRelatedElementsQuickView" 
+        <action id="org.eclipse.mylyn.ui.actions.OpenRelatedElementsQuickView" 
               label="Related elements" 
 	      	  menubarPath="mylar" 
               icon="icons/eview16/active-search.gif" 
               tooltip="Active Search quick view" 
-              class="org.eclipse.mylar.ui.actions.OpenRelatedElementsQuickView" 
+              class="org.eclipse.mylyn.ui.actions.OpenRelatedElementsQuickView" 
               enablesFor="1"/> 
 	 </objectContribution>
   </extension>

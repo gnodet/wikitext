@@ -1,10 +1,10 @@
-package org.eclipse.mylar.examples.monitor.study;
+package org.eclipse.mylyn.examples.monitor.study;
 
 import org.eclipse.jdt.internal.ui.JavaPlugin;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylar.context.core.ContextCorePlugin;
-import org.eclipse.mylar.internal.monitor.usage.MylarUsageMonitorPlugin;
-import org.eclipse.mylar.monitor.ui.MonitorUiPlugin;
+import org.eclipse.mylyn.context.core.ContextCorePlugin;
+import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
+import org.eclipse.mylyn.monitor.ui.MonitorUiPlugin;
 import org.eclipse.pde.internal.ui.PDEPlugin;
 import org.eclipse.ui.IStartup;
 import org.eclipse.ui.IWorkbench;
@@ -38,17 +38,17 @@ public class MylarUserStudyExamplePlugin extends AbstractUIPlugin implements ISt
 				selectionMonitor = new SelectionMonitor();
 				MonitorUiPlugin.getDefault().getSelectionMonitors().add(selectionMonitor);
 
-				MylarUsageMonitorPlugin.getDefault().addMonitoredPreferences(
+				UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
 						WorkbenchPlugin.getDefault().getPluginPreferences());
 				// MylarUsageMonitorPlugin.getDefault().addMonitoredPreferences(
 				// MylarUiPlugin.getDefault().getPluginPreferences());
-				MylarUsageMonitorPlugin.getDefault().addMonitoredPreferences(
+				UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
 						JavaPlugin.getDefault().getPluginPreferences());
-				MylarUsageMonitorPlugin.getDefault().addMonitoredPreferences(
+				UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
 						WorkbenchPlugin.getDefault().getPluginPreferences());
-				MylarUsageMonitorPlugin.getDefault().addMonitoredPreferences(
+				UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
 						EditorsPlugin.getDefault().getPluginPreferences());
-				MylarUsageMonitorPlugin.getDefault().addMonitoredPreferences(
+				UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
 						PDEPlugin.getDefault().getPluginPreferences());
 			}
 		});
@@ -59,16 +59,16 @@ public class MylarUserStudyExamplePlugin extends AbstractUIPlugin implements ISt
 		plugin = null;
 
 		MonitorUiPlugin.getDefault().getSelectionMonitors().remove(selectionMonitor);
-		MylarUsageMonitorPlugin.getDefault().removeMonitoredPreferences(
+		UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(
 				WorkbenchPlugin.getDefault().getPluginPreferences());
-		MylarUsageMonitorPlugin.getDefault().removeMonitoredPreferences(
+		UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(
 				ContextCorePlugin.getDefault().getPluginPreferences());
-		MylarUsageMonitorPlugin.getDefault().removeMonitoredPreferences(JavaPlugin.getDefault().getPluginPreferences());
-		MylarUsageMonitorPlugin.getDefault().removeMonitoredPreferences(
+		UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(JavaPlugin.getDefault().getPluginPreferences());
+		UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(
 				WorkbenchPlugin.getDefault().getPluginPreferences());
-		MylarUsageMonitorPlugin.getDefault().removeMonitoredPreferences(
+		UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(
 				EditorsPlugin.getDefault().getPluginPreferences());
-		MylarUsageMonitorPlugin.getDefault().removeMonitoredPreferences(PDEPlugin.getDefault().getPluginPreferences());
+		UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(PDEPlugin.getDefault().getPluginPreferences());
 	}
 
 	/**
@@ -87,6 +87,6 @@ public class MylarUserStudyExamplePlugin extends AbstractUIPlugin implements ISt
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
-		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.mylar.examples.monitor.study", path);
+		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.mylyn.examples.monitor.study", path);
 	}
 }

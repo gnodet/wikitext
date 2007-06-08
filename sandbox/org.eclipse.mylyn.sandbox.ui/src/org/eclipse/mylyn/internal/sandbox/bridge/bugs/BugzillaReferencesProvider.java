@@ -11,7 +11,7 @@
 /*
  * Created on Feb 2, 2005
  */
-package org.eclipse.mylar.internal.sandbox.bridge.bugs;
+package org.eclipse.mylyn.internal.sandbox.bridge.bugs;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,15 +26,15 @@ import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.mylar.context.core.AbstractRelationProvider;
-import org.eclipse.mylar.context.core.IDegreeOfSeparation;
-import org.eclipse.mylar.context.core.IInteractionElement;
-import org.eclipse.mylar.internal.bugzilla.core.BugzillaCorePlugin;
-import org.eclipse.mylar.internal.context.core.DegreeOfSeparation;
-import org.eclipse.mylar.internal.context.core.IActiveSearchListener;
-import org.eclipse.mylar.internal.context.core.IMylarSearchOperation;
-import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.context.core.AbstractRelationProvider;
+import org.eclipse.mylyn.context.core.IDegreeOfSeparation;
+import org.eclipse.mylyn.context.core.IInteractionElement;
+import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
+import org.eclipse.mylyn.internal.context.core.DegreeOfSeparation;
+import org.eclipse.mylyn.internal.context.core.IActiveSearchListener;
+import org.eclipse.mylyn.internal.context.core.IMylarSearchOperation;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.ui.PlatformUI;
 
 /**
@@ -42,7 +42,7 @@ import org.eclipse.ui.PlatformUI;
  */
 public class BugzillaReferencesProvider extends AbstractRelationProvider {
 
-	public static final String ID = "org.eclipse.mylar.bugs.search.references";
+	public static final String ID = "org.eclipse.mylyn.bugs.search.references";
 
 	public static final String NAME = "referenced by";
 
