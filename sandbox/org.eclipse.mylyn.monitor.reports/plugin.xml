@@ -19,7 +19,7 @@
 	  		tooltip="Mylar Reports: User Analysis"
 	  		menubarPath="mylyn.monitor" 
 	  		id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.ComputeSummaryAction" 
-	  		class="org.eclipse.mylyn.internal.monitor.reports.ui.actions.MylarUserAnalysisAction"
+	  		class="org.eclipse.mylyn.internal.monitor.reports.ui.actions.FocusedUiUserAnalysisAction"
 	  		icon="icons/eview16/monitor.gif"
 	  		enablesFor="*"/>   
 	 </viewerContribution> 
@@ -39,7 +39,7 @@
 	  		tooltip="Mylar Reports: User Analysis"
 	  		menubarPath="mylyn.monitor" 
 	  		id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.ComputeSummaryAction" 
-	  		class="org.eclipse.mylyn.internal.monitor.reports.ui.actions.MylarUserAnalysisAction"
+	  		class="org.eclipse.mylyn.internal.monitor.reports.ui.actions.FocusedUiUserAnalysisAction"
 	  		icon="icons/eview16/monitor.gif"
 	  		enablesFor="*"/>   
 	 </viewerContribution> 

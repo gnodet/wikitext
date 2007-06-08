@@ -10,7 +10,7 @@ package org.eclipse.mylyn.internal.monitor.usage.wizards;
 
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.mylyn.internal.monitor.usage.MylarUsageMonitorPlugin;
+import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -39,7 +39,7 @@ public class UsageSummaryEditorWizardPage extends WizardPage implements IWizardP
 		super(TITLE);
 		setTitle(TITLE);
 		setDescription(DESCRIPTION);
-		setImageDescriptor(MylarUsageMonitorPlugin.imageDescriptorFromPlugin(MylarUsageMonitorPlugin.PLUGIN_ID,
+		setImageDescriptor(UiUsageMonitorPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.PLUGIN_ID,
 				"icons/wizban/banner-usage.gif"));
 	}
 

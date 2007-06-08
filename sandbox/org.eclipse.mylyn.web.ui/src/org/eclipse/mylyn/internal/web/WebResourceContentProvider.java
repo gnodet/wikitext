@@ -50,13 +50,13 @@ public class WebResourceContentProvider extends BaseWorkbenchContentProvider imp
 
 	public void init(ICommonContentExtensionSite extensionSite) {
 		this.extensionSite = extensionSite;
-		MylarWebPlugin.getWebResourceManager().addListener(WEB_RESOURCE_LISTENER);
+		FocusedWebPlugin.getWebResourceManager().addListener(WEB_RESOURCE_LISTENER);
 	}
 
 	@Override
 	public void dispose() {
 		super.dispose();
-		MylarWebPlugin.getWebResourceManager().removeListener(WEB_RESOURCE_LISTENER);
+		FocusedWebPlugin.getWebResourceManager().removeListener(WEB_RESOURCE_LISTENER);
 	}
 
 	public void restoreState(IMemento aMemento) {
@@ -73,11 +73,11 @@ public class WebResourceContentProvider extends BaseWorkbenchContentProvider imp
 
 	@Override
 	public Object[] getElements(Object element) {
-		if (MylarWebPlugin.getWebResourceManager() != null && !MylarWebPlugin.getWebResourceManager().isWebContextEnabled()) {
+		if (FocusedWebPlugin.getWebResourceManager() != null && !FocusedWebPlugin.getWebResourceManager().isWebContextEnabled()) {
 			return null;
 		} else {
 			if (element instanceof IWorkspaceRoot) {
-				Object[] root = { MylarWebPlugin.getWebResourceManager().getWebRoot() };
+				Object[] root = { FocusedWebPlugin.getWebResourceManager().getWebRoot() };
 				return root;
 			} else {
 				return super.getElements(element);
@@ -104,7 +104,7 @@ public class WebResourceContentProvider extends BaseWorkbenchContentProvider imp
 					if (webResource == null) {
 						viewer.refresh(true);
 					} else {
-						viewer.refresh(MylarWebPlugin.getWebResourceManager().getWebRoot(), true);
+						viewer.refresh(FocusedWebPlugin.getWebResourceManager().getWebRoot(), true);
 					}
 				}
 			}

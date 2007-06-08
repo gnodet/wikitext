@@ -61,7 +61,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 
 	public synchronized void interactionObserved(InteractionEvent event) {
 //		 System.err.println("> " + event);
-		if (MylarUsageMonitorPlugin.getDefault().isObfuscationEnabled()) {
+		if (UiUsageMonitorPlugin.getDefault().isObfuscationEnabled()) {
 			String obfuscatedHandle = handleObfuscator.obfuscateHandle(event.getStructureKind(), event
 					.getStructureHandle());
 			event = new InteractionEvent(event.getKind(), event.getStructureKind(), obfuscatedHandle, event
@@ -94,8 +94,8 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 	@Override
 	public void stopMonitoring() {
 		super.stopMonitoring();
-		if (MylarUsageMonitorPlugin.getDefault() != null)
-			MylarUsageMonitorPlugin.getDefault().incrementObservedEvents(eventAccumulartor);
+		if (UiUsageMonitorPlugin.getDefault() != null)
+			UiUsageMonitorPlugin.getDefault().incrementObservedEvents(eventAccumulartor);
 		eventAccumulartor = 0;
 	}
 

@@ -30,7 +30,7 @@ public class UsageMonitorImages {
 
 	private static final String T_EVIEW = "eview16";
 
-	private static final URL baseURL = MylarUsageMonitorPlugin.getDefault().getBundle().getEntry("/icons/");
+	private static final URL baseURL = UiUsageMonitorPlugin.getDefault().getBundle().getEntry("/icons/");
 
 	public static final ImageDescriptor REFRESH = create(T_ELCL, "refresh.gif");
 

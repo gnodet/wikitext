@@ -18,7 +18,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.mylyn.internal.monitor.usage.MylarUsageMonitorPlugin;
+import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.events.ModifyEvent;
@@ -88,9 +88,9 @@ public class GetNewUserIdPage extends WizardPage {
 		setTitle("Get Mylar Feedback User ID");
 		setDescription("In order to submit usage feedback you first need to get a User ID.\n");
 		this.wizard = wizard;
-		if (MylarUsageMonitorPlugin.getDefault().getCustomizingPlugin() != null) {
+		if (UiUsageMonitorPlugin.getDefault().getCustomizingPlugin() != null) {
 			extendedMonitor = true;
-			String customizedTitle = MylarUsageMonitorPlugin.getDefault().getStudyParameters().getTitle();
+			String customizedTitle = UiUsageMonitorPlugin.getDefault().getStudyParameters().getTitle();
 			if (!customizedTitle.equals("")) {
 				setTitle(customizedTitle + ": Consent Form and User ID");
 			}
@@ -111,7 +111,7 @@ public class GetNewUserIdPage extends WizardPage {
 			createInstructionSection(container);
 			createNamesSection(container);
 			createJobDetailSection(container);
-			if (MylarUsageMonitorPlugin.getDefault().usingContactField())
+			if (UiUsageMonitorPlugin.getDefault().usingContactField())
 				createContactSection(container);
 			createUserIdButtons(container);
 		} else {
@@ -125,7 +125,7 @@ public class GetNewUserIdPage extends WizardPage {
 		if (extendedMonitor) {
 			Label label = new Label(parent, SWT.NULL);
 			label.setFont(JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT));
-			label.setText(MylarUsageMonitorPlugin.getDefault().getCustomizedByMessage());
+			label.setText(UiUsageMonitorPlugin.getDefault().getCustomizedByMessage());
 
 			Composite container = new Composite(parent, SWT.NULL);
 			GridLayout layout = new GridLayout();
@@ -137,8 +137,8 @@ public class GetNewUserIdPage extends WizardPage {
 			gd.widthHint = 600;
 			browser.setLayoutData(gd);
 
-			URL url = Platform.getBundle(MylarUsageMonitorPlugin.getDefault().getCustomizingPlugin()).getEntry(
-					MylarUsageMonitorPlugin.getDefault().getStudyParameters().getFormsConsent());
+			URL url = Platform.getBundle(UiUsageMonitorPlugin.getDefault().getCustomizingPlugin()).getEntry(
+					UiUsageMonitorPlugin.getDefault().getStudyParameters().getFormsConsent());
 			try {
 				URL localURL = Platform.asLocalURL(url);
 				browser.setUrl(localURL.toString());

@@ -49,7 +49,7 @@ import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.mylyn.core.MylarStatusHandler;
 import org.eclipse.mylyn.internal.monitor.usage.MonitorFileRolloverJob;
-import org.eclipse.mylyn.internal.monitor.usage.MylarUsageMonitorPlugin;
+import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -68,8 +68,8 @@ public class UsageFileSelectionWizardPage extends WizardPage {
 	public static final String SUBMISSION_LOG_FILE_NAME = "submittedUsageLogs.txt";
 
 	protected UsageFileSelectionWizardPage(String pageName) {
-		super("org.eclipse.mylyn.monitor.usage.fileSelectionPage", PAGE_TITLE, MylarUsageMonitorPlugin
-				.imageDescriptorFromPlugin(MylarUsageMonitorPlugin.PLUGIN_ID, "icons/wizban/banner-submission.gif"));
+		super("org.eclipse.mylyn.monitor.usage.fileSelectionPage", PAGE_TITLE, UiUsageMonitorPlugin
+				.imageDescriptorFromPlugin(UiUsageMonitorPlugin.PLUGIN_ID, "icons/wizban/banner-submission.gif"));
 		setDescription(DESCRIPTION);
 	}
 

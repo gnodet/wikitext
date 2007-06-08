@@ -14,7 +14,7 @@ package org.eclipse.mylyn.internal.monitor.usage.preferences;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.mylyn.internal.monitor.usage.MonitorPreferenceConstants;
-import org.eclipse.mylyn.internal.monitor.usage.MylarUsageMonitorPlugin;
+import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.monitor.usage.InteractionEventObfuscator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -59,7 +59,7 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 
 	public UsageDataPreferencePage() {
 		super();
-		setPreferenceStore(MylarUsageMonitorPlugin.getPrefs());
+		setPreferenceStore(UiUsageMonitorPlugin.getPrefs());
 		setDescription(DESCRIPTION);
 	}
 
@@ -69,9 +69,9 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		GridLayout layout = new GridLayout(1, false);
 		container.setLayout(layout);
 
-		if (MylarUsageMonitorPlugin.getDefault().getCustomizingPlugin() != null) {
+		if (UiUsageMonitorPlugin.getDefault().getCustomizingPlugin() != null) {
 			Label label = new Label(parent, SWT.NULL);
-			label.setText(MylarUsageMonitorPlugin.getDefault().getCustomizedByMessage());
+			label.setText(UiUsageMonitorPlugin.getDefault().getCustomizedByMessage());
 			label.setFont(JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT));
 		}
 
@@ -123,7 +123,7 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 			}
 		});
 
-		String logFilePath = MylarUsageMonitorPlugin.getDefault().getMonitorLogFile().getPath();
+		String logFilePath = UiUsageMonitorPlugin.getDefault().getMonitorLogFile().getPath();
 		logFilePath = logFilePath.replaceAll("\\\\", "/");
 		logFileText = new Text(group, SWT.BORDER);
 		logFileText.setText(logFilePath);
@@ -149,7 +149,7 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		uploadUrl = new Text(group, SWT.BORDER);
 		uploadUrl.setEditable(false);
 		uploadUrl.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		uploadUrl.setText(MylarUsageMonitorPlugin.getDefault().getStudyParameters().getServletUrl());
+		uploadUrl.setText(UiUsageMonitorPlugin.getDefault().getStudyParameters().getServletUrl());
 
 		Label events = new Label(group, SWT.NULL);
 		events.setText(" Events since upload:");
@@ -178,10 +178,10 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		GridData gridData = new GridData();
 		gridData.widthHint = 15;
 		submissionTime.setLayoutData(gridData);
-		long submissionFreq = MylarUsageMonitorPlugin.DEFAULT_DELAY_BETWEEN_TRANSMITS;
-		if (MylarUsageMonitorPlugin.getPrefs().contains(
+		long submissionFreq = UiUsageMonitorPlugin.DEFAULT_DELAY_BETWEEN_TRANSMITS;
+		if (UiUsageMonitorPlugin.getPrefs().contains(
 				MonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY)) {
-			submissionFreq = MylarUsageMonitorPlugin.getPrefs().getLong(
+			submissionFreq = UiUsageMonitorPlugin.getPrefs().getLong(
 					MonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY);
 		}
 		long submissionFreqInDays = (long) ((double) submissionFreq) / DAYS_IN_MS;
@@ -199,7 +199,7 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 	@Override
 	public void performDefaults() {
 		super.performDefaults();
-		logFileText.setText(MylarUsageMonitorPlugin.getDefault().getMonitorLogFile().getPath());
+		logFileText.setText(UiUsageMonitorPlugin.getDefault().getMonitorLogFile().getPath());
 	}
 
 	@Override
@@ -207,9 +207,9 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_MONITORING_OBFUSCATE,
 				enableObfuscation.getSelection());
 		if (enableMonitoring.getSelection()) {
-			MylarUsageMonitorPlugin.getDefault().startMonitoring();
+			UiUsageMonitorPlugin.getDefault().startMonitoring();
 		} else {
-			MylarUsageMonitorPlugin.getDefault().stopMonitoring();
+			UiUsageMonitorPlugin.getDefault().stopMonitoring();
 		}
 
 		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION,
@@ -218,7 +218,7 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_MONITORING_ENABLED,
 				enableMonitoring.getSelection());
 
-		long transmitFrequency = MylarUsageMonitorPlugin.DEFAULT_DELAY_BETWEEN_TRANSMITS;
+		long transmitFrequency = UiUsageMonitorPlugin.DEFAULT_DELAY_BETWEEN_TRANSMITS;
 
 		String submissionFrequency = submissionTime.getText();
 
@@ -232,7 +232,7 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY,
 				transmitFrequency);
 
-		MylarUsageMonitorPlugin.getDefault().getStudyParameters().setTransmitPromptPeriod(transmitFrequency);
+		UiUsageMonitorPlugin.getDefault().getStudyParameters().setTransmitPromptPeriod(transmitFrequency);
 		return true;
 	}
 

@@ -1,0 +1,16 @@
+1181268246149	Rename type 'MylarCompilationUnitEditor'
+1181268300051	Rename type 'MylarJavaNoTypeProposalComputer'
+1181268411156	Rename type 'MylarJavaPlugin'
+1181268465307	Delete element
+1181268645912	Rename type 'MylarJavaProposalProcessor'
+1181268658692	Rename type 'MylarJavaSourceViewerConfiguration'
+1181268668028	Rename type 'MylarJavaTypeProposalComputer'
+1181268699256	Rename type 'MylarPdeJUnitLaunchConfiguration'
+1181268706685	Rename type 'MylarJUnitTabGroup'
+1181268715526	Rename type 'MylarPdeJUnitTabGroup'
+1181268725278	Rename type 'MylarJUnitLaunchConfiguration'
+1181268734675	Rename type 'MylarJUnitMainTab'
+1181268789658	Delete element
+1181268821119	Rename type 'MylarPreferenceWizard'
+1181268837562	Rename type 'MylarPreferenceWizardPage'
+1181269661074	Rename type 'MylarProposalSeparator'

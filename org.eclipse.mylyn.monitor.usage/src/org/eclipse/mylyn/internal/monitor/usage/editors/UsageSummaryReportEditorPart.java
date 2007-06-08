@@ -24,7 +24,7 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylyn.core.MylarStatusHandler;
 import org.eclipse.mylyn.internal.monitor.usage.InteractionEventSummarySorter;
-import org.eclipse.mylyn.internal.monitor.usage.MylarUsageMonitorPlugin;
+import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.internal.monitor.usage.wizards.UsageSubmissionWizard;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -189,7 +189,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 	 * Only opens in workbench if file is small enough not to blow it up.
 	 */
 	private void viewFile() {
-		File monitorFile = MylarUsageMonitorPlugin.getDefault().getMonitorLogFile();
+		File monitorFile = UiUsageMonitorPlugin.getDefault().getMonitorLogFile();
 
 		if (monitorFile.length() <= MAX_FILE_LENGTH) {
 			IFileStore fileStore = EFS.getLocalFileSystem().getStore(new Path(monitorFile.getAbsolutePath()));

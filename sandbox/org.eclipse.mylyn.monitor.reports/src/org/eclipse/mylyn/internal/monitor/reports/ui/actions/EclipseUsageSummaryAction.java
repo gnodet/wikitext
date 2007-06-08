@@ -28,8 +28,8 @@ import org.eclipse.mylyn.internal.monitor.core.collection.DelegatingUsageCollect
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
 import org.eclipse.mylyn.internal.monitor.core.collection.SummaryCollector;
 import org.eclipse.mylyn.internal.monitor.core.collection.ViewUsageCollector;
-import org.eclipse.mylyn.internal.monitor.reports.MylarReportsPlugin;
-import org.eclipse.mylyn.internal.monitor.usage.MylarUsageMonitorPlugin;
+import org.eclipse.mylyn.internal.monitor.reports.MonitorReportsPlugin;
+import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.internal.monitor.usage.collectors.PerspectiveUsageCollector;
 import org.eclipse.mylyn.internal.monitor.usage.editors.UsageStatsEditorInput;
 import org.eclipse.mylyn.monitor.usage.ReportGenerator;
@@ -68,16 +68,16 @@ public class EclipseUsageSummaryAction implements IViewActionDelegate {
 					DelegatingUsageCollector collector = new DelegatingUsageCollector();
 					collector.setReportTitle("Usage Summary");
 					collector.setDelegates(delegates);
-					generator = new ReportGenerator(MylarUsageMonitorPlugin.getDefault().getInteractionLogger(),
+					generator = new ReportGenerator(UiUsageMonitorPlugin.getDefault().getInteractionLogger(),
 							collector, new JobChangeAdapter() {
 								public void done(IJobChangeEvent event) {
 									try {
-										IWorkbenchPage page = MylarReportsPlugin.getDefault().getWorkbench()
+										IWorkbenchPage page = MonitorReportsPlugin.getDefault().getWorkbench()
 												.getActiveWorkbenchWindow().getActivePage();
 										if (page == null)
 											return;
 										IEditorInput input = new UsageStatsEditorInput(files, generator);
-										page.openEditor(input, MylarReportsPlugin.REPORT_SUMMARY_ID);
+										page.openEditor(input, MonitorReportsPlugin.REPORT_SUMMARY_ID);
 									} catch (PartInitException ex) {
 										MylarStatusHandler.log(ex, "couldn't open summary editor");
 									}
@@ -107,7 +107,7 @@ public class EclipseUsageSummaryAction implements IViewActionDelegate {
 		Collections.sort(files); // ensure that they are sorted by date
 
 		if (files.isEmpty()) {
-			files.add(MylarUsageMonitorPlugin.getDefault().getMonitorLogFile());
+			files.add(UiUsageMonitorPlugin.getDefault().getMonitorLogFile());
 		}
 		return files;
 	}

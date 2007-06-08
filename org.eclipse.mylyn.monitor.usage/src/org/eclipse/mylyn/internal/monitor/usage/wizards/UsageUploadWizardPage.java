@@ -14,7 +14,7 @@ package org.eclipse.mylyn.internal.monitor.usage.wizards;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.mylyn.internal.monitor.usage.MylarUsageMonitorPlugin;
+import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -53,8 +53,8 @@ public class UsageUploadWizardPage extends WizardPage {
 		super("Usage Data Submission Wizard");
 
 		setTitle("Usage Data Submission");
-		if (MylarUsageMonitorPlugin.getDefault().getCustomizingPlugin() != null) {
-			String customizedTitle = MylarUsageMonitorPlugin.getDefault().getStudyParameters().getTitle();
+		if (UiUsageMonitorPlugin.getDefault().getCustomizingPlugin() != null) {
+			String customizedTitle = UiUsageMonitorPlugin.getDefault().getStudyParameters().getTitle();
 			if (!customizedTitle.equals("")) {
 				setTitle(customizedTitle + ": Usage Data Upload");
 			}
@@ -85,10 +85,10 @@ public class UsageUploadWizardPage extends WizardPage {
 		topContainerLayout.verticalSpacing = 9;
 
 		Label label;
-		if (MylarUsageMonitorPlugin.getDefault().getCustomizingPlugin() != null) {
+		if (UiUsageMonitorPlugin.getDefault().getCustomizingPlugin() != null) {
 			label = new Label(parent, SWT.NULL);
 			label.setFont(JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT));
-			label.setText(MylarUsageMonitorPlugin.getDefault().getCustomizedByMessage());
+			label.setText(UiUsageMonitorPlugin.getDefault().getCustomizedByMessage());
 		}
 
 		label = new Label(topContainer, SWT.NULL);
@@ -98,7 +98,7 @@ public class UsageUploadWizardPage extends WizardPage {
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		serverAddrText.setLayoutData(gd);
 		serverAddrText.setEditable(false);
-		serverAddrText.setText(MylarUsageMonitorPlugin.getDefault().getStudyParameters().getServletUrl());
+		serverAddrText.setText(UiUsageMonitorPlugin.getDefault().getStudyParameters().getServletUrl());
 
 		label = new Label(topContainer, SWT.NULL);
 		label.setText("Usage file location:");

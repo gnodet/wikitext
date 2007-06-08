@@ -113,7 +113,7 @@ public class WebContextManager {
 	}
 
 	private File getTitleCacheFile() throws IOException {
-		String storePath = MylarWebPlugin.getDefault().getStateLocation().toOSString();
+		String storePath = FocusedWebPlugin.getDefault().getStateLocation().toOSString();
 		File file = new File(storePath + File.separator + FILENAME_CACHE);
 		if (!file.exists()) {
 			file.createNewFile();

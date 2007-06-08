@@ -20,25 +20,25 @@ import org.eclipse.mylyn.monitor.usage.IQuestionnairePage;
  */
 public class StudyParameters {
 
-	private String title = MylarUsageMonitorPlugin.DEFAULT_TITLE;
+	private String title = UiUsageMonitorPlugin.DEFAULT_TITLE;
 
-	private String description = MylarUsageMonitorPlugin.DEFAULT_DESCRIPTION;
+	private String description = UiUsageMonitorPlugin.DEFAULT_DESCRIPTION;
 
 	private IQuestionnairePage questionnairePage = null;
 
 	private IBackgroundPage backgroundPage = null;
 
-	private long transmitPromptPeriod = MylarUsageMonitorPlugin.DEFAULT_DELAY_BETWEEN_TRANSMITS;
+	private long transmitPromptPeriod = UiUsageMonitorPlugin.DEFAULT_DELAY_BETWEEN_TRANSMITS;
 
-	private String acceptedUrlList = MylarUsageMonitorPlugin.DEFAULT_ACCEPTED_URL_LIST;
+	private String acceptedUrlList = UiUsageMonitorPlugin.DEFAULT_ACCEPTED_URL_LIST;
 
-	private String useContactField = MylarUsageMonitorPlugin.DEFAULT_CONTACT_CONSENT_FIELD;
+	private String useContactField = UiUsageMonitorPlugin.DEFAULT_CONTACT_CONSENT_FIELD;
 
-	private String formsConsent = MylarUsageMonitorPlugin.DEFAULT_ETHICS_FORM;
+	private String formsConsent = UiUsageMonitorPlugin.DEFAULT_ETHICS_FORM;
 
-	private String version = MylarUsageMonitorPlugin.DEFAULT_VERSION;
+	private String version = UiUsageMonitorPlugin.DEFAULT_VERSION;
 
-	private String servletUrl = MylarUsageMonitorPlugin.DEFAULT_UPLOAD_SERVER;
+	private String servletUrl = UiUsageMonitorPlugin.DEFAULT_UPLOAD_SERVER;
 
 	public String getServletUrl() {
 		return servletUrl;

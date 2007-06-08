@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Mylar Monitor Reports Plug-in
 Bundle-SymbolicName: org.eclipse.mylyn.monitor.reports; singleton:=true
 Bundle-Version: 0.4.1
-Bundle-Activator: org.eclipse.mylyn.internal.monitor.reports.MylarReportsPlugin
+Bundle-Activator: org.eclipse.mylyn.internal.monitor.reports.MonitorReportsPlugin
 Bundle-Vendor: Eclipse.org
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

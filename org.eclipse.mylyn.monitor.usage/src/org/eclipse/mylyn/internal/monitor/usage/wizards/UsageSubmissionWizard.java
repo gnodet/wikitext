@@ -44,7 +44,7 @@ import org.eclipse.mylyn.core.MylarStatusHandler;
 import org.eclipse.mylyn.internal.core.util.ZipFileUtil;
 import org.eclipse.mylyn.internal.monitor.usage.InteractionEventLogger;
 import org.eclipse.mylyn.internal.monitor.usage.MonitorFileRolloverJob;
-import org.eclipse.mylyn.internal.monitor.usage.MylarUsageMonitorPlugin;
+import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
 import org.eclipse.mylyn.monitor.usage.IBackgroundPage;
 import org.eclipse.mylyn.monitor.usage.IQuestionnairePage;
@@ -83,7 +83,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	/** The id of the user */
 	private int uid;
 
-	private final File monitorFile = MylarUsageMonitorPlugin.getDefault().getMonitorLogFile();
+	private final File monitorFile = UiUsageMonitorPlugin.getDefault().getMonitorLogFile();
 
 	private static int processedFileCount = 1;
 
@@ -117,28 +117,28 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	}
 
 	private void setTitles() {
-		super.setDefaultPageImageDescriptor(MylarUsageMonitorPlugin.imageDescriptorFromPlugin(
-				MylarUsageMonitorPlugin.PLUGIN_ID, "icons/wizban/banner-user.gif"));
+		super.setDefaultPageImageDescriptor(UiUsageMonitorPlugin.imageDescriptorFromPlugin(
+				UiUsageMonitorPlugin.PLUGIN_ID, "icons/wizban/banner-user.gif"));
 		super.setWindowTitle("Mylar Feedback");
 	}
 
 	private void init(boolean performUpload) {
 		this.performUpload = performUpload;
 		setNeedsProgressMonitor(true);
-		uid = MylarUsageMonitorPlugin.getDefault().getPreferenceStore().getInt(MylarUsageMonitorPlugin.PREF_USER_ID);
+		uid = UiUsageMonitorPlugin.getDefault().getPreferenceStore().getInt(UiUsageMonitorPlugin.PREF_USER_ID);
 		if (uid == 0 || uid == -1) {
 			uid = this.getNewUid();
-			MylarUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(MylarUsageMonitorPlugin.PREF_USER_ID,
+			UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(UiUsageMonitorPlugin.PREF_USER_ID,
 					uid);
 		}
 		uploadPage = new UsageUploadWizardPage(this);
 		fileSelectionPage = new UsageFileSelectionWizardPage("TODO, change this string");
-		if (MylarUsageMonitorPlugin.getDefault().isBackgroundEnabled()) {
-			IBackgroundPage page = MylarUsageMonitorPlugin.getDefault().getStudyParameters().getBackgroundPage();
+		if (UiUsageMonitorPlugin.getDefault().isBackgroundEnabled()) {
+			IBackgroundPage page = UiUsageMonitorPlugin.getDefault().getStudyParameters().getBackgroundPage();
 			backgroundPage = page;
 		}
-		if (MylarUsageMonitorPlugin.getDefault().isQuestionnaireEnabled() && performUpload) {
-			IQuestionnairePage page = MylarUsageMonitorPlugin.getDefault().getStudyParameters().getQuestionnairePage();
+		if (UiUsageMonitorPlugin.getDefault().isQuestionnaireEnabled() && performUpload) {
+			IQuestionnairePage page = UiUsageMonitorPlugin.getDefault().getStudyParameters().getQuestionnairePage();
 			questionnairePage = page;
 		}
 		super.setForcePreviousAndNextButtons(true);
@@ -169,10 +169,10 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 		if (!performUpload)
 			return true;
-		if (MylarUsageMonitorPlugin.getDefault().isQuestionnaireEnabled() && performUpload && questionnairePage != null) {
+		if (UiUsageMonitorPlugin.getDefault().isQuestionnaireEnabled() && performUpload && questionnairePage != null) {
 			questionnaireFile = questionnairePage.createFeedbackFile();
 		}
-		if (MylarUsageMonitorPlugin.getDefault().isBackgroundEnabled() && performUpload && displayBackgroundPage
+		if (UiUsageMonitorPlugin.getDefault().isBackgroundEnabled() && performUpload && displayBackgroundPage
 				&& backgroundPage != null) {
 			backgroundFile = backgroundPage.createFeedbackFile();
 		}
@@ -202,7 +202,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 					return Status.OK_STATUS;
 				} catch (Exception e) {
 					MylarStatusHandler.log(e, "Error uploading statistics");
-					return new Status(Status.ERROR, MylarUsageMonitorPlugin.PLUGIN_ID, Status.ERROR,
+					return new Status(Status.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, Status.ERROR,
 							"Error uploading statistics", e);
 				}
 			}
@@ -214,7 +214,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	}
 
 	public void performUpload(IProgressMonitor monitor) {
-		if (MylarUsageMonitorPlugin.getDefault().isBackgroundEnabled() && performUpload && backgroundFile != null) {
+		if (UiUsageMonitorPlugin.getDefault().isBackgroundEnabled() && performUpload && backgroundFile != null) {
 			upload(backgroundFile, BACKGROUND, monitor);
 
 			if (failed) {
@@ -226,7 +226,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			}
 		}
 
-		if (MylarUsageMonitorPlugin.getDefault().isQuestionnaireEnabled() && performUpload && questionnaireFile != null) {
+		if (UiUsageMonitorPlugin.getDefault().isQuestionnaireEnabled() && performUpload && questionnaireFile != null) {
 			upload(questionnaireFile, QUESTIONAIRE, monitor);
 
 			if (failed) {
@@ -263,13 +263,13 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			// }
 		}
 
-		MylarUsageMonitorPlugin.getDefault().getInteractionLogger().startMonitoring();
-		MylarUsageMonitorPlugin.setPerformingUpload(false);
+		UiUsageMonitorPlugin.getDefault().getInteractionLogger().startMonitoring();
+		UiUsageMonitorPlugin.setPerformingUpload(false);
 		return;
 	}
 
 	public boolean performCancel() {
-		MylarUsageMonitorPlugin.getDefault().userCancelSubmitFeedback(new Date(), true);
+		UiUsageMonitorPlugin.getDefault().userCancelSubmitFeedback(new Date(), true);
 		return true;
 	}
 
@@ -296,7 +296,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 	@Override
 	public void addPages() {
-		if (MylarUsageMonitorPlugin.getDefault().isQuestionnaireEnabled() && performUpload && questionnairePage != null) {
+		if (UiUsageMonitorPlugin.getDefault().isQuestionnaireEnabled() && performUpload && questionnairePage != null) {
 			addPage(questionnairePage);
 		}
 		if (performUpload) {
@@ -309,7 +309,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	}
 
 	public void addBackgroundPage() {
-		if (MylarUsageMonitorPlugin.getDefault().isBackgroundEnabled() && backgroundPage != null) {
+		if (UiUsageMonitorPlugin.getDefault().isBackgroundEnabled() && backgroundPage != null) {
 			addPage(backgroundPage);
 			displayBackgroundPage = true;
 		}
@@ -328,7 +328,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		int status = 0;
 
 		try {
-			String servletUrl = MylarUsageMonitorPlugin.getDefault().getStudyParameters().getServletUrl();
+			String servletUrl = UiUsageMonitorPlugin.getDefault().getStudyParameters().getServletUrl();
 			final PostMethod filePost = new PostMethod(servletUrl);
 
 			Part[] parts = { new FilePart("temp.txt", f) };
@@ -459,8 +459,8 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 			// TODO, do this method properly
 			// create a new post method
-			String url = MylarUsageMonitorPlugin.getDefault().getStudyParameters().getServletUrl()
-					+ MylarUsageMonitorPlugin.getDefault().getStudyParameters().getServletUrl();
+			String url = UiUsageMonitorPlugin.getDefault().getStudyParameters().getServletUrl()
+					+ UiUsageMonitorPlugin.getDefault().getStudyParameters().getServletUrl();
 			final GetMethod getUidMethod = new GetMethod(url);
 
 			NameValuePair first = new NameValuePair("firstName", firstName);
@@ -477,7 +477,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 				anon = new NameValuePair("anonymous", "false");
 			}
 
-			if (MylarUsageMonitorPlugin.getDefault().usingContactField())
+			if (UiUsageMonitorPlugin.getDefault().usingContactField())
 				getUidMethod.setQueryString(new NameValuePair[] { first, last, email, job, size, buisness, anon,
 						contact });
 			else
@@ -485,7 +485,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 			// create a new client and upload the file
 			final HttpClient client = new HttpClient();
-			MylarUsageMonitorPlugin.getDefault().configureProxy(client, url);
+			UiUsageMonitorPlugin.getDefault().configureProxy(client, url);
 
 			ProgressMonitorDialog pmd = new ProgressMonitorDialog(Display.getCurrent().getActiveShell());
 			pmd.run(false, false, new IRunnableWithProgress() {
@@ -546,8 +546,8 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			} else {
 				resp = resp.substring(resp.indexOf(":") + 1).trim();
 				uid = Integer.parseInt(resp);
-				MylarUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(
-						MylarUsageMonitorPlugin.PREF_USER_ID, uid);
+				UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(
+						UiUsageMonitorPlugin.PREF_USER_ID, uid);
 				return uid;
 			}
 
@@ -576,8 +576,8 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	}
 
 	public int getNewUid() {
-		final PostMethod filePost = new PostMethod(MylarUsageMonitorPlugin.DEFAULT_UPLOAD_SERVER
-				+ MylarUsageMonitorPlugin.DEFAULT_UPLOAD_SERVLET_ID);
+		final PostMethod filePost = new PostMethod(UiUsageMonitorPlugin.DEFAULT_UPLOAD_SERVER
+				+ UiUsageMonitorPlugin.DEFAULT_UPLOAD_SERVLET_ID);
 
 		filePost.addParameter(new NameValuePair("MylarUserID", ""));
 		final HttpClient client = new HttpClient();
@@ -613,8 +613,8 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		try {
 			addBackgroundPage();
 
-			final PostMethod filePost = new PostMethod(MylarUsageMonitorPlugin.DEFAULT_UPLOAD_SERVER
-					+ MylarUsageMonitorPlugin.DEFAULT_UPLOAD_SERVLET_ID);
+			final PostMethod filePost = new PostMethod(UiUsageMonitorPlugin.DEFAULT_UPLOAD_SERVER
+					+ UiUsageMonitorPlugin.DEFAULT_UPLOAD_SERVLET_ID);
 			filePost.addParameter(new NameValuePair("MylarUserID", ""));
 			final HttpClient client = new HttpClient();
 			int status = 0;
@@ -674,8 +674,8 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			} else {
 				resp = resp.substring(resp.indexOf(":") + 1).trim();
 				uid = Integer.parseInt(resp);
-				MylarUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(
-						MylarUsageMonitorPlugin.PREF_USER_ID, uid);
+				UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(
+						UiUsageMonitorPlugin.PREF_USER_ID, uid);
 				return uid;
 			}
 
@@ -717,7 +717,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	}
 
 	private File processMonitorFile(File monitorFile) {
-		File processedFile = new File("processed-" + MylarUsageMonitorPlugin.MONITOR_LOG_NAME + processedFileCount++
+		File processedFile = new File("processed-" + UiUsageMonitorPlugin.MONITOR_LOG_NAME + processedFileCount++
 				+ ".xml");
 		InteractionEventLogger logger = new InteractionEventLogger(processedFile);
 		logger.startMonitoring();
@@ -752,11 +752,11 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	}
 
 	private File zipFilesForUpload() {
-		MylarUsageMonitorPlugin.setPerformingUpload(true);
-		MylarUsageMonitorPlugin.getDefault().getInteractionLogger().stopMonitoring();
+		UiUsageMonitorPlugin.setPerformingUpload(true);
+		UiUsageMonitorPlugin.getDefault().getInteractionLogger().stopMonitoring();
 
 		List<File> files = new ArrayList<File>();
-		File monitorFile = MylarUsageMonitorPlugin.getDefault().getMonitorLogFile();
+		File monitorFile = UiUsageMonitorPlugin.getDefault().getMonitorLogFile();
 		File fileToUpload = this.processMonitorFile(monitorFile);
 		files.add(fileToUpload);
 
@@ -783,7 +783,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			}
 		}
 
-		MylarUsageMonitorPlugin.getDefault().getInteractionLogger().startMonitoring();
+		UiUsageMonitorPlugin.getDefault().getInteractionLogger().startMonitoring();
 		try {
 			File zipFile = File.createTempFile(uid + ".", ".zip");
 			ZipFileUtil.createZipFile(zipFile, files);

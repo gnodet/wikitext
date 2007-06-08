@@ -42,11 +42,11 @@ public abstract class AbstractMylarUsageCollector extends DelegatingUsageCollect
 	public void consumeEvent(InteractionEvent event, int userId) {
 		super.consumeEvent(event, userId);
 		userIds.add(userId);
-		if (MylarUsageDetector.isAMylarActivateCommand(event)) {
+		if (FocusedUiUsageDetector.isAMylarActivateCommand(event)) {
 			mylarUserIds.add(userId);
 			mylarInactiveUserIds.remove(userId);
 		}
-		if (MylarUsageDetector.isAMylarDeactivateCommand(event)) {
+		if (FocusedUiUsageDetector.isAMylarDeactivateCommand(event)) {
 			mylarInactiveUserIds.add(userId);
 		}
 	}

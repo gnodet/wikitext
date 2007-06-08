@@ -125,8 +125,8 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 
 		progressMonitor.beginTask(JOB_LABEL, IProgressMonitor.UNKNOWN);
 
-		final File monitorFile = MylarUsageMonitorPlugin.getDefault().getMonitorLogFile();
-		InteractionEventLogger logger = MylarUsageMonitorPlugin.getDefault().getInteractionLogger();
+		final File monitorFile = UiUsageMonitorPlugin.getDefault().getMonitorLogFile();
+		InteractionEventLogger logger = UiUsageMonitorPlugin.getDefault().getInteractionLogger();
 
 		logger.stopMonitoring();
 
@@ -152,7 +152,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 				ZipOutputStream zipFileStream;
 
 				zipFileStream = new ZipOutputStream(new FileOutputStream(currBackupZipFile));
-				zipFileStream.putNextEntry(new ZipEntry(MylarUsageMonitorPlugin.getDefault().getMonitorLogFile()
+				zipFileStream.putNextEntry(new ZipEntry(UiUsageMonitorPlugin.getDefault().getMonitorLogFile()
 						.getName()));
 
 				for (InteractionEvent event : events) {
@@ -178,7 +178,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 
 						}
 						zipFileStream = new ZipOutputStream(new FileOutputStream(currBackupZipFile));
-						zipFileStream.putNextEntry(new ZipEntry(MylarUsageMonitorPlugin.getDefault()
+						zipFileStream.putNextEntry(new ZipEntry(UiUsageMonitorPlugin.getDefault()
 								.getMonitorLogFile().getName()));
 						currMonth = monthOfCurrEvent;
 						String xml = logger.writeLegacyEvent(event);
@@ -205,7 +205,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 		progressMonitor.worked(1);
 		logger.startMonitoring();
 
-		generator = new ReportGenerator(MylarUsageMonitorPlugin.getDefault().getInteractionLogger(), collectors, this,
+		generator = new ReportGenerator(UiUsageMonitorPlugin.getDefault().getInteractionLogger(), collectors, this,
 				forceSyncForTesting);
 
 		progressMonitor.worked(1);
@@ -220,10 +220,10 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 			try {
 				final IEditorInput input = this.input;
 
-				IWorkbenchPage page = MylarUsageMonitorPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow()
+				IWorkbenchPage page = UiUsageMonitorPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow()
 						.getActivePage();
 				if (page == null) {
-					return new Status(Status.ERROR, MylarUsageMonitorPlugin.PLUGIN_ID, Status.OK, "Mylar Usage Summary", null);
+					return new Status(Status.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, Status.OK, "Mylar Usage Summary", null);
 				}
 				if (input != null) {
 					page.openEditor(input, UsageSummaryReportEditorPart.ID);
@@ -253,7 +253,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 			public void run() {
 				try {
-					final IWorkbenchPage page = MylarUsageMonitorPlugin.getDefault().getWorkbench()
+					final IWorkbenchPage page = UiUsageMonitorPlugin.getDefault().getWorkbench()
 							.getActiveWorkbenchWindow().getActivePage();
 					if (page == null) {
 						return;
