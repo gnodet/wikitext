@@ -23,7 +23,7 @@
      	<action  
   		  	label="Make Less Interesting" 
 	  		tooltip="Mark selected element as uninteresting"
-	  		menubarPath="mylar" 
+	  		menubarPath="mylyn" 
 	  		id="org.eclipse.mylyn.web.ui.actions.InterestDecrementAction" 
 	  		class="org.eclipse.mylyn.internal.context.ui.actions.InterestDecrementAction"
 	  		icon="icons/elcl16/interest-decrease.gif"
@@ -31,7 +31,7 @@
 	    <action  
   		  	label="Mark as Landmark" 
 	  		tooltip="Make selected element a landmark"
-	  		menubarPath="mylar" 
+	  		menubarPath="mylyn" 
 	  		id="org.eclipse.mylyn.web.ui.actions.InterestIncrementAction" 
 	  		class="org.eclipse.mylyn.internal.context.ui.actions.InterestIncrementAction"
 	  		icon="icons/elcl16/interest-increase.gif"
@@ -51,7 +51,7 @@
             icon="icons/obj16/web-root.gif"
             id="org.eclipse.mylyn.web.navigator"
             labelProvider="org.eclipse.mylyn.internal.web.ui.WebNavigatorLabelProvider"
-            name="Mylar Web Context (Experimental)"
+            name="Web Context (Experimental)"
             priority="lowest">
          <triggerPoints>
             <or> 

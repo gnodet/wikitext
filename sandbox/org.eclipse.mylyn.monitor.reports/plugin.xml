@@ -9,7 +9,7 @@
 	    <action  
   		  	label="Reports: My Usage Summary" 
 	  		tooltip="Mylar Reports: Usage Summary"
-	  		menubarPath="mylar.monitor" 
+	  		menubarPath="mylyn.monitor" 
 	  		id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.ComputeSummaryAction" 
 	  		class="org.eclipse.mylyn.internal.monitor.reports.ui.actions.EclipseUsageSummaryAction"
 	  		icon="icons/eview16/monitor.gif"
@@ -17,7 +17,7 @@
 	  	<action  
   		  	label="Reports: Mylar User Analysis" 
 	  		tooltip="Mylar Reports: User Analysis"
-	  		menubarPath="mylar.monitor" 
+	  		menubarPath="mylyn.monitor" 
 	  		id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.ComputeSummaryAction" 
 	  		class="org.eclipse.mylyn.internal.monitor.reports.ui.actions.MylarUserAnalysisAction"
 	  		icon="icons/eview16/monitor.gif"
@@ -29,7 +29,7 @@
 	    <action  
   		  	label="Reports: My Usage Summary" 
 	  		tooltip="Mylar Reports: My Usage Summary"
-	  		menubarPath="mylar.monitor" 
+	  		menubarPath="mylyn.monitor" 
 	  		id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.ComputeSummaryAction" 
 	  		class="org.eclipse.mylyn.internal.monitor.reports.ui.actions.EclipseUsageSummaryAction"
 	  		icon="icons/eview16/monitor.gif"
@@ -37,7 +37,7 @@
 	  		    <action  
   		  	label="Reports: Mylar User Analysis" 
 	  		tooltip="Mylar Reports: User Analysis"
-	  		menubarPath="mylar.monitor" 
+	  		menubarPath="mylyn.monitor" 
 	  		id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.ComputeSummaryAction" 
 	  		class="org.eclipse.mylyn.internal.monitor.reports.ui.actions.MylarUserAnalysisAction"
 	  		icon="icons/eview16/monitor.gif"
@@ -90,7 +90,7 @@
            icon="icons/eview16/monitor.gif"
            id="org.eclipse.mylyn.ui.actions.ShowInteractionHistory"
            label="Show interarction history"
-           menubarPath="mylar.monitor"
+           menubarPath="mylyn.monitor"
            tooltip="Show interaction history"/> 
         -->
 <!--
