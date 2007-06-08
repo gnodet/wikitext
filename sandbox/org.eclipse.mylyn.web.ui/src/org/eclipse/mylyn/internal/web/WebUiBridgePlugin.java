@@ -24,11 +24,11 @@ import org.osgi.framework.BundleContext;
 /**
  * @author Mik Kersten
  */
-public class FocusedWebPlugin extends AbstractUIPlugin {
+public class WebUiBridgePlugin extends AbstractUIPlugin {
 
 	protected static final String ID = "org.eclipse.mylyn.web";
 
-	private static FocusedWebPlugin INSTANCE;
+	private static WebUiBridgePlugin INSTANCE;
 
 	private WebContextManager webResourceManager;
 
@@ -36,7 +36,7 @@ public class FocusedWebPlugin extends AbstractUIPlugin {
 	
 	private Set<String> excludedUrls = new HashSet<String>();
 
-	public FocusedWebPlugin() {
+	public WebUiBridgePlugin() {
 		INSTANCE = this;
 	}
 
@@ -71,7 +71,7 @@ public class FocusedWebPlugin extends AbstractUIPlugin {
 		INSTANCE = null;
 	}
 
-	public static FocusedWebPlugin getDefault() {
+	public static WebUiBridgePlugin getDefault() {
 		return INSTANCE;
 	}
 	

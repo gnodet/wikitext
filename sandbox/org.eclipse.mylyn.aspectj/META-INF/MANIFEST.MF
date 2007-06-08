@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Mylar Aspectj Plug-in
 Bundle-SymbolicName: org.eclipse.mylyn.aspectj;singleton:=true
 Bundle-Version: 0.3.0
-Bundle-Activator: org.eclipse.mylyn.internal.aspectj.FocusedAspectJPlugin
+Bundle-Activator: org.eclipse.mylyn.internal.aspectj.AspectJBridgePlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.mylyn.java,

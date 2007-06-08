@@ -62,7 +62,7 @@ public class WebResourceStructureBridge extends AbstractContextStructureBridge {
 			url = ((URL)object).toExternalForm();
 		}
 		if (url != null) {
-			for (String excluded : FocusedWebPlugin.getDefault().getExcludedUrls()) {
+			for (String excluded : WebUiBridgePlugin.getDefault().getExcludedUrls()) {
 				if (url.startsWith(excluded)) {
 					return null;
 				}
@@ -75,7 +75,7 @@ public class WebResourceStructureBridge extends AbstractContextStructureBridge {
 
 	@Override
 	public Object getObjectForHandle(String handle) {
-		return FocusedWebPlugin.getWebResourceManager().find(handle);
+		return WebUiBridgePlugin.getWebResourceManager().find(handle);
 	}
 
 	@Override

@@ -15,3 +15,5 @@
 1181268837562	Rename type 'MylarPreferenceWizardPage'
 1181269661074	Rename type 'MylarProposalSeparator'
 1181327516551	Rename field 'MARKER_ID_LANDMARK'
+1181330037311	Rename type 'FocusedJavaPlugin'
+1181330063489	Rename type 'JavaBridgeUiPlugin'

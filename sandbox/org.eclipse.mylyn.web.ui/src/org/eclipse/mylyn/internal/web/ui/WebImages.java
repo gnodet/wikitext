@@ -16,7 +16,7 @@ import java.net.URL;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
-import org.eclipse.mylyn.internal.web.FocusedWebPlugin;
+import org.eclipse.mylyn.internal.web.WebUiBridgePlugin;
 import org.eclipse.swt.graphics.Image;
 
 /**
@@ -32,7 +32,7 @@ public class WebImages {
 
 	public static final String T_VIEW = "eview16";
 
-	private static final URL baseURL = FocusedWebPlugin.getDefault().getBundle().getEntry("/icons/");
+	private static final URL baseURL = WebUiBridgePlugin.getDefault().getBundle().getEntry("/icons/");
 	
 	public static final ImageDescriptor WEB_PAGE = create(T_OBJ, "web-page.png");
 

@@ -113,7 +113,7 @@ public class WebContextManager {
 	}
 
 	private File getTitleCacheFile() throws IOException {
-		String storePath = FocusedWebPlugin.getDefault().getStateLocation().toOSString();
+		String storePath = WebUiBridgePlugin.getDefault().getStateLocation().toOSString();
 		File file = new File(storePath + File.separator + FILENAME_CACHE);
 		if (!file.exists()) {
 			file.createNewFile();

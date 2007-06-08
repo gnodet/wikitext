@@ -11,13 +11,17 @@
 
 package org.eclipse.mylyn.internal.web.ui;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylyn.internal.web.WebResource;
 import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
+import org.eclipse.swt.SWTException;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.TextTransfer;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorReference;
@@ -55,6 +59,36 @@ public class WebUiUtil {
 			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
 					+ " could not be opened");
 		} 
+	}
+
+	/**
+	 * @param repositoryUrl
+	 *            The URL of the web site including protocol. E.g.
+	 *            <code>http://foo.bar</code> or
+	 *            <code>https://foo.bar/baz</code>
+	 * @return a 16*16 favicon, or null if no favicon found
+	 * @throws MalformedURLException
+	 */
+	public static ImageDescriptor getFaviconForUrl(String repositoryUrl) throws MalformedURLException {
+		URL url = new URL(repositoryUrl);
+
+		String host = url.getHost();
+		String protocol = url.getProtocol();
+		String favString = protocol + "://" + host + "/favicon.ico";
+
+		URL favUrl = new URL(favString);
+		try {
+			ImageDescriptor desc = ImageDescriptor.createFromURL(favUrl);
+			if (desc != null && desc.getImageData() != null) {
+				if ((desc.getImageData().width != 16) && (desc.getImageData().height != 16)) {
+					ImageData data = desc.getImageData().scaledTo(16, 16);
+					return ImageDescriptor.createFromImageData(data);
+				}
+			}
+			return ImageDescriptor.createFromURL(favUrl);
+		} catch (SWTException e) {
+			return null;
+		}
 	}
 	
 	public static String stripProtocol(String url) {

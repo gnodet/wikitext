@@ -32,7 +32,7 @@ import org.eclipse.mylyn.internal.context.ui.ContextUiPrefContstants;
 import org.eclipse.mylyn.internal.context.ui.Highlighter;
 import org.eclipse.mylyn.internal.context.ui.HighlighterImageDescriptor;
 import org.eclipse.mylyn.internal.context.ui.HighlighterList;
-import org.eclipse.mylyn.internal.java.FocusedJavaPlugin;
+import org.eclipse.mylyn.internal.java.JavaUiBridgePlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -116,7 +116,7 @@ public class MylarSandboxPreferencePage extends PreferencePage implements IWorkb
 		enableErrorInterest = new Button(group, SWT.CHECK);
 		enableErrorInterest.setText("Enable predicted interest of errors (significantly increases view refresh).");
 		enableErrorInterest.setSelection(getPreferenceStore().getBoolean(
-				FocusedJavaPlugin.PREDICTED_INTEREST_ERRORS));
+				JavaUiBridgePlugin.PREDICTED_INTEREST_ERRORS));
 	}
 
 	private void createHighlightersTable(Composite parent) {
@@ -180,7 +180,7 @@ public class MylarSandboxPreferencePage extends PreferencePage implements IWorkb
 
 	@Override
 	public boolean performOk() {
-		getPreferenceStore().setValue(FocusedJavaPlugin.PREDICTED_INTEREST_ERRORS,
+		getPreferenceStore().setValue(JavaUiBridgePlugin.PREDICTED_INTEREST_ERRORS,
 				enableErrorInterest.getSelection());
 		return true;
 	}
@@ -188,7 +188,7 @@ public class MylarSandboxPreferencePage extends PreferencePage implements IWorkb
 	@Override
 	public boolean performCancel() {
 		enableErrorInterest.setSelection(getPreferenceStore().getBoolean(
-				FocusedJavaPlugin.PREDICTED_INTEREST_ERRORS));
+				JavaUiBridgePlugin.PREDICTED_INTEREST_ERRORS));
 
 		String highlighters = getPreferenceStore().getString(ContextUiPrefContstants.HIGHLIGHTER_PREFIX);
 		ContextUiPlugin.getDefault().getHighlighterList().internalizeFromString(highlighters);
@@ -201,7 +201,7 @@ public class MylarSandboxPreferencePage extends PreferencePage implements IWorkb
 	public void performDefaults() {
 		super.performDefaults();
 		enableErrorInterest.setSelection(getPreferenceStore().getDefaultBoolean(
-				FocusedJavaPlugin.PREDICTED_INTEREST_ERRORS));
+				JavaUiBridgePlugin.PREDICTED_INTEREST_ERRORS));
 
 		contentProvider = new HighlighterContentProvider();
 		tableViewer.setContentProvider(contentProvider);

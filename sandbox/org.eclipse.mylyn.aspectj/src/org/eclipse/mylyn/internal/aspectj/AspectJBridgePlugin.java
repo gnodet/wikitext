@@ -18,15 +18,15 @@ import org.osgi.framework.BundleContext;
 /**
  * The main plugin class to be used in the desktop.
  */
-public class FocusedAspectJPlugin extends AbstractUIPlugin {
+public class AspectJBridgePlugin extends AbstractUIPlugin {
 
 	// The shared instance.
-	private static FocusedAspectJPlugin plugin;
+	private static AspectJBridgePlugin plugin;
 
 	/**
 	 * The constructor.
 	 */
-	public FocusedAspectJPlugin() {
+	public AspectJBridgePlugin() {
 		plugin = this;
 	}
 
@@ -50,7 +50,7 @@ public class FocusedAspectJPlugin extends AbstractUIPlugin {
 	/**
 	 * Returns the shared instance.
 	 */
-	public static FocusedAspectJPlugin getDefault() {
+	public static AspectJBridgePlugin getDefault() {
 		return plugin;
 	}
 
