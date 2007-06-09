@@ -20,7 +20,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.mylyn.monitor.core,
  org.eclipse.mylyn,
  org.eclipse.core.filesystem,
- org.eclipse.ui.ide
+ org.eclipse.ui.ide,
+ org.eclipse.mylyn.web.core
 Eclipse-AutoStart: true
 Bundle-Vendor: Eclipse.org
 Export-Package: 

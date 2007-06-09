@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 2 element(s) from project 'org.eclipse.mylyn.pde.ui'&#13;&#10;- Original project: 'org.eclipse.mylyn.pde.ui'&#13;&#10;- Original elements:&#13;&#10;     task-bug.gif&#13;&#10;     task-repository.gif" description="Delete elements" element1="icons/elcl16/task-bug.gif" element2="icons/elcl16/task-repository.gif" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="2" stamp="1181354487183" subPackages="false" version="1.0"/>
+<refactoring accessors="true" comment="Delete 1 element(s) from project 'org.eclipse.mylyn.pde.ui'&#13;&#10;- Original project: 'org.eclipse.mylyn.pde.ui'&#13;&#10;- Original element: 'etool16'" description="Delete element" element1="icons/etool16" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="1" stamp="1181354491145" subPackages="false" version="1.0"/>
+</session>
