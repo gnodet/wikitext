@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.ide.tests;
+package org.eclipse.mylyn.team.tests;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

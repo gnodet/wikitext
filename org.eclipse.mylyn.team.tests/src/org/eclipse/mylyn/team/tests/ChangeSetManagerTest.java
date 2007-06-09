@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.ide.tests;
+package org.eclipse.mylyn.team.tests;
 
 import java.util.List;
 
@@ -21,8 +21,8 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.mylyn.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.internal.ide.ui.IdeUiBridgePlugin;
-import org.eclipse.mylyn.internal.team.ContextChangeSet;
 import org.eclipse.mylyn.internal.team.ContextActiveChangeSetManager;
+import org.eclipse.mylyn.internal.team.ContextChangeSet;
 import org.eclipse.mylyn.resources.tests.AbstractResourceContextTest;
 import org.eclipse.mylyn.tasks.core.Task;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
