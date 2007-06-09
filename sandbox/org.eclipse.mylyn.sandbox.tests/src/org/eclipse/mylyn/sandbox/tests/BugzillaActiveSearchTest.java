@@ -68,9 +68,9 @@ public class BugzillaActiveSearchTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		WorkspaceSetupHelper.setupWorkspace();
-		repository = new TaskRepository(BugzillaCorePlugin.REPOSITORY_KIND,
-				IBugzillaConstants.ECLIPSE_BUGZILLA_URL);
-		TasksUiPlugin.getRepositoryManager().addRepository(repository, TasksUiPlugin.getDefault().getRepositoriesFilePath());
+		repository = new TaskRepository(BugzillaCorePlugin.REPOSITORY_KIND, IBugzillaConstants.ECLIPSE_BUGZILLA_URL);
+		TasksUiPlugin.getRepositoryManager().addRepository(repository,
+				TasksUiPlugin.getDefault().getRepositoriesFilePath());
 
 		IJavaProject jp = WorkspaceSetupHelper.getJdtCoreDomProject();
 		astNodeType = WorkspaceSetupHelper.getType(jp, "org.eclipse.jdt.core.dom.ASTNode");
@@ -79,7 +79,8 @@ public class BugzillaActiveSearchTest extends TestCase {
 	@Override
 	protected void tearDown() throws Exception {
 		WorkspaceSetupHelper.clearDoiModel();
-		TasksUiPlugin.getRepositoryManager().removeRepository(repository, TasksUiPlugin.getDefault().getRepositoriesFilePath());
+		TasksUiPlugin.getRepositoryManager().removeRepository(repository,
+				TasksUiPlugin.getDefault().getRepositoriesFilePath());
 	}
 
 	/**
@@ -134,8 +135,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 	}
 
 	/**
-	 * Tests that the bridge gets the right data for us This test is wierd
-	 * because it waits on results.
+	 * Tests that the bridge gets the right data for us This test is wierd because it waits on results.
 	 */
 	public void testBridge() {
 		lists.clear();
@@ -162,10 +162,10 @@ public class BugzillaActiveSearchTest extends TestCase {
 		assertTrue("No collector returned", lists.size() != 0);
 		List<?> c = lists.get(0);
 		assertTrue("Results not the right size", c.size() > 0); // TODO should
-																// be
-																// assertEquals
-																// on expected
-																// size
+		// be
+		// assertEquals
+		// on expected
+		// size
 
 		// display the time it took for the search and the results returned
 		MylarBugsManager.getBridge().removeFromLandmarksHash(astNodeType);
@@ -173,8 +173,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 	}
 
 	/**
-	 * Tests that the bridge saves the results of a search so that it can be
-	 * used later
+	 * Tests that the bridge saves the results of a search so that it can be used later
 	 */
 	public void testSaveResults() {
 		lists.clear();
@@ -200,25 +199,22 @@ public class BugzillaActiveSearchTest extends TestCase {
 		// do an inital search
 		assertTrue("No collectors returned", lists.size() != 0);
 		List<?> c = lists.get(0);
-		assertTrue("Results not the right size", c.size() > 0); // TODO should
-																// be
-																// assertEquals
-																// on expected
-																// size
+		assertTrue("Results not the right size", c.size() > 0);
+		// TODO should be assertEquals on expected size
 
 		// check that the search has been saved
 		List<BugzillaReportInfo> saved = MylarBugsManager.getBridge().getFromLandmarksHash(astNodeType,
 				BugzillaMylarSearch.UNQUAL);
 		assertTrue("Results not cached", saved != null);
-		assertTrue("Results not the right size", saved.size() > 0); // TODO
-																	// should be
-																	// assertEquals
-																	// on
-																	// expected
-																	// size
+		if (saved == null) {
+			fail();
+		} else {
+			assertTrue("Results not the right size", saved.size() > 0);
+			// TODO should be assertEquals on expected size
 
-		assertTrue(c.containsAll(saved) && saved.containsAll(c));
-		MylarBugsManager.getBridge().removeFromLandmarksHash(astNodeType);
+			assertTrue(c.containsAll(saved) && saved.containsAll(c));
+			MylarBugsManager.getBridge().removeFromLandmarksHash(astNodeType);
+		}
 	}
 
 	public void testLocalBugUnqual() throws InterruptedException {
@@ -231,27 +227,27 @@ public class BugzillaActiveSearchTest extends TestCase {
 		TaskListManager manager = TasksUiPlugin.getTaskListManager();
 		TaskCategory cat = new TaskCategory("Testing Category");
 		manager.getTaskList().addCategory(cat);
-		BugzillaTask bugTask1 = new BugzillaTask(bugPrefix, ""+94185, "<bugzilla info>");
+		BugzillaTask bugTask1 = new BugzillaTask(bugPrefix, "" + 94185, "<bugzilla info>");
 
 		manager.getTaskList().moveToContainer(cat, bugTask1);
 		// cat.addTask(bugTask1);
 		while (bugTask1.isSynchronizing()) {
 			Thread.sleep(500);
 		}
-		BugzillaTask bugTask2 = new BugzillaTask(bugPrefix, ""+3692, "<bugzilla info>");
+		BugzillaTask bugTask2 = new BugzillaTask(bugPrefix, "" + 3692, "<bugzilla info>");
 		manager.getTaskList().moveToContainer(cat, bugTask2);
 		// cat.addTask(bugTask2);
 		while (bugTask2.isSynchronizing()) {
 			Thread.sleep(500);
 		}
-		BugzillaTask bugTask3 = new BugzillaTask(bugPrefix, ""+3693, "<bugzilla info>");
+		BugzillaTask bugTask3 = new BugzillaTask(bugPrefix, "" + 3693, "<bugzilla info>");
 		manager.getTaskList().moveToContainer(cat, bugTask3);
 		// cat.addTask(bugTask3);
 		while (bugTask3.isSynchronizing()) {
 			Thread.sleep(500);
 		}
 
-		BugzillaTask bugTask4 = new BugzillaTask(bugPrefix, ""+9583, "<bugzilla info>");
+		BugzillaTask bugTask4 = new BugzillaTask(bugPrefix, "" + 9583, "<bugzilla info>");
 		manager.getTaskList().moveToContainer(cat, bugTask4);
 		// cat.addTask(bugTask4);
 		while (bugTask4.isSynchronizing()) {
@@ -298,20 +294,20 @@ public class BugzillaActiveSearchTest extends TestCase {
 		TaskListManager manager = TasksUiPlugin.getTaskListManager();
 		TaskCategory cat = new TaskCategory("Testing Category");
 		manager.getTaskList().addCategory(cat);
-		BugzillaTask bugTask1 = new BugzillaTask(bugPrefix, ""+94185, "<bugzilla info>");
+		BugzillaTask bugTask1 = new BugzillaTask(bugPrefix, "" + 94185, "<bugzilla info>");
 		manager.getTaskList().moveToContainer(cat, bugTask1);
 		// cat.addTask(bugTask1);
 		while (bugTask1.isSynchronizing()) {
 			Thread.sleep(500);
 		}
 
-		BugzillaTask bugTask2 = new BugzillaTask(bugPrefix, ""+9583, "<bugzilla info>");
+		BugzillaTask bugTask2 = new BugzillaTask(bugPrefix, "" + 9583, "<bugzilla info>");
 		manager.getTaskList().moveToContainer(cat, bugTask2);
 		// cat.addTask(bugTask2);
 		while (bugTask2.isSynchronizing()) {
 			Thread.sleep(500);
 		}
-		BugzillaTask bugTask3 = new BugzillaTask(bugPrefix, ""+3693, "<bugzilla info>");
+		BugzillaTask bugTask3 = new BugzillaTask(bugPrefix, "" + 3693, "<bugzilla info>");
 		manager.getTaskList().moveToContainer(cat, bugTask3);
 		// cat.addTask(bugTask3);
 		while (bugTask3.isSynchronizing()) {
