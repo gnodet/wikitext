@@ -13,3 +13,5 @@
 1181357973277	Move compilation units
 1181358000062	Rename package 'org.eclipse.mylyn.internal.team.template'
 1181358015474	Rename package 'org.eclipse.mylyn.team'
+1181363739236	Move compilation unit
+1181363744992	Delete element
