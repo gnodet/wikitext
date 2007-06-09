@@ -12,7 +12,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.search,
  org.eclipse.ui.forms,
  org.eclipse.mylyn.context.core,
- org.eclipse.mylyn
+ org.eclipse.mylyn,
+ org.eclipse.mylyn.web.core,
+ org.eclipse.mylyn.monitor.core
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.mylyn.internal.tasks.web
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
