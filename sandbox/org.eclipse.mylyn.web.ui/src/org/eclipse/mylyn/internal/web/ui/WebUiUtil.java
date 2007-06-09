@@ -16,7 +16,6 @@ import java.net.URL;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylyn.internal.web.WebResource;
 import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.dnd.Clipboard;

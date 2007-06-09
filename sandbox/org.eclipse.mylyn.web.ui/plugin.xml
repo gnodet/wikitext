@@ -5,7 +5,7 @@
 	<extension
          point="org.eclipse.mylyn.context.core.bridges">
       <structureBridge
-            class="org.eclipse.mylyn.internal.web.WebResourceStructureBridge"
+            class="org.eclipse.mylyn.internal.web.ui.WebResourceStructureBridge"
             name="Web Resource Structure Bridge"/>
    </extension> 
    <extension
@@ -19,7 +19,7 @@
   	<extension point = "org.eclipse.ui.popupMenus">
      <objectContribution
         id="org.eclipse.mylyn.ui.interest"
-        objectClass="org.eclipse.mylyn.internal.web.WebResource">
+        objectClass="org.eclipse.mylyn.internal.web.ui.WebResource">
      	<action  
   		  	label="Make Less Interesting" 
 	  		tooltip="Mark selected element as uninteresting"

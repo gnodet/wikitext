@@ -12,7 +12,6 @@
 package org.eclipse.mylyn.internal.web.ui;
 
 import org.eclipse.jface.viewers.ILabelProviderListener;
-import org.eclipse.mylyn.internal.web.WebResource;
 import org.eclipse.ui.IMemento;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.navigator.ICommonContentExtensionSite;

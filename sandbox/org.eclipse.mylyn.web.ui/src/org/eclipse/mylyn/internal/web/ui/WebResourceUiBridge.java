@@ -19,10 +19,6 @@ import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylyn.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.context.ui.AbstractContextUiBridge;
-import org.eclipse.mylyn.internal.web.WebPage;
-import org.eclipse.mylyn.internal.web.WebResource;
-import org.eclipse.mylyn.internal.web.WebResourceStructureBridge;
-import org.eclipse.mylyn.internal.web.WebSite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 

@@ -3,3 +3,9 @@
 1181269493779	Rename type 'MylarResourcesPreferenceInitializer'
 1181269514972	Rename type 'MylarResourcesExtensionPointReader'
 1181330314075	Rename type 'FocusedResourcesPlugin'
+1181359610397	Move compilation units
+1181359631799	Move compilation unit
+1181359640061	Move compilation unit
+1181359645723	Delete element
+1181359659571	Rename type 'FocusedResourcesPreferenceInitializer'
+1181359670601	Rename type 'FocusedResourcesExtensionPointReader'
