@@ -8,3 +8,8 @@
 1181357398217	Move compilation units
 1181357402770	Delete element
 1181357428702	Copy file
+1181357932030	Move compilation unit
+1181357947113	Rename type 'FocusedTeamPlugin'
+1181357973277	Move compilation units
+1181358000062	Rename package 'org.eclipse.mylyn.internal.team.template'
+1181358015474	Rename package 'org.eclipse.mylyn.team'

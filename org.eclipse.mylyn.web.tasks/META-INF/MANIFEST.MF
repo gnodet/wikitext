@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Mylar Web Tasks Plug-in
-Bundle-SymbolicName: org.eclipse.mylyn.tasks.web;singleton:=true
+Bundle-SymbolicName: org.eclipse.mylyn.web.tasks;singleton:=true
 Bundle-Version: 2.0.0.v20070607-1200
-Bundle-Activator: org.eclipse.mylyn.tasks.web.TasksWebPlugin
+Bundle-Activator: org.eclipse.mylyn.internal.web.tasks.TasksWebPlugin
 Bundle-Vendor: Eclipse.org
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -16,5 +16,5 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.mylyn.web.core,
  org.eclipse.mylyn.monitor.core
 Eclipse-LazyStart: true
-Export-Package: org.eclipse.mylyn.internal.tasks.web
+Export-Package: org.eclipse.mylyn.internal.web.tasks
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

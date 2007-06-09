@@ -1,1 +1,5 @@
 1181096288531	Change method 'WebQuery'
+1181357843529	Rename package 'org.eclipse.mylyn.tasks.web'
+1181357852784	Move compilation unit
+1181357855944	Delete element
+1181357866446	Rename package 'org.eclipse.mylyn.internal.tasks.web'
