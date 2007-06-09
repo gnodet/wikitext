@@ -7,17 +7,17 @@
          name="Generic web-based access (Advanced)"
          point="org.eclipse.mylyn.tasks.ui.repositories">
       <connectorCore
-            class="org.eclipse.mylyn.internal.tasks.web.WebRepositoryConnector"
+            class="org.eclipse.mylyn.internal.web.tasks.WebRepositoryConnector"
             id="org.eclipse.mylyn.web.tasklist.repositories"
             name="Generic web-based repository"
             type="web"/>
       <connectorUi
             brandingIcon="icons/obj16/repository-web.gif"
-            class="org.eclipse.mylyn.internal.tasks.web.WebRepositoryUi"
+            class="org.eclipse.mylyn.internal.web.tasks.WebRepositoryUi"
             name="Generic web-based repsoitory UI"
             overlayIcon="icons/obj16/overlay-web.gif"/>
       <externalizer
-            class="org.eclipse.mylyn.internal.tasks.web.WebTaskExternalizer"
+            class="org.eclipse.mylyn.internal.web.tasks.WebTaskExternalizer"
             id="org.eclipse.mylyn.web.tasklist.externalizer"/>
    </extension>
 
