@@ -2,3 +2,5 @@
 1181583348343	Rename method 'createSummaryLLayout'
 1181585630281	Rename method 'setAttachContext'
 1181589504718	Rename field 'backgroundIncoming'
+1181661435261	Rename type 'TaskCommandIds'
+1181661455011	Rename field 'OPEN_REMOTE_TASK'
