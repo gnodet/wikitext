@@ -4,3 +4,5 @@
 1181589504718	Rename field 'backgroundIncoming'
 1181661435261	Rename type 'TaskCommandIds'
 1181661455011	Rename field 'OPEN_REMOTE_TASK'
+1181678224420	Rename local variable 'contextToggle'
+1181678335997	Rename field 'compositeImages'
