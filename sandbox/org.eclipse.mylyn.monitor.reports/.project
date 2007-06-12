@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>org.eclipse.mylar.monitor.reports</name>
+	<name>org.eclipse.mylyn.monitor.reports</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -24,6 +24,5 @@
 	<natures>
 		<nature>org.eclipse.pde.PluginNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
-		<nature>edu.mit.csail.relo.jdt.builder.ReloJDTBuilderProjectNature</nature>
 	</natures>
 </projectDescription>
