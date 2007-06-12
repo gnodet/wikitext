@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.sandbox.share;
+package org.eclipse.mylyn.internal.sandbox.ui;
 
 import org.eclipse.mylyn.core.MylarStatusHandler;
 

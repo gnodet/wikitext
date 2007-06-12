@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.context.ui.actions;
+package org.eclipse.mylyn.internal.sandbox.ui.actions;
 
 import java.util.List;
 

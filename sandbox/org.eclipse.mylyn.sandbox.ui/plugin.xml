@@ -9,13 +9,28 @@
     <extension point="org.eclipse.ui.preferencePages">
       <page 
          name="Sandbox"
-         class="org.eclipse.mylyn.internal.sandbox.MylarSandboxPreferencePage"
+         class="org.eclipse.mylyn.internal.sandbox.ui.SandboxUiPreferencePage"
          id="org.eclipse.mylyn.sandbox.ui.preferences"
          category="org.eclipse.mylyn.ui.preferences">
          <keywordReference id="org.eclipse.mylyn.java.keywords"/>
       </page> 
    </extension>
-   
+
+ 	<extension point="org.eclipse.ui.viewActions"> 
+ 		<viewContribution 
+			id="org.eclipse.mylyn.context.ui.taskList.contribution" 
+   			targetID="org.eclipse.mylyn.tasks.ui.views.tasks">
+  		<action
+            class="org.eclipse.mylyn.internal.sandbox.ui.actions.ContextCapturePauseAction"
+            icon="icons/elcl16/capture-pause.gif"
+            id="org.eclipse.mylyn.ui.context.capture.pause"
+            label="Pause Context (Sandbox)"
+            menubarPath="additions"
+            style="toggle"
+            tooltip="Pause Capturing Context"/>
+  		</viewContribution>
+	</extension>
+	   
    <extension point="org.eclipse.mylyn.tasks.ui.actions"> 
       <dynamicPopupMenu
             class="org.eclipse.mylyn.internal.context.ui.TaskHighlighterMenuContributor"
@@ -63,7 +78,7 @@
          id="org.eclipse.mylyn.monitor.ui.reports.ui.switchTaskFolder"
          targetID="org.eclipse.mylyn.tasks.ui.views.TaskListView">
       <action
-            class="org.eclipse.mylyn.internal.sandbox.share.SwitchTaskDataFolderAction"
+            class="org.eclipse.mylyn.internal.sandbox.ui.actions.SwitchTaskDataFolderAction"
             icon="icons/eview16/folder.gif"
             id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.switchTask"
             label="Sandbox: Switch Task Data Folder..."

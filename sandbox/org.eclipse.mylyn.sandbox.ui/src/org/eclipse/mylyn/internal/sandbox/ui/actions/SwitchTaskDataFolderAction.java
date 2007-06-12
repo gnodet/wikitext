@@ -8,7 +8,7 @@
  * Contributors:
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
-package org.eclipse.mylyn.internal.sandbox.share;
+package org.eclipse.mylyn.internal.sandbox.ui.actions;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -20,8 +20,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.mylyn.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.core.MylarStatusHandler;
-import org.eclipse.mylyn.internal.context.ui.actions.ContextCapturePauseAction;
-import org.eclipse.mylyn.internal.sandbox.MylarSandboxPlugin;
+import org.eclipse.mylyn.internal.sandbox.ui.SandboxUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.ComboSelectionDialog;
 import org.eclipse.mylyn.internal.tasks.ui.ITasksUiConstants;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
@@ -110,7 +109,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 			}
 
 			// Add the option to switch back to the main local data directory
-			if (MylarSandboxPlugin.getDefault().getSharedDataDirectoryManager().isSharedDataDirectoryEnabled()) {
+			if (SandboxUiPlugin.getDefault().getSharedDataDirectoryManager().isSharedDataDirectoryEnabled()) {
 				folders.add(MAIN_LOCAL_DATA_DIR);
 			}
 
@@ -176,7 +175,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 		TasksUiPlugin.getTaskListManager().saveTaskList();
 
 		if (targetFolder.equals(MAIN_LOCAL_DATA_DIR)) {
-			MylarSandboxPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectoryEnabled(false);
+			SandboxUiPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectoryEnabled(false);
 			// MylarTaskListPlugin.getDefault().setDataDirectory(ContextCorePlugin.getDefault().getDataDirectory());
 			(new ContextCapturePauseAction()).resume(); // TODO: don't use
 			// actions directly
@@ -186,8 +185,8 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 			String dataDirPath = "<not implemented>";
 //			String dataDirPath = MylarReportsPlugin.getDefault().getRootSharedDataDirectory() + File.separator
 //					+ targetFolder;
-			MylarSandboxPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectory(dataDirPath);
-			MylarSandboxPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectoryEnabled(true);
+			SandboxUiPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectory(dataDirPath);
+			SandboxUiPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectoryEnabled(true);
 			// MylarTaskListPlugin.getDefault().setDataDirectory(dataDirPath);
 			(new ContextCapturePauseAction()).pause();
 //			TaskListView.getFromActivePerspective().indicateSharedFolder(targetFolder);

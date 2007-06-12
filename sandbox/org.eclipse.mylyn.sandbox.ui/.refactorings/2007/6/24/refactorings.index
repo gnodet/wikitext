@@ -1,2 +1,8 @@
 1181625402646	Move compilation units
 1181625408713	Delete element
+1181659319433	Rename type 'MylarSandboxPlugin'
+1181659328270	Rename type 'MylarSandboxPreferencePage'
+1181659339032	Rename package 'org.eclipse.mylyn.internal.sandbox'
+1181659382379	Move compilation unit
+1181659412070	Move compilation unit
+1181659415455	Delete element

@@ -9,23 +9,22 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.sandbox;
+package org.eclipse.mylyn.internal.sandbox.ui;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylyn.internal.sandbox.share.SharedDataDirectoryManager;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
  * @author Mik Kersten
  */
-public class MylarSandboxPlugin extends AbstractUIPlugin {
+public class SandboxUiPlugin extends AbstractUIPlugin {
 
-	private static MylarSandboxPlugin plugin;
+	private static SandboxUiPlugin plugin;
 
 	private SharedDataDirectoryManager sharedDataDirectoryManager = new SharedDataDirectoryManager();
 
-	public MylarSandboxPlugin() {
+	public SandboxUiPlugin() {
 		super();
 		plugin = this;
 	}
@@ -44,7 +43,7 @@ public class MylarSandboxPlugin extends AbstractUIPlugin {
 	/**
 	 * Returns the shared instance.
 	 */
-	public static MylarSandboxPlugin getDefault() {
+	public static SandboxUiPlugin getDefault() {
 		return plugin;
 	}
 

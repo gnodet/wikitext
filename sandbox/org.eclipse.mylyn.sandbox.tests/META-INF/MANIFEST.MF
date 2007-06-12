@@ -23,6 +23,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.mylyn.tasks.core,
  org.eclipse.mylyn.monitor.ui,
  org.eclipse.ui.forms,
- org.eclipse.mylyn.sandbox,
+ org.eclipse.mylyn.sandbox.ui,
  org.eclipse.mylyn.monitor.core
 Eclipse-LazyStart: true

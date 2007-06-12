@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.eclipse.mylyn.sandbox_feature"
+      id="org.eclipse.mylyn.sandbox.ui_feature"
       label="Developer and Experimental Tools"
       version="2.0.0.v20070607-1200"
       provider-name="Eclipse.org"
@@ -222,7 +222,7 @@ litigation.
    </requires>
 
    <plugin
-         id="org.eclipse.mylyn.sandbox"
+         id="org.eclipse.mylyn.sandbox.ui"
          download-size="0"
          install-size="0"
          version="2.0.0.v20070607-1200"

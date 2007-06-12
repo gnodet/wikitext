@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.sandbox;
+package org.eclipse.mylyn.internal.sandbox.ui;
 
 import java.util.Arrays;
 
@@ -56,7 +56,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 /**
  * @author Ken Sueda and Mik Kersten
  */
-public class MylarSandboxPreferencePage extends PreferencePage implements IWorkbenchPreferencePage, ICellEditorListener {
+public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenchPreferencePage, ICellEditorListener {
 
 	private Table table;
 
@@ -80,7 +80,7 @@ public class MylarSandboxPreferencePage extends PreferencePage implements IWorkb
 
 	static final String[] TYPE_ARRAY = { "Gradient", "Solid" };
 
-	public MylarSandboxPreferencePage() {
+	public SandboxUiPreferencePage() {
 		super();
 		setPreferenceStore(ContextUiPlugin.getDefault().getPreferenceStore());
 	}
