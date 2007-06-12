@@ -12,7 +12,7 @@
          point="org.eclipse.mylyn.context.ui.bridges">
       <uiBridge
             class="org.eclipse.mylyn.internal.web.ui.WebResourceUiBridge"
-            contentType="http"
+            contentType="web"
             id="org.eclipse.mylyn.web.uiBridge"/>
    </extension>
 

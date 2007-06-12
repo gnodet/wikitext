@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Rename field 'CONTENT_TYPE_ANY' in 'org.eclipse.mylyn.context.core.ContextCorePlugin' to 'CONTENT_TYPE_RESOURCE'&#13;&#10;- Original project: 'org.eclipse.mylyn.context.core'&#13;&#10;- Original element: 'org.eclipse.mylyn.context.core.ContextCorePlugin.CONTENT_TYPE_ANY'&#13;&#10;- Renamed element: 'org.eclipse.mylyn.context.core.ContextCorePlugin.CONTENT_TYPE_RESOURCE'&#13;&#10;- Update references to refactored element&#13;&#10;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field 'CONTENT_TYPE_ANY'" flags="589830" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;org.eclipse.mylyn.context.core{ContextCorePlugin.java[ContextCorePlugin^CONTENT_TYPE_ANY" name="CONTENT_TYPE_RESOURCE" references="true" setter="false" stamp="1181620930143" textual="false" version="1.0"/>
+</session>
