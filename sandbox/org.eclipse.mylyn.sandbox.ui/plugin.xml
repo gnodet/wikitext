@@ -29,22 +29,6 @@
             id="org.eclipse.mylyn.java.keywords"/>
    </extension>
 
-   <extension point="org.eclipse.ui.decorators">
-      <decorator
-            lightweight="true"
-            label="Sandbox: Interest Level Decorator"
-            class="org.eclipse.mylyn.internal.sandbox.devtools.InterestDebuggingDecorator"
-            state="false"
-            id="org.eclipse.mylyn.sandbox.ui.decorator.interest">
-         <description>
-			Appends interest level to nodes
-		 </description>
-         <enablement>
-            <objectClass name="java.lang.Object"/>
-         </enablement>
-      </decorator>
-   </extension>
-
    <extension point="org.eclipse.ui.views"> 
    	  <view
           allowMultiple="false"
@@ -70,19 +54,6 @@
             id="org.eclipse.mylyn.tasklist.activity"
             name="Task Activity"/>
    </extension>
-
-   <extension point = "org.eclipse.ui.popupMenus">
-     <objectContribution
-        id="org.eclipse.mylyn.ui.instrospection"
-        objectClass="java.lang.Object">
-	    <action  
-  		  	label="Sanbox: Introspect Object" 
-	  		menubarPath="additions" 
-	  		id="org.eclipse.mylyn.sandbox.actions.introspect" 
-	  		class="org.eclipse.mylyn.internal.sandbox.devtools.IntrospectObjectAction"
-	  		enablesFor="1"/>
-	 </objectContribution>
-	</extension>
 </plugin>
 
 

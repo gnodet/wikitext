@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>org.eclipse.mylar.tasks.ui</name>
+	<name>org.eclipse.mylar.sandbox.dev</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -25,6 +25,5 @@
 		<nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.pde.PluginNature</nature>
-		<nature>org.eclipse.jem.beaninfo.BeanInfoNature</nature>
 	</natures>
 </projectDescription>

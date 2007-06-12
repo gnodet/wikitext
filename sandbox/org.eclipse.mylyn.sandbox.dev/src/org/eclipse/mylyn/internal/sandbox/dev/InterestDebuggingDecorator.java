@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.sandbox.devtools;
+package org.eclipse.mylyn.internal.sandbox.dev;
 
 import java.util.ConcurrentModificationException;
 

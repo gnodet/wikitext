@@ -222,10 +222,10 @@ litigation.
    </requires>
 
    <plugin
-         id="org.eclipse.mylyn.sandbox"
+         id="org.eclipse.mylyn.sandbox.dev"
          download-size="0"
          install-size="0"
-         version="2.0.0.v20070607-1200"
+         version="0.0.0"
          unpack="false"/>
 
 </feature>
