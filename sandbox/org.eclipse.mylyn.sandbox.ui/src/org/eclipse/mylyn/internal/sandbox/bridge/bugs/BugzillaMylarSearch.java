@@ -25,14 +25,14 @@ import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IMember;
 import org.eclipse.mylyn.context.core.InterestComparator;
 import org.eclipse.mylyn.internal.context.core.IActiveSearchListener;
-import org.eclipse.mylyn.internal.context.core.IMylarSearchOperation;
+import org.eclipse.mylyn.internal.context.core.IActiveSearchOperation;
 
 /**
  * Used to facilitate bugzilla searches based on IJavaElements
  * 
  * @author Shawn Minto
  */
-public class BugzillaMylarSearch implements IMylarSearchOperation {
+public class BugzillaMylarSearch implements IActiveSearchOperation {
 
 	// scope identifiers
 	public static final int LOCAL_QUAL = 1; // local implies a bugzilla task,

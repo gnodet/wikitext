@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.monitor.tests;
+package org.eclipse.mylyn.sandbox.tests;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
