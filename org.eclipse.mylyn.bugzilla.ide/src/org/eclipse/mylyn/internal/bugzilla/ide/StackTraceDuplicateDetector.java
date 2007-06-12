@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.bugzilla.ui.search;
+package org.eclipse.mylyn.internal.bugzilla.ide;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
