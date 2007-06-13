@@ -6,3 +6,10 @@
 1181661455011	Rename field 'OPEN_REMOTE_TASK'
 1181678224420	Rename local variable 'contextToggle'
 1181678335997	Rename field 'compositeImages'
+1181690774000	Change method 'createNewLocalTask'
+1181691040187	Change method 'createNewLocalTask'
+1181695424578	Extract method 'loadTemplateRepositories'
+1181697900578	Copy compilation unit
+1181697911062	Delete element
+1181698289515	Rename type 'NewRepositoryTaskWizard'
+1181698329015	Rename type 'NewRepositoryTaskAction'
