@@ -17,8 +17,7 @@ import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.tasks.core.DateRangeActivityDelegate;
 import org.eclipse.mylyn.tasks.core.DateRangeContainer;
 import org.eclipse.mylyn.tasks.core.ITask;
-import org.eclipse.mylyn.tasks.core.Task;
-import org.eclipse.mylyn.tasks.core.Task.PriorityLevel;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryTask.PriorityLevel;
 import org.eclipse.ui.IMemento;
 
 /**
@@ -94,8 +93,8 @@ public class TaskActivityViewSorter extends ViewerSorter {
 
 		switch (sortColumn) {
 		case PRIORITY: {
-			PriorityLevel a = Task.PriorityLevel.fromString(task1.getPriority());
-			PriorityLevel b = Task.PriorityLevel.fromString(task2.getPriority());
+			PriorityLevel a = PriorityLevel.fromString(task1.getPriority());
+			PriorityLevel b = PriorityLevel.fromString(task2.getPriority());
 			int result = a.compareTo(b);
 			return result * directions[sortColumn];
 		}
