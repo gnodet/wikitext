@@ -15,3 +15,4 @@
 1181698329015	Rename type 'NewRepositoryTaskAction'
 1181707563828	Rename type 'NewRepositoryTaskPage'
 1181717209407	Rename type 'AbstractTasksAction'
+1181756785343	Rename method 'getSelectedFilters'

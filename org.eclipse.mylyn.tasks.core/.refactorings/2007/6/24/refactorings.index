@@ -10,3 +10,8 @@
 1181718034197	Rename type 'ITaskListElement'
 1181718054733	Rename compilation unit 'AbstractTaskElement.java'
 1181720379901	Rename type 'TaskList'
+1181754809236	Rename method 'setContainer'
+1181754886948	Rename type 'getAllCategories'
+1181754951279	Rename type 'UncategorizedCategory'
+1181755625202	Rename method 'getUncategorizedCategory'
+1181755635699	Rename field 'uncategorizedCategory'

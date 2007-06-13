@@ -76,7 +76,7 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 					text += "\nLast time in SYNCHRONIZED state: " + task.getLastSyncDateStamp();
 					text += "\nRepository synch time stamp: " + repository.getSyncTimeStamp();
 					text += "\nSync state: " + task.getSyncState();
-					text += "\nParent: " + task.getContainer();
+					text += "\nParent: " + task.getCategory();
 					if (task.getChildren() != null && !task.getChildren().isEmpty()) {
 						text += "\nChildren: ";
 						for (AbstractTask subTask : task.getChildren()) {
