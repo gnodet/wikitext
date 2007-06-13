@@ -14,7 +14,7 @@ import java.util.Map;
 import org.eclipse.mylyn.internal.monitor.core.util.XmlStringConverter;
 import org.eclipse.mylyn.internal.tasks.core.WebTask;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylyn.tasks.core.AbstractTaskListElement;
+import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.tasks.core.DelegatingTaskExternalizer;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.TaskExternalizationException;
@@ -112,7 +112,7 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 	}
 
 	@Override
-	public AbstractTask createTask(String repositoryUrl, String taskId, String summary, Element element, TaskList taskList, AbstractTaskListElement category, AbstractTask parent)
+	public AbstractTask createTask(String repositoryUrl, String taskId, String summary, Element element, TaskList taskList, AbstractTaskContainer category, AbstractTask parent)
 			throws TaskExternalizationException {
 		String id = null;
 		if (element.hasAttribute(KEY_KEY)) {

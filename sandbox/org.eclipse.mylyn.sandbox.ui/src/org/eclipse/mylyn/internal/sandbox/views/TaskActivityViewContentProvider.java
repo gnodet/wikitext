@@ -14,7 +14,7 @@ package org.eclipse.mylyn.internal.sandbox.views;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.mylyn.tasks.core.DateRangeContainer;
+import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
 import org.eclipse.mylyn.tasks.ui.TaskListManager;
 
 /**
@@ -43,8 +43,8 @@ public class TaskActivityViewContentProvider implements IStructuredContentProvid
 	}
 
 	public Object[] getChildren(Object parent) {
-		if (parent instanceof DateRangeContainer) {
-			DateRangeContainer taskContainer = (DateRangeContainer) parent;
+		if (parent instanceof ScheduledTaskContainer) {
+			ScheduledTaskContainer taskContainer = (ScheduledTaskContainer) parent;
 			return taskContainer.getDateRangeDelegates().toArray();
 		} else {
 			return new Object[0];
@@ -52,8 +52,8 @@ public class TaskActivityViewContentProvider implements IStructuredContentProvid
 	}
 
 	public boolean hasChildren(Object parent) {
-		if (parent instanceof DateRangeContainer) {
-			DateRangeContainer dateRangeTaskCategory = (DateRangeContainer) parent;
+		if (parent instanceof ScheduledTaskContainer) {
+			ScheduledTaskContainer dateRangeTaskCategory = (ScheduledTaskContainer) parent;
 			return dateRangeTaskCategory.getDateRangeDelegates() != null && dateRangeTaskCategory.getDateRangeDelegates().size() > 0;
 		} else {
 			return false;

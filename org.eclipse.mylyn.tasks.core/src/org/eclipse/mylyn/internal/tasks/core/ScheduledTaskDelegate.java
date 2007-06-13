@@ -9,21 +9,25 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.tasks.core;
+package org.eclipse.mylyn.internal.tasks.core;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Set;
 
+import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.AbstractTaskCategory;
+import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
+
 /**
  * @author Rob Elves
  * @author Mik Kersten
  */
-public class DateRangeActivityDelegate extends AbstractTask {
+public class ScheduledTaskDelegate extends AbstractTask {
 
 	private AbstractTask task = null;
 
-	private DateRangeContainer parent;
+	private ScheduledTaskContainer parent;
 
 	private long startMili = 0;
 
@@ -31,11 +35,11 @@ public class DateRangeActivityDelegate extends AbstractTask {
 
 	private long activity = 0;
 
-	public DateRangeActivityDelegate(DateRangeContainer parent, AbstractTask task, Calendar start, Calendar end) {
+	public ScheduledTaskDelegate(ScheduledTaskContainer parent, AbstractTask task, Calendar start, Calendar end) {
 		this(parent, task, start, end, 0);
 	}
 
-	public DateRangeActivityDelegate(DateRangeContainer parent, AbstractTask task, Calendar start, Calendar end, long activity) {
+	public ScheduledTaskDelegate(ScheduledTaskContainer parent, AbstractTask task, Calendar start, Calendar end, long activity) {
 		super(task.getRepositoryUrl(), task.getTaskId(), task.getSummary());
 		if (task == null) {
 			throw new RuntimeException("attempted to instantiated with null task: " + parent);
@@ -84,7 +88,7 @@ public class DateRangeActivityDelegate extends AbstractTask {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		final DateRangeActivityDelegate other = (DateRangeActivityDelegate) obj;
+		final ScheduledTaskDelegate other = (ScheduledTaskDelegate) obj;
 		if (task == null) {
 			if (other.task != null)
 				return false;
@@ -98,7 +102,7 @@ public class DateRangeActivityDelegate extends AbstractTask {
 		return true;
 	}
 
-	public DateRangeContainer getDateRangeContainer() {
+	public ScheduledTaskContainer getDateRangeContainer() {
 		return parent;
 	}
 
@@ -106,7 +110,7 @@ public class DateRangeActivityDelegate extends AbstractTask {
 //		task.addSubTask(task);
 //	}
 
-	public AbstractTaskContainer getCategory() {
+	public AbstractTaskCategory getCategory() {
 		return task.getCategory();
 	}
 
@@ -178,7 +182,7 @@ public class DateRangeActivityDelegate extends AbstractTask {
 		task.setActive(active);
 	}
 
-	public void setCategory(AbstractTaskContainer category) {
+	public void setCategory(AbstractTaskCategory category) {
 		task.setCategory(category);
 	}
 
@@ -226,7 +230,7 @@ public class DateRangeActivityDelegate extends AbstractTask {
 		task.setTaskUrl(url);
 	}
 
-	public int compareTo(AbstractTaskListElement taskListElement) {
+	public int compareTo(AbstractTaskContainer taskListElement) {
 		return task.toString().compareTo(((AbstractTask) taskListElement).toString());
 	}
 

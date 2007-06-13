@@ -33,7 +33,7 @@ import org.eclipse.mylyn.internal.bugzilla.core.BugzillaTask;
 import org.eclipse.mylyn.internal.bugzilla.ui.tasklist.StackTrace;
 import org.eclipse.mylyn.internal.tasks.ui.search.AbstractRepositorySearchQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.AbstractTaskListElement;
+import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.QueryHitCollector;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
@@ -155,7 +155,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 		// get all of the root tasks and start the search
 		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getRootTasks();
 		searchLocal(tasks, collector, elementName, monitor);
-		for (AbstractTaskListElement cat : TasksUiPlugin.getTaskListManager().getTaskList().getTaskContainers()) {
+		for (AbstractTaskContainer cat : TasksUiPlugin.getTaskListManager().getTaskList().getTaskContainers()) {
 			searchLocal(cat.getChildren(), collector, elementName, monitor);
 		}
 
@@ -183,7 +183,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 		// get all of the root tasks and start the search
 		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getRootTasks();
 		searchLocal(tasks, collector, elementName, monitor);
-		for (AbstractTaskListElement cat : TasksUiPlugin.getTaskListManager().getTaskList().getTaskContainers()) {
+		for (AbstractTaskContainer cat : TasksUiPlugin.getTaskListManager().getTaskList().getTaskContainers()) {
 			searchLocal(cat.getChildren(), collector, elementName, monitor);
 		}
 		// return the collector
