@@ -51,13 +51,12 @@ import org.eclipse.mylyn.internal.context.ui.Highlighter;
 import org.eclipse.mylyn.internal.context.ui.HighlighterList;
 import org.eclipse.mylyn.internal.context.ui.TaskContextWorkingSetManager;
 import org.eclipse.mylyn.internal.context.ui.actions.ContextRetrieveAction;
-import org.eclipse.mylyn.internal.tasks.core.DateRangeContainer;
+import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
 import org.eclipse.mylyn.internal.tasks.ui.ITaskHighlighter;
 import org.eclipse.mylyn.internal.tasks.ui.ITasksUiConstants;
 import org.eclipse.mylyn.internal.tasks.ui.PlanningPerspectiveFactory;
 import org.eclipse.mylyn.monitor.ui.MonitorUiPlugin;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.ITaskActivityListener;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
@@ -199,7 +198,7 @@ public class ContextUiPlugin extends AbstractUIPlugin {
 
 	private static final ITaskActivityListener TASK_ACTIVATION_LISTENER = new ITaskActivityListener() {
 
-		public void activityChanged(DateRangeContainer week) {
+		public void activityChanged(ScheduledTaskContainer week) {
 			// ignore
 
 		}
