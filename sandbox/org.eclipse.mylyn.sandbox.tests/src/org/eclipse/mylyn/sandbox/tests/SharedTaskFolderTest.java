@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Calendar;
 
 import junit.framework.TestCase;
 
@@ -13,9 +14,9 @@ import org.eclipse.mylyn.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.context.core.InteractionContext;
 import org.eclipse.mylyn.internal.sandbox.ui.SandboxUiPlugin;
 import org.eclipse.mylyn.internal.sandbox.ui.actions.SwitchTaskDataFolderAction;
+import org.eclipse.mylyn.internal.tasks.core.LocalTask;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
 import org.eclipse.mylyn.tasks.core.ITask;
-import org.eclipse.mylyn.tasks.core.Task;
 import org.eclipse.mylyn.tasks.ui.TaskListManager;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 
@@ -145,7 +146,7 @@ public class SharedTaskFolderTest extends TestCase{
 	protected ITask createAndSaveTask(String taskName){
 		
 		//Create the task and add it to the root of the task list
-		ITask newTask = new Task(TasksUiPlugin.getTaskListManager().genUniqueTaskHandle(), taskName);
+		ITask newTask = new LocalTask("" + Calendar.getInstance().getTimeInMillis(), taskName);
 		manager.getTaskList().moveToRoot(newTask);
 		InteractionContext mockContext = ContextCorePlugin.getContextManager().loadContext(newTask.getHandleIdentifier());//, newTask.getContextPath());
 		InteractionEvent event = new InteractionEvent(InteractionEvent.Kind.EDIT,"structureKind","handle","originId");
