@@ -13,10 +13,9 @@ package org.eclipse.mylyn.internal.monitor.usage;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
 
 /**
@@ -24,7 +23,7 @@ import org.eclipse.swt.graphics.Image;
  */
 public class UsageMonitorImages {
 
-	private static Map<ImageDescriptor, Image> imageMap = new HashMap<ImageDescriptor, Image>();
+	private static ImageRegistry imageRegistry;
 
 	private static final String T_ELCL = "elcl16";
 
@@ -60,14 +59,24 @@ public class UsageMonitorImages {
 		return new URL(baseURL, buffer.toString());
 	}
 
+	private static ImageRegistry getImageRegistry() {
+		if (imageRegistry == null) {
+			imageRegistry = new ImageRegistry();
+		}
+
+		return imageRegistry;
+	}
+	
 	/**
 	 * Lazily initializes image map.
 	 */
 	public static Image getImage(ImageDescriptor imageDescriptor) {
-		Image image = imageMap.get(imageDescriptor);
+		ImageRegistry imageRegistry = getImageRegistry();
+
+		Image image = imageRegistry.get("" + imageDescriptor.hashCode());
 		if (image == null) {
 			image = imageDescriptor.createImage();
-			imageMap.put(imageDescriptor, image);
+			imageRegistry.put("" + imageDescriptor.hashCode(), image);
 		}
 		return image;
 	}
