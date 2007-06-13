@@ -32,9 +32,9 @@ import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaTask;
 import org.eclipse.mylyn.internal.bugzilla.ui.tasklist.StackTrace;
 import org.eclipse.mylyn.internal.tasks.ui.search.AbstractRepositorySearchQuery;
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryTask;
-import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
-import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.AbstractTaskListElement;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.QueryHitCollector;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskComment;
@@ -121,7 +121,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 			return;
 		}
 
-		Set<AbstractRepositoryTask> l = searchCollector.getTaskHits();
+		Set<AbstractTask> l = searchCollector.getTaskHits();
 
 		// get the list of doi elements
 		List<BugzillaReportInfo> doiList = getDoiList(l);
@@ -153,9 +153,9 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 		collector.setProgressMonitor(monitor);
 
 		// get all of the root tasks and start the search
-		Set<ITask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getRootTasks();
+		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getRootTasks();
 		searchLocal(tasks, collector, elementName, monitor);
-		for (AbstractTaskContainer cat : TasksUiPlugin.getTaskListManager().getTaskList().getTaskContainers()) {
+		for (AbstractTaskListElement cat : TasksUiPlugin.getTaskListManager().getTaskList().getTaskContainers()) {
 			searchLocal(cat.getChildren(), collector, elementName, monitor);
 		}
 
@@ -181,9 +181,9 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 		collector.setProgressMonitor(monitor);
 
 		// get all of the root tasks and start the search
-		Set<ITask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getRootTasks();
+		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getRootTasks();
 		searchLocal(tasks, collector, elementName, monitor);
-		for (AbstractTaskContainer cat : TasksUiPlugin.getTaskListManager().getTaskList().getTaskContainers()) {
+		for (AbstractTaskListElement cat : TasksUiPlugin.getTaskListManager().getTaskList().getTaskContainers()) {
 			searchLocal(cat.getChildren(), collector, elementName, monitor);
 		}
 		// return the collector
@@ -202,13 +202,13 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	 * @param monitor
 	 *            The progress monitor
 	 */
-	private void searchLocal(Set<ITask> tasks, QueryHitCollector searchCollector, String elementName,
+	private void searchLocal(Set<AbstractTask> tasks, QueryHitCollector searchCollector, String elementName,
 			IProgressMonitor monitor) {
 		if (tasks == null)
 			return;
 
 		// go through all of the tasks
-		for (ITask task : tasks) {
+		for (AbstractTask task : tasks) {
 			monitor.worked(1);
 
 			// check what kind of task it is
@@ -411,7 +411,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	 * @param isExact
 	 *            whether the search was exact or not
 	 */
-	private List<BugzillaReportInfo> getDoiList(Set<AbstractRepositoryTask> results) {
+	private List<BugzillaReportInfo> getDoiList(Set<AbstractTask> results) {
 		List<BugzillaReportInfo> doiList = new ArrayList<BugzillaReportInfo>();
 
 		boolean isExact = (scope == BugzillaMylarSearch.FULLY_QUAL || scope == BugzillaMylarSearch.LOCAL_QUAL) ? true
@@ -419,7 +419,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 
 		BugzillaReportInfo info = null;
 		// go through all of the results and create a DoiInfo list
-		for (AbstractRepositoryTask hit : results) {
+		for (AbstractTask hit : results) {
 
 			try {
 				float value = 0;

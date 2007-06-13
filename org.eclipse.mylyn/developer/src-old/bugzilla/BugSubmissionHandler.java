@@ -32,7 +32,7 @@ import org.eclipse.mylyn.internal.tasks.core.UnrecognizedReponseException;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskRepositoriesView;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryTask;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
@@ -142,7 +142,7 @@ public class BugSubmissionHandler {
 		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(taskData.getRepositoryKind(),
 				taskData.getRepositoryUrl());
 
-		BugzillaTask newTask = new BugzillaTask(AbstractRepositoryTask.getHandle(repository.getUrl(), bugId),
+		BugzillaTask newTask = new BugzillaTask(AbstractTask.getHandle(repository.getUrl(), bugId),
 				"<bugzilla info>", true);
 
 		if (category != null) {
@@ -157,7 +157,7 @@ public class BugSubmissionHandler {
 	// Used when run in forced sync mode for testing
 	private void handleExistingBugPost(RepositoryTaskData repositoryTaskData, String resultId) {
 		try {
-			String handle = AbstractRepositoryTask.getHandle(repositoryTaskData.getRepositoryUrl(), repositoryTaskData
+			String handle = AbstractTask.getHandle(repositoryTaskData.getRepositoryUrl(), repositoryTaskData
 					.getId());
 			final ITask task = TasksUiPlugin.getTaskListManager().getTaskList().getTask(handle);
 			if (task != null) {				
@@ -168,8 +168,8 @@ public class BugSubmissionHandler {
 				TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
 						repositoryTaskData.getRepositoryKind(), repositoryTaskData.getRepositoryUrl());
 				TasksUiPlugin.getSynchronizationManager().synchronizeChanged(connector, repository);
-				if (task instanceof AbstractRepositoryTask) {
-					AbstractRepositoryTask repositoryTask = (AbstractRepositoryTask) task;
+				if (task instanceof AbstractTask) {
+					AbstractTask repositoryTask = (AbstractTask) task;
 					// TODO: This is set to null in order for update to bypass
 					// ui override check with user
 					// Need to change how this is achieved.

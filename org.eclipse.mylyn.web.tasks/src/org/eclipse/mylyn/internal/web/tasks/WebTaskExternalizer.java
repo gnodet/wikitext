@@ -14,11 +14,11 @@ import java.util.Map;
 import org.eclipse.mylyn.internal.monitor.core.util.XmlStringConverter;
 import org.eclipse.mylyn.internal.tasks.core.WebTask;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
+import org.eclipse.mylyn.tasks.core.AbstractTaskListElement;
 import org.eclipse.mylyn.tasks.core.DelegatingTaskExternalizer;
-import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.TaskExternalizationException;
-import org.eclipse.mylyn.tasks.core.TaskList;
+import org.eclipse.mylyn.tasks.core.getAllCategories;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.w3c.dom.Attr;
@@ -65,7 +65,7 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 	}
 
 	@Override
-	public boolean canCreateElementFor(ITask task) {
+	public boolean canCreateElementFor(AbstractTask task) {
 		return task instanceof WebTask;
 	}
 
@@ -102,7 +102,7 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 //	}
 
 	@Override
-	public Element createTaskElement(ITask task, Document doc, Element parent) {
+	public Element createTaskElement(AbstractTask task, Document doc, Element parent) {
 		Element node = super.createTaskElement(task, doc, parent);
 		node.setAttribute(KEY_KEY, ((WebTask) task).getTaskId());
 		node.setAttribute(KEY_NAME, ((WebTask) task).getSummary());
@@ -112,7 +112,7 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 	}
 
 	@Override
-	public ITask createTask(String repositoryUrl, String taskId, String summary, Element element, TaskList taskList, AbstractTaskContainer category, ITask parent)
+	public AbstractTask createTask(String repositoryUrl, String taskId, String summary, Element element, getAllCategories taskList, AbstractTaskListElement category, AbstractTask parent)
 			throws TaskExternalizationException {
 		String id = null;
 		if (element.hasAttribute(KEY_KEY)) {
@@ -150,7 +150,7 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 	}
 
 	@Override
-	public AbstractRepositoryQuery readQuery(Node node, TaskList taskList) throws TaskExternalizationException {
+	public AbstractRepositoryQuery readQuery(Node node, getAllCategories taskList) throws TaskExternalizationException {
 		Element element = (Element) node;
 
 		String description = element.getAttribute(KEY_NAME);

@@ -12,7 +12,7 @@
 package org.eclipse.mylyn.internal.bugzilla.core;
 
 import org.eclipse.mylyn.tasks.core.AbstractQueryHit;
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryTask;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.TaskList;
 
 /**
@@ -32,7 +32,7 @@ public class BugzillaQueryHit extends AbstractQueryHit {
 	}
 
 	@Override
-	protected AbstractRepositoryTask createTask() {		
+	protected AbstractTask createTask() {		
 		return new BugzillaTask(this, true);
 	}
 

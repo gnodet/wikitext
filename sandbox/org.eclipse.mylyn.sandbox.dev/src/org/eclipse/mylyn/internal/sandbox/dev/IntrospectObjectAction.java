@@ -20,8 +20,8 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylyn.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.context.core.IInteractionElement;
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryTask;
-import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.ui.IViewActionDelegate;
@@ -64,11 +64,11 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 				}
 			}
 
-			if (object instanceof AbstractRepositoryTask) {
+			if (object instanceof AbstractTask) {
 
-				AbstractRepositoryTask task = null;
-				if (object instanceof AbstractRepositoryTask) {
-					task = (AbstractRepositoryTask) object;
+				AbstractTask task = null;
+				if (object instanceof AbstractTask) {
+					task = (AbstractTask) object;
 				}
 				if (task != null) {
 					TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
@@ -79,7 +79,7 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 					text += "\nParent: " + task.getContainer();
 					if (task.getChildren() != null && !task.getChildren().isEmpty()) {
 						text += "\nChildren: ";
-						for (ITask subTask : task.getChildren()) {
+						for (AbstractTask subTask : task.getChildren()) {
 							text += "\n" + subTask;
 						}
 					}

@@ -21,7 +21,7 @@ import org.eclipse.mylyn.tasks.core.Task.PriorityLevel;
 
 	protected TaskList taskList;
 
-	protected AbstractRepositoryTask task;
+	protected AbstractTask task;
 
 	protected String repositoryUrl;
 
@@ -68,14 +68,14 @@ import org.eclipse.mylyn.tasks.core.Task.PriorityLevel;
 		}
 	}
 
-	public AbstractRepositoryTask getOrCreateCorrespondingTask() {
+	public AbstractTask getOrCreateCorrespondingTask() {
 		if (taskList == null) {
 			return null;
 		}
 
 		ITask existingTask = taskList.getTask(getHandleIdentifier());
-		if (existingTask instanceof AbstractRepositoryTask) {
-			this.task = (AbstractRepositoryTask) existingTask;
+		if (existingTask instanceof AbstractTask) {
+			this.task = (AbstractTask) existingTask;
 		} else {			
 			task = createTask();			
 			task.setCompleted(completed);
@@ -85,16 +85,16 @@ import org.eclipse.mylyn.tasks.core.Task.PriorityLevel;
 	}
 
 	//@Deprecated
-	protected abstract AbstractRepositoryTask createTask();
+	protected abstract AbstractTask createTask();
 
 	/**
 	 * @return null if there is no corresponding task
 	 */
-	public AbstractRepositoryTask getCorrespondingTask() {
+	public AbstractTask getCorrespondingTask() {
 		return task;
 	}
 
-	public void setCorrespondingTask(AbstractRepositoryTask task) {
+	public void setCorrespondingTask(AbstractTask task) {
 		this.task = task;
 	}
 

@@ -31,7 +31,7 @@ public class RepositoryTaskEditorCopyAction extends Action {
 	 */
 	public RepositoryTaskEditorCopyAction(MylarTaskEditor editor) {
 		bugEditor = editor;
-		setText("AbstractRepositoryTaskEditor.copy.text");
+		setText("AbstractTaskEditor.copy.text");
 	}
 
 	@Override

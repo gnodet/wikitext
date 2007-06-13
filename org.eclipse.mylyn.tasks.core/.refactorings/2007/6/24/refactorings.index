@@ -3,3 +3,10 @@
 1181700244505	Move type
 1181700442946	Move type
 1181705665437	Delete element
+1181716748507	Rename type 'ITask'
+1181716778518	Rename compilation unit 'AbstractRepositoryTask.java'
+1181717946586	Rename type 'AbstractTaskContainer'
+1181717988323	Rename type 'AbstractTaskListElement'
+1181718034197	Rename type 'ITaskListElement'
+1181718054733	Rename compilation unit 'AbstractTaskElement.java'
+1181720379901	Rename type 'TaskList'

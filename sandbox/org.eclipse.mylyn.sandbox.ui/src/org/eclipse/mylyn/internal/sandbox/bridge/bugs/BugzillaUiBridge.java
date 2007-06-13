@@ -23,10 +23,10 @@ import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.context.ui.AbstractContextUiBridge;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaClient;
 import org.eclipse.mylyn.internal.tasks.ui.editors.RepositoryTaskOutlinePage;
-import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
-import org.eclipse.mylyn.tasks.ui.editors.AbstractRepositoryTaskEditor;
+import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskEditor;
 import org.eclipse.mylyn.tasks.ui.editors.TaskEditor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
@@ -58,7 +58,7 @@ public class BugzillaUiBridge extends AbstractContextUiBridge {
 			bugHandle = bugHandle.substring(0, next);
 		}
 
-		ITask task = TasksUiPlugin.getTaskListManager().getTaskList().getTask(handle);
+		AbstractTask task = TasksUiPlugin.getTaskListManager().getTaskList().getTask(handle);
 		if (task != null) {
 			TasksUiUtil.openEditor(task, false);
 		} else {
@@ -78,8 +78,8 @@ public class BugzillaUiBridge extends AbstractContextUiBridge {
 			for (int i = 0; i < references.length; i++) {
 				IEditorPart part = references[i].getEditor(false);
 				if (part != null) {
-					if (part instanceof AbstractRepositoryTaskEditor) {
-						((AbstractRepositoryTaskEditor) part).close();
+					if (part instanceof AbstractTaskEditor) {
+						((AbstractTaskEditor) part).close();
 					} else if (part instanceof TaskEditor) {
 						((TaskEditor) part).close(true);
 					}
@@ -89,7 +89,7 @@ public class BugzillaUiBridge extends AbstractContextUiBridge {
 	}
 
 	public boolean acceptsEditor(IEditorPart editorPart) {
-		return editorPart instanceof AbstractRepositoryTaskEditor;
+		return editorPart instanceof AbstractTaskEditor;
 	}
 
 	public List<TreeViewer> getContentOutlineViewers(IEditorPart editor) {
@@ -101,8 +101,8 @@ public class BugzillaUiBridge extends AbstractContextUiBridge {
 	}
 
 	protected TreeViewer getOutlineTreeViewer(IEditorPart editor) {
-		if (editor instanceof AbstractRepositoryTaskEditor) {
-			AbstractRepositoryTaskEditor abe = (AbstractRepositoryTaskEditor) editor;
+		if (editor instanceof AbstractTaskEditor) {
+			AbstractTaskEditor abe = (AbstractTaskEditor) editor;
 			RepositoryTaskOutlinePage outline = abe.getOutline();
 			if (outline != null)
 				return outline.getOutlineTreeViewer();

@@ -24,7 +24,7 @@ import org.eclipse.mylyn.internal.bugzilla.core.BugzillaReportElement;
 import org.eclipse.mylyn.internal.bugzilla.core.NewBugzillaReport;
 import org.eclipse.mylyn.internal.core.util.MylarStatusHandler;
 import org.eclipse.mylyn.internal.tasklist.RepositoryTaskAttribute;
-import org.eclipse.mylyn.internal.tasklist.ui.editors.AbstractRepositoryTaskEditor;
+import org.eclipse.mylyn.internal.tasklist.ui.editors.AbstractTaskEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
@@ -605,7 +605,7 @@ public abstract class AbstractBugzillaWizardPage extends WizardPage implements L
 
 		
 		IThemeManager themeManager = PlatformUI.getWorkbench().getThemeManager();
-		Font repositoryFont = themeManager.getCurrentTheme().getFontRegistry().get(AbstractRepositoryTaskEditor.REPOSITORY_TEXT_ID);
+		Font repositoryFont = themeManager.getCurrentTheme().getFontRegistry().get(AbstractTaskEditor.REPOSITORY_TEXT_ID);
 		
 		// add the summary text field
 		newLayout(textComposite, 1, BugzillaReportElement.SHORT_DESC.toString(), PROPERTY);
@@ -633,12 +633,12 @@ public abstract class AbstractBugzillaWizardPage extends WizardPage implements L
 		// add the description text field
 		descriptionText = new Text(attributesComposite, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL | SWT.WRAP);
 
-		//descriptionText.setFont(AbstractRepositoryTaskEditor.COMMENT_FONT);
+		//descriptionText.setFont(AbstractTaskEditor.COMMENT_FONT);
 		descriptionText.setFont(repositoryFont);
 		GridData descriptionTextData = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
 		descriptionTextData.horizontalSpan = 4;
-		descriptionTextData.widthHint = AbstractRepositoryTaskEditor.DESCRIPTION_WIDTH;
-		descriptionTextData.heightHint = AbstractRepositoryTaskEditor.DESCRIPTION_HEIGHT;
+		descriptionTextData.widthHint = AbstractTaskEditor.DESCRIPTION_WIDTH;
+		descriptionTextData.heightHint = AbstractTaskEditor.DESCRIPTION_HEIGHT;
 		descriptionText.setLayoutData(descriptionTextData);
 		descriptionText.addListener(SWT.Modify, this);
 

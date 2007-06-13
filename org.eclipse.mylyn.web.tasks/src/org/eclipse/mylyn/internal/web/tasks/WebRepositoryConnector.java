@@ -40,7 +40,7 @@ import org.eclipse.mylyn.internal.tasks.core.WebTask;
 import org.eclipse.mylyn.internal.tasks.ui.RetrieveTitleFromUrlJob;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryTask;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.IAttachmentHandler;
 import org.eclipse.mylyn.tasks.core.ITaskDataHandler;
 import org.eclipse.mylyn.tasks.core.QueryHitCollector;
@@ -120,7 +120,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public AbstractRepositoryTask createTaskFromExistingId(TaskRepository repository, final String id,
+	public AbstractTask createTaskFromExistingId(TaskRepository repository, final String id,
 			IProgressMonitor monitor) throws CoreException {
 		if (WebTask.REPOSITORY_TYPE.equals(repository.getKind())) {
 			String taskPrefix = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
@@ -233,8 +233,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return null;
 	}
 
-	public Set<AbstractRepositoryTask> getChangedSinceLastSync(TaskRepository repository,
-			Set<AbstractRepositoryTask> tasks, IProgressMonitor monitor) throws CoreException {
+	public Set<AbstractTask> getChangedSinceLastSync(TaskRepository repository,
+			Set<AbstractTask> tasks, IProgressMonitor monitor) throws CoreException {
 		// not supported
 		return Collections.emptySet();
 	}
@@ -251,7 +251,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public void updateTaskFromRepository(TaskRepository repository, AbstractRepositoryTask repositoryTask,
+	public void updateTaskFromRepository(TaskRepository repository, AbstractTask repositoryTask,
 			IProgressMonitor monitor) throws CoreException {
 	}
 
@@ -514,12 +514,12 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public AbstractRepositoryTask createTask(String repositoryUrl, String id, String summary) {
+	public AbstractTask createTask(String repositoryUrl, String id, String summary) {
 		return null;
 	}
 
 	@Override
-	public void updateTaskFromTaskData(TaskRepository repository, AbstractRepositoryTask repositoryTask,
+	public void updateTaskFromTaskData(TaskRepository repository, AbstractTask repositoryTask,
 			RepositoryTaskData taskData) {
 		// ignore
 	}

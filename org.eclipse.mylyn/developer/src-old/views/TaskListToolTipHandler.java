@@ -21,7 +21,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.mylyn.provisional.tasklist.AbstractQueryHit;
 import org.eclipse.mylyn.provisional.tasklist.AbstractRepositoryConnector;
 import org.eclipse.mylyn.provisional.tasklist.AbstractRepositoryQuery;
-import org.eclipse.mylyn.provisional.tasklist.AbstractRepositoryTask;
+import org.eclipse.mylyn.provisional.tasklist.AbstractTask;
 import org.eclipse.mylyn.provisional.tasklist.ITaskListElement;
 import org.eclipse.mylyn.provisional.tasklist.MylarTaskListPlugin;
 import org.eclipse.swt.SWT;
@@ -144,12 +144,12 @@ public class TaskListToolTipHandler {
 //			}
 //		}
 
-		if (element instanceof AbstractRepositoryTask || element instanceof AbstractQueryHit) {
-			AbstractRepositoryTask repositoryTask;
+		if (element instanceof AbstractTask || element instanceof AbstractQueryHit) {
+			AbstractTask repositoryTask;
 			if (element instanceof AbstractQueryHit) {
 				repositoryTask = ((AbstractQueryHit) element).getCorrespondingTask();
 			} else {
-				repositoryTask = (AbstractRepositoryTask) element;
+				repositoryTask = (AbstractTask) element;
 			}
 			tooltip += ((ITaskListElement) element).getDescription();
 			if(repositoryTask != null) {
@@ -203,12 +203,12 @@ public class TaskListToolTipHandler {
 			if (connector != null) {
 				return MylarTaskListPlugin.getDefault().getBrandingIcons().get(connector);
 			}
-		} else if (element instanceof AbstractRepositoryTask || element instanceof AbstractQueryHit) {
-			AbstractRepositoryTask repositoryTask;
+		} else if (element instanceof AbstractTask || element instanceof AbstractQueryHit) {
+			AbstractTask repositoryTask;
 			if (element instanceof AbstractQueryHit) {
 				repositoryTask = ((AbstractQueryHit) element).getCorrespondingTask();
 			} else {
-				repositoryTask = (AbstractRepositoryTask) element;
+				repositoryTask = (AbstractTask) element;
 			}
 			if (repositoryTask != null) {
 				AbstractRepositoryConnector connector = MylarTaskListPlugin.getRepositoryManager()

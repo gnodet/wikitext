@@ -93,8 +93,8 @@ public class BugzillaStructureBridge extends AbstractContextStructureBridge {
 //			} catch (NullPointerException e) {
 //				// do nothing, this just means that there is no active page
 //			}
-//			if (editorPart != null && editorPart instanceof AbstractRepositoryTaskEditor) {
-//				AbstractRepositoryTaskEditor abe = ((AbstractRepositoryTaskEditor) editorPart);
+//			if (editorPart != null && editorPart instanceof AbstractTaskEditor) {
+//				AbstractTaskEditor abe = ((AbstractTaskEditor) editorPart);
 //				RepositoryTaskOutlineNode node = abe.getOutlineModel();
 //				return findNode(node, commentNumber);
 //			}

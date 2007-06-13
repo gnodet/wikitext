@@ -22,7 +22,7 @@ import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryTask;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.ITaskFactory;
 import org.eclipse.mylyn.tasks.core.QueryHitCollector;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
@@ -289,7 +289,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		return super.isPageComplete();
 	}
 
-	void updatePreviewTable(List<AbstractRepositoryTask> hits, MultiStatus queryStatus) {
+	void updatePreviewTable(List<AbstractTask> hits, MultiStatus queryStatus) {
 		if (previewTable.isDisposed()) {
 			return;
 		}
@@ -297,7 +297,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		previewTable.removeAll();
 
 		if (hits != null) {
-			for (AbstractRepositoryTask hit : hits) {
+			for (AbstractTask hit : hits) {
 				TableItem item = new TableItem(previewTable, SWT.NONE);
 				if (hit.getTaskId() != null) {
 					item.setText(0, hit.getTaskId());
@@ -353,7 +353,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 			do {
 				final MultiStatus queryStatus = new MultiStatus(TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Query result",
 						null);
-				final List<AbstractRepositoryTask> queryHits = new ArrayList<AbstractRepositoryTask>();
+				final List<AbstractTask> queryHits = new ArrayList<AbstractTask>();
 				try {
 					if (webPage == null) {
 						webPage = WebRepositoryConnector.fetchResource(evaluatedUrl, params, repository);
@@ -362,14 +362,14 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 					QueryHitCollector collector = new QueryHitCollector(TasksUiPlugin.getTaskListManager()
 							.getTaskList(), new ITaskFactory() {
 
-						public AbstractRepositoryTask createTask(RepositoryTaskData taskData, boolean synchData,
+						public AbstractTask createTask(RepositoryTaskData taskData, boolean synchData,
 								boolean forced, IProgressMonitor monitor) throws CoreException {
 							return null;
 						}
 					}) {
 
 						@Override
-						public void accept(AbstractRepositoryTask hit) {
+						public void accept(AbstractTask hit) {
 							queryHits.add(hit);
 						}
 					};

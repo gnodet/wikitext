@@ -16,7 +16,7 @@ import org.eclipse.mylyn.internal.sandbox.ui.SandboxUiPlugin;
 import org.eclipse.mylyn.internal.sandbox.ui.actions.SwitchTaskDataFolderAction;
 import org.eclipse.mylyn.internal.tasks.core.LocalTask;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
-import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.ui.TaskListManager;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 
@@ -84,7 +84,7 @@ public class SharedTaskFolderTest extends TestCase{
 		SwitchTaskDataFolderAction switchAction = new SwitchTaskDataFolderAction();
 		
 		//Create a task to appear in the main data dir only
-		ITask mainDataDirTask = createAndSaveTask("Main Dir Task");
+		AbstractTask mainDataDirTask = createAndSaveTask("Main Dir Task");
 		
 		//Check the options of folders to switch to
 		String[] sharedDataFolderOptions = switchAction.getFolderStrings();
@@ -143,10 +143,10 @@ public class SharedTaskFolderTest extends TestCase{
 	 * Creates a task with an interaction event and checks that it has
 	 * been properly saved in the currently active data directory
 	 */
-	protected ITask createAndSaveTask(String taskName){
+	protected AbstractTask createAndSaveTask(String taskName){
 		
 		//Create the task and add it to the root of the task list
-		ITask newTask = new LocalTask("" + Calendar.getInstance().getTimeInMillis(), taskName);
+		AbstractTask newTask = new LocalTask("" + Calendar.getInstance().getTimeInMillis(), taskName);
 		manager.getTaskList().moveToRoot(newTask);
 		InteractionContext mockContext = ContextCorePlugin.getContextManager().loadContext(newTask.getHandleIdentifier());//, newTask.getContextPath());
 		InteractionEvent event = new InteractionEvent(InteractionEvent.Kind.EDIT,"structureKind","handle","originId");
