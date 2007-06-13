@@ -28,13 +28,15 @@ public class UsageAnalysis {
 
 	Map<String, Integer> totalNumCommands = new HashMap<String, Integer>();
 
-	final static String USAGE_DIRECTORY = MylarUsageUploadServlet.UPLOAD_DIRECTORY;
+	final static String USAGE_DIRECTORY = "//home//study//uploads//";
 
-	final static String LOGGING_DIRECTORY = "home//study//logging//";
+	final static String OUTPUT_DIRECTORY = "//home//study//tomcat//apache-tomcat-5.5.23//webapps//upload//";
+
+	final static String LOGGING_DIRECTORY = "//home//study//logging//";
 
 	final static String ERROR_LOGGING_FILE = "MylarUsageAnalysisErrorLog.txt";
 
-	final static String USAGE_SUMMARY_FILE = "usageSummary.txt";
+	final static String USAGE_SUMMARY_FILE = "usageSummary.html";
 
 	int MAX_NUM_VIEWS_TO_REPORT = 10;
 
@@ -229,7 +231,7 @@ public class UsageAnalysis {
 
 	public void printSummaryToFile() {
 
-		File summaryFile = new File(USAGE_DIRECTORY, USAGE_SUMMARY_FILE);
+		File summaryFile = new File(OUTPUT_DIRECTORY, USAGE_SUMMARY_FILE);
 		try {
 			if (!summaryFile.exists()) {
 				summaryFile.createNewFile();
@@ -241,7 +243,7 @@ public class UsageAnalysis {
 			PrintStream summaryLogStream = new PrintStream(new FileOutputStream(summaryFile, true));
 
 			summaryLogStream.println("<html><body>");
-			summaryLogStream.println("<h2>Mylar Community Usage Statistics</h2>");
+			summaryLogStream.println("<h2>Mylyn Community Usage Statistics</h2>");
 			summaryLogStream.println("These statistics are updated once per day.  They were last updated at "
 					+ DateFormat.getTimeInstance(DateFormat.DEFAULT).format(Calendar.getInstance().getTime()) + " "
 					+ new SimpleDateFormat("z").format(Calendar.getInstance().getTime()) + " on "

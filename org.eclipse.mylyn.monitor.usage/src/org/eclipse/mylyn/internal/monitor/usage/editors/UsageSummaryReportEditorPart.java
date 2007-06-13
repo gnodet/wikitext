@@ -60,7 +60,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 
 	private static final long MAX_FILE_LENGTH = 1024 * 1024;
 
-	private static final String URL_SERVLET_USAGE = "http://mylar.eclipse.org/monitor/upload/UsageAnalysisServlet";
+	private static final String URL_USAGE_PAGE = "http://mylyn.eclipse.org/monitor/upload/usageSummary.html";
 
 	private static final String DATE_FORMAT_STRING = "MMMMM d, h:mm a";
 
@@ -157,7 +157,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 			if (WebBrowserPreference.getBrowserChoice() == WebBrowserPreference.EXTERNAL) {
 				try {
 					IWorkbenchBrowserSupport support = PlatformUI.getWorkbench().getBrowserSupport();
-					support.getExternalBrowser().openURL(new URL(URL_SERVLET_USAGE));
+					support.getExternalBrowser().openURL(new URL(URL_USAGE_PAGE));
 				} catch (Exception e) {
 					MylarStatusHandler.fail(e, "could not open task url", true);
 				}
@@ -175,7 +175,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 
 				String generatedId = "org.eclipse.mylyn.web.browser-" + Calendar.getInstance().getTimeInMillis();
 				browser = WorkbenchBrowserSupport.getInstance().createBrowser(flags, generatedId, null, null);
-				browser.openURL(new URL(URL_SERVLET_USAGE));
+				browser.openURL(new URL(URL_USAGE_PAGE));
 			}
 		} catch (PartInitException e) {
 			MessageDialog.openError(Display.getDefault().getActiveShell(), "Browser init error",
