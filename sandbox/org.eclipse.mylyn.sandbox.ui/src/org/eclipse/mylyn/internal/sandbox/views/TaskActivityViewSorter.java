@@ -13,8 +13,8 @@ package org.eclipse.mylyn.internal.sandbox.views;
 
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
-import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskDelegate;
-import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
+import org.eclipse.mylyn.internal.tasks.core.DateRangeActivityDelegate;
+import org.eclipse.mylyn.internal.tasks.core.DateRangeContainer;
 import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTask.PriorityLevel;
@@ -87,7 +87,7 @@ public class TaskActivityViewSorter extends ViewerSorter {
 	}
 
 	@SuppressWarnings("unchecked")
-	private int compare(ScheduledTaskDelegate task1, ScheduledTaskDelegate task2) {
+	private int compare(DateRangeActivityDelegate task1, DateRangeActivityDelegate task2) {
 		if (sortColumn >= directions.length)
 			return 0;
 
@@ -141,10 +141,10 @@ public class TaskActivityViewSorter extends ViewerSorter {
 
 	@Override
 	public int compare(Viewer viewer, Object o1, Object o2) {
-		if (o1 instanceof ScheduledTaskContainer) {
-			if (o2 instanceof ScheduledTaskContainer) {
-				ScheduledTaskContainer dateRangeTaskContainer1 = (ScheduledTaskContainer) o1;
-				ScheduledTaskContainer dateRangeTaskContainer2 = (ScheduledTaskContainer) o2;
+		if (o1 instanceof DateRangeContainer) {
+			if (o2 instanceof DateRangeContainer) {
+				DateRangeContainer dateRangeTaskContainer1 = (DateRangeContainer) o1;
+				DateRangeContainer dateRangeTaskContainer2 = (DateRangeContainer) o2;
 				return -1*dateRangeTaskContainer2.getStart().compareTo(dateRangeTaskContainer1.getStart());
 			} else {
 				return -1;
@@ -152,9 +152,9 @@ public class TaskActivityViewSorter extends ViewerSorter {
 		} else if (o1 instanceof AbstractTask) {
 			if (o2 instanceof AbstractTaskContainer) {
 				return -1;
-			} else if (o2 instanceof ScheduledTaskDelegate) {
-				ScheduledTaskDelegate task1 = (ScheduledTaskDelegate) o1;
-				ScheduledTaskDelegate task2 = (ScheduledTaskDelegate) o2;
+			} else if (o2 instanceof DateRangeActivityDelegate) {
+				DateRangeActivityDelegate task1 = (DateRangeActivityDelegate) o1;
+				DateRangeActivityDelegate task2 = (DateRangeActivityDelegate) o2;
 				return compare(task1, task2);
 			}
 		}
