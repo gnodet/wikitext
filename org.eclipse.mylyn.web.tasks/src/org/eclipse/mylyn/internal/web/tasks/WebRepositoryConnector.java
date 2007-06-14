@@ -41,8 +41,8 @@ import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.IAttachmentHandler;
+import org.eclipse.mylyn.tasks.core.ITaskCollector;
 import org.eclipse.mylyn.tasks.core.ITaskDataHandler;
-import org.eclipse.mylyn.tasks.core.QueryHitCollector;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.TaskRepositoryManager;
@@ -202,7 +202,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	@Override
 	public IStatus performQuery(AbstractRepositoryQuery query, TaskRepository repository, IProgressMonitor monitor,
-			QueryHitCollector resultCollector, boolean forced) {
+			ITaskCollector resultCollector) {
 		if (query instanceof WebQuery) {
 			WebQuery webQuery = (WebQuery) query;
 			Map<String, String> queryParameters = webQuery.getQueryParameters();
@@ -232,10 +232,11 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return null;
 	}
 
-	public Set<AbstractTask> getChangedSinceLastSync(TaskRepository repository,
-			Set<AbstractTask> tasks, IProgressMonitor monitor) throws CoreException {
+	@Override
+	public boolean markStaleTasks(TaskRepository repository,
+			Set<AbstractTask> tasks, IProgressMonitor monitor) {
 		// not supported
-		return Collections.emptySet();
+		return false;
 	}
 
 	@Override
@@ -257,7 +258,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	// utility methods
 
 	public static IStatus performQuery(String resource, String regexp, String taskPrefix, IProgressMonitor monitor,
-			QueryHitCollector collector, TaskRepository repository) {
+			ITaskCollector resultCollector, TaskRepository repository) {
 		Pattern p = Pattern.compile(regexp, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL
 				| Pattern.UNICODE_CASE | Pattern.CANON_EQ);
 		Matcher matcher = p.matcher(resource);
@@ -274,7 +275,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 				if (matcher.groupCount() >= 1) {
 					String id = matcher.group(1);
 					String description = matcher.groupCount() > 1 ? cleanup(matcher.group(2), repository) : null;
-					collector.accept(new WebTask(id, description, taskPrefix, repository.getUrl(), WebTask.REPOSITORY_TYPE));
+					resultCollector.accept(new WebTask(id, description, taskPrefix, repository.getUrl(), WebTask.REPOSITORY_TYPE));
 				}
 			} while (matcher.find() && !monitor.isCanceled());
 
@@ -310,7 +311,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return sb.toString();
 	}
 
-	public static IStatus performRssQuery(String queryUrl, IProgressMonitor monitor, QueryHitCollector collector,
+	public static IStatus performRssQuery(String queryUrl, IProgressMonitor monitor, ITaskCollector resultCollector,
 			TaskRepository repository) {
 		SyndFeedInput input = new SyndFeedInput();
 		try {
@@ -339,7 +340,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 				String entrTitle = entry.getTitle();
 
-				collector.accept(new WebTask(entryUri, //
+				resultCollector.accept(new WebTask(entryUri, //
 						(date == null ? "" : df.format(date) + " - ") + entrTitle, //
 						"", repository.getUrl(), WebTask.REPOSITORY_TYPE));
 			}

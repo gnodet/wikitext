@@ -29,7 +29,6 @@ import org.eclipse.mylyn.internal.bugzilla.core.BugzillaRepositoryQuery;
 import org.eclipse.mylyn.internal.bugzilla.core.IBugzillaConstants;
 import org.eclipse.mylyn.internal.bugzilla.ui.BugzillaUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.util.WebBrowserDialog;
-import org.eclipse.mylyn.tasks.core.QueryHitCollector;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.UnrecognizedReponseException;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
@@ -87,7 +86,7 @@ public class BugzillaSearchEngine {
 	 * @param collector -
 	 *            The collector for the results to go into
 	 */
-	public IStatus search(QueryHitCollector collector) throws LoginException {
+	public IStatus search(ProgressQueryHitCollector collector) throws LoginException {
 		return this.search(collector, 0, IBugzillaConstants.RETURN_ALL_HITS);
 	}
 
@@ -99,7 +98,7 @@ public class BugzillaSearchEngine {
 	 * @param startMatches -
 	 *            The number of matches to start with for the progress monitor
 	 */
-	public IStatus search(QueryHitCollector collector, int startMatches) throws LoginException {
+	public IStatus search(ProgressQueryHitCollector collector, int startMatches) throws LoginException {
 		return this.search(collector, startMatches, BugzillaUiPlugin.getDefault().getMaxResults());
 	}
 
@@ -115,7 +114,7 @@ public class BugzillaSearchEngine {
 	 *            the maximum number of matches to return or
 	 *            IBugzillaConstants.RETURN_ALL_HITS for unlimited
 	 */
-	public IStatus search(QueryHitCollector collector, int startMatches, int maxHits) throws LoginException {
+	public IStatus search(ProgressQueryHitCollector collector, int startMatches, int maxHits) throws LoginException {
 		IProgressMonitor monitor = collector.getProgressMonitor();
 		IStatus status = null;
 		boolean possibleBadLogin = false;
@@ -136,7 +135,7 @@ public class BugzillaSearchEngine {
 					.getRepositoryManager().getRepositoryConnector(BugzillaCorePlugin.REPOSITORY_KIND);
 
 			BugzillaClient client = bugzillaConnector.getClientManager().getClient(repository);
-			client.getSearchHits(query);
+			client.getSearchHits(query, collector);
 
 		} catch (CoreException e) {
 			status = new MultiStatus(BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR,

@@ -362,8 +362,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 					QueryHitCollector collector = new QueryHitCollector(TasksUiPlugin.getTaskListManager()
 							.getTaskList(), new ITaskFactory() {
 
-						public AbstractTask createTask(RepositoryTaskData taskData, boolean synchData,
-								boolean forced, IProgressMonitor monitor) throws CoreException {
+						public AbstractTask createTask(RepositoryTaskData taskData, IProgressMonitor monitor) throws CoreException {
 							return null;
 						}
 					}) {
