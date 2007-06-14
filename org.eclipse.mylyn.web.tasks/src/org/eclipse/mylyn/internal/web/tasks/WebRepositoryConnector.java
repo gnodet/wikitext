@@ -62,6 +62,8 @@ import com.sun.syndication.io.XmlReader;
  */
 public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
+	public static final String REPOSITORY_TYPE = "web";
+	
 	public static final String PROPERTY_TASK_CREATION_URL = "taskCreationUrl";
 
 	public static final String PROPERTY_TASK_URL = "taskUrl";
@@ -96,7 +98,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	@Override
 	public String getRepositoryType() {
-		return WebTask.REPOSITORY_TYPE;
+		return WebRepositoryConnector.REPOSITORY_TYPE;
 	}
 
 	@Override
@@ -121,10 +123,10 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	@Override
 	public AbstractTask createTaskFromExistingId(TaskRepository repository, final String id,
 			IProgressMonitor monitor) throws CoreException {
-		if (WebTask.REPOSITORY_TYPE.equals(repository.getKind())) {
+		if (WebRepositoryConnector.REPOSITORY_TYPE.equals(repository.getKind())) {
 			String taskPrefix = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
 
-			final WebTask task = new WebTask(id, id, taskPrefix, repository.getUrl(), WebTask.REPOSITORY_TYPE);
+			final WebTask task = new WebTask(id, id, taskPrefix, repository.getUrl(), WebRepositoryConnector.REPOSITORY_TYPE);
 
 			RetrieveTitleFromUrlJob job = new RetrieveTitleFromUrlJob(taskPrefix + id) {
 				@Override
@@ -342,7 +344,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 				resultCollector.accept(new WebTask(entryUri, //
 						(date == null ? "" : df.format(date) + " - ") + entrTitle, //
-						"", repository.getUrl(), WebTask.REPOSITORY_TYPE));
+						"", repository.getUrl(), WebRepositoryConnector.REPOSITORY_TYPE));
 			}
 			return Status.OK_STATUS;
 		} catch (Exception ex) {
