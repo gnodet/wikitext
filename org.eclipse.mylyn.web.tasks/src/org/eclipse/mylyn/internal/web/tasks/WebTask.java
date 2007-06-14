@@ -20,9 +20,6 @@ import org.eclipse.mylyn.tasks.core.AbstractTask;
  */
 public class WebTask extends AbstractTask {
 
-	// TODO: move
-	public static final String REPOSITORY_TYPE = "web";
-
 	private static final String UNKNOWN_OWNER = "<unknown>";
 	
 	private final String taskPrefix;

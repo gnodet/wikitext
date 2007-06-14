@@ -277,7 +277,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 				if (matcher.groupCount() >= 1) {
 					String id = matcher.group(1);
 					String description = matcher.groupCount() > 1 ? cleanup(matcher.group(2), repository) : null;
-					resultCollector.accept(new WebTask(id, description, taskPrefix, repository.getUrl(), WebTask.REPOSITORY_TYPE));
+					resultCollector.accept(new WebTask(id, description, taskPrefix, repository.getUrl(), REPOSITORY_TYPE));
 				}
 			} while (matcher.find() && !monitor.isCanceled());
 

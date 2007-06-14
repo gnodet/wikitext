@@ -13,9 +13,9 @@ import java.util.Map;
 
 import org.eclipse.mylyn.internal.monitor.core.util.XmlStringConverter;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.tasks.core.DelegatingTaskExternalizer;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.TaskExternalizationException;
 import org.eclipse.mylyn.tasks.core.TaskList;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
@@ -142,7 +142,7 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 //			throw new TaskExternalizationException("Repository URL not stored for bug report");
 //		}
 
-		WebTask task = new WebTask(id, label, prefix, repositoryUrl, WebTask.REPOSITORY_TYPE);
+		WebTask task = new WebTask(id, label, prefix, repositoryUrl, WebRepositoryConnector.REPOSITORY_TYPE);
 		// TODO: remove after refactoring
 		task.setRepositoryUrl(repositoryUrl);
 		return task;
@@ -172,7 +172,7 @@ public class WebTaskExternalizer extends DelegatingTaskExternalizer {
 
 		if(queryUrlTemplate==null || queryUrlTemplate.length()==0) {
 			queryUrlTemplate = queryUrl;
-			TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(WebTask.REPOSITORY_TYPE, repositoryUrl);
+			TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(WebRepositoryConnector.REPOSITORY_TYPE, repositoryUrl);
 			queryUrl = WebRepositoryConnector.evaluateParams(queryUrlTemplate, params, repository);
 		}
 		

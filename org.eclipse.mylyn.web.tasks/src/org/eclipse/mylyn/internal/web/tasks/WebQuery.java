@@ -15,19 +15,21 @@ import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 
 /**
  * Represents pattern-based query on repository web page
- *
+ * 
  * @author Eugene Kuleshov
  */
 public class WebQuery extends AbstractRepositoryQuery {
 
 	private final String taskPrefix;
+
 	private final String queryUrlTemplate;
+
 	private final String queryPattern;
+
 	private final Map<String, String> params;
 
-	public WebQuery(String description, String queryUrl, String queryUrlTemplate, 
-			String queryPattern, String taskPrefix, String repositoryUrl,
-			Map<String, String> params) {
+	public WebQuery(String description, String queryUrl, String queryUrlTemplate, String queryPattern,
+			String taskPrefix, String repositoryUrl, Map<String, String> params) {
 		super(description);
 
 		this.queryUrlTemplate = queryUrlTemplate;
@@ -41,17 +43,17 @@ public class WebQuery extends AbstractRepositoryQuery {
 
 	@Override
 	public String getRepositoryKind() {
-		return WebTask.REPOSITORY_TYPE;
+		return WebRepositoryConnector.REPOSITORY_TYPE;
 	}
 
 	public String getTaskPrefix() {
 		return this.taskPrefix;
 	}
-	
+
 	public String getQueryUrlTemplate() {
 		return this.queryUrlTemplate;
 	}
-	
+
 	public String getQueryPattern() {
 		return this.queryPattern;
 	}
@@ -61,4 +63,3 @@ public class WebQuery extends AbstractRepositoryQuery {
 	}
 
 }
-

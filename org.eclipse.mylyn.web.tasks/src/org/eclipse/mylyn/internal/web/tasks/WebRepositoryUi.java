@@ -64,7 +64,7 @@ public class WebRepositoryUi extends AbstractRepositoryConnectorUi {
 
 	@Override
 	public String getRepositoryType() {
-		return WebTask.REPOSITORY_TYPE;
+		return WebRepositoryConnector.REPOSITORY_TYPE;
 	}
 
 	@Override
