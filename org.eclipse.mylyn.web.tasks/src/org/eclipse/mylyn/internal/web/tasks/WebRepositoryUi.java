@@ -8,9 +8,12 @@
 
 package org.eclipse.mylyn.internal.web.tasks;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.wizard.IWizard;
-import org.eclipse.mylyn.internal.tasks.core.WebTask;
+import org.eclipse.mylyn.internal.tasks.core.LocalTask;
+import org.eclipse.mylyn.internal.tasks.ui.TasksUiImages;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
@@ -44,6 +47,16 @@ public class WebRepositoryUi extends AbstractRepositoryConnectorUi {
 		}
 	}
 
+	/**
+	 * Task kind overlay, recommended to override with connector-specific overlay.
+	 */
+	public ImageDescriptor getTaskKindOverlay(AbstractTask task) {
+		if (!(task instanceof LocalTask) && (!hasRichEditor() || task instanceof WebTask)) {
+			return TasksUiImages.OVERLAY_WEB;
+		}
+		return null;
+	}
+	
 	@Override
 	public boolean hasRichEditor() {
 		return false;

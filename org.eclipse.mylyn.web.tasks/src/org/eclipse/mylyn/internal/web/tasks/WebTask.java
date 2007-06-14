@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.tasks.core;
+package org.eclipse.mylyn.internal.web.tasks;
 
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 
@@ -56,8 +56,7 @@ public class WebTask extends AbstractTask {
 
 	@Override
 	public boolean isLocal() {
-		// ignore
-		return false;
+		return true;
 	}
 	
 }
