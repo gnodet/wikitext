@@ -26,3 +26,5 @@
 1181781818576	Rename method 'notifyLocalInfoChanged'
 1181788002784	Rename method 'add'
 1181788017786	Rename method 'remove'
+1181803285976	Rename field 'automaticCategory'
+1181803314502	Rename method 'getAutomaticCategory'
