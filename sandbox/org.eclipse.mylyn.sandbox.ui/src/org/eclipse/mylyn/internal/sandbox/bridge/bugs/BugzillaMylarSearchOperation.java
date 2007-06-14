@@ -152,7 +152,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 		collector.setProgressMonitor(monitor);
 
 		// get all of the root tasks and start the search
-		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getRootTasks();
+		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getDefaultCategory().getChildren();
 		searchLocal(tasks, collector, elementName, monitor);
 		for (AbstractTaskContainer cat : TasksUiPlugin.getTaskListManager().getTaskList().getTaskContainers()) {
 			searchLocal(cat.getChildren(), collector, elementName, monitor);
@@ -180,7 +180,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 		collector.setProgressMonitor(monitor);
 
 		// get all of the root tasks and start the search
-		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getRootTasks();
+		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getDefaultCategory().getChildren();
 		searchLocal(tasks, collector, elementName, monitor);
 		for (AbstractTaskContainer cat : TasksUiPlugin.getTaskListManager().getTaskList().getTaskContainers()) {
 			searchLocal(cat.getChildren(), collector, elementName, monitor);
