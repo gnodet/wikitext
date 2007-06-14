@@ -16,3 +16,5 @@
 1181707563828	Rename type 'NewRepositoryTaskPage'
 1181717209407	Rename type 'AbstractTasksAction'
 1181756785343	Rename method 'getSelectedFilters'
+1181846452193	Rename type 'AbstractTaskEditor'
+1181846547140	Rename type 'AbstractTaskEditorInput'
