@@ -30,3 +30,7 @@
 1181803314502	Rename method 'getAutomaticCategory'
 1181808412801	Change method 'moveToContainer'
 1181852705645	Move compilation unit
+1181857285064	Rename enum constant 'CHANGED'
+1181857308990	Rename enum constant 'DATA'
+1181857348844	Rename enum constant 'CHANGED_LOCAL'
+1181857358034	Rename enum constant 'CHANGED_REMOTE'

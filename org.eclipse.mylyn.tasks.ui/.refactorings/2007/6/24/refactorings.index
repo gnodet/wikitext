@@ -17,3 +17,5 @@
 1181717209407	Rename type 'AbstractTasksAction'
 1181756785343	Rename method 'getSelectedFilters'
 1181789707690	Convert member type 'SynchronizeChangedTasksJob' to top level
+1181857604289	Rename method 'syncTask'
+1181857790078	Rename local variable 'task'
