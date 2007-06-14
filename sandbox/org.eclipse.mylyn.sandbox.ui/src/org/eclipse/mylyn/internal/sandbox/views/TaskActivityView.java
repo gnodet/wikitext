@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -37,8 +38,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerDropAdapter;
-import org.eclipse.mylyn.internal.tasks.core.DateRangeActivityDelegate;
-import org.eclipse.mylyn.internal.tasks.core.DateRangeContainer;
+import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskDelegate;
+import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
 import org.eclipse.mylyn.internal.tasks.ui.TaskListColorsAndFonts;
 import org.eclipse.mylyn.internal.tasks.ui.actions.ActivityReportAction;
 import org.eclipse.mylyn.internal.tasks.ui.actions.OpenTaskListElementAction;
@@ -50,6 +51,7 @@ import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.ITaskActivityListener;
 import org.eclipse.mylyn.tasks.core.ITaskListChangeListener;
+import org.eclipse.mylyn.tasks.core.TaskContainerDelta;
 import org.eclipse.mylyn.tasks.ui.TaskListManager;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.swt.SWT;
@@ -140,7 +142,7 @@ public class TaskActivityView extends ViewPart {
 			// TaskActivityView.this.treeViewer.refresh(task);
 		}
 
-		public void activityChanged(DateRangeContainer week) {
+		public void activityChanged(ScheduledTaskContainer week) {
 			refresh();
 			// TaskActivityView.this.treeViewer.refresh(week);
 		}
@@ -157,36 +159,8 @@ public class TaskActivityView extends ViewPart {
 
 	private ITaskListChangeListener TASK_CHANGE_LISTENER = new ITaskListChangeListener() {
 
-		public void localInfoChanged(final AbstractTask updateTask) {
-			refresh();
-		}
-
-		public void repositoryInfoChanged(AbstractTask task) {
-			localInfoChanged(task);
-		}
-
-		public void taskMoved(AbstractTask task, AbstractTaskContainer fromContainer, AbstractTaskContainer toContainer) {
-			// ignore
-		}
-
-		public void taskDeleted(AbstractTask task) {
-			// ignore
-		}
-
-		public void containerAdded(AbstractTaskContainer container) {
-			// ignore
-		}
-
-		public void containerDeleted(AbstractTaskContainer container) {
-			// ignore
-		}
-
-		public void taskAdded(AbstractTask task) {
-			// ignore
-		}
-
-		public void containerInfoChanged(AbstractTaskContainer container) {
-			// ignore
+		public void containersChanged(Set<TaskContainerDelta> containers) {
+			refresh();	
 		}
 	};
 
@@ -319,18 +293,18 @@ public class TaskActivityView extends ViewPart {
 						.getViewer().getSelection());
 
 				Object target = getCurrentTarget();
-				DateRangeContainer container;
+				ScheduledTaskContainer container;
 				Calendar reminderCalendar;
-				if (target instanceof DateRangeContainer) {
-					container = (DateRangeContainer) target;
+				if (target instanceof ScheduledTaskContainer) {
+					container = (ScheduledTaskContainer) target;
 					if (container.isPresent()) {
 						reminderCalendar = GregorianCalendar.getInstance();
 						TasksUiPlugin.getTaskListManager().setSecheduledIn(reminderCalendar, 1);
 					} else {
 						reminderCalendar = container.getStart();
 					}
-				} else if (target instanceof DateRangeActivityDelegate) {
-					DateRangeActivityDelegate dateRangeActivityDelegate = (DateRangeActivityDelegate) target;
+				} else if (target instanceof ScheduledTaskDelegate) {
+					ScheduledTaskDelegate dateRangeActivityDelegate = (ScheduledTaskDelegate) target;
 					if (dateRangeActivityDelegate.getDateRangeContainer().isPresent()) {
 						reminderCalendar = GregorianCalendar.getInstance();
 						TasksUiPlugin.getTaskListManager().setSecheduledIn(reminderCalendar, 1);
@@ -364,11 +338,11 @@ public class TaskActivityView extends ViewPart {
 				}
 
 				Object target = getCurrentTarget();
-				DateRangeContainer dateRangeContainer = null;
-				if (target instanceof DateRangeContainer) {
-					dateRangeContainer = (DateRangeContainer) target;
-				} else if (target instanceof DateRangeActivityDelegate) {
-					DateRangeActivityDelegate dateRangeActivityDelegate = (DateRangeActivityDelegate) target;
+				ScheduledTaskContainer dateRangeContainer = null;
+				if (target instanceof ScheduledTaskContainer) {
+					dateRangeContainer = (ScheduledTaskContainer) target;
+				} else if (target instanceof ScheduledTaskDelegate) {
+					ScheduledTaskDelegate dateRangeActivityDelegate = (ScheduledTaskDelegate) target;
 					dateRangeContainer = dateRangeActivityDelegate.getDateRangeContainer();
 				}
 
@@ -463,8 +437,8 @@ public class TaskActivityView extends ViewPart {
 		reminderEditor.addListener(new ICellEditorListener() {
 			public void applyEditorValue() {
 				Object selection = ((IStructuredSelection) treeViewer.getSelection()).getFirstElement();
-				if (selection instanceof DateRangeActivityDelegate) {
-					DateRangeActivityDelegate dateRangeActivityDelegate = (DateRangeActivityDelegate) selection;
+				if (selection instanceof ScheduledTaskDelegate) {
+					ScheduledTaskDelegate dateRangeActivityDelegate = (ScheduledTaskDelegate) selection;
 					Date newReminder = reminderEditor.getReminderDate();
 					if (newReminder != null) {
 						TasksUiPlugin.getTaskListManager().setScheduledFor(

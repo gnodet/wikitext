@@ -13,12 +13,11 @@ package org.eclipse.mylyn.internal.context.ui;
 
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
-import org.eclipse.mylyn.internal.tasks.core.DateRangeContainer;
+import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
 import org.eclipse.mylyn.internal.tasks.core.TaskArchive;
 import org.eclipse.mylyn.internal.tasks.core.UnfiledCategory;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskKeyComparator;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListTableSorter;
-import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
@@ -38,10 +37,10 @@ public class TaskListInterestSorter extends ViewerSorter {
 			return 1;
 		}
 
-		if (o1 instanceof DateRangeContainer) {
-			if (o2 instanceof DateRangeContainer) {
-				DateRangeContainer dateRangeTaskContainer1 = (DateRangeContainer) o1;
-				DateRangeContainer dateRangeTaskContainer2 = (DateRangeContainer) o2;
+		if (o1 instanceof ScheduledTaskContainer) {
+			if (o2 instanceof ScheduledTaskContainer) {
+				ScheduledTaskContainer dateRangeTaskContainer1 = (ScheduledTaskContainer) o1;
+				ScheduledTaskContainer dateRangeTaskContainer2 = (ScheduledTaskContainer) o2;
 				return -1 * dateRangeTaskContainer2.getStart().compareTo(dateRangeTaskContainer1.getStart());
 			} else if (o2 instanceof AbstractTask) {
 				return 1;
