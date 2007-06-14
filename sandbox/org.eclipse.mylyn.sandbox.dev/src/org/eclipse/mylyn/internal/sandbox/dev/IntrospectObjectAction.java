@@ -21,7 +21,6 @@ import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylyn.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.ui.IViewActionDelegate;
@@ -76,7 +75,7 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 					text += "\nLast time in SYNCHRONIZED state: " + task.getLastSyncDateStamp();
 					text += "\nRepository synch time stamp: " + repository.getSyncTimeStamp();
 					text += "\nSync state: " + task.getSyncState();
-					text += "\nParent: " + task.getCategory();
+					text += "\nParents: " + task.getParentContainers();
 					if (task.getChildren() != null && !task.getChildren().isEmpty()) {
 						text += "\nChildren: ";
 						for (AbstractTask subTask : task.getChildren()) {

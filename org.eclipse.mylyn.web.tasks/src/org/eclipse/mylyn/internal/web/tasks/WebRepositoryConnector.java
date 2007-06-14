@@ -131,7 +131,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 				@Override
 				protected void setTitle(String pageTitle) {
 					task.setSummary(id + ": " + pageTitle);
-					TasksUiPlugin.getTaskListManager().getTaskList().notifyLocalInfoChanged(task);
+					TasksUiPlugin.getTaskListManager().getTaskList().notifyTaskChanged(task);
 				}
 			};
 			job.schedule();
