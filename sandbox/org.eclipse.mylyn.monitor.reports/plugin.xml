@@ -8,15 +8,15 @@
         targetID="org.eclipse.jdt.ui.PackageExplorer">
 	    <action  
   		  	label="Reports: My Usage Summary" 
-	  		tooltip="Mylar Reports: Usage Summary"
+	  		tooltip="Mylyn Reports: Usage Summary"
 	  		menubarPath="mylyn.monitor" 
 	  		id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.ComputeSummaryAction" 
 	  		class="org.eclipse.mylyn.internal.monitor.reports.ui.actions.EclipseUsageSummaryAction"
 	  		icon="icons/eview16/monitor.gif"
 	  		enablesFor="*"/>   
 	  	<action  
-  		  	label="Reports: Mylar User Analysis" 
-	  		tooltip="Mylar Reports: User Analysis"
+  		  	label="Reports: Mylyn User Analysis" 
+	  		tooltip="Mylyn Reports: User Analysis"
 	  		menubarPath="mylyn.monitor" 
 	  		id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.ComputeSummaryAction" 
 	  		class="org.eclipse.mylyn.internal.monitor.reports.ui.actions.FocusedUiUserAnalysisAction"
@@ -28,15 +28,15 @@
         targetID="org.eclipse.ui.views.ResourceNavigator">
 	    <action  
   		  	label="Reports: My Usage Summary" 
-	  		tooltip="Mylar Reports: My Usage Summary"
+	  		tooltip="Mylyn Reports: My Usage Summary"
 	  		menubarPath="mylyn.monitor" 
 	  		id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.ComputeSummaryAction" 
 	  		class="org.eclipse.mylyn.internal.monitor.reports.ui.actions.EclipseUsageSummaryAction"
 	  		icon="icons/eview16/monitor.gif"
 	  		enablesFor="*"/>   
 	  		    <action  
-  		  	label="Reports: Mylar User Analysis" 
-	  		tooltip="Mylar Reports: User Analysis"
+  		  	label="Reports: Mylyn User Analysis" 
+	  		tooltip="Mylyn Reports: User Analysis"
 	  		menubarPath="mylyn.monitor" 
 	  		id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.ComputeSummaryAction" 
 	  		class="org.eclipse.mylyn.internal.monitor.reports.ui.actions.FocusedUiUserAnalysisAction"
@@ -53,55 +53,6 @@
            name="Multi-user Analysis"
            id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.monitorUsersReport"/>
   	</extension>
-	  		
-	<!--
-	<extension
-        point="org.eclipse.ui.editors">
-     <editor
-           icon="icons/eview16/monitor.gif"
-           class="org.eclipse.mylyn.internal.monitor.reports.ui.views.UsageStatsEditorPart"
-           name="Usage Summary"
-           id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.monitorSummaryReport"/>
-     <editor
-           icon="icons/eview16/monitor.gif"
-           class="org.eclipse.mylyn.internal.monitor.reports.ui.views.UsageStatsEditorPart"
-           name="User Analysis"
-           id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.monitorUsersReport"/>
-  </extension>
-    -->
-  
-  
-  <!--
-   <extension point="org.eclipse.ui.preferencePages">
-      <page 
-         name="Reports"
-         class="org.eclipse.mylyn.monitor.ui.reports.preferences.MylarReportsPreferencePage"
-         id="org.eclipse.mylyn.monitor.ui.reports"
-         category="org.eclipse.mylyn.ui.preferences">
-      </page>  
-   </extension>
-   -->
+  	
 </plugin>
 
-        <!--
-	    <action
-           class="org.eclipse.mylyn.monitor.ui.reports.ui.actions.ShowInteractionHistory"
-           enablesFor="1"
-           icon="icons/eview16/monitor.gif"
-           id="org.eclipse.mylyn.ui.actions.ShowInteractionHistory"
-           label="Show interarction history"
-           menubarPath="mylyn.monitor"
-           tooltip="Show interaction history"/> 
-        -->
-<!--
-   <extension
-         id="org.eclipse.mylyn.reports.views.UsageCountView"
-         point="org.eclipse.ui.views">
-      <view
-            category="org.eclipse.mylyn.ui"
-            class="org.eclipse.mylyn.monitor.ui.reports.ui.views.UsageCountView"
-            icon="icons/eview16/monitor.gif"
-            id="org.eclipse.mylyn.monitor.ui.reports.ui.UsageCountView"
-            name="Usage Statistics"/>
-   </extension>
--->

@@ -4,7 +4,7 @@
 <plugin>
 
     <extension
-         name="Mylar User Study Example Plug-in"
+         name="Mylyn User Study Example Plug-in"
          point="org.eclipse.ui.startup">
     </extension>
 
@@ -16,7 +16,7 @@
          	userId="getUID.cgi"
          	questionnaire="questionnaire.cgi"/>
          <ui
-         	title="Mylar User Study Example"
+         	title="Mylyn User Study Example"
          	daysBetweenUpload="6"
          	questionnairePage="org.eclipse.mylyn.examples.monitor.study.QuestionnaireWizardPage"
          	consentForm="doc/study-ethics.html"/>

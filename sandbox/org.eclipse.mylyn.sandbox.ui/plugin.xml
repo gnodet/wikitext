@@ -3,7 +3,7 @@
 <plugin>
 
 	<extension point="org.eclipse.ui.views">
-     	<category name="Mylar Sandbox" id="org.eclipse.mylyn.sandbox"/>
+     	<category name="Mylyn Sandbox" id="org.eclipse.mylyn.sandbox"/>
     </extension>
 
     <extension point="org.eclipse.ui.preferencePages">
@@ -93,24 +93,24 @@
       <!--
         <provider 
          	markupProviderClass="org.eclipse.mylyn.sandbox.viz.MylarJavaMarkupProvider" 
-         	name="Mylar Provider" 
+         	name="Mylyn Provider" 
          	priority="9" 
-         	description="Provider that shows java declarations that are part of a Mylar context for a task." 
-         	emptyMessage="No active Mylar context to display" 
-         	contentProviderClass="org.eclipse.mylyn.sandbox.viz.MylarJavaContentProvider" 
+         	description="Provider that shows java declarations that are part of a Mylyn context for a task." 
+         	emptyMessage="No active Mylyn context to display" 
+         	contentProviderClass="org.eclipse.mylyn.sandbox.viz.MylynJavaContentProvider" 
          	id="mylarprovider" />
         -->
         
       
 		<!-- This schema works for the older (1.1?) CVS version of the Visualiser from AJDT  
 		<provider
-		    class="org.eclipse.mylyn.sandbox.viz.MylarJavaContentProvider"
-		    markupclass="org.eclipse.mylyn.sandbox.viz.MylarJavaMarkupProvider"
-		    name="Mylar Java Provider"
-		    title="Mylar Java Task Context"
+		    class="org.eclipse.mylyn.sandbox.viz.MylynJavaContentProvider"
+		    markupclass="org.eclipse.mylyn.sandbox.viz.MylynJavaMarkupProvider"
+		    name="Mylyn Java Provider"
+		    title="Mylyn Java Task Context"
 		    priority="8"
 		    description="Provider that shows java declarations that are part of a Mylar context for a task."
-		    emptyMessage="No active Mylar context to display"
+		    emptyMessage="No active Mylyn context to display"
 		    id="mylarprovider">
 		</provider>
 		 --> 

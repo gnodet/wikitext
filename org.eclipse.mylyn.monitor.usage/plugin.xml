@@ -4,7 +4,7 @@
    <extension-point id="study" name="UI Usage Monitor" schema="schema/study.exsd"/>
 
    <extension
-         name="Mylar user monitoring startup"
+         name="Mylyn UI Usage Monitoring Startup"
          point="org.eclipse.ui.startup">
    </extension>   
     
