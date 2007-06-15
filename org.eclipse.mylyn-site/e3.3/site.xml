@@ -3,9 +3,6 @@
    <description url="http://download.eclipse.org/technology/mylar/update-site/e3.3">
       Mylar update site for Eclipse 3.3
    </description>
-   <feature url="features/org.eclipse.mylyn_feature_2.0.0.v20070607-1200.jar" id="org.eclipse.mylar_feature" version="2.0.0.v20070607-1200">
-      <category name="Features"/>
-   </feature>
    <feature url="features/org.eclipse.mylyn.ide_feature_2.0.0.v20070607-1200.jar" id="org.eclipse.mylyn.ide_feature" version="2.0.0.v20070607-1200">
       <category name="Features"/>
    </feature>
@@ -19,6 +16,9 @@
       <category name="Integration"/>
    </feature>
    <feature url="features/org.eclipse.mylyn.monitor_feature_2.0.0.v20070607-1200.jar" id="org.eclipse.mylyn.monitor_feature" version="2.0.0.v20070607-1200">
+      <category name="Features"/>
+   </feature>
+   <feature url="features/org.eclipse.mylyn_feature_2.0.0.v20070607-1200.jar" id="org.eclipse.mylyn_feature" version="2.0.0.v20070607-1200">
       <category name="Features"/>
    </feature>
    <category-def name="Features" label="Features"/>
