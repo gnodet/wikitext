@@ -4,7 +4,7 @@
       Mylar update site for Eclipse 3.3
    </description>
    <feature url="features/org.eclipse.mylyn.ide_feature_2.0.0.v20070607-1200.jar" id="org.eclipse.mylyn.ide_feature" version="2.0.0.v20070607-1200">
-      <category name="Features"/>
+      <category name="Integration"/>
    </feature>
    <feature url="features/org.eclipse.mylyn.bugzilla_feature_2.0.0.v20070607-1200.jar" id="org.eclipse.mylyn.bugzilla_feature" version="2.0.0.v20070607-1200">
       <category name="Integration"/>
@@ -16,11 +16,20 @@
       <category name="Integration"/>
    </feature>
    <feature url="features/org.eclipse.mylyn.monitor_feature_2.0.0.v20070607-1200.jar" id="org.eclipse.mylyn.monitor_feature" version="2.0.0.v20070607-1200">
-      <category name="Features"/>
+      <category name="Mylyn"/>
    </feature>
    <feature url="features/org.eclipse.mylyn_feature_2.0.0.v20070607-1200.jar" id="org.eclipse.mylyn_feature" version="2.0.0.v20070607-1200">
-      <category name="Features"/>
+      <category name="Mylyn"/>
    </feature>
-   <category-def name="Features" label="Features"/>
+   <feature url="features/org.eclipse.mylar_feature_2.0.0.v20070612-compatibility.jar" id="org.eclipse.mylar_feature" version="2.0.0.v20070612-compatibility">
+      <category name="Mylyn"/>
+   </feature>
+   <feature url="features/org.eclipse.mylyn.java_feature_1.0.0.jar" id="org.eclipse.mylyn.java_feature" version="1.0.0">
+      <category name="Integration"/>
+   </feature>
+   <feature url="features/org.eclipse.mylyn.pde_feature_1.0.0.jar" id="org.eclipse.mylyn.pde_feature" version="1.0.0">
+      <category name="Integration"/>
+   </feature>
+   <category-def name="Mylyn" label="Features"/>
    <category-def name="Integration" label="Integration"/>
 </site>

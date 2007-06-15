@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.mylyn.monitor_feature"
-      label="UI Usage Reporting (Optional)"
-      version="2.0.0.v20070607-1200"
+      label="Mylyn UI Usage Reporting (Optional)"
+      version="2.0.0.v20070614-1800"
+      provider-name="Eclipse.org"
       plugin="org.eclipse.mylyn">
 
    <description>
@@ -213,14 +214,35 @@ litigation.
    </license>
 
    <url>
-      <update label="Mylar for Eclipse 3.3" url="http://download.eclipse.org/technology/mylar/update-site/e3.3"/>
+      <update label="Mylyn for Eclipse 3.3" url="http://download.eclipse.org/tools/mylyn/update/e3.3"/>
    </url>
+
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.mylyn.context.core"/>
+      <import plugin="org.eclipse.update.ui"/>
+      <import plugin="org.eclipse.update.core"/>
+      <import plugin="org.eclipse.ui.browser"/>
+      <import plugin="org.eclipse.ui.editors"/>
+      <import plugin="org.eclipse.ui.workbench.texteditor"/>
+      <import plugin="org.eclipse.ui.forms"/>
+      <import plugin="org.eclipse.mylyn.context.ui"/>
+      <import plugin="org.eclipse.mylyn.monitor.ui"/>
+      <import plugin="org.eclipse.mylyn.monitor.core"/>
+      <import plugin="org.eclipse.mylyn"/>
+      <import plugin="org.eclipse.core.filesystem"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.mylyn.web.core"/>
+   </requires>
 
    <plugin
          id="org.eclipse.mylyn.monitor.usage"
          download-size="0"
          install-size="0"
-         version="2.0.0.v20070607-1200"
+         version="2.0.0.v20070614-1800"
          unpack="false"/>
 
 </feature>
