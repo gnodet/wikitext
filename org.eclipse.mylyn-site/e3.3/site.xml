@@ -16,13 +16,13 @@
       <category name="Integration"/>
    </feature>
    <feature url="features/org.eclipse.mylyn.monitor_feature_2.0.0.v20070614-1800.jar" id="org.eclipse.mylyn.monitor_feature" version="2.0.0.v20070614-1800">
-      <category name="Mylyn"/>
+      <category name="Features"/>
    </feature>
    <feature url="features/org.eclipse.mylyn_feature_2.0.0.v20070614-1800.jar" id="org.eclipse.mylyn_feature" version="2.0.0.v20070614-1800">
-      <category name="Mylyn"/>
+      <category name="Features"/>
    </feature>
    <feature url="features/org.eclipse.mylar_feature_2.0.0.v20070612-compatibility.jar" id="org.eclipse.mylar_feature" version="2.0.0.v20070612-compatibility">
-      <category name="Mylyn"/>
+      <category name="Features"/>
    </feature>
    <feature url="features/org.eclipse.mylyn.java_feature_2.0.0.v20070614-1800.jar" id="org.eclipse.mylyn.java_feature" version="2.0.0.v20070614-1800">
       <category name="Integration"/>
@@ -31,8 +31,8 @@
       <category name="Integration"/>
    </feature>
    <feature url="features/org.eclipse.mylyn.context_feature_2.0.0.v20070614-1800.jar" id="org.eclipse.mylyn.context_feature" version="2.0.0.v20070614-1800">
-      <category name="Mylyn"/>
+      <category name="Features"/>
    </feature>
-   <category-def name="Mylyn" label="Features"/>
+   <category-def name="Features" label="Features"/>
    <category-def name="Integration" label="Integration"/>
 </site>
