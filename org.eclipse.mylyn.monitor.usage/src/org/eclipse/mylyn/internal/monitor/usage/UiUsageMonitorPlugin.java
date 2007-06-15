@@ -184,7 +184,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 		}
 
 		public void shellActivated(ShellEvent arg0) {
-			if (!ContextCorePlugin.getDefault().suppressWizardsOnStartup() && ContextCorePlugin.getDefault() != null) {
+			if (!MonitorUiPlugin.getDefault().suppressConfigurationWizards() && ContextCorePlugin.getDefault() != null) {
 				// checkForStudyPhasePromotion();
 				checkForStatisticsUpload();
 			}
@@ -335,7 +335,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 			((IMylarMonitorLifecycleListener) listener).startMonitoring();
 		}
 
-		if (!ContextCorePlugin.getDefault().suppressWizardsOnStartup()) {
+		if (!MonitorUiPlugin.getDefault().suppressConfigurationWizards()) {
 			checkForFirstMonitorUse();
 		}
 		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_MONITORING_STARTED, true);
