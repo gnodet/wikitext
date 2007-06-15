@@ -28,7 +28,7 @@
 	<extension point="org.eclipse.ui.newWizards">
     	<wizard
             canFinishEarly="false" 
-            category="org.eclipse.mylyn.wizards"
+            category="org.eclipse.mylyn.ui.wizards.new"
             class="org.eclipse.mylyn.internal.monitor.usage.wizards.NewUsageSummaryEditorWizard"
             hasPages="true"
             icon="icons/eview16/editor-usage.gif"
