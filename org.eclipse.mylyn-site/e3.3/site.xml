@@ -3,31 +3,31 @@
    <description url="http://download.eclipse.org/technology/mylar/update-site/e3.3">
       Mylar update site for Eclipse 3.3
    </description>
-   <feature url="features/org.eclipse.mylyn_feature_2.0.0.v20070614-1800.jar" id="org.eclipse.mylyn_feature" version="2.0.0.v20070614-1800">
+   <feature url="features/org.eclipse.mylyn_feature_2.0.0.v20070615-0900.jar" id="org.eclipse.mylyn_feature" version="2.0.0.v20070615-0900">
       <category name="Features"/>
    </feature>
-   <feature url="features/org.eclipse.mylyn.context_feature_2.0.0.v20070614-1800.jar" id="org.eclipse.mylyn.context_feature" version="2.0.0.v20070614-1800">
+   <feature url="features/org.eclipse.mylyn.context_feature_2.0.0.v20070615-0900.jar" id="org.eclipse.mylyn.context_feature" version="2.0.0.v20070615-0900">
       <category name="Features"/>
    </feature>
-   <feature url="features/org.eclipse.mylyn.monitor_feature_2.0.0.v20070614-1800.jar" id="org.eclipse.mylyn.monitor_feature" version="2.0.0.v20070614-1800">
+   <feature url="features/org.eclipse.mylyn.monitor_feature_2.0.0.v20070615-0900.jar" id="org.eclipse.mylyn.monitor_feature" version="2.0.0.v20070615-0900">
       <category name="Features"/>
    </feature>
-   <feature url="features/org.eclipse.mylyn.ide_feature_2.0.0.v20070614-1800.jar" id="org.eclipse.mylyn.ide_feature" version="2.0.0.v20070614-1800">
+   <feature url="features/org.eclipse.mylyn.ide_feature_2.0.0.v20070615-0900.jar" id="org.eclipse.mylyn.ide_feature" version="2.0.0.v20070615-0900">
       <category name="Integration"/>
    </feature>
-   <feature url="features/org.eclipse.mylyn.java_feature_2.0.0.v20070614-1800.jar" id="org.eclipse.mylyn.java_feature" version="2.0.0.v20070614-1800">
+   <feature url="features/org.eclipse.mylyn.java_feature_2.0.0.v20070615-0900.jar" id="org.eclipse.mylyn.java_feature" version="2.0.0.v20070615-0900">
       <category name="Integration"/>
    </feature>
-   <feature url="features/org.eclipse.mylyn.pde_feature_2.0.0.v20070614-1800.jar" id="org.eclipse.mylyn.pde_feature" version="2.0.0.v20070614-1800">
+   <feature url="features/org.eclipse.mylyn.pde_feature_2.0.0.v20070615-0900.jar" id="org.eclipse.mylyn.pde_feature" version="2.0.0.v20070615-0900">
       <category name="Integration"/>
    </feature>
-   <feature url="features/org.eclipse.mylyn.bugzilla_feature_2.0.0.v20070614-1800.jar" id="org.eclipse.mylyn.bugzilla_feature" version="2.0.0.v20070614-1800">
+   <feature url="features/org.eclipse.mylyn.bugzilla_feature_2.0.0.v20070615-0900.jar" id="org.eclipse.mylyn.bugzilla_feature" version="2.0.0.v20070615-0900">
       <category name="Integration"/>
    </feature>
-   <feature url="features/org.eclipse.mylyn.jira_feature_2.0.0.v20070614-1800.jar" id="org.eclipse.mylyn.jira_feature" version="2.0.0.v20070614-1800">
+   <feature url="features/org.eclipse.mylyn.jira_feature_2.0.0.v20070615-0900.jar" id="org.eclipse.mylyn.jira_feature" version="2.0.0.v20070615-0900">
       <category name="Integration"/>
    </feature>
-   <feature url="features/org.eclipse.mylyn.trac_feature_2.0.0.v20070614-1800.jar" id="org.eclipse.mylyn.trac_feature" version="2.0.0.v20070614-1800">
+   <feature url="features/org.eclipse.mylyn.trac_feature_2.0.0.v20070615-0900.jar" id="org.eclipse.mylyn.trac_feature" version="2.0.0.v20070615-0900">
       <category name="Integration"/>
    </feature>
    <category-def name="Features" label="Features"/>
