@@ -24,6 +24,8 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 
 	private SharedDataDirectoryManager sharedDataDirectoryManager = new SharedDataDirectoryManager();
 
+	public static final String OVERLAYS_INCOMING_TIGHT = "org.eclipse.mylyn.tasks.ui.overlays.incoming.tight";
+	
 	public SandboxUiPlugin() {
 		super();
 		plugin = this;

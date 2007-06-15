@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.mylyn.sandbox.ui_feature"
-      label="Developer and Experimental Tools"
+      label="Mylyn Experimental UI Tweaks"
       version="2.0.0.v20070607-1200"
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylyn">

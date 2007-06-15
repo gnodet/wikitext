@@ -19,3 +19,4 @@
 1181789707690	Convert member type 'SynchronizeChangedTasksJob' to top level
 1181857604289	Rename method 'syncTask'
 1181857790078	Rename local variable 'task'
+1181924386058	Rename method 'createNotificationsGroup'

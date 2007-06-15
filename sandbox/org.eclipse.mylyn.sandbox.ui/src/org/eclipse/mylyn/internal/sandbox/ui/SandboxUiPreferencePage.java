@@ -33,6 +33,8 @@ import org.eclipse.mylyn.internal.context.ui.Highlighter;
 import org.eclipse.mylyn.internal.context.ui.HighlighterImageDescriptor;
 import org.eclipse.mylyn.internal.context.ui.HighlighterList;
 import org.eclipse.mylyn.internal.java.ui.JavaUiBridgePlugin;
+import org.eclipse.mylyn.internal.tasks.ui.TasksUiPreferenceConstants;
+import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -66,6 +68,8 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 
 	private ColorCellEditor colorDialogEditor;
 
+	private Button incomingOverlaysButton = null;
+	
 	private Highlighter selection = null;
 
 	private HighlighterContentProvider contentProvider = null;
@@ -91,8 +95,8 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		GridLayout layout = new GridLayout(1, false);
 		container.setLayout(layout);
 
+		createLayoutGroup(container);
 		createUserbooleanControl(container);
-
 		createHighlightersTable(container);
 		createTableViewer();
 		contentProvider = new HighlighterContentProvider();
@@ -107,6 +111,17 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		// ignore
 	}
 
+	private void createLayoutGroup(Composite parent) {
+		Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
+		group.setText("Task List"); 
+		group.setLayout(new GridLayout(1, false));
+		group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		incomingOverlaysButton = new Button(group, SWT.CHECK);
+		incomingOverlaysButton.setText("Use Synchronize View style incoming overlays and placement");
+		incomingOverlaysButton.setSelection(getPreferenceStore().getBoolean(
+				TasksUiPreferenceConstants.OVERLAYS_INCOMING_TIGHT));
+	}
+	
 	private void createUserbooleanControl(Composite parent) {
 		Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
 		group.setText("Java");
@@ -180,6 +195,12 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 
 	@Override
 	public boolean performOk() {
+		getPreferenceStore().setValue(TasksUiPreferenceConstants.OVERLAYS_INCOMING_TIGHT,
+				incomingOverlaysButton.getSelection());
+		TaskListView view = TaskListView.getFromActivePerspective();
+		if (view != null) {
+			view.setSynchronizationOverlaid(incomingOverlaysButton.getSelection());
+		}
 		getPreferenceStore().setValue(JavaUiBridgePlugin.PREDICTED_INTEREST_ERRORS,
 				enableErrorInterest.getSelection());
 		return true;
