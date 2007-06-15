@@ -27,12 +27,12 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.IJobChangeListener;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.mylyn.core.MylarStatusHandler;
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageScanner;
 import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventComparator;
 import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventSummary;
 import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventUtil;
+import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.internal.monitor.usage.InteractionEventLogger;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
 
@@ -148,7 +148,7 @@ public class ReportGenerator {
 				userIDText = userIDText.substring(0, userIDText.indexOf("-"));
 				userId = Integer.valueOf(userIDText);
 			} catch (Throwable t) {
-				MylarStatusHandler.log(t, "could not parse user ID from source file");
+				StatusManager.log(t, "could not parse user ID from source file");
 			}
 		}
 
@@ -164,7 +164,7 @@ public class ReportGenerator {
 			try {
 				phase = userIDText.substring(0, userIDText.indexOf(terminator) - 1);
 			} catch (Throwable t) {
-				MylarStatusHandler.log(t, "could not parse user ID from source file");
+				StatusManager.log(t, "could not parse user ID from source file");
 			}
 		}
 		return phase;
@@ -211,7 +211,7 @@ public class ReportGenerator {
 				}
 			} catch (Throwable t) {
 				t.printStackTrace();
-				MylarStatusHandler.fail(t, "could not generate usage report", false);
+				StatusManager.fail(t, "could not generate usage report", false);
 			}
 
 			try {
@@ -319,7 +319,7 @@ public class ReportGenerator {
 
 			} catch (Throwable t) {
 				t.printStackTrace();
-				MylarStatusHandler.fail(t, "could not generate usage report", false);
+				StatusManager.fail(t, "could not generate usage report", false);
 			}
 
 			return Status.OK_STATUS;

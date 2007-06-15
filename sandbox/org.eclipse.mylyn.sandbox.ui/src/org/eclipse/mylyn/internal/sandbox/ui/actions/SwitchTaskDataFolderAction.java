@@ -19,7 +19,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.mylyn.context.core.ContextCorePlugin;
-import org.eclipse.mylyn.core.MylarStatusHandler;
+import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.internal.sandbox.ui.SandboxUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.ComboSelectionDialog;
 import org.eclipse.mylyn.internal.tasks.ui.ITasksUiConstants;
@@ -139,7 +139,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 			return folderStrings;
 
 		} catch (RuntimeException e) {
-			MylarStatusHandler.fail(e, "Could not create list of task folders to switch to.", true);
+			StatusManager.fail(e, "Could not create list of task folders to switch to.", true);
 			return null;
 		}
 	}

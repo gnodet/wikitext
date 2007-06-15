@@ -36,8 +36,8 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylyn.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.context.core.IContextStoreListener;
-import org.eclipse.mylyn.core.MylarStatusHandler;
 import org.eclipse.mylyn.internal.context.core.InteractionContextManager;
+import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.internal.monitor.usage.wizards.NewUsageSummaryEditorWizard;
 import org.eclipse.mylyn.monitor.core.IInteractionEventListener;
 import org.eclipse.mylyn.monitor.ui.AbstractCommandMonitor;
@@ -283,12 +283,12 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 											lastTransmit.getTime());
 						}
 					} catch (Throwable t) {
-						MylarStatusHandler.fail(t, "monitor failed to start", false);
+						StatusManager.fail(t, "monitor failed to start", false);
 					}
 				}
 			});
 		} catch (Throwable t) {
-			MylarStatusHandler.fail(t, "monitor failed to start", false);
+			StatusManager.fail(t, "monitor failed to start", false);
 		}
 	}
 
@@ -477,7 +477,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
-				MylarStatusHandler.log(e, "could not create monitor file");
+				StatusManager.log(e, "could not create monitor file");
 			}
 		}
 		return file;
@@ -751,7 +751,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 					}
 				}
 			} catch (Throwable t) {
-				MylarStatusHandler.fail(t, "could not read monitor extension", false);
+				StatusManager.fail(t, "could not read monitor extension", false);
 			}
 		}
 
@@ -779,7 +779,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 					UiUsageMonitorPlugin.getDefault().setQuestionnaireEnabled(false);
 				}
 			} catch (CoreException throwable) {
-				MylarStatusHandler.fail(throwable, "could not load questionnaire", false);
+				StatusManager.fail(throwable, "could not load questionnaire", false);
 				UiUsageMonitorPlugin.getDefault().setQuestionnaireEnabled(false);
 			}
 
@@ -795,7 +795,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 					UiUsageMonitorPlugin.getDefault().setBackgroundEnabled(false);
 				}
 			} catch (CoreException throwable) {
-				MylarStatusHandler.fail(throwable, "could not load background page", false);
+				StatusManager.fail(throwable, "could not load background page", false);
 				UiUsageMonitorPlugin.getDefault().setBackgroundEnabled(false);
 			}
 

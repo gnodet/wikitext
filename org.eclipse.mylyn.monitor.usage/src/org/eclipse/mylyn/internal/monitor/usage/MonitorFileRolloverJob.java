@@ -27,8 +27,8 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.IJobChangeListener;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.mylyn.core.MylarStatusHandler;
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
+import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.internal.monitor.usage.editors.UsageStatsEditorInput;
 import org.eclipse.mylyn.internal.monitor.usage.editors.UsageSummaryReportEditorPart;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
@@ -195,10 +195,10 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 				zipFileStream.closeEntry();
 				zipFileStream.close();
 			} catch (FileNotFoundException e) {
-				MylarStatusHandler.log("Mylar monitor log rollover failed - " + e.getMessage(), this);
+				StatusManager.log("Mylar monitor log rollover failed - " + e.getMessage(), this);
 
 			} catch (IOException e) {
-				MylarStatusHandler.log("Mylar monitor log rollover failed - " + e.getMessage(), this);
+				StatusManager.log("Mylar monitor log rollover failed - " + e.getMessage(), this);
 			}
 
 		}
@@ -230,7 +230,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 				}
 
 			} catch (PartInitException e1) {
-				MylarStatusHandler.fail(e1, "Could not show usage summary", true);
+				StatusManager.fail(e1, "Could not show usage summary", true);
 			}
 
 		}
@@ -264,7 +264,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 					}
 
 				} catch (PartInitException e1) {
-					MylarStatusHandler.fail(e1, "Could not show usage summary", true);
+					StatusManager.fail(e1, "Could not show usage summary", true);
 				}
 
 			}

@@ -18,8 +18,8 @@ import java.io.IOException;
 
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.mylyn.core.MylarStatusHandler;
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
+import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.internal.monitor.usage.InteractionEventSummarySorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -181,11 +181,11 @@ public class UserStudyEditorPart extends UsageEditorPart {
 			outputStream.close();
 
 		} catch (SWTException swe) {
-			MylarStatusHandler.log(swe, "unable to get directory name");
+			StatusManager.log(swe, "unable to get directory name");
 		} catch (FileNotFoundException e) {
-			MylarStatusHandler.log(e, "could not resolve file");
+			StatusManager.log(e, "could not resolve file");
 		} catch (IOException e) {
-			MylarStatusHandler.log(e, "could not write to file");
+			StatusManager.log(e, "could not write to file");
 		}
 	}
 

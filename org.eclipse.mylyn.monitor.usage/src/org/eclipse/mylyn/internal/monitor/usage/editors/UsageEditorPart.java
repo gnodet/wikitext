@@ -20,8 +20,8 @@ import java.io.IOException;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.mylyn.core.MylarStatusHandler;
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
+import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.custom.StyledText;
@@ -229,11 +229,11 @@ public class UsageEditorPart extends EditorPart {
 			outputStream.close();
 
 		} catch (SWTException swe) {
-			MylarStatusHandler.log(swe, "unable to get directory name");
+			StatusManager.log(swe, "unable to get directory name");
 		} catch (FileNotFoundException e) {
-			MylarStatusHandler.log(e, "could not resolve file");
+			StatusManager.log(e, "could not resolve file");
 		} catch (IOException e) {
-			MylarStatusHandler.log(e, "could not write to file");
+			StatusManager.log(e, "could not write to file");
 		}
 	}
 
@@ -265,9 +265,9 @@ public class UsageEditorPart extends EditorPart {
 			writer.write("</body></html>");
 			writer.close();
 		} catch (FileNotFoundException e) {
-			MylarStatusHandler.log(e, "could not resolve file");
+			StatusManager.log(e, "could not resolve file");
 		} catch (IOException e) {
-			MylarStatusHandler.log(e, "could not write to file");
+			StatusManager.log(e, "could not write to file");
 		}
 	}
 

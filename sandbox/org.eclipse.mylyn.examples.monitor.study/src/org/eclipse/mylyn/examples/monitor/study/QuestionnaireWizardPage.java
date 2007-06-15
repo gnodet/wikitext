@@ -19,7 +19,7 @@ import java.io.OutputStream;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.mylyn.core.MylarStatusHandler;
+import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.monitor.usage.IQuestionnairePage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -254,9 +254,9 @@ public class QuestionnaireWizardPage extends WizardPage implements IQuestionnair
 			outputStream.close();
 			return questionnaireFile;
 		} catch (FileNotFoundException e) {
-			MylarStatusHandler.log(e, "failed to submit");
+			StatusManager.log(e, "failed to submit");
 		} catch (IOException e) {
-			MylarStatusHandler.log(e, "failed to submit");
+			StatusManager.log(e, "failed to submit");
 		}
 		return null;
 	}

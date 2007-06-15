@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylyn.core.MylarStatusHandler;
+import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.monitor.ui.MonitorUiPlugin;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
@@ -59,7 +59,7 @@ public class WebUiBridgePlugin extends AbstractUIPlugin {
 				}
 			}
 		} catch (Exception e) {
-			MylarStatusHandler.fail(e, "Mylar Hypertext initialization failed", false);
+			StatusManager.fail(e, "Mylar Hypertext initialization failed", false);
 		}
 	}
 

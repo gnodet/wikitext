@@ -27,10 +27,10 @@ import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylyn.core.MylarStatusHandler;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaTask;
 import org.eclipse.mylyn.internal.bugzilla.ui.tasklist.StackTrace;
+import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.internal.tasks.ui.search.AbstractRepositorySearchQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
@@ -296,8 +296,8 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 			if (status.getCode() == IStatus.CANCEL) {
 				return null;
 			} else if (!status.isOK()) {
-				MylarStatusHandler.log("search error", this);
-				MylarStatusHandler.log(status);
+				StatusManager.log("search error", this);
+				StatusManager.log(status);
 				return null;
 			}
 			return searchCollector;
@@ -435,7 +435,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 				// }
 
 			} catch (Exception e) {
-				MylarStatusHandler.log(e, "search failed");
+				StatusManager.log(e, "search failed");
 			} finally {
 				doiList.add(info);
 			}

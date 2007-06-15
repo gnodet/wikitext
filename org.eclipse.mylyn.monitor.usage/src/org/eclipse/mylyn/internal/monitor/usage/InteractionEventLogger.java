@@ -28,8 +28,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import org.eclipse.mylyn.core.MylarStatusHandler;
 import org.eclipse.mylyn.internal.context.core.InteractionContextExternalizer;
+import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.internal.monitor.core.util.XmlStringConverter;
 import org.eclipse.mylyn.monitor.core.AbstractMonitorLog;
 import org.eclipse.mylyn.monitor.core.IInteractionEventListener;
@@ -76,9 +76,9 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 			}
 			eventAccumulartor++;
 		} catch (NullPointerException e) {
-			MylarStatusHandler.log(e, "could not log interaction event");
+			StatusManager.log(e, "could not log interaction event");
 		} catch (Throwable t) {
-			MylarStatusHandler.log(t, "could not log interaction event");
+			StatusManager.log(t, "could not log interaction event");
 		}
 	}
 
@@ -139,7 +139,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 			}
 
 		} catch (Exception e) {
-			MylarStatusHandler.log("could not read interaction history", this);
+			StatusManager.log("could not read interaction history", this);
 			e.printStackTrace();
 		}
 		return events;
@@ -241,7 +241,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 			res.append(ENDL);
 			return res.toString();
 		} catch (Throwable t) {
-			MylarStatusHandler.fail(t, "could not write event", false);
+			StatusManager.fail(t, "could not write event", false);
 			return "";
 		}
 	}

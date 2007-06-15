@@ -17,8 +17,8 @@ import java.util.List;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.mylyn.core.MylarStatusHandler;
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
+import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.internal.monitor.reports.MonitorReportsPlugin;
 import org.eclipse.mylyn.internal.monitor.reports.collectors.FocusedUiUsageAnalysisCollector;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
@@ -63,7 +63,7 @@ public class FocusedUiUserAnalysisAction implements IViewActionDelegate {
 						IEditorInput input = new UsageStatsEditorInput(files, generator);
 						page.openEditor(input, MonitorReportsPlugin.REPORT_USERS_ID);
 					} catch (PartInitException ex) {
-						MylarStatusHandler.log(ex, "couldn't open summary editor");
+						StatusManager.log(ex, "couldn't open summary editor");
 					}
 				}
 			});

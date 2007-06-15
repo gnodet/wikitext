@@ -40,7 +40,7 @@ import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.mylyn.core.MylarStatusHandler;
+import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.internal.monitor.core.util.ZipFileUtil;
 import org.eclipse.mylyn.internal.monitor.usage.InteractionEventLogger;
 import org.eclipse.mylyn.internal.monitor.usage.MonitorFileRolloverJob;
@@ -201,7 +201,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 					// op.run(monitor);
 					return Status.OK_STATUS;
 				} catch (Exception e) {
-					MylarStatusHandler.log(e, "Error uploading statistics");
+					StatusManager.log(e, "Error uploading statistics");
 					return new Status(Status.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, Status.ERROR,
 							"Error uploading statistics", e);
 				}
@@ -358,7 +358,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 								+ ": \n" + e.getClass().getCanonicalName());
 					}
 				});
-				MylarStatusHandler.log(e, "failed to upload");
+				StatusManager.log(e, "failed to upload");
 			}
 		}
 
@@ -520,7 +520,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 													+ e.getClass().getCanonicalName() + e.getMessage());
 								}
 							});
-							MylarStatusHandler.log(e, "error uploading");
+							StatusManager.log(e, "error uploading");
 						}
 					}
 					monitor.worked(1);
@@ -569,7 +569,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 								+ e.getClass().getCanonicalName());
 					}
 				});
-				MylarStatusHandler.log(e, "error uploading");
+				StatusManager.log(e, "error uploading");
 			}
 		}
 		return -1;
@@ -689,7 +689,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			} else {
 				MessageDialog.openError(null, "Error Uploading", "There was an error getting a new user id: \n"
 						+ e.getClass().getCanonicalName());
-				MylarStatusHandler.log(e, "error uploading");
+				StatusManager.log(e, "error uploading");
 			}
 		}
 		return -1;
@@ -703,7 +703,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			while ((s = br.readLine()) != null)
 				data += s;
 		} catch (IOException e) {
-			MylarStatusHandler.log(e, "error uploading");
+			StatusManager.log(e, "error uploading");
 		}
 		return data;
 	}
@@ -744,9 +744,9 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			fileWriter.close();
 
 		} catch (FileNotFoundException e) {
-			MylarStatusHandler.log(e, "error unzipping backup monitor log files");
+			StatusManager.log(e, "error unzipping backup monitor log files");
 		} catch (IOException e) {
-			MylarStatusHandler.log(e, "error unzipping backup monitor log files");
+			StatusManager.log(e, "error unzipping backup monitor log files");
 		}
 
 	}
@@ -775,9 +775,9 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 							}
 						}
 					} catch (FileNotFoundException e) {
-						MylarStatusHandler.log(e, "error unzipping backup monitor log files");
+						StatusManager.log(e, "error unzipping backup monitor log files");
 					} catch (IOException e) {
-						MylarStatusHandler.log(e, "error unzipping backup monitor log files");
+						StatusManager.log(e, "error unzipping backup monitor log files");
 					}
 				}
 			}
@@ -789,7 +789,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			ZipFileUtil.createZipFile(zipFile, files);
 			return zipFile;
 		} catch (Exception e) {
-			MylarStatusHandler.log(e, "error uploading");
+			StatusManager.log(e, "error uploading");
 			return null;
 		}
 	}
