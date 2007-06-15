@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Mylar Monitor Reports Plug-in
+Bundle-Name: Mylyn Monitor Reports
 Bundle-SymbolicName: org.eclipse.mylyn.monitor.reports; singleton:=true
 Bundle-Version: 0.4.1
 Bundle-Activator: org.eclipse.mylyn.internal.monitor.reports.MonitorReportsPlugin

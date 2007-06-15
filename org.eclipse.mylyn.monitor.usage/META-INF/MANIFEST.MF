@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Mylar Usage Monitor Plug-in
+Bundle-Name: Mylyn Usage Monitor
 Bundle-SymbolicName: org.eclipse.mylyn.monitor.usage;singleton:=true
 Bundle-Version: 2.0.0.v20070614-1800
 Bundle-Activator: org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin
