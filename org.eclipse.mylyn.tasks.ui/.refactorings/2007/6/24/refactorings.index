@@ -31,3 +31,6 @@
 1182015069653	Rename field 'LABEL_NO_SETS'
 1182015078391	Rename field 'LABEL_NO_ACTIVE'
 1182015088908	Rename field 'LABEL_MULTIPLE_SETS'
+1182018772424	Rename type 'PreviousTaskDropDownAction'
+1182018780875	Rename type 'ActiveTaskSwitcherDropDownAction'
+1182020642152	Rename method 'getActiveTaskWorkingSets'
