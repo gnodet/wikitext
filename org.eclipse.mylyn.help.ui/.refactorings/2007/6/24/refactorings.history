@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Extract constant 'org.eclipse.mylyn.internal.help.ui.dialogs.UiLegendDialog.TITLE' from expression '&quot;Mylyn UI Legend&quot;'&#13;&#10;- Original project: 'org.eclipse.mylyn.help.ui'&#13;&#10;- Constant name: 'TITLE'&#13;&#10;- Constant expression: '&quot;Mylyn UI Legend&quot;'&#13;&#10;- Declared visibility: 'private'" description="Extract constant 'TITLE'" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylyn.internal.help.ui.dialogs{UiLegendDialog.java" name="TITLE" qualify="false" replace="false" selection="3189 17" stamp="1182026107217" version="1.0" visibility="2"/>
+</session>
