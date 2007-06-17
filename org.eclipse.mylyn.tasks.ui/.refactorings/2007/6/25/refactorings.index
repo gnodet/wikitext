@@ -3,3 +3,6 @@
 1182048450657	Rename local variable 'ws'
 1182049269621	Rename package 'org.eclipse.mylyn.internal.tasks.ui.workingset'
 1182049466322	Rename field 'HANDLE_ID'
+1182112281339	Rename type 'Category'
+1182112289583	Rename type 'AdapterCategory'
+1182114606819	Extract constant 'LABEL_TASKS'
