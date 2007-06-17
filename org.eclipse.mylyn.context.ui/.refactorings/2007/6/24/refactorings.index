@@ -3,3 +3,6 @@
 1181679939291	Rename type 'OpenQuickContextPopupDialog'
 1181890245619	Rename field 'MYLAR'
 1181890256206	Rename field 'MYLAR_OVERLAY'
+1182033829528	Extract constant 'ID_ACTION'
+1182034890694	Copy file
+1182034953187	Copy file
