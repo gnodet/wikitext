@@ -14,7 +14,27 @@
          category="org.eclipse.mylyn.ui.preferences">
          <keywordReference id="org.eclipse.mylyn.java.keywords"/>
       </page> 
-   </extension>
+    </extension>
+
+	<extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.trim.command2?after">
+         <toolbar
+               id="org.eclipse.mylyn.tasks.ui.trim.container">
+ 			<command
+                  commandId="org.eclipse.mylyn.tasks.ui.trim.command"
+                  id="org.eclipse.mylyn.tasks.ui.trim"
+                  label="."
+                  style="push">
+            </command>
+            <control
+                  class="org.eclipse.mylyn.internal.tasks.ui.TaskTrimWidget"
+                  id="org.eclipse.mylyn.tasks.ui.trim.control">
+            </control>
+         </toolbar>
+      </menuContribution>
+    </extension>
 
  	<extension point="org.eclipse.ui.viewActions"> 
  		<viewContribution 

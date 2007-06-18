@@ -10,3 +10,5 @@
 1182132232570	Rename method 'createWorkingSetComposite'
 1182132287368	Rename field 'menuManager'
 1182132294992	Rename field 'menu'
+1182139878945	Rename type 'ActiveTaskHistoryDropDownAction'
+1182140096649	Rename field 'defaultTooltip'
