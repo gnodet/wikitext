@@ -6,3 +6,7 @@
 1182112281339	Rename type 'Category'
 1182112289583	Rename type 'AdapterCategory'
 1182114606819	Extract constant 'LABEL_TASKS'
+1182132223386	Rename method 'createStatusComposite'
+1182132232570	Rename method 'createWorkingSetComposite'
+1182132287368	Rename field 'menuManager'
+1182132294992	Rename field 'menu'
