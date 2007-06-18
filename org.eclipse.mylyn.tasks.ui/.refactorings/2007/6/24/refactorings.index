@@ -35,3 +35,4 @@
 1182018780875	Rename type 'ActiveTaskSwitcherDropDownAction'
 1182020642152	Rename method 'getActiveTaskWorkingSets'
 1182033507849	Move compilation unit
+1182098868033	Extract method 'updateQueryStatus'
