@@ -243,7 +243,7 @@ public class TaskActivityView extends ViewPart {
 		Color categoryBackground = themeManager.getCurrentTheme().getColorRegistry().get(
 				TaskListColorsAndFonts.THEME_COLOR_TASKLIST_CATEGORY);
 
-		taskHistoryTreeLabelProvider = new TaskActivityLabelProvider(new TaskElementLabelProvider(), PlatformUI
+		taskHistoryTreeLabelProvider = new TaskActivityLabelProvider(new TaskElementLabelProvider(false), PlatformUI
 				.getWorkbench().getDecoratorManager().getLabelDecorator(), categoryBackground);
 
 		sorter = new TaskActivityViewSorter();

@@ -12,3 +12,5 @@
 1182132294992	Rename field 'menu'
 1182139878945	Rename type 'ActiveTaskHistoryDropDownAction'
 1182140096649	Rename field 'defaultTooltip'
+1182177664685	Rename type 'TaskAdapterFactory'
+1182180874650	Rename type 'TaskElementFactory'
