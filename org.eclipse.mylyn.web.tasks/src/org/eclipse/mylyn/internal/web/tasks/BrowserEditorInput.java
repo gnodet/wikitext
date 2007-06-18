@@ -19,7 +19,7 @@ import org.eclipse.mylyn.tasks.ui.editors.RepositoryTaskEditorInput;
 public class BrowserEditorInput extends RepositoryTaskEditorInput {
 
 	public BrowserEditorInput(TaskRepository repository, String handle, String taskUrl, String taskId) {
-		super(repository, handle, taskUrl, taskId);
+		super(repository, taskId, taskUrl);
 	}
 
 	public ImageDescriptor getImageDescriptor() {
@@ -51,6 +51,4 @@ public class BrowserEditorInput extends RepositoryTaskEditorInput {
 		return true;
 	}
 
-
-	
 }

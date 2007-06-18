@@ -1,0 +1,6 @@
+1182103561703	Copy compilation unit
+1182103621687	Rename type 'FileSystemTaskDataStorageTest'
+1182103638140	Rename type 'OfflineXMLStorageTest'
+1182103665234	Rename type 'CachingOfflineStorageTest'
+1182103708843	Rename type 'OfflineXmlStorageTest'
+1182105507625	Extract constant 'MOCK_ID'

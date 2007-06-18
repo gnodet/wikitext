@@ -35,3 +35,4 @@
 1181857348844	Rename enum constant 'CHANGED_LOCAL'
 1181857358034	Rename enum constant 'CHANGED_REMOTE'
 1181865589494	Extract constant 'SYNC_DATE_NOW'
+1181957955671	Copy compilation unit

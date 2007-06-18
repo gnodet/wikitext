@@ -1,2 +1,4 @@
 1181620930143	Rename field 'CONTENT_TYPE_ANY'
 1181674511100	Rename type 'IMylarSearchOperation'
+1182034231703	Rename method 'makeXMLString'
+1182034251781	Rename method 'cleanXMLString'
