@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.mylyn.monitor_feature"
       label="Mylyn UI Usage Reporting (Optional)"
-      version="2.0.0.v20070618-0700"
+      version="2.0.0.v20070619-1000"
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylyn">
 
@@ -242,7 +242,7 @@ litigation.
          id="org.eclipse.mylyn.monitor.usage"
          download-size="0"
          install-size="0"
-         version="2.0.0.v20070618-0700"
+         version="2.0.0.v20070619-1000"
          unpack="false"/>
 
 </feature>
