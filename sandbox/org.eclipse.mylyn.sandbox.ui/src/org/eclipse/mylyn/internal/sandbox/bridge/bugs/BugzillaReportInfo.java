@@ -20,7 +20,7 @@ import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaRepositoryConnector;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaTask;
 import org.eclipse.mylyn.internal.bugzilla.ui.tasklist.StackTrace;
-import org.eclipse.mylyn.tasks.core.ITaskDataHandler;
+import org.eclipse.mylyn.tasks.core.AbstractTaskDataHandler;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
@@ -115,7 +115,7 @@ public class BugzillaReportInfo {
 					BugzillaCorePlugin.REPOSITORY_KIND, hit.getRepositoryUrl());
 			BugzillaRepositoryConnector bugzillaConnector = (BugzillaRepositoryConnector) TasksUiPlugin
 					.getRepositoryManager().getRepositoryConnector(BugzillaCorePlugin.REPOSITORY_KIND);
-			ITaskDataHandler handler = bugzillaConnector.getTaskDataHandler();
+			AbstractTaskDataHandler handler = bugzillaConnector.getTaskDataHandler();
 			bug = handler.getTaskData(repository, hit.getTaskId(), new NullProgressMonitor());
 		}
 		return bug;

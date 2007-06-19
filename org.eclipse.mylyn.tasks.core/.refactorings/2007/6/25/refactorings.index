@@ -3,3 +3,4 @@
 1182202763890	Change method 'setNewTaskData'
 1182202887281	Change method 'setOldTaskData'
 1182217422437	Rename method 'getHits'
+1182230640031	Rename type 'ITaskDataHandler'
