@@ -1,0 +1,5 @@
+1182232410676	Rename type 'JavaCompatibilityCheckActivator'
+1182232431260	Move compilation unit
+1182232435569	Delete element
+1182234194869	Extract constant 'PREF_WARN_DISABLED'
+1182234697645	Extract constant 'JRE_MIN_VERSION'
