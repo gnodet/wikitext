@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Mylyn Compatibility JIRA UI Plug-in
+Bundle-SymbolicName: org.eclipse.mylar.jira.ui;singleton:=true
+Bundle-Version: 2.0.0.v20070615-compatibility
+Bundle-Vendor: Eclipse.org
+Eclipse-AutoStart: true
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Require-Bundle: org.eclipse.mylar;bundle-version="[2.0.0.v20070614-1800,2.0.1]"
+
