@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Rename method 'org.eclipse.mylyn.context.core.ContextCorePlugin.addBridge(...)' to 'addStructureBridge'&#13;&#10;- Original project: 'org.eclipse.mylyn.context.core'&#13;&#10;- Original element: 'org.eclipse.mylyn.context.core.ContextCorePlugin.addBridge(...)'&#13;&#10;- Renamed element: 'org.eclipse.mylyn.context.core.ContextCorePlugin.addStructureBridge(...)'&#13;&#10;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method 'addBridge'" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylyn.context.core{ContextCorePlugin.java[ContextCorePlugin~addBridge~QAbstractContextStructureBridge;" name="addStructureBridge" references="true" stamp="1182281870188" version="1.0"/>
+</session>
