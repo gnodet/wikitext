@@ -69,7 +69,9 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 	private ColorCellEditor colorDialogEditor;
 
 	private Button incomingOverlaysButton = null;
-	
+
+	private Button activateOnOpen;
+
 	private Highlighter selection = null;
 
 	private HighlighterContentProvider contentProvider = null;
@@ -113,15 +115,19 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 
 	private void createLayoutGroup(Composite parent) {
 		Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
-		group.setText("Task List"); 
-		group.setLayout(new GridLayout(1, false));
+		group.setText("Task List");
+		group.setLayout(new GridLayout(2, false));
 		group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		incomingOverlaysButton = new Button(group, SWT.CHECK);
 		incomingOverlaysButton.setText("Use Synchronize View style incoming overlays and placement");
 		incomingOverlaysButton.setSelection(getPreferenceStore().getBoolean(
 				TasksUiPreferenceConstants.OVERLAYS_INCOMING_TIGHT));
+		
+		activateOnOpen = new Button(group, SWT.CHECK);
+		activateOnOpen.setText("Activate tasks on open");
+		activateOnOpen.setSelection(getPreferenceStore().getBoolean(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED));
 	}
-	
+
 	private void createUserbooleanControl(Composite parent) {
 		Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
 		group.setText("Java");
@@ -130,8 +136,7 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 
 		enableErrorInterest = new Button(group, SWT.CHECK);
 		enableErrorInterest.setText("Enable predicted interest of errors (significantly increases view refresh).");
-		enableErrorInterest.setSelection(getPreferenceStore().getBoolean(
-				JavaUiBridgePlugin.PREDICTED_INTEREST_ERRORS));
+		enableErrorInterest.setSelection(getPreferenceStore().getBoolean(JavaUiBridgePlugin.PREDICTED_INTEREST_ERRORS));
 	}
 
 	private void createHighlightersTable(Composite parent) {
@@ -201,19 +206,19 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		if (view != null) {
 			view.setSynchronizationOverlaid(incomingOverlaysButton.getSelection());
 		}
-		getPreferenceStore().setValue(JavaUiBridgePlugin.PREDICTED_INTEREST_ERRORS,
-				enableErrorInterest.getSelection());
+		getPreferenceStore().setValue(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED, activateOnOpen.getSelection());
+		getPreferenceStore().setValue(JavaUiBridgePlugin.PREDICTED_INTEREST_ERRORS, enableErrorInterest.getSelection());
 		return true;
 	}
 
 	@Override
 	public boolean performCancel() {
-		enableErrorInterest.setSelection(getPreferenceStore().getBoolean(
-				JavaUiBridgePlugin.PREDICTED_INTEREST_ERRORS));
+		enableErrorInterest.setSelection(getPreferenceStore().getBoolean(JavaUiBridgePlugin.PREDICTED_INTEREST_ERRORS));
 
 		String highlighters = getPreferenceStore().getString(ContextUiPrefContstants.HIGHLIGHTER_PREFIX);
 		ContextUiPlugin.getDefault().getHighlighterList().internalizeFromString(highlighters);
-
+		activateOnOpen.setSelection(getPreferenceStore().getBoolean(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED));
+		
 		contentProvider = new HighlighterContentProvider();
 		tableViewer.setContentProvider(contentProvider);
 		return true;
@@ -305,24 +310,24 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		}
 
 		/**
-		 * addHighlighter - notify the tableViewer to add a highlighter called
-		 * when a highlighter is added to the HighlighterList
+		 * addHighlighter - notify the tableViewer to add a highlighter called when a highlighter is added to the
+		 * HighlighterList
 		 */
 		public void addHighlighter(Highlighter hl) {
 			tableViewer.add(hl);
 		}
 
 		/**
-		 * removeHighlighter - notify the tableViewer to remove a highlighter
-		 * called when a highlighter is removed from the HighlighterList
+		 * removeHighlighter - notify the tableViewer to remove a highlighter called when a highlighter is removed from
+		 * the HighlighterList
 		 */
 		public void removeHighlighter(Highlighter hl) {
 			tableViewer.remove(hl);
 		}
 
 		/**
-		 * updateHighlighter - notify the tableViewer to update a highlighter
-		 * called when a highlighter property has been changed
+		 * updateHighlighter - notify the tableViewer to update a highlighter called when a highlighter property has
+		 * been changed
 		 */
 		public void updateHighlighter(Highlighter hl) {
 			tableViewer.update(hl, null);
@@ -330,8 +335,7 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 	}
 
 	/**
-	 * class HighlighterCellModifier - cellModifier for tableViewer handles all
-	 * modification to the table
+	 * class HighlighterCellModifier - cellModifier for tableViewer handles all modification to the table
 	 */
 	private class HighlighterCellModifier implements ICellModifier {
 
@@ -443,8 +447,7 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 	}
 
 	/**
-	 * class HighlighterTableSorter - sort columns of table added to every
-	 * column as a sorter
+	 * class HighlighterTableSorter - sort columns of table added to every column as a sorter
 	 */
 	private static class HighlighterTableSorter extends ViewerSorter {
 
@@ -465,8 +468,7 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		}
 
 		/**
-		 * compare - invoked when column is selected calls the actual comparison
-		 * method for particular criteria
+		 * compare - invoked when column is selected calls the actual comparison method for particular criteria
 		 */
 		@Override
 		public int compare(Viewer viewer, Object o1, Object o2) {
