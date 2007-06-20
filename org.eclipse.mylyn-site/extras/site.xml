@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description url="http://download.eclipse.org/technology/mylar/update-site/e3.3">
+      Mylar update site for Eclipse 3.3
+   </description>
+   <feature url="features/org.eclipse.mylyn.jira_feature_2.0.0.v20070619-1930.jar" id="org.eclipse.mylyn.jira_feature" version="2.0.0.v20070619-1930">
+      <category name="Integration"/>
+   </feature>
+   <feature url="features/org.eclipse.mylyn.monitor_feature_2.0.0.v20070619-1930.jar" id="org.eclipse.mylyn.monitor_feature" version="2.0.0.v20070619-1930">
+      <category name="Feedback"/>
+   </feature>
+   <feature url="features/org.eclipse.mylyn.web.tasks_feature_2.0.0.v20070619-1930.jar" id="org.eclipse.mylyn.web.tasks_feature" version="2.0.0.v20070619-1930">
+      <category name="Integration"/>
+   </feature>
+   <feature url="features/org.eclipse.mylyn.sandbox.ui_feature_2.0.0.v20070607-1200.jar" id="org.eclipse.mylyn.sandbox.ui_feature" version="2.0.0.v20070607-1200">
+      <category name="Sandbox (Unsupported)"/>
+   </feature>
+   <category-def name="Integration" label="Integration"/>
+   <category-def name="Feedback" label="Feedback"/>
+   <category-def name="Sandbox (Unsupported)" label="Sandbox (Unsupported)"/>
+</site>
