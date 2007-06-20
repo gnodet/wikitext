@@ -6,15 +6,15 @@
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylyn">
 
-   <description>
-      Mylar Sandbox Tools: http://wiki.eclipse.org/index.php/Mylar_Contributor_Reference#Sandbox
+   <description url="http://wiki.eclipse.org/index.php/Mylar_Contributor_Reference#Sandbox">
+      Experimental tools and UI Tweaks.  Not intended for day-to-day work and not supported.
    </description>
 
    <copyright>
-      Copyright (c) 2004 - 2006 Mylar project committers and others.
+      Copyright (c) 2004 - 2007 Mylyn project committers and others.
    </copyright>
 
-   <license>
+   <license url="http://www.eclipse.org/legal/epl-v10.html">
       Eclipse Public License - v 1.0
 THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS
 ECLIPSE PUBLIC LICENSE (&quot;AGREEMENT&quot;). ANY USE, REPRODUCTION OR

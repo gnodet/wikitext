@@ -7,14 +7,15 @@
       plugin="org.eclipse.mylyn">
 
    <description>
-      Generate usage data reports and optionally share usage statistics with the eclipse.org community.
+      Generate personal usage data reports and optionally share usage statistics
+with the eclipse.org community.
    </description>
 
-   <copyright url="http://www.example.com/copyright">
-      Copyright (c) 2004 - 2006 Mylar project committers and others.
+   <copyright>
+      Copyright (c) 2004 - 2007 Mylyn project committers and others.
    </copyright>
 
-   <license url="http://www.example.com/license">
+   <license url="http://www.eclipse.org/legal/epl-v10.html">
       Eclipse Public License - v 1.0
 THE ACCOMPANYING PROGRAM IS PROVIDED UNDER THE TERMS OF THIS
 ECLIPSE PUBLIC LICENSE (&quot;AGREEMENT&quot;). ANY USE, REPRODUCTION OR
