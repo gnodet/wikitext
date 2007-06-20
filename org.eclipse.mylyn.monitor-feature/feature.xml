@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.mylyn.monitor_feature"
-      label="Mylyn UI Usage Reporting (Optional)"
+      label="Mylyn UI Usage Reporting"
       version="2.0.0.v20070619-1930"
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylyn">
