@@ -268,7 +268,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 					try {
 
 						if (getPreferenceStore().getBoolean(MonitorPreferenceConstants.PREF_MONITORING_ENABLED)) {
-
 							startMonitoring();
 						}
 
@@ -323,6 +322,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 				w.getShell().addShellListener(SHELL_LISTENER);
 			}
 		}
+		
 		ContextCorePlugin.getDefault().getContextStore().addListener(DATA_DIR_MOVE_LISTENER);
 		MonitorUiPlugin.getDefault().addWindowPerspectiveListener(perspectiveMonitor);
 		workbench.getActivitySupport().getActivityManager().addActivityManagerListener(activityMonitor);
@@ -851,24 +851,3 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 			return false;
 	}
 }
-
-// private void installPreferenceMonitoring() {
-// ((IEclipsePreferences) getPreferenceStore().getp())
-// .addNodeChangeListener(getNodeChangeListener());
-
-// Bundle[] bundles =
-// PDERuntimePlugin.getDefault().getBundleContext().getBundles();
-// for (Bundle bundle : bundles) {
-// if (bundle.getHeaders().get(Constants.FRAGMENT_HOST) == null) {
-// if (bundle.getState() == Bundle.ACTIVE) {
-// System.err.println(">> " + bundle.getClass());
-// }
-// }
-// }
-
-// for (String namespace :
-// Platform.getExtensionRegistry().getNamespaces()) {
-// IExtension extension =
-// Platform.getExtensionRegistry().getExtension(namespace);
-// }
-// }

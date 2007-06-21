@@ -17,7 +17,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import org.eclipse.jface.action.IMenuListener;
@@ -38,8 +37,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerDropAdapter;
-import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskDelegate;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
+import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskDelegate;
 import org.eclipse.mylyn.internal.tasks.ui.TaskListColorsAndFonts;
 import org.eclipse.mylyn.internal.tasks.ui.actions.ActivityReportAction;
 import org.eclipse.mylyn.internal.tasks.ui.actions.OpenTaskListElementAction;
@@ -47,8 +46,8 @@ import org.eclipse.mylyn.internal.tasks.ui.planner.ReminderCellEditor;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskActivityLabelProvider;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskElementLabelProvider;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
-import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.tasks.core.ITaskActivityListener;
 import org.eclipse.mylyn.tasks.core.ITaskListChangeListener;
 import org.eclipse.mylyn.tasks.core.TaskContainerDelta;
@@ -129,12 +128,6 @@ public class TaskActivityView extends ViewPart {
 		public void taskActivated(AbstractTask task) {
 			refresh();
 			// TaskActivityView.this.treeViewer.refresh(task);
-		}
-
-		public void tasksActivated(List<AbstractTask> tasks) {
-			for (AbstractTask task : tasks) {
-				taskActivated(task);
-			}
 		}
 
 		public void taskDeactivated(AbstractTask task) {

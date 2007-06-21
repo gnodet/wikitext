@@ -16,6 +16,14 @@
       </page> 
     </extension>
 
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="org.eclipse.mylyn.tasks.ui.trim.command"
+            name="Task Trim Command">
+      </command>
+   </extension>
+
 	<extension
          point="org.eclipse.ui.menus">
       <menuContribution
