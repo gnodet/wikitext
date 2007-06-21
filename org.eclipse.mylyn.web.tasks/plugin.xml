@@ -17,7 +17,7 @@
             name="Generic web-based repsoitory UI"
             overlayIcon="icons/obj16/overlay-web.gif"/>
       <externalizer
-            class="org.eclipse.mylyn.internal.web.tasks.WebTaskExternalizer"
+            class="org.eclipse.mylyn.internal.web.tasks.WebTaskListFactory"
             id="org.eclipse.mylyn.web.tasklist.externalizer"/>
    </extension>
 

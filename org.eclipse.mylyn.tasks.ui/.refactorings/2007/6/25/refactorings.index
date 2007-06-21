@@ -20,5 +20,6 @@
 1182221929842	Rename type 'ITaskEditorFactory'
 1182236932324	Extract method 'acceptContainer'
 1182239178513	Rename resource 'open-browse4r.gif'
-1182364395218	Copy compilation unit
-1182364410437	Delete element
+1182303456864	Extract local variable 'queryTagNames'
+1182409951594	Rename field 'elementFactories'
+1182409970980	Rename method 'setDelegateExternalizers'
