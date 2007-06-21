@@ -62,7 +62,7 @@ public class BugzillaContextLabelProvider extends AbstractContextLabelProvider {
 		} else {
 			report = bridge.getObjectForHandle(node.getHandleIdentifier());
 		}
-		return bridge.getName(report);
+		return bridge.getLabel(report);
 	}
 
 	@Override

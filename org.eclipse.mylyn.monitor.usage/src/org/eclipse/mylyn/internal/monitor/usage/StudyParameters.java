@@ -11,8 +11,8 @@
 
 package org.eclipse.mylyn.internal.monitor.usage;
 
-import org.eclipse.mylyn.monitor.usage.IBackgroundPage;
-import org.eclipse.mylyn.monitor.usage.IQuestionnairePage;
+import org.eclipse.mylyn.monitor.usage.AbstractStudyBackgroundPage;
+import org.eclipse.mylyn.monitor.usage.AbstractStudyQuestionnairePage;
 
 /**
  * @author Mik Kersten
@@ -24,9 +24,9 @@ public class StudyParameters {
 
 	private String description = UiUsageMonitorPlugin.DEFAULT_DESCRIPTION;
 
-	private IQuestionnairePage questionnairePage = null;
+	private AbstractStudyQuestionnairePage questionnairePage = null;
 
-	private IBackgroundPage backgroundPage = null;
+	private AbstractStudyBackgroundPage backgroundPage = null;
 
 	private long transmitPromptPeriod = UiUsageMonitorPlugin.DEFAULT_DELAY_BETWEEN_TRANSMITS;
 
@@ -75,20 +75,20 @@ public class StudyParameters {
 			this.description = description;
 	}
 
-	public IQuestionnairePage getQuestionnairePage() {
+	public AbstractStudyQuestionnairePage getQuestionnairePage() {
 		return questionnairePage;
 	}
 
-	public void setQuestionnairePage(IQuestionnairePage questionnairePage) {
+	public void setQuestionnairePage(AbstractStudyQuestionnairePage questionnairePage) {
 		if (questionnairePage != null)
 			this.questionnairePage = questionnairePage;
 	}
 
-	public IBackgroundPage getBackgroundPage() {
+	public AbstractStudyBackgroundPage getBackgroundPage() {
 		return backgroundPage;
 	}
 
-	public void setBackgroundPage(IBackgroundPage backgroundPage) {
+	public void setBackgroundPage(AbstractStudyBackgroundPage backgroundPage) {
 		if (backgroundPage != null)
 			this.backgroundPage = backgroundPage;
 	}

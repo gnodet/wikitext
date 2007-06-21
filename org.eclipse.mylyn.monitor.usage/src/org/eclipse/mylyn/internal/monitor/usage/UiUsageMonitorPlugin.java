@@ -38,21 +38,21 @@ import org.eclipse.mylyn.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.context.core.IContextStoreListener;
 import org.eclipse.mylyn.internal.context.core.InteractionContextManager;
 import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
+import org.eclipse.mylyn.internal.monitor.ui.ActionExecutionMonitor;
+import org.eclipse.mylyn.internal.monitor.ui.ActivityChangeMonitor;
+import org.eclipse.mylyn.internal.monitor.ui.KeybindingCommandMonitor;
+import org.eclipse.mylyn.internal.monitor.ui.MenuCommandMonitor;
+import org.eclipse.mylyn.internal.monitor.ui.PerspectiveChangeMonitor;
+import org.eclipse.mylyn.internal.monitor.ui.PreferenceChangeMonitor;
+import org.eclipse.mylyn.internal.monitor.ui.WindowChangeMonitor;
 import org.eclipse.mylyn.internal.monitor.usage.wizards.NewUsageSummaryEditorWizard;
 import org.eclipse.mylyn.monitor.core.IInteractionEventListener;
 import org.eclipse.mylyn.monitor.ui.AbstractCommandMonitor;
 import org.eclipse.mylyn.monitor.ui.IActionExecutionListener;
 import org.eclipse.mylyn.monitor.ui.IMylarMonitorLifecycleListener;
 import org.eclipse.mylyn.monitor.ui.MonitorUiPlugin;
-import org.eclipse.mylyn.monitor.ui.workbench.ActionExecutionMonitor;
-import org.eclipse.mylyn.monitor.ui.workbench.ActivityChangeMonitor;
-import org.eclipse.mylyn.monitor.ui.workbench.KeybindingCommandMonitor;
-import org.eclipse.mylyn.monitor.ui.workbench.MenuCommandMonitor;
-import org.eclipse.mylyn.monitor.ui.workbench.PerspectiveChangeMonitor;
-import org.eclipse.mylyn.monitor.ui.workbench.PreferenceChangeMonitor;
-import org.eclipse.mylyn.monitor.ui.workbench.WindowChangeMonitor;
-import org.eclipse.mylyn.monitor.usage.IBackgroundPage;
-import org.eclipse.mylyn.monitor.usage.IQuestionnairePage;
+import org.eclipse.mylyn.monitor.usage.AbstractStudyBackgroundPage;
+import org.eclipse.mylyn.monitor.usage.AbstractStudyQuestionnairePage;
 import org.eclipse.mylyn.web.core.WebClientUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ShellEvent;
@@ -771,8 +771,8 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 			try {
 				if (element.getAttribute(ELEMENT_UI_QUESTIONNAIRE_PAGE) != null) {
 					Object questionnaireObject = element.createExecutableExtension(ELEMENT_UI_QUESTIONNAIRE_PAGE);
-					if (questionnaireObject instanceof IQuestionnairePage) {
-						IQuestionnairePage page = (IQuestionnairePage) questionnaireObject;
+					if (questionnaireObject instanceof AbstractStudyQuestionnairePage) {
+						AbstractStudyQuestionnairePage page = (AbstractStudyQuestionnairePage) questionnaireObject;
 						studyParameters.setQuestionnairePage(page);
 					}
 				} else {
@@ -786,8 +786,8 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 			try {
 				if (element.getAttribute(ELEMENT_UI_BACKGROUND_PAGE) != null) {
 					Object backgroundObject = element.createExecutableExtension(ELEMENT_UI_BACKGROUND_PAGE);
-					if (backgroundObject instanceof IBackgroundPage) {
-						IBackgroundPage page = (IBackgroundPage) backgroundObject;
+					if (backgroundObject instanceof AbstractStudyBackgroundPage) {
+						AbstractStudyBackgroundPage page = (AbstractStudyBackgroundPage) backgroundObject;
 						studyParameters.setBackgroundPage(page);
 						UiUsageMonitorPlugin.getDefault().setBackgroundEnabled(true);
 					}

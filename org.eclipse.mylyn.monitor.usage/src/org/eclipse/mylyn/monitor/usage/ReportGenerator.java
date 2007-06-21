@@ -34,10 +34,14 @@ import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventSummar
 import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventUtil;
 import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.internal.monitor.usage.InteractionEventLogger;
+import org.eclipse.mylyn.internal.monitor.usage.UsageStatisticsSummary;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
 
 /**
+ * Used for generating reports of user activity.
+ * 
  * @author Mik Kersten
+ * @since	2.0
  */
 public class ReportGenerator {
 

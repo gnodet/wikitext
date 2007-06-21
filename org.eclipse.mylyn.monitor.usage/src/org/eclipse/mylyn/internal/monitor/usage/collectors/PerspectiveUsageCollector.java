@@ -23,8 +23,8 @@ import java.util.Map;
 
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
 import org.eclipse.mylyn.internal.monitor.core.collection.PercentUsageComparator;
+import org.eclipse.mylyn.internal.monitor.ui.PerspectiveChangeMonitor;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
-import org.eclipse.mylyn.monitor.ui.workbench.PerspectiveChangeMonitor;
 
 /**
  * @author Mik Kersten and Leah Findlater

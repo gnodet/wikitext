@@ -46,8 +46,8 @@ import org.eclipse.mylyn.internal.monitor.usage.InteractionEventLogger;
 import org.eclipse.mylyn.internal.monitor.usage.MonitorFileRolloverJob;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
-import org.eclipse.mylyn.monitor.usage.IBackgroundPage;
-import org.eclipse.mylyn.monitor.usage.IQuestionnairePage;
+import org.eclipse.mylyn.monitor.usage.AbstractStudyBackgroundPage;
+import org.eclipse.mylyn.monitor.usage.AbstractStudyQuestionnairePage;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
@@ -96,9 +96,9 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 	// private GetNewUserIdPage getUidPage;
 
-	private IQuestionnairePage questionnairePage;
+	private AbstractStudyQuestionnairePage questionnairePage;
 
-	private IBackgroundPage backgroundPage;
+	private AbstractStudyBackgroundPage backgroundPage;
 
 	private boolean performUpload = true;
 
@@ -134,11 +134,11 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		uploadPage = new UsageUploadWizardPage(this);
 		fileSelectionPage = new UsageFileSelectionWizardPage("TODO, change this string");
 		if (UiUsageMonitorPlugin.getDefault().isBackgroundEnabled()) {
-			IBackgroundPage page = UiUsageMonitorPlugin.getDefault().getStudyParameters().getBackgroundPage();
+			AbstractStudyBackgroundPage page = UiUsageMonitorPlugin.getDefault().getStudyParameters().getBackgroundPage();
 			backgroundPage = page;
 		}
 		if (UiUsageMonitorPlugin.getDefault().isQuestionnaireEnabled() && performUpload) {
-			IQuestionnairePage page = UiUsageMonitorPlugin.getDefault().getStudyParameters().getQuestionnairePage();
+			AbstractStudyQuestionnairePage page = UiUsageMonitorPlugin.getDefault().getStudyParameters().getQuestionnairePage();
 			questionnairePage = page;
 		}
 		super.setForcePreviousAndNextButtons(true);

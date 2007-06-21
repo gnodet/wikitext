@@ -13,9 +13,9 @@ package org.eclipse.mylyn.internal.monitor.usage.preferences;
 
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.mylyn.internal.monitor.usage.InteractionEventObfuscator;
 import org.eclipse.mylyn.internal.monitor.usage.MonitorPreferenceConstants;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
-import org.eclipse.mylyn.monitor.usage.InteractionEventObfuscator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;

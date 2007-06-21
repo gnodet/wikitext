@@ -9,7 +9,7 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.monitor.usage;
+package org.eclipse.mylyn.internal.monitor.usage;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -23,6 +23,8 @@ import org.eclipse.mylyn.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 
 /**
+ * Provides one way hashing of events for the purpose of ensuring privacy of element handles.
+ * 
  * @author Mik Kersten
  */
 public class InteractionEventObfuscator {

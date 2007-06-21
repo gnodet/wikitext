@@ -185,7 +185,7 @@ public class BugzillaStructureBridge extends AbstractContextStructureBridge {
 	}
 
 	@Override
-	public String getName(Object object) {
+	public String getLabel(Object object) {
 		if (object instanceof RepositoryTaskOutlineNode) {
 			RepositoryTaskOutlineNode b = (RepositoryTaskOutlineNode) object;
 			return ContentOutlineTools.getName(b);

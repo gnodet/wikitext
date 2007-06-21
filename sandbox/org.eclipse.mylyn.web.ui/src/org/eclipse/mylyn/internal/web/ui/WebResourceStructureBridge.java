@@ -106,7 +106,7 @@ public class WebResourceStructureBridge extends AbstractContextStructureBridge {
 	}
 
 	@Override
-	public String getName(Object object) {
+	public String getLabel(Object object) {
 		return null;
 	}
 

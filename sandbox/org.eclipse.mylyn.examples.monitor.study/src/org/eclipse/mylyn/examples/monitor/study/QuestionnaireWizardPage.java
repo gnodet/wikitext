@@ -20,7 +20,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
-import org.eclipse.mylyn.monitor.usage.IQuestionnairePage;
+import org.eclipse.mylyn.monitor.usage.AbstractStudyQuestionnairePage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -37,7 +37,7 @@ import org.eclipse.swt.widgets.Text;
  * @author Ken Sueda
  * @author Mik Kersten
  */
-public class QuestionnaireWizardPage extends WizardPage implements IQuestionnairePage {
+public class QuestionnaireWizardPage extends AbstractStudyQuestionnairePage {
 
 	private static final String NOT_GOOD = "Not Good";
 

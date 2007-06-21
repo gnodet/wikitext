@@ -9,20 +9,20 @@
  *     University Of British Columbia - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.monitor.ui.workbench;
+package org.eclipse.mylyn.monitor.usage;
 
-import org.eclipse.jface.action.IAction;
-import org.eclipse.mylyn.monitor.core.InteractionEvent;
-import org.eclipse.mylyn.monitor.ui.IActionExecutionListener;
-import org.eclipse.mylyn.monitor.ui.MonitorUiPlugin;
+import java.io.File;
+
+import org.eclipse.jface.wizard.IWizardPage;
 
 /**
+ * Extend to provide a custom background page.
+ * 
+ * @author Leah Findlater
  * @author Mik Kersten
+ * @since	2.0
  */
-public class ActionExecutionMonitor implements IActionExecutionListener {
+public abstract class AbstractStudyBackgroundPage implements IWizardPage {
 
-	public void actionObserved(IAction action) {
-		InteractionEvent interactionEvent = InteractionEvent.makeCommand(action.getId(), "");
-		MonitorUiPlugin.getDefault().notifyInteractionObserved(interactionEvent);
-	}
+	public abstract File createFeedbackFile();
 }
