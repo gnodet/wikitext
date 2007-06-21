@@ -143,8 +143,9 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 		});
 
 		Composite editor = getParameterEditor(parent);
-		// GridDataFactory.fillDefaults().hint(SWT.DEFAULT, 240).grab(true, true).span(2, 1).applyTo(editor);
-		GridDataFactory.fillDefaults().hint(200, SWT.DEFAULT).span(2, SWT.DEFAULT).applyTo(editor);
+//		 GridDataFactory.fillDefaults().hint(SWT.DEFAULT, 240).grab(true, true).span(2, 1).applyTo(editor);
+//		 GridDataFactory.fillDefaults().hint(200, SWT.DEFAULT).span(2, SWT.DEFAULT).applyTo(editor);
+		 GridDataFactory.fillDefaults().hint(200, 240).grab(true, true).span(2, 1).applyTo(editor);
 		
 		if (repository != null) {
 			taskUrlText.setText(getTextProperty(WebRepositoryConnector.PROPERTY_TASK_URL));

@@ -49,12 +49,10 @@ public class ParametersEditor extends Composite {
 		paramsTable.setHeaderVisible(true);
 		
 		TableColumn colVariable = new TableColumn(paramsTable, SWT.NONE);
-// old line (Frank Becker)	colVariable.setWidth(100);
 		colVariable.setWidth(180);
 		colVariable.setText("Parameter");
 		
 		TableColumn colValue = new TableColumn(paramsTable, SWT.NONE);
-// old line (Frank Becker)	colValue.setWidth(219);
 		colValue.setWidth(299);
 		colValue.setText("Value");
 
