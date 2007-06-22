@@ -38,7 +38,7 @@ public class WebTask extends AbstractTask {
 	}
 
 	@Override
-	public String getRepositoryKind() {
+	public String getConnectorKind() {
 		return repsitoryType;
 	}
 	

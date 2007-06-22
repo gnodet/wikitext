@@ -71,10 +71,10 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 				}
 				if (task != null) {
 					TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
-							task.getRepositoryKind(), task.getRepositoryUrl());
-					text += "\nLast time in SYNCHRONIZED state: " + task.getLastSyncDateStamp();
+							task.getConnectorKind(), task.getRepositoryUrl());
+					text += "\nLast time in SYNCHRONIZED state: " + task.getLastReadTimeStamp();
 					text += "\nRepository synch time stamp: " + repository.getSyncTimeStamp();
-					text += "\nSync state: " + task.getSyncState();
+					text += "\nSync state: " + task.getSynchronizationState();
 					text += "\nParents: " + task.getParentContainers();
 					if (task.getChildren() != null && !task.getChildren().isEmpty()) {
 						text += "\nChildren: ";

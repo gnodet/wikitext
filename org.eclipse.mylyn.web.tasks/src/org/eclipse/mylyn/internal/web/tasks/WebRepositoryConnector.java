@@ -37,12 +37,12 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.internal.tasks.ui.RetrieveTitleFromUrlJob;
+import org.eclipse.mylyn.tasks.core.AbstractAttachmentHandler;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.IAttachmentHandler;
-import org.eclipse.mylyn.tasks.core.ITaskCollector;
 import org.eclipse.mylyn.tasks.core.AbstractTaskDataHandler;
+import org.eclipse.mylyn.tasks.core.ITaskCollector;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.TaskRepositoryManager;
@@ -97,7 +97,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	public static final String REQUEST_GET = "GET";
 
 	@Override
-	public String getRepositoryType() {
+	public String getConnectorKind() {
 		return WebRepositoryConnector.REPOSITORY_TYPE;
 	}
 
@@ -107,7 +107,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public String[] repositoryPropertyNames() {
+	public String[] getPepositoryPropertyNames() {
 		return new String[] { PROPERTY_TASK_URL, PROPERTY_TASK_CREATION_URL };
 	}
 
@@ -151,7 +151,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 		// lookup repository using task prefix url
 		TaskRepositoryManager repositoryManager = TasksUiPlugin.getRepositoryManager();
-		for (TaskRepository repository : repositoryManager.getRepositories(getRepositoryType())) {
+		for (TaskRepository repository : repositoryManager.getRepositories(getConnectorKind())) {
 			String taskUrl = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
 			if (taskUrl != null && !taskUrl.equals("") && url.startsWith(taskUrl)) {
 				return repository.getUrl();
@@ -182,7 +182,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		}
 
 		TaskRepositoryManager repositoryManager = TasksUiPlugin.getRepositoryManager();
-		for (TaskRepository repository : repositoryManager.getRepositories(getRepositoryType())) {
+		for (TaskRepository repository : repositoryManager.getRepositories(getConnectorKind())) {
 			String start = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
 			if (start != null && url.startsWith(start)) {
 				return url.substring(start.length());
@@ -192,9 +192,9 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public String getTaskWebUrl(String repositoryUrl, String taskId) {
+	public String getTaskUrl(String repositoryUrl, String taskId) {
 		TaskRepositoryManager repositoryManager = TasksUiPlugin.getRepositoryManager();
-		TaskRepository repository = repositoryManager.getRepository(getRepositoryType(), repositoryUrl);
+		TaskRepository repository = repositoryManager.getRepository(getConnectorKind(), repositoryUrl);
 		if (repository != null) {
 			String prefix = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
 			return prefix + taskId;
@@ -229,7 +229,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public IAttachmentHandler getAttachmentHandler() {
+	public AbstractAttachmentHandler getAttachmentHandler() {
 		// not supported
 		return null;
 	}
