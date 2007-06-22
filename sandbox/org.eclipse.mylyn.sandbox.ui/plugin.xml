@@ -44,6 +44,16 @@
       </menuContribution>
     </extension>
 
+    <extension point="org.eclipse.ui.newWizards">
+	  <wizard
+            category="org.eclipse.mylyn.ui.wizards.new"
+            class="org.eclipse.mylyn.internal.tasks.ui.planner.TaskActivityWizard"
+            icon="icons/eview16/task-list.gif" 
+            id="org.eclipse.mylyn.tasks.ui.wizards.activity.report"
+            name="Task Activity Report">
+      </wizard> 
+	</extension>
+
  	<extension point="org.eclipse.ui.viewActions"> 
  		<viewContribution 
 			id="org.eclipse.mylyn.context.ui.taskList.contribution" 
