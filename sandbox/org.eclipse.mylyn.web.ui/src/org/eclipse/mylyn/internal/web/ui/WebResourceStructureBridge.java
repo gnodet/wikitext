@@ -84,7 +84,7 @@ public class WebResourceStructureBridge extends AbstractContextStructureBridge {
 			return null;
 		}
 		String site = getSite(handle);
-		if (site == null) {
+		if (site != null && site.equals(handle)) {
 			return WebRoot.HANDLE_ROOT;
 		}
 		return site;
@@ -92,8 +92,9 @@ public class WebResourceStructureBridge extends AbstractContextStructureBridge {
 
 	public String getSite(String url) {
 		String site = null;
-		int protocolEnd = url.indexOf(DELIM_PROTOCOL) + 2;
+		int protocolEnd = url.indexOf(DELIM_PROTOCOL);
 		if (protocolEnd != -1) {
+			protocolEnd+=2;
 			String withoutProtocol = url.substring(protocolEnd);
 			int siteEnd = withoutProtocol.indexOf("/");
 			if (siteEnd != -1) {

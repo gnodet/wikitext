@@ -24,3 +24,4 @@
 1182409951594	Rename field 'elementFactories'
 1182409970980	Rename method 'setDelegateExternalizers'
 1182450424375	Move compilation units
+1182539458947	Extract method 'hideDecorationOnContainer'
