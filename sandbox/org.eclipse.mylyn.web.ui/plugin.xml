@@ -2,21 +2,13 @@
 <?eclipse version="3.0"?>
 <plugin>
 	
-	<extension
-         point="org.eclipse.mylyn.context.core.bridges">
-      <structureBridge
-            class="org.eclipse.mylyn.internal.web.ui.WebResourceStructureBridge"
-            name="Web Resource Structure Bridge"/>
-   </extension> 
-   <extension
-         point="org.eclipse.mylyn.context.ui.bridges">
-      <uiBridge
-            class="org.eclipse.mylyn.internal.web.ui.WebResourceUiBridge"
-            contentType="web"
-            id="org.eclipse.mylyn.web.uiBridge"/>
-   </extension>
-
-  	<extension point = "org.eclipse.ui.popupMenus">
+   <!-- ================================================================================ -->
+   <!-- Sample code for extending web resources structure bridge and providing content	 -->
+   <!-- NOTE: tehse extensions points are likely to change for Mylyn 3.                  -->
+   <!-- ================================================================================ -->
+   <!--
+   
+   <extension point = "org.eclipse.ui.popupMenus">
      <objectContribution
         id="org.eclipse.mylyn.ui.interest"
         objectClass="org.eclipse.mylyn.internal.web.ui.WebResource">
@@ -38,11 +30,21 @@
 	  		enablesFor="*"/>
 	 </objectContribution>
    </extension>
-
-   <!-- ================================================================================ -->
-   <!-- Common Navigator sample content for web resources							 -->
-   <!-- ================================================================================ -->
-   <!--
+   
+   <extension
+         point="org.eclipse.mylyn.context.core.bridges">
+      <structureBridge
+            class="org.eclipse.mylyn.internal.web.ui.WebResourceStructureBridge"
+            name="Web Resource Structure Bridge"/>
+   </extension> 
+   <extension
+         point="org.eclipse.mylyn.context.ui.bridges">
+      <uiBridge
+            class="org.eclipse.mylyn.internal.web.ui.WebResourceUiBridge"
+            contentType="web"
+            id="org.eclipse.mylyn.web.uiBridge"/>
+   </extension>
+   
    <extension
          point="org.eclipse.ui.navigator.navigatorContent">
       <navigatorContent
@@ -127,6 +129,5 @@
        </viewerContentBinding>
    </extension>	
   -->
- 
   
 </plugin>
