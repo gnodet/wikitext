@@ -18,7 +18,6 @@ import java.io.OutputStream;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.monitor.usage.AbstractStudyQuestionnairePage;
 import org.eclipse.swt.SWT;

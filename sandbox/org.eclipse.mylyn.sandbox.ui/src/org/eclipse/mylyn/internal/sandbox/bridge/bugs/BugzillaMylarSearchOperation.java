@@ -140,6 +140,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	 *            The progress monitor to search with
 	 * @return The QueryHitCollector with the results of the search
 	 */
+	@SuppressWarnings("deprecation")
 	private ProgressQueryHitCollector searchLocalQual(IProgressMonitor monitor) {
 
 		// get the fully qualified name for searching
@@ -168,6 +169,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	 *            The progress monitor to search with
 	 * @return The QueryHitCollector with the results of the search
 	 */
+	@SuppressWarnings("deprecation")
 	private ProgressQueryHitCollector searchLocalUnQual(IProgressMonitor monitor) {
 
 		// get the element name for searching
@@ -214,7 +216,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 
 				// we have a bugzilla task, so get the bug report
 				BugzillaTask bugTask = (BugzillaTask) task;
-				RepositoryTaskData bugTaskData = TasksUiPlugin.getDefault().getTaskDataManager().getNewTaskData(bugTask.getRepositoryUrl(), bugTask.getTaskId());
+				RepositoryTaskData bugTaskData = TasksUiPlugin.getTaskDataManager().getNewTaskData(bugTask.getRepositoryUrl(), bugTask.getTaskId());
 				//RepositoryTaskData bugTaskData = bugTask.getTaskData();
 
 				// parse the bug report for the element that we are searching
@@ -315,6 +317,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	 *            The progress monitor to use
 	 * @return The QueryHitCollector with the search results
 	 */
+	@SuppressWarnings("deprecation")
 	private ProgressQueryHitCollector searchQualified(String repositoryUrl, IProgressMonitor monitor) {
 		// create a new collector for the results
 		collector = new ProgressQueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList(), new TaskFactory(null));//SearchHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());
@@ -335,6 +338,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	 *            The progress monitor to use
 	 * @return The QueryHitCollector with the search results
 	 */
+	@SuppressWarnings("deprecation")
 	private ProgressQueryHitCollector searchUnqualified(String repositoryUrl, IProgressMonitor monitor) {
 		// create a new collector for the results
 		collector = new ProgressQueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList(), new TaskFactory(null));//SearchHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());

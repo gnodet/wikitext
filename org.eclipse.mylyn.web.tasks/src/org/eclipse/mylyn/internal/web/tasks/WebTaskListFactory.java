@@ -12,7 +12,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.eclipse.mylyn.internal.monitor.core.util.XmlStringConverter;
-import org.eclipse.mylyn.internal.tasks.core.TaskExternalizationException;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskListFactory;

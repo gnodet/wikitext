@@ -32,7 +32,7 @@ import org.eclipse.mylyn.internal.context.ui.ContextUiPrefContstants;
 import org.eclipse.mylyn.internal.context.ui.Highlighter;
 import org.eclipse.mylyn.internal.context.ui.HighlighterImageDescriptor;
 import org.eclipse.mylyn.internal.context.ui.HighlighterList;
-import org.eclipse.mylyn.internal.java.ui.JavaUiBridgePlugin;
+import org.eclipse.mylyn.internal.java.ui.InterestInducingProblemListener;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPreferenceConstants;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
 import org.eclipse.swt.SWT;
@@ -136,7 +136,7 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 
 		enableErrorInterest = new Button(group, SWT.CHECK);
 		enableErrorInterest.setText("Enable predicted interest of errors (significantly increases view refresh).");
-		enableErrorInterest.setSelection(getPreferenceStore().getBoolean(JavaUiBridgePlugin.PREDICTED_INTEREST_ERRORS));
+		enableErrorInterest.setSelection(getPreferenceStore().getBoolean(InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS));
 	}
 
 	private void createHighlightersTable(Composite parent) {
@@ -207,13 +207,13 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 			view.setSynchronizationOverlaid(incomingOverlaysButton.getSelection());
 		}
 		getPreferenceStore().setValue(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED, activateOnOpen.getSelection());
-		getPreferenceStore().setValue(JavaUiBridgePlugin.PREDICTED_INTEREST_ERRORS, enableErrorInterest.getSelection());
+		getPreferenceStore().setValue(InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS, enableErrorInterest.getSelection());
 		return true;
 	}
 
 	@Override
 	public boolean performCancel() {
-		enableErrorInterest.setSelection(getPreferenceStore().getBoolean(JavaUiBridgePlugin.PREDICTED_INTEREST_ERRORS));
+		enableErrorInterest.setSelection(getPreferenceStore().getBoolean(InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS));
 
 		String highlighters = getPreferenceStore().getString(ContextUiPrefContstants.HIGHLIGHTER_PREFIX);
 		ContextUiPlugin.getDefault().getHighlighterList().internalizeFromString(highlighters);
@@ -227,7 +227,7 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 	public void performDefaults() {
 		super.performDefaults();
 		enableErrorInterest.setSelection(getPreferenceStore().getDefaultBoolean(
-				JavaUiBridgePlugin.PREDICTED_INTEREST_ERRORS));
+				InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS));
 
 		contentProvider = new HighlighterContentProvider();
 		tableViewer.setContentProvider(contentProvider);
