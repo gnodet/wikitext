@@ -20,7 +20,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylyn.context.core.ContextCorePlugin;
-import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
+import org.eclipse.mylyn.monitor.core.StatusHandler;
 
 /**
  * Provides one way hashing of events for the purpose of ensuring privacy of element handles.
@@ -65,7 +65,7 @@ public class InteractionEventObfuscator {
 			obfuscatedString = new String(Base64.encode(digest)).replace(DELIM_PATH, '=');
 			// obfuscatedString = "" + new String(digest).hashCode();
 		} catch (NoSuchAlgorithmException e) {
-			StatusManager.log("SHA not available", null);
+			StatusHandler.log("SHA not available", null);
 			obfuscatedString = LABEL_FAILED_TO_OBFUSCATE;
 		}
 		return obfuscatedString;

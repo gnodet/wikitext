@@ -40,12 +40,12 @@ import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.internal.monitor.core.util.ZipFileUtil;
 import org.eclipse.mylyn.internal.monitor.usage.InteractionEventLogger;
 import org.eclipse.mylyn.internal.monitor.usage.MonitorFileRolloverJob;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
+import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.monitor.usage.AbstractStudyBackgroundPage;
 import org.eclipse.mylyn.monitor.usage.AbstractStudyQuestionnairePage;
 import org.eclipse.swt.widgets.Display;
@@ -201,7 +201,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 					// op.run(monitor);
 					return Status.OK_STATUS;
 				} catch (Exception e) {
-					StatusManager.log(e, "Error uploading statistics");
+					StatusHandler.log(e, "Error uploading statistics");
 					return new Status(Status.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, Status.ERROR,
 							"Error uploading statistics", e);
 				}
@@ -358,7 +358,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 								+ ": \n" + e.getClass().getCanonicalName());
 					}
 				});
-				StatusManager.log(e, "failed to upload");
+				StatusHandler.log(e, "failed to upload");
 			}
 		}
 
@@ -520,7 +520,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 													+ e.getClass().getCanonicalName() + e.getMessage());
 								}
 							});
-							StatusManager.log(e, "error uploading");
+							StatusHandler.log(e, "error uploading");
 						}
 					}
 					monitor.worked(1);
@@ -569,7 +569,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 								+ e.getClass().getCanonicalName());
 					}
 				});
-				StatusManager.log(e, "error uploading");
+				StatusHandler.log(e, "error uploading");
 			}
 		}
 		return -1;
@@ -689,7 +689,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			} else {
 				MessageDialog.openError(null, "Error Uploading", "There was an error getting a new user id: \n"
 						+ e.getClass().getCanonicalName());
-				StatusManager.log(e, "error uploading");
+				StatusHandler.log(e, "error uploading");
 			}
 		}
 		return -1;
@@ -703,7 +703,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			while ((s = br.readLine()) != null)
 				data += s;
 		} catch (IOException e) {
-			StatusManager.log(e, "error uploading");
+			StatusHandler.log(e, "error uploading");
 		}
 		return data;
 	}
@@ -744,9 +744,9 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			fileWriter.close();
 
 		} catch (FileNotFoundException e) {
-			StatusManager.log(e, "error unzipping backup monitor log files");
+			StatusHandler.log(e, "error unzipping backup monitor log files");
 		} catch (IOException e) {
-			StatusManager.log(e, "error unzipping backup monitor log files");
+			StatusHandler.log(e, "error unzipping backup monitor log files");
 		}
 
 	}
@@ -775,9 +775,9 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 							}
 						}
 					} catch (FileNotFoundException e) {
-						StatusManager.log(e, "error unzipping backup monitor log files");
+						StatusHandler.log(e, "error unzipping backup monitor log files");
 					} catch (IOException e) {
-						StatusManager.log(e, "error unzipping backup monitor log files");
+						StatusHandler.log(e, "error unzipping backup monitor log files");
 					}
 				}
 			}
@@ -789,7 +789,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			ZipFileUtil.createZipFile(zipFile, files);
 			return zipFile;
 		} catch (Exception e) {
-			StatusManager.log(e, "error uploading");
+			StatusHandler.log(e, "error uploading");
 			return null;
 		}
 	}

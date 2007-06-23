@@ -22,7 +22,7 @@ import java.io.InputStreamReader;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
+import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
@@ -121,7 +121,7 @@ public class FileDisplayDialog extends MessageDialog {
 			}
 
 		} catch (IOException e) {
-			StatusManager.log(e, "couldn't get contents");
+			StatusHandler.log(e, "couldn't get contents");
 		}
 		return sb.toString();
 	}

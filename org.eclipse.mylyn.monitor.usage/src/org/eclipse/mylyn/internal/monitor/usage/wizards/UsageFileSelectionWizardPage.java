@@ -47,9 +47,9 @@ import java.util.List;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.internal.monitor.usage.MonitorFileRolloverJob;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
+import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -159,7 +159,7 @@ public class UsageFileSelectionWizardPage extends WizardPage {
 			setControl(container);
 			// setPageComplete(validate());
 		} catch (RuntimeException e) {
-			StatusManager.fail(e, "Could not create import wizard page", true);
+			StatusHandler.fail(e, "Could not create import wizard page", true);
 		}
 
 	}

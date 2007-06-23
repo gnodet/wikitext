@@ -22,10 +22,10 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.internal.monitor.usage.InteractionEventSummarySorter;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.internal.monitor.usage.wizards.UsageSubmissionWizard;
+import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -159,7 +159,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 					IWorkbenchBrowserSupport support = PlatformUI.getWorkbench().getBrowserSupport();
 					support.getExternalBrowser().openURL(new URL(URL_USAGE_PAGE));
 				} catch (Exception e) {
-					StatusManager.fail(e, "could not open task url", true);
+					StatusHandler.fail(e, "could not open task url", true);
 				}
 			} else {
 				IWebBrowser browser = null;
