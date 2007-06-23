@@ -25,7 +25,7 @@ import org.eclipse.mylyn.tasks.ui.wizards.NewWebTaskWizard;
  * @author Mik Kersten
  * @author Eugene Kuleshov
  */
-public class WebRepositoryUi extends AbstractRepositoryConnectorUi {
+public class WebConnectorUi extends AbstractRepositoryConnectorUi {
 	
 	@Override
 	public AbstractRepositorySettingsPage getSettingsPage() {
@@ -51,19 +51,14 @@ public class WebRepositoryUi extends AbstractRepositoryConnectorUi {
 	 * Task kind overlay, recommended to override with connector-specific overlay.
 	 */
 	public ImageDescriptor getTaskKindOverlay(AbstractTask task) {
-		if (!(task instanceof LocalTask) && (!hasRichEditor() || task instanceof WebTask)) {
+		if (!(task instanceof LocalTask) && (task instanceof WebTask)) {
 			return TasksUiImages.OVERLAY_WEB;
 		}
 		return null;
 	}
-	
-	@Override
-	public boolean hasRichEditor() {
-		return false;
-	}
 
 	@Override
-	public String getRepositoryType() {
+	public String getConnectorKind() {
 		return WebRepositoryConnector.REPOSITORY_TYPE;
 	}
 

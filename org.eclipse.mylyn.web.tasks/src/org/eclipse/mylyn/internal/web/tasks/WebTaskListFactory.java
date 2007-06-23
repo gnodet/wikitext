@@ -12,10 +12,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.eclipse.mylyn.internal.monitor.core.util.XmlStringConverter;
+import org.eclipse.mylyn.internal.tasks.core.TaskExternalizationException;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskListFactory;
-import org.eclipse.mylyn.tasks.core.TaskExternalizationException;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.w3c.dom.Attr;
@@ -96,8 +96,7 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 	}
 
 	@Override
-	public AbstractTask createTask(String repositoryUrl, String taskId, String label, Element element)
-			throws TaskExternalizationException {
+	public AbstractTask createTask(String repositoryUrl, String taskId, String label, Element element) {
 //		String id = null;
 //		if (element.hasAttribute(KEY_KEY)) {
 //			id = element.getAttribute(KEY_KEY);
@@ -116,9 +115,7 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 		String prefix = null;
 		if (element.hasAttribute(KEY_PREFIX)) {
 			prefix = element.getAttribute(KEY_PREFIX);
-		} else {
-			throw new TaskExternalizationException("Prefix not stored for bug report");
-		}
+		} 
 
 		WebTask task = new WebTask(taskId, label, prefix, repositoryUrl, WebRepositoryConnector.REPOSITORY_TYPE);
 //		task.setRepositoryUrl(repositoryUrl);
@@ -126,7 +123,7 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 	}
 
 	@Override
-	public AbstractRepositoryQuery createQuery(String repositoryUrl, String queryString, String label, Element element) throws TaskExternalizationException {
+	public AbstractRepositoryQuery createQuery(String repositoryUrl, String queryString, String label, Element element) {
 		String queryUrlTemplate = element.getAttribute(KEY_URL_TEMPLATE);
 		String queryPattern = element.getAttribute(KEY_REGEXP);
 		String taskPrefix = element.getAttribute(KEY_PREFIX);

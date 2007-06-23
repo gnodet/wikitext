@@ -5,3 +5,4 @@
 1182103708843	Rename type 'OfflineXmlStorageTest'
 1182105507625	Extract constant 'MOCK_ID'
 1182400233042	Rename type 'MockRepositoryExternalizer'
+1182561752922	Rename type 'MockRepositoryUi'

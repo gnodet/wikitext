@@ -123,7 +123,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	@Override
 	public AbstractTask createTaskFromExistingId(TaskRepository repository, final String id,
 			IProgressMonitor monitor) throws CoreException {
-		if (WebRepositoryConnector.REPOSITORY_TYPE.equals(repository.getKind())) {
+		if (WebRepositoryConnector.REPOSITORY_TYPE.equals(repository.getConnectorKind())) {
 			String taskPrefix = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
 
 			final WebTask task = new WebTask(id, id, taskPrefix, repository.getUrl(), WebRepositoryConnector.REPOSITORY_TYPE);

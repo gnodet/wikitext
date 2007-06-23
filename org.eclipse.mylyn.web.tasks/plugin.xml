@@ -13,7 +13,7 @@
             type="web"/>
       <connectorUi
             brandingIcon="icons/obj16/repository-web.gif"
-            class="org.eclipse.mylyn.internal.web.tasks.WebRepositoryUi"
+            class="org.eclipse.mylyn.internal.web.tasks.WebConnectorUi"
             name="Generic web-based repsoitory UI"
             overlayIcon="icons/obj16/overlay-web.gif"/>
       <taskListFactory
