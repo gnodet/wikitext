@@ -18,7 +18,7 @@ import java.io.OutputStream;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
+import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.monitor.usage.AbstractStudyQuestionnairePage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -253,9 +253,9 @@ public class QuestionnaireWizardPage extends AbstractStudyQuestionnairePage {
 			outputStream.close();
 			return questionnaireFile;
 		} catch (FileNotFoundException e) {
-			StatusManager.log(e, "failed to submit");
+			StatusHandler.log(e, "failed to submit");
 		} catch (IOException e) {
-			StatusManager.log(e, "failed to submit");
+			StatusHandler.log(e, "failed to submit");
 		}
 		return null;
 	}

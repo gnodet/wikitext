@@ -20,9 +20,9 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.internal.monitor.usage.wizards.UsageSubmissionWizard;
+import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -404,9 +404,9 @@ public class SubmitFeedbackPage extends WizardPage {
 			outputStream.close();
 			return feedbackFile;
 		} catch (FileNotFoundException e) {
-			StatusManager.log(e, "failed to submit");
+			StatusHandler.log(e, "failed to submit");
 		} catch (IOException e) {
-			StatusManager.log(e, "failed to submit");
+			StatusHandler.log(e, "failed to submit");
 		}
 		return null;
 	}

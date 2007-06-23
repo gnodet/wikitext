@@ -26,8 +26,8 @@ import org.eclipse.mylyn.context.core.IInteractionContext;
 import org.eclipse.mylyn.context.core.IInteractionContextListener;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.internal.context.core.InteractionContext;
-import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.internal.tasks.ui.RetrieveTitleFromUrlJob;
+import org.eclipse.mylyn.monitor.core.StatusHandler;
 
 /**
  * @author Mik Kersten
@@ -99,7 +99,7 @@ public class WebContextManager {
 		try {
 			titleCache.load(new FileInputStream(getTitleCacheFile()));
 		} catch (IOException e) {
-			StatusManager.fail(e, "could not load title cache", false);
+			StatusHandler.fail(e, "could not load title cache", false);
 		}
 	}
 
@@ -108,7 +108,7 @@ public class WebContextManager {
 		try {
 			titleCache.store(new FileOutputStream(getTitleCacheFile()), null);
 		} catch (IOException e) {
-			StatusManager.fail(e, "could not store title cache", false);
+			StatusHandler.fail(e, "could not store title cache", false);
 		}
 	}
 

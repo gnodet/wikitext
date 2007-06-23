@@ -18,11 +18,11 @@ import java.util.List;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
-import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.internal.monitor.reports.MonitorReportsPlugin;
 import org.eclipse.mylyn.internal.monitor.reports.collectors.FocusedUiUsageAnalysisCollector;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.internal.monitor.usage.editors.UsageStatsEditorInput;
+import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.monitor.usage.ReportGenerator;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IViewActionDelegate;
@@ -63,7 +63,7 @@ public class FocusedUiUserAnalysisAction implements IViewActionDelegate {
 						IEditorInput input = new UsageStatsEditorInput(files, generator);
 						page.openEditor(input, MonitorReportsPlugin.REPORT_USERS_ID);
 					} catch (PartInitException ex) {
-						StatusManager.log(ex, "couldn't open summary editor");
+						StatusHandler.log(ex, "couldn't open summary editor");
 					}
 				}
 			});

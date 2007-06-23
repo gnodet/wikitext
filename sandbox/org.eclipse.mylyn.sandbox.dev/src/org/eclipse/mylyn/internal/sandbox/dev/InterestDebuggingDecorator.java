@@ -21,7 +21,7 @@ import org.eclipse.mylyn.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.internal.context.core.InteractionContextRelation;
 import org.eclipse.mylyn.internal.context.ui.ColorMap;
-import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
+import org.eclipse.mylyn.monitor.core.StatusHandler;
 
 /**
  * @author Mik Kersten
@@ -56,7 +56,7 @@ public class InterestDebuggingDecorator implements ILightweightLabelDecorator {
 				decoration.addSuffix(" {" + node.getInterest().getValue() + "}");
 			}
 		} catch (Exception e) {
-			StatusManager.log(e, "decoration failed");
+			StatusHandler.log(e, "decoration failed");
 		}
 	}
 

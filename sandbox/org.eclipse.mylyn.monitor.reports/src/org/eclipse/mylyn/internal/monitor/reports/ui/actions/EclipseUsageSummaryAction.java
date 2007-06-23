@@ -27,11 +27,11 @@ import org.eclipse.mylyn.internal.monitor.core.collection.DelegatingUsageCollect
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
 import org.eclipse.mylyn.internal.monitor.core.collection.SummaryCollector;
 import org.eclipse.mylyn.internal.monitor.core.collection.ViewUsageCollector;
-import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.internal.monitor.reports.MonitorReportsPlugin;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.internal.monitor.usage.collectors.PerspectiveUsageCollector;
 import org.eclipse.mylyn.internal.monitor.usage.editors.UsageStatsEditorInput;
+import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.monitor.usage.ReportGenerator;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IViewActionDelegate;
@@ -79,7 +79,7 @@ public class EclipseUsageSummaryAction implements IViewActionDelegate {
 										IEditorInput input = new UsageStatsEditorInput(files, generator);
 										page.openEditor(input, MonitorReportsPlugin.REPORT_SUMMARY_ID);
 									} catch (PartInitException ex) {
-										StatusManager.log(ex, "couldn't open summary editor");
+										StatusHandler.log(ex, "couldn't open summary editor");
 									}
 								}
 							});

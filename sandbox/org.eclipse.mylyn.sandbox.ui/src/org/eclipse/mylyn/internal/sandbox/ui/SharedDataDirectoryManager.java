@@ -11,7 +11,7 @@
 
 package org.eclipse.mylyn.internal.sandbox.ui;
 
-import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
+import org.eclipse.mylyn.monitor.core.StatusHandler;
 
 /**
  * @author Wesley Coelho
@@ -60,7 +60,7 @@ public class SharedDataDirectoryManager {
 	 */
 	public void setSharedDataDirectoryEnabled(boolean enable) {
 		if (enable && sharedDataDirectory == null) {
-			StatusManager.fail(new Exception("EnableDataDirectoryException"),
+			StatusHandler.fail(new Exception("EnableDataDirectoryException"),
 					"Could not enable shared data directory because no shared data directory was specifed.", true);
 			return;
 		}

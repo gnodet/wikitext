@@ -27,10 +27,10 @@ import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.internal.monitor.usage.wizards.UsageSubmissionWizard;
 import org.eclipse.mylyn.monitor.core.DateUtil;
+import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
@@ -132,7 +132,7 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 							MessageDialog.openError(null, "Error Uploading",
 									"There was an error uploading the feedback" + ": \n"
 											+ e.getClass().getCanonicalName());
-							StatusManager.log(e, "could not uplaod feedback");
+							StatusHandler.log(e, "could not uplaod feedback");
 						}
 					}
 					monitor.worked(1);
@@ -166,7 +166,7 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 			} else {
 				MessageDialog.openError(null, "Error Uploading", "There was an error uploading the feedback: \n"
 						+ e.getClass().getCanonicalName());
-				StatusManager.log(e, "error uploading");
+				StatusHandler.log(e, "error uploading");
 			}
 		} finally {
 			f.delete();

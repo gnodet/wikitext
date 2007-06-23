@@ -20,11 +20,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.internal.tasks.ui.actions.TaskActivateAction;
 import org.eclipse.mylyn.internal.tasks.ui.actions.TaskDeactivateAction;
 import org.eclipse.mylyn.monitor.core.DateUtil;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
+import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.monitor.usage.ReportGenerator;
 
 /**
@@ -379,7 +379,7 @@ public class FocusedUiUsageAnalysisCollector extends AbstractMylarUsageCollector
 			}
 			writer.close();
 		} catch (IOException e) {
-			StatusManager.fail(e, "could not generate csv file", true);
+			StatusHandler.fail(e, "could not generate csv file", true);
 		}
 	}
 
