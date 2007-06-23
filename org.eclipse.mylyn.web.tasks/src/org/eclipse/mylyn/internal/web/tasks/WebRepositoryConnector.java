@@ -221,7 +221,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 				}
 
 			} catch (IOException ex) {
-				return new Status(IStatus.OK, TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Could not fetch resource: "
+				return new Status(IStatus.OK, TasksUiPlugin.ID_PLUGIN, IStatus.OK, "Could not fetch resource: "
 						+ queryUrl, ex);
 			}
 		}
@@ -266,7 +266,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		Matcher matcher = p.matcher(resource);
 
 		if (!matcher.find()) {
-			return new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
+			return new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, IStatus.ERROR,
 					"Unable to parse resource. Check query regexp", null);
 		} else {
 			boolean isCorrect = true;
@@ -284,7 +284,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			if (isCorrect) {
 				return Status.OK_STATUS;
 			} else {
-				return new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
+				return new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, IStatus.ERROR,
 						"Require two matching groups (taskId and summary). Check query regexp", null);
 			}
 		}
@@ -348,7 +348,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			}
 			return Status.OK_STATUS;
 		} catch (Exception ex) {
-			return new Status(IStatus.OK, TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Could not fetch resource: " + queryUrl,
+			return new Status(IStatus.OK, TasksUiPlugin.ID_PLUGIN, IStatus.OK, "Could not fetch resource: " + queryUrl,
 					ex);
 		}
 	}

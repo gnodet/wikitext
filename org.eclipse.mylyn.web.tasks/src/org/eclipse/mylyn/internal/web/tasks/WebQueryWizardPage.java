@@ -351,7 +351,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 			String evaluatedUrl = WebRepositoryConnector.evaluateParams(url, params, repository);
 			active = true;
 			do {
-				final MultiStatus queryStatus = new MultiStatus(TasksUiPlugin.PLUGIN_ID, IStatus.OK, "Query result",
+				final MultiStatus queryStatus = new MultiStatus(TasksUiPlugin.ID_PLUGIN, IStatus.OK, "Query result",
 						null);
 				final List<AbstractTask> queryHits = new ArrayList<AbstractTask>();
 				try {
@@ -385,10 +385,10 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 					}
 
 				} catch (final IOException ex) {
-					queryStatus.add(new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR,
+					queryStatus.add(new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, IStatus.ERROR,
 							"Unable to fetch resource: " + ex.getMessage(), null));
 				} catch (final Exception ex) {
-					queryStatus.add(new Status(IStatus.ERROR, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR, "Parsing error: "
+					queryStatus.add(new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, IStatus.ERROR, "Parsing error: "
 							+ ex.getMessage(), null));
 				}
 
