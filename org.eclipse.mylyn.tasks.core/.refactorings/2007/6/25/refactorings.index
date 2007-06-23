@@ -107,3 +107,4 @@
 1182562520129	Rename field 'PROPERTY_KIND'
 1182567482153	Rename method 'addChild'
 1182567491124	Rename method 'removeChild'
+1182574310164	Rename method 'notifyRepositorySettingsChagned'
