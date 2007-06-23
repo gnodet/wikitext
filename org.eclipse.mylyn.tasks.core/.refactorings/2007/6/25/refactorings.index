@@ -105,3 +105,5 @@
 1182561256130	Move compilation unit
 1182562505658	Move compilation unit
 1182562520129	Rename field 'PROPERTY_KIND'
+1182567482153	Rename method 'addChild'
+1182567491124	Rename method 'removeChild'

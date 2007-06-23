@@ -143,11 +143,6 @@ public class TaskActivityView extends ViewPart {
 		public void taskListRead() {
 			refresh();
 		}
-
-		public void calendarChanged() {
-			refresh();
-		}
-
 	};
 
 	private ITaskListChangeListener TASK_CHANGE_LISTENER = new ITaskListChangeListener() {
