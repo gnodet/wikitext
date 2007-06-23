@@ -126,7 +126,7 @@ public class ProgressQueryHitCollector implements ITaskCollector {
 		this.monitor = monitor;
 	}
 
-	public Set<AbstractTask> getTaskHits() {
+	public Set<AbstractTask> getTasks() {
 		return taskResults;
 	}
 

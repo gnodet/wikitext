@@ -119,7 +119,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 			return;
 		}
 
-		Set<AbstractTask> l = searchCollector.getTaskHits();
+		Set<AbstractTask> l = searchCollector.getTasks();
 
 		// get the list of doi elements
 		List<BugzillaReportInfo> doiList = getDoiList(l);

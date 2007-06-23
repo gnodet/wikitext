@@ -66,3 +66,14 @@
 1182552946024	Rename method 'hasBeenReminded'
 1182552951593	Rename field 'hasReminded'
 1182553082437	Rename method 'setLastSyncDateStamp'
+1182554506134	Rename method 'setTaskUrl'
+1182554537742	Rename method 'getTaskUrl'
+1182554666948	Rename method 'setDescription'
+1182555118534	Delete element
+1182555361695	Rename method 'getTaskFullUrl'
+1182555621055	Rename method 'getTaskHits'
+1182555951301	Delete element
+1182556057099	Move compilation unit
+1182556366584	Rename method 'getCC'
+1182556464689	Rename method 'removeCC'
+1182556526291	Move compilation unit
