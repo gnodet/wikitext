@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Extract method 'private void closeEditor(IInteractionElement element)' from 'org.eclipse.mylyn.internal.resources.ui.ContextEditorManager.interestChanged()' to 'org.eclipse.mylyn.internal.resources.ui.ContextEditorManager'&#13;&#10;- Original project: 'org.eclipse.mylyn.resources.ui'&#13;&#10;- Method name: 'closeEditor'&#13;&#10;- Destination type: 'org.eclipse.mylyn.internal.resources.ui.ContextEditorManager'&#13;&#10;- Declared visibility: 'private'" comments="false" description="Extract method 'closeEditor'" destination="0" exceptions="false" flags="786434" id="org.eclipse.jdt.ui.extract.method" input="/src&lt;org.eclipse.mylyn.internal.resources.ui{ContextEditorManager.java" name="closeEditor" replace="false" selection="12260 537" stamp="1182728264250" version="1.0" visibility="2"/>
+</session>
