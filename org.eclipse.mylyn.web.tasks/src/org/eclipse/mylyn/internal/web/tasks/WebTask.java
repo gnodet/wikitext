@@ -43,10 +43,6 @@ public class WebTask extends AbstractTask {
 	}
 	
 	@Override
-	public String getTaskKey() {
-		return null;
-	}
-
 	public String getOwner() {
 		return UNKNOWN_OWNER;
 	}

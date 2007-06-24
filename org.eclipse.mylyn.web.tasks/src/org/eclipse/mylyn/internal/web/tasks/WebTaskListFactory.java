@@ -8,8 +8,10 @@
 
 package org.eclipse.mylyn.internal.web.tasks;
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.mylyn.internal.monitor.core.util.XmlStringConverter;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
@@ -31,10 +33,6 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 
 	private static final String KEY_WEB = "Web";
 
-//	private static final String KEY_WEB_CATEGORY = "WebQuery" + DelegatingTaskExternalizer.KEY_CATEGORY;
-
-//	private static final String KEY_WEB_QUERY_HIT = KEY_WEB + KEY_QUERY_HIT;
-
 	private static final String KEY_WEB_QUERY = KEY_WEB + AbstractTaskListFactory.KEY_QUERY;
 
 	private static final String KEY_WEB_ISSUE = "WebIssue";
@@ -52,12 +50,11 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 		return KEY_WEB_ISSUE;
 	}
 	
+	@Override
+	public Set<String> getQueryElementNames() {
+		return Collections.singleton(KEY_WEB_QUERY);
+	}
 	
-//	@Override
-//	public boolean canReadQuery(Node node) {
-//		return node.getNodeName().equals(KEY_WEB_QUERY);
-//	}
-
 	@Override
 	public boolean canCreate(AbstractRepositoryQuery category) {
 		return category instanceof WebQuery;
@@ -67,12 +64,8 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 	public boolean canCreate(AbstractTask task) {
 		return task instanceof WebTask;
 	}
-
-//	@Override
-//	public boolean canReadQueryHit(Node node) {
-//		return node.getNodeName().equals(getQueryHitTagName());
-//	}
-
+	
+	@Override
 	public void setAdditionalAttributes(AbstractRepositoryQuery query, Element node) {
 		if (query instanceof WebQuery) {
 			WebQuery webQuery = (WebQuery) query;
@@ -87,6 +80,7 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 		}
 	}
 
+	@Override
 	public void setAdditionalAttributes(AbstractTask task, Element element) {
 		element.setAttribute(KEY_KEY, ((WebTask) task).getTaskId());
 		element.setAttribute(KEY_PREFIX, ((WebTask) task).getTaskPrefix());
@@ -152,10 +146,5 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 	public String getQueryElementName(AbstractRepositoryQuery query) {
 		return query instanceof WebQuery ? KEY_WEB_QUERY : "";
 	}
-
-//	@Override
-//	public String getCategoryTagName() {
-//		return KEY_WEB_CATEGORY;
-//	}
 
 }
