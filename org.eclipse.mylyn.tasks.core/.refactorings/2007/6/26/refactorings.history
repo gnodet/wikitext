@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename field 'handle' in 'org.eclipse.mylyn.tasks.core.AbstractTaskContainer' to 'handleIdentifier'&#13;&#10;- Original project: 'org.eclipse.mylyn.tasks.core'&#13;&#10;- Original element: 'org.eclipse.mylyn.tasks.core.AbstractTaskContainer.handle'&#13;&#10;- Renamed element: 'org.eclipse.mylyn.tasks.core.AbstractTaskContainer.handleIdentifier'&#13;&#10;- Update references to refactored element&#13;&#10;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field 'handle'" flags="589826" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;org.eclipse.mylyn.tasks.core{AbstractTaskContainer.java[AbstractTaskContainer^handle" name="handleIdentifier" references="true" setter="false" stamp="1182735165474" textual="false" version="1.0"/>
+</session>
