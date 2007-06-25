@@ -1,3 +1,6 @@
 1182719031069	Extract method 'generateMessage'
 1182725613443	Rename field 'DESCRIPTION_RETRIEVE'
 1182725626402	Rename resource 'retrieve-description.gif'
+1182738452417	Rename local variable 'svc'
+1182738527329	Rename local variable 'sortMenu'
+1182740170273	Rename type 'AddTaskListAction'
