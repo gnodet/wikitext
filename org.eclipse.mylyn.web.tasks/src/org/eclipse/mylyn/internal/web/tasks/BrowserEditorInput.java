@@ -22,6 +22,7 @@ public class BrowserEditorInput extends RepositoryTaskEditorInput {
 		super(repository, taskId, taskUrl);
 	}
 
+	@Override
 	public ImageDescriptor getImageDescriptor() {
 		return TasksUiImages.BROWSER_SMALL;
 	}

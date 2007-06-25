@@ -35,6 +35,7 @@ public class GetUserIDServlet extends HttpServlet {
 
 	private static final int SIZE_OF_INT = 8;
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String userIDRequest = req.getParameter(USER_ID_PARAM);
 

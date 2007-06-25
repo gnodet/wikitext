@@ -42,6 +42,7 @@ public class BugzillaUiBridge extends AbstractContextUiBridge {
 
 	protected BugzillaContextLabelProvider labelProvider = new BugzillaContextLabelProvider();
 
+	@Override
 	public void open(IInteractionElement node) {
 		String handle = node.getHandleIdentifier();
 		String bugHandle = handle;
@@ -71,6 +72,7 @@ public class BugzillaUiBridge extends AbstractContextUiBridge {
 		return labelProvider;
 	}
 
+	@Override
 	public void close(IInteractionElement node) {
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 		if (page != null) {
@@ -88,10 +90,12 @@ public class BugzillaUiBridge extends AbstractContextUiBridge {
 		}
 	}
 
+	@Override
 	public boolean acceptsEditor(IEditorPart editorPart) {
 		return editorPart instanceof AbstractRepositoryTaskEditor;
 	}
 
+	@Override
 	public List<TreeViewer> getContentOutlineViewers(IEditorPart editor) {
 		List<TreeViewer> viewers = new ArrayList<TreeViewer>();
 		TreeViewer outline = getOutlineTreeViewer(editor);
@@ -110,6 +114,7 @@ public class BugzillaUiBridge extends AbstractContextUiBridge {
 		return null;
 	}
 
+	@Override
 	public Object getObjectForTextSelection(TextSelection selection, IEditorPart editor) {
 		return null;
 	}
@@ -118,10 +123,12 @@ public class BugzillaUiBridge extends AbstractContextUiBridge {
 		// ignore
 	}
 
+	@Override
 	public IInteractionElement getElement(IEditorInput input) {
 		return null;
 	}
 
+	@Override
 	public String getContentType() {
 		return BugzillaStructureBridge.CONTENT_TYPE;
 	}

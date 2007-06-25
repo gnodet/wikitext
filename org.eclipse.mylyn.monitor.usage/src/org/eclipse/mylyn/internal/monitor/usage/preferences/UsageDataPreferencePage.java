@@ -184,7 +184,7 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 			submissionFreq = UiUsageMonitorPlugin.getPrefs().getLong(
 					MonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY);
 		}
-		long submissionFreqInDays = (long) ((double) submissionFreq) / DAYS_IN_MS;
+		long submissionFreqInDays = submissionFreq / DAYS_IN_MS;
 		submissionTime.setText("" + submissionFreqInDays);
 		submissionTime.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {

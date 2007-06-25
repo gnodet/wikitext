@@ -50,6 +50,7 @@ public class WebConnectorUi extends AbstractRepositoryConnectorUi {
 	/**
 	 * Task kind overlay, recommended to override with connector-specific overlay.
 	 */
+	@Override
 	public ImageDescriptor getTaskKindOverlay(AbstractTask task) {
 		if (!(task instanceof LocalTask) && (task instanceof WebTask)) {
 			return TasksUiImages.OVERLAY_WEB;

@@ -197,7 +197,7 @@ public class WebContextManager {
 				webRootToAdd.addSite(webSite);
 			}
 			if (page != null) {
-				if (restore && page != null) {
+				if (restore) {
 					String cachedtitle = titleCache.getProperty(url);
 					if (cachedtitle != null) {
 						page.setTitle(cachedtitle);

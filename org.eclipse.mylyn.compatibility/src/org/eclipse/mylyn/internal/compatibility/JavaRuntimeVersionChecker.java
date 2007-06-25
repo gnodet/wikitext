@@ -41,6 +41,7 @@ public class JavaRuntimeVersionChecker extends AbstractUIPlugin implements IStar
 		// ignore
 	}
 
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {

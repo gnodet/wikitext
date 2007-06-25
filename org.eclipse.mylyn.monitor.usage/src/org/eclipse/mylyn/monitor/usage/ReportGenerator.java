@@ -188,6 +188,7 @@ public class ReportGenerator {
 			this.sources = sources;
 		}
 
+		@Override
 		public IStatus run(IProgressMonitor monitor) {
 
 			if (saveAllUserEvents) {

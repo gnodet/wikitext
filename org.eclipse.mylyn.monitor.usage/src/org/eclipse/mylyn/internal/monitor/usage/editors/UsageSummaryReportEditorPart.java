@@ -78,6 +78,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 		sForm.setText(new SimpleDateFormat(DATE_FORMAT_STRING).format(new Date()));
 	}
 
+	@Override
 	protected void addSections(Composite composite, FormToolkit toolkit) {
 		if (editorInput.getReportGenerator().getLastParsedSummary().getSingleSummaries().size() > 0) {
 			createUsageSection(editorComposite, toolkit);

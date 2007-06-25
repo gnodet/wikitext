@@ -27,6 +27,7 @@ public class MylarUserStudyExamplePlugin extends AbstractUIPlugin implements ISt
 		plugin = this;
 	}
 
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 	}
@@ -54,6 +55,7 @@ public class MylarUserStudyExamplePlugin extends AbstractUIPlugin implements ISt
 		});
 	}
 
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		plugin = null;

@@ -120,6 +120,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 				+ File.separatorChar + DIRECTORY_MONITOR_BACKUP;
 	}
 
+	@Override
 	@SuppressWarnings("deprecation")
 	public IStatus run(final IProgressMonitor progressMonitor) {
 

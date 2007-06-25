@@ -27,6 +27,7 @@ public class WebTaskEditorFactory extends AbstractTaskEditorFactory {
 
 	private static final String TITLE = "Browser";
 
+	@Override
 	public IEditorPart createEditor(TaskEditor parentEditor, IEditorInput editorInput) {
 		AbstractRepositoryTaskEditor editor = null;
 		if (editorInput instanceof TaskEditorInput) {
@@ -36,6 +37,7 @@ public class WebTaskEditorFactory extends AbstractTaskEditorFactory {
 		return editor;
 	}
 
+	@Override
 	public IEditorInput createEditorInput(AbstractTask task) {
 		if (task instanceof WebTask) {
 			final TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
@@ -50,19 +52,23 @@ public class WebTaskEditorFactory extends AbstractTaskEditorFactory {
 		return new BrowserFormPage(parentEditor, TITLE);
 	}
 
+	@Override
 	public String getTitle() {
 		return TITLE;
 	}
 
+	@Override
 	public boolean canCreateEditorFor(AbstractTask task) {
 		;
 		return task instanceof WebTask;
 	}
 
+	@Override
 	public boolean canCreateEditorFor(IEditorInput input) {
 		return input instanceof BrowserEditorInput;
 	}
 
+	@Override
 	public boolean providesOutline() {
 		return false;
 	}

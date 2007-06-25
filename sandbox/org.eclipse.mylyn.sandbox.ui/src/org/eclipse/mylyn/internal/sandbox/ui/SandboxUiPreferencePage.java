@@ -224,6 +224,7 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		return true;
 	}
 
+	@Override
 	public void performDefaults() {
 		super.performDefaults();
 		enableErrorInterest.setSelection(getPreferenceStore().getDefaultBoolean(

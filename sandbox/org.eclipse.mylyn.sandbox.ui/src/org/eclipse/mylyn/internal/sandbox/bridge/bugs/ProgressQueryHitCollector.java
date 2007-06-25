@@ -79,7 +79,7 @@ public class ProgressQueryHitCollector implements ITaskCollector {
 			// task is new, add to tasklist
 			taskList.addTask(hitTask);
 		}
-		taskResults.add((AbstractTask) hitTask);
+		taskResults.add(hitTask);
 		matchCount++;
 	}
 

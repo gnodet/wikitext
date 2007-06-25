@@ -114,6 +114,7 @@ public class BugzillaSearchEngine {
 	 *            the maximum number of matches to return or
 	 *            IBugzillaConstants.RETURN_ALL_HITS for unlimited
 	 */
+	@SuppressWarnings("null")
 	public IStatus search(ProgressQueryHitCollector collector, int startMatches, int maxHits) throws LoginException {
 		IProgressMonitor monitor = collector.getProgressMonitor();
 		IStatus status = null;

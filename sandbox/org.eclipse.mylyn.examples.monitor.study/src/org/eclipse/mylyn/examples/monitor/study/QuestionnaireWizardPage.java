@@ -224,6 +224,7 @@ public class QuestionnaireWizardPage extends AbstractStudyQuestionnairePage {
 		}
 	}
 
+	@Override
 	public File createFeedbackFile() {
 		finishedSelected();
 		IPath rootPath = ResourcesPlugin.getWorkspace().getRoot().getLocation();

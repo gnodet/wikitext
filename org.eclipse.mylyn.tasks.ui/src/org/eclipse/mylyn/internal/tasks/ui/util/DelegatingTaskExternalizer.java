@@ -19,12 +19,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import org.eclipse.mylyn.internal.monitor.core.util.StatusManager;
 import org.eclipse.mylyn.internal.tasks.core.RepositoryTaskHandleUtil;
 import org.eclipse.mylyn.internal.tasks.core.TaskArchive;
 import org.eclipse.mylyn.internal.tasks.core.TaskCategory;
 import org.eclipse.mylyn.internal.tasks.core.TaskExternalizationException;
 import org.eclipse.mylyn.internal.tasks.core.UnfiledCategory;
+import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskCategory;
@@ -63,11 +63,11 @@ final class DelegatingTaskExternalizer {
 	static final String KEY_NOTIFIED_INCOMING = "NotifiedIncoming";
 
 	static final String KEY_NAME = "Name";
-	
+
 	static final String KEY_LABEL = "Label";
 
 	static final String KEY_HANDLE = "Handle";
-	
+
 	static final String KEY_REPOSITORY_URL = "RepositoryUrl";
 
 	static final String KEY_CATEGORY = "Category";
@@ -103,7 +103,7 @@ final class DelegatingTaskExternalizer {
 	static final String VAL_TRUE = "true";
 
 	static final String KEY_DATE_END = "EndDate";
-	
+
 	static final String KEY_QUERY_HIT = "QueryHit";
 
 	static final String KEY_DATE_CREATION = "CreationDate";
@@ -126,7 +126,7 @@ final class DelegatingTaskExternalizer {
 	static final String KEY_OWNER = "Owner";
 
 	static final String KEY_STALE = "Stale";
-	
+
 	static final String KEY_LAST_REFRESH = "LastRefreshTimeStamp";
 
 	private List<AbstractTaskListFactory> factories = new ArrayList<AbstractTaskListFactory>();
@@ -163,20 +163,18 @@ final class DelegatingTaskExternalizer {
 				break;
 			}
 		}
-		
+
 		String taskTagName;
 		if (factory != null) {
 			taskTagName = factory.getTaskElementName();
 		} else {
-			StatusManager.log("No externalizer for task: " + task, this);
+			StatusHandler.log("No externalizer for task: " + task, this);
 			return null;
 //			taskTagName = getTaskTagName();
 		}
-		Element node = doc.createElement(taskTagName);		
-		if (factory != null) {
-			factory.setAdditionalAttributes(task, node);
-		}
-		
+		Element node = doc.createElement(taskTagName);
+		factory.setAdditionalAttributes(task, node);
+
 		node.setAttribute(KEY_LABEL, stripControlCharacters(task.getSummary()));
 		node.setAttribute(KEY_HANDLE, task.getHandleIdentifier());
 		node.setAttribute(KEY_REPOSITORY_URL, task.getRepositoryUrl());
@@ -230,27 +228,25 @@ final class DelegatingTaskExternalizer {
 			node.setAttribute(KEY_STALE, VAL_FALSE);
 		}
 
-		if (task instanceof AbstractTask) {
-			AbstractTask abstractTask = (AbstractTask) task;
-			if (abstractTask.getLastReadTimeStamp() != null) {
-				node.setAttribute(KEY_LAST_MOD_DATE, abstractTask.getLastReadTimeStamp());
-			}
+		AbstractTask abstractTask = task;
+		if (abstractTask.getLastReadTimeStamp() != null) {
+			node.setAttribute(KEY_LAST_MOD_DATE, abstractTask.getLastReadTimeStamp());
+		}
 
-			if (abstractTask.isNotified()) {
-				node.setAttribute(KEY_NOTIFIED_INCOMING, VAL_TRUE);
-			} else {
-				node.setAttribute(KEY_NOTIFIED_INCOMING, VAL_FALSE);
-			}
+		if (abstractTask.isNotified()) {
+			node.setAttribute(KEY_NOTIFIED_INCOMING, VAL_TRUE);
+		} else {
+			node.setAttribute(KEY_NOTIFIED_INCOMING, VAL_FALSE);
+		}
 
-			if (abstractTask.getSynchronizationState() != null) {
-				node.setAttribute(KEY_SYNC_STATE, abstractTask.getSynchronizationState().toString());
-			} else {
-				node.setAttribute(KEY_SYNC_STATE, RepositoryTaskSyncState.SYNCHRONIZED.toString());
-			}
+		if (abstractTask.getSynchronizationState() != null) {
+			node.setAttribute(KEY_SYNC_STATE, abstractTask.getSynchronizationState().toString());
+		} else {
+			node.setAttribute(KEY_SYNC_STATE, RepositoryTaskSyncState.SYNCHRONIZED.toString());
+		}
 
-			if (abstractTask.getOwner() != null) {
-				node.setAttribute(KEY_OWNER, abstractTask.getOwner());
-			}
+		if (abstractTask.getOwner() != null) {
+			node.setAttribute(KEY_OWNER, abstractTask.getOwner());
 		}
 
 		for (AbstractTask t : task.getChildren()) {
@@ -269,7 +265,7 @@ final class DelegatingTaskExternalizer {
 				String handle = element.getAttribute(KEY_HANDLE);
 				AbstractTask subTask = tasklist.getTask(handle);
 				if (subTask != null) {
-					tasklist.addTask(subTask, (AbstractTask) task);
+					tasklist.addTask(subTask, task);
 				}
 			}
 		}
@@ -386,6 +382,9 @@ final class DelegatingTaskExternalizer {
 
 	private void readTaskInfo(AbstractTask task, TaskList taskList, Element element, AbstractTask parent,
 			AbstractTaskCategory legacyCategory) throws TaskExternalizationException {
+		if (task == null) {
+			return;
+		}
 
 		String categoryHandle = null;
 		if (element.hasAttribute(KEY_CATEGORY)) {
@@ -404,11 +403,7 @@ final class DelegatingTaskExternalizer {
 			task.addParentContainer(legacyCategory);
 			legacyCategory.internalAddChild(task);
 		} else if (legacyCategory == null && parent == null) {
-			if (task instanceof AbstractTask) {
-				taskList.internalAddTask(task, taskList.getArchiveContainer());
-			} else {
-				taskList.internalAddRootTask(task);
-			}
+			taskList.internalAddTask(task, taskList.getArchiveContainer());
 		} else {
 			taskList.internalAddTask(task, taskList.getArchiveContainer());
 		}
@@ -487,39 +482,37 @@ final class DelegatingTaskExternalizer {
 			task.setStale(false);
 		}
 
-		if (task instanceof AbstractTask) {
-			AbstractTask abstractTask = (AbstractTask) task;
-			abstractTask.setSynchronizing(false);
+		AbstractTask abstractTask = task;
+		abstractTask.setSynchronizing(false);
 
-			if (element.hasAttribute(DelegatingTaskExternalizer.KEY_REPOSITORY_URL)) {
-				abstractTask.setRepositoryUrl(element.getAttribute(DelegatingTaskExternalizer.KEY_REPOSITORY_URL));
-			}
+		if (element.hasAttribute(DelegatingTaskExternalizer.KEY_REPOSITORY_URL)) {
+			abstractTask.setRepositoryUrl(element.getAttribute(DelegatingTaskExternalizer.KEY_REPOSITORY_URL));
+		}
 
-			if (element.hasAttribute(KEY_LAST_MOD_DATE) && !element.getAttribute(KEY_LAST_MOD_DATE).equals("")) {
-				abstractTask.setLastReadTimeStamp(element.getAttribute(KEY_LAST_MOD_DATE));
-			}
+		if (element.hasAttribute(KEY_LAST_MOD_DATE) && !element.getAttribute(KEY_LAST_MOD_DATE).equals("")) {
+			abstractTask.setLastReadTimeStamp(element.getAttribute(KEY_LAST_MOD_DATE));
+		}
 
-			if (element.hasAttribute(KEY_OWNER)) {
-				abstractTask.setOwner(element.getAttribute(KEY_OWNER));
-			}
+		if (element.hasAttribute(KEY_OWNER)) {
+			abstractTask.setOwner(element.getAttribute(KEY_OWNER));
+		}
 
-			if (VAL_TRUE.equals(element.getAttribute(KEY_NOTIFIED_INCOMING))) {
-				abstractTask.setNotified(true);
-			} else {
-				abstractTask.setNotified(false);
-			}
+		if (VAL_TRUE.equals(element.getAttribute(KEY_NOTIFIED_INCOMING))) {
+			abstractTask.setNotified(true);
+		} else {
+			abstractTask.setNotified(false);
+		}
 
-			if (element.hasAttribute(KEY_SYNC_STATE)) {
-				String syncState = element.getAttribute(KEY_SYNC_STATE);
-				if (syncState.compareTo(RepositoryTaskSyncState.SYNCHRONIZED.toString()) == 0) {
-					abstractTask.setSynchronizationState(RepositoryTaskSyncState.SYNCHRONIZED);
-				} else if (syncState.compareTo(RepositoryTaskSyncState.INCOMING.toString()) == 0) {
-					abstractTask.setSynchronizationState(RepositoryTaskSyncState.INCOMING);
-				} else if (syncState.compareTo(RepositoryTaskSyncState.OUTGOING.toString()) == 0) {
-					abstractTask.setSynchronizationState(RepositoryTaskSyncState.OUTGOING);
-				} else if (syncState.compareTo(RepositoryTaskSyncState.CONFLICT.toString()) == 0) {
-					abstractTask.setSynchronizationState(RepositoryTaskSyncState.CONFLICT);
-				}
+		if (element.hasAttribute(KEY_SYNC_STATE)) {
+			String syncState = element.getAttribute(KEY_SYNC_STATE);
+			if (syncState.compareTo(RepositoryTaskSyncState.SYNCHRONIZED.toString()) == 0) {
+				abstractTask.setSynchronizationState(RepositoryTaskSyncState.SYNCHRONIZED);
+			} else if (syncState.compareTo(RepositoryTaskSyncState.INCOMING.toString()) == 0) {
+				abstractTask.setSynchronizationState(RepositoryTaskSyncState.INCOMING);
+			} else if (syncState.compareTo(RepositoryTaskSyncState.OUTGOING.toString()) == 0) {
+				abstractTask.setSynchronizationState(RepositoryTaskSyncState.OUTGOING);
+			} else if (syncState.compareTo(RepositoryTaskSyncState.CONFLICT.toString()) == 0) {
+				abstractTask.setSynchronizationState(RepositoryTaskSyncState.CONFLICT);
 			}
 		}
 
@@ -573,7 +566,7 @@ final class DelegatingTaskExternalizer {
 		try {
 			date = format.parse(dateString);
 		} catch (ParseException e) {
-			StatusManager.fail(e, "Could not parse end date", false);
+			StatusHandler.fail(e, "Could not parse end date", false);
 		}
 		return date;
 	}
@@ -596,26 +589,21 @@ final class DelegatingTaskExternalizer {
 		for (AbstractTaskListFactory currentFactory : factories) {
 			if (currentFactory.canCreate(query)) {
 				factory = currentFactory;
-				if (factory != null) {
-					queryTagName = factory.getQueryElementName(query);
-					break;
-				}
+				queryTagName = factory.getQueryElementName(query);
+				break;
 			}
 		}
-		if (factory == null || queryTagName == null) {		
-			StatusManager.log("No externalizer for query: " + query, this);
+		if (factory == null || queryTagName == null) {
+			StatusHandler.log("No externalizer for query: " + query, this);
 			return null;
 //			queryTagName = getQueryTagNameForElement(query);
 		}
-		
+
 //		String queryTagName = getQueryTagNameForElement(query);
-		
+
 		Element node = doc.createElement(queryTagName);
-		
-		if (factory != null) {
-			factory.setAdditionalAttributes(query, node);
-		}
-		
+		factory.setAdditionalAttributes(query, node);
+
 		node.setAttribute(DelegatingTaskExternalizer.KEY_NAME, query.getSummary());
 		node.setAttribute(AbstractTaskListFactory.KEY_QUERY_STRING, query.getUrl());
 		node.setAttribute(DelegatingTaskExternalizer.KEY_REPOSITORY_URL, query.getRepositoryUrl());
@@ -626,7 +614,7 @@ final class DelegatingTaskExternalizer {
 			try {
 				createQueryHitElement(hit, doc, node);
 			} catch (Exception e) {
-				StatusManager.log(e, e.getMessage());
+				StatusHandler.log(e, e.getMessage());
 			}
 		}
 		parent.appendChild(node);
@@ -655,7 +643,7 @@ final class DelegatingTaskExternalizer {
 		node.setAttribute(KEY_HANDLE, queryHit.getHandleIdentifier());
 		parent.appendChild(node);
 		return node;
-	} 
+	}
 
 //	public boolean canReadQueryHit(Node node) {
 //		return false;

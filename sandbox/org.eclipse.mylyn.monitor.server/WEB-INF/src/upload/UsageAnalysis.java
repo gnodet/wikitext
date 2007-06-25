@@ -260,7 +260,7 @@ public class UsageAnalysis {
 
 			List<String> viewUsage = new ArrayList<String>();
 			for (String view : totalNumSelections.keySet()) {
-				float numSelections = (float) (totalNumSelections.get(view));
+				float numSelections = (totalNumSelections.get(view));
 				float viewUse = numSelections / totalSelections;
 				String formattedViewUse = formatAsPercentage(viewUse);
 				viewUsage.add(formattedViewUse + "," + view + "," + totalNumSelections.get(view));
@@ -301,7 +301,7 @@ public class UsageAnalysis {
 
 			List<String> commandUsage = new ArrayList<String>();
 			for (String cmd : totalNumCommands.keySet()) {
-				float numCommands = (float) (totalNumCommands.get(cmd));
+				float numCommands = (totalNumCommands.get(cmd));
 				float commandUse = numCommands / totalCommands;
 				String formattedCmdUse = formatAsPercentage(commandUse);
 				commandUsage.add(formattedCmdUse + "," + cmd + "," + totalNumCommands.get(cmd));

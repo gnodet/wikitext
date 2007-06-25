@@ -104,7 +104,7 @@ public class SelectionMonitor extends AbstractUserInteractionMonitor {
 						// obfuscatedElementHandle =
 						// obfuscateJavaElementHandle(javaElement);
 						elementHandle = javaElement.getHandleIdentifier();
-						if (javaElement != null && javaElement.equals(lastSelectedElement)) {
+						if (javaElement.equals(lastSelectedElement)) {
 							interactionKind = InteractionEvent.Kind.EDIT;
 						}
 						lastSelectedElement = javaElement;

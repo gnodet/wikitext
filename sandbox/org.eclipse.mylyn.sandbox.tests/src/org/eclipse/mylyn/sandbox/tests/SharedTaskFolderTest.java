@@ -39,6 +39,7 @@ public class SharedTaskFolderTest extends TestCase{
 	 * Set up a shared task directory structure by creating some data
 	 * in the main directory and copying it to the shared directories.
 	 */
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		
@@ -163,6 +164,7 @@ public class SharedTaskFolderTest extends TestCase{
 		return newTask;
 	}
 		
+	@Override
 	protected void tearDown() throws Exception{
 		
 		//Reset the shared directory to the original value

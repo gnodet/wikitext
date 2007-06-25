@@ -63,7 +63,7 @@ import com.sun.syndication.io.XmlReader;
 public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	public static final String REPOSITORY_TYPE = "web";
-	
+
 	public static final String PROPERTY_TASK_CREATION_URL = "taskCreationUrl";
 
 	public static final String PROPERTY_TASK_URL = "taskUrl";
@@ -111,6 +111,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return new String[] { PROPERTY_TASK_URL, PROPERTY_TASK_CREATION_URL };
 	}
 
+	@Override
 	public boolean canCreateNewTask(TaskRepository repository) {
 		return repository.hasProperty(PROPERTY_TASK_CREATION_URL);
 	}
@@ -121,12 +122,13 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public AbstractTask createTaskFromExistingId(TaskRepository repository, final String id,
-			IProgressMonitor monitor) throws CoreException {
+	public AbstractTask createTaskFromExistingId(TaskRepository repository, final String id, IProgressMonitor monitor)
+			throws CoreException {
 		if (WebRepositoryConnector.REPOSITORY_TYPE.equals(repository.getConnectorKind())) {
 			String taskPrefix = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
 
-			final WebTask task = new WebTask(id, id, taskPrefix, repository.getUrl(), WebRepositoryConnector.REPOSITORY_TYPE);
+			final WebTask task = new WebTask(id, id, taskPrefix, repository.getUrl(),
+					WebRepositoryConnector.REPOSITORY_TYPE);
 
 			RetrieveTitleFromUrlJob job = new RetrieveTitleFromUrlJob(taskPrefix + id) {
 				@Override
@@ -161,8 +163,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		for (AbstractRepositoryQuery query : TasksUiPlugin.getTaskListManager().getTaskList().getQueries()) {
 			if (query instanceof WebQuery) {
 				WebQuery webQuery = (WebQuery) query;
-				TaskRepository repository = repositoryManager.getRepository(webQuery.getRepositoryKind(), webQuery
-						.getRepositoryUrl());
+				TaskRepository repository = repositoryManager.getRepository(webQuery.getRepositoryKind(),
+						webQuery.getRepositoryUrl());
 				if (repository != null) {
 					String queryUrl = evaluateParams(webQuery.getTaskPrefix(), //
 							webQuery.getQueryParameters(), repository);
@@ -235,8 +237,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public boolean markStaleTasks(TaskRepository repository,
-			Set<AbstractTask> tasks, IProgressMonitor monitor) {
+	public boolean markStaleTasks(TaskRepository repository, Set<AbstractTask> tasks, IProgressMonitor monitor) {
 		// not supported
 		return false;
 	}
@@ -277,7 +278,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 				if (matcher.groupCount() >= 1) {
 					String id = matcher.group(1);
 					String description = matcher.groupCount() > 1 ? cleanup(matcher.group(2), repository) : null;
-					resultCollector.accept(new WebTask(id, description, taskPrefix, repository.getUrl(), REPOSITORY_TYPE));
+					resultCollector.accept(new WebTask(id, description, taskPrefix, repository.getUrl(),
+							REPOSITORY_TYPE));
 				}
 			} while (matcher.find() && !monitor.isCanceled());
 
@@ -430,13 +432,10 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 // }
 // }
 // }
-			if (refreshUrl == null) {
-				refreshUrl = getRefreshUrl(url, method);
-			}
+			refreshUrl = getRefreshUrl(url, method);
 			if (refreshUrl == null) {
 				return method.getResponseBodyAsString();
 			}
-
 		} finally {
 			method.releaseConnection();
 		}

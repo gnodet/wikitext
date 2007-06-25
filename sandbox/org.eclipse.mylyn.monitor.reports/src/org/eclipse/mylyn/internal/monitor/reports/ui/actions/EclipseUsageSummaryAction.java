@@ -70,6 +70,7 @@ public class EclipseUsageSummaryAction implements IViewActionDelegate {
 					collector.setDelegates(delegates);
 					generator = new ReportGenerator(UiUsageMonitorPlugin.getDefault().getInteractionLogger(),
 							collector, new JobChangeAdapter() {
+								@Override
 								public void done(IJobChangeEvent event) {
 									try {
 										IWorkbenchPage page = MonitorReportsPlugin.getDefault().getWorkbench()

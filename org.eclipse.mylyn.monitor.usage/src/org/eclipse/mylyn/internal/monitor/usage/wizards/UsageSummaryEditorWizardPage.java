@@ -90,6 +90,7 @@ public class UsageSummaryEditorWizardPage extends WizardPage implements IWizardP
 
 	private class CheckboxSelectionListener extends SelectionAdapter {
 
+		@Override
 		public void widgetSelected(SelectionEvent e) {
 			if (!perspectiveCheckbox.getSelection() && !viewCheckbox.getSelection()) {
 				setPageComplete(false);
