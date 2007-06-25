@@ -56,7 +56,9 @@ public class FocusedUiUserAnalysisAction implements IViewActionDelegate {
 						ReportGenerator generator = new ReportGenerator(UiUsageMonitorPlugin.getDefault()
 								.getInteractionLogger(), collectors);
 
-						IWorkbenchPage page = MonitorReportsPlugin.getDefault().getWorkbench().getActiveWorkbenchWindow()
+						IWorkbenchPage page = MonitorReportsPlugin.getDefault()
+								.getWorkbench()
+								.getActiveWorkbenchWindow()
 								.getActivePage();
 						if (page == null)
 							return;

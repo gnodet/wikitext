@@ -57,13 +57,12 @@ public class WebUiUtil {
 		} catch (PartInitException e) {
 			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
 					+ " could not be opened");
-		} 
+		}
 	}
 
 	/**
 	 * @param repositoryUrl
-	 *            The URL of the web site including protocol. E.g.
-	 *            <code>http://foo.bar</code> or
+	 *            The URL of the web site including protocol. E.g. <code>http://foo.bar</code> or
 	 *            <code>https://foo.bar/baz</code>
 	 * @return a 16*16 favicon, or null if no favicon found
 	 * @throws MalformedURLException
@@ -89,7 +88,7 @@ public class WebUiUtil {
 			return null;
 		}
 	}
-	
+
 	public static String stripProtocol(String url) {
 		if (url == null) {
 			return null;
@@ -101,7 +100,7 @@ public class WebUiUtil {
 			return url;
 		}
 	}
-	
+
 	public static String getUrlFromClipboard() {
 		Clipboard clipboard = new Clipboard(Display.getDefault());
 		TextTransfer transfer = TextTransfer.getInstance();

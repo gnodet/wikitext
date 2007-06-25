@@ -32,13 +32,13 @@ public class WebImages {
 	public static final String T_VIEW = "eview16";
 
 	private static final URL baseURL = WebUiBridgePlugin.getDefault().getBundle().getEntry("/icons/");
-	
+
 	public static final ImageDescriptor WEB_PAGE = create(T_OBJ, "web-page.png");
 
 	public static final ImageDescriptor WEB_SITE = create(T_OBJ, "web-site.gif");
-	
+
 	public static final ImageDescriptor WEB_ROOT = create(T_OBJ, "web-root.png");
-	
+
 	public static ImageDescriptor create(String prefix, String name) {
 		return create(prefix, name, baseURL);
 	}
@@ -75,8 +75,8 @@ public class WebImages {
 	public static Image getImage(ImageDescriptor imageDescriptor) {
 		if (imageDescriptor == null) {
 			return null;
-		} 
-		
+		}
+
 		ImageRegistry imageRegistry = getImageRegistry();
 		Image image = imageRegistry.get("" + imageDescriptor.hashCode());
 		if (image == null) {

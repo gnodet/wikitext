@@ -39,7 +39,7 @@ public class BrowserTracker extends AbstractUserInteractionMonitor implements IP
 
 		public void changed(ProgressEvent event) {
 			// ignore
-			
+
 		}
 
 		public void completed(ProgressEvent event) {
@@ -59,7 +59,7 @@ public class BrowserTracker extends AbstractUserInteractionMonitor implements IP
 	public void partOpened(IWorkbenchPart part) {
 		if (part instanceof IMonitoredWebBrowserPart) {
 			currentBrowserPart = part;
-			IMonitoredWebBrowserPart monitoredBrowser = (IMonitoredWebBrowserPart)part;
+			IMonitoredWebBrowserPart monitoredBrowser = (IMonitoredWebBrowserPart) part;
 			Browser browser = monitoredBrowser.getBrowser();
 			if (browser != null) {
 				browser.addProgressListener(new UrlTrackingListener(browser));
@@ -71,7 +71,7 @@ public class BrowserTracker extends AbstractUserInteractionMonitor implements IP
 			//			if (browser != null) {
 			//				browser.addProgressListener(new UrlTrackingListener(browser));	
 			//			} 
-		} 
+		}
 	}
 
 	public void partClosed(IWorkbenchPart part) {

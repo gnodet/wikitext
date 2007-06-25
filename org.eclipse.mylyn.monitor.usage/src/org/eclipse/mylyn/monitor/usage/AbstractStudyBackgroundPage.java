@@ -20,7 +20,7 @@ import org.eclipse.jface.wizard.IWizardPage;
  * 
  * @author Leah Findlater
  * @author Mik Kersten
- * @since	2.0
+ * @since 2.0
  */
 public abstract class AbstractStudyBackgroundPage implements IWizardPage {
 

@@ -20,8 +20,7 @@ import org.eclipse.ui.navigator.ICommonLabelProvider;
 /**
  * @author Mik Kersten
  */
-public class WebNavigatorLabelProvider extends WorkbenchLabelProvider implements
-		ICommonLabelProvider {
+public class WebNavigatorLabelProvider extends WorkbenchLabelProvider implements ICommonLabelProvider {
 
 	private ICommonContentExtensionSite extensionSite;
 
@@ -54,10 +53,11 @@ public class WebNavigatorLabelProvider extends WorkbenchLabelProvider implements
 			return ((WebResource) anElement).getLabel(anElement);
 		}
 		return null;
-	} 
+	}
 
 	/**
 	 * Return the extension site for this label provider.
+	 * 
 	 * @return the extension site for this label provider
 	 */
 	public ICommonContentExtensionSite getExtensionSite() {
@@ -83,6 +83,6 @@ public class WebNavigatorLabelProvider extends WorkbenchLabelProvider implements
 	@Override
 	public void removeListener(ILabelProviderListener listener) {
 		// ignore
-		
+
 	}
 }

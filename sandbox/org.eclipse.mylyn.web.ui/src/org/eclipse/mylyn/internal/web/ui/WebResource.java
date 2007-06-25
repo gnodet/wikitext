@@ -17,14 +17,13 @@ import org.eclipse.core.runtime.PlatformObject;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.model.IWorkbenchAdapter;
 
-
 /**
  * @author Mik Kersten
  */
 public abstract class WebResource extends PlatformObject implements IWorkbenchAdapter {
-	
+
 	protected final String url;
-	
+
 	protected WebResource(String url) {
 		this.url = url;
 	}
@@ -32,25 +31,25 @@ public abstract class WebResource extends PlatformObject implements IWorkbenchAd
 	public String getUrl() {
 		return url;
 	}
-	
-    public String getLabel(Object object) {
+
+	public String getLabel(Object object) {
 		return url;
 	}
 
-    public Object[] getChildren(Object o) {
-    	return getChildren().toArray();
-    }
-    
-    public Object getParent(Object o) {
-    	return getParent();
-    }
-    
-    public abstract ImageDescriptor getImageDescriptor(Object object);
-    
+	public Object[] getChildren(Object o) {
+		return getChildren().toArray();
+	}
+
+	public Object getParent(Object o) {
+		return getParent();
+	}
+
+	public abstract ImageDescriptor getImageDescriptor(Object object);
+
 	public abstract Collection<WebResource> getChildren();
 
 	public abstract WebResource getParent();
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof WebResource) {
@@ -59,7 +58,7 @@ public abstract class WebResource extends PlatformObject implements IWorkbenchAd
 		}
 		return super.equals(obj);
 	}
-	
+
 	@Override
 	public String toString() {
 		return url;

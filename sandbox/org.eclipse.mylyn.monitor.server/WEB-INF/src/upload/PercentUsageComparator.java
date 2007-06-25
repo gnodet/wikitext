@@ -14,8 +14,7 @@ package upload;
 import java.util.Comparator;
 
 /**
- * This class was copied from
- * org.eclipse.mylyn.internal.monitor.core.collection.
+ * This class was copied from org.eclipse.mylyn.internal.monitor.core.collection.
  * 
  * 
  * @author Mik Kersten and Leah Findlater

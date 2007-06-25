@@ -41,7 +41,7 @@ import org.eclipse.mylyn.monitor.core.StatusHandler;
  * Used for generating reports of user activity.
  * 
  * @author Mik Kersten
- * @since	2.0
+ * @since 2.0
  */
 public class ReportGenerator {
 
@@ -138,8 +138,7 @@ public class ReportGenerator {
 	}
 
 	/**
-	 * Assuming the file naming convention of <phase>-<version>-usage-<userID>-<date
-	 * and time>.zip
+	 * Assuming the file naming convention of <phase>-<version>-usage-<userID>-<date and time>.zip
 	 */
 	private int getUserId(File source) {
 		String userIDText = source.getName();
@@ -340,8 +339,8 @@ public class ReportGenerator {
 
 			InteractionEventSummary summary = usersSummary.get(getIdentifier(event));
 			if (summary == null) {
-				summary = new InteractionEventSummary(event.getKind().toString(), InteractionEventUtil
-						.getCleanOriginId(event), 0);
+				summary = new InteractionEventSummary(event.getKind().toString(),
+						InteractionEventUtil.getCleanOriginId(event), 0);
 				usersSummary.put(getIdentifier(event), summary);
 			}
 			summary.setUsageCount(summary.getUsageCount() + 1);

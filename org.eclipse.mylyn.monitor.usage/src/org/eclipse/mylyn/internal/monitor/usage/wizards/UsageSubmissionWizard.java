@@ -128,17 +128,20 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		uid = UiUsageMonitorPlugin.getDefault().getPreferenceStore().getInt(UiUsageMonitorPlugin.PREF_USER_ID);
 		if (uid == 0 || uid == -1) {
 			uid = this.getNewUid();
-			UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(UiUsageMonitorPlugin.PREF_USER_ID,
-					uid);
+			UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(UiUsageMonitorPlugin.PREF_USER_ID, uid);
 		}
 		uploadPage = new UsageUploadWizardPage(this);
 		fileSelectionPage = new UsageFileSelectionWizardPage("TODO, change this string");
 		if (UiUsageMonitorPlugin.getDefault().isBackgroundEnabled()) {
-			AbstractStudyBackgroundPage page = UiUsageMonitorPlugin.getDefault().getStudyParameters().getBackgroundPage();
+			AbstractStudyBackgroundPage page = UiUsageMonitorPlugin.getDefault()
+					.getStudyParameters()
+					.getBackgroundPage();
 			backgroundPage = page;
 		}
 		if (UiUsageMonitorPlugin.getDefault().isQuestionnaireEnabled() && performUpload) {
-			AbstractStudyQuestionnairePage page = UiUsageMonitorPlugin.getDefault().getStudyParameters().getQuestionnairePage();
+			AbstractStudyQuestionnairePage page = UiUsageMonitorPlugin.getDefault()
+					.getStudyParameters()
+					.getQuestionnairePage();
 			questionnairePage = page;
 		}
 		super.setForcePreviousAndNextButtons(true);
@@ -380,9 +383,8 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			failed = true;
 			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 				public void run() {
-					MessageDialog
-							.openError(null, "Error Uploading",
-									"Could not upload because proxy server authentication failed.  Please check your proxy server settings.");
+					MessageDialog.openError(null, "Error Uploading",
+							"Could not upload because proxy server authentication failed.  Please check your proxy server settings.");
 				}
 			});
 		} else if (status != 200) {
@@ -546,8 +548,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			} else {
 				resp = resp.substring(resp.indexOf(":") + 1).trim();
 				uid = Integer.parseInt(resp);
-				UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(
-						UiUsageMonitorPlugin.PREF_USER_ID, uid);
+				UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(UiUsageMonitorPlugin.PREF_USER_ID, uid);
 				return uid;
 			}
 
@@ -674,8 +675,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			} else {
 				resp = resp.substring(resp.indexOf(":") + 1).trim();
 				uid = Integer.parseInt(resp);
-				UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(
-						UiUsageMonitorPlugin.PREF_USER_ID, uid);
+				UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(UiUsageMonitorPlugin.PREF_USER_ID, uid);
 				return uid;
 			}
 

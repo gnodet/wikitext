@@ -61,10 +61,10 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 	public synchronized void interactionObserved(InteractionEvent event) {
 //		 System.err.println("> " + event);
 		if (UiUsageMonitorPlugin.getDefault().isObfuscationEnabled()) {
-			String obfuscatedHandle = handleObfuscator.obfuscateHandle(event.getStructureKind(), event
-					.getStructureHandle());
-			event = new InteractionEvent(event.getKind(), event.getStructureKind(), obfuscatedHandle, event
-					.getOriginId(), event.getNavigation(), event.getDelta(), event.getInterestContribution());
+			String obfuscatedHandle = handleObfuscator.obfuscateHandle(event.getStructureKind(),
+					event.getStructureHandle());
+			event = new InteractionEvent(event.getKind(), event.getStructureKind(), obfuscatedHandle,
+					event.getOriginId(), event.getNavigation(), event.getDelta(), event.getInterestContribution());
 		}
 		try {
 			if (started) {
@@ -323,8 +323,8 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 				// ignore for empty interest values
 			}
 			InteractionEvent event = new InteractionEvent(Kind.fromString(kind), structureKind, structureHandle,
-					originId, navigation, delta, interestFloatVal, dateFormat.parse(startDate), dateFormat
-							.parse(endDate));
+					originId, navigation, delta, interestFloatVal, dateFormat.parse(startDate),
+					dateFormat.parse(endDate));
 			return event;
 
 		} catch (ParseException e) {

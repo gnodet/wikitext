@@ -29,9 +29,9 @@ import org.eclipse.mylyn.monitor.core.StatusHandler;
 public class InterestDebuggingDecorator implements ILightweightLabelDecorator {
 
 	public InterestDebuggingDecorator() {
-		super();  
+		super();
 	}
- 
+
 	public void decorate(Object element, IDecoration decoration) {
 		AbstractContextStructureBridge bridge = null;
 		try {

@@ -45,8 +45,7 @@ public class BugzillaSearchEngine {
 	protected static final String QUERYING_SERVER = "Querying Bugzilla Server...";
 
 	/**
-	 * regular expression matching values of query matches' attributes in
-	 * Eclipse.org Bugzilla
+	 * regular expression matching values of query matches' attributes in Eclipse.org Bugzilla
 	 */
 	public static final Pattern reValue = Pattern.compile("<td><nobr>([^<]*)</nobr>");
 
@@ -103,16 +102,14 @@ public class BugzillaSearchEngine {
 	}
 
 	/**
-	 * Executes the query, parses the response, and adds hits to the search
-	 * result collector.
+	 * Executes the query, parses the response, and adds hits to the search result collector.
 	 * 
 	 * @param collector -
 	 *            The collector for the search results
 	 * @param startMatches -
 	 *            The number of matches to start with for the progress monitor
 	 * @param maxHits -
-	 *            the maximum number of matches to return or
-	 *            IBugzillaConstants.RETURN_ALL_HITS for unlimited
+	 *            the maximum number of matches to return or IBugzillaConstants.RETURN_ALL_HITS for unlimited
 	 */
 	@SuppressWarnings("null")
 	public IStatus search(ProgressQueryHitCollector collector, int startMatches, int maxHits) throws LoginException {
@@ -132,8 +129,8 @@ public class BugzillaSearchEngine {
 
 			BugzillaRepositoryQuery query = new BugzillaRepositoryQuery(repository.getUrl(), urlString, "summary");
 
-			BugzillaRepositoryConnector bugzillaConnector = (BugzillaRepositoryConnector) TasksUiPlugin
-					.getRepositoryManager().getRepositoryConnector(BugzillaCorePlugin.REPOSITORY_KIND);
+			BugzillaRepositoryConnector bugzillaConnector = (BugzillaRepositoryConnector) TasksUiPlugin.getRepositoryManager()
+					.getRepositoryConnector(BugzillaCorePlugin.REPOSITORY_KIND);
 
 			BugzillaClient client = bugzillaConnector.getClientManager().getClient(repository);
 			client.getSearchHits(query, collector);
@@ -179,8 +176,8 @@ public class BugzillaSearchEngine {
 		} catch (Exception e) {
 			status = new MultiStatus(BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR,
 					"An error occurred while querying Bugzilla Server " + repository.getUrl() + ".\n"
-							+ "\nCheck network connection and repository configuration in " + TasksUiPlugin.LABEL_VIEW_REPOSITORIES
-							+ ".", e);
+							+ "\nCheck network connection and repository configuration in "
+							+ TasksUiPlugin.LABEL_VIEW_REPOSITORIES + ".", e);
 
 			IStatus s = new Status(IStatus.ERROR, BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR, e.getClass().toString()
 					+ ":  ", e);

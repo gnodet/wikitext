@@ -271,15 +271,14 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 							startMonitoring();
 						}
 
-						if (plugin.getPreferenceStore().contains(
-								MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE)) {
+						if (plugin.getPreferenceStore()
+								.contains(MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE)) {
 							lastTransmit = new Date(plugin.getPreferenceStore().getLong(
 									MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE));
 						} else {
 							lastTransmit = new Date();
-							plugin.getPreferenceStore()
-									.setValue(MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE,
-											lastTransmit.getTime());
+							plugin.getPreferenceStore().setValue(
+									MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE, lastTransmit.getTime());
 						}
 					} catch (Throwable t) {
 						StatusHandler.fail(t, "monitor failed to start", false);
@@ -322,7 +321,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 				w.getShell().addShellListener(SHELL_LISTENER);
 			}
 		}
-		
+
 		ContextCorePlugin.getDefault().getContextStore().addListener(DATA_DIR_MOVE_LISTENER);
 		MonitorUiPlugin.getDefault().addWindowPerspectiveListener(perspectiveMonitor);
 		workbench.getActivitySupport().getActivityManager().addActivityManagerListener(activityMonitor);
@@ -509,8 +508,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 	}
 
 	/**
-	 * Returns the string from the plugin's resource bundle, or 'key' if not
-	 * found.
+	 * Returns the string from the plugin's resource bundle, or 'key' if not found.
 	 */
 	public static String getResourceString(String key) {
 		ResourceBundle bundle = UiUsageMonitorPlugin.getDefault().getResourceBundle();
@@ -622,8 +620,8 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 				if (result == 1) {
 					userCancelSubmitFeedback(currentTime, true);
 				} else {
-					plugin.getPreferenceStore().setValue(
-							MonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION, false);
+					plugin.getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION,
+							false);
 
 				}
 				message.close();

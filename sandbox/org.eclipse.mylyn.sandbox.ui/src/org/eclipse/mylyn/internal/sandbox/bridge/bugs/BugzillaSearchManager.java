@@ -32,8 +32,7 @@ public class BugzillaSearchManager {
 	private Map<String, Map<Integer, List<BugzillaReportInfo>>> landmarksHash;
 
 	/**
-	 * The currently running search jobs so that we can cancel it if necessary
-	 * <br>
+	 * The currently running search jobs so that we can cancel it if necessary <br>
 	 * KEY: IMember VALUE: Job
 	 */
 	static Map<String, Job> runningJobs = Collections.synchronizedMap(new HashMap<String, Job>());
@@ -105,8 +104,7 @@ public class BugzillaSearchManager {
 	 * Determine whether the current element has a search job running for it
 	 * 
 	 * @param e
-	 *            The element that we want to know whether there is a search job
-	 *            or not
+	 *            The element that we want to know whether there is a search job or not
 	 * @return <code>true</code> if it does else <code>false</code>
 	 */
 	public static boolean doesJobExist(String handle) {
@@ -117,8 +115,7 @@ public class BugzillaSearchManager {
 	 * Remove search job for the given element
 	 * 
 	 * @param m
-	 *            The element that we want to make sure that the search is
-	 *            canceled for
+	 *            The element that we want to make sure that the search is canceled for
 	 */
 	public static void removeSearchJob(String handle) {
 

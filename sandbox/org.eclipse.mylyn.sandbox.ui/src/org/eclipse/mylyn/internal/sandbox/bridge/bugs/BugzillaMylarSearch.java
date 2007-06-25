@@ -36,7 +36,8 @@ public class BugzillaMylarSearch implements IActiveSearchOperation {
 
 	// scope identifiers
 	public static final int LOCAL_QUAL = 1; // local implies a bugzilla task,
-											// not just an offline report
+
+	// not just an offline report
 
 	public static final int LOCAL_UNQUAL = 2;
 
@@ -159,8 +160,7 @@ public class BugzillaMylarSearch implements IActiveSearchOperation {
 	}
 
 	/**
-	 * Get only the landmarks that are IMember and sort them according to their
-	 * DOI value (highest to lowest)
+	 * Get only the landmarks that are IMember and sort them according to their DOI value (highest to lowest)
 	 * 
 	 * @param landmarks
 	 *            The landmarks to check

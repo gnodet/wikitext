@@ -114,7 +114,8 @@ public class TaskActivityView extends ViewPart {
 			if (event.getProperty().equals(IThemeManager.CHANGE_CURRENT_THEME)
 					|| event.getProperty().equals(TaskListColorsAndFonts.THEME_COLOR_TASKLIST_CATEGORY)) {
 				taskHistoryTreeLabelProvider.setCategoryBackgroundColor(themeManager.getCurrentTheme()
-						.getColorRegistry().get(TaskListColorsAndFonts.THEME_COLOR_TASKLIST_CATEGORY));
+						.getColorRegistry()
+						.get(TaskListColorsAndFonts.THEME_COLOR_TASKLIST_CATEGORY));
 				refresh();
 			}
 		}
@@ -148,7 +149,7 @@ public class TaskActivityView extends ViewPart {
 	private ITaskListChangeListener TASK_CHANGE_LISTENER = new ITaskListChangeListener() {
 
 		public void containersChanged(Set<TaskContainerDelta> containers) {
-			refresh();	
+			refresh();
 		}
 	};
 
@@ -231,8 +232,8 @@ public class TaskActivityView extends ViewPart {
 		Color categoryBackground = themeManager.getCurrentTheme().getColorRegistry().get(
 				TaskListColorsAndFonts.THEME_COLOR_TASKLIST_CATEGORY);
 
-		taskHistoryTreeLabelProvider = new TaskActivityLabelProvider(new TaskElementLabelProvider(false), PlatformUI
-				.getWorkbench().getDecoratorManager().getLabelDecorator(), categoryBackground);
+		taskHistoryTreeLabelProvider = new TaskActivityLabelProvider(new TaskElementLabelProvider(false),
+				PlatformUI.getWorkbench().getDecoratorManager().getLabelDecorator(), categoryBackground);
 
 		sorter = new TaskActivityViewSorter();
 		getViewer().setSorter(sorter);
@@ -278,7 +279,8 @@ public class TaskActivityView extends ViewPart {
 			public boolean performDrop(Object data) {
 
 				IStructuredSelection selection = ((IStructuredSelection) TaskListView.getFromActivePerspective()
-						.getViewer().getSelection());
+						.getViewer()
+						.getSelection());
 
 				Object target = getCurrentTarget();
 				ScheduledTaskContainer container;
@@ -318,7 +320,8 @@ public class TaskActivityView extends ViewPart {
 
 			@Override
 			public boolean validateDrop(Object targetObject, int operation, TransferData transferType) {
-				Object selectedObject = ((IStructuredSelection) TaskListView.getFromActivePerspective().getViewer()
+				Object selectedObject = ((IStructuredSelection) TaskListView.getFromActivePerspective()
+						.getViewer()
 						.getSelection()).getFirstElement();
 
 				if (selectedObject instanceof AbstractTaskContainer) {

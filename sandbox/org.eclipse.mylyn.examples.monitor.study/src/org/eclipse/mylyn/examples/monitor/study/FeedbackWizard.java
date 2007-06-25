@@ -145,9 +145,8 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 				MessageDialog.openError(null, "Error Uploading", "There was an error uploading the feedback: \n"
 						+ "Your uid was incorrect: " + uid + "\n");
 			} else if (status == 407) {
-				MessageDialog
-						.openError(null, "Error Uploading",
-								"Could not upload because proxy server authentication failed.  Please check your proxy server settings.");
+				MessageDialog.openError(null, "Error Uploading",
+						"Could not upload because proxy server authentication failed.  Please check your proxy server settings.");
 			} else if (status != 200) {
 				// there was a problem with the file upload so throw up an error
 				// dialog to inform the user

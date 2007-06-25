@@ -11,7 +11,6 @@
 
 package org.eclipse.mylyn.internal.aspectj;
 
-
 import java.util.List;
 
 import org.eclipse.mylyn.context.core.IInteractionContext;
@@ -32,7 +31,7 @@ public class AspectJUiUpdateBridge implements IInteractionContextListener {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	public void contextCleared(IInteractionContext context) {
 		// ignore
 	}

@@ -22,7 +22,7 @@ import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 public class WebQueryWizard extends Wizard {
 
 	private static final String TITLE = "New Web Query";
-	
+
 	private final TaskRepository repository;
 
 	private WebQueryWizardPage queryPage;
@@ -30,7 +30,7 @@ public class WebQueryWizard extends Wizard {
 	public WebQueryWizard(TaskRepository repository) {
 		this.repository = repository;
 		setNeedsProgressMonitor(true);
-		setWindowTitle(TITLE); 
+		setWindowTitle(TITLE);
 	}
 
 	@Override
@@ -46,25 +46,23 @@ public class WebQueryWizard extends Wizard {
 		AbstractRepositoryQuery query = queryPage.getQuery();
 		if (query != null) {
 			TasksUiPlugin.getTaskListManager().getTaskList().addQuery(query);
-			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getConnectorKind());
+			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
+					repository.getConnectorKind());
 			if (connector != null) {
 				TasksUiPlugin.getSynchronizationManager().synchronize(connector, query, null, true);
 			}
 //			filter.refreshHits();
-		} 
+		}
 
 		return true;
 	}
 
-	
-	
 	@Override
 	public boolean canFinish() {
-		if(queryPage.getNextPage() == null) {
+		if (queryPage.getNextPage() == null) {
 			return queryPage.isPageComplete();
 		}
 		return queryPage.getNextPage().isPageComplete();
 	}
-	
-	
+
 }

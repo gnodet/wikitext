@@ -63,7 +63,7 @@ public class BugzillaReferencesProvider extends AbstractRelationProvider {
 
 		return separations;
 	}
-	
+
 	protected boolean acceptElement(IJavaElement javaElement) {
 		return javaElement != null && (javaElement instanceof IMember || javaElement instanceof IType)
 				&& javaElement.exists();

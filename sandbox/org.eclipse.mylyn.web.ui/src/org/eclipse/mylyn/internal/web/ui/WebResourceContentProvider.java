@@ -43,7 +43,7 @@ public class WebResourceContentProvider extends BaseWorkbenchContentProvider imp
 			refresh(page);
 		}
 	};
-	
+
 	public WebResourceContentProvider() {
 		super();
 	}
@@ -73,7 +73,8 @@ public class WebResourceContentProvider extends BaseWorkbenchContentProvider imp
 
 	@Override
 	public Object[] getElements(Object element) {
-		if (WebUiBridgePlugin.getWebResourceManager() != null && !WebUiBridgePlugin.getWebResourceManager().isWebContextEnabled()) {
+		if (WebUiBridgePlugin.getWebResourceManager() != null
+				&& !WebUiBridgePlugin.getWebResourceManager().isWebContextEnabled()) {
 			return null;
 		} else {
 			if (element instanceof IWorkspaceRoot) {
@@ -100,7 +101,7 @@ public class WebResourceContentProvider extends BaseWorkbenchContentProvider imp
 		Display.getDefault().asyncExec(new Runnable() {
 			public void run() {
 				if (!WebResourceContentProvider.this.viewer.getControl().isDisposed()) {
-					AbstractTreeViewer viewer = (AbstractTreeViewer)WebResourceContentProvider.this.viewer;
+					AbstractTreeViewer viewer = (AbstractTreeViewer) WebResourceContentProvider.this.viewer;
 					if (webResource == null) {
 						viewer.refresh(true);
 					} else {

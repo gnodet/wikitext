@@ -24,13 +24,13 @@ public class OpenWebResourceAction extends BaseSelectionListenerAction {
 	public OpenWebResourceAction(String text) {
 		super(text);
 	}
-	
+
 	@Override
 	public void run() {
 		IStructuredSelection selection = super.getStructuredSelection();
 		Object selectedElement = selection.getFirstElement();
 		if (selectedElement instanceof WebResource) {
-			WebUiUtil.openUrl(((WebResource)selectedElement));
+			WebUiUtil.openUrl(((WebResource) selectedElement));
 		}
 	}
 }

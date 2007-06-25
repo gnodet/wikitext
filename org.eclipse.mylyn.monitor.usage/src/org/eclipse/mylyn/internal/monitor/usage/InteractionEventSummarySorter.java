@@ -21,8 +21,7 @@ import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventSummar
 public class InteractionEventSummarySorter extends ViewerSorter {
 
 	/**
-	 * Constructor argument values that indicate to sort items by different
-	 * columns.
+	 * Constructor argument values that indicate to sort items by different columns.
 	 */
 	public final static int TYPE = 1;
 
@@ -39,8 +38,7 @@ public class InteractionEventSummarySorter extends ViewerSorter {
 	 * Creates a resource sorter that will use the given sort criteria.
 	 * 
 	 * @param criteria
-	 *            the sort criterion to use: one of
-	 *            <code>LABEL_VIEW_REPOSITORIES</code> or <code>TYPE</code>
+	 *            the sort criterion to use: one of <code>LABEL_VIEW_REPOSITORIES</code> or <code>TYPE</code>
 	 */
 	public InteractionEventSummarySorter(int criteria) {
 		super();
@@ -65,15 +63,13 @@ public class InteractionEventSummarySorter extends ViewerSorter {
 	}
 
 	/**
-	 * Returns a number reflecting the collation order of the given summaries
-	 * based on their usage count.
+	 * Returns a number reflecting the collation order of the given summaries based on their usage count.
 	 * 
 	 * @param summary1
 	 * @param summary2
-	 * @return a negative number if the first element is less than the second
-	 *         element; the value <code>0</code> if the first element is equal
-	 *         to the second element; and a positive number if the first element
-	 *         is greater than the second element
+	 * @return a negative number if the first element is less than the second element; the value <code>0</code> if the
+	 *         first element is equal to the second element; and a positive number if the first element is greater than
+	 *         the second element
 	 */
 	private int compareUsageCount(InteractionEventSummary summary1, InteractionEventSummary summary2) {
 		int result = summary1.getUsageCount() - summary2.getUsageCount();
@@ -82,17 +78,15 @@ public class InteractionEventSummarySorter extends ViewerSorter {
 	}
 
 	/**
-	 * Returns a number reflecting the collation order of the given summaries
-	 * based on their names.
+	 * Returns a number reflecting the collation order of the given summaries based on their names.
 	 * 
 	 * @param summary1
 	 *            the first task element to be ordered
 	 * @param summary2
 	 *            the second task element to be ordered
-	 * @return a negative number if the first element is less than the second
-	 *         element; the value <code>0</code> if the first element is equal
-	 *         to the second element; and a positive number if the first element
-	 *         is greater than the second element
+	 * @return a negative number if the first element is less than the second element; the value <code>0</code> if the
+	 *         first element is equal to the second element; and a positive number if the first element is greater than
+	 *         the second element
 	 */
 	@SuppressWarnings("unchecked")
 	protected int compareNames(InteractionEventSummary summary1, InteractionEventSummary summary2) {
@@ -100,17 +94,15 @@ public class InteractionEventSummarySorter extends ViewerSorter {
 	}
 
 	/**
-	 * Returns a number reflecting the collation order of the given summaries
-	 * based on their types.
+	 * Returns a number reflecting the collation order of the given summaries based on their types.
 	 * 
 	 * @param summary1
 	 *            the first task element to be ordered
 	 * @param summary2
 	 *            the second task element to be ordered
-	 * @return a negative number if the first element is less than the second
-	 *         element; the value <code>0</code> if the first element is equal
-	 *         to the second element; and a positive number if the first element
-	 *         is greater than the second element
+	 * @return a negative number if the first element is less than the second element; the value <code>0</code> if the
+	 *         first element is equal to the second element; and a positive number if the first element is greater than
+	 *         the second element
 	 */
 	@SuppressWarnings("unchecked")
 	protected int compareTypes(InteractionEventSummary summary1, InteractionEventSummary summary2) {

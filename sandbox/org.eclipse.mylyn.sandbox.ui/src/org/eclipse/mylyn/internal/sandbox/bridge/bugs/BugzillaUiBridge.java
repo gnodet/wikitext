@@ -63,7 +63,7 @@ public class BugzillaUiBridge extends AbstractContextUiBridge {
 		if (task != null) {
 			TasksUiUtil.openEditor(task, false);
 		} else {
-			String bugUrl = BugzillaClient.getBugUrlWithoutLogin(server, ""+bugId);
+			String bugUrl = BugzillaClient.getBugUrlWithoutLogin(server, "" + bugId);
 			TasksUiUtil.openRepositoryTask(server, "" + bugId, bugUrl);
 		}
 	}

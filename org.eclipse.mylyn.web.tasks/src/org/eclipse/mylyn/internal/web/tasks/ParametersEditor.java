@@ -32,10 +32,10 @@ import org.eclipse.swt.widgets.TableItem;
 public class ParametersEditor extends Composite {
 
 	private Table paramsTable;
-	
+
 	public ParametersEditor(Composite parent, int style) {
 		super(parent, style);
-		
+
 		GridLayout gridLayout = new GridLayout(2, false);
 		gridLayout.marginWidth = 0;
 		gridLayout.marginHeight = 0;
@@ -47,11 +47,11 @@ public class ParametersEditor extends Composite {
 		paramsTable.setLayoutData(gridData1);
 		paramsTable.setLinesVisible(true);
 		paramsTable.setHeaderVisible(true);
-		
+
 		TableColumn colVariable = new TableColumn(paramsTable, SWT.NONE);
 		colVariable.setWidth(180);
 		colVariable.setText("Parameter");
-		
+
 		TableColumn colValue = new TableColumn(paramsTable, SWT.NONE);
 		colValue.setWidth(299);
 		colValue.setText("Value");
@@ -63,7 +63,7 @@ public class ParametersEditor extends Composite {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				ParameterEditorDialog dlg = new ParameterEditorDialog(Display.getCurrent().getActiveShell());
-				if(dlg.open()==Window.OK) {
+				if (dlg.open() == Window.OK) {
 					TableItem item = new TableItem(paramsTable, SWT.NONE);
 					item.setText(new String[] { dlg.getName(), dlg.getValue() });
 				}
@@ -90,24 +90,24 @@ public class ParametersEditor extends Composite {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				TableItem item = paramsTable.getSelection()[0];
-				ParameterEditorDialog dlg = new ParameterEditorDialog(Display.getCurrent().getActiveShell(), item.getText(0), item.getText(1));
-				if(dlg.open()==Window.OK) {
+				ParameterEditorDialog dlg = new ParameterEditorDialog(Display.getCurrent().getActiveShell(),
+						item.getText(0), item.getText(1));
+				if (dlg.open() == Window.OK) {
 					item.setText(0, dlg.getName());
 					item.setText(1, dlg.getValue());
 				}
 			}
 		});
-		
+
 		paramsTable.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				bRemove.setEnabled(paramsTable.getSelectionCount()>0);
-				bEdit.setEnabled(paramsTable.getSelectionCount()==1);
+				bRemove.setEnabled(paramsTable.getSelectionCount() > 0);
+				bEdit.setEnabled(paramsTable.getSelectionCount() == 1);
 			}
 		});
 	}
 
-	
 	public void removeAll() {
 		paramsTable.removeAll();
 	}
@@ -119,7 +119,7 @@ public class ParametersEditor extends Composite {
 
 	public Map<String, String> getParameters() {
 		Map<String, String> parameters = new LinkedHashMap<String, String>();
-		for(TableItem item : paramsTable.getItems()) {
+		for (TableItem item : paramsTable.getItems()) {
 			parameters.put(WebRepositoryConnector.PARAM_PREFIX + item.getText(0), item.getText(1));
 		}
 		return parameters;
@@ -127,31 +127,30 @@ public class ParametersEditor extends Composite {
 
 	public void addParams(Map<String, String> props, LinkedHashMap<String, String> variables) {
 		Map<String, String> params = new LinkedHashMap<String, String>();
-		for(Map.Entry<String, String> e : props.entrySet()) {
+		for (Map.Entry<String, String> e : props.entrySet()) {
 			String key = e.getKey();
 			String value = e.getValue();
-			if(key.startsWith(WebRepositoryConnector.PARAM_PREFIX)) {
+			if (key.startsWith(WebRepositoryConnector.PARAM_PREFIX)) {
 				params.put(key.substring(WebRepositoryConnector.PARAM_PREFIX.length()), value);
 			}
 			for (String var : WebRepositoryConnector.getTemplateVariables(value)) {
 				variables.put(var, "");
 			}
 		}
-		
+
 		variables.remove(WebRepositoryConnector.PARAM_SERVER_URL);
 		variables.remove(WebRepositoryConnector.PARAM_USER_ID);
 		variables.remove(WebRepositoryConnector.PARAM_PASSWORD);
-		
+
 		for (String var : variables.keySet()) {
-			if(!params.containsKey(var)) {
+			if (!params.containsKey(var)) {
 				params.put(var, "");
 			}
 		}
-		
-		for(Map.Entry<String, String> e : params.entrySet()) {
+
+		for (Map.Entry<String, String> e : params.entrySet()) {
 			add(e.getKey(), e.getValue());
 		}
 	}
-	
-}
 
+}

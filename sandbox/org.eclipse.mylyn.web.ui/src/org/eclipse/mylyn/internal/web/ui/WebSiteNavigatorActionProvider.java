@@ -37,7 +37,7 @@ public class WebSiteNavigatorActionProvider extends CommonActionProvider {
 
 	@Override
 	public void init(ICommonActionExtensionSite extensionSite) {
-		 super.init(extensionSite);
+		super.init(extensionSite);
 		// createActions();
 		if (extensionSite.getViewSite() instanceof ICommonViewerWorkbenchSite) {
 			// viewSite = (ICommonViewerWorkbenchSite) aConfig.getViewSite();

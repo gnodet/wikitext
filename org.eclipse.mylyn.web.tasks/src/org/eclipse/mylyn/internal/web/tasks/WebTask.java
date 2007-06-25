@@ -21,7 +21,7 @@ import org.eclipse.mylyn.tasks.core.AbstractTask;
 public class WebTask extends AbstractTask {
 
 	private static final String UNKNOWN_OWNER = "<unknown>";
-	
+
 	private final String taskPrefix;
 
 	private final String repsitoryType;
@@ -32,7 +32,7 @@ public class WebTask extends AbstractTask {
 		this.repsitoryType = repsitoryType;
 		setUrl(taskPrefix + id);
 	}
-	
+
 	public String getTaskPrefix() {
 		return this.taskPrefix;
 	}
@@ -41,7 +41,7 @@ public class WebTask extends AbstractTask {
 	public String getConnectorKind() {
 		return repsitoryType;
 	}
-	
+
 	@Override
 	public String getOwner() {
 		return UNKNOWN_OWNER;
@@ -51,5 +51,5 @@ public class WebTask extends AbstractTask {
 	public boolean isLocal() {
 		return true;
 	}
-	
+
 }

@@ -26,7 +26,7 @@ import org.eclipse.mylyn.tasks.ui.wizards.NewWebTaskWizard;
  * @author Eugene Kuleshov
  */
 public class WebConnectorUi extends AbstractRepositoryConnectorUi {
-	
+
 	@Override
 	public AbstractRepositorySettingsPage getSettingsPage() {
 		return new WebRepositorySettingsPage(this);
@@ -34,10 +34,10 @@ public class WebConnectorUi extends AbstractRepositoryConnectorUi {
 
 	@Override
 	public IWizard getNewTaskWizard(TaskRepository taskRepository) {
-		return new NewWebTaskWizard(taskRepository, WebRepositoryConnector.evaluateParams(taskRepository
-				.getProperty(WebRepositoryConnector.PROPERTY_TASK_CREATION_URL), taskRepository));
+		return new NewWebTaskWizard(taskRepository, WebRepositoryConnector.evaluateParams(
+				taskRepository.getProperty(WebRepositoryConnector.PROPERTY_TASK_CREATION_URL), taskRepository));
 	}
-	
+
 	@Override
 	public IWizard getQueryWizard(TaskRepository repository, AbstractRepositoryQuery query) {
 		if (query instanceof WebQuery) {
@@ -66,5 +66,5 @@ public class WebConnectorUi extends AbstractRepositoryConnectorUi {
 	@Override
 	public boolean hasSearchPage() {
 		return false;
-	}	
+	}
 }

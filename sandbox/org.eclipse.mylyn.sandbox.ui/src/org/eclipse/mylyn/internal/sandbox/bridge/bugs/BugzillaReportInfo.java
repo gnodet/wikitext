@@ -84,16 +84,14 @@ public class BugzillaReportInfo {
 	/**
 	 * Determine if the search hit this represents is exact or not
 	 * 
-	 * @return <code>true</code> if the search was exact otherwise
-	 *         <code>false</code>
+	 * @return <code>true</code> if the search was exact otherwise <code>false</code>
 	 */
 	public boolean isExact() {
 		return isExact;
 	}
 
 	/**
-	 * Set whether this bug has any exact elements in it - the search used was
-	 * fully qualified
+	 * Set whether this bug has any exact elements in it - the search used was fully qualified
 	 * 
 	 * @param isExact -
 	 *            Whether there are any exact element matches in it
@@ -113,8 +111,8 @@ public class BugzillaReportInfo {
 			// get the bug report
 			TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
 					BugzillaCorePlugin.REPOSITORY_KIND, hit.getRepositoryUrl());
-			BugzillaRepositoryConnector bugzillaConnector = (BugzillaRepositoryConnector) TasksUiPlugin
-					.getRepositoryManager().getRepositoryConnector(BugzillaCorePlugin.REPOSITORY_KIND);
+			BugzillaRepositoryConnector bugzillaConnector = (BugzillaRepositoryConnector) TasksUiPlugin.getRepositoryManager()
+					.getRepositoryConnector(BugzillaCorePlugin.REPOSITORY_KIND);
 			AbstractTaskDataHandler handler = bugzillaConnector.getTaskDataHandler();
 			bug = handler.getTaskData(repository, hit.getTaskId(), new NullProgressMonitor());
 		}
@@ -143,8 +141,7 @@ public class BugzillaReportInfo {
 	/**
 	 * Determine whether the doi info has any stack traces associated with it
 	 * 
-	 * @return <code>true</code> if there are some stack traces else
-	 *         <code>false</code>
+	 * @return <code>true</code> if there are some stack traces else <code>false</code>
 	 */
 	public boolean hasStackTraces() {
 		return !stackTraces.isEmpty();

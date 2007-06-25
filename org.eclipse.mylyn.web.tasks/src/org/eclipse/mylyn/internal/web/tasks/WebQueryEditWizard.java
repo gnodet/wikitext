@@ -48,10 +48,9 @@ public class WebQueryEditWizard extends AbstractEditQueryWizard {
 
 	@Override
 	public boolean canFinish() {
-		if(page.getNextPage() == null) {
+		if (page.getNextPage() == null) {
 			return page.isPageComplete();
 		}
 		return page.getNextPage().isPageComplete();
 	}
 }
-

@@ -13,7 +13,7 @@ public class TasksWebPlugin extends AbstractUIPlugin {
 
 	// The shared instance
 	private static TasksWebPlugin plugin;
-	
+
 	/**
 	 * The constructor
 	 */
@@ -42,7 +42,7 @@ public class TasksWebPlugin extends AbstractUIPlugin {
 
 	/**
 	 * Returns the shared instance
-	 *
+	 * 
 	 * @return the shared instance
 	 */
 	public static TasksWebPlugin getDefault() {

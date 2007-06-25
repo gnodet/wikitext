@@ -22,9 +22,9 @@ import org.eclipse.jface.resource.ImageDescriptor;
 public class WebSite extends WebResource {
 
 	private WebRoot project;
-	
+
 	private HashMap<String, WebResource> pages = new HashMap<String, WebResource>();
-	
+
 	public WebSite(String url) {
 		super(url);
 	}
@@ -32,11 +32,11 @@ public class WebSite extends WebResource {
 	public void addPage(WebPage page) {
 		pages.put(page.getUrl(), page);
 	}
-	
+
 	public void removePage(WebPage page) {
 		pages.remove(page);
 	}
-	
+
 	@Override
 	public WebResource getParent() {
 		return project;
@@ -53,7 +53,7 @@ public class WebSite extends WebResource {
 	}
 
 	public WebPage getPage(String url) {
-		return (WebPage)pages.get(url);
+		return (WebPage) pages.get(url);
 	}
 
 }

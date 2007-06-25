@@ -113,8 +113,7 @@ public class StatisticsReportingTest extends TestCase {
 
 		mockEdit("A.java");
 
-		MonitorUiPlugin.getDefault().notifyInteractionObserved(
-				InteractionEvent.makeCommand(TaskActivateAction.ID, ""));
+		MonitorUiPlugin.getDefault().notifyInteractionObserved(InteractionEvent.makeCommand(TaskActivateAction.ID, ""));
 
 		mockExplorerSelection("A.java");
 		mockEdit("A.java");
@@ -144,8 +143,7 @@ public class StatisticsReportingTest extends TestCase {
 
 	@SuppressWarnings("unused")
 	public void testFilteredModeDetection() throws IOException {
-		UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
-				ContextUiPlugin.getDefault().getPluginPreferences());
+		UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(ContextUiPlugin.getDefault().getPluginPreferences());
 
 		UiUsageMonitorPlugin.getDefault().getInteractionLogger().clearInteractionHistory();
 		mockExplorerSelection("A.java");

@@ -29,17 +29,18 @@ public class WebResourceUiBridge extends AbstractContextUiBridge {
 
 	@Override
 	public void open(IInteractionElement element) {
-		AbstractContextStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(element.getContentType());
+		AbstractContextStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(
+				element.getContentType());
 		if (bridge == null) {
 			return;
 		} else {
-			WebResource webResource = (WebResource)bridge.getObjectForHandle(element.getHandleIdentifier());
+			WebResource webResource = (WebResource) bridge.getObjectForHandle(element.getHandleIdentifier());
 			if (webResource instanceof WebPage || webResource instanceof WebSite) {
 				WebUiUtil.openUrl(webResource);
 			}
 		}
-	} 
-	
+	}
+
 	@Override
 	public void close(IInteractionElement node) {
 		// ignore
@@ -59,7 +60,7 @@ public class WebResourceUiBridge extends AbstractContextUiBridge {
 	public Object getObjectForTextSelection(TextSelection selection, IEditorPart editor) {
 		return null;
 	}
-	
+
 	@Override
 	public IInteractionElement getElement(IEditorInput input) {
 		return null;

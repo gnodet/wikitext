@@ -27,7 +27,6 @@ public class MylarBugsManager {
 
 	public static ImageDescriptor EDGE_REF_BUGZILLA = getImageDescriptor("icons/elcl16/edge-ref-bug.gif");
 
-
 	private static BugzillaSearchManager bridge = null;
 
 	private static BugzillaReferencesProvider referencesProvider = new BugzillaReferencesProvider();
@@ -67,8 +66,7 @@ public class MylarBugsManager {
 	}
 
 	/**
-	 * Returns an image descriptor for the image file at the given plug-in
-	 * relative path.
+	 * Returns an image descriptor for the image file at the given plug-in relative path.
 	 * 
 	 * @param path
 	 *            the path

@@ -122,7 +122,7 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		incomingOverlaysButton.setText("Use Synchronize View style incoming overlays and placement");
 		incomingOverlaysButton.setSelection(getPreferenceStore().getBoolean(
 				TasksUiPreferenceConstants.OVERLAYS_INCOMING_TIGHT));
-		
+
 		activateOnOpen = new Button(group, SWT.CHECK);
 		activateOnOpen.setText("Activate tasks on open");
 		activateOnOpen.setSelection(getPreferenceStore().getBoolean(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED));
@@ -136,7 +136,8 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 
 		enableErrorInterest = new Button(group, SWT.CHECK);
 		enableErrorInterest.setText("Enable predicted interest of errors (significantly increases view refresh).");
-		enableErrorInterest.setSelection(getPreferenceStore().getBoolean(InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS));
+		enableErrorInterest.setSelection(getPreferenceStore().getBoolean(
+				InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS));
 	}
 
 	private void createHighlightersTable(Composite parent) {
@@ -207,18 +208,20 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 			view.setSynchronizationOverlaid(incomingOverlaysButton.getSelection());
 		}
 		getPreferenceStore().setValue(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED, activateOnOpen.getSelection());
-		getPreferenceStore().setValue(InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS, enableErrorInterest.getSelection());
+		getPreferenceStore().setValue(InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS,
+				enableErrorInterest.getSelection());
 		return true;
 	}
 
 	@Override
 	public boolean performCancel() {
-		enableErrorInterest.setSelection(getPreferenceStore().getBoolean(InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS));
+		enableErrorInterest.setSelection(getPreferenceStore().getBoolean(
+				InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS));
 
 		String highlighters = getPreferenceStore().getString(ContextUiPrefContstants.HIGHLIGHTER_PREFIX);
 		ContextUiPlugin.getDefault().getHighlighterList().internalizeFromString(highlighters);
 		activateOnOpen.setSelection(getPreferenceStore().getBoolean(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED));
-		
+
 		contentProvider = new HighlighterContentProvider();
 		tableViewer.setContentProvider(contentProvider);
 		return true;

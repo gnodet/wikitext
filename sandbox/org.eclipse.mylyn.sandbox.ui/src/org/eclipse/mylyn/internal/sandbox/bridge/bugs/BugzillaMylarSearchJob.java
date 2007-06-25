@@ -88,11 +88,10 @@ public class BugzillaMylarSearchJob extends Job {
 			// we had a problem while searching that seems like a login info
 			// problem
 			// thrown in BugzillaSearchOperation
-			MessageDialog
-					.openError(
-							null,
-							"Login Error",
-							"Bugzilla could not log you in to get the information you requested since login name or password is incorrect.\nPlease check your settings in the bugzilla preferences. ");
+			MessageDialog.openError(
+					null,
+					"Login Error",
+					"Bugzilla could not log you in to get the information you requested since login name or password is incorrect.\nPlease check your settings in the bugzilla preferences. ");
 			BugzillaCorePlugin.log(new Status(IStatus.ERROR, BugzillaUiPlugin.PLUGIN_ID, IStatus.OK, "", e));
 		} finally {
 			// make sure that we know that this job is not running anymore

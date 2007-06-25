@@ -25,15 +25,14 @@ import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
 
 /**
- * This action is not persistent, in order to avoid Mylar not working on
- * startup.
+ * This action is not persistent, in order to avoid Mylar not working on startup.
  * 
  * @author Mik Kersten
  */
 public class ContextCapturePauseAction extends Action implements IViewActionDelegate, IInteractionContextListener {
-	
+
 	protected IAction initAction = null;
-	
+
 	public void init(IViewPart view) {
 		// NOTE: not disposed until shutdown
 		ContextCorePlugin.getContextManager().addListener(this);
@@ -72,7 +71,7 @@ public class ContextCapturePauseAction extends Action implements IViewActionDele
 	public void contextCleared(IInteractionContext context) {
 		// ignore
 	}
-	
+
 	public void contextDeactivated(IInteractionContext context) {
 		// ignore
 	}
@@ -96,7 +95,7 @@ public class ContextCapturePauseAction extends Action implements IViewActionDele
 	public void elementDeleted(IInteractionElement element) {
 		// ignore
 	}
-	
+
 	public void selectionChanged(IAction action, ISelection selection) {
 		// ignore
 	}

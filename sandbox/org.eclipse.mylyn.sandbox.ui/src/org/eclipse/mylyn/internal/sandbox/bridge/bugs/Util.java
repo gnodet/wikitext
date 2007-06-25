@@ -104,8 +104,7 @@ public class Util {
 	}
 
 	/**
-	 * Create the end of the bugzilla query URL with all of the status' and
-	 * resolutions that we want
+	 * Create the end of the bugzilla query URL with all of the status' and resolutions that we want
 	 * 
 	 * @return StringBuffer with the end of the query URL in it
 	 */
@@ -113,8 +112,8 @@ public class Util {
 
 		StringBuffer sb = new StringBuffer();
 
-		String[] resolutionValues = BugzillaUiPlugin.getQueryOptions(IBugzillaConstants.VALUES_RESOLUTION,
-				null, repositoryUrl);
+		String[] resolutionValues = BugzillaUiPlugin.getQueryOptions(IBugzillaConstants.VALUES_RESOLUTION, null,
+				repositoryUrl);
 
 		String[] statusValues = BugzillaUiPlugin.getQueryOptions(IBugzillaConstants.VALUES_STATUS, null, repositoryUrl);
 
@@ -137,8 +136,7 @@ public class Util {
 	 * Create the bugzilla query URL start.
 	 * 
 	 * @return The start of the query url as a StringBuffer <br>
-	 *         Example:
-	 *         https://bugs.eclipse.org/bugs/buglist.cgi?long_desc_type=allwordssubstr&long_desc=
+	 *         Example: https://bugs.eclipse.org/bugs/buglist.cgi?long_desc_type=allwordssubstr&long_desc=
 	 */
 	public static StringBuffer getQueryURLStart(String repositoryUrl) {
 		StringBuffer sb = new StringBuffer(repositoryUrl);
@@ -179,8 +177,7 @@ public class Util {
 	 *            The name of the element that we are looking for
 	 * @param comment
 	 *            The text to search for this element name
-	 * @return <code>true</code> if the element is found in the text else
-	 *         <code>false</code>
+	 * @return <code>true</code> if the element is found in the text else <code>false</code>
 	 */
 	public static boolean hasElementName(String elementName, String comment) {
 

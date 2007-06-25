@@ -284,16 +284,15 @@ public class FocusedUiUsageAnalysisCollector extends AbstractMylarUsageCollector
 		FileWriter writer;
 		try {
 			writer = new FileWriter(directory + "/mylar-usage.csv");
-			writer
-					.write("userid, "
-							+ "ratio-baseline, ratio-mylar, "
-							+ "ratio-improvement, "
-							+ "filtered-explorer, "
-							+ "filtered-outline, "
-							+ "filtered-problems, "
-							+ "edits-active, "
-							+ "time-baseline, time-active, time-inactive, "
-							+ "task-activations, task-deactivations, sel-interesting, sel-predicted, sel-decayed, sel-new, sel-unknown\n");
+			writer.write("userid, "
+					+ "ratio-baseline, ratio-mylar, "
+					+ "ratio-improvement, "
+					+ "filtered-explorer, "
+					+ "filtered-outline, "
+					+ "filtered-problems, "
+					+ "edits-active, "
+					+ "time-baseline, time-active, time-inactive, "
+					+ "task-activations, task-deactivations, sel-interesting, sel-predicted, sel-decayed, sel-new, sel-unknown\n");
 			// "filtered-explorer, filtered-outline, filtered-problems, ");
 
 			for (int userId : userIds) {
@@ -310,8 +309,7 @@ public class FocusedUiUsageAnalysisCollector extends AbstractMylarUsageCollector
 					float ratioPercentage = (combinedMylarRatio - baselineRatio) / baselineRatio;
 					writer.write(100 * ratioPercentage + ", ");
 
-					Map<String, Integer> filteredViewSelections = viewUsageCollector.usersFilteredViewSelections
-							.get(userId);
+					Map<String, Integer> filteredViewSelections = viewUsageCollector.usersFilteredViewSelections.get(userId);
 					Map<String, Integer> normalViewSelections = viewUsageCollector.getUsersNormalViewSelections().get(
 							userId);
 

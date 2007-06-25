@@ -252,9 +252,9 @@ public class UsageEditorPart extends EditorPart {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
 			writer.write("<html><head>"
 			// + "<link rel=\"stylesheet\"
-					// href=\"http://eclipse.org/mylar/style.css\"
-					// type=\"text/css\"></head><body>"
-					);
+			// href=\"http://eclipse.org/mylar/style.css\"
+			// type=\"text/css\"></head><body>"
+			);
 			for (IUsageCollector collector : editorInput.getReportGenerator().getCollectors()) {
 				writer.write("<h3>" + collector.getReportTitle() + "</h3>");
 				for (String reportLine : collector.getReport()) {

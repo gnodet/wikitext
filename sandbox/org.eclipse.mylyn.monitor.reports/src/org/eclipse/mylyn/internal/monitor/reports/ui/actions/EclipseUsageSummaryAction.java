@@ -73,8 +73,10 @@ public class EclipseUsageSummaryAction implements IViewActionDelegate {
 								@Override
 								public void done(IJobChangeEvent event) {
 									try {
-										IWorkbenchPage page = MonitorReportsPlugin.getDefault().getWorkbench()
-												.getActiveWorkbenchWindow().getActivePage();
+										IWorkbenchPage page = MonitorReportsPlugin.getDefault()
+												.getWorkbench()
+												.getActiveWorkbenchWindow()
+												.getActivePage();
 										if (page == null)
 											return;
 										IEditorInput input = new UsageStatsEditorInput(files, generator);

@@ -17,9 +17,9 @@ package org.eclipse.mylyn.internal.web.ui;
 public interface IWebResourceListener {
 
 	public void webSiteUpdated(WebSite site);
-	
+
 	public void webContextUpdated();
 
 	public void webPageUpdated(WebPage page);
-	
+
 }

@@ -26,8 +26,8 @@ import org.eclipse.swt.browser.LocationEvent;
 public class WebResourceStructureBridge extends AbstractContextStructureBridge {
 
 	private static final String DELIM_PROTOCOL = "//";
-	
-	public static final String CONTENT_TYPE = "http"; 
+
+	public static final String CONTENT_TYPE = "http";
 
 	@Override
 	public String getContentType() {
@@ -47,7 +47,7 @@ public class WebResourceStructureBridge extends AbstractContextStructureBridge {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Excluded URLs do not participate in the context.
 	 */
@@ -56,17 +56,17 @@ public class WebResourceStructureBridge extends AbstractContextStructureBridge {
 		String url = null;
 		if (object instanceof LocationEvent) {
 			url = ((LocationEvent) object).location;
-		} else if (object instanceof WebResource){
-			url = ((WebResource)object).getUrl();
+		} else if (object instanceof WebResource) {
+			url = ((WebResource) object).getUrl();
 		} else if (object instanceof URL) {
-			url = ((URL)object).toExternalForm();
+			url = ((URL) object).toExternalForm();
 		}
 		if (url != null) {
 			for (String excluded : WebUiBridgePlugin.getDefault().getExcludedUrls()) {
 				if (url.startsWith(excluded)) {
 					return null;
 				}
-			} 
+			}
 			return url;
 		} else {
 			return url;
@@ -94,7 +94,7 @@ public class WebResourceStructureBridge extends AbstractContextStructureBridge {
 		String site = null;
 		int protocolEnd = url.indexOf(DELIM_PROTOCOL);
 		if (protocolEnd != -1) {
-			protocolEnd+=2;
+			protocolEnd += 2;
 			String withoutProtocol = url.substring(protocolEnd);
 			int siteEnd = withoutProtocol.indexOf("/");
 			if (siteEnd != -1) {

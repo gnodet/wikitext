@@ -23,18 +23,21 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * Property editor dialog
- *
+ * 
  * @author Eugene Kuleshov
  */
 public class ParameterEditorDialog extends Dialog {
 	private String title;
+
 	private String name;
+
 	private String value;
 
 	private Text valueText;
-	private Text nameText;
-	private Text status;
 
+	private Text nameText;
+
+	private Text status;
 
 	public ParameterEditorDialog(Shell parent) {
 		super(parent);
@@ -72,11 +75,11 @@ public class ParameterEditorDialog extends Dialog {
 		gridData_1.widthHint = 300;
 		valueText.setLayoutData(gridData_1);
 
-		if(name!=null) {
+		if (name != null) {
 			nameText.setText(name.trim());
 			valueText.setFocus();
 		}
-		if(value!=null) {
+		if (value != null) {
 			valueText.setText(value);
 			valueText.setSelection(0, value.length());
 		}
@@ -111,8 +114,8 @@ public class ParameterEditorDialog extends Dialog {
 	}
 
 	private void updateButtons() {
-	    name = nameText.getText().trim();
-	    value = valueText.getText();
+		name = nameText.getText().trim();
+		value = valueText.getText();
 
 		getButton(IDialogConstants.OK_ID).setEnabled(isValid());
 	}
@@ -124,7 +127,7 @@ public class ParameterEditorDialog extends Dialog {
 		}
 		for (int i = 1; i < name.length(); i++) {
 			char c = name.charAt(i);
-			if (Character.isLetterOrDigit(c) || c=='_' || c=='-') {
+			if (Character.isLetterOrDigit(c) || c == '_' || c == '-') {
 				continue;
 			}
 			status.setText("Name should be a Java identifier");
@@ -143,4 +146,3 @@ public class ParameterEditorDialog extends Dialog {
 	}
 
 }
-

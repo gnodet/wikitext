@@ -25,7 +25,7 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 	private SharedDataDirectoryManager sharedDataDirectoryManager = new SharedDataDirectoryManager();
 
 	public static final String OVERLAYS_INCOMING_TIGHT = "org.eclipse.mylyn.tasks.ui.overlays.incoming.tight";
-	
+
 	public SandboxUiPlugin() {
 		super();
 		plugin = this;
@@ -50,8 +50,7 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns an image descriptor for the image file at the given plug-in
-	 * relative path.
+	 * Returns an image descriptor for the image file at the given plug-in relative path.
 	 * 
 	 * @param path
 	 *            the path

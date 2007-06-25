@@ -33,7 +33,7 @@ public class WebUiBridgePlugin extends AbstractUIPlugin {
 	private WebContextManager webResourceManager;
 
 	private BrowserTracker browserTracker;
-	
+
 	private Set<String> excludedUrls = new HashSet<String>();
 
 	public WebUiBridgePlugin() {
@@ -74,17 +74,17 @@ public class WebUiBridgePlugin extends AbstractUIPlugin {
 	public static WebUiBridgePlugin getDefault() {
 		return INSTANCE;
 	}
-	
+
 	/**
-	 * @param url	String representation of URL to be excluded from context
+	 * @param url
+	 *            String representation of URL to be excluded from context
 	 */
 	public void addExcludedUrl(String url) {
 		excludedUrls.add(url);
 	}
 
 	/**
-	 * Returns an image descriptor for the image file at the given plug-in
-	 * relative path.
+	 * Returns an image descriptor for the image file at the given plug-in relative path.
 	 * 
 	 * @param path
 	 *            the path

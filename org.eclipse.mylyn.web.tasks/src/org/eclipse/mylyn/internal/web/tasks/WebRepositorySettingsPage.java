@@ -45,10 +45,9 @@ import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
-
 /**
  * Settings page for generic web-based repository connector
- *
+ * 
  * @author Eugene Kuleshov
  */
 public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage implements IPropertyChangeListener {
@@ -78,11 +77,9 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 
 	private ComboViewer loginRequestMethod;
 
-
 	private FormToolkit toolkit = new FormToolkit(Display.getCurrent());
 
 	private Map<String, String> oldProperties;
-
 
 	public WebRepositorySettingsPage(AbstractRepositoryConnectorUi repositoryUi) {
 		super(TITLE, DESCRIPTION, repositoryUi);
@@ -116,10 +113,8 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 					loginRequestUrlText.setText(nvl(template.getAttribute(WebRepositoryConnector.PROPERTY_LOGIN_REQUEST_URL)));
 					selectMethod(loginRequestMethod, //
 							template.getAttribute(WebRepositoryConnector.PROPERTY_LOGIN_REQUEST_METHOD));
-					loginFormUrlText
-							.setText(nvl(template.getAttribute(WebRepositoryConnector.PROPERTY_LOGIN_FORM_URL)));
-					loginTokenPatternText.setText(nvl(template
-							.getAttribute(WebRepositoryConnector.PROPERTY_LOGIN_TOKEN_REGEXP)));
+					loginFormUrlText.setText(nvl(template.getAttribute(WebRepositoryConnector.PROPERTY_LOGIN_FORM_URL)));
+					loginTokenPatternText.setText(nvl(template.getAttribute(WebRepositoryConnector.PROPERTY_LOGIN_TOKEN_REGEXP)));
 
 					parametersEditor.removeAll();
 
@@ -144,7 +139,7 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 
 		Composite editor = getParameterEditor(parent);
 		GridDataFactory.fillDefaults().grab(true, false).hint(200, SWT.DEFAULT).span(2, SWT.DEFAULT).applyTo(editor);
-		
+
 		if (repository != null) {
 			taskUrlText.setText(getTextProperty(WebRepositoryConnector.PROPERTY_TASK_URL));
 			newTaskText.setText(getTextProperty(WebRepositoryConnector.PROPERTY_TASK_CREATION_URL));
@@ -165,10 +160,10 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 	}
 
 	private void selectMethod(ComboViewer viewer, String method) {
-		if(!isPresent(method)) {
+		if (!isPresent(method)) {
 			method = WebRepositoryConnector.REQUEST_GET;
 		}
-		viewer.setSelection(new StructuredSelection(new Object[] {method}), true);
+		viewer.setSelection(new StructuredSelection(new Object[] { method }), true);
 	}
 
 	private String getTextProperty(String name) {
@@ -329,8 +324,9 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 
 		String loginRequestUrl = loginRequestUrlText.getText();
 		repository.setProperty(WebRepositoryConnector.PROPERTY_LOGIN_REQUEST_URL, loginRequestUrl);
-		if(loginRequestUrl.length()>0) {
-			repository.setProperty(WebRepositoryConnector.PROPERTY_LOGIN_REQUEST_METHOD, getSelection(loginRequestMethod));
+		if (loginRequestUrl.length() > 0) {
+			repository.setProperty(WebRepositoryConnector.PROPERTY_LOGIN_REQUEST_METHOD,
+					getSelection(loginRequestMethod));
 		} else {
 			repository.removeProperty(WebRepositoryConnector.PROPERTY_LOGIN_REQUEST_METHOD);
 		}
@@ -354,7 +350,6 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 	private String getSelection(ComboViewer viewer) {
 		return (String) ((IStructuredSelection) viewer.getSelection()).getFirstElement();
 	}
-
 
 	private static class MethodTypeContentProvider implements IStructuredContentProvider {
 

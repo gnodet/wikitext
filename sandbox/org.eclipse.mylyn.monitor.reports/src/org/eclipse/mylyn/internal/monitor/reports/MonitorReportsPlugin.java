@@ -48,8 +48,7 @@ public class MonitorReportsPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns an image descriptor for the image file at the given plug-in
-	 * relative path.
+	 * Returns an image descriptor for the image file at the given plug-in relative path.
 	 * 
 	 * @param path
 	 *            the path
@@ -60,8 +59,8 @@ public class MonitorReportsPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns the root directory of the shared location where task data files
-	 * are stored. Returns "" if the preference has not been set.
+	 * Returns the root directory of the shared location where task data files are stored. Returns "" if the preference
+	 * has not been set.
 	 */
 	public String getRootSharedDataDirectory() {
 		return getPreferenceStore().getString(SHARED_TASK_DATA_ROOT_DIR);

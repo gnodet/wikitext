@@ -29,8 +29,8 @@ import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
 
 /**
- * Contributes a menu item to the task list that opens a dialog box that allows
- * the user to select a task data directory to use.
+ * Contributes a menu item to the task list that opens a dialog box that allows the user to select a task data directory
+ * to use.
  * 
  * @author Wesley Coelho
  */
@@ -66,9 +66,8 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 	}
 
 	/**
-	 * Prompts the user for the name of the task data folder to switch to.
-	 * Returns the string selected by the user or the empty string if no valid
-	 * input was given.
+	 * Prompts the user for the name of the task data folder to switch to. Returns the string selected by the user or
+	 * the empty string if no valid input was given.
 	 */
 	protected String showComboSelectionDialog(String[] folderStrings) {
 		ComboSelectionDialog dialog = new ComboSelectionDialog(shell, TITLE, PROMPT, folderStrings, 0);
@@ -78,12 +77,10 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 	}
 
 	/**
-	 * Returns an array of the string names of the folders in the main data
-	 * directory plus the default folder.
+	 * Returns an array of the string names of the folders in the main data directory plus the default folder.
 	 * 
-	 * This performs validation and will alert the user of the following
-	 * failures: - No shared task folder specified - No subfolders with task
-	 * data
+	 * This performs validation and will alert the user of the following failures: - No shared task folder specified -
+	 * No subfolders with task data
 	 * 
 	 * Will return null on failure (Public for testing only)
 	 */
@@ -125,9 +122,8 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 
 			// Check that at least one folder was found to switch to
 			if (!(folders.size() > 0)) {
-				MessageDialog
-						.openError(shell, "Switch Task Folder Error",
-								"No task data folders were found in the root folder specified in the Mylar Reports preference page.");
+				MessageDialog.openError(shell, "Switch Task Folder Error",
+						"No task data folders were found in the root folder specified in the Mylar Reports preference page.");
 				return null;
 			}
 
@@ -145,8 +141,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 	}
 
 	/**
-	 * Returns true if the specified folder contains task data. Currently just
-	 * checks if it contains a task list file.
+	 * Returns true if the specified folder contains task data. Currently just checks if it contains a task list file.
 	 */
 	protected boolean containsTaskData(File folder) {
 		File[] files = folder.listFiles();
@@ -161,12 +156,10 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 	}
 
 	/**
-	 * Switches the current data folder to the specified folder. Specify only
-	 * the folder name and not the full path.
+	 * Switches the current data folder to the specified folder. Specify only the folder name and not the full path.
 	 * 
-	 * Note: This currently always resumes capture when returning to the main
-	 * data directory (and suspends capture when switching to a shared
-	 * directory).
+	 * Note: This currently always resumes capture when returning to the main data directory (and suspends capture when
+	 * switching to a shared directory).
 	 * 
 	 * (Public for testing only)
 	 */

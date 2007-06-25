@@ -10,7 +10,7 @@ package org.eclipse.mylyn.internal.web.tasks;
 
 /**
  * Utility methods
- *
+ * 
  * @author Eugene Kuleshov
  */
 public class Util {

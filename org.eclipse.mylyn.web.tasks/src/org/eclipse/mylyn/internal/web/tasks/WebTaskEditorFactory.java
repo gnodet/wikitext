@@ -42,7 +42,7 @@ public class WebTaskEditorFactory extends AbstractTaskEditorFactory {
 		if (task instanceof WebTask) {
 			final TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
 					WebRepositoryConnector.REPOSITORY_TYPE, task.getRepositoryUrl());
-			return new RepositoryTaskEditorInput(repository, task.getUrl(),	task.getTaskId());
+			return new RepositoryTaskEditorInput(repository, task.getUrl(), task.getTaskId());
 		} else {
 			return null;
 		}

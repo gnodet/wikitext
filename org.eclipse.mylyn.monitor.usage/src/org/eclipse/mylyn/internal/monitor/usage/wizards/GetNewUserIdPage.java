@@ -323,8 +323,7 @@ public class GetNewUserIdPage extends WizardPage {
 
 		Label l = new Label(container, SWT.NONE);
 		// l.setFont(JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT));
-		l
-				.setText("To create a user ID please fill in the following information. If you already have an ID please fill out the information again to retrieve it.");
+		l.setText("To create a user ID please fill in the following information. If you already have an ID please fill out the information again to retrieve it.");
 
 		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
 		l.setLayoutData(gd);
@@ -354,8 +353,7 @@ public class GetNewUserIdPage extends WizardPage {
 
 		Label l = new Label(container, SWT.NONE);
 		l.setFont(JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT));
-		l
-				.setText("By clicking \"I consent\" you acknowledge that you have received this consent form, and are consenting to participate in the study.");
+		l.setText("By clicking \"I consent\" you acknowledge that you have received this consent form, and are consenting to participate in the study.");
 		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
 		l.setLayoutData(gd);
 
@@ -407,13 +405,12 @@ public class GetNewUserIdPage extends WizardPage {
 							if (wizard.getUploadPage() != null)
 								wizard.getUploadPage().updateUid();
 							hasValidated = true;
-							MessageDialog
-									.openInformation(
-											Display.getDefault().getActiveShell(),
-											"Mylar Feedback User ID",
-											"Your mylar feedback ID is: "
-													+ wizard.getUid()
-													+ "\n\nPlease record this number if you are using multiple copies of eclipse so that you do not have to register again.\n\nYou can also retrieve this ID by repeating the consent process at a later time.");
+							MessageDialog.openInformation(
+									Display.getDefault().getActiveShell(),
+									"Mylar Feedback User ID",
+									"Your mylar feedback ID is: "
+											+ wizard.getUid()
+											+ "\n\nPlease record this number if you are using multiple copies of eclipse so that you do not have to register again.\n\nYou can also retrieve this ID by repeating the consent process at a later time.");
 						}
 					} else {
 						MessageDialog.openError(Display.getDefault().getActiveShell(), "Incomplete Form Input",
@@ -440,8 +437,7 @@ public class GetNewUserIdPage extends WizardPage {
 		Label label = new Label(container, SWT.NONE);
 		label.setText("Your data will not be traceable back to you, but an ID helps us analyze the usage statistics.");
 		label = new Label(container, SWT.NONE);
-		label
-				.setText("Before switching workspaces please retrieve this ID from the Mylar Preferences so that you can use it again.");
+		label.setText("Before switching workspaces please retrieve this ID from the Mylar Preferences so that you can use it again.");
 		// GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
 		// label.setLayoutData(gd);
 
@@ -462,13 +458,12 @@ public class GetNewUserIdPage extends WizardPage {
 						if (wizard.getUploadPage() != null)
 							wizard.getUploadPage().updateUid();
 						hasValidated = true;
-						MessageDialog
-								.openInformation(
-										Display.getDefault().getActiveShell(),
-										"Mylar User Study ID",
-										"Your mylar user study id is: "
-												+ wizard.getUid()
-												+ "\n Please record this number if you are using multiple copies of eclipse so that you do not have to register again.");
+						MessageDialog.openInformation(
+								Display.getDefault().getActiveShell(),
+								"Mylar User Study ID",
+								"Your mylar user study id is: "
+										+ wizard.getUid()
+										+ "\n Please record this number if you are using multiple copies of eclipse so that you do not have to register again.");
 					}
 					GetNewUserIdPage.this.setPageComplete(GetNewUserIdPage.this.isPageComplete());
 				}
@@ -513,8 +508,8 @@ public class GetNewUserIdPage extends WizardPage {
 	private void updateEnablement() {
 		if (!extendedMonitor)
 			return;
-		boolean nameFilled = (!firstName.getText().equals("") && !lastName.getText().equals("") && !emailAddress
-				.getText().equals(""))
+		boolean nameFilled = (!firstName.getText().equals("") && !lastName.getText().equals("") && !emailAddress.getText()
+				.equals(""))
 				|| anon;
 		// if(nameFilled){
 		// getExistingUid.setEnabled(true);

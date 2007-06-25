@@ -30,7 +30,7 @@ public class WebRoot extends WebResource {
 	private HashMap<String, WebResource> sites = new HashMap<String, WebResource>();
 
 	private HashMap<String, WebPage> pages = new HashMap<String, WebPage>();
-	
+
 	@Override
 	public String getLabel(Object object) {
 		return LABEL;
@@ -39,7 +39,7 @@ public class WebRoot extends WebResource {
 	public WebRoot() {
 		super(HANDLE_ROOT);
 	}
-	
+
 	protected WebRoot(String handleIdentifier) {
 		super(handleIdentifier);
 	}
@@ -56,11 +56,11 @@ public class WebRoot extends WebResource {
 	public void addPage(WebPage page) {
 		pages.put(page.getUrl(), page);
 	}
-	
+
 	public WebSite getSite(String url) {
 		return (WebSite) sites.get(url);
 	}
-	
+
 	public void deleteSite(WebSite site) {
 		sites.remove(site);
 	}

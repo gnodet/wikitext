@@ -66,7 +66,7 @@ public class UsageMonitorImages {
 
 		return imageRegistry;
 	}
-	
+
 	/**
 	 * Lazily initializes image map.
 	 */

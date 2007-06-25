@@ -126,7 +126,9 @@ public class SelectionMonitor extends AbstractUserInteractionMonitor {
 		}
 		IInteractionElement node = ContextCorePlugin.getContextManager().getElement(elementHandle);
 		String delta = "";
-		float selectionFactor = InteractionContextManager.getScalingFactors().get(InteractionEvent.Kind.SELECTION).getValue();
+		float selectionFactor = InteractionContextManager.getScalingFactors()
+				.get(InteractionEvent.Kind.SELECTION)
+				.getValue();
 
 		if (node != null) {
 			if (node.getInterest().getEncodedValue() <= selectionFactor

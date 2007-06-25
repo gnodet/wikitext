@@ -16,21 +16,20 @@ import java.util.List;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 
-
 /**
  * @author Mik Kersten
  */
 public class WebPage extends WebResource {
 
 	private WebSite site;
-	
+
 	private String title = null;
-	
+
 	protected WebPage(String url, WebSite site) {
 		super(url);
 		this.site = site;
 	}
-	
+
 	@Override
 	public List<WebResource> getChildren() {
 		return Collections.emptyList();
@@ -55,7 +54,6 @@ public class WebPage extends WebResource {
 		return WebImages.WEB_PAGE;
 	}
 
-	
 	public void setTitle(String pageTitle) {
 		this.title = pageTitle;
 	}

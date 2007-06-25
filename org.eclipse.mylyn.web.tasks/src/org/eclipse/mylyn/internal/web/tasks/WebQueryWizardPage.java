@@ -231,8 +231,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		Map<String, String> params = new LinkedHashMap<String, String>();
 		if (repository != null) {
 			queryUrlText.setText(addVars(vars, repository.getProperty(WebRepositoryConnector.PROPERTY_QUERY_URL)));
-			queryPatternText
-					.setText(addVars(vars, repository.getProperty(WebRepositoryConnector.PROPERTY_QUERY_REGEXP)));
+			queryPatternText.setText(addVars(vars, repository.getProperty(WebRepositoryConnector.PROPERTY_QUERY_REGEXP)));
 
 			oldProperties = repository.getProperties();
 			params.putAll(oldProperties);
@@ -274,8 +273,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 			updatePreviewJob = new UpdatePreviewJob("Updating preview");
 			updatePreviewJob.setPriority(Job.DECORATE);
 		}
-		updatePreviewJob
-				.setParams(queryUrlText.getText(), queryPatternText.getText(), parametersEditor.getParameters());
+		updatePreviewJob.setParams(queryUrlText.getText(), queryPatternText.getText(), parametersEditor.getParameters());
 		if (!updatePreviewJob.isActive()) {
 			updatePreviewJob.schedule();
 		}
@@ -361,7 +359,8 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 
 					QueryHitCollector collector = new QueryHitCollector(new ITaskFactory() {
 
-						public AbstractTask createTask(RepositoryTaskData taskData, IProgressMonitor monitor) throws CoreException {
+						public AbstractTask createTask(RepositoryTaskData taskData, IProgressMonitor monitor)
+								throws CoreException {
 							return null;
 						}
 					}) {

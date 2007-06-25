@@ -25,7 +25,7 @@ import org.w3c.dom.NamedNodeMap;
 
 /**
  * Task externalizer for generic web based issue tracking systems
- *
+ * 
  * @author Eugene Kuleshov
  * @author Mik Kersten
  */
@@ -38,7 +38,7 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 	private static final String KEY_WEB_ISSUE = "WebIssue";
 
 	private static final String KEY_URL_TEMPLATE = "UrlTemplate";
-	
+
 	private static final String KEY_REGEXP = "Regexp";
 
 	private static final String KEY_PREFIX = "TaskPrefix";
@@ -49,12 +49,12 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 	public String getTaskElementName() {
 		return KEY_WEB_ISSUE;
 	}
-	
+
 	@Override
 	public Set<String> getQueryElementNames() {
 		return Collections.singleton(KEY_WEB_QUERY);
 	}
-	
+
 	@Override
 	public boolean canCreate(AbstractRepositoryQuery category) {
 		return category instanceof WebQuery;
@@ -64,7 +64,7 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 	public boolean canCreate(AbstractTask task) {
 		return task instanceof WebTask;
 	}
-	
+
 	@Override
 	public void setAdditionalAttributes(AbstractRepositoryQuery query, Element node) {
 		if (query instanceof WebQuery) {
@@ -108,7 +108,7 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 		String prefix = null;
 		if (element.hasAttribute(KEY_PREFIX)) {
 			prefix = element.getAttribute(KEY_PREFIX);
-		} 
+		}
 
 		WebTask task = new WebTask(taskId, label, prefix, repositoryUrl, WebRepositoryConnector.REPOSITORY_TYPE);
 //		task.setRepositoryUrl(repositoryUrl);
@@ -132,14 +132,14 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 			}
 		}
 
-		if(queryUrlTemplate==null || queryUrlTemplate.length()==0) {
+		if (queryUrlTemplate == null || queryUrlTemplate.length() == 0) {
 			queryUrlTemplate = queryString;
-			TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(WebRepositoryConnector.REPOSITORY_TYPE, repositoryUrl);
+			TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
+					WebRepositoryConnector.REPOSITORY_TYPE, repositoryUrl);
 			queryString = WebRepositoryConnector.evaluateParams(queryUrlTemplate, params, repository);
 		}
-		
-		return new WebQuery(label, queryString, queryUrlTemplate,
-				queryPattern, taskPrefix, repositoryUrl, params);
+
+		return new WebQuery(label, queryString, queryUrlTemplate, queryPattern, taskPrefix, repositoryUrl, params);
 	}
 
 	@Override

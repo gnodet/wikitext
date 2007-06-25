@@ -49,8 +49,8 @@ public class MylarUserStudyExamplePlugin extends AbstractUIPlugin implements ISt
 						WorkbenchPlugin.getDefault().getPluginPreferences());
 				UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
 						EditorsPlugin.getDefault().getPluginPreferences());
-				UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
-						PDEPlugin.getDefault().getPluginPreferences());
+				UiUsageMonitorPlugin.getDefault()
+						.addMonitoredPreferences(PDEPlugin.getDefault().getPluginPreferences());
 			}
 		});
 	}
@@ -68,8 +68,7 @@ public class MylarUserStudyExamplePlugin extends AbstractUIPlugin implements ISt
 		UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(JavaPlugin.getDefault().getPluginPreferences());
 		UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(
 				WorkbenchPlugin.getDefault().getPluginPreferences());
-		UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(
-				EditorsPlugin.getDefault().getPluginPreferences());
+		UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(EditorsPlugin.getDefault().getPluginPreferences());
 		UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(PDEPlugin.getDefault().getPluginPreferences());
 	}
 
@@ -81,8 +80,7 @@ public class MylarUserStudyExamplePlugin extends AbstractUIPlugin implements ISt
 	}
 
 	/**
-	 * Returns an image descriptor for the image file at the given plug-in
-	 * relative path.
+	 * Returns an image descriptor for the image file at the given plug-in relative path.
 	 * 
 	 * @param path
 	 *            the path

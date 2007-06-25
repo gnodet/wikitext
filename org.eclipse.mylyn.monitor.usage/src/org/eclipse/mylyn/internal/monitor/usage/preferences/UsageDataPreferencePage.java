@@ -179,8 +179,7 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		gridData.widthHint = 15;
 		submissionTime.setLayoutData(gridData);
 		long submissionFreq = UiUsageMonitorPlugin.DEFAULT_DELAY_BETWEEN_TRANSMITS;
-		if (UiUsageMonitorPlugin.getPrefs().contains(
-				MonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY)) {
+		if (UiUsageMonitorPlugin.getPrefs().contains(MonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY)) {
 			submissionFreq = UiUsageMonitorPlugin.getPrefs().getLong(
 					MonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY);
 		}
@@ -229,8 +228,7 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 			// do nothing, transmitFrequency will have the default value
 		}
 
-		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY,
-				transmitFrequency);
+		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY, transmitFrequency);
 
 		UiUsageMonitorPlugin.getDefault().getStudyParameters().setTransmitPromptPeriod(transmitFrequency);
 		return true;

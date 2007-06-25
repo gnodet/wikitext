@@ -32,7 +32,7 @@ public class JavaRuntimeVersionChecker extends AbstractUIPlugin implements IStar
 	private static final String PREF_WARN_DISABLED = "org.eclipse.mylyn.internal.compatibility.warn.disabled";
 
 	private static final float JRE_MIN_VERSION = 1.5f;
-	
+
 	public JavaRuntimeVersionChecker() {
 		// ignore
 	}
@@ -52,11 +52,10 @@ public class JavaRuntimeVersionChecker extends AbstractUIPlugin implements IStar
 					if (minorMinorIndex != -1) {
 						String minorString = versionString.substring(0, minorMinorIndex);
 						Float versionFloat = new Float(minorString);
-						if (versionFloat.compareTo(new Float(JRE_MIN_VERSION)) < 0) { 
+						if (versionFloat.compareTo(new Float(JRE_MIN_VERSION)) < 0) {
 							if (!getPreferenceStore().getBoolean(PREF_WARN_DISABLED)) {
 								MessageDialogWithToggle dialog = MessageDialogWithToggle.openWarning(
-										PlatformUI.getWorkbench().getDisplay().getActiveShell(),
-										"JDK Version Check",
+										PlatformUI.getWorkbench().getDisplay().getActiveShell(), "JDK Version Check",
 										"Mylyn was installed but requires Java 5 or later to run. "
 												+ "Please download and install the latest Java version and restart.",
 										"Do not warn again", false, getPreferenceStore(), PREF_WARN_DISABLED);

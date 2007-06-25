@@ -19,7 +19,7 @@ import org.eclipse.jface.wizard.WizardPage;
  * Extend to provide a custom questionnaire page.
  * 
  * @author Mik Kersten
- * @since	2.0
+ * @since 2.0
  */
 public abstract class AbstractStudyQuestionnairePage extends WizardPage {
 

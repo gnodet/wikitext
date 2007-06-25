@@ -68,8 +68,9 @@ public class UsageFileSelectionWizardPage extends WizardPage {
 	public static final String SUBMISSION_LOG_FILE_NAME = "submittedUsageLogs.txt";
 
 	protected UsageFileSelectionWizardPage(String pageName) {
-		super("org.eclipse.mylyn.monitor.usage.fileSelectionPage", PAGE_TITLE, UiUsageMonitorPlugin
-				.imageDescriptorFromPlugin(UiUsageMonitorPlugin.PLUGIN_ID, "icons/wizban/banner-submission.gif"));
+		super("org.eclipse.mylyn.monitor.usage.fileSelectionPage", PAGE_TITLE,
+				UiUsageMonitorPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.PLUGIN_ID,
+						"icons/wizban/banner-submission.gif"));
 		setDescription(DESCRIPTION);
 	}
 
