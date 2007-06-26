@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<associateSites>
+
+   <associateSite label="Mylyn Extras"
+        url="http://download.eclipse.org/tools/mylyn/update/extras"/>
+
+</associateSites>

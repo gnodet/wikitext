@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<site>
-   <description url="http://download.eclipse.org/technology/mylar/update-site/e3.3">
-      Mylar update site for Eclipse 3.3
+<site
+	associateSitesURL="http://download.eclipse.org/tools/mylyn/update/associateSites.xml">
+   <description url="http://download.eclipse.org/tools/mylyn/update/e3.3">
+      Mylyn Update for Eclipse 3.3
    </description>
    <feature url="features/org.eclipse.mylyn_feature_2.0.0.v20070626-1000.jar" id="org.eclipse.mylyn_feature" version="2.0.0.v20070626-1000">
       <category name="Features"/>
