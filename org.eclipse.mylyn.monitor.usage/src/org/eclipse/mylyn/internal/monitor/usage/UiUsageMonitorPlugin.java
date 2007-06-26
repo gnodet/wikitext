@@ -83,7 +83,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 
 	// private static final long DELAY_ON_FAILURE = 5 * HOUR;
 
-	public static final String DEFAULT_TITLE = "Mylar Feedback";
+	public static final String DEFAULT_TITLE = "Mylyn Feedback";
 
 	public static final String DEFAULT_DESCRIPTION = "Fill out the following form to help us improve Mylar based on your input.\n";
 
@@ -93,7 +93,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 
 	public static final String DEFAULT_VERSION = "";
 
-	public static final String DEFAULT_UPLOAD_SERVER = "http://mylar.eclipse.org/monitor/upload";
+	public static final String DEFAULT_UPLOAD_SERVER = "http://mylyn.eclipse.org/monitor/upload";
 
 	public static final String DEFAULT_UPLOAD_SERVLET_ID = "/GetUserIDServlet";
 
@@ -569,7 +569,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 					Display.getDefault().getActiveShell(),
 					"Send Usage Feedback",
 					null,
-					"To help improve the Eclipse and Mylar user experience please consider uploading your UI usage statistics.",
+					"To help improve the Eclipse and Mylyn user experience please consider uploading your UI usage statistics.",
 					MessageDialog.QUESTION, new String[] { "Open UI Usage Report",
 							"Remind me in " + getUserPromptDelay() + " day" + ending, "Don't ask again" }, 0);
 			int result = 0;
@@ -588,7 +588,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 							Display.getDefault().getActiveShell(),
 							"Consent",
 							null,
-							"All data that is submitted to mylar.eclipse.org will be publicly available under the "
+							"All data that is submitted to mylyn.eclipse.org will be publicly available under the "
 									+ "Eclipse Public License (EPL).  By submitting your data, you are agreeing that it can be publicly "
 									+ "available. Please press cancel on the submission dialog box if you do not wish to share your data.",
 							MessageDialog.INFORMATION, new String[] { IDialogConstants.OK_LABEL }, 0);
@@ -821,7 +821,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 
 	public String getCustomizedByMessage() {
 		String customizedBy = UiUsageMonitorPlugin.getDefault().getCustomizingPlugin();
-		String message = "NOTE: You have previously downloaded the Mylar monitor and a user study plug-in with id: "
+		String message = "NOTE: You have previously downloaded the Mylyn monitor and a user study plug-in with id: "
 				+ customizedBy + "\n" + "If you are not familiar with this plug-in do not upload data.";
 		return message;
 	}

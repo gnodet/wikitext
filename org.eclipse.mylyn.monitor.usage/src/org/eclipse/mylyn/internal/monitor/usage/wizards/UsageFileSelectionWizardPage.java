@@ -85,8 +85,13 @@ public class UsageFileSelectionWizardPage extends WizardPage {
 			if (backupFolder.exists()) {
 				File[] files = backupFolder.listFiles();
 				File submissionLogFile = new File(destination, SUBMISSION_LOG_FILE_NAME);
-
+				
+				if (!submissionLogFile.exists()) {
+					submissionLogFile.createNewFile();
+				}
+				
 				FileInputStream inputStream = new FileInputStream(submissionLogFile);
+
 
 				int bytesRead = 0;
 				byte[] buffer = new byte[1000];
