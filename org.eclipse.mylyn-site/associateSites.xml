@@ -2,6 +2,6 @@
 <associateSites>
 
    <associateSite label="Mylyn Extras"
-        url="http://download.eclipse.org/tools/mylyn/update/extras"/>
+        url="http://download.eclipse.org/tools/mylyn/update/extras/site.xml"/>
 
 </associateSites>
