@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Mylyn Web UI
 Bundle-SymbolicName: org.eclipse.mylyn.web.ui;singleton:=true
-Bundle-Version: 2.0.0.v20070626-1000
+Bundle-Version: 2.0.0.v20070626-1300
 Bundle-Activator: org.eclipse.mylyn.internal.web.ui.WebUiBridgePlugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
