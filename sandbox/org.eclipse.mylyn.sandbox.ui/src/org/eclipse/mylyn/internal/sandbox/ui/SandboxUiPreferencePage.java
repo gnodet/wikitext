@@ -10,6 +10,7 @@ package org.eclipse.mylyn.internal.sandbox.ui;
 
 import java.util.Arrays;
 
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColorCellEditor;
@@ -30,8 +31,10 @@ import org.eclipse.mylyn.internal.context.ui.Highlighter;
 import org.eclipse.mylyn.internal.context.ui.HighlighterImageDescriptor;
 import org.eclipse.mylyn.internal.context.ui.HighlighterList;
 import org.eclipse.mylyn.internal.java.ui.InterestInducingProblemListener;
+import org.eclipse.mylyn.internal.java.ui.JavaUiBridgePlugin;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPreferenceConstants;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
+import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -53,7 +56,9 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 /**
- * @author Ken Sueda and Mik Kersten
+ * @author Ken Sueda
+ * @author Mik Kersten
+ * @author Eugene Kuleshov
  */
 public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenchPreferencePage, ICellEditorListener {
 
@@ -69,9 +74,12 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 
 	private Button activateOnOpen;
 
+	private Button showTaskTrimButton;
+	
 	private Highlighter selection = null;
 
 	private HighlighterContentProvider contentProvider = null;
+
 
 	private static final String LABEL_COLUMN = "Label";
 
@@ -94,10 +102,13 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		GridLayout layout = new GridLayout(1, false);
 		container.setLayout(layout);
 
-		createLayoutGroup(container);
-		createUserbooleanControl(container);
+		createTaskNavigationGroup(container);
+		createTaskListGroup(container);
+		createJavaGroup(container);
+		
 		createHighlightersTable(container);
 		createTableViewer();
+		
 		contentProvider = new HighlighterContentProvider();
 		tableViewer.setContentProvider(contentProvider);
 		tableViewer.setLabelProvider(new HighlighterLabelProvider());
@@ -110,30 +121,50 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		// ignore
 	}
 
-	private void createLayoutGroup(Composite parent) {
+	private void createTaskNavigationGroup(Composite parent) {
+		Group navigationGroup = new Group(parent, SWT.NONE);
+		navigationGroup.setText("Task Navigation");
+		navigationGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false));
+		navigationGroup.setLayout(new GridLayout());
+		
+		IPreferenceStore uiPreferenceStore = TasksUiPlugin.getDefault().getPreferenceStore();
+		
+		showTaskTrimButton = new Button(navigationGroup, SWT.CHECK);
+		showTaskTrimButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false));
+		showTaskTrimButton.setText("Show Task Trim widget");
+		showTaskTrimButton.setSelection(uiPreferenceStore.getBoolean(
+				TasksUiPreferenceConstants.SHOW_TRIM));
+	}
+	
+	private void createTaskListGroup(Composite parent) {
 		Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
 		group.setText("Task List");
-		group.setLayout(new GridLayout(2, false));
+		group.setLayout(new GridLayout(1, false));
 		group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+		IPreferenceStore uiPreferenceStore = TasksUiPlugin.getDefault().getPreferenceStore();
+		
 		incomingOverlaysButton = new Button(group, SWT.CHECK);
 		incomingOverlaysButton.setText("Use Synchronize View style incoming overlays and placement");
-		incomingOverlaysButton.setSelection(getPreferenceStore().getBoolean(
+		incomingOverlaysButton.setSelection(uiPreferenceStore.getBoolean(
 				TasksUiPreferenceConstants.OVERLAYS_INCOMING_TIGHT));
-
+		
 		activateOnOpen = new Button(group, SWT.CHECK);
+		activateOnOpen.setLayoutData(new GridData());
 		activateOnOpen.setText("Activate tasks on open");
-		activateOnOpen.setSelection(getPreferenceStore().getBoolean(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED));
+		activateOnOpen.setSelection(uiPreferenceStore.getBoolean(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED));
 	}
 
-	private void createUserbooleanControl(Composite parent) {
+	private void createJavaGroup(Composite parent) {
 		Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
+		group.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false));
 		group.setText("Java");
 		GridLayout gl = new GridLayout(1, false);
 		group.setLayout(gl);
 
 		enableErrorInterest = new Button(group, SWT.CHECK);
 		enableErrorInterest.setText("Enable predicted interest of errors (significantly increases view refresh).");
-		enableErrorInterest.setSelection(getPreferenceStore().getBoolean(
+		enableErrorInterest.setSelection(JavaUiBridgePlugin.getDefault().getPreferenceStore().getBoolean(
 				InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS));
 	}
 
@@ -141,23 +172,19 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		Group tableComposite = new Group(parent, SWT.SHADOW_ETCHED_IN);
 		tableComposite.setText("Context Highlighters");
 		tableComposite.setLayout(new GridLayout(2, false));
-		tableComposite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+		tableComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
 		int style = SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.HIDE_SELECTION;
 
 		table = new Table(tableComposite, style);
 
-		GridData gridData = new GridData();
-		gridData.horizontalSpan = 2;
-		gridData.horizontalAlignment = SWT.FILL;
-		gridData.verticalAlignment = SWT.FILL;
+		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1);
 		table.setLayoutData(gridData);
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
 
 		// 1st column with Label
-		TableColumn column = new TableColumn(table, SWT.LEAD, 0);
-		column.setResizable(false);
+		TableColumn column = new TableColumn(table, SWT.NONE, 0);
 		column.setText("Label");
 		column.setWidth(150);
 		column.addSelectionListener(new SelectionAdapter() {
@@ -193,32 +220,46 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 				tableViewer.setSorter(new HighlighterTableSorter(HighlighterTableSorter.TYPE));
 			}
 		});
+
 		createAddRemoveButtons(tableComposite);
 	}
 
 	@Override
 	public boolean performOk() {
-		getPreferenceStore().setValue(TasksUiPreferenceConstants.OVERLAYS_INCOMING_TIGHT,
+		IPreferenceStore uiPreferenceStore = TasksUiPlugin.getDefault().getPreferenceStore();
+		
+		uiPreferenceStore.setValue(TasksUiPreferenceConstants.SHOW_TRIM, showTaskTrimButton.getSelection());
+		
+		uiPreferenceStore.setValue(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED, activateOnOpen.getSelection());
+
+		uiPreferenceStore.setValue(TasksUiPreferenceConstants.OVERLAYS_INCOMING_TIGHT,
 				incomingOverlaysButton.getSelection());
 		TaskListView view = TaskListView.getFromActivePerspective();
 		if (view != null) {
 			view.setSynchronizationOverlaid(incomingOverlaysButton.getSelection());
 		}
-		getPreferenceStore().setValue(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED, activateOnOpen.getSelection());
-		getPreferenceStore().setValue(InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS,
-				enableErrorInterest.getSelection());
+		
+		JavaUiBridgePlugin.getDefault().getPreferenceStore().setValue(
+				InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS, enableErrorInterest.getSelection());
+		
+		getPreferenceStore().setValue(ContextUiPrefContstants.HIGHLIGHTER_PREFIX,
+				ContextUiPlugin.getDefault().getHighlighterList().externalizeToString());
+		
 		return true;
 	}
 
 	@Override
 	public boolean performCancel() {
-		enableErrorInterest.setSelection(getPreferenceStore().getBoolean(
+		enableErrorInterest.setSelection(JavaUiBridgePlugin.getDefault().getPreferenceStore().getBoolean(
 				InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS));
 
 		String highlighters = getPreferenceStore().getString(ContextUiPrefContstants.HIGHLIGHTER_PREFIX);
 		ContextUiPlugin.getDefault().getHighlighterList().internalizeFromString(highlighters);
-		activateOnOpen.setSelection(getPreferenceStore().getBoolean(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED));
-
+		
+		IPreferenceStore uiPreferenceStore = TasksUiPlugin.getDefault().getPreferenceStore();
+		activateOnOpen.setSelection(uiPreferenceStore.getBoolean(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED));
+		showTaskTrimButton.setSelection(uiPreferenceStore.getBoolean(TasksUiPreferenceConstants.SHOW_TRIM));
+		
 		contentProvider = new HighlighterContentProvider();
 		tableViewer.setContentProvider(contentProvider);
 		return true;
@@ -227,7 +268,7 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 	@Override
 	public void performDefaults() {
 		super.performDefaults();
-		enableErrorInterest.setSelection(getPreferenceStore().getDefaultBoolean(
+		enableErrorInterest.setSelection(JavaUiBridgePlugin.getDefault().getPreferenceStore().getDefaultBoolean(
 				InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS));
 
 		contentProvider = new HighlighterContentProvider();
@@ -542,6 +583,7 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 	private void createAddRemoveButtons(Composite parent) {
 
 		Composite addRemoveComposite = new Composite(parent, SWT.LEAD);
+		addRemoveComposite.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false));
 		addRemoveComposite.setLayout(new GridLayout(2, false));
 
 		Button add = new Button(addRemoveComposite, SWT.PUSH | SWT.CENTER);

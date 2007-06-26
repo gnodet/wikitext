@@ -24,24 +24,55 @@
       </command>
    </extension>
 
-	<extension
-         point="org.eclipse.ui.menus">
-      <menuContribution
-            locationURI="toolbar:org.eclipse.ui.trim.command2?after">
-         <toolbar
-               id="org.eclipse.mylyn.tasks.ui.trim.container">
- 			<command
-                  commandId="org.eclipse.mylyn.tasks.ui.trim.command"
-                  id="org.eclipse.mylyn.tasks.ui.trim"
-                  label="."
-                  style="push">
-            </command>
-            <control
-                  class="org.eclipse.mylyn.internal.tasks.ui.TaskTrimWidget"
-                  id="org.eclipse.mylyn.tasks.ui.trim.control">
-            </control>
-         </toolbar>
-      </menuContribution>
+   <!--
+   <extension point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester 
+         id="org.eclipse.mylyn.tasks.ui.propertyTester"
+         namespace="org.eclipse.mylyn.tasks.ui"
+         properties="trimEnabled"
+         type="java.lang.Object"
+         class="org.eclipse.mylyn.internal.tasks.ui.TaskPropertyTester">
+      </propertyTester>
+   </extension>
+   -->
+   
+   <extension point="org.eclipse.ui.handlers">
+      <handler
+            class="org.eclipse.mylyn.internal.tasks.ui.TaskHistoryHandler"
+            commandId="org.eclipse.mylyn.tasks.ui.trim.command">
+      </handler>
+   </extension>
+
+	<extension point="org.eclipse.ui.menus">
+    <!-- menu for pulldown command -->
+    <menuContribution locationURI="menu:org.eclipse.mylyn.tasks.ui.trim">
+      <dynamic
+         class="org.eclipse.mylyn.internal.tasks.ui.TaskHistoryDropDown"
+         id="org.eclipse.mylyn.tasks.ui.trim.dropdown"/>
+    </menuContribution>
+    
+    <menuContribution locationURI="toolbar:org.eclipse.ui.trim.command2?after">
+      <toolbar id="org.eclipse.mylyn.tasks.ui.trim.container">
+        <command
+            id="org.eclipse.mylyn.tasks.ui.trim"
+            commandId="org.eclipse.mylyn.tasks.ui.trim.command"
+            label="Previous Task"
+            icon="icons/etool16/navigate-previous.gif"
+            style="pulldown">
+        </command>
+
+        <control
+           class="org.eclipse.mylyn.internal.tasks.ui.TaskTrimWidget"
+           id="org.eclipse.mylyn.tasks.ui.trim.control"/>
+        <!-- for some reason this doesn't work
+        <visibleWhen checkEnabled="false">
+           <test forcePluginActivation="true"
+                 property="org.eclipse.mylyn.tasks.ui.trimEnabled"/>
+        </visibleWhen>
+        <visibleWhen><not><systemTest property="os.name" value="Windows XP"/></not></visibleWhen>
+        -->
+      </toolbar>
+    </menuContribution>
     </extension>
 
     <extension point="org.eclipse.ui.newWizards">
