@@ -5,3 +5,7 @@
 1182738527329	Rename local variable 'sortMenu'
 1182740170273	Rename type 'AddTaskListAction'
 1182810347999	Delete element
+1182830063384	Convert member type 'ToggleAllWorkingSetsAction' to top level
+1182833556910	Rename local variable 'allWorkingSetContainers'
+1182834017177	Convert member type 'ToggleWorkingSetAction' to top level
+1182834210135	Rename field 'set'
