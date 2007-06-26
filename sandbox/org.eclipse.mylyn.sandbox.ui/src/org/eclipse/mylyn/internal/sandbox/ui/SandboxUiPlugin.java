@@ -8,7 +8,10 @@
 
 package org.eclipse.mylyn.internal.sandbox.ui;
 
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.mylyn.internal.tasks.ui.TasksUiPreferenceConstants;
+import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -31,6 +34,10 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
+		
+		// XXX make prefs consistent with UI until we figure out how to disable trim on startup
+		IPreferenceStore uiPreferenceStore = TasksUiPlugin.getDefault().getPreferenceStore();
+		uiPreferenceStore.setValue(TasksUiPreferenceConstants.SHOW_TRIM, true);
 	}
 
 	@Override
