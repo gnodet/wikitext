@@ -544,7 +544,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 //		}
 	}
 
-	private void checkForStatisticsUpload() {
+	private synchronized void checkForStatisticsUpload() {
 		if (!isMonitoringEnabled())
 			return;
 		if (plugin == null || plugin.getPreferenceStore() == null)
@@ -619,10 +619,9 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 				} else {
 					plugin.getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION,
 							false);
-
 				}
-				message.close();
 			}
+			message.close();
 		}
 	}
 
