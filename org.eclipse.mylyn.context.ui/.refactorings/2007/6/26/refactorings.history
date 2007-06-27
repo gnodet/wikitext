@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Copy 1 elements(s) to 'eview16'&#13;&#10;- Original project: 'org.eclipse.mylyn.context.ui'&#13;&#10;- Destination element: 'eview16'&#13;&#10;- Original element: 'focus-tasklist.gif'" description="Copy file" element1="icons/eview16/focus-tasklist.gif" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" log="icons/eview16/focus-tasklist.gif&#9;true&#9;false" policy="org.eclipse.jdt.ui.copyResources" stamp="1182927538448" target="/org.eclipse.mylyn.tasks.ui/icons/eview16" units="0" version="1.0"/>
+</session>
