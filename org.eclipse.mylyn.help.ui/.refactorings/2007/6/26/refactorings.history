@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 1 element(s) from project 'org.eclipse.mylyn.help.ui'&#13;&#10;- Original project: 'org.eclipse.mylyn.help.ui'&#13;&#10;- Original element: 'new.html'" description="Delete element" element1="doc/new.html" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="1" stamp="1182974507121" subPackages="false" version="1.0"/>
+<refactoring comment="Rename resource '/org.eclipse.mylyn.help.ui/doc/new-2.0.html' to 'new.html'&#13;&#10;- Original project: 'org.eclipse.mylyn.help.ui'&#13;&#10;- Original element: 'new-2.0.html'" description="Rename resource 'new-2.0.html'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="doc/new-2.0.html" name="new.html" stamp="1182974511045" version="1.0"/>
+</session>
