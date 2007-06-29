@@ -181,10 +181,9 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 		}
 
 		public void shellActivated(ShellEvent arg0) {
-			if (!MonitorUiPlugin.getDefault().suppressConfigurationWizards() && ContextCorePlugin.getDefault() != null) {
-				// checkForStudyPhasePromotion();
-				checkForStatisticsUpload();
-			}
+//			if (!MonitorUiPlugin.getDefault().suppressConfigurationWizards() && ContextCorePlugin.getDefault() != null) {
+//				checkForStatisticsUpload();
+//			}
 			if (!isPerformingUpload() && ContextCorePlugin.getDefault() != null) {
 				for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners())
 					listener.startMonitoring();
@@ -544,7 +543,8 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 //		}
 	}
 
-	private synchronized void checkForStatisticsUpload() {
+	// NOTE: not currently used
+	synchronized void checkForStatisticsUpload() {
 		if (!isMonitoringEnabled())
 			return;
 		if (plugin == null || plugin.getPreferenceStore() == null)
