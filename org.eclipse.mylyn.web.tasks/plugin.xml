@@ -92,6 +92,8 @@
         <attribute name="param_atid" value="100023"/>
         <attribute name="queryPattern"
                    value="&lt;a class=&quot;tracker&quot; href=&quot;/tracker/index.php\?func=detail&amp;aid=(.+?)&amp;group_id=${group_id}&amp;atid=${atid}&quot;&gt;(.+?)&lt;/a&gt;&lt;/td&gt;"/>
+        <attribute name="loginRequestUrl"
+                   value="${serverUrl}/account/login.php?return_to=&amp;form_loginname=${userId}&amp;form_pw=${password}&amp;login=Login"/>
      </repository>
      <repository
             repositoryKind="web"
@@ -191,34 +193,33 @@
      </repository>
 
      <repository
-			anonymous="false"
-			label="OTRS"
-			repositoryKind="web"
-			urlRepository="http://demo.otrs.org"
-			urlNewTask="${serverUrl}/otrs/index.pl?Action=AgentTicketPhone"
-			urlTask="${serverUrl}/otrs/index.pl?Action=AgentTicketZoom&amp;TicketID="
-			urlTaskQuery="${serverUrl}/otrs/index.pl?Action=AgentTicketMailbox">
-		<attribute name="queryPattern"
-                value="&lt;a href=\&quot;/otrs/index.pl\?Action=AgentTicketZoom&amp;TicketID=(.+?)&quot;.+?&lt;b&gt;Subject:&lt;/b&gt;.+?&lt;div title=&quot;.+?&quot;&gt;(.+?)&lt;/div&gt;&lt;/td&gt;"/>
-		<attribute name="loginRequestUrl"
-		        value="${serverUrl}/otrs/index.pl?Action=Login&amp;User=${userId}&amp;Password=${password}"/>
+	      anonymous="false"
+	      label="OTRS"
+	      repositoryKind="web"
+	      urlRepository="http://demo.otrs.org"
+	      urlNewTask="${serverUrl}/otrs/index.pl?Action=AgentTicketPhone"
+	      urlTask="${serverUrl}/otrs/index.pl?Action=AgentTicketZoom&amp;TicketID="
+	      urlTaskQuery="${serverUrl}/otrs/index.pl?Action=AgentTicketMailbox">
+	    <attribute name="queryPattern"
+	                value="&lt;a href=\&quot;/otrs/index.pl\?Action=AgentTicketZoom&amp;TicketID=(.+?)&quot;.+?&lt;b&gt;Subject:&lt;/b&gt;.+?&lt;div title=&quot;.+?&quot;&gt;(.+?)&lt;/div&gt;&lt;/td&gt;"/>
+	    <attribute name="loginRequestUrl"
+	            value="${serverUrl}/otrs/index.pl?Action=Login&amp;User=${userId}&amp;Password=${password}"/>
      </repository>
 
      <repository
-			anonymous="false"
-			label="JavaForge (CodeLogic)"
-			repositoryKind="web"
-			urlRepository="http://www.javaforge.com/proj/tracker"
-			urlTask="${serverUrl}/itemDetails.do?navigation=true&amp;task_id="
-			urlNewTask="${serverUrl}/submitNew.do?tracker_id=${tracker_id}"
-			urlTaskQuery="${serverUrl}/browseAllTrackers.do?proj_id=${proj_id}&amp;tracker_type_id=${tracker_type_id}&amp;onlyOpen=false&amp;pagesize=0">
-		<attribute
-				name="queryPattern"
-                value="&lt;a href=&quot;/proj/tracker/itemDetails.do\?.+?task_id=(\d+?)&quot;&gt;(.+?)&lt;/a&gt;"/>
-        <attribute name="param_tracker_id" value="41"/>
-        <attribute name="param_tracker_type_id" value="2"/>
-        <attribute name="param_proj_id" value="11"/>
-     </repository>
+		      anonymous="false"
+		      label="JavaForge (CodeLogic)"
+		      repositoryKind="web"
+		      urlRepository="http://www.javaforge.com/proj/tracker"
+		      urlTask="${serverUrl}/itemDetails.do?navigation=true&amp;task_id="
+		      urlNewTask="${serverUrl}/submitNew.do?tracker_id=${tracker_id}"
+		      urlTaskQuery="${serverUrl}/browseAllTrackers.do?proj_id=${proj_id}&amp;tracker_type_id=${tracker_type_id}&amp;onlyOpen=false&amp;pagesize=0">
+	     <attribute name="queryPattern"
+                  value="&lt;a href=&quot;/proj/tracker/itemDetails.do\?.+?task_id=(\d+?)&quot;&gt;(.+?)&lt;/a&gt;"/>
+       <attribute name="param_tracker_id" value="41"/>
+       <attribute name="param_tracker_type_id" value="2"/>
+       <attribute name="param_proj_id" value="11"/>
+    </repository>
 
    </extension>
 
