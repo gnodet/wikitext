@@ -84,16 +84,16 @@
      <repository
             repositoryKind="web"
             label="ASM (GForge)"
-            urlRepository="http://forge.objectweb.org/tracker"
-            urlTask="${serverUrl}/?group_id=${group_id}&amp;func=detail&amp;atid=${atid}&amp;aid="
-            urlNewTask="${serverUrl}/?group_id=${group_id}&amp;func=add"
-            urlTaskQuery="${serverUrl}/?group_id=${group_id}&amp;atid=${atid}&amp;_status=100&amp;set=custom">
+            urlRepository="http://forge.objectweb.org"
+            urlTask="${serverUrl}/tracker/?group_id=${group_id}&amp;func=detail&amp;atid=${atid}&amp;aid="
+            urlNewTask="${serverUrl}/tracker/?group_id=${group_id}&amp;func=add"
+            urlTaskQuery="${serverUrl}/tracker/?group_id=${group_id}&amp;atid=${atid}&amp;_status=100&amp;set=custom">
         <attribute name="param_group_id" value="23"/>
         <attribute name="param_atid" value="100023"/>
         <attribute name="queryPattern"
                    value="&lt;a class=&quot;tracker&quot; href=&quot;/tracker/index.php\?func=detail&amp;aid=(.+?)&amp;group_id=${group_id}&amp;atid=${atid}&quot;&gt;(.+?)&lt;/a&gt;&lt;/td&gt;"/>
         <attribute name="loginRequestUrl"
-                   value="${serverUrl}/account/login.php?return_to=&amp;form_loginname=${userId}&amp;form_pw=${password}&amp;login=Login"/>
+                   value="${serverUrl}/account/login.php?return_to=&amp;form_loginname=${userId}&amp;form_pw=${password}&amp;login=Login&amp;stay_in_ssl=1"/>
      </repository>
      <repository
             repositoryKind="web"
