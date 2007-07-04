@@ -23,6 +23,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.codec.EncoderException;
+import org.apache.commons.codec.net.URLCodec;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
@@ -255,6 +257,17 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			IProgressMonitor monitor) throws CoreException {
 	}
 
+	@Override
+	public AbstractTask createTask(String repositoryUrl, String id, String summary) {
+		return null;
+	}
+
+	@Override
+	public void updateTaskFromTaskData(TaskRepository repository, AbstractTask repositoryTask,
+			RepositoryTaskData taskData) {
+		// ignore
+	}
+	
 	// utility methods
 
 	public static IStatus performQuery(String resource, String regexp, String taskPrefix, IProgressMonitor monitor,
@@ -290,7 +303,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	private static String cleanup(String text, TaskRepository repository) {
-		// Has to disable this for now. See bug 166737 and 166936
+		// Has to disable this for now. See bug 166737 and bug 166936
 		// try {
 		// text = URLDecoder.decode(text, repository.getCharacterEncoding());
 		// } catch (UnsupportedEncodingException ex) {
@@ -480,9 +493,9 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	public static String evaluateParams(String value, TaskRepository repository) {
 		if (value != null && value.indexOf("${") > -1) {
-			value = value.replaceAll("\\$\\{" + PARAM_SERVER_URL + "\\}", repository.getUrl());
-			value = value.replaceAll("\\$\\{" + PARAM_USER_ID + "\\}", repository.getUserName());
-			value = value.replaceAll("\\$\\{" + PARAM_PASSWORD + "\\}", repository.getPassword());
+			value = evaluate(value, PARAM_SERVER_URL, repository.getUrl());
+			value = evaluate(value, PARAM_USER_ID, encode(repository.getUserName()));
+			value = evaluate(value, PARAM_PASSWORD, encode(repository.getPassword()));
 			value = evaluateParams(value, repository.getProperties());
 		}
 		return value;
@@ -492,12 +505,24 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		for (Map.Entry<String, String> e : params.entrySet()) {
 			String key = e.getKey();
 			if (key.startsWith(PARAM_PREFIX)) {
-				value = value.replaceAll("\\$\\{" + key.substring(PARAM_PREFIX.length()) + "\\}", e.getValue());
+				value = evaluate(value, key.substring(PARAM_PREFIX.length()), encode(e.getValue()));
 			}
 		}
 		return value;
 	}
-
+	
+	private static String evaluate(String s, String var, String value) {
+		return s.replaceAll("\\$\\{" + var + "\\}", value);
+	}
+	
+	private static String encode(String value) {
+		try {
+			return new URLCodec().encode(value);
+		} catch (EncoderException ex) {
+			return value;
+		}
+	}
+	
 	public static List<String> getTemplateVariables(String value) {
 		if (value == null) {
 			return Collections.emptyList();
@@ -509,17 +534,6 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			vars.add(m.group(1));
 		}
 		return vars;
-	}
-
-	@Override
-	public AbstractTask createTask(String repositoryUrl, String id, String summary) {
-		return null;
-	}
-
-	@Override
-	public void updateTaskFromTaskData(TaskRepository repository, AbstractTask repositoryTask,
-			RepositoryTaskData taskData) {
-		// ignore
 	}
 
 }
