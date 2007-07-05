@@ -1,4 +1,7 @@
 
+
+http://rbtech.blogspot.com/2007/05/eclipse-mylar-wow.html
+
 Marcello Teodori 
 https://bugs.eclipse.org/bugs/show_bug.cgi?id=168238#c16
 Absolutely the authors of Mylar, a simple and effective idea and most of all a real novelty in the eclipse plugin space, their great work deserves the broadest visibility and foster integration with any version control and issue tracking system available to make eclipse the cornerstone of any kind of software factory environment.
