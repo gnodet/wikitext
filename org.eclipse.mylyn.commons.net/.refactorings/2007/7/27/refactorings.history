@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Rename resource '/org.eclipse.mylyn.web.core/lib-httpclient/commons-httpclient-3.0.1-sources.zip' to 'commons-httpclient-3.0.1-src.zip'&#13;&#10;- Original project: 'org.eclipse.mylyn.web.core'&#13;&#10;- Original element: 'commons-httpclient-3.0.1-sources.zip'" description="Rename resource 'commons-httpclient-3.0.1-sources.zip'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="lib-httpclient/commons-httpclient-3.0.1-sources.zip" name="commons-httpclient-3.0.1-src.zip" stamp="1183609293395" version="1.0"/>
+</session>
