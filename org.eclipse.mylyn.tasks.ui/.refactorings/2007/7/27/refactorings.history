@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Copy 1 elements(s) to 'tool16'&#13;&#10;- Original project: 'org.eclipse.mylyn.tasks.ui'&#13;&#10;- Destination element: 'tool16'&#13;&#10;- Original element: 'import.gif'" description="Copy file" element1="icons/etool16/import.gif" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" log="icons/etool16/import.gif&#9;true&#9;false" policy="org.eclipse.jdt.ui.copyResources" stamp="1183672744430" target="/com.tasktop.doc.ui/icons/tool16" units="0" version="1.0"/>
+</session>
