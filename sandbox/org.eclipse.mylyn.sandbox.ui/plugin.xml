@@ -81,9 +81,19 @@
             class="org.eclipse.mylyn.internal.tasks.ui.planner.TaskActivityWizard"
             icon="icons/eview16/task-list.gif" 
             id="org.eclipse.mylyn.tasks.ui.wizards.activity.report"
-            name="Task Activity Report">
+            name="Task Activity Report (Sandbox)">
       </wizard> 
 	</extension>
+
+  	<extension
+        point="org.eclipse.ui.editors">
+    	<editor
+          class="org.eclipse.mylyn.internal.tasks.ui.planner.TaskActivityEditorPart"
+          contributorClass="org.eclipse.mylyn.internal.tasks.ui.editors.TaskEditorActionContributor"
+          icon="icons/eview16/task-list.gif"
+          id="org.eclipse.mylyn.tasks.ui.editors.planning"
+          name="Task Planner"/>     
+  	</extension>
 
  	<extension point="org.eclipse.ui.viewActions"> 
  		<viewContribution 
