@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Mylyn Compatibility Bugzilla Client Ui Plug-in
 Bundle-SymbolicName: org.eclipse.mylar.bugzilla.ui; singleton:=true
-Bundle-Version: 2.0.0.v20070627-1400
+Bundle-Version: 2.0.0.v20070615-compatibility
 Bundle-Vendor: Eclipse.org
 Eclipse-AutoStart: true
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
