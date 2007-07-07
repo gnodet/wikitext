@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.eclipse.mylar.monitor.usage">
+<schema targetNamespace="org.eclipse.mylar.monitor.ui">
 <annotation>
       <appInfo>
          <meta.schema plugin="org.eclipse.mylar.monitor.ui" id="study" name="Mylar Monitor Study"/>
       </appInfo>
       <documentation>
-         
+         Provides a mechanism to connect a user study plug-in with the Mylyn Monitors usage monitoring facilities.  For more information please see: http://wiki.eclipse.org/index.php/Mylyn_Integrator_Reference#Monitor_API
       </documentation>
    </annotation>
 
@@ -120,7 +120,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java"/>
+                  <meta.attribute kind="java" basedOn="org.eclipse.mylyn.monitor.usage.AbstractStudyQuestionnairePage:"/>
                </appInfo>
             </annotation>
          </attribute>
@@ -171,7 +171,7 @@
          <meta.section type="since"/>
       </appInfo>
       <documentation>
-         [Enter the first release in which this extension point appears.]
+         1.0
       </documentation>
    </annotation>
 
@@ -180,7 +180,7 @@
          <meta.section type="examples"/>
       </appInfo>
       <documentation>
-         [Enter extension point usage example here.]
+         See the org.eclipse.mylyn.examples.monitor.study plug-in for a reference implementation.
       </documentation>
    </annotation>
 
@@ -189,7 +189,7 @@
          <meta.section type="apiInfo"/>
       </appInfo>
       <documentation>
-         [Enter API information here.]
+         
       </documentation>
    </annotation>
 
@@ -198,7 +198,7 @@
          <meta.section type="implementation"/>
       </appInfo>
       <documentation>
-         [Enter information about supplied implementation of this extension point.]
+         
       </documentation>
    </annotation>
 
