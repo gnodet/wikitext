@@ -97,15 +97,18 @@
      </repository>
      <repository
             repositoryKind="web"
-            label="Azureus (SourceForge)"
-            urlRepository="http://sourceforge.net/tracker"
-            urlTask="${serverUrl}/?group_id=${group_id}&amp;func=detail&amp;atid=${atid}&amp;aid="
-            urlNewTask="${serverUrl}/?group_id=${group_id}&amp;func=add"
-            urlTaskQuery="${serverUrl}/?group_id=${group_id}&amp;atid=${atid}">
+            label="SourceForge (Azureus)"
+            urlRepository="http://sourceforge.net/"
+            urlTask="${serverUrl}/tracker/?group_id=${group_id}&amp;func=detail&amp;atid=${atid}&amp;aid="
+            urlNewTask="${serverUrl}/tracker/?group_id=${group_id}&amp;func=add"
+            urlTaskQuery="${serverUrl}/tracker/?group_id=${group_id}&amp;atid=${atid}">
         <attribute name="param_group_id" value="84122"/>
         <attribute name="param_atid" value="575154"/>
         <attribute name="queryPattern"
                    value="&lt;a href=&quot;/tracker/index.php\?func=detail&amp;amp;aid=(.+?)&amp;amp;group_id=${group_id}&amp;amp;atid=${atid}&quot;&gt;(.+?)&lt;/a&gt;"/>
+        <attribute name="loginRequestMethod" value="POST"/>
+        <attribute name="loginRequestUrl"
+                   value="${serverUrl}/account/login.php?form_loginname=${userId}&amp;form_pw=${password}&amp;login=Login"/>
      </repository>
      <repository
             repositoryKind="web"
@@ -146,14 +149,9 @@
            urlRepository="http://www.futureware.biz/mantis"
            urlTask="${serverUrl}/view.php?id="
            urlTaskQuery="${serverUrl}/view_all_bug_page.php">
-        <attribute
-              name="loginRequestMethod"
-              value="POST">
-        </attribute>
-        <attribute
-              name="loginRequestUrl"
-              value="${serverUrl}/login.php?username=${userId}&amp;password=${password}">
-        </attribute>
+        <attribute name="loginRequestMethod" value="POST"/>
+        <attribute name="loginRequestUrl"
+              value="${serverUrl}/login.php?username=${userId}&amp;password=${password}"/>
         <attribute name="queryPattern"
                    value="&lt;tr .+?&lt;a href=&quot;view.php\?id=(.+?)&quot;&gt;.+?&lt;td class=&quot;left&quot;&gt;(.+?)&lt;/td&gt;&lt;/tr&gt;"/>
      </repository>
