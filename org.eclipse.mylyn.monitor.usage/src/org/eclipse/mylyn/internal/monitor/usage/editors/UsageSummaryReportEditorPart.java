@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004 - 2006 Mylar committers and others.
+ * Copyright (c) 2004, 2007 Mylyn project committers and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -151,7 +151,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 	}
 
 	/**
-	 * TODO: move to Mylar Web UI stuff
+	 * TODO: move to Mylyn Web UI stuff
 	 */
 	private void viewStats() {
 		try {
@@ -211,21 +211,6 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 				}
 			}
 		}
-		// try {
-		// FileDisplayDialog.openShowFile(null, "Mylar - Usage History", "Up to
-		// the first " + MAX_NUM_LINES
-		// + " lines of the file are displayed, if you'd like to see the entire
-		// file, it is located at "
-		// +
-		// MylarUsageMonitorPlugin.getDefault().getMonitorLogFile().getAbsolutePath()
-		// + ".", monitorFile,
-		// MAX_NUM_LINES);
-		//
-		// } catch (FileNotFoundException e) {
-		// MylarStatusHandler.log(e, "Couldn't display the monitor history
-		// file");
-		//
-		// }
 	}
 
 	private void submitData() {

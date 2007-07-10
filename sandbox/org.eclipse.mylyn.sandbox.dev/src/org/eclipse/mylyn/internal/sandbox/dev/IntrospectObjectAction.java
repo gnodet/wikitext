@@ -84,7 +84,7 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 			text += "\n\nNum tasks: " + TasksUiPlugin.getTaskListManager().getTaskList().getAllTasks().size();
 			text += "\nNum queries: " + TasksUiPlugin.getTaskListManager().getTaskList().getQueries().size();
 
-			MessageDialog.openInformation(null, "Mylar Sandbox", text);
+			MessageDialog.openInformation(null, "Mylyn Sandbox", text);
 		}
 	}
 

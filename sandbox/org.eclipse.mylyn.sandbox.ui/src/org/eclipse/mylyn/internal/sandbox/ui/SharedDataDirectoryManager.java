@@ -21,9 +21,6 @@ public class SharedDataDirectoryManager {
 	 */
 	private boolean sharedDataDirectoryInUse = false;
 
-	/**
-	 * Path of the data directory to temporarily use as the MylarDataDirectory (for reporting)
-	 */
 	private String sharedDataDirectory = null;
 
 	/**

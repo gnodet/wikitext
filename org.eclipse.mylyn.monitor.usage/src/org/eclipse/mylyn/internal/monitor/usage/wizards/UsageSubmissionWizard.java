@@ -51,7 +51,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * A wizard for uploading the Mylar statistics to a website
+ * A wizard for uploading the Mylyn statistics to a website
  * 
  * @author Shawn Minto
  */
@@ -84,9 +84,6 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 	private static int processedFileCount = 1;
 
-	// private final File logFile =
-	// MylarMonitorPlugin.getDefault().getLogFile();
-
 	private UsageUploadWizardPage uploadPage;
 
 	private UsageFileSelectionWizardPage fileSelectionPage;
@@ -116,7 +113,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	private void setTitles() {
 		super.setDefaultPageImageDescriptor(UiUsageMonitorPlugin.imageDescriptorFromPlugin(
 				UiUsageMonitorPlugin.PLUGIN_ID, "icons/wizban/banner-user.gif"));
-		super.setWindowTitle("Mylar Feedback");
+		super.setWindowTitle("Mylyn Feedback");
 	}
 
 	private void init(boolean performUpload) {
@@ -151,21 +148,6 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 	@Override
 	public boolean performFinish() {
-
-		// int numEvents =
-		// MylarMonitorPlugin.getPrefs().getInt(MylarMonitorPlugin.PREF_NUM_USER_EVENTS);
-		// int numSinceLastPhase =
-		// MylarMonitorPlugin.NEXT_PHASE_EVENT_THRESHOLD
-		// -
-		// MylarMonitorPlugin.getPrefs().getInt(MylarMonitorPlugin.PREF_NUM_USER_EVENTS)
-		// -
-		// MylarMonitorPlugin.getPrefs().getInt(MylarMonitorPlugin.PREF_NUM_USER_EVENTS_LAST_PHASE);
-		// ContextCorePlugin.log("Number user events: " + numEvents, this);
-		// ContextCorePlugin.log("Number events needed: " + numSinceLastPhase,
-		// this);
-		// ContextCorePlugin.log("Date next release: " +
-		// DateUtil.getFormattedDateTime(MylarMonitorPlugin.NEXT_RELEASE_AVAILABLE.getTimeInMillis()),
-		// this);
 
 		if (!performUpload)
 			return true;
@@ -255,12 +237,6 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 							"Your usage statistics have been successfully uploaded.\n Thank you for participating.");
 				}
 			});
-
-			// clear the files
-			// if (!monitorFile.delete()) {
-			// MylarStatusHandler.log("Unable to delete the monitor file",
-			// this);
-			// }
 		}
 
 		UiUsageMonitorPlugin.getDefault().getInteractionLogger().startMonitoring();
@@ -400,50 +376,9 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 	}
 
-	/*
-	 * 
-	 * 
-	 * String uploadFile; String uploadScript; if (type.equals(STATS) ||
-	 * type.equals(LOG)) { uploadFile = "usage statistics file"; uploadScript =
-	 * MylarUsageMonitorPlugin.getDefault().getStudyParameters().getScriptsUrl() +
-	 * MylarUsageMonitorPlugin.getDefault().getStudyParameters().getScriptsUpload(); }
-	 * else { uploadFile = "questionnaire"; uploadScript =
-	 * MylarUsageMonitorPlugin.getDefault().getStudyParameters().getScriptsUrl() +
-	 * MylarUsageMonitorPlugin.getDefault().getStudyParameters().getScriptsQuestionnaire(); }
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * Part[] parts; if (type.equals(STATS)) { Part[] p = { new FilePart("MYLAR" +
-	 * uid, MylarUsageMonitorPlugin.UPLOAD_FILE_LABEL + "-" +
-	 * MylarUsageMonitorPlugin.VERSION + extensionVersion + "-" + STATS + "-" +
-	 * uid + "-" + DateUtil.getFormattedDateTime(time) + ".zip", f) }; parts =
-	 * p; uploadFile = "usage statistics file"; } else if (type.equals(LOG)) {
-	 * Part[] p = { new FilePart("MYLAR" + uid,
-	 * MylarUsageMonitorPlugin.UPLOAD_FILE_LABEL + "-" +
-	 * MylarUsageMonitorPlugin.VERSION + extensionVersion + "-" + LOG + "-" +
-	 * uid + "-" + DateUtil.getFormattedDateTime(time) + ".txt", f) }; parts =
-	 * p; uploadFile = "mylar log file"; } else if (type.equals(QUESTIONAIRE)) {
-	 * Part[] p = { new FilePart("MYLAR" + uid,
-	 * MylarUsageMonitorPlugin.UPLOAD_FILE_LABEL + "-" +
-	 * MylarUsageMonitorPlugin.VERSION + extensionVersion + "-" + QUESTIONAIRE +
-	 * "-" + uid + "-" + DateUtil.getFormattedDateTime(time) + ".txt", f) };
-	 * parts = p; uploadFile = "questionnaire"; } else if
-	 * (type.equals(BACKGROUND)) { Part[] p = { new FilePart("MYLAR" + uid,
-	 * MylarUsageMonitorPlugin.UPLOAD_FILE_LABEL + "-" +
-	 * MylarUsageMonitorPlugin.VERSION + extensionVersion + "-" + BACKGROUND +
-	 * "-" + uid + "-" + DateUtil.getFormattedDateTime(time) + ".txt", f) };
-	 * parts = p; uploadFile = "background"; } else { failed = true; return; }
-	 */
-
 	public String getMonitorFileName() {
 		return monitorFile.getAbsolutePath();
 	}
-
-	// public String getLogFileName(){
-	// return logFile.getAbsolutePath();
-	// }
 
 	/** The status from the http request */
 	private int status;

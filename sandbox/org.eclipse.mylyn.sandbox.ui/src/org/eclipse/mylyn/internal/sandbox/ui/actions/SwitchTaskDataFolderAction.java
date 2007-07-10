@@ -86,11 +86,10 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 			List<String> folders = new ArrayList<String>();
 
 			// Check that a shared data path has been specified
-//			String sharedDataPath = MylarReportsPlugin.getDefault().getRootSharedDataDirectory();
 			String sharedDataPath = "<not implemented>";
 			if (sharedDataPath.trim().equals("")) {
 				MessageDialog.openError(shell, "Switch Task Folder Error",
-						"Please specify a root shared task folder in the Mylar Reports preference page.");
+						"Please specify a root shared task folder in the Mylyn Reports preference page.");
 				return null;
 			}
 
@@ -98,7 +97,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 			File rootDir = new File(sharedDataPath);
 			if (!rootDir.exists() || !rootDir.isDirectory()) {
 				MessageDialog.openError(shell, "Switch Task Folder Error",
-						"The root folder specified in the Mylar Reports preference page could not be found.");
+						"The root folder specified in the Mylyn Reports preference page could not be found.");
 				return null;
 			}
 
@@ -120,7 +119,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 			// Check that at least one folder was found to switch to
 			if (!(folders.size() > 0)) {
 				MessageDialog.openError(shell, "Switch Task Folder Error",
-						"No task data folders were found in the root folder specified in the Mylar Reports preference page.");
+						"No task data folders were found in the root folder specified in the Mylyn Reports preference page.");
 				return null;
 			}
 
@@ -166,18 +165,14 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 
 		if (targetFolder.equals(MAIN_LOCAL_DATA_DIR)) {
 			SandboxUiPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectoryEnabled(false);
-			// MylarTaskListPlugin.getDefault().setDataDirectory(ContextCorePlugin.getDefault().getDataDirectory());
 			(new ContextCapturePauseAction()).resume(); // TODO: don't use
 			// actions directly
 //			TaskListView.getFromActivePerspective().indicateSharedFolder("");
 			ContextCorePlugin.getContextManager().setActivationHistorySuppressed(false);
 		} else {
 			String dataDirPath = "<not implemented>";
-//			String dataDirPath = MylarReportsPlugin.getDefault().getRootSharedDataDirectory() + File.separator
-//					+ targetFolder;
 			SandboxUiPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectory(dataDirPath);
 			SandboxUiPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectoryEnabled(true);
-			// MylarTaskListPlugin.getDefault().setDataDirectory(dataDirPath);
 			(new ContextCapturePauseAction()).pause();
 //			TaskListView.getFromActivePerspective().indicateSharedFolder(targetFolder);
 			ContextCorePlugin.getContextManager().setActivationHistorySuppressed(true);

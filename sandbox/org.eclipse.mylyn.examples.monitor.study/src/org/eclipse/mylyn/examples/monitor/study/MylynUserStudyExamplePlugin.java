@@ -24,13 +24,13 @@ import org.osgi.framework.BundleContext;
 /**
  * @author Mik Kersten
  */
-public class MylarUserStudyExamplePlugin extends AbstractUIPlugin implements IStartup {
+public class MylynUserStudyExamplePlugin extends AbstractUIPlugin implements IStartup {
 
-	private static MylarUserStudyExamplePlugin plugin;
+	private static MylynUserStudyExamplePlugin plugin;
 
 	private SelectionMonitor selectionMonitor;
 
-	public MylarUserStudyExamplePlugin() {
+	public MylynUserStudyExamplePlugin() {
 		plugin = this;
 	}
 
@@ -82,7 +82,7 @@ public class MylarUserStudyExamplePlugin extends AbstractUIPlugin implements ISt
 	/**
 	 * Returns the shared instance.
 	 */
-	public static MylarUserStudyExamplePlugin getDefault() {
+	public static MylynUserStudyExamplePlugin getDefault() {
 		return plugin;
 	}
 

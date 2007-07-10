@@ -4,7 +4,7 @@
 		<pde.exportPlugins destination="${basedir}/archives" 
 			exportSource="true" 
 			exportType="zip" 
-			filename="mylar-lib-2.0M3.zip" 
+			filename="mylyn-lib-2.0M3.zip" 
 			plugins="org.eclipse.core.runtime,
 				org.eclipse.core.net,
 		    	org.eclipse.core.jobs,

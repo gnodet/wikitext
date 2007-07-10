@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.TableItem;
 
 public class UsageFileSelectionWizardPage extends WizardPage {
 
-	private final static String PAGE_TITLE = "Select any archived Mylar usage files you wish to upload";
+	private final static String PAGE_TITLE = "Select any archived Mylyn usage files you wish to upload";
 
 	private static final String DESCRIPTION = "Please select the archived usage files you want to upload to eclipse.org";
 

@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 /**
- * A wizard for uploading the Mylar statistics to a website
+ * A wizard for uploading the Mylyn statistics to a website
  * 
  * @author Ken Sueda
  * @author Mik Kersten
@@ -124,7 +124,7 @@ public class QuestionnaireWizardPage extends AbstractStudyQuestionnairePage {
 		// drop down box, choose from:
 		// well, ok, not well
 		label = new Label(container, SWT.NULL);
-		label.setText("How accurately did the Mylar model match your mental model of interesting elements?");
+		label.setText("How accurately did the context model match your mental model of interesting elements?");
 		mentalModelCombo = new Combo(container, SWT.READ_ONLY);
 		mentalModelCombo.setText(SELECT);
 		mentalModelCombo.add(WELL);
@@ -144,7 +144,7 @@ public class QuestionnaireWizardPage extends AbstractStudyQuestionnairePage {
 		// drop down box
 		// chose from: good, ok, not good
 		label = new Label(container, SWT.NULL);
-		label.setText("How effective are the Mylar views at exposing what you are working on?");
+		label.setText("How effective are the Mylyn views at exposing what you are working on?");
 		doiCombo = new Combo(container, SWT.READ_ONLY);
 		doiCombo.setText(SELECT);
 		doiCombo.add(GOOD);
@@ -164,7 +164,7 @@ public class QuestionnaireWizardPage extends AbstractStudyQuestionnairePage {
 		// drop down box
 		// chose from: well, ok, not well
 		label = new Label(container, SWT.NULL);
-		label.setText("How well did Mylar integrate with your workspace and environment?");
+		label.setText("How well did Mylyn integrate with your workspace and environment?");
 		integrateCombo = new Combo(container, SWT.READ_ONLY);
 		integrateCombo.setText(SELECT);
 		integrateCombo.add(WELL);

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Rename resource '/org.eclipse.mylyn.context.ui/icons/elcl16/mylar-overlay.gif' to 'mylyn-overlay.gif'&#13;&#10;- Original project: 'org.eclipse.mylyn.context.ui'&#13;&#10;- Original element: 'mylar-overlay.gif'" description="Rename resource 'mylar-overlay.gif'" flags="7" id="org.eclipse.jdt.ui.rename.resource" input="icons/elcl16/mylar-overlay.gif" name="mylyn-overlay.gif" stamp="1184020745999" version="1.0"/>
+</session>

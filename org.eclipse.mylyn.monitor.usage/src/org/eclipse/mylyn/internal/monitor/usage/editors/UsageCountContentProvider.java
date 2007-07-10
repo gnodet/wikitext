@@ -29,14 +29,7 @@ class UsageCountContentProvider implements IStructuredContentProvider {
 	}
 
 	public void inputChanged(Viewer v, Object oldInput, Object newInput) {
-		/*
-		 * If we're doing real-time updating we'll need to check when the model
-		 * changes.
-		 */
-		// if (newInput != null)
-		// ((MylarModel) newInput).addChangeListener(this);
-		// if (oldInput != null)
-		// ((MylarModel) oldInput).removeChangeListener(this);
+
 	}
 
 	public void dispose() {

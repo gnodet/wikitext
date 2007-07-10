@@ -26,7 +26,7 @@ import org.eclipse.mylyn.monitor.core.InteractionEvent;
  */
 public class FocusedUiViewUsageCollector extends ViewUsageCollector {
 
-	private Set<Integer> mylarUserIds = new HashSet<Integer>();
+	private Set<Integer> mylynUserIds = new HashSet<Integer>();
 
 	Map<Integer, Map<String, Integer>> usersFilteredViewSelections = new HashMap<Integer, Map<String, Integer>>();
 
@@ -48,9 +48,9 @@ public class FocusedUiViewUsageCollector extends ViewUsageCollector {
 
 		if (event.getKind().equals(InteractionEvent.Kind.COMMAND)) {
 			if (event.getOriginId().equals(TaskActivateAction.ID)) {
-				mylarUserIds.add(userId);
+				mylynUserIds.add(userId);
 			} else if (event.getOriginId().equals(TaskDeactivateAction.ID)) {
-				mylarUserIds.remove(userId);
+				mylynUserIds.remove(userId);
 			}
 		}
 
@@ -70,7 +70,7 @@ public class FocusedUiViewUsageCollector extends ViewUsageCollector {
 			String viewId = event.getOriginId();
 
 			// TODO: put back?
-			// if (mylarUserIds.contains(userId)) {
+			// if (mylynUserIds.contains(userId)) {
 			// if (event.getDelta().equals(SelectionMonitor.SELECTION_DECAYED))
 			// {
 			// if (!usersNumDecayed.containsKey(userId))
@@ -239,7 +239,7 @@ public class FocusedUiViewUsageCollector extends ViewUsageCollector {
 
 	@Override
 	public String getReportTitle() {
-		return "Mylar View Usage";
+		return "Mylyn View Usage";
 	}
 
 	/**

@@ -13,7 +13,7 @@ import org.eclipse.mylyn.monitor.core.InteractionEvent;
 
 public abstract class FocusedUiUsageDetector {
 
-	public static boolean isAMylarActivateCommand(InteractionEvent event) {
+	public static boolean isAMylynActivateCommand(InteractionEvent event) {
 		if (event.getKind().equals(InteractionEvent.Kind.COMMAND)) {
 			if (event.getOriginId().equals(TaskActivateAction.ID)) {
 				return true;
@@ -22,7 +22,7 @@ public abstract class FocusedUiUsageDetector {
 		return false;
 	}
 
-	public static boolean isAMylarDeactivateCommand(InteractionEvent event) {
+	public static boolean isAMylynDeactivateCommand(InteractionEvent event) {
 		if (event.getKind().equals(InteractionEvent.Kind.COMMAND)) {
 			if (event.getOriginId().equals(TaskDeactivateAction.ID)) {
 				return true;

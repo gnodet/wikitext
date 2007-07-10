@@ -88,19 +88,4 @@ public class BrowserTracker extends AbstractUserInteractionMonitor implements IP
 
 	public void partDeactivated(IWorkbenchPart part) {
 	}
-
-//	private Browser getBrowser(final WebBrowserEditor browserEditor) {
-//		try { // HACK: using reflection to gain accessibility
-//			Class<?> browserClass = browserEditor.getClass();
-//			Field browserField = browserClass.getDeclaredField("webBrowser");
-//			browserField.setAccessible(true);
-//			Object browserObject = browserField.get(browserEditor);
-//			if (browserObject != null && browserObject instanceof BrowserViewer) {
-//				return ((BrowserViewer) browserObject).getBrowser();
-//			}
-//		} catch (Exception e) {
-//			MylarStatusHandler.log(e, "could not add browser listener");
-//		}
-//		return null;
-//	}
 }

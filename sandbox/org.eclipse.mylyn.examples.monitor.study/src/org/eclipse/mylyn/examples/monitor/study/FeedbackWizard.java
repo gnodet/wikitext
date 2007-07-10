@@ -33,7 +33,7 @@ import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 
 /**
- * A wizard for uploading the Mylar statistics to a website
+ * A wizard for uploading the Mylyn statistics to a website
  * 
  * @author Shawn Minto
  * @author Mik Kersten
@@ -57,7 +57,7 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 		setNeedsProgressMonitor(true);
 		super.setDefaultPageImageDescriptor(UiUsageMonitorPlugin.imageDescriptorFromPlugin(
 				UiUsageMonitorPlugin.PLUGIN_ID, "icons/wizban/banner-user.gif"));
-		super.setWindowTitle("Mylar Feedback");
+		super.setWindowTitle("Mylyn Feedback");
 		feedbackPage = new SubmitFeedbackPage(null);
 	}
 
@@ -87,9 +87,9 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 		// XXX: unimplemented
 		uploadScript = "<unimplemented>";
 		// uploadScript =
-		// MylarUsageMonitorPlugin.getDefault().getStudyParameters().getScriptsUrl()
+		// MylynUsageMonitorPlugin.getDefault().getStudyParameters().getScriptsUrl()
 		// +
-		// MylarUsageMonitorPlugin.getDefault().getStudyParameters().getScriptsQuestionnaire();
+		// MylynUsageMonitorPlugin.getDefault().getStudyParameters().getScriptsQuestionnaire();
 
 		if (f.length() == 0)
 			return;
@@ -100,7 +100,7 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 			long time = new Date().getTime();
 
 			Part[] parts;
-			Part[] p = { new FilePart("MYLAR" + uid, UiUsageMonitorPlugin.UPLOAD_FILE_LABEL + "-"
+			Part[] p = { new FilePart("MYLYN" + uid, UiUsageMonitorPlugin.UPLOAD_FILE_LABEL + "-"
 					+ UiUsageMonitorPlugin.VERSION + "-" + "feedback" + "-" + uid + "-"
 					+ DateUtil.getFormattedDateTime(time) + ".txt", f) };
 			parts = p;

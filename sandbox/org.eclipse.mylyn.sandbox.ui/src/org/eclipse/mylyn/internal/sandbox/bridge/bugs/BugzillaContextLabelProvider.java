@@ -29,7 +29,7 @@ public class BugzillaContextLabelProvider extends AbstractContextLabelProvider {
 
 	@Override
 	protected Image getImage(IInteractionRelation edge) {
-		return ContextUiImages.getImage(MylarBugsManager.EDGE_REF_BUGZILLA);
+		return ContextUiImages.getImage(MylynBugsManager.EDGE_REF_BUGZILLA);
 	}
 
 	@Override
@@ -49,8 +49,7 @@ public class BugzillaContextLabelProvider extends AbstractContextLabelProvider {
 	protected String getText(IInteractionElement node) {
 		// try to get from the cache before downloading
 		Object report;
-		BugzillaReportInfo reportNode = MylarBugsManager.getReferenceProvider().getCached(node.getHandleIdentifier());
-//		BugzillaReport cachedReport = MylarBugsPlugin.getDefault().getCache().getCached(node.getHandleIdentifier());
+		BugzillaReportInfo reportNode = MylynBugsManager.getReferenceProvider().getCached(node.getHandleIdentifier());
 		AbstractContextStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(
 				BugzillaStructureBridge.CONTENT_TYPE);
 

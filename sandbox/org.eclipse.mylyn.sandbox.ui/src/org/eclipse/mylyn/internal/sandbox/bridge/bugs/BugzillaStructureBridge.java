@@ -38,7 +38,6 @@ public class BugzillaStructureBridge extends AbstractContextStructureBridge {
 	public BugzillaStructureBridge() {
 		super();
 		providers = new ArrayList<AbstractRelationProvider>();
-		// providers.add(MylarBugsPlugin.getReferenceProvider());
 	}
 
 	/**
@@ -65,95 +64,8 @@ public class BugzillaStructureBridge extends AbstractContextStructureBridge {
 	 */
 	@Override
 	public Object getObjectForHandle(final String handle) {
-//		result = null;
-//
-//		// HACK: determine appropriate repository
-//		final TaskRepository repository = MylarTaskListPlugin.getRepositoryManager().getRepositoryForActiveTask(
-//				BugzillaPlugin.REPOSITORY_KIND);
-//
-//		String[] parts = handle.split(";");
-//		if (parts.length >= 2) {
-//			String server = parts[0];
-//			final int taskId = Integer.parseInt(parts[1]);
-//
-//			final String bugHandle = server + ";" + taskId;
-//
-//			int commentNumber = -1;
-//			if (parts.length == 3) {
-//				commentNumber = Integer.parseInt(parts[2]);
-//			}
-//
-//			// get the bugzillaOutlineNode for the element
-//			IEditorPart editorPart = null;
-//			try {
-//				editorPart = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-//			} catch (NullPointerException e) {
-//				// do nothing, this just means that there is no active page
-//			}
-//			if (editorPart != null && editorPart instanceof AbstractTaskEditor) {
-//				AbstractTaskEditor abe = ((AbstractTaskEditor) editorPart);
-//				RepositoryTaskOutlineNode node = abe.getOutlineModel();
-//				return findNode(node, commentNumber);
-//			}
-//
-//			BugzillaReportElement reportNode = MylarBugsPlugin.getReferenceProvider().getCached(handle);
-//
-//			// try to get from the cache, if it doesn't exist, startup an
-//			// operation to get it
-//			result = MylarBugsPlugin.getDefault().getCache().getFromCache(bugHandle);
-//			if (result == null && reportNode != null) {
-//				return reportNode;
-//			} else if (result == null && reportNode == null) {
-//				IRunnableWithProgress op = new IRunnableWithProgress() {
-//					public void run(IProgressMonitor monitor) {
-//						monitor.beginTask("Downloading Bug# " + taskId, IProgressMonitor.UNKNOWN);
-//						try {
-//							Proxy proxySettings = MylarTaskListPlugin.getDefault().getProxySettings();
-//							// XXX: move this
-//							result = BugzillaRepositoryUtil.getBug(repository.getUrl(), repository.getUserName(), repository.getPassword(), proxySettings, repository.getCharacterEncoding(), taskId);
-//							if (result != null) {
-//								MylarBugsPlugin.getDefault().getCache().cache(bugHandle, result);
-//							}
-//						} catch (Exception e) {
-//							result = null;
-//						}
-//					}
-//				};
-//
-//				IProgressService service = PlatformUI.getWorkbench().getProgressService();
-//				try {
-//					service.run(false, false, op);
-//				} catch (InvocationTargetException e) {
-//					// RepositoryOperation was canceled
-//				} catch (InterruptedException e) {
-//					// Handle the wrapped exception
-//				}
-//				return null;
-//			}
-//		}
 		return null;
 	}
-
-//	private RepositoryTaskOutlineNode findNode(RepositoryTaskOutlineNode startNode, int commentNumber) {
-//
-//		if (commentNumber == -1) {
-//			return startNode;
-//		} else if (startNode.getComment() != null && startNode.getComment().getNumber() == commentNumber - 1) {
-//			return startNode;
-//		} else if (startNode.isCommentHeader() && commentNumber == 1) {
-//			return startNode;
-//		} else if (startNode.isDescription() && commentNumber == 0) {
-//			return startNode;
-//		}
-//
-//		RepositoryTaskOutlineNode[] children = startNode.getChildren();
-//		for (int i = 0; i < children.length; i++) {
-//			RepositoryTaskOutlineNode n = findNode(children[i], commentNumber);
-//			if (n != null)
-//				return n;
-//		}
-//		return null;
-//	}
 
 	@Override
 	public String getParentHandle(String handle) {
@@ -168,17 +80,6 @@ public class BugzillaStructureBridge extends AbstractContextStructureBridge {
 			return ContentOutlineTools.getHandle(bon.getParent());
 		else
 			return null;
-		// String [] parts = handle.split(";");
-		// if (parts.length == 1){
-		// return null;
-		// }else if (parts.length > 2) {
-		// String newHandle = "";
-		// for(int i = 0; i < parts.length - 1; i++)
-		// newHandle += parts[i] + ";";
-		// return newHandle.substring(0, newHandle.length() - 1);
-		// // return handle.substring(0, handle.lastIndexOf(";"));
-		// }
-		// return null;
 	}
 
 	@Override

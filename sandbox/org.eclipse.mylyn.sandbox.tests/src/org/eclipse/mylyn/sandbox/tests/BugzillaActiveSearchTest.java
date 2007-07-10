@@ -21,9 +21,9 @@ import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaTask;
 import org.eclipse.mylyn.internal.bugzilla.core.IBugzillaConstants;
 import org.eclipse.mylyn.internal.context.core.IActiveSearchListener;
-import org.eclipse.mylyn.internal.sandbox.bridge.bugs.BugzillaMylarSearch;
+import org.eclipse.mylyn.internal.sandbox.bridge.bugs.BugzillaMylynSearch;
 import org.eclipse.mylyn.internal.sandbox.bridge.bugs.BugzillaReportInfo;
-import org.eclipse.mylyn.internal.sandbox.bridge.bugs.MylarBugsManager;
+import org.eclipse.mylyn.internal.sandbox.bridge.bugs.MylynBugsManager;
 import org.eclipse.mylyn.internal.tasks.core.TaskCategory;
 import org.eclipse.mylyn.java.tests.search.SearchPluginTestHelper;
 import org.eclipse.mylyn.java.tests.search.WorkspaceSetupHelper;
@@ -112,7 +112,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 			}
 		};
 
-		BugzillaMylarSearch s = new BugzillaMylarSearch(BugzillaMylarSearch.UNQUAL, astNodeType,
+		BugzillaMylynSearch s = new BugzillaMylynSearch(BugzillaMylynSearch.UNQUAL, astNodeType,
 				IBugzillaConstants.ECLIPSE_BUGZILLA_URL);
 
 		// add the first listener
@@ -128,7 +128,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 		assertTrue("listener was not added", lists.size() == 1);
 
 		// display the time it took for the search
-		MylarBugsManager.getBridge().removeFromLandmarksHash(astNodeType);
+		MylynBugsManager.getBridge().removeFromLandmarksHash(astNodeType);
 	}
 
 	/**
@@ -136,7 +136,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 	 */
 	public void testBridge() {
 		lists.clear();
-		BugzillaMylarSearch s = new BugzillaMylarSearch(BugzillaMylarSearch.UNQUAL, astNodeType,
+		BugzillaMylynSearch s = new BugzillaMylynSearch(BugzillaMylynSearch.UNQUAL, astNodeType,
 				IBugzillaConstants.ECLIPSE_BUGZILLA_URL);
 
 		IActiveSearchListener l = new IActiveSearchListener() {
@@ -165,7 +165,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 		// size
 
 		// display the time it took for the search and the results returned
-		MylarBugsManager.getBridge().removeFromLandmarksHash(astNodeType);
+		MylynBugsManager.getBridge().removeFromLandmarksHash(astNodeType);
 
 	}
 
@@ -174,7 +174,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 	 */
 	public void testSaveResults() {
 		lists.clear();
-		BugzillaMylarSearch s = new BugzillaMylarSearch(BugzillaMylarSearch.UNQUAL, astNodeType,
+		BugzillaMylynSearch s = new BugzillaMylynSearch(BugzillaMylynSearch.UNQUAL, astNodeType,
 				IBugzillaConstants.ECLIPSE_BUGZILLA_URL);
 
 		IActiveSearchListener l = new IActiveSearchListener() {
@@ -200,8 +200,8 @@ public class BugzillaActiveSearchTest extends TestCase {
 		// TODO should be assertEquals on expected size
 
 		// check that the search has been saved
-		List<BugzillaReportInfo> saved = MylarBugsManager.getBridge().getFromLandmarksHash(astNodeType,
-				BugzillaMylarSearch.UNQUAL);
+		List<BugzillaReportInfo> saved = MylynBugsManager.getBridge().getFromLandmarksHash(astNodeType,
+				BugzillaMylynSearch.UNQUAL);
 		assertTrue("Results not cached", saved != null);
 		if (saved == null) {
 			fail();
@@ -210,7 +210,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 			// TODO should be assertEquals on expected size
 
 			assertTrue(c.containsAll(saved) && saved.containsAll(c));
-			MylarBugsManager.getBridge().removeFromLandmarksHash(astNodeType);
+			MylynBugsManager.getBridge().removeFromLandmarksHash(astNodeType);
 		}
 	}
 
@@ -219,8 +219,6 @@ public class BugzillaActiveSearchTest extends TestCase {
 
 		String bugPrefix = "<server>-";
 
-		// TaskList t = MylarTaskListPlugin.getTaskListManager().getTaskList();
-		// MylarTaskListPlugin.getTaskListManager().setTaskList(t);
 		TaskListManager manager = TasksUiPlugin.getTaskListManager();
 		TaskCategory cat = new TaskCategory("Testing Category");
 		manager.getTaskList().addCategory(cat);
@@ -251,7 +249,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 			Thread.sleep(500);
 		}
 
-		BugzillaMylarSearch s = new BugzillaMylarSearch(BugzillaMylarSearch.LOCAL_UNQUAL, astNodeType,
+		BugzillaMylynSearch s = new BugzillaMylynSearch(BugzillaMylynSearch.LOCAL_UNQUAL, astNodeType,
 				IBugzillaConstants.ECLIPSE_BUGZILLA_URL);
 
 		IActiveSearchListener l = new IActiveSearchListener() {
@@ -275,7 +273,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 		List<?> c = lists.get(0);
 		assertEquals("Results not the right size", 3, c.size());
 
-		MylarBugsManager.getBridge().removeFromLandmarksHash(astNodeType);
+		MylynBugsManager.getBridge().removeFromLandmarksHash(astNodeType);
 		TasksUiPlugin.getTaskListManager().getTaskList().deleteCategory(cat);
 	}
 
@@ -286,8 +284,6 @@ public class BugzillaActiveSearchTest extends TestCase {
 
 		String bugPrefix = "Bugzilla-";
 
-		// TaskList t = MylarTaskListPlugin.getTaskListManager().getTaskList();
-		// MylarTaskListPlugin.getTaskListManager().setTaskList(t);
 		TaskListManager manager = TasksUiPlugin.getTaskListManager();
 		TaskCategory cat = new TaskCategory("Testing Category");
 		manager.getTaskList().addCategory(cat);
@@ -311,7 +307,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 			Thread.sleep(500);
 		}
 
-		BugzillaMylarSearch s = new BugzillaMylarSearch(BugzillaMylarSearch.LOCAL_QUAL, astNodeType,
+		BugzillaMylynSearch s = new BugzillaMylynSearch(BugzillaMylynSearch.LOCAL_QUAL, astNodeType,
 				IBugzillaConstants.ECLIPSE_BUGZILLA_URL);
 
 		IActiveSearchListener l = new IActiveSearchListener() {
@@ -335,7 +331,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 		List<?> c = lists.get(0);
 		assertEquals("Results not the right size", 1, c.size());
 
-		MylarBugsManager.getBridge().removeFromLandmarksHash(astNodeType);
+		MylynBugsManager.getBridge().removeFromLandmarksHash(astNodeType);
 		TasksUiPlugin.getTaskListManager().getTaskList().deleteCategory(cat);
 	}
 

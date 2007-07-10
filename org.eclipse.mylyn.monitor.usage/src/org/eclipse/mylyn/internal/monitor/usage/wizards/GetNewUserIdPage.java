@@ -33,7 +33,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 /**
- * Page to get a mylar user study id for the user.
+ * Page to get a user study id for the user.
  * 
  * @author Mik Kersten
  * @author Shawn Minto
@@ -82,7 +82,7 @@ public class GetNewUserIdPage extends WizardPage {
 	public GetNewUserIdPage(UsageSubmissionWizard wizard, boolean performUpload) {
 		super("Statistics Wizard");
 		this.performUpload = performUpload;
-		setTitle("Get Mylar Feedback User ID");
+		setTitle("Get Mylyn Feedback User ID");
 		setDescription("In order to submit usage feedback you first need to get a User ID.\n");
 		this.wizard = wizard;
 		if (UiUsageMonitorPlugin.getDefault().getCustomizingPlugin() != null) {
@@ -373,8 +373,8 @@ public class GetNewUserIdPage extends WizardPage {
 							if (wizard.getUploadPage() != null)
 								wizard.getUploadPage().updateUid();
 							hasValidated = true;
-							MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Mylar User Study ID",
-									"Your mylar user study ID is: " + wizard.getUid());
+							MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Mylyn User Study ID",
+									"Your Mylyn user study ID is: " + wizard.getUid());
 						}
 					} else {
 						MessageDialog.openError(Display.getDefault().getActiveShell(), "Incomplete Form Input",
@@ -404,8 +404,8 @@ public class GetNewUserIdPage extends WizardPage {
 							hasValidated = true;
 							MessageDialog.openInformation(
 									Display.getDefault().getActiveShell(),
-									"Mylar Feedback User ID",
-									"Your mylar feedback ID is: "
+									"Mylyn Feedback User ID",
+									"Your Mylyn feedback ID is: "
 											+ wizard.getUid()
 											+ "\n\nPlease record this number if you are using multiple copies of eclipse so that you do not have to register again.\n\nYou can also retrieve this ID by repeating the consent process at a later time.");
 						}
@@ -434,7 +434,7 @@ public class GetNewUserIdPage extends WizardPage {
 		Label label = new Label(container, SWT.NONE);
 		label.setText("Your data will not be traceable back to you, but an ID helps us analyze the usage statistics.");
 		label = new Label(container, SWT.NONE);
-		label.setText("Before switching workspaces please retrieve this ID from the Mylar Preferences so that you can use it again.");
+		label.setText("Before switching workspaces please retrieve this ID from the Mylyn Preferences so that you can use it again.");
 		// GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
 		// label.setLayoutData(gd);
 
@@ -457,8 +457,8 @@ public class GetNewUserIdPage extends WizardPage {
 						hasValidated = true;
 						MessageDialog.openInformation(
 								Display.getDefault().getActiveShell(),
-								"Mylar User Study ID",
-								"Your mylar user study id is: "
+								"Mylyn User Study ID",
+								"Your Mylyn user study id is: "
 										+ wizard.getUid()
 										+ "\n Please record this number if you are using multiple copies of eclipse so that you do not have to register again.");
 					}
@@ -470,35 +470,6 @@ public class GetNewUserIdPage extends WizardPage {
 				// don't care about default selected
 			}
 		});
-
-		// getExistingUid = new Button(container, SWT.PUSH);
-		// gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
-		// getExistingUid.setLayoutData(gd);
-		// getExistingUid.setSelection(false);
-		// getExistingUid.setText("Use Existing ID");
-		// getExistingUid.addSelectionListener(new SelectionListener(){
-		// public void widgetSelected(SelectionEvent e) {
-		// if (e.widget instanceof Button) {
-		// if(wizard.getExistingUid(null, null, null, true) != -1){
-		// if(wizard.getUploadPage() != null)
-		// wizard.getUploadPage().updateUid();
-		// hasValidated = true;
-		// MessageDialog.openInformation(Display.getDefault().getActiveShell(),
-		// "Mylar Feedback User ID", "Your mylar feedback id is: " +
-		// wizard.getUid() + "\n Please record this number if you are using
-		// multiple copies of eclipse so that you do not have to register
-		// again.");
-		// }
-		// } else {
-		// MessageDialog.openError( Display.getDefault().getActiveShell(),
-		// "Myalr Monitor", "That ID does not exist.");
-		// }
-		// GetNewUserIdPage.this.setPageComplete(GetNewUserIdPage.this.isPageComplete());
-		// }
-		// public void widgetDefaultSelected(SelectionEvent e) {
-		// // don't care about default selected
-		// }
-		// });
 		updateEnablement();
 	}
 

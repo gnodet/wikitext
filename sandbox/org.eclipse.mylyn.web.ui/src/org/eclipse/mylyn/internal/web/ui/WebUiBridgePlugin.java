@@ -56,7 +56,7 @@ public class WebUiBridgePlugin extends AbstractUIPlugin {
 				}
 			}
 		} catch (Exception e) {
-			StatusHandler.fail(e, "Mylar Hypertext initialization failed", false);
+			StatusHandler.fail(e, "Mylyn Web UI initialization failed", false);
 		}
 	}
 

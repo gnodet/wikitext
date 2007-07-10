@@ -59,7 +59,7 @@ public class Util {
 		String long_desc = "";
 
 		// get the fully qualified name of the element
-		long_desc += BugzillaMylarSearchOperation.getFullyQualifiedName(je);
+		long_desc += BugzillaMylynSearchOperation.getFullyQualifiedName(je);
 
 		try {
 			// encode the string to be used as a url

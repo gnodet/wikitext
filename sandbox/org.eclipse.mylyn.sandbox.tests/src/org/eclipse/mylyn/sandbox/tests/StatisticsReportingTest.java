@@ -123,7 +123,7 @@ public class StatisticsReportingTest extends TestCase {
 		// TODO: these are off from expected when test run alone, due to unknown
 		// element selections
 		assertEquals(0.5f, editRatioCollector.getBaselineRatio(-1));
-		assertEquals(2f, editRatioCollector.getMylarRatio(-1));
+		assertEquals(2f, editRatioCollector.getMylynRatio(-1));
 	}
 
 	@SuppressWarnings("unused")
@@ -192,7 +192,6 @@ public class StatisticsReportingTest extends TestCase {
 	 * Delay enough to make replicated events different
 	 */
 	private void mockUserDelay() {
-		// TODO: Refactor into mylar.core.tests
 		try {
 			// XXX: this could be sensitive to CPU speeds
 			Thread.sleep(100);

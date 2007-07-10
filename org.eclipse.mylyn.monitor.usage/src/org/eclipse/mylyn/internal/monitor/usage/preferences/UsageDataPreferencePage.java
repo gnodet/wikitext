@@ -35,7 +35,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
  */
 public class UsageDataPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 
-	private static final String DESCRIPTION = "If enabled the Mylar monitor logs selections, edits, commands, and preference changes. "
+	private static final String DESCRIPTION = "If enabled the Mylyn Monitor logs selections, edits, commands, and preference changes. "
 			+ "If you would like to help improve the user experience by anonymously sharing non-private "
 			+ "parts of this data, enable automatic feedback submission or submit your data via the "
 			+ "Usage Summary Wizard.";
@@ -237,9 +237,6 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 				MonitorPreferenceConstants.PREF_MONITORING_ENABLED));
 		enableObfuscation.setSelection(getPreferenceStore().getBoolean(
 				MonitorPreferenceConstants.PREF_MONITORING_OBFUSCATE));
-		// userStudyId.setStringValue(MylarUsageMonitorPlugin.getDefault().getPreferenceStore().getInt(
-		// MylarUsageMonitorPlugin.PREF_USER_ID)
-		// + "");
 		return true;
 	}
 }

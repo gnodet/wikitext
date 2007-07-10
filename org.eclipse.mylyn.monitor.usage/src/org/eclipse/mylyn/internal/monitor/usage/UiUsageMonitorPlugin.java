@@ -85,7 +85,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 
 	public static final String DEFAULT_TITLE = "Mylyn Feedback";
 
-	public static final String DEFAULT_DESCRIPTION = "Fill out the following form to help us improve Mylar based on your input.\n";
+	public static final String DEFAULT_DESCRIPTION = "Fill out the following form to help us improve Mylyn based on your input.\n";
 
 	public static final long DEFAULT_DELAY_BETWEEN_TRANSMITS = 21 * 24 * HOUR;
 
@@ -461,13 +461,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 		}
 
 		File file = new File(rootDir, MONITOR_LOG_NAME + InteractionContextManager.CONTEXT_FILE_EXTENSION_OLD);
-
-		// File oldFile = new
-		// File(ContextCorePlugin.getDefault().getContextStore().getRootDirectory(),
-		// "workspace" + MylarContextManager.CONTEXT_FILE_EXTENSION_OLD);
-		// if (oldFile.exists()) {
-		// oldFile.renameTo(file);
-		// } else
+		
 		if (!file.exists() || !file.canWrite()) {
 			try {
 				file.createNewFile();
@@ -528,19 +522,9 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 		return resourceBundle;
 	}
 
+	// TODO: remove
 	private void checkForFirstMonitorUse() {
-//		if (!isMonitoringEnabled())
-//			return;
-//		if (!notifiedOfUserIdSubmission
-//				&& !MylarUsageMonitorPlugin.getDefault().getPreferenceStore().contains(
-//						MylarUsageMonitorPlugin.PREF_USER_ID)) {
-//			notifiedOfUserIdSubmission = true;
-//			UsageSubmissionWizard wizard = new UsageSubmissionWizard(false);
-//			wizard.init(PlatformUI.getWorkbench(), null);
-//			WizardDialog dialog = new WizardDialog(Display.getDefault().getActiveShell(), wizard);
-//			dialog.create();
-//			dialog.open();
-//		}
+		
 	}
 
 	// NOTE: not currently used
@@ -581,9 +565,9 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 						currentTime.getTime());
 
 				if (!plugin.getPreferenceStore().contains(
-						MonitorPreferenceConstants.PREF_MONITORING_MYLAR_ECLIPSE_ORG_CONSENT_VIEWED)
+						MonitorPreferenceConstants.PREF_MONITORING_MYLYN_ECLIPSE_ORG_CONSENT_VIEWED)
 						|| !plugin.getPreferenceStore().getBoolean(
-								MonitorPreferenceConstants.PREF_MONITORING_MYLAR_ECLIPSE_ORG_CONSENT_VIEWED)) {
+								MonitorPreferenceConstants.PREF_MONITORING_MYLYN_ECLIPSE_ORG_CONSENT_VIEWED)) {
 					MessageDialog consentMessage = new MessageDialog(
 							Display.getDefault().getActiveShell(),
 							"Consent",
@@ -594,7 +578,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 							MessageDialog.INFORMATION, new String[] { IDialogConstants.OK_LABEL }, 0);
 					consentMessage.open();
 					plugin.getPreferenceStore().setValue(
-							MonitorPreferenceConstants.PREF_MONITORING_MYLAR_ECLIPSE_ORG_CONSENT_VIEWED, true);
+							MonitorPreferenceConstants.PREF_MONITORING_MYLYN_ECLIPSE_ORG_CONSENT_VIEWED, true);
 				}
 
 				NewUsageSummaryEditorWizard wizard = new NewUsageSummaryEditorWizard();
@@ -609,7 +593,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 				 * synchronous way to know if it failed if (wizard.failed()) {
 				 * lastTransmit.setTime(currentTime.getTime() + DELAY_ON_FAILURE -
 				 * studyParameters.getTransmitPromptPeriod());
-				 * plugin.getPreferenceStore().setValue(MylarMonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE,
+				 * plugin.getPreferenceStore().setValue(MylynMonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE,
 				 * currentTime.getTime()); }
 				 */
 
@@ -737,9 +721,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 								}
 							}
 							customizingPlugin = extensions[i].getNamespace();
-							// getPreferenceStore()
-							// .setValue(MylarMonitorPreferenceConstants.PREF_MONITORING_ENABLED,
-							// true);
 						}
 						extensionsRead = true;
 					}

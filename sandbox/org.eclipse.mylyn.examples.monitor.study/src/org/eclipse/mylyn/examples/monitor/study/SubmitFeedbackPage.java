@@ -78,7 +78,7 @@ public class SubmitFeedbackPage extends WizardPage {
 	 */
 	public SubmitFeedbackPage(UsageSubmissionWizard uploadWizard) {
 		super("Feedback Wizard");
-		setTitle("Submit feedback for Mylar User Study");
+		setTitle("Submit feedback for Mylyn User Study");
 		// setDescription(QuestionnaireWizardPage.FEEDBACK_REQUEST);
 		this.uploadWizard = uploadWizard;
 	}

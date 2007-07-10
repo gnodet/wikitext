@@ -19,7 +19,7 @@ import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IMember;
 
 /**
- * Class to handle the bridge between mylar and bugzilla
+ * Class to handle the bridge between Mylyn and bugzilla
  * 
  * @author Shawn Minto
  */

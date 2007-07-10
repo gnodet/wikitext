@@ -519,43 +519,6 @@ public class TaskActivityView extends ViewPart {
 		}
 	}
 
-	// OLD SORTER
-	// private class TaskActivityTableSorter extends ViewerSorter {
-	//
-	// public TaskActivityTableSorter() {
-	// super();
-	// }
-	//
-	// @Override
-	// public int compare(Viewer compareViewer, Object o1, Object o2) {
-	// if (o1 instanceof DateRangeContainer) {
-	// if (o2 instanceof DateRangeContainer) {
-	// DateRangeContainer dateRangeTaskContainer1 = (DateRangeContainer) o1;
-	// DateRangeContainer dateRangeTaskContainer2 = (DateRangeContainer) o2;
-	// return
-	// dateRangeTaskContainer2.getStart().compareTo(dateRangeTaskContainer1.getStart());
-	// } else {
-	// return 1;
-	// }
-	// } else if (o1 instanceof ITask) {
-	// if (o2 instanceof AbstractTaskContainer) {
-	// return -1;
-	// } else if (o2 instanceof DateRangeActivityDelegate) {
-	// DateRangeActivityDelegate task1 = (DateRangeActivityDelegate) o1;
-	// DateRangeActivityDelegate task2 = (DateRangeActivityDelegate) o2;
-	// Calendar calendar1 = task1.getStart();//
-	// MylarTaskListPlugin.getTaskActivityManager().getLastOccurrence(task1.getHandleIdentifier());
-	// Calendar calendar2 = task2.getStart();//
-	// MylarTaskListPlugin.getTaskActivityManager().getLastOccurrence(task2.getHandleIdentifier());
-	// if (calendar1 != null && calendar2 != null) {
-	// return calendar2.compareTo(calendar1);
-	// }
-	// }
-	// }
-	// return 0;
-	// }
-	// }
-
 	@Override
 	public void init(IViewSite site, IMemento memento) throws PartInitException {
 		super.init(site, memento);

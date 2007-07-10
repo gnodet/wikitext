@@ -20,7 +20,7 @@ import org.osgi.framework.BundleContext;
  * @author Mik Kersten
  * @author Shawn Minto
  */
-public class MylarBugsManager {
+public class MylynBugsManager {
 
 	public static ImageDescriptor EDGE_REF_BUGZILLA = getImageDescriptor("icons/elcl16/edge-ref-bug.gif");
 
@@ -28,11 +28,11 @@ public class MylarBugsManager {
 
 	private static BugzillaReferencesProvider referencesProvider = new BugzillaReferencesProvider();
 
-	private static MylarBugsManager INSTANCE;
+	private static MylynBugsManager INSTANCE;
 
 //	private BugzillaReportCache cache
 
-	public MylarBugsManager() {
+	public MylynBugsManager() {
 		INSTANCE = this;
 //		cache = new BugzillaReportCache();
 //		cache.readCacheFile();
@@ -58,7 +58,7 @@ public class MylarBugsManager {
 	/**
 	 * Returns the shared instance.
 	 */
-	public static MylarBugsManager getDefault() {
+	public static MylynBugsManager getDefault() {
 		return INSTANCE;
 	}
 

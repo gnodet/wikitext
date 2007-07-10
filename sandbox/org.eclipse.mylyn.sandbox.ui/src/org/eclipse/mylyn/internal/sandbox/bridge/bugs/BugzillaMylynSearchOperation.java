@@ -44,7 +44,7 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
  * @author Shawn Minto
  * @author Mik Kersten
  */
-public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation implements IBugzillaSearchOperation {
+public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation implements IBugzillaSearchOperation {
 
 	/** The IMember we are doing the search for */
 	private IMember javaElement;
@@ -64,11 +64,11 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	/** The bugzilla search query */
 	private AbstractRepositorySearchQuery query;
 
-	private BugzillaMylarSearch search;
+	private BugzillaMylynSearch search;
 
 	private int scope;
 
-	public BugzillaMylarSearchOperation(BugzillaMylarSearch search, IMember m, int scope) {
+	public BugzillaMylynSearchOperation(BugzillaMylynSearch search, IMember m, int scope) {
 		this.javaElement = m;
 		this.search = search;
 		this.scope = scope;
@@ -97,13 +97,13 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 
 		ProgressQueryHitCollector searchCollector = null;
 
-		if (scope == BugzillaMylarSearch.FULLY_QUAL) {
+		if (scope == BugzillaMylynSearch.FULLY_QUAL) {
 			searchCollector = searchQualified(search.getServerUrl(), monitor);
-		} else if (scope == BugzillaMylarSearch.UNQUAL) {
+		} else if (scope == BugzillaMylynSearch.UNQUAL) {
 			searchCollector = searchUnqualified(search.getServerUrl(), monitor);
-		} else if (scope == BugzillaMylarSearch.LOCAL_QUAL) {
+		} else if (scope == BugzillaMylynSearch.LOCAL_QUAL) {
 			searchCollector = searchLocalQual(monitor);
-		} else if (scope == BugzillaMylarSearch.LOCAL_UNQUAL) {
+		} else if (scope == BugzillaMylynSearch.LOCAL_UNQUAL) {
 			searchCollector = searchLocalUnQual(monitor);
 		} else {
 			status = Status.OK_STATUS;
@@ -122,7 +122,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 
 		// we completed the search, so notify all of the listeners
 		// that the search has been completed
-		MylarBugsManager.getBridge().addToLandmarksHash(doiList, javaElement, scope);
+		MylynBugsManager.getBridge().addToLandmarksHash(doiList, javaElement, scope);
 		search.notifySearchCompleted(doiList);
 		// MIK: commmented out logging
 		// MonitorPlugin.log(this, "There were " + doiList.size() + " items
@@ -417,7 +417,7 @@ public class BugzillaMylarSearchOperation extends WorkspaceModifyOperation imple
 	private List<BugzillaReportInfo> getDoiList(Set<AbstractTask> results) {
 		List<BugzillaReportInfo> doiList = new ArrayList<BugzillaReportInfo>();
 
-		boolean isExact = (scope == BugzillaMylarSearch.FULLY_QUAL || scope == BugzillaMylarSearch.LOCAL_QUAL) ? true
+		boolean isExact = (scope == BugzillaMylynSearch.FULLY_QUAL || scope == BugzillaMylynSearch.LOCAL_QUAL) ? true
 				: false;
 
 		BugzillaReportInfo info = null;

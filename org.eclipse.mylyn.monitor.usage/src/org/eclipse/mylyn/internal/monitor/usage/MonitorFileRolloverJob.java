@@ -36,18 +36,17 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * Job that performs the rollover of the mylar monitor interaction history log file. Overwrites destination if exists!
+ * Job that performs the rollover of the monitor interaction history log file. Overwrites destination if exists!
  * 
  * @author Meghan Allen (modelled after org.eclipse.mylyn.internal.tasks.ui.util.TaskDataExportJob)
  * 
  */
 public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 
-	private static final String JOB_LABEL = "Mylar Monitor Log Rollover";
+	private static final String JOB_LABEL = "Mylyn Monitor Log Rollover";
 
-	// needs to be the same as NAME_DATA_DIR in
-	// org.eclipse.mylyn.tasks.ui.TasksUIPlugin
-	private static final String NAME_DATA_DIR = ".mylar";
+	// XXX: needs to be the same as NAME_DATA_DIR in org.eclipse.mylyn.tasks.ui.TasksUIPlugin
+	private static final String NAME_DATA_DIR = ".mylyn";
 
 	private static final String DIRECTORY_MONITOR_BACKUP = "monitor";
 
@@ -66,7 +65,6 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 	public MonitorFileRolloverJob(List<IUsageCollector> collectors) {
 		super(JOB_LABEL);
 		this.collectors = collectors;
-
 	}
 
 	@SuppressWarnings("deprecation")
@@ -191,10 +189,10 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 				zipFileStream.closeEntry();
 				zipFileStream.close();
 			} catch (FileNotFoundException e) {
-				StatusHandler.log("Mylar monitor log rollover failed - " + e.getMessage(), this);
+				StatusHandler.log("Mylyn monitor log rollover failed - " + e.getMessage(), this);
 
 			} catch (IOException e) {
-				StatusHandler.log("Mylar monitor log rollover failed - " + e.getMessage(), this);
+				StatusHandler.log("Mylyn monitor log rollover failed - " + e.getMessage(), this);
 			}
 
 		}
@@ -221,7 +219,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 						.getActiveWorkbenchWindow()
 						.getActivePage();
 				if (page == null) {
-					return new Status(Status.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, Status.OK, "Mylar Usage Summary",
+					return new Status(Status.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, Status.OK, "Mylyn Usage Summary",
 							null);
 				}
 				if (input != null) {

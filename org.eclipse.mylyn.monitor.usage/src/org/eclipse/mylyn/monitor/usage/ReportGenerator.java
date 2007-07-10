@@ -172,7 +172,7 @@ public class ReportGenerator {
 
 	class GenerateStatisticsJob extends Job {
 
-		private static final String JOB_LABEL = "Mylar Usage Summary Generation";
+		private static final String JOB_LABEL = "Mylyn Usage Summary Generation";
 
 		private final ReportGenerator generator;
 

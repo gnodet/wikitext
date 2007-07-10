@@ -26,10 +26,10 @@ import org.eclipse.ui.PlatformUI;
  * @author Shawn Minto
  * @author Mik Kersten
  */
-public class BugzillaMylarSearchJob extends Job {
+public class BugzillaMylynSearchJob extends Job {
 
 	/** The search operation used to perform the query */
-	private BugzillaMylarSearchOperation operation;
+	private BugzillaMylynSearchOperation operation;
 
 	/**
 	 * Constructor
@@ -39,7 +39,7 @@ public class BugzillaMylarSearchJob extends Job {
 	 * @param operation
 	 *            The operation to perform the search query
 	 */
-	public BugzillaMylarSearchJob(String name, BugzillaMylarSearchOperation operation) {
+	public BugzillaMylynSearchJob(String name, BugzillaMylynSearchOperation operation) {
 		super(name);
 		this.operation = operation;
 	}

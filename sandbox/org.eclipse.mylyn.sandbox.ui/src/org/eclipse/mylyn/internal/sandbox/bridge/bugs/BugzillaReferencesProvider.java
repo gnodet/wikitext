@@ -86,11 +86,11 @@ public class BugzillaReferencesProvider extends AbstractRelationProvider {
 
 		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepositoryForActiveTask(
 				BugzillaCorePlugin.REPOSITORY_KIND, TasksUiPlugin.getTaskListManager().getTaskList());
-		return new BugzillaMylarSearch(degreeOfSepatation, javaElement, repository.getUrl());
+		return new BugzillaMylynSearch(degreeOfSepatation, javaElement, repository.getUrl());
 	}
 
 	private void runJob(final IInteractionElement node, final int degreeOfSeparation) {
-		BugzillaMylarSearch search = (BugzillaMylarSearch) getSearchOperation(node, 0, degreeOfSeparation);
+		BugzillaMylynSearch search = (BugzillaMylynSearch) getSearchOperation(node, 0, degreeOfSeparation);
 
 		search.addListener(new IActiveSearchListener() {
 
@@ -99,7 +99,7 @@ public class BugzillaReferencesProvider extends AbstractRelationProvider {
 			public void searchCompleted(List<?> nodes) {
 				Iterator<?> itr = nodes.iterator();
 
-				if (MylarBugsManager.getDefault() == null)
+				if (MylynBugsManager.getDefault() == null)
 					return;
 
 				while (itr.hasNext()) {

@@ -22,7 +22,7 @@ import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
 
 /**
- * This action is not persistent, in order to avoid Mylar not working on startup.
+ * This action is not persistent, in order to avoid Mylyn not working on startup.
  * 
  * @author Mik Kersten
  */

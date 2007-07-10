@@ -29,7 +29,7 @@ import org.eclipse.mylyn.internal.context.core.IActiveSearchOperation;
  * 
  * @author Shawn Minto
  */
-public class BugzillaMylarSearch implements IActiveSearchOperation {
+public class BugzillaMylynSearch implements IActiveSearchOperation {
 
 	// scope identifiers
 	public static final int LOCAL_QUAL = 1; // local implies a bugzilla task,
@@ -56,7 +56,7 @@ public class BugzillaMylarSearch implements IActiveSearchOperation {
 	 * @param scope
 	 *            The scope of this search
 	 */
-	public BugzillaMylarSearch(int scope, IJavaElement element, String serverUrl) {
+	public BugzillaMylynSearch(int scope, IJavaElement element, String serverUrl) {
 		this.scope = scope;
 		this.element = element;
 		this.serverUrl = serverUrl;
@@ -95,11 +95,11 @@ public class BugzillaMylarSearch implements IActiveSearchOperation {
 				// }
 
 				// create a search operation so that we can search
-				BugzillaMylarSearchOperation op = new BugzillaMylarSearchOperation(this, m, scope);
+				BugzillaMylynSearchOperation op = new BugzillaMylynSearchOperation(this, m, scope);
 
 				// create a new search job so that it can be scheduled and
 				// run as a background thread
-				Job searchJob = new BugzillaMylarSearchJob("Querying Bugzilla Server - Mylar - "
+				Job searchJob = new BugzillaMylynSearchJob("Querying Bugzilla Server - Mylar - "
 						+ op.getSearchMemberName(), op);
 
 				// schedule the new search job

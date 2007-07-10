@@ -18,17 +18,17 @@ import org.eclipse.mylyn.monitor.core.InteractionEvent;
 /**
  * @author Mik Kersten
  */
-public abstract class AbstractMylarUsageCollector extends DelegatingUsageCollector {
+public abstract class AbstractMylynUsageCollector extends DelegatingUsageCollector {
 
 	protected Set<Integer> userIds = new HashSet<Integer>();
 
-	protected Set<Integer> mylarUserIds = new HashSet<Integer>();
+	protected Set<Integer> mylynUserIds = new HashSet<Integer>();
 
-	protected Set<Integer> mylarInactiveUserIds = new HashSet<Integer>();
+	protected Set<Integer> mylynInactiveUserIds = new HashSet<Integer>();
 
 	protected CommandUsageCollector commandUsageCollector = new CommandUsageCollector();
 
-	public AbstractMylarUsageCollector() {
+	public AbstractMylynUsageCollector() {
 		super.getDelegates().add(commandUsageCollector);
 	}
 
@@ -39,12 +39,12 @@ public abstract class AbstractMylarUsageCollector extends DelegatingUsageCollect
 	public void consumeEvent(InteractionEvent event, int userId) {
 		super.consumeEvent(event, userId);
 		userIds.add(userId);
-		if (FocusedUiUsageDetector.isAMylarActivateCommand(event)) {
-			mylarUserIds.add(userId);
-			mylarInactiveUserIds.remove(userId);
+		if (FocusedUiUsageDetector.isAMylynActivateCommand(event)) {
+			mylynUserIds.add(userId);
+			mylynInactiveUserIds.remove(userId);
 		}
-		if (FocusedUiUsageDetector.isAMylarDeactivateCommand(event)) {
-			mylarInactiveUserIds.add(userId);
+		if (FocusedUiUsageDetector.isAMylynDeactivateCommand(event)) {
+			mylynInactiveUserIds.add(userId);
 		}
 	}
 
