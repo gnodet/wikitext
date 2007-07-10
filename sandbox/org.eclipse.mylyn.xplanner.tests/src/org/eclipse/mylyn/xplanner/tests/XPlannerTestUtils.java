@@ -5,27 +5,19 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.tests;
+package org.eclipse.mylyn.xplanner.tests;
 
 import java.rmi.RemoteException;
 import java.util.Calendar;
 import java.util.Date;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.mylar.tasks.core.AbstractRepositoryConnector;
-import org.eclipse.mylar.tasks.core.Task;
-import org.eclipse.mylar.tasks.core.TaskList;
-import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylar.xplanner.core.service.XPlannerServer;
-import org.eclipse.mylar.xplanner.ui.XPlannerMylarUIPlugin;
-import org.eclipse.mylar.xplanner.ui.XPlannerServerFacade;
-import org.eclipse.mylar.xplanner.ui.XPlannerTask;
-import org.xplanner.soap.IterationData;
-import org.xplanner.soap.PersonData;
-import org.xplanner.soap.ProjectData;
-import org.xplanner.soap.TaskData;
-import org.xplanner.soap.UserStoryData;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.mylyn.tasks.core.*;
+import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
+import org.eclipse.mylyn.xplanner.ui.*;
+import org.xplanner.soap.*;
 
 /**
  * Requirements for tests:
@@ -52,7 +44,7 @@ public class XPlannerTestUtils {
 		
 		repository = TasksUiPlugin.getRepositoryManager().getRepository(SERVER_URL);
 		if (repository == null) {
-			repository = new TaskRepository(XPlannerMylarUIPlugin.REPOSITORY_KIND, SERVER_URL);
+			repository = new TaskRepository(XPlannerMylynUIPlugin.REPOSITORY_KIND, SERVER_URL);
 			repository.setAuthenticationCredentials(USER, PASSWORD);
 			TasksUiPlugin.getRepositoryManager().addRepository(repository, TasksUiPlugin.getDefault().getRepositoriesFilePath());
 			TasksUiPlugin.getTaskListManager().resetTaskList();
@@ -66,34 +58,34 @@ public class XPlannerTestUtils {
 			repository, TasksUiPlugin.getDefault().getRepositoriesFilePath());
 	}
 	
-	public static XPlannerServer getXPlannerServer() throws CoreException {
+	public static XPlannerClient getXPlannerClient() throws CoreException {
 		TaskRepository repository = getRepository();
 
-		return XPlannerServerFacade.getDefault().getXPlannerServer(repository);
+		return XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 	}
 	
-	public static void clearTestData(XPlannerServer server) throws Exception {
-		if (server != null) {
-			ProjectData testProject = findTestProject(server);
+	public static void clearTestData(XPlannerClient client) throws Exception {
+		if (client != null) {
+			ProjectData testProject = findTestProject(client);
 			if (testProject != null) {
-				server.removeProject(testProject.getId());
+				client.removeProject(testProject.getId());
 			}
 		}
 	}
 	
-	public static void setUpTestData(XPlannerServer server) throws Exception {
-		if (server != null) {
-			ProjectData testProject = getTestProject(server);
-			IterationData testIteration = getTestIteration(server, testProject);
-			UserStoryData testUserStory = getTestUserStory(server, testIteration);
-			getTestTask(server, testUserStory);
+	public static void setUpTestData(XPlannerClient client) throws Exception {
+		if (client != null) {
+			ProjectData testProject = getTestProject(client);
+			IterationData testIteration = getTestIteration(client, testProject);
+			UserStoryData testUserStory = getTestUserStory(client, testIteration);
+			getTestTask(client, testUserStory);
 		}
 	}
 	
-	public static ProjectData findTestProject(XPlannerServer server) throws RemoteException {
+	public static ProjectData findTestProject(XPlannerClient client) throws RemoteException {
 		ProjectData testProject = null;
 		
-		ProjectData[] projects = server.getProjects();
+		ProjectData[] projects = client.getProjects();
 		for (int i = 0; i < projects.length && testProject == null; i++) {
 			if (TEST_PROJECT_NAME.equals(projects[i].getName())) {
 				testProject = projects[i];
@@ -103,23 +95,23 @@ public class XPlannerTestUtils {
 		return testProject;
 	}
 	
-	private static ProjectData getTestProject(XPlannerServer server) throws RemoteException {
-		ProjectData testProject = findTestProject(server);
+	private static ProjectData getTestProject(XPlannerClient client) throws RemoteException {
+		ProjectData testProject = findTestProject(client);
 		
 		if (testProject == null) {
 			testProject = new ProjectData();
 			testProject.setName(TEST_PROJECT_NAME);
 			testProject.setDescription(TEST_PROJECT_NAME);
-			testProject = server.addProject(testProject);
+			testProject = client.addProject(testProject);
 		}
 		
 		return testProject;
 	}
 
-	public static IterationData findTestIteration(XPlannerServer server, ProjectData testProject) throws RemoteException {
+	public static IterationData findTestIteration(XPlannerClient client, ProjectData testProject) throws RemoteException {
 		IterationData testIteration = null;
 
-		IterationData[] iterations = server.getIterations(testProject.getId());
+		IterationData[] iterations = client.getIterations(testProject.getId());
 		if (iterations != null) {
 			for (int i = 0; i < iterations.length && testIteration == null; i++) {
 				if (TEST_ITERATION_NAME.equals(iterations[i].getName())) {
@@ -131,8 +123,8 @@ public class XPlannerTestUtils {
 		return testIteration;
 	}
 	
-	private static IterationData getTestIteration(XPlannerServer server, ProjectData project) throws RemoteException {
-		IterationData testIteration = findTestIteration(server, project);
+	private static IterationData getTestIteration(XPlannerClient client, ProjectData project) throws RemoteException {
+		IterationData testIteration = findTestIteration(client, project);
 		
 		if (testIteration == null) {
 			testIteration = new IterationData();
@@ -157,18 +149,18 @@ public class XPlannerTestUtils {
     	testIteration.setEndDate(endDate);
     	testIteration.setName(TEST_ITERATION_NAME);
     	testIteration.setDescription(TEST_ITERATION_NAME);
-    	testIteration = server.addIteration(testIteration);
+    	testIteration = client.addIteration(testIteration);
     	
-			server.refreshDetails();
+			client.refreshDetails();
 		}
 		
 		return testIteration;
 	}
 
-	public static UserStoryData findTestUserStory(XPlannerServer server, IterationData testIteration) throws RemoteException {
+	public static UserStoryData findTestUserStory(XPlannerClient client, IterationData testIteration) throws RemoteException {
 		UserStoryData testUserStory = null;
 		
-		UserStoryData[] userStories = server.getUserStories(testIteration.getId());
+		UserStoryData[] userStories = client.getUserStories(testIteration.getId());
 		if (userStories != null) {
 			for (int i = 0; i < userStories.length && testUserStory == null; i++) {
 				if (TEST_USER_STORY_NAME.equals(userStories[i].getName())) {
@@ -180,8 +172,8 @@ public class XPlannerTestUtils {
 		return testUserStory;
 	}
 	
-	private static UserStoryData getTestUserStory(XPlannerServer server, IterationData iteration) throws RemoteException {
-		UserStoryData testUserStory = findTestUserStory(server, iteration);
+	private static UserStoryData getTestUserStory(XPlannerClient client, IterationData iteration) throws RemoteException {
+		UserStoryData testUserStory = findTestUserStory(client, iteration);
 		
 		if (testUserStory == null) {
 			testUserStory = new UserStoryData();
@@ -194,18 +186,18 @@ public class XPlannerTestUtils {
 			testUserStory.setRemainingHours(0);
 			testUserStory.setPriority(5);
 		  
-			testUserStory = server.addUserStory(testUserStory);
+			testUserStory = client.addUserStory(testUserStory);
 			
-			server.refreshDetails();
+			client.refreshDetails();
 		}
 		
 		return testUserStory;
 	}
 
-	public static TaskData findTestTask(XPlannerServer server, UserStoryData testUserStory) throws RemoteException {
+	public static TaskData findTestTask(XPlannerClient client, UserStoryData testUserStory) throws RemoteException {
 		TaskData testTask = null;
 		
-		TaskData[] tasks = server.getTasks(testUserStory.getId());
+		TaskData[] tasks = client.getTasks(testUserStory.getId());
 		for (int i = 0; i < tasks.length && testTask == null; i++) {
 			if (TEST_TASK_NAME.equals(tasks[i].getName())) {
 				testTask = tasks[i];
@@ -215,10 +207,10 @@ public class XPlannerTestUtils {
 		return testTask;
 	}
 
-	public static int getAdminId(XPlannerServer server) throws RemoteException {
+	public static int getAdminId(XPlannerClient client) throws RemoteException {
 		int adminId = -1;
 		
-		PersonData[] people = server.getPeople();
+		PersonData[] people = client.getPeople();
 		for (int i = 0; i < people.length && adminId == -1; i++) {
 			if (USER.equals(people[i].getUserId())) {
 				adminId = people[i].getId();
@@ -228,8 +220,8 @@ public class XPlannerTestUtils {
 		return adminId;
 	}
 	
-	private static TaskData getTestTask(XPlannerServer server, UserStoryData userStory) throws RemoteException {
-		TaskData testTask = findTestTask(server, userStory);
+	private static TaskData getTestTask(XPlannerClient client, UserStoryData userStory) throws RemoteException {
+		TaskData testTask = findTestTask(client, userStory);
 		
 		if (testTask == null) {
 			testTask = new TaskData();
@@ -240,15 +232,15 @@ public class XPlannerTestUtils {
     	testTask.setEstimatedHours(24.0);
     	testTask.setActualHours(7.0);
     	testTask.setDispositionName("planned");  //$NON-NLS-1$
-    	testTask.setAcceptorId(getAdminId(server));
+    	testTask.setAcceptorId(getAdminId(client));
     	
     	Calendar taskCreate = Calendar.getInstance();
     	taskCreate.setTime(new Date());
 		  testTask.setCreatedDate(taskCreate);
 		  
-			testTask = server.addTask(testTask);
+			testTask = client.addTask(testTask);
 			
-			server.refreshDetails();
+			client.refreshDetails();
 		}
 		
 		return testTask;
@@ -261,26 +253,26 @@ public class XPlannerTestUtils {
 		return taskList;
 	}
 	
-	public static UserStoryData findTestUserStory(XPlannerServer server) throws RemoteException {
+	public static UserStoryData findTestUserStory(XPlannerClient client) throws RemoteException {
 		UserStoryData testUserStory = null;
 		
-		ProjectData testProject = findTestProject(server);
+		ProjectData testProject = findTestProject(client);
 		if (testProject != null) {
-			IterationData testIteration = findTestIteration(server, testProject);
+			IterationData testIteration = findTestIteration(client, testProject);
 			if (testIteration != null) {
-				testUserStory = findTestUserStory(server, testIteration);
+				testUserStory = findTestUserStory(client, testIteration);
 			}
 		}
 		
 		return testUserStory;
 	}
 	
-	public static TaskData findTestTask(XPlannerServer server) throws RemoteException {
+	public static TaskData findTestTask(XPlannerClient client) throws RemoteException {
 		TaskData testTask = null;
 
-		UserStoryData testUserStory = findTestUserStory(server);
+		UserStoryData testUserStory = findTestUserStory(client);
 		if (testUserStory != null) {
-			testTask = findTestTask(server, testUserStory);
+			testTask = findTestTask(client, testUserStory);
 		}
 		
 		return testTask;
@@ -289,26 +281,26 @@ public class XPlannerTestUtils {
 	/**
 	 * setUpTestData() needs to be called before this method
 	 */
-	public static XPlannerTask getTestXPlannerTask(XPlannerServer server) throws Exception {
+	public static XPlannerTask getTestXPlannerTask(XPlannerClient client) throws Exception {
 		TaskRepository repository = getRepository();
 		AbstractRepositoryConnector connector = 
-			TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getKind());
+			TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getConnectorKind());
 		
-		TaskData testTask = findTestTask(server);
-		Task task = connector.createTaskFromExistingKey(repository, "" + testTask.getId());
+		TaskData testTask = findTestTask(client);
+		AbstractTask task = connector.createTaskFromExistingId(repository, "" + testTask.getId(), new NullProgressMonitor());
 		return (XPlannerTask) task;
 	}
 
 	/**
 	 * setUpTestData() needs to be called before this method
 	 */
-	public static XPlannerTask getTestXPlannerUserStoryTask(XPlannerServer server) throws Exception {
+	public static XPlannerTask getTestXPlannerUserStoryTask(XPlannerClient client) throws Exception {
 		TaskRepository repository = getRepository();
 		AbstractRepositoryConnector connector = 
-			TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getKind());
+			TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getConnectorKind());
 		
-		UserStoryData testUserStory = findTestUserStory(server);
-		Task task = connector.createTaskFromExistingKey(repository, "" + testUserStory.getId());
+		UserStoryData testUserStory = findTestUserStory(client);
+		AbstractTask task = connector.createTaskFromExistingId(repository, "" + testUserStory.getId(), new NullProgressMonitor());
 		return (XPlannerTask) task;
 	}
 	

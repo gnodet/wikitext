@@ -5,14 +5,14 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.ui;
+package org.eclipse.mylyn.xplanner.ui;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
-import org.eclipse.mylar.internal.tasks.ui.TaskListImageDescriptor;
+import org.eclipse.mylyn.internal.tasks.ui.TaskListImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
 
@@ -26,8 +26,8 @@ public class XPlannerImages {
 
 	private static final String T_VIEW = "eview16"; //$NON-NLS-1$
 
-	private static final URL baseURL = XPlannerMylarUIPlugin.getDefault() == null ? null :
-		XPlannerMylarUIPlugin.getDefault().getBundle().getEntry("/icons/"); //$NON-NLS-1$ 
+	private static final URL baseURL = XPlannerMylynUIPlugin.getDefault() == null ? null :
+		XPlannerMylynUIPlugin.getDefault().getBundle().getEntry("/icons/"); //$NON-NLS-1$ 
 
 	public static final ImageDescriptor OVERLAY_XPLANNER = create(T_VIEW, "overlay-xplanner.gif"); //$NON-NLS-1$
 	

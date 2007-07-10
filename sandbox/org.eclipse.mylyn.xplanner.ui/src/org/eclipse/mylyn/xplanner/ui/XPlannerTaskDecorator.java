@@ -5,34 +5,28 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.ui;
+package org.eclipse.mylyn.xplanner.ui;
 
 import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.viewers.ILabelProviderListener;
-import org.eclipse.jface.viewers.ILightweightLabelDecorator;
 
 
 /**
  * @author Ravi Kumar 
  * @author Helen Bershadskaya
  */
-public class XPlannerTaskDecorator implements ILightweightLabelDecorator {
+//HeB -- testing
+public class XPlannerTaskDecorator {
 
 	public void decorate(Object element, IDecoration decoration) {
-		if (element instanceof XPlannerQueryHit) {
-			XPlannerQueryHit hit = (XPlannerQueryHit) element;
-			if (hit.getCorrespondingTask() != null) {
-				decorate(hit.getCorrespondingTask(), decoration);
-			}
-		}
 		if (element instanceof XPlannerTask) {
 			XPlannerTask task = (XPlannerTask) element;
 			if (XPlannerTask.Kind.ITERATION.toString().equals(task.getTaskKind())) {
-				decoration.addOverlay(XPlannerImages.OVERLAY_ITERATION, IDecoration.BOTTOM_RIGHT);
+				decoration.addOverlay(XPlannerImages.OVERLAY_ITERATION);
 			} else if (XPlannerTask.Kind.USER_STORY.toString().equals(task.getTaskKind())) {
-				decoration.addOverlay(XPlannerImages.OVERLAY_USER_STORY, IDecoration.BOTTOM_RIGHT);
+				decoration.addOverlay(XPlannerImages.OVERLAY_USER_STORY);
 			} else if (XPlannerTask.Kind.TASK.toString().equals(task.getTaskKind())) {
-				decoration.addOverlay(XPlannerImages.OVERLAY_TASK, IDecoration.BOTTOM_RIGHT);
+				decoration.addOverlay(XPlannerImages.OVERLAY_TASK);
 			}
 		}
 	}

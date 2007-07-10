@@ -5,13 +5,13 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.ui.wizard;
+package org.eclipse.mylyn.xplanner.ui.wizard;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.xplanner.ui.XPlannerMylarUIPlugin;
-import org.eclipse.mylar.xplanner.ui.XPlannerCustomQuery;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.xplanner.ui.XPlannerCustomQuery;
+import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
 
 
 /**
@@ -46,7 +46,7 @@ public class XPlannerQueryWizardUtils {
 		}
 		catch (RuntimeException e) {
 			if (e.getCause() instanceof CoreException) { 
-				XPlannerMylarUIPlugin.log(e.getCause(), Messages.XPlannerQueryWizardUtils_COULD_NOT_CREATE_QUERY_PAGE_MESSAGE, true);
+				XPlannerMylynUIPlugin.log(e.getCause(), Messages.XPlannerQueryWizardUtils_COULD_NOT_CREATE_QUERY_PAGE_MESSAGE, true);
 			}
 			else {
 				throw e;

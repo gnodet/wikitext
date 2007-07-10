@@ -5,17 +5,15 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.ui.wizard;
+package org.eclipse.mylyn.xplanner.ui.wizard;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.mylar.tasks.core.AbstractRepositoryConnector;
-import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylar.tasks.ui.wizards.AbstractEditQueryWizard;
-import org.eclipse.mylar.xplanner.ui.XPlannerCustomQuery;
+import org.eclipse.mylyn.tasks.core.*;
+import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.tasks.ui.wizards.AbstractEditQueryWizard;
+import org.eclipse.mylyn.xplanner.ui.XPlannerCustomQuery;
 
 
 /**
@@ -74,9 +72,10 @@ public class EditXPlannerQueryWizard extends AbstractEditQueryWizard {
 		}
 		TasksUiPlugin.getTaskListManager().getTaskList().addQuery(query);
 		
-		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getKind());
+		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getConnectorKind());
 		if (connector != null) {
-			TasksUiPlugin.getSynchronizationManager().synchronize(connector, query, null);
+			TasksUiPlugin.getSynchronizationManager().synchronize(
+					connector, query, null, true);
 		}
 	}
 	

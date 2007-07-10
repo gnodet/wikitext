@@ -5,7 +5,9 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.core.service;
+package org.eclipse.mylyn.xplanner.core.service;
+
+import java.net.Proxy;
 
 import org.xplanner.soap.TaskData;
 import org.xplanner.soap.UserStoryData;
@@ -68,12 +70,16 @@ public abstract class XPlannerServer extends XPlannerService {
 	public abstract TaskData[] getTasksForProject(int projectId, int personId);
 	public abstract TaskData[] getTasksForIteration(int iterationId);
 	public abstract TaskData[] getTasksForIteration(int iterationId, int personId);
+	public abstract boolean useCompression();
+	public abstract Proxy getProxy();
+	public abstract String getHttpUser();
+	public abstract String getHttpPassword();
 	
 //	/**
 //	 * Force a login to the remote repository.
 //	 * @deprecated There is no need to call this method as all services should automatically
 //	 * login when the session is about to expire.  If you need to check if the credentials
-//	 * are valid, call {@link org.eclipse.mylar.xplanner.core.ServerManager#testConnection(String, String, String)}
+//	 * are valid, call {@link org.eclipse.mylyn.xplanner.core.ServerManager#testConnection(String, String, String)}
 //	 */
 //	public abstract void login();
 //	

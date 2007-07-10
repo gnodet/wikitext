@@ -8,7 +8,7 @@
 package org.xplanner.soap;
 
 @SuppressWarnings("unchecked")
-public class ProjectData  extends org.eclipse.mylar.xplanner.wsdl.soap.domain.DomainData  implements java.io.Serializable {
+public class ProjectData  extends org.eclipse.mylyn.xplanner.wsdl.soap.domain.DomainData  implements java.io.Serializable {
     private java.lang.String description;
 
     private java.lang.String name;

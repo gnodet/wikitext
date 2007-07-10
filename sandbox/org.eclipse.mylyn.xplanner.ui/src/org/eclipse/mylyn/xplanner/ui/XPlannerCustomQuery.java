@@ -5,27 +5,26 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.ui;
+package org.eclipse.mylyn.xplanner.ui;
 
 import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylar.tasks.core.TaskList;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 
 
 
 /**
  * An XPlannerCustomQuery represents a query for tasks or user stories from a XPlanner repository.
  * 
- * @author Ravi Kumar 
+ * @author Ravi Kumar  
  * @author Helen Bershadskaya 
  */
 public class XPlannerCustomQuery extends AbstractRepositoryQuery {
 
 	public static final int INVALID_ID = -1;
 	public static final List<Integer> INVALID_IDS = Arrays.asList(new Integer[] {INVALID_ID});
-	private static final int MAX_HITS = 75;
+	//private static final int MAX_HITS = 75;
   public static enum ContentIdType {PROJECT, ITERATION, USER_STORY};  
 
   private String queryName = null;
@@ -35,14 +34,14 @@ public class XPlannerCustomQuery extends AbstractRepositoryQuery {
   private boolean myCurrentTasks = false;
   private ContentIdType contentIdType = ContentIdType.USER_STORY;  
     
-	public XPlannerCustomQuery(String repositoryUrl, String queryName, TaskList taskList) {
-		super(queryName, taskList);
+	public XPlannerCustomQuery(String repositoryUrl, String queryName) {
+		super(queryName);
 		this.queryName = queryName;
 		super.repositoryUrl = repositoryUrl;
 	}
 
 	public String getRepositoryKind() {
-		return XPlannerMylarUIPlugin.REPOSITORY_KIND;
+		return XPlannerMylynUIPlugin.REPOSITORY_KIND;
 	}
 	
 	public String getQueryName() {

@@ -5,20 +5,18 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.ui;
+package org.eclipse.mylyn.xplanner.ui;
 
-import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
-import org.eclipse.mylar.tasks.core.RepositoryTaskAttribute;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.xplanner.wsdl.soap.domain.DomainData;
 import org.xplanner.soap.IterationData;
 import org.xplanner.soap.UserStoryData;
-
-import org.eclipse.mylar.xplanner.wsdl.soap.domain.DomainData;
 
 /**
  * @author Ravi Kumar 
  * @author Helen Bershadskaya 
  */
-public class XPlannerTask extends AbstractRepositoryTask {
+public class XPlannerTask extends AbstractTask {
 
 	private String key = null;
 
@@ -38,6 +36,26 @@ public class XPlannerTask extends AbstractRepositoryTask {
 				return ""; //$NON-NLS-1$
 			}
 		}
+		
+		public static Kind fromString(String kindValue) {
+			Kind kind = null;
+		
+			if (kindValue == null) {
+				kind = null;
+			}
+			else if (kindValue.equals(TASK.toString())) {
+				kind = TASK;
+			}
+			else if (kindValue.equals(USER_STORY.toString())) {
+				kind = USER_STORY;
+			}
+			else if (kindValue.equals(ITERATION.toString())) {
+				kind = ITERATION;
+			}
+			
+			return kind;
+		}
+
 	}
 
 	public void setKind(DomainData data) {
@@ -50,20 +68,24 @@ public class XPlannerTask extends AbstractRepositoryTask {
 			tempKind = Kind.USER_STORY.toString();
 		}
 		
-		setKind(tempKind);
+		setTaskKind(tempKind);
 	}
 	
 	/**
 	 * The handle is also the task's XPlanner url
 	 */
-	public XPlannerTask(String repositoryUrl, String id, String label, boolean newTask) {
-		super(repositoryUrl, id, label, newTask);
+	public XPlannerTask(String repositoryUrl, String id, String label) {
+		super(repositoryUrl, id, label);
 	}
 
-	public String getRepositoryKind() {
-		return XPlannerMylarUIPlugin.REPOSITORY_KIND;
+	public String getConnectorKind() {
+		return XPlannerMylynUIPlugin.REPOSITORY_KIND;
 	}
 
+	public boolean isLocal() {
+		return false;
+	}
+	
 	public String getKey() {
 		return key;
 	}
@@ -71,19 +93,4 @@ public class XPlannerTask extends AbstractRepositoryTask {
 	public void setKey(String key) {
 		this.key = key;
 	}
-	
-	@Override
-	public String getPriority() {
-		String priority;
-		
-		if (taskData != null && taskData.getAttribute(RepositoryTaskAttribute.PRIORITY) != null) {
-			priority = taskData.getAttributeValue(RepositoryTaskAttribute.PRIORITY);
-		} 
-		else {
-			priority = super.getPriority();
-		}
-		
-		return priority;
-	}
-
 }

@@ -373,7 +373,7 @@ public class XPlannerSoapBindingStub extends org.apache.axis.client.Stub impleme
         oper.setUse(org.apache.axis.constants.Use.ENCODED);
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("http://xplanner.org:8080/soap/XPlanner", "fault"), //$NON-NLS-1$ //$NON-NLS-2$
-                      "org.eclipse.mylar.xplanner.wsdl.db.QueryException", //$NON-NLS-1$
+                      "org.eclipse.mylyn.xplanner.wsdl.db.QueryException", //$NON-NLS-1$
                       new javax.xml.namespace.QName("http://db.xplanner.technoetic.com", "QueryException"),  //$NON-NLS-1$ //$NON-NLS-2$
                       true
                      ));
@@ -390,7 +390,7 @@ public class XPlannerSoapBindingStub extends org.apache.axis.client.Stub impleme
         oper.setUse(org.apache.axis.constants.Use.ENCODED);
         oper.addFault(new org.apache.axis.description.FaultDesc(
                       new javax.xml.namespace.QName("http://xplanner.org:8080/soap/XPlanner", "fault"), //$NON-NLS-1$ //$NON-NLS-2$
-                      "org.eclipse.mylar.xplanner.wsdl.db.QueryException", //$NON-NLS-1$
+                      "org.eclipse.mylyn.xplanner.wsdl.db.QueryException", //$NON-NLS-1$
                       new javax.xml.namespace.QName("http://db.xplanner.technoetic.com", "QueryException"),  //$NON-NLS-1$ //$NON-NLS-2$
                       true
                      ));
@@ -540,14 +540,14 @@ public class XPlannerSoapBindingStub extends org.apache.axis.client.Stub impleme
             java.lang.Class simplelistdf = org.apache.axis.encoding.ser.SimpleListDeserializerFactory.class;
             qName = new javax.xml.namespace.QName("http://db.xplanner.technoetic.com", "QueryException"); //$NON-NLS-1$ //$NON-NLS-2$
             cachedSerQNames.add(qName);
-            cls = org.eclipse.mylar.xplanner.wsdl.db.QueryException.class;
+            cls = org.eclipse.mylyn.xplanner.wsdl.db.QueryException.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
             qName = new javax.xml.namespace.QName("http://domain.soap.xplanner.technoetic.com", "DomainData"); //$NON-NLS-1$ //$NON-NLS-2$
             cachedSerQNames.add(qName);
-            cls = org.eclipse.mylar.xplanner.wsdl.soap.domain.DomainData.class;
+            cls = org.eclipse.mylyn.xplanner.wsdl.soap.domain.DomainData.class;
             cachedSerClasses.add(cls);
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
@@ -1391,7 +1391,8 @@ public class XPlannerSoapBindingStub extends org.apache.axis.client.Stub impleme
         _call.setSOAPActionURI(""); //$NON-NLS-1$
         _call.setSOAPVersion(org.apache.axis.soap.SOAPConstants.SOAP11_CONSTANTS);
         _call.setOperationName(new javax.xml.namespace.QName("http://soap.xplanner.technoetic.com", "getTask")); //$NON-NLS-1$ //$NON-NLS-2$
-
+        _call.setTimeout(new Integer(30000));
+        
         setRequestHeaders(_call);
         setAttachments(_call);
  try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {new java.lang.Integer(id)});
@@ -1608,7 +1609,7 @@ public class XPlannerSoapBindingStub extends org.apache.axis.client.Stub impleme
 }
     }
 
-    public org.xplanner.soap.TaskData[] getCurrentTasksForPerson(int personId) throws java.rmi.RemoteException, org.eclipse.mylar.xplanner.wsdl.db.QueryException {
+    public org.xplanner.soap.TaskData[] getCurrentTasksForPerson(int personId) throws java.rmi.RemoteException, org.eclipse.mylyn.xplanner.wsdl.db.QueryException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -1639,15 +1640,15 @@ public class XPlannerSoapBindingStub extends org.apache.axis.client.Stub impleme
         if (axisFaultException.detail instanceof java.rmi.RemoteException) {
               throw (java.rmi.RemoteException) axisFaultException.detail;
          }
-        if (axisFaultException.detail instanceof org.eclipse.mylar.xplanner.wsdl.db.QueryException) {
-              throw (org.eclipse.mylar.xplanner.wsdl.db.QueryException) axisFaultException.detail;
+        if (axisFaultException.detail instanceof org.eclipse.mylyn.xplanner.wsdl.db.QueryException) {
+              throw (org.eclipse.mylyn.xplanner.wsdl.db.QueryException) axisFaultException.detail;
          }
    }
   throw axisFaultException;
 }
     }
 
-    public org.xplanner.soap.TaskData[] getPlannedTasksForPerson(int personId) throws java.rmi.RemoteException, org.eclipse.mylar.xplanner.wsdl.db.QueryException {
+    public org.xplanner.soap.TaskData[] getPlannedTasksForPerson(int personId) throws java.rmi.RemoteException, org.eclipse.mylyn.xplanner.wsdl.db.QueryException {
         if (super.cachedEndpoint == null) {
             throw new org.apache.axis.NoEndPointException();
         }
@@ -1678,8 +1679,8 @@ public class XPlannerSoapBindingStub extends org.apache.axis.client.Stub impleme
         if (axisFaultException.detail instanceof java.rmi.RemoteException) {
               throw (java.rmi.RemoteException) axisFaultException.detail;
          }
-        if (axisFaultException.detail instanceof org.eclipse.mylar.xplanner.wsdl.db.QueryException) {
-              throw (org.eclipse.mylar.xplanner.wsdl.db.QueryException) axisFaultException.detail;
+        if (axisFaultException.detail instanceof org.eclipse.mylyn.xplanner.wsdl.db.QueryException) {
+              throw (org.eclipse.mylyn.xplanner.wsdl.db.QueryException) axisFaultException.detail;
          }
    }
   throw axisFaultException;

@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.ui.editor;
+package org.eclipse.mylyn.xplanner.ui.editor;
 
 import org.eclipse.osgi.util.NLS;
 
@@ -14,7 +14,7 @@ import org.eclipse.osgi.util.NLS;
  * @author Helen Bershadskaya 
  */
 public class Messages extends NLS {
-	private static final String BUNDLE_NAME = "org.eclipse.mylar.xplanner.ui.editor.messages"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "org.eclipse.mylyn.xplanner.ui.editor.messages"; //$NON-NLS-1$
 
 	public static String XPlannerTaskEditor_ACCEPTOR_TEXT;
 

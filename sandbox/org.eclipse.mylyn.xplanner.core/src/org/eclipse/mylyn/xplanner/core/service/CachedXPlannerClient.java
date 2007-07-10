@@ -5,36 +5,30 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.core.service;
+package org.eclipse.mylyn.xplanner.core.service;
 
 import java.io.Serializable;
+import java.net.Proxy;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
-import org.eclipse.mylar.xplanner.wsdl.db.QueryException;
-import org.xplanner.soap.IterationData;
-import org.xplanner.soap.NoteData;
-import org.xplanner.soap.PersonData;
-import org.xplanner.soap.ProjectData;
-import org.xplanner.soap.TaskData;
-import org.xplanner.soap.TimeEntryData;
-import org.xplanner.soap.UserStoryData;
+import org.eclipse.mylyn.xplanner.wsdl.db.QueryException;
+import org.xplanner.soap.*;
 
 
 /**
- * XPlanner server implementation that caches information that is unlikey to change
- * during the session.  This server could be persisted to disk and re-loaded.
+ * XPlanner client implementation that caches information that is unlikely to change
+ * during the session.  This client could be persisted to disk and re-loaded.
  * It has lifecycle methods to allow data in the cache to be reloaded.
  * 
- * TODO it is assumed that it will be backed by a standad XPlanner service layer 
+ * TODO it is assumed that it will be backed by a standard XPlanner service layer 
  * 
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
-public class CachedXPlannerServer extends XPlannerServer implements Serializable {
+public class CachedXPlannerClient extends XPlannerClient 
+	implements Serializable {
+	
   public static final int INVALID_ID = -1;
   
 	/**
@@ -46,14 +40,24 @@ public class CachedXPlannerServer extends XPlannerServer implements Serializable
 	private boolean hasSlowConnection;
 	private String userName;
 	private String password;
+	private final boolean useCompression;
+	private final transient Proxy proxy;
+	private final String httpUser;
+	private final String httpPassword;
 	private transient XPlannerService serviceDelegate;
 
-	public CachedXPlannerServer(String name, String baseURL, boolean hasSlowConnection, String userName, String password) {
+	public CachedXPlannerClient(String name, String baseURL, boolean hasSlowConnection, String userName, String password,
+			boolean useCompression, Proxy proxy, String httpUser, String httpPassword) {
 		this.name = name;
 		this.baseURL = baseURL;
 		this.hasSlowConnection = hasSlowConnection;
 		this.userName = userName;
 		this.password = password;
+		this.useCompression = useCompression;
+		this.proxy = proxy;
+		this.httpUser = httpUser;
+		this.httpPassword = httpPassword;
+
 		
 		this.serviceDelegate = ServiceManager.getXPlannerService(this);
 		serviceDelegate.login(userName, password);
@@ -108,7 +112,7 @@ public class CachedXPlannerServer extends XPlannerServer implements Serializable
 		boolean ok = true;
 	
 		//TODO -- shouldn't have a null service delegate, but definitely get into this condition if "finish"
-		// repository definition with an invalid server
+		// repository definition with an invalid client
 	
 		if (serviceDelegate != null) {
 			ok = serviceDelegate.logout();
@@ -151,7 +155,7 @@ public class CachedXPlannerServer extends XPlannerServer implements Serializable
 
 	public boolean equals(Object obj) {
 		return this == obj || serviceDelegate.equals(obj) || 
-		 (obj instanceof CachedXPlannerServer && ((CachedXPlannerServer)obj).serviceDelegate.equals(serviceDelegate));
+		 (obj instanceof CachedXPlannerClient && ((CachedXPlannerClient)obj).serviceDelegate.equals(serviceDelegate));
 	}
 
 	public String getAttribute(int objectId, String key) throws RemoteException {
@@ -489,4 +493,22 @@ public class CachedXPlannerServer extends XPlannerServer implements Serializable
 		
 		return (TaskData[]) iterationPersonTasks.toArray(new TaskData[iterationPersonTasks.size()]);
 	}
+	
+
+	public String getHttpPassword() {
+		return httpPassword;
+	}
+
+	public String getHttpUser() {
+		return httpUser;
+	}
+
+	public Proxy getProxy() {
+		return proxy;
+	}
+
+	public boolean useCompression() {
+		return useCompression;
+	}
+
 }

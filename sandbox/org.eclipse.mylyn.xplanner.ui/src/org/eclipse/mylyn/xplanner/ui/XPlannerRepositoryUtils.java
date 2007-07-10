@@ -5,10 +5,11 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.ui;
+package org.eclipse.mylyn.xplanner.ui;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.Proxy;
 import java.rmi.RemoteException;
 import java.security.GeneralSecurityException;
 import java.text.MessageFormat;
@@ -18,21 +19,13 @@ import java.util.HashSet;
 
 import javax.security.auth.login.LoginException;
 
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.mylar.internal.tasks.core.RepositoryTaskHandleUtil;
-import org.eclipse.mylar.tasks.core.RepositoryTaskAttribute;
-import org.eclipse.mylar.tasks.core.RepositoryTaskData;
-import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylar.xplanner.core.XPlannerCorePlugin;
-import org.eclipse.mylar.xplanner.core.service.XPlannerServer;
-import org.xplanner.soap.IterationData;
-import org.xplanner.soap.PersonData;
-import org.xplanner.soap.ProjectData;
-import org.xplanner.soap.TaskData;
-import org.xplanner.soap.UserStoryData;
+import org.eclipse.core.runtime.*;
+import org.eclipse.mylyn.internal.tasks.core.RepositoryTaskHandleUtil;
+import org.eclipse.mylyn.tasks.core.*;
+import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
+import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
+import org.xplanner.soap.*;
 
 /**
  * @author Ravi Kumar
@@ -43,27 +36,57 @@ public class XPlannerRepositoryUtils {
 		
 	}
 	
-	public static RepositoryTaskData createRepositoryTaskData(TaskRepository repository, XPlannerTask xplannerTask, XPlannerServer server) throws CoreException {
+	public static RepositoryTaskData createRepositoryTaskData(TaskRepository repository, XPlannerTask xplannerTask, XPlannerClient client) throws CoreException {
 		RepositoryTaskData repositoryTaskData = null;
 		
 		try {
 			if (XPlannerTask.Kind.TASK.toString().equals(xplannerTask.getTaskKind())) {
-				TaskData taskData = server.getTask(Integer.valueOf(xplannerTask.getKey()).intValue());
+				TaskData taskData = client.getTask(Integer.valueOf(xplannerTask.getTaskId()).intValue());
 				repositoryTaskData = XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(
 						repository.getUrl(), taskData, RepositoryTaskHandleUtil.getTaskId(xplannerTask.getHandleIdentifier()));
 				xplannerTask.setCompleted(taskData.isCompleted());
 			}
 			else if (XPlannerTask.Kind.USER_STORY.toString().equals(xplannerTask.getTaskKind())) {
-				UserStoryData userStory = server.getUserStory(Integer.valueOf(xplannerTask.getKey()).intValue());
+				UserStoryData userStory = client.getUserStory(Integer.valueOf(xplannerTask.getTaskId()).intValue());
 				repositoryTaskData = XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(
 						repository.getUrl(), userStory, RepositoryTaskHandleUtil.getTaskId(xplannerTask.getHandleIdentifier()));
 				xplannerTask.setCompleted(userStory.isCompleted());
 			}
 		} 
 		catch (final Exception e) {
-			throw new CoreException(new Status(IStatus.ERROR, XPlannerMylarUIPlugin.PLUGIN_ID, 0, 
+			throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, 0, 
 				MessageFormat.format(Messages.XPlannerRepositoryUtils_TASK_DOWNLOAD_FAILED,
 					  xplannerTask.getRepositoryUrl(), TasksUiPlugin.LABEL_VIEW_REPOSITORIES), e));
+		}
+		
+		return repositoryTaskData;
+	}
+
+	public static RepositoryTaskData createRepositoryTaskData(TaskRepository repository, 
+			String taskId) throws CoreException {
+		
+		RepositoryTaskData repositoryTaskData = null;
+		
+		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
+		
+		try {
+			TaskData taskData = client.getTask(Integer.valueOf(taskId).intValue());
+			if (taskData != null) {
+				repositoryTaskData = XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(
+						repository.getUrl(), taskData, taskId);
+			}
+			else {
+				UserStoryData userStory = client.getUserStory(Integer.valueOf(taskId).intValue());
+				if (userStory != null) {
+					repositoryTaskData = XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(
+							repository.getUrl(), userStory, taskId);
+				}
+			}
+		} 
+		catch (final Exception e) {
+			throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, 0, 
+				MessageFormat.format(Messages.XPlannerRepositoryUtils_TASK_DOWNLOAD_FAILED,
+					  repository.getUrl(), TasksUiPlugin.LABEL_VIEW_REPOSITORIES), e));
 		}
 		
 		return repositoryTaskData;
@@ -74,7 +97,7 @@ public class XPlannerRepositoryUtils {
 
 		RepositoryTaskData repositoryTaskData = new RepositoryTaskData(
 				new XPlannerAttributeFactory(),
-				XPlannerMylarUIPlugin.REPOSITORY_KIND, repositoryUrl, id, XPlannerTask.Kind.TASK.toString());
+				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryUrl, id, XPlannerTask.Kind.TASK.toString());
 		
 		setupTaskAttributes(taskData, repositoryTaskData);
 
@@ -85,7 +108,7 @@ public class XPlannerRepositoryUtils {
 		throws IOException, MalformedURLException, LoginException, GeneralSecurityException, CoreException {
 
 		RepositoryTaskData repositoryTaskData = new RepositoryTaskData(new XPlannerAttributeFactory(),
-				XPlannerMylarUIPlugin.REPOSITORY_KIND, repositoryUrl, id, XPlannerTask.Kind.USER_STORY.toString());
+				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryUrl, id, XPlannerTask.Kind.USER_STORY.toString());
 		setupUserStoryAttributes(userStory, repositoryTaskData);
 	
 		return repositoryTaskData;
@@ -95,15 +118,15 @@ public class XPlannerRepositoryUtils {
 		throws CoreException {
 		
 		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
-				XPlannerMylarUIPlugin.REPOSITORY_KIND, repositoryTaskData.getRepositoryUrl());
-		XPlannerServer server = XPlannerServerFacade.getDefault().getXPlannerServer(repository);
+				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryTaskData.getRepositoryUrl());
+		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 
 		// description
 		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.DESCRIPTION, taskData.getDescription());
 		
 		// priority
 		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.PRIORITY, 
-			getPriorityFromXPlannerObject(taskData, server));
+			getPriorityFromXPlannerObject(taskData, client));
 		
 		// status
 		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.STATUS, taskData.getDispositionName());
@@ -113,7 +136,7 @@ public class XPlannerRepositoryUtils {
 
 		// assigned to 
 		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.USER_ASSIGNED, getPersonName(
-			taskData.getAcceptorId(), server));
+			taskData.getAcceptorId(), client));
 		
 		// createdDate 
 		Date createdDate = taskData.getCreatedDate().getTime();
@@ -143,14 +166,14 @@ public class XPlannerRepositoryUtils {
 		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ADJUSTED_ESTIMATED_HOURS_NAME, "" + taskData.getAdjustedEstimatedHours()); //$NON-NLS-1$
 
 		// project name
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_PROJECT_NAME, getProjectName(taskData, server));
+		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_PROJECT_NAME, getProjectName(taskData, client));
 
 		// iteration name
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ITERATION_NAME, getIterationName(taskData, server));
+		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ITERATION_NAME, getIterationName(taskData, client));
 
 		// user story name
 		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_USER_STORY_NAME, 
-				getUserStoryName(taskData, server));
+				getUserStoryName(taskData, client));
 
 		// completed
 		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_TASK_COMPLETED, 
@@ -161,15 +184,15 @@ public class XPlannerRepositoryUtils {
 		throws CoreException {
 		
 		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
-				XPlannerMylarUIPlugin.REPOSITORY_KIND, repositoryTaskData.getRepositoryUrl());
-		XPlannerServer server = XPlannerServerFacade.getDefault().getXPlannerServer(repository);
+				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryTaskData.getRepositoryUrl());
+		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 
 		// description
 		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.DESCRIPTION, userStory.getDescription());
 		
 		// priority
 		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.PRIORITY, 
-			getPriorityFromXPlannerObject(userStory, server));
+			getPriorityFromXPlannerObject(userStory, client));
 		
 		// summary
 		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.SUMMARY, userStory.getName());
@@ -179,7 +202,7 @@ public class XPlannerRepositoryUtils {
 		
 		// assigned to 
 		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.USER_ASSIGNED, getPersonName(
-				userStory.getTrackerId(), server));
+				userStory.getTrackerId(), client));
 		
 		// createdDate -- user story doesn't have created date
 		
@@ -206,10 +229,10 @@ public class XPlannerRepositoryUtils {
 		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ADJUSTED_ESTIMATED_HOURS_NAME, "" + userStory.getAdjustedEstimatedHours()); //$NON-NLS-1$
 
 		// project name
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_PROJECT_NAME, getProjectName(userStory, server));
+		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_PROJECT_NAME, getProjectName(userStory, client));
 
 		// iteration name
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ITERATION_NAME, getIterationName(userStory, server));
+		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ITERATION_NAME, getIterationName(userStory, client));
 	}
 	
 	public static String getProjectName(RepositoryTaskData repositoryTaskData) {
@@ -224,11 +247,11 @@ public class XPlannerRepositoryUtils {
 		return repositoryTaskData.getAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_USER_STORY_NAME);
 	}
 	
-	public static String getPersonName(int personId, XPlannerServer server) {
+	public static String getPersonName(int personId, XPlannerClient client) {
 		String personName = Messages.XPlannerRepositoryUtils_NO_PERSON_NAME;
 
 		try {
-		  PersonData personData = server.getPerson(personId);
+		  PersonData personData = client.getPerson(personId);
 		  if (personData != null) {
 		  	personName = personData.getName();
 		  }
@@ -273,19 +296,19 @@ public class XPlannerRepositoryUtils {
 			createdDate = XPlannerAttributeFactory.DATE_FORMAT.parse(dateString);
 		}
 		catch (ParseException e) {
-			XPlannerMylarUIPlugin.log(e.getCause(), "", false);
+			XPlannerMylynUIPlugin.log(e.getCause(), "", false); //$NON-NLS-1$
 		}
 		
 		return createdDate;
 	}
 
-	public static String getProjectName(TaskData taskData, XPlannerServer server) {
+	public static String getProjectName(TaskData taskData, XPlannerClient client) {
 	  String projectName = Messages.XPlannerRepositoryUtils_NO_PROJECT_NAME;
 
 	  UserStoryData userStory;
 		try {
-			userStory = server.getUserStory(taskData.getStoryId());
-			projectName = getProjectName(userStory, server);
+			userStory = client.getUserStory(taskData.getStoryId());
+			projectName = getProjectName(userStory, client);
 		}
 		catch (RemoteException e) {
 			// TODO Auto-generated catch block
@@ -295,14 +318,14 @@ public class XPlannerRepositoryUtils {
 		return projectName;
 	}
 	
-	public static String getProjectName(UserStoryData userStory, XPlannerServer server) {
+	public static String getProjectName(UserStoryData userStory, XPlannerClient client) {
 	  String projectName = Messages.XPlannerRepositoryUtils_NO_PROJECT_NAME;
 	  
 		try {
 		  if (userStory != null) {
-		    IterationData iteration = server.getIteration(userStory.getIterationId());
+		    IterationData iteration = client.getIteration(userStory.getIterationId());
 		    if (iteration != null) {
-		      ProjectData project = server.getProject(iteration.getProjectId());
+		      ProjectData project = client.getProject(iteration.getProjectId());
 		      if (project != null) {
 		        projectName = project.getName();
 		      }  
@@ -316,12 +339,12 @@ public class XPlannerRepositoryUtils {
 	  return projectName;
 	}
 
-	public static String getIterationName(TaskData taskData, XPlannerServer server) {
+	public static String getIterationName(TaskData taskData, XPlannerClient client) {
 	  String iterationName = Messages.XPlannerRepositoryUtils_NO_ITERATION_NAME;
 	  
 		try {
-			UserStoryData userStory = server.getUserStory(taskData.getStoryId());
-			iterationName = getIterationName(userStory, server);
+			UserStoryData userStory = client.getUserStory(taskData.getStoryId());
+			iterationName = getIterationName(userStory, client);
 		}
 		catch (RemoteException e) {
 			// TODO Auto-generated catch block
@@ -331,11 +354,11 @@ public class XPlannerRepositoryUtils {
 		return iterationName;
 	}
 
-	public static String getIterationName(UserStoryData userStory, XPlannerServer server) {
+	public static String getIterationName(UserStoryData userStory, XPlannerClient client) {
 	  String iterationName = Messages.XPlannerRepositoryUtils_NO_ITERATION_NAME;
 	  
 		try {
-	    IterationData iteration = server.getIteration(userStory.getIterationId());
+	    IterationData iteration = client.getIteration(userStory.getIterationId());
 	    if (iteration != null) {
 	      iterationName = iteration.getName();
 	    }
@@ -347,11 +370,11 @@ public class XPlannerRepositoryUtils {
 	  return iterationName;
 	}
 
-	public static String getUserStoryName(TaskData taskData, XPlannerServer server) {
+	public static String getUserStoryName(TaskData taskData, XPlannerClient client) {
 	  String userStoryName = Messages.XPlannerRepositoryUtils_NO_USER_STORY_NAME;
 	  
 		try {
-      UserStoryData userStory = server.getUserStory(taskData.getStoryId());
+      UserStoryData userStory = client.getUserStory(taskData.getStoryId());
 		  if (userStory != null) {
 		  	userStoryName = userStory.getName();
 		  }
@@ -376,13 +399,13 @@ public class XPlannerRepositoryUtils {
 		return repositoryTaskData.getAttributeValue(RepositoryTaskAttribute.SUMMARY);
 	}
 
-	public static String getPriorityFromXPlannerObject(Object xplannerObject, XPlannerServer server) {
+	public static String getPriorityFromXPlannerObject(Object xplannerObject, XPlannerClient client) {
 		int priority = -1;
 		UserStoryData userStory = null;
 		
 		try {
 			if (xplannerObject instanceof TaskData) {
-				userStory = server.getUserStory(((TaskData)xplannerObject).getStoryId());
+				userStory = client.getUserStory(((TaskData)xplannerObject).getStoryId());
 			}
 			else if (xplannerObject instanceof UserStoryData) {
 				userStory = (UserStoryData)xplannerObject;
@@ -418,22 +441,34 @@ public class XPlannerRepositoryUtils {
 		}
 		
 		TaskRepository taskRepository = TasksUiPlugin.getRepositoryManager().getRepository(
-				XPlannerMylarUIPlugin.REPOSITORY_KIND, repositoryUrl);		
+				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryUrl);		
 		if (taskRepository != null && !isRepositoryUrlValidated(taskRepository.getUrl())) {
 			validateRepository(taskRepository);
 		}
 	}
 
 	public static void validateRepository(TaskRepository taskRepository) throws CoreException {
+		validateRepository(taskRepository.getUrl(),
+				taskRepository.getUserName(), taskRepository.getPassword(), taskRepository.getProxy(), 
+				taskRepository.getHttpUser(), taskRepository.getHttpPassword());
+	}
+	
+	public static void validateRepository(String url, String userName, String password) throws CoreException {
+		validateRepository(url, userName, password, Proxy.NO_PROXY, null, null);
+	}
+	
+	public static void validateRepository(String url, String userName, String password,
+		Proxy proxy, String httpUser, String httpPassword) throws CoreException {
+		
 		try {
-			XPlannerServerFacade.getDefault().validateServerAndCredentials(
-					taskRepository.getUrl(),
-					taskRepository.getUserName(), taskRepository.getPassword());
+			XPlannerClientFacade.getDefault().validateServerAndCredentials(url, userName, password,
+				proxy, httpUser, httpPassword);
 		} 
 		catch (Exception e) {
 			throw new CoreException(XPlannerCorePlugin.toStatus(e));
 		}
 
 	}
+	
 }
  

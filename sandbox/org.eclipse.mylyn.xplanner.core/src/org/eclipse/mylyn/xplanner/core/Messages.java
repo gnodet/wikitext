@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.core;
+package org.eclipse.mylyn.xplanner.core;
 
 import org.eclipse.osgi.util.NLS;
 
@@ -14,7 +14,7 @@ import org.eclipse.osgi.util.NLS;
  * @author Helen Bershadskaya
  */
 public class Messages extends NLS {
-	private static final String BUNDLE_NAME = "org.eclipse.mylar.xplanner.core.messages"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "org.eclipse.mylyn.xplanner.core.messages"; //$NON-NLS-1$
 
 	public static String XPlannerCorePlugin_UNEXPECTED_ERROR;
 
@@ -22,9 +22,9 @@ public class Messages extends NLS {
 
 	public static String XPlannerValidator_CONNECTION_ERROR;
 
-	public static String ServerManager_SERVER_URL_CANNOT_BE_EMPTY;
+	public static String ClientManager_CLIENT_URL_CANNOT_BE_EMPTY;
 	
-	public static String ServerManager_INVALID_USERNAME_PASSWORD;
+	public static String ClientManager_INVALID_USERNAME_PASSWORD;
 
 	static {
 		// initialize resource bundle

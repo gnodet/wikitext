@@ -8,7 +8,7 @@
 package org.xplanner.soap;
 
 @SuppressWarnings("unchecked")
-public class UserStoryData  extends org.eclipse.mylar.xplanner.wsdl.soap.domain.DomainData  implements java.io.Serializable {
+public class UserStoryData  extends org.eclipse.mylyn.xplanner.wsdl.soap.domain.DomainData  implements java.io.Serializable {
     private double actualHours;
 
     private double adjustedEstimatedHours;

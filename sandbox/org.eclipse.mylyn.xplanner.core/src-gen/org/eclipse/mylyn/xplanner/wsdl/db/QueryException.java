@@ -5,7 +5,7 @@
  * by the Apache Axis 1.3 Oct 05, 2005 (05:23:37 EDT) WSDL2Java emitter.
  */
 
-package org.eclipse.mylar.xplanner.wsdl.db;
+package org.eclipse.mylyn.xplanner.wsdl.db;
 
 @SuppressWarnings("unchecked")
 public class QueryException  extends org.apache.axis.AxisFault  implements java.io.Serializable {

@@ -5,33 +5,31 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.tests;
+package org.eclipse.mylyn.xplanner.tests;
 
 import java.rmi.RemoteException;
-import java.util.List;
+import java.util.Set;
 
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.mylar.tasks.core.AbstractQueryHit;
-import org.eclipse.mylar.tasks.core.AbstractRepositoryConnector;
-import org.eclipse.mylar.tasks.core.QueryHitCollector;
-import org.eclipse.mylar.tasks.core.TaskList;
-import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylar.xplanner.core.service.XPlannerServer;
-import org.eclipse.mylar.xplanner.ui.XPlannerCustomQuery;
+import org.eclipse.mylyn.tasks.core.*;
+import org.eclipse.mylyn.tasks.ui.TaskFactory;
+import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.tasks.ui.search.SearchHitCollector;
+import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
+import org.eclipse.mylyn.xplanner.ui.XPlannerCustomQuery;
 
 public class XPlannerCustomQueryTest extends TestCase {
 
-	private static XPlannerServer server;
+	private static XPlannerClient client;
 	
 	protected void setUp() throws Exception {
 		super.setUp();
-		if (server == null) { // only create data once per run
-			server = XPlannerTestUtils.getXPlannerServer();
-			XPlannerTestUtils.clearTestData(server);
-			XPlannerTestUtils.setUpTestData(server);
+		if (client == null) { // only create data once per run
+			client = XPlannerTestUtils.getXPlannerClient();
+			XPlannerTestUtils.clearTestData(client);
+			XPlannerTestUtils.setUpTestData(client);
 		}
 	}
 
@@ -42,20 +40,20 @@ public class XPlannerCustomQueryTest extends TestCase {
 	public void testNoItemsQuery() {
 		TaskList taskList = XPlannerTestUtils.getTaskList();
 		XPlannerCustomQuery query = new XPlannerCustomQuery(XPlannerTestUtils.SERVER_URL,
-			"no items", taskList);
+			"no items");
 		query.setPersonId(-1);
-		
-		List<AbstractQueryHit> hits = performTestQuery(taskList, query);
+		 
+		Set<AbstractTask> hits = performTestQuery(taskList, query);
 		assert(hits.size() == 0);
 	}
 
 	public void testAdminItemsQuery() {
 		TaskList taskList = XPlannerTestUtils.getTaskList();
-		XPlannerCustomQuery query = new XPlannerCustomQuery(XPlannerTestUtils.SERVER_URL,
-			"admin items", taskList);
+		XPlannerCustomQuery query = new XPlannerCustomQuery(
+			XPlannerTestUtils.SERVER_URL,	"admin items");
 		try {
-			query.setPersonId(XPlannerTestUtils.getAdminId(server));
-			List<AbstractQueryHit> hits = performTestQuery(taskList, query);
+			query.setPersonId(XPlannerTestUtils.getAdminId(client));
+			Set<AbstractTask> hits = performTestQuery(taskList, query);
 			assert(hits.size() == 1);
 		}
 		catch (RemoteException e) {
@@ -64,15 +62,16 @@ public class XPlannerCustomQueryTest extends TestCase {
 		
 	}
 
-	private List<AbstractQueryHit> performTestQuery(TaskList taskList, XPlannerCustomQuery query) {
+	private Set<AbstractTask> performTestQuery(TaskList taskList, XPlannerCustomQuery query) {
 		TaskRepository repository = XPlannerTestUtils.getRepository();
 		AbstractRepositoryConnector connector = 
-			TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getKind());
+			TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getConnectorKind());
 		
-		QueryHitCollector collector = new QueryHitCollector(taskList);
+		TaskFactory taskFactory = new TaskFactory(repository, false, false);
+		SearchHitCollector collector = new SearchHitCollector(taskList, repository, query, taskFactory);
 		connector.performQuery(query, repository, new NullProgressMonitor(), collector);
 		
-		List<AbstractQueryHit> hits = collector.getHits();
+		Set<AbstractTask> hits = collector.getTasks();
 		return hits;
 	}
 	

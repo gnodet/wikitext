@@ -5,12 +5,12 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.ui.wizard;
+package org.eclipse.mylyn.xplanner.ui.wizard;
 
-import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.search.AbstractRepositoryQueryPage;
-import org.eclipse.mylar.xplanner.ui.XPlannerCustomQuery;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.search.AbstractRepositoryQueryPage;
+import org.eclipse.mylyn.xplanner.ui.XPlannerCustomQuery;
 import org.eclipse.ui.PlatformUI;
 
 

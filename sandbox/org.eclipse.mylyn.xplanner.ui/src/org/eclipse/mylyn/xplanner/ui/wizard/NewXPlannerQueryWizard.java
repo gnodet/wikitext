@@ -5,22 +5,19 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.ui.wizard;
+package org.eclipse.mylyn.xplanner.ui.wizard;
  
 import java.util.HashSet;
 import java.util.List;
 
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.mylar.internal.tasks.ui.TasksUiImages;
-import org.eclipse.mylar.tasks.core.AbstractRepositoryConnector;
-import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.internal.tasks.ui.TasksUiImages;
+import org.eclipse.mylyn.tasks.core.*;
+import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 
 /**
- * Wizard that allows the user to select one of their named XPlanner filters on the
- * server
+ * Wizard that allows the user to create an XPlanner query for tasks
  * 
  * @author Ravi Kumar
  * @author Helen Bershadskaya
@@ -54,10 +51,11 @@ public class NewXPlannerQueryWizard extends Wizard {
 			}
 			
 			// need to synchronize multiple queries with single call, otherwise get ConcurrencyModificationException
-			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getKind());
+			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getConnectorKind());
 			if (connector != null) {
-				TasksUiPlugin.getSynchronizationManager().synchronize(connector,
-						new HashSet<AbstractRepositoryQuery>(queries), null, Job.SHORT, 0, true);
+				TasksUiPlugin.getSynchronizationManager().synchronize(
+						connector, repository,
+						new HashSet<AbstractRepositoryQuery>(queries), null, Job.LONG, 0, true);
 			}
 		}
 		else {
@@ -71,9 +69,9 @@ public class NewXPlannerQueryWizard extends Wizard {
   public static void addQuery(AbstractRepositoryQuery query, TaskRepository repository) {
 		if (query != null) {
 			TasksUiPlugin.getTaskListManager().getTaskList().addQuery(query);
-			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getKind());
+			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getConnectorKind());
 			if (connector != null) {
-				TasksUiPlugin.getSynchronizationManager().synchronize(connector, query, null);
+				TasksUiPlugin.getSynchronizationManager().synchronize(connector, query, null, true);
 			}
 		} 
   }

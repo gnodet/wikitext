@@ -4,10 +4,10 @@
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="4"/>
 </listAttribute>
-<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-o &quot;${project_loc:org.eclipse.mylar.core.soap}/src&quot; ./wsdl/XPlanner.wsdl"/>
-<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="org.eclipse.mylar.core.soap"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-o &quot;${project_loc:org.eclipse.mylyn.core.soap}/src&quot; ./wsdl/XPlanner.wsdl"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="org.eclipse.mylyn.core.soap"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/org.eclipse.mylar.core.soap"/>
+<listEntry value="/org.eclipse.mylyn.core.soap"/>
 </listAttribute>
 <booleanAttribute key="org.eclipse.debug.core.appendEnvironmentVariables" value="true"/>
 </launchConfiguration>

@@ -5,43 +5,26 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.ui.wizard;
+package org.eclipse.mylyn.xplanner.ui.wizard;
  
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.*;
 import org.eclipse.jface.wizard.IWizardPage;
-import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylar.xplanner.core.service.XPlannerServer;
-import org.eclipse.mylar.xplanner.ui.XPlannerCustomQuery;
-import org.eclipse.mylar.xplanner.ui.XPlannerServerFacade;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
+import org.eclipse.mylyn.xplanner.ui.XPlannerCustomQuery;
+import org.eclipse.mylyn.xplanner.ui.XPlannerClientFacade;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusAdapter;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.events.*;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
-import org.xplanner.soap.IterationData;
-import org.xplanner.soap.ProjectData;
-import org.xplanner.soap.TaskData;
-import org.xplanner.soap.UserStoryData;
+import org.eclipse.swt.widgets.*;
+import org.xplanner.soap.*;
 
 /**
  * @author Ravi Kumar
@@ -54,7 +37,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 
 	private static final boolean DEFAULT_SELECT_MY_CURRENT_TASKS = true;
 
-	private final XPlannerServer server;
+	private final XPlannerClient client;
 
 	private Text nameText;
 	
@@ -83,12 +66,12 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 	/**
 	 * @param pageName
 	 * @param title
-	 * @param titleImage
+	 * @param titleImage 
 	 */
 	public XPlannerCustomQueryPage(TaskRepository repository, XPlannerCustomQuery existingQuery) {
 		super(repository, existingQuery);
 		try {
-			this.server = XPlannerServerFacade.getDefault().getXPlannerServer(repository);
+			this.client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 			setPageComplete(false);
 		}
 		catch (CoreException e) {
@@ -131,8 +114,8 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 	  setControl(dataComposite);
 	}
 
-	protected XPlannerServer getServer() {
-		return this.server;
+	protected XPlannerClient getClient() {
+		return this.client;
 	}
 	
 	protected boolean isContentTypeTask() {
@@ -254,7 +237,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		projectsViewerGridData.widthHint = 200;
 		
 		projectsViewer.getTree().setLayoutData(projectsViewerGridData);
-		projectsViewer.setInput(server);
+		projectsViewer.setInput(client);
 		projectsViewer.refresh();
 		projectsViewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			public void selectionChanged(SelectionChangedEvent e) {
@@ -484,13 +467,13 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		for (int contentId : contentIds) {
 			try {
 				if (contentIdType == XPlannerCustomQuery.ContentIdType.PROJECT) {
-					selection.add(server.getProject(contentId));
+					selection.add(client.getProject(contentId));
 				}
 				else if (contentIdType == XPlannerCustomQuery.ContentIdType.ITERATION) {
-					selection.add(server.getIteration(contentId));
+					selection.add(client.getIteration(contentId));
 				}
 				else if (contentIdType == XPlannerCustomQuery.ContentIdType.USER_STORY) {
-					selection.add(server.getUserStory(contentId));
+					selection.add(client.getUserStory(contentId));
 				}
 			}
 			catch (RemoteException e) {
@@ -501,7 +484,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		return selection;
 	}
 
-	//TODO -- should be in server interface
+	//TODO -- should be in client interface
 	private boolean isUseAll() {
 		return allTasksOrStoriesButton.getSelection();
 	}
@@ -525,7 +508,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 			
 			// use all?
 			if (!isUseAll()) {
-				query.setPersonId(server.getCurrentPersonId());
+				query.setPersonId(client.getCurrentPersonId());
 			}
 			else {
 				query.setPersonId(XPlannerCustomQuery.INVALID_ID);
@@ -596,7 +579,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 //			int userStoryId = ((UserStoryData)selectedElement).getId();
 //			if (userStoryId != XPlannerCustomQuery.INVALID_ID) {
 //				try {
-//					userStory = server.getUserStory(userStoryId);
+//					userStory = client.getUserStory(userStoryId);
 //				}
 //				catch (RemoteException e) {
 //					e.printStackTrace();
@@ -613,8 +596,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 	
 	public AbstractRepositoryQuery getQuery() {
 		if (getExistingQuery() == null) {
-			setExistingQuery(new XPlannerCustomQuery(getRepository().getUrl(), getNameText(), 
-				TasksUiPlugin.getTaskListManager().getTaskList()));
+			setExistingQuery(new XPlannerCustomQuery(getRepository().getUrl(), getNameText())); 
 		}
 		
 		applyChanges(getExistingQuery());
@@ -631,8 +613,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		if (isContentTypeTask()) {
 			// if don't have existing query, create one
 			if (getExistingQuery() == null) {
-				setExistingQuery(new XPlannerCustomQuery(getRepository().getUrl(), getNameText(), 
-					TasksUiPlugin.getTaskListManager().getTaskList()));
+				setExistingQuery(new XPlannerCustomQuery(getRepository().getUrl(), getNameText())); 
 			}
 
 			applyChanges(getExistingQuery());
@@ -654,14 +635,14 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 
 		try {
 			if (selectedElement instanceof ProjectData) {
-				IterationData[] iterations = server.getIterations(
+				IterationData[] iterations = client.getIterations(
 						((ProjectData)selectedElement).getId());
 				for (IterationData iteration : iterations) {
-					userStories.addAll(Arrays.asList(server.getUserStories(iteration.getId())));
+					userStories.addAll(Arrays.asList(client.getUserStories(iteration.getId())));
 				}
 			}
 			else if (selectedElement instanceof IterationData) {
-				userStories.addAll(Arrays.asList(server.getUserStories(
+				userStories.addAll(Arrays.asList(client.getUserStories(
 						((IterationData)selectedElement).getId())));
 			}
 			else if (selectedElement instanceof UserStoryData) {
@@ -684,13 +665,13 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		}
 		
 		ArrayList<AbstractRepositoryQuery> queries = new ArrayList<AbstractRepositoryQuery>();
-		int personId = server.getCurrentPersonId();
+		int personId = client.getCurrentPersonId();
 		for (UserStoryData userStory : userStories) {
 			boolean createQuery = true;
 			// if want user specific tasks, only create queries for stories with tasks for
 			// that person
 			if (!isUseAll()) {
-				TaskData[] personUserStoryTasks = server.getUserStoryTasksForPerson(personId, userStory.getId());
+				TaskData[] personUserStoryTasks = client.getUserStoryTasksForPerson(personId, userStory.getId());
 				if (personUserStoryTasks == null || personUserStoryTasks.length == 0) {
 					createQuery = false;
 				}
@@ -704,8 +685,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 				}	
 				
 				XPlannerCustomQuery query = new XPlannerCustomQuery(
-					getRepository().getUrl(), queryName,	
-					TasksUiPlugin.getTaskListManager().getTaskList());
+					getRepository().getUrl(), queryName);	
 				
 				applyChanges(query);
 				query.setQueryName(queryName);

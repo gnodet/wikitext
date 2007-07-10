@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %bundleName
-Bundle-SymbolicName: org.eclipse.mylar.xplanner.ui;singleton:=true
+Bundle-SymbolicName: org.eclipse.mylyn.xplanner.ui;singleton:=true
 Bundle-Version: 2.0.0.qualifier
-Bundle-Activator: org.eclipse.mylar.xplanner.ui.XPlannerMylarUIPlugin
+Bundle-Activator: org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin
 Bundle-Vendor: %bundleVendor
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
@@ -13,11 +13,12 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.search,
  org.eclipse.ui.forms,
  org.eclipse.help,
- org.eclipse.mylar.xplanner.core,
- org.eclipse.mylar.tasks.ui,
- org.eclipse.mylar.context.core,
- org.eclipse.mylar.tasks.core,
- org.eclipse.mylar
+ org.eclipse.mylyn.xplanner.core,
+ org.eclipse.mylyn.tasks.ui,
+ org.eclipse.mylyn.context.core,
+ org.eclipse.mylyn.tasks.core,
+ org.eclipse.mylyn,
+ org.eclipse.mylyn.monitor.core
 Eclipse-LazyStart: true
-Export-Package: org.eclipse.mylar.xplanner.ui,
- org.eclipse.mylar.xplanner.ui.wizard
+Export-Package: org.eclipse.mylyn.xplanner.ui,
+ org.eclipse.mylyn.xplanner.ui.wizard

@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.tests;
+package org.eclipse.mylyn.xplanner.tests;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
@@ -17,7 +17,7 @@ import junit.framework.TestSuite;
 public class AllXPlannerTests {
 
 	public static Test suite() {
-		TestSuite suite = new TestSuite("Test for mylar.xplanner.tests");
+		TestSuite suite = new TestSuite("Test for mylyn.xplanner.tests");
 
 		// $JUnit-BEGIN$
 		suite.addTestSuite(XPlannerRepositoryUtilsTest.class);

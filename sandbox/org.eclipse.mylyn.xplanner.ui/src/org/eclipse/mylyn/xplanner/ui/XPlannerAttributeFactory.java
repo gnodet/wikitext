@@ -5,14 +5,14 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.ui;
+package org.eclipse.mylyn.xplanner.ui;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
-import org.eclipse.mylar.tasks.core.AbstractAttributeFactory;
-import org.eclipse.mylar.tasks.core.RepositoryTaskAttribute;
+import org.eclipse.mylyn.tasks.core.AbstractAttributeFactory;
+import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
 
 
 /**
@@ -37,14 +37,66 @@ public class XPlannerAttributeFactory extends AbstractAttributeFactory {
 	public static final String ATTRIBUTE_USER_STORY_NAME = "userStoryName"; //$NON-NLS-1$
 	public static final String ATTRIBUTE_TASK_COMPLETED = "completed"; //$NON-NLS-1$
 
-	@Override
-	public boolean getIsHidden(String key) {
-		return false;
+	public static final String ATTRIBUTE_SUBTASK_IDS = "attribute.xplanner.subtask_ids";
+	public static final String ATTRIBUTE_SUBTASK_KEYS = "attribute.xplanner.subtask_keys";
+	
+	private static Map<String, Attribute> commonKeyToAttributesMap = new HashMap<String, Attribute>();
+
+	public enum Attribute {
+		DESCRIPTION("Description:", RepositoryTaskAttribute.DESCRIPTION, false), //$NON-NLS-1$
+		OWNER("Acceptor:", RepositoryTaskAttribute.USER_ASSIGNED, true), //$NON-NLS-1$
+		PRIORITY("Priority:", RepositoryTaskAttribute.PRIORITY, true), //$NON-NLS-1$
+		STATUS("Status:", RepositoryTaskAttribute.STATUS, true), //$NON-NLS-1$
+		NAME("Name:", RepositoryTaskAttribute.SUMMARY, false), //$NON-NLS-1$
+		CREATED_ON("Created:", RepositoryTaskAttribute.DATE_CREATION, true),  //$NON-NLS-1$
+		MODIFIED_TIME("Last Update:", RepositoryTaskAttribute.DATE_MODIFIED, true),  //$NON-NLS-1$
+		SUBTASK_IDS("Subtask ids:", XPlannerAttributeFactory.ATTRIBUTE_SUBTASK_IDS, true),
+		SUBTASK_KEYS("Sub-Tasks:", XPlannerAttributeFactory.ATTRIBUTE_SUBTASK_KEYS, true),
+
+		; 
+		
+		private final boolean isReadOnly;
+		
+		private final String displayName;
+
+		private final String commonAttributeKey;
+
+		Attribute(String displayName, String commonAttributeKey, boolean readonly) {
+			this.displayName = displayName;
+			this.commonAttributeKey = commonAttributeKey;
+			this.isReadOnly = readonly;
+			
+			commonKeyToAttributesMap.put(commonAttributeKey, this);
+		}
+
+		public String getCommonAttributeKey() {
+			return commonAttributeKey;
+		}
+
+		public String getDisplayName() {
+			return displayName;
+		}
+
+		public boolean isReadOnly() {
+			return isReadOnly;
+		}
+		
+		@Override
+		public String toString() {
+			return getDisplayName();
+		}
+	}
+
+
+	static {
+		// make sure hash maps get initialized when class is loaded
+		Attribute.values();
 	}
 
 	@Override
 	public String getName(String key) {
-		return key;
+		Attribute attribute = commonKeyToAttributesMap.get(key);
+		return (attribute != null) ? attribute.getDisplayName() : key;
 	}
 
 	@Override
@@ -53,8 +105,14 @@ public class XPlannerAttributeFactory extends AbstractAttributeFactory {
 	}
 
 	@Override
-	public boolean isReadOnly(String key) {				
+	public boolean isHidden(String key) {
 		return false;
+	}
+
+	@Override
+	public boolean isReadOnly(String key) {				
+		Attribute attribute = commonKeyToAttributesMap.get(key);
+		return (attribute != null) ? attribute.isReadOnly() : false;
 	}
 	
 	public Date getDateForAttributeType(String attributeKey, String dateString) {

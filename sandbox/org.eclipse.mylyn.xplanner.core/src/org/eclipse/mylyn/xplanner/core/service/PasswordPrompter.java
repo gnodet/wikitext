@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.core.service;
+package org.eclipse.mylyn.xplanner.core.service;
 
 import java.net.URL;
 

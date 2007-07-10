@@ -5,13 +5,13 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.core;
+package org.eclipse.mylyn.xplanner.core;
 
 /**
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
-import org.eclipse.mylar.xplanner.core.service.XPlannerServer;
+import org.eclipse.mylyn.xplanner.core.service.XPlannerServer;
 
 
 public interface XPlannerServerListener {

@@ -226,13 +226,13 @@ public class XPlannerProxy implements org.xplanner.soap.XPlanner.XPlanner {
     xPlanner.removeUserStory(id);
   }
   
-  public org.xplanner.soap.TaskData[] getCurrentTasksForPerson(int personId) throws java.rmi.RemoteException, org.eclipse.mylar.xplanner.wsdl.db.QueryException{
+  public org.xplanner.soap.TaskData[] getCurrentTasksForPerson(int personId) throws java.rmi.RemoteException, org.eclipse.mylyn.xplanner.wsdl.db.QueryException{
     if (xPlanner == null)
       _initXPlannerProxy();
     return xPlanner.getCurrentTasksForPerson(personId);
   }
   
-  public org.xplanner.soap.TaskData[] getPlannedTasksForPerson(int personId) throws java.rmi.RemoteException, org.eclipse.mylar.xplanner.wsdl.db.QueryException{
+  public org.xplanner.soap.TaskData[] getPlannedTasksForPerson(int personId) throws java.rmi.RemoteException, org.eclipse.mylyn.xplanner.wsdl.db.QueryException{
     if (xPlanner == null)
       _initXPlannerProxy();
     return xPlanner.getPlannedTasksForPerson(personId);

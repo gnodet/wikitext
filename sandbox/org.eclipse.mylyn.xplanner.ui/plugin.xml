@@ -3,54 +3,41 @@
 <plugin>
 
    <extension
-         id="org.eclipse.mylar.xplanner.repository"
+         id="org.eclipse.mylyn.xplanner.repository"
          name="%repositoryName"
-         point="org.eclipse.mylar.tasks.ui.repositories">
+         point="org.eclipse.mylyn.tasks.ui.repositories">
 
       <connectorCore
-            class="org.eclipse.mylar.xplanner.ui.XPlannerRepositoryConnector"
-            id="org.eclipse.mylar.xplanner.tasklist.repositories"
+            class="org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryConnector"
+            id="org.eclipse.mylyn.xplanner.tasklist.repositories"
             name="%connectorName"
             type="xPlanner"/>
 	  <connectorUi
          brandingIcon="icons/eview16/xplanner-logo.gif"
-         class="org.eclipse.mylar.xplanner.ui.XPlannerRepositoryUi"
+         class="org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUi"
          name="%connectorUiName"
          overlayIcon="icons/eview16/overlay-xplanner.gif"/>
             
-      <externalizer 
-            class="org.eclipse.mylar.xplanner.ui.XPlannerTaskExternalizer"
-            id="org.eclipse.mylar.xplanner.tasklist.externalizer"/>
+      <taskListFactory
+            class="org.eclipse.mylyn.xplanner.ui.XPlannerTaskListFactory"
+            id="org.eclipse.mylyn.xplanner.tasklist.taskListFactory"/>
    </extension>  
    
-   <extension point="org.eclipse.ui.decorators">
-      <decorator
-            class="org.eclipse.mylar.xplanner.ui.XPlannerTaskDecorator"
-            id="org.eclipse.mylar.xplanner.ui.decorator.task"
-            label="%decoratorLabelTask"
-            lightweight="true"
-            state="true">
-         <description>%decoratorDescriptionTask</description>
-         <enablement>
-            <objectClass name="org.eclipse.mylar.tasks.core.ITaskListElement"/>
-         </enablement>
-      </decorator>
-   </extension>
    <!--
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="org.eclipse.mylar.xplanner.ui.XPlannerTaskEditor"
+            class="org.eclipse.mylyn.xplanner.ui.XPlannerTaskEditor"
             default="false"
-            id="org.eclipse.mylar.xplanner.task.editor"
+            id="org.eclipse.mylyn.xplanner.task.editor"
             name="%editorNameTask"/>
    </extension>
    -->
    <extension
-         point="org.eclipse.mylar.tasks.ui.editors">
+         point="org.eclipse.mylyn.tasks.ui.editors">
       <editorFactory
-            class="org.eclipse.mylar.xplanner.ui.editor.XPlannerTaskEditorFactory"
-            id="org.eclipse.mylar.xplanner.ui.XPlannerTaskEditorFactory"/>
+            class="org.eclipse.mylyn.xplanner.ui.editor.XPlannerTaskEditorFactory"
+            id="org.eclipse.mylyn.xplanner.ui.XPlannerTaskEditorFactory"/>
    </extension>
 
 </plugin>

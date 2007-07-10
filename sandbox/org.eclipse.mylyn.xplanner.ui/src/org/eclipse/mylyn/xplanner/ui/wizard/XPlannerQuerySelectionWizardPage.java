@@ -5,12 +5,12 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.ui.wizard;
+package org.eclipse.mylyn.xplanner.ui.wizard;
 
 import org.eclipse.jface.wizard.IWizardPage;
-import org.eclipse.mylar.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.xplanner.ui.XPlannerCustomQuery;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.xplanner.ui.XPlannerCustomQuery;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -19,8 +19,7 @@ import org.eclipse.swt.widgets.Composite;
 
 
 /**
- * Wizard page that allows the user to select a named XPlanner filter they have
- * defined on the server.
+ * Wizard page that allows the user to select a query of tasks from the XPlanner server.
  *
  * @author Ravi Kumar
  * @author Helen Bershadskaya

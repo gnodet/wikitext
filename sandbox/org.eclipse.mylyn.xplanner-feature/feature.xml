@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.eclipse.mylar.xplanner_feature"
+      id="org.eclipse.mylyn.xplanner_feature"
       label="%featureLabel"
       version="2.0.0.qualifier"
       provider-name="Eclipse.org"
-      plugin="org.eclipse.mylar.xplanner.ui">
+      plugin="org.eclipse.mylyn.xplanner.ui">
 
    <description>
       %featureDescription
@@ -214,31 +214,24 @@ litigation.
    </license>
 
    <url>
-      <update label="Mylar for Eclipse 3.2" url="http://download.eclipse.org/technology/mylar/update-site/e3.2"/>
+      <update label="Mylyn for Eclipse 3.3" url="http://download.eclipse.org/tools/mylyn/update/e3.3"/>
    </url>
 
    <requires>
-      <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.ui.forms"/>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.mylar.context.core"/>
-      <import plugin="org.eclipse.mylar.tasks.ui"/>
-      <import plugin="org.eclipse.mylar.tasks.core"/>
-      <import plugin="org.eclipse.search"/>
-      <import plugin="org.eclipse.mylar.monitor.core"/>
-      <import plugin="org.eclipse.mylar" version="2.0.0.v20070216" match="greaterOrEqual"/>
-      <import feature="org.eclipse.mylar_feature" version="2.0.0.v20070216" match="greaterOrEqual"/>
+      <import feature="org.eclipse.mylyn_feature" version="2.0.0.v20070514" match="equivalent"/>
+      <import feature="org.eclipse.rcp" version="3.2.2.r322_v20070104-8pcviKVqd8J7C1U" match="compatible"/>
+      <import feature="org.eclipse.platform" version="3.2.2.r322_v20070119-RQghndJN8IM0MsK" match="compatible"/>
    </requires>
 
    <plugin
-         id="org.eclipse.mylar.xplanner.ui"
+         id="org.eclipse.mylyn.xplanner.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.mylar.xplanner.core"
+         id="org.eclipse.mylyn.xplanner.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"

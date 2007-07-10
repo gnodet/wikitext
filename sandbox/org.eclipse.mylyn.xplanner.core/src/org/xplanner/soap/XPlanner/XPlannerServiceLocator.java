@@ -7,9 +7,23 @@
 
 package org.xplanner.soap.XPlanner;
 
+import java.net.Proxy;
+import java.util.Hashtable;
+import java.util.Map;
+
+import javax.xml.rpc.Call;
+import javax.xml.rpc.ServiceException;
+
+import org.apache.axis.transport.http.HTTPConstants;
+
 @SuppressWarnings("unchecked")
 public class XPlannerServiceLocator extends org.apache.axis.client.Service implements org.xplanner.soap.XPlanner.XPlannerService {
 
+		private Proxy proxy;
+		private String httpUser;
+		private String httpPassword;
+		private boolean compression;
+		
     public XPlannerServiceLocator() {
     }
 
@@ -140,4 +154,64 @@ if ("XPlanner".equals(portName)) { //$NON-NLS-1$
         setEndpointAddress(portName.getLocalPart(), address);
     }
 
+  	/*
+  	 * (non-Javadoc)
+  	 * 
+  	 * @see org.apache.axis.client.Service#createCall()
+  	 */
+  	public Call createCall() throws ServiceException {
+  		Call call = super.createCall();
+  		// JIRA does not accept compressed SOAP messages: see bug 175915
+  		//call.setProperty(HTTPConstants.MC_GZIP_REQUEST, Boolean.TRUE);
+  		if (compression) {
+  			call.setProperty(HTTPConstants.MC_ACCEPT_GZIP, Boolean.TRUE);
+  		}
+  		if (httpUser != null && httpPassword != null) {
+  			call.setProperty(XPlannerHttpSender.HTTP_USER, httpUser);
+  			call.setProperty(XPlannerHttpSender.HTTP_PASSWORD, httpPassword);
+  		}
+  		if (proxy != null) {
+  			call.setProperty(XPlannerHttpSender.PROXY, proxy);
+  		}
+  		
+  		// Some clients break with a 411 Length Required when chunked encoding
+  		// is used
+  		Map<String, Boolean> headers = new Hashtable<String, Boolean>();
+  		headers.put(HTTPConstants.HEADER_TRANSFER_ENCODING_CHUNKED, Boolean.FALSE);
+  		call.setProperty(HTTPConstants.REQUEST_HEADERS, headers);
+  		return call;
+  	}
+
+  	public Proxy getProxy() {
+  		return proxy;
+  	}
+
+  	public void setProxy(Proxy proxy) {
+  		this.proxy = proxy;
+  	}
+
+  	public String getHttpUser() {
+  		return httpUser;
+  	}
+
+  	public void setHttpUser(String httpUser) {
+  		this.httpUser = httpUser;
+  	}
+
+  	public String getHttpPassword() {
+  		return httpPassword;
+  	}
+
+  	public void setHttpPassword(String httpPassword) {
+  		this.httpPassword = httpPassword;
+  	}
+
+  	public boolean isCompression() {
+  		return compression;
+  	}
+  	
+  	public void setCompression(boolean compression) {
+  		this.compression = compression;
+  	}
+  	
 }

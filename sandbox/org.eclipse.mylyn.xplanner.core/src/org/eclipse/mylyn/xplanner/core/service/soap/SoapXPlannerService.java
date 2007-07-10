@@ -5,27 +5,22 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.core.service.soap;
+package org.eclipse.mylyn.xplanner.core.service.soap;
 
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 
-import org.xplanner.soap.IterationData;
-import org.xplanner.soap.NoteData;
-import org.xplanner.soap.PersonData;
-import org.xplanner.soap.ProjectData;
-import org.xplanner.soap.TaskData;
-import org.xplanner.soap.TimeEntryData;
-import org.xplanner.soap.UserStoryData;
+import org.apache.axis.client.Stub;
+import org.apache.axis.configuration.FileProvider;
+import org.eclipse.mylyn.xplanner.core.service.exceptions.AuthenticationException;
+import org.eclipse.mylyn.xplanner.core.service.exceptions.ServiceUnavailableException;
+import org.eclipse.mylyn.xplanner.wsdl.db.QueryException;
+import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
+import org.eclipse.mylyn.xplanner.core.service.XPlannerService;
+import org.xplanner.soap.*;
 import org.xplanner.soap.XPlanner.XPlanner;
 import org.xplanner.soap.XPlanner.XPlannerServiceLocator;
-import org.apache.axis.client.Stub;
-import org.eclipse.mylar.xplanner.core.service.XPlannerServer;
-import org.eclipse.mylar.xplanner.core.service.XPlannerService;
-import org.eclipse.mylar.xplanner.core.service.exceptions.AuthenticationException;
-import org.eclipse.mylar.xplanner.core.service.exceptions.ServiceUnavailableException;
-import org.eclipse.mylar.xplanner.wsdl.db.QueryException;
 
 
 // This class does not represent the data in a XPlanner installation.  It is merely
@@ -43,17 +38,22 @@ import org.eclipse.mylar.xplanner.wsdl.db.QueryException;
 public class SoapXPlannerService extends XPlannerService {
 
 	private static final String SOAP_URL_PREFIX = "/soap/XPlanner"; //$NON-NLS-1$
-	private XPlannerServer server;
+	private XPlannerClient client;
 	private XPlanner service;
 	boolean loginActive;
 
-	public SoapXPlannerService(XPlannerServer aServer) {
-		this.server = aServer;
+	public SoapXPlannerService(XPlannerClient aClient) {
+		this.client = aClient;
 		
 		try {
-			XPlannerServiceLocator s = new XPlannerServiceLocator();
-			service = s.getXPlanner(new URL(server.getBaseURL() + SOAP_URL_PREFIX));
-			login(server.getCurrentUserName(), server.getCurrentUserPassword());
+			XPlannerServiceLocator s = new XPlannerServiceLocator(new FileProvider(this
+					.getClass().getClassLoader().getResourceAsStream("client-config.wsdd"))); //$NON-NLS-1$
+			s.setHttpUser(client.getHttpUser());
+			s.setHttpPassword(client.getHttpPassword());
+			s.setProxy(client.getProxy());
+			s.setCompression(client.useCompression());
+			service = s.getXPlanner(new URL(client.getBaseURL() + SOAP_URL_PREFIX));
+			login(client.getCurrentUserName(), client.getCurrentUserPassword());
 		} 
 		catch (Throwable e) {
 			e.printStackTrace();

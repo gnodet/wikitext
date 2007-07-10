@@ -5,29 +5,28 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.tests;
+package org.eclipse.mylyn.xplanner.tests;
 
 import junit.framework.TestCase;
 
-import org.eclipse.mylar.tasks.core.AbstractRepositoryConnector;
-import org.eclipse.mylar.tasks.core.AbstractRepositoryTask;
-import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylar.xplanner.core.service.XPlannerServer;
-import org.eclipse.mylar.xplanner.ui.XPlannerRepositoryConnector;
-import org.eclipse.mylar.xplanner.ui.XPlannerTask;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.mylyn.tasks.core.*;
+import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
+import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryConnector;
+import org.eclipse.mylyn.xplanner.ui.XPlannerTask;
 import org.xplanner.soap.TaskData;
 import org.xplanner.soap.UserStoryData;
 
 public class XPlannerRepositoryConnectorTest extends TestCase {
-	private static XPlannerServer server;
+	private static XPlannerClient client;
 	
 	protected void setUp() throws Exception {
 		super.setUp();
-		if (server == null) { // only create data once per run
-			server = XPlannerTestUtils.getXPlannerServer();
-			XPlannerTestUtils.clearTestData(server);
-			XPlannerTestUtils.setUpTestData(server);
+		if (client == null) { // only create data once per run
+			client = XPlannerTestUtils.getXPlannerClient();
+			XPlannerTestUtils.clearTestData(client);
+			XPlannerTestUtils.setUpTestData(client);
 		}
 	}
 
@@ -38,13 +37,13 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 	public void testCreateTaskFromExistingKeyForUserStory() throws Exception {
 		TaskRepository repository = XPlannerTestUtils.getRepository();
 		AbstractRepositoryConnector connector = 
-			TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getKind());
-		UserStoryData testUserStory = XPlannerTestUtils.findTestUserStory(server);
+			TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getConnectorKind());
+		UserStoryData testUserStory = XPlannerTestUtils.findTestUserStory(client);
 
 		assertTrue(testUserStory != null);
 		
-		AbstractRepositoryTask repositoryTask = 
-			connector.createTaskFromExistingKey(repository, "" + testUserStory.getId());
+		AbstractTask repositoryTask = 
+			connector.createTaskFromExistingId(repository, "" + testUserStory.getId(), new NullProgressMonitor());
 		
 		assertTrue(repositoryTask instanceof XPlannerTask);
 		assertTrue(((XPlannerTask)repositoryTask).getSummary().equals(testUserStory.getName()));
@@ -53,13 +52,13 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 	public void testCreateTaskFromExistingKeyForTask() throws Exception {
 		TaskRepository repository = XPlannerTestUtils.getRepository();
 		AbstractRepositoryConnector connector = 
-			TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getKind());
-		TaskData testTask = XPlannerTestUtils.findTestTask(server);
+			TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getConnectorKind());
+		TaskData testTask = XPlannerTestUtils.findTestTask(client);
 
 		assertTrue(testTask != null);
 		
-		AbstractRepositoryTask repositoryTask = 
-			connector.createTaskFromExistingKey(repository, "" + testTask.getId());
+		AbstractTask repositoryTask = 
+			connector.createTaskFromExistingId(repository, "" + testTask.getId(), new NullProgressMonitor());
 		
 		assertTrue(repositoryTask instanceof XPlannerTask);
 		assertTrue(((XPlannerTask)repositoryTask).getSummary().equals(testTask.getName()));
@@ -68,12 +67,12 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 	public void testUpdateTaskDetailsCompleted() throws Exception {
 		TaskRepository repository = XPlannerTestUtils.getRepository();
 		AbstractRepositoryConnector connector = 
-			TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getKind());
+			TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getConnectorKind());
 		
 		assertTrue(connector instanceof XPlannerRepositoryConnector);
 		XPlannerRepositoryConnector xplannerConnector = (XPlannerRepositoryConnector) connector;
-		TaskData testTask = XPlannerTestUtils.findTestTask(server);
-		XPlannerTask repositoryTask = XPlannerTestUtils.getTestXPlannerTask(server);
+		TaskData testTask = XPlannerTestUtils.findTestTask(client);
+		XPlannerTask repositoryTask = XPlannerTestUtils.getTestXPlannerTask(client);
 
 		assertTrue(testTask != null);
 		assertTrue(repositoryTask != null);
@@ -84,14 +83,14 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		
 		// mark testTask as completed
 		testTask.setCompleted(true);
-		server.update(testTask);
+		client.update(testTask);
 		
 		xplannerConnector.updateTaskDetails(repository.getUrl(), repositoryTask, testTask, false);
 		assertTrue(repositoryTask.isCompleted());
 		
 		//restore testTask's completion state
 		testTask.setCompleted(originalCompleted);
-		server.update(testTask);
+		client.update(testTask);
 	}
 
 }

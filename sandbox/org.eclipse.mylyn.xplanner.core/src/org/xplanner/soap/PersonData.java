@@ -8,7 +8,7 @@
 package org.xplanner.soap;
 
 @SuppressWarnings("unchecked")
-public class PersonData  extends org.eclipse.mylar.xplanner.wsdl.soap.domain.DomainData  implements java.io.Serializable {
+public class PersonData  extends org.eclipse.mylyn.xplanner.wsdl.soap.domain.DomainData  implements java.io.Serializable {
     private java.lang.String email;
 
     private java.lang.String initials;

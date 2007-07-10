@@ -5,11 +5,10 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.core.service.soap;
+package org.eclipse.mylyn.xplanner.core.service.soap;
 
-import org.eclipse.mylar.xplanner.core.service.XPlannerServer;
-import org.eclipse.mylar.xplanner.core.service.XPlannerService;
-import org.eclipse.mylar.xplanner.core.service.XPlannerServiceFactory;
+import org.eclipse.mylyn.xplanner.core.service.soap.SoapXPlannerService;
+import org.eclipse.mylyn.xplanner.core.service.*;
 
 /**
  * @author Ravi Kumar 
@@ -17,9 +16,9 @@ import org.eclipse.mylar.xplanner.core.service.XPlannerServiceFactory;
  */
 public class SoapXPlannerServiceFactory implements XPlannerServiceFactory {
 
-	public XPlannerService createService(XPlannerServer server) {
+	public XPlannerService createService(XPlannerClient client) {
 		// TODO Auto-generated method stub
-		return new SoapXPlannerService(server);
+		return new SoapXPlannerService(client);
 	}
 
 }

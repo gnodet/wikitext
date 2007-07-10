@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.core;
+package org.eclipse.mylyn.xplanner.core;
 
 import java.io.File;
 import java.text.MessageFormat;
@@ -14,10 +14,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Plugin;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.mylar.xplanner.core.service.exceptions.AuthenticationException;
+import org.eclipse.core.runtime.*;
+import org.eclipse.mylyn.xplanner.core.service.exceptions.AuthenticationException;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -27,13 +25,13 @@ import org.osgi.framework.BundleContext;
  * @author Ravi Kumar 
  */
 public class XPlannerCorePlugin extends Plugin {
-	public static final String ID = "org.eclipse.mylar.xplanner.core"; //$NON-NLS-1$
+	public static final String ID = "org.eclipse.mylyn.xplanner.core"; //$NON-NLS-1$
 	
 	//The shared instance.
 	private static XPlannerCorePlugin plugin;
 	//Resource bundle.
 	private ResourceBundle resourceBundle;
-	private ServerManager serverManager;
+	private XPlannerClientManager clientManager;
 	
 	/**
 	 * The constructor.
@@ -48,14 +46,14 @@ public class XPlannerCorePlugin extends Plugin {
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-		File serverCache = getStateLocation().append("serverCache").toFile(); //$NON-NLS-1$
+		File clientCache = getStateLocation().append("serverCache").toFile(); //$NON-NLS-1$
 		
 		// Turn off logging for the Attachment check.  We don't want or need soap with attachments
 		Logger logger = Logger.getLogger("org.apache.axis.utils.JavaUtils"); //$NON-NLS-1$
 		logger.setLevel(Level.SEVERE);
 		
-		serverManager = new ServerManager(serverCache);
-		serverManager.start();
+		clientManager = new XPlannerClientManager(clientCache);
+		clientManager.start();
 	}
 
 	/**
@@ -69,8 +67,8 @@ public class XPlannerCorePlugin extends Plugin {
 		
 			public String getPassword(URL baseURL, String username) {
 				Map authenticationInfo = Platform.getAuthorizationInfo(baseURL, "XPlanner", ""); //$NON-NLS-1$ //$NON-NLS-2$
-//				String username = (String) authenticationInfo.get("org.eclipse.mylar.xplanner.core.username"); //$NON-NLS-1$
-				String password = (String) authenticationInfo.get("org.eclipse.mylar.xplanner.core.password"); //$NON-NLS-1$
+//				String username = (String) authenticationInfo.get("org.eclipse.mylyn.xplanner.core.username"); //$NON-NLS-1$
+				String password = (String) authenticationInfo.get("org.eclipse.mylyn.xplanner.core.password"); //$NON-NLS-1$
 				return password;
 			}
 		
@@ -83,12 +81,12 @@ public class XPlannerCorePlugin extends Plugin {
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		
-		if (serverManager != null) {
-			serverManager.stop();
+		if (clientManager != null) {
+			clientManager.stop();
 		}
 		plugin = null;
 		resourceBundle = null;
-		serverManager = null;
+		clientManager = null;
 	}
 
 	/**
@@ -98,8 +96,8 @@ public class XPlannerCorePlugin extends Plugin {
 		return plugin;
 	}
 
-	public ServerManager getServerManager() {
-		return serverManager;
+	public XPlannerClientManager getClientManager() {
+		return clientManager;
 	}
 	
 	/**
@@ -121,7 +119,7 @@ public class XPlannerCorePlugin extends Plugin {
 	public ResourceBundle getResourceBundle() {
 		try {
 			if (resourceBundle == null)
-				resourceBundle = ResourceBundle.getBundle("org.eclipse.mylar.xplanner.core.XPlannerCorePluginResources"); //$NON-NLS-1$
+				resourceBundle = ResourceBundle.getBundle("org.eclipse.mylyn.xplanner.core.XPlannerCorePluginResources"); //$NON-NLS-1$
 		} catch (MissingResourceException x) {
 			resourceBundle = null;
 		}

@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.ui.editor;
+package org.eclipse.mylyn.xplanner.ui.editor;
 
 import java.rmi.RemoteException;
 import java.text.MessageFormat;
@@ -15,36 +15,23 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.resource.JFaceResources;
-import org.eclipse.mylar.core.MylarStatusHandler;
-import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylar.tasks.ui.editors.RepositoryTaskEditorInput;
-import org.eclipse.mylar.xplanner.core.service.XPlannerServer;
-import org.eclipse.mylar.xplanner.ui.XPlannerAttributeFactory;
-import org.eclipse.mylar.xplanner.ui.XPlannerMylarUIPlugin;
-import org.eclipse.mylar.xplanner.ui.XPlannerServerFacade;
-import org.eclipse.mylar.xplanner.ui.XPlannerTask;
+import org.eclipse.mylyn.monitor.core.StatusHandler;
+import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.tasks.ui.editors.RepositoryTaskEditorInput;
+import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
+import org.eclipse.mylyn.xplanner.ui.*;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.swt.widgets.*;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
-import org.eclipse.ui.forms.widgets.ExpandableComposite;
-import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.ScrolledForm;
-import org.eclipse.ui.forms.widgets.Section;
-import org.xplanner.soap.IterationData;
-import org.xplanner.soap.PersonData;
-import org.xplanner.soap.ProjectData;
-import org.xplanner.soap.UserStoryData;
+import org.eclipse.ui.forms.widgets.*;
+import org.xplanner.soap.*;
 
 /**
  * @author Ravi Kumar
@@ -60,7 +47,7 @@ public class XPlannerUserStoryEditor extends FormPage {
 
 	private boolean isDirty = false;
 
-	private XPlannerServer server;
+	private XPlannerClient client;
 
 	private UserStoryData userStoryData;
 
@@ -86,7 +73,7 @@ public class XPlannerUserStoryEditor extends FormPage {
 		}
 		
 		RepositoryTaskEditorInput  repositoryInput = (RepositoryTaskEditorInput) input;
-		if (!XPlannerMylarUIPlugin.REPOSITORY_KIND.equals(repositoryInput.getRepository().getKind())) {
+		if (!XPlannerMylynUIPlugin.REPOSITORY_KIND.equals(repositoryInput.getRepository().getConnectorKind())) {
 			return;
 		}
 		
@@ -94,28 +81,28 @@ public class XPlannerUserStoryEditor extends FormPage {
 		setSite(site);
 		setInput(input);
 		setPartName(this.input.getName());
-		XPlannerTask task = (XPlannerTask) repositoryInput.getRepositoryTask();
-		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(task.getRepositoryKind(),
-				task.getRepositoryUrl());
+		RepositoryTaskData taskData = repositoryInput.getTaskData();
+		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(taskData.getRepositoryKind(),
+				taskData.getRepositoryUrl());
 		try {
-			server = XPlannerServerFacade.getDefault().getXPlannerServer(repository);
-			String key = task.getKey();
-			if (key == null || key.trim().equals("")) {  //$NON-NLS-1$
-				MylarStatusHandler.log(Messages.XPlannerTaskEditor_NO_TASK_KEY_EXCEPTION,
+			client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
+			String id = taskData.getId();
+			if (id == null || id.trim().equals("")) {  //$NON-NLS-1$
+				StatusHandler.log(Messages.XPlannerTaskEditor_NO_TASK_KEY_EXCEPTION,
 					null);
 			} 
 			else {
-				setUserStoryData(key);
+				setUserStoryData(id);
 			}
 		}
 		catch (CoreException e) {
-			MylarStatusHandler.log(e,	null);
+			StatusHandler.log(e,	null);
 		}
 	}
 
 	public void setUserStoryData(String key) {
 		try {
-			this.userStoryData = server.getUserStory(Integer.valueOf(key).intValue());
+			this.userStoryData = client.getUserStory(Integer.valueOf(key).intValue());
 		} 
 		catch (NumberFormatException e) {
 			e.printStackTrace();
@@ -129,20 +116,6 @@ public class XPlannerUserStoryEditor extends FormPage {
 		return this.userStoryData;
 	}
 	
-	public UserStoryData getUserStoryData(XPlannerTask task) throws Exception {
-		UserStoryData userStoryDataFromTask = null;
-		
-		String key = task.getKey();
-		if (key == null || key.trim().equals("")) {  //$NON-NLS-1$
-			throw new Exception(Messages.XPlannerTaskEditor_NO_TASK_KEY_EXCEPTION);
-		} 
-		else {
-			userStoryDataFromTask = server.getUserStory(Integer.valueOf(key).intValue());
-		}
-		
-		return userStoryDataFromTask;
-	}
-
 	public boolean isDirty() {
 		return isDirty;
 	}
@@ -316,9 +289,9 @@ public class XPlannerUserStoryEditor extends FormPage {
 	  String projectName = NO_PROJECT_NAME;
 	  
 		try {
-	    IterationData iteration = server.getIteration(userStoryData.getIterationId());
+	    IterationData iteration = client.getIteration(userStoryData.getIterationId());
 	    if (iteration != null) {
-	      ProjectData project = server.getProject(iteration.getProjectId());
+	      ProjectData project = client.getProject(iteration.getProjectId());
 	      if (project != null) {
 	        projectName = project.getName();
 	      }  
@@ -335,7 +308,7 @@ public class XPlannerUserStoryEditor extends FormPage {
 	  String iterationName = NO_ITERATION_NAME;
 	  
 		try {
-	    IterationData iteration = server.getIteration(userStoryData.getIterationId());
+	    IterationData iteration = client.getIteration(userStoryData.getIterationId());
 	    if (iteration != null) {
 	      iterationName = iteration.getName();
 	    }
@@ -364,7 +337,7 @@ public class XPlannerUserStoryEditor extends FormPage {
 		String acceptorName = NO_TRACKER_NAME;
 		
 		try {
-		  PersonData personData = server.getPerson(getUserStoryData().getTrackerId());
+		  PersonData personData = client.getPerson(getUserStoryData().getTrackerId());
 		  if (personData != null) {
 		  	acceptorName = personData.getName();
 		  }

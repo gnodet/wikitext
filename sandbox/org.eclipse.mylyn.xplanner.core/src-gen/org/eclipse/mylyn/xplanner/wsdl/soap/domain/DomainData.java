@@ -5,7 +5,7 @@
  * by the Apache Axis 1.3 Oct 05, 2005 (05:23:37 EDT) WSDL2Java emitter.
  */
 
-package org.eclipse.mylar.xplanner.wsdl.soap.domain;
+package org.eclipse.mylyn.xplanner.wsdl.soap.domain;
 
 @SuppressWarnings("unchecked")
 public abstract class DomainData  implements java.io.Serializable {

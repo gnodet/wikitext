@@ -5,18 +5,16 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.ui.wizard;
+package org.eclipse.mylyn.xplanner.ui.wizard;
 
 import java.rmi.RemoteException;
 import java.util.HashMap;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.mylar.xplanner.core.service.XPlannerServer;
-import org.eclipse.mylar.xplanner.ui.XPlannerMylarUIPlugin;
-import org.xplanner.soap.IterationData;
-import org.xplanner.soap.ProjectData;
-import org.xplanner.soap.UserStoryData;
+import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
+import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
+import org.xplanner.soap.*;
 
 /**
  * @author Ravi Kumar
@@ -42,11 +40,11 @@ public class ProjectsViewerContentProvider implements ITreeContentProvider {
 		try {
 			if (element instanceof IterationData) {
 				IterationData iteration = (IterationData) element;
-				parent = customQueryPage.getServer().getProject(iteration.getProjectId());
+				parent = customQueryPage.getClient().getProject(iteration.getProjectId());
 			}
 			else if (element instanceof UserStoryData) {
 				UserStoryData userStory = (UserStoryData) element;
-				parent = customQueryPage.getServer().getIteration(userStory.getIterationId());
+				parent = customQueryPage.getClient().getIteration(userStory.getIterationId());
 			}
 		}
 		catch (RemoteException e) {
@@ -86,7 +84,7 @@ public class ProjectsViewerContentProvider implements ITreeContentProvider {
 	private ProjectData[] getProjects() {
 		if (projects == null) {
 			try {
-				projects = customQueryPage.getServer().getProjects();
+				projects = customQueryPage.getClient().getProjects();
 			}
 			catch (RemoteException e) {
 				e.printStackTrace();
@@ -101,7 +99,7 @@ public class ProjectsViewerContentProvider implements ITreeContentProvider {
 		
 		if (iterations == null) {
 			try {
-				iterations = customQueryPage.getServer().getIterations(project.getId());
+				iterations = customQueryPage.getClient().getIterations(project.getId());
 				projectsToIterationsMap.put(project, iterations);
 			}
 			catch (RemoteException e) {
@@ -119,7 +117,7 @@ public class ProjectsViewerContentProvider implements ITreeContentProvider {
 			userStories = iterationsToUserStoriesMap.get(iteration);
 			if (userStories == null) {
 				try {
-					userStories = customQueryPage.getServer().getUserStories(iteration.getId());
+					userStories = customQueryPage.getClient().getUserStories(iteration.getId());
 					iterationsToUserStoriesMap.put(iteration, userStories);
 				}
 				catch (RemoteException e) {
@@ -150,10 +148,10 @@ public class ProjectsViewerContentProvider implements ITreeContentProvider {
 		  customQueryPage.getProjectsViewer().replace(parent, index, element);
 		  customQueryPage.getProjectsViewer().setChildCount(parent, getChildCount(parent));
 		  try {
-			  	customQueryPage.getProjectsViewer().setChildCount(element, getChildCount(element));
+			  customQueryPage.getProjectsViewer().setChildCount(element, getChildCount(element));
 			}
 			catch (Exception e) {
-				XPlannerMylarUIPlugin.log(e.getCause(), "Could not update project element child count", true);
+				XPlannerMylynUIPlugin.log(e.getCause(), Messages.ProjectsViewerContentProvider_COULD_NOT_UPDATE_PROJECT_ELEMENT_CHILD_COUNT, true);
 			}
 		}  
 	}
@@ -172,7 +170,7 @@ public class ProjectsViewerContentProvider implements ITreeContentProvider {
 	private Object[] getXPlannerChildren(Object element) {
 	  Object[] children = new Object[0];
 	  
-		if (element == null || element instanceof XPlannerServer) {
+		if (element == null || element instanceof XPlannerClient) {
 		  children = getProjects();	
 		}
 		else if (element instanceof ProjectData) {

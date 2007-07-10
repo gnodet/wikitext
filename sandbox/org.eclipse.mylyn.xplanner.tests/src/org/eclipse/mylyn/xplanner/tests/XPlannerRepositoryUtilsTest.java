@@ -5,31 +5,28 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.tests;
+package org.eclipse.mylyn.xplanner.tests;
 
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.mylar.tasks.core.RepositoryTaskAttribute;
-import org.eclipse.mylar.tasks.core.RepositoryTaskData;
-import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.xplanner.core.service.XPlannerServer;
-import org.eclipse.mylar.xplanner.ui.XPlannerAttributeFactory;
-import org.eclipse.mylar.xplanner.ui.XPlannerRepositoryUtils;
-import org.eclipse.mylar.xplanner.ui.XPlannerTask;
+import org.eclipse.mylyn.tasks.core.*;
+import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
+import org.eclipse.mylyn.xplanner.ui.*;
 import org.xplanner.soap.TaskData;
 import org.xplanner.soap.UserStoryData;
 
 public class XPlannerRepositoryUtilsTest extends TestCase {
 
-	private static XPlannerServer server;
+	private static XPlannerClient client;
 	
 	protected void setUp() throws Exception {
 		super.setUp();
-		if (server == null) { // only create data once per run
-			server = XPlannerTestUtils.getXPlannerServer();
-			XPlannerTestUtils.clearTestData(server);
-			XPlannerTestUtils.setUpTestData(server);
+		if (client == null) { // only create data once per run
+			client = XPlannerTestUtils.getXPlannerClient();
+			XPlannerTestUtils.clearTestData(client);
+			XPlannerTestUtils.setUpTestData(client);
 		}
 	}
 
@@ -39,9 +36,11 @@ public class XPlannerRepositoryUtilsTest extends TestCase {
 
 	public void testSetupTaskAttributes() {
 		try {
-			TaskData taskData =  XPlannerTestUtils.findTestTask(server);
-			XPlannerTask task = XPlannerTestUtils.getTestXPlannerTask(server);
-			RepositoryTaskData repositoryTaskData = task.getTaskData();
+			TaskData taskData =  XPlannerTestUtils.findTestTask(client);
+			XPlannerTask task = XPlannerTestUtils.getTestXPlannerTask(client);
+			RepositoryTaskData repositoryTaskData = 
+				TasksUiPlugin.getTaskDataManager().getNewTaskData(task.getRepositoryUrl(),
+				task.getTaskId()); 
 			XPlannerRepositoryUtils.setupTaskAttributes(taskData, repositoryTaskData);
 			
 			assert(taskData.getDescription().equals(
@@ -54,9 +53,11 @@ public class XPlannerRepositoryUtilsTest extends TestCase {
 
 	public void testSetupUserStoryAttributes() {
 		try {
-			UserStoryData userStory =  XPlannerTestUtils.findTestUserStory(server);
-			XPlannerTask task = XPlannerTestUtils.getTestXPlannerUserStoryTask(server);
-			RepositoryTaskData repositoryTaskData = task.getTaskData();
+			UserStoryData userStory =  XPlannerTestUtils.findTestUserStory(client);
+			XPlannerTask task = XPlannerTestUtils.getTestXPlannerUserStoryTask(client);
+			RepositoryTaskData repositoryTaskData = 
+				TasksUiPlugin.getTaskDataManager().getNewTaskData(task.getRepositoryUrl(),
+					task.getTaskId()); 
 			XPlannerRepositoryUtils.setupUserStoryAttributes(userStory, repositoryTaskData);
 			
 			assert(userStory.getName().equals(
@@ -68,10 +69,11 @@ public class XPlannerRepositoryUtilsTest extends TestCase {
 	}
 
 	public void testIsCompleted() {
-		XPlannerTask xplannerTask;
 		try {
-			xplannerTask = XPlannerTestUtils.getTestXPlannerTask(server);
-			RepositoryTaskData repositoryTaskData = xplannerTask.getTaskData();
+			XPlannerTask task = XPlannerTestUtils.getTestXPlannerTask(client);
+			RepositoryTaskData repositoryTaskData = 
+				TasksUiPlugin.getTaskDataManager().getNewTaskData(task.getRepositoryUrl(),
+					task.getTaskId()); 
 			assert(!XPlannerRepositoryUtils.isCompleted(repositoryTaskData));
 		}
 		catch (Exception e) {

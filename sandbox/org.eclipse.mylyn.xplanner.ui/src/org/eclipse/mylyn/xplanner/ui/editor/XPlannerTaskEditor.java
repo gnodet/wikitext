@@ -5,38 +5,23 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.ui.editor;
+package org.eclipse.mylyn.xplanner.ui.editor;
 
 import java.text.MessageFormat;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.resource.JFaceResources;
-import org.eclipse.mylar.tasks.core.ITask;
-import org.eclipse.mylar.tasks.core.RepositoryTaskAttribute;
-import org.eclipse.mylar.tasks.core.RepositoryTaskData;
-import org.eclipse.mylar.tasks.ui.editors.AbstractRepositoryTaskEditor;
-import org.eclipse.mylar.xplanner.ui.XPlannerMylarUIPlugin;
-import org.eclipse.mylar.xplanner.ui.XPlannerAttributeFactory;
-import org.eclipse.mylar.xplanner.ui.XPlannerRepositoryUtils;
+import org.eclipse.mylyn.tasks.core.*;
+import org.eclipse.mylyn.tasks.ui.editors.AbstractRepositoryTaskEditor;
+import org.eclipse.mylyn.xplanner.ui.*;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.events.*;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.swt.widgets.*;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.forms.editor.FormEditor;
-import org.eclipse.ui.forms.widgets.ExpandableComposite;
-import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.Section;
+import org.eclipse.ui.forms.widgets.*;
 
 /**
  * @author Ravi Kumar
@@ -77,25 +62,25 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor {
 		submitButton.setEnabled(isValid);
 	}
 
-	protected Composite createAttributeLayout(Composite composite) {
-		FormToolkit toolkit = new FormToolkit(composite.getDisplay());
-		Section section = createSection(composite, Messages.XPlannerTaskEditor_ATTRIBUTES_TITLE);
-		section.setExpanded(true);
-		// Attributes Composite- this holds all the combo fields and text fields
-		Composite attributesComposite = toolkit.createComposite(section);
-		GridLayout attributesLayout = new GridLayout();
-		attributesComposite.setLayout(attributesLayout);
-		GridData attributesData = new GridData(GridData.FILL_BOTH);
-		attributesData.horizontalSpan = 1;
-		attributesData.grabExcessVerticalSpace = false;
-		attributesComposite.setLayoutData(attributesData);
-		section.setClient(attributesComposite);
-		
-		return attributesComposite;
+//HeB -- testing
+	protected void createAttributeLayout(Composite composite) {
+//		super.createAttributeLayout(composite);
+//		FormToolkit toolkit = new FormToolkit(composite.getDisplay());
+//		Section section = createSection(composite, Messages.XPlannerTaskEditor_ATTRIBUTES_TITLE);
+//		section.setExpanded(true);
+//		// Attributes Composite- this holds all the combo fields and text fields
+//		Composite attributesComposite = toolkit.createComposite(section);
+//		GridLayout attributesLayout = new GridLayout();
+//		attributesComposite.setLayout(attributesLayout);
+//		GridData attributesData = new GridData(GridData.FILL_BOTH);
+//		attributesData.horizontalSpan = 1;
+//		attributesData.grabExcessVerticalSpace = false;
+//		attributesComposite.setLayoutData(attributesData);
+//		section.setClient(attributesComposite);
 	}
 	
 	@Override
-	protected void addAttachContextButton(Composite buttonComposite, ITask task) {
+	protected void addAttachContextButton(Composite buttonComposite, AbstractTask task) {
 		// disabled, see bug 155151
 	}
 
@@ -116,15 +101,18 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor {
 
 	@Override
 	protected void createCustomAttributeLayout(Composite composite) {
+		// make sure we only use one column
+		if (composite.getLayout() instanceof GridLayout) {
+			GridLayout layout = (GridLayout)composite.getLayout();
+			layout.numColumns = 1;
+		}
+
 		createPartControlCustom(composite);
 	}
 
+	  // just in case, leave in method -- before had to get from editorInput
 	public RepositoryTaskData getRepositoryTaskData() {
-		return editorInput.getTaskData();
-	}
-
-	protected void updateBug() {
-		getRepositoryTaskData().setHasLocalChanges(true);
+		return taskData;
 	}
 
 	public boolean isDirty() {
@@ -289,6 +277,6 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor {
 	}
 
 	public String getPluginId() {
-		return XPlannerMylarUIPlugin.PLUGIN_ID;
+		return XPlannerMylynUIPlugin.PLUGIN_ID;
 	}
 }

@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.eclipse.mylar.xplanner.core">
+<schema targetNamespace="org.eclipse.mylyn.xplanner.core">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.mylar.xplanner.core" id="serviceProviderFactory" name="Service provider factory"/>
+         <meta.schema plugin="org.eclipse.mylyn.xplanner.core" id="serviceProviderFactory" name="Service provider factory"/>
       </appInfo>
       <documentation>
          [Enter description of this extension point.]
@@ -65,7 +65,7 @@
                   Class that implements the XPlanner Core service interface
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn=":org.eclipse.mylar.xplanner.core.service.XPlannerServiceFactory"/>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.mylyn.xplanner.core.service.XPlannerServiceFactory"/>
                </appInfo>
             </annotation>
          </attribute>

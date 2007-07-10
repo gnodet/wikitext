@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.core.service;
+package org.eclipse.mylyn.xplanner.core.service;
 
 /**
  * Factory class for creating ta XPlanner Service imlementation.
@@ -16,10 +16,10 @@ package org.eclipse.mylar.xplanner.core.service;
  */
 public interface XPlannerServiceFactory {
 	/**
-	 * Create a new service that will communicate to the supplied <code>server</code>.
-	 * How the service talks to the server is up to the implementation.
-	 * @param server XPlanner Server instance to communicate with
+	 * Create a new service that will communicate to the supplied <code>client</code>.
+	 * How the service talks to the client is up to the implementation.
+	 * @param client XPlannerClient instance to communicate with
 	 * @return Configured XPlanner Service
 	 */
-	public abstract XPlannerService createService(XPlannerServer server);
+	public abstract XPlannerService createService(XPlannerClient client);
 }

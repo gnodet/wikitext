@@ -5,14 +5,12 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.ui.wizard;
+package org.eclipse.mylyn.xplanner.ui.wizard;
 
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.mylar.xplanner.ui.XPlannerImages;
+import org.eclipse.mylyn.xplanner.ui.XPlannerImages;
 import org.eclipse.swt.graphics.Image;
-import org.xplanner.soap.IterationData;
-import org.xplanner.soap.ProjectData;
-import org.xplanner.soap.UserStoryData;
+import org.xplanner.soap.*;
 
 
 /**

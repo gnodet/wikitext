@@ -5,18 +5,17 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.ui;
+package org.eclipse.mylyn.xplanner.ui;
 
-import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylar.xplanner.ui.wizard.NewXPlannerQueryWizard;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.xplanner.ui.wizard.NewXPlannerQueryWizard;
 
 /**
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
-public class MylarXPlannerUtils {
-	private MylarXPlannerUtils() {
+public class MylynXPlannerUtils {
+	private MylynXPlannerUtils() {
 		
 	}
 	
@@ -24,8 +23,7 @@ public class MylarXPlannerUtils {
 		String name) {
 		
 		XPlannerCustomQuery myTasksQuery = 
-			new XPlannerCustomQuery(repository.getUrl(), name, 
-				TasksUiPlugin.getTaskListManager().getTaskList());
+			new XPlannerCustomQuery(repository.getUrl(), name);
 		
 		myTasksQuery.setMyCurrentTasks(true);
 		NewXPlannerQueryWizard.addQuery(myTasksQuery, repository);

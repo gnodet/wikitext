@@ -5,9 +5,9 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.ui.wizard;
+package org.eclipse.mylyn.xplanner.ui.wizard;
 
-import org.eclipse.mylar.internal.tasks.ui.wizards.ExistingTaskWizardPage;
+import org.eclipse.mylyn.internal.tasks.ui.wizards.ExistingTaskWizardPage;
 
 /**
  * @author Ravi Kumar 

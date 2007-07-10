@@ -5,10 +5,10 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.core.service;
+package org.eclipse.mylyn.xplanner.core.service;
 
-import org.eclipse.mylar.xplanner.core.service.exceptions.AuthenticationException;
-import org.eclipse.mylar.xplanner.core.service.exceptions.ServiceUnavailableException;
+import org.eclipse.mylyn.xplanner.core.service.exceptions.AuthenticationException;
+import org.eclipse.mylyn.xplanner.core.service.exceptions.ServiceUnavailableException;
 import org.xplanner.soap.XPlanner.XPlanner;
 
 
@@ -27,7 +27,7 @@ public abstract class XPlannerService implements XPlanner {
     }
     
 	/**
-	 * Refresh any cached information with the latest values from the remote server.
+	 * Refresh any cached information with the latest values from the remote client.
 	 * This operation may take a long time to complete and should not be called
 	 * from a UI thread.
 	 */

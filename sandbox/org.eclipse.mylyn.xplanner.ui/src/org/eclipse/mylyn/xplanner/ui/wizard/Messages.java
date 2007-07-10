@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.ui.wizard;
+package org.eclipse.mylyn.xplanner.ui.wizard;
 
 import org.eclipse.osgi.util.NLS;
 
@@ -14,7 +14,7 @@ import org.eclipse.osgi.util.NLS;
  * @author Helen Bershadskaya
  */
 public class Messages extends NLS {
-	private static final String BUNDLE_NAME = "org.eclipse.mylar.xplanner.ui.wizard.messages"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "org.eclipse.mylyn.xplanner.ui.wizard.messages"; //$NON-NLS-1$
 
 	public static String AbstractXPlannerQueryWizardPage_NEW_XPLANNER_QUERY;
 
@@ -33,6 +33,8 @@ public class Messages extends NLS {
 	public static String NewXPlannerTaskPage_NOTE_TO_LOG_IN;
 
 	public static String NewXPlannerTaskPage_ONCE_SUBMITTED_SYNCHRONIZE_QUERIES;
+
+	public static String ProjectsViewerContentProvider_COULD_NOT_UPDATE_PROJECT_ELEMENT_CHILD_COUNT;
 
 	public static String ProjectsViewerLabelProvider_NO_NAME;
 

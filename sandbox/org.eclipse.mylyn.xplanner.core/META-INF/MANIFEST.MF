@@ -1,18 +1,16 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %bundleName
-Bundle-SymbolicName: org.eclipse.mylar.xplanner.core;singleton:=true
+Bundle-SymbolicName: org.eclipse.mylyn.xplanner.core;singleton:=true
 Bundle-Version: 2.0.0.qualifier
-Bundle-Activator: org.eclipse.mylar.xplanner.core.XPlannerCorePlugin
+Bundle-Activator: org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin
 Bundle-Vendor: %bundleVendor
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.core.runtime
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.mylyn,
+ org.eclipse.mylyn.web.core
 Eclipse-LazyStart: true
-Export-Package: org.eclipse.mylar.xplanner.core,
- org.eclipse.mylar.xplanner.core.service,
- org.eclipse.mylar.xplanner.core.service.exceptions,org.eclipse.mylar.xplanner.wsdl.db,
- org.eclipse.mylar.xplanner.wsdl.soap.domain,
- org.apache.axis,
+Export-Package: org.apache.axis,
  org.apache.axis.attachments,
  org.apache.axis.client,
  org.apache.axis.client.async,
@@ -67,14 +65,16 @@ Export-Package: org.eclipse.mylar.xplanner.core,
  org.apache.axis.wsdl.gen,
  org.apache.axis.wsdl.symbolTable,
  org.apache.axis.wsdl.toJava,
+ org.eclipse.mylyn.xplanner.wsdl.db,
+ org.eclipse.mylyn.xplanner.wsdl.soap.domain,
+ org.eclipse.mylyn.xplanner.core,
+ org.eclipse.mylyn.xplanner.core.service,
+ org.eclipse.mylyn.xplanner.core.service.exceptions,
  org.xplanner.soap,
  org.xplanner.soap.XPlanner
-Bundle-ClassPath: plugin.jar,
- lib/axis.jar,
- lib/commons-codec-1.3.jar,
- lib/commons-discovery-0.2.jar,
- lib/commons-httpclient-3.0.jar,
- lib/commons-logging-1.0.4.jar,
- lib/jaxrpc.jar,
- lib/saaj.jar,
- lib/wsdl4j-1.5.1.jar
+Bundle-ClassPath: .,
+ lib-axis/axis-1.3.jar,
+ lib-axis/commons-discovery-0.2.jar,
+ lib-axis/jaxrpc-1.1.jar,
+ lib-axis/saaj-1.2.jar,
+ lib-axis/wsdl4j-1.5.1.jar

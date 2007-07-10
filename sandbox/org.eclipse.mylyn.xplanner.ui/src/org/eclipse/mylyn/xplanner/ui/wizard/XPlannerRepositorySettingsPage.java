@@ -5,20 +5,17 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.ui.wizard;
+package org.eclipse.mylyn.xplanner.ui.wizard;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.mylar.tasks.core.TaskRepository;
-import org.eclipse.mylar.tasks.ui.AbstractRepositoryConnectorUi;
-import org.eclipse.mylar.tasks.ui.wizards.AbstractRepositorySettingsPage;
-import org.eclipse.mylar.xplanner.ui.XPlannerMylarUIPlugin;
-import org.eclipse.mylar.xplanner.ui.XPlannerRepositoryUtils;
+import org.eclipse.core.runtime.*;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
+import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
+import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
+import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUtils;
 import org.eclipse.swt.widgets.Composite;
 
 
@@ -39,7 +36,8 @@ public class XPlannerRepositorySettingsPage extends AbstractRepositorySettingsPa
 
 	public XPlannerRepositorySettingsPage(AbstractRepositoryConnectorUi connectorUi) {
 		super(TITLE, DESCRIPTION, connectorUi);
-		setNeedsProxy(false);
+		setNeedsProxy(true);
+		setNeedsHttpAuth(true);
 	}
 
 	protected void createAdditionalControls(Composite parent) {
@@ -76,7 +74,7 @@ public class XPlannerRepositorySettingsPage extends AbstractRepositorySettingsPa
 		public void run(IProgressMonitor monitor) throws CoreException {
 			XPlannerRepositoryUtils.validateRepository(repository);
 	
-			setStatus(new Status(IStatus.OK, XPlannerMylarUIPlugin.PLUGIN_ID, IStatus.OK,
+			setStatus(new Status(IStatus.OK, XPlannerMylynUIPlugin.PLUGIN_ID, IStatus.OK,
 					Messages.XPlannerRepositorySettingsPage_VALID_SETTINGS_FOUND, null));
 		}
 	}

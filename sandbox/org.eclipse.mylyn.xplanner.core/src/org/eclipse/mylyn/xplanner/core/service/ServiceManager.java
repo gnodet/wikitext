@@ -5,20 +5,15 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylar.xplanner.core.service;
+package org.eclipse.mylyn.xplanner.core.service;
 
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtension;
-import org.eclipse.core.runtime.IExtensionPoint;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.mylar.xplanner.core.IXPlannerCoreExtensionConstants;
-import org.eclipse.mylar.xplanner.core.XPlannerCorePlugin;
+import org.eclipse.core.runtime.*;
+import org.eclipse.mylyn.xplanner.core.IXPlannerCoreExtensionConstants;
+import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 
 
 /**
- * TODO This is eclispe specific at the moment.  Need to find a way to load a
+ * TODO This is eclipse specific at the moment.  Need to find a way to load a
  * XPlannerService instance based off some use preference.
  * TODO mention that this should really only be used by internal classes and tests
  *
@@ -29,11 +24,11 @@ public class ServiceManager {
 	
 	private static XPlannerServiceFactory factory;
 	
-	public static synchronized XPlannerService getXPlannerService(XPlannerServer server) {
+	public static synchronized XPlannerService getXPlannerService(XPlannerClient client) {
 		if (factory == null) {
 			factory = loadServiceProviderFactories();
 		}
-		return factory.createService(server);
+		return factory.createService(client);
 	}
 	
 	public static XPlannerServiceFactory loadServiceProviderFactories() {
@@ -47,9 +42,11 @@ public class ServiceManager {
 					for (int j = 0; j < configElements.length; j++) {
 						try {
 							return (XPlannerServiceFactory) configElements[j].createExecutableExtension("class"); //$NON-NLS-1$
-						} catch (CoreException e) {
+						} 
+						catch (CoreException e) {
 							plugin.getLog().log(e.getStatus());
-						} catch (ClassCastException e) {
+						} 
+						catch (ClassCastException e) {
 							XPlannerCorePlugin.log(IStatus.ERROR, "Must implement the correct class", e); //$NON-NLS-1$
 							XPlannerCorePlugin.log(IStatus.ERROR, "Must implement the correct class", e); //$NON-NLS-1$
 						}
