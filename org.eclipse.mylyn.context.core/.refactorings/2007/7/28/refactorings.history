@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Copy 1 elements(s) to 'com.tasktop.calendar.core'&#13;&#10;- Original project: 'org.eclipse.mylyn.context.core'&#13;&#10;- Destination element: 'com.tasktop.calendar.core'&#13;&#10;- Original element: 'about.html'" description="Copy file" destination="=com.tasktop.calendar.core" element1="about.html" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" log="about.html&#9;true&#9;false" policy="org.eclipse.jdt.ui.copyResources" stamp="1184177396953" units="0" version="1.0"/>
+</session>
