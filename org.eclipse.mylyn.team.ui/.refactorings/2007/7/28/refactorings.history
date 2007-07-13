@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Rename method 'org.eclipse.mylyn.internal.team.ui.actions.OpenCorrespondingTaskAction.reconsile(...)' to 'reconcile'&#13;&#10;- Original project: 'org.eclipse.mylyn.team.ui'&#13;&#10;- Original element: 'org.eclipse.mylyn.internal.team.ui.actions.OpenCorrespondingTaskAction.reconsile(...)'&#13;&#10;- Renamed element: 'org.eclipse.mylyn.internal.team.ui.actions.OpenCorrespondingTaskAction.reconcile(...)'&#13;&#10;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method 'reconsile'" flags="589826" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylyn.internal.team.ui.actions{OpenCorrespondingTaskAction.java[OpenCorrespondingTaskAction~reconsile~QILinkedTaskInfo;" name="reconcile" references="true" stamp="1184361918412" version="1.0"/>
+</session>
