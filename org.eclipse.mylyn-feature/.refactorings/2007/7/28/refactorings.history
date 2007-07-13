@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<session version="1.0">
+<refactoring comment="Copy 1 elements(s) to 'org.eclipse.mylyn-feature'&#13;&#10;- Original project: 'org.eclipse.mylyn-feature'&#13;&#10;- Destination element: 'org.eclipse.mylyn-feature'&#13;&#10;- Original element: 'feature.xml'" description="Copy file" element1="feature.xml" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" log="feature.xml&#9;true&#9;true&#9;feature-compatibility.xml" policy="org.eclipse.jdt.ui.copyResources" stamp="1184356151210" target="/org.eclipse.mylyn-feature" units="0" version="1.0"/>
+</session>
