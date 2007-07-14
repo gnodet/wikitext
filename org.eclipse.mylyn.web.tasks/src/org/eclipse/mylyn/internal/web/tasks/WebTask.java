@@ -41,7 +41,8 @@ public class WebTask extends AbstractTask {
 
 	@Override
 	public String getOwner() {
-		return UNKNOWN_OWNER;
+		String o = super.getOwner();
+		return o == null ? UNKNOWN_OWNER : o;
 	}
 
 	@Override

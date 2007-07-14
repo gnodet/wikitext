@@ -91,7 +91,7 @@
         <attribute name="param_group_id" value="23"/>
         <attribute name="param_atid" value="100023"/>
         <attribute name="queryPattern"
-                   value="&lt;a class=&quot;tracker&quot; href=&quot;/tracker/index.php\?func=detail&amp;aid=(.+?)&amp;group_id=${group_id}&amp;atid=${atid}&quot;&gt;(.+?)&lt;/a&gt;&lt;/td&gt;"/>
+                   value="&lt;tr.*?&gt;&lt;td.+?&gt;.+?&lt;/td&gt;&lt;td&gt;&lt;a.+?href=&quot;/tracker/index.php\?func=detail&amp;aid=({Id}.+?)&amp;group_id=${group_id}&amp;atid=${atid}&quot;&gt;({Description}.+?)&lt;/a&gt;&lt;/td&gt;&lt;td&gt;({Open}.+?)&lt;/td&gt;&lt;td&gt;({Owner}.+?)&lt;/td&gt;&lt;td&gt;({Reporter}.+?)&lt;/td&gt;&lt;td&gt;({Status}.+?)&lt;/td&gt;&lt;td&gt;({Resolution}.+?)&lt;/td&gt;&lt;td&gt;({Priority}.+?)&lt;/td&gt;&lt;/tr&gt;"/>
         <attribute name="loginRequestUrl"
                    value="${serverUrl}/account/login.php?return_to=&amp;form_loginname=${userId}&amp;form_pw=${password}&amp;login=Login&amp;stay_in_ssl=1"/>
      </repository>
@@ -118,7 +118,7 @@
             urlNewTask="${serverUrl}/posting.php?mode=newtopic&amp;f=1"
             urlTaskQuery="${serverUrl}/viewforum.php?f=1">
         <attribute name="queryPattern"
-                   value="&lt;a href=&quot;viewtopic.php\?t=(\d+?)(?:&amp;.+?)?&quot; class=&quot;topictitle&quot;&gt;(.+?)&lt;/a&gt;"/>
+                   value="&lt;li class=&quot;row .+?&lt;dt style=&quot;&quot;.+?title=&quot;.+?&quot;&gt;&lt;a href=&quot;.+?viewtopic.php\?.+?t=(\d+?)(?:&amp;.+?)?&quot; class=&quot;topictitle&quot;&gt;(.+?)&lt;/a&gt;.+?&lt;/dt&gt;.+?&lt;/li&gt;"/>
      </repository>
      <repository
             repositoryKind="web"
@@ -139,7 +139,7 @@
             urlNewTask="${serverUrl}/entry"
             urlTaskQuery="${serverUrl}/list">
         <attribute name="queryPattern"
-                   value="&lt;td.+?class=&quot;vt col_6&quot;.+?&lt;a.+?href=&quot;detail\?id=([0-9]+).+?&quot;&gt;(.+?)&lt;/a&gt;.+?&lt;/td&gt;"/>
+                   value="&lt;td.+?class=&quot;vt col_1&quot;.+?&lt;a.+?&gt;({Type}.+?)&lt;/a&gt;.*?&lt;/td&gt;.*?&lt;td.+?class=&quot;vt col_2&quot;.+?&lt;a.+?&gt;({Status}.+?)&lt;/a&gt;.*?&lt;/td&gt;.*?&lt;td.+?class=&quot;vt col_5&quot;.+?&lt;a.+?&gt;({Owner}.+?)&lt;/a&gt;.*?&lt;/td&gt;.*?&lt;td.+?class=&quot;vt col_6&quot;.+?&lt;a.+?href=&quot;detail\?id=({Id}[0-9]+).*?&quot;&gt;({Description}.+?)&lt;/a&gt;.+?&lt;/td&gt;"/>
      </repository>
      <repository
            anonymous="false"

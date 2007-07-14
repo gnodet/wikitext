@@ -126,8 +126,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		if (WebRepositoryConnector.REPOSITORY_TYPE.equals(repository.getConnectorKind())) {
 			String taskPrefix = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
 
-			final WebTask task = new WebTask(id, id, taskPrefix, repository.getUrl(),
-					WebRepositoryConnector.REPOSITORY_TYPE);
+			final WebTask task = new WebTask(id, id, taskPrefix, repository.getUrl(), REPOSITORY_TYPE);
 
 			RetrieveTitleFromUrlJob job = new RetrieveTitleFromUrlJob(taskPrefix + id) {
 				@Override
@@ -267,13 +266,14 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			RepositoryTaskData taskData) {
 		// ignore
 	}
-	
+
 	// utility methods
 
 	public static IStatus performQuery(String resource, String regexp, String taskPrefix, IProgressMonitor monitor,
 			ITaskCollector resultCollector, TaskRepository repository) {
-		Pattern p = Pattern.compile(regexp, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL
+		NamedPattern p = new NamedPattern(regexp, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL
 				| Pattern.UNICODE_CASE | Pattern.CANON_EQ);
+
 		Matcher matcher = p.matcher(resource);
 
 		if (!matcher.find()) {
@@ -282,15 +282,40 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		} else {
 			boolean isCorrect = true;
 			do {
-				if (matcher.groupCount() < 2) {
-					isCorrect = false;
+				if (p.getGroups().isEmpty()) {
+					// "classic" mode, no named patterns
+					if (matcher.groupCount() < 2) {
+						isCorrect = false;
+					}
+					if (matcher.groupCount() >= 1) {
+						String id = matcher.group(1);
+						String description = matcher.groupCount() > 1 ? cleanup(matcher.group(2), repository) : null;
+						resultCollector.accept(new WebTask(id, description, taskPrefix, repository.getUrl(),
+								REPOSITORY_TYPE));
+					}
+				} else {
+					String id = p.group("Id", matcher);
+					String description = p.group("Description", matcher);
+					if (id == null || description == null) {
+						isCorrect = false;
+					}
+					if (id != null) {
+						WebTask w = new WebTask(id, description, taskPrefix, repository.getUrl(), REPOSITORY_TYPE);
+						
+						String owner = cleanup(p.group("Owner", matcher), repository);
+						w.setOwner(owner);
+						String type = cleanup(p.group("Type", matcher), repository);
+						w.setTaskKind(type);
+						
+						String status = p.group("Status", matcher);
+						if(status!=null) {
+							w.setCompleted("completed|fixed|resolved|invalid|verified|deleted|closed".contains(status.toLowerCase()));
+						}
+
+						resultCollector.accept(w);
+					}
 				}
-				if (matcher.groupCount() >= 1) {
-					String id = matcher.group(1);
-					String description = matcher.groupCount() > 1 ? cleanup(matcher.group(2), repository) : null;
-					resultCollector.accept(new WebTask(id, description, taskPrefix, repository.getUrl(),
-							REPOSITORY_TYPE));
-				}
+
 			} while (matcher.find() && !monitor.isCanceled());
 
 			if (isCorrect) {
@@ -303,6 +328,10 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	private static String cleanup(String text, TaskRepository repository) {
+		if (text == null) {
+			return null;
+		}
+
 		// Has to disable this for now. See bug 166737 and bug 166936
 		// try {
 		// text = URLDecoder.decode(text, repository.getCharacterEncoding());
@@ -356,7 +385,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 				resultCollector.accept(new WebTask(entryUri, //
 						(date == null ? "" : df.format(date) + " - ") + entrTitle, //
-						"", repository.getUrl(), WebRepositoryConnector.REPOSITORY_TYPE));
+						"", repository.getUrl(), REPOSITORY_TYPE));
 			}
 			return Status.OK_STATUS;
 		} catch (Exception ex) {
@@ -510,11 +539,11 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		}
 		return value;
 	}
-	
+
 	private static String evaluate(String s, String var, String value) {
 		return s.replaceAll("\\$\\{" + var + "\\}", value);
 	}
-	
+
 	private static String encode(String value) {
 		try {
 			return new URLCodec().encode(value);
@@ -522,7 +551,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			return value;
 		}
 	}
-	
+
 	public static List<String> getTemplateVariables(String value) {
 		if (value == null) {
 			return Collections.emptyList();
