@@ -11,9 +11,11 @@ package org.eclipse.mylyn.internal.web.tasks;
 import static org.eclipse.mylyn.internal.web.tasks.Util.isPresent;
 import static org.eclipse.mylyn.internal.web.tasks.Util.nvl;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -78,10 +80,20 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 
 	private Map<String, String> oldProperties;
 
+	private ArrayList<ControlDecoration> decorations = new ArrayList<ControlDecoration>();
+
 	public WebRepositorySettingsPage(AbstractRepositoryConnectorUi repositoryUi) {
 		super(TITLE, DESCRIPTION, repositoryUi);
 		setNeedsAnonymousLogin(true);
 		setNeedsValidation(false);
+	}
+
+	@Override
+	public void dispose() {
+		for (ControlDecoration decoration : decorations) {
+			decoration.dispose();
+		}
+		super.dispose();
 	}
 
 	@Override
@@ -134,8 +146,10 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 
 		});
 
-		Composite editor = getParameterEditor(parent);
-		GridDataFactory.fillDefaults().grab(true, false).hint(200, SWT.DEFAULT).span(2, SWT.DEFAULT).applyTo(editor);
+		Composite composite = new Composite(parent, SWT.NONE);
+		createParameterEditor(composite);
+		createAdvancedComposite(composite);
+		GridDataFactory.fillDefaults().grab(true, false).hint(200, SWT.DEFAULT).span(2, SWT.DEFAULT).applyTo(composite);
 
 		if (repository != null) {
 			taskUrlText.setText(getTextProperty(WebRepositoryConnector.PROPERTY_TASK_URL));
@@ -172,8 +186,7 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 		return true;
 	}
 
-	private Composite getParameterEditor(Composite parent) {
-		final Composite composite = new Composite(parent, SWT.NONE);
+	private void createParameterEditor(Composite composite) {
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		GridLayout gridLayout = new GridLayout();
 		gridLayout.marginBottom = 10;
@@ -184,24 +197,19 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 		composite.setLayout(gridLayout);
 
 		parametersEditor = new ParametersEditor(composite, SWT.NONE);
-		GridData gridData_1 = new GridData(SWT.FILL, SWT.FILL, true, true);
-		gridData_1.minimumHeight = 100;
-		parametersEditor.setLayoutData(gridData_1);
-
-		createAdvancedComposite(parent, composite);
-
-		return composite;
+		GridData parametersEditorGridData = new GridData(SWT.FILL, SWT.FILL, true, true);
+		parametersEditorGridData.minimumHeight = 100;
+		parametersEditor.setLayoutData(parametersEditorGridData);
 	}
 
-	private void createAdvancedComposite(Composite parent, final Composite composite) {
-		ExpandableComposite expComposite = toolkit.createExpandableComposite(composite, Section.COMPACT
-				| Section.TWISTIE | Section.TITLE_BAR);
+	private void createAdvancedComposite(final Composite composite) {
+		ExpandableComposite expComposite = toolkit.createExpandableComposite(composite, Section.TITLE_BAR | Section.COMPACT | Section.TWISTIE);
 		expComposite.clientVerticalSpacing = 0;
 		GridData gridData_2 = new GridData(SWT.FILL, SWT.TOP, true, false);
 		gridData_2.horizontalIndent = -5;
 		expComposite.setLayoutData(gridData_2);
-		expComposite.setFont(parent.getFont());
-		expComposite.setBackground(parent.getBackground());
+		expComposite.setFont(composite.getFont());
+		expComposite.setBackground(composite.getBackground());
 		expComposite.setText("Advanced &Configuration");
 		expComposite.addExpansionListener(new ExpansionAdapter() {
 			@Override
@@ -223,12 +231,14 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 
 		taskUrlText = new Text(composite2, SWT.BORDER);
 		taskUrlText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
+		decorations.add(WebContentProposalProvider.createDecoration(taskUrlText, parametersEditor, false));
 
 		Label newTaskLabel = toolkit.createLabel(composite2, "&New Task URL:", SWT.NONE);
 		newTaskLabel.setLayoutData(new GridData());
 
 		newTaskText = new Text(composite2, SWT.BORDER);
 		newTaskText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
+		decorations.add(WebContentProposalProvider.createDecoration(newTaskText, parametersEditor, false));
 
 		final Label separatorLabel2 = new Label(composite2, SWT.HORIZONTAL | SWT.SEPARATOR);
 		final GridData gridData_4 = new GridData(SWT.FILL, SWT.CENTER, false, false, 3, 1);
@@ -242,6 +252,7 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 
 		queryUrlText = new Text(composite2, SWT.BORDER);
 		queryUrlText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		decorations.add(WebContentProposalProvider.createDecoration(queryUrlText, parametersEditor, false));
 
 		queryRequestMethod = new ComboViewer(composite2, SWT.BORDER | SWT.READ_ONLY);
 		queryRequestMethod.setContentProvider(new MethodTypeContentProvider());
@@ -258,8 +269,9 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 		queryPatternText = new Text(composite2, SWT.V_SCROLL | SWT.MULTI | SWT.BORDER | SWT.WRAP);
 		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1);
 		gridData.widthHint = 200;
-		gridData.heightHint = 40;
+		gridData.heightHint = 60;
 		queryPatternText.setLayoutData(gridData);
+		decorations.add(WebContentProposalProvider.createDecoration(queryPatternText, parametersEditor, true));
 
 		final Label separatorLabel1 = new Label(composite2, SWT.HORIZONTAL | SWT.SEPARATOR);
 		final GridData gridData_3 = new GridData(SWT.FILL, SWT.CENTER, false, false, 3, 1);
@@ -276,6 +288,7 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 		loginRequestUrlText = new Text(composite2, SWT.BORDER);
 		toolkit.adapt(loginRequestUrlText, true, true);
 		loginRequestUrlText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		decorations.add(WebContentProposalProvider.createDecoration(loginRequestUrlText, parametersEditor, false));
 
 		loginRequestMethod = new ComboViewer(composite2, SWT.BORDER | SWT.READ_ONLY);
 		loginRequestMethod.setContentProvider(new MethodTypeContentProvider());
@@ -291,8 +304,9 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 
 		loginFormUrlText = new Text(composite2, SWT.BORDER);
 		loginFormUrlText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false, 2, 1));
+		decorations.add(WebContentProposalProvider.createDecoration(loginFormUrlText, parametersEditor, false));
 
-		Label loginTokenLabel = toolkit.createLabel(composite2, "Login &Token Pattern:", SWT.NONE);
+		Label loginTokenLabel = toolkit.createLabel(composite2, "Login T&oken Pattern:", SWT.NONE);
 		loginTokenLabel.setLayoutData(new GridData(SWT.LEFT, SWT.FILL, false, true));
 
 		loginTokenPatternText = new Text(composite2, SWT.V_SCROLL | SWT.MULTI | SWT.BORDER | SWT.WRAP);
@@ -300,7 +314,7 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 		gridData_1.widthHint = 200;
 		gridData_1.heightHint = 30;
 		loginTokenPatternText.setLayoutData(gridData_1);
-
+		decorations.add(WebContentProposalProvider.createDecoration(loginTokenPatternText, parametersEditor, true));
 	}
 
 	public void propertyChange(PropertyChangeEvent event) {

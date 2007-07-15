@@ -10,6 +10,7 @@ package org.eclipse.mylyn.internal.web.tasks;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,12 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jface.fieldassist.ControlDecoration;
+import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.ITableLabelProvider;
+import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.ITaskFactory;
@@ -34,6 +41,7 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -42,7 +50,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
@@ -60,7 +67,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 
 	private Text queryPatternText;
 
-	private Table previewTable;
+	private TableViewer previewTable;
 
 	private String webPage;
 
@@ -76,6 +83,8 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 
 	private Map<String, String> oldProperties;
 
+	private ArrayList<ControlDecoration> decorations = new ArrayList<ControlDecoration>();
+	
 	public WebQueryWizardPage(TaskRepository repository) {
 		this(repository, null);
 	}
@@ -86,6 +95,14 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		this.query = query;
 		setTitle("Create web query");
 		setDescription("Specify query parameters for " + repository.getUrl());
+	}
+
+	@Override
+	public void dispose() {
+		for (ControlDecoration decoration : decorations) {
+			decoration.dispose();
+		}
+		super.dispose();
 	}
 
 	private static String getDefaultQueryTitle(TaskRepository repository) {
@@ -114,19 +131,6 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		composite.setLayout(gridLayout);
 
 		super.createControl(composite);
-
-// Label descriptionLabel = new Label(composite, SWT.NONE);
-// descriptionLabel.setLayoutData(new GridData());
-// descriptionLabel.setText("Query Title:");
-
-// queryTitleText = new Text(composite, SWT.BORDER);
-// queryTitleText.addModifyListener(new ModifyListener() {
-// public void modifyText(ModifyEvent e) {
-// setPageComplete(isPageComplete());
-// }
-// });
-// queryTitleText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
-// false));
 
 		parametersEditor = new ParametersEditor(composite, SWT.NONE);
 		GridData gridData1 = new GridData(SWT.FILL, SWT.FILL, true, true);
@@ -165,22 +169,9 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 				webPage = null;
 			}
 		});
+		decorations.add(WebContentProposalProvider.createDecoration(queryUrlText, parametersEditor, false));
+		
 		new Label(composite1, SWT.NONE);
-
-		/*
-		 * final Button openButton = new Button(composite1, SWT.NONE);
-		 * openButton.addSelectionListener(new SelectionAdapter() { public void
-		 * widgetSelected(SelectionEvent e) { String url =
-		 * WebRepositoryConnector.evaluateParams(queryUrlText.getText(),
-		 * parametersEditor.getParameters(), repository);
-		 * IWorkbenchBrowserSupport support =
-		 * PlatformUI.getWorkbench().getBrowserSupport(); try {
-		 * support.getExternalBrowser().openURL(new URL(url)); } catch
-		 * (Exception ex) { // XXX log the error } } });
-		 * openButton.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false,
-		 * false)); toolkit.adapt(openButton, true, true);
-		 * openButton.setText("Open");
-		 */
 
 		Label queryPatternLabel = toolkit.createLabel(composite1, "Query &Pattern:", SWT.NONE);
 		queryPatternLabel.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, false));
@@ -188,17 +179,10 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		queryPatternText = new Text(composite1, SWT.V_SCROLL | SWT.MULTI | SWT.BORDER | SWT.WRAP);
 		GridData gridData = new GridData(SWT.FILL, SWT.TOP, true, false);
 		gridData.widthHint = 200;
-		gridData.heightHint = 45;
+		gridData.heightHint = 60;
 		queryPatternText.setLayoutData(gridData);
-
-// regexpText.addModifyListener(new ModifyListener() {
-// public void modifyText(final ModifyEvent e) {
-// if(webPage!=null) {
-// updatePreview();
-// }
-// }
-// });
-
+		decorations.add(WebContentProposalProvider.createDecoration(queryPatternText, parametersEditor, true));
+		
 		Button preview = new Button(composite1, SWT.NONE);
 		preview.setLayoutData(new GridData(SWT.FILL, SWT.TOP, false, false));
 		preview.setText("Preview");
@@ -210,21 +194,90 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 			}
 		});
 
-		previewTable = new Table(composite1, SWT.BORDER);
+		previewTable = new TableViewer(composite1, SWT.BORDER);
+		// previewTable = new Table(composite1, SWT.BORDER);
 		GridData gridData2 = new GridData(SWT.FILL, SWT.FILL, false, true, 3, 1);
 		gridData2.heightHint = 60;
-		previewTable.setLayoutData(gridData2);
-		previewTable.setLinesVisible(true);
-		previewTable.setHeaderVisible(true);
-
-		TableColumn colId = new TableColumn(previewTable, SWT.NONE);
+		
+		Table table = previewTable.getTable();
+		table.setLayoutData(gridData2);
+		table.setLinesVisible(true);
+		table.setHeaderVisible(true);
+		
+		TableColumn colId = new TableColumn(table, SWT.NONE);
 		colId.setWidth(100);
 		colId.setText("Id");
 
-		TableColumn colDescription = new TableColumn(previewTable, SWT.NONE);
-		colDescription.setWidth(328);
+		TableColumn colDescription = new TableColumn(table, SWT.NONE);
+		colDescription.setWidth(200);
 		colDescription.setText("Description");
+		
+		TableColumn colStatus = new TableColumn(table, SWT.NONE);
+		colStatus.setText("Status");
+		colStatus.setWidth(80);
+		
+		TableColumn colType = new TableColumn(table, SWT.NONE);
+		colType.setText("Type");
+		colType.setWidth(80);
+		
+		TableColumn colOwner = new TableColumn(table, SWT.NONE);
+		colOwner.setText("Owner");
+		colOwner.setWidth(120);
+		
+		previewTable.setColumnProperties(new String[] {"Id", "Description", "Status", "Type", "Owner"});
+		previewTable.setContentProvider(new IStructuredContentProvider() {
 
+			public void dispose() {
+			}
+
+			public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+			}
+
+			public Object[] getElements(Object inputElement) {
+				if(inputElement instanceof Collection) {
+					@SuppressWarnings("unchecked")
+					Collection<AbstractTask> tasks = (Collection<AbstractTask>) inputElement;
+					return tasks.toArray();
+				}
+				return new Object[0];
+			}});
+
+		previewTable.setLabelProvider(new ITableLabelProvider() {
+
+			public String getColumnText(Object element, int columnIndex) {
+				AbstractTask task = (AbstractTask) element;
+				switch (columnIndex) {
+				case 0:
+					return task.getTaskId();
+				case 1:
+					return task.getSummary();
+				case 2:
+					return task.isCompleted() ? "complete" : "incomplete";
+				case 3:
+					return task.getTaskKind();
+				case 4:
+					return task.getOwner();
+				}
+				return null;
+			}
+			
+			public Image getColumnImage(Object element, int columnIndex) {
+				return null;
+			}
+
+			public void addListener(ILabelProviderListener listener) {
+			}
+
+			public void dispose() {
+			}
+
+			public boolean isLabelProperty(Object element, String property) {
+				return false;
+			}
+
+			public void removeListener(ILabelProviderListener listener) {
+			}});
+		
 		setControl(composite);
 
 		LinkedHashMap<String, String> vars = new LinkedHashMap<String, String>();
@@ -240,7 +293,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 			setTitle(query.getSummary());
 			queryUrlText.setText(addVars(vars, query.getQueryUrlTemplate()));
 			queryPatternText.setText(addVars(vars, query.getQueryPattern()));
-			params.putAll((query).getQueryParameters());
+			params.putAll(query.getQueryParameters());
 		}
 		parametersEditor.addParams(params, vars);
 	}
@@ -287,24 +340,20 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		return super.isPageComplete();
 	}
 
-	void updatePreviewTable(List<AbstractTask> hits, MultiStatus queryStatus) {
-		if (previewTable.isDisposed()) {
-			return;
-		}
+	void updatePreviewTable(List<AbstractTask> tasks, MultiStatus queryStatus) {
+		previewTable.setInput(tasks);
 
-		previewTable.removeAll();
-
-		if (hits != null) {
-			for (AbstractTask hit : hits) {
-				TableItem item = new TableItem(previewTable, SWT.NONE);
-				if (hit.getTaskId() != null) {
-					item.setText(0, hit.getTaskId());
-					if (hit.getSummary() != null) {
-						item.setText(1, hit.getSummary());
-					}
-				}
-			}
-		}
+//		if (tasks != null) {
+//			for (AbstractTask hit : tasks) {
+//				TableItem item = new TableItem(previewTable, SWT.NONE);
+//				if (hit.getTaskId() != null) {
+//					item.setText(0, hit.getTaskId());
+//					if (hit.getSummary() != null) {
+//						item.setText(1, hit.getSummary());
+//					}
+//				}
+//			}
+//		}
 
 		if (queryStatus.isOK()) {
 			setErrorMessage(null);
