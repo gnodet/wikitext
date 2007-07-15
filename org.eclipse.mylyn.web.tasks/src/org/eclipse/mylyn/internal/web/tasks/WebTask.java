@@ -21,12 +21,9 @@ public class WebTask extends AbstractTask {
 
 	private final String taskPrefix;
 
-	private final String repsitoryType;
-
 	public WebTask(String id, String label, String taskPrefix, String repositoryUrl, String repsitoryType) {
 		super(repositoryUrl, id, label);
 		this.taskPrefix = taskPrefix;
-		this.repsitoryType = repsitoryType;
 		setUrl(taskPrefix + id);
 	}
 
@@ -36,7 +33,21 @@ public class WebTask extends AbstractTask {
 
 	@Override
 	public String getConnectorKind() {
-		return repsitoryType;
+		return WebRepositoryConnector.REPOSITORY_TYPE;
+	}
+
+	@Override
+	public String getTaskKey() {
+		return isRss() ? null : super.getTaskKey();
+	}
+
+	@Override
+	public String getTaskKind() {
+		return isRss() ? "RSS" : super.getTaskKind();
+	}
+
+	public boolean isRss() {
+		return taskPrefix.length()==0;
 	}
 
 	@Override

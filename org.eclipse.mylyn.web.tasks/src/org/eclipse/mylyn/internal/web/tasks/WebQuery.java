@@ -61,5 +61,9 @@ public class WebQuery extends AbstractRepositoryQuery {
 	public Map<String, String> getQueryParameters() {
 		return new LinkedHashMap<String, String>(this.params);
 	}
+	
+	public boolean isRss() {
+		return queryPattern == null || queryPattern.trim().length() == 0;
+	}
 
 }

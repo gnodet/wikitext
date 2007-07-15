@@ -219,6 +219,14 @@
        <attribute name="param_proj_id" value="11"/>
     </repository>
 
+     <repository
+          anonymous="true"
+          label="Eclipse Plugin Central (RSS)"
+          repositoryKind="web"
+          urlRepository="http://www.eclipseplugincentral.com/"
+          urlTaskQuery="http://www.eclipseplugincentral.com/pluginfeed.rss">
+    </repository>
+
    </extension>
 
 </plugin>

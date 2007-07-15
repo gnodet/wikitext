@@ -97,7 +97,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	@Override
 	public String getConnectorKind() {
-		return WebRepositoryConnector.REPOSITORY_TYPE;
+		return REPOSITORY_TYPE;
 	}
 
 	@Override
@@ -123,7 +123,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	@Override
 	public AbstractTask createTaskFromExistingId(TaskRepository repository, final String id, IProgressMonitor monitor)
 			throws CoreException {
-		if (WebRepositoryConnector.REPOSITORY_TYPE.equals(repository.getConnectorKind())) {
+		if (REPOSITORY_TYPE.equals(repository.getConnectorKind())) {
 			String taskPrefix = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
 
 			final WebTask task = new WebTask(id, id, taskPrefix, repository.getUrl(), REPOSITORY_TYPE);
@@ -209,35 +209,38 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			WebQuery webQuery = (WebQuery) query;
 			Map<String, String> queryParameters = webQuery.getQueryParameters();
 			String queryUrl = evaluateParams(query.getUrl(), queryParameters, repository);
-			String queryPattern = evaluateParams(webQuery.getQueryPattern(), queryParameters, repository);
-			String taskPrefix = evaluateParams(webQuery.getTaskPrefix(), queryParameters, repository);
 
 			try {
-				if (queryPattern != null && queryPattern.trim().length() > 0) {
+				if (webQuery.isRss()) {
+					return performRssQuery(queryUrl, monitor, resultCollector, repository);
+				} else {
+					String taskPrefix = evaluateParams(webQuery.getTaskPrefix(), queryParameters, repository);
+					String queryPattern = evaluateParams(webQuery.getQueryPattern(), queryParameters, repository);
 					return performQuery(fetchResource(queryUrl, queryParameters, repository), queryPattern, taskPrefix,
 							monitor, resultCollector, repository);
-				} else {
-					return performRssQuery(queryUrl, monitor, resultCollector, repository);
 				}
 
 			} catch (IOException ex) {
-				return new Status(IStatus.OK, TasksUiPlugin.ID_PLUGIN, IStatus.OK, "Could not fetch resource: "
-						+ queryUrl, ex);
+				String msg = ex.getMessage() == null ? ex.toString() : ex.getMessage();
+				return new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, IStatus.ERROR, //
+						"Could not fetch resource: " + queryUrl + "\n" + msg, ex);
 			}
 		}
 		return Status.OK_STATUS;
 	}
 
 	@Override
+	public boolean markStaleTasks(TaskRepository repository, Set<AbstractTask> tasks, IProgressMonitor monitor) {
+		for (AbstractTask task : tasks) {
+			task.setStale(true);
+		}
+		return true;
+	}
+	
+	@Override
 	public AbstractAttachmentHandler getAttachmentHandler() {
 		// not supported
 		return null;
-	}
-
-	@Override
-	public boolean markStaleTasks(TaskRepository repository, Set<AbstractTask> tasks, IProgressMonitor monitor) {
-		// not supported
-		return false;
 	}
 
 	@Override
@@ -367,6 +370,12 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			for (it = feed.getEntries().iterator(); it.hasNext();) {
 				SyndEntry entry = (SyndEntry) it.next();
 
+				String author = entry.getAuthor();
+				if(author==null) {
+					DCModule module = (DCModule) entry.getModule("http://purl.org/dc/elements/1.1/");
+					author = module.getCreator();
+				}
+
 				Date date = entry.getUpdatedDate();
 				if (date == null) {
 					date = entry.getPublishedDate();
@@ -383,14 +392,19 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 				String entrTitle = entry.getTitle();
 
-				resultCollector.accept(new WebTask(entryUri, //
+				WebTask webTask = new WebTask(entryUri.replaceAll("-", "%2D"), //
 						(date == null ? "" : df.format(date) + " - ") + entrTitle, //
-						"", repository.getUrl(), REPOSITORY_TYPE));
+						"", repository.getUrl(), REPOSITORY_TYPE);
+				webTask.setCreationDate(date);
+				webTask.setOwner(author);
+				
+				resultCollector.accept(webTask);
 			}
 			return Status.OK_STATUS;
 		} catch (Exception ex) {
-			return new Status(IStatus.OK, TasksUiPlugin.ID_PLUGIN, IStatus.OK, "Could not fetch resource: " + queryUrl,
-					ex);
+			String msg = ex.getMessage() == null ? ex.toString() : ex.getMessage();
+			return new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, IStatus.ERROR, //
+					"Could not fetch resource: " + queryUrl + "\n" + msg, ex);
 		}
 	}
 
@@ -460,17 +474,17 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		String refreshUrl = null;
 		try {
 			client.executeMethod(method);
-// int statusCode = client.executeMethod(method);
-// if (statusCode == 300 || statusCode == 301 || statusCode == 302 || statusCode
-// == 303 || statusCode == 307) {
-// Header location = method.getResponseHeader("Location");
-// if (location!=null) {
-// refreshUrl = location.getValue();
-// if (!refreshUrl.startsWith("/")) {
-// refreshUrl = "/" + refreshUrl;
-// }
-// }
-// }
+//          int statusCode = client.executeMethod(method);
+//			if (statusCode == 300 || statusCode == 301 || statusCode == 302 || statusCode == 303 || statusCode == 307) {
+//				Header location = method.getResponseHeader("Location");
+//				if (location != null) {
+//					refreshUrl = location.getValue();
+//					if (!refreshUrl.startsWith("/")) {
+//						refreshUrl = "/" + refreshUrl;
+//					}
+//				}
+//			}
+
 			refreshUrl = getRefreshUrl(url, method);
 			if (refreshUrl == null) {
 				return method.getResponseBodyAsString();
