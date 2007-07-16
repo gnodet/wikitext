@@ -95,6 +95,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	public static final String REQUEST_GET = "GET";
 
+	private static final String COMPLETED_STATUSES = "completed|fixed|resolved|invalid|verified|deleted|closed|done";
+	
 	@Override
 	public String getConnectorKind() {
 		return REPOSITORY_TYPE;
@@ -312,7 +314,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 						
 						String status = p.group("Status", matcher);
 						if(status!=null) {
-							w.setCompleted("completed|fixed|resolved|invalid|verified|deleted|closed".contains(status.toLowerCase()));
+							w.setCompleted(COMPLETED_STATUSES.contains(status.toLowerCase()));
 						}
 
 						resultCollector.accept(w);
