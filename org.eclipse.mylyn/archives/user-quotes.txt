@@ -1,9 +1,11 @@
 
+Mike Milinkovich
+2007-07-16: http://www.eweek.com/article2/0,1895,2159276,00.asp
+Mylyn [formerly Mylar] is exciting because it is so innovative. Developers are constantly seeking ways to increase their productivity, and the task-oriented user interface enhancements that Mylyn provides for the Eclipse workbench is a huge win for Eclipse de­­velopers. With Mylyn, the Eclipse IDE is clearly the most productive development environment out there. 
 
 http://rbtech.blogspot.com/2007/05/eclipse-mylar-wow.html
 
-Marcello Teodori 
-https://bugs.eclipse.org/bugs/show_bug.cgi?id=168238#c16
+Marcello Teodori: https://bugs.eclipse.org/bugs/show_bug.cgi?id=168238#c16
 Absolutely the authors of Mylar, a simple and effective idea and most of all a real novelty in the eclipse plugin space, their great work deserves the broadest visibility and foster integration with any version control and issue tracking system available to make eclipse the cornerstone of any kind of software factory environment.
 
 Dec 14, 2006 12:00 PM by Olaf Bergner
