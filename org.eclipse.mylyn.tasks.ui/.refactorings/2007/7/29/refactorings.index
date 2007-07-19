@@ -1,0 +1,4 @@
+1184804294062	Extract method 'acceptContainer'
+1184805265539	Extract constant 'REMOVE_FROM_CATEGORY'
+1184805283291	Rename field 'REMOVE_FROM_CATEGORY'
+1184806316148	Extract constant 'LABEL'
