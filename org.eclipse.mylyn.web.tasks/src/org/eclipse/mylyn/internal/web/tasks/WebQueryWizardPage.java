@@ -84,7 +84,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 	private Map<String, String> oldProperties;
 
 	private ArrayList<ControlDecoration> decorations = new ArrayList<ControlDecoration>();
-	
+
 	public WebQueryWizardPage(TaskRepository repository) {
 		this(repository, null);
 	}
@@ -170,7 +170,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 			}
 		});
 		decorations.add(WebContentProposalProvider.createDecoration(queryUrlText, parametersEditor, false));
-		
+
 		new Label(composite1, SWT.NONE);
 
 		Label queryPatternLabel = toolkit.createLabel(composite1, "Query &Pattern:", SWT.NONE);
@@ -182,7 +182,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		gridData.heightHint = 60;
 		queryPatternText.setLayoutData(gridData);
 		decorations.add(WebContentProposalProvider.createDecoration(queryPatternText, parametersEditor, true));
-		
+
 		Button preview = new Button(composite1, SWT.NONE);
 		preview.setLayoutData(new GridData(SWT.FILL, SWT.TOP, false, false));
 		preview.setText("Preview");
@@ -198,12 +198,12 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		// previewTable = new Table(composite1, SWT.BORDER);
 		GridData gridData2 = new GridData(SWT.FILL, SWT.FILL, false, true, 3, 1);
 		gridData2.heightHint = 60;
-		
+
 		Table table = previewTable.getTable();
 		table.setLayoutData(gridData2);
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
-		
+
 		TableColumn colId = new TableColumn(table, SWT.NONE);
 		colId.setWidth(100);
 		colId.setText("Id");
@@ -211,20 +211,20 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		TableColumn colDescription = new TableColumn(table, SWT.NONE);
 		colDescription.setWidth(200);
 		colDescription.setText("Description");
-		
+
 		TableColumn colStatus = new TableColumn(table, SWT.NONE);
 		colStatus.setText("Status");
 		colStatus.setWidth(80);
-		
+
 		TableColumn colType = new TableColumn(table, SWT.NONE);
 		colType.setText("Type");
 		colType.setWidth(80);
-		
+
 		TableColumn colOwner = new TableColumn(table, SWT.NONE);
 		colOwner.setText("Owner");
 		colOwner.setWidth(120);
-		
-		previewTable.setColumnProperties(new String[] {"Id", "Description", "Status", "Type", "Owner"});
+
+		previewTable.setColumnProperties(new String[] { "Id", "Description", "Status", "Type", "Owner" });
 		previewTable.setContentProvider(new IStructuredContentProvider() {
 
 			public void dispose() {
@@ -234,13 +234,14 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 			}
 
 			public Object[] getElements(Object inputElement) {
-				if(inputElement instanceof Collection) {
+				if (inputElement instanceof Collection) {
 					@SuppressWarnings("unchecked")
 					Collection<AbstractTask> tasks = (Collection<AbstractTask>) inputElement;
 					return tasks.toArray();
 				}
 				return new Object[0];
-			}});
+			}
+		});
 
 		previewTable.setLabelProvider(new ITableLabelProvider() {
 
@@ -260,7 +261,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 				}
 				return null;
 			}
-			
+
 			public Image getColumnImage(Object element, int columnIndex) {
 				return null;
 			}
@@ -276,8 +277,9 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 			}
 
 			public void removeListener(ILabelProviderListener listener) {
-			}});
-		
+			}
+		});
+
 		setControl(composite);
 
 		LinkedHashMap<String, String> vars = new LinkedHashMap<String, String>();
@@ -396,6 +398,8 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 			String currentRegexp = regexp;
 			String queryPattern = WebRepositoryConnector.evaluateParams(currentRegexp, params, repository);
 			String evaluatedUrl = WebRepositoryConnector.evaluateParams(url, params, repository);
+			String taskPrefix = WebRepositoryConnector.evaluateParams(
+					repository.getProperty(WebRepositoryConnector.PROPERTY_TASK_URL), params, repository);
 			active = true;
 			do {
 				final MultiStatus queryStatus = new MultiStatus(TasksUiPlugin.ID_PLUGIN, IStatus.OK, "Query result",
@@ -422,8 +426,8 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 
 					IStatus status;
 					if (queryPattern != null && queryPattern.trim().length() > 0) {
-						status = WebRepositoryConnector.performQuery(webPage, queryPattern, null, monitor, collector,
-								repository);
+						status = WebRepositoryConnector.performQuery(webPage, queryPattern, taskPrefix, monitor,
+								collector, repository);
 					} else {
 						status = WebRepositoryConnector.performRssQuery(evaluatedUrl, monitor, collector, repository);
 					}

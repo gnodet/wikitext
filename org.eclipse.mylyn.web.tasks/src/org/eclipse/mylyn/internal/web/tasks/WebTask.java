@@ -47,7 +47,7 @@ public class WebTask extends AbstractTask {
 	}
 
 	public boolean isRss() {
-		return taskPrefix.length()==0;
+		return taskPrefix == null || taskPrefix.length() == 0;
 	}
 
 	@Override
