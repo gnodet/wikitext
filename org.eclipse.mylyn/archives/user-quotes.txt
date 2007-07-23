@@ -1,4 +1,7 @@
 
+"Mylyn is brilliant: among the other features, it provides the necessary glue to link together a programmer's everyday tasks, the CVS repository, the bug repository and the IDE!!! It is the answer to what me and my co-workers feeled we missed until some months ago!"
+2007-07-28: http://dev.eclipse.org/newslists/news.eclipse.tools.mylyn/msg00140.html
+
 Mike Milinkovich
 2007-07-16: http://www.eweek.com/article2/0,1895,2159276,00.asp
 Mylyn [formerly Mylar] is exciting because it is so innovative. Developers are constantly seeking ways to increase their productivity, and the task-oriented user interface enhancements that Mylyn provides for the Eclipse workbench is a huge win for Eclipse de­­velopers. With Mylyn, the Eclipse IDE is clearly the most productive development environment out there. 
