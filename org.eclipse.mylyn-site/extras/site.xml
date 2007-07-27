@@ -3,20 +3,20 @@
    <description url="http://download.eclipse.org/tools/mylyn/update/extras">
       Mylar update site for Eclipse 3.3
    </description>
-   <feature url="features/org.eclipse.mylyn.jira_feature_2.0.0.v20070723-2100.jar" id="org.eclipse.mylyn.jira_feature" version="2.0.0.v20070723-2100">
+   <feature url="features/org.eclipse.mylyn.jira_feature_2.0.0.v20070727-0900.jar" id="org.eclipse.mylyn.jira_feature" version="2.0.0.v20070727-0900">
       <category name="Integration"/>
    </feature>
-   <feature url="features/org.eclipse.mylyn.monitor_feature_2.0.0.v20070723-2100.jar" id="org.eclipse.mylyn.monitor_feature" version="2.0.0.v20070723-2100">
+   <feature url="features/org.eclipse.mylyn.web.tasks_feature_2.0.0.v20070727-0900.jar" id="org.eclipse.mylyn.web.tasks_feature" version="2.0.0.v20070727-0900">
+      <category name="Integration"/>
+   </feature>
+   <feature url="features/org.eclipse.mylyn.xplanner_feature_2.0.0.v20070727-0900.jar" id="org.eclipse.mylyn.xplanner_feature" version="2.0.0.v20070727-0900">
+      <category name="Integration"/>
+   </feature>
+   <feature url="features/org.eclipse.mylyn.monitor_feature_2.0.0.v20070727-0900.jar" id="org.eclipse.mylyn.monitor_feature" version="2.0.0.v20070727-0900">
       <category name="Feedback"/>
    </feature>
-   <feature url="features/org.eclipse.mylyn.web.tasks_feature_2.0.0.v20070723-2100.jar" id="org.eclipse.mylyn.web.tasks_feature" version="2.0.0.v20070723-2100">
-      <category name="Integration"/>
-   </feature>
-   <feature url="features/org.eclipse.mylyn.sandbox.ui_feature_2.0.0.v20070723-2100.jar" id="org.eclipse.mylyn.sandbox.ui_feature" version="2.0.0.v20070723-2100">
+   <feature url="features/org.eclipse.mylyn.sandbox.ui_feature_2.0.0.v20070727-0900.jar" id="org.eclipse.mylyn.sandbox.ui_feature" version="2.0.0.v20070727-0900">
       <category name="Sandbox (Unsupported)"/>
-   </feature>
-   <feature url="features/org.eclipse.mylyn.xplanner_feature_2.0.0.v20070723-2100.jar" id="org.eclipse.mylyn.xplanner_feature" version="2.0.0.v20070723-2100">
-      <category name="Integration"/>
    </feature>
    <category-def name="Integration" label="Integration"/>
    <category-def name="Feedback" label="Feedback"/>
