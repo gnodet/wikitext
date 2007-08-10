@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.AbstractAttributeFactory;
 import org.eclipse.mylyn.tasks.core.RepositoryAttachment;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
@@ -191,13 +192,6 @@ public class SaxBugReportContentHandler extends DefaultHandler {
 			}
 			break;
 		case DATA:
-			// TODO: Need to figure out under what circumstanceswhen attachments
-			// are inline and
-			// what to do with them.
-			// jpound - if data gets stored here, the attachment actions in the
-			// task editor
-			// should be updated to use this data instead of retrieving from
-			// server.
 			break;
 		case ATTACHMENT:
 			if (attachment != null) {
@@ -256,16 +250,21 @@ public class SaxBugReportContentHandler extends DefaultHandler {
 				}
 			}
 			break;
-		// All others added as report attribute
+		case DELTA_TS:
+			RepositoryTaskAttribute delta_ts_attribute = repositoryTaskData.getAttribute(tag.getKeyString());
+			if (delta_ts_attribute == null) {
+				delta_ts_attribute = attributeFactory.createAttribute(tag.getKeyString());
+				repositoryTaskData.addAttribute(tag.getKeyString(), delta_ts_attribute);
+			}
+			delta_ts_attribute.setValue(BugzillaClient.stripTimeZone(parsedText));
+			break;
 		default:
 			RepositoryTaskAttribute attribute = repositoryTaskData.getAttribute(tag.getKeyString());
 			if (attribute == null) {
 				attribute = attributeFactory.createAttribute(tag.getKeyString());
-				attribute.setValue(parsedText);
 				repositoryTaskData.addAttribute(tag.getKeyString(), attribute);
-			} else {
-				attribute.addValue(parsedText);
 			}
+			attribute.addValue(parsedText);
 			break;
 		}
 
