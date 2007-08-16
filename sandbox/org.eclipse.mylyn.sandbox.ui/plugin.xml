@@ -16,14 +16,6 @@
       </page> 
     </extension>
 
-   <extension
-         point="org.eclipse.ui.commands">
-      <command
-            id="org.eclipse.mylyn.tasks.ui.trim.command"
-            name="Task Trim Command">
-      </command>
-   </extension>
-
    <!--
    <extension point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester 
@@ -35,13 +27,22 @@
       </propertyTester>
    </extension>
    -->
-   
-   <extension point="org.eclipse.ui.handlers">
-      <handler
-            class="org.eclipse.mylyn.internal.tasks.ui.TaskHistoryHandler"
-            commandId="org.eclipse.mylyn.tasks.ui.trim.command">
-      </handler>
+
+   <!-- moved to the org.eclipse.mylyn.tasks.ui
+   <extension point="org.eclipse.ui.commands">
+      <command id="org.eclipse.mylyn.tasks.ui.command.previousTask"
+               name="Task Trim Command"/>
+      <command id="org.eclipse.mylyn.ui.context.capture.pause.command"
+               name="Pause Capturing Context Command"/>
    </extension>
+
+   <extension point="org.eclipse.ui.handlers">
+      <handler commandId="org.eclipse.mylyn.tasks.ui.command.previousTask"
+               class="org.eclipse.mylyn.internal.tasks.ui.TaskHistoryHandler"/>
+      <handler commandId="org.eclipse.mylyn.ui.context.capture.pause.command"
+               class="org.eclipse.mylyn.internal.tasks.ui.ContextCapturePauseHandler"/>
+   </extension>
+   -->
 
 	<extension point="org.eclipse.ui.menus">
     <!-- menu for pulldown command -->
@@ -50,12 +51,12 @@
          class="org.eclipse.mylyn.internal.tasks.ui.TaskHistoryDropDown"
          id="org.eclipse.mylyn.tasks.ui.trim.dropdown"/>
     </menuContribution>
-    
+
     <menuContribution locationURI="toolbar:org.eclipse.ui.trim.command2?after">
       <toolbar id="org.eclipse.mylyn.tasks.ui.trim.container">
         <command
             id="org.eclipse.mylyn.tasks.ui.trim"
-            commandId="org.eclipse.mylyn.tasks.ui.trim.command"
+            commandId="org.eclipse.mylyn.tasks.ui.command.previousTask"
             label="Previous Task"
             icon="icons/etool16/navigate-previous.gif"
             style="pulldown">
@@ -73,7 +74,17 @@
         -->
       </toolbar>
     </menuContribution>
-    </extension>
+    
+    <menuContribution locationURI="menu:org.eclipse.mylyn.tasks.ui.views.tasks?after=additions">
+      <command 
+         id="org.eclipse.mylyn.ui.context.capture.pause"
+         commandId="org.eclipse.mylyn.ui.context.capture.pause.command"
+         label="Pause Context (Sandbox)"
+         tooltip="Pause Capturing Context"
+         icon="icons/elcl16/capture-pause.gif"
+         style="toggle"/>
+    </menuContribution>
+  </extension>
 
     <extension point="org.eclipse.ui.newWizards">
 	  <wizard
@@ -95,6 +106,7 @@
           name="Task Planner"/>     
   	</extension>
 
+<!--
  	<extension point="org.eclipse.ui.viewActions"> 
  		<viewContribution 
 			id="org.eclipse.mylyn.context.ui.taskList.contribution" 
@@ -109,7 +121,8 @@
             tooltip="Pause Capturing Context"/>
   		</viewContribution>
 	</extension>
-	   
+-->
+
    <extension point="org.eclipse.mylyn.tasks.ui.actions"> 
       <dynamicPopupMenu
             class="org.eclipse.mylyn.internal.context.ui.TaskHighlighterMenuContributor"
@@ -148,6 +161,37 @@
             id="org.eclipse.mylyn.tasklist.activity"
             name="Task Activity"/>
    </extension>
+   
+   <!--
+   <extension point="org.eclipse.mylyn.tasks.ui.presentations">
+      <presentation 
+            id="org.eclipse.mylyn.tasks.ui.groupByOwner"
+            name="Grouped by Owner"
+            icon="icons/etool16/category.gif"
+            contentProvider="org.eclipse.mylyn.internal.sandbox.ui.GroupedTaskListContentProvider:Owner"/>
+      <presentation 
+            id="org.eclipse.mylyn.tasks.ui.groupByPriority"
+            name="Grouped by Priority"
+            icon="icons/etool16/category.gif"
+            contentProvider="org.eclipse.mylyn.internal.sandbox.ui.GroupedTaskListContentProvider:Priority"/>
+      <presentation 
+            id="org.eclipse.mylyn.tasks.ui.groupByRepository"
+            name="Grouped by Repository"
+            icon="icons/etool16/category.gif"
+            contentProvider="org.eclipse.mylyn.internal.sandbox.ui.GroupedTaskListContentProvider:Repository"/>
+      <presentation 
+            id="org.eclipse.mylyn.tasks.ui.groupByDue"
+            name="Grouped by Due"
+            icon="icons/etool16/category.gif"
+            contentProvider="org.eclipse.mylyn.internal.sandbox.ui.GroupedTaskListContentProvider:Due"/>
+      <presentation 
+            id="org.eclipse.mylyn.tasks.ui.groupBySheduled"
+            name="Grouped by Sheduled"
+            icon="icons/etool16/category.gif"
+            contentProvider="org.eclipse.mylyn.internal.sandbox.ui.GroupedTaskListContentProvider:Sheduled"/>
+   </extension>
+   -->
+   
 </plugin>
 
 
