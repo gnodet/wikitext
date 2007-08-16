@@ -91,10 +91,10 @@ public class TaskActivityView extends ViewPart {
 
 	private OpenTaskListElementAction openTaskEditor;
 
-	private String[] columnNames = new String[] { " ", " !", "Description", "Elapsed", "Estimated", "Reminder",
-			"Last Active" };
+	private String[] columnNames = new String[] { " ", " !", "Description", "Elapsed", "Estimated", "Scheduled",
+	/*"Last Active"*/};
 
-	private int[] columnWidths = new int[] { 60, 12, 160, 60, 70, 100, 100 };
+	private int[] columnWidths = new int[] { 60, 12, 160, 60, 70, 100 /*, 100*/};
 
 	private TreeColumn[] columns;
 
@@ -229,12 +229,12 @@ public class TaskActivityView extends ViewPart {
 		Color categoryBackground = themeManager.getCurrentTheme().getColorRegistry().get(
 				TaskListColorsAndFonts.THEME_COLOR_TASKLIST_CATEGORY);
 
-		taskHistoryTreeLabelProvider = new TaskActivityLabelProvider(new TaskElementLabelProvider(false),
-				PlatformUI.getWorkbench().getDecoratorManager().getLabelDecorator(), categoryBackground);
-
 		sorter = new TaskActivityViewSorter();
 		getViewer().setSorter(sorter);
 		taskActivityTableContentProvider = new TaskActivityViewContentProvider(TasksUiPlugin.getTaskListManager());
+		taskHistoryTreeLabelProvider = new TaskActivityLabelProvider(new TaskElementLabelProvider(false),
+				PlatformUI.getWorkbench().getDecoratorManager().getLabelDecorator(), categoryBackground,
+				taskActivityTableContentProvider);
 
 		getViewer().setContentProvider(taskActivityTableContentProvider);
 		getViewer().setLabelProvider(taskHistoryTreeLabelProvider);
@@ -478,28 +478,29 @@ public class TaskActivityView extends ViewPart {
 		}
 
 		public boolean canModify(Object element, String property) {
-			int columnIndex = Arrays.asList(columnNames).indexOf(property);
-			if (columnIndex == 4 || columnIndex == 5) {
-				return true;
+			if (element instanceof ScheduledTaskDelegate) {
+				int columnIndex = Arrays.asList(columnNames).indexOf(property);
+				if (columnIndex == 4 || columnIndex == 5) {
+					return true;
+				}
 			}
 			return false;
 		}
 
 		public Object getValue(Object element, String property) {
-			if (element instanceof AbstractTask) {
+			if (element instanceof ScheduledTaskDelegate) {
+				ScheduledTaskDelegate activityDelegate = (ScheduledTaskDelegate) element;
+				AbstractTask task = activityDelegate.getCorrespondingTask();
 				int columnIndex = Arrays.asList(columnNames).indexOf(property);
-				if (element instanceof AbstractTask) {
-					if (columnIndex == 5) {
-						if (((AbstractTask) element).getScheduledForDate() != null) {
-							return DateFormat.getDateInstance(DateFormat.MEDIUM).format(
-									((AbstractTask) element).getScheduledForDate());
-						} else {
-							return null;
-						}
-					} else if (columnIndex == 4) {
-						return new Integer(Arrays.asList(TaskListManager.ESTIMATE_TIMES).indexOf(
-								((AbstractTask) element).getEstimateTimeHours()));
+				if (columnIndex == 5) {
+					if (task.getScheduledForDate() != null) {
+						return DateFormat.getDateInstance(DateFormat.MEDIUM).format(task.getScheduledForDate());
+					} else {
+						return null;
 					}
+				} else if (columnIndex == 4) {
+					return new Integer(Arrays.asList(TaskListManager.ESTIMATE_TIMES).indexOf(
+							task.getEstimateTimeHours()));
 				}
 			}
 			return null;
