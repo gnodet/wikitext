@@ -69,6 +69,7 @@ public class TaskActivityViewContentProvider implements IStructuredContentProvid
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 	}
 
+	// TODO: improve performance
 	private Set<AbstractTask> getActiveChildren(ScheduledTaskContainer container) {
 		Set<AbstractTask> active = new HashSet<AbstractTask>();
 		for (AbstractTask task : taskListManager.getTaskList().getAllTasks()) {
