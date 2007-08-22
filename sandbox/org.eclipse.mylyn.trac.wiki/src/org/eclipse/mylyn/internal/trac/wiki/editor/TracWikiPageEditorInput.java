@@ -6,11 +6,13 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.trac.ui.editor;
+package org.eclipse.mylyn.internal.trac.wiki.editor;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylyn.internal.trac.core.model.TracWikiPage;
+import org.eclipse.mylyn.internal.trac.wiki.TracWikiPageHistoryPageSource;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.team.ui.history.IHistoryPageSource;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IPersistableElement;
 
@@ -78,11 +80,18 @@ public class TracWikiPageEditorInput implements IEditorInput {
 		return getName() + "  [" + repository.getRepositoryLabel() + "]";
 	}
 
+	private static TracWikiPageHistoryPageSource historyPageSource = new TracWikiPageHistoryPageSource();
+
 	@SuppressWarnings("unchecked")
 	public Object getAdapter(Class adapter) {
 		if (adapter == IEditorInput.class) {
 			return this;
 		}
+
+		if (adapter == IHistoryPageSource.class) {
+			return historyPageSource;
+		}
+
 		return null;
 	}
 

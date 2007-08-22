@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.trac.ui.actions;
+package org.eclipse.mylyn.internal.trac.wiki.actions;
 
 import java.util.Comparator;
 
@@ -24,9 +24,9 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.mylyn.internal.trac.core.AbstractWikiHandler;
 import org.eclipse.mylyn.internal.trac.core.TracRepositoryConnector;
 import org.eclipse.mylyn.internal.trac.core.model.TracWikiPage;
-import org.eclipse.mylyn.internal.trac.ui.TracUiPlugin;
-import org.eclipse.mylyn.internal.trac.ui.editor.TracWikiPageEditor;
-import org.eclipse.mylyn.internal.trac.ui.editor.TracWikiPageEditorInput;
+import org.eclipse.mylyn.internal.trac.wiki.TracWikiPlugin;
+import org.eclipse.mylyn.internal.trac.wiki.editor.TracWikiPageEditor;
+import org.eclipse.mylyn.internal.trac.wiki.editor.TracWikiPageEditorInput;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
@@ -166,10 +166,10 @@ public class OpenWikiPageAction extends Action implements IViewActionDelegate {
 
 		@Override
 		protected IDialogSettings getDialogSettings() {
-			IDialogSettings settings = TracUiPlugin.getDefault().getDialogSettings().getSection(
+			IDialogSettings settings = TracWikiPlugin.getDefault().getDialogSettings().getSection(
 					OPEN_WIKI_PAGE_DIALOG_DIALOG_SETTINGS);
 			if (settings == null) {
-				settings = TracUiPlugin.getDefault().getDialogSettings().addNewSection(
+				settings = TracWikiPlugin.getDefault().getDialogSettings().addNewSection(
 						OPEN_WIKI_PAGE_DIALOG_DIALOG_SETTINGS);
 			}
 			return settings;

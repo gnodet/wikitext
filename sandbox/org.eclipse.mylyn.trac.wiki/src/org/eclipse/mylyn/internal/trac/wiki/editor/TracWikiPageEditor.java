@@ -6,7 +6,9 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.trac.ui.editor;
+package org.eclipse.mylyn.internal.trac.wiki.editor;
+
+import java.util.Iterator;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -20,20 +22,26 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.TextViewer;
+import org.eclipse.jface.text.source.AnnotationModel;
+import org.eclipse.jface.text.source.IAnnotationAccess;
 import org.eclipse.jface.text.source.SourceViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiImages;
 import org.eclipse.mylyn.internal.trac.core.TracCorePlugin;
 import org.eclipse.mylyn.internal.trac.core.model.TracWikiPage;
+import org.eclipse.mylyn.internal.trac.ui.editor.TracRenderingEngine;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractRenderingEngine;
+import org.eclipse.mylyn.tasks.ui.editors.TaskTextViewerConfig;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTError;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.LocationAdapter;
 import org.eclipse.swt.browser.LocationEvent;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.FillLayout;
@@ -45,6 +53,8 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.editors.text.EditorsUI;
+import org.eclipse.ui.editors.text.TextSourceViewerConfiguration;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
@@ -54,12 +64,16 @@ import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.eclipse.ui.forms.widgets.Section;
+import org.eclipse.ui.texteditor.AnnotationPreference;
+import org.eclipse.ui.texteditor.DefaultMarkerAnnotationAccess;
+import org.eclipse.ui.texteditor.MarkerAnnotationPreferences;
+import org.eclipse.ui.texteditor.SourceViewerDecorationSupport;
 
 /**
  * @author Xiaoyang Guan
  */
 public class TracWikiPageEditor extends FormEditor {
-	
+
 	public static final String ID_EDITOR = "org.eclipse.mylyn.trac.ui.editor.wikipage";
 
 	private TaskRepository repository;
@@ -71,7 +85,7 @@ public class TracWikiPageEditor extends FormEditor {
 	private BrowserFormPage browserPage;
 
 	private class WikiSourceEditor extends FormPage {
-		
+
 		private static final String ID = "org.eclipse.mylyn.trac.ui.editor.wikisource";
 
 		private static final String TITLE = "Wiki Page Source";
@@ -87,7 +101,7 @@ public class TracWikiPageEditor extends FormEditor {
 		private static final int PREVIEW_BROWSER_HEIGHT = 10 * 14;
 
 		private static final int DEFAULT_WIDTH = 79 * 7; // 500;
-		
+
 		private ScrolledForm form;
 
 		private FormToolkit toolkit;
@@ -194,9 +208,30 @@ public class TracWikiPageEditor extends FormEditor {
 
 			StyledText styledText = sourceEditor.getTextWidget();
 			GridDataFactory.fillDefaults().hint(DEFAULT_WIDTH, SWT.DEFAULT).grab(true, true).applyTo(styledText);
-			
+
+			IAnnotationAccess annotationAccess = new DefaultMarkerAnnotationAccess();
+
+			final SourceViewerDecorationSupport support = new SourceViewerDecorationSupport(
+					(SourceViewer) sourceEditor, null, annotationAccess, EditorsUI.getSharedTextColors());
+
+			@SuppressWarnings("unchecked")
+			Iterator e = new MarkerAnnotationPreferences().getAnnotationPreferences().iterator();
+			while (e.hasNext()) {
+				support.setAnnotationPreference((AnnotationPreference) e.next());
+			}
+
+			support.install(EditorsUI.getPreferenceStore());
+
+			styledText.addDisposeListener(new DisposeListener() {
+				public void widgetDisposed(DisposeEvent e) {
+					support.uninstall();
+				}
+			});
+
+			TextSourceViewerConfiguration viewerConfig = new TaskTextViewerConfig(true);
+			((SourceViewer) sourceEditor).configure(viewerConfig);
 			Document document = new Document(page.getContent());
-			sourceEditor.setDocument(document);
+			((SourceViewer) sourceEditor).setDocument(document, new AnnotationModel());
 
 			createActionsLayout(container);
 			toolkit.paintBordersFor(container);
