@@ -33,7 +33,7 @@ import org.eclipse.mylyn.internal.trac.ui.editor.TracRenderingEngine;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractRenderingEngine;
-import org.eclipse.mylyn.tasks.ui.editors.TaskTextViewerConfig;
+import org.eclipse.mylyn.tasks.ui.editors.TaskTextViewerConfiguration;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTError;
 import org.eclipse.swt.browser.Browser;
@@ -228,7 +228,7 @@ public class TracWikiPageEditor extends FormEditor {
 				}
 			});
 
-			TextSourceViewerConfiguration viewerConfig = new TaskTextViewerConfig(true);
+			TextSourceViewerConfiguration viewerConfig = new TaskTextViewerConfiguration(true);
 			((SourceViewer) sourceEditor).configure(viewerConfig);
 			Document document = new Document(page.getContent());
 			((SourceViewer) sourceEditor).setDocument(document, new AnnotationModel());
