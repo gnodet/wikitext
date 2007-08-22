@@ -72,8 +72,8 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 			resultId = postChangesToRepository(taskData);
 		} 
 		catch (Exception e) {
-			throw new CoreException(new Status(Status.ERROR,
-					XPlannerCorePlugin.ID, Status.ERROR, Messages.XPlannerOfflineTaskHandler_CANNOT_POST_DATA_TO_SERVER, null));
+			throw new CoreException(new Status(IStatus.ERROR,
+					XPlannerCorePlugin.ID, IStatus.ERROR, Messages.XPlannerOfflineTaskHandler_CANNOT_POST_DATA_TO_SERVER, null));
 		}
 		
 		return resultId;

@@ -136,7 +136,7 @@ public class XPlannerCorePlugin extends Plugin {
 		if (e instanceof AuthenticationException) {
 			String errorMessage = MessageFormat.format(Messages.XPlannerValidator_INVALID_CREDENTIALS_ERROR,
 										e.getMessage());
-			status = new Status(Status.ERROR, ID, Status.OK, 
+			status = new Status(IStatus.ERROR, ID, Status.OK, 
 					errorMessage, e);
 		} 
 		else if (e instanceof Exception) {
@@ -145,10 +145,10 @@ public class XPlannerCorePlugin extends Plugin {
 				message = ""; //$NON-NLS-1$
 			}
 			String errorMessage = MessageFormat.format(Messages.XPlannerValidator_CONNECTION_ERROR, message);
-			status = new Status(Status.ERROR, ID, Status.OK, errorMessage, e);
+			status = new Status(IStatus.ERROR, ID, Status.OK, errorMessage, e);
 		}
 		else {
-			status = new Status(Status.ERROR, ID, Status.OK, Messages.XPlannerCorePlugin_UNEXPECTED_ERROR, e);
+			status = new Status(IStatus.ERROR, ID, Status.OK, Messages.XPlannerCorePlugin_UNEXPECTED_ERROR, e);
 		}
 		
 		return status;
