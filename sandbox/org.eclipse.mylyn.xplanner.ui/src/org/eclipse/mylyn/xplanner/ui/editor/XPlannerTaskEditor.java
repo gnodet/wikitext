@@ -99,6 +99,11 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor {
 		// don't want this
 	}
 
+	protected ImageHyperlink createReplyHyperlink(final int commentNum, Composite composite, final String commentBody) {
+		// don't want this for now -- don't support comments in XPlanner
+		return null;
+	}
+	
 	@Override
 	protected void createCustomAttributeLayout(Composite composite) {
 		// make sure we only use one column
