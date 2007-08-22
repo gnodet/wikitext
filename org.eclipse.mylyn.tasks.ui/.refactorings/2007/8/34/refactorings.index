@@ -7,3 +7,5 @@
 1187815155603	Rename method 'showChildrenPastDue'
 1187815189367	Rename field 'showSubTasksAction'
 1187815201421	Rename field 'subtasksEnabled'
+1187816797971	Rename type 'RepositoryOfflineAction'
+1187816886903	Extract constant 'LABEL'
