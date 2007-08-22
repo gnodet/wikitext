@@ -9,3 +9,4 @@
 1187815201421	Rename field 'subtasksEnabled'
 1187816797971	Rename type 'RepositoryOfflineAction'
 1187816886903	Extract constant 'LABEL'
+1187823370734	Rename type 'TaskTextViewerConfig'
