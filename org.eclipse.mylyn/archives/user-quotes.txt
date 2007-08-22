@@ -1,4 +1,13 @@
 
+Daniel Spiewak
+2007-08-13: http://www.eclipsezone.com/eclipse/forums/t100137.rhtml
+"With Mylyn's growing user-base, more and more of these Trac hosting/Bugzilla hosting/Jira 
+hosting/CollabNet hosting services will be put under the magnifying glass to see if their 
+offerings work properly with Mylyn. It seems to me that this is just the tip of the iceberg 
+with people measuring the quality of a issue tracking service based on how well it works with 
+Mylyn. Is Mylyn about to become the golden standard against which all issue tracking services 
+must measure themselves?"
+
 "Mylyn is brilliant: among the other features, it provides the necessary glue to link together a programmer's everyday tasks, the CVS repository, the bug repository and the IDE!!! It is the answer to what me and my co-workers feeled we missed until some months ago!"
 2007-07-28: http://dev.eclipse.org/newslists/news.eclipse.tools.mylyn/msg00140.html
 
