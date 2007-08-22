@@ -159,11 +159,11 @@ public class XPlannerClientManager {
 	}
 	
 	public XPlannerClient getClient(String name) {
-		return (XPlannerClient) clientByName.get(name);
+		return clientByName.get(name);
 	}
 	
 	public XPlannerClient[] getAllClients() {
-		return (XPlannerClient[]) clientByName.values().toArray(new XPlannerClient[clientByName.size()]);
+		return clientByName.values().toArray(new XPlannerClient[clientByName.size()]);
 	}
 	
 	public XPlannerClient createClient(String name, String baseUrl, boolean hasSlowConnection, 
@@ -230,14 +230,14 @@ public class XPlannerClientManager {
 	
 	private void fireClientRemoved(XPlannerClient client) {
 		for (Iterator<XPlannerClientListener> iListeners = listeners.iterator(); iListeners.hasNext();) {
-			XPlannerClientListener listener = (XPlannerClientListener)iListeners.next();
+			XPlannerClientListener listener = iListeners.next();
 			listener.clientRemoved(client);
 		}
 	}
 	
 	private void fireClientAddded(XPlannerClient client) {
 		for (Iterator<XPlannerClientListener> iListeners = listeners.iterator(); iListeners.hasNext();) {
-			XPlannerClientListener listener = (XPlannerClientListener)iListeners.next();
+			XPlannerClientListener listener = iListeners.next();
 			listener.clientAdded(client);
 		}
 	}

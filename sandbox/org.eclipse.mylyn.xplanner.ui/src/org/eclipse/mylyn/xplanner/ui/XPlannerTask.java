@@ -40,10 +40,7 @@ public class XPlannerTask extends AbstractTask {
 		public static Kind fromString(String kindValue) {
 			Kind kind = null;
 		
-			if (kindValue == null) {
-				kind = null;
-			}
-			else if (kindValue.equals(TASK.toString())) {
+			if (kindValue.equals(TASK.toString())) {
 				kind = TASK;
 			}
 			else if (kindValue.equals(USER_STORY.toString())) {

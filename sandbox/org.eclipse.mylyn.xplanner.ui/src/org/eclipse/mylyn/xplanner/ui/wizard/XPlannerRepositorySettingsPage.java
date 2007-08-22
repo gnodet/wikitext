@@ -28,6 +28,7 @@ import org.eclipse.swt.widgets.Composite;
  */
 public class XPlannerRepositorySettingsPage extends AbstractRepositorySettingsPage {
 
+	@SuppressWarnings("unused")
 	private static final String MESSAGE_FAILURE_CONNECT = Messages.XPlannerRepositorySettingsPage_COULD_NOT_CONNECT_TO_XPLANNER;
 
 	private static final String TITLE = Messages.XPlannerRepositorySettingsPage_XPLANNER_REPPOSITORY_SETTINGS;

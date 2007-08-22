@@ -7,13 +7,13 @@
 
 package org.eclipse.mylyn.xplanner.wsdl.db;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings({ "unchecked", "serial", "unused", "null" })
 public class QueryException  extends org.apache.axis.AxisFault  implements java.io.Serializable {
     public QueryException() {
     }
 
     private java.lang.Object __equalsCalc = null;
-    public synchronized boolean equals(java.lang.Object obj) {
+	public synchronized boolean equals(java.lang.Object obj) {
         if (!(obj instanceof QueryException)) return false;
         QueryException other = (QueryException) obj;
         if (obj == null) return false;

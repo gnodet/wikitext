@@ -80,7 +80,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			handleIdentifier);
 
 		if (existingTask instanceof XPlannerTask) {
-			task = (XPlannerTask) existingTask;
+			task = existingTask;
 		} 
 		else {
 			try {

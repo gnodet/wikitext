@@ -398,7 +398,7 @@ public class CachedXPlannerClient extends XPlannerClient
 			e.printStackTrace();
 		}
 		
-		return (UserStoryData[]) projectUserStories.toArray(new UserStoryData[projectUserStories.size()]);
+		return projectUserStories.toArray(new UserStoryData[projectUserStories.size()]);
 	}
 	
 	public UserStoryData[] getUserStoriesForProject(int projectId, int trackerId) {
@@ -414,7 +414,7 @@ public class CachedXPlannerClient extends XPlannerClient
 			}
 		}
 		
-		return (UserStoryData[]) projectTrackerUserStories.toArray(new UserStoryData[projectTrackerUserStories.size()]);
+		return projectTrackerUserStories.toArray(new UserStoryData[projectTrackerUserStories.size()]);
 
 	}
 	
@@ -437,7 +437,7 @@ public class CachedXPlannerClient extends XPlannerClient
 			e.printStackTrace();
 		}
 		
-		return (TaskData[]) projectTasks.toArray(new TaskData[projectTasks.size()]);
+		return projectTasks.toArray(new TaskData[projectTasks.size()]);
 	}
 	
 	public TaskData[] getTasksForProject(int projectId, int personId) {
@@ -453,7 +453,7 @@ public class CachedXPlannerClient extends XPlannerClient
 			}
 		}
 		
-		return (TaskData[]) projectPersonTasks.toArray(new TaskData[projectPersonTasks.size()]);
+		return projectPersonTasks.toArray(new TaskData[projectPersonTasks.size()]);
 	}
 	
 	public TaskData[] getTasksForIteration(int iterationId) {
@@ -475,7 +475,7 @@ public class CachedXPlannerClient extends XPlannerClient
 			e.printStackTrace();
 		}
 		
-		return (TaskData[]) iterationTasks.toArray(new TaskData[iterationTasks.size()]);
+		return iterationTasks.toArray(new TaskData[iterationTasks.size()]);
 	}
 	
 	public TaskData[] getTasksForIteration(int iterationId, int personId) {
@@ -491,7 +491,7 @@ public class CachedXPlannerClient extends XPlannerClient
 			}
 		}
 		
-		return (TaskData[]) iterationPersonTasks.toArray(new TaskData[iterationPersonTasks.size()]);
+		return iterationPersonTasks.toArray(new TaskData[iterationPersonTasks.size()]);
 	}
 	
 

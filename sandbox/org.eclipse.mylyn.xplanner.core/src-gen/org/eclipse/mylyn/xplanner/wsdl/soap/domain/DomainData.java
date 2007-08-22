@@ -7,7 +7,7 @@
 
 package org.eclipse.mylyn.xplanner.wsdl.soap.domain;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings({ "unchecked", "serial", "unused", "null" })
 public abstract class DomainData  implements java.io.Serializable {
     private int id;
 

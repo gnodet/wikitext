@@ -16,7 +16,7 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.axis.transport.http.HTTPConstants;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings({ "unchecked", "serial", "unused", "null" })
 public class XPlannerServiceLocator extends org.apache.axis.client.Service implements org.xplanner.soap.XPlanner.XPlannerService {
 
 		private Proxy proxy;

@@ -41,9 +41,7 @@ public class XPlannerTaskEditorFactory extends AbstractTaskEditorFactory {
 		
 	  if (XPlannerTask.Kind.TASK.toString().equals(kind)) {
 		  editor = new XPlannerTaskEditor(parentEditor);
-		  if (editor != null) {
-		  	((XPlannerTaskEditor)editor).setParentEditor(parentEditor);
-		  }
+		  ((XPlannerTaskEditor)editor).setParentEditor(parentEditor);
 	  }
 	  else if (XPlannerTask.Kind.USER_STORY.toString().equals(kind)) {
 	  	editor = new XPlannerUserStoryEditor(parentEditor);

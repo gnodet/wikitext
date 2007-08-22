@@ -9,6 +9,7 @@ import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
 import org.eclipse.mylyn.web.core.WebClientUtil;
 
+@SuppressWarnings({ "unchecked", "serial", "unused", "null" })
 public class XPlannerHttpSender extends CommonsHTTPSender {
 	
 	public static final String PROXY = "org.eclipse.mylyn.xplanner.proxy"; //$NON-NLS-1$
