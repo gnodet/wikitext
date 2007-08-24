@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.mylyn.xplanner_feature"
       label="%featureLabel"
-      version="2.0.0.v20070824-1300"
+      version="2.0.0.v20070824-1600"
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylyn.xplanner.ui">
 
@@ -233,21 +233,21 @@ litigation.
       <import plugin="org.eclipse.mylyn.context.core"/>
       <import plugin="org.eclipse.mylyn.tasks.core"/>
       <import plugin="org.eclipse.mylyn.monitor.core"/>
-      <import feature="org.eclipse.mylyn_feature" version="2.0.0.v20070824-1300"/>
+      <import feature="org.eclipse.mylyn_feature" version="2.0.0.v20070824-1600"/>
    </requires>
 
    <plugin
          id="org.eclipse.mylyn.xplanner.core"
          download-size="0"
          install-size="0"
-         version="2.0.0.v20070824-1300"
+         version="2.0.0.v20070824-1600"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.mylyn.xplanner.ui"
          download-size="0"
          install-size="0"
-         version="2.0.0.v20070824-1300"
+         version="2.0.0.v20070824-1600"
          unpack="false"/>
 
 </feature>
