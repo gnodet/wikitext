@@ -8,8 +8,11 @@
 package org.eclipse.mylyn.xplanner.ui;
 
 import java.net.*;
+import java.text.MessageFormat;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.ITaskRepositoryListener;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
@@ -124,10 +127,19 @@ public class XPlannerClientFacade implements ITaskRepositoryListener {
 	}
 
 	public void refreshClientSettings(TaskRepository repository) {
-		String serverHostname = getServerHost(repository);
-		XPlannerClient client = clientManager.getClient(serverHostname);
-		if (client != null) {
-			client.refreshDetails();
+		try {
+			XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
+			if (client != null) {
+				client.refreshDetails();
+			}
+		}
+		catch (final Exception e) {
+			String reason = e.getLocalizedMessage();
+			if ((reason == null) || (reason.length() == 0)) {
+				reason = e.getClass().getName();
+			}
+			StatusHandler.log(new Status(IStatus.OK, TasksUiPlugin.ID_PLUGIN, IStatus.ERROR, 
+				MessageFormat.format(Messages.XPlannerRepositoryConnector_PerformQueryFailure, reason), e ));
 		}
 	}
 	

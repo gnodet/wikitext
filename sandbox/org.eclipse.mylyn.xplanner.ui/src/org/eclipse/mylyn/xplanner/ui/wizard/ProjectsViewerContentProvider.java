@@ -13,21 +13,22 @@ import java.util.HashMap;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
-import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
-import org.xplanner.soap.*;
+import org.xplanner.soap.IterationData;
+import org.xplanner.soap.ProjectData;
+import org.xplanner.soap.UserStoryData;
 
 /**
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
 public class ProjectsViewerContentProvider implements ITreeContentProvider {
-	private XPlannerCustomQueryPage customQueryPage;
+	private XPlannerClient client;
 	private ProjectData[] projects;
 	private HashMap<ProjectData, IterationData[]> projectsToIterationsMap = new HashMap<ProjectData, IterationData[]>(); 
 	private HashMap<IterationData, UserStoryData[]> iterationsToUserStoriesMap = new HashMap<IterationData, UserStoryData[]>();
 	
-  public ProjectsViewerContentProvider(XPlannerCustomQueryPage customQueryPage) {
-  	this.customQueryPage = customQueryPage;
+  public ProjectsViewerContentProvider(XPlannerClient client) {
+  	this.client = client;
   }
   
 	public Object[] getChildren(Object parentElement) {
@@ -40,11 +41,11 @@ public class ProjectsViewerContentProvider implements ITreeContentProvider {
 		try {
 			if (element instanceof IterationData) {
 				IterationData iteration = (IterationData) element;
-				parent = customQueryPage.getClient().getProject(iteration.getProjectId());
+				parent = client.getProject(iteration.getProjectId());
 			}
 			else if (element instanceof UserStoryData) {
 				UserStoryData userStory = (UserStoryData) element;
-				parent = customQueryPage.getClient().getIteration(userStory.getIterationId());
+				parent = client.getIteration(userStory.getIterationId());
 			}
 		}
 		catch (RemoteException e) {
@@ -74,17 +75,17 @@ public class ProjectsViewerContentProvider implements ITreeContentProvider {
 	}
 
 	public void dispose() {
-    customQueryPage = null;
+    	client = null;
 	}
 
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-    // do nothing
+		clear();
 	}
 
 	private ProjectData[] getProjects() {
 		if (projects == null) {
 			try {
-				projects = customQueryPage.getClient().getProjects();
+				projects = client.getProjects();
 			}
 			catch (RemoteException e) {
 				e.printStackTrace();
@@ -99,7 +100,7 @@ public class ProjectsViewerContentProvider implements ITreeContentProvider {
 		
 		if (iterations == null) {
 			try {
-				iterations = customQueryPage.getClient().getIterations(project.getId());
+				iterations = client.getIterations(project.getId());
 				projectsToIterationsMap.put(project, iterations);
 			}
 			catch (RemoteException e) {
@@ -117,7 +118,7 @@ public class ProjectsViewerContentProvider implements ITreeContentProvider {
 			userStories = iterationsToUserStoriesMap.get(iteration);
 			if (userStories == null) {
 				try {
-					userStories = customQueryPage.getClient().getUserStories(iteration.getId());
+					userStories = client.getUserStories(iteration.getId());
 					iterationsToUserStoriesMap.put(iteration, userStories);
 				}
 				catch (RemoteException e) {
@@ -128,45 +129,7 @@ public class ProjectsViewerContentProvider implements ITreeContentProvider {
 		
 		return userStories;
 	}
-	
-	/**
-	 * Currently not used -- added when testing ILazyTreeContentProvider
-	 * TODO -- remove
-	 * @param parent
-	 * @param index
-	 */
-	public void updateElement(Object parent, int index) {
-		Object element = null;
-		
-		Object[] children = getXPlannerChildren(parent);
-		
-		if (children != null && children.length > index) {
-			element = children[index];
-		}
-	
-		if (element != null) {
-		  customQueryPage.getProjectsViewer().replace(parent, index, element);
-		  customQueryPage.getProjectsViewer().setChildCount(parent, getChildCount(parent));
-		  try {
-			  customQueryPage.getProjectsViewer().setChildCount(element, getChildCount(element));
-			}
-			catch (Exception e) {
-				XPlannerMylynUIPlugin.log(e.getCause(), Messages.ProjectsViewerContentProvider_COULD_NOT_UPDATE_PROJECT_ELEMENT_CHILD_COUNT, true);
-			}
-		}  
-	}
 
-	private int getChildCount(Object element) {
-	  int childCount = 0;
-	  
-	  Object[] children = getXPlannerChildren(element);
-		if (children != null) {
-			childCount = children.length;
-		}
-		
-    return childCount;
-	}
-	
 	private Object[] getXPlannerChildren(Object element) {
 	  Object[] children = new Object[0];
 	  
@@ -182,19 +145,10 @@ public class ProjectsViewerContentProvider implements ITreeContentProvider {
 		
     return children;
 	}
-
-	/**
-	 * Currently not used -- added when testing ILazyTreeContentProvider
-	 * TODO -- remove
-	 * @param element
-	 * @param currentChildCount
-	 */
-	public void updateChildCount(Object element, int currentChildCount) {
-		Object[] children = getXPlannerChildren(element);
-		
-		if (children != null && children.length != currentChildCount) {
-			customQueryPage.getProjectsViewer().setChildCount(element, children.length);
-		}
-	}
 	
+	public void clear() {
+		projects = null;
+		projectsToIterationsMap.clear();
+		iterationsToUserStoriesMap.clear();
+	}
 }

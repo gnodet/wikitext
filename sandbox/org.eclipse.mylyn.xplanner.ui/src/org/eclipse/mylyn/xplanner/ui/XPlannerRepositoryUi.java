@@ -14,11 +14,17 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.mylyn.tasks.core.*;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
-import org.eclipse.mylyn.tasks.ui.wizards.NewWebTaskWizard;
-import org.eclipse.mylyn.xplanner.ui.wizard.*;
+import org.eclipse.mylyn.xplanner.ui.wizard.EditXPlannerQueryWizard;
+import org.eclipse.mylyn.xplanner.ui.wizard.NewXPlannerQueryWizard;
+import org.eclipse.mylyn.xplanner.ui.wizard.NewXPlannerTaskWizard;
+import org.eclipse.mylyn.xplanner.ui.wizard.XPlannerCustomQueryPage;
+import org.eclipse.mylyn.xplanner.ui.wizard.XPlannerRepositorySettingsPage;
 
 /**
  * @author Ravi Kumar 
@@ -94,8 +100,7 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 
 	@Override
 	public IWizard getNewTaskWizard(TaskRepository taskRepository) {
-		String newTaskUrl = taskRepository.getUrl();
-		return new NewWebTaskWizard(taskRepository, newTaskUrl + (newTaskUrl.endsWith("/") ? "" : "/") + "do/view/projects"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		return new NewXPlannerTaskWizard(taskRepository);
 	}
 
 	@Override

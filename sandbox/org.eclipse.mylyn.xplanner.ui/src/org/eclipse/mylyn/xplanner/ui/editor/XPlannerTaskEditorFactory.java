@@ -8,9 +8,15 @@
 package org.eclipse.mylyn.xplanner.ui.editor;
 
 import org.eclipse.mylyn.monitor.core.StatusHandler;
-import org.eclipse.mylyn.tasks.core.*;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.tasks.ui.editors.*;
+import org.eclipse.mylyn.tasks.ui.editors.AbstractRepositoryTaskEditor;
+import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskEditorFactory;
+import org.eclipse.mylyn.tasks.ui.editors.RepositoryTaskEditorInput;
+import org.eclipse.mylyn.tasks.ui.editors.TaskEditor;
+import org.eclipse.mylyn.tasks.ui.editors.TaskEditorInput;
 import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
 import org.eclipse.mylyn.xplanner.ui.XPlannerTask;
 import org.eclipse.ui.IEditorInput;
@@ -39,15 +45,22 @@ public class XPlannerTaskEditorFactory extends AbstractTaskEditorFactory {
 			kind = task.getTaskKind();
 		}
 		
-	  if (XPlannerTask.Kind.TASK.toString().equals(kind)) {
-		  editor = new XPlannerTaskEditor(parentEditor);
-		  ((XPlannerTaskEditor)editor).setParentEditor(parentEditor);
-	  }
-	  else if (XPlannerTask.Kind.USER_STORY.toString().equals(kind)) {
-	  	editor = new XPlannerUserStoryEditor(parentEditor);
-	  }
+		if (XPlannerTask.Kind.TASK.toString().equals(kind)) {
+			if (editorInput instanceof RepositoryTaskEditorInput &&
+				((RepositoryTaskEditorInput) editorInput).getTaskData().isNew()) {
+				editor = new NewXPlannerTaskEditor(parentEditor);
+			} 
+			else {
+				editor = new XPlannerTaskEditor(parentEditor);
+			}
+			
+			((AbstractRepositoryTaskEditor)editor).setParentEditor(parentEditor);
+		}
+		else if (XPlannerTask.Kind.USER_STORY.toString().equals(kind)) {
+			editor = new XPlannerUserStoryEditor(parentEditor);
+		}
 		
-	  return editor;
+		return editor;
 	}
 
 	public IEditorInput createEditorInput(AbstractTask task) {

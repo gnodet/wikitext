@@ -230,7 +230,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		projectTreeLabel.setText(Messages.XPlannerCustomQueryPage_PROJECTS_TREE_TITLE);
 		
 		projectsViewer = new TreeViewer(projectsComposite, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.MULTI);
-		projectsViewer.setContentProvider(new ProjectsViewerContentProvider(this));
+		projectsViewer.setContentProvider(new ProjectsViewerContentProvider(client));
 		projectsViewer.setLabelProvider(new ProjectsViewerLabelProvider());
 		GridData projectsViewerGridData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		projectsViewerGridData.heightHint = 100;

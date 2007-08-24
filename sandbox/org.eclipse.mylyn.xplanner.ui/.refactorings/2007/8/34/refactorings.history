@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename field 'newTaskPage' in 'org.eclipse.mylyn.xplanner.ui.wizard.NewXPlannerTaskWizard' to 'userStoryPage'&#13;&#10;- Original project: 'org.eclipse.mylyn.xplanner.ui'&#13;&#10;- Original element: 'org.eclipse.mylyn.xplanner.ui.wizard.NewXPlannerTaskWizard.newTaskPage'&#13;&#10;- Renamed element: 'org.eclipse.mylyn.xplanner.ui.wizard.NewXPlannerTaskWizard.userStoryPage'&#13;&#10;- Update references to refactored element&#13;&#10;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field 'newTaskPage'" flags="589826" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;org.eclipse.mylyn.xplanner.ui.wizard{NewXPlannerTaskWizard.java[NewXPlannerTaskWizard^newTaskPage" name="userStoryPage" references="true" setter="false" stamp="1187829105968" textual="false" version="1.0"/>
+</session>

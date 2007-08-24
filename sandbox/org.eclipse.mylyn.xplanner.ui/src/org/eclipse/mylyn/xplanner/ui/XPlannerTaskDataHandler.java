@@ -14,8 +14,17 @@ import java.util.Set;
 
 import javax.security.auth.login.LoginException;
 
-import org.eclipse.core.runtime.*;
-import org.eclipse.mylyn.tasks.core.*;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.mylyn.tasks.core.AbstractAttributeFactory;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.AbstractTaskDataHandler;
+import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
+import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
+import org.eclipse.mylyn.tasks.core.TaskList;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
@@ -56,6 +65,17 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 		return false;
 	}
 
+	public boolean initializeTaskData(TaskRepository repository, RepositoryTaskData data, UserStoryData userStory)
+		throws CoreException {
+		
+		if (repository == null || data == null || userStory == null) {
+			return false;
+		}
+
+		XPlannerRepositoryUtils.setupNewTaskAttributes(userStory, data);
+		return true;
+	}
+
 	public AbstractAttributeFactory getAttributeFactory(String repositoryUrl, String repositoryKind, String taskKind) {
 		return attributeFactory;
 	}
@@ -81,6 +101,7 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 
 	private String postChangesToRepository(RepositoryTaskData repositoryTaskData) throws CoreException {
 		String error = null;
+		String newTaskId = null;
 		
 		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
 				repositoryTaskData.getRepositoryKind(), repositoryTaskData.getRepositoryUrl());
@@ -88,8 +109,19 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 		if (client != null) {
 			try {
-				// first check if taskdata exists
-				TaskData taskData = client.getTask(Integer.valueOf(repositoryTaskData.getId()).intValue());
+				TaskData taskData = null;
+				if (repositoryTaskData.isNew()) {
+					taskData = XPlannerRepositoryUtils.createNewTaskData(repositoryTaskData, client);
+					taskData = client.addTask(taskData);
+					if (taskData.getCreatedDate() == null) {
+						taskData.setCreatedDate(taskData.getLastUpdateTime());
+					}
+					newTaskId = "" + taskData.getId();
+				}
+				else {
+					taskData = client.getTask(Integer.valueOf(repositoryTaskData.getId()).intValue());
+				}
+				
 				if (taskData != null) {
 					taskData.setName(repositoryTaskData.getSummary());
 					taskData.setDescription(XPlannerRepositoryUtils.getDescription(repositoryTaskData));
@@ -118,6 +150,11 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 				XPlannerMylynUIPlugin.log(e.getCause(), "", false); //$NON-NLS-1$
 				error = e.getMessage();
 			}
+		}
+
+		// for new tasks, return their id
+		if (error == null && repositoryTaskData.isNew()) {
+			error = newTaskId;
 		}
 		
 		return error;

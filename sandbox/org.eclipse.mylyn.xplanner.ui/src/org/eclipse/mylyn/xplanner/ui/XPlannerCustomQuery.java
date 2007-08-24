@@ -22,7 +22,7 @@ import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
  */
 public class XPlannerCustomQuery extends AbstractRepositoryQuery {
 
-	public static final int INVALID_ID = -1;
+	public static final int INVALID_ID = XPlannerAttributeFactory.INVALID_ID;
 	public static final List<Integer> INVALID_IDS = Arrays.asList(new Integer[] {INVALID_ID});
 	//private static final int MAX_HITS = 75;
   public static enum ContentIdType {PROJECT, ITERATION, USER_STORY};  

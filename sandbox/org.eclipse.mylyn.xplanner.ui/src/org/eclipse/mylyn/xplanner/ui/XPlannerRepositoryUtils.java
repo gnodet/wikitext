@@ -19,13 +19,24 @@ import java.util.HashSet;
 
 import javax.security.auth.login.LoginException;
 
-import org.eclipse.core.runtime.*;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.internal.tasks.core.RepositoryTaskHandleUtil;
-import org.eclipse.mylyn.tasks.core.*;
+import org.eclipse.mylyn.tasks.core.AbstractAttributeFactory;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
+import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
-import org.xplanner.soap.*;
+import org.xplanner.soap.IterationData;
+import org.xplanner.soap.PersonData;
+import org.xplanner.soap.ProjectData;
+import org.xplanner.soap.TaskData;
+import org.xplanner.soap.UserStoryData;
 
 /**
  * @author Ravi Kumar
@@ -139,9 +150,11 @@ public class XPlannerRepositoryUtils {
 			taskData.getAcceptorId(), client));
 		
 		// createdDate 
-		Date createdDate = taskData.getCreatedDate().getTime();
-		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.DATE_CREATION, 
-				XPlannerAttributeFactory.DATE_FORMAT.format(createdDate));
+		if (taskData.getCreatedDate() != null) {
+			Date createdDate = taskData.getCreatedDate().getTime();
+			repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.DATE_CREATION, 
+					XPlannerAttributeFactory.DATE_FORMAT.format(createdDate));
+		}
 		
 		// last updated
 		Date lastUpdatedDate = taskData.getLastUpdateTime().getTime();
@@ -180,6 +193,88 @@ public class XPlannerRepositoryUtils {
 			taskData.isCompleted() ? "1" : "0");  //$NON-NLS-1$//$NON-NLS-2$
 	}
 
+	public static void setupNewTaskAttributes(UserStoryData userStoryData, RepositoryTaskData repositoryTaskData) 
+		throws CoreException {
+	
+		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
+				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryTaskData.getRepositoryUrl());
+		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
+	
+		// priority
+		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.PRIORITY, 
+			getPriorityFromXPlannerObject(userStoryData, client));
+		
+		// status
+		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.STATUS, userStoryData.getDispositionName());
+		
+		// assigned to 
+		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.USER_ASSIGNED, getPersonName(
+			userStoryData.getTrackerId(), client));
+		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ASSIGNED_ID,
+			"" + userStoryData.getTrackerId());
+		
+		// project info
+		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_PROJECT_NAME, 
+			getProjectName(userStoryData, client));
+		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_PROJECT_ID, 
+			"" + getProjectId(userStoryData, client));
+	
+		// iteration info
+		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ITERATION_NAME, 
+			getIterationName(userStoryData, client));
+		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ITERATION_ID, 
+			"" + getIterationId(userStoryData, client));
+	
+		// user story info
+		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_USER_STORY_NAME, 
+			userStoryData.getName());
+		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_USER_STORY_ID, 
+			"" + userStoryData.getId());
+	
+		// completed
+		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_TASK_COMPLETED, "0");
+		
+		// est time
+		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_EST_HOURS_NAME, "0.0"); //$NON-NLS-1$
+
+		// act time
+		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ACT_HOURS_NAME, "0.0"); //$NON-NLS-1$
+
+		// est original hours
+		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ESTIMATED_ORIGINAL_HOURS_NAME, "0.0"); //$NON-NLS-1$
+
+		// act time
+		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_REMAINING_HOURS_NAME, "" + "0.0"); //$NON-NLS-1$
+
+		// est adjusted estimated hours
+		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ADJUSTED_ESTIMATED_HOURS_NAME, "0.0"); //$NON-NLS-1$
+	}
+
+
+	public static TaskData createNewTaskData(RepositoryTaskData repositoryTaskData, 
+		XPlannerClient client) {
+
+		TaskData taskData = new TaskData();
+
+		// assigned to 
+		String assignedToId = repositoryTaskData.getAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ASSIGNED_ID);
+		taskData.setAcceptorId(assignedToId == null || assignedToId.length() == 0 ? 
+			XPlannerAttributeFactory.INVALID_ID :
+			Integer.valueOf(assignedToId).intValue());
+	
+		// user story info
+		String userStoryId = repositoryTaskData.getAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_USER_STORY_ID);
+		taskData.setStoryId(userStoryId == null || userStoryId.length() == 0 ? 
+			XPlannerAttributeFactory.INVALID_ID :
+			Integer.valueOf(userStoryId).intValue());
+		
+		// completed
+		String completed = repositoryTaskData.getAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_TASK_COMPLETED);
+		taskData.setCompleted(completed != null && !("0".equals(completed)));
+		
+		return taskData;
+	}
+	
 	public static void setupUserStoryAttributes(UserStoryData userStory, RepositoryTaskData repositoryTaskData) 
 		throws CoreException {
 		
@@ -339,6 +434,24 @@ public class XPlannerRepositoryUtils {
 	  return projectName;
 	}
 
+	public static int getProjectId(UserStoryData userStory, XPlannerClient client) {
+	  int projectId = XPlannerAttributeFactory.INVALID_ID;
+	  
+		try {
+		  if (userStory != null) {
+		    IterationData iteration = client.getIteration(userStory.getIterationId());
+		    if (iteration != null) {
+		      projectId = iteration.getProjectId();
+		    }
+		  }
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	  
+	  return projectId;
+	}
+
 	public static String getIterationName(TaskData taskData, XPlannerClient client) {
 	  String iterationName = Messages.XPlannerRepositoryUtils_NO_ITERATION_NAME;
 	  
@@ -368,6 +481,22 @@ public class XPlannerRepositoryUtils {
 		}
 	  
 	  return iterationName;
+	}
+
+	public static int getIterationId(UserStoryData userStory, XPlannerClient client) {
+		int iterationId = XPlannerAttributeFactory.INVALID_ID;
+	  
+		try {
+		    IterationData iteration = client.getIteration(userStory.getIterationId());
+		    if (iteration != null) {
+		      iterationId = iteration.getId();
+		    }
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	  
+		return iterationId;
 	}
 
 	public static String getUserStoryName(TaskData taskData, XPlannerClient client) {
@@ -470,5 +599,25 @@ public class XPlannerRepositoryUtils {
 
 	}
 	
+	public static RepositoryTaskData getNewRepositoryTaskData(TaskRepository taskRepository,
+		UserStoryData userStoryData) throws CoreException {
+		
+		if (taskRepository == null || userStoryData == null) {
+			return null;
+		}
+		
+		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
+				XPlannerMylynUIPlugin.REPOSITORY_KIND);
+	
+		XPlannerTaskDataHandler taskDataHandler = (XPlannerTaskDataHandler) connector.getTaskDataHandler();
+		AbstractAttributeFactory attributeFactory = taskDataHandler.getAttributeFactory(taskRepository.getUrl(),
+			taskRepository.getConnectorKind(), AbstractTask.DEFAULT_TASK_KIND);
+		RepositoryTaskData taskData = new RepositoryTaskData(attributeFactory, XPlannerMylynUIPlugin.REPOSITORY_KIND,
+			taskRepository.getUrl(), TasksUiPlugin.getDefault().getNextNewRepositoryTaskId(), XPlannerTask.Kind.TASK.toString());
+		taskData.setNew(true);
+		taskDataHandler.initializeTaskData(taskRepository, taskData, userStoryData);
+		
+		return taskData;
+	}	
 }
  

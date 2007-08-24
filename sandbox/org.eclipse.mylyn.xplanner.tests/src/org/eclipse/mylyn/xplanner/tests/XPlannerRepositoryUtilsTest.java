@@ -10,10 +10,14 @@ package org.eclipse.mylyn.xplanner.tests;
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.mylyn.tasks.core.*;
+import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
+import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
-import org.eclipse.mylyn.xplanner.ui.*;
+import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeFactory;
+import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUtils;
+import org.eclipse.mylyn.xplanner.ui.XPlannerTask;
 import org.xplanner.soap.TaskData;
 import org.xplanner.soap.UserStoryData;
 
@@ -48,6 +52,22 @@ public class XPlannerRepositoryUtilsTest extends TestCase {
 		}
 		catch (Exception e) {
 			fail("could not set up task attributes");
+		}
+	}
+
+	public void testGetNewRepositoryTaskData() {
+		try {
+			UserStoryData userStoryData =  XPlannerTestUtils.findTestUserStory(client);
+			TaskRepository taskRepository = XPlannerTestUtils.getRepository();
+			RepositoryTaskData newRepositoryTaskData = 
+				XPlannerRepositoryUtils.getNewRepositoryTaskData(taskRepository, userStoryData);
+			assert(newRepositoryTaskData != null);
+			assert(newRepositoryTaskData.isNew());
+			assert(("" + userStoryData.getId()).equals(
+				newRepositoryTaskData.getAttribute(XPlannerAttributeFactory.ATTRIBUTE_USER_STORY_ID)));
+		} 
+		catch (Exception e) {
+			fail("could not set up task attributes: " + e.getMessage());
 		}
 	}
 

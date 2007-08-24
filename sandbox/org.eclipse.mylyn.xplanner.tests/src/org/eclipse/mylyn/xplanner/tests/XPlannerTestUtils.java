@@ -25,7 +25,7 @@ import org.xplanner.soap.*;
  * 2.  Admin user with name USER, and password PASSWORD, which were the user/password used to install XPlanner,
  * otherwise don't have rights to create projects
  * 
- * @author hbershadskaya
+ * @author Helen Bershadskaya
  *
  */
 public class XPlannerTestUtils {

@@ -1,10 +1,11 @@
 /*******************************************************************************
- * Copyright (c) 2007 - 2007 CodeGear and others.
+ * Copyright (c) 2004, 2007 Mylyn project committers and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
+
 package org.eclipse.mylyn.xplanner.ui.editor;
 
 import java.text.MessageFormat;
@@ -12,51 +13,35 @@ import java.text.MessageFormat;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
-import org.eclipse.mylyn.tasks.ui.editors.AbstractRepositoryTaskEditor;
-import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
+import org.eclipse.mylyn.tasks.ui.DatePicker;
+import org.eclipse.mylyn.tasks.ui.editors.AbstractNewRepositoryTaskEditor;
 import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUtils;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Spinner;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.widgets.ImageHyperlink;
 
-/**
- * @author Ravi Kumar
- * @author Helen Bershadskaya
- */
-public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor 
+public class NewXPlannerTaskEditor  extends AbstractNewRepositoryTaskEditor 
 	implements XPlannerEditorAttributeProvider {
-	
+
 	private XPlannerTaskEditorExtraControls extraControls;
 	
-	public XPlannerTaskEditor(FormEditor editor) {
+	public NewXPlannerTaskEditor(FormEditor editor) {
 		super(editor);
+		
 	}
+//	private Label remainingTimeValueLabel;
+//	private Button completedButton;
 
 	public void init(IEditorSite site, IEditorInput input) {
 		super.init(site, input);
-		updateEditorTitle();
 		extraControls = new XPlannerTaskEditorExtraControls(this, getRepositoryTaskData());
 	}
 
-	@Override
-	protected void addRadioButtons(Composite buttonComposite) {
-		//TODO -- ?
-	}
-	
-	@Override
-	protected void createPeopleLayout(Composite composite) {
-		// disabled
-	}
-
-	@Override
-	protected void addActionButtons(Composite buttonComposite) {
-		super.addActionButtons(buttonComposite);
-		//TODO -- ok with submit only, and no compare?
-	}
-	
 	protected void validateInput() {
 		boolean isValid = true;
 
@@ -78,13 +63,16 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor
 	}
 	
 	@Override
-	protected void createCommentLayout(Composite composite) {
-		// don't want this
-	}
-
-	@Override
 	protected void createNewCommentLayout(Composite composite) {
-		// don't want this
+		// TODO -- don't want this for now -- duplicates existing attributes revisit 
+		// when do closer mylyn ui to xplanner values mapping
+		
+		// hack to avoid NPE in updating new task method 
+		scheduledForDate = new DatePicker(composite, SWT.FLAT, DatePicker.LABEL_CHOOSE);
+		scheduledForDate.setVisible(false);
+
+		estimatedTime = new Spinner(composite, SWT.FLAT);
+		estimatedTime.setVisible(false);
 	}
 
 	protected ImageHyperlink createReplyHyperlink(final int commentNum, Composite composite, final String commentBody) {
@@ -100,7 +88,7 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor
 			layout.numColumns = 1;
 		}
 
-		extraControls.createPartControlCustom(composite, true);
+		extraControls.createPartControlCustom(composite, false);
 	}
 
 	  // just in case, leave in method -- before had to get from editorInput
@@ -116,13 +104,6 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor
 	  return MessageFormat.format(Messages.XPlannerTaskEditor_FORM_TASK_TITLE, 
 	  		XPlannerRepositoryUtils.getName(getRepositoryTaskData()),
 		getRepositoryTaskData().getId() + "");  // so doesn't get formatted as number with a comma	 //$NON-NLS-1$
-	}
-	
-	public void setFocus() {
-	}
-
-	public String getPluginId() {
-		return XPlannerMylynUIPlugin.PLUGIN_ID;
 	}
 	
 	public boolean xplannerAttributeChanged(RepositoryTaskAttribute attribute) {

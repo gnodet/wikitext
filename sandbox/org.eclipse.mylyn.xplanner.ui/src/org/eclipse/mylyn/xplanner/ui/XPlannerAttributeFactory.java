@@ -24,6 +24,7 @@ public class XPlannerAttributeFactory extends AbstractAttributeFactory {
 	private static final long serialVersionUID = -4685044081450189855L;
 	
 	private static final String TIME_DATE_FORMAT_STRING = "yyyy-MM-dd HH:mm:ss";// "EEE //$NON-NLS-1$
+	public static final int INVALID_ID = -1;
 	public static final DateFormat DATE_FORMAT = DateFormat.getDateInstance(DateFormat.MEDIUM);
 	public static final DateFormat TIME_DATE_FORMAT = new SimpleDateFormat(TIME_DATE_FORMAT_STRING);
 	
@@ -37,6 +38,11 @@ public class XPlannerAttributeFactory extends AbstractAttributeFactory {
 	public static final String ATTRIBUTE_USER_STORY_NAME = "userStoryName"; //$NON-NLS-1$
 	public static final String ATTRIBUTE_TASK_COMPLETED = "completed"; //$NON-NLS-1$
 
+	public static final String ATTRIBUTE_ASSIGNED_ID = "assignedId"; //$NON-NLS-1$
+	public static final String ATTRIBUTE_PROJECT_ID = "projectId"; //$NON-NLS-1$
+	public static final String ATTRIBUTE_ITERATION_ID = "iterationId"; //$NON-NLS-1$
+	public static final String ATTRIBUTE_USER_STORY_ID = "userStoryId"; //$NON-NLS-1$
+	
 	public static final String ATTRIBUTE_SUBTASK_IDS = "attribute.xplanner.subtask_ids";
 	public static final String ATTRIBUTE_SUBTASK_KEYS = "attribute.xplanner.subtask_keys";
 	
