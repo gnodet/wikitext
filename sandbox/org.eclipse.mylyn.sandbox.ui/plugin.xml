@@ -16,6 +16,34 @@
       </page> 
     </extension>
 
+   <extension point="org.eclipse.mylyn.tasks.ui.presentations">
+      <presentation 
+            id="org.eclipse.mylyn.tasks.ui.groupByOwner"
+            name="Grouped by Owner"
+            icon="icons/etool16/category.gif"
+            contentProvider="org.eclipse.mylyn.internal.sandbox.ui.GroupedTaskListContentProvider:Owner"/>
+      <presentation 
+            id="org.eclipse.mylyn.tasks.ui.groupByPriority"
+            name="Grouped by Priority"
+            icon="icons/etool16/category.gif"
+            contentProvider="org.eclipse.mylyn.internal.sandbox.ui.GroupedTaskListContentProvider:Priority"/>
+      <presentation 
+            id="org.eclipse.mylyn.tasks.ui.groupByRepository"
+            name="Grouped by Repository"
+            icon="icons/etool16/category.gif"
+            contentProvider="org.eclipse.mylyn.internal.sandbox.ui.GroupedTaskListContentProvider:Repository"/>
+      <presentation 
+            id="org.eclipse.mylyn.tasks.ui.groupByDue"
+            name="Grouped by Due"
+            icon="icons/etool16/category.gif"
+            contentProvider="org.eclipse.mylyn.internal.sandbox.ui.GroupedTaskListContentProvider:Due"/>
+      <presentation 
+            id="org.eclipse.mylyn.tasks.ui.groupBySheduled"
+            name="Grouped by Sheduled"
+            icon="icons/etool16/category.gif"
+            contentProvider="org.eclipse.mylyn.internal.sandbox.ui.GroupedTaskListContentProvider:Sheduled"/>
+   </extension>
+
    <!--
    <extension point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester 
