@@ -1,0 +1,5 @@
+1188201186048	Convert anonymous class to nested
+1188245003700	Extract method 'updatePageEnablement'
+1188248030518	Copy compilation unit
+1188249849743	Extract method 'setDefaultValuesAndFocus'
+1188250983748	Extract method 'isTaskKeyCandidate'
