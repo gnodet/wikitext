@@ -16,6 +16,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskDelegate;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.ui.TaskListManager;
 
 /**
@@ -51,9 +52,11 @@ public class TaskActivityViewContentProvider implements IStructuredContentProvid
 	public Object[] getChildren(Object parent) {
 		if (parent instanceof ScheduledTaskContainer) {
 			ScheduledTaskContainer taskContainer = (ScheduledTaskContainer) parent;
-			//Set<ScheduledTaskContainer> delegates = new HashSet<ScheduledTaskContainer>();
-
-			return taskContainer.getChildren().toArray();
+			Set<ScheduledTaskDelegate> delegates = new HashSet<ScheduledTaskDelegate>();
+			for (AbstractTask task : taskContainer.getChildren()) {
+				delegates.add(new ScheduledTaskDelegate(taskContainer, task, null, null, 0));
+			}
+			return delegates.toArray();
 		} else {
 			return new Object[0];
 		}
