@@ -36,6 +36,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerDropAdapter;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskDelegate;
+import org.eclipse.mylyn.internal.tasks.core.TaskActivityUtil;
 import org.eclipse.mylyn.internal.tasks.ui.TaskListColorsAndFonts;
 import org.eclipse.mylyn.internal.tasks.ui.actions.ActivityReportAction;
 import org.eclipse.mylyn.internal.tasks.ui.actions.OpenTaskListElementAction;
@@ -286,7 +287,7 @@ public class TaskActivityView extends ViewPart {
 					container = (ScheduledTaskContainer) target;
 					if (container.isPresent()) {
 						reminderCalendar = GregorianCalendar.getInstance();
-						TasksUiPlugin.getTaskListManager().setSecheduledIn(reminderCalendar, 1);
+						TaskActivityUtil.snapForwardNumDays(reminderCalendar, 1);
 					} else {
 						reminderCalendar = container.getStart();
 					}
@@ -294,7 +295,7 @@ public class TaskActivityView extends ViewPart {
 					ScheduledTaskDelegate dateRangeActivityDelegate = (ScheduledTaskDelegate) target;
 					if (dateRangeActivityDelegate.getDateRangeContainer().isPresent()) {
 						reminderCalendar = GregorianCalendar.getInstance();
-						TasksUiPlugin.getTaskListManager().setSecheduledIn(reminderCalendar, 1);
+						TaskActivityUtil.snapForwardNumDays(reminderCalendar, 1);
 					} else {
 						reminderCalendar = dateRangeActivityDelegate.getDateRangeContainer().getStart();
 					}
@@ -309,7 +310,7 @@ public class TaskActivityView extends ViewPart {
 						task = (AbstractTask) selectedObject;
 					}
 					if (task != null) {
-						TasksUiPlugin.getTaskListManager().setScheduledFor(task, reminderCalendar.getTime());
+						TasksUiPlugin.getTaskActivityManager().setScheduledFor(task, reminderCalendar.getTime());
 					}
 				}
 				return true;
@@ -429,7 +430,7 @@ public class TaskActivityView extends ViewPart {
 					ScheduledTaskDelegate dateRangeActivityDelegate = (ScheduledTaskDelegate) selection;
 					Date newReminder = reminderEditor.getReminderDate();
 					if (newReminder != null) {
-						TasksUiPlugin.getTaskListManager().setScheduledFor(
+						TasksUiPlugin.getTaskActivityManager().setScheduledFor(
 								dateRangeActivityDelegate.getCorrespondingTask(), newReminder);
 					}
 				}
