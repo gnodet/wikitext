@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;presentations&apos; from expression &apos;TaskListView.getPresentations()&apos;&#x0D;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.tests&apos;&#x0D;&#x0A;- Variable name: &apos;presentations&apos;&#x0D;&#x0A;- Destination method: &apos;org.eclipse.mylyn.tasks.tests.TaskListPresentationTest.testDefaultPresentations()&apos;&#x0D;&#x0A;- Variable expression: &apos;TaskListView.getPresentations()&apos;&#x0D;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;presentations&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.eclipse.mylyn.tasks.tests{TaskListPresentationTest.java" name="presentations" replace="true" selection="786 31" stamp="1188268150225" version="1.0"/>
+</session>

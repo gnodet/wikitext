@@ -3,3 +3,13 @@
 1188248030518	Copy compilation unit
 1188249849743	Extract method 'setDefaultValuesAndFocus'
 1188250983748	Extract method 'isTaskKeyCandidate'
+1188262089459	Rename field 'MAX_SELECTION_HISTORY_SIZE'
+1188262235843	Rename field 'tableSortIdentifier'
+1188262278120	Rename field 'MEMENTO_KEY_SORT_INDEX_QUAL'
+1188264195337	Delete element
+1188264428062	Rename type 'TaskListPresentation'
+1188265924763	Change method 'createContentProvider'
+1188266549665	Rename field 'view'
+1188266893289	Rename local variable 'iconDescriptor'
+1188266978156	Rename field 'PRESENTATION_SCHEDULED_ID'
+1188267740789	Move compilation units
