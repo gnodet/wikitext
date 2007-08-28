@@ -8,9 +8,10 @@
  * Contributors:
  *     The Chisel Group, University of Victoria
  *******************************************************************************/
-package org.eclipse.mylyn.zest.core.widgets.internal;
+package org.eclipse.mylyn.zest.core.widgets;
 
-import org.eclipse.mylyn.zest.core.widgets.Graph;
+import java.util.List;
+
 import org.eclipse.mylyn.zest.layouts.LayoutAlgorithm;
 
 /**
@@ -49,6 +50,8 @@ public interface IContainer {
 	 * @param applyLayout 
 	 */
 	public void setLayoutAlgorithm(LayoutAlgorithm algorithm, boolean applyLayout);
+
+	public List getNodes();
 
 	/* protected void highlightNode(GraphNode node); */
 
