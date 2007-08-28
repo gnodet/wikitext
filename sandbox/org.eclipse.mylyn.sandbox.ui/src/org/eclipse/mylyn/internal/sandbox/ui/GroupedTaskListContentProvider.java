@@ -10,9 +10,6 @@ package org.eclipse.mylyn.internal.sandbox.ui;
 
 import java.util.TreeMap;
 
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.mylyn.internal.tasks.core.TaskArchive;
 import org.eclipse.mylyn.internal.tasks.core.TaskGroup;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListContentProvider;
@@ -24,14 +21,15 @@ import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
 /**
  * @author Eugene Kuleshov
  */
-public class GroupedTaskListContentProvider extends TaskListContentProvider implements IExecutableExtension  {
+public class GroupedTaskListContentProvider extends TaskListContentProvider {
 
 	public static final String MEMENTO_KEY_GROUP_BY = "groupBy";
 
 	private GroupBy groupBy = GroupBy.None;
 
-	public GroupedTaskListContentProvider(TaskListView taskListView) {
+	public GroupedTaskListContentProvider(TaskListView taskListView, GroupBy groupBy) {
 		super(taskListView);
+		this.groupBy = groupBy;
 	}
 	
 	@Override
@@ -74,15 +72,4 @@ public class GroupedTaskListContentProvider extends TaskListContentProvider impl
 		return groupBy;
 	}
 	
-	// IExecutableExtension
-	
-	public void setInitializationData(IConfigurationElement config, String propertyName, Object data)
-			throws CoreException {
-		try {
-			groupBy = GroupBy.valueOf((String) data);
-		} catch (IllegalArgumentException ex) {
-			// ignore
-		}
-	}
-
 }
