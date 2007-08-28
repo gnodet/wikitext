@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.mylyn.internal.tasks.core.TaskArchive;
 import org.eclipse.mylyn.internal.tasks.core.TaskGroup;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListContentProvider;
+import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
@@ -29,6 +30,10 @@ public class GroupedTaskListContentProvider extends TaskListContentProvider impl
 
 	private GroupBy groupBy = GroupBy.None;
 
+	public GroupedTaskListContentProvider(TaskListView taskListView) {
+		super(taskListView);
+	}
+	
 	@Override
 	public Object[] getChildren(Object parent) {
 		Object[] children = super.getChildren(parent);
