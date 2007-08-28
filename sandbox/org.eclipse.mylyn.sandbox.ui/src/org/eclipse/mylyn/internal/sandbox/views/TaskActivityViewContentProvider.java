@@ -16,7 +16,6 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskDelegate;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.ui.TaskListManager;
 
 /**
@@ -32,13 +31,13 @@ public class TaskActivityViewContentProvider implements IStructuredContentProvid
 	}
 
 	public Object[] getElements(Object parent) {
-//		Set<ScheduledTaskContainer> ranges = new HashSet<ScheduledTaskContainer>();
-//		for (ScheduledTaskContainer container : taskListManager.getDateRanges()) {
-//			if (!container.isFuture()) {
-//				ranges.add(container);
-//			}
-//		}
-		return taskListManager.getDateRanges().toArray();
+		Set<ScheduledTaskContainer> ranges = new HashSet<ScheduledTaskContainer>();
+		for (ScheduledTaskContainer container : taskListManager.getDateRanges()) {
+			if (!container.isFuture()) {
+				ranges.add(container);
+			}
+		}
+		return ranges.toArray();
 	}
 
 	public Object getParent(Object child) {
@@ -51,9 +50,8 @@ public class TaskActivityViewContentProvider implements IStructuredContentProvid
 
 	public Object[] getChildren(Object parent) {
 		if (parent instanceof ScheduledTaskContainer) {
-			// include all tasks with activity in parent's date range
 			ScheduledTaskContainer taskContainer = (ScheduledTaskContainer) parent;
-			return getActiveChildren(taskContainer).toArray();
+			return taskContainer.getChildren().toArray();
 		} else {
 			return new Object[0];
 		}
@@ -67,17 +65,5 @@ public class TaskActivityViewContentProvider implements IStructuredContentProvid
 	}
 
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-	}
-
-	// TODO: improve performance
-	private Set<AbstractTask> getActiveChildren(ScheduledTaskContainer container) {
-		Set<AbstractTask> active = new HashSet<AbstractTask>();
-		for (AbstractTask task : taskListManager.getTaskList().getAllTasks()) {
-			long elapsed = taskListManager.getElapsedTime(task, container.getStart(), container.getEnd());
-			if (elapsed > 0) {
-				active.add(new ScheduledTaskDelegate(container, task, container.getStart(), container.getEnd(), elapsed));
-			}
-		}
-		return active;
 	}
 }
