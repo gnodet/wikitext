@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.mylyn.xplanner_feature"
       label="Mylyn XPlanner Connector"
-      version="2.0.0.v20070828-0100"
+      version="2.0.0.v20070828-0700"
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylyn.xplanner.ui">
 
@@ -240,14 +240,14 @@ litigation.
          id="org.eclipse.mylyn.xplanner.core"
          download-size="0"
          install-size="0"
-         version="2.0.0.v20070828-0100"
+         version="2.0.0.v20070828-0700"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.mylyn.xplanner.ui"
          download-size="0"
          install-size="0"
-         version="2.0.0.v20070828-0100"
+         version="2.0.0.v20070828-0700"
          unpack="false"/>
 
 </feature>
