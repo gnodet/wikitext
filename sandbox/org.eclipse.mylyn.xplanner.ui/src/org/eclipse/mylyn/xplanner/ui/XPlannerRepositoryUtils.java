@@ -43,6 +43,10 @@ import org.xplanner.soap.UserStoryData;
  * @author Helen Bershadskaya
  */
 public class XPlannerRepositoryUtils {
+	private static final String TYPE_FEATURE = "Feature";
+	private static final String NO_TASK_NAME = "<no task name>";
+	public static final String DISPOSITION_PLANNED = "planned";
+	
 	private XPlannerRepositoryUtils() {
 		
 	}
@@ -272,7 +276,23 @@ public class XPlannerRepositoryUtils {
 		String completed = repositoryTaskData.getAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_TASK_COMPLETED);
 		taskData.setCompleted(completed != null && !("0".equals(completed)));
 		
+		// type
+		taskData.setType(TYPE_FEATURE);
+
 		return taskData;
+	}
+	
+	// Sanity check to make sure taskdata has minimum settings that will avoid corrupting parent story
+	public static void ensureTaskDataValid(TaskData taskData) {
+		if (taskData != null) {	// more sanity, shouldn't happen
+			if (taskData.getDispositionName() == null || taskData.getDispositionName().length() == 0) {
+				taskData.setDispositionName(DISPOSITION_PLANNED);
+			}
+			
+			if (taskData.getName() == null || taskData.getName().length() == 0) {
+				taskData.setName(NO_TASK_NAME);
+			}
+		}
 	}
 	
 	public static void setupUserStoryAttributes(UserStoryData userStory, RepositoryTaskData repositoryTaskData) 

@@ -68,6 +68,10 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 			TaskData taskData = client.getTask(id);
 			assert(taskData != null);
 			assert(newTaskName.equals(taskData.getName()));
+			
+			// need to make sure user story did not get corrupted for complete test
+			UserStoryData userStory = client.getUserStory(taskData.getStoryId());
+			assert(userStory != null);
 		} 
 		catch (Exception e) {
 			fail("could not set up task attributes: " + e.getMessage());

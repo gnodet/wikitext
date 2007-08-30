@@ -111,4 +111,10 @@ public class XPlannerRepositoryUtilsTest extends TestCase {
 		}
 	}
 
+	public void testEnsureNewTaskDataValid() {
+		TaskData taskData = new TaskData();
+		XPlannerRepositoryUtils.ensureTaskDataValid(taskData);
+		assert(taskData.getName() != null && taskData.getName().length() > 0);
+		assert(taskData.getDispositionName() != null && taskData.getDispositionName().length() > 0);
+	}
 }

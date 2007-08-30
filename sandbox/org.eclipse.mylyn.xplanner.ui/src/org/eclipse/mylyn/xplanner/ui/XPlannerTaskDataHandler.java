@@ -128,6 +128,8 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 					taskData.setEstimatedHours(Double.valueOf(
 							repositoryTaskData.getAttribute(XPlannerAttributeFactory.ATTRIBUTE_EST_HOURS_NAME).getValue()));
 					taskData.setCompleted(XPlannerRepositoryUtils.isCompleted(repositoryTaskData));
+					
+					XPlannerRepositoryUtils.ensureTaskDataValid(taskData);
 					client.update(taskData);
 				}
 				else {

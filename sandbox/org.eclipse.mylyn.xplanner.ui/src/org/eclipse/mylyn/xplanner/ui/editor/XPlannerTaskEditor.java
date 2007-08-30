@@ -9,6 +9,7 @@ package org.eclipse.mylyn.xplanner.ui.editor;
 
 import java.text.MessageFormat;
 
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
@@ -39,6 +40,7 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor
 		super.init(site, input);
 		updateEditorTitle();
 		extraControls = new XPlannerTaskEditorExtraControls(this, getRepositoryTaskData());
+		setExpandAttributeSection(true);
 	}
 
 	@Override
@@ -128,4 +130,21 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor
 	public boolean xplannerAttributeChanged(RepositoryTaskAttribute attribute) {
 		return attributeChanged(attribute);
 	}
+	
+	@Override
+	public void submitToRepository() {
+		boolean ok = true;
+		
+		if (summaryText.getText().equals("")) {
+			MessageDialog.openInformation(this.getSite().getShell(), "Submit Error",
+					"Task name cannot be empty.");
+			summaryText.setFocus();
+			ok = false;
+		}
+		
+		if (ok) {
+			super.submitToRepository();
+		}
+	}
+
 }

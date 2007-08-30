@@ -10,6 +10,7 @@ package org.eclipse.mylyn.xplanner.ui.editor;
 
 import java.text.MessageFormat;
 
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
@@ -32,14 +33,12 @@ public class NewXPlannerTaskEditor  extends AbstractNewRepositoryTaskEditor
 	
 	public NewXPlannerTaskEditor(FormEditor editor) {
 		super(editor);
-		
 	}
-//	private Label remainingTimeValueLabel;
-//	private Button completedButton;
 
 	public void init(IEditorSite site, IEditorInput input) {
 		super.init(site, input);
 		extraControls = new XPlannerTaskEditorExtraControls(this, getRepositoryTaskData());
+		setExpandAttributeSection(true);
 	}
 
 	protected void validateInput() {
@@ -109,4 +108,22 @@ public class NewXPlannerTaskEditor  extends AbstractNewRepositoryTaskEditor
 	public boolean xplannerAttributeChanged(RepositoryTaskAttribute attribute) {
 		return attributeChanged(attribute);
 	}
+	
+	@Override
+	public void submitToRepository() {
+		boolean ok = true;
+		
+		if (summaryText.getText().equals("")) {
+			MessageDialog.openInformation(this.getSite().getShell(), "Submit Error",
+					"Please provide a name for the new task.");
+			summaryText.setFocus();
+			ok = false;
+		}
+		
+		if (ok) {
+			super.submitToRepository();
+		}
+	}
+
+
 }
