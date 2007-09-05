@@ -16,8 +16,8 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskDelegate;
+import org.eclipse.mylyn.internal.tasks.core.TaskActivityManager;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.ui.TaskListManager;
 
 /**
  * @author Rob Elves
@@ -25,15 +25,15 @@ import org.eclipse.mylyn.tasks.ui.TaskListManager;
  */
 public class TaskActivityViewContentProvider implements IStructuredContentProvider, ITreeContentProvider {
 
-	private TaskListManager taskListManager;
+	private TaskActivityManager taskActivityManager;
 
-	public TaskActivityViewContentProvider(TaskListManager taskActivityManager) {
-		this.taskListManager = taskActivityManager;
+	public TaskActivityViewContentProvider(TaskActivityManager taskActivityManager) {
+		this.taskActivityManager = taskActivityManager;
 	}
 
 	public Object[] getElements(Object parent) {
 		Set<ScheduledTaskContainer> ranges = new HashSet<ScheduledTaskContainer>();
-		for (ScheduledTaskContainer container : taskListManager.getDateRanges()) {
+		for (ScheduledTaskContainer container : taskActivityManager.getDateRanges()) {
 			if (!container.isFuture()) {
 				ranges.add(container);
 			}

@@ -49,7 +49,6 @@ import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.tasks.core.ITaskActivityListener;
 import org.eclipse.mylyn.tasks.core.ITaskListChangeListener;
 import org.eclipse.mylyn.tasks.core.TaskContainerDelta;
-import org.eclipse.mylyn.tasks.ui.TaskListManager;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
@@ -94,6 +93,9 @@ public class TaskActivityView extends ViewPart {
 
 	private String[] columnNames = new String[] { " ", " !", "Description", "Elapsed", "Estimated", "Scheduled",
 	/*"Last Active"*/};
+
+	private String[] ESTIMATE_TIMES = new String[] { "0 Hours", "1 Hours", "2 Hours", "3 Hours", "4 Hours", "5 Hours",
+			"6 Hours", "7 Hours", "8 Hours", "9 Hours", "10 Hours" };
 
 	private int[] columnWidths = new int[] { 60, 12, 160, 60, 70, 100 /*, 100*/};
 
@@ -232,7 +234,7 @@ public class TaskActivityView extends ViewPart {
 
 		sorter = new TaskActivityViewSorter();
 		getViewer().setSorter(sorter);
-		taskActivityTableContentProvider = new TaskActivityViewContentProvider(TasksUiPlugin.getTaskListManager());
+		taskActivityTableContentProvider = new TaskActivityViewContentProvider(TasksUiPlugin.getTaskActivityManager());
 		taskHistoryTreeLabelProvider = new TaskActivityLabelProvider(new TaskElementLabelProvider(false),
 				PlatformUI.getWorkbench().getDecoratorManager().getLabelDecorator(), categoryBackground,
 				taskActivityTableContentProvider);
@@ -414,8 +416,8 @@ public class TaskActivityView extends ViewPart {
 
 	private void createCellEditorListener() {
 		CellEditor[] editors = new CellEditor[columnNames.length];
-		final ComboBoxCellEditor estimateEditor = new ComboBoxCellEditor(treeViewer.getTree(),
-				TaskListManager.ESTIMATE_TIMES, SWT.READ_ONLY);
+		final ComboBoxCellEditor estimateEditor = new ComboBoxCellEditor(treeViewer.getTree(), ESTIMATE_TIMES,
+				SWT.READ_ONLY);
 		final ReminderCellEditor reminderEditor = new ReminderCellEditor(treeViewer.getTree());
 		editors[0] = null; // not used
 		editors[1] = null;// not used
@@ -500,8 +502,7 @@ public class TaskActivityView extends ViewPart {
 						return null;
 					}
 				} else if (columnIndex == 4) {
-					return new Integer(Arrays.asList(TaskListManager.ESTIMATE_TIMES).indexOf(
-							task.getEstimateTimeHours()));
+					return new Integer(Arrays.asList(ESTIMATE_TIMES).indexOf(task.getEstimateTimeHours()));
 				}
 			}
 			return null;
