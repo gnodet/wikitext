@@ -111,7 +111,11 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 //	don't validate in beginning, so first time dialog comes up, no error message		
 //		validatePage();
 		
-	  setControl(dataComposite);
+		if (scontainer != null) {
+			scontainer.setPerformActionEnabled(isPageComplete());
+		}
+
+		setControl(dataComposite);
 	}
 
 	protected XPlannerClient getClient() {
@@ -394,6 +398,9 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		
 		setErrorMessage(errorMessage);
 		setPageComplete(errorMessage == null);
+		if (scontainer != null) {
+			scontainer.setPerformActionEnabled(isPageComplete());
+		}
 	}
 
 	@Override
@@ -405,7 +412,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 				complete = true;
 				setErrorMessage(null);
 			}
-			else {
+			else if (!inSearchContainer()){
 				complete = false;
 				setErrorMessage(Messages.XPlannerCustomQueryPage_QUERY_NAME_NEEDED);
 			}
