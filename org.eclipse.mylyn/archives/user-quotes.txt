@@ -1,4 +1,16 @@
 
+Dennis Vaughn [dennis.vaughn@gmail.com]
+2007-09-07: mylyn-integrators post
+"By the way you guys deserve all the kudos that you have received because it has been extremely easy to integrate."
+
+John Ferguson Smart
+2007-08-16: http://www.devx.com/opensource/Article/35218/0/page/1
+"Under the modest guise of a system for to-do list management, Mylyn actually is an extremely 
+powerful productivity booster, and certainly one of the most innovative Eclipse plugins around. 
+Viewing and consulting all your tasks and to-do lists directly from within Eclipse is an invaluable 
+time-saver. And by proactively filtering out irrelevant distractions and highlighting key information, 
+Mylyn lets you stay focused on the task at hand and get the job done more quickly and efficiently."
+
 Daniel Spiewak
 2007-08-13: http://www.eclipsezone.com/eclipse/forums/t100137.rhtml
 "With Mylyn's growing user-base, more and more of these Trac hosting/Bugzilla hosting/Jira 
