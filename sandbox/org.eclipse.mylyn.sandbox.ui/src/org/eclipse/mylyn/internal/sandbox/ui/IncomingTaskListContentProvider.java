@@ -37,7 +37,8 @@ public class IncomingTaskListContentProvider extends TaskListContentProvider {
 				.getTaskList()
 				.getRootElements())) {
 			for (AbstractTask task : container.getChildren()) {
-				if (task.getSynchronizationState().equals(RepositoryTaskSyncState.INCOMING) && task.getOwner() != null) {
+				if (task.getOwner() != null && task.getSynchronizationState() != null
+						&& task.getSynchronizationState().equals(RepositoryTaskSyncState.INCOMING)) {
 					people.add(new Person(task.getOwner(), task.getConnectorKind(), task.getRepositoryUrl()));
 				}
 			}
@@ -53,7 +54,8 @@ public class IncomingTaskListContentProvider extends TaskListContentProvider {
 					.getTaskList()
 					.getRootElements())) {
 				for (AbstractTask task : container.getChildren()) {
-					if (task.getOwner().equals(((Person) parent).getHandleIdentifier())
+					if (task.getOwner() != null && task.getOwner().equals(((Person) parent).getHandleIdentifier())
+							&& task.getSynchronizationState() != null
 							&& task.getSynchronizationState().equals(RepositoryTaskSyncState.INCOMING)) {
 						children.add(task);
 					}
