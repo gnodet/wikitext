@@ -42,13 +42,13 @@
             name="Incoming (Experimental)"
             primary="false">
       </presentation>
-      <!--
       <presentation 
             id="org.eclipse.mylyn.tasks.ui.groupByDue"
             name="Grouped by Due (Experimental)"
             icon="icons/etool16/presentation.gif"
             class="org.eclipse.mylyn.internal.sandbox.ui.GroupedPresentation:Due"
             primary="false"/>
+      <!--
       <presentation 
             id="org.eclipse.mylyn.tasks.ui.groupBySheduled"
             name="Grouped by Sheduled"

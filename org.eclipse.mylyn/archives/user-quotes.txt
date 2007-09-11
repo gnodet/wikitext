@@ -1,4 +1,8 @@
 
+https://bugs.eclipse.org/bugs/show_bug.cgi?id=194976
+2007-06-30: Nathaniel Harward
+On a side note, kudos to the Mylar/Mylyn team for a great set of plugins.  I've never had much love for bug tracking systems I've had to use, being able to turn them into a more usable asset (by having contexts associated with them) I think is pretty slick.
+
 Dennis Vaughn [dennis.vaughn@gmail.com]
 2007-09-07: mylyn-integrators post
 "By the way you guys deserve all the kudos that you have received because it has been extremely easy to integrate."
