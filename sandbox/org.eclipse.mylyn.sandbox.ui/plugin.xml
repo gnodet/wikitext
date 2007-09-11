@@ -35,6 +35,13 @@
             icon="icons/etool16/presentation.gif"
             class="org.eclipse.mylyn.internal.sandbox.ui.GroupedPresentation:Repository"
             primary="false"/>
+      <presentation
+            class="org.eclipse.mylyn.internal.sandbox.ui.IncomingPresentation"
+            icon="icons/etool16/presentation.gif"
+            id="org.eclipse.mylyn.tasks.ui.incoming"
+            name="Incoming (Experimental)"
+            primary="false">
+      </presentation>
       <!--
       <presentation 
             id="org.eclipse.mylyn.tasks.ui.groupByDue"
