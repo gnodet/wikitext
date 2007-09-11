@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Extract constant 'org.eclipse.mylyn.context.tests.ContextExternalizerTest.CONTEXT_HANDLE' from expression '&quot;context-externalization&quot;'&#13;&#10;- Original project: 'org.eclipse.mylyn.context.tests'&#13;&#10;- Constant name: 'CONTEXT_HANDLE'&#13;&#10;- Constant expression: '&quot;context-externalization&quot;'&#13;&#10;- Declared visibility: 'private'&#13;&#10;- Replace occurrences of expression with constant" description="Extract constant 'CONTEXT_HANDLE'" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylyn.context.tests{ContextExternalizerTest.java" name="CONTEXT_HANDLE" qualify="false" replace="true" selection="1638 25" stamp="1188420149906" version="1.0" visibility="2"/>
+</session>
