@@ -37,8 +37,7 @@ public class IncomingTaskListContentProvider extends TaskListContentProvider {
 				.getTaskList()
 				.getRootElements())) {
 			for (AbstractTask task : container.getChildren()) {
-				if (task.getSynchronizationState().equals(RepositoryTaskSyncState.INCOMING)
-				/*&& task.getOwner().contains("@")*/) {
+				if (task.getSynchronizationState().equals(RepositoryTaskSyncState.INCOMING) && task.getOwner() != null) {
 					people.add(new Person(task.getOwner(), task.getConnectorKind(), task.getRepositoryUrl()));
 				}
 			}
