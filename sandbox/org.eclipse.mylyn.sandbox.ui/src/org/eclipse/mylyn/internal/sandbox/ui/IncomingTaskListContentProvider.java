@@ -33,10 +33,14 @@ public class IncomingTaskListContentProvider extends TaskListContentProvider {
 	@Override
 	public Object[] getElements(Object parent) {
 		people.clear();
-		for (AbstractTask task : TasksUiPlugin.getTaskListManager().getTaskList().getAllTasks()) {
-			if (task.getSynchronizationState().equals(RepositoryTaskSyncState.INCOMING)
-					&& task.getOwner().contains("@")) {
-				people.add(new Person(task.getOwner()));
+		for (AbstractTaskContainer container : applyFilter(TasksUiPlugin.getTaskListManager()
+				.getTaskList()
+				.getRootElements())) {
+			for (AbstractTask task : container.getChildren()) {
+				if (task.getSynchronizationState().equals(RepositoryTaskSyncState.INCOMING)
+				/*&& task.getOwner().contains("@")*/) {
+					people.add(new Person(task.getOwner(), task.getConnectorKind(), task.getRepositoryUrl()));
+				}
 			}
 		}
 		return people.toArray();
@@ -46,9 +50,14 @@ public class IncomingTaskListContentProvider extends TaskListContentProvider {
 	public Object[] getChildren(Object parent) {
 		Set<AbstractTask> children = new HashSet<AbstractTask>();
 		if (parent instanceof Person) {
-			for (AbstractTask task : TasksUiPlugin.getTaskListManager().getTaskList().getAllTasks()) {
-				if (task.getOwner().equals(((Person) parent).getHandleIdentifier())) {
-					children.add(task);
+			for (AbstractTaskContainer container : applyFilter(TasksUiPlugin.getTaskListManager()
+					.getTaskList()
+					.getRootElements())) {
+				for (AbstractTask task : container.getChildren()) {
+					if (task.getOwner().equals(((Person) parent).getHandleIdentifier())
+							&& task.getSynchronizationState().equals(RepositoryTaskSyncState.INCOMING)) {
+						children.add(task);
+					}
 				}
 			}
 		}
