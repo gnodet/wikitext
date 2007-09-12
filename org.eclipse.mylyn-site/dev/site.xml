@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site
-      mirrorsURL="http://www.eclipse.org/downloads/download.php?file=/tools/mylyn/update/dev/site.xml&amp;protocol=http&amp;format=xml">
+      mirrorsURL="http://www.eclipse.org/downloads/download.php?file=/tools/mylyn/update/dev/e3.3/site.xml&amp;protocol=http&amp;format=xml">
    <description url="http://download.eclipse.org/tools/mylyn/update/dev/e3.3">
       Mylyn Update for Eclipse 3.3
    </description>
