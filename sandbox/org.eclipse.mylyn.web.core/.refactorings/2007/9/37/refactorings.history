@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Extract constant 'org.eclipse.mylyn.web.core.WebClientUtil.SOCKS_PORT' from expression '1080'&#13;&#10;- Original project: 'org.eclipse.mylyn.web.core'&#13;&#10;- Constant name: 'SOCKS_PORT'&#13;&#10;- Constant expression: '1080'&#13;&#10;- Declared visibility: 'private'" description="Extract constant 'SOCKS_PORT'" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylyn.web.core{WebClientUtil.java" name="SOCKS_PORT" qualify="false" replace="false" selection="11223 4" stamp="1189560972890" version="1.0" visibility="2"/>
+</session>
