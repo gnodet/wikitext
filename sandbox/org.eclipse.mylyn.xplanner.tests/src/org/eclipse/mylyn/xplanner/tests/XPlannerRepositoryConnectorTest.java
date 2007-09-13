@@ -7,14 +7,16 @@
  *******************************************************************************/
 package org.eclipse.mylyn.xplanner.tests;
 
+import java.util.*;
+
 import junit.framework.TestCase;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.mylyn.tasks.core.*;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
-import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryConnector;
-import org.eclipse.mylyn.xplanner.ui.XPlannerTask;
+import org.eclipse.mylyn.xplanner.ui.*;
 import org.xplanner.soap.TaskData;
 import org.xplanner.soap.UserStoryData;
 
@@ -93,4 +95,78 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		client.update(testTask);
 	}
 
+	public void testMarkStaleTasksNoStaleTasks() throws Exception {
+		TaskRepository repository = XPlannerTestUtils.getRepository();
+		AbstractRepositoryConnector connector = 
+			TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getConnectorKind());
+		
+		assertTrue(connector instanceof XPlannerRepositoryConnector);
+		XPlannerRepositoryConnector xplannerConnector = (XPlannerRepositoryConnector) connector;
+
+		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getRepositoryTasks(repository.getUrl());
+		setSyncTimeStamp(repository, tasks);
+		
+		String goodUrl = repository.getUrl();
+		boolean stale = false;
+		try {
+			repository.setUrl("http://localhost");
+			stale = xplannerConnector.markStaleTasks(repository, tasks, new NullProgressMonitor());
+		}
+		catch (CoreException e) {
+			assertTrue(e.getMessage() != null && e.getMessage().contains("Connection error"));
+		}
+		finally {
+			repository.setUrl(goodUrl);
+		}
+
+		assertTrue(!stale);
+	}
+
+	private void setSyncTimeStamp(TaskRepository repository, Set<AbstractTask> tasks)
+			throws Exception {
+		Date date = tasks.iterator().next().getCreationDate();		
+		String timeStamp = XPlannerAttributeFactory.TIME_DATE_FORMAT.format(date);
+		for (AbstractTask task : tasks) {
+			if (task instanceof XPlannerTask) {
+				TaskData taskData = client.getTask(Integer.valueOf(task.getTaskKey()).intValue());
+				if (taskData != null) {
+					Calendar lastUpdateTime = new GregorianCalendar();
+					lastUpdateTime.setTime(date);
+					taskData.setLastUpdateTime(lastUpdateTime);
+				}
+
+				task.setLastReadTimeStamp(timeStamp);
+			}
+		}
+
+		TasksUiPlugin.getRepositoryManager().setSynchronizationTime(repository, timeStamp, TasksUiPlugin.getDefault().getRepositoriesFilePath());
+	}
+
+	public void testChangedSinceLastSyncWithBadConnection() throws Exception {
+		TaskRepository repository = XPlannerTestUtils.getRepository();
+		AbstractRepositoryConnector connector = 
+			TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getConnectorKind());
+		
+		assertTrue(connector instanceof XPlannerRepositoryConnector);
+		XPlannerRepositoryConnector xplannerConnector = (XPlannerRepositoryConnector) connector;
+		
+		// make bad url
+		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getRepositoryTasks(repository.getUrl());
+		setSyncTimeStamp(repository, tasks);
+
+		String goodUrl = repository.getUrl();
+		repository.setUrl("http://localhost");
+		try {
+			Set<AbstractTask> changedTasks = xplannerConnector
+					.getChangedSinceLastSync(repository, tasks);
+			assertTrue(changedTasks != null);
+			assertTrue(changedTasks.size() == 0);
+		}
+		catch (CoreException e) {
+			assertTrue(e.getMessage() != null && e.getMessage().contains("Connection error"));
+		}
+		finally {
+			repository.setUrl(goodUrl);
+		}
+	}
 }

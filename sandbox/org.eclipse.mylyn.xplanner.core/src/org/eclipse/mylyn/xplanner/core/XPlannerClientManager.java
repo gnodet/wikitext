@@ -12,8 +12,7 @@ package org.eclipse.mylyn.xplanner.core;
  * @author Helen Bershadskaya
  */
 import java.io.*;
-import java.net.Proxy;
-import java.net.URL;
+import java.net.*;
 import java.rmi.RemoteException;
 import java.util.*;
 
@@ -130,6 +129,9 @@ public class XPlannerClientManager {
 				String message = re.getMessage().trim();
 				if (message.startsWith("(401)")) { //$NON-NLS-1$
 					message = Messages.ClientManager_INVALID_USERNAME_PASSWORD;
+				}
+				else if (re.getCause() instanceof SocketException) {
+					throw new ServiceUnavailableException(re.getCause().getMessage());
 				}
 				else if (re.getCause() instanceof SAXException) {
 					message = ""; //$NON-NLS-1$

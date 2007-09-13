@@ -134,6 +134,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 
 
 		try {
+			XPlannerRepositoryUtils.validateRepository(repository);
 			monitor.beginTask("Running query", IProgressMonitor.UNKNOWN);
 			XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 
@@ -513,11 +514,12 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 		} 
 		else {
 			Set<AbstractTask> changedTasks = new HashSet<AbstractTask>();
-			for (AbstractTask task : tasks) {
-				if (task instanceof XPlannerTask) {
-					XPlannerTask xplannerTask = (XPlannerTask) task;
-					TaskData taskData;
-					try {
+			try {
+				XPlannerRepositoryUtils.validateRepository(repository);
+				for (AbstractTask task : tasks) {
+					if (task instanceof XPlannerTask) {
+						XPlannerTask xplannerTask = (XPlannerTask) task;
+						TaskData taskData;
 						taskData = client.getTask(Integer.valueOf(xplannerTask.getTaskId()).intValue());
 						if (taskData != null) {
 							Date lastUpdateTime = taskData.getLastUpdateTime().getTime();
@@ -531,10 +533,13 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 							}	
 						}
 					}
-					catch (Exception e) {
-						e.printStackTrace();
-					}
 				}
+			}
+			catch (CoreException ce) {
+				throw ce;
+			}
+			catch (Exception e) {
+				StatusHandler.fail(e, e.getMessage(), true);
 			}
 			
 			return changedTasks;
@@ -562,7 +567,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 					changedTask.setStale(true);
 				}
 	
-				changed = true;
+				changed = changedTasks.size() > 0;
 			}
 		} 
 		finally {
