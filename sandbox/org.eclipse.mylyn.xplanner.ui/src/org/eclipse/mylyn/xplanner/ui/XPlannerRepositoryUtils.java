@@ -275,6 +275,9 @@ public class XPlannerRepositoryUtils {
 		// completed
 		String completed = repositoryTaskData.getAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_TASK_COMPLETED);
 		taskData.setCompleted(completed != null && !("0".equals(completed)));
+
+		// disposition -- some servers ok without this value in new tasks, but some not, so for safety...
+		taskData.setDispositionName(DISPOSITION_PLANNED);
 		
 		// type
 		taskData.setType(TYPE_FEATURE);

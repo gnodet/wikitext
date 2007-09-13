@@ -31,8 +31,8 @@ import org.xplanner.soap.*;
 public class XPlannerTestUtils {
 	private static final int DAY = 60 * 60 * 24 * 1000;  // one day in milliseconds	
 	private final static String USER = "sysadmin";
-	private final static String PASSWORD = "admin";
-	public final static String SERVER_URL = "http://localhost:8080/xplanner";
+	private final static String PASSWORD = "mylynxp";
+	public final static String SERVER_URL = "http://mylyn.eclipse.org/xplanner"; 
 
 	private final static String TEST_PROJECT_NAME = "UnitTestTestProject";
 	private final static String TEST_ITERATION_NAME = "UnitTestTestIteration";
