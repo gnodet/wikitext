@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.mylyn.xplanner_feature"
       label="Mylyn XPlanner Connector"
-      version="2.0.0.v20070917-2100"
+      version="2.1.0.v20070917-2100"
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylyn.xplanner.ui">
 
