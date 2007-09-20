@@ -189,10 +189,9 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 				zipFileStream.closeEntry();
 				zipFileStream.close();
 			} catch (FileNotFoundException e) {
-				StatusHandler.log("Mylyn monitor log rollover failed - " + e.getMessage(), this);
-
+				StatusHandler.fail(e, "Mylyn monitor log rollover failed", true);
 			} catch (IOException e) {
-				StatusHandler.log("Mylyn monitor log rollover failed - " + e.getMessage(), this);
+				StatusHandler.fail(e, "Mylyn monitor log rollover failed", true);
 			}
 
 		}
