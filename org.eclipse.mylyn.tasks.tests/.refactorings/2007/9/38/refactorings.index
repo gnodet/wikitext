@@ -1,1 +1,7 @@
 1190315602832	Rename method 'testNotification'
+1190319603911	Rename type 'RepositorySelectionTest'
+1190319614557	Rename type 'RepositorySelectionForTaskCreationTest'
+1190319633136	Rename method 'testSelectRepositoryPageSelection'
+1190328068018	Rename type 'MockTaskConnectorUi'
+1190328262910	Rename method 'testFirstElementSelection'
+1190328285947	Rename method 'testWorkbenchSelectionPreSelected'
