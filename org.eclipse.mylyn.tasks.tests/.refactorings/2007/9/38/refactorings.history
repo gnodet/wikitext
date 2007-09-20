@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;org.eclipse.mylyn.tasks.tests.TaskActivationActionTest.testNotification()&apos; to &apos;testUpdateOnExternalActivation&apos;&#x0D;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.tests&apos;&#x0D;&#x0A;- Original element: &apos;org.eclipse.mylyn.tasks.tests.TaskActivationActionTest.testNotification()&apos;&#x0D;&#x0A;- Renamed element: &apos;org.eclipse.mylyn.tasks.tests.TaskActivationActionTest.testUpdateOnExternalActivation()&apos;&#x0D;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;testNotification&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylyn.tasks.tests{TaskActivationActionTest.java[TaskActivationActionTest~testNotification" name="testUpdateOnExternalActivation" references="true" stamp="1190315602832" version="1.0"/>
+</session>
