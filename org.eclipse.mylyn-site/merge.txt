@@ -1,8 +1,19 @@
-The following files should not be overriden/updated when merging with 3.2
+
+-------------------------------------------------------------------------
+Merging with 3.3 with 3.2
+
+Merge back to latest Platfrom version:
+* AbstractWorkingSetDialogCOPY
+
+Do not override the following:
+* ...
+
+
+-------------------------------------------------------------------------
+Merging with 3.3 with 3.2, do not override the following
 
 TODO:
 * trac.ui
-
 
 org.eclipse.mylar.bugzilla.tests
   - BugzillaTaskHyperlinkDetectorTest
@@ -32,7 +43,7 @@ org.eclipse.mylar.team
 
 
 -------------------------------------------------------------------------
-The following files should not be overriden/updated when merging with 3.1
+Merging with 3.2 with 3.2, do not override the following
 
 mylar.bugs
   - BugzillaHyperLink

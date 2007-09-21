@@ -2,3 +2,4 @@
 1190247463367	Rename type 'CloneThisTaskAction'
 1190260835246	Rename field 'PAGE_DESCRIPTION'
 1190313359281	Extract method 'refreshTask'
+1190399016711	Rename type 'AbstractWorkingSetDialog'
