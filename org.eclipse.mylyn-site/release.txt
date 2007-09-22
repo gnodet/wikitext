@@ -2,6 +2,7 @@ Build
 - Update each feature dependent on mylar-feature to depend on the current version
 
 Deploy:
+** Ensure zipping does not put e3.x at the root to enable installing from Zip
 1) tag the version of /home/technology/org.eclipse.mylar
 2) copy old e3.x plug-ins to downloads/technology/mylar/update-site-archive
 3) upload the e3.x directories to downloads/technology/mylar/update-site
