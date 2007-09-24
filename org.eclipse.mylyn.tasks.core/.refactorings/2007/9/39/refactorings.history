@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract method &apos;private boolean containsHelper(String handle)&apos; from &apos;org.eclipse.mylyn.tasks.core.AbstractTaskContainer.contains()&apos; to &apos;org.eclipse.mylyn.tasks.core.AbstractTaskContainer&apos;&#x0D;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.core&apos;&#x0D;&#x0A;- Method name: &apos;containsHelper&apos;&#x0D;&#x0A;- Destination type: &apos;org.eclipse.mylyn.tasks.core.AbstractTaskContainer&apos;&#x0D;&#x0A;- Declared visibility: &apos;private&apos;" comments="false" description="Extract method &apos;containsHelper&apos;" destination="0" exceptions="false" flags="786434" id="org.eclipse.jdt.ui.extract.method" input="/src&lt;org.eclipse.mylyn.tasks.core{AbstractTaskContainer.java" name="containsHelper" replace="false" selection="1952 275" stamp="1190672212402" version="1.0" visibility="2"/>
+</session>
