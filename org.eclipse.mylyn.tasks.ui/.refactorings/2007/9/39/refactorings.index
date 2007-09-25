@@ -2,6 +2,4 @@
 1190672784418	Extract method 'showHasChildrenPastDue'
 1190673582945	Extract method 'hasIncomingHelper'
 1190678789520	Extract method 'hasChildrenHelper'
-1190761076875	Rename method 'templateExists'
-1190761112656	Rename method 'deleteTemplate'
-1190761150312	Rename method 'isTemplateDeleted'
+1190763130020	Convert anonymous class to nested
