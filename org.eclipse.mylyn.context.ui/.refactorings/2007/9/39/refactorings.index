@@ -6,3 +6,4 @@
 1190750954736	Rename method 'updateEnablementWithContext'
 1190755330494	Extract method 'updateActionEnablement'
 1190755338139	Rename method 'updateActionEnablement'
+1190758018298	Rename type 'TaskContextWorkingSetManager'
