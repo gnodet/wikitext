@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <description url="http://download.eclipse.org/tools/mylyn/update/weekly/extras">
-      Mylyn Extras for Eclipse 3.3 and 3.4
+   <description url="http://download.eclipse.org/tools/mylyn/update/weekly/experimental">
+      Mylyn Experimental Features
    </description>
-   <feature url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/tools/mylyn/update/weekly/extras/features/org.eclipse.mylyn.sandbox.ui_feature_2.1.0.v20070924-2200.jar" id="org.eclipse.mylyn.sandbox.ui_feature" version="2.1.0.v20070924-2200">
+   <feature url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/tools/mylyn/update/weekly/extras/features/org.eclipse.mylyn.sandbox.ui_feature_2.1.0.v20070926-1230.jar" id="org.eclipse.mylyn.sandbox.ui_feature" version="2.1.0.v20070926-1230">
       <category name="Sandbox (Unsupported)"/>
    </feature>
    <category-def name="Sandbox (Unsupported)" label="Sandbox (Unsupported)"/>

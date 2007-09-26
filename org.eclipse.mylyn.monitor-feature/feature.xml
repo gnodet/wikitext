@@ -7,8 +7,8 @@
       plugin="org.eclipse.mylyn">
 
    <description>
-      Generate personal usage data reports and optionally share usage statistics
-with the eclipse.org community.
+      Generate personal usage data reports and optionally share usage
+statistics with the eclipse.org community.
    </description>
 
    <copyright>
