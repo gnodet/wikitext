@@ -10,3 +10,5 @@
 1190765343119	Rename method 'setLinkingActionEnabled'
 1190765394932	Rename method 'setManualLinkingAndFiilterEnablement'
 1190825851189	Copy compilation unit
+1190830507318	Rename field 'autoEnableExplorerFilter'
+1190831095247	Rename field 'AUTO_MANAGE_CLOSE_ACTION'
