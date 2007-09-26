@@ -15,10 +15,6 @@
    <feature url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/tools/mylyn/update/weekly/extras/features/org.eclipse.mylyn.monitor_feature_2.1.0.v20070924-2200.jar" id="org.eclipse.mylyn.monitor_feature" version="2.1.0.v20070924-2200">
       <category name="Feedback"/>
    </feature>
-   <feature url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/tools/mylyn/update/weekly/extras/features/org.eclipse.mylyn.sandbox.ui_feature_2.1.0.v20070924-2200.jar" id="org.eclipse.mylyn.sandbox.ui_feature" version="2.1.0.v20070924-2200">
-      <category name="Sandbox (Unsupported)"/>
-   </feature>
    <category-def name="Integration" label="Integration"/>
    <category-def name="Feedback" label="Feedback"/>
-   <category-def name="Sandbox (Unsupported)" label="Sandbox (Unsupported)"/>
 </site>

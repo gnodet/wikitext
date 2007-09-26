@@ -214,7 +214,7 @@ litigation.
    </license>
 
    <url>
-      <update label="Mylyn Extras for Eclipse 3.3 and 3.4" url="http://download.eclipse.org/tools/mylyn/update/extras"/>
+      <update label="Mylyn Experimental Features" url="http://download.eclipse.org/tools/mylyn/update/experimental"/>
    </url>
 
    <requires>
@@ -241,13 +241,6 @@ litigation.
 
    <plugin
          id="org.eclipse.mylyn.sandbox.ui"
-         download-size="0"
-         install-size="0"
-         version="2.1.0.v20070924-2200"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.mylyn.trac.wiki"
          download-size="0"
          install-size="0"
          version="2.1.0.v20070924-2200"

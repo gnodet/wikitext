@@ -2,8 +2,9 @@
 <feature
       id="org.eclipse.mylyn.trac.wiki_feature"
       label="Wiki_feature Feature"
-      version="1.0.0"
-      provider-name="Eclipse.org">
+      version="2.1.0.v20070924-2200"
+      provider-name="Eclipse.org"
+      plugin="org.eclipse.mylyn">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]
@@ -16,5 +17,16 @@
    <license url="http://www.example.com/license">
       [Enter License Description here.]
    </license>
+
+   <url>
+      <update label="Mylyn Trac Connector Wiki Integration (Experimental)" url="http://download.eclipse.org/tools/mylyn/update/experimental"/>
+   </url>
+
+   <plugin
+         id="org.eclipse.mylyn.trac.wiki"
+         download-size="0"
+         install-size="0"
+         version="2.1.0.v20070924-2200"
+         unpack="false"/>
 
 </feature>
