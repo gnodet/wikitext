@@ -3,3 +3,5 @@
 1190673582945	Extract method 'hasIncomingHelper'
 1190678789520	Extract method 'hasChildrenHelper'
 1190763130020	Convert anonymous class to nested
+1190819972466	Rename local variable 'containers'
+1190819979353	Rename local variable 'delta'
