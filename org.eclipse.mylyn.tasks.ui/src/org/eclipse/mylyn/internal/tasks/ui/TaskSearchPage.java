@@ -200,7 +200,7 @@ public class TaskSearchPage extends DialogPage implements ISearchPage {
 			}
 			pageContainer.setPerformActionEnabled(true);
 		} else {
-//			setControlsEnabled(queryPages[currentPageIndex], true);
+			//setControlsEnabled(queryPages[currentPageIndex], true);
 			if (queryPages[currentPageIndex].getData(PAGE_KEY) instanceof AbstractRepositoryQueryPage) {
 				((AbstractRepositoryQueryPage) queryPages[currentPageIndex].getData(PAGE_KEY)).setControlsEnabled(true);
 			}
@@ -402,6 +402,7 @@ public class TaskSearchPage extends DialogPage implements ISearchPage {
 			}
 //			repositoryCombo.setFocus();
 		}
+		updatePageEnablement();
 	}
 
 	private boolean isTaskKeyCandidate(String contents) {
