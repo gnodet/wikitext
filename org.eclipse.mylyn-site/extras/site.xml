@@ -3,16 +3,16 @@
    <description url="http://download.eclipse.org/tools/mylyn/update/weekly/extras">
       Mylyn Extras for Eclipse 3.3 and 3.4
    </description>
-   <feature url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/tools/mylyn/update/weekly/extras/features/org.eclipse.mylyn.jira_feature_2.1.0.v20070926-1230.jar" id="org.eclipse.mylyn.jira_feature" version="2.1.0.v20070926-1230">
+   <feature url="features/org.eclipse.mylyn.jira_feature_2.1.0.v20070926-1230.jar" id="org.eclipse.mylyn.jira_feature" version="2.1.0.v20070926-1230">
       <category name="Integration"/>
    </feature>
-   <feature url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/tools/mylyn/update/weekly/extras/features/org.eclipse.mylyn.web.tasks_feature_2.1.0.v20070926-1230.jar" id="org.eclipse.mylyn.web.tasks_feature" version="2.1.0.v20070926-1230">
+   <feature url="features/org.eclipse.mylyn.web.tasks_feature_2.1.0.v20070926-1230.jar" id="org.eclipse.mylyn.web.tasks_feature" version="2.1.0.v20070926-1230">
       <category name="Integration"/>
    </feature>
-   <feature url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/tools/mylyn/update/weekly/extras/features/org.eclipse.mylyn.xplanner_feature_2.1.0.v20070926-1230.jar" id="org.eclipse.mylyn.xplanner_feature" version="2.1.0.v20070926-1230">
+   <feature url="features/org.eclipse.mylyn.xplanner_feature_2.1.0.v20070926-1230.jar" id="org.eclipse.mylyn.xplanner_feature" version="2.1.0.v20070926-1230">
       <category name="Integration"/>
    </feature>
-   <feature url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/tools/mylyn/update/weekly/extras/features/org.eclipse.mylyn.monitor_feature_2.1.0.v20070926-1230.jar" id="org.eclipse.mylyn.monitor_feature" version="2.1.0.v20070926-1230">
+   <feature url="features/org.eclipse.mylyn.monitor_feature_2.1.0.v20070926-1230.jar" id="org.eclipse.mylyn.monitor_feature" version="2.1.0.v20070926-1230">
       <category name="Feedback"/>
    </feature>
    <category-def name="Integration" label="Integration"/>
