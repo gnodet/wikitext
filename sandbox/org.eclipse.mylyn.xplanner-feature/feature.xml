@@ -6,8 +6,8 @@
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylyn.xplanner.ui">
 
-   <description url="http://www.xplanner.org/">
-      Mylyn Connector for the XPlanner project planning and tracking tool.
+   <description>
+      %featureDescription
    </description>
 
    <copyright>
@@ -215,6 +215,7 @@ litigation.
 
    <url>
       <update label="Mylyn Extras for Eclipse 3.3 and 3.4" url="http://download.eclipse.org/tools/mylyn/update/e3.3"/>
+      <discovery label="Mylyn" url="http://download.eclipse.org/tools/mylyn/update/e3.3"/>
    </url>
 
    <requires>
