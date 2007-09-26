@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 package org.eclipse.mylyn.xplanner.ui.wizard;
- 
+
 import java.rmi.RemoteException;
 import java.util.*;
 import java.util.List;
@@ -30,9 +30,8 @@ import org.xplanner.soap.*;
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
-public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage implements
-	MultipleQueryPage {
-	
+public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage implements MultipleQueryPage {
+
 	private static final boolean DEFAULT_IS_USE_TASKS = true;
 
 	private static final boolean DEFAULT_SELECT_MY_CURRENT_TASKS = true;
@@ -40,17 +39,17 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 	private final XPlannerClient client;
 
 	private Text nameText;
-	
+
 	private TreeViewer projectsViewer;
 
 	private Button allTasksOrStoriesButton;
-	
+
 	private Button myTasksOrStoriesButton;
-	
+
 	private Button tasksButton;
-	
+
 	private Button storiesButton;
-	
+
 	private Button myTasksButton;
 
 	private Button selectedTasksButton;
@@ -62,19 +61,18 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 	private Label typeLabel;
 
 	private Label scopeLabel;
-	
+
 	/**
 	 * @param pageName
 	 * @param title
-	 * @param titleImage 
+	 * @param titleImage
 	 */
 	public XPlannerCustomQueryPage(TaskRepository repository, XPlannerCustomQuery existingQuery) {
 		super(repository, existingQuery);
 		try {
 			this.client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 			setPageComplete(false);
-		}
-		catch (CoreException e) {
+		} catch (CoreException e) {
 			throw new RuntimeException(e);
 		}
 
@@ -84,33 +82,32 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		Composite dataComposite = new Composite(parent, SWT.NONE);
 		GridData gd = new GridData(GridData.FILL_BOTH);
 		dataComposite.setLayoutData(gd);
-		
+
 		dataComposite.setLayout(new GridLayout());
-		
-	  createNameControls(dataComposite);
-	  createMyTasksControls(dataComposite);
+
+		createNameControls(dataComposite);
+		createMyTasksControls(dataComposite);
 
 		Composite detailsComposite = new Composite(dataComposite, SWT.NONE);
 		detailsComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-	  GridLayout detailsLayout = new GridLayout(2, false);
-	  detailsLayout.marginTop = 0;
-	  detailsLayout.marginLeft = 10;
-	  detailsLayout.marginHeight = 0;
-	  detailsComposite.setLayout(detailsLayout);
-	  createProjectsView(detailsComposite);
-	  createButtons(detailsComposite);
-	  
+		GridLayout detailsLayout = new GridLayout(2, false);
+		detailsLayout.marginTop = 0;
+		detailsLayout.marginLeft = 10;
+		detailsLayout.marginHeight = 0;
+		detailsComposite.setLayout(detailsLayout);
+		createProjectsView(detailsComposite);
+		createButtons(detailsComposite);
+
 		if (getExistingQuery() == null) {
 			loadFromDefaults();
-		} 
-		else {
+		} else {
 			loadFromExistingQuery();
 		}
-		
+
 		updateSelectionControls();
 //	don't validate in beginning, so first time dialog comes up, no error message		
 //		validatePage();
-		
+
 		if (scontainer != null) {
 			scontainer.setPerformActionEnabled(isPageComplete());
 		}
@@ -121,22 +118,21 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 	protected XPlannerClient getClient() {
 		return this.client;
 	}
-	
+
 	protected boolean isContentTypeTask() {
 		boolean isContentTypeTask = DEFAULT_IS_USE_TASKS;
-		
+
 		if (tasksButton == null) {
 			if (getExistingQuery() != null) {
 				isContentTypeTask = getExistingQuery().isUseTasks();
 			}
+		} else {
+			isContentTypeTask = tasksButton.getSelection();
 		}
-		else {
-		 isContentTypeTask = tasksButton.getSelection();
-		}
-		
+
 		return isContentTypeTask;
 	}
-	
+
 	private void createNameControls(Composite parent) {
 		if (inSearchContainer()) {
 			return;
@@ -174,34 +170,34 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		myTasksButton = new Button(myTasksComposite, SWT.RADIO);
 		myTasksButton.setLayoutData(new GridData(SWT.BEGINNING, SWT.BEGINNING, false, false));
 		myTasksButton.setText(Messages.XPlannerCustomQueryPage_ALL_MY_CURRENT_TASKS);
-		
+
 		selectedTasksButton = new Button(myTasksComposite, SWT.RADIO);
 		selectedTasksButton.setLayoutData(new GridData(SWT.BEGINNING, SWT.BEGINNING, false, false));
 		selectedTasksButton.setText(Messages.XPlannerCustomQueryPage_SELECTED_TASKS);
-		
+
 		// if user selects or unselects tasks, need to enable/disable other controls
 		myTasksButton.addSelectionListener(new SelectionListener() {
-  		public void widgetSelected(SelectionEvent e) {
-  			updateSelectionControls();
-  			validatePage();
-  		}	
+			public void widgetSelected(SelectionEvent e) {
+				updateSelectionControls();
+				validatePage();
+			}
 
-  		public void widgetDefaultSelected(SelectionEvent e) {
-  		  widgetSelected(e);
-  		}
-  	});
+			public void widgetDefaultSelected(SelectionEvent e) {
+				widgetSelected(e);
+			}
+		});
 
 		// if user selects or unselects tasks, need to enable/disable other controls
 		selectedTasksButton.addSelectionListener(new SelectionListener() {
-  		public void widgetSelected(SelectionEvent e) {
-  			updateSelectionControls();
-  			validatePage();
-  		}	
+			public void widgetSelected(SelectionEvent e) {
+				updateSelectionControls();
+				validatePage();
+			}
 
-  		public void widgetDefaultSelected(SelectionEvent e) {
-  		  widgetSelected(e);
-  		}
-  	});
+			public void widgetDefaultSelected(SelectionEvent e) {
+				widgetSelected(e);
+			}
+		});
 
 	}
 
@@ -216,12 +212,12 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		scopeLabel.setEnabled(!getMyCurrentTasks);
 		allTasksOrStoriesButton.setEnabled(!getMyCurrentTasks);
 		myTasksOrStoriesButton.setEnabled(!getMyCurrentTasks);
-		
+
 		if (!getMyCurrentTasks && projectsViewer.getExpandedElements().length == 0) {
 			projectsViewer.expandToLevel(2);
 		}
 	}
-	
+
 	private void createProjectsView(Composite parent) {
 		Composite projectsComposite = new Composite(parent, SWT.NONE);
 		projectsComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
@@ -232,14 +228,14 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		projectTreeLabel = new Label(projectsComposite, SWT.NONE);
 		projectTreeLabel.setData(new GridData(SWT.BEGINNING, SWT.BEGINNING, false, false));
 		projectTreeLabel.setText(Messages.XPlannerCustomQueryPage_PROJECTS_TREE_TITLE);
-		
+
 		projectsViewer = new TreeViewer(projectsComposite, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.MULTI);
 		projectsViewer.setContentProvider(new ProjectsViewerContentProvider(client));
 		projectsViewer.setLabelProvider(new ProjectsViewerLabelProvider());
 		GridData projectsViewerGridData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		projectsViewerGridData.heightHint = 100;
 		projectsViewerGridData.widthHint = 200;
-		
+
 		projectsViewer.getTree().setLayoutData(projectsViewerGridData);
 		projectsViewer.setInput(client);
 		projectsViewer.refresh();
@@ -252,16 +248,16 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		});
 	}
 
-	@SuppressWarnings("unchecked") 	
+	@SuppressWarnings("unchecked")
 	private void ensureSingleTypeSelected(SelectionChangedEvent e) {
-		StructuredSelection selection = (StructuredSelection)e.getSelection();
+		StructuredSelection selection = (StructuredSelection) e.getSelection();
 		ArrayList selectedElements = new ArrayList(selection.toList());
 		if (selectedElements.size() > 1) {
 			Object firstElement = selection.getFirstElement();
 			int originalSelectionSize = selection.size();
 			for (Iterator iter = selectedElements.iterator(); iter.hasNext();) {
 				Object element = iter.next();
-				
+
 				if (!element.getClass().equals(firstElement.getClass())) {
 					iter.remove();
 				}
@@ -271,18 +267,18 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 			}
 		}
 	}
-	
+
 	private void createButtons(Composite parent) {
-	  Composite buttonsComposite = new Composite(parent, SWT.NONE);
-	  buttonsComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
+		Composite buttonsComposite = new Composite(parent, SWT.NONE);
+		buttonsComposite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false, false));
 		GridLayout buttonsLayout = new GridLayout();
 		buttonsLayout.marginTop = 0;
 		buttonsLayout.marginHeight = 0;
-	  buttonsComposite.setLayout(buttonsLayout);
-	  createTypeButtons(buttonsComposite);
-	  createScopeButtons(buttonsComposite);
+		buttonsComposite.setLayout(buttonsLayout);
+		createTypeButtons(buttonsComposite);
+		createScopeButtons(buttonsComposite);
 	}
-	
+
 	private void createTypeButtons(Composite parent) {
 		Composite typeComposite = new Composite(parent, SWT.NONE);
 		typeComposite.setLayoutData(new GridData(SWT.FILL, SWT.BEGINNING, true, false));
@@ -293,7 +289,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		typeLabel = new Label(typeComposite, SWT.NONE);
 		typeLabel.setData(new GridData(SWT.BEGINNING, SWT.BEGINNING));
 		typeLabel.setText(Messages.XPlannerCustomQueryPage_GROUPING_TITLE);
-		
+
 		tasksButton = new Button(typeComposite, SWT.RADIO);
 		GridData tasksLayoutData = new GridData(SWT.BEGINNING, SWT.BEGINNING, false, false);
 		tasksLayoutData.horizontalIndent = 10;
@@ -301,15 +297,15 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		tasksButton.setText(Messages.XPlannerCustomQueryPage_TASKS_BUTTON);
 		// if user selects or unselects tasks, need to update tree to show stories or not
 		tasksButton.addSelectionListener(new SelectionListener() {
-  		public void widgetSelected(SelectionEvent e) {
-  			refreshProjects();
-  			validatePage();
-  		}	
+			public void widgetSelected(SelectionEvent e) {
+				refreshProjects();
+				validatePage();
+			}
 
-  		public void widgetDefaultSelected(SelectionEvent e) {
-  		  widgetSelected(e);
-  		}
-  	});
+			public void widgetDefaultSelected(SelectionEvent e) {
+				widgetSelected(e);
+			}
+		});
 		tasksButton.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				validatePage();
@@ -322,45 +318,44 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		GridData storiesLayoutData = new GridData(SWT.BEGINNING, SWT.BEGINNING, false, false);
 		storiesLayoutData.horizontalIndent = 10;
 		storiesButton.setLayoutData(storiesLayoutData);
-		
+
 		// if user selects or unselects tasks, need to update tree to show stories or not
 		storiesButton.addSelectionListener(new SelectionListener() {
-  		public void widgetSelected(SelectionEvent e) {
-  			refreshProjects();
-  			validatePage();
-  		}	
+			public void widgetSelected(SelectionEvent e) {
+				refreshProjects();
+				validatePage();
+			}
 
-  		public void widgetDefaultSelected(SelectionEvent e) {
-  		  widgetSelected(e);
-  		}
-  	});
+			public void widgetDefaultSelected(SelectionEvent e) {
+				widgetSelected(e);
+			}
+		});
 		storiesButton.addFocusListener(new FocusAdapter() {
 			public void focusLost(FocusEvent e) {
 				validatePage();
 			}
 		});
 
-		
 	}
-	
+
 	protected void addContentTypeListener(SelectionListener listener) {
-	  tasksButton.addSelectionListener(listener);
+		tasksButton.addSelectionListener(listener);
 	}
-	
+
 	protected void removeContentTypeListener(SelectionListener listener) {
 		tasksButton.removeSelectionListener(listener);
 	}
-	
+
 	private void createScopeButtons(Composite parent) {
 		Composite scopeComposite = new Composite(parent, SWT.NONE);
 		scopeComposite.setLayout(new GridLayout());
 		GridData scopeCompositeLayoutData = new GridData(SWT.FILL, SWT.BEGINNING, true, false);
 		scopeCompositeLayoutData.verticalIndent = 10;
-		scopeComposite.setLayoutData(scopeCompositeLayoutData); 
+		scopeComposite.setLayoutData(scopeCompositeLayoutData);
 		scopeLabel = new Label(scopeComposite, SWT.NONE);
 		scopeLabel.setData(new GridData(SWT.BEGINNING, SWT.BEGINNING, false, false));
 		scopeLabel.setText(Messages.XPlannerCustomQueryPage_SCOPE_LABEL);
-		
+
 		allTasksOrStoriesButton = new Button(scopeComposite, SWT.RADIO);
 		GridData allTasksOrStoriesLayoutData = new GridData(SWT.BEGINNING, SWT.BEGINNING, false, false);
 		allTasksOrStoriesLayoutData.horizontalIndent = 10;
@@ -371,9 +366,9 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		myTasksOrStoriesLayoutData.horizontalIndent = 10;
 		myTasksOrStoriesButton.setLayoutData(myTasksOrStoriesLayoutData);
 		myTasksOrStoriesButton.setText(Messages.XPlannerCustomQueryPage_MY_BUTTON);
-		
+
 	}
-	
+
 	public boolean canFlipToNextPage() {
 		return false;
 	}
@@ -388,14 +383,14 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		if (getNameText().length() == 0) {
 			errorMessage = Messages.XPlannerCustomQueryPage_QUERY_NAME_NEEDED;
 		}
-		
+
 		if (errorMessage == null && selectedTasksButton.getSelection()) {
-			StructuredSelection selection = (StructuredSelection)projectsViewer.getSelection();
+			StructuredSelection selection = (StructuredSelection) projectsViewer.getSelection();
 			if (selection == null || selection.isEmpty()) {
-				errorMessage = Messages.XPlannerCustomQueryPage_PROJECT_ELEMENT_NEEDED; 
+				errorMessage = Messages.XPlannerCustomQueryPage_PROJECT_ELEMENT_NEEDED;
 			}
 		}
-		
+
 		setErrorMessage(errorMessage);
 		setPageComplete(errorMessage == null);
 		if (scontainer != null) {
@@ -411,20 +406,19 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 			if (nameText != null && nameText.getText().length() > 0) {
 				complete = true;
 				setErrorMessage(null);
-			}
-			else if (!inSearchContainer()){
+			} else if (!inSearchContainer()) {
 				complete = false;
 				setErrorMessage(Messages.XPlannerCustomQueryPage_QUERY_NAME_NEEDED);
 			}
 		}
-		
+
 		return complete;
 	}
 
 	private void refreshProjects() {
 		projectsViewer.refresh();
 	}
-	
+
 	private void loadFromDefaults() {
 		myTasksButton.setSelection(DEFAULT_SELECT_MY_CURRENT_TASKS);
 		tasksButton.setSelection(true);
@@ -437,57 +431,52 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		if (getExistingQuery().getQueryName() != null) {
 			nameText.setText(getExistingQuery().getQueryName());
 		}
-		
+
 		myTasksButton.setSelection(getExistingQuery().isMyCurrentTasks());
 		selectedTasksButton.setSelection(!getExistingQuery().isMyCurrentTasks());
 
 		// tasks or user stories?
 		if (getExistingQuery().getPersonId() != XPlannerCustomQuery.INVALID_ID) {
 			myTasksOrStoriesButton.setSelection(true);
-		}
-		else {
+		} else {
 			allTasksOrStoriesButton.setSelection(true);
 		}
-		
+
 		// use tasks
 		if (getExistingQuery().isUseTasks()) {
 			tasksButton.setSelection(true);
-		}
-		else {
+		} else {
 			storiesButton.setSelection(true);
 		}
-		
+
 		// select appropriate tree item
 		if (getExistingQuery().getContentIds() != XPlannerCustomQuery.INVALID_IDS) {
 			List<Object> selection = getProjectElementsToSelect();
-			
+
 			projectsViewer.setSelection(new StructuredSelection(selection));
 		}
 	}
 
 	private List<Object> getProjectElementsToSelect() {
 		ArrayList<Object> selection = new ArrayList<Object>();
-		
+
 		XPlannerCustomQuery.ContentIdType contentIdType = getExistingQuery().getContentIdType();
 		List<Integer> contentIds = getExistingQuery().getContentIds();
-		
+
 		for (int contentId : contentIds) {
 			try {
 				if (contentIdType == XPlannerCustomQuery.ContentIdType.PROJECT) {
 					selection.add(client.getProject(contentId));
-				}
-				else if (contentIdType == XPlannerCustomQuery.ContentIdType.ITERATION) {
+				} else if (contentIdType == XPlannerCustomQuery.ContentIdType.ITERATION) {
 					selection.add(client.getIteration(contentId));
-				}
-				else if (contentIdType == XPlannerCustomQuery.ContentIdType.USER_STORY) {
+				} else if (contentIdType == XPlannerCustomQuery.ContentIdType.USER_STORY) {
 					selection.add(client.getUserStory(contentId));
 				}
-			}
-			catch (RemoteException e) {
+			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return selection;
 	}
 
@@ -495,86 +484,79 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 	private boolean isUseAll() {
 		return allTasksOrStoriesButton.getSelection();
 	}
-	
+
 	void applyChanges(XPlannerCustomQuery query) {
 		if (query == null) {
 			return;
 		}
 		// name
 		query.setQueryName(getNameText());
-		
+
 		// my current tasks?
 		if (myTasksButton.getSelection()) {
 			query.setMyCurrentTasks(true);
-		}
-		else {
+		} else {
 			query.setMyCurrentTasks(false);
-			
+
 			// use tasks?
 			query.setUseTasks(tasksButton.getSelection());
-			
+
 			// use all?
 			if (!isUseAll()) {
 				query.setPersonId(client.getCurrentPersonId());
-			}
-			else {
+			} else {
 				query.setPersonId(XPlannerCustomQuery.INVALID_ID);
 			}
-			 
+
 			// content id
 			query.setContentIds(getSelectedContentIds());
-			
+
 			// content id type
 			query.setContentIdType(getSelectedContentIdType());
-		}	
+		}
 	}
 
 	private XPlannerCustomQuery.ContentIdType getSelectedContentIdType() {
 		XPlannerCustomQuery.ContentIdType contentIdType = XPlannerCustomQuery.ContentIdType.USER_STORY;
-		
-		StructuredSelection selection = (StructuredSelection)projectsViewer.getSelection();
+
+		StructuredSelection selection = (StructuredSelection) projectsViewer.getSelection();
 		Object selectedElement = selection.getFirstElement();
 
 		if (selectedElement instanceof ProjectData) {
 			contentIdType = XPlannerCustomQuery.ContentIdType.PROJECT;
-		}
-		else if (selectedElement instanceof IterationData) {
+		} else if (selectedElement instanceof IterationData) {
 			contentIdType = XPlannerCustomQuery.ContentIdType.ITERATION;
-		}
-		else if (selectedElement instanceof UserStoryData) {
+		} else if (selectedElement instanceof UserStoryData) {
 			contentIdType = XPlannerCustomQuery.ContentIdType.USER_STORY;
 		}
-		
+
 		return contentIdType;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private List<Integer> getSelectedContentIds() {
 		ArrayList<Integer> selectedIds = new ArrayList<Integer>();
-		StructuredSelection selection = (StructuredSelection)projectsViewer.getSelection();
+		StructuredSelection selection = (StructuredSelection) projectsViewer.getSelection();
 
 		if (selection.size() == 0) {
 			selectedIds.add(XPlannerCustomQuery.INVALID_ID);
-		}
-		else {
+		} else {
 			for (Iterator iter = selection.iterator(); iter.hasNext();) {
 				Object selectedElement = iter.next();
-				
+
 				if (selectedElement instanceof ProjectData) {
-					selectedIds.add(((ProjectData)selectedElement).getId());
-				}
-				else if (selectedElement instanceof IterationData) {
-					selectedIds.add(((IterationData)selectedElement).getId());
-				}
-				else if (selectedElement instanceof UserStoryData) {
-					selectedIds.add(((UserStoryData)selectedElement).getId());
+					selectedIds.add(((ProjectData) selectedElement).getId());
+				} else if (selectedElement instanceof IterationData) {
+					selectedIds.add(((IterationData) selectedElement).getId());
+				} else if (selectedElement instanceof UserStoryData) {
+					selectedIds.add(((UserStoryData) selectedElement).getId());
 				}
 			}
 		}
-		
+
 		return selectedIds;
 	}
-	
+
 //TODO -- no longer used -- remove if really unnecessary	
 //	private UserStoryData getSelectedUserStory() {
 //    UserStoryData userStory = null;
@@ -600,77 +582,70 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		return (nameText != null) ? nameText.getText() : "<search>"; //$NON-NLS-1$
 	}
 
-	
 	public AbstractRepositoryQuery getQuery() {
 		if (getExistingQuery() == null) {
-			setExistingQuery(new XPlannerCustomQuery(getRepository().getUrl(), getNameText())); 
+			setExistingQuery(new XPlannerCustomQuery(getRepository().getUrl(), getNameText()));
 		}
-		
+
 		applyChanges(getExistingQuery());
 		return getExistingQuery();
 	}
-	
+
 	/**
 	 * if creating user story query, create a set of queries for the user story tasks
+	 * 
 	 * @return
 	 */
 	public List<AbstractRepositoryQuery> getQueries() {
 		List<AbstractRepositoryQuery> queries = new ArrayList<AbstractRepositoryQuery>();
-		
+
 		if (isContentTypeTask()) {
 			// if don't have existing query, create one
 			if (getExistingQuery() == null) {
-				setExistingQuery(new XPlannerCustomQuery(getRepository().getUrl(), getNameText())); 
+				setExistingQuery(new XPlannerCustomQuery(getRepository().getUrl(), getNameText()));
 			}
 
 			applyChanges(getExistingQuery());
 			queries.add(getExistingQuery());
-		}	
-		else {
+		} else {
 			// existing query will get deleted in wizard's performFinish()
 			queries = createTaskQueriesForUserStories(getSelectedUserStories());
 		}
-		
+
 		return queries;
 	}
-	
+
 	private List<UserStoryData> getSelectedUserStories() {
 		ArrayList<UserStoryData> userStories = new ArrayList<UserStoryData>();
-		
-		StructuredSelection selection = (StructuredSelection)projectsViewer.getSelection();
+
+		StructuredSelection selection = (StructuredSelection) projectsViewer.getSelection();
 		Object selectedElement = selection.getFirstElement();
 
 		try {
 			if (selectedElement instanceof ProjectData) {
-				IterationData[] iterations = client.getIterations(
-						((ProjectData)selectedElement).getId());
+				IterationData[] iterations = client.getIterations(((ProjectData) selectedElement).getId());
 				for (IterationData iteration : iterations) {
 					userStories.addAll(Arrays.asList(client.getUserStories(iteration.getId())));
 				}
+			} else if (selectedElement instanceof IterationData) {
+				userStories.addAll(Arrays.asList(client.getUserStories(((IterationData) selectedElement).getId())));
+			} else if (selectedElement instanceof UserStoryData) {
+				userStories.add((UserStoryData) selectedElement);
 			}
-			else if (selectedElement instanceof IterationData) {
-				userStories.addAll(Arrays.asList(client.getUserStories(
-						((IterationData)selectedElement).getId())));
-			}
-			else if (selectedElement instanceof UserStoryData) {
-				userStories.add((UserStoryData)selectedElement);
-			}
-		}
-		catch (RemoteException e) {
+		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		return userStories;
 	}
-	
-	public List<AbstractRepositoryQuery> createTaskQueriesForUserStories(
-		List<UserStoryData> userStories) {
-		
+
+	public List<AbstractRepositoryQuery> createTaskQueriesForUserStories(List<UserStoryData> userStories) {
+
 		if (userStories == null || userStories.size() == 0) {
 			System.err.println(Messages.XPlannerCustomQueryPage_NO_USER_STORIES_SELECTED);
 			return new ArrayList<AbstractRepositoryQuery>();
 		}
-		
+
 		ArrayList<AbstractRepositoryQuery> queries = new ArrayList<AbstractRepositoryQuery>();
 		int personId = client.getCurrentPersonId();
 		for (UserStoryData userStory : userStories) {
@@ -683,30 +658,36 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 					createQuery = false;
 				}
 			}
-			
+
 			if (createQuery) {
 				String nameSuffix = Messages.XPlannerCustomQueryPage_USER_STORY + userStory.getName();
 				String queryName = getNameText();
 				if (!queryName.contains(nameSuffix)) {
 					queryName += nameSuffix;
-				}	
-				
-				XPlannerCustomQuery query = new XPlannerCustomQuery(
-					getRepository().getUrl(), queryName);	
-				
+				}
+
+				XPlannerCustomQuery query = new XPlannerCustomQuery(getRepository().getUrl(), queryName);
+
 				applyChanges(query);
 				query.setQueryName(queryName);
-				query.setContentIds(Arrays.asList(new Integer[] {userStory.getId()}));
+				query.setContentIds(Arrays.asList(new Integer[] { userStory.getId() }));
 				query.setContentIdType(XPlannerCustomQuery.ContentIdType.USER_STORY);
 				query.setUseTasks(true);
 				queries.add(query);
-			}	
-		}	
-	
+			}
+		}
+
 		return queries;
 	}
 
 	public TreeViewer getProjectsViewer() {
 		return this.projectsViewer;
+	}
+
+	@Override
+	public void setControlsEnabled(boolean enabled) {
+		super.setControlsEnabled(enabled);
+		updateSelectionControls();
+		validatePage();
 	}
 }

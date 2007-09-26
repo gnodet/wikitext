@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;org.eclipse.mylyn.internal.bugzilla.ui.search.BugzillaSearchPage.setPageComplete()&apos; to &apos;updatePageCompletion&apos;&#x0D;&#x0A;- Original project: &apos;org.eclipse.mylyn.bugzilla.ui&apos;&#x0D;&#x0A;- Original element: &apos;org.eclipse.mylyn.internal.bugzilla.ui.search.BugzillaSearchPage.setPageComplete()&apos;&#x0D;&#x0A;- Renamed element: &apos;org.eclipse.mylyn.internal.bugzilla.ui.search.BugzillaSearchPage.updatePageCompletion()&apos;&#x0D;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;setPageComplete&apos;" flags="589826" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylyn.internal.bugzilla.ui.search{BugzillaSearchPage.java[BugzillaSearchPage~setPageComplete" name="updatePageCompletion" references="true" stamp="1190767330656" version="1.0"/>
+</session>
