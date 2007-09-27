@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.mylyn.trac.wiki_feature"
-      label="Wiki_feature Feature"
+      label="Myly Trac Connector Wiki Support (Experimental)"
       version="2.1.0.v20070927-0900"
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylyn">
 
    <description url="http://eclipse.org/mylyn">
-      Mylyn Trac Connector Wiki Extensions
+      Extensions for Trac Wiki page access and editing.
    </description>
 
    <copyright url="http://www.example.com/copyright">
