@@ -3,13 +3,13 @@
    <description url="http://download.eclipse.org/tools/mylyn/update/weekly/experimental">
       Mylyn Experimental Features
    </description>
-   <feature url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/tools/mylyn/update/weekly/experimental/features/org.eclipse.mylyn.trac.wiki_feature_2.1.0.v20070926-1230.jar" id="org.eclipse.mylyn.trac.wiki_feature" version="2.1.0.v20070926-1230">
+   <feature url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/tools/mylyn/update/weekly/experimental/features/org.eclipse.mylyn.trac.wiki_feature_2.1.0.v20070927-0900.jar" id="org.eclipse.mylyn.trac.wiki_feature" version="2.1.0.v20070927-0900">
       <category name="Sandbox"/>
    </feature>
-   <feature url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/tools/mylyn/update/weekly/experimental/features/org.eclipse.mylyn.sandbox.ui_feature_2.1.0.v20070926-1230.jar" id="org.eclipse.mylyn.sandbox.ui_feature" version="2.1.0.v20070926-1230">
+   <feature url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/tools/mylyn/update/weekly/experimental/features/org.eclipse.mylyn.sandbox.ui_feature_2.1.0.v20070927-0900.jar" id="org.eclipse.mylyn.sandbox.ui_feature" version="2.1.0.v20070927-0900">
       <category name="Sandbox"/>
    </feature>
-   <feature url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/tools/mylyn/update/weekly/experimental/features/org.eclipse.mylyn.sandbox.dev_feature_2.1.0.v20070926-1230.jar" id="org.eclipse.mylyn.sandbox.dev_feature" version="2.1.0.v20070926-1230">
+   <feature url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/tools/mylyn/update/weekly/experimental/features/org.eclipse.mylyn.sandbox.dev_feature_2.1.0.v20070927-0900.jar" id="org.eclipse.mylyn.sandbox.dev_feature" version="2.1.0.v20070927-0900">
       <category name="Sandbox"/>
    </feature>
    <category-def name="Sandbox" label="Sandbox"/>
