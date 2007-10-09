@@ -1,0 +1,11 @@
+1191884039650	Extract constant 'LABEL'
+1191884099671	Rename type 'ScreenShotAttachmentPage'
+1191884976394	Rename local variable 'addAttachmentButton'
+1191884988331	Rename local variable 'attachFileButton'
+1191885037280	Rename local variable 'attachScreenshot'
+1191885178512	Extract method 'canAttach'
+1191885237743	Extract constant 'LABEL_EDITOR'
+1191885332991	Copy compilation unit
+1191885497488	Rename local variable 'attachFileAction'
+1191892686553	Rename method 'storeScreenshotContent'
+1191894533830	Extract method 'isContext'
