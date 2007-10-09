@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<session version="1.0">
+<refactoring comment="Rename type 'org.eclipse.mylyn.internal.tasks.ui.views.TaskListToolTipHandler' to 'TaskListToolTip'&#10;- Original project: 'org.eclipse.mylyn.tasks.ui'&#10;- Original element: 'org.eclipse.mylyn.internal.tasks.ui.views.TaskListToolTipHandler'&#10;- Renamed element: 'org.eclipse.mylyn.internal.tasks.ui.views.TaskListToolTip'&#10;- Update references to refactored element&#10;- Update textual occurrences in comments and strings" description="Rename type 'TaskListToolTipHandler'" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;org.eclipse.mylyn.internal.tasks.ui.views{TaskListToolTipHandler.java[TaskListToolTipHandler" matchStrategy="1" name="TaskListToolTip" qualified="false" references="true" similarDeclarations="false" stamp="1191794862410" textual="false" version="1.0"/>
+</session>
