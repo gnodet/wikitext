@@ -9,3 +9,4 @@
 1191885497488	Rename local variable 'attachFileAction'
 1191892686553	Rename method 'storeScreenshotContent'
 1191894533830	Extract method 'isContext'
+1191959325515	Extract superclass 'AbstractTaskEditorAction'
