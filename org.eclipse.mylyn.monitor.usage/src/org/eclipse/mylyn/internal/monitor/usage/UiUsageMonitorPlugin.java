@@ -66,6 +66,7 @@ import org.osgi.framework.BundleContext;
 
 /**
  * @author Mik Kersten
+ * @author Shawn Minto
  */
 public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 
@@ -312,7 +313,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 
 		getActionExecutionListeners().add(new ActionExecutionMonitor());
 		workbench.addWindowListener(WINDOW_LISTENER);
-		for (IWorkbenchWindow w : workbench.getWorkbenchWindows()) {
+		for (IWorkbenchWindow w : MonitorUiPlugin.getDefault().getMonitoredWindows()) {
 			if (w.getShell() != null) {
 				w.getShell().addShellListener(SHELL_LISTENER);
 			}
@@ -366,7 +367,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 		getActionExecutionListeners().remove(new ActionExecutionMonitor());
 
 		workbench.removeWindowListener(WINDOW_LISTENER);
-		for (IWorkbenchWindow w : workbench.getWorkbenchWindows()) {
+		for (IWorkbenchWindow w : MonitorUiPlugin.getDefault().getMonitoredWindows()) {
 			if (w.getShell() != null) {
 				w.getShell().removeShellListener(SHELL_LISTENER);
 			}
