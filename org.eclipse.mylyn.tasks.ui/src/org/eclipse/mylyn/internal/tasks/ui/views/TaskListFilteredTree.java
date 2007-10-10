@@ -355,13 +355,13 @@ public class TaskListFilteredTree extends AbstractFilteredTree {
 						activateAction.init(PlatformUI.getWorkbench().getActiveWorkbenchWindow());
 						activateAction.run(null);
 					} else {
-						if (TaskListFilteredTree.super.filterText.getText().length() > 0) {
-							TaskListFilteredTree.super.filterText.setText("");
-							TaskListFilteredTree.this.textChanged();
-						}
-						if (TaskListView.getFromActivePerspective().getDrilledIntoCategory() != null) {
-							TaskListView.getFromActivePerspective().goUpToRoot();
-						}
+//						if (TaskListFilteredTree.super.filterText.getText().length() > 0) {
+//							TaskListFilteredTree.super.filterText.setText("");
+//							TaskListFilteredTree.this.textChanged();
+//						}
+//						if (TaskListView.getFromActivePerspective().getDrilledIntoCategory() != null) {
+//							TaskListView.getFromActivePerspective().goUpToRoot();
+//						}
 						TasksUiUtil.refreshAndOpenTaskListElement(activeTask);
 					}
 				}
@@ -382,8 +382,7 @@ public class TaskListFilteredTree extends AbstractFilteredTree {
 	} 
 	
 	public void indicateActiveTaskWorkingSet() {
-		Set<IWorkingSet> activeSets = TaskListView.getActiveWorkingSets();
-		System.err.println(">>>>> " + activeSets);
+		Set<IWorkingSet> activeSets = TaskListView.getActiveWorkingSets(); 
 		
 		if (filterComposite.isDisposed() || activeSets == null) {
 			return;
