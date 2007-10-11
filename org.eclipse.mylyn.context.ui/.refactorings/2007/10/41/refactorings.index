@@ -1,2 +1,3 @@
 1192061895445	Extract method 'getActivePerspective'
 1192061917820	Rename method 'getActivePerspective'
+1192068785103	Extract constant 'SCALE_STEPS'
