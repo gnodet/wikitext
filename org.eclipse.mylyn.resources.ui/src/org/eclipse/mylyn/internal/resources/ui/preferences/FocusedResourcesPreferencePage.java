@@ -16,6 +16,7 @@ import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.window.Window;
 import org.eclipse.mylyn.internal.resources.ui.ResourcesUiPreferenceInitializer;
+import org.eclipse.mylyn.internal.tasks.ui.TaskListColorsAndFonts;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -108,7 +109,7 @@ public class FocusedResourcesPreferencePage extends PreferencePage implements IW
 				removeIgnore();
 			}
 		});
-		fillTable(ResourcesUiPreferenceInitializer.getExcludedResourcePatterns());
+		fillTable(ResourcesUiPreferenceInitializer.getExcludedResourcePatterns(), ResourcesUiPreferenceInitializer.getForcedExcludedResourcePatterns());
 		Dialog.applyDialogFont(group);
 		setButtonLayoutData(addButton);
 		setButtonLayoutData(removeButton);
@@ -135,16 +136,21 @@ public class FocusedResourcesPreferencePage extends PreferencePage implements IW
 		super.performDefaults();
 		ignoreTable.removeAll();
 		ResourcesUiPreferenceInitializer.restoreDefaultExcludedResourcePatterns();
-		fillTable(ResourcesUiPreferenceInitializer.getExcludedResourcePatterns());
+		fillTable(ResourcesUiPreferenceInitializer.getExcludedResourcePatterns(), ResourcesUiPreferenceInitializer.getForcedExcludedResourcePatterns());
 	}
 
 	/**
 	 * @param ignore
 	 */
-	private void fillTable(Set<String> ignored) {
+	private void fillTable(Set<String> ignored, Set<String> forced) {
 		for (String pattern : ignored) {
 			TableItem item = new TableItem(ignoreTable, SWT.NONE);
 			item.setText(pattern);
+		}
+		for (String pattern : forced) {
+			TableItem item = new TableItem(ignoreTable, SWT.NONE);
+			item.setText(pattern + " [automatic]");
+			item.setForeground(TaskListColorsAndFonts.GRAY);
 		}
 	}
 
