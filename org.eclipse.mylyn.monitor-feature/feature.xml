@@ -231,7 +231,7 @@ litigation.
       <import plugin="org.eclipse.ui.workbench.texteditor"/>
       <import plugin="org.eclipse.ui.forms"/>
       <import plugin="org.eclipse.mylyn.context.ui"/>
-      <import plugin="org.eclipse.mylyn.monitor.ui"/>
+      <import plugin="org.eclipse.mylyn.monitor.ui" version="2.2.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.mylyn.monitor.core"/>
       <import plugin="org.eclipse.mylyn"/>
       <import plugin="org.eclipse.core.filesystem"/>
