@@ -9,14 +9,11 @@ package org.eclipse.mylyn.xplanner.tests;
 
 import junit.framework.TestCase;
 
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
-import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
-import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.mylyn.tasks.core.*;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
-import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeFactory;
-import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
-import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUtils;
+import org.eclipse.mylyn.xplanner.ui.*;
 import org.xplanner.soap.TaskData;
 import org.xplanner.soap.UserStoryData;
 
@@ -76,6 +73,71 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 		catch (Exception e) {
 			fail("could not set up task attributes: " + e.getMessage());
 		}
+	}
+
+	private void testUpdateActualTime(boolean validHours) {
+		try {
+			// get test task
+			TaskData testTaskData =  XPlannerTestUtils.findTestTask(client);
+			TaskRepository taskRepository = XPlannerTestUtils.getRepository();
+			
+			// make sure we have the right connector
+			AbstractRepositoryConnector connector = 
+				TasksUiPlugin.getRepositoryManager().getRepositoryConnector(taskRepository.getConnectorKind());
+			assert(connector.getConnectorKind().equals(XPlannerMylynUIPlugin.REPOSITORY_KIND));
+			
+			TaskRepository repository = XPlannerTestUtils.getRepository();
+			assertTrue(repository != null);
+			
+			AbstractTask repositoryTask = 
+				connector.createTaskFromExistingId(repository, "" + testTaskData.getId(), new NullProgressMonitor());
+			
+			assertTrue(repositoryTask instanceof XPlannerTask);
+			
+			// post updated task data
+			Double estTime = testTaskData.getAdjustedEstimatedHours();
+			Double actTime;
+			Double originalActHours = testTaskData.getActualHours();
+			
+			if (validHours) {
+				actTime = estTime - 1;
+			}
+			else {
+				actTime = testTaskData.getActualHours() - 1;
+			}
+			
+			testTaskData.setActualHours(actTime);
+			RepositoryTaskData testRepositoryTaskData = 
+				XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(repository.getUrl(), testTaskData, 
+						repositoryTask.getTaskId());
+
+			String returnValue = connector.getTaskDataHandler().postTaskData(taskRepository, 
+				testRepositoryTaskData, null);
+			
+			// if new task, return value is new id -- make sure it's valid
+			assert(returnValue == null);
+			// try to set to time that's lower than previous
+			TaskData taskData = client.getTask(testTaskData.getId());
+			assert(taskData != null);
+			if (validHours) {
+				assert(taskData.getActualHours() == actTime);
+			}
+			else {
+				assert(taskData.getActualHours() == originalActHours);
+			}
+		} 
+		catch (Exception e) {
+			fail("could not set up task attributes: " + e.getMessage());
+		}
+	}
+
+
+	public void testUpdateActualTimeWithValidTime() {
+		testUpdateActualTime(true);
+	}
+
+	public void testUpdateActualTimeWithInvalidTime() {
+		testUpdateActualTime(false);
 	}
 
 }

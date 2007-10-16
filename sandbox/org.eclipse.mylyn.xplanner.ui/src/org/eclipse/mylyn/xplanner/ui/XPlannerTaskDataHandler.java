@@ -9,8 +9,7 @@ package org.eclipse.mylyn.xplanner.ui;
 
 import java.net.Proxy;
 import java.rmi.RemoteException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import javax.security.auth.login.LoginException;
 
@@ -28,14 +27,13 @@ import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
-import org.xplanner.soap.TaskData;
-import org.xplanner.soap.UserStoryData;
+import org.xplanner.soap.*;
 
 /**
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
-public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
+public class XPlannerTaskDataHandler extends AbstractTaskDataHandler { 
 	private AbstractAttributeFactory attributeFactory = new XPlannerAttributeFactory();
 	
 	public XPlannerTaskDataHandler(TaskList taskList) {
@@ -128,6 +126,18 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 					taskData.setEstimatedHours(Double.valueOf(
 							repositoryTaskData.getAttribute(XPlannerAttributeFactory.ATTRIBUTE_EST_HOURS_NAME).getValue()));
 					taskData.setCompleted(XPlannerRepositoryUtils.isCompleted(repositoryTaskData));
+					// set actual time
+					Double currentActualHours = taskData.getActualHours();
+					Double changedActualHours = Double.valueOf(
+							repositoryTaskData.getAttribute(XPlannerAttributeFactory.ATTRIBUTE_ACT_HOURS_NAME).getValue());
+					if (currentActualHours < changedActualHours) {
+						TimeEntryData newTimeEntry = new TimeEntryData();
+						newTimeEntry.setDuration(changedActualHours - currentActualHours);
+						newTimeEntry.setPerson1Id(taskData.getAcceptorId());
+						newTimeEntry.setTaskId(taskData.getId());
+						newTimeEntry.setReportDate(Calendar.getInstance());
+						client.addTimeEntry(newTimeEntry);
+					}
 					
 					XPlannerRepositoryUtils.ensureTaskDataValid(taskData);
 					client.update(taskData);

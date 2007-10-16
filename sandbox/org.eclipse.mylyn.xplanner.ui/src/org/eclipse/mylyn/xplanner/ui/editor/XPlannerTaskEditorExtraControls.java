@@ -16,26 +16,20 @@ import org.eclipse.mylyn.tasks.ui.editors.AbstractRepositoryTaskEditor;
 import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeFactory;
 import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUtils;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.events.*;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Tree;
-import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.ui.forms.widgets.ExpandableComposite;
-import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.Section;
+import org.eclipse.swt.widgets.*;
+import org.eclipse.ui.forms.widgets.*;
 
 public class XPlannerTaskEditorExtraControls {
 	private AbstractRepositoryTaskEditor editor;
 	RepositoryTaskData repositoryTaskData;
 	private Label remainingTimeValueLabel;
 	private Button completedButton;
+	private Text actualTimeText;
+	
+	private String errorMessage = null;
+	private Control errorControl = null;
 	
 	public XPlannerTaskEditorExtraControls(AbstractRepositoryTaskEditor editor, 
 		RepositoryTaskData repositoryTaskData) {
@@ -154,9 +148,18 @@ public class XPlannerTaskEditorExtraControls {
 		actualTimeLabel.setFont(JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT));
 		GridDataFactory.fillDefaults().grab(true, false).span(2, 1).align(SWT.END, SWT.CENTER).applyTo(actualTimeLabel);
 		
-		// actual time value label
-		toolkit.createLabel(dataComposite, 
+		// actual hours text
+		actualTimeText = toolkit.createText(dataComposite, 
 			XPlannerRepositoryUtils.getActualHours(repositoryTaskData) + ""); //$NON-NLS-1$
+		
+		actualTimeText.addModifyListener(new ModifyListener() {
+			public void modifyText(ModifyEvent e) {
+				if (validateActualTime() == null) {
+					updateAttribute(XPlannerAttributeFactory.ATTRIBUTE_ACT_HOURS_NAME,
+						actualTimeText.getText());
+				}
+			}
+		});
 		
 		// remaining time label
 		Label remainingTimeLabel = toolkit.createLabel(dataComposite, Messages.XPlannerTaskEditor_REMAINING_HOURS_TEXT);
@@ -197,4 +200,29 @@ public class XPlannerTaskEditorExtraControls {
 		}
 	}
 	
+	protected String validate() {
+		if (errorMessage != null) {
+			if (errorControl != null) {
+				errorControl.setFocus();
+			}
+		}
+
+		// add other validation here, when necessary
+		return errorMessage;
+	}
+	
+	private String validateActualTime() {
+		Double updatedActualTimeValue = Double.valueOf(actualTimeText.getText());
+		Double currentActualTimeValue = XPlannerRepositoryUtils.getActualHours(repositoryTaskData);
+		if (updatedActualTimeValue < currentActualTimeValue) {
+			errorMessage = "Cannot decrease actual time value";
+			errorControl = actualTimeText;
+		}
+		else {
+			errorMessage = null;
+			errorControl = null;
+		}
+		
+		return errorMessage;
+	}
 }

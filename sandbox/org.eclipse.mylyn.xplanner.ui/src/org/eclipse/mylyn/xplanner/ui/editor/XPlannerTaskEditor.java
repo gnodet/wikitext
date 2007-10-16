@@ -10,14 +10,13 @@ package org.eclipse.mylyn.xplanner.ui.editor;
 import java.text.MessageFormat;
 
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
-import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
+import org.eclipse.mylyn.tasks.core.*;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractRepositoryTaskEditor;
 import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
 import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUtils;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.forms.editor.FormEditor;
@@ -60,9 +59,7 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor
 	}
 	
 	protected void validateInput() {
-		boolean isValid = true;
-
-		submitButton.setEnabled(isValid);
+		submitButton.setEnabled(true);
 	}
 
 	protected void createAttributeLayout(Composite composite) {
@@ -133,16 +130,26 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor
 	
 	@Override
 	public void submitToRepository() {
-		boolean ok = true;
+		String errorMessage = null;
+		Control errorControl = null;
 		
 		if (summaryText.getText().equals("")) {
-			MessageDialog.openInformation(this.getSite().getShell(), "Submit Error",
-					"Task name cannot be empty.");
-			summaryText.setFocus();
-			ok = false;
+			errorMessage = "Task name cannot be empty.";
+			errorControl = summaryText;
+		}
+		if (errorMessage == null) {
+			errorMessage = extraControls.validate();
 		}
 		
-		if (ok) {
+		if (errorMessage != null) {
+			MessageDialog.openInformation(this.getSite().getShell(), "Submit Error",
+				errorMessage);
+			if (errorControl != null) {
+				errorControl.setFocus();
+			}
+		}
+		
+		if (errorMessage == null) {
 			super.submitToRepository();
 		}
 	}
