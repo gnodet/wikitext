@@ -15,3 +15,5 @@
 1192588773877	Rename field 'landmarkForced'
 1192589725238	Rename field 'DEFAULT_DECAY'
 1192589732895	Rename field 'DEFAULT_EDIT'
+1192643394607	Rename field 'scalingFactors'
+1192643404514	Rename local variable 'scalingFactors'
