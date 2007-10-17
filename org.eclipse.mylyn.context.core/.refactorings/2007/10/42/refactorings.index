@@ -17,3 +17,4 @@
 1192589732895	Rename field 'DEFAULT_EDIT'
 1192643394607	Rename field 'scalingFactors'
 1192643404514	Rename local variable 'scalingFactors'
+1192646019089	Rename method 'getContextScaling'
