@@ -21,7 +21,7 @@
    <extension
    		point="org.eclipse.ui.keywords">
       <keyword
-            label="UI Usage Monitor Data"
+            label="mylyn UI Usage Monitor Data"
             id="org.eclipse.mylyn.monitor.ui.keywords"/>
    </extension>
  
