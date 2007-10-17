@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Mylyn Sandbox Developer Tools
 Bundle-SymbolicName: org.eclipse.mylyn.sandbox.dev;singleton:=true
-Bundle-Version: 2.2.0.I20071010-2020
+Bundle-Version: 2.2.0.I20071017-1130
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.mylyn.context.core,
