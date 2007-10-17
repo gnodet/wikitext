@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;org.eclipse.mylyn.context.tests.ScalingFactorsTest.testDefaults()&apos; to &apos;testLandmarkDefaults&apos;&#x0D;&#x0A;- Original project: &apos;org.eclipse.mylyn.context.tests&apos;&#x0D;&#x0A;- Original element: &apos;org.eclipse.mylyn.context.tests.ScalingFactorsTest.testDefaults()&apos;&#x0D;&#x0A;- Renamed element: &apos;org.eclipse.mylyn.context.tests.ScalingFactorsTest.testLandmarkDefaults()&apos;&#x0D;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;testDefaults&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylyn.context.tests{ScalingFactorsTest.java[ScalingFactorsTest~testDefaults" name="testLandmarkDefaults" references="true" stamp="1192581567827" version="1.0"/>
+</session>
