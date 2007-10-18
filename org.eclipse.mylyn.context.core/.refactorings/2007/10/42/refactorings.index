@@ -18,3 +18,6 @@
 1192643394607	Rename field 'scalingFactors'
 1192643404514	Rename local variable 'scalingFactors'
 1192646019089	Rename method 'getContextScaling'
+1192730491230	Rename method 'setContextScaling'
+1192730866247	Delete element
+1192731024319	Rename field 'DEFAULT_EVENT_DECAY'
