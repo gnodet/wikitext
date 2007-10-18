@@ -14,7 +14,6 @@ import java.util.Set;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.preference.PreferencePage;
-import org.eclipse.jface.resource.JFaceColors;
 import org.eclipse.jface.window.Window;
 import org.eclipse.mylyn.internal.resources.ui.ResourcesUiPreferenceInitializer;
 import org.eclipse.mylyn.internal.tasks.ui.TaskListColorsAndFonts;
@@ -32,12 +31,13 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.eclipse.ui.internal.WorkbenchColors;
 
 /**
  * @author Mik Kersten
  */
 public class FocusedResourcesPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
+
+	private static final String LABEL_AUTOMATIC = "[automatic]";
 
 	private Table ignoreTable;
 
@@ -111,7 +111,8 @@ public class FocusedResourcesPreferencePage extends PreferencePage implements IW
 				removeIgnore();
 			}
 		});
-		fillTable(ResourcesUiPreferenceInitializer.getExcludedResourcePatterns(), ResourcesUiPreferenceInitializer.getForcedExcludedResourcePatterns());
+		fillTable(ResourcesUiPreferenceInitializer.getExcludedResourcePatterns(),
+				ResourcesUiPreferenceInitializer.getForcedExcludedResourcePatterns());
 		Dialog.applyDialogFont(group);
 		setButtonLayoutData(addButton);
 		setButtonLayoutData(removeButton);
@@ -127,7 +128,9 @@ public class FocusedResourcesPreferencePage extends PreferencePage implements IW
 		Set<String> patterns = new HashSet<String>();
 		TableItem[] items = ignoreTable.getItems();
 		for (int i = 0; i < items.length; i++) {
-			patterns.add(items[i].getText());
+			if (!items[i].getText().endsWith(LABEL_AUTOMATIC)) {
+				patterns.add(items[i].getText());
+			}
 		}
 		ResourcesUiPreferenceInitializer.setExcludedResourcePatterns(patterns);
 		return true;
@@ -138,7 +141,8 @@ public class FocusedResourcesPreferencePage extends PreferencePage implements IW
 		super.performDefaults();
 		ignoreTable.removeAll();
 		ResourcesUiPreferenceInitializer.restoreDefaultExcludedResourcePatterns();
-		fillTable(ResourcesUiPreferenceInitializer.getExcludedResourcePatterns(), ResourcesUiPreferenceInitializer.getForcedExcludedResourcePatterns());
+		fillTable(ResourcesUiPreferenceInitializer.getExcludedResourcePatterns(),
+				ResourcesUiPreferenceInitializer.getForcedExcludedResourcePatterns());
 	}
 
 	/**
@@ -151,7 +155,7 @@ public class FocusedResourcesPreferencePage extends PreferencePage implements IW
 		}
 		for (String pattern : forced) {
 			TableItem item = new TableItem(ignoreTable, SWT.NONE);
-			item.setText(pattern + " [automatic]");
+			item.setText(pattern + " " + LABEL_AUTOMATIC);
 			item.setForeground(TaskListColorsAndFonts.GRAY);
 		}
 	}
