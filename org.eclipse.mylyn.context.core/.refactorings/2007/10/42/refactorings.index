@@ -21,3 +21,4 @@
 1192730491230	Rename method 'setContextScaling'
 1192730866247	Delete element
 1192731024319	Rename field 'DEFAULT_EVENT_DECAY'
+1192740953984	Rename field 'contextScaling'
