@@ -3,16 +3,16 @@
    <description url="http://download.eclipse.org/tools/mylyn/update/weekly/extras">
       Mylyn Extras for Eclipse 3.3 and 3.4
    </description>
-   <feature url="features/org.eclipse.mylyn.jira_feature_2.2.0.I20071017-1130.jar" id="org.eclipse.mylyn.jira_feature" version="2.2.0.I20071017-1130">
+   <feature url="features/org.eclipse.mylyn.jira_feature_2.2.0.I20071018-2100.jar" id="org.eclipse.mylyn.jira_feature" version="2.2.0.I20071018-2100">
       <category name="Integration"/>
    </feature>
-   <feature url="features/org.eclipse.mylyn.xplanner_feature_2.2.0.I20071017-1130.jar" id="org.eclipse.mylyn.xplanner_feature" version="2.2.0.I20071017-1130">
+   <feature url="features/org.eclipse.mylyn.xplanner_feature_2.2.0.I20071018-2100.jar" id="org.eclipse.mylyn.xplanner_feature" version="2.2.0.I20071018-2100">
       <category name="Integration"/>
    </feature>
-   <feature url="features/org.eclipse.mylyn.web.tasks_feature_2.2.0.I20071017-1130.jar" id="org.eclipse.mylyn.web.tasks_feature" version="2.2.0.I20071017-1130">
+   <feature url="features/org.eclipse.mylyn.web.tasks_feature_2.2.0.I20071018-2100.jar" id="org.eclipse.mylyn.web.tasks_feature" version="2.2.0.I20071018-2100">
       <category name="Integration"/>
    </feature>
-   <feature url="features/org.eclipse.mylyn.monitor_feature_2.2.0.I20071017-1130.jar" id="org.eclipse.mylyn.monitor_feature" version="2.2.0.I20071017-1130">
+   <feature url="features/org.eclipse.mylyn.monitor_feature_2.2.0.I20071018-2100.jar" id="org.eclipse.mylyn.monitor_feature" version="2.2.0.I20071018-2100">
       <category name="Feedback"/>
    </feature>
    <category-def name="Integration" label="Integration"/>

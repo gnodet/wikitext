@@ -3,13 +3,13 @@
    <description url="http://download.eclipse.org/tools/mylyn/update/weekly/experimental">
       Mylyn Experimental Features
    </description>
-   <feature url="features/org.eclipse.mylyn.trac.wiki_feature_2.2.0.I20071017-1130.jar" id="org.eclipse.mylyn.trac.wiki_feature" version="2.2.0.I20071017-1130">
+   <feature url="features/org.eclipse.mylyn.trac.wiki_feature_2.2.0.I20071018-2100.jar" id="org.eclipse.mylyn.trac.wiki_feature" version="2.2.0.I20071018-2100">
       <category name="Sandbox"/>
    </feature>
-   <feature url="features/org.eclipse.mylyn.sandbox.ui_feature_2.2.0.I20071017-1130.jar" id="org.eclipse.mylyn.sandbox.ui_feature" version="2.2.0.I20071017-1130">
+   <feature url="features/org.eclipse.mylyn.sandbox.ui_feature_2.2.0.I20071018-2100.jar" id="org.eclipse.mylyn.sandbox.ui_feature" version="2.2.0.I20071018-2100">
       <category name="Sandbox"/>
    </feature>
-   <feature url="features/org.eclipse.mylyn.sandbox.dev_feature_2.2.0.I20071017-1130.jar" id="org.eclipse.mylyn.sandbox.dev_feature" version="2.2.0.I20071017-1130">
+   <feature url="features/org.eclipse.mylyn.sandbox.dev_feature_2.2.0.I20071018-2100.jar" id="org.eclipse.mylyn.sandbox.dev_feature" version="2.2.0.I20071018-2100">
       <category name="Sandbox"/>
    </feature>
    <category-def name="Sandbox" label="Sandbox"/>
