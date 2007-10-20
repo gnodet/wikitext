@@ -434,6 +434,9 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 
 					if (!status.isOK()) {
 						queryStatus.add(status);
+					} else if (queryHits.size() == 0) {
+						queryStatus.add(new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, 0,
+								"No matching results. Check query regexp", null));
 					}
 
 				} catch (final IOException ex) {

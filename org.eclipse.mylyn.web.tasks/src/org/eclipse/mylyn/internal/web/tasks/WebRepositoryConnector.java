@@ -282,8 +282,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		Matcher matcher = p.matcher(resource);
 
 		if (!matcher.find()) {
-			return new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, IStatus.ERROR,
-					"Unable to parse resource. Check query regexp", null);
+			return Status.OK_STATUS;
 		} else {
 			boolean isCorrect = true;
 			do {
