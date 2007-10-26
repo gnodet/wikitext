@@ -3,3 +3,5 @@
 1193174879973	Extract constant 'ID_CONTEXT_TASK_EDITOR'
 1193174898497	Rename field 'ID_CONTEXT_TEXT_EDITOR'
 1193174960220	Rename field 'ID_CONTEXT_TASK_EDITOR'
+1193369111526	Rename type 'AttachFileAction'
+1193369435928	Rename field 'attachFileAction'
