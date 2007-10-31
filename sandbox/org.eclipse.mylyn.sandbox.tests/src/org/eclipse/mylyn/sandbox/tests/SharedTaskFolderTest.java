@@ -165,7 +165,7 @@ public class SharedTaskFolderTest extends TestCase {
 				newTask.getHandleIdentifier());//, newTask.getContextPath());
 		InteractionEvent event = new InteractionEvent(InteractionEvent.Kind.EDIT, "structureKind", "handle", "originId");
 		mockContext.parseEvent(event);
-		ContextCorePlugin.getContextManager().activateContext(mockContext);
+		ContextCorePlugin.getContextManager().internalActivateContext(mockContext);
 
 		fail(); // uncomment below
 //		//Save the context file and check that it exists

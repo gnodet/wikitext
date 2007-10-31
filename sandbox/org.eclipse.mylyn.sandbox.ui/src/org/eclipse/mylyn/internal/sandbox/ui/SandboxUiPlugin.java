@@ -11,7 +11,12 @@ package org.eclipse.mylyn.internal.sandbox.ui;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPreferenceConstants;
+import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -26,6 +31,8 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 
 	public static final String OVERLAYS_INCOMING_TIGHT = "org.eclipse.mylyn.tasks.ui.overlays.incoming.tight";
 
+	private ActiveSearchViewTracker activeSearchViewTracker = new ActiveSearchViewTracker();
+	
 	public SandboxUiPlugin() {
 		super();
 		plugin = this;
@@ -38,12 +45,44 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 		// XXX make prefs consistent with UI until we figure out how to disable trim on startup
 		IPreferenceStore uiPreferenceStore = TasksUiPlugin.getDefault().getPreferenceStore();
 		uiPreferenceStore.setValue(TasksUiPreferenceConstants.SHOW_TRIM, true);
+				
+		final IWorkbench workbench = PlatformUI.getWorkbench();
+		workbench.getDisplay().asyncExec(new Runnable() {
+			public void run() {
+				try {
+					workbench.addWindowListener(activeSearchViewTracker);
+					IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
+					for (int i = 0; i < windows.length; i++) {
+						windows[i].addPageListener(activeSearchViewTracker);
+						IWorkbenchPage[] pages = windows[i].getPages();
+						for (int j = 0; j < pages.length; j++) {
+							pages[j].addPartListener(activeSearchViewTracker);
+						}
+					}
+				} catch (Exception e) {
+					StatusHandler.fail(e, "Context UI initialization failed", true);
+				}
+			}
+		});
 	}
 
 	@Override
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		plugin = null;
+		
+		IWorkbench workbench = PlatformUI.getWorkbench();
+		if (workbench != null) {
+			workbench.removeWindowListener(activeSearchViewTracker);
+			IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
+			for (int i = 0; i < windows.length; i++) {
+				IWorkbenchPage[] pages = windows[i].getPages();
+				windows[i].removePageListener(activeSearchViewTracker);
+				for (int j = 0; j < pages.length; j++) {
+					pages[j].removePartListener(activeSearchViewTracker);
+				}
+			}
+		}
 	}
 
 	/**

@@ -5,3 +5,4 @@
 1193174960220	Rename field 'ID_CONTEXT_TASK_EDITOR'
 1193369111526	Rename type 'AttachFileAction'
 1193369435928	Rename field 'attachFileAction'
+1193425378449	Convert anonymous class to nested

@@ -82,8 +82,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 
 	private static final long DELAY_ON_USER_REQUEST = 5 * DAY;
 
-	// private static final long DELAY_ON_FAILURE = 5 * HOUR;
-
 	public static final String DEFAULT_TITLE = "Mylyn Feedback";
 
 	public static final String DEFAULT_DESCRIPTION = "Fill out the following form to help us improve Mylyn based on your input.\n";
@@ -114,7 +112,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 
 	private String customizingPlugin = null;
 
-	private PreferenceChangeMonitor preferenceMonitor = new PreferenceChangeMonitor();
+	private PreferenceChangeMonitor preferenceMonitor;
 
 	private PerspectiveChangeMonitor perspectiveMonitor;
 
@@ -201,18 +199,35 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 		}
 	};
 
-	private IContextStoreListener DATA_DIR_MOVE_LISTENER = new IContextStoreListener() {
+	private LogMoveUtility logMoveUtility;
+	
+	/**
+	 * NOTE: this needs to be a separate class in order to avoid loading ..mylyn.context.core
+	 * on eager startup
+	 */
+	private class LogMoveUtility {
+		
+		private IContextStoreListener DATA_DIR_MOVE_LISTENER = new IContextStoreListener() {
 
-		public void contextStoreMoved() {
-			if (!isPerformingUpload()) {
-				for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners())
-					listener.stopMonitoring();
-				interactionLogger.moveOutputFile(getMonitorLogFile().getAbsolutePath());
-				for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners())
-					listener.startMonitoring();
+			public void contextStoreMoved() {
+				if (!isPerformingUpload()) {
+					for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners())
+						listener.stopMonitoring();
+					interactionLogger.moveOutputFile(getMonitorLogFile().getAbsolutePath());
+					for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners())
+						listener.startMonitoring();
+				}
 			}
+		};
+		
+		void start() {
+			ContextCorePlugin.getDefault().getContextStore().addListener(DATA_DIR_MOVE_LISTENER);
 		}
-	};
+		
+		void stop() {
+			ContextCorePlugin.getDefault().getContextStore().removeListener(DATA_DIR_MOVE_LISTENER);
+		}
+	}
 
 	public UiUsageMonitorPlugin() {
 		plugin = this;
@@ -243,48 +258,45 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		initDefaultPrefs();
-		new MonitorUsageExtensionPointReader().initExtensions();
+		final IWorkbench workbench = PlatformUI.getWorkbench();
+		workbench.getDisplay().asyncExec(new Runnable() {
+			public void run() {
+				try {
+					// ------- moved from synch start
+					new MonitorUsageExtensionPointReader().initExtensions();
 
-		try {
-			interactionLogger = new InteractionEventLogger(getMonitorLogFile());
+					preferenceMonitor = new PreferenceChangeMonitor();
+					
+					interactionLogger = new InteractionEventLogger(getMonitorLogFile());
+					perspectiveMonitor = new PerspectiveChangeMonitor();
+					activityMonitor = new ActivityChangeMonitor();
+					windowMonitor = new WindowChangeMonitor();
+					menuMonitor = new MenuCommandMonitor();
+					keybindingCommandMonitor = new KeybindingCommandMonitor();
 
-			perspectiveMonitor = new PerspectiveChangeMonitor();
-			activityMonitor = new ActivityChangeMonitor();
-			windowMonitor = new WindowChangeMonitor();
-			menuMonitor = new MenuCommandMonitor();
-			keybindingCommandMonitor = new KeybindingCommandMonitor();
+					// browserMonitor = new BrowserMonitor();
+					// setAcceptedUrlMatchList(studyParameters.getAcceptedUrlList());
 
-			// browserMonitor = new BrowserMonitor();
-			// setAcceptedUrlMatchList(studyParameters.getAcceptedUrlList());
+					studyParameters.setServletUrl(DEFAULT_UPLOAD_SERVER + DEFAULT_UPLOAD_SERVLET);
+					// ------- moved from synch start
 
-			studyParameters.setServletUrl(DEFAULT_UPLOAD_SERVER + DEFAULT_UPLOAD_SERVLET);
-
-			final IWorkbench workbench = PlatformUI.getWorkbench();
-			workbench.getDisplay().asyncExec(new Runnable() {
-				public void run() {
-					try {
-
-						if (getPreferenceStore().getBoolean(MonitorPreferenceConstants.PREF_MONITORING_ENABLED)) {
-							startMonitoring();
-						}
-
-						if (plugin.getPreferenceStore()
-								.contains(MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE)) {
-							lastTransmit = new Date(plugin.getPreferenceStore().getLong(
-									MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE));
-						} else {
-							lastTransmit = new Date();
-							plugin.getPreferenceStore().setValue(
-									MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE, lastTransmit.getTime());
-						}
-					} catch (Throwable t) {
-						StatusHandler.fail(t, "monitor failed to start", false);
+					if (getPreferenceStore().getBoolean(MonitorPreferenceConstants.PREF_MONITORING_ENABLED)) {
+						startMonitoring();
 					}
+
+					if (plugin.getPreferenceStore().contains(MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE)) {
+						lastTransmit = new Date(plugin.getPreferenceStore().getLong(
+								MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE));
+					} else {
+						lastTransmit = new Date();
+						plugin.getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE,
+								lastTransmit.getTime());
+					}
+				} catch (Throwable t) {
+					StatusHandler.fail(t, "monitor failed to start", false);
 				}
-			});
-		} catch (Throwable t) {
-			StatusHandler.fail(t, "monitor failed to start", false);
-		}
+			}
+		});
 	}
 
 	/**
@@ -319,7 +331,11 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 			}
 		}
 
-		ContextCorePlugin.getDefault().getContextStore().addListener(DATA_DIR_MOVE_LISTENER);
+		if (logMoveUtility == null) {
+			logMoveUtility = new LogMoveUtility();
+		}
+		logMoveUtility.start();
+		
 		MonitorUiPlugin.getDefault().addWindowPerspectiveListener(perspectiveMonitor);
 		workbench.getActivitySupport().getActivityManager().addActivityManagerListener(activityMonitor);
 		workbench.getDisplay().addFilter(SWT.Selection, menuMonitor);
@@ -338,11 +354,19 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 	}
 
 	public void addMonitoredPreferences(Preferences preferences) {
-		preferences.addPropertyChangeListener(preferenceMonitor);
+		if (preferenceMonitor != null) {
+			preferences.addPropertyChangeListener(preferenceMonitor);
+		} else {
+			StatusHandler.log("UI Usage Monitor not started", this);
+		}
 	}
 
 	public void removeMonitoredPreferences(Preferences preferences) {
-		preferences.removePropertyChangeListener(preferenceMonitor);
+		if (preferenceMonitor != null) {
+			preferences.removePropertyChangeListener(preferenceMonitor);
+		} else {
+			StatusHandler.log("UI Usage Monitor not started", this);
+		}
 	}
 
 	public boolean isObfuscationEnabled() {
@@ -372,7 +396,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 				w.getShell().removeShellListener(SHELL_LISTENER);
 			}
 		}
-		ContextCorePlugin.getDefault().getContextStore().removeListener(DATA_DIR_MOVE_LISTENER);
+		logMoveUtility.stop();
 		// ContextCorePlugin.getDefault().getPluginPreferences().removePropertyChangeListener(DATA_DIR_MOVE_LISTENER);
 
 		MonitorUiPlugin.getDefault().removeWindowPerspectiveListener(perspectiveMonitor);
@@ -462,7 +486,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 		}
 
 		File file = new File(rootDir, MONITOR_LOG_NAME + InteractionContextManager.CONTEXT_FILE_EXTENSION_OLD);
-		
+
 		if (!file.exists() || !file.canWrite()) {
 			try {
 				file.createNewFile();
@@ -525,7 +549,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 
 	// TODO: remove
 	private void checkForFirstMonitorUse() {
-		
+
 	}
 
 	// NOTE: not currently used

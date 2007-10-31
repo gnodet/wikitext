@@ -11,17 +11,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.mylyn.internal.context.ui.AbstractContextUiPlugin;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.monitor.ui.MonitorUiPlugin;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
  * @author Mik Kersten
  */
-public class WebUiBridgePlugin extends AbstractUIPlugin {
+public class WebUiBridgePlugin extends AbstractContextUiPlugin {
 
 	protected static final String ID = "org.eclipse.mylyn.web";
 
@@ -44,6 +46,10 @@ public class WebUiBridgePlugin extends AbstractUIPlugin {
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
+	}
+
+	@Override
+	protected void lazyStart(IWorkbench workbench) {
 		webResourceManager = new WebContextManager();
 		try {
 			browserTracker = new BrowserTracker();
@@ -59,11 +65,15 @@ public class WebUiBridgePlugin extends AbstractUIPlugin {
 			StatusHandler.fail(e, "Mylyn Web UI initialization failed", false);
 		}
 	}
-
+	
 	@Override
-	public void stop(BundleContext context) throws Exception {
+	protected void lazyStop() {
 		MonitorUiPlugin.getDefault().removeWindowPartListener(browserTracker);
 		webResourceManager.dispose();
+	}
+	
+	@Override
+	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		INSTANCE = null;
 	}

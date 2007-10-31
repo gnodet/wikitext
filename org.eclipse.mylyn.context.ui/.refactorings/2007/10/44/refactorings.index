@@ -1,0 +1,6 @@
+1193617161223	Move compilation unit
+1193618057255	Convert anonymous class to nested
+1193620846583	Rename method 'lazyStart'
+1193621004535	Rename method 'register'
+1193621057356	Rename type 'LazyStartup'
+1193621876161	Rename type 'AbstractLazyContextUiStartupListener'

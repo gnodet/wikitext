@@ -7,7 +7,7 @@
          schema="schema/serviceProviderFactory.exsd"/>
 
    <extension
-         point="org.eclipse.mylyn.xplanner.core.serviceProviderFactory">
+         point="org.eclipse.mylyn.xplanner.core.serviceProviderFactory"> 
       <serviceProviderFactory
             class="org.eclipse.mylyn.xplanner.core.service.soap.SoapXPlannerServiceFactory"
             name="%serviceProviderFactoryNameSoap"/>
