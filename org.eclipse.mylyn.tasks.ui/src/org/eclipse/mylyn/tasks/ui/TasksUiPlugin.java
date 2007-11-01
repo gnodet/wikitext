@@ -390,9 +390,6 @@ public class TasksUiPlugin extends AbstractUIPlugin implements IStartup {
 			} finally {
 				monitor.done();
 			}
-			
-			System.err.println("!!!!!!!!!!!!!!!!!!!!!");
-			
 			return new Status(IStatus.OK, TasksUiPlugin.ID_PLUGIN, IStatus.OK, "", null);
 		} 
 	}
@@ -474,7 +471,7 @@ public class TasksUiPlugin extends AbstractUIPlugin implements IStartup {
 			};
 			ResourcesPlugin.getWorkspace().addSaveParticipant(this, saveParticipant);
 
-			System.err.println(">>>>> Tasks UI started");
+			System.err.println(">>>> Tasks UI started");
 			
 			new TasksUiInitializationJob().schedule();
 		} catch (Exception e) {

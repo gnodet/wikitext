@@ -22,12 +22,12 @@ import org.eclipse.mylyn.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.context.core.IInteractionContext;
 import org.eclipse.mylyn.context.core.IInteractionContextListener;
 import org.eclipse.mylyn.context.core.IInteractionElement;
-import org.eclipse.mylyn.internal.context.core.InteractionContext;
 import org.eclipse.mylyn.internal.tasks.ui.RetrieveTitleFromUrlJob;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 
 /**
  * @author Mik Kersten
+ * @author Shawn Minto
  */
 public class WebContextManager {
 
@@ -146,7 +146,7 @@ public class WebContextManager {
 	 * NOTE: returns first found
 	 */
 	private IInteractionContext getGlobalContext() {
-		for (InteractionContext globalContext : ContextCorePlugin.getContextManager().getGlobalContexts()) {
+		for (IInteractionContext globalContext : ContextCorePlugin.getContextManager().getGlobalContexts()) {
 			if (globalContext.getContentLimitedTo().equals(WebResourceStructureBridge.CONTENT_TYPE)) {
 				return globalContext;
 			}
