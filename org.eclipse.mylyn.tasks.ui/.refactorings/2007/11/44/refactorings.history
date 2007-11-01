@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 1 elements(s) to &apos;etool16&apos;&#x0D;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.ui&apos;&#x0D;&#x0A;- Destination element: &apos;etool16&apos;&#x0D;&#x0A;- Original element: &apos;capture-screen.png&apos;" description="Copy file" element1="icons/etool16/capture-screen.png" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1193941514577" target="/org.eclipse.mylyn.tasks.ui/icons/etool16" units="0" version="1.0"/>
+</session>
