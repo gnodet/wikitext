@@ -126,6 +126,11 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 					taskData.setEstimatedHours(Double.valueOf(
 							repositoryTaskData.getAttribute(XPlannerAttributeFactory.ATTRIBUTE_EST_HOURS_NAME).getValue()));
 					taskData.setCompleted(XPlannerRepositoryUtils.isCompleted(repositoryTaskData));
+					// assign to current person
+					int personId = client.getCurrentPersonId();
+					if (personId >= 0) {
+						taskData.setAcceptorId(personId);
+					}
 					// set actual time
 					Double currentActualHours = taskData.getActualHours();
 					Double changedActualHours = Double.valueOf(
