@@ -46,7 +46,7 @@ public class MylarUsageUploadServlet extends HttpServlet {
 	// org.apache.commons.fileupload.servlet.ServletFileUpload
 	// parseRequest doesn't use generics (suppress unchecked), and
 	// ServletFileUpload.isMultipartContent is deprecated (suppress deprecation)
-	@SuppressWarnings( { "unchecked", "deprecation" })
+	@SuppressWarnings( { "unchecked" })
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 
