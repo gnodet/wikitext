@@ -7,7 +7,7 @@
 
 package org.xplanner.soap;
 
-@SuppressWarnings({ "unchecked", "serial", "unused", "null" })
+@SuppressWarnings({ "unchecked", "serial", "null" })
 public class IterationData  extends org.eclipse.mylyn.xplanner.wsdl.soap.domain.DomainData  implements java.io.Serializable {
     private double actualHours;
 
