@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;parent&apos; from expression &apos;new Shell(PlatformUI.getWorkbench().getDisplay())&apos;&#x0D;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.ui&apos;&#x0D;&#x0A;- Variable name: &apos;parent&apos;&#x0D;&#x0A;- Destination method: &apos;org.eclipse.mylyn.internal.tasks.ui.TaskListNotificationManager.new Job() {...}.run().new Runnable() {...}.run()&apos;&#x0D;&#x0A;- Variable expression: &apos;new Shell(PlatformUI.getWorkbench().getDisplay())&apos;&#x0D;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;parent&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.eclipse.mylyn.internal.tasks.ui{TaskListNotificationManager.java" name="parent" replace="true" selection="2586 63" stamp="1194335778941" version="1.0"/>
+</session>
