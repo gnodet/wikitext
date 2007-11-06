@@ -88,6 +88,7 @@ public class WebContentProposalProvider implements IContentProposalProvider {
 		});
 	}
 
+	@SuppressWarnings("deprecation")
 	public static ControlDecoration createDecoration(final Text text, //
 			ParametersEditor parametersEditor, boolean includeTemplates) {
 		FieldDecorationRegistry registry = FieldDecorationRegistry.getDefault();
