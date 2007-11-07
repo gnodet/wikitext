@@ -31,4 +31,30 @@
       </decorator>
    </extension>
   
+  <extension point="org.eclipse.ui.popupMenus"> 
+     <objectContribution
+     	   adaptable="false"
+           id="org.eclipse.mylyn.java.ui.interest.decrease.contribution"
+           objectClass="org.eclipse.jdt.core.IJavaElement">
+	    <action
+           class="org.eclipse.mylyn.internal.sandbox.dev.InterestDecrementAction"
+           enablesFor="*"
+           id="org.eclipse.mylyn.java.ui.interest.increase.element"
+           label="Make Less Interesting (Experimental)"
+           menubarPath="group.reorganize">
+     </action>
+     <visibility>
+     	<and>
+	     	<systemProperty
+	               name="org.eclipse.mylyn.context.core.context.active"
+    	           value="true">
+    	    </systemProperty>
+           <objectClass
+                 name="org.eclipse.jdt.core.IMember">
+           </objectClass>
+        </and>
+     </visibility>
+	 </objectContribution>
+	</extension>
+  
 </plugin>

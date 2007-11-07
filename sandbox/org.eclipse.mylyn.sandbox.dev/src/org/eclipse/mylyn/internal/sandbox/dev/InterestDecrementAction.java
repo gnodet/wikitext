@@ -6,15 +6,19 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.context.ui.actions;
+package org.eclipse.mylyn.internal.sandbox.dev;
+
+import org.eclipse.mylyn.internal.context.ui.actions.AbstractInterestManipulationAction;
 
 /**
- * API-3.0: rename to RemoveFromContextAction?
- * 
  * @author Mik Kersten
  */
 public class InterestDecrementAction extends AbstractInterestManipulationAction {
-
+	
+	public InterestDecrementAction() {
+		super.preserveUninteresting = true;
+	}
+	
 	@Override
 	protected boolean isIncrement() {
 		return false;

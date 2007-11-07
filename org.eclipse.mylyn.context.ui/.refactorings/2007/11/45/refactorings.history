@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 1 elements(s) to &apos;org.eclipse.mylyn.sandbox.dev/src/org.eclipse.mylyn.internal.sandbox.dev&apos;&#x0D;&#x0A;- Original project: &apos;org.eclipse.mylyn.context.ui&apos;&#x0D;&#x0A;- Destination element: &apos;org.eclipse.mylyn.sandbox.dev/src/org.eclipse.mylyn.internal.sandbox.dev&apos;&#x0D;&#x0A;- Original element: &apos;org.eclipse.mylyn.internal.context.ui.actions.InterestDecrementAction.java&apos;" description="Copy compilation unit" destination="=org.eclipse.mylyn.sandbox.dev/src&lt;org.eclipse.mylyn.internal.sandbox.dev" element1="/src&lt;org.eclipse.mylyn.internal.context.ui.actions{InterestDecrementAction.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1194390523838" units="1" version="1.0"/>
+</session>
