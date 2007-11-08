@@ -1,4 +1,4 @@
-package org.eclipse.mylyn.sandbox.dev.spy.views;
+package org.eclipse.mylyn.internal.sandbox.dev.views;
 
 import java.util.List;
 import java.util.Map;

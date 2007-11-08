@@ -1,7 +1,7 @@
 /**
  *
  */
-package org.eclipse.mylyn.sandbox.dev.spy.adapters;
+package org.eclipse.mylyn.internal.sandbox.dev.properties;
 
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;

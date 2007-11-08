@@ -1,7 +1,7 @@
 /**
  *
  */
-package org.eclipse.mylyn.sandbox.dev.spy.adapters;
+package org.eclipse.mylyn.internal.sandbox.dev.properties;
 
 import java.util.Iterator;
 import java.util.Set;
