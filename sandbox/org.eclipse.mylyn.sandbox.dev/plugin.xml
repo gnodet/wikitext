@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
-  
+
    <extension point = "org.eclipse.ui.popupMenus">
      <objectContribution
         id="org.eclipse.mylyn.ui.instrospection"
         objectClass="java.lang.Object">
-	    <action  
-  		  	label="Sanbox: Introspect Object" 
-	  		menubarPath="additions" 
-	  		id="org.eclipse.mylyn.sandbox.actions.introspect" 
+	    <action
+  		  	label="Sanbox: Introspect Object"
+	  		menubarPath="additions"
+	  		id="org.eclipse.mylyn.sandbox.actions.introspect"
 	  		class="org.eclipse.mylyn.internal.sandbox.dev.IntrospectObjectAction"
 	  		enablesFor="1"/>
 	 </objectContribution>
 	</extension>
-  
+
      <extension point="org.eclipse.ui.decorators">
       <decorator
             lightweight="true"
@@ -30,7 +30,59 @@
          </enablement>
       </decorator>
    </extension>
-  
+
+  <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Mylyn"
+            id="org.eclipse.mylyn.ui">
+      </category>
+      <view
+            name="Repository Spy View"
+            icon="icons/repositoryspy.gif"
+            category="org.eclipse.mylyn.ui"
+            class="org.eclipse.mylyn.sandbox.dev.spy.views.RepositorySpyView"
+            id="org.eclipse.mylyn.tasks.spy.views.RepositorySpyView">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.adapters">
+      <factory
+            adaptableType="org.eclipse.mylyn.tasks.core.TaskRepository"
+            class="org.eclipse.mylyn.sandbox.dev.spy.adapters.MylynPropertiesSourceAdapterFactory">
+         <adapter
+               type="org.eclipse.ui.views.properties.IPropertySource">
+         </adapter>
+      </factory>
+      <factory
+            adaptableType="org.eclipse.mylyn.tasks.core.AbstractTask"
+            class="org.eclipse.mylyn.sandbox.dev.spy.adapters.MylynPropertiesSourceAdapterFactory">
+         <adapter
+               type="org.eclipse.ui.views.properties.IPropertySource">
+         </adapter>
+      </factory>
+    <factory
+            adaptableType="org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery"
+            class="org.eclipse.mylyn.sandbox.dev.spy.adapters.MylynPropertiesSourceAdapterFactory">
+         <adapter
+               type="org.eclipse.ui.views.properties.IPropertySource">
+         </adapter>
+      </factory>
+   <factory
+            adaptableType="org.eclipse.mylyn.tasks.core.AbstractTaskCategory"
+            class="org.eclipse.mylyn.sandbox.dev.spy.adapters.MylynPropertiesSourceAdapterFactory">
+         <adapter
+               type="org.eclipse.ui.views.properties.IPropertySource">
+         </adapter>
+      </factory>
+   </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup
+            class="org.eclipse.mylyn.sandbox.dev.spy.SpyPlugin">
+      </startup>
+   </extension>
+
   <extension point="org.eclipse.ui.popupMenus"> 
      <objectContribution
      	   adaptable="false"
