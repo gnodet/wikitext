@@ -14,6 +14,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.axis.AxisEngine;
+import org.apache.axis.AxisProperties;
 import org.eclipse.core.runtime.*;
 import org.eclipse.mylyn.xplanner.core.service.exceptions.AuthenticationException;
 import org.osgi.framework.BundleContext;
@@ -39,6 +41,9 @@ public class XPlannerCorePlugin extends Plugin {
 	public XPlannerCorePlugin() {
 		super();
 		plugin = this;
+
+		// disable Axis attachment support, see bug 197819
+		AxisProperties.setProperty(AxisEngine.PROP_ATTACHMENT_IMPLEMENTATION, "org.eclipse.mylyn.does.not.exist");
 	}
 
 	/**
