@@ -3,3 +3,7 @@
 1194470337871	Rename local variable 'sleep'
 1194470914156	Rename local variable 'in'
 1194563390286	Move file
+1194662256080	Convert member type 'DelayedRefreshJob' to top level
+1194662313755	Extract method 'updateExpansionSTate'
+1194662318459	Rename method 'updateExpansionSTate'
+1194662748537	Extract method 'refresh'
