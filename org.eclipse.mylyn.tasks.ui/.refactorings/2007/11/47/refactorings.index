@@ -1,0 +1,7 @@
+1195522286587	Rename field 'taskProvider'
+1195522291246	Rename field 'workbenchProvider'
+1195522367495	Rename local variable 'taskContainers'
+1195523613048	Convert anonymous class to nested
+1195523638087	Rename field 'treeContentProvider'
+1195523899165	Rename field 'tree'
+1195524272928	Infer generic type arguments
