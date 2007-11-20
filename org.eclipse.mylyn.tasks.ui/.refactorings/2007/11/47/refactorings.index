@@ -5,3 +5,5 @@
 1195523638087	Rename field 'treeContentProvider'
 1195523899165	Rename field 'tree'
 1195524272928	Infer generic type arguments
+1195526956334	Encapsulate field 'taskRepository'
+1195526985001	Rename local variable 'taskContainers'
