@@ -7,3 +7,5 @@
 1195524272928	Infer generic type arguments
 1195526956334	Encapsulate field 'taskRepository'
 1195526985001	Rename local variable 'taskContainers'
+1195669911172	Rename type 'NewTaskFromCommentAction'
+1195679367513	Extract constant 'ORG_ECLIPSE_MYLYN_TASKS_UI_MENU_NEW'
