@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.jira.ui.actions;
+package org.eclipse.mylyn.internal.tasks.ui.actions;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -14,20 +14,20 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.mylyn.internal.jira.ui.JiraImages;
-import org.eclipse.mylyn.internal.jira.ui.JiraTask;
-import org.eclipse.mylyn.internal.jira.ui.JiraTaskDataHandler;
-import org.eclipse.mylyn.internal.jira.ui.JiraUiPlugin;
+import org.eclipse.mylyn.internal.tasks.ui.TasksUiImages;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.AbstractAttributeFactory;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.AbstractTaskDataHandler;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
@@ -42,62 +42,85 @@ import org.eclipse.ui.progress.IProgressService;
 
 /**
  * @author Steffen Pingel
+ * 
+ * TODO support connectors that do not have a rich editor
  */
 public class NewSubTaskAction extends Action implements IViewActionDelegate, IExecutableExtension {
 
-	private static final String LABEL = "New Subtask";
+	private static final String TOOLTIP = "Create a new subtask";
 
-	public static final String ID = "org.eclipse.mylyn.jira.ui.new.subtask";
+	private static final String LABEL = "Subtask";
 
-	private JiraTask selectedTask;
+	public static final String ID = "org.eclipse.mylyn.tasks.ui.new.subtask";
+
+	private AbstractTask selectedTask;
 
 	public NewSubTaskAction() {
 		super(LABEL);
-		setToolTipText(LABEL);
+		setToolTipText(TOOLTIP);
 		setId(ID);
-		setImageDescriptor(JiraImages.NEW_SUB_TASK);
+		setImageDescriptor(TasksUiImages.NEW_SUB_TASK);
 	}
-	
-	@SuppressWarnings("restriction")
+
 	@Override
 	public void run() {
+		if (selectedTask == null) {
+			return;
+		}
+
 		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
-				JiraUiPlugin.REPOSITORY_KIND);
+				selectedTask.getConnectorKind());
+		final AbstractTaskDataHandler taskDataHandler = connector.getTaskDataHandler();
+		if (taskDataHandler == null || !taskDataHandler.canInitializeSubTaskData()) {
+			return;
+		}
 
 		String repositoryUrl = selectedTask.getRepositoryUrl();
-		final TaskRepository taskRepository = TasksUiPlugin.getRepositoryManager().getRepository(repositoryUrl);
-		final RepositoryTaskData selectedTaskData = TasksUiPlugin.getTaskDataManager().getNewTaskData(repositoryUrl, selectedTask.getTaskId());
+		final RepositoryTaskData selectedTaskData = TasksUiPlugin.getTaskDataManager().getNewTaskData(repositoryUrl,
+				selectedTask.getTaskId());
+		if (selectedTaskData == null) {
+			StatusHandler.displayStatus("Unable to create subtask", new Status(IStatus.WARNING,
+					TasksUiPlugin.ID_PLUGIN, "Could not retrieve task data for task: " + selectedTask.getUrl()));
+			return;
+		}
 
-		
-		final JiraTaskDataHandler taskDataHandler = (JiraTaskDataHandler) connector.getTaskDataHandler();
+		final TaskRepository taskRepository = TasksUiPlugin.getRepositoryManager().getRepository(repositoryUrl);
 		AbstractAttributeFactory attributeFactory = taskDataHandler.getAttributeFactory(taskRepository.getUrl(),
 				taskRepository.getConnectorKind(), AbstractTask.DEFAULT_TASK_KIND);
-		final RepositoryTaskData taskData = new RepositoryTaskData(attributeFactory, JiraUiPlugin.REPOSITORY_KIND,
+		final RepositoryTaskData taskData = new RepositoryTaskData(attributeFactory, selectedTask.getConnectorKind(),
 				taskRepository.getUrl(), TasksUiPlugin.getDefault().getNextNewRepositoryTaskId());
 		taskData.setNew(true);
-		
+
+		final boolean[] result = new boolean[1];
 		IProgressService service = PlatformUI.getWorkbench().getProgressService();
 		try {
 			service.run(false, true, new IRunnableWithProgress() {
 				public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 					try {
-						taskDataHandler.initializeSubTaskData(taskRepository, taskData, selectedTaskData, new NullProgressMonitor());
+						result[0] = taskDataHandler.initializeSubTaskData(taskRepository, taskData, selectedTaskData,
+								new NullProgressMonitor());
 					} catch (CoreException e) {
 						throw new InvocationTargetException(e);
 					}
-				}			
+				}
 			});
 		} catch (InvocationTargetException e) {
-			StatusHandler.displayStatus("Unable to create Subtask", ((CoreException)e.getCause()).getStatus());
+			StatusHandler.displayStatus("Unable to create subtask", ((CoreException) e.getCause()).getStatus());
+			return;
 		} catch (InterruptedException e) {
 			// canceled
 			return;
 		}
-		
-		// open editor
-		NewTaskEditorInput editorInput = new NewTaskEditorInput(taskRepository, taskData);
-		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-		TasksUiUtil.openEditor(editorInput, TaskEditor.ID_EDITOR, page);
+
+		if (result[0]) {
+			// open editor
+			NewTaskEditorInput editorInput = new NewTaskEditorInput(taskRepository, taskData);
+			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+			TasksUiUtil.openEditor(editorInput, TaskEditor.ID_EDITOR, page);
+		} else {
+			StatusHandler.displayStatus("Unable to create subtask", new Status(IStatus.INFO, TasksUiPlugin.ID_PLUGIN,
+					"The connector does not support creating subtasks for this task"));
+		}
 	}
 
 	public void run(IAction action) {
@@ -111,16 +134,23 @@ public class NewSubTaskAction extends Action implements IViewActionDelegate, IEx
 		selectedTask = null;
 		if (selection instanceof StructuredSelection) {
 			Object selectedObject = ((StructuredSelection) selection).getFirstElement();
-			if (selectedObject instanceof JiraTask) {
-				selectedTask = (JiraTask) selectedObject;
+			if (selectedObject instanceof AbstractTask) {
+				selectedTask = (AbstractTask) selectedObject;
+
+				AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
+						selectedTask.getConnectorKind());
+				final AbstractTaskDataHandler taskDataHandler = connector.getTaskDataHandler();
+				if (taskDataHandler == null || !taskDataHandler.canInitializeSubTaskData()) {
+					selectedTask = null;
+				}
 			}
 		}
-		
+
 		action.setEnabled(selectedTask != null);
 	}
 
 	public void setInitializationData(IConfigurationElement config, String propertyName, Object data)
 			throws CoreException {
 	}
-	
+
 }
