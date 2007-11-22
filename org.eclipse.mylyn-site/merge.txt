@@ -6,6 +6,9 @@ Merge back to latest Platfrom version:
 * AbstractWorkingSetDialogCOPY
 
 Do not override the following:
+* org.eclipse.mylyn.bugzilla.ide
+	* NewTaskFromErrorAction
+	
 * org.eclipse.mylyn.pde.ui
     * PdeEditingMonitor
 
