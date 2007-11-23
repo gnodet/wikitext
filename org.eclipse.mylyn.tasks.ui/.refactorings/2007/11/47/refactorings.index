@@ -12,3 +12,5 @@
 1195690416890	Extract constant 'LINK_PROVIDER_TIMEOUT'
 1195690426717	Rename field 'LINK_PROVIDER_TIMEOUT'
 1195693776294	Rename method 'refreshAndFocus'
+1195855999769	Rename field 'bugPage'
+1195856661425	Rename type 'SearchResultTableContentProvider'
