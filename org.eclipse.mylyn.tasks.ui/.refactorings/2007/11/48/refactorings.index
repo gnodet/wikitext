@@ -1,2 +1,3 @@
 1196284515789	Extract local variable 'activeTask2'
 1196284610386	Extract local variable 'fromActivePerspective'
+1196392562365	Extract constant 'WIDTH_SUMMARY'
