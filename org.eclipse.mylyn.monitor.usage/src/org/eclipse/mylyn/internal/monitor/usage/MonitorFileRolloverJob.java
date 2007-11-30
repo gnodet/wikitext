@@ -37,9 +37,9 @@ import org.eclipse.ui.PlatformUI;
 
 /**
  * Job that performs the rollover of the monitor interaction history log file. Overwrites destination if exists!
- * 
+ *
  * @author Meghan Allen (modelled after org.eclipse.mylyn.internal.tasks.ui.util.TaskDataExportJob)
- * 
+ *
  */
 public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 
@@ -136,7 +136,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 			File dir = new File(getZippedMonitorFileDirPath());
 
 			if (!dir.exists()) {
-				dir.mkdir();
+				dir.mkdirs();
 			}
 			try {
 				File currBackupZipFile = new File(dir, fileName + ZIP_EXTENSION);
