@@ -1,6 +1,10 @@
-/**
- *
- */
+/*******************************************************************************
+ * Copyright (c) 2004, 2007 Mylyn project committers and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package org.eclipse.mylyn.internal.sandbox.dev.properties;
 
 import org.eclipse.mylyn.tasks.core.AbstractTask;
@@ -9,105 +13,84 @@ import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
 /**
- * @author maarten
+ * Display various {@link AbstractTask} properties in the Eclipse Properties View.<br />
+ * See <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=210639">Bug 210639</a> and <a
+ * href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=208275">Bug 208275</a><br />
+ * 
+ * @author Maarten Meijer
  */
-public class AbstractTaskPropertiesSource implements IPropertySource {
-	/**
-	 *
-	 */
+public class AbstractTaskPropertiesSource extends AbstractTaskContainerPropertySource implements IPropertySource {
+
 	private static final String NULL_MSG = "<null>";
+
 	private static final String LAST_READ = "last_read";
+
 	private static final String STATE = "state";
+
 	private static final String STATUS = "status";
+
 	private static final String URL = "url";
+
 	private static final String KIND = "kind";
+
 	private static final String OWNER = "owner";
+
 	private static final String PARENT = "parent";
+
 	private static final String SCHEDULED = "scheduled";
-	private static final String SUMMARY = "summary";
 
-	private AbstractTask task;
-	/**
-	 * @param adaptableObject
-	 */
 	public AbstractTaskPropertiesSource(AbstractTask adaptableObject) {
-		this.task = adaptableObject;
+		super(adaptableObject);
 	}
 
-	public Object getEditableValue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	@Override
 	public IPropertyDescriptor[] getPropertyDescriptors() {
-
 		TextPropertyDescriptor summary = new TextPropertyDescriptor(SUMMARY, "Summary");
-		summary.setCategory(task.getClass().getName());
+		summary.setCategory(description);
 		TextPropertyDescriptor owner = new TextPropertyDescriptor(OWNER, "Owner");
-		owner.setCategory(task.getClass().getName());
+		owner.setCategory(description);
 		TextPropertyDescriptor scheduled = new TextPropertyDescriptor(SCHEDULED, "Scheduled for");
-		scheduled.setCategory(task.getClass().getName());
+		scheduled.setCategory(description);
 		TextPropertyDescriptor parent = new TextPropertyDescriptor(PARENT, "Parent Containers");
-		parent.setCategory(task.getClass().getName());
-		TextPropertyDescriptor kind = new TextPropertyDescriptor(KIND, "Connector Kind");
-		kind.setCategory(task.getClass().getName());
+		parent.setCategory(description);
+		TextPropertyDescriptor kind = new TextPropertyDescriptor(KIND, "Repository Connector Kind");
+		kind.setCategory(description);
 		TextPropertyDescriptor url = new TextPropertyDescriptor(URL, "Repository URL");
-		url.setCategory(task.getClass().getName());
+		url.setCategory(description);
 		TextPropertyDescriptor status = new TextPropertyDescriptor(STATUS, "Synchronization Status");
-		status.setCategory(task.getClass().getName());
+		status.setCategory(description);
 		TextPropertyDescriptor state = new TextPropertyDescriptor(STATE, "Synchronization State");
-		state.setCategory(task.getClass().getName());
+		state.setCategory(description);
 		TextPropertyDescriptor lastRead = new TextPropertyDescriptor(LAST_READ, "Last Read Timestamp");
-		lastRead.setCategory(task.getClass().getName());
-		return new IPropertyDescriptor[] {
-				summary,
-				owner,
-				scheduled,
-				parent,
-				kind,
-				url,
-				status,
-				state,
-				lastRead
-		};
+		lastRead.setCategory(description);
+		IPropertyDescriptor[] specific = new IPropertyDescriptor[] { summary, owner, scheduled, parent, kind, url,
+				status, state, lastRead };
+		return super.appendSpecifics(specific, super.getPropertyDescriptors());
 	}
 
+	@Override
 	public Object getPropertyValue(Object id) {
-		if(SUMMARY.equals(id)) {
+		AbstractTask task = (AbstractTask) container;
+		if (SUMMARY.equals(id)) {
 			return task.getSummary();
-		} else if(OWNER.equals(id)) {
+		} else if (OWNER.equals(id)) {
 			return task.getOwner();
-		} else if(SCHEDULED.equals(id)) {
+		} else if (SCHEDULED.equals(id)) {
 			return task.getScheduledForDate() == null ? NULL_MSG : task.getScheduledForDate();
-		} else if(PARENT.equals(id)) {
+		} else if (PARENT.equals(id)) {
 			return task.getParentContainers() == null ? NULL_MSG : task.getParentContainers().toString();
-		} else if(KIND.equals(id)) {
+		} else if (KIND.equals(id)) {
 			return task.getConnectorKind();
-		} else if(URL.equals(id)) {
+		} else if (URL.equals(id)) {
 			return task.getRepositoryUrl();
-		} else if(STATE.equals(id)) {
+		} else if (STATE.equals(id)) {
 			return task.getSynchronizationState() == null ? NULL_MSG : task.getSynchronizationState().toString();
-		} else if(STATUS.equals(id)) {
+		} else if (STATUS.equals(id)) {
 			return task.getSynchronizationStatus() == null ? NULL_MSG : task.getSynchronizationStatus().toString();
-		} else if(LAST_READ.equals(id)) {
+		} else if (LAST_READ.equals(id)) {
 			return task.getLastReadTimeStamp() == null ? NULL_MSG : task.getLastReadTimeStamp().toString();
 		}
-		return null;
-	}
-
-	public boolean isPropertySet(Object id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public void resetPropertyValue(Object id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void setPropertyValue(Object id, Object value) {
-		// TODO Auto-generated method stub
-
+		return super.getPropertyValue(id);
 	}
 
 }

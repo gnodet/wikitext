@@ -11,27 +11,30 @@ import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.ui.views.properties.IPropertySource;
 
 /**
- * @author maarten
+ * @author Maarten Meijer
  */
 public class MylynPropertiesSourceAdapterFactory implements IAdapterFactory {
 
 	@SuppressWarnings("unchecked")
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
-		if (adapterType == IPropertySource.class && adaptableObject instanceof TaskRepository)
-			return new TaskRepositoryPropertiesSource((TaskRepository)adaptableObject);
-		if (adapterType == IPropertySource.class && adaptableObject instanceof AbstractTask)
-			return new AbstractTaskPropertiesSource((AbstractTask)adaptableObject);
-		if (adapterType == IPropertySource.class && adaptableObject instanceof AbstractRepositoryQuery)
+		if (adapterType == IPropertySource.class && adaptableObject instanceof TaskRepository) {
+			return new TaskRepositoryPropertiesSource((TaskRepository) adaptableObject);
+		}
+		if (adapterType == IPropertySource.class && adaptableObject instanceof AbstractTask) {
+			return new AbstractTaskPropertiesSource((AbstractTask) adaptableObject);
+		}
+		if (adapterType == IPropertySource.class && adaptableObject instanceof AbstractRepositoryQuery) {
 			return new RepositoryQueryPropertySource((AbstractRepositoryQuery) adaptableObject);
-		if (adapterType == IPropertySource.class && adaptableObject instanceof AbstractTaskCategory)
-			return new AbstractTaskCategoryPropertySource( (AbstractTaskCategory) adaptableObject);
+		}
+		if (adapterType == IPropertySource.class && adaptableObject instanceof AbstractTaskCategory) {
+			return new AbstractTaskCategoryPropertySource((AbstractTaskCategory) adaptableObject);
+		}
 		return null;
 	}
 
 	@SuppressWarnings("unchecked")
 	public Class[] getAdapterList() {
-		// TODO Auto-generated method stub
-		return new Class[] {IPropertySource.class};
+		return new Class[] { IPropertySource.class };
 	}
 
 }

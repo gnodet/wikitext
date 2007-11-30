@@ -1,6 +1,10 @@
-/**
- *
- */
+/*******************************************************************************
+ * Copyright (c) 2004, 2007 Mylyn project committers and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package org.eclipse.mylyn.internal.sandbox.dev.properties;
 
 import java.util.Iterator;
@@ -13,24 +17,16 @@ import org.eclipse.ui.views.properties.PropertyDescriptor;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
 /**
- * @author maarten
+ * @author Maarten Meijer
  */
 public class TaskRepositoryPropertiesSource implements IPropertySource {
-	/**
-	 *
-	 */
 	private TaskRepository repository;
 
-	/**
-	 * @param adaptableObject
-	 */
 	public TaskRepositoryPropertiesSource(TaskRepository repository) {
-		// TODO Auto-generated constructor stub
 		this.repository = repository;
 	}
 
 	public Object getEditableValue() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -39,7 +35,7 @@ public class TaskRepositoryPropertiesSource implements IPropertySource {
 		IPropertyDescriptor[] result = new IPropertyDescriptor[properties.size()];
 		Iterator<String> keys = properties.iterator();
 		int i = 0;
-		while(keys.hasNext()) {
+		while (keys.hasNext()) {
 			String key = keys.next();
 			PropertyDescriptor descriptor = new TextPropertyDescriptor(key, key);
 			descriptor.setCategory(repository.getClass().getName());
@@ -54,18 +50,13 @@ public class TaskRepositoryPropertiesSource implements IPropertySource {
 	}
 
 	public boolean isPropertySet(Object id) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public void resetPropertyValue(Object id) {
-		// TODO Auto-generated method stub
-
 	}
 
 	public void setPropertyValue(Object id, Object value) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

@@ -1,6 +1,10 @@
-/**
- *
- */
+/*******************************************************************************
+ * Copyright (c) 2004, 2007 Mylyn project committers and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *******************************************************************************/
 package org.eclipse.mylyn.internal.sandbox.dev.properties;
 
 import org.eclipse.mylyn.tasks.core.AbstractTaskCategory;
@@ -9,55 +13,36 @@ import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
 /**
- * @author maarten
+ * Display various {@link AbstractTaskCategory} properties in the Eclipse Properties View.<br />
+ * See <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=210639">Bug 210639</a> and <a
+ * href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=208275">Bug 208275</a><br />
+ * 
+ * @author Maarten Meijer
  */
-public class AbstractTaskCategoryPropertySource implements IPropertySource {
-	/**
-	 *
-	 */
-	private static final String SUMMARY = "summary";
+public class AbstractTaskCategoryPropertySource extends AbstractTaskContainerPropertySource implements IPropertySource {
 
-	private AbstractTaskCategory category;
 	/**
 	 * @param adaptableObject
+	 *            to create source for
 	 */
 	public AbstractTaskCategoryPropertySource(AbstractTaskCategory adaptableObject) {
-		this.category = adaptableObject;
+		super(adaptableObject);
 	}
 
-	public Object getEditableValue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	@Override
 	public IPropertyDescriptor[] getPropertyDescriptors() {
 		TextPropertyDescriptor summary = new TextPropertyDescriptor(SUMMARY, "Summary");
-		summary.setCategory(category.getClass().getName());
-		return new IPropertyDescriptor[] {
-				summary
-		};
+		summary.setCategory(description);
+		IPropertyDescriptor[] specific = new IPropertyDescriptor[] { summary, };
+		return super.appendSpecifics(specific, super.getPropertyDescriptors());
 	}
 
+	@Override
 	public Object getPropertyValue(Object id) {
-		if(SUMMARY.equals(id)) {
+		AbstractTaskCategory category = (AbstractTaskCategory) container;
+		if (SUMMARY.equals(id)) {
 			return category.getSummary();
 		}
-		return null;
+		return super.getPropertyValue(id);
 	}
-
-	public boolean isPropertySet(Object id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public void resetPropertyValue(Object id) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void setPropertyValue(Object id, Object value) {
-		// TODO Auto-generated method stub
-
-	}
-
 }
