@@ -10,10 +10,12 @@ package org.eclipse.mylyn.xplanner.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.wizard.IWizard;
-import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.jface.wizard.*;
+import org.eclipse.mylyn.internal.tasks.ui.wizards.EditRepositoryWizard;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
@@ -21,10 +23,13 @@ import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
 import org.eclipse.mylyn.xplanner.ui.wizard.EditXPlannerQueryWizard;
+import org.eclipse.mylyn.xplanner.ui.wizard.Messages;
 import org.eclipse.mylyn.xplanner.ui.wizard.NewXPlannerQueryWizard;
 import org.eclipse.mylyn.xplanner.ui.wizard.NewXPlannerTaskWizard;
 import org.eclipse.mylyn.xplanner.ui.wizard.XPlannerCustomQueryPage;
 import org.eclipse.mylyn.xplanner.ui.wizard.XPlannerRepositorySettingsPage;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 
 /**
  * @author Ravi Kumar 
@@ -59,16 +64,60 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 
 	@Override
 	public WizardPage getSearchPage(TaskRepository repository, IStructuredSelection selection) {
-		return new XPlannerCustomQueryPage(repository, null);
+		WizardPage xplannerQueryPage = null;
+		
+		try {
+			xplannerQueryPage = new XPlannerCustomQueryPage(repository, null);
+		} 
+		catch (RuntimeException e) {
+			XPlannerMylynUIPlugin.log(e.getCause(), Messages.XPlannerQueryWizardUtils_COULD_NOT_CREATE_QUERY_PAGE_MESSAGE, true);
+		}
+		
+		return xplannerQueryPage;
 	} 
 
 	public IWizard getQueryWizard(TaskRepository repository, AbstractRepositoryQuery query) {
-		if (query instanceof XPlannerCustomQuery) {
-			return new EditXPlannerQueryWizard(repository, query);
+		IWizard queryWizard = null;
+		
+		if (ensureHaveValidClient(repository)) {
+			if (query instanceof XPlannerCustomQuery) {
+				queryWizard = new EditXPlannerQueryWizard(repository, query);
+			}
+			else {
+				queryWizard = new NewXPlannerQueryWizard(repository);
+			}
 		}
-		else {
-			return new NewXPlannerQueryWizard(repository);
+		
+		return queryWizard;
+	}
+	
+	private boolean ensureHaveValidClient(TaskRepository repository) {
+		boolean haveValidClient = true;
+		
+		try {
+			XPlannerClientFacade.getDefault().getXPlannerClient(repository);
+		} 
+		catch (CoreException ce) {
+			try {
+				EditRepositoryWizard wizard = new EditRepositoryWizard(repository);
+				Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+				if (shell != null && !shell.isDisposed()) {
+					WizardDialog dialog = new WizardDialog(shell, wizard);
+					dialog.create();
+					dialog.setErrorMessage("Authentication credentials missing.");
+					dialog.setBlockOnOpen(true);
+					if (dialog.open() == Dialog.CANCEL) {
+						dialog.close();
+						haveValidClient = false;
+					}
+				}
+			} 
+			catch (Exception e) {
+				haveValidClient = false;
+			}
 		}
+		
+		return haveValidClient;
 	}
 	
 //	@Override

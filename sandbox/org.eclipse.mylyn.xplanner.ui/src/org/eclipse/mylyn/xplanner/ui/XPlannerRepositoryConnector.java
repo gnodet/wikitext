@@ -115,7 +115,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 				}
 			} 
 			catch (Exception e) {
-				e.printStackTrace();
+				XPlannerMylynUIPlugin.log(e, "", false); //$NON-NLS-1$
 			} 
 		}
 		
@@ -484,7 +484,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			}
 		}
 		catch (Exception e) {
-			e.printStackTrace();
+			XPlannerMylynUIPlugin.log(e, "", false); //$NON-NLS-1$
 		}
 
 		return taskUrl;
