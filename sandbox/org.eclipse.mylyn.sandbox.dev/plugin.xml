@@ -99,5 +99,21 @@
      </visibility>
 	 </objectContribution>
 	</extension>
+  <extension
+        point="org.eclipse.ui.actionSets">
+     <actionSet
+           id="org.eclipse.mylyn.sandbox.dev.actions"
+           label="Mylyn Sandbox Dev Actions"
+           visible="true">
+        <action
+              class="org.eclipse.mylyn.internal.sandbox.dev.actions.TestUiAction"
+              icon="icons/test.png"
+              id="org.eclipse.mylyn.sandbox.dev.action1"
+              label="Test Notifications"
+              style="push"
+              toolbarPath="mylyn">
+        </action>
+     </actionSet>
+  </extension>
   
 </plugin>

@@ -1,4 +1,24 @@
 1196284515789	Extract local variable 'activeTask2'
 1196284610386	Extract local variable 'fromActivePerspective'
-1196392562365	Extract constant 'WIDTH_SUMMARY'
-1196450524200	Extract method 'createFiles'
+1196305999858	Move compilation unit
+1196306085849	Move compilation unit
+1196306193949	Move compilation unit
+1196306247106	Rename field 'fShell'
+1196306262803	Rename field 'fDisplay'
+1196306267012	Rename field 'fNotifierColors'
+1196306279458	Rename field 'fResources'
+1196306362694	Rename field 'fLastUsedRegion'
+1196306398773	Copy compilation unit
+1196344236157	Extract method 'showPopup'
+1196345950633	Rename local variable 'titleCircleLabel'
+1196345958419	Rename local variable 'imageLabel'
+1196346049096	Rename type 'NotifierColors'
+1196346082736	Rename field 'fDisplay'
+1196346086878	Rename field 'fGradientBegin'
+1196346092882	Rename field 'fGradientEnd'
+1196346097100	Rename field 'fBorder'
+1196346103315	Rename field 'fResources'
+1196346186827	Rename field 'notifierColors'
+1196347074956	Move compilation unit
+1196347093537	Rename type 'ITaskListNotification'
+1196347244380	Rename method 'openTask'
