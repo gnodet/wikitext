@@ -7,3 +7,8 @@
 1196721789738	Rename method 'getNotificationIcon'
 1196743685269	Copy compilation unit
 1196744161900	Copy compilation unit
+1196902495851	Rename local variable 'link'
+1196903531653	Rename field 'CLOSE_POPUP_DELAY'
+1196904553966	Convert anonymous class to nested
+1196905018641	Extract local variable 'PADDING_EDGE'
+1196905626083	Rename field 'DELAY_CLOSE'

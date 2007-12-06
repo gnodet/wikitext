@@ -8,12 +8,22 @@
 
 package org.eclipse.mylyn.internal.sandbox.dev.actions;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.mylyn.internal.tasks.ui.notifications.TaskListNotificationReminder;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 
+/**
+ * @author Mik Kersten
+ */
 public class TestUiAction implements IWorkbenchWindowActionDelegate {
 
 	public void dispose() {
@@ -27,6 +37,19 @@ public class TestUiAction implements IWorkbenchWindowActionDelegate {
 	}
 
 	public void run(IAction action) {
+		Collection<AbstractTask> allTasks = TasksUiPlugin.getTaskListManager().getTaskList().getAllTasks();
+		Iterator<AbstractTask> iterator = allTasks.iterator();
+		Set<TaskListNotificationReminder> dummyNotifications = new HashSet<TaskListNotificationReminder>();
+		for (int i = 0; i < 6; i++) {
+			TaskListNotificationReminder notification = new TaskListNotificationReminder(iterator.next());
+			notification.setDescription("Mylyn is the Task-Focused UI for Eclipse that reduces information overload " +
+					"\nand makes multi-tasking easy. It does this by making tasks a first class part of" +
+					"\nEclipse, and integrating rich and offline editing for repositories such as Bugzilla, " +
+					"\nTrac, and JIRA. Once your tasks are integrated, Mylyn monitors your work activity to " +
+					"\nidentify information relevant to the task-at-hand, and uses this task context to focus ");
+			dummyNotifications.add(notification);
+			TasksUiPlugin.getTaskListNotificationManager().getNotifications().add(notification);
+		}
 		TasksUiPlugin.getTaskListNotificationManager().showPopup();
 	}
 
