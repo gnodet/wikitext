@@ -12,3 +12,5 @@
 1196904553966	Convert anonymous class to nested
 1196905018641	Extract local variable 'PADDING_EDGE'
 1196905626083	Rename field 'DELAY_CLOSE'
+1196970360776	Rename field 'newBGImage'
+1196970426397	Rename field 'latestBgImage'
