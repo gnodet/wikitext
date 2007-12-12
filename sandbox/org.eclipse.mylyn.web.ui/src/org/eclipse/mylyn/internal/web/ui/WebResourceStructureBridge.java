@@ -125,7 +125,6 @@ public class WebResourceStructureBridge extends AbstractContextStructureBridge {
 
 	@Override
 	public String getHandleForOffsetInObject(Object resource, int offset) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
