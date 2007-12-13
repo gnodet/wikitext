@@ -491,6 +491,8 @@ public abstract class AbstractNotificationPopup extends Window {
 					}					
 				}
 			});
+		} else {
+			shell.close();
 		}
 	}
 
