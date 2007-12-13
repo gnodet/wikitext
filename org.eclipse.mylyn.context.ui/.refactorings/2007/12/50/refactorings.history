@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract constant &apos;org.eclipse.mylyn.internal.context.ui.TaskListInterestFilter.MAX_SUBTASK_DEPTH&apos; from expression &apos;10&apos;&#x0D;&#x0A;- Original project: &apos;org.eclipse.mylyn.context.ui&apos;&#x0D;&#x0A;- Constant name: &apos;MAX_SUBTASK_DEPTH&apos;&#x0D;&#x0A;- Constant expression: &apos;10&apos;&#x0D;&#x0A;- Declared visibility: &apos;private&apos;" description="Extract constant &apos;MAX_SUBTASK_DEPTH&apos;" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylyn.internal.context.ui{TaskListInterestFilter.java" name="MAX_SUBTASK_DEPTH" qualify="false" replace="false" selection="5089 2" stamp="1197477772828" version="1.0" visibility="2"/>
+</session>

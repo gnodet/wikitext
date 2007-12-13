@@ -27,6 +27,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaTask;
 import org.eclipse.mylyn.internal.bugzilla.ui.tasklist.StackTrace;
+import org.eclipse.mylyn.internal.tasks.core.LocalRepositoryConnector;
 import org.eclipse.mylyn.internal.tasks.ui.search.AbstractRepositorySearchQuery;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
@@ -149,7 +150,8 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 		collector.setProgressMonitor(monitor);
 
 		// get all of the root tasks and start the search
-		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getDefaultCategory().getChildren();
+		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getOrphanContainer(
+				LocalRepositoryConnector.REPOSITORY_URL).getChildren();
 		searchLocal(tasks, collector, elementName, monitor);
 		for (AbstractTaskContainer cat : TasksUiPlugin.getTaskListManager().getTaskList().getTaskContainers()) {
 			searchLocal(cat.getChildren(), collector, elementName, monitor);
@@ -179,7 +181,8 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 		collector.setProgressMonitor(monitor);
 
 		// get all of the root tasks and start the search
-		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getDefaultCategory().getChildren();
+		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getOrphanContainer(
+				LocalRepositoryConnector.REPOSITORY_URL).getChildren();
 		searchLocal(tasks, collector, elementName, monitor);
 		for (AbstractTaskContainer cat : TasksUiPlugin.getTaskListManager().getTaskList().getTaskContainers()) {
 			searchLocal(cat.getChildren(), collector, elementName, monitor);
