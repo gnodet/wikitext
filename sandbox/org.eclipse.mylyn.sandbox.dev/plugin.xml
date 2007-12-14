@@ -104,7 +104,7 @@
      <actionSet
            id="org.eclipse.mylyn.sandbox.dev.actions"
            label="Mylyn Sandbox Dev Actions"
-           visible="true">
+           visible="false">
         <action
               class="org.eclipse.mylyn.internal.sandbox.dev.actions.TestUiAction"
               icon="icons/test.png"
