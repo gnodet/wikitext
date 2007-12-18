@@ -58,7 +58,7 @@ public class Main {
 			TaskReporter reporter = new TaskReporter(build, repository);
 			JUnitReportParser parser = new JUnitReportParser(reporter);
 			parser.parse(reader);
-			System.out.println(reporter.getStats());
+			System.out.println(reporter.getStatistics());
 		} finally {
 			in.close();
 		}

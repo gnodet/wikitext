@@ -57,14 +57,14 @@ class TaskReporter implements TestCaseVisitor {
 
 	private final Build build;
 
-	private final TaskReporterStatistics stats;
+	private final TaskReporterStatistics statistics;
 
 	public TaskReporter(Build build, TaskRepository repository) {
 		this.build = build;
 		this.repository = repository;
 		this.connector = new TracRepositoryConnector();
 		this.taskDataHandler = connector.getTaskDataHandler();
-		this.stats = new TaskReporterStatistics();
+		this.statistics = new TaskReporterStatistics();
 	}
 
 	private RepositoryTaskData createTaskData(TestCase testCase) throws CoreException {
@@ -92,8 +92,8 @@ class TaskReporter implements TestCaseVisitor {
 		return sb.toString();
 	}
 
-	public TaskReporterStatistics getStats() {
-		return stats;
+	public TaskReporterStatistics getStatistics() {
+		return statistics;
 	}
 
 	private String getTaskComment(TestCaseResult result) {
@@ -138,7 +138,7 @@ class TaskReporter implements TestCaseVisitor {
 				taskData = createTaskData(testCase);
 				id = taskDataHandler.postTaskData(repository, taskData, new NullProgressMonitor());
 			} else {
-				stats.tasksUntouched++;
+				statistics.tasksUntouched++;
 				// test case succeeded and task does not exist
 				message(" nothing to do");
 				return;
@@ -157,21 +157,21 @@ class TaskReporter implements TestCaseVisitor {
 				taskData.setSelectedOperation(OPERATION_REOPEN);
 			}
 			if (matchesLastComment(taskData, testCase.getResult())) {
-				stats.tasksStackTraceUpToDate++;
+				statistics.tasksStackTraceUpToDate++;
 				message(" stack trace is up to date");
 			} else {
-				stats.tasksReopened++;
+				statistics.tasksReopened++;
 				message(" adding new stack trace");
 				taskData.setNewComment(getTaskComment(testCase.getResult()));
 			}
 		} else {
 			if (TracTask.Status.CLOSED == TracTask.Status.fromStatus(status)) {
-				stats.tasksUntouched++;
+				statistics.tasksUntouched++;
 				// test case succeeded and task is closed
 				message(" nothing to do, task is alread closed");
 				return;
 			} else {
-				stats.tasksResolved++;
+				statistics.tasksResolved++;
 				message(" resolving task");
 				taskData.setNewComment("Fixed in build " + build.getId());
 				taskData.setSelectedOperation(OPERATION_RESOLVE);
