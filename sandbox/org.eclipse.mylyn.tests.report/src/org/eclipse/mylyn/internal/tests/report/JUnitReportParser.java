@@ -19,7 +19,7 @@ import org.eclipse.mylyn.internal.tests.report.TestCaseResult.TestCaseResultType
 /**
  * @author Steffen Pingel
  */
-public class ReportParser {
+public class JUnitReportParser {
 
 	private static final String TAG_TEST_CASE = "testcase";
 
@@ -37,7 +37,7 @@ public class ReportParser {
 
 	private final TestCaseVisitor reportVisitor;
 
-	public ReportParser(TestCaseVisitor reportVisitor) {
+	public JUnitReportParser(TestCaseVisitor reportVisitor) {
 		this.reportVisitor = reportVisitor;
 	}
 

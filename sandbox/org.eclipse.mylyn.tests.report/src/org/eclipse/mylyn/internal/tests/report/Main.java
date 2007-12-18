@@ -55,8 +55,8 @@ public class Main {
 		InputStream in = new FileInputStream(file);
 		try {
 			XMLEventReader reader = inputFactory.createXMLEventReader(in);
-			Reporter report = new Reporter(build, repository);
-			ReportParser parser = new ReportParser(report);
+			TaskReporter report = new TaskReporter(build, repository);
+			JUnitReportParser parser = new JUnitReportParser(report);
 			parser.parse(reader);
 		} finally {
 			in.close();

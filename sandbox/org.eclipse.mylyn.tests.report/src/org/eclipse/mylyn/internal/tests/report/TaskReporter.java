@@ -7,6 +7,7 @@
  *******************************************************************************/
 package org.eclipse.mylyn.internal.tests.report;
 
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.runtime.CoreException;
@@ -28,12 +29,13 @@ import org.eclipse.mylyn.tasks.core.ITaskFactory;
 import org.eclipse.mylyn.tasks.core.QueryHitCollector;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
+import org.eclipse.mylyn.tasks.core.TaskComment;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 
 /**
  * @author Steffen Pingel
  */
-class Reporter implements TestCaseVisitor {
+class TaskReporter implements TestCaseVisitor {
 
 	private final TracRepositoryConnector connector;
 
@@ -43,7 +45,7 @@ class Reporter implements TestCaseVisitor {
 
 	private final Build build;
 
-	public Reporter(Build build, TaskRepository repository) {
+	public TaskReporter(Build build, TaskRepository repository) {
 		this.build = build;
 		this.repository = repository;
 		this.connector = new TracRepositoryConnector();
@@ -136,7 +138,11 @@ class Reporter implements TestCaseVisitor {
 			if (TracTask.Status.CLOSED == TracTask.Status.fromStatus(statusAttribute.getValue())) {
 				statusAttribute.setValue(TracTask.Status.REOPENED.toStatusString());
 			}
-			taskData.setNewComment(getTaskComment(testCase.getResult()));
+			if (matchesLastComment(taskData, testCase.getResult())) {
+				message(" stack trace is up to date");
+			} else {
+				taskData.setNewComment(getTaskComment(testCase.getResult()));
+			} 
 		} else {
 			if (TracTask.Status.CLOSED == TracTask.Status.fromStatus(statusAttribute.getValue())) {
 				// test case succeeded and task is closed
@@ -149,6 +155,17 @@ class Reporter implements TestCaseVisitor {
 
 		message(" submitting task");
 		taskDataHandler.postTaskData(repository, taskData, new NullProgressMonitor());
+	}
+
+	private boolean matchesLastComment(RepositoryTaskData taskData, TestCaseResult result) {
+		List<TaskComment> comments = taskData.getComments();
+		if (comments != null && !comments.isEmpty()) {
+			TaskComment lastComment = comments.get(comments.size() - 1);
+			if (lastComment.getText().endsWith(result.getStackTrace())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void message(String string) {
