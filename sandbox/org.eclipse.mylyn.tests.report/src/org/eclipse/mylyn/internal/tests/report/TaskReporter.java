@@ -27,6 +27,7 @@ import org.eclipse.mylyn.tasks.core.AbstractTaskDataHandler;
 import org.eclipse.mylyn.tasks.core.ITaskCollector;
 import org.eclipse.mylyn.tasks.core.ITaskFactory;
 import org.eclipse.mylyn.tasks.core.QueryHitCollector;
+import org.eclipse.mylyn.tasks.core.RepositoryOperation;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskComment;
@@ -37,6 +38,17 @@ import org.eclipse.mylyn.tasks.core.TaskRepository;
  */
 class TaskReporter implements TestCaseVisitor {
 
+	private static final RepositoryOperation OPERATION_REOPEN;
+
+	private static final RepositoryOperation OPERATION_RESOLVE;
+
+	static {
+		OPERATION_REOPEN = new RepositoryOperation("reopen", "");
+
+		OPERATION_RESOLVE = new RepositoryOperation("resolve", "");
+		OPERATION_RESOLVE.setOptionSelection("fixed");
+	}
+
 	private final TracRepositoryConnector connector;
 
 	private final AbstractTaskDataHandler taskDataHandler;
@@ -45,11 +57,14 @@ class TaskReporter implements TestCaseVisitor {
 
 	private final Build build;
 
+	private final TaskReporterStatistics stats;
+
 	public TaskReporter(Build build, TaskRepository repository) {
 		this.build = build;
 		this.repository = repository;
 		this.connector = new TracRepositoryConnector();
 		this.taskDataHandler = connector.getTaskDataHandler();
+		this.stats = new TaskReporterStatistics();
 	}
 
 	private RepositoryTaskData createTaskData(TestCase testCase) throws CoreException {
@@ -77,14 +92,17 @@ class TaskReporter implements TestCaseVisitor {
 		return sb.toString();
 	}
 
+	public TaskReporterStatistics getStats() {
+		return stats;
+	}
+
 	private String getTaskComment(TestCaseResult result) {
 		StringBuilder sb = new StringBuilder();
 		if (result.getResultType() == TestCaseResultType.FAILURE) {
-			sb.append("Failure in build ");
+			sb.append("Failure since build ");
 		} else {
-			sb.append("Error in build ");
+			sb.append("Error since build ");
 		}
-
 		sb.append(build.getId());
 		sb.append(": ");
 		if (result.getMessage() != null) {
@@ -92,7 +110,6 @@ class TaskReporter implements TestCaseVisitor {
 		}
 		sb.append("\n\n");
 		sb.append(result.getStackTrace());
-
 		return sb.toString();
 	}
 
@@ -121,6 +138,7 @@ class TaskReporter implements TestCaseVisitor {
 				taskData = createTaskData(testCase);
 				id = taskDataHandler.postTaskData(repository, taskData, new NullProgressMonitor());
 			} else {
+				stats.tasksUntouched++;
 				// test case succeeded and task does not exist
 				message(" nothing to do");
 				return;
@@ -133,23 +151,30 @@ class TaskReporter implements TestCaseVisitor {
 		message(" downloading task");
 		taskData = taskDataHandler.getTaskData(repository, id, new NullProgressMonitor());
 
-		RepositoryTaskAttribute statusAttribute = taskData.getAttribute(RepositoryTaskAttribute.STATUS);
+		String status = taskData.getAttribute(RepositoryTaskAttribute.STATUS).getValue();
 		if (testCase.getResult() != null) {
-			if (TracTask.Status.CLOSED == TracTask.Status.fromStatus(statusAttribute.getValue())) {
-				statusAttribute.setValue(TracTask.Status.REOPENED.toStatusString());
+			if (TracTask.Status.CLOSED == TracTask.Status.fromStatus(status)) {
+				taskData.setSelectedOperation(OPERATION_REOPEN);
 			}
 			if (matchesLastComment(taskData, testCase.getResult())) {
+				stats.tasksStackTraceUpToDate++;
 				message(" stack trace is up to date");
 			} else {
+				stats.tasksReopened++;
+				message(" adding new stack trace");
 				taskData.setNewComment(getTaskComment(testCase.getResult()));
-			} 
+			}
 		} else {
-			if (TracTask.Status.CLOSED == TracTask.Status.fromStatus(statusAttribute.getValue())) {
+			if (TracTask.Status.CLOSED == TracTask.Status.fromStatus(status)) {
+				stats.tasksUntouched++;
 				// test case succeeded and task is closed
-				message(" nothing to do");
+				message(" nothing to do, task is alread closed");
 				return;
 			} else {
-				statusAttribute.setValue(TracTask.Status.CLOSED.toStatusString());
+				stats.tasksResolved++;
+				message(" resolving task");
+				taskData.setNewComment("Fixed in build " + build.getId());
+				taskData.setSelectedOperation(OPERATION_RESOLVE);
 			}
 		}
 
