@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;org.eclipse.mylyn.trac.tests.support.TestCleanupUtil&apos; to &apos;TracTestCleanupUtil&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.trac.tests&apos;&#x0A;- Original element: &apos;org.eclipse.mylyn.trac.tests.support.TestCleanupUtil&apos;&#x0A;- Renamed element: &apos;org.eclipse.mylyn.trac.tests.support.TracTestCleanupUtil&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;TestCleanupUtil&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;org.eclipse.mylyn.trac.tests.support{TestCleanupUtil.java[TestCleanupUtil" matchStrategy="1" name="TracTestCleanupUtil" qualified="false" references="true" similarDeclarations="false" stamp="1198046080750" textual="false" version="1.0"/>
+</session>
