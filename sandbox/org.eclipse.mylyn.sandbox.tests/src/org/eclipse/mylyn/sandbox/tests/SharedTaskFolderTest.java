@@ -156,6 +156,7 @@ public class SharedTaskFolderTest extends TestCase {
 	 * Creates a task with an interaction event and checks that it has been properly saved in the currently active data
 	 * directory
 	 */
+	@SuppressWarnings("deprecation")
 	protected AbstractTask createAndSaveTask(String taskName) {
 
 		//Create the task and add it to the root of the task list

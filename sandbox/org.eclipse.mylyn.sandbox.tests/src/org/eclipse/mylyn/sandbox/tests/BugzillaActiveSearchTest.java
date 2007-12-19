@@ -214,6 +214,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public void testLocalBugUnqual() throws InterruptedException {
 		lists.clear();
 
@@ -279,6 +280,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 
 	// TODO need to test a bug that wraps...should fail since we can only search
 	// on a single line
+	@SuppressWarnings("deprecation")
 	public void testLocalBugFullyQual() throws InterruptedException {
 		lists.clear();
 
