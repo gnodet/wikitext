@@ -106,7 +106,7 @@
            label="Mylyn Sandbox Dev Actions"
            visible="false">
         <action
-              class="org.eclipse.mylyn.internal.sandbox.dev.actions.TestUiAction"
+              class="org.eclipse.mylyn.internal.sandbox.dev.actions.TestTaskListNotificationAction"
               icon="icons/test.png"
               id="org.eclipse.mylyn.sandbox.dev.action1"
               label="Test Notifications"

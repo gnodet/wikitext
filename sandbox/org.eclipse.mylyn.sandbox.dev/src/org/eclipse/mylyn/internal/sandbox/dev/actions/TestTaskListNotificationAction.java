@@ -24,7 +24,7 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 /**
  * @author Mik Kersten
  */
-public class TestUiAction implements IWorkbenchWindowActionDelegate {
+public class TestTaskListNotificationAction implements IWorkbenchWindowActionDelegate {
 
 	public void dispose() {
 		// ignore
