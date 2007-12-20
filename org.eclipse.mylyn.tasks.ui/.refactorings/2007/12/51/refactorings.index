@@ -2,3 +2,4 @@
 1198021829142	Rename type 'TaskEditorCloseManager'
 1198022044554	Rename field 'taskEditorCloseManager'
 1198118279832	Rename field 'CATEGORY_ARCHIVE'
+1198123664184	Extract method 'activate'
