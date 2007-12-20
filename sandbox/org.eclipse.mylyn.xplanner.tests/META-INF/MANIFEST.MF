@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: @bundleName
+Bundle-Name: Mylyn XPlanner Connector Tests
 Bundle-SymbolicName: org.eclipse.mylyn.xplanner.tests
-Bundle-Version: 1.1.0.qualifer
+Bundle-Version: 0.0.0
 Bundle-Localization: plugin
 Require-Bundle: org.junit,
  org.eclipse.core.runtime,
@@ -13,3 +13,4 @@ Require-Bundle: org.junit,
  org.eclipse.mylyn.xplanner.ui,
  org.eclipse.search
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Vendor: Eclipse.org
