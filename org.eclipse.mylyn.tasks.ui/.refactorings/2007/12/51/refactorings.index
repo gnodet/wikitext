@@ -3,3 +3,4 @@
 1198022044554	Rename field 'taskEditorCloseManager'
 1198118279832	Rename field 'CATEGORY_ARCHIVE'
 1198123664184	Extract method 'activate'
+1198126009220	Rename resource 'task-query-unmatched.gif'
