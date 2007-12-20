@@ -20,6 +20,8 @@ public class TaskReporterStatistics {
 
 	public int tasksStackTraceUpToDate;
 
+	public int ignoredErrors;
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -27,6 +29,9 @@ public class TaskReporterStatistics {
 		sb.append("Tasks resolved  : ").append(tasksResolved).append("\n");
 		sb.append("Tasks reopened  : ").append(tasksReopened).append("\n");
 		sb.append("Tasks up-to-date: ").append(tasksStackTraceUpToDate).append("\n");
+		if (ignoredErrors > 0) {
+			sb.append("Ignored errors  : ").append(ignoredErrors).append("\n");
+		}
 		sb.append("Total           : ")
 				.append(tasksUntouched + tasksResolved + tasksReopened + tasksStackTraceUpToDate);
 		return sb.toString();

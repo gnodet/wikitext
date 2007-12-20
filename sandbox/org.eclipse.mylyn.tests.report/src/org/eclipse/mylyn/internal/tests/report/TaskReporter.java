@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.mylyn.internal.tests.report.TestCaseResult.TestCaseResultType;
 import org.eclipse.mylyn.internal.trac.core.ITracClient;
+import org.eclipse.mylyn.internal.trac.core.TracRemoteException;
 import org.eclipse.mylyn.internal.trac.core.TracRepositoryConnector;
 import org.eclipse.mylyn.internal.trac.core.TracRepositoryQuery;
 import org.eclipse.mylyn.internal.trac.core.TracTask;
@@ -42,6 +43,8 @@ class TaskReporter implements TestCaseVisitor {
 
 	private static final RepositoryOperation OPERATION_RESOLVE;
 
+	private static final int MAX_ERROR_TIMEOUT = 3;
+
 	static {
 		OPERATION_REOPEN = new RepositoryOperation("reopen", "");
 
@@ -58,6 +61,8 @@ class TaskReporter implements TestCaseVisitor {
 	private final Build build;
 
 	private final TaskReporterStatistics statistics;
+
+	private int timeoutErrorCount;
 
 	public TaskReporter(Build build, TaskRepository repository) {
 		this.build = build;
@@ -223,6 +228,18 @@ class TaskReporter implements TestCaseVisitor {
 			try {
 				handleResults(testCase, resultCollector.getTasks());
 			} catch (CoreException e) {
+				if (e.getStatus().getException() instanceof TracRemoteException) {
+					String message = e.getStatus().getException().getMessage();
+					if (message != null && message.contains("timeout")) {
+						timeoutErrorCount++;
+						if (timeoutErrorCount <= MAX_ERROR_TIMEOUT) {
+							// ignore a few timeouts
+							statistics.ignoredErrors++;
+							message(" timeout (" + timeoutErrorCount + "/" + MAX_ERROR_TIMEOUT + ")");
+							return;
+						}
+					}
+				}
 				handleError(e.getStatus());
 			}
 		} else {
