@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -96,7 +97,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	public static final String REQUEST_GET = "GET";
 
 	private static final String COMPLETED_STATUSES = "completed|fixed|resolved|invalid|verified|deleted|closed|done";
-	
+
 	@Override
 	public String getConnectorKind() {
 		return REPOSITORY_TYPE;
@@ -238,7 +239,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public AbstractAttachmentHandler getAttachmentHandler() {
 		// not supported
@@ -305,14 +306,14 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 					}
 					if (id != null) {
 						WebTask w = new WebTask(id, description, taskPrefix, repository.getUrl(), REPOSITORY_TYPE);
-						
+
 						String owner = cleanup(p.group("Owner", matcher), repository);
 						w.setOwner(owner);
 						String type = cleanup(p.group("Type", matcher), repository);
 						w.setTaskKind(type);
-						
+
 						String status = p.group("Status", matcher);
-						if(status!=null) {
+						if (status != null) {
 							w.setCompleted(COMPLETED_STATUSES.contains(status.toLowerCase()));
 						}
 
@@ -372,7 +373,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 				SyndEntry entry = (SyndEntry) it.next();
 
 				String author = entry.getAuthor();
-				if(author==null) {
+				if (author == null) {
 					DCModule module = (DCModule) entry.getModule("http://purl.org/dc/elements/1.1/");
 					author = module.getCreator();
 				}
@@ -398,7 +399,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 						"", repository.getUrl(), REPOSITORY_TYPE);
 				webTask.setCreationDate(date);
 				webTask.setOwner(author);
-				
+
 				resultCollector.accept(webTask);
 			}
 			return Status.OK_STATUS;
@@ -445,29 +446,38 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		}
 
 		String loginRequestUrl = evaluateParams(repository.getProperty(PROPERTY_LOGIN_REQUEST_URL), params, repository);
-		String loginRequestMethod = repository.getProperty(PROPERTY_LOGIN_REQUEST_METHOD);
+		requestResource(loginRequestUrl, client, getLoginMethod(params, repository));
+	}
 
-		HttpMethod method = null;
-		if (REQUEST_POST.equals(loginRequestMethod)) {
-			int n = loginRequestUrl.indexOf('?');
-			if (n == -1) {
-				method = new PostMethod(loginRequestUrl);
-			} else {
-				PostMethod postMethod = new PostMethod(loginRequestUrl.substring(0, n));
-				// TODO this does not take into account escaped values
-				String[] requestParams = loginRequestUrl.substring(n + 1).split("&");
-				for (String requestParam : requestParams) {
-					String[] nv = requestParam.split("=");
-					postMethod.addParameter(nv[0], nv.length == 1 ? "" : nv[1]);
-				}
-				method = postMethod;
-			}
-		} else {
-			method = new GetMethod(loginRequestUrl);
+	public static HttpMethod getLoginMethod(Map<String, String> params, TaskRepository repository) {
+		String requestMethod = repository.getProperty(PROPERTY_LOGIN_REQUEST_METHOD);
+		String requestTemplate = repository.getProperty(PROPERTY_LOGIN_REQUEST_URL);
+		String requestUrl = evaluateParams(requestTemplate, params, repository);
+
+		if (REQUEST_GET.equals(requestMethod)) {
+			return new GetMethod(requestUrl);
 			// method.setFollowRedirects(false);
 		}
 
-		requestResource(loginRequestUrl, client, method);
+		int n = requestUrl.indexOf('?');
+		if (n == -1) {
+			return new PostMethod(requestUrl);
+		}
+
+		PostMethod postMethod = new PostMethod(requestUrl.substring(0, n));
+		// TODO this does not take into account escaped values
+		n = requestTemplate.indexOf('?');
+		String[] requestParams = requestTemplate.substring(n + 1).split("&");
+		for (String requestParam : requestParams) {
+			String[] nv = requestParam.split("=");
+			if (nv.length == 1) {
+				postMethod.addParameter(nv[0], "");
+			} else {
+				String value = evaluateParams(nv[1], getParams(repository, params), false);
+				postMethod.addParameter(nv[0], value);
+			}
+		}
+		return postMethod;
 	}
 
 	private static String requestResource(String url, HttpClient client, HttpMethod method) throws IOException,
@@ -532,31 +542,51 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	public static String evaluateParams(String value, Map<String, String> params, TaskRepository repository) {
-		return evaluateParams(evaluateParams(value, params), repository);
+		return evaluateParams(value, getParams(repository, params), true);
 	}
 
 	public static String evaluateParams(String value, TaskRepository repository) {
-		if (value != null && value.indexOf("${") > -1) {
-			value = evaluate(value, PARAM_SERVER_URL, repository.getUrl());
-			value = evaluate(value, PARAM_USER_ID, encode(repository.getUserName()));
-			value = evaluate(value, PARAM_PASSWORD, encode(repository.getPassword()));
-			value = evaluateParams(value, repository.getProperties());
-		}
-		return value;
+		return evaluateParams(value, getParams(repository, null), true);
 	}
 
-	public static String evaluateParams(String value, Map<String, String> params) {
-		for (Map.Entry<String, String> e : params.entrySet()) {
-			String key = e.getKey();
-			if (key.startsWith(PARAM_PREFIX)) {
-				value = evaluate(value, key.substring(PARAM_PREFIX.length()), encode(e.getValue()));
+	private static String evaluateParams(String value, Map<String, String> params, boolean encode) {
+		if (value == null || value.indexOf("${") == -1) {
+			return value;
+		}
+
+		int n = 0;
+		int n1 = value.indexOf("${");
+		StringBuilder evaluatedValue = new StringBuilder(value.length());
+		while (n1 > -1) {
+			evaluatedValue.append(value.substring(n, n1));
+			int n2 = value.indexOf("}", n1);
+			if (n2 > -1) {
+				String key = value.substring(n1 + 2, n2);
+				if (PARAM_SERVER_URL.equals(key) || PARAM_USER_ID.equals(key) || PARAM_PASSWORD.equals(key)) {
+					evaluatedValue.append(evaluateParams(params.get(key), params, false));
+				} else {
+					String val = evaluateParams(params.get(PARAM_PREFIX + key), params, false);
+					evaluatedValue.append(encode ? encode(val) : val);
+				}
 			}
+			n = n2 + 1;
+			n1 = value.indexOf("${", n2);
 		}
-		return value;
+		if (n > -1) {
+			evaluatedValue.append(value.substring(n));
+		}
+		return evaluatedValue.toString();
 	}
 
-	private static String evaluate(String s, String var, String value) {
-		return s.replaceAll("\\$\\{" + var + "\\}", value);
+	private static Map<String, String> getParams(TaskRepository repository, Map<String, String> params) {
+		Map<String, String> mergedParams = new LinkedHashMap<String, String>(repository.getProperties());
+		mergedParams.put(PARAM_SERVER_URL, repository.getUrl());
+		mergedParams.put(PARAM_USER_ID, repository.getUserName());
+		mergedParams.put(PARAM_PASSWORD, repository.getPassword());
+		if (params != null) {
+			mergedParams.putAll(params);
+		}
+		return mergedParams;
 	}
 
 	private static String encode(String value) {
