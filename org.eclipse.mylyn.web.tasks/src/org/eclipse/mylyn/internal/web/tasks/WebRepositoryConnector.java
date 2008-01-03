@@ -32,6 +32,7 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -295,6 +296,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 					if (matcher.groupCount() >= 1) {
 						String id = matcher.group(1);
 						String description = matcher.groupCount() > 1 ? cleanup(matcher.group(2), repository) : null;
+						description = unescapeHtml(description);
 						resultCollector.accept(new WebTask(id, description, taskPrefix, repository.getUrl(),
 								REPOSITORY_TYPE));
 					}
@@ -305,11 +307,14 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 						isCorrect = false;
 					}
 					if (id != null) {
+						description = unescapeHtml(description);
 						WebTask w = new WebTask(id, description, taskPrefix, repository.getUrl(), REPOSITORY_TYPE);
 
 						String owner = cleanup(p.group("Owner", matcher), repository);
+						owner = unescapeHtml(owner);
 						w.setOwner(owner);
 						String type = cleanup(p.group("Type", matcher), repository);
+						type = unescapeHtml(type);
 						w.setTaskKind(type);
 
 						String status = p.group("Status", matcher);
@@ -330,6 +335,14 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 						"Require two matching groups (taskId and summary). Check query regexp", null);
 			}
 		}
+	}
+
+	private static String unescapeHtml(String text) {
+		if (text == null) {
+			return null;
+		}
+
+		return StringEscapeUtils.unescapeHtml(text);
 	}
 
 	private static String cleanup(String text, TaskRepository repository) {
