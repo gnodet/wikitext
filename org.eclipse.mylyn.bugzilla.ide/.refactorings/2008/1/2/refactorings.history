@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract method &apos;protected void createTask()&apos; from &apos;org.eclipse.mylyn.internal.bugzilla.ide.actions.NewTaskFromErrorAction.run()&apos; to &apos;org.eclipse.mylyn.internal.bugzilla.ide.actions.NewTaskFromErrorAction&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.bugzilla.ide&apos;&#x0A;- Method name: &apos;createTask&apos;&#x0A;- Destination type: &apos;org.eclipse.mylyn.internal.bugzilla.ide.actions.NewTaskFromErrorAction&apos;&#x0A;- Declared visibility: &apos;protected&apos;" comments="false" description="Extract method &apos;createTask&apos;" destination="0" exceptions="false" flags="786434" id="org.eclipse.jdt.ui.extract.method" input="/src&lt;org.eclipse.mylyn.internal.bugzilla.ide.actions{NewTaskFromErrorAction.java" name="createTask" replace="false" selection="1310 578" stamp="1199933021100" version="1.0" visibility="4"/>
+</session>
