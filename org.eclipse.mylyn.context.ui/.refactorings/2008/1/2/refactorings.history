@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;filters&apos; from expression &apos;previousFilters.get(viewer)&apos;&#x0D;&#x0A;- Original project: &apos;org.eclipse.mylyn.context.ui&apos;&#x0D;&#x0A;- Variable name: &apos;filters&apos;&#x0D;&#x0A;- Destination method: &apos;org.eclipse.mylyn.context.ui.AbstractFocusViewAction.uninstallInterestFilter()&apos;&#x0D;&#x0A;- Variable expression: &apos;previousFilters.get(viewer)&apos;&#x0D;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;filters&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.eclipse.mylyn.context.ui{AbstractFocusViewAction.java" name="filters" replace="true" selection="13852 27" stamp="1200080241136" version="1.0"/>
+</session>
