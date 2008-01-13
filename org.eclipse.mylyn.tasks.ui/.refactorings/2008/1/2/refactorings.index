@@ -16,3 +16,8 @@
 1200217176703	Rename field 'refreshEnabled'
 1200217803024	Rename field 'reflowEnabled'
 1200221906635	Rename type 'TaskEditorHeaderPart'
+1200255342486	Rename type 'TaskEditorOperationsPart'
+1200255915988	Rename type 'TaskEditorDescriptionSection'
+1200257471287	Copy method
+1200257501288	Copy methods
+1200259346387	Rename method 'createDescriptionLayout'
