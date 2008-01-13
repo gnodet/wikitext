@@ -7,3 +7,12 @@
 1200206223401	Rename type 'Row'
 1200206235139	Rename type 'Span'
 1200206495211	Rename enum constant 'MULTI'
+1200213159415	Delete element
+1200213676448	Extract method 'createAttachmentTable'
+1200213775478	Extract method 'createAttachmentTableMenu'
+1200215659134	Copy compilation unit
+1200216526028	Rename type 'AttachmentPart'
+1200217086809	Rename method 'createCommentLayout'
+1200217176703	Rename field 'refreshEnabled'
+1200217803024	Rename field 'reflowEnabled'
+1200221906635	Rename type 'TaskEditorHeaderPart'
