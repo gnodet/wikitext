@@ -1,2 +1,9 @@
 1199904661806	Delete element
 1199906043421	Rename field 'strikethrough'
+1200206132097	Rename field 'rowHint'
+1200206141911	Rename field 'columnHint'
+1200206184245	Rename enum constant 'MULTI'
+1200206197043	Rename type 'Column'
+1200206223401	Rename type 'Row'
+1200206235139	Rename type 'Span'
+1200206495211	Rename enum constant 'MULTI'
