@@ -33,13 +33,17 @@ public class IncomingTaskListContentProvider extends TaskListContentProvider {
 	@Override
 	public Object[] getElements(Object parent) {
 		people.clear();
-		for (AbstractTaskContainer container : applyFilter(TasksUiPlugin.getTaskListManager()
-				.getTaskList()
-				.getRootElements())) {
-			for (AbstractTask task : container.getChildren()) {
-				if (task.getOwner() != null && task.getSynchronizationState() != null
-						&& task.getSynchronizationState().equals(RepositoryTaskSyncState.INCOMING)) {
-					people.add(new Person(task.getOwner(), task.getConnectorKind(), task.getRepositoryUrl()));
+		if (parent instanceof Person) {
+			return getChildren(parent);
+		} else {
+			for (AbstractTaskContainer container : applyFilter(TasksUiPlugin.getTaskListManager()
+					.getTaskList()
+					.getRootElements())) {
+				for (AbstractTask task : container.getChildren()) {
+					if (task.getOwner() != null && task.getSynchronizationState() != null
+							&& task.getSynchronizationState().equals(RepositoryTaskSyncState.INCOMING)) {
+						people.add(new Person(task.getOwner(), task.getConnectorKind(), task.getRepositoryUrl()));
+					}
 				}
 			}
 		}
