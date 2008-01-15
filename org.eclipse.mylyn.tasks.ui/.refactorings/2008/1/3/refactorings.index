@@ -1,2 +1,4 @@
 1200277297341	Extract method 'fillToolBar'
 1200278285008	Extract method 'createPart'
+1200389115699	Rename field 'attachContextEnabled'
+1200389127083	Rename method 'isNeedsAttachContext'
