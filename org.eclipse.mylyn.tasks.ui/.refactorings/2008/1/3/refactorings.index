@@ -2,3 +2,5 @@
 1200278285008	Extract method 'createPart'
 1200389115699	Rename field 'attachContextEnabled'
 1200389127083	Rename method 'isNeedsAttachContext'
+1200456885243	Delete element
+1200457562917	Rename field 'taskContentProvider'
