@@ -821,8 +821,7 @@ public class TaskList {
 	}
 
 	/**
-	 * @since 2.3
-	 * @API 3.0 move to AbstractRepositoryQuery and make static?
+	 * @
 	 */
 	public Set<AbstractRepositoryQuery> getParentQueries(AbstractTask task) {
 		Set<AbstractRepositoryQuery> parentQueries = new HashSet<AbstractRepositoryQuery>();
