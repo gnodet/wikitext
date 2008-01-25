@@ -24,9 +24,9 @@ import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
 /**
  * @author Rob Elves
  */
-public class TaskStatusMenuContributor implements IDynamicSubMenuContributor {
+public class MarkTaskMenuContributor implements IDynamicSubMenuContributor {
 
-	private static final String LABEL = "Mark";
+	private static final String LABEL = "Mark as";
 
 	public MenuManager getSubMenuManager(final List<AbstractTaskContainer> selectedElements) {
 		final MenuManager subMenuManager = new MenuManager(LABEL);
