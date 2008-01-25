@@ -2,3 +2,5 @@
 1201041192378	Rename type 'OrphanedTasksContainer'
 1201041205691	Rename type 'UnmatchedContainer'
 1201041236005	Rename type 'UncategorizedContainer'
+1201239812853	Rename method 'isFloatingScheduledDate'
+1201239824237	Rename method 'setFloatingScheduledDate'
