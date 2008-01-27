@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;org.eclipse.mylyn.internal.trac.core.TracTask.getMylynPriority(...)&apos; to &apos;getTaskPriority&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.trac.core&apos;&#x0A;- Original element: &apos;org.eclipse.mylyn.internal.trac.core.TracTask.getMylynPriority(...)&apos;&#x0A;- Renamed element: &apos;org.eclipse.mylyn.internal.trac.core.TracTask.getTaskPriority(...)&apos;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;getMylynPriority&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylyn.internal.trac.core{TracTask.java[TracTask~getMylynPriority~QString;" name="getTaskPriority" references="true" stamp="1201408679912" version="1.0"/>
+</session>
