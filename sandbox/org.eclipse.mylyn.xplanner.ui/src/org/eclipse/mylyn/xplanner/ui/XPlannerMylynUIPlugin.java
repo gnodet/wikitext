@@ -45,10 +45,28 @@ public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
 	public final static IStatus NO_LICENSE_STATUS = new Status(IStatus.INFO, XPlannerMylynUIPlugin.PLUGIN_ID,
 			0, Messages.MylynXPlannerPlugin_NOT_AVAILABLE_IN_SKU, null);
 
+	// Preference setting names
+	public final static String USE_AUTO_TIME_TRACKING_PREFERENCE_NAME = "UseAutoTimeTracking";
+	
+	public final static String ROUND_AUTO_TIME_TRACKING_TO_HALF_HOUR_PREFERENCE_NAME = "RoundAutoTimeTrackingToHalfHour";
+	
+	public final static String ADD_AUTO_TRACKED_TIME_TO_REPOSITORY_VALUE_PREFERENCE_NAME = "AddAutoTrackedTimeToRepositoryValue"; 
+	
 	public XPlannerMylynUIPlugin() {
 		INSTANCE = this;
 	}
 
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
+		setPreferenceDefaults();
+	}
+	
+	private void setPreferenceDefaults() {
+		getPreferenceStore().setDefault(USE_AUTO_TIME_TRACKING_PREFERENCE_NAME, false);
+		getPreferenceStore().setDefault(ROUND_AUTO_TIME_TRACKING_TO_HALF_HOUR_PREFERENCE_NAME, true);
+		getPreferenceStore().setDefault(ADD_AUTO_TRACKED_TIME_TO_REPOSITORY_VALUE_PREFERENCE_NAME, true);
+	}
+	
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		INSTANCE = null;
@@ -93,5 +111,13 @@ public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return AbstractUIPlugin.imageDescriptorFromPlugin(PLUGIN_ID, path);
+	}
+
+	public static void setBooleanPreference(String name, boolean value) {
+		getDefault().getPreferenceStore().setValue(name, value);
+	}
+	
+	public static boolean getBooleanPreference(String name) {
+		return getDefault().getPreferenceStore().getBoolean(name);
 	}
 }

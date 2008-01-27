@@ -24,6 +24,7 @@ public class AllXPlannerTests {
 		suite.addTestSuite(XPlannerRepositoryConnectorTest.class);
 		suite.addTestSuite(XPlannerCustomQueryTest.class);
 		suite.addTestSuite(XPlannerTaskDataHandlerTest.class);
+		suite.addTestSuite(XPlannerTaskEditorTest.class);
 		// $JUnit-END$
 		return suite;
 	}

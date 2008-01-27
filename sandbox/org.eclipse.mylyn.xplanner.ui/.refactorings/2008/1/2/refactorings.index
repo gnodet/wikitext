@@ -1,0 +1,6 @@
+1199751883234	Convert local variable 'useTimeTrackingButton' to field
+1199751893843	Convert local variable 'spentTimeLabel' to field
+1199751904187	Convert local variable 'currentSpentTimeLabel' to field
+1199751917796	Convert local variable 'trackedSpentTimeText' to field
+1199751927328	Convert local variable 'addToCurrentTimeButton' to field
+1199751938093	Convert local variable 'replaceCurrentTimeButton' to field

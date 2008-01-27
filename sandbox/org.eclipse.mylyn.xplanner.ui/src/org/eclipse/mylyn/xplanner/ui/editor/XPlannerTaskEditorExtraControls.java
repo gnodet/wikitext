@@ -8,8 +8,11 @@
 
 package org.eclipse.mylyn.xplanner.ui.editor;
 
+import java.text.DecimalFormat;
+
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractRepositoryTaskEditor;
@@ -30,6 +33,8 @@ public class XPlannerTaskEditorExtraControls {
 	
 	private String errorMessage = null;
 	private Control errorControl = null;
+	
+	private Double lastRepositoryActualTime = 0.0;
 	
 	public XPlannerTaskEditorExtraControls(AbstractRepositoryTaskEditor editor, 
 		RepositoryTaskData repositoryTaskData) {
@@ -149,8 +154,8 @@ public class XPlannerTaskEditorExtraControls {
 		GridDataFactory.fillDefaults().grab(true, false).span(2, 1).align(SWT.END, SWT.CENTER).applyTo(actualTimeLabel);
 		
 		// actual hours text
-		actualTimeText = toolkit.createText(dataComposite, 
-			XPlannerRepositoryUtils.getActualHours(repositoryTaskData) + ""); //$NON-NLS-1$
+		lastRepositoryActualTime = XPlannerRepositoryUtils.getActualHours(repositoryTaskData);
+		actualTimeText = toolkit.createText(dataComposite, lastRepositoryActualTime + ""); //$NON-NLS-1$
 		
 		actualTimeText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
@@ -166,8 +171,9 @@ public class XPlannerTaskEditorExtraControls {
 		remainingTimeLabel.setFont(JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT));
 		GridDataFactory.fillDefaults().grab(true, false).span(3, 1).align(SWT.END, SWT.CENTER).applyTo(remainingTimeLabel);
 
-		remainingTimeValueLabel = toolkit.createLabel(dataComposite, 			
-				XPlannerRepositoryUtils.getRemainingHours(repositoryTaskData) + ""); //$NON-NLS-1$
+		Float remainingHours = new Float(XPlannerRepositoryUtils.getRemainingHours(repositoryTaskData));
+		String formattedRemainingHours = formatSingleFractionHours(remainingHours);
+		remainingTimeValueLabel = toolkit.createLabel(dataComposite, formattedRemainingHours);		
 
 		updateRemainingTimeFont();
 		dataSection.setExpanded(true);
@@ -225,4 +231,89 @@ public class XPlannerTaskEditorExtraControls {
 		
 		return errorMessage;
 	}
+	
+	protected void updateActualTimeWithElapsed(long newElapsedTime, 
+		boolean addToCurrent, boolean roundToHalfHour) {
+		
+		String elapsedHoursString = "0.0";
+		try {
+			elapsedHoursString = getElapsedHoursAsString(newElapsedTime, addToCurrent, roundToHalfHour);
+		} 
+		catch (RuntimeException e1) {
+			StatusHandler.fail(e1, "Could not format elapsed time", true);
+		}
+		
+		actualTimeText.setText(elapsedHoursString);
+	}
+	
+	
+	private static float convertMilliSecondsToHours(long milliSeconds) {
+		Long minutes = ((Long)Long.valueOf("" + milliSeconds))/(1000*60);
+		Float hours = minutes/60F;
+
+		return hours;		
+	}
+
+	private String getElapsedHoursAsString(long milliSeconds,
+		boolean addToCurrent, boolean roundToHalfHour) {
+		
+		String hoursString;
+		
+		Float hours = convertMilliSecondsToHours(milliSeconds);
+		if (addToCurrent) {
+			hours = new Float(lastRepositoryActualTime + hours); 
+		}
+		if (hours == 0) {
+			hoursString = "0.0";
+		}
+		else {
+			
+			hoursString = formatHours(hours, roundToHalfHour);
+		}
+		
+		return hoursString;
+	}
+	
+	/**
+	 * public for testing
+	 * rounds to nearest .5 if roundToHalfHour is true, otherwise, keeps input as is with
+	 * single fraction digit formatting
+	 */
+	public static String formatHours(Float hours, boolean roundToHalfHour) {
+		Float updatedHours = hours;
+		
+		if (roundToHalfHour) {
+			Float decimal = new Float(Math.floor(hours));
+			Float fraction = hours - decimal;
+			if (fraction == .5f || fraction == .0f) {
+				updatedHours = hours;
+			}
+			else if (fraction > 0f && fraction < .25f) {
+				updatedHours = decimal;
+			}
+			else if (fraction >= .25f && fraction < .5f) {
+				updatedHours = decimal + .5f;
+			}
+			else if (fraction > .5f && fraction < .75f) {
+				updatedHours = decimal + .5f;
+			}
+			else { // .75 and up
+				updatedHours = decimal + 1;
+			}
+		}
+		
+		return formatSingleFractionHours(updatedHours);
+	}
+
+	/**
+	 * public for testing
+	 * Formats input as single digit fraction string
+	 */
+	public static String formatSingleFractionHours(Float updatedHours) {
+		DecimalFormat format = new DecimalFormat("######.#"); 
+		format.setMinimumFractionDigits(1); 
+		format.setMaximumFractionDigits(1); 
+		return format.format(updatedHours);
+	}
+	
 }
