@@ -3,3 +3,4 @@
 1201571319901	Copy compilation unit
 1201573586889	Extract method 'setScheduledDate'
 1201585469309	Move compilation unit
+1201628656386	Extract method 'getScheduledForDate'
