@@ -202,7 +202,6 @@ class TaskReporter implements TestCaseVisitor {
 		System.out.println(string);
 	}
 
-	@Override
 	public void visit(TestCase testCase) {
 		// ITracClient client =
 		// connector.getClientManager().getRepository(repository);
