@@ -30,6 +30,7 @@ import org.eclipse.mylyn.internal.tasks.ui.TasksUiImages;
 import org.eclipse.mylyn.internal.trac.core.TracCorePlugin;
 import org.eclipse.mylyn.internal.trac.core.model.TracWikiPage;
 import org.eclipse.mylyn.internal.trac.ui.editor.TracRenderingEngine;
+import org.eclipse.mylyn.internal.trac.wiki.TracWikiPlugin;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractRenderingEngine;
@@ -538,7 +539,7 @@ public class TracWikiPageEditor extends FormEditor {
 			setPartName(getEditorInput().getName());
 			setActivePage(BrowserFormPage.ID_EDITOR);
 		} catch (PartInitException e) {
-			StatusHandler.fail(e, "Cannot create Trac Wiki page editor pages", true);
+			StatusHandler.fail(new Status(IStatus.ERROR, TracWikiPlugin.PLUGIN_ID, "Cannot create Trac Wiki page editor pages"));
 		}
 	}
 

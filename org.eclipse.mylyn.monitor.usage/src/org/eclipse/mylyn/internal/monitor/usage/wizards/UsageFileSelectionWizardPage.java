@@ -137,6 +137,7 @@ public class UsageFileSelectionWizardPage extends WizardPage {
 			setControl(container);
 			// setPageComplete(validate());
 		} catch (RuntimeException e) {
+			// FIXME
 			StatusHandler.fail(e, "Could not create import wizard page", true);
 		}
 
