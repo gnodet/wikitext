@@ -10,10 +10,16 @@ package org.eclipse.mylyn.xplanner.tests;
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.mylyn.tasks.core.*;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
-import org.eclipse.mylyn.xplanner.ui.*;
+import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeFactory;
+import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
+import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUtils;
+import org.eclipse.mylyn.xplanner.ui.XPlannerTask;
 import org.xplanner.soap.TaskData;
 import org.xplanner.soap.UserStoryData;
 
@@ -79,6 +85,7 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 		}
 	}
 
+	@SuppressWarnings("null")
 	private void testUpdateActualTime(boolean validHours) {
 		try {
 			// get test task

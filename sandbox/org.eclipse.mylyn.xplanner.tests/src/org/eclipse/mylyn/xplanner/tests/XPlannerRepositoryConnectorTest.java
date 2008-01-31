@@ -7,16 +7,23 @@
  *******************************************************************************/
 package org.eclipse.mylyn.xplanner.tests;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Set;
 
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.mylyn.tasks.core.*;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
-import org.eclipse.mylyn.xplanner.ui.*;
+import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeFactory;
+import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryConnector;
+import org.eclipse.mylyn.xplanner.ui.XPlannerTask;
 import org.xplanner.soap.TaskData;
 import org.xplanner.soap.UserStoryData;
 
@@ -36,6 +43,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		super.tearDown();
 	}
 
+	@SuppressWarnings("null")
 	public void testCreateTaskFromExistingKeyForUserStory() throws Exception {
 		TaskRepository repository = XPlannerTestUtils.getRepository();
 		AbstractRepositoryConnector connector = 
@@ -51,6 +59,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		assertTrue(((XPlannerTask)repositoryTask).getSummary().equals(testUserStory.getName()));
 	}
 
+	@SuppressWarnings("null")
 	public void testCreateTaskFromExistingKeyForTask() throws Exception {
 		TaskRepository repository = XPlannerTestUtils.getRepository();
 		AbstractRepositoryConnector connector = 
@@ -66,6 +75,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		assertTrue(((XPlannerTask)repositoryTask).getSummary().equals(testTask.getName()));
 	}
 
+	@SuppressWarnings("null")
 	public void testUpdateTaskDetailsCompleted() throws Exception {
 		TaskRepository repository = XPlannerTestUtils.getRepository();
 		AbstractRepositoryConnector connector = 
@@ -142,6 +152,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		TasksUiPlugin.getRepositoryManager().setSynchronizationTime(repository, timeStamp, TasksUiPlugin.getDefault().getRepositoriesFilePath());
 	}
 
+	@SuppressWarnings("null")
 	public void testChangedSinceLastSyncWithBadConnection() throws Exception {
 		TaskRepository repository = XPlannerTestUtils.getRepository();
 		AbstractRepositoryConnector connector = 
