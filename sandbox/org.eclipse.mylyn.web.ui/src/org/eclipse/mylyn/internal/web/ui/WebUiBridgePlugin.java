@@ -10,6 +10,8 @@ package org.eclipse.mylyn.internal.web.ui;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylyn.internal.context.ui.AbstractContextUiPlugin;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
@@ -62,7 +64,7 @@ public class WebUiBridgePlugin extends AbstractContextUiPlugin {
 				}
 			}
 		} catch (Exception e) {
-			StatusHandler.fail(e, "Mylyn Web UI initialization failed", false);
+			StatusHandler.log(new Status(IStatus.ERROR, WebUiBridgePlugin.ID, "Mylyn Web UI initialization failed", e));
 		}
 	}
 	

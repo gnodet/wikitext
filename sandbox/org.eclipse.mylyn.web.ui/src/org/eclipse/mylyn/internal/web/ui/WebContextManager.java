@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.context.core.IInteractionContext;
 import org.eclipse.mylyn.context.core.IInteractionContextListener;
@@ -95,8 +97,8 @@ public class WebContextManager {
 
 		try {
 			titleCache.load(new FileInputStream(getTitleCacheFile()));
-		} catch (IOException e) {
-			StatusHandler.fail(e, "could not load title cache", false);
+		} catch (IOException e) {			
+			StatusHandler.log(new Status(IStatus.WARNING, WebUiBridgePlugin.ID, "Could not load title cache", e));
 		}
 	}
 
@@ -105,7 +107,7 @@ public class WebContextManager {
 		try {
 			titleCache.store(new FileOutputStream(getTitleCacheFile()), null);
 		} catch (IOException e) {
-			StatusHandler.fail(e, "could not store title cache", false);
+			StatusHandler.log(new Status(IStatus.WARNING, WebUiBridgePlugin.ID, "Could not store title cache", e));
 		}
 	}
 

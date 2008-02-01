@@ -10,6 +10,8 @@ package org.eclipse.mylyn.internal.sandbox.dev;
 
 import java.util.ConcurrentModificationException;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ILightweightLabelDecorator;
@@ -53,7 +55,7 @@ public class InterestDebuggingDecorator implements ILightweightLabelDecorator {
 				decoration.addSuffix(" {" + node.getInterest().getValue() + "}");
 			}
 		} catch (Exception e) {
-			StatusHandler.log(e, "decoration failed");
+			StatusHandler.log(new Status(IStatus.WARNING, MylynDevPlugin.PLUGIN_ID, "Decoration failed", e));
 		}
 	}
 

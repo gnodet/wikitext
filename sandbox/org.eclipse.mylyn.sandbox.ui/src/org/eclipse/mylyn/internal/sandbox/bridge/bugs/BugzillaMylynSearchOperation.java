@@ -19,6 +19,7 @@ import javax.security.auth.login.LoginException;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IMember;
@@ -27,6 +28,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaTask;
 import org.eclipse.mylyn.internal.bugzilla.ui.tasklist.StackTrace;
+import org.eclipse.mylyn.internal.sandbox.ui.SandboxUiPlugin;
 import org.eclipse.mylyn.internal.tasks.core.LocalRepositoryConnector;
 import org.eclipse.mylyn.internal.tasks.ui.search.AbstractRepositorySearchQuery;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
@@ -300,8 +302,9 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 			if (status.getCode() == IStatus.CANCEL) {
 				return null;
 			} else if (!status.isOK()) {
-				StatusHandler.log("search error", this);
-				StatusHandler.log(status);
+				MultiStatus errorStatus = new MultiStatus(SandboxUiPlugin.ID_PLUGIN, 0, "Search error", null);
+				errorStatus.add(status);
+				StatusHandler.fail(errorStatus);
 				return null;
 			}
 			return searchCollector;
@@ -443,7 +446,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 				// }
 
 			} catch (Exception e) {
-				StatusHandler.log(e, "search failed");
+				StatusHandler.log(new Status(IStatus.INFO, SandboxUiPlugin.ID_PLUGIN, "Search failed", e));
 			} finally {
 				doiList.add(info);
 			}

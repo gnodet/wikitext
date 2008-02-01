@@ -8,6 +8,8 @@
 
 package org.eclipse.mylyn.internal.sandbox.ui;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPreferenceConstants;
@@ -25,6 +27,8 @@ import org.osgi.framework.BundleContext;
  */
 public class SandboxUiPlugin extends AbstractUIPlugin {
 
+	public final static String ID_PLUGIN = "org.eclipse.mylyn.sandbox.ui";
+	
 	private static SandboxUiPlugin plugin;
 
 	private SharedDataDirectoryManager sharedDataDirectoryManager = new SharedDataDirectoryManager();
@@ -60,7 +64,7 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 						}
 					}
 				} catch (Exception e) {
-					StatusHandler.fail(e, "Context UI initialization failed", true);
+					StatusHandler.log(new Status(IStatus.ERROR, SandboxUiPlugin.ID_PLUGIN, "Sandbox UI initialization failed", e));
 				}
 			}
 		});

@@ -11,6 +11,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -129,9 +131,8 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 			}
 
 			return folderStrings;
-
 		} catch (RuntimeException e) {
-			StatusHandler.fail(e, "Could not create list of task folders to switch to.", true);
+			StatusHandler.fail(new Status(IStatus.ERROR, SandboxUiPlugin.ID_PLUGIN, "Could not create list of task folders to switch to.", e));
 			return null;
 		}
 	}

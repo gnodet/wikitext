@@ -14,6 +14,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jface.action.IAction;
@@ -78,8 +80,8 @@ public class EclipseUsageSummaryAction implements IViewActionDelegate {
 											return;
 										IEditorInput input = new UsageStatsEditorInput(files, generator);
 										page.openEditor(input, MonitorReportsPlugin.REPORT_SUMMARY_ID);
-									} catch (PartInitException ex) {
-										StatusHandler.log(ex, "couldn't open summary editor");
+									} catch (PartInitException e) {
+										StatusHandler.log(new Status(IStatus.ERROR, MonitorReportsPlugin.ID_PLUGIN, "Could not open summary editor", e));
 									}
 								}
 							});

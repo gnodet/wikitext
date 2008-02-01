@@ -17,6 +17,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.mylyn.internal.monitor.reports.MonitorReportsPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.actions.TaskActivateAction;
 import org.eclipse.mylyn.internal.tasks.ui.actions.TaskDeactivateAction;
 import org.eclipse.mylyn.monitor.core.DateUtil;
@@ -371,7 +374,7 @@ public class FocusedUiUsageAnalysisCollector extends AbstractMylynUsageCollector
 			}
 			writer.close();
 		} catch (IOException e) {
-			StatusHandler.fail(e, "could not generate csv file", true);
+			StatusHandler.fail(new Status(IStatus.ERROR, MonitorReportsPlugin.ID_PLUGIN, "Could not generate csv file", e));
 		}
 	}
 

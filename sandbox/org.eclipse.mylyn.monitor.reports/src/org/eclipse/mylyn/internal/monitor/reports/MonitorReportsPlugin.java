@@ -23,6 +23,8 @@ public class MonitorReportsPlugin extends AbstractUIPlugin {
 
 	public static final String SHARED_TASK_DATA_ROOT_DIR = "org.eclipse.mylyn.monitor.ui.reports.preferences.sharedTaskDataRootDir";
 
+	public static final String ID_PLUGIN = "org.eclipse.mylyn.monitor.ui.reports";
+
 	private static MonitorReportsPlugin plugin;
 
 	public MonitorReportsPlugin() {
