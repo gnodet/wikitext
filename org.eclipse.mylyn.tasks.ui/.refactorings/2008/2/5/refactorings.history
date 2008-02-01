@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;open&apos; from expression &apos;dialog.open()&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.ui&apos;&#x0A;- Variable name: &apos;open&apos;&#x0A;- Destination method: &apos;org.eclipse.mylyn.internal.tasks.ui.TaskRepositoryLocationUi.PasswordRunner.run()&apos;&#x0A;- Variable expression: &apos;dialog.open()&apos;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;open&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.eclipse.mylyn.internal.tasks.ui{TaskRepositoryLocationUi.java" name="open" replace="true" selection="3010 13" stamp="1201892336770" version="1.0"/>
+</session>
