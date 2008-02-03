@@ -10,12 +10,30 @@ package org.eclipse.mylyn.xplanner.ui;
 import java.rmi.RemoteException;
 import java.text.MessageFormat;
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-import org.eclipse.core.runtime.*;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.internal.tasks.core.RepositoryTaskHandleUtil;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
-import org.eclipse.mylyn.tasks.core.*;
+import org.eclipse.mylyn.tasks.core.AbstractAttachmentHandler;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.AbstractTaskDataHandler;
+import org.eclipse.mylyn.tasks.core.ITaskCollector;
+import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
+import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
+import org.eclipse.mylyn.tasks.core.TaskList;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.wsdl.soap.domain.DomainData;
@@ -356,7 +374,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 							taskData.getAttribute(RepositoryTaskAttribute.DATE_MODIFIED).getValue()));
 				}
 				catch (ParseException e) {
-					StatusHandler.log(e, Messages.XPlannerRepositoryConnector_COULD_NOT_CONVERT_TASK_DATE);
+					StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, Messages.XPlannerRepositoryConnector_COULD_NOT_CONVERT_TASK_DATE));
 				}
 			} 
 			else {
@@ -539,7 +557,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 				throw ce;
 			}
 			catch (Exception e) {
-				StatusHandler.fail(e, e.getMessage(), true);
+				StatusHandler.fail(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, e.getMessage()));
 			}
 			
 			return changedTasks;

@@ -10,6 +10,8 @@ package org.eclipse.mylyn.xplanner.ui.editor;
 
 import java.text.DecimalFormat;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
@@ -17,12 +19,24 @@ import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractRepositoryTaskEditor;
 import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeFactory;
+import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
 import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUtils;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.*;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.*;
-import org.eclipse.ui.forms.widgets.*;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.Section;
 
 public class XPlannerTaskEditorExtraControls {
 	private AbstractRepositoryTaskEditor editor;
@@ -240,7 +254,7 @@ public class XPlannerTaskEditorExtraControls {
 			elapsedHoursString = getElapsedHoursAsString(newElapsedTime, addToCurrent, roundToHalfHour);
 		} 
 		catch (RuntimeException e1) {
-			StatusHandler.fail(e1, "Could not format elapsed time", true);
+			StatusHandler.fail(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, "Could not format elapsed time", e1));
 		}
 		
 		actualTimeText.setText(elapsedHoursString);

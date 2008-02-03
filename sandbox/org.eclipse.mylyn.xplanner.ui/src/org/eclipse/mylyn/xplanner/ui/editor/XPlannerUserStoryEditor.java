@@ -13,6 +13,8 @@ import java.util.GregorianCalendar;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
@@ -21,17 +23,30 @@ import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.ui.editors.RepositoryTaskEditorInput;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
-import org.eclipse.mylyn.xplanner.ui.*;
+import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeFactory;
+import org.eclipse.mylyn.xplanner.ui.XPlannerClientFacade;
+import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.*;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
-import org.eclipse.ui.forms.widgets.*;
-import org.xplanner.soap.*;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.ScrolledForm;
+import org.eclipse.ui.forms.widgets.Section;
+import org.xplanner.soap.IterationData;
+import org.xplanner.soap.PersonData;
+import org.xplanner.soap.ProjectData;
+import org.xplanner.soap.UserStoryData;
 
 /**
  * @author Ravi Kumar
@@ -88,15 +103,14 @@ public class XPlannerUserStoryEditor extends FormPage {
 			client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 			String id = taskData.getId();
 			if (id == null || id.trim().equals("")) {  //$NON-NLS-1$
-				StatusHandler.log(Messages.XPlannerTaskEditor_NO_TASK_KEY_EXCEPTION,
-					null);
+				StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, Messages.XPlannerTaskEditor_NO_TASK_KEY_EXCEPTION));
 			} 
 			else {
 				setUserStoryData(id);
 			}
 		}
 		catch (CoreException e) {
-			StatusHandler.log(e,	null);
+			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, "Error initializing task editor", e));
 		}
 	}
 

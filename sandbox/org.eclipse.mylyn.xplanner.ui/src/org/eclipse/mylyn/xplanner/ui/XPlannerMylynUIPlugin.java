@@ -7,7 +7,9 @@
  *******************************************************************************/
 package org.eclipse.mylyn.xplanner.ui;
 
-import org.eclipse.core.runtime.*;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
@@ -20,6 +22,7 @@ import org.osgi.framework.BundleContext;
  * @author Ravi Kumar 
  * @author Helen Bershadskaya 
  */
+// API 3.0 rename to XPlannerUiPlugin?
 public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
 
 	private static XPlannerMylynUIPlugin INSTANCE;
@@ -93,7 +96,7 @@ public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
 			}
 		}
 		else {
-			StatusHandler.log(e, message == null ? Messages.MylynXPlannerPlugin_XPLANNER_ERROR_TITLE : message);
+			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, message == null ? Messages.MylynXPlannerPlugin_XPLANNER_ERROR_TITLE : message, e));
 		}
 	}
 

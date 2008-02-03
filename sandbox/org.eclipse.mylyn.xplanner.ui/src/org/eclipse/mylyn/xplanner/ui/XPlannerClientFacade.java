@@ -7,7 +7,9 @@
  *******************************************************************************/
 package org.eclipse.mylyn.xplanner.ui;
 
-import java.net.*;
+import java.net.MalformedURLException;
+import java.net.Proxy;
+import java.net.URL;
 import java.text.MessageFormat;
 
 import org.eclipse.core.runtime.CoreException;
@@ -67,14 +69,14 @@ public class XPlannerClientFacade implements ITaskRepositoryListener {
 			return client;
 		} 
 		catch (CoreException ce) {
-			StatusHandler.log(Messages.XPlannerClientFacade_SERVER_CONNECTION_ERROR, this);
+			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, Messages.XPlannerClientFacade_SERVER_CONNECTION_ERROR, ce));
 			throw ce;
 		}
 		catch (ServiceUnavailableException sue) {
 			throw sue;
 		} 
 		catch (RuntimeException e) {
-			StatusHandler.log(Messages.XPlannerClientFacade_SERVER_CONNECTION_ERROR, this);
+			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, Messages.XPlannerClientFacade_SERVER_CONNECTION_ERROR, e));
 			throw e;
 		}
 	}
@@ -107,7 +109,7 @@ public class XPlannerClientFacade implements ITaskRepositoryListener {
 				getXPlannerClient(repository);
 			}
 			catch (CoreException e) {
-				StatusHandler.log(e.getMessage(), this); 
+				StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, e.getMessage(), e)); 
 			}
 		}
 	}
@@ -182,21 +184,20 @@ public class XPlannerClientFacade implements ITaskRepositoryListener {
 	 */
 	public static void handleConnectionException(Exception e) {
 		if (e instanceof ServiceUnavailableException) {
-			StatusHandler.fail(e, Messages.XPlannerClientFacade_CONNECTION_FAILURE_ERROR
-					+ Messages.XPlannerClientFacade_NETWORK_CONNECTION_FAILURE,
-					true);
+			StatusHandler.displayStatus("XPlanner", new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, Messages.XPlannerClientFacade_CONNECTION_FAILURE_ERROR
+					+ Messages.XPlannerClientFacade_NETWORK_CONNECTION_FAILURE, e));
 		} 
 		else if (e instanceof AuthenticationException) {
-			StatusHandler.fail(e, Messages.XPlannerClientFacade_AUTHENTICATION_FAILED
-					+ Messages.XPlannerClientFacade_USERNAME_PASSWORD_ERROR, true);
+			StatusHandler.displayStatus("XPlanner", new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, Messages.XPlannerClientFacade_AUTHENTICATION_FAILED
+					+ Messages.XPlannerClientFacade_USERNAME_PASSWORD_ERROR, e));
 		} 
 		else if (e instanceof RuntimeException) {
-			StatusHandler.fail(e, Messages.XPlannerClientFacade_NO_REPOSITORY_FOUND
-					+ Messages.XPlannerClientFacade_VERIFY_VALID_REPOSITORY, true);
+			StatusHandler.displayStatus("XPlanner", new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, Messages.XPlannerClientFacade_NO_REPOSITORY_FOUND
+					+ Messages.XPlannerClientFacade_VERIFY_VALID_REPOSITORY, e));
 		} 
 		else {
-			StatusHandler.fail(e, Messages.XPlannerClientFacade_COULD_NOT_CONNECT_TO_REPOSITORY
-					+ Messages.XPlannerClientFacade_CHECK_CREDENTIALS, true);
+			StatusHandler.displayStatus("XPlanner", new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, Messages.XPlannerClientFacade_COULD_NOT_CONNECT_TO_REPOSITORY
+					+ Messages.XPlannerClientFacade_CHECK_CREDENTIALS, e));
 		}
 	}	
 }

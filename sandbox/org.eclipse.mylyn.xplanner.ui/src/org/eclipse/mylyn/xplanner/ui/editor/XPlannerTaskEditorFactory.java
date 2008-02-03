@@ -7,6 +7,8 @@
  *******************************************************************************/
 package org.eclipse.mylyn.xplanner.ui.editor;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
@@ -76,7 +78,7 @@ public class XPlannerTaskEditorFactory extends AbstractTaskEditorFactory {
 					xplannerTask.getTaskId(), xplannerTask.getUrl()); 
 			} 
 			catch (Exception e) {
-				StatusHandler.fail(e, Messages.XPlannerTaskEditorFactory_COULD_NOT_CREATE_EDITOR_INPUT, true);
+				StatusHandler.fail(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, Messages.XPlannerTaskEditorFactory_COULD_NOT_CREATE_EDITOR_INPUT, e));
 			}
 		
 		}

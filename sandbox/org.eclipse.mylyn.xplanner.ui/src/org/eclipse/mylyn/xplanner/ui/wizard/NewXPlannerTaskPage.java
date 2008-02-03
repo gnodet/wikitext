@@ -11,6 +11,8 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IOpenListener;
@@ -27,6 +29,7 @@ import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.ui.XPlannerClientFacade;
+import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -173,7 +176,7 @@ public class NewXPlannerTaskPage extends WizardPage {
 											+ "Please check repository settings in the Task Repositories view.", //
 									e.getMessage());
 							showWarning(msg);
-							StatusHandler.fail(e, msg, false);
+							StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, msg, e));
 						} finally {
 							monitor.done();
 						}
