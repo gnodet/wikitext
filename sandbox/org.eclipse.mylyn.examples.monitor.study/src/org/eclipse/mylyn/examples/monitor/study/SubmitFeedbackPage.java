@@ -8,13 +8,14 @@
 package org.eclipse.mylyn.examples.monitor.study;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
@@ -400,10 +401,8 @@ public class SubmitFeedbackPage extends WizardPage {
 			outputStream.write(buffer.getBytes());
 			outputStream.close();
 			return feedbackFile;
-		} catch (FileNotFoundException e) {
-			StatusHandler.log(e, "failed to submit");
 		} catch (IOException e) {
-			StatusHandler.log(e, "failed to submit");
+			StatusHandler.log(new Status(IStatus.ERROR, MylynUserStudyExamplePlugin.ID_PLUGIN, "Failed to submit", e));
 		}
 		return null;
 	}

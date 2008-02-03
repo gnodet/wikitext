@@ -26,6 +26,8 @@ import org.osgi.framework.BundleContext;
  */
 public class MylynUserStudyExamplePlugin extends AbstractUIPlugin implements IStartup {
 
+	public static final String ID_PLUGIN = "org.eclipse.mylyn.examples.monitor.study";
+	
 	private static MylynUserStudyExamplePlugin plugin;
 
 	private SelectionMonitor selectionMonitor;

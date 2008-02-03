@@ -19,6 +19,8 @@ import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -129,7 +131,7 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 							MessageDialog.openError(null, "Error Uploading",
 									"There was an error uploading the feedback" + ": \n"
 											+ e.getClass().getCanonicalName());
-							StatusHandler.log(e, "could not uplaod feedback");
+							 ;
 						}
 					}
 					monitor.worked(1);
@@ -154,6 +156,7 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 			}
 
 		} catch (Exception e) {
+			StatusHandler.log(new Status(IStatus.ERROR, MylynUserStudyExamplePlugin.ID_PLUGIN, "Error uploading", e));
 			// there was a problem with the file upload so throw up an error
 			// dialog to inform the user and log the exception
 			if (e instanceof NoRouteToHostException) {
@@ -162,7 +165,6 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 			} else {
 				MessageDialog.openError(null, "Error Uploading", "There was an error uploading the feedback: \n"
 						+ e.getClass().getCanonicalName());
-				StatusHandler.log(e, "error uploading");
 			}
 		} finally {
 			f.delete();
