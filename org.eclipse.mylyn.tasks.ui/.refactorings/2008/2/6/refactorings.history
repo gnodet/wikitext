@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;product&apos; from expression &apos;Platform.getProduct()&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.ui&apos;&#x0A;- Variable name: &apos;product&apos;&#x0A;- Destination method: &apos;org.eclipse.mylyn.internal.tasks.ui.notifications.AbstractNotificationPopup.getPopupShellTitle()&apos;&#x0A;- Variable expression: &apos;Platform.getProduct()&apos;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;product&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.eclipse.mylyn.internal.tasks.ui.notifications{AbstractNotificationPopup.java" name="product" replace="true" selection="4286 21" stamp="1202150863246" version="1.0"/>
+</session>
