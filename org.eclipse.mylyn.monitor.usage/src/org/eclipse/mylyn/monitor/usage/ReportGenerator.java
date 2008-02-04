@@ -30,6 +30,7 @@ import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventCompar
 import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventSummary;
 import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventUtil;
 import org.eclipse.mylyn.internal.monitor.usage.InteractionEventLogger;
+import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.internal.monitor.usage.UsageStatisticsSummary;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
@@ -148,7 +149,7 @@ public class ReportGenerator {
 				userIDText = userIDText.substring(0, userIDText.indexOf("-"));
 				userId = Integer.valueOf(userIDText);
 			} catch (Throwable t) {
-				StatusHandler.log(t, "could not parse user ID from source file");
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not parse user ID from source file", t));
 			}
 		}
 
@@ -164,7 +165,7 @@ public class ReportGenerator {
 			try {
 				phase = userIDText.substring(0, userIDText.indexOf(terminator) - 1);
 			} catch (Throwable t) {
-				StatusHandler.log(t, "could not parse user ID from source file");
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not parse user ID from source file", t));
 			}
 		}
 		return phase;
@@ -211,8 +212,7 @@ public class ReportGenerator {
 					filesPerUser.put(userId, filesForUser);
 				}
 			} catch (Throwable t) {
-				t.printStackTrace();
-				StatusHandler.fail(t, "could not generate usage report", false);
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not generate usage report", t));
 			}
 
 			try {
@@ -319,8 +319,7 @@ public class ReportGenerator {
 				monitor.done();
 
 			} catch (Throwable t) {
-				t.printStackTrace();
-				StatusHandler.fail(t, "could not generate usage report", false);
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not generate usage report", t));
 			}
 
 			return Status.OK_STATUS;

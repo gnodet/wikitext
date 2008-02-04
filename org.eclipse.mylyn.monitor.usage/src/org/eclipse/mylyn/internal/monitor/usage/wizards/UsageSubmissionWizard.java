@@ -9,7 +9,6 @@ package org.eclipse.mylyn.internal.monitor.usage.wizards;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -183,9 +182,10 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 					// op.run(monitor);
 					return Status.OK_STATUS;
 				} catch (Exception e) {
-					StatusHandler.log(e, "Error uploading statistics");
-					return new Status(Status.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, Status.ERROR,
+					Status status = new Status(Status.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, Status.ERROR,
 							"Error uploading statistics", e);
+					StatusHandler.log(status);
+					return status;
 				}
 			}
 		};
@@ -334,7 +334,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 								+ ": \n" + e.getClass().getCanonicalName());
 					}
 				});
-				StatusHandler.log(e, "failed to upload");
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Error uploading", e));
 			}
 		}
 
@@ -454,7 +454,8 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 													+ e.getClass().getCanonicalName() + e.getMessage());
 								}
 							});
-							StatusHandler.log(e, "error uploading");
+							StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+									"Error uploading", e));
 						}
 					}
 					monitor.worked(1);
@@ -502,7 +503,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 								+ e.getClass().getCanonicalName());
 					}
 				});
-				StatusHandler.log(e, "error uploading");
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Error uploading", e));
 			}
 		}
 		return -1;
@@ -621,7 +622,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			} else {
 				MessageDialog.openError(null, "Error Uploading", "There was an error getting a new user id: \n"
 						+ e.getClass().getCanonicalName());
-				StatusHandler.log(e, "error uploading");
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Error uploading", e));
 			}
 		}
 		return -1;
@@ -635,7 +636,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			while ((s = br.readLine()) != null)
 				data += s;
 		} catch (IOException e) {
-			StatusHandler.log(e, "error uploading");
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Error uploading", e));
 		}
 		return data;
 	}
@@ -674,13 +675,10 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			fileWriter.append(fileName + "\n");
 			fileWriter.flush();
 			fileWriter.close();
-
-		} catch (FileNotFoundException e) {
-			StatusHandler.log(e, "error unzipping backup monitor log files");
 		} catch (IOException e) {
-			StatusHandler.log(e, "error unzipping backup monitor log files");
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+					"Error unzipping backup monitor log files", e));
 		}
-
 	}
 
 	private File zipFilesForUpload() {
@@ -706,10 +704,9 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 								this.addToSubmittedLogFile(currFilePath);
 							}
 						}
-					} catch (FileNotFoundException e) {
-						StatusHandler.log(e, "error unzipping backup monitor log files");
 					} catch (IOException e) {
-						StatusHandler.log(e, "error unzipping backup monitor log files");
+						StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+								"Error unzipping backup monitor log files", e));
 					}
 				}
 			}
@@ -721,7 +718,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			ZipFileUtil.createZipFile(zipFile, files);
 			return zipFile;
 		} catch (Exception e) {
-			StatusHandler.log(e, "error uploading");
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Error uploading", e));
 			return null;
 		}
 	}

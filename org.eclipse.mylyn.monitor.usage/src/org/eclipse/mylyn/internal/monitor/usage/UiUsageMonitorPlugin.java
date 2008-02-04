@@ -23,9 +23,11 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Preferences;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -293,7 +295,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 								lastTransmit.getTime());
 					}
 				} catch (Throwable t) {
-					StatusHandler.fail(t, "monitor failed to start", false);
+					StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Monitor failed to start", t));
 				}
 			}
 		});
@@ -357,7 +359,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 		if (preferenceMonitor != null) {
 			preferences.addPropertyChangeListener(preferenceMonitor);
 		} else {
-			StatusHandler.log("UI Usage Monitor not started", this);
+			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.PLUGIN_ID, "UI Usage Monitor not started", new Exception()));
 		}
 	}
 
@@ -365,7 +367,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 		if (preferenceMonitor != null) {
 			preferences.removePropertyChangeListener(preferenceMonitor);
 		} else {
-			StatusHandler.log("UI Usage Monitor not started", this);
+			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.PLUGIN_ID, "UI Usage Monitor not started", new Exception()));
 		}
 	}
 
@@ -491,7 +493,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
-				StatusHandler.log(e, "could not create monitor file");
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not create monitor file", e));
 			}
 		}
 		return file;
@@ -778,8 +780,8 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 				} else {
 					UiUsageMonitorPlugin.getDefault().setQuestionnaireEnabled(false);
 				}
-			} catch (CoreException throwable) {
-				StatusHandler.fail(throwable, "could not load questionnaire", false);
+			} catch (CoreException e) {
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not load questionaire", e));
 				UiUsageMonitorPlugin.getDefault().setQuestionnaireEnabled(false);
 			}
 
@@ -794,8 +796,8 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 				} else {
 					UiUsageMonitorPlugin.getDefault().setBackgroundEnabled(false);
 				}
-			} catch (CoreException throwable) {
-				StatusHandler.fail(throwable, "could not load background page", false);
+			} catch (CoreException e) {
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not load background page", e));
 				UiUsageMonitorPlugin.getDefault().setBackgroundEnabled(false);
 			}
 

@@ -17,6 +17,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.mylyn.internal.monitor.usage.MonitorFileRolloverJob;
@@ -137,10 +139,9 @@ public class UsageFileSelectionWizardPage extends WizardPage {
 			setControl(container);
 			// setPageComplete(validate());
 		} catch (RuntimeException e) {
-			// FIXME
-			StatusHandler.fail(e, "Could not create import wizard page", true);
+			// FIXME what exception is caught here?
+			StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not create import wizard page", e));
 		}
-
 	}
 
 	public List<String> getZipFilesSelected() {

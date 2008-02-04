@@ -25,6 +25,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.internal.context.core.InteractionContextExternalizer;
 import org.eclipse.mylyn.internal.monitor.core.util.XmlStringConverter;
 import org.eclipse.mylyn.monitor.core.AbstractMonitorLog;
@@ -71,10 +73,8 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 				queue.add(event);
 			}
 			eventAccumulartor++;
-		} catch (NullPointerException e) {
-			StatusHandler.log(e, "could not log interaction event");
 		} catch (Throwable t) {
-			StatusHandler.log(t, "could not log interaction event");
+			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.PLUGIN_ID, "Could not log interaction event", t));
 		}
 	}
 
@@ -135,8 +135,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 			}
 
 		} catch (Exception e) {
-			StatusHandler.log("could not read interaction history", this);
-			e.printStackTrace();
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not read interaction history", e));
 		}
 		return events;
 	}

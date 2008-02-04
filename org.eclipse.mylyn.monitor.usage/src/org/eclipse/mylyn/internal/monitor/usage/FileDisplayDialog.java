@@ -17,6 +17,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
@@ -118,7 +120,7 @@ public class FileDisplayDialog extends MessageDialog {
 			}
 
 		} catch (IOException e) {
-			StatusHandler.log(e, "couldn't get contents");
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not get contents", e));
 		}
 		return sb.toString();
 	}

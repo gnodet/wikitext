@@ -17,7 +17,9 @@ import java.util.Date;
 
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
@@ -160,7 +162,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 					IWorkbenchBrowserSupport support = PlatformUI.getWorkbench().getBrowserSupport();
 					support.getExternalBrowser().openURL(new URL(URL_USAGE_PAGE));
 				} catch (Exception e) {
-					StatusHandler.fail(e, "could not open task url", true);
+					StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not open task url", e));
 				}
 			} else {
 				IWebBrowser browser = null;

@@ -15,6 +15,8 @@ import org.eclipse.core.internal.preferences.Base64;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylyn.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
@@ -62,7 +64,7 @@ public class InteractionEventObfuscator {
 			obfuscatedString = new String(Base64.encode(digest)).replace(DELIM_PATH, '=');
 			// obfuscatedString = "" + new String(digest).hashCode();
 		} catch (NoSuchAlgorithmException e) {
-			StatusHandler.log("SHA not available", null);
+			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.PLUGIN_ID, "SHA not available", e));
 			obfuscatedString = LABEL_FAILED_TO_OBFUSCATE;
 		}
 		return obfuscatedString;

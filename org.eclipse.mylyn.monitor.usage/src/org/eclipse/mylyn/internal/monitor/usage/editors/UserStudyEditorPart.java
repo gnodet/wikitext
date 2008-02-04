@@ -13,10 +13,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
 import org.eclipse.mylyn.internal.monitor.usage.InteractionEventSummarySorter;
+import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -176,13 +179,12 @@ public class UserStudyEditorPart extends UsageEditorPart {
 			}
 			outputStream.flush();
 			outputStream.close();
-
-		} catch (SWTException swe) {
-			StatusHandler.log(swe, "unable to get directory name");
+		} catch (SWTException e) {
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Unable to get directory name", e));
 		} catch (FileNotFoundException e) {
-			StatusHandler.log(e, "could not resolve file");
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not resolve file", e));
 		} catch (IOException e) {
-			StatusHandler.log(e, "could not write to file");
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not write to file", e));
 		}
 	}
 

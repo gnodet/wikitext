@@ -245,7 +245,6 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 	}
 
 	public void done(IJobChangeEvent event) {
-
 		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 			public void run() {
 				try {
@@ -261,10 +260,9 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 						page.openEditor(input, UsageSummaryReportEditorPart.ID);
 					}
 
-				} catch (PartInitException e1) {
-					StatusHandler.fail(e1, "Could not show usage summary", true);
+				} catch (PartInitException e) {
+					StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not show usage summary", e));
 				}
-
 			}
 		});
 
