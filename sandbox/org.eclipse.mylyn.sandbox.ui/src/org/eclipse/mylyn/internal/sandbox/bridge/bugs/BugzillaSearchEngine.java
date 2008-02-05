@@ -108,7 +108,6 @@ public class BugzillaSearchEngine {
 	 * @param maxHits -
 	 *            the maximum number of matches to return or IBugzillaConstants.RETURN_ALL_HITS for unlimited
 	 */
-	@SuppressWarnings("null")
 	public IStatus search(ProgressQueryHitCollector collector, int startMatches, int maxHits) throws LoginException {
 		IProgressMonitor monitor = collector.getProgressMonitor();
 		IStatus status = null;
@@ -131,7 +130,6 @@ public class BugzillaSearchEngine {
 
 			BugzillaClient client = bugzillaConnector.getClientManager().getClient(repository);
 			client.getSearchHits(query, collector);
-
 		} catch (CoreException e) {
 			status = new MultiStatus(BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR,
 					"Core Exception occurred while querying Bugzilla Server " + repository.getUrl() + ".\n"
