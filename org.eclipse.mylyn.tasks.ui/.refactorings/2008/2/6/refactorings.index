@@ -1,1 +1,3 @@
 1202150863246	Extract local variable 'product'
+1202332247851	Rename type 'EditCredentialsDialog'
+1202332363083	Extract constant 'ENTER_CREDENTIALS'
