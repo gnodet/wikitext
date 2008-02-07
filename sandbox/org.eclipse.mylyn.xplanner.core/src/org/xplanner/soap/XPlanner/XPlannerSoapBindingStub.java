@@ -7,7 +7,7 @@
 
 package org.xplanner.soap.XPlanner;
 
-@SuppressWarnings({ "unchecked", "unused", "null" })
+@SuppressWarnings({ "unchecked", "unused" })
 public class XPlannerSoapBindingStub extends org.apache.axis.client.Stub implements org.xplanner.soap.XPlanner.XPlanner {
     private java.util.Vector cachedSerClasses = new java.util.Vector();
     private java.util.Vector cachedSerQNames = new java.util.Vector();
