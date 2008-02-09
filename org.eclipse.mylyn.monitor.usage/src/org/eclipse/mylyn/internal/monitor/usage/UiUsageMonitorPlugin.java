@@ -70,7 +70,7 @@ import org.osgi.framework.BundleContext;
  * @author Mik Kersten
  * @author Shawn Minto
  */
-public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
+public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 	public static final String PREF_USER_ID = "org.eclipse.mylyn.user.id";
 
@@ -126,8 +126,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 
 	private KeybindingCommandMonitor keybindingCommandMonitor;
 
-	// private BrowserMonitor browserMonitor;
-
 	private static UiUsageMonitorPlugin plugin;
 
 	private List<IActionExecutionListener> actionExecutionListeners = new ArrayList<IActionExecutionListener>();
@@ -137,8 +135,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 	private ResourceBundle resourceBundle;
 
 	private static Date lastTransmit = null;
-
-//	private boolean notifiedOfUserIdSubmission = false;
 
 	private Authentication uploadAuthentication = null;
 
@@ -152,6 +148,13 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 
 	private ListenerList lifecycleListeners = new ListenerList();
 
+	public static class UiUsageMonitorStartup implements IStartup {
+
+		public void earlyStartup() {
+			// everything happens on normal start
+		}
+	}
+	
 	private IWindowListener WINDOW_LISTENER = new IWindowListener() {
 		public void windowActivated(IWorkbenchWindow window) {
 		}
@@ -299,19 +302,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin implements IStartup {
 				}
 			}
 		});
-	}
-
-	/**
-	 * Used to start plugin on startup -> entry in plugin.xml to invoke this
-	 */
-	public void earlyStartup() {
-		// final IWorkbench workbench = PlatformUI.getWorkbench();
-		// workbench.getDisplay().asyncExec(new Runnable() {
-		// public void run() {
-		//
-		// }
-		// });
-
 	}
 
 	public void startMonitoring() {

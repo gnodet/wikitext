@@ -24,7 +24,7 @@ import org.osgi.framework.BundleContext;
 /**
  * @author Mik Kersten
  */
-public class MylynUserStudyExamplePlugin extends AbstractUIPlugin implements IStartup {
+public class MylynUserStudyExamplePlugin extends AbstractUIPlugin {
 
 	public static final String ID_PLUGIN = "org.eclipse.mylyn.examples.monitor.study";
 	
@@ -35,33 +35,36 @@ public class MylynUserStudyExamplePlugin extends AbstractUIPlugin implements ISt
 	public MylynUserStudyExamplePlugin() {
 		plugin = this;
 	}
+	
+	public static class MylynUserStudyExampleStartup implements IStartup {
+
+		public void earlyStartup() {
+			final IWorkbench workbench = PlatformUI.getWorkbench();
+			workbench.getDisplay().asyncExec(new Runnable() {
+				public void run() {
+					MylynUserStudyExamplePlugin.getDefault().selectionMonitor = new SelectionMonitor();
+					MonitorUiPlugin.getDefault().getSelectionMonitors().add(MylynUserStudyExamplePlugin.getDefault().selectionMonitor);
+
+					UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
+							WorkbenchPlugin.getDefault().getPluginPreferences());
+					// MylarUsageMonitorPlugin.getDefault().addMonitoredPreferences(
+					// MylarUiPlugin.getDefault().getPluginPreferences());
+					UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
+							JavaPlugin.getDefault().getPluginPreferences());
+					UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
+							WorkbenchPlugin.getDefault().getPluginPreferences());
+					UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
+							EditorsPlugin.getDefault().getPluginPreferences());
+					UiUsageMonitorPlugin.getDefault()
+							.addMonitoredPreferences(PDEPlugin.getDefault().getPluginPreferences());
+				}
+			});
+		}		
+	}
 
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-	}
-
-	public void earlyStartup() {
-		final IWorkbench workbench = PlatformUI.getWorkbench();
-		workbench.getDisplay().asyncExec(new Runnable() {
-			public void run() {
-				selectionMonitor = new SelectionMonitor();
-				MonitorUiPlugin.getDefault().getSelectionMonitors().add(selectionMonitor);
-
-				UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
-						WorkbenchPlugin.getDefault().getPluginPreferences());
-				// MylarUsageMonitorPlugin.getDefault().addMonitoredPreferences(
-				// MylarUiPlugin.getDefault().getPluginPreferences());
-				UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
-						JavaPlugin.getDefault().getPluginPreferences());
-				UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
-						WorkbenchPlugin.getDefault().getPluginPreferences());
-				UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
-						EditorsPlugin.getDefault().getPluginPreferences());
-				UiUsageMonitorPlugin.getDefault()
-						.addMonitoredPreferences(PDEPlugin.getDefault().getPluginPreferences());
-			}
-		});
 	}
 
 	@Override

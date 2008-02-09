@@ -6,6 +6,8 @@
     <extension
          name="Mylyn User Study Example Plug-in"
          point="org.eclipse.ui.startup">
+       <startup
+             class="org.eclipse.mylyn.examples.monitor.study.MylynUserStudyExamplePlugin$MylynUserStudyExampleStartup"></startup>
     </extension>
 
    <extension

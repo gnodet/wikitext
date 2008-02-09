@@ -6,6 +6,9 @@
    <extension
          name="Mylyn UI Usage Monitoring Startup"
          point="org.eclipse.ui.startup">
+      <startup
+            class="org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin$UiUsageMonitorStartup">
+      </startup>
    </extension>   
     
    <extension point="org.eclipse.ui.preferencePages">
