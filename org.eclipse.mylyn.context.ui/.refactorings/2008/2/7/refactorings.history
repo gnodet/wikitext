@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract method &apos;private void run(AbstractTask task)&apos; from &apos;org.eclipse.mylyn.internal.context.ui.actions.ContextClearAction.run()&apos; to &apos;org.eclipse.mylyn.internal.context.ui.actions.ContextClearAction&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.context.ui&apos;&#x0A;- Method name: &apos;run&apos;&#x0A;- Destination type: &apos;org.eclipse.mylyn.internal.context.ui.actions.ContextClearAction&apos;&#x0A;- Declared visibility: &apos;private&apos;" comments="false" description="Extract method &apos;run&apos;" destination="0" exceptions="false" flags="786434" id="org.eclipse.jdt.ui.extract.method" input="/src&lt;org.eclipse.mylyn.internal.context.ui.actions{ContextClearAction.java" name="run" replace="false" selection="1595 690" stamp="1202874175580" version="1.0" visibility="2"/>
+</session>
