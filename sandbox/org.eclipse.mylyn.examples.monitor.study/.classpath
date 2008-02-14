@@ -6,6 +6,6 @@
 		<accessrules>
 			<accessrule kind="accessible" pattern="**/internal/**"/>
 		</accessrules>
-	</classpathentry>
+	</classpathentry> 
 	<classpathentry kind="output" path="bin"/>
 </classpath>

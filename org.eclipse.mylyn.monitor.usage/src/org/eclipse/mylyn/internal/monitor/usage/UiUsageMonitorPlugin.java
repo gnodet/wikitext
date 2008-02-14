@@ -256,7 +256,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		}
 
 		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_MONITORING_STARTED, false);
-
 	}
 
 	@Override
