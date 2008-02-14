@@ -1,1 +1,4 @@
 1202874175580	Extract method 'run'
+1203014465515	Move compilation unit
+1203014489109	Rename type 'ContextHighlighter'
+1203014608039	Rename method 'initialize'
