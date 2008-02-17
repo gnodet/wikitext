@@ -74,12 +74,13 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 
 	private Button activateOnOpen;
 
+	private Button enableLocalSubTasksButton;
+
 	private Button showTaskTrimButton;
 	
 	private Highlighter selection = null;
 
 	private HighlighterContentProvider contentProvider = null;
-
 
 	private static final String LABEL_COLUMN = "Label";
 
@@ -150,9 +151,12 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 				TasksUiPreferenceConstants.OVERLAYS_INCOMING_TIGHT));
 		
 		activateOnOpen = new Button(group, SWT.CHECK);
-		activateOnOpen.setLayoutData(new GridData());
 		activateOnOpen.setText("Activate tasks on open");
 		activateOnOpen.setSelection(uiPreferenceStore.getBoolean(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED));
+
+		enableLocalSubTasksButton = new Button(group, SWT.CHECK);
+		enableLocalSubTasksButton.setText("Enable subtasks for local tasks");
+		enableLocalSubTasksButton.setSelection(uiPreferenceStore.getBoolean(TasksUiPreferenceConstants.LOCAL_SUB_TASKS_ENABLED));
 	}
 
 	private void createJavaGroup(Composite parent) {
@@ -232,6 +236,8 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		
 		uiPreferenceStore.setValue(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED, activateOnOpen.getSelection());
 
+		uiPreferenceStore.setValue(TasksUiPreferenceConstants.LOCAL_SUB_TASKS_ENABLED, enableLocalSubTasksButton.getSelection());
+
 		uiPreferenceStore.setValue(TasksUiPreferenceConstants.OVERLAYS_INCOMING_TIGHT,
 				incomingOverlaysButton.getSelection());
 		TaskListView view = TaskListView.getFromActivePerspective();
@@ -258,6 +264,7 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		
 		IPreferenceStore uiPreferenceStore = TasksUiPlugin.getDefault().getPreferenceStore();
 		activateOnOpen.setSelection(uiPreferenceStore.getBoolean(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED));
+		enableLocalSubTasksButton.setSelection(uiPreferenceStore.getBoolean(TasksUiPreferenceConstants.LOCAL_SUB_TASKS_ENABLED));
 		showTaskTrimButton.setSelection(uiPreferenceStore.getBoolean(TasksUiPreferenceConstants.SHOW_TRIM));
 		
 		contentProvider = new HighlighterContentProvider();
