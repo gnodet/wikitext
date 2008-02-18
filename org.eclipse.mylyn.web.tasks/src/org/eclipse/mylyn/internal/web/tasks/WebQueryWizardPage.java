@@ -8,6 +8,8 @@
 
 package org.eclipse.mylyn.internal.web.tasks;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -51,6 +53,9 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.browser.IWebBrowser;
+import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
 import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
@@ -171,7 +176,15 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		});
 		decorations.add(WebContentProposalProvider.createDecoration(queryUrlText, parametersEditor, false));
 
-		new Label(composite1, SWT.NONE);
+		Button button = new Button(composite1, SWT.NONE);
+		button.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false));
+		button.setText("&Open");
+		button.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				openBrowser();
+			}
+		});
 
 		Label queryPatternLabel = toolkit.createLabel(composite1, "Query &Pattern:", SWT.NONE);
 		queryPatternLabel.setLayoutData(new GridData(SWT.LEFT, SWT.TOP, false, false));
@@ -185,7 +198,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 
 		Button preview = new Button(composite1, SWT.NONE);
 		preview.setLayoutData(new GridData(SWT.FILL, SWT.TOP, false, false));
-		preview.setText("Preview");
+		preview.setText("Previe&w");
 		preview.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(final SelectionEvent e) {
@@ -334,6 +347,42 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		}
 	}
 
+	protected void openBrowser() {
+		final String url = queryUrlText.getText();
+		final Map<String, String> params = parametersEditor.getParameters();
+		
+		new Job("Opening Browser") {
+			@Override
+			protected IStatus run(IProgressMonitor monitor) {
+				String evaluatedUrl = WebRepositoryConnector.evaluateParams(url, params, repository);
+				
+				try {
+					String webPage = WebRepositoryConnector.fetchResource(evaluatedUrl, params, repository);
+					File webPageFile = File.createTempFile("mylyn-web-connector", ".html");
+					webPageFile.deleteOnExit();
+
+					FileWriter w = new FileWriter(webPageFile);
+					w.write(webPage);
+					w.flush();
+					w.close();
+					
+					IWorkbenchBrowserSupport browserSupport = PlatformUI.getWorkbench().getBrowserSupport();
+					IWebBrowser browser = browserSupport.getExternalBrowser();
+					browser.openURL(webPageFile.toURL());
+					
+				} catch (final Exception e) {
+					Display.getCurrent().asyncExec(new Runnable() {
+						public void run() {
+							setMessage(e.toString());
+						}
+					});
+				}
+				
+				return Status.OK_STATUS;
+			}
+		}.schedule();
+	}
+	
 	@Override
 	public boolean isPageComplete() {
 		if (getErrorMessage() != null) {
@@ -344,18 +393,6 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 
 	void updatePreviewTable(List<AbstractTask> tasks, MultiStatus queryStatus) {
 		previewTable.setInput(tasks);
-
-//		if (tasks != null) {
-//			for (AbstractTask hit : tasks) {
-//				TableItem item = new TableItem(previewTable, SWT.NONE);
-//				if (hit.getTaskId() != null) {
-//					item.setText(0, hit.getTaskId());
-//					if (hit.getSummary() != null) {
-//						item.setText(1, hit.getSummary());
-//					}
-//				}
-//			}
-//		}
 
 		if (queryStatus.isOK()) {
 			setErrorMessage(null);
@@ -410,14 +447,13 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 						webPage = WebRepositoryConnector.fetchResource(evaluatedUrl, params, repository);
 					}
 
-					QueryHitCollector collector = new QueryHitCollector(new ITaskFactory() {
-
+					ITaskFactory taskFactory = new ITaskFactory() {
 						public AbstractTask createTask(RepositoryTaskData taskData, IProgressMonitor monitor)
 								throws CoreException {
 							return null;
 						}
-					}) {
-
+					};
+					QueryHitCollector collector = new QueryHitCollector(taskFactory) {
 						@Override
 						public void accept(AbstractTask hit) {
 							queryHits.add(hit);
@@ -439,12 +475,12 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 								"No matching results. Check query regexp", null));
 					}
 
-				} catch (final IOException ex) {
-					queryStatus.add(new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, IStatus.ERROR,
+				} catch (IOException ex) {
+					queryStatus.add(new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, IStatus.ERROR, //
 							"Unable to fetch resource: " + ex.getMessage(), null));
-				} catch (final Exception ex) {
-					queryStatus.add(new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, IStatus.ERROR, "Parsing error: "
-							+ ex.getMessage(), null));
+				} catch (Exception ex) {
+					queryStatus.add(new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, IStatus.ERROR, //
+							"Parsing error: " + ex.getMessage(), null));
 				}
 
 				Display.getDefault().asyncExec(new Runnable() {
