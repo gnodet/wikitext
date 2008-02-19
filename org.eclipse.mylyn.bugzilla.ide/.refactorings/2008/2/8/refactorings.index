@@ -1,2 +1,4 @@
 1203364701627	Move member 'ID_PLUGIN'
 1203368907871	Extract constant 'YHINT'
+1203389772791	Delete element
+1203389864696	Rename field 'REPOSITORY'
