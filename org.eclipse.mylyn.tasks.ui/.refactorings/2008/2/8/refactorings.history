@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;connectorUi&apos; from expression &apos;TasksUiPlugin.getConnectorUi(task.getConnectorKind())&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.ui&apos;&#x0A;- Variable name: &apos;connectorUi&apos;&#x0A;- Destination method: &apos;org.eclipse.mylyn.internal.tasks.ui.views.TaskListToolTip.getDetailsText()&apos;&#x0A;- Variable expression: &apos;TasksUiPlugin.getConnectorUi(task.getConnectorKind())&apos;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;connectorUi&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.eclipse.mylyn.internal.tasks.ui.views{TaskListToolTip.java" name="connectorUi" replace="true" selection="6551 53" stamp="1203474528717" version="1.0"/>
+</session>
