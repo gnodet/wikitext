@@ -1,1 +1,3 @@
 1203474528717	Extract local variable 'connectorUi'
+1203556956446	Move member 'ACTIVITY_TIMEOUT'
+1203556965961	Move member 'ACTIVITY_TIMEOUT_ENABLED'
