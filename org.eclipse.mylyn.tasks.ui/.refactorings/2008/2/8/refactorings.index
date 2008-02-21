@@ -1,3 +1,5 @@
 1203474528717	Extract local variable 'connectorUi'
 1203556956446	Move member 'ACTIVITY_TIMEOUT'
 1203556965961	Move member 'ACTIVITY_TIMEOUT_ENABLED'
+1203574492720	Rename resource 'editing_16.gif'
+1203575257817	Rename resource 'cut_edit.gif'
