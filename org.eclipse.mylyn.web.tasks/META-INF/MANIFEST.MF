@@ -7,14 +7,13 @@ Bundle-Activator: org.eclipse.mylyn.internal.web.tasks.TasksWebPlugin
 Bundle-Vendor: Eclipse.org
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.mylyn.tasks.core,
- org.eclipse.mylyn.tasks.ui,
+ org.eclipse.mylyn.tasks.core;bundle-version="[2.3.0,3.0.0)",
+ org.eclipse.mylyn.tasks.ui;bundle-version="[2.3.0,3.0.0)",
  org.eclipse.search,
  org.eclipse.ui.forms,
- org.eclipse.mylyn.context.core,
- org.eclipse.mylyn,
- org.eclipse.mylyn.web.core,
- org.eclipse.mylyn.monitor.core
+ org.eclipse.mylyn.context.core;bundle-version="[2.3.0,3.0.0)",
+ org.eclipse.mylyn.web.core;bundle-version="[2.3.0,3.0.0)",
+ org.eclipse.mylyn.monitor.core;bundle-version="[2.3.0,3.0.0)"
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.mylyn.internal.web.tasks
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

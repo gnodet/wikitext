@@ -7,8 +7,7 @@ Bundle-Activator: org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.mylyn,
- org.eclipse.mylyn.web.core
+ org.eclipse.mylyn.web.core;bundle-version="[2.3.0,3.0.0)"
 Eclipse-LazyStart: true
 Export-Package: org.apache.axis,
  org.apache.axis.attachments,

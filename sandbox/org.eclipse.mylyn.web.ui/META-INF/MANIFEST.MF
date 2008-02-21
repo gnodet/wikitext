@@ -10,12 +10,12 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.ui.browser,
  org.eclipse.ui.navigator,
- org.eclipse.mylyn.tasks.core,
- org.eclipse.mylyn.tasks.ui,
- org.eclipse.mylyn.context.core,
- org.eclipse.mylyn.context.ui,
- org.eclipse.mylyn.monitor.core,
- org.eclipse.mylyn.monitor.ui
+ org.eclipse.mylyn.tasks.core;bundle-version="[2.3.0,3.0.0)",
+ org.eclipse.mylyn.tasks.ui;bundle-version="[2.3.0,3.0.0)",
+ org.eclipse.mylyn.context.core;bundle-version="[2.3.0,3.0.0)",
+ org.eclipse.mylyn.context.ui;bundle-version="[2.3.0,3.0.0)",
+ org.eclipse.mylyn.monitor.core;bundle-version="[2.3.0,3.0.0)",
+ org.eclipse.mylyn.monitor.ui;bundle-version="[2.3.0,3.0.0)"
 Eclipse-AutoStart: true
 Export-Package: org.eclipse.mylyn.internal.web.ui
 Bundle-Vendor: Eclipse.org
