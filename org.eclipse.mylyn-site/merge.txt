@@ -3,7 +3,7 @@
 FOR MYLYN 2.3:  merge features due to depencency changes
 
 -------------------------------------------------------------------------
-Merging with 3.3 with 3.2
+Merging 3.3 with 3.2
 
 Merge back to latest Platfrom version:
 * AbstractWorkingSetDialogCOPY
