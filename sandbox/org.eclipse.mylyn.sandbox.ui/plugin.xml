@@ -233,7 +233,7 @@
 			name="Show Context Search Elements"
 			description="Show Context Search Elements"
 			id="org.eclipse.mylyn.sandbox.ui.commands.open.related.dialog"
-			categoryId="org.ecipse.mylyn.context.ui.commands">
+			categoryId="org.eclipse.mylyn.context.ui.commands">
 		</command>
 	</extension>
 	
