@@ -204,6 +204,50 @@
             name="Task Activity"/>
    </extension>
    
+    <extension point="org.eclipse.ui.actionSets">
+      <actionSet
+        label="Mylyn Task Context"
+        description="Mylyn Focus"
+        visible="true"
+        id="org.eclipse.mylyn.sandbox.ui.actionSet">
+        
+        <action
+          definitionId="org.eclipse.mylyn.sandbox.ui.commands.open.related.dialog"
+          label="Open Mylyn Related Elements"
+          class="org.eclipse.mylyn.internal.sandbox.ui.actions.OpenRelatedElementsPopupDialogAction"
+          menubarPath="navigate/open.ext2"
+          id="org.eclipse.mylyn.sandbox.ui.actions.open.related.dialog"
+          icon="icons/eview16/active-search.gif">
+        </action>
+      </actionSet>
+    </extension>
+
+	<extension point="org.eclipse.ui.commands">
+		<category
+			name="Mylyn UI"
+			description="Mylyn UI Commands"
+			id="org.eclipse.mylyn.context.ui.commands">
+		</category>
+		
+		<command
+			name="Show Context Search Elements"
+			description="Show Context Search Elements"
+			id="org.eclipse.mylyn.sandbox.ui.commands.open.related.dialog"
+			categoryId="org.ecipse.mylyn.context.ui.commands">
+		</command>
+	</extension>
+	
+    <extension point="org.eclipse.ui.bindings">
+      <key
+        sequence="M1+M2+M3+ARROW_LEFT"
+        contextId="org.eclipse.ui.globalScope"
+        commandId="org.eclipse.mylyn.sandbox.ui.commands.open.related.dialog"
+        schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
+      </key>
+    </extension>
+   
+   
+   
    <!--
    <extension point="org.eclipse.mylyn.tasks.ui.presentations">
       <presentation 
