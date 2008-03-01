@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.mylyn.sandbox.dev_feature"
       label="Mylyn Developer Extras (for Contributors)"
-      version="2.3.0.qualifier"
+      version="3.0.0.qualifier"
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylyn">
 
@@ -233,7 +233,7 @@ litigation.
          id="org.eclipse.mylyn.sandbox.dev"
          download-size="0"
          install-size="0"
-         version="2.3.0.qualifier"
+         version="3.0.0.qualifier"
          unpack="false"/>
 
 </feature>
