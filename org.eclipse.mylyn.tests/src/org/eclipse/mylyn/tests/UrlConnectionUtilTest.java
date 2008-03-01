@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.tasks.tests;
+package org.eclipse.mylyn.tests;
 
 import java.net.InetSocketAddress;
 import java.net.Proxy.Type;
