@@ -46,7 +46,7 @@ public class UserStudyEditorPart extends UsageEditorPart {
 
 	private TableViewer tableViewer;
 
-	private String[] columnNames = new String[] { "Kind", "ID", "Num", "Last Delta", "Users" };
+	private final String[] columnNames = new String[] { "Kind", "ID", "Num", "Last Delta", "Users" };
 
 	public UserStudyEditorPart(String id, String title) {
 		// super(id, title);
@@ -180,7 +180,8 @@ public class UserStudyEditorPart extends UsageEditorPart {
 			outputStream.flush();
 			outputStream.close();
 		} catch (SWTException e) {
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Unable to get directory name", e));
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Unable to get directory name",
+					e));
 		} catch (FileNotFoundException e) {
 			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not resolve file", e));
 		} catch (IOException e) {

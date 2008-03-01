@@ -11,10 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.wizard.*;
+import org.eclipse.jface.window.Window;
+import org.eclipse.jface.wizard.IWizard;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.mylyn.internal.tasks.ui.wizards.EditRepositoryWizard;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
@@ -32,11 +34,12 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
 /**
- * @author Ravi Kumar 
- * @author Helen Bershadskaya 
+ * @author Ravi Kumar
+ * @author Helen Bershadskaya
  */
 public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 
+	@Override
 	public AbstractRepositorySettingsPage getSettingsPage() {
 		return new XPlannerRepositorySettingsPage(this);
 	}
@@ -44,60 +47,56 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 	@Override
 	public ImageDescriptor getTaskKindOverlay(AbstractTask task) {
 		ImageDescriptor overlayImage;
-		
+
 		XPlannerTask.Kind kind = XPlannerTask.Kind.fromString(task.getTaskKind());
 		if (kind.equals(XPlannerTask.Kind.TASK)) {
 			overlayImage = XPlannerImages.OVERLAY_TASK;
-		}
-		else if (kind.equals(XPlannerTask.Kind.USER_STORY)) {
+		} else if (kind.equals(XPlannerTask.Kind.USER_STORY)) {
 			overlayImage = XPlannerImages.OVERLAY_USER_STORY;
-		}
-		else if (kind.equals(XPlannerTask.Kind.ITERATION)) {
+		} else if (kind.equals(XPlannerTask.Kind.ITERATION)) {
 			overlayImage = XPlannerImages.OVERLAY_ITERATION;
-		}
-		else {
+		} else {
 			overlayImage = super.getTaskKindOverlay(task);
 		}
-		
+
 		return overlayImage;
 	}
 
 	@Override
 	public WizardPage getSearchPage(TaskRepository repository, IStructuredSelection selection) {
 		WizardPage xplannerQueryPage = null;
-		
+
 		try {
 			xplannerQueryPage = new XPlannerCustomQueryPage(repository, null);
-		} 
-		catch (RuntimeException e) {
-			XPlannerMylynUIPlugin.log(e.getCause(), Messages.XPlannerQueryWizardUtils_COULD_NOT_CREATE_QUERY_PAGE_MESSAGE, true);
+		} catch (RuntimeException e) {
+			XPlannerMylynUIPlugin.log(e.getCause(),
+					Messages.XPlannerQueryWizardUtils_COULD_NOT_CREATE_QUERY_PAGE_MESSAGE, true);
 		}
-		
-		return xplannerQueryPage;
-	} 
 
+		return xplannerQueryPage;
+	}
+
+	@Override
 	public IWizard getQueryWizard(TaskRepository repository, AbstractRepositoryQuery query) {
 		IWizard queryWizard = null;
-		
+
 		if (ensureHaveValidClient(repository)) {
 			if (query instanceof XPlannerCustomQuery) {
 				queryWizard = new EditXPlannerQueryWizard(repository, query);
-			}
-			else {
+			} else {
 				queryWizard = new NewXPlannerQueryWizard(repository);
 			}
 		}
-		
+
 		return queryWizard;
 	}
-	
+
 	private boolean ensureHaveValidClient(TaskRepository repository) {
 		boolean haveValidClient = true;
-		
+
 		try {
 			XPlannerClientFacade.getDefault().getXPlannerClient(repository);
-		} 
-		catch (CoreException ce) {
+		} catch (CoreException ce) {
 			try {
 				EditRepositoryWizard wizard = new EditRepositoryWizard(repository);
 				Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
@@ -106,20 +105,19 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 					dialog.create();
 					dialog.setErrorMessage("Authentication credentials missing.");
 					dialog.setBlockOnOpen(true);
-					if (dialog.open() == Dialog.CANCEL) {
+					if (dialog.open() == Window.CANCEL) {
 						dialog.close();
 						haveValidClient = false;
 					}
 				}
-			} 
-			catch (Exception e) {
+			} catch (Exception e) {
 				haveValidClient = false;
 			}
 		}
-		
+
 		return haveValidClient;
 	}
-	
+
 //	@Override
 //	public void openEditQueryDialog(AbstractRepositoryQuery query) {
 //		try {
@@ -161,27 +159,28 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 	public boolean hasSearchPage() {
 		return true;
 	}
-	
+
 	@Override
 	public String getTaskKindLabel(AbstractTask repositoryTask) {
-		return repositoryTask == null ? super.getTaskKindLabel(repositoryTask) :
-			repositoryTask.getTaskKind();
+		return repositoryTask == null ? super.getTaskKindLabel(repositoryTask) : repositoryTask.getTaskKind();
 	}
-	
+
 	@Override
 	public List<AbstractTaskContainer> getLegendItems() {
 		List<AbstractTaskContainer> legendItems = new ArrayList<AbstractTaskContainer>();
-		
+
 		XPlannerTask task = new XPlannerTask("", XPlannerTask.Kind.TASK.name(), XPlannerTask.Kind.TASK.toString());
-		task.setTaskKind(XPlannerTask.Kind.TASK.toString());		
+		task.setTaskKind(XPlannerTask.Kind.TASK.toString());
 		legendItems.add(task);
 
-		XPlannerTask userStory = new XPlannerTask("", XPlannerTask.Kind.USER_STORY.name(), XPlannerTask.Kind.USER_STORY.toString());
-		userStory.setTaskKind(XPlannerTask.Kind.USER_STORY.toString());		
+		XPlannerTask userStory = new XPlannerTask("", XPlannerTask.Kind.USER_STORY.name(),
+				XPlannerTask.Kind.USER_STORY.toString());
+		userStory.setTaskKind(XPlannerTask.Kind.USER_STORY.toString());
 		legendItems.add(userStory);
 
-		XPlannerTask iteration = new XPlannerTask("", XPlannerTask.Kind.ITERATION.name(), XPlannerTask.Kind.ITERATION.toString());
-		iteration.setTaskKind(XPlannerTask.Kind.ITERATION.toString());		
+		XPlannerTask iteration = new XPlannerTask("", XPlannerTask.Kind.ITERATION.name(),
+				XPlannerTask.Kind.ITERATION.toString());
+		iteration.setTaskKind(XPlannerTask.Kind.ITERATION.toString());
 		legendItems.add(iteration);
 
 		return legendItems;

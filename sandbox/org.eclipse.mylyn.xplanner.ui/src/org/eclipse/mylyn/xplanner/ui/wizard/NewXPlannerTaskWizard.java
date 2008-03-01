@@ -25,52 +25,51 @@ import org.eclipse.ui.PlatformUI;
 
 public class NewXPlannerTaskWizard extends Wizard implements INewWizard {
 
-	private TaskRepository taskRepository;
+	private final TaskRepository taskRepository;
 
-	private NewXPlannerTaskPage userStoryPage;
-	
+	private final NewXPlannerTaskPage userStoryPage;
+
 	public NewXPlannerTaskWizard(TaskRepository taskRepository) {
 		this.taskRepository = taskRepository;
-	
+
 		userStoryPage = new NewXPlannerTaskPage(taskRepository);
-	
+
 		setWindowTitle("New Task");
 		setDefaultPageImageDescriptor(TasksUiImages.BANNER_REPOSITORY);
-	
+
 		setNeedsProgressMonitor(true);
 	}
-	
+
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 	}
-	
+
 	@Override
 	public void addPages() {
 		addPage(userStoryPage);
 	}
-	
+
 	@Override
 	public boolean canFinish() {
 		boolean canFinish = false;
-		
+
 		if (userStoryPage != null) {
 			canFinish = userStoryPage.isPageComplete();
 		}
-		
+
 		return canFinish;
 	}
-	
+
 	@Override
 	public boolean performFinish() {
 		try {
-			RepositoryTaskData taskData = XPlannerRepositoryUtils.getNewRepositoryTaskData(
-				taskRepository, userStoryPage.getSelectedUserStory());
+			RepositoryTaskData taskData = XPlannerRepositoryUtils.getNewRepositoryTaskData(taskRepository,
+					userStoryPage.getSelectedUserStory());
 
 			NewTaskEditorInput editorInput = new NewTaskEditorInput(taskRepository, taskData);
 			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 			TasksUiUtil.openEditor(editorInput, TaskEditor.ID_EDITOR, page);
 			return true;
-		} 
-		catch (CoreException e) {
+		} catch (CoreException e) {
 			throw new RuntimeException(e);
 		}
 	}

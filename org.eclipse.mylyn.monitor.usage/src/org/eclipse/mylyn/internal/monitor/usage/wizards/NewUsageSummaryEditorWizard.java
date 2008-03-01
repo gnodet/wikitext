@@ -11,6 +11,7 @@ package org.eclipse.mylyn.internal.monitor.usage.wizards;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
@@ -57,7 +58,7 @@ public class NewUsageSummaryEditorWizard extends Wizard implements INewWizard {
 		}
 
 		MonitorFileRolloverJob job = new MonitorFileRolloverJob(collectors);
-		job.setPriority(MonitorFileRolloverJob.LONG);
+		job.setPriority(Job.LONG);
 		job.schedule();
 
 		return true;

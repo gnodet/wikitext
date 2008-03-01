@@ -110,8 +110,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 
 			// Add the list of folders with task data
 			File[] files = rootDir.listFiles();
-			for (int i = 0; i < files.length; i++) {
-				File currFile = files[i];
+			for (File currFile : files) {
 				if (currFile.isDirectory() && containsTaskData(currFile)
 						&& !TasksUiPlugin.getDefault().getDataDirectory().endsWith(currFile.getName())) {
 					folders.add(currFile.getName());
@@ -132,7 +131,8 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 
 			return folderStrings;
 		} catch (RuntimeException e) {
-			StatusHandler.fail(new Status(IStatus.ERROR, SandboxUiPlugin.ID_PLUGIN, "Could not create list of task folders to switch to.", e));
+			StatusHandler.fail(new Status(IStatus.ERROR, SandboxUiPlugin.ID_PLUGIN,
+					"Could not create list of task folders to switch to.", e));
 			return null;
 		}
 	}
@@ -142,8 +142,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 	 */
 	protected boolean containsTaskData(File folder) {
 		File[] files = folder.listFiles();
-		for (int i = 0; i < files.length; i++) {
-			File currFile = files[i];
+		for (File currFile : files) {
 			if (currFile.isFile() && currFile.getName().equals(ITasksUiConstants.DEFAULT_TASK_LIST_FILE)) {
 				return true;
 			}

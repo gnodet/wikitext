@@ -41,7 +41,7 @@ public class UsageUploadWizardPage extends WizardPage {
 	/** A text file to show the id of the user */
 	private Text idText;
 
-	private UsageSubmissionWizard wizard;
+	private final UsageSubmissionWizard wizard;
 
 	/**
 	 * Constructor
@@ -124,7 +124,8 @@ public class UsageUploadWizardPage extends WizardPage {
 	}
 
 	public void updateUid() {
-		if (idText != null && !idText.isDisposed())
+		if (idText != null && !idText.isDisposed()) {
 			idText.setText(wizard.getUid() + "");
+		}
 	}
 }

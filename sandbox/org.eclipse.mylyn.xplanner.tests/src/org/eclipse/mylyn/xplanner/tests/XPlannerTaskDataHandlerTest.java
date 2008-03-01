@@ -26,7 +26,8 @@ import org.xplanner.soap.UserStoryData;
 public class XPlannerTaskDataHandlerTest extends TestCase {
 
 	private static XPlannerClient client;
-	
+
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		if (client == null) { // only create data once per run
@@ -36,6 +37,7 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 		}
 	}
 
+	@Override
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}
@@ -43,44 +45,42 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 	public void testPostNewTaskDataChangesToRepository() {
 		try {
 			// get new task data
-			UserStoryData userStoryData =  XPlannerTestUtils.findTestUserStory(client);
+			UserStoryData userStoryData = XPlannerTestUtils.findTestUserStory(client);
 			TaskRepository taskRepository = XPlannerTestUtils.getRepository();
-			RepositoryTaskData newRepositoryTaskData = 
-				XPlannerRepositoryUtils.getNewRepositoryTaskData(taskRepository, userStoryData);
-			
-			assert(newRepositoryTaskData != null);
-			assert(newRepositoryTaskData.isNew());
-			assert(("" + userStoryData.getId()).equals(
-				newRepositoryTaskData.getAttribute(XPlannerAttributeFactory.ATTRIBUTE_USER_STORY_ID)));
-			
+			RepositoryTaskData newRepositoryTaskData = XPlannerRepositoryUtils.getNewRepositoryTaskData(taskRepository,
+					userStoryData);
+
+			assert (newRepositoryTaskData != null);
+			assert (newRepositoryTaskData.isNew());
+			assert (("" + userStoryData.getId()).equals(newRepositoryTaskData.getAttribute(XPlannerAttributeFactory.ATTRIBUTE_USER_STORY_ID)));
+
 			// make sure we have the right connector
-			AbstractRepositoryConnector connector = 
-				TasksUiPlugin.getRepositoryManager().getRepositoryConnector(taskRepository.getConnectorKind());
-			assert(connector.getConnectorKind().equals(XPlannerMylynUIPlugin.REPOSITORY_KIND));
-			
+			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
+					taskRepository.getConnectorKind());
+			assert (connector.getConnectorKind().equals(XPlannerMylynUIPlugin.REPOSITORY_KIND));
+
 			// post new task data
 			String newTaskName = "new task";
 			newRepositoryTaskData.setSummary(newTaskName);
-			String returnValue = connector.getTaskDataHandler().postTaskData(taskRepository, 
-				newRepositoryTaskData, null);
-			
+			String returnValue = connector.getTaskDataHandler().postTaskData(taskRepository, newRepositoryTaskData,
+					null);
+
 			// if new task, return value is new id -- make sure it's valid
-			assert(returnValue != null);
-			int id = Integer.valueOf(returnValue).intValue() ;
-			assert(id > 0);
+			assert (returnValue != null);
+			int id = Integer.valueOf(returnValue).intValue();
+			assert (id > 0);
 			TaskData taskData = client.getTask(id);
-			assert(taskData != null);
-			assert(newTaskName.equals(taskData.getName()));
-			
+			assert (taskData != null);
+			assert (newTaskName.equals(taskData.getName()));
+
 			// need to make sure user story did not get corrupted for complete test
 			UserStoryData userStory = client.getUserStory(taskData.getStoryId());
-			assert(userStory != null);
-			
+			assert (userStory != null);
+
 			// ensure saved user name in task
 			int currentPersonId = client.getCurrentPersonId();
-			assert(taskData.getAcceptorId() == currentPersonId);
-		} 
-		catch (Exception e) {
+			assert (taskData.getAcceptorId() == currentPersonId);
+		} catch (Exception e) {
 			fail("could not set up task attributes: " + e.getMessage());
 		}
 	}
@@ -89,59 +89,54 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 	private void testUpdateActualTime(boolean validHours) {
 		try {
 			// get test task
-			TaskData testTaskData =  XPlannerTestUtils.findTestTask(client);
+			TaskData testTaskData = XPlannerTestUtils.findTestTask(client);
 			TaskRepository taskRepository = XPlannerTestUtils.getRepository();
-			
+
 			// make sure we have the right connector
-			AbstractRepositoryConnector connector = 
-				TasksUiPlugin.getRepositoryManager().getRepositoryConnector(taskRepository.getConnectorKind());
-			assert(connector.getConnectorKind().equals(XPlannerMylynUIPlugin.REPOSITORY_KIND));
-			
+			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
+					taskRepository.getConnectorKind());
+			assert (connector.getConnectorKind().equals(XPlannerMylynUIPlugin.REPOSITORY_KIND));
+
 			TaskRepository repository = XPlannerTestUtils.getRepository();
 			assertTrue(repository != null);
-			
-			AbstractTask repositoryTask = 
-				connector.createTaskFromExistingId(repository, "" + testTaskData.getId(), new NullProgressMonitor());
-			
+
+			AbstractTask repositoryTask = connector.createTaskFromExistingId(repository, "" + testTaskData.getId(),
+					new NullProgressMonitor());
+
 			assertTrue(repositoryTask instanceof XPlannerTask);
-			
+
 			// post updated task data
 			Double estTime = testTaskData.getAdjustedEstimatedHours();
 			Double actTime;
 			Double originalActHours = testTaskData.getActualHours();
-			
+
 			if (validHours) {
 				actTime = estTime - 1;
-			}
-			else {
+			} else {
 				actTime = testTaskData.getActualHours() - 1;
 			}
-			
-			testTaskData.setActualHours(actTime);
-			RepositoryTaskData testRepositoryTaskData = 
-				XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(repository.getUrl(), testTaskData, 
-						repositoryTask.getTaskId());
 
-			String returnValue = connector.getTaskDataHandler().postTaskData(taskRepository, 
-				testRepositoryTaskData, null);
-			
+			testTaskData.setActualHours(actTime);
+			RepositoryTaskData testRepositoryTaskData = XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(
+					repository.getUrl(), testTaskData, repositoryTask.getTaskId());
+
+			String returnValue = connector.getTaskDataHandler().postTaskData(taskRepository, testRepositoryTaskData,
+					null);
+
 			// if new task, return value is new id -- make sure it's valid
-			assert(returnValue == null);
+			assert (returnValue == null);
 			// try to set to time that's lower than previous
 			TaskData taskData = client.getTask(testTaskData.getId());
-			assert(taskData != null);
+			assert (taskData != null);
 			if (validHours) {
-				assert(taskData.getActualHours() == actTime);
+				assert (taskData.getActualHours() == actTime);
+			} else {
+				assert (taskData.getActualHours() == originalActHours);
 			}
-			else {
-				assert(taskData.getActualHours() == originalActHours);
-			}
-		} 
-		catch (Exception e) {
+		} catch (Exception e) {
 			fail("could not set up task attributes: " + e.getMessage());
 		}
 	}
-
 
 	public void testUpdateActualTimeWithValidTime() {
 		testUpdateActualTime(true);

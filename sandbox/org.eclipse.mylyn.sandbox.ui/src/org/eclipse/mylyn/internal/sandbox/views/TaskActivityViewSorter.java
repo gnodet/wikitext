@@ -10,10 +10,10 @@ package org.eclipse.mylyn.internal.sandbox.views;
 
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
-import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskDelegate;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
-import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
+import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskDelegate;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.tasks.core.AbstractTask.PriorityLevel;
 import org.eclipse.ui.IMemento;
 
@@ -58,8 +58,9 @@ public class TaskActivityViewSorter extends ViewerSorter {
 	}
 
 	public void setSortDirection(int direction) {
-		if (direction == ASCENDING || direction == DESCENDING)
+		if (direction == ASCENDING || direction == DESCENDING) {
 			directions[sortColumn] = direction;
+		}
 	}
 
 	public int getDirection() {
@@ -85,8 +86,9 @@ public class TaskActivityViewSorter extends ViewerSorter {
 
 	@SuppressWarnings("unchecked")
 	private int compare(ScheduledTaskDelegate task1, ScheduledTaskDelegate task2) {
-		if (sortColumn >= directions.length)
+		if (sortColumn >= directions.length) {
 			return 0;
+		}
 
 		switch (sortColumn) {
 		case PRIORITY: {
@@ -159,8 +161,9 @@ public class TaskActivityViewSorter extends ViewerSorter {
 	}
 
 	public void saveState(IMemento memento) {
-		if (memento == null)
+		if (memento == null) {
 			return;
+		}
 		IMemento sortingMemento = memento.createChild(activityViewSorterSettings);
 		if (sortingMemento != null) {
 
@@ -172,8 +175,9 @@ public class TaskActivityViewSorter extends ViewerSorter {
 	}
 
 	public void restoreState(IMemento memento) {
-		if (memento == null)
+		if (memento == null) {
 			return;
+		}
 
 		IMemento sortingMemento = memento.getChild(activityViewSorterSettings);
 		if (sortingMemento != null) {

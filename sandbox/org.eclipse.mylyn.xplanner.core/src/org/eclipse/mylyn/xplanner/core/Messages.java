@@ -23,7 +23,7 @@ public class Messages extends NLS {
 	public static String XPlannerValidator_CONNECTION_ERROR;
 
 	public static String ClientManager_CLIENT_URL_CANNOT_BE_EMPTY;
-	
+
 	public static String ClientManager_INVALID_USERNAME_PASSWORD;
 
 	static {

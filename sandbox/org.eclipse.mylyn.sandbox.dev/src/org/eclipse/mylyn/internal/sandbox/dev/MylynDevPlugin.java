@@ -24,6 +24,7 @@ public class MylynDevPlugin extends AbstractUIPlugin {
 	public MylynDevPlugin() {
 	}
 
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		INSTANCE = this;
@@ -32,6 +33,7 @@ public class MylynDevPlugin extends AbstractUIPlugin {
 		mgr.registerAdapters(factory, IPropertySource.class);
 	}
 
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		Platform.getAdapterManager().unregisterAdapters(factory);
 		factory = null;
@@ -41,7 +43,7 @@ public class MylynDevPlugin extends AbstractUIPlugin {
 
 	/**
 	 * Returns the shared instance
-	 *
+	 * 
 	 * @return the shared instance
 	 */
 	public static MylynDevPlugin getDefault() {

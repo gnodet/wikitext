@@ -26,11 +26,11 @@ import org.eclipse.mylyn.monitor.core.InteractionEvent;
  */
 public class FocusedUiViewUsageCollector extends ViewUsageCollector {
 
-	private Set<Integer> mylynUserIds = new HashSet<Integer>();
+	private final Set<Integer> mylynUserIds = new HashSet<Integer>();
 
 	Map<Integer, Map<String, Integer>> usersFilteredViewSelections = new HashMap<Integer, Map<String, Integer>>();
 
-	private Map<Integer, Set<String>> usersFilteredViews = new HashMap<Integer, Set<String>>();
+	private final Map<Integer, Set<String>> usersFilteredViews = new HashMap<Integer, Set<String>>();
 
 	Map<Integer, Integer> usersNumDecayed = new HashMap<Integer, Integer>();
 
@@ -104,8 +104,9 @@ public class FocusedUiViewUsageCollector extends ViewUsageCollector {
 			// }
 
 			if (filteredViews.contains(viewId)) {
-				if (!filteredViewSelections.containsKey(viewId))
+				if (!filteredViewSelections.containsKey(viewId)) {
 					filteredViewSelections.put(viewId, 0);
+				}
 				int filtered = filteredViewSelections.get(viewId) + 1;
 				filteredViewSelections.put(viewId, filtered);
 			}

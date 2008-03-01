@@ -29,7 +29,7 @@ public class InteractionEventSummarySorter extends ViewerSorter {
 	public final static int USAGE_COUNT = 4;
 
 	// Criteria that the instance uses
-	private int criteria;
+	private final int criteria;
 
 	/**
 	 * Creates a resource sorter that will use the given sort criteria.

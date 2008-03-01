@@ -26,7 +26,7 @@ public class WebSiteNavigatorActionProvider extends CommonActionProvider {
 
 	// private ICommonViewerWorkbenchSite viewSite = null;
 
-	private OpenWebResourceAction openAction = new OpenWebResourceAction("Open");
+	private final OpenWebResourceAction openAction = new OpenWebResourceAction("Open");
 
 	public WebSiteNavigatorActionProvider() {
 		super();

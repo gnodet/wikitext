@@ -13,7 +13,6 @@ import org.eclipse.mylyn.tasks.ui.search.AbstractRepositoryQueryPage;
 import org.eclipse.mylyn.xplanner.ui.XPlannerCustomQuery;
 import org.eclipse.ui.PlatformUI;
 
-
 /**
  * @author Ravi Kumar
  * @author Helen Bershadskaya
@@ -36,6 +35,7 @@ public abstract class AbstractXPlannerQueryWizardPage extends AbstractRepository
 		setPageComplete(true);
 	}
 
+	@Override
 	public abstract AbstractRepositoryQuery getQuery();
 
 	public TaskRepository getRepository() {
@@ -45,7 +45,7 @@ public abstract class AbstractXPlannerQueryWizardPage extends AbstractRepository
 	public XPlannerCustomQuery getExistingQuery() {
 		return existingQuery;
 	}
-	
+
 	public void setExistingQuery(XPlannerCustomQuery existingQuery) {
 		this.existingQuery = existingQuery;
 	}
@@ -53,7 +53,7 @@ public abstract class AbstractXPlannerQueryWizardPage extends AbstractRepository
 	protected String getHelpContextId() {
 		return null;
 	}
-	
+
 	@Override
 	public void performHelp() {
 		if (getHelpContextId() != null) {

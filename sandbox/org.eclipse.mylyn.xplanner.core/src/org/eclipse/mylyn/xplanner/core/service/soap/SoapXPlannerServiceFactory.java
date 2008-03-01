@@ -7,12 +7,13 @@
  *******************************************************************************/
 package org.eclipse.mylyn.xplanner.core.service.soap;
 
-import org.eclipse.mylyn.xplanner.core.service.soap.SoapXPlannerService;
-import org.eclipse.mylyn.xplanner.core.service.*;
+import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
+import org.eclipse.mylyn.xplanner.core.service.XPlannerService;
+import org.eclipse.mylyn.xplanner.core.service.XPlannerServiceFactory;
 
 /**
- * @author Ravi Kumar 
- * @author Helen Bershadskaya 
+ * @author Ravi Kumar
+ * @author Helen Bershadskaya
  */
 public class SoapXPlannerServiceFactory implements XPlannerServiceFactory {
 

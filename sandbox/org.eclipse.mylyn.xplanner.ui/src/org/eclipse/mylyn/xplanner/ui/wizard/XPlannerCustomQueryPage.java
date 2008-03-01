@@ -8,23 +8,39 @@
 package org.eclipse.mylyn.xplanner.ui.wizard;
 
 import java.rmi.RemoteException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jface.viewers.*;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
-import org.eclipse.mylyn.xplanner.ui.XPlannerCustomQuery;
 import org.eclipse.mylyn.xplanner.ui.XPlannerClientFacade;
+import org.eclipse.mylyn.xplanner.ui.XPlannerCustomQuery;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.*;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.*;
-import org.xplanner.soap.*;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
+import org.xplanner.soap.IterationData;
+import org.xplanner.soap.ProjectData;
+import org.xplanner.soap.TaskData;
+import org.xplanner.soap.UserStoryData;
 
 /**
  * @author Ravi Kumar
@@ -78,6 +94,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 
 	}
 
+	@Override
 	public void createControl(Composite parent) {
 		Composite dataComposite = new Composite(parent, SWT.NONE);
 		GridData gd = new GridData(GridData.FILL_BOTH);
@@ -307,6 +324,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 			}
 		});
 		tasksButton.addFocusListener(new FocusAdapter() {
+			@Override
 			public void focusLost(FocusEvent e) {
 				validatePage();
 			}
@@ -331,6 +349,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 			}
 		});
 		storiesButton.addFocusListener(new FocusAdapter() {
+			@Override
 			public void focusLost(FocusEvent e) {
 				validatePage();
 			}
@@ -369,10 +388,12 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 
 	}
 
+	@Override
 	public boolean canFlipToNextPage() {
 		return false;
 	}
 
+	@Override
 	public IWizardPage getNextPage() {
 		return null;
 	}
@@ -582,6 +603,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		return (nameText != null) ? nameText.getText() : "<search>"; //$NON-NLS-1$
 	}
 
+	@Override
 	public AbstractRepositoryQuery getQuery() {
 		if (getExistingQuery() == null) {
 			setExistingQuery(new XPlannerCustomQuery(getRepository().getUrl(), getNameText()));

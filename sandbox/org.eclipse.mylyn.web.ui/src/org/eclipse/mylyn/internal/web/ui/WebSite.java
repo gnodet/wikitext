@@ -20,7 +20,7 @@ public class WebSite extends WebResource {
 
 	private WebRoot project;
 
-	private HashMap<String, WebResource> pages = new HashMap<String, WebResource>();
+	private final HashMap<String, WebResource> pages = new HashMap<String, WebResource>();
 
 	public WebSite(String url) {
 		super(url);

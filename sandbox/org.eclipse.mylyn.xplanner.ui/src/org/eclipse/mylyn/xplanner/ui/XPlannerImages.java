@@ -15,10 +15,9 @@ import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.mylyn.internal.tasks.ui.TaskListImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
-
 /**
- * @author Ravi Kumar 
- * @author Helen Bershadskaya 
+ * @author Ravi Kumar
+ * @author Helen Bershadskaya
  */
 public class XPlannerImages {
 
@@ -26,49 +25,48 @@ public class XPlannerImages {
 
 	private static final String T_VIEW = "eview16"; //$NON-NLS-1$
 
-	private static final URL baseURL = XPlannerMylynUIPlugin.getDefault() == null ? null :
-		XPlannerMylynUIPlugin.getDefault().getBundle().getEntry("/icons/"); //$NON-NLS-1$ 
+	private static final URL baseURL = XPlannerMylynUIPlugin.getDefault() == null ? null
+			: XPlannerMylynUIPlugin.getDefault().getBundle().getEntry("/icons/"); //$NON-NLS-1$ 
 
 	public static final ImageDescriptor OVERLAY_XPLANNER = create(T_VIEW, "overlay-xplanner.gif"); //$NON-NLS-1$
-	
+
 	public static final ImageDescriptor OVERLAY_ITERATION = create(T_VIEW, "overlay-iteration.gif"); //$NON-NLS-1$
 
 	public static final ImageDescriptor OVERLAY_USER_STORY = create(T_VIEW, "overlay-userstory.gif"); //$NON-NLS-1$
-	
+
 	public static final ImageDescriptor OVERLAY_TASK = create(T_VIEW, "overlay-task.gif"); //$NON-NLS-1$
-		
+
 	public static final ImageDescriptor TREEITEM_PROJECT = create(T_VIEW, "treeitem-project.gif"); //$NON-NLS-1$
-	
+
 	public static final ImageDescriptor TREEITEM_ITERATION = create(T_VIEW, "treeitem-iteration.gif"); //$NON-NLS-1$
 
 	public static final ImageDescriptor TREEITEM_USER_STORY = create(T_VIEW, "treeitem-userstory.gif"); //$NON-NLS-1$
-	
+
 	public static final ImageDescriptor TREEITEM_PROJECT_OVERLAY = create(TREEITEM_PROJECT, OVERLAY_XPLANNER);
-	
+
 	public static final ImageDescriptor TREEITEM_ITERATION_OVERLAY = create(TREEITEM_ITERATION, OVERLAY_XPLANNER);
 
 	public static final ImageDescriptor TREEITEM_USER_STORY_OVERLAY = create(TREEITEM_USER_STORY, OVERLAY_XPLANNER);
 
 	private XPlannerImages() {
-		
+
 	}
-	
+
 	private static ImageDescriptor create(String prefix, String name) {
 		ImageDescriptor id;
 		try {
 			id = ImageDescriptor.createFromURL(makeIconFileURL(prefix, name));
-		} 
-		catch (MalformedURLException e) {
+		} catch (MalformedURLException e) {
 			id = ImageDescriptor.getMissingImageDescriptor();
 		}
-		
+
 		return id;
 	}
-	
+
 	private static ImageDescriptor create(ImageDescriptor imageDescriptor, ImageDescriptor overlayDescriptor) {
-		return new TaskListImageDescriptor(imageDescriptor, overlayDescriptor, false, false);  // bottom right
+		return new TaskListImageDescriptor(imageDescriptor, overlayDescriptor, false, false); // bottom right
 	}
-	
+
 	private static URL makeIconFileURL(String prefix, String name) throws MalformedURLException {
 		if (baseURL == null) {
 			throw new MalformedURLException();
@@ -102,6 +100,5 @@ public class XPlannerImages {
 
 		return image;
 	}
-	
-	
+
 }

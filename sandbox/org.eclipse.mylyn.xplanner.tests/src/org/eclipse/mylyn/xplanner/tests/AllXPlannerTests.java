@@ -10,7 +10,6 @@ package org.eclipse.mylyn.xplanner.tests;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-
 /**
  * @author Helen Bershadskaya
  */

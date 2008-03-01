@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.TableItem;
  */
 public class ParametersEditor extends Composite {
 
-	private Table paramsTable;
+	private final Table paramsTable;
 
 	public ParametersEditor(Composite parent, int style) {
 		super(parent, style);

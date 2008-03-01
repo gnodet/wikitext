@@ -25,15 +25,15 @@ import org.osgi.framework.BundleContext;
 public class SandboxUiPlugin extends AbstractUIPlugin {
 
 	public final static String ID_PLUGIN = "org.eclipse.mylyn.sandbox.ui";
-	
+
 	private static SandboxUiPlugin plugin;
 
-	private SharedDataDirectoryManager sharedDataDirectoryManager = new SharedDataDirectoryManager();
+	private final SharedDataDirectoryManager sharedDataDirectoryManager = new SharedDataDirectoryManager();
 
 	public static final String OVERLAYS_INCOMING_TIGHT = "org.eclipse.mylyn.tasks.ui.overlays.incoming.tight";
 
-	private ActiveSearchViewTracker activeSearchViewTracker = new ActiveSearchViewTracker();
-	
+	private final ActiveSearchViewTracker activeSearchViewTracker = new ActiveSearchViewTracker();
+
 	public SandboxUiPlugin() {
 		super();
 		plugin = this;
@@ -42,22 +42,23 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-		
+
 		final IWorkbench workbench = PlatformUI.getWorkbench();
 		workbench.getDisplay().asyncExec(new Runnable() {
 			public void run() {
 				try {
 					workbench.addWindowListener(activeSearchViewTracker);
 					IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
-					for (int i = 0; i < windows.length; i++) {
-						windows[i].addPageListener(activeSearchViewTracker);
-						IWorkbenchPage[] pages = windows[i].getPages();
-						for (int j = 0; j < pages.length; j++) {
-							pages[j].addPartListener(activeSearchViewTracker);
+					for (IWorkbenchWindow window : windows) {
+						window.addPageListener(activeSearchViewTracker);
+						IWorkbenchPage[] pages = window.getPages();
+						for (IWorkbenchPage page : pages) {
+							page.addPartListener(activeSearchViewTracker);
 						}
 					}
 				} catch (Exception e) {
-					StatusHandler.log(new Status(IStatus.ERROR, SandboxUiPlugin.ID_PLUGIN, "Sandbox UI initialization failed", e));
+					StatusHandler.log(new Status(IStatus.ERROR, SandboxUiPlugin.ID_PLUGIN,
+							"Sandbox UI initialization failed", e));
 				}
 			}
 		});
@@ -67,16 +68,16 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		plugin = null;
-		
+
 		IWorkbench workbench = PlatformUI.getWorkbench();
 		if (workbench != null) {
 			workbench.removeWindowListener(activeSearchViewTracker);
 			IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
-			for (int i = 0; i < windows.length; i++) {
-				IWorkbenchPage[] pages = windows[i].getPages();
-				windows[i].removePageListener(activeSearchViewTracker);
-				for (int j = 0; j < pages.length; j++) {
-					pages[j].removePartListener(activeSearchViewTracker);
+			for (IWorkbenchWindow window : windows) {
+				IWorkbenchPage[] pages = window.getPages();
+				window.removePageListener(activeSearchViewTracker);
+				for (IWorkbenchPage page : pages) {
+					page.removePartListener(activeSearchViewTracker);
 				}
 			}
 		}

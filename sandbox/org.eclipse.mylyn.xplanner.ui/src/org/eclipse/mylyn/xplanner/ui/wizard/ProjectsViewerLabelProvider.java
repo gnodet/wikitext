@@ -10,8 +10,9 @@ package org.eclipse.mylyn.xplanner.ui.wizard;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.mylyn.xplanner.ui.XPlannerImages;
 import org.eclipse.swt.graphics.Image;
-import org.xplanner.soap.*;
-
+import org.xplanner.soap.IterationData;
+import org.xplanner.soap.ProjectData;
+import org.xplanner.soap.UserStoryData;
 
 /**
  * @author Ravi Kumar
@@ -19,40 +20,38 @@ import org.xplanner.soap.*;
  */
 public class ProjectsViewerLabelProvider extends LabelProvider {
 
+	@Override
 	public String getText(Object element) {
 		String text = null;
-	
+
 		if (element instanceof ProjectData) {
-			text = ((ProjectData)element).getName();
+			text = ((ProjectData) element).getName();
+		} else if (element instanceof IterationData) {
+			text = ((IterationData) element).getName();
+		} else if (element instanceof UserStoryData) {
+			text = ((UserStoryData) element).getName();
 		}
-		else if (element instanceof IterationData) {
-			text = ((IterationData)element).getName();
-		}
-		else if (element instanceof UserStoryData) {
-			text = ((UserStoryData)element).getName();
-		}
-		
+
 		if (text == null) {
 			text = Messages.ProjectsViewerLabelProvider_NO_NAME;
 		}
-		
+
 		return text;
 	}
 
-  public Image getImage(Object element) {
+	@Override
+	public Image getImage(Object element) {
 		Image image = null;
-		
+
 		if (element instanceof ProjectData) {
 			image = XPlannerImages.getImage(XPlannerImages.TREEITEM_PROJECT);
-		}
-		else if (element instanceof IterationData) {
+		} else if (element instanceof IterationData) {
 			image = XPlannerImages.getImage(XPlannerImages.TREEITEM_ITERATION);
-		}
-		else if (element instanceof UserStoryData) {
+		} else if (element instanceof UserStoryData) {
 			image = XPlannerImages.getImage(XPlannerImages.TREEITEM_USER_STORY);
 		}
-		
+
 		return image;
-  }
+	}
 
 }

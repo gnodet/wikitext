@@ -59,12 +59,14 @@ public class FocusedUiUserAnalysisAction implements IViewActionDelegate {
 								.getWorkbench()
 								.getActiveWorkbenchWindow()
 								.getActivePage();
-						if (page == null)
+						if (page == null) {
 							return;
+						}
 						IEditorInput input = new UsageStatsEditorInput(files, generator);
 						page.openEditor(input, MonitorReportsPlugin.REPORT_USERS_ID);
 					} catch (PartInitException e) {
-						StatusHandler.log(new Status(IStatus.ERROR, MonitorReportsPlugin.ID_PLUGIN, "Could not open summary editor", e));
+						StatusHandler.log(new Status(IStatus.ERROR, MonitorReportsPlugin.ID_PLUGIN,
+								"Could not open summary editor", e));
 					}
 				}
 			});

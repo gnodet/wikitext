@@ -33,6 +33,7 @@ import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  * A wizard for uploading the Mylyn statistics to a website
@@ -42,7 +43,7 @@ import org.eclipse.ui.IWorkbench;
  */
 public class FeedbackWizard extends Wizard implements INewWizard {
 
-	private SubmitFeedbackPage feedbackPage;
+	private final SubmitFeedbackPage feedbackPage;
 
 	/**
 	 * Constructor for SampleNewWizard.
@@ -57,8 +58,8 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 	public FeedbackWizard() {
 		super();
 		setNeedsProgressMonitor(true);
-		super.setDefaultPageImageDescriptor(UiUsageMonitorPlugin.imageDescriptorFromPlugin(
-				UiUsageMonitorPlugin.PLUGIN_ID, "icons/wizban/banner-user.gif"));
+		super.setDefaultPageImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.PLUGIN_ID,
+				"icons/wizban/banner-user.gif"));
 		super.setWindowTitle("Mylyn Feedback");
 		feedbackPage = new SubmitFeedbackPage(null);
 	}
@@ -66,8 +67,9 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 	@Override
 	public boolean performFinish() {
 		File f = feedbackPage.createFeedbackFile();
-		if (f == null)
+		if (f == null) {
 			return true;
+		}
 		upload(f, feedbackPage.getStringUid());
 		if (f.exists()) {
 			f.delete();
@@ -93,8 +95,9 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 		// +
 		// MylynUsageMonitorPlugin.getDefault().getStudyParameters().getScriptsQuestionnaire();
 
-		if (f.length() == 0)
+		if (f.length() == 0) {
 			return;
+		}
 
 		try {
 			final PostMethod filePost = new PostMethod(uploadScript);
@@ -131,7 +134,7 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 							MessageDialog.openError(null, "Error Uploading",
 									"There was an error uploading the feedback" + ": \n"
 											+ e.getClass().getCanonicalName());
-							 ;
+							;
 						}
 					}
 					monitor.worked(1);

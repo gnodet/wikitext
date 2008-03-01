@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Text;
  * @author Eugene Kuleshov
  */
 public class ParameterEditorDialog extends Dialog {
-	private String title;
+	private final String title;
 
 	private String name;
 

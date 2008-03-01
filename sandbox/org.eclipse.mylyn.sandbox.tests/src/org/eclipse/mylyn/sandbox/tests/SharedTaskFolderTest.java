@@ -44,7 +44,7 @@ public class SharedTaskFolderTest extends TestCase {
 
 	private String originalSharedDataDir = null;
 
-	private TaskListManager manager = TasksUiPlugin.getTaskListManager();
+	private final TaskListManager manager = TasksUiPlugin.getTaskListManager();
 
 	/**
 	 * Set up a shared task directory structure by creating some data in the main directory and copying it to the shared

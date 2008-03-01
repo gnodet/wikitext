@@ -34,7 +34,7 @@ public class WebContentProposalProvider implements IContentProposalProvider {
 
 	private final ParametersEditor parametersEditor;
 
-	private boolean includeTemplates;
+	private final boolean includeTemplates;
 
 	public WebContentProposalProvider(ParametersEditor parametersEditor, boolean includeTemplates) {
 		this.parametersEditor = parametersEditor;

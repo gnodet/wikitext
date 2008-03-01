@@ -40,9 +40,9 @@ public class TracWikiPageHistoryPage extends HistoryPage {
 
 	class DownloadPageHistoryJob extends Job {
 
-		private TaskRepository repository;
+		private final TaskRepository repository;
 
-		private TracWikiPage page;
+		private final TracWikiPage page;
 
 		public DownloadPageHistoryJob(TaskRepository repository, TracWikiPage page) {
 			super("Download Page History");
@@ -114,6 +114,7 @@ public class TracWikiPageHistoryPage extends HistoryPage {
 		column.getColumn().setMoveable(true);
 		column.setLabelProvider(new ColumnLabelProvider() {
 
+			@Override
 			public String getText(Object element) {
 				return ((TracWikiPageInfo) element).getVersion() + "";
 			}
@@ -125,6 +126,7 @@ public class TracWikiPageHistoryPage extends HistoryPage {
 		column.getColumn().setMoveable(true);
 		column.setLabelProvider(new ColumnLabelProvider() {
 
+			@Override
 			public String getText(Object element) {
 				return ((TracWikiPageInfo) element).getLastModified().toString();
 			}
@@ -137,6 +139,7 @@ public class TracWikiPageHistoryPage extends HistoryPage {
 		column.getColumn().setMoveable(true);
 		column.setLabelProvider(new ColumnLabelProvider() {
 
+			@Override
 			public String getText(Object element) {
 				return ((TracWikiPageInfo) element).getAuthor();
 			}
@@ -149,6 +152,7 @@ public class TracWikiPageHistoryPage extends HistoryPage {
 		column.getColumn().setMoveable(true);
 		column.setLabelProvider(new ColumnLabelProvider() {
 
+			@Override
 			public String getText(Object element) {
 				return ((TracWikiPageInfo) element).getComment();
 			}

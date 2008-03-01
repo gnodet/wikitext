@@ -48,6 +48,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  * A wizard for uploading the Mylyn statistics to a website
@@ -110,8 +111,8 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	}
 
 	private void setTitles() {
-		super.setDefaultPageImageDescriptor(UiUsageMonitorPlugin.imageDescriptorFromPlugin(
-				UiUsageMonitorPlugin.PLUGIN_ID, "icons/wizban/banner-user.gif"));
+		super.setDefaultPageImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.PLUGIN_ID,
+				"icons/wizban/banner-user.gif"));
 		super.setWindowTitle("Mylyn Feedback");
 	}
 
@@ -148,8 +149,9 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	@Override
 	public boolean performFinish() {
 
-		if (!performUpload)
+		if (!performUpload) {
 			return true;
+		}
 		if (UiUsageMonitorPlugin.getDefault().isQuestionnaireEnabled() && performUpload && questionnairePage != null) {
 			questionnaireFile = questionnairePage.createFeedbackFile();
 		}
@@ -182,7 +184,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 					// op.run(monitor);
 					return Status.OK_STATUS;
 				} catch (Exception e) {
-					Status status = new Status(Status.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, Status.ERROR,
+					Status status = new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, IStatus.ERROR,
 							"Error uploading statistics", e);
 					StatusHandler.log(status);
 					return status;
@@ -220,8 +222,9 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			}
 		}
 		File zipFile = zipFilesForUpload();
-		if (zipFile == null)
+		if (zipFile == null) {
 			return;
+		}
 
 		upload(zipFile, STATS, monitor);
 
@@ -298,8 +301,9 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	 *            The file to upload
 	 */
 	private void upload(File f, String type, IProgressMonitor monitor) {
-		if (failed)
+		if (failed) {
 			return;
+		}
 
 		int status = 0;
 
@@ -387,8 +391,9 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	private String resp;
 
 	public int getExistingUid(String firstName, String lastName, String emailAddress, boolean anonymous) {
-		if (failed)
+		if (failed) {
 			return -1;
+		}
 		try {
 
 			// TODO, do this method properly
@@ -411,11 +416,12 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 				anon = new NameValuePair("anonymous", "false");
 			}
 
-			if (UiUsageMonitorPlugin.getDefault().usingContactField())
+			if (UiUsageMonitorPlugin.getDefault().usingContactField()) {
 				getUidMethod.setQueryString(new NameValuePair[] { first, last, email, job, size, buisness, anon,
 						contact });
-			else
+			} else {
 				getUidMethod.setQueryString(new NameValuePair[] { first, last, email, job, size, buisness, anon });
+			}
 
 			// create a new client and upload the file
 			final HttpClient client = new HttpClient();
@@ -542,8 +548,9 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 	public int getNewUid(String firstName, String lastName, String emailAddress, boolean anonymous, String jobFunction,
 			String companySize, String companyFunction, boolean contactEmail) {
-		if (failed)
+		if (failed) {
 			return -1;
+		}
 		try {
 			addBackgroundPage();
 
@@ -633,8 +640,9 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		String data = "";
 		BufferedReader br = new BufferedReader(new InputStreamReader(i));
 		try {
-			while ((s = br.readLine()) != null)
+			while ((s = br.readLine()) != null) {
 				data += s;
+			}
 		} catch (IOException e) {
 			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Error uploading", e));
 		}

@@ -35,15 +35,15 @@ public class WebContextManager {
 
 	private static final String FILENAME_CACHE = "title-cache.properties";
 
-	private WebResourceStructureBridge structureBridge = new WebResourceStructureBridge();
+	private final WebResourceStructureBridge structureBridge = new WebResourceStructureBridge();
 
 	private WebRoot webRoot = new WebRoot();
 
-	private Set<IWebResourceListener> listeners = new HashSet<IWebResourceListener>();
+	private final Set<IWebResourceListener> listeners = new HashSet<IWebResourceListener>();
 
 	private boolean webContextEnabled = true;
 
-	private Properties titleCache = new Properties();
+	private final Properties titleCache = new Properties();
 
 	private final IInteractionContextListener UPDATE_LISTENER = new IInteractionContextListener() {
 
@@ -97,7 +97,7 @@ public class WebContextManager {
 
 		try {
 			titleCache.load(new FileInputStream(getTitleCacheFile()));
-		} catch (IOException e) {			
+		} catch (IOException e) {
 			StatusHandler.log(new Status(IStatus.WARNING, WebUiBridgePlugin.ID, "Could not load title cache", e));
 		}
 	}

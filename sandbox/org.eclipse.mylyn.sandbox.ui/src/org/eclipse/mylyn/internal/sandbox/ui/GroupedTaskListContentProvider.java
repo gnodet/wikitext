@@ -31,13 +31,12 @@ public class GroupedTaskListContentProvider extends TaskListContentProvider {
 		super(taskListView);
 		this.groupBy = groupBy;
 	}
-	
+
 	@Override
 	public Object[] getChildren(Object parent) {
 		Object[] children = super.getChildren(parent);
-		
-		if ((parent instanceof AbstractRepositoryQuery || parent instanceof TaskArchive) 
-				&& groupBy!=GroupBy.None) {
+
+		if ((parent instanceof AbstractRepositoryQuery || parent instanceof TaskArchive) && groupBy != GroupBy.None) {
 			return getGroups((AbstractTaskContainer) parent, children);
 		} else if (parent instanceof TaskGroup) {
 			return ((TaskGroup) parent).getChildren().toArray();
@@ -50,7 +49,7 @@ public class GroupedTaskListContentProvider extends TaskListContentProvider {
 		TreeMap<String, TaskGroup> groups = new TreeMap<String, TaskGroup>();
 
 		for (Object container : children) {
-			if(container instanceof AbstractTask) {
+			if (container instanceof AbstractTask) {
 				AbstractTask task = (AbstractTask) container;
 				String key = groupBy.getKey(task);
 				if (key == null || key.length() == 0) {
@@ -71,5 +70,5 @@ public class GroupedTaskListContentProvider extends TaskListContentProvider {
 	public GroupBy getGroupBy() {
 		return groupBy;
 	}
-	
+
 }

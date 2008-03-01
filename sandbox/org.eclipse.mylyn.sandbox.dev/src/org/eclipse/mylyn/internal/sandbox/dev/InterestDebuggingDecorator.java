@@ -34,8 +34,9 @@ public class InterestDebuggingDecorator implements ILightweightLabelDecorator {
 	public void decorate(Object element, IDecoration decoration) {
 		AbstractContextStructureBridge bridge = null;
 		try {
-			if (ContextCorePlugin.getDefault() == null)
+			if (ContextCorePlugin.getDefault() == null) {
 				return;
+			}
 			bridge = ContextCorePlugin.getDefault().getStructureBridge(element);
 		} catch (ConcurrentModificationException cme) {
 			// ignored, because we can add structure bridges during decoration

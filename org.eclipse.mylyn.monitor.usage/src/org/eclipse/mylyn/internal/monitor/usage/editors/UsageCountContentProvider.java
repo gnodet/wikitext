@@ -22,7 +22,7 @@ import org.eclipse.mylyn.monitor.usage.ReportGenerator;
  */
 class UsageCountContentProvider implements IStructuredContentProvider {
 
-	private ReportGenerator parser;
+	private final ReportGenerator parser;
 
 	public UsageCountContentProvider(ReportGenerator parser) {
 		this.parser = parser;

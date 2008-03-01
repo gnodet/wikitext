@@ -13,8 +13,8 @@ import org.xplanner.soap.IterationData;
 import org.xplanner.soap.UserStoryData;
 
 /**
- * @author Ravi Kumar 
- * @author Helen Bershadskaya 
+ * @author Ravi Kumar
+ * @author Helen Bershadskaya
  */
 public class XPlannerTask extends AbstractTask {
 
@@ -36,20 +36,18 @@ public class XPlannerTask extends AbstractTask {
 				return ""; //$NON-NLS-1$
 			}
 		}
-		
+
 		public static Kind fromString(String kindValue) {
 			Kind kind = null;
-		
+
 			if (kindValue.equals(TASK.toString())) {
 				kind = TASK;
-			}
-			else if (kindValue.equals(USER_STORY.toString())) {
+			} else if (kindValue.equals(USER_STORY.toString())) {
 				kind = USER_STORY;
-			}
-			else if (kindValue.equals(ITERATION.toString())) {
+			} else if (kindValue.equals(ITERATION.toString())) {
 				kind = ITERATION;
 			}
-			
+
 			return kind;
 		}
 
@@ -57,17 +55,16 @@ public class XPlannerTask extends AbstractTask {
 
 	public void setKind(DomainData data) {
 		String tempKind = Kind.TASK.toString();
-		
+
 		if (data instanceof IterationData) {
 			tempKind = Kind.ITERATION.toString();
-		}
-		else if (data instanceof UserStoryData) {
+		} else if (data instanceof UserStoryData) {
 			tempKind = Kind.USER_STORY.toString();
 		}
-		
+
 		setTaskKind(tempKind);
 	}
-	
+
 	/**
 	 * The handle is also the task's XPlanner url
 	 */
@@ -75,14 +72,16 @@ public class XPlannerTask extends AbstractTask {
 		super(repositoryUrl, id, label);
 	}
 
+	@Override
 	public String getConnectorKind() {
 		return XPlannerMylynUIPlugin.REPOSITORY_KIND;
 	}
 
+	@Override
 	public boolean isLocal() {
 		return false;
 	}
-	
+
 	public String getKey() {
 		return key;
 	}

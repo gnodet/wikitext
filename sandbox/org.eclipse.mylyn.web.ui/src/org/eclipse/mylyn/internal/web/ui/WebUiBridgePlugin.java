@@ -35,7 +35,7 @@ public class WebUiBridgePlugin extends AbstractContextUiPlugin {
 
 	private BrowserTracker browserTracker;
 
-	private Set<String> excludedUrls = new HashSet<String>();
+	private final Set<String> excludedUrls = new HashSet<String>();
 
 	public WebUiBridgePlugin() {
 		INSTANCE = this;
@@ -67,13 +67,13 @@ public class WebUiBridgePlugin extends AbstractContextUiPlugin {
 			StatusHandler.log(new Status(IStatus.ERROR, WebUiBridgePlugin.ID, "Mylyn Web UI initialization failed", e));
 		}
 	}
-	
+
 	@Override
 	protected void lazyStop() {
 		MonitorUiPlugin.getDefault().removeWindowPartListener(browserTracker);
 		webResourceManager.dispose();
 	}
-	
+
 	@Override
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);

@@ -47,8 +47,9 @@ public class UsageMonitorImages {
 	}
 
 	private static URL makeIconFileURL(String prefix, String name) throws MalformedURLException {
-		if (baseURL == null)
+		if (baseURL == null) {
 			throw new MalformedURLException();
+		}
 
 		StringBuffer buffer = new StringBuffer(prefix);
 		buffer.append('/');

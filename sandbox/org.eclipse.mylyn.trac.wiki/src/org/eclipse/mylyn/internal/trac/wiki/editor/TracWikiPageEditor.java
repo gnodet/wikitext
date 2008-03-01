@@ -81,9 +81,9 @@ public class TracWikiPageEditor extends FormEditor {
 
 	private TracWikiPage page;
 
-	private WikiSourceEditor wikiSourceEditor;
+	private final WikiSourceEditor wikiSourceEditor;
 
-	private BrowserFormPage browserPage;
+	private final BrowserFormPage browserPage;
 
 	private class WikiSourceEditor extends FormPage {
 
@@ -142,7 +142,7 @@ public class TracWikiPageEditor extends FormEditor {
 		}
 
 		private void createPreviewSection(Composite parent) {
-			previewSection = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR | Section.TWISTIE);
+			previewSection = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR | ExpandableComposite.TWISTIE);
 			previewSection.setText(LABEL_PREVIEW);
 			previewSection.setExpanded(false);
 			previewSection.setLayout(new GridLayout());
@@ -402,7 +402,7 @@ public class TracWikiPageEditor extends FormEditor {
 
 		private void previewWiki(final Browser browser, String sourceText) {
 			final class PreviewWikiJob extends Job {
-				private String sourceText;
+				private final String sourceText;
 
 				private String htmlText;
 
@@ -499,9 +499,11 @@ public class TracWikiPageEditor extends FormEditor {
 				managedForm.getForm().setContent(browser);
 				browser.setUrl(editorInput.getPageUrl());
 			} catch (SWTError e) {
-				StatusHandler.fail(new Status(IStatus.ERROR, TracWikiPlugin.PLUGIN_ID, "Could not create Browser page: " + e.getMessage(), e));
+				StatusHandler.fail(new Status(IStatus.ERROR, TracWikiPlugin.PLUGIN_ID,
+						"Could not create Browser page: " + e.getMessage(), e));
 			} catch (RuntimeException e) {
-				StatusHandler.log(new Status(IStatus.ERROR, TracWikiPlugin.PLUGIN_ID, "Could not create Browser page", e));
+				StatusHandler.log(new Status(IStatus.ERROR, TracWikiPlugin.PLUGIN_ID, "Could not create Browser page",
+						e));
 			}
 		}
 
@@ -539,7 +541,8 @@ public class TracWikiPageEditor extends FormEditor {
 			setPartName(getEditorInput().getName());
 			setActivePage(BrowserFormPage.ID_EDITOR);
 		} catch (PartInitException e) {
-			StatusHandler.fail(new Status(IStatus.ERROR, TracWikiPlugin.PLUGIN_ID, "Cannot create Trac Wiki page editor pages"));
+			StatusHandler.fail(new Status(IStatus.ERROR, TracWikiPlugin.PLUGIN_ID,
+					"Cannot create Trac Wiki page editor pages"));
 		}
 	}
 
@@ -571,7 +574,9 @@ public class TracWikiPageEditor extends FormEditor {
 					if (newPage != null) {
 						((TracWikiPageEditorInput) getEditorInput()).setPage(newPage);
 					} else {
-						StatusHandler.displayStatus("Download failed", new Status(IStatus.ERROR, TracCorePlugin.PLUGIN_ID, "Unable to retrieve wiki page " + page.getPageInfo().getPageName()));
+						StatusHandler.displayStatus("Download failed", new Status(IStatus.ERROR,
+								TracCorePlugin.PLUGIN_ID, "Unable to retrieve wiki page "
+										+ page.getPageInfo().getPageName()));
 					}
 				} catch (CoreException e) {
 					StatusHandler.displayStatus("Download failed", e.getStatus());

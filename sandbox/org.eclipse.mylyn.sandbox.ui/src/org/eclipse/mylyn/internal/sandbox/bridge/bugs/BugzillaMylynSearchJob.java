@@ -29,7 +29,7 @@ import org.eclipse.ui.PlatformUI;
 public class BugzillaMylynSearchJob extends Job {
 
 	/** The search operation used to perform the query */
-	private BugzillaMylynSearchOperation operation;
+	private final BugzillaMylynSearchOperation operation;
 
 	/**
 	 * Constructor

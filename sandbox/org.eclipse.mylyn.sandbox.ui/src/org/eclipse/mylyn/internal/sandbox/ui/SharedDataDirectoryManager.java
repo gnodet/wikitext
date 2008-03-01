@@ -51,7 +51,9 @@ public class SharedDataDirectoryManager {
 	 */
 	public void setSharedDataDirectoryEnabled(boolean enable) {
 		if (enable && sharedDataDirectory == null) {
-			StatusHandler.fail(new Status(IStatus.ERROR, SandboxUiPlugin.ID_PLUGIN, "Could not enable shared data directory because no shared data directory was specifed.", new Exception("EnableDataDirectoryException")));
+			StatusHandler.fail(new Status(IStatus.ERROR, SandboxUiPlugin.ID_PLUGIN,
+					"Could not enable shared data directory because no shared data directory was specifed.",
+					new Exception("EnableDataDirectoryException")));
 			return;
 		}
 		sharedDataDirectoryInUse = enable;

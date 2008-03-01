@@ -10,13 +10,13 @@ package org.eclipse.mylyn.xplanner.ui.wizard;
 import org.eclipse.mylyn.internal.tasks.ui.wizards.ExistingTaskWizardPage;
 
 /**
- * @author Ravi Kumar 
- * @author Helen Bershadskaya 
+ * @author Ravi Kumar
+ * @author Helen Bershadskaya
  */
 public class ExistingXPlannerTaskWizardPage extends ExistingTaskWizardPage {
 
-	private static final String DESCRIPTION = Messages.ExistingXPlannerTaskWizardPage_ENTER_XPLANNER_IDENTIFIER +
-	Messages.ExistingXPlannerTaskWizardPage_PREFIX_MESSAGE;
+	private static final String DESCRIPTION = Messages.ExistingXPlannerTaskWizardPage_ENTER_XPLANNER_IDENTIFIER
+			+ Messages.ExistingXPlannerTaskWizardPage_PREFIX_MESSAGE;
 
 	private static final String DESCRIPTION_TEMP = Messages.ExistingXPlannerTaskWizardPage_ENTER_TASK_ID;
 

@@ -41,29 +41,32 @@ import org.xplanner.soap.TaskData;
 import org.xplanner.soap.UserStoryData;
 
 /**
- * @author Ravi Kumar 
- * @author Helen Bershadskaya 
+ * @author Ravi Kumar
+ * @author Helen Bershadskaya
  */
 public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 
 	//private static final String VERSION_SUPPORT = Messages.XPlannerRepositoryConnector_VERSION_SUPPORT;
 
 	private XPlannerTaskDataHandler offlineHandler;
-	
+
 	//private List<String> supportedVersions;
 
 	/** Name initially given to new tasks. Public for testing */
 	public static final String NEW_TASK_DESC = Messages.XPlannerRepositoryConnector_NEW_TASK_DESCRIPTION;
 
+	@Override
 	public void init(TaskList taskList) {
 		super.init(taskList);
 		this.offlineHandler = new XPlannerTaskDataHandler(taskList);
 	}
 
+	@Override
 	public String getLabel() {
 		return XPlannerMylynUIPlugin.XPLANNER_CLIENT_LABEL;
 	}
 
+	@Override
 	public String getConnectorKind() {
 		return XPlannerMylynUIPlugin.REPOSITORY_KIND;
 	}
@@ -88,30 +91,28 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 		return new XPlannerTask(repositoryUrl, id, summary);
 	}
 
+	@Override
 	public AbstractTask createTask(String repositoryUrl, String id, String summary) {
 		AbstractTask task = null;
-		
+
 		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
-			XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryUrl);
+				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryUrl);
 		String handleIdentifier = RepositoryTaskHandleUtil.getHandle(repository.getUrl(), id);
-		AbstractTask existingTask = TasksUiPlugin.getTaskListManager().getTaskList().getTask(
-			handleIdentifier);
+		AbstractTask existingTask = TasksUiPlugin.getTaskListManager().getTaskList().getTask(handleIdentifier);
 
 		if (existingTask instanceof XPlannerTask) {
 			task = existingTask;
-		} 
-		else {
+		} else {
 			try {
 				task = createTask(repository, id);
-			}
-			catch (CoreException e) {
+			} catch (CoreException e) {
 				XPlannerMylynUIPlugin.log(e, "", false); //$NON-NLS-1$
 			}
 		}
 
 		return task;
 	}
-	
+
 	private AbstractTask createTask(TaskRepository repository, String key) throws CoreException {
 		XPlannerTask task = null;
 
@@ -123,33 +124,30 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 				TaskData taskData = client.getTask(Integer.valueOf(key).intValue());
 				if (taskData != null) {
 					task = createTask(taskData, taskData.getName(), String.valueOf(taskData.getId()), repository);
-				}
-				else {
+				} else {
 					// otherwise check if a user story exists
 					UserStoryData userStory = client.getUserStory(Integer.valueOf(key).intValue());
 					if (userStory != null) {
 						task = createTask(userStory, userStory.getName(), String.valueOf(userStory.getId()), repository);
 					}
 				}
-			} 
-			catch (Exception e) {
+			} catch (Exception e) {
 				XPlannerMylynUIPlugin.log(e, "", false); //$NON-NLS-1$
-			} 
+			}
 		}
-		
+
 		return task;
 	}
 
 	@Override
 	public IStatus performQuery(AbstractRepositoryQuery repositoryQuery, TaskRepository repository,
 			IProgressMonitor monitor, ITaskCollector resultCollector) {
-		
+
 		if (!(repositoryQuery instanceof XPlannerCustomQuery)) {
 			return Status.OK_STATUS;
 		}
 
 		XPlannerCustomQuery xplannerCustomQuery = (XPlannerCustomQuery) repositoryQuery;
-
 
 		try {
 			XPlannerRepositoryUtils.validateRepository(repository);
@@ -158,27 +156,24 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 
 			if (xplannerCustomQuery.isMyCurrentTasks()) {
 				return queryMyCurrentTasks(xplannerCustomQuery, client, repository, resultCollector);
-			}
-			else {
+			} else {
 				return queryTasks(xplannerCustomQuery, client, repository, resultCollector);
 			}
-			
-		}
-		catch (final Exception e) {
+
+		} catch (final Exception e) {
 			String reason = e.getLocalizedMessage();
 			if ((reason == null) || (reason.length() == 0)) {
 				reason = e.getClass().getName();
 			}
-			return new Status(IStatus.OK, TasksUiPlugin.ID_PLUGIN, IStatus.ERROR, 
-				MessageFormat.format(Messages.XPlannerRepositoryConnector_PerformQueryFailure, reason), e );
-		}
-		finally {
+			return new Status(IStatus.OK, TasksUiPlugin.ID_PLUGIN, IStatus.ERROR, MessageFormat.format(
+					Messages.XPlannerRepositoryConnector_PerformQueryFailure, reason), e);
+		} finally {
 			monitor.done();
 		}
-		
+
 		//return Status.OK_STATUS;
 	}
-	
+
 	@Override
 	public boolean canCreateNewTask(TaskRepository repository) {
 		return true;
@@ -203,77 +198,72 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 //		return getUserStoryQueryHits(Arrays.asList(userStories), repository, xplannerCustomQuery, resultCollector);
 //	}
 
-	private IStatus queryMyCurrentTasks(XPlannerCustomQuery xplannerCustomQuery,
-		XPlannerClient client, TaskRepository repository, ITaskCollector resultCollector) throws RemoteException {
-		
+	private IStatus queryMyCurrentTasks(XPlannerCustomQuery xplannerCustomQuery, XPlannerClient client,
+			TaskRepository repository, ITaskCollector resultCollector) throws RemoteException {
+
 		ArrayList<TaskData> xplannerTasks = new ArrayList<TaskData>();
 		int currentPersonId = client.getCurrentPersonId();
-		
+
 		xplannerTasks.addAll(Arrays.asList(client.getCurrentTasksForPerson(currentPersonId)));
 		xplannerTasks.addAll(Arrays.asList(client.getPlannedTasksForPerson(currentPersonId)));
-		
+
 		return getTaskQueryHits(xplannerTasks, repository, xplannerCustomQuery, resultCollector);
 	}
 
-	private IStatus queryTasks(XPlannerCustomQuery xplannerCustomQuery, 
-		XPlannerClient client, TaskRepository repository, ITaskCollector resultCollector) throws RemoteException {
-		
+	private IStatus queryTasks(XPlannerCustomQuery xplannerCustomQuery, XPlannerClient client,
+			TaskRepository repository, ITaskCollector resultCollector) throws RemoteException {
+
 		List<Integer> contentIds = xplannerCustomQuery.getContentIds();
 		ArrayList<TaskData> xplannerTasks = new ArrayList<TaskData>();
 		XPlannerCustomQuery.ContentIdType contentIdType = xplannerCustomQuery.getContentIdType();
-		
+
 		for (Integer contentId : contentIds) {
 			addTasks(contentId, contentIdType, xplannerTasks, xplannerCustomQuery, client);
 		}
-		
+
 		return getTaskQueryHits(xplannerTasks, repository, xplannerCustomQuery, resultCollector);
 	}
 
-	private void addTasks(int contentId, 
-		XPlannerCustomQuery.ContentIdType contentIdType, List<TaskData> xplannerTasks, 
-		XPlannerCustomQuery xplannerCustomQuery, XPlannerClient client) throws RemoteException {
-		
+	private void addTasks(int contentId, XPlannerCustomQuery.ContentIdType contentIdType, List<TaskData> xplannerTasks,
+			XPlannerCustomQuery xplannerCustomQuery, XPlannerClient client) throws RemoteException {
+
 		if (contentId == XPlannerCustomQuery.INVALID_ID) {
 			return;
 		}
-		
+
 		if (contentIdType == XPlannerCustomQuery.ContentIdType.PROJECT) {
 			UserStoryData[] userStories = client.getUserStoriesForProject(contentId);
 			for (UserStoryData userStory : userStories) {
 				addUserStoryTasks(xplannerCustomQuery, userStory.getId(), xplannerTasks, client);
 			}
-		}
-		else if (contentIdType == XPlannerCustomQuery.ContentIdType.ITERATION) {
+		} else if (contentIdType == XPlannerCustomQuery.ContentIdType.ITERATION) {
 			UserStoryData[] userStories = client.getUserStories(contentId);
 			for (UserStoryData userStory : userStories) {
 				addUserStoryTasks(xplannerCustomQuery, userStory.getId(), xplannerTasks, client);
 			}
-		}
-		else if (contentIdType == XPlannerCustomQuery.ContentIdType.USER_STORY) {
+		} else if (contentIdType == XPlannerCustomQuery.ContentIdType.USER_STORY) {
 			addUserStoryTasks(xplannerCustomQuery, contentId, xplannerTasks, client);
 		}
 	}
 
-	private void addUserStoryTasks(XPlannerCustomQuery query, int userStoryId, 
-		List<TaskData> xplannerTasks, XPlannerClient client) {
+	private void addUserStoryTasks(XPlannerCustomQuery query, int userStoryId, List<TaskData> xplannerTasks,
+			XPlannerClient client) {
 		// check if want all or person's tasks
 		if (query.getPersonId() != XPlannerCustomQuery.INVALID_ID) {
 			int personId = query.getPersonId();
 			xplannerTasks.addAll(Arrays.asList(client.getUserStoryTasksForPerson(personId, userStoryId)));
-		}
-		else {
+		} else {
 			try {
 				xplannerTasks.addAll(Arrays.asList(client.getTasks(userStoryId)));
-			}
-			catch (RemoteException e) {
+			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	
-	private IStatus getTaskQueryHits(List<TaskData> tasks, 
-		TaskRepository repository, XPlannerCustomQuery query, ITaskCollector resultCollector) {
-		
+
+	private IStatus getTaskQueryHits(List<TaskData> tasks, TaskRepository repository, XPlannerCustomQuery query,
+			ITaskCollector resultCollector) {
+
 		for (TaskData data : tasks) {
 			String id = String.valueOf(data.getId());
 			AbstractTask task = TasksUiPlugin.getTaskListManager().getTaskList().getTask(repository.getUrl(), id);
@@ -291,7 +281,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			else {
 				task = createTask(data, data.getName(), String.valueOf(data.getId()), repository);
 			}
-			
+
 			resultCollector.accept(task);
 //			} 
 //			catch (Exception e) {
@@ -321,11 +311,11 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 //		
 //		return Status.OK_STATUS;
 //	}
-	
+
 	@Override
 	public void updateTaskFromRepository(TaskRepository repository, AbstractTask repositoryTask,
-		IProgressMonitor monitor) throws CoreException {
-		
+			IProgressMonitor monitor) throws CoreException {
+
 		if (repository != null && repositoryTask instanceof XPlannerTask) {
 			XPlannerTask xPlannerTask = (XPlannerTask) repositoryTask;
 			XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
@@ -335,18 +325,16 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 					xplannerTaskData = client.getTask(Integer.valueOf(xPlannerTask.getTaskId()).intValue());
 					if (xplannerTaskData != null) {
 						updateTaskDetails(repository.getUrl(), xPlannerTask, xplannerTaskData, true);
-					}
-					else {
+					} else {
 						UserStoryData userStoryData;
 						userStoryData = client.getUserStory(Integer.valueOf(xPlannerTask.getTaskId()).intValue());
 						if (userStoryData != null) {
 							updateTaskDetails(repository.getUrl(), xPlannerTask, userStoryData, true);
 						}
 					}
-				}
-				catch (Exception e) {
-					throw new CoreException(new Status(IStatus.ERROR, 
-							XPlannerMylynUIPlugin.PLUGIN_ID, IStatus.ERROR, Messages.XPlannerRepositoryConnector_ERROR_UPDATING_TASK, e));
+				} catch (Exception e) {
+					throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, IStatus.ERROR,
+							Messages.XPlannerRepositoryConnector_ERROR_UPDATING_TASK, e));
 				}
 			}
 		}
@@ -354,8 +342,8 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 
 	@Override
 	public void updateTaskFromTaskData(TaskRepository repository, AbstractTask repositoryTask,
-		RepositoryTaskData taskData) {
-		
+			RepositoryTaskData taskData) {
+
 		if (taskData != null) {
 			XPlannerTask xplannerTask = (XPlannerTask) repositoryTask;
 			String url = repository.getUrl() + XPlannerMylynUIPlugin.TASK_URL_PREFIX + taskData.getId();
@@ -365,25 +353,23 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			xplannerTask.setPriority(taskData.getAttributeValue(RepositoryTaskAttribute.PRIORITY));
 			xplannerTask.setTaskKind(taskData.getTaskKind());
 
-			
 			if (XPlannerRepositoryUtils.isCompleted(taskData)) {
 				xplannerTask.setCompleted(true);
 				try {
-					xplannerTask.setCompletionDate(	// guess that completed when last modified
-							XPlannerAttributeFactory.TIME_DATE_FORMAT.parse(
-							taskData.getAttribute(RepositoryTaskAttribute.DATE_MODIFIED).getValue()));
+					xplannerTask.setCompletionDate( // guess that completed when last modified
+					XPlannerAttributeFactory.TIME_DATE_FORMAT.parse(taskData.getAttribute(
+							RepositoryTaskAttribute.DATE_MODIFIED).getValue()));
+				} catch (ParseException e) {
+					StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
+							Messages.XPlannerRepositoryConnector_COULD_NOT_CONVERT_TASK_DATE));
 				}
-				catch (ParseException e) {
-					StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, Messages.XPlannerRepositoryConnector_COULD_NOT_CONVERT_TASK_DATE));
-				}
-			} 
-			else {
+			} else {
 				xplannerTask.setCompleted(false);
 				xplannerTask.setCompletionDate(null);
 			}
 		}
 	}
-	
+
 	@Override
 	public String getRepositoryUrlFromTaskUrl(String url) {
 		if (url == null) {
@@ -407,8 +393,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 		if (taskData.isCompleted()) {
 			task.setCompleted(true);
 			task.setCompletionDate(taskData.getLastUpdateTime().getTime());
-		} 
-		else {
+		} else {
 			task.setCompleted(false);
 			task.setCompletionDate(null);
 		}
@@ -417,10 +402,10 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			TasksUiPlugin.getTaskListManager().getTaskList().notifyTaskChanged(task, true);
 		}
 	}
-	
-	public static void updateTaskDetails(String repositoryUrl, XPlannerTask task, 
-		UserStoryData userStory, boolean notifyOfChange) {
-		
+
+	public static void updateTaskDetails(String repositoryUrl, XPlannerTask task, UserStoryData userStory,
+			boolean notifyOfChange) {
+
 		if (userStory.getId() > 0) {
 			String url = repositoryUrl + XPlannerMylynUIPlugin.USER_STORY_URL_PREFIX + userStory.getId();
 			task.setUrl(url);
@@ -436,7 +421,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			task.setCompleted(false);
 			task.setCompletionDate(null);
 		}
-	    
+
 		task.setPriority("" + userStory.getPriority()); //$NON-NLS-1$
 		task.setTaskKind(XPlannerTask.Kind.USER_STORY.toString());
 
@@ -444,18 +429,15 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			TasksUiPlugin.getTaskListManager().getTaskList().notifyTaskChanged(task, true);
 		}
 	}
-	
-	public XPlannerTask createTask(DomainData data, String name, 
-		String id, TaskRepository repository) {
-		
+
+	public XPlannerTask createTask(DomainData data, String name, String id, TaskRepository repository) {
+
 		XPlannerTask task;
-		
-		AbstractTask existingTask = TasksUiPlugin.getTaskListManager().getTaskList().getTask(
-			repository.getUrl(), id);	
+
+		AbstractTask existingTask = TasksUiPlugin.getTaskListManager().getTaskList().getTask(repository.getUrl(), id);
 		if (existingTask instanceof XPlannerTask) {
 			task = (XPlannerTask) existingTask;
-		} 
-		else {
+		} else {
 			task = new XPlannerTask(repository.getUrl(), id, name);
 			task.setKind(data);
 //HeB -- testing			
@@ -474,12 +456,13 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	public void updateAttributes(TaskRepository repository, IProgressMonitor monitor) throws CoreException {
 		XPlannerClientFacade.getDefault().refreshClientSettings(repository);
 	}
-	
+
+	@Override
 	public String getTaskUrl(String repositoryUrl, String taskId) {
 		String taskUrl = null;
 
-		TaskRepository repository = TasksUiPlugin.getRepositoryManager()
-				.getRepository(XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryUrl);
+		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
+				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryUrl);
 		try {
 			XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 			if (client != null) {
@@ -487,50 +470,46 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 				// first check if taskdata exists
 				if (taskData != null) {
 					if (taskData.getId() > 0) {
-						taskUrl = repositoryUrl + XPlannerMylynUIPlugin.TASK_URL_PREFIX
-								+ taskData.getId();
+						taskUrl = repositoryUrl + XPlannerMylynUIPlugin.TASK_URL_PREFIX + taskData.getId();
 					}
-				}
-				else {
+				} else {
 					// otherwise check if a user story exists
-					UserStoryData userStory = client.getUserStory(Integer.valueOf(taskId)
-							.intValue());
+					UserStoryData userStory = client.getUserStory(Integer.valueOf(taskId).intValue());
 					if (userStory != null) {
 						taskUrl = repositoryUrl + XPlannerMylynUIPlugin.USER_STORY_URL_PREFIX + userStory.getId();
 					}
 				}
 			}
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			XPlannerMylynUIPlugin.log(e, "", false); //$NON-NLS-1$
 		}
 
 		return taskUrl;
 	}
-	
+
+	@Override
 	public String getTaskIdFromTaskUrl(String url) {
 		String taskId = null;
-		
+
 		if (url == null) {
 			return null;
 		}
-		
+
 		int index = url.indexOf(XPlannerMylynUIPlugin.DELIM_URL_SUFFIX);
 		if (index != -1) {
 			taskId = url.substring(index + XPlannerMylynUIPlugin.DELIM_URL_SUFFIX.length());
 		}
-		
+
 		return taskId;
 	}
-	
-	public Set<AbstractTask> getChangedSinceLastSync(TaskRepository repository,
-			Set<AbstractTask> tasks) throws CoreException {
-	
+
+	public Set<AbstractTask> getChangedSinceLastSync(TaskRepository repository, Set<AbstractTask> tasks)
+			throws CoreException {
+
 		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 		if (client == null) {
 			return Collections.emptySet();
-		} 
-		else {
+		} else {
 			Set<AbstractTask> changedTasks = new HashSet<AbstractTask>();
 			try {
 				XPlannerRepositoryUtils.validateRepository(repository);
@@ -548,50 +527,46 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 							}
 							if (lastSynchTime == null || lastUpdateTime.after(lastSynchTime)) {
 								changedTasks.add(task);
-							}	
+							}
 						}
 					}
 				}
-			}
-			catch (CoreException ce) {
+			} catch (CoreException ce) {
 				throw ce;
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				StatusHandler.fail(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, e.getMessage()));
 			}
-			
+
 			return changedTasks;
 		}
 	}
 
 	@Override
-	public boolean markStaleTasks(TaskRepository repository,
-		Set<AbstractTask> tasks, IProgressMonitor monitor) throws CoreException {
-		
+	public boolean markStaleTasks(TaskRepository repository, Set<AbstractTask> tasks, IProgressMonitor monitor)
+			throws CoreException {
+
 		boolean changed = false;
-		
+
 		try {
 			monitor.beginTask("Getting changed tasks", IProgressMonitor.UNKNOWN);
-			
+
 			if (repository.getSynchronizationTimeStamp() == null) {
 				for (AbstractTask task : tasks) {
 					task.setStale(true);
 				}
 				changed = true;
-			}
-			else {
+			} else {
 				Set<AbstractTask> changedTasks = getChangedSinceLastSync(repository, tasks);
 				for (AbstractTask changedTask : changedTasks) {
 					changedTask.setStale(true);
 				}
-	
+
 				changed = changedTasks.size() > 0;
 			}
-		} 
-		finally {
+		} finally {
 			monitor.done();
 		}
-		
+
 		return changed;
 	}
 

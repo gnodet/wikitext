@@ -101,8 +101,9 @@ public class UiUsageReportsPreferencePage extends PreferencePage implements IWor
 				dialog.setFilterPath(dir);
 
 				dir = dialog.open();
-				if (dir == null || dir.equals(""))
+				if (dir == null || dir.equals("")) {
 					return;
+				}
 				mylarDataDirectory.setText(dir);
 			}
 		});

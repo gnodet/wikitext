@@ -23,7 +23,7 @@ public class UsageStatisticsSummary {
 
 	private List<InteractionEventSummary> singleSummaries = new ArrayList<InteractionEventSummary>();
 
-	private List<IUsageCollector> collectors = new ArrayList<IUsageCollector>();
+	private final List<IUsageCollector> collectors = new ArrayList<IUsageCollector>();
 
 	public List<InteractionEventSummary> getSingleSummaries() {
 		return singleSummaries;

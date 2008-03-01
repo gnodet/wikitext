@@ -62,10 +62,11 @@ public class WebBrowserDialog extends MessageDialog {
 		gd.horizontalSpan = 1;
 		gd.verticalSpan = 50;
 		b.setLayoutData(gd);
-		if (isUrl)
+		if (isUrl) {
 			b.setUrl(data);
-		else
+		} else {
 			b.setText(data);
+		}
 
 		return parent;
 	}

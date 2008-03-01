@@ -156,8 +156,8 @@ public class OpenWikiPageAction extends Action implements IViewActionDelegate {
 				IProgressMonitor progressMonitor) throws CoreException {
 			if (pageNames != null) {
 				progressMonitor.beginTask("Searching", pageNames.length);
-				for (int i = 0; i < pageNames.length; i++) {
-					contentProvider.add(pageNames[i], itemsFilter);
+				for (String pageName : pageNames) {
+					contentProvider.add(pageName, itemsFilter);
 					progressMonitor.worked(1);
 				}
 			}
@@ -221,8 +221,8 @@ public class OpenWikiPageAction extends Action implements IViewActionDelegate {
 		if (openDialog.open() == Window.OK) {
 			Object[] selections = openDialog.getResult();
 			if (selections != null) {
-				for (int i = 0; i < selections.length; i++) {
-					OpenWikiPageJob job = new OpenWikiPageJob((String) selections[i]);
+				for (Object selection : selections) {
+					OpenWikiPageJob job = new OpenWikiPageJob((String) selection);
 					job.schedule();
 				}
 			}
@@ -259,7 +259,7 @@ public class OpenWikiPageAction extends Action implements IViewActionDelegate {
 	}
 
 	private class OpenWikiPageJob extends Job {
-		private String pageName;
+		private final String pageName;
 
 		public OpenWikiPageJob(String pageName) {
 			super("Opening Wiki Page");
@@ -278,7 +278,8 @@ public class OpenWikiPageAction extends Action implements IViewActionDelegate {
 						}
 					});
 				} else {
-					StatusHandler.displayStatus("Unable to open wiki page", new Status(IStatus.ERROR, TracWikiPlugin.PLUGIN_ID, "Unable to retrieve wiki page " + pageName));
+					StatusHandler.displayStatus("Unable to open wiki page", new Status(IStatus.ERROR,
+							TracWikiPlugin.PLUGIN_ID, "Unable to retrieve wiki page " + pageName));
 				}
 			} catch (final CoreException e) {
 				StatusHandler.displayStatus("Unable to open wiki page", e.getStatus());

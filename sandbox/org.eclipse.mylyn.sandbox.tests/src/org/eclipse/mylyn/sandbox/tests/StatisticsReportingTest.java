@@ -19,9 +19,9 @@ import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.mylyn.context.core.ContextCorePlugin;
+import org.eclipse.mylyn.context.ui.AbstractFocusViewAction;
 import org.eclipse.mylyn.context.ui.ContextUiPlugin;
 import org.eclipse.mylyn.internal.java.ui.JavaUiBridgePlugin;
-import org.eclipse.mylyn.internal.java.ui.actions.FocusPackageExplorerAction;
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
 import org.eclipse.mylyn.internal.monitor.reports.collectors.FocusedUiUsageAnalysisCollector;
 import org.eclipse.mylyn.internal.monitor.reports.collectors.FocusedUiViewUsageCollector;
@@ -40,9 +40,9 @@ public class StatisticsReportingTest extends TestCase {
 
 	private InteractionEventLogger logger;
 
-	private FocusedUiViewUsageCollector viewCollector = new FocusedUiViewUsageCollector();
+	private final FocusedUiViewUsageCollector viewCollector = new FocusedUiViewUsageCollector();
 
-	private FocusedUiUsageAnalysisCollector editRatioCollector = new FocusedUiUsageAnalysisCollector();;
+	private final FocusedUiUsageAnalysisCollector editRatioCollector = new FocusedUiUsageAnalysisCollector();;
 
 	private ReportGenerator report;
 
@@ -150,7 +150,7 @@ public class StatisticsReportingTest extends TestCase {
 		mockTypesSelection("A.java");
 
 		assertNotNull(ContextUiPlugin.getDefault().getPreferenceStore());
-		String prefId = FocusPackageExplorerAction.PREF_ID_PREFIX + JavaUI.ID_PACKAGES;
+		String prefId = AbstractFocusViewAction.PREF_ID_PREFIX + JavaUI.ID_PACKAGES;
 		assertNotNull(prefId);
 
 		PackageExplorerPart part = PackageExplorerPart.openInActivePerspective();

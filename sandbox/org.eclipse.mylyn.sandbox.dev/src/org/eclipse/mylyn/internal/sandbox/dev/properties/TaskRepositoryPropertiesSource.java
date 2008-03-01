@@ -20,7 +20,7 @@ import org.eclipse.ui.views.properties.TextPropertyDescriptor;
  * @author Maarten Meijer
  */
 public class TaskRepositoryPropertiesSource implements IPropertySource {
-	private TaskRepository repository;
+	private final TaskRepository repository;
 
 	public TaskRepositoryPropertiesSource(TaskRepository repository) {
 		this.repository = repository;

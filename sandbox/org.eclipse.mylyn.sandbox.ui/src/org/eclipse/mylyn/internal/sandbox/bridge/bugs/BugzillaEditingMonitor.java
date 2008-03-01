@@ -27,14 +27,16 @@ public class BugzillaEditingMonitor extends AbstractUserInteractionMonitor {
 
 	@Override
 	protected void handleWorkbenchPartSelection(IWorkbenchPart part, ISelection selection, boolean contributeToContext) {
-		if (!(part instanceof AbstractRepositoryTaskEditor) && !(part instanceof TaskEditor))
+		if (!(part instanceof AbstractRepositoryTaskEditor) && !(part instanceof TaskEditor)) {
 			return;
+		}
 
 		if (selection instanceof StructuredSelection) {
 			StructuredSelection ss = (StructuredSelection) selection;
 			Object object = ss.getFirstElement();
-			if (object instanceof RepositoryTaskSelection)
+			if (object instanceof RepositoryTaskSelection) {
 				super.handleElementSelection(part, object, contributeToContext);
+			}
 		}
 	}
 

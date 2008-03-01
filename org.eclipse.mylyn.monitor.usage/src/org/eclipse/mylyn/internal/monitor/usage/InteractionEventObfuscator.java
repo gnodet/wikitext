@@ -77,8 +77,9 @@ public class InteractionEventObfuscator {
 			StringBuffer obfuscatedPath = new StringBuffer();
 			for (int i = 0; i < path.segmentCount(); i++) {
 				obfuscatedPath.append(obfuscateString(path.segments()[i]));
-				if (i < path.segmentCount() - 1)
+				if (i < path.segmentCount() - 1) {
 					obfuscatedPath.append(DELIM_PATH);
+				}
 			}
 			return obfuscatedPath.toString();
 		}

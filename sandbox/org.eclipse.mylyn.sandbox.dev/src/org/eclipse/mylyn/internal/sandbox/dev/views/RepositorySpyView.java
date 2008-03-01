@@ -35,17 +35,13 @@ import org.eclipse.ui.part.DrillDownAdapter;
 import org.eclipse.ui.part.ViewPart;
 
 /**
- * This sample class demonstrates how to plug-in a new workbench view. The view
- * shows data obtained from the model. The sample creates a dummy model on the
- * fly, but a real implementation would connect to the model available either in
- * this or another plug-in (e.g. the workspace). The view is connected to the
- * model using a content provider.
+ * This sample class demonstrates how to plug-in a new workbench view. The view shows data obtained from the model. The
+ * sample creates a dummy model on the fly, but a real implementation would connect to the model available either in
+ * this or another plug-in (e.g. the workspace). The view is connected to the model using a content provider.
  * <p>
- * The view uses a label provider to define how model objects should be
- * presented in the view. Each view can present the same model objects using
- * different labels and icons, if needed. Alternatively, a single label provider
- * can be shared between views in order to ensure that objects of the same type
- * are presented in the same way everywhere.
+ * The view uses a label provider to define how model objects should be presented in the view. Each view can present the
+ * same model objects using different labels and icons, if needed. Alternatively, a single label provider can be shared
+ * between views in order to ensure that objects of the same type are presented in the same way everywhere.
  * <p>
  */
 
@@ -97,6 +93,7 @@ public class RepositorySpyView extends ViewPart {
 			this.parent = parent;
 		}
 
+		@Override
 		public String toString() {
 			return key.toString() + " : " + value.toString();
 		}
@@ -155,8 +152,9 @@ public class RepositorySpyView extends ViewPart {
 
 		public Object[] getElements(Object parent) {
 			if (parent.equals(getViewSite())) {
-				if (repositories == null)
+				if (repositories == null) {
 					initialize();
+				}
 				return getChildren(repositories);
 			}
 			return getChildren(parent);
@@ -179,8 +177,9 @@ public class RepositorySpyView extends ViewPart {
 		}
 
 		public boolean hasChildren(Object parent) {
-			if (parent instanceof List)
+			if (parent instanceof List) {
 				return repositories.size() > 0;
+			}
 			if (parent instanceof TaskRepository) {
 				TaskRepository repository = (TaskRepository) parent;
 				return repository.getProperties().size() > 0;
@@ -198,6 +197,7 @@ public class RepositorySpyView extends ViewPart {
 
 	class ViewLabelProvider extends LabelProvider {
 
+		@Override
 		public String getText(Object obj) {
 			if (obj instanceof List) {
 				return "Repositories";
@@ -209,6 +209,7 @@ public class RepositorySpyView extends ViewPart {
 			return obj.toString();
 		}
 
+		@Override
 		public Image getImage(Object obj) {
 			String imageKey = ISharedImages.IMG_OBJ_ELEMENT;
 			if (obj instanceof List) {
@@ -232,9 +233,9 @@ public class RepositorySpyView extends ViewPart {
 	}
 
 	/**
-	 * This is a callback that will allow us to create the viewer and initialize
-	 * it.
+	 * This is a callback that will allow us to create the viewer and initialize it.
 	 */
+	@Override
 	public void createPartControl(Composite parent) {
 		viewer = new TreeViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL);
 		drillDownAdapter = new DrillDownAdapter(viewer);
@@ -298,6 +299,7 @@ public class RepositorySpyView extends ViewPart {
 		refreshViewAction.setImageDescriptor(TasksUiImages.REFRESH);
 
 		clearConfigLastUpdateAction = new Action() {
+			@Override
 			public void run() {
 				ISelection selection = viewer.getSelection();
 				Object obj = ((IStructuredSelection) selection).getFirstElement();
@@ -305,14 +307,16 @@ public class RepositorySpyView extends ViewPart {
 					if (askDeleteMessage((KeyValuePair) obj)) {
 						KeyValuePair kvp = (KeyValuePair) obj;
 						((TaskRepository) kvp.getParent()).removeProperty((String) kvp.getKey());
-						TasksUiPlugin.getRepositoryManager().saveRepositories(TasksUiPlugin.getDefault().getRepositoriesFilePath());
+						TasksUiPlugin.getRepositoryManager().saveRepositories(
+								TasksUiPlugin.getDefault().getRepositoriesFilePath());
 						viewer.refresh();
 					}
 				} else if (null == obj) {
 					List<TaskRepository> repositories = TasksUiPlugin.getRepositoryManager().getAllRepositories();
 					for (TaskRepository repository : repositories) {
 						repository.removeProperty("config.lastupdate");
-						TasksUiPlugin.getRepositoryManager().saveRepositories(TasksUiPlugin.getDefault().getRepositoriesFilePath());
+						TasksUiPlugin.getRepositoryManager().saveRepositories(
+								TasksUiPlugin.getDefault().getRepositoriesFilePath());
 						viewer.refresh();
 					}
 					showMessage("Removed config.lastupdate property");
@@ -324,6 +328,7 @@ public class RepositorySpyView extends ViewPart {
 		clearConfigLastUpdateAction.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(
 				ISharedImages.IMG_TOOL_DELETE));
 		doubleClickAction = new Action() {
+			@Override
 			public void run() {
 				ISelection selection = viewer.getSelection();
 				Object obj = ((IStructuredSelection) selection).getFirstElement();
@@ -331,7 +336,8 @@ public class RepositorySpyView extends ViewPart {
 					if (askDeleteMessage((KeyValuePair) obj)) {
 						KeyValuePair kvp = (KeyValuePair) obj;
 						((TaskRepository) kvp.getParent()).removeProperty((String) kvp.getKey());
-						TasksUiPlugin.getRepositoryManager().saveRepositories(TasksUiPlugin.getDefault().getRepositoriesFilePath());
+						TasksUiPlugin.getRepositoryManager().saveRepositories(
+								TasksUiPlugin.getDefault().getRepositoriesFilePath());
 						viewer.refresh();
 					}
 				}
@@ -353,13 +359,14 @@ public class RepositorySpyView extends ViewPart {
 
 	private boolean askDeleteMessage(KeyValuePair obj) {
 		return MessageDialog.openConfirm(viewer.getControl().getShell(), "Repository Spy View",
-				"Do you want to clear property '" + obj.getKey().toString() + "' from '"
-						+ obj.getParent().toString() + "'");
+				"Do you want to clear property '" + obj.getKey().toString() + "' from '" + obj.getParent().toString()
+						+ "'");
 	}
 
 	/**
 	 * Passing the focus request to the viewer's control.
 	 */
+	@Override
 	public void setFocus() {
 		viewer.getControl().setFocus();
 	}

@@ -37,18 +37,23 @@ public class BrowserEditorInput extends RepositoryTaskEditorInput {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()) {
 			return false;
+		}
 		final BrowserEditorInput other = (BrowserEditorInput) obj;
 		if (url == null) {
-			if (other.url != null)
+			if (other.url != null) {
 				return false;
-		} else if (!url.equals(other.url))
+			}
+		} else if (!url.equals(other.url)) {
 			return false;
+		}
 		return true;
 	}
 

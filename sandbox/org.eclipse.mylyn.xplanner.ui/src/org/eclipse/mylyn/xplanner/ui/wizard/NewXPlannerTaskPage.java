@@ -43,11 +43,10 @@ import org.eclipse.ui.dialogs.FilteredTree;
 import org.eclipse.ui.dialogs.PatternFilter;
 import org.xplanner.soap.UserStoryData;
 
-
 /**
  * Wizard page for web-based new XPlanner task wizard
  * 
- * @author Ravi Kumar 
+ * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
 public class NewXPlannerTaskPage extends WizardPage {
@@ -60,21 +59,20 @@ public class NewXPlannerTaskPage extends WizardPage {
 	private FilteredTree projectTree;
 
 	private XPlannerClient client;
-	
-	private TaskRepository repository;
-	
+
+	private final TaskRepository repository;
+
 	public NewXPlannerTaskPage(TaskRepository repository) {
 		super("XPlannerUserStory");
 		this.repository = repository;
 
 		setTitle("New XPlanner Task");
 		setDescription(DESCRIPTION);
-		
+
 		try {
 			this.client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 			setPageComplete(false);
-		}
-		catch (CoreException ce) {
+		} catch (CoreException ce) {
 			StatusHandler.displayStatus("Repository Error", ce.getStatus());
 		}
 	}
@@ -97,7 +95,7 @@ public class NewXPlannerTaskPage extends WizardPage {
 		GridData projectsViewerGridData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		projectsViewerGridData.heightHint = 100;
 		projectsViewerGridData.widthHint = 200;
-		
+
 		projectsViewer.getTree().setLayoutData(projectsViewerGridData);
 		projectsViewer.setInput(client);
 		projectsViewer.refresh();
@@ -145,7 +143,7 @@ public class NewXPlannerTaskPage extends WizardPage {
 		if (getSelectedUserStory() == null) {
 			errorMessage = "A user story for the new task needs to be selected";
 		}
-		
+
 		setErrorMessage(errorMessage);
 		if (updatePageComplete) {
 			setPageComplete(errorMessage == null);
@@ -155,7 +153,7 @@ public class NewXPlannerTaskPage extends WizardPage {
 	@Override
 	public boolean isPageComplete() {
 		validatePage(false);
-		
+
 		return getErrorMessage() == null;
 	}
 
@@ -163,7 +161,7 @@ public class NewXPlannerTaskPage extends WizardPage {
 		if (force) { //!client.hasDetails() || force) {
 			try {
 				final AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager()
-					.getRepositoryConnector(repository.getConnectorKind());
+						.getRepositoryConnector(repository.getConnectorKind());
 
 				getContainer().run(true, false, new IRunnableWithProgress() {
 					public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
@@ -196,17 +194,16 @@ public class NewXPlannerTaskPage extends WizardPage {
 		}
 
 		projectTree.getViewer().setInput(client);
- 	}
+	}
 
 	public UserStoryData getSelectedUserStory() {
 		UserStoryData selectedUserStory = null;
-		
+
 		IStructuredSelection selection = (IStructuredSelection) projectTree.getViewer().getSelection();
 		if (!selection.isEmpty() && selection.getFirstElement() instanceof UserStoryData) {
-			selectedUserStory = (UserStoryData)selection.getFirstElement();
+			selectedUserStory = (UserStoryData) selection.getFirstElement();
 		}
-		
+
 		return selectedUserStory;
 	}
 }
-

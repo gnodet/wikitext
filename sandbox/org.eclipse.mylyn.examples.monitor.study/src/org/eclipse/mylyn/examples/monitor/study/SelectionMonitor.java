@@ -70,8 +70,9 @@ public class SelectionMonitor extends AbstractUserInteractionMonitor {
 		if (selection instanceof StructuredSelection) {
 			StructuredSelection structuredSelection = (StructuredSelection) selection;
 			Object selectedObject = structuredSelection.getFirstElement();
-			if (selectedObject == null)
+			if (selectedObject == null) {
 				return;
+			}
 			if (selectedObject instanceof IJavaElement) {
 				IJavaElement javaElement = (IJavaElement) selectedObject;
 				structureKind = STRUCTURE_KIND_JAVA;

@@ -30,7 +30,7 @@ import org.eclipse.mylyn.monitor.core.InteractionEvent;
  */
 public class PerspectiveUsageCollector implements IUsageCollector {
 
-	private Map<String, Integer> perspectiveUsage = new HashMap<String, Integer>();
+	private final Map<String, Integer> perspectiveUsage = new HashMap<String, Integer>();
 
 	private String currentPerspective = "";
 
@@ -135,8 +135,9 @@ public class PerspectiveUsageCollector implements IUsageCollector {
 			}
 		}
 
-		if (perspectiveUsage.size() % 2 != 0)
+		if (perspectiveUsage.size() % 2 != 0) {
 			summaries.add(" ");
+		}
 		return summaries;
 
 	}

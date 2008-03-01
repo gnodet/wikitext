@@ -42,9 +42,9 @@ public class BugzillaMylynSearch implements IActiveSearchOperation {
 
 	public static final int UNQUAL = 4;
 
-	private int scope;
+	private final int scope;
 
-	private IJavaElement element;
+	private final IJavaElement element;
 
 	private String handle = "";
 
@@ -115,7 +115,7 @@ public class BugzillaMylynSearch implements IActiveSearchOperation {
 	}
 
 	/** List of listeners wanting to know about the searches */
-	private List<IActiveSearchListener> listeners = new ArrayList<IActiveSearchListener>();
+	private final List<IActiveSearchListener> listeners = new ArrayList<IActiveSearchListener>();
 
 	/**
 	 * Add a listener for when the bugzilla search is completed

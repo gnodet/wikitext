@@ -13,48 +13,44 @@ import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.xplanner.ui.XPlannerCustomQuery;
 import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
 
-
 /**
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
 public class XPlannerQueryWizardUtils {
 	private static final boolean SHOW_SELECT_QUERY_PAGE = false;
-	
+
 	private XPlannerQueryWizardUtils() {
-		
+
 	}
-	
-  public static boolean isShowSelectQueryPage() {
-  	return SHOW_SELECT_QUERY_PAGE;
-  }
-  
+
+	public static boolean isShowSelectQueryPage() {
+		return SHOW_SELECT_QUERY_PAGE;
+	}
+
 	public static AbstractXPlannerQueryWizardPage addQueryWizardFirstPage(Wizard wizard, TaskRepository repository,
-		XPlannerCustomQuery existingQuery) {
-		
+			XPlannerCustomQuery existingQuery) {
+
 		AbstractXPlannerQueryWizardPage queryPage = null;
-		
+
 		try {
 			if (isShowSelectQueryPage()) {
 				queryPage = new XPlannerQuerySelectionWizardPage(repository);
-			}
-			else {
+			} else {
 				queryPage = new XPlannerCustomQueryPage(repository, existingQuery);
 			}
 			queryPage.setWizard(wizard);
 			wizard.addPage(queryPage);
-		}
-		catch (RuntimeException e) {
-			if (e.getCause() instanceof CoreException) { 
-				XPlannerMylynUIPlugin.log(e.getCause(), Messages.XPlannerQueryWizardUtils_COULD_NOT_CREATE_QUERY_PAGE_MESSAGE, true);
-			}
-			else {
+		} catch (RuntimeException e) {
+			if (e.getCause() instanceof CoreException) {
+				XPlannerMylynUIPlugin.log(e.getCause(),
+						Messages.XPlannerQueryWizardUtils_COULD_NOT_CREATE_QUERY_PAGE_MESSAGE, true);
+			} else {
 				throw e;
 			}
-		}		
-		
+		}
+
 		return queryPage;
 	}
 
-  
 }

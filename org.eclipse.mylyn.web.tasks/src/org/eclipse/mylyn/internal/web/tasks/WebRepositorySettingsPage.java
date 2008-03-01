@@ -42,7 +42,6 @@ import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.Section;
 
 /**
  * Settings page for generic web-based repository connector
@@ -76,11 +75,11 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 
 	private ComboViewer loginRequestMethod;
 
-	private FormToolkit toolkit = new FormToolkit(Display.getCurrent());
+	private final FormToolkit toolkit = new FormToolkit(Display.getCurrent());
 
 	private Map<String, String> oldProperties;
 
-	private ArrayList<ControlDecoration> decorations = new ArrayList<ControlDecoration>();
+	private final ArrayList<ControlDecoration> decorations = new ArrayList<ControlDecoration>();
 
 	public WebRepositorySettingsPage(AbstractRepositoryConnectorUi repositoryUi) {
 		super(TITLE, DESCRIPTION, repositoryUi);
@@ -203,7 +202,8 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 	}
 
 	private void createAdvancedComposite(final Composite composite) {
-		ExpandableComposite expComposite = toolkit.createExpandableComposite(composite, Section.TITLE_BAR | Section.COMPACT | Section.TWISTIE);
+		ExpandableComposite expComposite = toolkit.createExpandableComposite(composite, ExpandableComposite.TITLE_BAR
+				| ExpandableComposite.COMPACT | ExpandableComposite.TWISTIE);
 		expComposite.clientVerticalSpacing = 0;
 		GridData gridData_2 = new GridData(SWT.FILL, SWT.TOP, true, false);
 		gridData_2.horizontalIndent = -5;

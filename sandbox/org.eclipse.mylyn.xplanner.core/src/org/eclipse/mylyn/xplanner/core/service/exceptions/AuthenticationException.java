@@ -8,14 +8,14 @@
 package org.eclipse.mylyn.xplanner.core.service.exceptions;
 
 /**
- * @author Ravi Kumar 
- * @author Helen Bershadskaya 
+ * @author Ravi Kumar
+ * @author Helen Bershadskaya
  */
 public class AuthenticationException extends RuntimeException {
 
-  private static final long serialVersionUID = -5732876203525530283L;
+	private static final long serialVersionUID = -5732876203525530283L;
 
-  public AuthenticationException(String message) {
+	public AuthenticationException(String message) {
 		super(message);
 	}
 }

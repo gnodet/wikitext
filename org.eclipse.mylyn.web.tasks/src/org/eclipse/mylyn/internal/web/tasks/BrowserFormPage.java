@@ -46,9 +46,11 @@ public class BrowserFormPage extends FormPage {
 			managedForm.getForm().setContent(browser);
 			browser.setUrl(task.getUrl());
 		} catch (SWTError e) {
-			StatusHandler.fail(new Status(IStatus.ERROR, TasksWebPlugin.PLUGIN_ID, "Could not create browser page: " + e.getMessage(), e));
+			StatusHandler.fail(new Status(IStatus.ERROR, TasksWebPlugin.PLUGIN_ID, "Could not create browser page: "
+					+ e.getMessage(), e));
 		} catch (RuntimeException e) {
-			StatusHandler.log(new Status(IStatus.ERROR, TasksWebPlugin.PLUGIN_ID, "Could not create issue report page", e));
+			StatusHandler.log(new Status(IStatus.ERROR, TasksWebPlugin.PLUGIN_ID, "Could not create issue report page",
+					e));
 		}
 	}
 

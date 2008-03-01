@@ -14,11 +14,11 @@ import org.eclipse.mylyn.internal.context.ui.actions.AbstractInterestManipulatio
  * @author Mik Kersten
  */
 public class InterestDecrementAction extends AbstractInterestManipulationAction {
-	
+
 	public InterestDecrementAction() {
 		super.preserveUninteresting = true;
 	}
-	
+
 	@Override
 	protected boolean isIncrement() {
 		return false;

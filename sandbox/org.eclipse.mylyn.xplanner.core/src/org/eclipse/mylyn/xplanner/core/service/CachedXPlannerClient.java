@@ -10,44 +10,60 @@ package org.eclipse.mylyn.xplanner.core.service;
 import java.io.Serializable;
 import java.net.Proxy;
 import java.rmi.RemoteException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 import org.eclipse.mylyn.xplanner.wsdl.db.QueryException;
-import org.xplanner.soap.*;
-
+import org.xplanner.soap.IterationData;
+import org.xplanner.soap.NoteData;
+import org.xplanner.soap.PersonData;
+import org.xplanner.soap.ProjectData;
+import org.xplanner.soap.TaskData;
+import org.xplanner.soap.TimeEntryData;
+import org.xplanner.soap.UserStoryData;
 
 /**
- * XPlanner client implementation that caches information that is unlikely to change
- * during the session.  This client could be persisted to disk and re-loaded.
- * It has lifecycle methods to allow data in the cache to be reloaded.
+ * XPlanner client implementation that caches information that is unlikely to change during the session. This client
+ * could be persisted to disk and re-loaded. It has lifecycle methods to allow data in the cache to be reloaded.
  * 
- * TODO it is assumed that it will be backed by a standard XPlanner service layer 
+ * TODO it is assumed that it will be backed by a standard XPlanner service layer
  * 
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
-public class CachedXPlannerClient extends XPlannerClient 
-	implements Serializable {
-	
-  public static final int INVALID_ID = -1;
-  
+public class CachedXPlannerClient extends XPlannerClient implements Serializable {
+
+	public static final int INVALID_ID = -1;
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String name;
-	private String baseURL;
-	private boolean hasSlowConnection;
-	private String userName;
-	private String password;
-	private final boolean useCompression;
-	private final transient Proxy proxy;
-	private final String httpUser;
-	private final String httpPassword;
-	private transient XPlannerService serviceDelegate;
 
-	public CachedXPlannerClient(String name, String baseURL, boolean hasSlowConnection, String userName, String password,
-			boolean useCompression, Proxy proxy, String httpUser, String httpPassword) {
+	private final String name;
+
+	private String baseURL;
+
+	private boolean hasSlowConnection;
+
+	private String userName;
+
+	private String password;
+
+	private final boolean useCompression;
+
+	private final transient Proxy proxy;
+
+	private final String httpUser;
+
+	private final String httpPassword;
+
+	private transient final XPlannerService serviceDelegate;
+
+	public CachedXPlannerClient(String name, String baseURL, boolean hasSlowConnection, String userName,
+			String password, boolean useCompression, Proxy proxy, String httpUser, String httpPassword) {
 		this.name = name;
 		this.baseURL = baseURL;
 		this.hasSlowConnection = hasSlowConnection;
@@ -58,19 +74,21 @@ public class CachedXPlannerClient extends XPlannerClient
 		this.httpUser = httpUser;
 		this.httpPassword = httpPassword;
 
-		
 		this.serviceDelegate = ServiceManager.getXPlannerService(this);
 		serviceDelegate.login(userName, password);
 	}
 
+	@Override
 	public String getBaseURL() {
 		return baseURL;
 	}
 
+	@Override
 	public String getCurrentUserName() {
 		return userName;
 	}
 
+	@Override
 	public String getCurrentUserPassword() {
 		return password;
 	}
@@ -79,14 +97,15 @@ public class CachedXPlannerClient extends XPlannerClient
 		return 0;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public boolean hasSlowConnection() {
 		return hasSlowConnection;
 	}
-
 
 	public void setSlowConnection(boolean hasSlowConnection) {
 		this.hasSlowConnection = hasSlowConnection;
@@ -103,21 +122,23 @@ public class CachedXPlannerClient extends XPlannerClient
 	public void setCurrentUserName(String userName) {
 		this.userName = userName;
 	}
-	
+
+	@Override
 	public String login(String username, String password) {
-		return serviceDelegate.login(username, password);		
+		return serviceDelegate.login(username, password);
 	}
 
+	@Override
 	public boolean logout() {
 		boolean ok = true;
-	
+
 		//TODO -- shouldn't have a null service delegate, but definitely get into this condition if "finish"
 		// repository definition with an invalid client
-	
+
 		if (serviceDelegate != null) {
 			ok = serviceDelegate.logout();
 		}
-		
+
 		return ok;
 	}
 
@@ -153,9 +174,11 @@ public class CachedXPlannerClient extends XPlannerClient
 		serviceDelegate.deleteAttribute(objectId, key);
 	}
 
+	@Override
 	public boolean equals(Object obj) {
-		return this == obj || serviceDelegate.equals(obj) || 
-		 (obj instanceof CachedXPlannerClient && ((CachedXPlannerClient)obj).serviceDelegate.equals(serviceDelegate));
+		return this == obj
+				|| serviceDelegate.equals(obj)
+				|| (obj instanceof CachedXPlannerClient && ((CachedXPlannerClient) obj).serviceDelegate.equals(serviceDelegate));
 	}
 
 	public String getAttribute(int objectId, String key) throws RemoteException {
@@ -243,6 +266,7 @@ public class CachedXPlannerClient extends XPlannerClient
 		return serviceDelegate.getUserStory(id);
 	}
 
+	@Override
 	public int hashCode() {
 		return serviceDelegate.hashCode();
 	}
@@ -307,30 +331,30 @@ public class CachedXPlannerClient extends XPlannerClient
 		serviceDelegate.update(object);
 	}
 
+	@Override
 	public TaskData[] getUserStoryTasksForPerson(int personId, int userStoryId) {
 		if (personId < 0 || userStoryId < 0) {
 			return new TaskData[0];
 		}
-		
+
 		List<TaskData> userStoryTasksForPerson = new ArrayList<TaskData>();
 		try {
 			TaskData[] iterationTasks = getTasks(userStoryId);
 			// get all tasks for specified user storyserv
-			for (int i = 0; i < iterationTasks.length; i++) {
-				TaskData taskData = iterationTasks[i];
+			for (TaskData taskData : iterationTasks) {
 				if (taskData.getAcceptorId() == personId) {
 					userStoryTasksForPerson.add(taskData);
 				}
 			}
-			
-		}
-		catch (RemoteException e) {
+
+		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		return userStoryTasksForPerson.toArray(new TaskData[userStoryTasksForPerson.size()]);
 	}
-	
+
+	@Override
 	public UserStoryData[] getIterationUserStoriesForTracker(int trackerId, int iterationId) {
 		if (trackerId < 0 || iterationId < 0) {
 			return new UserStoryData[0];
@@ -341,26 +365,25 @@ public class CachedXPlannerClient extends XPlannerClient
 		try {
 			userStories = getUserStories(iterationId);
 			// get all tasks for specified user story
-			for (int i = 0; i < userStories.length; i++) {
-				UserStoryData userStory = userStories[i];
+			for (UserStoryData userStory : userStories) {
 				if (userStory.getTrackerId() == trackerId) {
 					userStoriesForTracker.add(userStory);
 				}
 			}
-		}
-		catch (RemoteException e) {
+		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		return userStoriesForTracker.toArray(new UserStoryData[userStoriesForTracker.size()]);
 	}
 
+	@Override
 	public int getCurrentPersonId() {
 		int currentPersonId = INVALID_ID;
-		
-	  String userName = getCurrentUserName();
-	  if (userName != null) {
-	  	try {
+
+		String userName = getCurrentUserName();
+		if (userName != null) {
+			try {
 				PersonData[] people = getPeople();
 				if (people != null) {
 					for (int i = 0; i < people.length && currentPersonId == INVALID_ID; i++) {
@@ -370,20 +393,20 @@ public class CachedXPlannerClient extends XPlannerClient
 						}
 					}
 				}
-			}
-			catch (RemoteException e) {
+			} catch (RemoteException e) {
 				e.printStackTrace();
 			}
-	  }
-	  
-	  return currentPersonId;
+		}
+
+		return currentPersonId;
 	}
-	
+
+	@Override
 	public UserStoryData[] getUserStoriesForProject(int projectId) {
 		if (projectId == INVALID_ID) {
 			return new UserStoryData[0];
 		}
-		
+
 		ArrayList<UserStoryData> projectUserStories = new ArrayList<UserStoryData>();
 		try {
 			IterationData[] projectIterations = getIterations(projectId);
@@ -393,19 +416,19 @@ public class CachedXPlannerClient extends XPlannerClient
 					projectUserStories.addAll(Arrays.asList(iterationUserStories));
 				}
 			}
-		}
-		catch (RemoteException e) {
+		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		return projectUserStories.toArray(new UserStoryData[projectUserStories.size()]);
 	}
-	
+
+	@Override
 	public UserStoryData[] getUserStoriesForProject(int projectId, int trackerId) {
 		if (projectId == INVALID_ID) {
 			return new UserStoryData[0];
 		}
-		
+
 		ArrayList<UserStoryData> projectTrackerUserStories = new ArrayList<UserStoryData>();
 		UserStoryData[] projectUserStories = getUserStoriesForProject(projectId);
 		for (UserStoryData userStory : projectUserStories) {
@@ -413,16 +436,17 @@ public class CachedXPlannerClient extends XPlannerClient
 				projectTrackerUserStories.add(userStory);
 			}
 		}
-		
+
 		return projectTrackerUserStories.toArray(new UserStoryData[projectTrackerUserStories.size()]);
 
 	}
-	
+
+	@Override
 	public TaskData[] getTasksForProject(int projectId) {
 		if (projectId == -1) {
 			return new TaskData[0];
 		}
-		
+
 		ArrayList<TaskData> projectTasks = new ArrayList<TaskData>();
 		try {
 			UserStoryData[] userStories = getUserStoriesForProject(projectId);
@@ -432,19 +456,19 @@ public class CachedXPlannerClient extends XPlannerClient
 					projectTasks.addAll(Arrays.asList(userStoryTasks));
 				}
 			}
-		}
-		catch (RemoteException e) {
+		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		return projectTasks.toArray(new TaskData[projectTasks.size()]);
 	}
-	
+
+	@Override
 	public TaskData[] getTasksForProject(int projectId, int personId) {
 		if (projectId == INVALID_ID || personId == INVALID_ID) {
 			return new TaskData[0];
 		}
-		
+
 		ArrayList<TaskData> projectPersonTasks = new ArrayList<TaskData>();
 		TaskData[] allProjectTasks = getTasksForProject(projectId);
 		for (TaskData task : allProjectTasks) {
@@ -452,15 +476,16 @@ public class CachedXPlannerClient extends XPlannerClient
 				projectPersonTasks.add(task);
 			}
 		}
-		
+
 		return projectPersonTasks.toArray(new TaskData[projectPersonTasks.size()]);
 	}
-	
+
+	@Override
 	public TaskData[] getTasksForIteration(int iterationId) {
 		if (iterationId == INVALID_ID) {
 			return new TaskData[0];
 		}
-		
+
 		ArrayList<TaskData> iterationTasks = new ArrayList<TaskData>();
 		try {
 			UserStoryData[] userStories = getUserStories(iterationId);
@@ -470,19 +495,19 @@ public class CachedXPlannerClient extends XPlannerClient
 					iterationTasks.addAll(Arrays.asList(userStoryTasks));
 				}
 			}
-		}
-		catch (RemoteException e) {
+		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		
+
 		return iterationTasks.toArray(new TaskData[iterationTasks.size()]);
 	}
-	
+
+	@Override
 	public TaskData[] getTasksForIteration(int iterationId, int personId) {
 		if (iterationId == INVALID_ID || personId == INVALID_ID) {
 			return new TaskData[0];
 		}
-		
+
 		ArrayList<TaskData> iterationPersonTasks = new ArrayList<TaskData>();
 		TaskData[] allIterationTasks = getTasksForIteration(iterationId);
 		for (TaskData task : allIterationTasks) {
@@ -490,23 +515,26 @@ public class CachedXPlannerClient extends XPlannerClient
 				iterationPersonTasks.add(task);
 			}
 		}
-		
+
 		return iterationPersonTasks.toArray(new TaskData[iterationPersonTasks.size()]);
 	}
-	
 
+	@Override
 	public String getHttpPassword() {
 		return httpPassword;
 	}
 
+	@Override
 	public String getHttpUser() {
 		return httpUser;
 	}
 
+	@Override
 	public Proxy getProxy() {
 		return proxy;
 	}
 
+	@Override
 	public boolean useCompression() {
 		return useCompression;
 	}

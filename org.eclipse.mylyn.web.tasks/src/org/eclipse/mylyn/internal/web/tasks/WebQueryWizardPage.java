@@ -60,7 +60,6 @@ import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.Section;
 
 /**
  * Wizard page for configuring and preview web query
@@ -76,19 +75,19 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 
 	private String webPage;
 
-	private TaskRepository repository;
+	private final TaskRepository repository;
 
-	private WebQuery query;
+	private final WebQuery query;
 
 	private UpdatePreviewJob updatePreviewJob;
 
-	private FormToolkit toolkit = new FormToolkit(Display.getCurrent());
+	private final FormToolkit toolkit = new FormToolkit(Display.getCurrent());
 
 	private ParametersEditor parametersEditor;
 
 	private Map<String, String> oldProperties;
 
-	private ArrayList<ControlDecoration> decorations = new ArrayList<ControlDecoration>();
+	private final ArrayList<ControlDecoration> decorations = new ArrayList<ControlDecoration>();
 
 	public WebQueryWizardPage(TaskRepository repository) {
 		this(repository, null);
@@ -142,8 +141,8 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		gridData1.minimumHeight = 90;
 		parametersEditor.setLayoutData(gridData1);
 
-		ExpandableComposite expComposite = toolkit.createExpandableComposite(composite, Section.COMPACT
-				| Section.TWISTIE);
+		ExpandableComposite expComposite = toolkit.createExpandableComposite(composite, ExpandableComposite.COMPACT
+				| ExpandableComposite.TWISTIE);
 		expComposite.setFont(parent.getFont());
 		GridData gridData_1 = new GridData(SWT.FILL, SWT.FILL, true, false);
 		gridData_1.heightHint = 150;
@@ -350,12 +349,12 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 	protected void openBrowser() {
 		final String url = queryUrlText.getText();
 		final Map<String, String> params = parametersEditor.getParameters();
-		
+
 		new Job("Opening Browser") {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				String evaluatedUrl = WebRepositoryConnector.evaluateParams(url, params, repository);
-				
+
 				try {
 					String webPage = WebRepositoryConnector.fetchResource(evaluatedUrl, params, repository);
 					File webPageFile = File.createTempFile("mylyn-web-connector", ".html");
@@ -365,11 +364,11 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 					w.write(webPage);
 					w.flush();
 					w.close();
-					
+
 					IWorkbenchBrowserSupport browserSupport = PlatformUI.getWorkbench().getBrowserSupport();
 					IWebBrowser browser = browserSupport.getExternalBrowser();
 					browser.openURL(webPageFile.toURL());
-					
+
 				} catch (final Exception e) {
 					Display.getCurrent().asyncExec(new Runnable() {
 						public void run() {
@@ -377,12 +376,12 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 						}
 					});
 				}
-				
+
 				return Status.OK_STATUS;
 			}
 		}.schedule();
 	}
-	
+
 	@Override
 	public boolean isPageComplete() {
 		if (getErrorMessage() != null) {

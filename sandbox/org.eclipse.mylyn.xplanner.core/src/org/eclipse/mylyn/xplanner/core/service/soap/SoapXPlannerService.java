@@ -13,15 +13,20 @@ import java.util.HashMap;
 
 import org.apache.axis.client.Stub;
 import org.apache.axis.configuration.FileProvider;
+import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
+import org.eclipse.mylyn.xplanner.core.service.XPlannerService;
 import org.eclipse.mylyn.xplanner.core.service.exceptions.AuthenticationException;
 import org.eclipse.mylyn.xplanner.core.service.exceptions.ServiceUnavailableException;
 import org.eclipse.mylyn.xplanner.wsdl.db.QueryException;
-import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
-import org.eclipse.mylyn.xplanner.core.service.XPlannerService;
-import org.xplanner.soap.*;
+import org.xplanner.soap.IterationData;
+import org.xplanner.soap.NoteData;
+import org.xplanner.soap.PersonData;
+import org.xplanner.soap.ProjectData;
+import org.xplanner.soap.TaskData;
+import org.xplanner.soap.TimeEntryData;
+import org.xplanner.soap.UserStoryData;
 import org.xplanner.soap.XPlanner.XPlanner;
 import org.xplanner.soap.XPlanner.XPlannerServiceLocator;
-
 
 // This class does not represent the data in a XPlanner installation.  It is merely
 // a helper to get any data that is missing in the cached XPlannerInstallation object
@@ -32,44 +37,49 @@ import org.xplanner.soap.XPlanner.XPlannerServiceLocator;
 // not yet cached.  Also need the ability to flush and fully re-load the cached installation
 
 /**
- * @author Ravi Kumar 
- * @author Helen Bershadskaya 
+ * @author Ravi Kumar
+ * @author Helen Bershadskaya
  */
 public class SoapXPlannerService extends XPlannerService {
 
 	private static final String SOAP_URL_PREFIX = "/soap/XPlanner"; //$NON-NLS-1$
-	private XPlannerClient client;
+
+	private final XPlannerClient client;
+
 	private XPlanner service;
+
 	boolean loginActive;
 
 	public SoapXPlannerService(XPlannerClient aClient) {
 		this.client = aClient;
-		
+
 		try {
-			XPlannerServiceLocator s = new XPlannerServiceLocator(new FileProvider(this
-					.getClass().getClassLoader().getResourceAsStream("client-config.wsdd"))); //$NON-NLS-1$
+			XPlannerServiceLocator s = new XPlannerServiceLocator(new FileProvider(this.getClass()
+					.getClassLoader()
+					.getResourceAsStream("client-config.wsdd"))); //$NON-NLS-1$
 			s.setHttpUser(client.getHttpUser());
 			s.setHttpPassword(client.getHttpPassword());
 			s.setProxy(client.getProxy());
 			s.setCompression(client.useCompression());
 			service = s.getXPlanner(new URL(client.getBaseURL() + SOAP_URL_PREFIX));
 			login(client.getCurrentUserName(), client.getCurrentUserPassword());
-		} 
-		catch (Throwable e) {
+		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
 
+	@Override
 	public String login(String username, String password) throws AuthenticationException, ServiceUnavailableException {
-		 ((Stub) service).setUsername(username);
-	     ((Stub) service).setPassword(password);
-	     loginActive = true;
-	     return null;
+		((Stub) service).setUsername(username);
+		((Stub) service).setPassword(password);
+		loginActive = true;
+		return null;
 	}
 
+	@Override
 	public boolean logout() throws ServiceUnavailableException {
 		// TODO Auto-generated method stub
-        loginActive = false;
+		loginActive = false;
 		return true;
 	}
 

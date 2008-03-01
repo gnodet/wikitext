@@ -37,9 +37,9 @@ import org.eclipse.ui.PlatformUI;
 
 /**
  * Job that performs the rollover of the monitor interaction history log file. Overwrites destination if exists!
- *
+ * 
  * @author Meghan Allen (modelled after org.eclipse.mylyn.internal.tasks.ui.util.TaskDataExportJob)
- *
+ * 
  */
 public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 
@@ -218,7 +218,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 						.getActiveWorkbenchWindow()
 						.getActivePage();
 				if (page == null) {
-					return new Status(Status.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, Status.OK, "Mylyn Usage Summary",
+					return new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, IStatus.OK, "Mylyn Usage Summary",
 							null);
 				}
 				if (input != null) {
@@ -261,7 +261,8 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 					}
 
 				} catch (PartInitException e) {
-					StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not show usage summary", e));
+					StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+							"Could not show usage summary", e));
 				}
 			}
 		});

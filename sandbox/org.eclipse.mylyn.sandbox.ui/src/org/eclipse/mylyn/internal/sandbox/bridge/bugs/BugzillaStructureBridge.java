@@ -72,14 +72,16 @@ public class BugzillaStructureBridge extends AbstractContextStructureBridge {
 
 		// check so that we don't need to try to get the parent if we are
 		// already at the bug report
-		if (!handle.matches(".*;.*;.*"))
+		if (!handle.matches(".*;.*;.*")) {
 			return null;
+		}
 
 		RepositoryTaskOutlineNode bon = (RepositoryTaskOutlineNode) getObjectForHandle(handle);
-		if (bon != null && bon.getParent() != null)
+		if (bon != null && bon.getParent() != null) {
 			return ContentOutlineTools.getHandle(bon.getParent());
-		else
+		} else {
 			return null;
+		}
 	}
 
 	@Override

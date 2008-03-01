@@ -17,15 +17,13 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 
-
 /**
  * Wizard page that allows the user to select a query of tasks from the XPlanner server.
- *
+ * 
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
 public class XPlannerQuerySelectionWizardPage extends AbstractXPlannerQueryWizardPage {
-
 
 	private static final String DESCRIPTION = Messages.XPlannerQuerySelectionWizardPage_SELECT_QUERY_TYPE;
 
@@ -42,6 +40,7 @@ public class XPlannerQuerySelectionWizardPage extends AbstractXPlannerQueryWizar
 		setDescription(DESCRIPTION);
 	}
 
+	@Override
 	public void createControl(Composite parent) {
 		final Composite innerComposite = new Composite(parent, SWT.NONE);
 		innerComposite.setLayoutData(new GridData());
@@ -57,21 +56,23 @@ public class XPlannerQuerySelectionWizardPage extends AbstractXPlannerQueryWizar
 		setControl(innerComposite);
 	}
 
+	@Override
 	public boolean canFlipToNextPage() {
 		return xplannerCustomQueryPage != null;
 	}
 
-
+	@Override
 	public IWizardPage getNextPage() {
 		if (xplannerCustomQueryPage == null) {
 
 			xplannerCustomQueryPage = new XPlannerCustomQueryPage(getRepository(), getExistingQuery());
 			xplannerCustomQueryPage.setWizard(getWizard());
 		}
-		
+
 		return xplannerCustomQueryPage;
 	}
 
+	@Override
 	public AbstractRepositoryQuery getQuery() {
 		if (xplannerCustomQueryPage != null) {
 			AbstractRepositoryQuery query = xplannerCustomQueryPage.getQuery();
@@ -79,7 +80,7 @@ public class XPlannerQuerySelectionWizardPage extends AbstractXPlannerQueryWizar
 				setExistingQuery((XPlannerCustomQuery) query);
 			}
 		}
-		
+
 		return getExistingQuery();
 	}
 

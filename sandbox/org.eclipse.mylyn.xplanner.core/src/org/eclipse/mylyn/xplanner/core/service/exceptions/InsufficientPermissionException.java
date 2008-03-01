@@ -8,14 +8,14 @@
 package org.eclipse.mylyn.xplanner.core.service.exceptions;
 
 /**
- * @author Ravi Kumar 
- * @author Helen Bershadskaya 
+ * @author Ravi Kumar
+ * @author Helen Bershadskaya
  */
 public class InsufficientPermissionException extends RuntimeException {
 
-  private static final long serialVersionUID = 7637802109314205626L;
+	private static final long serialVersionUID = 7637802109314205626L;
 
-  public InsufficientPermissionException(String message) {
+	public InsufficientPermissionException(String message) {
 		super(message);
 	}
 }

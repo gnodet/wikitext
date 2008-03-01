@@ -45,13 +45,13 @@ public class ReportGenerator {
 
 	public static final String SUMMARY_SEPARATOR = "<hr><br>";
 
-	private InteractionEventLogger logger;
+	private final InteractionEventLogger logger;
 
 	private UsageStatisticsSummary lastParsedSummary = null;
 
-	private Set<Integer> userIds = new HashSet<Integer>();
+	private final Set<Integer> userIds = new HashSet<Integer>();
 
-	private List<IUsageCollector> collectors;
+	private final List<IUsageCollector> collectors;
 
 	private List<IUsageScanner> scanners;
 
@@ -122,7 +122,7 @@ public class ReportGenerator {
 		if (this.listener != null) {
 			job.addJobChangeListener(this.listener);
 		}
-		job.setPriority(GenerateStatisticsJob.LONG);
+		job.setPriority(Job.LONG);
 		if (forceSyncForTesting) {
 			job.run(new NullProgressMonitor());
 		} else {
@@ -149,7 +149,8 @@ public class ReportGenerator {
 				userIDText = userIDText.substring(0, userIDText.indexOf("-"));
 				userId = Integer.valueOf(userIDText);
 			} catch (Throwable t) {
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not parse user ID from source file", t));
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+						"Could not parse user ID from source file", t));
 			}
 		}
 
@@ -165,7 +166,8 @@ public class ReportGenerator {
 			try {
 				phase = userIDText.substring(0, userIDText.indexOf(terminator) - 1);
 			} catch (Throwable t) {
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not parse user ID from source file", t));
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+						"Could not parse user ID from source file", t));
 			}
 		}
 		return phase;
@@ -177,7 +179,7 @@ public class ReportGenerator {
 
 		private final ReportGenerator generator;
 
-		private List<File> sources;
+		private final List<File> sources;
 
 		public GenerateStatisticsJob(ReportGenerator generator, List<File> sources) {
 			super("Generate statistics job");
@@ -204,15 +206,18 @@ public class ReportGenerator {
 					int userId = getUserId(source);
 					userIds.add(userId);
 					List<File> filesForUser = null;
-					if (filesPerUser.containsKey(userId))
+					if (filesPerUser.containsKey(userId)) {
 						filesForUser = filesPerUser.get(userId);
-					if (filesForUser == null)
+					}
+					if (filesForUser == null) {
 						filesForUser = new ArrayList<File>();
+					}
 					filesForUser.add(source);
 					filesPerUser.put(userId, filesForUser);
 				}
 			} catch (Throwable t) {
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not generate usage report", t));
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+						"Could not generate usage report", t));
 			}
 
 			try {
@@ -278,8 +283,9 @@ public class ReportGenerator {
 								// may want
 								// non-user
 								// events
-								for (IUsageCollector collector : this.generator.collectors)
+								for (IUsageCollector collector : this.generator.collectors) {
 									collector.consumeEvent(event, aUser);
+								}
 							}
 							createUsageTableData(summaryMap, event, aUser);
 						}
@@ -319,7 +325,8 @@ public class ReportGenerator {
 				monitor.done();
 
 			} catch (Throwable t) {
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not generate usage report", t));
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+						"Could not generate usage report", t));
 			}
 
 			return Status.OK_STATUS;

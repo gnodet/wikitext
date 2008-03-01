@@ -10,8 +10,8 @@ package org.eclipse.mylyn.xplanner.ui.editor;
 import org.eclipse.osgi.util.NLS;
 
 /**
- * @author Ravi Kumar 
- * @author Helen Bershadskaya 
+ * @author Ravi Kumar
+ * @author Helen Bershadskaya
  */
 public class Messages extends NLS {
 	private static final String BUNDLE_NAME = "org.eclipse.mylyn.xplanner.ui.editor.messages"; //$NON-NLS-1$

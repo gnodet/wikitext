@@ -13,10 +13,9 @@ package org.eclipse.mylyn.xplanner.core;
  */
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 
-
 public interface XPlannerClientListener {
 
 	public abstract void clientAdded(XPlannerClient client);
-	
+
 	public abstract void clientRemoved(XPlannerClient client);
 }

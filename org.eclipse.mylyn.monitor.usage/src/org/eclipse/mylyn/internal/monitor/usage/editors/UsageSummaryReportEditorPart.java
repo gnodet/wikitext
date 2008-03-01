@@ -72,7 +72,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 
 	private TableViewer tableViewer;
 
-	private String[] columnNames = new String[] { "Kind", "ID", "Count" };
+	private final String[] columnNames = new String[] { "Kind", "ID", "Count" };
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -162,18 +162,19 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 					IWorkbenchBrowserSupport support = PlatformUI.getWorkbench().getBrowserSupport();
 					support.getExternalBrowser().openURL(new URL(URL_USAGE_PAGE));
 				} catch (Exception e) {
-					StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not open task url", e));
+					StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+							"Could not open task url", e));
 				}
 			} else {
 				IWebBrowser browser = null;
 				int flags = 0;
 				if (WorkbenchBrowserSupport.getInstance().isInternalWebBrowserAvailable()) {
-					flags = WorkbenchBrowserSupport.AS_EDITOR | WorkbenchBrowserSupport.LOCATION_BAR
-							| WorkbenchBrowserSupport.NAVIGATION_BAR;
+					flags = IWorkbenchBrowserSupport.AS_EDITOR | IWorkbenchBrowserSupport.LOCATION_BAR
+							| IWorkbenchBrowserSupport.NAVIGATION_BAR;
 
 				} else {
-					flags = WorkbenchBrowserSupport.AS_EXTERNAL | WorkbenchBrowserSupport.LOCATION_BAR
-							| WorkbenchBrowserSupport.NAVIGATION_BAR;
+					flags = IWorkbenchBrowserSupport.AS_EXTERNAL | IWorkbenchBrowserSupport.LOCATION_BAR
+							| IWorkbenchBrowserSupport.NAVIGATION_BAR;
 				}
 
 				String generatedId = "org.eclipse.mylyn.web.browser-" + Calendar.getInstance().getTimeInMillis();

@@ -10,11 +10,12 @@ package org.eclipse.mylyn.xplanner.ui.wizard;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.mylyn.tasks.core.*;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractEditQueryWizard;
 import org.eclipse.mylyn.xplanner.ui.XPlannerCustomQuery;
-
 
 /**
  * @author Ravi Kumar
@@ -31,31 +32,30 @@ public class EditXPlannerQueryWizard extends AbstractEditQueryWizard {
 
 	@Override
 	public void addPages() {
-		queryPage = XPlannerQueryWizardUtils.addQueryWizardFirstPage(this, repository, (XPlannerCustomQuery)query);
+		queryPage = XPlannerQueryWizardUtils.addQueryWizardFirstPage(this, repository, (XPlannerCustomQuery) query);
 	}
 
 	@Override
 	public boolean performFinish() {
 		List<AbstractRepositoryQuery> queries = new ArrayList<AbstractRepositoryQuery>();
-		
+
 		// always delete existing query, because new one(s) will get created below
 		TasksUiPlugin.getTaskListManager().getTaskList().deleteQuery(query);
-		
+
 		if (queryPage instanceof MultipleQueryPage) {
-			queries = ((MultipleQueryPage)queryPage).getQueries();
-		}
-		else {
-      final AbstractRepositoryQuery query = queryPage.getQuery();
-      if (query != null) {
-      	queries.add(query);
-      }
+			queries = ((MultipleQueryPage) queryPage).getQueries();
+		} else {
+			final AbstractRepositoryQuery query = queryPage.getQuery();
+			if (query != null) {
+				queries.add(query);
+			}
 		}
 
 		for (AbstractRepositoryQuery query : queries) {
 			updateQuery(query);
-		} 
-		
-		return true;	
+		}
+
+		return true;
 	}
 
 	private void updateQuery(final AbstractRepositoryQuery query) {
@@ -63,7 +63,7 @@ public class EditXPlannerQueryWizard extends AbstractEditQueryWizard {
 		TasksUiPlugin.getTaskListManager().getTaskList().deleteQuery(query);
 		// make sure query reflects changed name, if it was changed
 		if (query instanceof XPlannerCustomQuery) {
-			XPlannerCustomQuery xplannerQuery = (XPlannerCustomQuery)query;
+			XPlannerCustomQuery xplannerQuery = (XPlannerCustomQuery) query;
 			String handleIdentifier = xplannerQuery.getHandleIdentifier();
 			String queryName = xplannerQuery.getQueryName();
 			if (!handleIdentifier.equals(queryName)) {
@@ -71,26 +71,25 @@ public class EditXPlannerQueryWizard extends AbstractEditQueryWizard {
 			}
 		}
 		TasksUiPlugin.getTaskListManager().getTaskList().addQuery(query);
-		
-		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getConnectorKind());
+
+		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
+				repository.getConnectorKind());
 		if (connector != null) {
-			TasksUiPlugin.getSynchronizationManager().synchronize(
-					connector, query, null, true);
+			TasksUiPlugin.getSynchronizationManager().synchronize(connector, query, null, true);
 		}
 	}
-	
+
 	@Override
 	public boolean canFinish() {
 		boolean canFinish = false;
 		if (queryPage != null) {
-			if(queryPage.getNextPage() == null) {
+			if (queryPage.getNextPage() == null) {
 				canFinish = queryPage.isPageComplete();
-			}
-			else {
+			} else {
 				canFinish = queryPage.getNextPage().isPageComplete();
 			}
 		}
-		
+
 		return canFinish;
 	}
 }

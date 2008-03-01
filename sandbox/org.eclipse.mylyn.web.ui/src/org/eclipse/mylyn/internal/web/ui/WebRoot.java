@@ -24,9 +24,9 @@ public class WebRoot extends WebResource {
 
 	private static final String LABEL = "Web";
 
-	private HashMap<String, WebResource> sites = new HashMap<String, WebResource>();
+	private final HashMap<String, WebResource> sites = new HashMap<String, WebResource>();
 
-	private HashMap<String, WebPage> pages = new HashMap<String, WebPage>();
+	private final HashMap<String, WebPage> pages = new HashMap<String, WebPage>();
 
 	@Override
 	public String getLabel(Object object) {

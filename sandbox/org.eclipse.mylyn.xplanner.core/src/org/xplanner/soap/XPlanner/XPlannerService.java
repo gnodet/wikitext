@@ -8,9 +8,10 @@
 package org.xplanner.soap.XPlanner;
 
 public interface XPlannerService extends javax.xml.rpc.Service {
-    public java.lang.String getXPlannerAddress();
+	public java.lang.String getXPlannerAddress();
 
-    public org.xplanner.soap.XPlanner.XPlanner getXPlanner() throws javax.xml.rpc.ServiceException;
+	public org.xplanner.soap.XPlanner.XPlanner getXPlanner() throws javax.xml.rpc.ServiceException;
 
-    public org.xplanner.soap.XPlanner.XPlanner getXPlanner(java.net.URL portAddress) throws javax.xml.rpc.ServiceException;
+	public org.xplanner.soap.XPlanner.XPlanner getXPlanner(java.net.URL portAddress)
+			throws javax.xml.rpc.ServiceException;
 }

@@ -73,8 +73,8 @@ class TaskReporter implements TestCaseVisitor {
 	}
 
 	private RepositoryTaskData createTaskData(TestCase testCase) throws CoreException {
-		AbstractAttributeFactory attributeFactory = taskDataHandler.getAttributeFactory(repository.getUrl(), repository
-				.getConnectorKind(), AbstractTask.DEFAULT_TASK_KIND);
+		AbstractAttributeFactory attributeFactory = taskDataHandler.getAttributeFactory(repository.getUrl(),
+				repository.getConnectorKind(), AbstractTask.DEFAULT_TASK_KIND);
 
 		RepositoryTaskData taskData = new RepositoryTaskData(attributeFactory, repository.getConnectorKind(),
 				repository.getUrl(), "0");

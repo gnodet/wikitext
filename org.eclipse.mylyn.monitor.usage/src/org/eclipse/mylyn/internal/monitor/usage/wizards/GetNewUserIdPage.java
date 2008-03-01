@@ -73,9 +73,9 @@ public class GetNewUserIdPage extends WizardPage {
 
 	private String companyFunction = SELECT_BELOW;
 
-	private UsageSubmissionWizard wizard;
+	private final UsageSubmissionWizard wizard;
 
-	private boolean performUpload;
+	private final boolean performUpload;
 
 	private boolean extendedMonitor = false;
 
@@ -108,8 +108,9 @@ public class GetNewUserIdPage extends WizardPage {
 			createInstructionSection(container);
 			createNamesSection(container);
 			createJobDetailSection(container);
-			if (UiUsageMonitorPlugin.getDefault().usingContactField())
+			if (UiUsageMonitorPlugin.getDefault().usingContactField()) {
 				createContactSection(container);
+			}
 			createUserIdButtons(container);
 		} else {
 			createAnonymousParticipationButtons(container);
@@ -370,8 +371,9 @@ public class GetNewUserIdPage extends WizardPage {
 					if (hasAllFields(false)) {
 						if (wizard.getNewUid(first, last, email, anon, jobFunction, companySize, companyFunction,
 								contactEmail) != -1) {
-							if (wizard.getUploadPage() != null)
+							if (wizard.getUploadPage() != null) {
 								wizard.getUploadPage().updateUid();
+							}
 							hasValidated = true;
 							MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Mylyn User Study ID",
 									"Your Mylyn user study ID is: " + wizard.getUid());
@@ -399,8 +401,9 @@ public class GetNewUserIdPage extends WizardPage {
 				if (e.widget instanceof Button) {
 					if (hasAllFields(true)) {
 						if (wizard.getExistingUid(first, last, email, anon) != -1) {
-							if (wizard.getUploadPage() != null)
+							if (wizard.getUploadPage() != null) {
 								wizard.getUploadPage().updateUid();
+							}
 							hasValidated = true;
 							MessageDialog.openInformation(
 									Display.getDefault().getActiveShell(),
@@ -452,8 +455,9 @@ public class GetNewUserIdPage extends WizardPage {
 			public void widgetSelected(SelectionEvent e) {
 				if (e.widget instanceof Button) {
 					if (wizard.getNewUid(null, null, null, true, null, null, null, false) != -1) {
-						if (wizard.getUploadPage() != null)
+						if (wizard.getUploadPage() != null) {
 							wizard.getUploadPage().updateUid();
+						}
 						hasValidated = true;
 						MessageDialog.openInformation(
 								Display.getDefault().getActiveShell(),
@@ -474,8 +478,9 @@ public class GetNewUserIdPage extends WizardPage {
 	}
 
 	private void updateEnablement() {
-		if (!extendedMonitor)
+		if (!extendedMonitor) {
 			return;
+		}
 		boolean nameFilled = (!firstName.getText().equals("") && !lastName.getText().equals("") && !emailAddress.getText()
 				.equals(""))
 				|| anon;
@@ -498,8 +503,9 @@ public class GetNewUserIdPage extends WizardPage {
 	}
 
 	public boolean hasAllFields(boolean existing) {
-		if (!extendedMonitor)
+		if (!extendedMonitor) {
 			return true;
+		}
 		boolean nameFilled = !firstName.getText().equals("") && !lastName.getText().equals("")
 				&& !emailAddress.getText().equals("");
 		if (!existing) {
@@ -513,16 +519,18 @@ public class GetNewUserIdPage extends WizardPage {
 
 	@Override
 	public boolean isPageComplete() {
-		if (hasAllFields(true) && hasValidated)
+		if (hasAllFields(true) && hasValidated) {
 			return true;
-		else
+		} else {
 			return false;
+		}
 	}
 
 	@Override
 	public IWizardPage getNextPage() {
-		if (isPageComplete() && performUpload)
+		if (isPageComplete() && performUpload) {
 			wizard.addPage(wizard.getUploadPage());
+		}
 
 		return super.getNextPage();
 

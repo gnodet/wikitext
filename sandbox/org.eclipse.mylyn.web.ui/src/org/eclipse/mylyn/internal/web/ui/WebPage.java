@@ -18,7 +18,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
  */
 public class WebPage extends WebResource {
 
-	private WebSite site;
+	private final WebSite site;
 
 	private String title = null;
 

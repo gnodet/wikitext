@@ -47,11 +47,11 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 
 	private int eventAccumulartor = 0;
 
-	private List<InteractionEvent> queue = new CopyOnWriteArrayList<InteractionEvent>();
+	private final List<InteractionEvent> queue = new CopyOnWriteArrayList<InteractionEvent>();
 
-	private InteractionEventObfuscator handleObfuscator = new InteractionEventObfuscator();
+	private final InteractionEventObfuscator handleObfuscator = new InteractionEventObfuscator();
 
-	private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S z", Locale.ENGLISH);
+	private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S z", Locale.ENGLISH);
 
 	public InteractionEventLogger(File outputFile) {
 		this.outputFile = outputFile;
@@ -74,7 +74,8 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 			}
 			eventAccumulartor++;
 		} catch (Throwable t) {
-			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.PLUGIN_ID, "Could not log interaction event", t));
+			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.PLUGIN_ID,
+					"Could not log interaction event", t));
 		}
 	}
 
@@ -90,8 +91,9 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 	@Override
 	public void stopMonitoring() {
 		super.stopMonitoring();
-		if (UiUsageMonitorPlugin.getDefault() != null)
+		if (UiUsageMonitorPlugin.getDefault() != null) {
 			UiUsageMonitorPlugin.getDefault().incrementObservedEvents(eventAccumulartor);
+		}
 		eventAccumulartor = 0;
 	}
 
@@ -135,7 +137,8 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 			}
 
 		} catch (Exception e) {
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not read interaction history", e));
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+					"Could not read interaction history", e));
 		}
 		return events;
 	}
@@ -160,8 +163,9 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 				index += tag.length();
 				xml = buf.substring(0, index);
 				InteractionEvent event = readLegacyEvent(xml);
-				if (event != null)
+				if (event != null) {
 					events.add(event);
+				}
 
 				if (index + endl.length() > buf.length()) {
 					buf = "";

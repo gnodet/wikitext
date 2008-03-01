@@ -48,11 +48,11 @@ public class BugzillaSearchEngine {
 
 	public static final Pattern reValueBugzilla220 = Pattern.compile("<td style=\"white-space: nowrap\">([^<]*)");
 
-	private String urlString;
+	private final String urlString;
 
-	private TaskRepository repository;
+	private final TaskRepository repository;
 
-	private boolean maxReached = false;
+	private final boolean maxReached = false;
 
 //	private String queryStringWithoutLogin;
 
@@ -185,8 +185,9 @@ public class BugzillaSearchEngine {
 			}
 			collector.done();
 			try {
-				if (in != null)
+				if (in != null) {
 					in.close();
+				}
 			} catch (IOException e) {
 				BugzillaCorePlugin.log(new Status(IStatus.ERROR, BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR,
 						"Problem closing the stream", e));
@@ -200,10 +201,11 @@ public class BugzillaSearchEngine {
 					+ repository.getUrl() + " username: " + repository.getUserName());
 		}
 
-		if (status == null)
+		if (status == null) {
 			return new Status(IStatus.OK, BugzillaUiPlugin.PLUGIN_ID, IStatus.OK, "", null);
-		else
+		} else {
 			return status;
+		}
 	}
 
 	// /** Old code used by a unit test. */

@@ -228,7 +228,8 @@ public class UsageEditorPart extends EditorPart {
 			outputStream.close();
 
 		} catch (SWTException e) {
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Unable to get directory name", e));
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Unable to get directory name",
+					e));
 		} catch (FileNotFoundException e) {
 			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not resolve file", e));
 		} catch (IOException e) {
@@ -244,13 +245,13 @@ public class UsageEditorPart extends EditorPart {
 			dialog.setFilterExtensions(new String[] { "*.html", "*.*" });
 
 			String filename = dialog.open();
-			if (!filename.endsWith(".html"))
+			if (!filename.endsWith(".html")) {
 				filename += ".html";
+			}
 			outputFile = new File(filename);
 			// outputStream = new FileOutputStream(outputFile, true);
 			BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
-			writer.write("<html><head>"
-			);
+			writer.write("<html><head>");
 			for (IUsageCollector collector : editorInput.getReportGenerator().getCollectors()) {
 				writer.write("<h3>" + collector.getReportTitle() + "</h3>");
 				for (String reportLine : collector.getReport()) {

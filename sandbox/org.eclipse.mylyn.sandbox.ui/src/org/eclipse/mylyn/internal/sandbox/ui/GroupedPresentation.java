@@ -24,7 +24,7 @@ public class GroupedPresentation extends AbstractTaskListPresentation implements
 	public GroupedPresentation() {
 		super(null);
 	}
-	
+
 	@Override
 	protected AbstractTaskListContentProvider createContentProvider(TaskListView taskListView) {
 		return new GroupedTaskListContentProvider(taskListView, groupBy);
@@ -34,9 +34,9 @@ public class GroupedPresentation extends AbstractTaskListPresentation implements
 	public String getId() {
 		return "org.eclipse.mylyn.tasks.ui.groupBy" + groupBy;
 	}
-	
+
 	// IExecutableExtension
-	
+
 	public void setInitializationData(IConfigurationElement config, String propertyName, Object data)
 			throws CoreException {
 		try {

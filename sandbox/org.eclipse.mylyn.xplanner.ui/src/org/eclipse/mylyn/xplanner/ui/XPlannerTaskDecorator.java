@@ -10,9 +10,8 @@ package org.eclipse.mylyn.xplanner.ui;
 import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 
-
 /**
- * @author Ravi Kumar 
+ * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
 //HeB -- testing

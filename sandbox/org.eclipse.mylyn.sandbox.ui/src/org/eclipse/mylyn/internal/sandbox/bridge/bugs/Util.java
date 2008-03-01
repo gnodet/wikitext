@@ -85,8 +85,9 @@ public class Util {
 		String long_desc = "";
 
 		// add the member, qualified with just its parents name
-		if (!(je instanceof IType))
+		if (!(je instanceof IType)) {
 			long_desc += je.getParent().getElementName() + ".";
+		}
 		long_desc += je.getElementName();
 
 		try {
@@ -185,9 +186,9 @@ public class Util {
 		String[] lines = comment.split("\n");
 
 		// go through each of the lines of the string
-		for (int i = 0; i < lines.length; i++) {
+		for (String line : lines) {
 
-			if (lines[i].matches(regexElement)) {
+			if (line.matches(regexElement)) {
 				return true;
 			}
 		}

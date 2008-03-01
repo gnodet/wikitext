@@ -16,17 +16,15 @@ import org.eclipse.mylyn.xplanner.ui.wizard.NewXPlannerQueryWizard;
  */
 public class MylynXPlannerUtils {
 	private MylynXPlannerUtils() {
-		
+
 	}
-	
-	public static void addNewMyTasksQuery(TaskRepository repository,
-		String name) {
-		
-		XPlannerCustomQuery myTasksQuery = 
-			new XPlannerCustomQuery(repository.getUrl(), name);
-		
+
+	public static void addNewMyTasksQuery(TaskRepository repository, String name) {
+
+		XPlannerCustomQuery myTasksQuery = new XPlannerCustomQuery(repository.getUrl(), name);
+
 		myTasksQuery.setMyCurrentTasks(true);
 		NewXPlannerQueryWizard.addQuery(myTasksQuery, repository);
 	}
-			
+
 }

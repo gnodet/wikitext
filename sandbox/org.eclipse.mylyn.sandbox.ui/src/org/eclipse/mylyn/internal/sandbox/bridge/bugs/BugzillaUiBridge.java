@@ -74,8 +74,8 @@ public class BugzillaUiBridge extends AbstractContextUiBridge {
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 		if (page != null) {
 			IEditorReference[] references = page.getEditorReferences();
-			for (int i = 0; i < references.length; i++) {
-				IEditorPart part = references[i].getEditor(false);
+			for (IEditorReference reference : references) {
+				IEditorPart part = reference.getEditor(false);
 				if (part != null) {
 					if (part instanceof AbstractRepositoryTaskEditor) {
 						((AbstractRepositoryTaskEditor) part).close();
@@ -96,8 +96,9 @@ public class BugzillaUiBridge extends AbstractContextUiBridge {
 	public List<TreeViewer> getContentOutlineViewers(IEditorPart editor) {
 		List<TreeViewer> viewers = new ArrayList<TreeViewer>();
 		TreeViewer outline = getOutlineTreeViewer(editor);
-		if (outline != null)
+		if (outline != null) {
 			viewers.add(outline);
+		}
 		return viewers;
 	}
 
@@ -105,8 +106,9 @@ public class BugzillaUiBridge extends AbstractContextUiBridge {
 		if (editor instanceof AbstractRepositoryTaskEditor) {
 			AbstractRepositoryTaskEditor abe = (AbstractRepositoryTaskEditor) editor;
 			RepositoryTaskOutlinePage outline = abe.getOutline();
-			if (outline != null)
+			if (outline != null) {
 				return outline.getOutlineTreeViewer();
+			}
 		}
 		return null;
 	}

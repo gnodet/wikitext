@@ -25,9 +25,9 @@ import org.eclipse.ui.IPersistableElement;
  */
 public class UsageStatsEditorInput implements IEditorInput {
 
-	private ReportGenerator reportGenerator;
+	private final ReportGenerator reportGenerator;
 
-	private List<File> usageFiles;
+	private final List<File> usageFiles;
 
 	/**
 	 * Supports either the single workspace file or multiple zip files.
@@ -72,7 +72,7 @@ public class UsageStatsEditorInput implements IEditorInput {
 		return reportGenerator;
 	}
 
-	private byte[] buffer = new byte[8192];
+	private final byte[] buffer = new byte[8192];
 
 	public void transferData(InputStream sourceStream, OutputStream destination) throws IOException {
 		int bytesRead = 0;

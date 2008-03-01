@@ -30,76 +30,78 @@ import org.eclipse.ui.IEditorPart;
  */
 public class XPlannerTaskEditorFactory extends AbstractTaskEditorFactory {
 
+	@Override
 	public boolean canCreateEditorFor(AbstractTask task) {
 		return task instanceof XPlannerTask;
 	}
 
+	@Override
 	public IEditorPart createEditor(TaskEditor parentEditor, IEditorInput editorInput) {
 		IEditorPart editor = null;
 
 		String kind = null;
 		if (editorInput instanceof RepositoryTaskEditorInput) {
-			RepositoryTaskData taskData = ((RepositoryTaskEditorInput)editorInput).getTaskData();
+			RepositoryTaskData taskData = ((RepositoryTaskEditorInput) editorInput).getTaskData();
 			kind = taskData.getTaskKind();
-		}
-		else if (editorInput instanceof TaskEditorInput) {
-			AbstractTask task = ((TaskEditorInput)editorInput).getTask();
+		} else if (editorInput instanceof TaskEditorInput) {
+			AbstractTask task = ((TaskEditorInput) editorInput).getTask();
 			kind = task.getTaskKind();
 		}
-		
+
 		if (XPlannerTask.Kind.TASK.toString().equals(kind)) {
-			if (editorInput instanceof RepositoryTaskEditorInput &&
-				((RepositoryTaskEditorInput) editorInput).getTaskData().isNew()) {
+			if (editorInput instanceof RepositoryTaskEditorInput
+					&& ((RepositoryTaskEditorInput) editorInput).getTaskData().isNew()) {
 				editor = new NewXPlannerTaskEditor(parentEditor);
-			} 
-			else {
+			} else {
 				editor = new XPlannerTaskEditor(parentEditor);
 			}
-			
-			((AbstractRepositoryTaskEditor)editor).setParentEditor(parentEditor);
-		}
-		else if (XPlannerTask.Kind.USER_STORY.toString().equals(kind)) {
+
+			((AbstractRepositoryTaskEditor) editor).setParentEditor(parentEditor);
+		} else if (XPlannerTask.Kind.USER_STORY.toString().equals(kind)) {
 			editor = new XPlannerUserStoryEditor(parentEditor);
 		}
-		
+
 		return editor;
 	}
 
+	@Override
 	public IEditorInput createEditorInput(AbstractTask task) {
 		IEditorInput input = null;
-		
+
 		if (task instanceof XPlannerTask) {
 			XPlannerTask xplannerTask = (XPlannerTask) task;
-			
+
 			final TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
 					xplannerTask.getConnectorKind(), xplannerTask.getRepositoryUrl());
 			try {
-				input = new RepositoryTaskEditorInput(repository, 
-					xplannerTask.getTaskId(), xplannerTask.getUrl()); 
-			} 
-			catch (Exception e) {
-				StatusHandler.fail(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, Messages.XPlannerTaskEditorFactory_COULD_NOT_CREATE_EDITOR_INPUT, e));
+				input = new RepositoryTaskEditorInput(repository, xplannerTask.getTaskId(), xplannerTask.getUrl());
+			} catch (Exception e) {
+				StatusHandler.fail(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
+						Messages.XPlannerTaskEditorFactory_COULD_NOT_CREATE_EDITOR_INPUT, e));
 			}
-		
+
 		}
-	
+
 		return input;
 	}
 
+	@Override
 	public String getTitle() {
 		return Messages.XPlannerTaskEditorFactory_TITLE;
 	}
 
+	@Override
 	public boolean providesOutline() {
 		return true;
 	}
 
+	@Override
 	public boolean canCreateEditorFor(IEditorInput input) {
 		if (input instanceof RepositoryTaskEditorInput) {
 			RepositoryTaskEditorInput existingInput = (RepositoryTaskEditorInput) input;
 			return existingInput.getTaskData() != null
 					&& XPlannerMylynUIPlugin.REPOSITORY_KIND.equals(existingInput.getRepository().getConnectorKind());
-		} 
+		}
 		return false;
 	}
 

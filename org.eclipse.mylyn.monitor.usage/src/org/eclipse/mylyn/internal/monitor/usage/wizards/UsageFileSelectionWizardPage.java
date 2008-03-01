@@ -30,6 +30,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 public class UsageFileSelectionWizardPage extends WizardPage {
 
@@ -43,7 +44,7 @@ public class UsageFileSelectionWizardPage extends WizardPage {
 
 	protected UsageFileSelectionWizardPage(String pageName) {
 		super("org.eclipse.mylyn.monitor.usage.fileSelectionPage", PAGE_TITLE,
-				UiUsageMonitorPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.PLUGIN_ID,
+				AbstractUIPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.PLUGIN_ID,
 						"icons/wizban/banner-submission.gif"));
 		setDescription(DESCRIPTION);
 	}
@@ -59,13 +60,12 @@ public class UsageFileSelectionWizardPage extends WizardPage {
 			if (backupFolder.exists()) {
 				File[] files = backupFolder.listFiles();
 				File submissionLogFile = new File(destination, SUBMISSION_LOG_FILE_NAME);
-				
+
 				if (!submissionLogFile.exists()) {
 					submissionLogFile.createNewFile();
 				}
-				
-				FileInputStream inputStream = new FileInputStream(submissionLogFile);
 
+				FileInputStream inputStream = new FileInputStream(submissionLogFile);
 
 				int bytesRead = 0;
 				byte[] buffer = new byte[1000];
@@ -140,7 +140,8 @@ public class UsageFileSelectionWizardPage extends WizardPage {
 			// setPageComplete(validate());
 		} catch (RuntimeException e) {
 			// FIXME what exception is caught here?
-			StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not create import wizard page", e));
+			StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+					"Could not create import wizard page", e));
 		}
 	}
 
@@ -149,8 +150,8 @@ public class UsageFileSelectionWizardPage extends WizardPage {
 		List<String> list = new ArrayList<String>();
 		if (zippedFilesTable.getSelectionCount() >= 1) {
 			TableItem[] selectedItems = zippedFilesTable.getSelection();
-			for (int i = 0; i < selectedItems.length; i++) {
-				list.add(selectedItems[i].getText());
+			for (TableItem selectedItem : selectedItems) {
+				list.add(selectedItem.getText());
 			}
 		} else {
 			list.add("<unspecified>");

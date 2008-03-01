@@ -36,13 +36,13 @@ public class BugzillaReportInfo {
 	private static final long serialVersionUID = 3257004367222419506L;
 
 	/** The BugzillaSearchHit associated with this DoiInfo */
-	private BugzillaTask hit;
+	private final BugzillaTask hit;
 
 	/** Whether this search hit was from an exact search like a stack trace */
 	private boolean isExact = false;
 
 	/** List of all of the StackTrace's in the given bug */
-	private List<StackTrace> stackTraces;
+	private final List<StackTrace> stackTraces;
 
 	/** The bug report associated with this DoiInfo */
 	private RepositoryTaskData bug;
@@ -161,8 +161,9 @@ public class BugzillaReportInfo {
 	 *            The StackTraces to add
 	 */
 	public void addStackTraces(StackTrace[] stackTracesToAdd) {
-		for (int i = 0; i < stackTracesToAdd.length; i++)
-			this.stackTraces.add(stackTracesToAdd[i]);
+		for (StackTrace element : stackTracesToAdd) {
+			this.stackTraces.add(element);
+		}
 	}
 
 	/**
@@ -173,8 +174,9 @@ public class BugzillaReportInfo {
 	public String getName() {
 		String description = hit.getSummary();
 		int length = description.length();
-		if (length > MAX_LABEL_LENGTH)
+		if (length > MAX_LABEL_LENGTH) {
 			description = description.substring(0, MAX_LABEL_LENGTH) + "..";
+		}
 		return "bug " + hit.getTaskId() + ": " + description;
 	}
 

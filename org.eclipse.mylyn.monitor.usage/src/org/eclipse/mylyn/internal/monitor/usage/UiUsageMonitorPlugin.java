@@ -128,15 +128,15 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 	private static UiUsageMonitorPlugin plugin;
 
-	private List<IActionExecutionListener> actionExecutionListeners = new ArrayList<IActionExecutionListener>();
+	private final List<IActionExecutionListener> actionExecutionListeners = new ArrayList<IActionExecutionListener>();
 
-	private List<AbstractCommandMonitor> commandMonitors = new ArrayList<AbstractCommandMonitor>();
+	private final List<AbstractCommandMonitor> commandMonitors = new ArrayList<AbstractCommandMonitor>();
 
 	private ResourceBundle resourceBundle;
 
 	private static Date lastTransmit = null;
 
-	private Authentication uploadAuthentication = null;
+	private final Authentication uploadAuthentication = null;
 
 	private static boolean performingUpload = false;
 
@@ -144,9 +144,9 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 	private boolean backgroundEnabled = false;
 
-	private StudyParameters studyParameters = new StudyParameters();
+	private final StudyParameters studyParameters = new StudyParameters();
 
-	private ListenerList lifecycleListeners = new ListenerList();
+	private final ListenerList lifecycleListeners = new ListenerList();
 
 	public static class UiUsageMonitorStartup implements IStartup {
 
@@ -154,8 +154,8 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 			// everything happens on normal start
 		}
 	}
-	
-	private IWindowListener WINDOW_LISTENER = new IWindowListener() {
+
+	private final IWindowListener WINDOW_LISTENER = new IWindowListener() {
 		public void windowActivated(IWorkbenchWindow window) {
 		}
 
@@ -175,12 +175,13 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		}
 	};
 
-	private ShellListener SHELL_LISTENER = new ShellListener() {
+	private final ShellListener SHELL_LISTENER = new ShellListener() {
 
 		public void shellDeactivated(ShellEvent arg0) {
 			if (!isPerformingUpload() && ContextCorePlugin.getDefault() != null) {
-				for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners())
+				for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners()) {
 					listener.stopMonitoring();
+				}
 			}
 		}
 
@@ -189,8 +190,9 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 //				checkForStatisticsUpload();
 //			}
 			if (!isPerformingUpload() && ContextCorePlugin.getDefault() != null) {
-				for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners())
+				for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners()) {
 					listener.startMonitoring();
+				}
 			}
 		}
 
@@ -205,30 +207,31 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 	};
 
 	private LogMoveUtility logMoveUtility;
-	
+
 	/**
-	 * NOTE: this needs to be a separate class in order to avoid loading ..mylyn.context.core
-	 * on eager startup
+	 * NOTE: this needs to be a separate class in order to avoid loading ..mylyn.context.core on eager startup
 	 */
 	private class LogMoveUtility {
-		
-		private IContextStoreListener DATA_DIR_MOVE_LISTENER = new IContextStoreListener() {
+
+		private final IContextStoreListener DATA_DIR_MOVE_LISTENER = new IContextStoreListener() {
 
 			public void contextStoreMoved() {
 				if (!isPerformingUpload()) {
-					for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners())
+					for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners()) {
 						listener.stopMonitoring();
+					}
 					interactionLogger.moveOutputFile(getMonitorLogFile().getAbsolutePath());
-					for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners())
+					for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners()) {
 						listener.startMonitoring();
+					}
 				}
 			}
 		};
-		
+
 		void start() {
 			ContextCorePlugin.getDefault().getContextStore().addListener(DATA_DIR_MOVE_LISTENER);
 		}
-		
+
 		void stop() {
 			ContextCorePlugin.getDefault().getContextStore().removeListener(DATA_DIR_MOVE_LISTENER);
 		}
@@ -270,7 +273,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 					new MonitorUsageExtensionPointReader().initExtensions();
 
 					preferenceMonitor = new PreferenceChangeMonitor();
-					
+
 					interactionLogger = new InteractionEventLogger(getMonitorLogFile());
 					perspectiveMonitor = new PerspectiveChangeMonitor();
 					activityMonitor = new ActivityChangeMonitor();
@@ -297,18 +300,21 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 								lastTransmit.getTime());
 					}
 				} catch (Throwable t) {
-					StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Monitor failed to start", t));
+					StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+							"Monitor failed to start", t));
 				}
 			}
 		});
 	}
 
 	public void startMonitoring() {
-		if (getPreferenceStore().contains(MonitorPreferenceConstants.PREF_MONITORING_STARTED))
+		if (getPreferenceStore().contains(MonitorPreferenceConstants.PREF_MONITORING_STARTED)) {
 			return;
+		}
 		interactionLogger.startMonitoring();
-		for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners())
+		for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners()) {
 			listener.startMonitoring();
+		}
 
 		IWorkbench workbench = PlatformUI.getWorkbench();
 		MonitorUiPlugin.getDefault().addInteractionListener(interactionLogger);
@@ -326,7 +332,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 			logMoveUtility = new LogMoveUtility();
 		}
 		logMoveUtility.start();
-		
+
 		MonitorUiPlugin.getDefault().addWindowPerspectiveListener(perspectiveMonitor);
 		workbench.getActivitySupport().getActivityManager().addActivityManagerListener(activityMonitor);
 		workbench.getDisplay().addFilter(SWT.Selection, menuMonitor);
@@ -348,7 +354,8 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		if (preferenceMonitor != null) {
 			preferences.addPropertyChangeListener(preferenceMonitor);
 		} else {
-			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.PLUGIN_ID, "UI Usage Monitor not started", new Exception()));
+			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.PLUGIN_ID,
+					"UI Usage Monitor not started", new Exception()));
 		}
 	}
 
@@ -356,7 +363,8 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		if (preferenceMonitor != null) {
 			preferences.removePropertyChangeListener(preferenceMonitor);
 		} else {
-			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.PLUGIN_ID, "UI Usage Monitor not started", new Exception()));
+			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.PLUGIN_ID,
+					"UI Usage Monitor not started", new Exception()));
 		}
 	}
 
@@ -365,15 +373,17 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 	}
 
 	public void stopMonitoring() {
-		if (!getPreferenceStore().contains(MonitorPreferenceConstants.PREF_MONITORING_STARTED))
+		if (!getPreferenceStore().contains(MonitorPreferenceConstants.PREF_MONITORING_STARTED)) {
 			return;
+		}
 
 		for (Object listener : lifecycleListeners.getListeners()) {
 			((IMylarMonitorLifecycleListener) listener).stopMonitoring();
 		}
 
-		for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners())
+		for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners()) {
 			listener.stopMonitoring();
+		}
 
 		IWorkbench workbench = PlatformUI.getWorkbench();
 		MonitorUiPlugin.getDefault().removeInteractionListener(interactionLogger);
@@ -482,7 +492,8 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not create monitor file", e));
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+						"Could not create monitor file", e));
 			}
 		}
 		return file;
@@ -530,8 +541,9 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 	 */
 	public ResourceBundle getResourceBundle() {
 		try {
-			if (resourceBundle == null)
+			if (resourceBundle == null) {
 				resourceBundle = ResourceBundle.getBundle("org.eclipse.mylyn.monitor.ui.MonitorPluginResources");
+			}
 		} catch (MissingResourceException x) {
 			resourceBundle = null;
 		}
@@ -545,10 +557,12 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 	// NOTE: not currently used
 	synchronized void checkForStatisticsUpload() {
-		if (!isMonitoringEnabled())
+		if (!isMonitoringEnabled()) {
 			return;
-		if (plugin == null || plugin.getPreferenceStore() == null)
+		}
+		if (plugin == null || plugin.getPreferenceStore() == null) {
 			return;
+		}
 
 		if (plugin.getPreferenceStore().contains(MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE)) {
 
@@ -725,18 +739,18 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 					IExtensionPoint extensionPoint = registry.getExtensionPoint(EXTENSION_ID_STUDY);
 					if (extensionPoint != null) {
 						IExtension[] extensions = extensionPoint.getExtensions();
-						for (int i = 0; i < extensions.length; i++) {
-							IConfigurationElement[] elements = extensions[i].getConfigurationElements();
-							for (int j = 0; j < elements.length; j++) {
-								if (elements[j].getName().compareTo(ELEMENT_SCRIPTS) == 0) {
-									readScripts(elements[j]);
-								} else if (elements[j].getName().compareTo(ELEMENT_UI) == 0) {
-									readForms(elements[j]);
-								} else if (elements[j].getName().compareTo(ELEMENT_MONITORS) == 0) {
-									readMonitors(elements[j]);
+						for (IExtension extension : extensions) {
+							IConfigurationElement[] elements = extension.getConfigurationElements();
+							for (IConfigurationElement element : elements) {
+								if (element.getName().compareTo(ELEMENT_SCRIPTS) == 0) {
+									readScripts(element);
+								} else if (element.getName().compareTo(ELEMENT_UI) == 0) {
+									readForms(element);
+								} else if (element.getName().compareTo(ELEMENT_MONITORS) == 0) {
+									readMonitors(element);
 								}
 							}
-							customizingPlugin = extensions[i].getNamespace();
+							customizingPlugin = extension.getNamespace();
 						}
 						extensionsRead = true;
 					}
@@ -770,7 +784,8 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 					UiUsageMonitorPlugin.getDefault().setQuestionnaireEnabled(false);
 				}
 			} catch (CoreException e) {
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not load questionaire", e));
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+						"Could not load questionaire", e));
 				UiUsageMonitorPlugin.getDefault().setQuestionnaireEnabled(false);
 			}
 
@@ -786,7 +801,8 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 					UiUsageMonitorPlugin.getDefault().setBackgroundEnabled(false);
 				}
 			} catch (CoreException e) {
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not load background page", e));
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+						"Could not load background page", e));
 				UiUsageMonitorPlugin.getDefault().setBackgroundEnabled(false);
 			}
 
@@ -836,9 +852,10 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 	}
 
 	public boolean usingContactField() {
-		if (studyParameters.getUseContactField().equals("true"))
+		if (studyParameters.getUseContactField().equals("true")) {
 			return true;
-		else
+		} else {
 			return false;
+		}
 	}
 }

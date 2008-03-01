@@ -46,45 +46,45 @@ public class FocusedUiUsageAnalysisCollector extends AbstractMylynUsageCollector
 
 	private final List<Integer> usersDegraded = new ArrayList<Integer>();
 
-	private Map<Integer, Date> startDates = new HashMap<Integer, Date>();
+	private final Map<Integer, Date> startDates = new HashMap<Integer, Date>();
 
-	private Map<Integer, Integer> numMylynActiveJavaEdits = new HashMap<Integer, Integer>();
+	private final Map<Integer, Integer> numMylynActiveJavaEdits = new HashMap<Integer, Integer>();
 
-	private Map<Integer, Date> endDates = new HashMap<Integer, Date>();
+	private final Map<Integer, Date> endDates = new HashMap<Integer, Date>();
 
-	private Map<Integer, Integer> baselineSelections = new HashMap<Integer, Integer>();
+	private final Map<Integer, Integer> baselineSelections = new HashMap<Integer, Integer>();
 
-	private Map<Integer, Integer> baselineEdits = new HashMap<Integer, Integer>();
+	private final Map<Integer, Integer> baselineEdits = new HashMap<Integer, Integer>();
 
-	private Map<Integer, Integer> mylynInactiveSelections = new HashMap<Integer, Integer>();
+	private final Map<Integer, Integer> mylynInactiveSelections = new HashMap<Integer, Integer>();
 
-	private Map<Integer, Integer> mylynInactiveEdits = new HashMap<Integer, Integer>();
+	private final Map<Integer, Integer> mylynInactiveEdits = new HashMap<Integer, Integer>();
 
-	private Map<Integer, Integer> mylynSelections = new HashMap<Integer, Integer>();
+	private final Map<Integer, Integer> mylynSelections = new HashMap<Integer, Integer>();
 
-	private Map<Integer, Integer> mylynEdits = new HashMap<Integer, Integer>();
+	private final Map<Integer, Integer> mylynEdits = new HashMap<Integer, Integer>();
 
-	private Map<Integer, Integer> baselineCurrentNumSelectionsBeforeEdit = new HashMap<Integer, Integer>();
+	private final Map<Integer, Integer> baselineCurrentNumSelectionsBeforeEdit = new HashMap<Integer, Integer>();
 
-	private Map<Integer, Integer> baselineTotalSelectionsBeforeEdit = new HashMap<Integer, Integer>();
+	private final Map<Integer, Integer> baselineTotalSelectionsBeforeEdit = new HashMap<Integer, Integer>();
 
-	private Map<Integer, Integer> baselineTotalEditsCounted = new HashMap<Integer, Integer>();
+	private final Map<Integer, Integer> baselineTotalEditsCounted = new HashMap<Integer, Integer>();
 
-	private Map<Integer, Integer> mylynCurrentNumSelectionsBeforeEdit = new HashMap<Integer, Integer>();
+	private final Map<Integer, Integer> mylynCurrentNumSelectionsBeforeEdit = new HashMap<Integer, Integer>();
 
-	private Map<Integer, Integer> mylynTotalSelectionsBeforeEdit = new HashMap<Integer, Integer>();
+	private final Map<Integer, Integer> mylynTotalSelectionsBeforeEdit = new HashMap<Integer, Integer>();
 
-	private Map<Integer, Integer> mylynTotalEditsCounted = new HashMap<Integer, Integer>();
+	private final Map<Integer, Integer> mylynTotalEditsCounted = new HashMap<Integer, Integer>();
 
-	private Map<Integer, InteractionEvent> lastUserEvent = new HashMap<Integer, InteractionEvent>();
+	private final Map<Integer, InteractionEvent> lastUserEvent = new HashMap<Integer, InteractionEvent>();
 
-	private Map<Integer, Long> timeMylynActive = new HashMap<Integer, Long>();
+	private final Map<Integer, Long> timeMylynActive = new HashMap<Integer, Long>();
 
-	private Map<Integer, Long> timeMylynInactive = new HashMap<Integer, Long>();
+	private final Map<Integer, Long> timeMylynInactive = new HashMap<Integer, Long>();
 
-	private Map<Integer, Long> timeBaseline = new HashMap<Integer, Long>();
+	private final Map<Integer, Long> timeBaseline = new HashMap<Integer, Long>();
 
-	private FocusedUiViewUsageCollector viewUsageCollector = new FocusedUiViewUsageCollector();
+	private final FocusedUiViewUsageCollector viewUsageCollector = new FocusedUiViewUsageCollector();
 
 	public FocusedUiUsageAnalysisCollector() {
 		viewUsageCollector.setMaxViewsToReport(NUM_VIEWS_REPORTED);
@@ -99,15 +99,17 @@ public class FocusedUiUsageAnalysisCollector extends AbstractMylynUsageCollector
 	@Override
 	public void consumeEvent(InteractionEvent event, int userId) {
 		super.consumeEvent(event, userId);
-		if (!startDates.containsKey(userId))
+		if (!startDates.containsKey(userId)) {
 			startDates.put(userId, event.getDate());
+		}
 		endDates.put(userId, event.getDate());
 
 		// Mylyn is active
 		if (mylynUserIds.contains(userId) && !mylynInactiveUserIds.contains(userId)) {
 			accumulateDuration(event, userId, timeMylynActive);
-			if (isJavaEdit(event))
+			if (isJavaEdit(event)) {
 				incrementCount(userId, numMylynActiveJavaEdits);
+			}
 			if (isSelection(event)) {
 				incrementCount(userId, mylynSelections);
 				incrementCount(userId, mylynCurrentNumSelectionsBeforeEdit);
@@ -188,8 +190,9 @@ public class FocusedUiUsageAnalysisCollector extends AbstractMylynUsageCollector
 	}
 
 	private void incrementCount(int userId, Map<Integer, Integer> map, int count) {
-		if (!map.containsKey(userId))
+		if (!map.containsKey(userId)) {
 			map.put(userId, 0);
+		}
 		map.put(userId, map.get(userId) + count);
 	}
 
@@ -312,10 +315,10 @@ public class FocusedUiUsageAnalysisCollector extends AbstractMylynUsageCollector
 
 					String[] views = new String[] { "org.eclipse.jdt.ui.PackageExplorer",
 							"org.eclipse.ui.views.ContentOutline", "org.eclipse.ui.views.ProblemView" };
-					for (int i = 0; i < views.length; i++) {
-						if (normalViewSelections.containsKey(views[i]) && filteredViewSelections.containsKey(views[i])) {
-							float normalSelections = normalViewSelections.get(views[i]);
-							float filteredSelections = filteredViewSelections.get(views[i]);
+					for (String view : views) {
+						if (normalViewSelections.containsKey(view) && filteredViewSelections.containsKey(view)) {
+							float normalSelections = normalViewSelections.get(view);
+							float filteredSelections = filteredViewSelections.get(view);
 							float ratio = filteredSelections / (normalSelections + filteredSelections);
 							// int unfilteredSelections = normalSelections -
 							// filteredSelections;
@@ -345,20 +348,25 @@ public class FocusedUiUsageAnalysisCollector extends AbstractMylynUsageCollector
 					writer.write(numTaskDeactivations + ", ");
 
 					int numNew = 0;
-					if (viewUsageCollector.usersNumNew.containsKey(userId))
+					if (viewUsageCollector.usersNumNew.containsKey(userId)) {
 						numNew = viewUsageCollector.usersNumNew.get(userId);
+					}
 					int numPredicted = 0;
-					if (viewUsageCollector.usersNumPredicted.containsKey(userId))
+					if (viewUsageCollector.usersNumPredicted.containsKey(userId)) {
 						numPredicted = viewUsageCollector.usersNumPredicted.get(userId);
+					}
 					int numInteresting = 0;
-					if (viewUsageCollector.usersNumDefault.containsKey(userId))
+					if (viewUsageCollector.usersNumDefault.containsKey(userId)) {
 						numInteresting = viewUsageCollector.usersNumDefault.get(userId);
+					}
 					int numDecayed = 0;
-					if (viewUsageCollector.usersNumDecayed.containsKey(userId))
+					if (viewUsageCollector.usersNumDecayed.containsKey(userId)) {
 						numDecayed = viewUsageCollector.usersNumDecayed.get(userId);
+					}
 					int numUnknown = 0;
-					if (viewUsageCollector.usersNumUnknown.containsKey(userId))
+					if (viewUsageCollector.usersNumUnknown.containsKey(userId)) {
 						numUnknown = viewUsageCollector.usersNumUnknown.get(userId);
+					}
 
 					// float numSelections = numNew + numPredicted +
 					// numInteresting + numDecayed + numUnknown;
@@ -374,7 +382,8 @@ public class FocusedUiUsageAnalysisCollector extends AbstractMylynUsageCollector
 			}
 			writer.close();
 		} catch (IOException e) {
-			StatusHandler.fail(new Status(IStatus.ERROR, MonitorReportsPlugin.ID_PLUGIN, "Could not generate csv file", e));
+			StatusHandler.fail(new Status(IStatus.ERROR, MonitorReportsPlugin.ID_PLUGIN, "Could not generate csv file",
+					e));
 		}
 	}
 
@@ -518,4 +527,3 @@ public class FocusedUiUsageAnalysisCollector extends AbstractMylynUsageCollector
 		}
 	}
 }
-

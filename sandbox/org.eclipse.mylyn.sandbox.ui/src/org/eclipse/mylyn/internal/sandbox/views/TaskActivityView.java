@@ -12,7 +12,6 @@ import java.text.DateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -91,13 +90,13 @@ public class TaskActivityView extends ViewPart {
 
 	private OpenTaskListElementAction openTaskEditor;
 
-	private String[] columnNames = new String[] { " ", " !", "Description", "Elapsed", "Estimated", "Scheduled",
+	private final String[] columnNames = new String[] { " ", " !", "Description", "Elapsed", "Estimated", "Scheduled",
 	/*"Last Active"*/};
 
-	private String[] ESTIMATE_TIMES = new String[] { "0 Hours", "1 Hours", "2 Hours", "3 Hours", "4 Hours", "5 Hours",
-			"6 Hours", "7 Hours", "8 Hours", "9 Hours", "10 Hours" };
+	private final String[] ESTIMATE_TIMES = new String[] { "0 Hours", "1 Hours", "2 Hours", "3 Hours", "4 Hours",
+			"5 Hours", "6 Hours", "7 Hours", "8 Hours", "9 Hours", "10 Hours" };
 
-	private int[] columnWidths = new int[] { 60, 12, 160, 60, 70, 100 /*, 100*/};
+	private final int[] columnWidths = new int[] { 60, 12, 160, 60, 70, 100 /*, 100*/};
 
 	private TreeColumn[] columns;
 
@@ -146,7 +145,7 @@ public class TaskActivityView extends ViewPart {
 		}
 	};
 
-	private ITaskListChangeListener TASK_CHANGE_LISTENER = new ITaskListChangeListener() {
+	private final ITaskListChangeListener TASK_CHANGE_LISTENER = new ITaskListChangeListener() {
 
 		public void containersChanged(Set<TaskContainerDelta> containers) {
 			refresh();
@@ -288,7 +287,7 @@ public class TaskActivityView extends ViewPart {
 				if (target instanceof ScheduledTaskContainer) {
 					container = (ScheduledTaskContainer) target;
 					if (container.isPresent()) {
-						reminderCalendar = GregorianCalendar.getInstance();
+						reminderCalendar = Calendar.getInstance();
 						TaskActivityUtil.snapForwardNumDays(reminderCalendar, 1);
 					} else {
 						reminderCalendar = container.getStart();
@@ -296,7 +295,7 @@ public class TaskActivityView extends ViewPart {
 				} else if (target instanceof ScheduledTaskDelegate) {
 					ScheduledTaskDelegate dateRangeActivityDelegate = (ScheduledTaskDelegate) target;
 					if (dateRangeActivityDelegate.getDateRangeContainer().isPresent()) {
-						reminderCalendar = GregorianCalendar.getInstance();
+						reminderCalendar = Calendar.getInstance();
 						TaskActivityUtil.snapForwardNumDays(reminderCalendar, 1);
 					} else {
 						reminderCalendar = dateRangeActivityDelegate.getDateRangeContainer().getStart();
@@ -397,8 +396,9 @@ public class TaskActivityView extends ViewPart {
 
 	public AbstractTask getSelectedTask() {
 		ISelection selection = getViewer().getSelection();
-		if (selection.isEmpty())
+		if (selection.isEmpty()) {
 			return null;
+		}
 		if (selection instanceof StructuredSelection) {
 			StructuredSelection structuredSelection = (StructuredSelection) selection;
 			Object element = structuredSelection.getFirstElement();
@@ -474,7 +474,7 @@ public class TaskActivityView extends ViewPart {
 
 	private class TaskActivityCellModifier implements ICellModifier {
 
-		private TreeViewer treeViewer;
+		private final TreeViewer treeViewer;
 
 		public TaskActivityCellModifier(TreeViewer tableViewer) {
 			this.treeViewer = tableViewer;

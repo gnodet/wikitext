@@ -15,8 +15,13 @@ import junit.framework.TestCase;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.mylyn.internal.tasks.ui.LocalTaskConnectorUi;
-import org.eclipse.mylyn.tasks.core.*;
-import org.eclipse.mylyn.tasks.ui.*;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.TaskList;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
+import org.eclipse.mylyn.tasks.ui.TaskFactory;
+import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.ui.search.SearchHitCollector;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.ui.XPlannerCustomQuery;
@@ -24,7 +29,8 @@ import org.eclipse.mylyn.xplanner.ui.XPlannerCustomQuery;
 public class XPlannerCustomQueryTest extends TestCase {
 
 	private static XPlannerClient client;
-	
+
+	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
 		if (client == null) { // only create data once per run
@@ -34,55 +40,53 @@ public class XPlannerCustomQueryTest extends TestCase {
 		}
 	}
 
+	@Override
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}
 
 	public void testNoItemsQuery() {
 		TaskList taskList = XPlannerTestUtils.getTaskList();
-		XPlannerCustomQuery query = new XPlannerCustomQuery(XPlannerTestUtils.SERVER_URL,
-			"no items");
+		XPlannerCustomQuery query = new XPlannerCustomQuery(XPlannerTestUtils.SERVER_URL, "no items");
 		query.setPersonId(-1);
-		 
+
 		Set<AbstractTask> hits = performTestQuery(taskList, query);
-		assert(hits.size() == 0);
+		assert (hits.size() == 0);
 	}
 
 	public void testAdminItemsQuery() {
 		TaskList taskList = XPlannerTestUtils.getTaskList();
-		XPlannerCustomQuery query = new XPlannerCustomQuery(
-			XPlannerTestUtils.SERVER_URL,	"admin items");
+		XPlannerCustomQuery query = new XPlannerCustomQuery(XPlannerTestUtils.SERVER_URL, "admin items");
 		try {
 			query.setPersonId(XPlannerTestUtils.getAdminId(client));
 			Set<AbstractTask> hits = performTestQuery(taskList, query);
-			assert(hits.size() == 1);
-		}
-		catch (RemoteException e) {
+			assert (hits.size() == 1);
+		} catch (RemoteException e) {
 			fail("Could not perform admin items query test");
 		}
-		
+
 	}
 
 	public void testGetQueryWizardValidClient() {
 		TaskRepository taskRepository = XPlannerTestUtils.getRepository();
-	
+
 		AbstractRepositoryConnectorUi connectorUi = TasksUiPlugin.getConnectorUi(taskRepository.getConnectorKind());
 		assertTrue(!(connectorUi instanceof LocalTaskConnectorUi));
 		IWizard wizard = connectorUi.getQueryWizard(taskRepository, null);
 		assertNotNull(wizard);
 	}
-	
+
 	private Set<AbstractTask> performTestQuery(TaskList taskList, XPlannerCustomQuery query) {
 		TaskRepository repository = XPlannerTestUtils.getRepository();
-		AbstractRepositoryConnector connector = 
-			TasksUiPlugin.getRepositoryManager().getRepositoryConnector(repository.getConnectorKind());
-		
+		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
+				repository.getConnectorKind());
+
 		TaskFactory taskFactory = new TaskFactory(repository, false, false);
 		SearchHitCollector collector = new SearchHitCollector(taskList, repository, query, taskFactory);
 		connector.performQuery(query, repository, new NullProgressMonitor(), collector);
-		
+
 		Set<AbstractTask> hits = collector.getTasks();
 		return hits;
 	}
-	
+
 }

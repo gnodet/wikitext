@@ -58,7 +58,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 	//	
 	// private static final int NUM_AST_SETSOURCERANGE_RESULTS = 15;
 	/** list to add collectors to when notified */
-	private List<List<?>> lists = new ArrayList<List<?>>();
+	private final List<List<?>> lists = new ArrayList<List<?>>();
 
 	private IType astNodeType;
 

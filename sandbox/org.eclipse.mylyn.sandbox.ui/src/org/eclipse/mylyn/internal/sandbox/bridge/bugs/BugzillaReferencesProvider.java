@@ -71,8 +71,9 @@ public class BugzillaReferencesProvider extends AbstractRelationProvider {
 	 */
 	@Override
 	protected void findRelated(final IInteractionElement node, int degreeOfSeparation) {
-		if (!node.getContentType().equals("java"))
+		if (!node.getContentType().equals("java")) {
 			return;
+		}
 		IJavaElement javaElement = JavaCore.create(node.getHandleIdentifier());
 		if (!acceptElement(javaElement)) {
 			return;
@@ -99,8 +100,9 @@ public class BugzillaReferencesProvider extends AbstractRelationProvider {
 			public void searchCompleted(List<?> nodes) {
 				Iterator<?> itr = nodes.iterator();
 
-				if (MylynBugsManager.getDefault() == null)
+				if (MylynBugsManager.getDefault() == null) {
 					return;
+				}
 
 				while (itr.hasNext()) {
 					Object o = itr.next();

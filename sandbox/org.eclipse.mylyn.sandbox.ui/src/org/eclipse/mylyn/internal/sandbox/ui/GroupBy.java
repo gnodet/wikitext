@@ -17,40 +17,47 @@ import org.eclipse.mylyn.tasks.core.AbstractTask;
 public enum GroupBy {
 
 	None() {
+		@Override
 		public String getKey(AbstractTask task) {
 			return null;
 		}
 	},
 
 	Owner() {
+		@Override
 		public String getKey(AbstractTask task) {
 			return task.getOwner();
 		}
 	},
 
 	Priority() {
+		@Override
 		public String getKey(AbstractTask task) {
 			return task.getPriority();
 		}
 	},
 	Kind() {
+		@Override
 		public String getKey(AbstractTask task) {
 			return task.getTaskKind();
 		}
 
 	},
 	Repository() {
+		@Override
 		public String getKey(AbstractTask task) {
 			return task.getRepositoryUrl();
 		}
 	},
 	Due() {
+		@Override
 		public String getKey(AbstractTask task) {
 			Date date = task.getDueDate();
 			return date == null ? null : date.toString();
 		}
 	},
 	Sheduled() {
+		@Override
 		public String getKey(AbstractTask task) {
 			Date date = task.getScheduledForDate();
 			return date == null ? null : date.toString();

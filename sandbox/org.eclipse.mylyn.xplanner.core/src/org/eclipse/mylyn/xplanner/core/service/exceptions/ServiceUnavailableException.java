@@ -8,8 +8,8 @@
 package org.eclipse.mylyn.xplanner.core.service.exceptions;
 
 /**
- * @author Ravi Kumar 
- * @author Helen Bershadskaya 
+ * @author Ravi Kumar
+ * @author Helen Bershadskaya
  */
 public class ServiceUnavailableException extends RuntimeException {
 	/**

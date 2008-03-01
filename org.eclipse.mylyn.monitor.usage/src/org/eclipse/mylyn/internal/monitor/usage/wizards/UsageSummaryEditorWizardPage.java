@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 /**
  * @author Meghan Allen
@@ -39,7 +40,7 @@ public class UsageSummaryEditorWizardPage extends WizardPage implements IWizardP
 		super(TITLE);
 		setTitle(TITLE);
 		setDescription(DESCRIPTION);
-		setImageDescriptor(UiUsageMonitorPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.PLUGIN_ID,
+		setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.PLUGIN_ID,
 				"icons/wizban/banner-usage.gif"));
 	}
 

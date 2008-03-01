@@ -26,7 +26,7 @@ import org.eclipse.jdt.core.IMember;
 public class BugzillaSearchManager {
 
 	/** The hash of all of the landmarks and their related search hits */
-	private Map<String, Map<Integer, List<BugzillaReportInfo>>> landmarksHash;
+	private final Map<String, Map<Integer, List<BugzillaReportInfo>>> landmarksHash;
 
 	/**
 	 * The currently running search jobs so that we can cancel it if necessary <br>
@@ -91,10 +91,11 @@ public class BugzillaSearchManager {
 	 */
 	public List<BugzillaReportInfo> getFromLandmarksHash(IMember m, int scope) {
 		Map<Integer, List<BugzillaReportInfo>> scopes = landmarksHash.get(m.getHandleIdentifier());
-		if (scopes == null)
+		if (scopes == null) {
 			return null;
-		else
+		} else {
 			return scopes.get(scope);
+		}
 	}
 
 	/**

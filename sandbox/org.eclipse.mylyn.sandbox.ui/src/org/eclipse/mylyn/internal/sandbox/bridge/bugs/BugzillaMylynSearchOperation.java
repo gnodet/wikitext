@@ -50,7 +50,7 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
 public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation implements IBugzillaSearchOperation {
 
 	/** The IMember we are doing the search for */
-	private IMember javaElement;
+	private final IMember javaElement;
 
 	/** The bugzilla collector for the search */
 	private ProgressQueryHitCollector collector = null;//SearchHitCollector
@@ -62,14 +62,14 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 	private LoginException loginException = null;
 
 	/** The fully qualified name of the member we are searching for */
-	private String name;
+	private final String name;
 
 	/** The bugzilla search query */
 	private AbstractRepositorySearchQuery query;
 
-	private BugzillaMylynSearch search;
+	private final BugzillaMylynSearch search;
 
-	private int scope;
+	private final int scope;
 
 	public BugzillaMylynSearchOperation(BugzillaMylynSearch search, IMember m, int scope) {
 		this.javaElement = m;
@@ -85,14 +85,16 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 	 * @return String representing the fully qualified name
 	 */
 	public static String getFullyQualifiedName(IJavaElement je) {
-		if (!(je instanceof IMember))
+		if (!(je instanceof IMember)) {
 			return null;
+		}
 
 		IMember m = (IMember) je;
-		if (m.getDeclaringType() == null)
+		if (m.getDeclaringType() == null) {
 			return ((IType) m).getFullyQualifiedName();
-		else
+		} else {
 			return m.getDeclaringType().getFullyQualifiedName() + "." + m.getElementName();
+		}
 	}
 
 	@Override
@@ -207,8 +209,9 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 	 */
 	private void searchLocal(Set<AbstractTask> tasks, ProgressQueryHitCollector searchCollector, String elementName,
 			IProgressMonitor monitor) {
-		if (tasks == null)
+		if (tasks == null) {
 			return;
+		}
 
 		// go through all of the tasks
 		for (AbstractTask task : tasks) {
@@ -249,26 +252,30 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 	 */
 	private boolean search(String elementName, RepositoryTaskData bug) {
 
-		if (bug == null)
+		if (bug == null) {
 			return false; // MIK: added null check here
+		}
 		String description = bug.getDescription();
 		String summary = bug.getSummary();
 		List<TaskComment> taskComments = bug.getComments();
 
 		// search the summary and the summary
-		if (Util.hasElementName(elementName, summary))
+		if (Util.hasElementName(elementName, summary)) {
 			return true;
+		}
 
-		if (Util.hasElementName(elementName, description))
+		if (Util.hasElementName(elementName, description)) {
 			return true;
+		}
 
 		Iterator<TaskComment> comItr = taskComments.iterator();
 		while (comItr.hasNext()) {
 			TaskComment taskComment = comItr.next();
 			String commentText = taskComment.getText();
 			// search the text for a reference to the element
-			if (Util.hasElementName(elementName, commentText))
+			if (Util.hasElementName(elementName, commentText)) {
 				return true;
+			}
 		}
 		return false;
 	}
@@ -382,8 +389,9 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 			}
 
 			// if the report could not be downloaded, try the next one
-			if (b == null)
+			if (b == null) {
 				continue;
+			}
 
 			// see if the summary has a stack trace in it
 			StackTrace[] stackTrace = StackTrace.getStackTrace(b.getDescription(), b.getDescription());

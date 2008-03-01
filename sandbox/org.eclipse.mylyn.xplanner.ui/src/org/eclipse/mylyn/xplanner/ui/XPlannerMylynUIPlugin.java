@@ -19,8 +19,8 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
- * @author Ravi Kumar 
- * @author Helen Bershadskaya 
+ * @author Ravi Kumar
+ * @author Helen Bershadskaya
  */
 // API 3.0 rename to XPlannerUiPlugin?
 public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
@@ -45,31 +45,33 @@ public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
 
 	public final static String ITERATION_URL_PREFIX = DELIM_URL_PREFIX + "iteration" + DELIM_URL_SUFFIX; //$NON-NLS-1$
 
-	public final static IStatus NO_LICENSE_STATUS = new Status(IStatus.INFO, XPlannerMylynUIPlugin.PLUGIN_ID,
-			0, Messages.MylynXPlannerPlugin_NOT_AVAILABLE_IN_SKU, null);
+	public final static IStatus NO_LICENSE_STATUS = new Status(IStatus.INFO, XPlannerMylynUIPlugin.PLUGIN_ID, 0,
+			Messages.MylynXPlannerPlugin_NOT_AVAILABLE_IN_SKU, null);
 
 	// Preference setting names
 	public final static String USE_AUTO_TIME_TRACKING_PREFERENCE_NAME = "UseAutoTimeTracking";
-	
+
 	public final static String ROUND_AUTO_TIME_TRACKING_TO_HALF_HOUR_PREFERENCE_NAME = "RoundAutoTimeTrackingToHalfHour";
-	
-	public final static String ADD_AUTO_TRACKED_TIME_TO_REPOSITORY_VALUE_PREFERENCE_NAME = "AddAutoTrackedTimeToRepositoryValue"; 
-	
+
+	public final static String ADD_AUTO_TRACKED_TIME_TO_REPOSITORY_VALUE_PREFERENCE_NAME = "AddAutoTrackedTimeToRepositoryValue";
+
 	public XPlannerMylynUIPlugin() {
 		INSTANCE = this;
 	}
 
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		setPreferenceDefaults();
 	}
-	
+
 	private void setPreferenceDefaults() {
 		getPreferenceStore().setDefault(USE_AUTO_TIME_TRACKING_PREFERENCE_NAME, false);
 		getPreferenceStore().setDefault(ROUND_AUTO_TIME_TRACKING_TO_HALF_HOUR_PREFERENCE_NAME, true);
 		getPreferenceStore().setDefault(ADD_AUTO_TRACKED_TIME_TO_REPOSITORY_VALUE_PREFERENCE_NAME, true);
 	}
-	
+
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		INSTANCE = null;
@@ -87,16 +89,16 @@ public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
 							shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 						}
 						String displayMessage = message == null ? e.getMessage() : message + "\n" + e.getMessage(); //$NON-NLS-1$
-						MessageDialog.openError(shell, Messages.MylynXPlannerPlugin_XPLANNER_ERROR_TITLE, displayMessage); 
+						MessageDialog.openError(shell, Messages.MylynXPlannerPlugin_XPLANNER_ERROR_TITLE,
+								displayMessage);
 					}
 				});
-			} 
-			catch (Throwable t) {
+			} catch (Throwable t) {
 				t.printStackTrace();
 			}
-		}
-		else {
-			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, message == null ? Messages.MylynXPlannerPlugin_XPLANNER_ERROR_TITLE : message, e));
+		} else {
+			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
+					message == null ? Messages.MylynXPlannerPlugin_XPLANNER_ERROR_TITLE : message, e));
 		}
 	}
 
@@ -105,8 +107,7 @@ public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns an image descriptor for the image file at the given plug-in
-	 * relative path.
+	 * Returns an image descriptor for the image file at the given plug-in relative path.
 	 * 
 	 * @param path
 	 *            the path
@@ -119,7 +120,7 @@ public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
 	public static void setBooleanPreference(String name, boolean value) {
 		getDefault().getPreferenceStore().setValue(name, value);
 	}
-	
+
 	public static boolean getBooleanPreference(String name) {
 		return getDefault().getPreferenceStore().getBoolean(name);
 	}

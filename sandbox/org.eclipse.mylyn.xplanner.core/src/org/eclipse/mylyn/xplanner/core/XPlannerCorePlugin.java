@@ -16,25 +16,29 @@ import java.util.logging.Logger;
 
 import org.apache.axis.AxisEngine;
 import org.apache.axis.AxisProperties;
-import org.eclipse.core.runtime.*;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Plugin;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.xplanner.core.service.exceptions.AuthenticationException;
 import org.osgi.framework.BundleContext;
 
 /**
  * The main plugin class to be used in the desktop.
  * 
- * @author Helen Bershadskaya 
- * @author Ravi Kumar 
+ * @author Helen Bershadskaya
+ * @author Ravi Kumar
  */
 public class XPlannerCorePlugin extends Plugin {
 	public static final String ID = "org.eclipse.mylyn.xplanner.core"; //$NON-NLS-1$
-	
+
 	//The shared instance.
 	private static XPlannerCorePlugin plugin;
+
 	//Resource bundle.
 	private ResourceBundle resourceBundle;
+
 	private XPlannerClientManager clientManager;
-	
+
 	/**
 	 * The constructor.
 	 */
@@ -49,14 +53,15 @@ public class XPlannerCorePlugin extends Plugin {
 	/**
 	 * This method is called upon plug-in activation
 	 */
+	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		File clientCache = getStateLocation().append("serverCache").toFile(); //$NON-NLS-1$
-		
+
 		// Turn off logging for the Attachment check.  We don't want or need soap with attachments
 		Logger logger = Logger.getLogger("org.apache.axis.utils.JavaUtils"); //$NON-NLS-1$
 		logger.setLevel(Level.SEVERE);
-		
+
 		clientManager = new XPlannerClientManager(clientCache);
 		clientManager.start();
 	}
@@ -83,9 +88,10 @@ public class XPlannerCorePlugin extends Plugin {
 	/**
 	 * This method is called when the plug-in is stopped
 	 */
+	@Override
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
-		
+
 		if (clientManager != null) {
 			clientManager.stop();
 		}
@@ -104,10 +110,9 @@ public class XPlannerCorePlugin extends Plugin {
 	public XPlannerClientManager getClientManager() {
 		return clientManager;
 	}
-	
+
 	/**
-	 * Returns the string from the plugin's resource bundle,
-	 * or 'key' if not found.
+	 * Returns the string from the plugin's resource bundle, or 'key' if not found.
 	 */
 	public static String getResourceString(String key) {
 		ResourceBundle bundle = XPlannerCorePlugin.getDefault().getResourceBundle();
@@ -123,14 +128,15 @@ public class XPlannerCorePlugin extends Plugin {
 	 */
 	public ResourceBundle getResourceBundle() {
 		try {
-			if (resourceBundle == null)
+			if (resourceBundle == null) {
 				resourceBundle = ResourceBundle.getBundle("org.eclipse.mylyn.xplanner.core.XPlannerCorePluginResources"); //$NON-NLS-1$
+			}
 		} catch (MissingResourceException x) {
 			resourceBundle = null;
 		}
 		return resourceBundle;
 	}
-	
+
 	public static void log(int severity, String message, Throwable e) {
 		getDefault().getLog().log(new Status(severity, ID, -1, message, e));
 	}
@@ -140,22 +146,19 @@ public class XPlannerCorePlugin extends Plugin {
 
 		if (e instanceof AuthenticationException) {
 			String errorMessage = MessageFormat.format(Messages.XPlannerValidator_INVALID_CREDENTIALS_ERROR,
-										e.getMessage());
-			status = new Status(IStatus.ERROR, ID, Status.OK, 
-					errorMessage, e);
-		} 
-		else if (e instanceof Exception) {
+					e.getMessage());
+			status = new Status(IStatus.ERROR, ID, IStatus.OK, errorMessage, e);
+		} else if (e instanceof Exception) {
 			String message = e.getMessage();
 			if (message == null) {
 				message = ""; //$NON-NLS-1$
 			}
 			String errorMessage = MessageFormat.format(Messages.XPlannerValidator_CONNECTION_ERROR, message);
-			status = new Status(IStatus.ERROR, ID, Status.OK, errorMessage, e);
+			status = new Status(IStatus.ERROR, ID, IStatus.OK, errorMessage, e);
+		} else {
+			status = new Status(IStatus.ERROR, ID, IStatus.OK, Messages.XPlannerCorePlugin_UNEXPECTED_ERROR, e);
 		}
-		else {
-			status = new Status(IStatus.ERROR, ID, Status.OK, Messages.XPlannerCorePlugin_UNEXPECTED_ERROR, e);
-		}
-		
+
 		return status;
 	}
 

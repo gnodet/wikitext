@@ -7,82 +7,85 @@
 
 package org.eclipse.mylyn.xplanner.wsdl.db;
 
-@SuppressWarnings({ "unchecked", "serial", "unused" })
-public class QueryException  extends org.apache.axis.AxisFault  implements java.io.Serializable {
-    public QueryException() {
-    }
+@SuppressWarnings( { "unchecked", "serial", "unused" })
+public class QueryException extends org.apache.axis.AxisFault implements java.io.Serializable {
+	public QueryException() {
+	}
 
-    private java.lang.Object __equalsCalc = null;
+	private java.lang.Object __equalsCalc = null;
+
+	@Override
 	public synchronized boolean equals(java.lang.Object obj) {
-        if (!(obj instanceof QueryException)) return false;
-        QueryException other = (QueryException) obj;
-        if (obj == null) return false;
-        if (this == obj) return true;
-        if (__equalsCalc != null) {
-            return (__equalsCalc == obj);
-        }
-        __equalsCalc = obj;
-        boolean _equals;
-        _equals = true;
-        __equalsCalc = null;
-        return _equals;
-    }
+		if (!(obj instanceof QueryException)) {
+			return false;
+		}
+		QueryException other = (QueryException) obj;
+		if (obj == null) {
+			return false;
+		}
+		if (this == obj) {
+			return true;
+		}
+		if (__equalsCalc != null) {
+			return (__equalsCalc == obj);
+		}
+		__equalsCalc = obj;
+		boolean _equals;
+		_equals = true;
+		__equalsCalc = null;
+		return _equals;
+	}
 
-    private boolean __hashCodeCalc = false;
-    public synchronized int hashCode() {
-        if (__hashCodeCalc) {
-            return 0;
-        }
-        __hashCodeCalc = true;
-        int _hashCode = 1;
-        __hashCodeCalc = false;
-        return _hashCode;
-    }
+	private boolean __hashCodeCalc = false;
 
-    // Type metadata
-    private static org.apache.axis.description.TypeDesc typeDesc =
-        new org.apache.axis.description.TypeDesc(QueryException.class, true);
+	@Override
+	public synchronized int hashCode() {
+		if (__hashCodeCalc) {
+			return 0;
+		}
+		__hashCodeCalc = true;
+		int _hashCode = 1;
+		__hashCodeCalc = false;
+		return _hashCode;
+	}
 
-    static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://db.xplanner.technoetic.com", "QueryException")); //$NON-NLS-1$ //$NON-NLS-2$
-    }
+	// Type metadata
+	private static org.apache.axis.description.TypeDesc typeDesc = new org.apache.axis.description.TypeDesc(
+			QueryException.class, true);
 
-    /**
-     * Return type metadata object
-     */
-    public static org.apache.axis.description.TypeDesc getTypeDesc() {
-        return typeDesc;
-    }
+	static {
+		typeDesc.setXmlType(new javax.xml.namespace.QName("http://db.xplanner.technoetic.com", "QueryException")); //$NON-NLS-1$ //$NON-NLS-2$
+	}
 
-    /**
-     * Get Custom Serializer
-     */
-    public static org.apache.axis.encoding.Serializer getSerializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
-           javax.xml.namespace.QName _xmlType) {
-        return 
-          new  org.apache.axis.encoding.ser.BeanSerializer(
-            _javaType, _xmlType, typeDesc);
-    }
+	/**
+	 * Return type metadata object
+	 */
+	public static org.apache.axis.description.TypeDesc getTypeDesc() {
+		return typeDesc;
+	}
 
-    /**
-     * Get Custom Deserializer
-     */
-    public static org.apache.axis.encoding.Deserializer getDeserializer(
-           java.lang.String mechType, 
-           java.lang.Class _javaType,  
-           javax.xml.namespace.QName _xmlType) {
-        return 
-          new  org.apache.axis.encoding.ser.BeanDeserializer(
-            _javaType, _xmlType, typeDesc);
-    }
+	/**
+	 * Get Custom Serializer
+	 */
+	public static org.apache.axis.encoding.Serializer getSerializer(java.lang.String mechType,
+			java.lang.Class _javaType, javax.xml.namespace.QName _xmlType) {
+		return new org.apache.axis.encoding.ser.BeanSerializer(_javaType, _xmlType, typeDesc);
+	}
 
+	/**
+	 * Get Custom Deserializer
+	 */
+	public static org.apache.axis.encoding.Deserializer getDeserializer(java.lang.String mechType,
+			java.lang.Class _javaType, javax.xml.namespace.QName _xmlType) {
+		return new org.apache.axis.encoding.ser.BeanDeserializer(_javaType, _xmlType, typeDesc);
+	}
 
-    /**
-     * Writes the exception data to the faultDetails
-     */
-    public void writeDetails(javax.xml.namespace.QName qname, org.apache.axis.encoding.SerializationContext context) throws java.io.IOException {
-        context.serialize(qname, null, this);
-    }
+	/**
+	 * Writes the exception data to the faultDetails
+	 */
+	@Override
+	public void writeDetails(javax.xml.namespace.QName qname, org.apache.axis.encoding.SerializationContext context)
+			throws java.io.IOException {
+		context.serialize(qname, null, this);
+	}
 }

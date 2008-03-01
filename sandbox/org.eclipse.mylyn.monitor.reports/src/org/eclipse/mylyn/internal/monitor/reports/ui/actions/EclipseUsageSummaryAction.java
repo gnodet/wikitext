@@ -76,12 +76,14 @@ public class EclipseUsageSummaryAction implements IViewActionDelegate {
 												.getWorkbench()
 												.getActiveWorkbenchWindow()
 												.getActivePage();
-										if (page == null)
+										if (page == null) {
 											return;
+										}
 										IEditorInput input = new UsageStatsEditorInput(files, generator);
 										page.openEditor(input, MonitorReportsPlugin.REPORT_SUMMARY_ID);
 									} catch (PartInitException e) {
-										StatusHandler.log(new Status(IStatus.ERROR, MonitorReportsPlugin.ID_PLUGIN, "Could not open summary editor", e));
+										StatusHandler.log(new Status(IStatus.ERROR, MonitorReportsPlugin.ID_PLUGIN,
+												"Could not open summary editor", e));
 									}
 								}
 							});
@@ -101,8 +103,9 @@ public class EclipseUsageSummaryAction implements IViewActionDelegate {
 			for (Object object : structuredSelection.toList()) {
 				if (object instanceof IFile) {
 					IFile file = (IFile) object;
-					if (file.getFileExtension().equals("zip"))
+					if (file.getFileExtension().equals("zip")) {
 						files.add(new File(file.getLocation().toString()));
+					}
 				}
 			}
 		}

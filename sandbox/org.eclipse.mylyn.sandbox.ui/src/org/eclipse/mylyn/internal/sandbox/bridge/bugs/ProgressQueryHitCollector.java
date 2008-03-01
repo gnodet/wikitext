@@ -70,8 +70,9 @@ public class ProgressQueryHitCollector implements ITaskCollector {
 			getProgressMonitor().worked(1);
 		}
 
-		if (task == null)
+		if (task == null) {
 			return;
+		}
 
 		AbstractTask hitTask = taskList.getTask(task.getHandleIdentifier());
 		if (hitTask == null) {
@@ -84,8 +85,9 @@ public class ProgressQueryHitCollector implements ITaskCollector {
 	}
 
 	public void accept(RepositoryTaskData taskData) throws CoreException {
-		if (taskData == null)
+		if (taskData == null) {
 			return;
+		}
 
 		if (!getProgressMonitor().isCanceled()) {
 			getProgressMonitor().subTask(getFormattedMatchesString(matchCount));

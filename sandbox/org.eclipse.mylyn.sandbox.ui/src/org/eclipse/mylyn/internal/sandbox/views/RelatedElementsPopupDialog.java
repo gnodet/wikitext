@@ -89,19 +89,19 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 
 	private QuickOutlinePatternAndInterestFilter namePatternFilter;
 
-	private DelegatingContextLabelProvider labelProvider = new DelegatingContextLabelProvider();
+	private final DelegatingContextLabelProvider labelProvider = new DelegatingContextLabelProvider();
 
-	private DegreeZeroAction zero = new DegreeZeroAction();
+	private final DegreeZeroAction zero = new DegreeZeroAction();
 
-	private DegreeOneAction one = new DegreeOneAction();
+	private final DegreeOneAction one = new DegreeOneAction();
 
-	private DegreeTwoAction two = new DegreeTwoAction();
+	private final DegreeTwoAction two = new DegreeTwoAction();
 
-	private DegreeThreeAction three = new DegreeThreeAction();
+	private final DegreeThreeAction three = new DegreeThreeAction();
 
-	private DegreeFourAction four = new DegreeFourAction();
+	private final DegreeFourAction four = new DegreeFourAction();
 
-	private DegreeFiveAction five = new DegreeFiveAction();
+	private final DegreeFiveAction five = new DegreeFiveAction();
 
 	private int degree = 2;
 
@@ -491,8 +491,8 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 		// Match the string pattern against labels
 		ILabelProvider labelProvider = (ILabelProvider) viewer.getLabelProvider();
 		// Process each item in the tree
-		for (int i = 0; i < items.length; i++) {
-			Object element = items[i].getData();
+		for (TreeItem item : items) {
+			Object element = item.getData();
 			// Return the first element if no pattern is set
 			if (fStringMatcher == null) {
 				return element;
@@ -505,7 +505,7 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 				}
 			}
 			// Recursively check the elements children for a match
-			element = findFirstMatchToPattern(items[i].getItems());
+			element = findFirstMatchToPattern(item.getItems());
 			// Return the child element match if found
 			if (element != null) {
 				return element;
@@ -574,8 +574,9 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 		boolean contains = false;
 		for (int i = 0; i < tree.getItems().length; i++) {
 			TreeItem item = tree.getItems()[i];
-			if (object.equals(item.getData()))
+			if (object.equals(item.getData())) {
 				contains = true;
+			}
 		}
 		return contains;
 	}
@@ -641,6 +642,7 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 					IAction.AS_CHECK_BOX);
 		}
 
+		@Override
 		public void run() {
 			check(0);
 			refreshAction(0);
@@ -654,6 +656,7 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 					IAction.AS_CHECK_BOX);
 		}
 
+		@Override
 		public void run() {
 			check(1);
 			refreshAction(1);
@@ -666,6 +669,7 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 					IAction.AS_CHECK_BOX);
 		}
 
+		@Override
 		public void run() {
 			check(2);
 			refreshAction(2);
@@ -678,6 +682,7 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 					IAction.AS_CHECK_BOX);
 		}
 
+		@Override
 		public void run() {
 			check(3);
 			refreshAction(3);
@@ -690,6 +695,7 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 					IAction.AS_CHECK_BOX);
 		}
 
+		@Override
 		public void run() {
 			check(4);
 			refreshAction(4);
@@ -702,6 +708,7 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 					IAction.AS_CHECK_BOX);
 		}
 
+		@Override
 		public void run() {
 			check(5);
 			refreshAction(5);
@@ -768,10 +775,10 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 
 		public static final String ID = "org.eclipse.mylyn.ui.views.elements.qualify";
 
-		private RelatedElementsPopupDialog dialog;
+		private final RelatedElementsPopupDialog dialog;
 
 		public ShowQualifiedNamesAction(RelatedElementsPopupDialog dialog) {
-			super(LABEL, Action.AS_CHECK_BOX);
+			super(LABEL, IAction.AS_CHECK_BOX);
 			this.dialog = dialog;
 			setId(ID);
 			setText(LABEL);

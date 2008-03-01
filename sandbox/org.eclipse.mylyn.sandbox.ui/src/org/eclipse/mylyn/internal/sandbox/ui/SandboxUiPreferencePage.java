@@ -77,7 +77,7 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 	private Button enableLocalSubTasksButton;
 
 	private Button showTaskTrimButton;
-	
+
 	private Highlighter selection = null;
 
 	private HighlighterContentProvider contentProvider = null;
@@ -106,10 +106,10 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		createTaskNavigationGroup(container);
 		createTaskListGroup(container);
 		createJavaGroup(container);
-		
+
 		createHighlightersTable(container);
 		createTableViewer();
-		
+
 		contentProvider = new HighlighterContentProvider();
 		tableViewer.setContentProvider(contentProvider);
 		tableViewer.setLabelProvider(new HighlighterLabelProvider());
@@ -127,16 +127,15 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		navigationGroup.setText("Task Navigation");
 		navigationGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false));
 		navigationGroup.setLayout(new GridLayout());
-		
+
 		IPreferenceStore uiPreferenceStore = TasksUiPlugin.getDefault().getPreferenceStore();
-		
+
 		showTaskTrimButton = new Button(navigationGroup, SWT.CHECK);
 		showTaskTrimButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false));
 		showTaskTrimButton.setText("Show Task Trim widget");
-		showTaskTrimButton.setSelection(uiPreferenceStore.getBoolean(
-				TasksUiPreferenceConstants.SHOW_TRIM));
+		showTaskTrimButton.setSelection(uiPreferenceStore.getBoolean(TasksUiPreferenceConstants.SHOW_TRIM));
 	}
-	
+
 	private void createTaskListGroup(Composite parent) {
 		Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
 		group.setText("Task List");
@@ -144,12 +143,11 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		IPreferenceStore uiPreferenceStore = TasksUiPlugin.getDefault().getPreferenceStore();
-		
+
 		incomingOverlaysButton = new Button(group, SWT.CHECK);
 		incomingOverlaysButton.setText("Use Synchronize View style incoming overlays and placement");
-		incomingOverlaysButton.setSelection(uiPreferenceStore.getBoolean(
-				TasksUiPreferenceConstants.OVERLAYS_INCOMING_TIGHT));
-		
+		incomingOverlaysButton.setSelection(uiPreferenceStore.getBoolean(TasksUiPreferenceConstants.OVERLAYS_INCOMING_TIGHT));
+
 		activateOnOpen = new Button(group, SWT.CHECK);
 		activateOnOpen.setText("Activate tasks on open");
 		activateOnOpen.setSelection(uiPreferenceStore.getBoolean(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED));
@@ -231,12 +229,13 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 	@Override
 	public boolean performOk() {
 		IPreferenceStore uiPreferenceStore = TasksUiPlugin.getDefault().getPreferenceStore();
-		
+
 		uiPreferenceStore.setValue(TasksUiPreferenceConstants.SHOW_TRIM, showTaskTrimButton.getSelection());
-		
+
 		uiPreferenceStore.setValue(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED, activateOnOpen.getSelection());
 
-		uiPreferenceStore.setValue(TasksUiPreferenceConstants.LOCAL_SUB_TASKS_ENABLED, enableLocalSubTasksButton.getSelection());
+		uiPreferenceStore.setValue(TasksUiPreferenceConstants.LOCAL_SUB_TASKS_ENABLED,
+				enableLocalSubTasksButton.getSelection());
 
 		uiPreferenceStore.setValue(TasksUiPreferenceConstants.OVERLAYS_INCOMING_TIGHT,
 				incomingOverlaysButton.getSelection());
@@ -244,13 +243,13 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		if (view != null) {
 			view.setSynchronizationOverlaid(incomingOverlaysButton.getSelection());
 		}
-		
+
 		JavaUiBridgePlugin.getDefault().getPreferenceStore().setValue(
 				InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS, enableErrorInterest.getSelection());
-		
+
 		getPreferenceStore().setValue(ContextUiPrefContstants.HIGHLIGHTER_PREFIX,
 				ContextUiPlugin.getDefault().getHighlighterList().externalizeToString());
-		
+
 		return true;
 	}
 
@@ -261,12 +260,12 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 
 		String highlighters = getPreferenceStore().getString(ContextUiPrefContstants.HIGHLIGHTER_PREFIX);
 		ContextUiPlugin.getDefault().getHighlighterList().internalizeFromString(highlighters);
-		
+
 		IPreferenceStore uiPreferenceStore = TasksUiPlugin.getDefault().getPreferenceStore();
 		activateOnOpen.setSelection(uiPreferenceStore.getBoolean(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED));
 		enableLocalSubTasksButton.setSelection(uiPreferenceStore.getBoolean(TasksUiPreferenceConstants.LOCAL_SUB_TASKS_ENABLED));
 		showTaskTrimButton.setSelection(uiPreferenceStore.getBoolean(TasksUiPreferenceConstants.SHOW_TRIM));
-		
+
 		contentProvider = new HighlighterContentProvider();
 		tableViewer.setContentProvider(contentProvider);
 		return true;
@@ -506,7 +505,7 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 
 		public final static int TYPE = 3;
 
-		private int criteria;
+		private final int criteria;
 
 		/**
 		 * set the criteria

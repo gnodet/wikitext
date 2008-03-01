@@ -72,7 +72,7 @@ public class SubmitFeedbackPage extends WizardPage {
 
 	private boolean named;
 
-	private UsageSubmissionWizard uploadWizard;
+	private final UsageSubmissionWizard uploadWizard;
 
 	/**
 	 * Constructor
@@ -198,8 +198,9 @@ public class SubmitFeedbackPage extends WizardPage {
 		uid.setLayoutData(gd);
 		uid.setEditable(false);
 		id = UiUsageMonitorPlugin.getDefault().getPreferenceStore().getInt(UiUsageMonitorPlugin.PREF_USER_ID);
-		if (id == 0)
+		if (id == 0) {
 			id = -1;
+		}
 		uid.setText(id + "");
 
 		identifiedNameEmail = new Button(container, SWT.RADIO);
@@ -279,10 +280,11 @@ public class SubmitFeedbackPage extends WizardPage {
 			public void modifyText(ModifyEvent e) {
 				email = emailAddress.getText();
 				boolean valid = vaidateEmail(email);
-				if (!valid)
+				if (!valid) {
 					SubmitFeedbackPage.this.setErrorMessage("Must be a valid e-mail address");
-				else
+				} else {
 					SubmitFeedbackPage.this.setErrorMessage(null);
+				}
 				SubmitFeedbackPage.this.setPageComplete(SubmitFeedbackPage.this.isPageComplete());
 			}
 		});
@@ -308,19 +310,21 @@ public class SubmitFeedbackPage extends WizardPage {
 	}
 
 	public boolean hasAllFields() {
-		if (uploadWizard != null)
+		if (uploadWizard != null) {
 			return (((!firstName.getText().equals("") && !lastName.getText().equals("") && !emailAddress.getText()
 					.equals("")) || anon) && !feedback.getText().equals(""));
-		else
+		} else {
 			return !feedback.getText().equals("");
+		}
 	}
 
 	@Override
 	public boolean isPageComplete() {
-		if (hasAllFields() && this.getErrorMessage() == null)
+		if (hasAllFields() && this.getErrorMessage() == null) {
 			return true;
-		else
+		} else {
 			return false;
+		}
 	}
 
 	@Override
@@ -335,8 +339,9 @@ public class SubmitFeedbackPage extends WizardPage {
 	}
 
 	public int getUid() {
-		if (anon || named)
+		if (anon || named) {
 			return -1;
+		}
 		return id;
 	}
 
@@ -352,22 +357,25 @@ public class SubmitFeedbackPage extends WizardPage {
 
 	/** ONLY VALID IF WIZARD NOT STARTED FROM UPLOAD WIZARD */
 	public String getEmailAddress() {
-		if (anon)
+		if (anon) {
 			return "null";
+		}
 		return email;
 	}
 
 	/** ONLY VALID IF WIZARD NOT STARTED FROM UPLOAD WIZARD */
 	public String getFirstName() {
-		if (anon)
+		if (anon) {
 			return "null";
+		}
 		return first;
 	}
 
 	/** ONLY VALID IF WIZARD NOT STARTED FROM UPLOAD WIZARD */
 	public String getLastName() {
-		if (anon)
+		if (anon) {
 			return "null";
+		}
 		return last;
 	}
 

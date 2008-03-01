@@ -10,7 +10,10 @@ package org.eclipse.mylyn.xplanner.ui.wizard;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.eclipse.core.runtime.*;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
@@ -18,12 +21,10 @@ import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
 import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUtils;
 import org.eclipse.swt.widgets.Composite;
 
-
 /**
- * Wizard page used to specify a XPlanner repository address, username, and
- * password.
+ * Wizard page used to specify a XPlanner repository address, username, and password.
  * 
- * @author Ravi Kumar 
+ * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
 public class XPlannerRepositorySettingsPage extends AbstractRepositorySettingsPage {
@@ -41,21 +42,22 @@ public class XPlannerRepositorySettingsPage extends AbstractRepositorySettingsPa
 		setNeedsHttpAuth(true);
 	}
 
+	@Override
 	protected void createAdditionalControls(Composite parent) {
 		// no additional controls for now
 	}
-	
+
+	@Override
 	protected boolean isValidUrl(String name) {
 		boolean isValidUrl = false;
 		if (name.startsWith(URL_PREFIX_HTTPS) || name.startsWith(URL_PREFIX_HTTP)) {
 			try {
 				new URL(name);
 				isValidUrl = true;
-			} 
-			catch (MalformedURLException e) {
+			} catch (MalformedURLException e) {
 			}
 		}
-		
+
 		return isValidUrl;
 	}
 
@@ -66,15 +68,15 @@ public class XPlannerRepositorySettingsPage extends AbstractRepositorySettingsPa
 
 	class XPlannerValidator extends Validator {
 		final TaskRepository repository;
-	
+
 		public XPlannerValidator(TaskRepository repository) {
 			this.repository = repository;
 		}
-	
+
 		@Override
 		public void run(IProgressMonitor monitor) throws CoreException {
 			XPlannerRepositoryUtils.validateRepository(repository);
-	
+
 			setStatus(new Status(IStatus.OK, XPlannerMylynUIPlugin.PLUGIN_ID, IStatus.OK,
 					Messages.XPlannerRepositorySettingsPage_VALID_SETTINGS_FOUND, null));
 		}

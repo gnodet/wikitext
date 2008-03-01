@@ -27,7 +27,7 @@ import org.osgi.framework.BundleContext;
 public class MylynUserStudyExamplePlugin extends AbstractUIPlugin {
 
 	public static final String ID_PLUGIN = "org.eclipse.mylyn.examples.monitor.study";
-	
+
 	private static MylynUserStudyExamplePlugin plugin;
 
 	private SelectionMonitor selectionMonitor;
@@ -35,7 +35,7 @@ public class MylynUserStudyExamplePlugin extends AbstractUIPlugin {
 	public MylynUserStudyExamplePlugin() {
 		plugin = this;
 	}
-	
+
 	public static class MylynUserStudyExampleStartup implements IStartup {
 
 		public void earlyStartup() {
@@ -43,7 +43,8 @@ public class MylynUserStudyExamplePlugin extends AbstractUIPlugin {
 			workbench.getDisplay().asyncExec(new Runnable() {
 				public void run() {
 					MylynUserStudyExamplePlugin.getDefault().selectionMonitor = new SelectionMonitor();
-					MonitorUiPlugin.getDefault().getSelectionMonitors().add(MylynUserStudyExamplePlugin.getDefault().selectionMonitor);
+					MonitorUiPlugin.getDefault().getSelectionMonitors().add(
+							MylynUserStudyExamplePlugin.getDefault().selectionMonitor);
 
 					UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
 							WorkbenchPlugin.getDefault().getPluginPreferences());
@@ -55,11 +56,11 @@ public class MylynUserStudyExamplePlugin extends AbstractUIPlugin {
 							WorkbenchPlugin.getDefault().getPluginPreferences());
 					UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
 							EditorsPlugin.getDefault().getPluginPreferences());
-					UiUsageMonitorPlugin.getDefault()
-							.addMonitoredPreferences(PDEPlugin.getDefault().getPluginPreferences());
+					UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
+							PDEPlugin.getDefault().getPluginPreferences());
 				}
 			});
-		}		
+		}
 	}
 
 	@Override

@@ -42,8 +42,9 @@ public class StudyParameters {
 	}
 
 	public void setServletUrl(String servletServerUrl) {
-		if (servletUrl != null)
+		if (servletUrl != null) {
 			this.servletUrl = servletServerUrl;
+		}
 	}
 
 	public String getFormsConsent() {
@@ -51,8 +52,9 @@ public class StudyParameters {
 	}
 
 	public void setFormsConsent(String formsConsent) {
-		if (formsConsent != null)
+		if (formsConsent != null) {
 			this.formsConsent = formsConsent;
+		}
 	}
 
 	public long getTransmitPromptPeriod() {
@@ -68,8 +70,9 @@ public class StudyParameters {
 	}
 
 	public void setDescription(String description) {
-		if (description != null)
+		if (description != null) {
 			this.description = description;
+		}
 	}
 
 	public AbstractStudyQuestionnairePage getQuestionnairePage() {
@@ -77,8 +80,9 @@ public class StudyParameters {
 	}
 
 	public void setQuestionnairePage(AbstractStudyQuestionnairePage questionnairePage) {
-		if (questionnairePage != null)
+		if (questionnairePage != null) {
 			this.questionnairePage = questionnairePage;
+		}
 	}
 
 	public AbstractStudyBackgroundPage getBackgroundPage() {
@@ -86,8 +90,9 @@ public class StudyParameters {
 	}
 
 	public void setBackgroundPage(AbstractStudyBackgroundPage backgroundPage) {
-		if (backgroundPage != null)
+		if (backgroundPage != null) {
 			this.backgroundPage = backgroundPage;
+		}
 	}
 
 	public String getTitle() {
@@ -95,8 +100,9 @@ public class StudyParameters {
 	}
 
 	public void setTitle(String title) {
-		if (title != null)
+		if (title != null) {
 			this.title = title;
+		}
 	}
 
 	public String getAcceptedUrlList() {
@@ -104,8 +110,9 @@ public class StudyParameters {
 	}
 
 	public void setAcceptedUrlList(String acceptedUrlList) {
-		if (acceptedUrlList != null)
+		if (acceptedUrlList != null) {
 			this.acceptedUrlList = acceptedUrlList;
+		}
 	}
 
 	public String getVersion() {
@@ -113,8 +120,9 @@ public class StudyParameters {
 	}
 
 	public void setVersion(String version) {
-		if (version != null)
+		if (version != null) {
 			this.version = version;
+		}
 	}
 
 	public String getUseContactField() {
@@ -122,7 +130,8 @@ public class StudyParameters {
 	}
 
 	public void setUseContactField(String useContactField) {
-		if (useContactField != null)
+		if (useContactField != null) {
 			this.useContactField = useContactField;
+		}
 	}
 }

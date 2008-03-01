@@ -7,15 +7,22 @@
  *******************************************************************************/
 package org.eclipse.mylyn.xplanner.ui;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.StringTokenizer;
 
-import org.eclipse.mylyn.tasks.core.*;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.AbstractTaskListFactory;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 /**
- * @author Ravi Kumar 
- * @author Helen Bershadskaya 
+ * @author Ravi Kumar
+ * @author Helen Bershadskaya
  */
 public class XPlannerTaskListFactory extends AbstractTaskListFactory {
 
@@ -57,7 +64,7 @@ public class XPlannerTaskListFactory extends AbstractTaskListFactory {
 	public AbstractRepositoryQuery createQuery(String repositoryUrl, String queryString, String label, Element element) {
 		AbstractRepositoryQuery query = null;
 		query = new XPlannerCustomQuery(repositoryUrl, label);
-		initializeQuery((XPlannerCustomQuery)query, element);
+		initializeQuery((XPlannerCustomQuery) query, element);
 
 		return query;
 	}
@@ -66,8 +73,7 @@ public class XPlannerTaskListFactory extends AbstractTaskListFactory {
 		String myCurrentTasks = element.getAttribute(KEY_QUERY_MY_CURRENT_TASKS);
 		if (myCurrentTasks != null && Boolean.valueOf(myCurrentTasks)) {
 			query.setMyCurrentTasks(true);
-		}
-		else {
+		} else {
 			// selected content type
 			String contentIdType = element.getAttribute(KEY_QUERY_CONTENT_ID_TYPE);
 			if (contentIdType != null) {
@@ -77,23 +83,23 @@ public class XPlannerTaskListFactory extends AbstractTaskListFactory {
 			// use tasks?
 			String useTasks = element.getAttribute(KEY_QUERY_IS_TASKS);
 			if (useTasks != null) {
-			  query.setUseTasks(Boolean.valueOf(useTasks));
-			}  
-			
+				query.setUseTasks(Boolean.valueOf(useTasks));
+			}
+
 			// use all?
 			String personId = element.getAttribute(KEY_QUERY_PERSON_ID);
 			if (personId != null) {
-			  query.setPersonId(Integer.valueOf(personId));
-			}  
-			
+				query.setPersonId(Integer.valueOf(personId));
+			}
+
 			// content id
 			String contentIds = element.getAttribute(KEY_QUERY_CONTENT_ID);
 			if (contentIds != null) {
 				query.setContentIds(decodeIds(contentIds));
 			}
-		}	
+		}
 	}
-	
+
 	private String encodeIds(List<Integer> contentIds) {
 		StringBuilder result = new StringBuilder();
 		for (Iterator<Integer> iter = contentIds.iterator(); iter.hasNext();) {
@@ -111,23 +117,24 @@ public class XPlannerTaskListFactory extends AbstractTaskListFactory {
 		if (encoded == null) {
 			return XPlannerCustomQuery.INVALID_IDS;
 		}
-		
+
 		StringTokenizer tokens = new StringTokenizer(encoded, TOKEN_SEPARATOR);
 		ArrayList<Integer> ids = new ArrayList<Integer>();
 		while (tokens.hasMoreTokens()) {
 			ids.add(Integer.valueOf(tokens.nextToken()));
 		}
-		
+
 		return ids;
 	}
 
-	
+	@Override
 	public Set<String> getQueryElementNames() {
 		Set<String> names = new HashSet<String>();
 		names.add(KEY_XPLANNER_CUSTOM);
 		return names;
 	}
 
+	@Override
 	public void setAdditionalAttributes(AbstractRepositoryQuery query, Element node) {
 //		String queryTagName = getQueryTagNameForElement(query);
 
@@ -136,20 +143,19 @@ public class XPlannerTaskListFactory extends AbstractTaskListFactory {
 //		node.setAttribute(KEY_REPOSITORY_URL, query.getRepositoryUrl());
 
 		XPlannerCustomQuery xplannerCustomQuery = (XPlannerCustomQuery) query;
-		
+
 		// name
 //		String queryName = xplannerCustomQuery.getQueryName();
 //		node.setAttribute(KEY_QUERY_NAME, queryName);
-		
+
 		boolean isMyCurrentTasks = xplannerCustomQuery.isMyCurrentTasks();
 		if (isMyCurrentTasks) {
 			// show only my current tasks
 			node.setAttribute(KEY_QUERY_MY_CURRENT_TASKS, Boolean.toString(true));
-		}
-		else {
+		} else {
 			// don't show only my current tasks
 			node.setAttribute(KEY_QUERY_MY_CURRENT_TASKS, Boolean.toString(false));
-			
+
 			// selected content type
 			String contentIdType = xplannerCustomQuery.getContentIdType().name();
 			node.setAttribute(KEY_QUERY_CONTENT_ID_TYPE, contentIdType);
@@ -157,11 +163,11 @@ public class XPlannerTaskListFactory extends AbstractTaskListFactory {
 			// is tasks
 			boolean isUseTasks = xplannerCustomQuery.isUseTasks();
 			node.setAttribute(KEY_QUERY_IS_TASKS, Boolean.toString(isUseTasks));
-			
+
 			// content id
 			List<Integer> contentIds = xplannerCustomQuery.getContentIds();
 			node.setAttribute(KEY_QUERY_CONTENT_ID, encodeIds(contentIds));
-			
+
 			// person id
 			int personId = xplannerCustomQuery.getPersonId();
 			node.setAttribute(KEY_QUERY_PERSON_ID, Integer.toString(personId));
