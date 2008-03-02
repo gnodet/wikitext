@@ -231,7 +231,7 @@ litigation.
       <import plugin="org.eclipse.mylyn.tasks.core"/>
       <import plugin="org.eclipse.mylyn.trac.core"/>
       <import plugin="org.eclipse.mylyn.trac.ui"/>
-      <import feature="org.eclipse.mylyn_feature" version="3.0.0" match="perfect"/>
+      <import feature="org.eclipse.mylyn_feature" version="3.0.0.qualifier" match="perfect"/>
    </requires>
 
    <plugin
