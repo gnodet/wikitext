@@ -226,17 +226,16 @@ litigation.
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.search"/>
       <import plugin="org.eclipse.jface.text"/>
-      <import plugin="org.eclipse.mylyn.context.core"/>
-      <import plugin="org.eclipse.mylyn.context.ui"/>
-      <import plugin="org.eclipse.mylyn.tasks.ui"/>
-      <import plugin="org.eclipse.mylyn.bugzilla.core"/>
-      <import plugin="org.eclipse.mylyn.bugzilla.ui"/>
-      <import plugin="org.eclipse.mylyn.tasks.core"/>
-      <import plugin="org.eclipse.mylyn.monitor.ui"/>
-      <import plugin="org.eclipse.mylyn.java.ui"/>
-      <import plugin="org.eclipse.mylyn.monitor.core"/>
-      <import plugin="org.eclipse.mylyn"/>
-      <import feature="org.eclipse.mylyn_feature" version="2.0.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.mylyn_feature" version="3.0.0" match="perfect"/>
+      <import plugin="org.eclipse.mylyn.context.core" version="3.0.0" match="compatible"/>
+      <import plugin="org.eclipse.mylyn.context.ui" version="3.0.0" match="compatible"/>
+      <import plugin="org.eclipse.mylyn.tasks.ui" version="3.0.0" match="compatible"/>
+      <import plugin="org.eclipse.mylyn.bugzilla.core" version="3.0.0" match="compatible"/>
+      <import plugin="org.eclipse.mylyn.bugzilla.ui" version="3.0.0" match="compatible"/>
+      <import plugin="org.eclipse.mylyn.tasks.core" version="3.0.0" match="compatible"/>
+      <import plugin="org.eclipse.mylyn.monitor.ui" version="3.0.0" match="compatible"/>
+      <import plugin="org.eclipse.mylyn.java.ui" version="3.0.0" match="compatible"/>
+      <import plugin="org.eclipse.mylyn.monitor.core" version="3.0.0" match="compatible"/>
    </requires>
 
    <plugin
