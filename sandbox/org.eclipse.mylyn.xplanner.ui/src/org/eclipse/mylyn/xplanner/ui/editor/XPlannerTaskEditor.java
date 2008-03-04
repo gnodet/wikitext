@@ -31,8 +31,10 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.forms.editor.FormEditor;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ImageHyperlink;
+import org.eclipse.ui.forms.widgets.Section;
 
 /**
  * @author Ravi Kumar
@@ -56,6 +58,8 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor implements 
 	private boolean roundToHalfHour;
 
 	private boolean addToCurrentTime;
+
+	private Section timeTrackingSection;
 
 	public XPlannerTaskEditor(FormEditor editor) {
 		super(editor);
@@ -191,6 +195,7 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor implements 
 		boolean useTimeTrackingPreference = XPlannerMylynUIPlugin.getBooleanPreference(XPlannerMylynUIPlugin.USE_AUTO_TIME_TRACKING_PREFERENCE_NAME);
 		useTimeTrackingButton.setSelection(useTimeTrackingPreference);
 		setUseAutoTimeTracking(useTimeTrackingPreference);
+		updateTimeTrackingSection();
 
 		// rounding
 		boolean roundToHalfHourPreference = XPlannerMylynUIPlugin.getBooleanPreference(XPlannerMylynUIPlugin.ROUND_AUTO_TIME_TRACKING_TO_HALF_HOUR_PREFERENCE_NAME);
@@ -202,6 +207,10 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor implements 
 		addToCurrentTimeButton.setSelection(addToCurrentTimePreference);
 		replaceCurrentTimeButton.setSelection(!addToCurrentTimePreference);
 		setAddToCurrentTime(addToCurrentTimePreference);
+	}
+
+	private void updateTimeTrackingSection() {
+		timeTrackingSection.setExpanded(useTimeTrackingButton.getSelection());
 	}
 
 	private void savePreferenceSettings() {
@@ -220,15 +229,37 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor implements 
 
 	private void createTimeTrackingPanel(Composite parent) {
 		FormToolkit toolkit = new FormToolkit(getSite().getShell().getDisplay());
-		Composite timeTrackingComposite = toolkit.createComposite(parent, SWT.NONE);
+		timeTrackingSection = toolkit.createSection(parent, ExpandableComposite.LEFT_TEXT_CLIENT_ALIGNMENT
+				| ExpandableComposite.TWISTIE | ExpandableComposite.CLIENT_INDENT);
+		timeTrackingSection.setLayout(new GridLayout());
+		GridDataFactory.fillDefaults().span(4, 1).applyTo(timeTrackingSection);
+		timeTrackingSection.setText("");
+
+		useTimeTrackingButton = toolkit.createButton(timeTrackingSection,
+				"Update actual task time from Mylyn's time tracker", SWT.CHECK);
+		GridDataFactory.fillDefaults().span(1, 1).grab(true, false).align(SWT.LEFT, SWT.CENTER).applyTo(
+				useTimeTrackingButton);
+		useTimeTrackingButton.addSelectionListener(new SelectionListener() {
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
+
+			public void widgetSelected(SelectionEvent e) {
+				if (e.getSource().equals(useTimeTrackingButton)) {
+					updateTimeTrackingSection();
+				}
+			}
+
+		});
+
+		useTimeTrackingButton.addSelectionListener(this);
+
+		timeTrackingSection.setTextClient(useTimeTrackingButton);
+
+		Composite timeTrackingComposite = toolkit.createComposite(timeTrackingSection, SWT.NONE);
+		timeTrackingSection.setClient(timeTrackingComposite);
 
 		GridDataFactory.fillDefaults().span(4, 1).applyTo(timeTrackingComposite);
 		timeTrackingComposite.setLayout(new GridLayout(1, false));
-
-		useTimeTrackingButton = toolkit.createButton(timeTrackingComposite,
-				"Update actual task time from Mylyn's time tracker", SWT.CHECK);
-		GridDataFactory.fillDefaults().span(1, 1).grab(true, false).applyTo(useTimeTrackingButton);
-		useTimeTrackingButton.addSelectionListener(this);
 
 		roundToHalfHourButton = toolkit.createButton(timeTrackingComposite, "Round time to half hour", SWT.CHECK);
 		GridDataFactory.fillDefaults().indent(new Point(15, 5)).applyTo(roundToHalfHourButton);
