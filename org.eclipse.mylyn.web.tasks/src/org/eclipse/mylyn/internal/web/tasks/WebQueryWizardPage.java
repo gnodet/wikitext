@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
@@ -384,9 +385,6 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 
 	@Override
 	public boolean isPageComplete() {
-		if (getErrorMessage() != null) {
-			return false;
-		}
 		return super.isPageComplete();
 	}
 
@@ -394,15 +392,13 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		previewTable.setInput(tasks);
 
 		if (queryStatus.isOK()) {
-			setErrorMessage(null);
-			setPageComplete(true);
+			setMessage(null, IMessageProvider.WARNING);
 		} else {
 			StringBuffer sb = new StringBuffer();
 			for (IStatus status : queryStatus.getChildren()) {
 				sb.append(status.getMessage()).append("\n");
 			}
-			setErrorMessage(sb.toString());
-			setPageComplete(false);
+			setMessage(sb.toString(), IMessageProvider.WARNING);
 		}
 	}
 
