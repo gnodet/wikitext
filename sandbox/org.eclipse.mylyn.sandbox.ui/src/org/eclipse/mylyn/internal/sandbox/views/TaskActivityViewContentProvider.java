@@ -53,7 +53,8 @@ public class TaskActivityViewContentProvider implements IStructuredContentProvid
 		if (parent instanceof ScheduledTaskContainer) {
 			ScheduledTaskContainer taskContainer = (ScheduledTaskContainer) parent;
 			Set<ScheduledTaskDelegate> delegates = new HashSet<ScheduledTaskDelegate>();
-			for (AbstractTask task : taskContainer.getChildren()) {
+			for (AbstractTask task : TaskActivityManager.getInstance().getActiveTasks(taskContainer.getStart(),
+					taskContainer.getEnd())) {
 				delegates.add(new ScheduledTaskDelegate(taskContainer, task, null, null, 0));
 			}
 			return delegates.toArray();
