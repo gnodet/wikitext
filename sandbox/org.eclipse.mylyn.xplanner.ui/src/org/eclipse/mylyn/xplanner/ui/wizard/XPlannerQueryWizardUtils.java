@@ -45,6 +45,9 @@ public class XPlannerQueryWizardUtils {
 			if (e.getCause() instanceof CoreException) {
 				XPlannerMylynUIPlugin.log(e.getCause(),
 						Messages.XPlannerQueryWizardUtils_COULD_NOT_CREATE_QUERY_PAGE_MESSAGE, true);
+				queryPage = new ErrorQueryPage(repository, e.getCause().getMessage());
+				queryPage.setWizard(wizard);
+				wizard.addPage(queryPage);
 			} else {
 				throw e;
 			}

@@ -53,12 +53,16 @@ public class XPlannerTestUtils {
 	private final static String TEST_TASK_NAME = "TestTask";
 
 	public static TaskRepository getRepository() {
+		return getRepository(USER, PASSWORD);
+	}
+
+	public static TaskRepository getRepository(String user, String password) {
 		TaskRepository repository;
 
 		repository = TasksUiPlugin.getRepositoryManager().getRepository(SERVER_URL);
 		if (repository == null) {
 			repository = new TaskRepository(XPlannerMylynUIPlugin.REPOSITORY_KIND, SERVER_URL);
-			repository.setAuthenticationCredentials(USER, PASSWORD);
+			repository.setAuthenticationCredentials(user, password);
 			TasksUiPlugin.getRepositoryManager().addRepository(repository,
 					TasksUiPlugin.getDefault().getRepositoriesFilePath());
 			TasksUiPlugin.getTaskListManager().resetTaskList();

@@ -80,17 +80,17 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 	public IWizard getQueryWizard(TaskRepository repository, AbstractRepositoryQuery query) {
 		IWizard queryWizard = null;
 
-		if (ensureHaveValidClient(repository)) {
-			if (query instanceof XPlannerCustomQuery) {
-				queryWizard = new EditXPlannerQueryWizard(repository, query);
-			} else {
-				queryWizard = new NewXPlannerQueryWizard(repository);
-			}
+		if (query instanceof XPlannerCustomQuery) {
+			queryWizard = new EditXPlannerQueryWizard(repository, query);
+		} else {
+			queryWizard = new NewXPlannerQueryWizard(repository);
 		}
 
 		return queryWizard;
 	}
 
+	@SuppressWarnings("unused")
+	// Leave in case needed other places
 	private boolean ensureHaveValidClient(TaskRepository repository) {
 		boolean haveValidClient = true;
 
