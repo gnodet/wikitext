@@ -75,7 +75,9 @@ public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		INSTANCE = null;
-		XPlannerClientFacade.getDefault().logOutFromAll();
+		if (XPlannerClientFacade.isInitialized()) { // avoid initialization in XPlannerClientFacade.getDefault()
+			XPlannerClientFacade.getDefault().logOutFromAll();
+		}
 	}
 
 	public static void log(final Throwable e, final String message, boolean informUser) {

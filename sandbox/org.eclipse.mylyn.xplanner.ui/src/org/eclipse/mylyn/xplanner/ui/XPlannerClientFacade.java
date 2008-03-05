@@ -79,6 +79,10 @@ public class XPlannerClientFacade implements ITaskRepositoryListener {
 		}
 	}
 
+	public static boolean isInitialized() {
+		return instance != null;
+	}
+
 	public static XPlannerClientFacade getDefault() {
 		if (instance == null) {
 			instance = new XPlannerClientFacade();
