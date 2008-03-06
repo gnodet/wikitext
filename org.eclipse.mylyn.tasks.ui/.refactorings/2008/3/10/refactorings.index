@@ -4,3 +4,7 @@
 1204789708756	Rename type 'TaskTextViewerConfiguration'
 1204789729216	Rename type 'TaskCompletionProcessor'
 1204790368318	Convert member type 'RepositoryCompletionProcessor' to top level
+1204792493542	Extract local variable 'taskList'
+1204792616968	Extract local variable 'processor'
+1204793191266	Extract method 'filterTasks'
+1204793224488	Extract local variable 'next'
