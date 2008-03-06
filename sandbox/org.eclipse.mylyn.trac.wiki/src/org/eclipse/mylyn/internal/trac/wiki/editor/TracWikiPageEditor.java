@@ -27,6 +27,7 @@ import org.eclipse.jface.text.source.IAnnotationAccess;
 import org.eclipse.jface.text.source.SourceViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiImages;
+import org.eclipse.mylyn.internal.tasks.ui.editors.RepositoryTextViewerConfiguration;
 import org.eclipse.mylyn.internal.trac.core.TracCorePlugin;
 import org.eclipse.mylyn.internal.trac.core.model.TracWikiPage;
 import org.eclipse.mylyn.internal.trac.ui.editor.TracRenderingEngine;
@@ -34,7 +35,6 @@ import org.eclipse.mylyn.internal.trac.wiki.TracWikiPlugin;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractRenderingEngine;
-import org.eclipse.mylyn.tasks.ui.editors.TaskTextViewerConfiguration;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTError;
 import org.eclipse.swt.browser.Browser;
@@ -229,7 +229,7 @@ public class TracWikiPageEditor extends FormEditor {
 				}
 			});
 
-			TextSourceViewerConfiguration viewerConfig = new TaskTextViewerConfiguration(true);
+			TextSourceViewerConfiguration viewerConfig = new RepositoryTextViewerConfiguration(repository, true);
 			((SourceViewer) sourceEditor).configure(viewerConfig);
 			Document document = new Document(page.getContent());
 			((SourceViewer) sourceEditor).setDocument(document, new AnnotationModel());

@@ -1,0 +1,6 @@
+1204787005554	Extract local variable 'repositoryTasks'
+1204787893240	Extract method 'extracted'
+1204789664274	Move compilation unit
+1204789708756	Rename type 'TaskTextViewerConfiguration'
+1204789729216	Rename type 'TaskCompletionProcessor'
+1204790368318	Convert member type 'RepositoryCompletionProcessor' to top level
