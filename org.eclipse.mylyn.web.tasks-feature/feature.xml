@@ -230,7 +230,6 @@ litigation.
       <import plugin="org.eclipse.mylyn.web.core" version="3.0.0" match="compatible"/>
       <import plugin="org.eclipse.mylyn.monitor.core" version="3.0.0" match="compatible"/>
       <import feature="org.eclipse.mylyn_feature" version="3.0.0.qualifier" match="perfect"/>
-      <import plugin="org.eclipse.osgi"/>
    </requires>
 
    <plugin
@@ -249,20 +248,6 @@ litigation.
 
    <plugin
          id="org.jdom"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.xerces"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.xml.resolver"
          download-size="0"
          install-size="0"
          version="0.0.0"
