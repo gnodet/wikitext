@@ -58,7 +58,7 @@ public class WebTask extends AbstractTask {
 
 	@Override
 	public boolean isLocal() {
-		return true;
+		return false;
 	}
 
 }
