@@ -502,7 +502,7 @@ public class TaskActivityView extends ViewPart {
 						return null;
 					}
 				} else if (columnIndex == 4) {
-					return new Integer(Arrays.asList(ESTIMATE_TIMES).indexOf(task.getEstimateTimeHours()));
+					return new Integer(Arrays.asList(ESTIMATE_TIMES).indexOf(task.getEstimatedTimeHours()));
 				}
 			}
 			return null;

@@ -110,8 +110,8 @@ public class TaskActivityViewSorter extends ViewerSorter {
 			return result * directions[sortColumn];
 		}
 		case ESTIMATED: {
-			int estimate1 = task1.getEstimateTimeHours();
-			int estimate2 = task2.getEstimateTimeHours();
+			int estimate1 = task1.getEstimatedTimeHours();
+			int estimate2 = task2.getEstimatedTimeHours();
 			int result = estimate1 - estimate2;
 			return result * directions[sortColumn];
 		}

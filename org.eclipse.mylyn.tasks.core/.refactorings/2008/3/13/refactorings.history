@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;org.eclipse.mylyn.tasks.core.AbstractTask.getEstimateTimeHours()&apos; to &apos;getEstimatedTimeHours&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.core&apos;&#x0A;- Original element: &apos;org.eclipse.mylyn.tasks.core.AbstractTask.getEstimateTimeHours()&apos;&#x0A;- Renamed element: &apos;org.eclipse.mylyn.tasks.core.AbstractTask.getEstimatedTimeHours()&apos;&#x0A;- Update references to refactored element&#x0A;- Keep original element as deprecated delegate to refactored element" delegate="true" deprecate="true" description="Rename method &apos;getEstimateTimeHours&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylyn.tasks.core{AbstractTask.java[AbstractTask~getEstimateTimeHours" name="getEstimatedTimeHours" references="true" stamp="1206641945024" version="1.0"/>
+</session>
