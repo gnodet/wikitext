@@ -14,13 +14,18 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.IType;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylyn.internal.bugzilla.core.IBugzillaConstants;
+import org.eclipse.mylyn.internal.bugzilla.core.RepositoryConfiguration;
 import org.eclipse.mylyn.internal.bugzilla.ui.BugzillaUiPlugin;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.PlatformUI;
 
 /**
  * Utilities methods for the BugzillaMylarBridge
@@ -109,11 +114,23 @@ public class Util {
 	public static StringBuffer getQueryURLEnd(String repositoryUrl) {
 
 		StringBuffer sb = new StringBuffer();
+		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(repositoryUrl);
+		RepositoryConfiguration repositoryConfiguration = null;
+		try {
+			repositoryConfiguration = BugzillaCorePlugin.getRepositoryConfiguration(repository, false);
+		} catch (final CoreException e) {
+			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+				public void run() {
+					MessageDialog.openError(Display.getDefault().getActiveShell(), "Bugzilla Search Page",
+							"Unable to get configuration. Ensure proper repository configuration in "
+									+ TasksUiPlugin.LABEL_VIEW_REPOSITORIES + ".\n\n");
+				}
+			});
+		}
 
-		String[] resolutionValues = BugzillaUiPlugin.getQueryOptions(IBugzillaConstants.VALUES_RESOLUTION, null,
-				repositoryUrl);
+		String[] resolutionValues = BugzillaUiPlugin.getQueryOptions(IBugzillaConstants.VALUES_RESOLUTION, null, repositoryConfiguration);
 
-		String[] statusValues = BugzillaUiPlugin.getQueryOptions(IBugzillaConstants.VALUES_STATUS, null, repositoryUrl);
+		String[] statusValues = BugzillaUiPlugin.getQueryOptions(IBugzillaConstants.VALUES_STATUS, null, repositoryConfiguration);
 
 		// add the status and resolutions that we care about
 		sb.append("&bug_status=" + statusValues[0]); // UNCONFIRMED
