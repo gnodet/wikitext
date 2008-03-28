@@ -35,8 +35,8 @@ import org.eclipse.mylyn.internal.trac.wiki.TracWikiPlugin;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractRenderingEngine;
+import org.eclipse.mylyn.tasks.ui.editors.BrowserFormPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.SWTError;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.LocationAdapter;
 import org.eclipse.swt.browser.LocationEvent;
@@ -45,7 +45,6 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -339,7 +338,9 @@ public class TracWikiPageEditor extends FormEditor {
 						updateWikiPage();
 						PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 							public void run() {
-								browserPage.refresh();
+								if (browserPage.getBrowser() != null) {
+									browserPage.getBrowser().refresh();
+								}
 								setActivePage(BrowserFormPage.ID_EDITOR);
 								markDirty(false);
 								setSubmitEnabled(false);
@@ -473,57 +474,15 @@ public class TracWikiPageEditor extends FormEditor {
 
 	}
 
-	/**
-	 * Modified from org.eclipse.mylyn.internal.web.tasks.BrowserFormPage
-	 * 
-	 */
-	private class BrowserFormPage extends FormPage {
-
-		public static final String ID_EDITOR = "org.eclipse.mylyn.trac.ui.editor.wikibrowser";
-
-		private Browser browser;
-
-		public BrowserFormPage(FormEditor editor, String title) {
-			super(editor, ID_EDITOR, title);
-		}
-
-		@Override
-		protected void createFormContent(IManagedForm managedForm) {
-			super.createFormContent(managedForm);
-			try {
-				TracWikiPageEditorInput editorInput = (TracWikiPageEditorInput) getEditorInput();
-
-				ScrolledForm form = managedForm.getForm();
-				form.getBody().setLayout(new FillLayout());
-				browser = new Browser(form.getBody(), SWT.NONE);
-				managedForm.getForm().setContent(browser);
-				browser.setUrl(editorInput.getPageUrl());
-			} catch (SWTError e) {
-				StatusHandler.fail(new Status(IStatus.ERROR, TracWikiPlugin.PLUGIN_ID,
-						"Could not create Browser page: " + e.getMessage(), e));
-			} catch (RuntimeException e) {
-				StatusHandler.log(new Status(IStatus.ERROR, TracWikiPlugin.PLUGIN_ID, "Could not create Browser page",
-						e));
-			}
-		}
-
-		public void refresh() {
-			browser.refresh();
-		}
-
-		@Override
-		public void dispose() {
-			if (browser != null && !browser.isDisposed()) {
-				browser.dispose();
-			}
-			super.dispose();
-		}
-	}
-
 	public TracWikiPageEditor() {
 		super();
 		wikiSourceEditor = new WikiSourceEditor(this);
-		browserPage = new BrowserFormPage(this, "Browser");
+		browserPage = new BrowserFormPage(this, "Browser") {
+			@Override
+			protected String getUrl() {
+				return ((TracWikiPageEditorInput) getEditorInput()).getPageUrl();
+			}
+		};
 	}
 
 	protected void initializeEditor() {

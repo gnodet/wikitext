@@ -13,6 +13,7 @@ import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractRepositoryTaskEditor;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskEditorFactory;
+import org.eclipse.mylyn.tasks.ui.editors.BrowserFormPage;
 import org.eclipse.mylyn.tasks.ui.editors.RepositoryTaskEditorInput;
 import org.eclipse.mylyn.tasks.ui.editors.TaskEditor;
 import org.eclipse.mylyn.tasks.ui.editors.TaskEditorInput;
@@ -59,13 +60,12 @@ public class WebTaskEditorFactory extends AbstractTaskEditorFactory {
 
 	@Override
 	public boolean canCreateEditorFor(AbstractTask task) {
-		;
 		return task instanceof WebTask;
 	}
 
 	@Override
 	public boolean canCreateEditorFor(IEditorInput input) {
-		return input instanceof BrowserEditorInput;
+		return input instanceof TaskEditorInput;
 	}
 
 	@Override
