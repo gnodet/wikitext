@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;toolTipText&apos; from expression &apos;getToolTipText()&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.ui&apos;&#x0A;- Variable name: &apos;toolTipText&apos;&#x0A;- Destination method: &apos;org.eclipse.mylyn.tasks.ui.editors.TaskEditorInput.getLabel()&apos;&#x0A;- Variable expression: &apos;getToolTipText()&apos;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;toolTipText&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.eclipse.mylyn.tasks.ui.editors{TaskEditorInput.java" name="toolTipText" replace="true" selection="3470 16" stamp="1205217566530" version="1.0"/>
+</session>

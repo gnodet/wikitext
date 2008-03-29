@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;editorInput&apos; from expression &apos;getEditorInput()&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.ui&apos;&#x0A;- Variable name: &apos;editorInput&apos;&#x0A;- Destination method: &apos;org.eclipse.mylyn.tasks.ui.editors.TaskEditor.addPage()&apos;&#x0A;- Variable expression: &apos;getEditorInput()&apos;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;editorInput&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.eclipse.mylyn.tasks.ui.editors{TaskEditor.java" name="editorInput" replace="true" selection="9695 16" stamp="1206770669192" version="1.0"/>
+</session>

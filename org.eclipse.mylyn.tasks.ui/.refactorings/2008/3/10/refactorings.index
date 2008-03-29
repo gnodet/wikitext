@@ -8,3 +8,8 @@
 1204792616968	Extract local variable 'processor'
 1204793191266	Extract method 'filterTasks'
 1204793224488	Extract local variable 'next'
+1205034135191	Extract local variable 'task'
+1205034578079	Extract local variable 'abstractTask'
+1205044298492	Extract local variable 'editor2'
+1205044596587	Extract method 'updateTitleImage'
+1205047090460	Rename method 'getPageTitle'
