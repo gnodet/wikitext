@@ -50,7 +50,7 @@ public class WebUiUtil {
 					}
 				}
 			}
-			TasksUiUtil.openUrl(url, true);
+			TasksUiUtil.openTask(url);
 		} catch (PartInitException e) {
 			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", url
 					+ " could not be opened");

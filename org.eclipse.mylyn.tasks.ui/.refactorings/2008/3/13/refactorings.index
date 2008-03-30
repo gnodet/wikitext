@@ -2,3 +2,10 @@
 1206824655585	Move compilation unit
 1206834936167	Move compilation units
 1206835137001	Move compilation unit
+1206848053808	Extract method 'openTasksWithBrowser'
+1206848527385	Extract local variable 'openEditor'
+1206848945182	Rename method 'openRepositoryTask'
+1206848959408	Rename method 'openRepositoryTask'
+1206853310784	Inline local variable 'url'
+1206855672857	Extract method 'getLocalTaskRepository'
+1206855701642	Extract local variable 'repository'

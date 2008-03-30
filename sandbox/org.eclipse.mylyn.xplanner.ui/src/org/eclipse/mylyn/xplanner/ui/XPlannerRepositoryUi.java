@@ -22,6 +22,7 @@ import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.core.TaskSelection;
 import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
 import org.eclipse.mylyn.xplanner.ui.wizard.EditXPlannerQueryWizard;
@@ -146,7 +147,8 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 //	}
 
 	@Override
-	public IWizard getNewTaskWizard(TaskRepository taskRepository) {
+	public IWizard getNewTaskWizard(TaskRepository taskRepository, TaskSelection taskSelection) {
+		// TODO pass taskSelection to task editor
 		return new NewXPlannerTaskWizard(taskRepository);
 	}
 

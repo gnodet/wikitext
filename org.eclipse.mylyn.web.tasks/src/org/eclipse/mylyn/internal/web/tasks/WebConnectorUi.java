@@ -15,6 +15,7 @@ import org.eclipse.mylyn.internal.tasks.ui.TasksUiImages;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.core.TaskSelection;
 import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
 import org.eclipse.mylyn.tasks.ui.wizards.NewWebTaskWizard;
@@ -33,7 +34,7 @@ public class WebConnectorUi extends AbstractRepositoryConnectorUi {
 	}
 
 	@Override
-	public IWizard getNewTaskWizard(TaskRepository taskRepository) {
+	public IWizard getNewTaskWizard(TaskRepository taskRepository, TaskSelection taskSelection) {
 		return new NewWebTaskWizard(taskRepository, WebRepositoryConnector.evaluateParams(
 				taskRepository.getProperty(WebRepositoryConnector.PROPERTY_TASK_CREATION_URL), taskRepository));
 	}
