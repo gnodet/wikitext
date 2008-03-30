@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.tasks.ui.wizards;
+package org.eclipse.mylyn.internal.context.ui.wizards;
 
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
@@ -26,6 +26,8 @@ import org.eclipse.swt.widgets.Text;
  */
 public class ContextAttachWizardPage extends WizardPage {
 
+	private static final String WIZARD_TITLE = "Attach context";
+
 	private static final String DESCRIPTION = "Attaches local context to repository task";
 
 	private final TaskRepository repository;
@@ -37,7 +39,7 @@ public class ContextAttachWizardPage extends WizardPage {
 	private boolean complete = true;
 
 	protected ContextAttachWizardPage(TaskRepository repository, AbstractTask task) {
-		super(ContextAttachWizard.WIZARD_TITLE);
+		super(WIZARD_TITLE);
 		this.repository = repository;
 		this.task = task;
 		setDescription(DESCRIPTION);

@@ -6,47 +6,50 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.tasks.ui.wizards;
+package org.eclipse.mylyn.internal.context.ui.wizards;
 
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.mylyn.internal.tasks.ui.ContextUiUtil;
+import org.eclipse.mylyn.internal.context.ui.ContextUiUtil;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiImages;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.RepositoryAttachment;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 
 /**
  * @author Rob Elves
+ * @author Mik Kersten
  * @author Steffen Pingel
  */
-public class ContextAttachWizard extends Wizard {
+public class ContextRetrieveWizard extends Wizard {
 
-	public static final String WIZARD_TITLE = "Attach context";
+	private static final String TITLE = "Task Repository";
 
 	private final TaskRepository repository;
 
 	private final AbstractTask task;
 
-	private ContextAttachWizardPage wizardPage;
+	private ContextRetrieveWizardPage wizardPage;
 
-	public ContextAttachWizard(AbstractTask task) {
+	public ContextRetrieveWizard(AbstractTask task) {
 		repository = TasksUiPlugin.getRepositoryManager().getRepository(task.getConnectorKind(),
 				task.getRepositoryUrl());
 		this.task = task;
-		setWindowTitle(ContextRetrieveWizard.TITLE);
+		setWindowTitle(TITLE);
 		setDefaultPageImageDescriptor(TasksUiImages.BANNER_REPOSITORY_CONTEXT);
 	}
 
 	@Override
 	public void addPages() {
-		wizardPage = new ContextAttachWizardPage(repository, task);
+		wizardPage = new ContextRetrieveWizardPage(repository, task);
 		addPage(wizardPage);
 		super.addPages();
 	}
 
 	@Override
 	public final boolean performFinish() {
-		return ContextUiUtil.uploadContext(repository, task, wizardPage.getComment(), getContainer());
+		RepositoryAttachment attachment = wizardPage.getSelectedContext();
+		return ContextUiUtil.downloadContext(task, attachment, getContainer());
 	}
 
 }

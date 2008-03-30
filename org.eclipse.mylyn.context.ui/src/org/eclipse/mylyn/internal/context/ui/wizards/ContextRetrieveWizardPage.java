@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.tasks.ui.wizards;
+package org.eclipse.mylyn.internal.context.ui.wizards;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.mylyn.internal.tasks.ui.AttachmentUtil;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskElementLabelProvider;
 import org.eclipse.mylyn.tasks.core.AbstractAttributeFactory;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
@@ -43,6 +44,8 @@ import org.eclipse.swt.widgets.Text;
  */
 public class ContextRetrieveWizardPage extends WizardPage {
 
+	private static final String WIZARD_TITLE = "Retrieve context";
+
 	private static final String DESCRIPTION = "Select a context to retrieve from table below.";
 
 	private static final String COLUMN_COMMENT = "Description";
@@ -57,10 +60,10 @@ public class ContextRetrieveWizardPage extends WizardPage {
 
 	private final TaskElementLabelProvider labelProvider = new TaskElementLabelProvider(false);
 
-	private RepositoryAttachment selectedContextAttachment = null;
+	private RepositoryAttachment selectedContextAttachment;
 
 	protected ContextRetrieveWizardPage(TaskRepository repository, AbstractTask task) {
-		super(ContextAttachWizard.WIZARD_TITLE);
+		super(WIZARD_TITLE);
 		this.repository = repository;
 		this.task = task;
 		setDescription(DESCRIPTION);
@@ -115,8 +118,8 @@ public class ContextRetrieveWizardPage extends WizardPage {
 
 		List<RepositoryAttachment> contextAttachments = new ArrayList<RepositoryAttachment>();
 		if (connector.getAttachmentHandler() != null) {
-			contextAttachments = new ArrayList<RepositoryAttachment>(connector.getAttachmentHandler()
-					.getContextAttachments(repository, task));
+			contextAttachments = new ArrayList<RepositoryAttachment>(AttachmentUtil.getContextAttachments(repository,
+					task));
 		}
 
 		Collections.sort(contextAttachments, new Comparator<RepositoryAttachment>() {

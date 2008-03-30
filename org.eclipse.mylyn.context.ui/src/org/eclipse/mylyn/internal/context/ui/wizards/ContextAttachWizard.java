@@ -6,35 +6,31 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.tasks.ui.wizards;
+package org.eclipse.mylyn.internal.context.ui.wizards;
 
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.mylyn.internal.tasks.ui.ContextUiUtil;
+import org.eclipse.mylyn.internal.context.ui.ContextUiUtil;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiImages;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.RepositoryAttachment;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 
 /**
  * @author Rob Elves
- * @author Mik Kersten
  * @author Steffen Pingel
  */
-public class ContextRetrieveWizard extends Wizard {
+public class ContextAttachWizard extends Wizard {
 
-	public static final String TITLE = "Task Repository";
-
-	public static final String WIZARD_TITLE = "Retrieve context";
+	private static final String TITLE = "Task Repository";
 
 	private final TaskRepository repository;
 
 	private final AbstractTask task;
 
-	private ContextRetrieveWizardPage wizardPage;
+	private ContextAttachWizardPage wizardPage;
 
-	public ContextRetrieveWizard(AbstractTask task) {
-		repository = TasksUiPlugin.getRepositoryManager().getRepository(task.getConnectorKind(),
+	public ContextAttachWizard(AbstractTask task) {
+		this.repository = TasksUiPlugin.getRepositoryManager().getRepository(task.getConnectorKind(),
 				task.getRepositoryUrl());
 		this.task = task;
 		setWindowTitle(TITLE);
@@ -43,15 +39,14 @@ public class ContextRetrieveWizard extends Wizard {
 
 	@Override
 	public void addPages() {
-		wizardPage = new ContextRetrieveWizardPage(repository, task);
+		wizardPage = new ContextAttachWizardPage(repository, task);
 		addPage(wizardPage);
 		super.addPages();
 	}
 
 	@Override
 	public final boolean performFinish() {
-		RepositoryAttachment attachment = wizardPage.getSelectedContext();
-		return ContextUiUtil.downloadContext(task, attachment, getContainer());
+		return ContextUiUtil.uploadContext(repository, task, wizardPage.getComment(), getContainer());
 	}
 
 }
