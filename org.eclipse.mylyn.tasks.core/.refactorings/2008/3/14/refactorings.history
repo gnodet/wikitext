@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;org.eclipse.mylyn.tasks.core.RepositoryTaskData.getRepositoryKind()&apos; to &apos;getConnectorKind&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.core&apos;&#x0A;- Original element: &apos;org.eclipse.mylyn.tasks.core.RepositoryTaskData.getRepositoryKind()&apos;&#x0A;- Renamed element: &apos;org.eclipse.mylyn.tasks.core.RepositoryTaskData.getConnectorKind()&apos;&#x0A;- Update references to refactored element&#x0A;- Keep original element as deprecated delegate to refactored element" delegate="true" deprecate="true" description="Rename method &apos;getRepositoryKind&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylyn.tasks.core{RepositoryTaskData.java[RepositoryTaskData~getRepositoryKind" name="getConnectorKind" references="true" stamp="1206943552016" version="1.0"/>
+</session>

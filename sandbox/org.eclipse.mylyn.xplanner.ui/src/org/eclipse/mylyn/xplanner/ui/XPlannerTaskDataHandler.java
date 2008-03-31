@@ -86,7 +86,7 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 
 	@Override
 	public AbstractAttributeFactory getAttributeFactory(RepositoryTaskData taskData) {
-		return getAttributeFactory(taskData.getRepositoryUrl(), taskData.getRepositoryKind(), taskData.getTaskKind());
+		return getAttributeFactory(taskData.getRepositoryUrl(), taskData.getConnectorKind(), taskData.getTaskKind());
 	}
 
 	@Override
@@ -109,7 +109,7 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 		String newTaskId = null;
 
 		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
-				repositoryTaskData.getRepositoryKind(), repositoryTaskData.getRepositoryUrl());
+				repositoryTaskData.getConnectorKind(), repositoryTaskData.getRepositoryUrl());
 
 		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 		if (client != null) {

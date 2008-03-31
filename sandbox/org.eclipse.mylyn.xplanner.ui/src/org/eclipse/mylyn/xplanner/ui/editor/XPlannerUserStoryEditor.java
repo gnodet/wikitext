@@ -104,7 +104,7 @@ public class XPlannerUserStoryEditor extends FormPage {
 		setInput(input);
 		setPartName(this.input.getName());
 		RepositoryTaskData taskData = repositoryInput.getTaskData();
-		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(taskData.getRepositoryKind(),
+		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(taskData.getConnectorKind(),
 				taskData.getRepositoryUrl());
 		try {
 			client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
