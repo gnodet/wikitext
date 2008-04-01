@@ -18,6 +18,7 @@ import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskDelegate;
 import org.eclipse.mylyn.internal.tasks.core.TaskActivityManager;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 
 /**
  * @author Rob Elves
@@ -53,7 +54,7 @@ public class TaskActivityViewContentProvider implements IStructuredContentProvid
 		if (parent instanceof ScheduledTaskContainer) {
 			ScheduledTaskContainer taskContainer = (ScheduledTaskContainer) parent;
 			Set<ScheduledTaskDelegate> delegates = new HashSet<ScheduledTaskDelegate>();
-			for (AbstractTask task : TaskActivityManager.getInstance().getActiveTasks(taskContainer.getStart(),
+			for (AbstractTask task : TasksUiPlugin.getTaskActivityManager().getActiveTasks(taskContainer.getStart(),
 					taskContainer.getEnd())) {
 				delegates.add(new ScheduledTaskDelegate(taskContainer, task, null, null, 0));
 			}

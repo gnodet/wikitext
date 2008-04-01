@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move &apos;org.eclipse.mylyn.internal.tasks.core.TaskActivityManager.getInstance()&apos; to &apos;org.eclipse.mylyn.tasks.ui.TasksUiPlugin&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.core&apos;&#x0A;- Original element: &apos;org.eclipse.mylyn.internal.tasks.core.TaskActivityManager.getInstance()&apos;&#x0A;- Destination type: &apos;org.eclipse.mylyn.tasks.ui.TasksUiPlugin&apos;" delegate="false" deprecate="true" description="Move member &apos;getInstance&apos;" element1="/src&lt;org.eclipse.mylyn.internal.tasks.core{TaskActivityManager.java[TaskActivityManager~getInstance" flags="589830" id="org.eclipse.jdt.ui.move.static" input="=org.eclipse.mylyn.tasks.ui/src&lt;org.eclipse.mylyn.tasks.ui{TasksUiPlugin.java[TasksUiPlugin" stamp="1207014956530" version="1.0"/>
+</session>
