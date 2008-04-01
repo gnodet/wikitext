@@ -2,6 +2,8 @@
 1206824655585	Move compilation unit
 1206834936167	Move compilation units
 1206835137001	Move compilation unit
+1206841022614	Extract method 'initializeTaskActivityManager'
+1206841558079	Rename method 'dispose'
 1206848053808	Extract method 'openTasksWithBrowser'
 1206848527385	Extract local variable 'openEditor'
 1206848945182	Rename method 'openRepositoryTask'
