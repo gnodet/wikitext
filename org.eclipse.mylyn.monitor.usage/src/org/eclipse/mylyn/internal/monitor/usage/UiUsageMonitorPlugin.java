@@ -48,7 +48,7 @@ import org.eclipse.mylyn.monitor.core.IInteractionEventListener;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.monitor.ui.AbstractCommandMonitor;
 import org.eclipse.mylyn.monitor.ui.IActionExecutionListener;
-import org.eclipse.mylyn.monitor.ui.IMylarMonitorLifecycleListener;
+import org.eclipse.mylyn.monitor.ui.IMonitorLifecycleListener;
 import org.eclipse.mylyn.monitor.ui.MonitorUiPlugin;
 import org.eclipse.mylyn.monitor.usage.AbstractStudyBackgroundPage;
 import org.eclipse.mylyn.monitor.usage.AbstractStudyQuestionnairePage;
@@ -341,7 +341,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		// installBrowserMonitor(workbench);
 
 		for (Object listener : lifecycleListeners.getListeners()) {
-			((IMylarMonitorLifecycleListener) listener).startMonitoring();
+			((IMonitorLifecycleListener) listener).startMonitoring();
 		}
 
 		if (!MonitorUiPlugin.getDefault().suppressConfigurationWizards()) {
@@ -378,7 +378,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		}
 
 		for (Object listener : lifecycleListeners.getListeners()) {
-			((IMylarMonitorLifecycleListener) listener).stopMonitoring();
+			((IMonitorLifecycleListener) listener).stopMonitoring();
 		}
 
 		for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners()) {
@@ -411,14 +411,14 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_MONITORING_STARTED, false);
 	}
 
-	public void addMonitoringLifecycleListener(IMylarMonitorLifecycleListener listener) {
+	public void addMonitoringLifecycleListener(IMonitorLifecycleListener listener) {
 		lifecycleListeners.add(listener);
 		if (isMonitoringEnabled()) {
 			listener.startMonitoring();
 		}
 	}
 
-	public void removeMonitoringLifecycleListener(IMylarMonitorLifecycleListener listener) {
+	public void removeMonitoringLifecycleListener(IMonitorLifecycleListener listener) {
 		lifecycleListeners.remove(listener);
 	}
 
