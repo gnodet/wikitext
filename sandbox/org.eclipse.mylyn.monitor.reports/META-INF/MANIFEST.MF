@@ -18,8 +18,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.mylyn,
  org.eclipse.mylyn.monitor.core
 Eclipse-AutoStart: true
-Export-Package: org.eclipse.mylyn.internal.monitor.reports,
- org.eclipse.mylyn.internal.monitor.reports.collectors,
- org.eclipse.mylyn.internal.monitor.reports.preferences,
- org.eclipse.mylyn.internal.monitor.reports.ui.actions
+Export-Package: org.eclipse.mylyn.internal.monitor.reports;x-internal:=true,
+ org.eclipse.mylyn.internal.monitor.reports.collectors;x-internal:=true,
+ org.eclipse.mylyn.internal.monitor.reports.preferences;x-internal:=true,
+ org.eclipse.mylyn.internal.monitor.reports.ui.actions;x-internal:=true
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

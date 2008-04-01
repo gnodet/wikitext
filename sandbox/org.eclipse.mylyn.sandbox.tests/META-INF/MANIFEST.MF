@@ -31,3 +31,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.mylyn.monitor.tests
 Eclipse-LazyStart: true
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: org.eclipse.mylyn.sandbox.tests;x-internal:=true

@@ -90,7 +90,7 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 		return queryWizard;
 	}
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings({ "unused", "restriction" })
 	// Leave in case needed other places
 	private boolean ensureHaveValidClient(TaskRepository repository) {
 		boolean haveValidClient = true;

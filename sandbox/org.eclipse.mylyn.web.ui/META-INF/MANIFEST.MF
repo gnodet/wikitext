@@ -17,6 +17,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.mylyn.monitor.core;bundle-version="[3.0.0,4.0.0)",
  org.eclipse.mylyn.monitor.ui;bundle-version="[3.0.0,4.0.0)"
 Eclipse-AutoStart: true
-Export-Package: org.eclipse.mylyn.internal.web.ui
+Export-Package: org.eclipse.mylyn.internal.web.ui;x-internal:=true,
+ org.eclipse.mylyn.internal.web.ui.actions;x-internal:=true
 Bundle-Vendor: Eclipse.org
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

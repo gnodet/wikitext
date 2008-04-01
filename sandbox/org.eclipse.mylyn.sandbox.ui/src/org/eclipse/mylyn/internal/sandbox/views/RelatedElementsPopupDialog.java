@@ -105,6 +105,8 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 
 	private int degree = 2;
 
+	// TODO e3.4 move to new api
+	@SuppressWarnings("deprecation")
 	public RelatedElementsPopupDialog(Shell parent, int shellStyle) {
 		super(parent, shellStyle, true, true, true, true, null, "Context Search");
 		ContextCorePlugin.getContextManager().addListener(REFRESH_UPDATE_LISTENER);
@@ -304,6 +306,8 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 		// See IInformationControlExtension2
 	}
 
+	// TODO e3.4 move to new api
+	@SuppressWarnings("deprecation")
 	public void setLocation(Point location) {
 		/*
 		 * If the location is persisted, it gets managed by PopupDialog - fine. Otherwise, the location is

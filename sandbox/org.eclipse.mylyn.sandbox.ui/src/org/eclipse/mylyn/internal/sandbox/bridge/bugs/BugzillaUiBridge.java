@@ -56,9 +56,13 @@ public class BugzillaUiBridge extends AbstractContextUiBridge {
 			bugHandle = bugHandle.substring(0, next);
 		}
 
-		AbstractTask task = TasksUiPlugin.getTaskListManager().getTaskList().getTask(handle);
+		final AbstractTask task = TasksUiPlugin.getTaskListManager().getTaskList().getTask(handle);
 		if (task != null) {
-			TasksUiUtil.openEditor(task, false);
+			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+				public void run() {
+					TasksUiUtil.openTask(task);
+				}
+			});
 		} else {
 			String bugUrl = BugzillaClient.getBugUrlWithoutLogin(server, "" + bugId);
 			TasksUiUtil.openTask(server, "" + bugId, bugUrl);

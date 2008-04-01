@@ -24,10 +24,10 @@ Require-Bundle: org.eclipse.ui,
 Eclipse-AutoStart: true
 Bundle-Vendor: Eclipse.org
 Export-Package: 
- org.eclipse.mylyn.internal.monitor.usage,
- org.eclipse.mylyn.internal.monitor.usage.collectors,
- org.eclipse.mylyn.internal.monitor.usage.editors,
- org.eclipse.mylyn.internal.monitor.usage.preferences,
- org.eclipse.mylyn.internal.monitor.usage.wizards,
+ org.eclipse.mylyn.internal.monitor.usage;x-internal:=true,
+ org.eclipse.mylyn.internal.monitor.usage.collectors;x-internal:=true,
+ org.eclipse.mylyn.internal.monitor.usage.editors;x-internal:=true,
+ org.eclipse.mylyn.internal.monitor.usage.preferences;x-internal:=true,
+ org.eclipse.mylyn.internal.monitor.usage.wizards;x-internal:=true,
  org.eclipse.mylyn.monitor.usage
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
