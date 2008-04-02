@@ -40,6 +40,10 @@
             class="org.eclipse.mylyn.internal.sandbox.dev.views.RepositorySpyView"
             id="org.eclipse.mylyn.tasks.spy.views.RepositorySpyView">
       </view>
+      <category
+            id="org.eclipse.mylyn.sandbox"
+            name="Mylyn Sandbox">
+      </category>
    </extension>
    <extension
          point="org.eclipse.core.runtime.adapters">
