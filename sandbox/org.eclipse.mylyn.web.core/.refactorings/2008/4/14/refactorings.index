@@ -1,0 +1,10 @@
+1207123273790	Rename type 'WebClientUtil'
+1207123563590	Move members
+1207123697321	Move compilation units
+1207123808280	Move member 'setLoggingEnabled'
+1207123813346	Move member 'setLogStream'
+1207123894125	Move member 'getLogStream'
+1207124482495	Move members
+1207124521291	Rename method 'getDomain'
+1207124665333	Move compilation unit
+1207124747071	Move compilation unit

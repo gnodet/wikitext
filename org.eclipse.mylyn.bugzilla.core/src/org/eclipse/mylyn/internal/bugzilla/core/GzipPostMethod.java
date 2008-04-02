@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.web.core;
+package org.eclipse.mylyn.internal.bugzilla.core;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,11 +14,12 @@ import java.io.InputStream;
 import org.apache.commons.httpclient.HttpConnection;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpState;
-import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.eclipse.mylyn.web.core.WebClientUtil;
 
 /**
- * Use <code>GzipGetMethod</code> instead of {@link GetMethod} to make Mylyn well-behaved when accessing repositories
- * that can supply gzipped responses.<br />
+ * Use <code>GzipPostMethod</code> instead of {@link PostMethod} to make Mylyn well-behaved when accessing
+ * repositories that can supply gzipped responses.<br />
  * <br>
  * References:
  * <ul>
@@ -26,11 +27,11 @@ import org.apache.commons.httpclient.methods.GetMethod;
  * <li><a href="http://www.oreilly.com/catalog/9780596529307/chapter/ch04.pdf">Gzip site comparison</a> </li>
  * </ul>
  * 
- * @see GzipPostMethod, GetMethod
+ * @see GzipGetMethod, PostMethod
  * 
  * @author Maarten Meijer
  */
-public class GzipGetMethod extends GetMethod {
+public class GzipPostMethod extends PostMethod {
 	private final boolean gzipWanted;
 
 	private boolean gzipReceived;
@@ -41,7 +42,7 @@ public class GzipGetMethod extends GetMethod {
 	 * @param gzipWanted
 	 *            is compression desired (for debugging or optionalizing)
 	 */
-	public GzipGetMethod(String requestPath, boolean gzipWanted) {
+	public GzipPostMethod(String requestPath, boolean gzipWanted) {
 		super(requestPath);
 		this.gzipWanted = gzipWanted;
 	}
@@ -88,8 +89,8 @@ public class GzipGetMethod extends GetMethod {
 	}
 
 	/**
-	 * getResponseBodyAsUnzippedStream checks a usable (decoded if necessary) stream. It checks the headers the headers
-	 * and decides accordingly.
+	 * getResponseBodyAsUnzippedStream checks a usable (decoded if necessary) stream. It checks the headers and decides
+	 * accordingly.
 	 * 
 	 * @return a decoded stream to be used as plain stream.
 	 * @throws IOException
@@ -100,7 +101,7 @@ public class GzipGetMethod extends GetMethod {
 			try {
 				return new java.util.zip.GZIPInputStream(input);
 			} catch (IOException e) {
-				// FIXME log this
+				// TODO log this
 			}
 		}
 		return input;
