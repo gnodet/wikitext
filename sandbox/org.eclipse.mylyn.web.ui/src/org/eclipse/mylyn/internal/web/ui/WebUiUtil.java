@@ -75,12 +75,12 @@ public class WebUiUtil {
 		try {
 			ImageDescriptor desc = ImageDescriptor.createFromURL(favUrl);
 			if (desc != null && desc.getImageData() != null) {
-				if ((desc.getImageData().width != 16) && (desc.getImageData().height != 16)) {
+				if (desc.getImageData().width != 16 && desc.getImageData().height != 16) {
 					ImageData data = desc.getImageData().scaledTo(16, 16);
 					return ImageDescriptor.createFromImageData(data);
 				}
 			}
-			return ImageDescriptor.createFromURL(favUrl);
+			return desc;
 		} catch (SWTException e) {
 			return null;
 		}
