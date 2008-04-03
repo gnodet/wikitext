@@ -13,19 +13,27 @@ import java.util.Set;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylyn.internal.context.ui.AbstractContextUiPlugin;
+import org.eclipse.mylyn.context.ui.IContextUiStartup;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.monitor.ui.MonitorUiPlugin;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
-import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
  * @author Mik Kersten
+ * @author Steffen Pingel
  */
-public class WebUiBridgePlugin extends AbstractContextUiPlugin {
+public class WebUiBridgePlugin extends AbstractUIPlugin {
+
+	public static class WebUiBridgeStartup implements IContextUiStartup {
+
+		public void lazyStartup() {
+			WebUiBridgePlugin.getDefault().lazyStart();
+		}
+
+	}
 
 	protected static final String ID = "org.eclipse.mylyn.web";
 
@@ -50,8 +58,7 @@ public class WebUiBridgePlugin extends AbstractContextUiPlugin {
 		super.start(context);
 	}
 
-	@Override
-	protected void lazyStart(IWorkbench workbench) {
+	private void lazyStart() {
 		webResourceManager = new WebContextManager();
 		try {
 			browserTracker = new BrowserTracker();
@@ -68,14 +75,19 @@ public class WebUiBridgePlugin extends AbstractContextUiPlugin {
 		}
 	}
 
-	@Override
-	protected void lazyStop() {
-		MonitorUiPlugin.getDefault().removeWindowPartListener(browserTracker);
-		webResourceManager.dispose();
+	private void lazyStop() {
+		if (browserTracker != null) {
+			MonitorUiPlugin.getDefault().removeWindowPartListener(browserTracker);
+		}
+		if (webResourceManager != null) {
+			webResourceManager.dispose();
+		}
 	}
 
 	@Override
 	public void stop(BundleContext context) throws Exception {
+		lazyStop();
+
 		super.stop(context);
 		INSTANCE = null;
 	}
