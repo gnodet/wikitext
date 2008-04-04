@@ -36,6 +36,7 @@ import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractRenderingEngine;
 import org.eclipse.mylyn.tasks.ui.editors.BrowserFormPage;
+import org.eclipse.mylyn.web.core.AuthenticationType;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.LocationAdapter;
@@ -272,7 +273,8 @@ public class TracWikiPageEditor extends FormEditor {
 					// cancel the comment dialog will cancel the submit
 					if (commentDialog.open() == Window.OK) {
 						page.getPageInfo().setComment(commentDialog.getValue());
-						page.getPageInfo().setAuthor(repository.isAnonymous() ? "anonymous" : repository.getUserName());
+						boolean isAnonymouse = repository.getCredentials(AuthenticationType.REPOSITORY) == null;
+						page.getPageInfo().setAuthor(isAnonymouse ? "anonymous" : repository.getUserName());
 						page.setContent(sourceEditor.getTextWidget().getText());
 
 						submitToRepository();
