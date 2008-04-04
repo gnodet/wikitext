@@ -6,16 +6,12 @@ Bundle-Version: 3.0.0.qualifier
 Bundle-Activator: org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.ui,
- org.eclipse.core.runtime,
- org.eclipse.ui.views,
- org.eclipse.jface.text,
+Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.search,
+ org.eclipse.ui,
  org.eclipse.ui.forms,
- org.eclipse.help,
  org.eclipse.mylyn.xplanner.core;bundle-version="[3.0.0,4.0.0)",
  org.eclipse.mylyn.tasks.ui;bundle-version="[3.0.0,4.0.0)",
- org.eclipse.mylyn.context.core;bundle-version="[3.0.0,4.0.0)",
  org.eclipse.mylyn.tasks.core;bundle-version="[3.0.0,4.0.0)",
  org.eclipse.mylyn.monitor.core;bundle-version="[3.0.0,4.0.0)"
 Eclipse-LazyStart: true
