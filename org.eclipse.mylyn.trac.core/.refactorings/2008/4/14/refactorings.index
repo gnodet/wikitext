@@ -24,3 +24,6 @@
 1207394196109	Change method 'listWikiPageAttachments'
 1207394203551	Change method 'getWikiPageAttachmentData'
 1207394212639	Change method 'putWikiPageAttachmentData'
+1207420392291	Extract local variable 'responseBodyAsStream'
+1207423183659	Rename type 'WebRequest'
+1207423198298	Rename type 'TracWebRequest'
