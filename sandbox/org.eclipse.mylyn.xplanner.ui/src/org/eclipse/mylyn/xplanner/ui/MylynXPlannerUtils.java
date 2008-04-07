@@ -21,7 +21,7 @@ public class MylynXPlannerUtils {
 
 	public static void addNewMyTasksQuery(TaskRepository repository, String name) {
 
-		XPlannerCustomQuery myTasksQuery = new XPlannerCustomQuery(repository.getUrl(), name);
+		XPlannerCustomQuery myTasksQuery = new XPlannerCustomQuery(repository.getRepositoryUrl(), name);
 
 		myTasksQuery.setMyCurrentTasks(true);
 		NewXPlannerQueryWizard.addQuery(myTasksQuery, repository);

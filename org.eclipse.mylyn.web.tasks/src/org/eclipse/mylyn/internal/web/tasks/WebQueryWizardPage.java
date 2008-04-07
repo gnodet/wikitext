@@ -31,6 +31,7 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.ITaskFactory;
@@ -99,7 +100,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		this.repository = repository;
 		this.query = query;
 		setTitle("Create web query");
-		setDescription("Specify query parameters for " + repository.getUrl());
+		setDescription("Specify query parameters for " + repository.getRepositoryUrl());
 	}
 
 	@Override
@@ -114,7 +115,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		String label = repository.getRepositoryLabel();
 		String title = label;
 		Set<AbstractRepositoryQuery> queries = TasksUiPlugin.getTaskListManager().getTaskList().getRepositoryQueries(
-				repository.getUrl());
+				repository.getRepositoryUrl());
 		for (int n = 1; true; n++) {
 			for (AbstractRepositoryQuery query : queries) {
 				if (query.getSummary().equals(title)) {
@@ -333,7 +334,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		String queryUrl = WebRepositoryConnector.evaluateParams(queryUrlTemplate, params, repository);
 
 		return new WebQuery(description, queryUrl, queryUrlTemplate, queryPattern,
-				repository.getProperty(WebRepositoryConnector.PROPERTY_TASK_URL), repository.getUrl(), params);
+				repository.getProperty(WebRepositoryConnector.PROPERTY_TASK_URL), repository.getRepositoryUrl(), params);
 	}
 
 	synchronized void updatePreview() {
@@ -436,7 +437,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 			do {
 				final MultiStatus queryStatus = new MultiStatus(TasksUiPlugin.ID_PLUGIN, IStatus.OK, "Query result",
 						null);
-				final List<AbstractTask> queryHits = new ArrayList<AbstractTask>();
+				final List<RepositoryTaskData> queryHits = new ArrayList<RepositoryTaskData>();
 				try {
 					if (webPage == null) {
 						webPage = WebRepositoryConnector.fetchResource(evaluatedUrl, params, repository);
@@ -450,7 +451,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 					};
 					QueryHitCollector collector = new QueryHitCollector(taskFactory) {
 						@Override
-						public void accept(AbstractTask hit) {
+						public void accept(RepositoryTaskData hit) {
 							queryHits.add(hit);
 						}
 					};
@@ -480,7 +481,15 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 
 				Display.getDefault().asyncExec(new Runnable() {
 					public void run() {
-						updatePreviewTable(queryHits, queryStatus);
+						AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager()
+								.getRepositoryConnector(repository.getConnectorKind());
+						List<AbstractTask> tasks = new ArrayList<AbstractTask>();
+						for (RepositoryTaskData hit : queryHits) {
+							AbstractTask task = connector.createTask(repository.getRepositoryUrl(), hit.getTaskId(), "");
+							connector.updateTaskFromTaskData(repository, task, hit);
+							tasks.add(task);
+						}
+						updatePreviewTable(tasks, queryStatus);
 					}
 				});
 			} while (!currentRegexp.equals(currentRegexp) && !monitor.isCanceled());

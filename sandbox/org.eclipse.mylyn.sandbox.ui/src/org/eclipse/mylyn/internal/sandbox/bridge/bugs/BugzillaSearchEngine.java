@@ -123,7 +123,7 @@ public class BugzillaSearchEngine {
 				throw new OperationCanceledException("Search cancelled");
 			}
 
-			BugzillaRepositoryQuery query = new BugzillaRepositoryQuery(repository.getUrl(), urlString, "summary");
+			BugzillaRepositoryQuery query = new BugzillaRepositoryQuery(repository.getRepositoryUrl(), urlString, "summary");
 
 			BugzillaRepositoryConnector bugzillaConnector = (BugzillaRepositoryConnector) TasksUiPlugin.getRepositoryManager()
 					.getRepositoryConnector(BugzillaCorePlugin.REPOSITORY_KIND);
@@ -132,7 +132,7 @@ public class BugzillaSearchEngine {
 			client.getSearchHits(query, collector);
 		} catch (CoreException e) {
 			status = new MultiStatus(BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR,
-					"Core Exception occurred while querying Bugzilla Server " + repository.getUrl() + ".\n"
+					"Core Exception occurred while querying Bugzilla Server " + repository.getRepositoryUrl() + ".\n"
 							+ "\nClick Details for more information.", e);
 			((MultiStatus) status).add(e.getStatus());
 
@@ -160,7 +160,7 @@ public class BugzillaSearchEngine {
 				}
 			});
 			status = new MultiStatus(BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR,
-					"Unrecognized response from Bugzilla server " + repository.getUrl(), e);
+					"Unrecognized response from Bugzilla server " + repository.getRepositoryUrl(), e);
 
 			IStatus s = new Status(IStatus.ERROR, BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR, e.getClass().toString()
 					+ ":  ", e);
@@ -170,7 +170,7 @@ public class BugzillaSearchEngine {
 
 		} catch (Exception e) {
 			status = new MultiStatus(BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR,
-					"An error occurred while querying Bugzilla Server " + repository.getUrl() + ".\n"
+					"An error occurred while querying Bugzilla Server " + repository.getRepositoryUrl() + ".\n"
 							+ "\nCheck network connection and repository configuration in "
 							+ TasksUiPlugin.LABEL_VIEW_REPOSITORIES + ".", e);
 
@@ -198,7 +198,7 @@ public class BugzillaSearchEngine {
 		// login, we assume it was a bad login
 		if (numCollected == 0 && possibleBadLogin) {
 			throw new LoginException(IBugzillaConstants.MESSAGE_LOGIN_FAILURE + " for repository: "
-					+ repository.getUrl() + " username: " + repository.getUserName());
+					+ repository.getRepositoryUrl() + " username: " + repository.getUserName());
 		}
 
 		if (status == null) {

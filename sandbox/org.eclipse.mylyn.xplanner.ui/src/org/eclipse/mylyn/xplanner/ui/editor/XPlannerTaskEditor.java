@@ -148,7 +148,7 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor implements 
 
 	public String getFormTitle() {
 		return MessageFormat.format(Messages.XPlannerTaskEditor_FORM_TASK_TITLE,
-				XPlannerRepositoryUtils.getName(getRepositoryTaskData()), getRepositoryTaskData().getId() + ""); // so doesn't get formatted as number with a comma	 //$NON-NLS-1$
+				XPlannerRepositoryUtils.getName(getRepositoryTaskData()), getRepositoryTaskData().getTaskId() + ""); // so doesn't get formatted as number with a comma	 //$NON-NLS-1$
 	}
 
 	@Override

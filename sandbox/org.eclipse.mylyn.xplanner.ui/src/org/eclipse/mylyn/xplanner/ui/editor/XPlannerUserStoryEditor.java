@@ -108,7 +108,7 @@ public class XPlannerUserStoryEditor extends FormPage {
 				taskData.getRepositoryUrl());
 		try {
 			client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
-			String id = taskData.getId();
+			String id = taskData.getTaskId();
 			if (id == null || id.trim().equals("")) { //$NON-NLS-1$
 				StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
 						Messages.XPlannerTaskEditor_NO_TASK_KEY_EXCEPTION));

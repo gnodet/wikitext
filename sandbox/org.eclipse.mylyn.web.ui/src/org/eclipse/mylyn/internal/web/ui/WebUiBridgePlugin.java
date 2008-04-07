@@ -65,7 +65,7 @@ public class WebUiBridgePlugin extends AbstractUIPlugin {
 			MonitorUiPlugin.getDefault().addWindowPartListener(browserTracker);
 
 			for (TaskRepository repository : TasksUiPlugin.getRepositoryManager().getAllRepositories()) {
-				String url = repository.getUrl();
+				String url = repository.getRepositoryUrl();
 				if (url != null) {
 					excludedUrls.add(url);
 				}

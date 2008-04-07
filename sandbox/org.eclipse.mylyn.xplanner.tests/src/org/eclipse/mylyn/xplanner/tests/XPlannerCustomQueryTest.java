@@ -83,7 +83,7 @@ public class XPlannerCustomQueryTest extends TestCase {
 
 		TaskFactory taskFactory = new TaskFactory(repository, false, false);
 		SearchHitCollector collector = new SearchHitCollector(taskList, repository, query, taskFactory);
-		connector.performQuery(query, repository, new NullProgressMonitor(), collector);
+		connector.performQuery(repository, query, collector, null, new NullProgressMonitor());
 
 		Set<AbstractTask> hits = collector.getTasks();
 		return hits;

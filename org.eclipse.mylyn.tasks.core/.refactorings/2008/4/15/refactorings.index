@@ -1,2 +1,5 @@
 1207601851860	Rename method 'getTaskId'
 1207605175878	Rename field 'complete'
+1207608833210	Rename method 'getUrl'
+1207608852755	Rename method 'setUrl'
+1207608894954	Rename method 'getId'

@@ -99,7 +99,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		testTask.setCompleted(true);
 		client.update(testTask);
 
-		xplannerConnector.updateTaskDetails(repository.getUrl(), repositoryTask, testTask, false);
+		xplannerConnector.updateTaskDetails(repository.getRepositoryUrl(), repositoryTask, testTask, false);
 		assertTrue(repositoryTask.isCompleted());
 
 		//restore testTask's completion state
@@ -116,18 +116,18 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		XPlannerRepositoryConnector xplannerConnector = (XPlannerRepositoryConnector) connector;
 
 		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getRepositoryTasks(
-				repository.getUrl());
+				repository.getRepositoryUrl());
 		setSyncTimeStamp(repository, tasks);
 
-		String goodUrl = repository.getUrl();
+		String goodUrl = repository.getRepositoryUrl();
 		boolean stale = false;
 		try {
-			repository.setUrl("http://localhost");
+			repository.setRepositoryUrl("http://localhost");
 			stale = xplannerConnector.markStaleTasks(repository, tasks, new NullProgressMonitor());
 		} catch (CoreException e) {
 			assertTrue(e.getMessage() != null && e.getMessage().contains("Connection error"));
 		} finally {
-			repository.setUrl(goodUrl);
+			repository.setRepositoryUrl(goodUrl);
 		}
 
 		assertTrue(!stale);
@@ -164,11 +164,11 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 
 		// make bad url
 		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getRepositoryTasks(
-				repository.getUrl());
+				repository.getRepositoryUrl());
 		setSyncTimeStamp(repository, tasks);
 
-		String goodUrl = repository.getUrl();
-		repository.setUrl("http://localhost");
+		String goodUrl = repository.getRepositoryUrl();
+		repository.setRepositoryUrl("http://localhost");
 		try {
 			Set<AbstractTask> changedTasks = xplannerConnector.getChangedSinceLastSync(repository, tasks);
 			assertTrue(changedTasks != null);
@@ -176,7 +176,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		} catch (CoreException e) {
 			assertTrue(e.getMessage() != null && e.getMessage().contains("Connection error"));
 		} finally {
-			repository.setUrl(goodUrl);
+			repository.setRepositoryUrl(goodUrl);
 		}
 	}
 }

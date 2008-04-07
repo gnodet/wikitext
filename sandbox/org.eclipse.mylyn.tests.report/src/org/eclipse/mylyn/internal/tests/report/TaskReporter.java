@@ -25,7 +25,6 @@ import org.eclipse.mylyn.tasks.core.AbstractAttributeFactory;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskDataHandler;
-import org.eclipse.mylyn.tasks.core.ITaskCollector;
 import org.eclipse.mylyn.tasks.core.ITaskFactory;
 import org.eclipse.mylyn.tasks.core.QueryHitCollector;
 import org.eclipse.mylyn.tasks.core.RepositoryOperation;
@@ -73,11 +72,11 @@ class TaskReporter implements TestCaseVisitor {
 	}
 
 	private RepositoryTaskData createTaskData(TestCase testCase) throws CoreException {
-		AbstractAttributeFactory attributeFactory = taskDataHandler.getAttributeFactory(repository.getUrl(),
+		AbstractAttributeFactory attributeFactory = taskDataHandler.getAttributeFactory(repository.getRepositoryUrl(),
 				repository.getConnectorKind(), AbstractTask.DEFAULT_TASK_KIND);
 
 		RepositoryTaskData taskData = new RepositoryTaskData(attributeFactory, repository.getConnectorKind(),
-				repository.getUrl(), "0");
+				repository.getRepositoryUrl(), "0");
 		taskData.setNew(true);
 		taskDataHandler.initializeTaskData(repository, taskData, new NullProgressMonitor());
 		taskData.setSummary(getTaskSummary(testCase));
@@ -91,7 +90,7 @@ class TaskReporter implements TestCaseVisitor {
 		search.addFilter("description", getTaskDescription(testCase));
 
 		StringBuilder sb = new StringBuilder();
-		sb.append(repository.getUrl());
+		sb.append(repository.getRepositoryUrl());
 		sb.append(ITracClient.QUERY_URL);
 		sb.append(search.toUrl());
 		return sb.toString();
@@ -216,13 +215,13 @@ class TaskReporter implements TestCaseVisitor {
 		//
 		message("Processing: " + testCase.getClassName() + "#" + testCase.getTestName());
 		String queryUrl = getQueryUrl(testCase);
-		AbstractRepositoryQuery query = new TracRepositoryQuery(repository.getUrl(), queryUrl, "");
-		ITaskCollector resultCollector = new QueryHitCollector(new ITaskFactory() {
+		AbstractRepositoryQuery query = new TracRepositoryQuery(repository.getRepositoryUrl(), queryUrl, "");
+		QueryHitCollector resultCollector = new QueryHitCollector(new ITaskFactory() {
 			public AbstractTask createTask(RepositoryTaskData taskData, IProgressMonitor monitor) throws CoreException {
 				throw new UnsupportedOperationException();
 			}
 		});
-		IStatus status = connector.performQuery(query, repository, new NullProgressMonitor(), resultCollector);
+		IStatus status = connector.performQuery(repository, query, resultCollector, null, new NullProgressMonitor());
 		if (status.isOK()) {
 			try {
 				handleResults(testCase, resultCollector.getTasks());

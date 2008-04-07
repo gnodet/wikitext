@@ -87,7 +87,7 @@ public class BugzillaReferencesProvider extends AbstractRelationProvider {
 
 		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepositoryForActiveTask(
 				BugzillaCorePlugin.REPOSITORY_KIND, TasksUiPlugin.getTaskListManager().getTaskList());
-		return new BugzillaMylynSearch(degreeOfSepatation, javaElement, repository.getUrl());
+		return new BugzillaMylynSearch(degreeOfSepatation, javaElement, repository.getRepositoryUrl());
 	}
 
 	private void runJob(final IInteractionElement node, final int degreeOfSeparation) {

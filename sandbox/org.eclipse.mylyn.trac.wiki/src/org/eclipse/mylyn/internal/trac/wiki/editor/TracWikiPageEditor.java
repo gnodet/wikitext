@@ -294,7 +294,7 @@ public class TracWikiPageEditor extends FormEditor {
 			if (submitButton != null && !submitButton.isDisposed()) {
 				submitButton.setEnabled(enabled);
 				if (enabled) {
-					submitButton.setToolTipText("Submit to " + repository.getUrl());
+					submitButton.setToolTipText("Submit to " + repository.getRepositoryUrl());
 				}
 			}
 		}

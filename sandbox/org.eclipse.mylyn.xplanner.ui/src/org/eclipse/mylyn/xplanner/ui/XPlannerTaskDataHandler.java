@@ -123,7 +123,7 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 					}
 					newTaskId = "" + taskData.getId();
 				} else {
-					taskData = client.getTask(Integer.valueOf(repositoryTaskData.getId()).intValue());
+					taskData = client.getTask(Integer.valueOf(repositoryTaskData.getTaskId()).intValue());
 				}
 
 				if (taskData != null) {
@@ -154,7 +154,7 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 					client.update(taskData);
 				} else {
 					// otherwise check if a user story exists
-					UserStoryData userStory = client.getUserStory(Integer.valueOf(repositoryTaskData.getId())
+					UserStoryData userStory = client.getUserStory(Integer.valueOf(repositoryTaskData.getTaskId())
 							.intValue());
 					if (userStory != null) {
 						userStory.setName(repositoryTaskData.getSummary());

@@ -118,7 +118,7 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 
 			testTaskData.setActualHours(actTime);
 			RepositoryTaskData testRepositoryTaskData = XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(
-					repository.getUrl(), testTaskData, repositoryTask.getTaskId());
+					repository.getRepositoryUrl(), testTaskData, repositoryTask.getTaskId());
 
 			String returnValue = connector.getTaskDataHandler().postTaskData(taskRepository, testRepositoryTaskData,
 					null);

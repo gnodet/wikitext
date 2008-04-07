@@ -98,7 +98,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 
 		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
 				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryUrl);
-		String handleIdentifier = RepositoryTaskHandleUtil.getHandle(repository.getUrl(), id);
+		String handleIdentifier = RepositoryTaskHandleUtil.getHandle(repository.getRepositoryUrl(), id);
 		AbstractTask existingTask = TasksUiPlugin.getTaskListManager().getTaskList().getTask(handleIdentifier);
 
 		if (existingTask instanceof XPlannerTask) {
@@ -117,7 +117,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	private AbstractTask createTask(TaskRepository repository, String key) throws CoreException {
 		XPlannerTask task = null;
 
-		XPlannerRepositoryUtils.checkRepositoryValidated(repository.getUrl());
+		XPlannerRepositoryUtils.checkRepositoryValidated(repository.getRepositoryUrl());
 		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 		if (client != null) {
 			try {
@@ -267,9 +267,9 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 
 		for (TaskData data : tasks) {
 			String id = String.valueOf(data.getId());
-			AbstractTask task = TasksUiPlugin.getTaskListManager().getTaskList().getTask(repository.getUrl(), id);
+			AbstractTask task = TasksUiPlugin.getTaskListManager().getTaskList().getTask(repository.getRepositoryUrl(), id);
 			if (task != null) {
-				updateTaskDetails(repository.getUrl(), (XPlannerTask) task, data, false);
+				updateTaskDetails(repository.getRepositoryUrl(), (XPlannerTask) task, data, false);
 			}
 
 //			try {
@@ -334,12 +334,12 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 				try {
 					xplannerTaskData = client.getTask(Integer.valueOf(xPlannerTask.getTaskId()).intValue());
 					if (xplannerTaskData != null) {
-						updateTaskDetails(repository.getUrl(), xPlannerTask, xplannerTaskData, true);
+						updateTaskDetails(repository.getRepositoryUrl(), xPlannerTask, xplannerTaskData, true);
 					} else {
 						UserStoryData userStoryData;
 						userStoryData = client.getUserStory(Integer.valueOf(xPlannerTask.getTaskId()).intValue());
 						if (userStoryData != null) {
-							updateTaskDetails(repository.getUrl(), xPlannerTask, userStoryData, true);
+							updateTaskDetails(repository.getRepositoryUrl(), xPlannerTask, userStoryData, true);
 						}
 					}
 				} catch (Exception e) {
@@ -356,7 +356,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 
 		if (taskData != null) {
 			XPlannerTask xplannerTask = (XPlannerTask) repositoryTask;
-			String url = repository.getUrl() + XPlannerMylynUIPlugin.TASK_URL_PREFIX + taskData.getId();
+			String url = repository.getRepositoryUrl() + XPlannerMylynUIPlugin.TASK_URL_PREFIX + taskData.getTaskId();
 			xplannerTask.setUrl(url);
 			xplannerTask.setSummary(taskData.getSummary());
 			xplannerTask.setOwner(taskData.getAssignedTo());
@@ -445,11 +445,11 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 
 		XPlannerTask task;
 
-		AbstractTask existingTask = TasksUiPlugin.getTaskListManager().getTaskList().getTask(repository.getUrl(), id);
+		AbstractTask existingTask = TasksUiPlugin.getTaskListManager().getTaskList().getTask(repository.getRepositoryUrl(), id);
 		if (existingTask instanceof XPlannerTask) {
 			task = (XPlannerTask) existingTask;
 		} else {
-			task = new XPlannerTask(repository.getUrl(), id, name);
+			task = new XPlannerTask(repository.getRepositoryUrl(), id, name);
 			task.setKind(data);
 //HeB -- testing			
 //			TasksUiPlugin.getTaskListManager().getTaskList().addTask(task);

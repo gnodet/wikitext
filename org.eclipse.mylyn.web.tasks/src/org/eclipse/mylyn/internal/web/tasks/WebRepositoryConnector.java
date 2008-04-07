@@ -134,7 +134,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		if (REPOSITORY_TYPE.equals(repository.getConnectorKind())) {
 			String taskPrefix = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
 
-			final WebTask task = new WebTask(id, id, taskPrefix, repository.getUrl(), REPOSITORY_TYPE);
+			final WebTask task = new WebTask(id, id, taskPrefix, repository.getRepositoryUrl(), REPOSITORY_TYPE);
 
 			RetrieveTitleFromUrlJob job = new RetrieveTitleFromUrlJob(taskPrefix + id) {
 				@Override
@@ -162,7 +162,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		for (TaskRepository repository : repositoryManager.getRepositories(getConnectorKind())) {
 			String taskUrl = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
 			if (taskUrl != null && !taskUrl.equals("") && url.startsWith(taskUrl)) {
-				return repository.getUrl();
+				return repository.getRepositoryUrl();
 			}
 		}
 
@@ -304,7 +304,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 //						resultCollector.accept(new WebTask(id, description, taskPrefix, repository.getUrl(),
 //								REPOSITORY_TYPE));
 
-						RepositoryTaskData data = createTaskData(repository.getUrl(), id);
+						RepositoryTaskData data = createTaskData(repository.getRepositoryUrl(), id);
 						DefaultTaskSchema schema = new DefaultTaskSchema(data);
 						schema.setTaskUrl(taskPrefix + id);
 						schema.setSummary(description);
@@ -328,7 +328,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 						type = unescapeHtml(type);
 //						w.setTaskKind(type);
 
-						RepositoryTaskData data = createTaskData(repository.getUrl(), id);
+						RepositoryTaskData data = createTaskData(repository.getRepositoryUrl(), id);
 						DefaultTaskSchema schema = new DefaultTaskSchema(data);
 						schema.setTaskUrl(taskPrefix + id);
 						schema.setSummary(description);
@@ -439,7 +439,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 //						"", repository.getUrl(), REPOSITORY_TYPE);
 //				webTask.setCreationDate(date);
 //				webTask.setOwner(author);
-				RepositoryTaskData data = createTaskData(repository.getUrl(), entryUri.replaceAll("-", "%2D"));
+				RepositoryTaskData data = createTaskData(repository.getRepositoryUrl(), entryUri.replaceAll("-", "%2D"));
 				DefaultTaskSchema schema = new DefaultTaskSchema(data);
 				schema.setSummary(((date == null ? "" : df.format(date) + " - ") + entrTitle));
 				schema.setCreationDate(date);
@@ -624,7 +624,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	private static Map<String, String> getParams(TaskRepository repository, Map<String, String> params) {
 		Map<String, String> mergedParams = new LinkedHashMap<String, String>(repository.getProperties());
-		mergedParams.put(PARAM_SERVER_URL, repository.getUrl());
+		mergedParams.put(PARAM_SERVER_URL, repository.getRepositoryUrl());
 		mergedParams.put(PARAM_USER_ID, repository.getUserName());
 		mergedParams.put(PARAM_PASSWORD, repository.getPassword());
 		if (params != null) {

@@ -606,7 +606,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 	@Override
 	public AbstractRepositoryQuery getQuery() {
 		if (getExistingQuery() == null) {
-			setExistingQuery(new XPlannerCustomQuery(getRepository().getUrl(), getNameText()));
+			setExistingQuery(new XPlannerCustomQuery(getRepository().getRepositoryUrl(), getNameText()));
 		}
 
 		applyChanges(getExistingQuery());
@@ -624,7 +624,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		if (isContentTypeTask()) {
 			// if don't have existing query, create one
 			if (getExistingQuery() == null) {
-				setExistingQuery(new XPlannerCustomQuery(getRepository().getUrl(), getNameText()));
+				setExistingQuery(new XPlannerCustomQuery(getRepository().getRepositoryUrl(), getNameText()));
 			}
 
 			applyChanges(getExistingQuery());
@@ -688,7 +688,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 					queryName += nameSuffix;
 				}
 
-				XPlannerCustomQuery query = new XPlannerCustomQuery(getRepository().getUrl(), queryName);
+				XPlannerCustomQuery query = new XPlannerCustomQuery(getRepository().getRepositoryUrl(), queryName);
 
 				applyChanges(query);
 				query.setQueryName(queryName);

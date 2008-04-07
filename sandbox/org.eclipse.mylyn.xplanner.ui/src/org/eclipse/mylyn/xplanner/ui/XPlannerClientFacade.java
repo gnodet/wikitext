@@ -50,20 +50,20 @@ public class XPlannerClientFacade implements ITaskRepositoryListener {
 	 */
 	public XPlannerClient getXPlannerClient(TaskRepository repository) throws CoreException {
 		try {
-			XPlannerRepositoryUtils.checkRepositoryValidated(repository.getUrl());
+			XPlannerRepositoryUtils.checkRepositoryValidated(repository.getRepositoryUrl());
 			String serverHostname = getServerHost(repository);
 			XPlannerClient client = clientManager.getClient(serverHostname);
 //TODO: add this check back once the listeners for client property change are hooked up
 // Also handle the case when serviceDelegate in the cachedClient is null
 
 //			if (client == null) {
-			client = clientManager.createClient(serverHostname, repository.getUrl(), false, repository.getUserName(),
+			client = clientManager.createClient(serverHostname, repository.getRepositoryUrl(), false, repository.getUserName(),
 					repository.getPassword(), false, repository.getProxy(), repository.getHttpUser(),
 					repository.getHttpPassword());
 			clientManager.addClient(client);
 //			}
 			if (client == null) {
-				throw new ServiceUnavailableException(serverHostname + " " + repository.getUrl()); //$NON-NLS-1$
+				throw new ServiceUnavailableException(serverHostname + " " + repository.getRepositoryUrl()); //$NON-NLS-1$
 			}
 			return client;
 		} catch (CoreException ce) {
@@ -120,7 +120,7 @@ public class XPlannerClientFacade implements ITaskRepositoryListener {
 			String serverHostname = getServerHost(repository);
 			XPlannerClient client = clientManager.getClient(serverHostname);
 			removeClient(client);
-			XPlannerRepositoryUtils.removeValidatedRepositoryUrl(repository.getUrl());
+			XPlannerRepositoryUtils.removeValidatedRepositoryUrl(repository.getRepositoryUrl());
 		}
 	}
 
@@ -179,9 +179,9 @@ public class XPlannerClientFacade implements ITaskRepositoryListener {
 
 	private static String getServerHost(TaskRepository repository) {
 		try {
-			return new URL(repository.getUrl()).getHost();
+			return new URL(repository.getRepositoryUrl()).getHost();
 		} catch (MalformedURLException ex) {
-			throw new RuntimeException(Messages.XPlannerClientFacade_INVALID_URL_EXCEPTION + repository.getUrl(), ex);
+			throw new RuntimeException(Messages.XPlannerClientFacade_INVALID_URL_EXCEPTION + repository.getRepositoryUrl(), ex);
 		}
 	}
 
