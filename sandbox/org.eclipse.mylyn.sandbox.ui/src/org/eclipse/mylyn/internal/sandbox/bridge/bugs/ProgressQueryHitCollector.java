@@ -17,12 +17,12 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.ITaskCollector;
+import org.eclipse.mylyn.tasks.core.AbstractTaskCollector;
 import org.eclipse.mylyn.tasks.core.ITaskFactory;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskList;
 
-public class ProgressQueryHitCollector implements ITaskCollector {
+public class ProgressQueryHitCollector extends AbstractTaskCollector {
 
 	public static final int MAX_HITS = 5000;
 
@@ -63,28 +63,29 @@ public class ProgressQueryHitCollector implements ITaskCollector {
 		monitor.setTaskName(STARTING);
 	}
 
-	public void accept(AbstractTask task) {
+//	public void accept(AbstractTask task) {
+//
+//		if (!getProgressMonitor().isCanceled()) {
+//			getProgressMonitor().subTask(getFormattedMatchesString(matchCount));
+//			getProgressMonitor().worked(1);
+//		}
+//
+//		if (task == null) {
+//			return;
+//		}
+//
+//		AbstractTask hitTask = taskList.getTask(task.getHandleIdentifier());
+//		if (hitTask == null) {
+//			hitTask = task;
+//			// task is new, add to tasklist
+//			taskList.addTask(hitTask);
+//		}
+//		taskResults.add(hitTask);
+//		matchCount++;
+//	}
 
-		if (!getProgressMonitor().isCanceled()) {
-			getProgressMonitor().subTask(getFormattedMatchesString(matchCount));
-			getProgressMonitor().worked(1);
-		}
-
-		if (task == null) {
-			return;
-		}
-
-		AbstractTask hitTask = taskList.getTask(task.getHandleIdentifier());
-		if (hitTask == null) {
-			hitTask = task;
-			// task is new, add to tasklist
-			taskList.addTask(hitTask);
-		}
-		taskResults.add(hitTask);
-		matchCount++;
-	}
-
-	public void accept(RepositoryTaskData taskData) throws CoreException {
+	@Override
+	public void accept(RepositoryTaskData taskData) {
 		if (taskData == null) {
 			return;
 		}
@@ -94,9 +95,15 @@ public class ProgressQueryHitCollector implements ITaskCollector {
 			getProgressMonitor().worked(1);
 		}
 
-		AbstractTask task = taskFactory.createTask(taskData, new SubProgressMonitor(monitor, 1));
-		taskResults.add(task);
-		matchCount++;
+		AbstractTask task;
+		try {
+			task = taskFactory.createTask(taskData, new SubProgressMonitor(monitor, 1));
+			taskResults.add(task);
+			matchCount++;
+		} catch (CoreException e) {
+			// FIXME
+			e.printStackTrace();
+		}
 	}
 
 	public void done() {

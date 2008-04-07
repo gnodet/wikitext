@@ -235,7 +235,8 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 //					// make a search hit from the bug and then add it to the collector
 //					BugzillaQueryHit hit = new BugzillaQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), bugTaskData.getDescription(), "", bugTaskData.getRepositoryUrl(), bugTaskData.getId(), null, "");
 //					BugzillaTask task = new BugzillaTask();
-					searchCollector.accept(bugTask);
+					// FIXME
+					//					searchCollector.accept(bugTask);
 				}
 			}
 		}

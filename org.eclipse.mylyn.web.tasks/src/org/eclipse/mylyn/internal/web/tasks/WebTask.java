@@ -19,7 +19,7 @@ public class WebTask extends AbstractTask {
 
 	private static final String UNKNOWN_OWNER = "<unknown>";
 
-	private final String taskPrefix;
+	private String taskPrefix;
 
 	public WebTask(String id, String label, String taskPrefix, String repositoryUrl, String repsitoryType) {
 		super(repositoryUrl, id, label);
@@ -59,6 +59,10 @@ public class WebTask extends AbstractTask {
 	@Override
 	public boolean isLocal() {
 		return true;
+	}
+
+	public void setTaskPrefix(String taskPrefix) {
+		this.taskPrefix = taskPrefix;
 	}
 
 }

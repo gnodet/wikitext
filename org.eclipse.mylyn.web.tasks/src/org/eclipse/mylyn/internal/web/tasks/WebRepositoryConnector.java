@@ -20,7 +20,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,9 +41,12 @@ import org.eclipse.mylyn.tasks.core.AbstractAttachmentHandler;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.AbstractTaskCollector;
 import org.eclipse.mylyn.tasks.core.AbstractTaskDataHandler;
-import org.eclipse.mylyn.tasks.core.ITaskCollector;
+import org.eclipse.mylyn.tasks.core.DefaultTaskSchema;
+import org.eclipse.mylyn.tasks.core.IdentityAttributeFactory;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
+import org.eclipse.mylyn.tasks.core.SynchronizationEvent;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.TaskRepositoryManager;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
@@ -98,6 +100,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	public static final String REQUEST_GET = "GET";
 
 	private static final String COMPLETED_STATUSES = "completed|fixed|resolved|invalid|verified|deleted|closed|done";
+
+	private static final String KEY_TASK_PREFIX = "taskPrefix";
 
 	@Override
 	public String getConnectorKind() {
@@ -207,8 +211,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public IStatus performQuery(AbstractRepositoryQuery query, TaskRepository repository, IProgressMonitor monitor,
-			ITaskCollector resultCollector) {
+	public IStatus performQuery(TaskRepository repository, AbstractRepositoryQuery query,
+			AbstractTaskCollector resultCollector, SynchronizationEvent event, IProgressMonitor monitor) {
 		if (query instanceof WebQuery) {
 			WebQuery webQuery = (WebQuery) query;
 			Map<String, String> queryParameters = webQuery.getQueryParameters();
@@ -234,11 +238,10 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public boolean markStaleTasks(TaskRepository repository, Set<AbstractTask> tasks, IProgressMonitor monitor) {
-		for (AbstractTask task : tasks) {
+	public void preSynchronization(SynchronizationEvent event, IProgressMonitor monitor) throws CoreException {
+		for (AbstractTask task : event.tasks) {
 			task.setStale(true);
 		}
-		return true;
 	}
 
 	@Override
@@ -265,19 +268,20 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	@Override
 	public AbstractTask createTask(String repositoryUrl, String id, String summary) {
-		return null;
+		return new WebTask(id, summary, "", repositoryUrl, WebRepositoryConnector.REPOSITORY_TYPE);
 	}
 
 	@Override
-	public void updateTaskFromTaskData(TaskRepository repository, AbstractTask repositoryTask,
-			RepositoryTaskData taskData) {
-		// ignore
+	public boolean updateTaskFromTaskData(TaskRepository repository, AbstractTask task, RepositoryTaskData taskData) {
+		DefaultTaskSchema schema = new DefaultTaskSchema(taskData);
+		((WebTask) task).setTaskPrefix(schema.getValue(KEY_TASK_PREFIX));
+		return schema.applyTo(task);
 	}
 
 	// utility methods
 
 	public static IStatus performQuery(String resource, String regexp, String taskPrefix, IProgressMonitor monitor,
-			ITaskCollector resultCollector, TaskRepository repository) {
+			AbstractTaskCollector resultCollector, TaskRepository repository) {
 		NamedPattern p = new NamedPattern(regexp, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL
 				| Pattern.UNICODE_CASE | Pattern.CANON_EQ);
 
@@ -297,8 +301,15 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 						String id = matcher.group(1);
 						String description = matcher.groupCount() > 1 ? cleanup(matcher.group(2), repository) : null;
 						description = unescapeHtml(description);
-						resultCollector.accept(new WebTask(id, description, taskPrefix, repository.getUrl(),
-								REPOSITORY_TYPE));
+//						resultCollector.accept(new WebTask(id, description, taskPrefix, repository.getUrl(),
+//								REPOSITORY_TYPE));
+
+						RepositoryTaskData data = createTaskData(repository.getUrl(), id);
+						DefaultTaskSchema schema = new DefaultTaskSchema(data);
+						schema.setTaskUrl(taskPrefix + id);
+						schema.setSummary(description);
+						schema.setValue(KEY_TASK_PREFIX, taskPrefix);
+						resultCollector.accept(data);
 					}
 				} else {
 					String id = p.group("Id", matcher);
@@ -308,21 +319,30 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 					}
 					if (id != null) {
 						description = unescapeHtml(description);
-						WebTask w = new WebTask(id, description, taskPrefix, repository.getUrl(), REPOSITORY_TYPE);
+//						WebTask w = new WebTask(id, description, taskPrefix, repository.getUrl(), REPOSITORY_TYPE);
 
 						String owner = cleanup(p.group("Owner", matcher), repository);
 						owner = unescapeHtml(owner);
-						w.setOwner(owner);
+//						w.setOwner(owner);
 						String type = cleanup(p.group("Type", matcher), repository);
 						type = unescapeHtml(type);
-						w.setTaskKind(type);
+//						w.setTaskKind(type);
+
+						RepositoryTaskData data = createTaskData(repository.getUrl(), id);
+						DefaultTaskSchema schema = new DefaultTaskSchema(data);
+						schema.setTaskUrl(taskPrefix + id);
+						schema.setSummary(description);
+						schema.setValue(KEY_TASK_PREFIX, taskPrefix);
+						schema.setOwner(owner);
+						schema.setTaskKind(type);
 
 						String status = p.group("Status", matcher);
 						if (status != null) {
-							w.setCompleted(COMPLETED_STATUSES.contains(status.toLowerCase()));
+//							w.setCompleted(COMPLETED_STATUSES.contains(status.toLowerCase()));
+							schema.setCompleted(COMPLETED_STATUSES.contains(status.toLowerCase()));
 						}
 
-						resultCollector.accept(w);
+						resultCollector.accept(data);
 					}
 				}
 
@@ -335,6 +355,13 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 						"Require two matching groups (taskId and summary). Check query regexp", null);
 			}
 		}
+	}
+
+	private static RepositoryTaskData createTaskData(String repositoryUrl, String id) {
+		RepositoryTaskData data = new RepositoryTaskData(IdentityAttributeFactory.getInstance(),
+				WebRepositoryConnector.REPOSITORY_TYPE, repositoryUrl, id);
+		data.setPartial(true);
+		return data;
 	}
 
 	private static String unescapeHtml(String text) {
@@ -372,8 +399,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return sb.toString();
 	}
 
-	public static IStatus performRssQuery(String queryUrl, IProgressMonitor monitor, ITaskCollector resultCollector,
-			TaskRepository repository) {
+	public static IStatus performRssQuery(String queryUrl, IProgressMonitor monitor,
+			AbstractTaskCollector resultCollector, TaskRepository repository) {
 		SyndFeedInput input = new SyndFeedInput();
 		try {
 			SyndFeed feed = input.build(new XmlReader(new URL(queryUrl)));
@@ -407,13 +434,17 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 				String entrTitle = entry.getTitle();
 
-				WebTask webTask = new WebTask(entryUri.replaceAll("-", "%2D"), //
-						(date == null ? "" : df.format(date) + " - ") + entrTitle, //
-						"", repository.getUrl(), REPOSITORY_TYPE);
-				webTask.setCreationDate(date);
-				webTask.setOwner(author);
-
-				resultCollector.accept(webTask);
+//				WebTask webTask = new WebTask(entryUri.replaceAll("-", "%2D"), //
+//						(date == null ? "" : df.format(date) + " - ") + entrTitle, //
+//						"", repository.getUrl(), REPOSITORY_TYPE);
+//				webTask.setCreationDate(date);
+//				webTask.setOwner(author);
+				RepositoryTaskData data = createTaskData(repository.getUrl(), entryUri.replaceAll("-", "%2D"));
+				DefaultTaskSchema schema = new DefaultTaskSchema(data);
+				schema.setSummary(((date == null ? "" : df.format(date) + " - ") + entrTitle));
+				schema.setCreationDate(date);
+				schema.setOwner(author);
+				resultCollector.accept(data);
 			}
 			return Status.OK_STATUS;
 		} catch (Exception ex) {

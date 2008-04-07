@@ -28,10 +28,11 @@ import org.eclipse.mylyn.tasks.core.AbstractAttachmentHandler;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.AbstractTaskCollector;
 import org.eclipse.mylyn.tasks.core.AbstractTaskDataHandler;
-import org.eclipse.mylyn.tasks.core.ITaskCollector;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
+import org.eclipse.mylyn.tasks.core.SynchronizationEvent;
 import org.eclipse.mylyn.tasks.core.TaskList;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
@@ -140,8 +141,8 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public IStatus performQuery(AbstractRepositoryQuery repositoryQuery, TaskRepository repository,
-			IProgressMonitor monitor, ITaskCollector resultCollector) {
+	public IStatus performQuery(TaskRepository repository, AbstractRepositoryQuery repositoryQuery,
+			AbstractTaskCollector resultCollector, SynchronizationEvent event, IProgressMonitor monitor) {
 
 		if (!(repositoryQuery instanceof XPlannerCustomQuery)) {
 			return Status.OK_STATUS;
@@ -199,7 +200,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 //	}
 
 	private IStatus queryMyCurrentTasks(XPlannerCustomQuery xplannerCustomQuery, XPlannerClient client,
-			TaskRepository repository, ITaskCollector resultCollector) throws RemoteException {
+			TaskRepository repository, AbstractTaskCollector resultCollector) throws RemoteException {
 
 		ArrayList<TaskData> xplannerTasks = new ArrayList<TaskData>();
 		int currentPersonId = client.getCurrentPersonId();
@@ -211,7 +212,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	private IStatus queryTasks(XPlannerCustomQuery xplannerCustomQuery, XPlannerClient client,
-			TaskRepository repository, ITaskCollector resultCollector) throws RemoteException {
+			TaskRepository repository, AbstractTaskCollector resultCollector) throws RemoteException {
 
 		List<Integer> contentIds = xplannerCustomQuery.getContentIds();
 		ArrayList<TaskData> xplannerTasks = new ArrayList<TaskData>();
@@ -262,7 +263,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	private IStatus getTaskQueryHits(List<TaskData> tasks, TaskRepository repository, XPlannerCustomQuery query,
-			ITaskCollector resultCollector) {
+			AbstractTaskCollector resultCollector) {
 
 		for (TaskData data : tasks) {
 			String id = String.valueOf(data.getId());
@@ -282,7 +283,16 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 				task = createTask(data, data.getName(), String.valueOf(data.getId()), repository);
 			}
 
-			resultCollector.accept(task);
+			try {
+				RepositoryTaskData taskData = XPlannerRepositoryUtils.createRepositoryTaskData(repository,
+						String.valueOf(data.getId()));
+				taskData.setPartial(true);
+				taskData.setSummary(data.getName());
+				resultCollector.accept(taskData);
+			} catch (CoreException e) {
+				// FIXME
+				e.printStackTrace();
+			}
 //			} 
 //			catch (Exception e) {
 //				return new Status(IStatus.OK, TasksUiPlugin.PLUGIN_ID, IStatus.ERROR, 
@@ -341,7 +351,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public void updateTaskFromTaskData(TaskRepository repository, AbstractTask repositoryTask,
+	public boolean updateTaskFromTaskData(TaskRepository repository, AbstractTask repositoryTask,
 			RepositoryTaskData taskData) {
 
 		if (taskData != null) {
@@ -368,6 +378,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 				xplannerTask.setCompletionDate(null);
 			}
 		}
+		return false;
 	}
 
 	@Override
@@ -542,21 +553,19 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public boolean markStaleTasks(TaskRepository repository, Set<AbstractTask> tasks, IProgressMonitor monitor)
-			throws CoreException {
-
+	public void preSynchronization(SynchronizationEvent event, IProgressMonitor monitor) throws CoreException {
 		boolean changed = false;
-
+		TaskRepository repository = event.taskRepository;
 		try {
 			monitor.beginTask("Getting changed tasks", IProgressMonitor.UNKNOWN);
 
 			if (repository.getSynchronizationTimeStamp() == null) {
-				for (AbstractTask task : tasks) {
+				for (AbstractTask task : event.tasks) {
 					task.setStale(true);
 				}
 				changed = true;
 			} else {
-				Set<AbstractTask> changedTasks = getChangedSinceLastSync(repository, tasks);
+				Set<AbstractTask> changedTasks = getChangedSinceLastSync(repository, event.tasks);
 				for (AbstractTask changedTask : changedTasks) {
 					changedTask.setStale(true);
 				}
@@ -567,7 +576,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			monitor.done();
 		}
 
-		return changed;
+		event.performQueries = changed;
 	}
 
 }
