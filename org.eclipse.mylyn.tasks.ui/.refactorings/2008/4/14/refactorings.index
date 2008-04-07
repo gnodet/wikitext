@@ -1,2 +1,10 @@
 1207015063475	Rename method 'getInstance'
 1207015591673	Extract local variable 'int1'
+1207431252385	Copy compilation unit
+1207433320640	Copy compilation unit
+1207447591744	Copy compilation unit
+1207449375734	Move members
+1207449450510	Move members
+1207450089696	Delete elements
+1207450094853	Delete element
+1207326833851	Extract constant 'TIMESTAMP_FORMAT'
