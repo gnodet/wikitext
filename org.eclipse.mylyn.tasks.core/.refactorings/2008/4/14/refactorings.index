@@ -1,1 +1,12 @@
 1207014956530	Move member 'getInstance'
+1207439635477	Rename type 'ITaskCollector'
+1207441276752	Convert member type 'IdentityAttributeFactory' to top level
+1207441484263	Move compilation unit
+1207444032366	Rename method 'getId'
+1207448654927	Extract method 'updateTask'
+1207458672937	Move member 'MAX_HITS'
+1207459631084	Delete element
+1207461106897	Change method 'preSynchronization'
+1207461118363	Change method 'postSynchronization'
+1207468326145	Change method 'updateTaskFromTaskData'
+1207468613694	Change method 'performQuery'

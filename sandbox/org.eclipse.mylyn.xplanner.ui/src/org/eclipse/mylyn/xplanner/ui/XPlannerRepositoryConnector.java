@@ -267,7 +267,8 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 
 		for (TaskData data : tasks) {
 			String id = String.valueOf(data.getId());
-			AbstractTask task = TasksUiPlugin.getTaskListManager().getTaskList().getTask(repository.getRepositoryUrl(), id);
+			AbstractTask task = TasksUiPlugin.getTaskListManager().getTaskList().getTask(repository.getRepositoryUrl(),
+					id);
 			if (task != null) {
 				updateTaskDetails(repository.getRepositoryUrl(), (XPlannerTask) task, data, false);
 			}
@@ -322,33 +323,33 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 //		return Status.OK_STATUS;
 //	}
 
-	@Override
-	public void updateTaskFromRepository(TaskRepository repository, AbstractTask repositoryTask,
-			IProgressMonitor monitor) throws CoreException {
-
-		if (repository != null && repositoryTask instanceof XPlannerTask) {
-			XPlannerTask xPlannerTask = (XPlannerTask) repositoryTask;
-			XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
-			if (client != null) {
-				TaskData xplannerTaskData;
-				try {
-					xplannerTaskData = client.getTask(Integer.valueOf(xPlannerTask.getTaskId()).intValue());
-					if (xplannerTaskData != null) {
-						updateTaskDetails(repository.getRepositoryUrl(), xPlannerTask, xplannerTaskData, true);
-					} else {
-						UserStoryData userStoryData;
-						userStoryData = client.getUserStory(Integer.valueOf(xPlannerTask.getTaskId()).intValue());
-						if (userStoryData != null) {
-							updateTaskDetails(repository.getRepositoryUrl(), xPlannerTask, userStoryData, true);
-						}
-					}
-				} catch (Exception e) {
-					throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, IStatus.ERROR,
-							Messages.XPlannerRepositoryConnector_ERROR_UPDATING_TASK, e));
-				}
-			}
-		}
-	}
+//	@Override
+//	public void updateTaskFromRepository(TaskRepository repository, AbstractTask repositoryTask,
+//			IProgressMonitor monitor) throws CoreException {
+//
+//		if (repository != null && repositoryTask instanceof XPlannerTask) {
+//			XPlannerTask xPlannerTask = (XPlannerTask) repositoryTask;
+//			XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
+//			if (client != null) {
+//				TaskData xplannerTaskData;
+//				try {
+//					xplannerTaskData = client.getTask(Integer.valueOf(xPlannerTask.getTaskId()).intValue());
+//					if (xplannerTaskData != null) {
+//						updateTaskDetails(repository.getRepositoryUrl(), xPlannerTask, xplannerTaskData, true);
+//					} else {
+//						UserStoryData userStoryData;
+//						userStoryData = client.getUserStory(Integer.valueOf(xPlannerTask.getTaskId()).intValue());
+//						if (userStoryData != null) {
+//							updateTaskDetails(repository.getRepositoryUrl(), xPlannerTask, userStoryData, true);
+//						}
+//					}
+//				} catch (Exception e) {
+//					throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, IStatus.ERROR,
+//							Messages.XPlannerRepositoryConnector_ERROR_UPDATING_TASK, e));
+//				}
+//			}
+//		}
+//	}
 
 	@Override
 	public boolean updateTaskFromTaskData(TaskRepository repository, AbstractTask repositoryTask,
@@ -445,7 +446,8 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 
 		XPlannerTask task;
 
-		AbstractTask existingTask = TasksUiPlugin.getTaskListManager().getTaskList().getTask(repository.getRepositoryUrl(), id);
+		AbstractTask existingTask = TasksUiPlugin.getTaskListManager().getTaskList().getTask(
+				repository.getRepositoryUrl(), id);
 		if (existingTask instanceof XPlannerTask) {
 			task = (XPlannerTask) existingTask;
 		} else {
@@ -577,6 +579,12 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 		}
 
 		event.performQueries = changed;
+	}
+
+	@Override
+	public RepositoryTaskData getTaskData(TaskRepository repository, String taskId, IProgressMonitor monitor)
+			throws CoreException {
+		return getTaskDataHandler().getTaskData(repository, taskId, monitor);
 	}
 
 }

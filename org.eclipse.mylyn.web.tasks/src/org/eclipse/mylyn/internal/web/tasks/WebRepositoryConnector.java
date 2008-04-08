@@ -128,24 +128,55 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return repository.hasProperty(PROPERTY_TASK_URL);
 	}
 
+//	@Override
+//	public AbstractTask createTaskFromExistingId(TaskRepository repository, final String id, IProgressMonitor monitor)
+//			throws CoreException {
+//		if (REPOSITORY_TYPE.equals(repository.getConnectorKind())) {
+//			String taskPrefix = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
+//
+//			final WebTask task = new WebTask(id, id, taskPrefix, repository.getRepositoryUrl(), REPOSITORY_TYPE);
+//
+//			RetrieveTitleFromUrlJob job = new RetrieveTitleFromUrlJob(taskPrefix + id) {
+//				@Override
+//				protected void setTitle(String pageTitle) {
+//					task.setSummary(pageTitle);
+//					TasksUiPlugin.getTaskListManager().getTaskList().notifyTaskChanged(task, false);
+//				}
+//			};
+//			job.schedule();
+//
+//			return task;
+//		}
+//
+//		return null;
+//	}
+
 	@Override
-	public AbstractTask createTaskFromExistingId(TaskRepository repository, final String id, IProgressMonitor monitor)
+	public RepositoryTaskData getTaskData(TaskRepository repository, String taskId, IProgressMonitor monitor)
 			throws CoreException {
 		if (REPOSITORY_TYPE.equals(repository.getConnectorKind())) {
 			String taskPrefix = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
 
-			final WebTask task = new WebTask(id, id, taskPrefix, repository.getRepositoryUrl(), REPOSITORY_TYPE);
+			RepositoryTaskData taskData = createTaskData(repository.getRepositoryUrl(), taskId);
+			final DefaultTaskSchema schema = new DefaultTaskSchema(taskData);
+			schema.setSummary(taskId);
+			schema.setTaskUrl(taskPrefix + taskId);
+			schema.setValue(KEY_TASK_PREFIX, taskPrefix);
 
-			RetrieveTitleFromUrlJob job = new RetrieveTitleFromUrlJob(taskPrefix + id) {
+			// FIXME see bug 226054
+			RetrieveTitleFromUrlJob job = new RetrieveTitleFromUrlJob(taskPrefix + taskId) {
 				@Override
 				protected void setTitle(String pageTitle) {
-					task.setSummary(pageTitle);
-					TasksUiPlugin.getTaskListManager().getTaskList().notifyTaskChanged(task, false);
+					schema.setSummary(pageTitle);
 				}
 			};
 			job.schedule();
+			try {
+				job.join();
+			} catch (InterruptedException ignored) {
+			}
 
-			return task;
+			return taskData;
 		}
 
 		return null;
@@ -261,10 +292,10 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		// ignore
 	}
 
-	@Override
-	public void updateTaskFromRepository(TaskRepository repository, AbstractTask repositoryTask,
-			IProgressMonitor monitor) throws CoreException {
-	}
+//	@Override
+//	public void updateTaskFromRepository(TaskRepository repository, AbstractTask repositoryTask,
+//			IProgressMonitor monitor) throws CoreException {
+//	}
 
 	@Override
 	public AbstractTask createTask(String repositoryUrl, String id, String summary) {

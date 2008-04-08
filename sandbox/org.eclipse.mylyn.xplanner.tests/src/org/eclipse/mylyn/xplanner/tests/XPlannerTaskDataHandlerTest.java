@@ -9,12 +9,12 @@ package org.eclipse.mylyn.xplanner.tests;
 
 import junit.framework.TestCase;
 
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeFactory;
 import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
@@ -100,8 +100,7 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 			TaskRepository repository = XPlannerTestUtils.getRepository();
 			assertTrue(repository != null);
 
-			AbstractTask repositoryTask = connector.createTaskFromExistingId(repository, "" + testTaskData.getId(),
-					new NullProgressMonitor());
+			AbstractTask repositoryTask = TasksUiUtil.createTask(repository, "" + testTaskData.getId(), null);
 
 			assertTrue(repositoryTask instanceof XPlannerTask);
 

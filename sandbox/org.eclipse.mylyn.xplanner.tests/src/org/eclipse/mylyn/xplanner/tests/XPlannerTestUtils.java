@@ -12,12 +12,11 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.TaskList;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.ui.XPlannerClientFacade;
 import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
@@ -301,12 +300,8 @@ public class XPlannerTestUtils {
 	 */
 	public static XPlannerTask getTestXPlannerTask(XPlannerClient client) throws Exception {
 		TaskRepository repository = getRepository();
-		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
-				repository.getConnectorKind());
-
 		TaskData testTask = findTestTask(client);
-		AbstractTask task = connector.createTaskFromExistingId(repository, "" + testTask.getId(),
-				new NullProgressMonitor());
+		AbstractTask task = TasksUiUtil.createTask(repository, "" + testTask.getId(), null);
 		return (XPlannerTask) task;
 	}
 
@@ -315,12 +310,8 @@ public class XPlannerTestUtils {
 	 */
 	public static XPlannerTask getTestXPlannerUserStoryTask(XPlannerClient client) throws Exception {
 		TaskRepository repository = getRepository();
-		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
-				repository.getConnectorKind());
-
 		UserStoryData testUserStory = findTestUserStory(client);
-		AbstractTask task = connector.createTaskFromExistingId(repository, "" + testUserStory.getId(),
-				new NullProgressMonitor());
+		AbstractTask task = TasksUiUtil.createTask(repository, "" + testUserStory.getId(), null);
 		return (XPlannerTask) task;
 	}
 

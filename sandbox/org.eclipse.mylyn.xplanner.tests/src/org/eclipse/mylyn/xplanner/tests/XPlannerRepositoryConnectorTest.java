@@ -20,6 +20,7 @@ import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeFactory;
 import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryConnector;
@@ -54,8 +55,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 
 		assertTrue(testUserStory != null);
 
-		AbstractTask repositoryTask = connector.createTaskFromExistingId(repository, "" + testUserStory.getId(),
-				new NullProgressMonitor());
+		AbstractTask repositoryTask = TasksUiUtil.createTask(repository, "" + testUserStory.getId(), null);
 
 		assertTrue(repositoryTask instanceof XPlannerTask);
 		assertTrue(((XPlannerTask) repositoryTask).getSummary().equals(testUserStory.getName()));
@@ -70,8 +70,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 
 		assertTrue(testTask != null);
 
-		AbstractTask repositoryTask = connector.createTaskFromExistingId(repository, "" + testTask.getId(),
-				new NullProgressMonitor());
+		AbstractTask repositoryTask = TasksUiUtil.createTask(repository, "" + testTask.getId(), null);
 
 		assertTrue(repositoryTask instanceof XPlannerTask);
 		assertTrue(((XPlannerTask) repositoryTask).getSummary().equals(testTask.getName()));

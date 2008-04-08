@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;taskDataManager&apos; from expression &apos;connector.getTaskDataManager()&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.ui&apos;&#x0A;- Variable name: &apos;taskDataManager&apos;&#x0A;- Destination method: &apos;org.eclipse.mylyn.tasks.ui.TaskFactory.createTaskFromTaskData()&apos;&#x0A;- Variable expression: &apos;connector.getTaskDataManager()&apos;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;taskDataManager&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.eclipse.mylyn.tasks.ui{TaskFactory.java" name="taskDataManager" replace="true" selection="4439 30" stamp="1207609441705" version="1.0"/>
+</session>
