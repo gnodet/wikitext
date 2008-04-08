@@ -29,8 +29,6 @@ import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
@@ -96,54 +94,40 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 	}
 
 	@Override
-	protected void createAdditionalControls(Composite parent) {
-		for (RepositoryTemplate template : connector.getTemplates()) {
-			serverUrlCombo.add(template.label);
+	protected void repositoryTemplateSelected(RepositoryTemplate template) {
+		repositoryLabelEditor.setStringValue(template.label);
+		setUrl(nvl(template.repositoryUrl));
+
+		taskUrlText.setText(nvl(template.taskPrefixUrl));
+		newTaskText.setText(nvl(template.newTaskUrl));
+
+		queryUrlText.setText(nvl(template.taskQueryUrl));
+		selectMethod(queryRequestMethod, //
+				template.getAttribute(WebRepositoryConnector.PROPERTY_QUERY_METHOD));
+		queryPatternText.setText(nvl(template.getAttribute(WebRepositoryConnector.PROPERTY_QUERY_REGEXP)));
+
+		loginRequestUrlText.setText(nvl(template.getAttribute(WebRepositoryConnector.PROPERTY_LOGIN_REQUEST_URL)));
+		selectMethod(loginRequestMethod, //
+				template.getAttribute(WebRepositoryConnector.PROPERTY_LOGIN_REQUEST_METHOD));
+		loginFormUrlText.setText(nvl(template.getAttribute(WebRepositoryConnector.PROPERTY_LOGIN_FORM_URL)));
+		loginTokenPatternText.setText(nvl(template.getAttribute(WebRepositoryConnector.PROPERTY_LOGIN_TOKEN_REGEXP)));
+
+		parametersEditor.removeAll();
+
+		for (Map.Entry<String, String> entry : template.getAttributes().entrySet()) {
+			String key = entry.getKey();
+			if (key.startsWith(WebRepositoryConnector.PARAM_PREFIX)) {
+				parametersEditor.add(key.substring(WebRepositoryConnector.PARAM_PREFIX.length()), //
+						entry.getValue());
+			}
 		}
 
-		serverUrlCombo.addSelectionListener(new SelectionListener() {
+		getContainer().updateButtons();
+	}
 
-			public void widgetSelected(SelectionEvent e) {
-				String text = serverUrlCombo.getText();
-				RepositoryTemplate template = connector.getTemplate(text);
-				if (template != null) {
-					repositoryLabelEditor.setStringValue(template.label);
-					setUrl(nvl(template.repositoryUrl));
-
-					taskUrlText.setText(nvl(template.taskPrefixUrl));
-					newTaskText.setText(nvl(template.newTaskUrl));
-
-					queryUrlText.setText(nvl(template.taskQueryUrl));
-					selectMethod(queryRequestMethod, //
-							template.getAttribute(WebRepositoryConnector.PROPERTY_QUERY_METHOD));
-					queryPatternText.setText(nvl(template.getAttribute(WebRepositoryConnector.PROPERTY_QUERY_REGEXP)));
-
-					loginRequestUrlText.setText(nvl(template.getAttribute(WebRepositoryConnector.PROPERTY_LOGIN_REQUEST_URL)));
-					selectMethod(loginRequestMethod, //
-							template.getAttribute(WebRepositoryConnector.PROPERTY_LOGIN_REQUEST_METHOD));
-					loginFormUrlText.setText(nvl(template.getAttribute(WebRepositoryConnector.PROPERTY_LOGIN_FORM_URL)));
-					loginTokenPatternText.setText(nvl(template.getAttribute(WebRepositoryConnector.PROPERTY_LOGIN_TOKEN_REGEXP)));
-
-					parametersEditor.removeAll();
-
-					for (Map.Entry<String, String> entry : template.getAttributes().entrySet()) {
-						String key = entry.getKey();
-						if (key.startsWith(WebRepositoryConnector.PARAM_PREFIX)) {
-							parametersEditor.add(key.substring(WebRepositoryConnector.PARAM_PREFIX.length()), //
-									entry.getValue());
-						}
-					}
-
-					getContainer().updateButtons();
-					return;
-				}
-			}
-
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// ignore
-			}
-
-		});
+	@Override
+	protected void createAdditionalControls(Composite parent) {
+		addRepositoryTemplatesToServerUrlCombo();
 
 		Composite composite = new Composite(parent, SWT.NONE);
 		createParameterEditor(composite);
