@@ -16,6 +16,7 @@ public class AllSandboxTests {
 	public static Test suite() {
 		TestSuite suite = new TestSuite("Test for org.eclipse.mylyn.sandbox.tests");
 		//$JUnit-BEGIN$
+		suite.addTestSuite(PredictedErrorInterestTest.class);
 		suite.addTestSuite(ActiveSearchTest.class);
 		suite.addTestSuite(StatisticsReportingTest.class);
 		suite.addTestSuite(SharedTaskFolderTest.class);

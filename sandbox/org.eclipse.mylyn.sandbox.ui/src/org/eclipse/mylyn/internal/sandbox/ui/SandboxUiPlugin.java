@@ -34,6 +34,8 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 
 	private final ActiveSearchViewTracker activeSearchViewTracker = new ActiveSearchViewTracker();
 
+	private InterestInducingProblemListener problemListener;
+
 	public SandboxUiPlugin() {
 		super();
 		plugin = this;
@@ -42,6 +44,14 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
+
+		getPreferenceStore().setDefault(InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS, false);
+
+		problemListener = new InterestInducingProblemListener();
+		getPreferenceStore().addPropertyChangeListener(problemListener);
+		if (getPreferenceStore().getBoolean(InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS)) {
+			problemListener.enable();
+		}
 
 		final IWorkbench workbench = PlatformUI.getWorkbench();
 		workbench.getDisplay().asyncExec(new Runnable() {
@@ -68,6 +78,10 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		plugin = null;
+
+		if (problemListener != null) {
+			getPreferenceStore().removePropertyChangeListener(problemListener);
+		}
 
 		IWorkbench workbench = PlatformUI.getWorkbench();
 		if (workbench != null) {
