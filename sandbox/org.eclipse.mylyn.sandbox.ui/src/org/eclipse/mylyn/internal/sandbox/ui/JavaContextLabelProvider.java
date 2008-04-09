@@ -8,7 +8,7 @@
 /*
  * Created on Aug 6, 2004
  */
-package org.eclipse.mylyn.internal.java.ui;
+package org.eclipse.mylyn.internal.sandbox.ui;
 
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IMember;
@@ -23,7 +23,8 @@ import org.eclipse.mylyn.context.core.IInteractionContextManager;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.context.core.IInteractionRelation;
 import org.eclipse.mylyn.internal.context.ui.ContextUiImages;
-import org.eclipse.mylyn.internal.context.ui.views.DelegatingContextLabelProvider;
+import org.eclipse.mylyn.internal.java.ui.JavaStructureBridge;
+import org.eclipse.mylyn.internal.java.ui.JavaUiBridgePlugin;
 import org.eclipse.mylyn.internal.java.ui.search.AbstractJavaRelationProvider;
 import org.eclipse.mylyn.internal.java.ui.search.JUnitReferencesProvider;
 import org.eclipse.mylyn.internal.java.ui.search.JavaImplementorsProvider;

@@ -16,6 +16,12 @@
       </page> 
     </extension>
 
+	<extension point="org.eclipse.mylyn.context.ui.bridges">
+	    <labelProvider
+	          class="org.eclipse.mylyn.internal.sandbox.ui.JavaContextLabelProvider"
+	          contentType="java"/>
+	</extension>
+
    <extension point="org.eclipse.mylyn.tasks.ui.presentations">
       <presentation 
             id="org.eclipse.mylyn.tasks.ui.groupByOwner"

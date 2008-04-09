@@ -28,7 +28,7 @@ import org.eclipse.mylyn.internal.context.ui.ContextUiPlugin;
 import org.eclipse.mylyn.internal.context.ui.DoiOrderSorter;
 import org.eclipse.mylyn.internal.context.ui.views.ContextContentProvider;
 import org.eclipse.mylyn.internal.context.ui.views.ContextNodeOpenListener;
-import org.eclipse.mylyn.internal.context.ui.views.DelegatingContextLabelProvider;
+import org.eclipse.mylyn.internal.sandbox.ui.DelegatingContextLabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;

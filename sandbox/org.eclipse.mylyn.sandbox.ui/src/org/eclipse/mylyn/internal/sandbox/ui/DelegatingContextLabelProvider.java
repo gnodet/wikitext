@@ -8,7 +8,7 @@
 /*
  * Created on Apr 18, 2005
  */
-package org.eclipse.mylyn.internal.context.ui.views;
+package org.eclipse.mylyn.internal.sandbox.ui;
 
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;

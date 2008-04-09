@@ -44,7 +44,7 @@ import org.eclipse.mylyn.internal.context.ui.views.ActiveViewDelegatingDragAdapt
 import org.eclipse.mylyn.internal.context.ui.views.ActiveViewDropAdapter;
 import org.eclipse.mylyn.internal.context.ui.views.ContextContentProvider;
 import org.eclipse.mylyn.internal.context.ui.views.ContextNodeOpenListener;
-import org.eclipse.mylyn.internal.context.ui.views.DelegatingContextLabelProvider;
+import org.eclipse.mylyn.internal.sandbox.ui.DelegatingContextLabelProvider;
 import org.eclipse.mylyn.internal.sandbox.ui.actions.LinkActiveSearchWithEditorAction;
 import org.eclipse.mylyn.internal.sandbox.ui.actions.ShowQualifiedNamesAction;
 import org.eclipse.mylyn.internal.sandbox.ui.actions.ToggleRelationshipProviderAction;
@@ -64,6 +64,9 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 /**
+ * TODO: this view won't work properly if visible on initial startup, due to the relation providers not being available
+ * as a result of lazy loading.
+ * 
  * @author Mik Kersten
  */
 public class ActiveSearchView extends ViewPart {
