@@ -20,7 +20,7 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.mylyn.context.core.ContextCorePlugin;
+import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionContext;
 import org.eclipse.mylyn.context.core.IInteractionContextListener;
 import org.eclipse.mylyn.context.core.IInteractionElement;
@@ -93,7 +93,7 @@ public class WebContextManager {
 
 	public WebContextManager() {
 		webRoot = new WebRoot();
-		ContextCorePlugin.getContextManager().addListener(UPDATE_LISTENER);
+		ContextCore.getContextManager().addListener(UPDATE_LISTENER);
 
 		try {
 			titleCache.load(new FileInputStream(getTitleCacheFile()));
@@ -103,7 +103,7 @@ public class WebContextManager {
 	}
 
 	public void dispose() {
-		ContextCorePlugin.getContextManager().removeListener(UPDATE_LISTENER);
+		ContextCore.getContextManager().removeListener(UPDATE_LISTENER);
 		try {
 			titleCache.store(new FileOutputStream(getTitleCacheFile()), null);
 		} catch (IOException e) {
@@ -122,13 +122,13 @@ public class WebContextManager {
 
 	public void updateContents() {
 		IInteractionContext context;
-		if (ContextCorePlugin.getContextManager().isContextActive()) {
-			context = ContextCorePlugin.getContextManager().getActiveContext();
+		if (ContextCore.getContextManager().isContextActive()) {
+			context = ContextCore.getContextManager().getActiveContext();
 		} else {
 			context = getGlobalContext();
 		}
 		if (context != null) {
-			Collection<IInteractionElement> interestingElements = ContextCorePlugin.getContextManager()
+			Collection<IInteractionElement> interestingElements = ContextCore.getContextManager()
 					.getInterestingDocuments(context);
 			for (IInteractionElement element : interestingElements) {
 				// TODO: this check is unnecessary for the global context
@@ -148,7 +148,7 @@ public class WebContextManager {
 	 * NOTE: returns first found
 	 */
 	private IInteractionContext getGlobalContext() {
-		for (IInteractionContext globalContext : ContextCorePlugin.getContextManager().getGlobalContexts()) {
+		for (IInteractionContext globalContext : ContextCore.getContextManager().getGlobalContexts()) {
 			if (globalContext.getContentLimitedTo().equals(WebResourceStructureBridge.CONTENT_TYPE)) {
 				return globalContext;
 			}

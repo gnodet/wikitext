@@ -1,0 +1,15 @@
+1207702516753	Move compilation unit
+1207702686875	Move compilation unit
+1207704803962	Move compilation unit
+1207704911998	Move member 'getContextManager'
+1207705365874	Extract interface 'IInteractionContextManager'
+1207705382332	Move compilation unit
+1207705477767	Move member 'PROPERTY_CONTEXT_ACTIVE'
+1207705529955	Move member 'CONTEXT_FILENAME_ENCODING'
+1207705577993	Move members
+1207705722084	Pull up members to 'IInteractionContextManager'
+1207705775046	Pull up 'addActivityMetaContextListener' to 'IInteractionContextManager'
+1207706022984	Pull up 'hasContext' to 'IInteractionContextManager'
+1207707345590	Move field
+1207708672361	Extract interface 'IInteractionContextScaling'
+1207708685934	Move compilation unit

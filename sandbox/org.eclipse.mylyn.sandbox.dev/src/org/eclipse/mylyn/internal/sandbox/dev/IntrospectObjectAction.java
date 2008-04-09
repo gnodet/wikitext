@@ -15,8 +15,9 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
-import org.eclipse.mylyn.context.core.ContextCorePlugin;
+import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionElement;
+import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
@@ -43,7 +44,7 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 
 			try {
 				AbstractContextStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(object);
-				IInteractionElement node = ContextCorePlugin.getContextManager().getElement(
+				IInteractionElement node = ContextCore.getContextManager().getElement(
 						bridge.getHandleIdentifier(object));
 				if (node != null) {
 					text += "Interest value: " + node.getInterest().getValue() + "\n";

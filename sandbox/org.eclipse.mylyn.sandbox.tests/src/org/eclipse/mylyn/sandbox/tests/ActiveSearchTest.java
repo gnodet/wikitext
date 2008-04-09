@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.java.tests;
+package org.eclipse.mylyn.sandbox.tests;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,13 +19,15 @@ import org.eclipse.jdt.core.search.IJavaSearchConstants;
 import org.eclipse.jdt.internal.ui.JavaPlugin;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.mylyn.context.core.AbstractRelationProvider;
-import org.eclipse.mylyn.context.core.ContextCorePlugin;
+import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.context.tests.UiTestUtil;
 import org.eclipse.mylyn.context.tests.support.search.TestActiveSearchListener;
+import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.context.core.IActiveSearchOperation;
-import org.eclipse.mylyn.internal.context.ui.views.ActiveSearchView;
 import org.eclipse.mylyn.internal.java.ui.search.JavaReferencesProvider;
+import org.eclipse.mylyn.internal.sandbox.views.ActiveSearchView;
+import org.eclipse.mylyn.java.tests.AbstractJavaContextTest;
 import org.eclipse.mylyn.java.tests.search.SearchPluginTestHelper;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IViewReference;
@@ -68,7 +70,7 @@ public class ActiveSearchTest extends AbstractJavaContextTest {
 		IInteractionElement node = manager.processInteractionEvent(mockInterestContribution(m1.getHandleIdentifier(),
 				scaling.getLandmark()));
 
-		assertEquals(1, ContextCorePlugin.getContextManager().getActiveLandmarks().size());
+		assertEquals(1, ContextCore.getContextManager().getActiveLandmarks().size());
 
 		assertEquals(1, search(2, node).size());
 
@@ -116,7 +118,7 @@ public class ActiveSearchTest extends AbstractJavaContextTest {
 			monitor.selectionChanged(part, sm2);
 			IInteractionElement node = manager.processInteractionEvent(mockInterestContribution(
 					m2.getHandleIdentifier(), scaling.getLandmark()));
-			assertEquals(1, ContextCorePlugin.getContextManager().getActiveLandmarks().size());
+			assertEquals(1, ContextCore.getContextManager().getActiveLandmarks().size());
 
 			assertEquals(1, search(2, node).size());
 

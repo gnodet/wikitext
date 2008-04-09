@@ -8,7 +8,7 @@
 
 package org.eclipse.mylyn.internal.context.ui.actions;
 
-import org.eclipse.mylyn.context.core.ContextCorePlugin;
+import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.ui.IActionFilter;
 
 /**
@@ -17,7 +17,7 @@ import org.eclipse.ui.IActionFilter;
 public class ContextActiveActionFilter implements IActionFilter {
 
 	public boolean testAttribute(Object target, String name, String value) {
-		return ContextCorePlugin.getContextManager().isContextActive();
+		return ContextCore.getContextManager().isContextActive();
 	}
 
 }

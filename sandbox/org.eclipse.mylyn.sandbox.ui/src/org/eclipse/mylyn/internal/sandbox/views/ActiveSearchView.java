@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.context.ui.views;
+package org.eclipse.mylyn.internal.sandbox.views;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,19 +29,25 @@ import org.eclipse.jface.viewers.DecoratingLabelProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylyn.context.core.AbstractRelationProvider;
-import org.eclipse.mylyn.context.core.ContextCorePlugin;
+import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionContext;
 import org.eclipse.mylyn.context.core.IInteractionContextListener;
 import org.eclipse.mylyn.context.core.IInteractionContextListener2;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.context.ui.AbstractContextUiBridge;
 import org.eclipse.mylyn.context.ui.ContextUiPlugin;
+import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.context.ui.ActiveViewSelectionDragAdapter;
 import org.eclipse.mylyn.internal.context.ui.ContextUiImages;
 import org.eclipse.mylyn.internal.context.ui.DoiOrderSorter;
-import org.eclipse.mylyn.internal.context.ui.actions.LinkActiveSearchWithEditorAction;
-import org.eclipse.mylyn.internal.context.ui.actions.ShowQualifiedNamesAction;
-import org.eclipse.mylyn.internal.context.ui.actions.ToggleRelationshipProviderAction;
+import org.eclipse.mylyn.internal.context.ui.views.ActiveViewDelegatingDragAdapter;
+import org.eclipse.mylyn.internal.context.ui.views.ActiveViewDropAdapter;
+import org.eclipse.mylyn.internal.context.ui.views.ContextContentProvider;
+import org.eclipse.mylyn.internal.context.ui.views.ContextNodeOpenListener;
+import org.eclipse.mylyn.internal.context.ui.views.DelegatingContextLabelProvider;
+import org.eclipse.mylyn.internal.sandbox.ui.actions.LinkActiveSearchWithEditorAction;
+import org.eclipse.mylyn.internal.sandbox.ui.actions.ShowQualifiedNamesAction;
+import org.eclipse.mylyn.internal.sandbox.ui.actions.ToggleRelationshipProviderAction;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
@@ -152,7 +158,7 @@ public class ActiveSearchView extends ViewPart {
 	}
 
 	public ActiveSearchView() {
-		ContextCorePlugin.getContextManager().addListener(REFRESH_UPDATE_LISTENER);
+		ContextCore.getContextManager().addListener(REFRESH_UPDATE_LISTENER);
 		for (AbstractRelationProvider provider : ContextCorePlugin.getDefault().getRelationProviders()) {
 			provider.setEnabled(true);
 		}
@@ -169,7 +175,7 @@ public class ActiveSearchView extends ViewPart {
 		ContextCorePlugin.getContextManager().resetLandmarkRelationshipsOfKind(provider.getId());
 		ContextUiPlugin.getDefault().getPreferenceStore().setValue(provider.getGenericId(), degreeOfSeparation);
 		provider.setDegreeOfSeparation(degreeOfSeparation);
-		for (IInteractionElement element : ContextCorePlugin.getContextManager().getActiveContext().getInteresting()) {
+		for (IInteractionElement element : ContextCore.getContextManager().getActiveContext().getInteresting()) {
 			if (element.getInterest().isLandmark()) {
 				provider.landmarkAdded(element);
 			}
@@ -179,7 +185,7 @@ public class ActiveSearchView extends ViewPart {
 	@Override
 	public void dispose() {
 		super.dispose();
-		ContextCorePlugin.getContextManager().removeListener(REFRESH_UPDATE_LISTENER);
+		ContextCore.getContextManager().removeListener(REFRESH_UPDATE_LISTENER);
 	}
 
 	/**

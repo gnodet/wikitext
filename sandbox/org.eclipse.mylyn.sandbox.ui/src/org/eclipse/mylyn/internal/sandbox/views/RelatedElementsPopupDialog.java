@@ -32,12 +32,13 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylyn.context.core.AbstractRelationProvider;
-import org.eclipse.mylyn.context.core.ContextCorePlugin;
+import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionContext;
 import org.eclipse.mylyn.context.core.IInteractionContextListener;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.context.core.IInteractionRelation;
 import org.eclipse.mylyn.context.ui.ContextUiPlugin;
+import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.context.ui.ContextUiImages;
 import org.eclipse.mylyn.internal.context.ui.DoiOrderSorter;
 import org.eclipse.mylyn.internal.context.ui.views.ContextContentProvider;
@@ -109,7 +110,7 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 	@SuppressWarnings("deprecation")
 	public RelatedElementsPopupDialog(Shell parent, int shellStyle) {
 		super(parent, shellStyle, true, true, true, true, null, "Context Search");
-		ContextCorePlugin.getContextManager().addListener(REFRESH_UPDATE_LISTENER);
+		ContextCore.getContextManager().addListener(REFRESH_UPDATE_LISTENER);
 		for (AbstractRelationProvider provider : ContextCorePlugin.getDefault().getRelationProviders()) {
 			provider.setEnabled(true);
 		}
@@ -244,7 +245,7 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 		} else if (!(selectedElement instanceof IInteractionRelation)) {
 			AbstractContextStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(selectedElement);
 			String handle = bridge.getHandleIdentifier(selectedElement);
-			node = ContextCorePlugin.getContextManager().getElement(handle);
+			node = ContextCore.getContextManager().getElement(handle);
 		}
 		if (node != null) {
 			ContextUiPlugin.getDefault().getUiBridge(node.getContentType()).open(node);
@@ -608,7 +609,7 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 		ContextCorePlugin.getContextManager().resetLandmarkRelationshipsOfKind(provider.getId());
 		ContextUiPlugin.getDefault().getPreferenceStore().setValue(provider.getGenericId(), degreeOfSeparation);
 		provider.setDegreeOfSeparation(degreeOfSeparation);
-		for (IInteractionElement element : ContextCorePlugin.getContextManager().getActiveContext().getInteresting()) {
+		for (IInteractionElement element : ContextCore.getContextManager().getActiveContext().getInteresting()) {
 			if (element.getInterest().isLandmark()) {
 				provider.landmarkAdded(element);
 			}
@@ -811,7 +812,7 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 	}
 
 	public void dispose() {
-		ContextCorePlugin.getContextManager().removeListener(REFRESH_UPDATE_LISTENER);
+		ContextCore.getContextManager().removeListener(REFRESH_UPDATE_LISTENER);
 		super.close();
 	}
 

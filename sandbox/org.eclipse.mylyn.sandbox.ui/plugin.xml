@@ -182,7 +182,7 @@
    	  <view
           allowMultiple="false"
           category="org.eclipse.mylyn.sandbox"
-          class="org.eclipse.mylyn.internal.context.ui.views.ActiveSearchView"
+          class="org.eclipse.mylyn.internal.sandbox.views.ActiveSearchView"
           icon="icons/eview16/active-search.gif"
           id="org.eclipse.mylyn.ui.views.active.search"
           name="Context Search"/>

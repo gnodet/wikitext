@@ -9,7 +9,7 @@ package org.eclipse.mylyn.examples.monitor.study;
 
 import org.eclipse.jdt.internal.ui.JavaPlugin;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylyn.context.core.ContextCorePlugin;
+import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.monitor.ui.MonitorUiPlugin;
 import org.eclipse.pde.internal.ui.PDEPlugin;

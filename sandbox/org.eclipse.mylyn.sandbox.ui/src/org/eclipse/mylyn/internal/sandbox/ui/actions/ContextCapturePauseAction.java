@@ -13,7 +13,7 @@ import java.util.List;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.mylyn.context.core.ContextCorePlugin;
+import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionContext;
 import org.eclipse.mylyn.context.core.IInteractionContextListener;
 import org.eclipse.mylyn.context.core.IInteractionElement;
@@ -32,7 +32,7 @@ public class ContextCapturePauseAction extends Action implements IViewActionDele
 
 	public void init(IViewPart view) {
 		// NOTE: not disposed until shutdown
-		ContextCorePlugin.getContextManager().addListener(this);
+		ContextCore.getContextManager().addListener(this);
 	}
 
 	public void run(IAction action) {
@@ -46,12 +46,12 @@ public class ContextCapturePauseAction extends Action implements IViewActionDele
 	}
 
 	public void pause() {
-		ContextCorePlugin.getContextManager().setContextCapturePaused(true);
+		ContextCore.getContextManager().setContextCapturePaused(true);
 		TaskListView.getFromActivePerspective().indicatePaused(true);
 	}
 
 	public void resume() {
-		ContextCorePlugin.getContextManager().setContextCapturePaused(false);
+		ContextCore.getContextManager().setContextCapturePaused(false);
 		if (TaskListView.getFromActivePerspective() != null) {
 			TaskListView.getFromActivePerspective().indicatePaused(false);
 		}

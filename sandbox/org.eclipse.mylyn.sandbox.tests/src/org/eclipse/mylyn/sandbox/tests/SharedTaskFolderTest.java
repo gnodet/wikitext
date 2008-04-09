@@ -17,7 +17,8 @@ import java.util.Calendar;
 
 import junit.framework.TestCase;
 
-import org.eclipse.mylyn.context.core.ContextCorePlugin;
+import org.eclipse.mylyn.context.core.ContextCore;
+import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.context.core.InteractionContext;
 import org.eclipse.mylyn.internal.sandbox.ui.SandboxUiPlugin;
 import org.eclipse.mylyn.internal.sandbox.ui.actions.SwitchTaskDataFolderAction;
@@ -109,7 +110,7 @@ public class SharedTaskFolderTest extends TestCase {
 		switchAction.switchTaskDataFolder(sharedDataFolderOptions[0]);
 
 		//Check that the task created in the main data dir isn't there
-		File mainDataDirTaskFile = ContextCorePlugin.getContextManager().getFileForContext(
+		File mainDataDirTaskFile = ContextCore.getContextManager().getFileForContext(
 				mainDataDirTask.getHandleIdentifier());
 		assertFalse(mainDataDirTaskFile.exists());
 		assertNull(manager.getTaskList().getTask(mainDataDirTask.getHandleIdentifier()));
@@ -162,7 +163,7 @@ public class SharedTaskFolderTest extends TestCase {
 		//Create the task and add it to the root of the task list
 		AbstractTask newTask = new LocalTask("" + Calendar.getInstance().getTimeInMillis(), taskName);
 		manager.getTaskList().moveToContainer(newTask, manager.getTaskList().getDefaultCategory());
-		InteractionContext mockContext = ContextCorePlugin.getContextManager().loadContext(
+		InteractionContext mockContext = (InteractionContext) ContextCore.getContextManager().loadContext(
 				newTask.getHandleIdentifier());//, newTask.getContextPath());
 		InteractionEvent event = new InteractionEvent(InteractionEvent.Kind.EDIT, "structureKind", "handle", "originId");
 		mockContext.parseEvent(event);

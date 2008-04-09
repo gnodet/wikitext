@@ -16,8 +16,9 @@ import org.eclipse.jface.viewers.IDecoration;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ILightweightLabelDecorator;
 import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
-import org.eclipse.mylyn.context.core.ContextCorePlugin;
+import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionElement;
+import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.context.core.InteractionContextRelation;
 import org.eclipse.mylyn.internal.context.ui.ColorMap;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
@@ -49,7 +50,7 @@ public class InterestDebuggingDecorator implements ILightweightLabelDecorator {
 				node = (IInteractionElement) element;
 			} else {
 				if (bridge != null && bridge.getContentType() != null) {
-					node = ContextCorePlugin.getContextManager().getElement(bridge.getHandleIdentifier(element));
+					node = ContextCore.getContextManager().getElement(bridge.getHandleIdentifier(element));
 				}
 			}
 			if (node != null) {

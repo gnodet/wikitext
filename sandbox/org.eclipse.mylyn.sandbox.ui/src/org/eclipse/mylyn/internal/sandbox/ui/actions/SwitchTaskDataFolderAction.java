@@ -17,7 +17,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.mylyn.context.core.ContextCorePlugin;
+import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.sandbox.ui.SandboxUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.ComboSelectionDialog;
 import org.eclipse.mylyn.internal.tasks.ui.ITasksUiConstants;
@@ -165,16 +165,14 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 
 		if (targetFolder.equals(MAIN_LOCAL_DATA_DIR)) {
 			SandboxUiPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectoryEnabled(false);
-			(new ContextCapturePauseAction()).resume(); // TODO: don't use
-			// actions directly
-//			TaskListView.getFromActivePerspective().indicateSharedFolder("");
+			(new ContextCapturePauseAction()).resume();
+			// TODO: don't use actions directly
 			ContextCorePlugin.getContextManager().setActivationHistorySuppressed(false);
 		} else {
 			String dataDirPath = "<not implemented>";
 			SandboxUiPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectory(dataDirPath);
 			SandboxUiPlugin.getDefault().getSharedDataDirectoryManager().setSharedDataDirectoryEnabled(true);
 			(new ContextCapturePauseAction()).pause();
-//			TaskListView.getFromActivePerspective().indicateSharedFolder(targetFolder);
 			ContextCorePlugin.getContextManager().setActivationHistorySuppressed(true);
 		}
 	}

@@ -20,7 +20,7 @@ import org.eclipse.jdt.internal.ui.javaeditor.JavaEditor;
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.mylyn.context.core.ContextCorePlugin;
+import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.internal.context.core.InteractionContextManager;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
@@ -122,9 +122,9 @@ public class SelectionMonitor extends AbstractUserInteractionMonitor {
 				}
 			}
 		}
-		IInteractionElement node = ContextCorePlugin.getContextManager().getElement(elementHandle);
+		IInteractionElement node = ContextCore.getContextManager().getElement(elementHandle);
 		String delta = "";
-		float selectionFactor = InteractionContextManager.getCommonContextScaling()
+		float selectionFactor = ContextCore.getCommonContextScaling()
 				.get(InteractionEvent.Kind.SELECTION);
 
 		if (node != null) {

@@ -10,6 +10,7 @@ package org.eclipse.mylyn.context.tests;
 
 import junit.framework.TestCase;
 
+import org.eclipse.mylyn.context.core.IInteractionContextScaling;
 import org.eclipse.mylyn.internal.context.core.InteractionContextScaling;
 
 /**
@@ -18,7 +19,7 @@ import org.eclipse.mylyn.internal.context.core.InteractionContextScaling;
 public class ScalingFactorsTest extends TestCase {
 
 	public void testLandmarkDefaults() {
-		InteractionContextScaling scalingFactors = new InteractionContextScaling();
+		IInteractionContextScaling scalingFactors = new InteractionContextScaling();
 		assertEquals(7 * scalingFactors.getLandmark(), scalingFactors.getForcedLandmark());
 	}
 
