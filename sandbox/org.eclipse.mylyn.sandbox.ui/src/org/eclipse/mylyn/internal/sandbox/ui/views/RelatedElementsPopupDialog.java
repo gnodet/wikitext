@@ -243,7 +243,7 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 		if (selectedElement instanceof IInteractionElement) {
 			node = (IInteractionElement) selectedElement;
 		} else if (!(selectedElement instanceof IInteractionRelation)) {
-			AbstractContextStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(selectedElement);
+			AbstractContextStructureBridge bridge = ContextCore.getStructureBridge(selectedElement);
 			String handle = bridge.getHandleIdentifier(selectedElement);
 			node = ContextCore.getContextManager().getElement(handle);
 		}
@@ -559,8 +559,7 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 	private void internalRefresh(final IInteractionElement node, boolean updateLabels) {
 		Object toRefresh = null;
 		if (node != null) {
-			AbstractContextStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(
-					node.getContentType());
+			AbstractContextStructureBridge bridge = ContextCore.getStructureBridge(node.getContentType());
 			toRefresh = bridge.getObjectForHandle(node.getHandleIdentifier());
 		}
 		if (viewer != null && !viewer.getTree().isDisposed()) {

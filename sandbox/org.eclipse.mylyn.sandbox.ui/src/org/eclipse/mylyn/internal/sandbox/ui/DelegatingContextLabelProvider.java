@@ -13,8 +13,8 @@ package org.eclipse.mylyn.internal.sandbox.ui;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
+import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionObject;
-import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.context.ui.ContextUiPlugin;
 import org.eclipse.swt.graphics.Image;
 
@@ -41,7 +41,7 @@ public class DelegatingContextLabelProvider implements ILabelProvider {
 					((IInteractionObject) element).getContentType());
 			return provider.getImage(element);
 		} else {
-			AbstractContextStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(element);
+			AbstractContextStructureBridge bridge = ContextCore.getStructureBridge(element);
 			ILabelProvider provider = ContextUiPlugin.getDefault().getContextLabelProvider(bridge.getContentType());
 			if (provider != null) {
 				return provider.getImage(element);
@@ -62,7 +62,7 @@ public class DelegatingContextLabelProvider implements ILabelProvider {
 			return provider.getText(element);
 //			}
 		} else {
-			AbstractContextStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(object);
+			AbstractContextStructureBridge bridge = ContextCore.getStructureBridge(object);
 			ILabelProvider provider = ContextUiPlugin.getDefault().getContextLabelProvider(bridge.getContentType());
 			if (provider != null) {
 //				if (ContextUiPlugin.getDefault().isDecorateInterestMode()) {

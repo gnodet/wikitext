@@ -35,7 +35,7 @@ public class ToggleFilterDeclarationsAction extends Action {
         setImageDescriptor(MylarImages.FILTER_DECLARATIONS);    
         setToolTipText("Filter declarations from tree"); 
         
-        boolean checked= ContextCorePlugin.getDefault().getPreferenceStore().getBoolean(PREF_ID); 
+        boolean checked= ContextCore.getPreferenceStore().getBoolean(PREF_ID); 
         valueChanged(checked, false);
     }
     
@@ -45,7 +45,7 @@ public class ToggleFilterDeclarationsAction extends Action {
     
     private void valueChanged(final boolean on, boolean store) {
         setChecked(on);
-        if (store) ContextCorePlugin.getDefault().getPreferenceStore().setValue(PREF_ID, on); //$NON-NLS-1$
+        if (store) ContextCore.getPreferenceStore().setValue(PREF_ID, on); //$NON-NLS-1$
         filter(on);
 //        MonitorPlugin.log(this, getText() + " set to: " + on);
     }

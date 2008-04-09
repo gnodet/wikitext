@@ -137,7 +137,7 @@ public class SelectionMonitor extends AbstractUserInteractionMonitor {
 
 		InteractionEvent event = new InteractionEvent(interactionKind, structureKind, obfuscatedElementHandle, part
 				.getSite().getId(), "null", delta, 0);
-		ContextCorePlugin.getDefault().notifyInteractionObserved(event);
+		ContextCore.notifyInteractionObserved(event);
 	}
 
 	private String obfuscateJavaElementHandle(IJavaElement javaElement) {

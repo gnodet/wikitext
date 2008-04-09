@@ -9,9 +9,9 @@
 package org.eclipse.mylyn.internal.sandbox.bridge.bugs;
 
 import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
+import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.context.core.IInteractionRelation;
-import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.context.ui.AbstractContextLabelProvider;
 import org.eclipse.mylyn.internal.context.ui.ContextUiImages;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiImages;
@@ -50,7 +50,7 @@ public class BugzillaContextLabelProvider extends AbstractContextLabelProvider {
 		// try to get from the cache before downloading
 		Object report;
 		BugzillaReportInfo reportNode = MylynBugsManager.getReferenceProvider().getCached(node.getHandleIdentifier());
-		AbstractContextStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(
+		AbstractContextStructureBridge bridge = ContextCore.getStructureBridge(
 				BugzillaStructureBridge.CONTENT_TYPE);
 
 		if (reportNode != null) {

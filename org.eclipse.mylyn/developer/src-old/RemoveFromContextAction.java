@@ -83,7 +83,7 @@ public class RemoveFromContextAction extends BaseSelectionListenerAction {
 		if (object instanceof IInteractionElement) {
 			element = (IInteractionElement)object;
 		} else {
-			AbstractContextStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(object);
+			AbstractContextStructureBridge bridge = ContextCore.getStructureBridge(object);
 			if (bridge.getContentType() == null) {
 				// try to resolve the resource
 				if (object instanceof IAdaptable) {
@@ -91,7 +91,7 @@ public class RemoveFromContextAction extends BaseSelectionListenerAction {
 					if (adapted instanceof IResource) {
 						object = adapted;
 					}
-					bridge = ContextCorePlugin.getDefault().getStructureBridge(object);
+					bridge = ContextCore.getStructureBridge(object);
 				} 
 			}
 

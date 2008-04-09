@@ -46,13 +46,13 @@ public class MylynBugsManager {
 		workbench.getDisplay().asyncExec(new Runnable() {
 			public void run() {
 				// bugzillaEditingMonitor = new BugzillaEditingMonitor();
-				// ContextCorePlugin.getDefault().getSelectionMonitors().add(bugzillaEditingMonitor);
+				// ContextCore.getSelectionMonitors().add(bugzillaEditingMonitor);
 			}
 		});
 	}
 
 	public void dispose(BundleContext context) throws Exception {
-		// ContextCorePlugin.getDefault().getSelectionMonitors().remove(bugzillaEditingMonitor);
+		// ContextCore.getSelectionMonitors().remove(bugzillaEditingMonitor);
 	}
 
 	/**

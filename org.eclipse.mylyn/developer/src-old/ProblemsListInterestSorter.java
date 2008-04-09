@@ -73,7 +73,7 @@ public class ProblemsListInterestSorter extends TableSorter {
 				return 1;
 			} else {
 				if (ContextCorePlugin.getContextManager().isContextActive()) {
-					IMylarStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(
+					IMylarStructureBridge bridge = ContextCore.getStructureBridge(
 							marker1.getResource().getFileExtension());
 					IMylarElement node1 = ContextCorePlugin.getContextManager().getElement(
 							bridge.getHandleForOffsetInObject(marker1, 0));

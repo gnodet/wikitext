@@ -18,7 +18,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
-import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
+import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 
 /**
@@ -39,7 +39,7 @@ public class InteractionEventObfuscator {
 			return structureHandle;
 		}
 		StringBuilder obfuscated = new StringBuilder();
-		AbstractContextStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(structureKind);
+		AbstractContextStructureBridge bridge = ContextCore.getStructureBridge(structureKind);
 		Object object = bridge.getObjectForHandle(structureHandle);
 		if (object instanceof IAdaptable) {
 			Object adapter = ((IAdaptable) object).getAdapter(IResource.class);

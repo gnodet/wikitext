@@ -122,7 +122,7 @@ public class SharedTaskFolderTest extends TestCase {
 //		File bobsTaskFile = new File(bobsDataDir.getPath() + File.separator + 
 //				ContextCorePlugin.getContextManager().getFileForContext(mainDataDirTask.getHandleIdentifier()).getName());
 //		assertTrue(bobsTaskFile.exists());
-//		bobsTaskFile = new File(ContextCorePlugin.getDefault().getDataDirectory() + File.separator + bobsTask.getContextPath() + MylynTaskListPlugin.FILE_EXTENSION);
+//		bobsTaskFile = new File(ContextCore.getDataDirectory() + File.separator + bobsTask.getContextPath() + MylynTaskListPlugin.FILE_EXTENSION);
 //		assertTrue(bobsTaskFile.exists());
 //		assertNotNull(manager.getTaskForHandle(bobsTask.getHandleIdentifier(), false));
 //		
@@ -130,7 +130,7 @@ public class SharedTaskFolderTest extends TestCase {
 //		switchAction.switchTaskDataFolder(sharedDataFolderOptions[1]);
 //		
 //		//Check that Bob's task isn't there
-//		bobsTaskFile = new File(ContextCorePlugin.getDefault().getDataDirectory() + File.separator + bobsTask.getContextPath() + MylynTaskListPlugin.FILE_EXTENSION);
+//		bobsTaskFile = new File(ContextCore.getDataDirectory() + File.separator + bobsTask.getContextPath() + MylynTaskListPlugin.FILE_EXTENSION);
 //		assertFalse(bobsTaskFile.exists());
 //		assertNull(manager.getTaskForHandle(bobsTask.getHandleIdentifier(), false));		
 //		
@@ -138,7 +138,7 @@ public class SharedTaskFolderTest extends TestCase {
 //		switchAction.switchTaskDataFolder(sharedDataFolderOptions[0]);
 //		
 //		//Check that bob's task is still there
-//		bobsTaskFile = new File(ContextCorePlugin.getDefault().getDataDirectory() + File.separator + bobsTask.getContextPath() + MylynTaskListPlugin.FILE_EXTENSION);
+//		bobsTaskFile = new File(ContextCore.getDataDirectory() + File.separator + bobsTask.getContextPath() + MylynTaskListPlugin.FILE_EXTENSION);
 //		assertTrue(bobsTaskFile.exists());
 //		assertNotNull(manager.getTaskForHandle(bobsTask.getHandleIdentifier(), false));			
 //		
@@ -147,7 +147,7 @@ public class SharedTaskFolderTest extends TestCase {
 //		switchAction.switchTaskDataFolder(sharedDataFolderOptions[0]);
 //		
 //		//Check that the main task is there
-//		mainDataDirTaskFile = new File(ContextCorePlugin.getDefault().getDataDirectory() + File.separator + mainDataDirTask.getContextPath() + MylynTaskListPlugin.FILE_EXTENSION);
+//		mainDataDirTaskFile = new File(ContextCore.getDataDirectory() + File.separator + mainDataDirTask.getContextPath() + MylynTaskListPlugin.FILE_EXTENSION);
 //		assertTrue(mainDataDirTaskFile.exists());
 //		assertNotNull(manager.getTaskForHandle(mainDataDirTask.getHandleIdentifier(), false));			
 
@@ -172,7 +172,7 @@ public class SharedTaskFolderTest extends TestCase {
 		fail(); // uncomment below
 //		//Save the context file and check that it exists
 //		ContextCorePlugin.getContextManager().saveContext(mockContext.getId());//, newTask.getContextPath());
-//		File taskFile = new File(ContextCorePlugin.getDefault().getDataDirectory() + File.separator + newTask.getContextPath() + MylynContextManager.CONTEXT_FILE_EXTENSION);
+//		File taskFile = new File(ContextCore.getDataDirectory() + File.separator + newTask.getContextPath() + MylynContextManager.CONTEXT_FILE_EXTENSION);
 //		assertTrue(ContextCorePlugin.getContextManager().hasContext(newTask.getContextPath()));
 //		assertTrue(taskFile.exists());			
 

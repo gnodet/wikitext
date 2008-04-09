@@ -43,7 +43,7 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 			String text = "Object class: " + object.getClass() + "\n\n";
 
 			try {
-				AbstractContextStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(object);
+				AbstractContextStructureBridge bridge = ContextCore.getStructureBridge(object);
 				IInteractionElement node = ContextCore.getContextManager().getElement(
 						bridge.getHandleIdentifier(object));
 				if (node != null) {

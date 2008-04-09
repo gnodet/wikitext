@@ -35,7 +35,7 @@ public class ToggleAutoManagerExplorerAction extends Action {
 		setImageDescriptor(MylarImages.AUTO_EXPAND);	
 		setToolTipText("Degree of interest tree management"); 
 		
-		boolean checked= ContextCorePlugin.getDefault().getPreferenceStore().getBoolean(PREF_ID); 
+		boolean checked= ContextCore.getPreferenceStore().getBoolean(PREF_ID); 
 		valueChanged(checked, false);
 	}
 	
@@ -45,7 +45,7 @@ public class ToggleAutoManagerExplorerAction extends Action {
 	
 	private void valueChanged(final boolean on, boolean store) {
 		setChecked(on);
-		if (store) ContextCorePlugin.getDefault().getPreferenceStore().setValue(PREF_ID, on); //$NON-NLS-1$
+		if (store) ContextCore.getPreferenceStore().setValue(PREF_ID, on); //$NON-NLS-1$
 		autoExpand(on);
 //        MonitorPlugin.log(this, getText() + " set to: " + on);
 	}

@@ -13,9 +13,9 @@ import java.util.List;
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
+import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.context.ui.AbstractContextUiBridge;
-import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 
@@ -26,8 +26,7 @@ public class WebResourceUiBridge extends AbstractContextUiBridge {
 
 	@Override
 	public void open(IInteractionElement element) {
-		AbstractContextStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(
-				element.getContentType());
+		AbstractContextStructureBridge bridge = ContextCore.getStructureBridge(element.getContentType());
 		if (bridge == null) {
 			return;
 		} else {

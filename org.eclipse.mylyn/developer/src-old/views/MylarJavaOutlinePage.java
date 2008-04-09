@@ -154,7 +154,7 @@ public class MylarJavaOutlinePage extends JavaOutlinePage implements IContentOut
             setImageDescriptor(MylarImages.AUTO_EXPAND);    
             setToolTipText("Filter uninteresting elements"); //$NON-NLS-1$
             
-            boolean checked= ContextCorePlugin.getDefault().getPreferenceStore().getBoolean("org.eclipse.mylyn.ui.outline.filter.isChecked"); //$NON-NLS-1$
+            boolean checked= ContextCore.getPreferenceStore().getBoolean("org.eclipse.mylyn.ui.outline.filter.isChecked"); //$NON-NLS-1$
             valueChanged(checked, false);
         }
         
@@ -173,7 +173,7 @@ public class MylarJavaOutlinePage extends JavaOutlinePage implements IContentOut
             }
 
             if (store)
-                ContextCorePlugin.getDefault().getPreferenceStore().setValue("org.eclipse.mylyn.ui.outline.filter.isChecked", on); //$NON-NLS-1$
+                ContextCore.getPreferenceStore().setValue("org.eclipse.mylyn.ui.outline.filter.isChecked", on); //$NON-NLS-1$
         }
     }
     

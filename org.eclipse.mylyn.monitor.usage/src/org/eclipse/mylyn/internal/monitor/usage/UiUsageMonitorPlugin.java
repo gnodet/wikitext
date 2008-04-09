@@ -33,6 +33,7 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IContextStoreListener;
 import org.eclipse.mylyn.context.core.IInteractionContextManager;
 import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
@@ -229,11 +230,11 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		};
 
 		void start() {
-			ContextCorePlugin.getDefault().getContextStore().addListener(DATA_DIR_MOVE_LISTENER);
+			ContextCore.getContextStore().addListener(DATA_DIR_MOVE_LISTENER);
 		}
 
 		void stop() {
-			ContextCorePlugin.getDefault().getContextStore().removeListener(DATA_DIR_MOVE_LISTENER);
+			ContextCore.getContextStore().removeListener(DATA_DIR_MOVE_LISTENER);
 		}
 	}
 
@@ -398,7 +399,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 			}
 		}
 		logMoveUtility.stop();
-		// ContextCorePlugin.getDefault().getPluginPreferences().removePropertyChangeListener(DATA_DIR_MOVE_LISTENER);
+		// ContextCore.getPluginPreferences().removePropertyChangeListener(DATA_DIR_MOVE_LISTENER);
 
 		MonitorUiPlugin.getDefault().removeWindowPerspectiveListener(perspectiveMonitor);
 		workbench.getActivitySupport().getActivityManager().removeActivityManagerListener(activityMonitor);
@@ -480,8 +481,8 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 	public File getMonitorLogFile() {
 		File rootDir;
-		if (ContextCorePlugin.getDefault().getContextStore() != null) {
-			rootDir = ContextCorePlugin.getDefault().getContextStore().getRootDirectory();
+		if (ContextCore.getContextStore() != null) {
+			rootDir = ContextCore.getContextStore().getRootDirectory();
 		} else {
 			rootDir = new File(getStateLocation().toString());
 		}

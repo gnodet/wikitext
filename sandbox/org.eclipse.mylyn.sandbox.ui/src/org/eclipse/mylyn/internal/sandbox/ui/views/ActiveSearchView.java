@@ -229,8 +229,7 @@ public class ActiveSearchView extends ViewPart {
 	private void internalRefresh(final IInteractionElement node, boolean updateLabels) {
 		Object toRefresh = null;
 		if (node != null) {
-			AbstractContextStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(
-					node.getContentType());
+			AbstractContextStructureBridge bridge = ContextCore.getStructureBridge(node.getContentType());
 			toRefresh = bridge.getObjectForHandle(node.getHandleIdentifier());
 		}
 		if (viewer != null && !viewer.getTree().isDisposed()) {

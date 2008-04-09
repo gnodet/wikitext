@@ -42,7 +42,7 @@ public class WebResourceContentProvider implements IStructuredContentProvider, I
 	public Object[] getElements(Object parent) {
 		if (parent instanceof ArrayList) {
 			List<String> webDocs = (ArrayList<String>) parent;
-			IMylarStructureBridge bridge = ContextCorePlugin.getDefault().getStructureBridge(
+			IMylarStructureBridge bridge = ContextCore.getStructureBridge(
 					HypertextStructureBridge.CONTENT_TYPE);
 			Set<String> sites = new HashSet<String>();
 			for (String link : webDocs) {
