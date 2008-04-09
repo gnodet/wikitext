@@ -4,3 +4,7 @@
 1207608852755	Rename method 'setUrl'
 1207608894954	Rename method 'getId'
 1207718090629	Move compilation unit
+1207719498799	Extract interface 'ITaskDataManager'
+1207719533170	Move compilation unit
+1207719697254	Extract interface 'IRepositorySynchronizationManager'
+1207719713614	Move compilation unit
