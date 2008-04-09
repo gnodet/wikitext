@@ -222,7 +222,7 @@ public class WebContextManager {
 	public void updateTitle(final WebPage page) {
 		RetrieveTitleFromUrlJob job = new RetrieveTitleFromUrlJob(page.getUrl()) {
 			@Override
-			protected void setTitle(final String pageTitle) {
+			protected void titleRetrieved(final String pageTitle) {
 				page.setTitle(pageTitle);
 				titleCache.put(page.getUrl(), pageTitle);
 				for (IWebResourceListener listener : listeners) {

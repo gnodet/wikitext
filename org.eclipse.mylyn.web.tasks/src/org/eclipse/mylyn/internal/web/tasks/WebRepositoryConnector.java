@@ -36,7 +36,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.mylyn.internal.tasks.ui.RetrieveTitleFromUrlJob;
 import org.eclipse.mylyn.tasks.core.AbstractAttachmentHandler;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
@@ -51,6 +50,8 @@ import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.TaskRepositoryManager;
 import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.web.core.WebClientUtil;
+import org.eclipse.mylyn.web.core.WebLocation;
+import org.eclipse.mylyn.web.core.WebUtil;
 
 import com.sun.syndication.feed.module.DCModule;
 import com.sun.syndication.feed.synd.SyndEntry;
@@ -163,19 +164,13 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			schema.setTaskUrl(taskPrefix + taskId);
 			schema.setValue(KEY_TASK_PREFIX, taskPrefix);
 
-			// FIXME see bug 226054
-			RetrieveTitleFromUrlJob job = new RetrieveTitleFromUrlJob(taskPrefix + taskId) {
-				@Override
-				protected void setTitle(String pageTitle) {
-					schema.setSummary(pageTitle);
-				}
-			};
-			job.schedule();
+			String pageTitle;
 			try {
-				job.join();
-			} catch (InterruptedException ignored) {
+				pageTitle = WebUtil.getTitleFromUrl(new WebLocation(taskPrefix + taskId), monitor);
+				schema.setSummary(pageTitle);
+			} catch (IOException e) {
+				// log to error log?
 			}
-
 			return taskData;
 		}
 
