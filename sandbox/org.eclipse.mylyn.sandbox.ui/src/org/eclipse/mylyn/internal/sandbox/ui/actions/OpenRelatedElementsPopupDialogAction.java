@@ -10,7 +10,7 @@ package org.eclipse.mylyn.internal.sandbox.ui.actions;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.mylyn.internal.sandbox.views.RelatedElementsPopupDialog;
+import org.eclipse.mylyn.internal.sandbox.ui.views.RelatedElementsPopupDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;

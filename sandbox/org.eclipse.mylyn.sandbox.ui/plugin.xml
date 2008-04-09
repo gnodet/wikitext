@@ -182,7 +182,7 @@
    	  <view
           allowMultiple="false"
           category="org.eclipse.mylyn.sandbox"
-          class="org.eclipse.mylyn.internal.sandbox.views.ActiveSearchView"
+          class="org.eclipse.mylyn.internal.sandbox.ui.views.ActiveSearchView"
           icon="icons/eview16/active-search.gif"
           id="org.eclipse.mylyn.ui.views.active.search"
           name="Context Search"/>
@@ -190,7 +190,7 @@
 	  <view
             allowMultiple="false"
             category="org.eclipse.mylyn.sandbox"
-            class="org.eclipse.mylyn.internal.java.ui.views.ActiveHierarchyView"
+            class="org.eclipse.mylyn.internal.sandbox.ui.views.ContextHierarchyView"
             icon="icons/eview16/active-hierarchy.gif"
             id="org.eclipse.mylyn.ui.views.active.hierarchy"
             name="Context Hierarchy"/>
@@ -198,7 +198,7 @@
             <view
             allowMultiple="false"
             category="org.eclipse.mylyn.sandbox"
-            class="org.eclipse.mylyn.internal.sandbox.views.TaskActivityView"
+            class="org.eclipse.mylyn.internal.sandbox.ui.views.TaskActivityView"
             icon="icons/eview16/task-activity.gif"
             id="org.eclipse.mylyn.tasklist.activity"
             name="Task Activity"/>

@@ -19,7 +19,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.mylyn.context.ui.AbstractContextUiBridge;
 import org.eclipse.mylyn.internal.context.ui.ContextUiImages;
 import org.eclipse.mylyn.internal.context.ui.ContextUiPlugin;
-import org.eclipse.mylyn.internal.sandbox.views.ActiveSearchView;
+import org.eclipse.mylyn.internal.sandbox.ui.views.ActiveSearchView;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.IEditorPart;

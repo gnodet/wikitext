@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.java.ui.views;
+package org.eclipse.mylyn.internal.sandbox.ui.views;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -64,7 +64,7 @@ import org.eclipse.ui.views.navigator.LocalSelectionTransfer;
 /**
  * @author Mik Kersten
  */
-public class ActiveHierarchyView extends ViewPart {
+public class ContextHierarchyView extends ViewPart {
 
 	public static final String ID = "org.eclipse.mylyn.ui.views.active.hierarchy";
 
@@ -290,7 +290,7 @@ public class ActiveHierarchyView extends ViewPart {
 		menuMgr.setRemoveAllWhenShown(true);
 		menuMgr.addMenuListener(new IMenuListener() {
 			public void menuAboutToShow(IMenuManager manager) {
-				ActiveHierarchyView.this.fillContextMenu(manager);
+				ContextHierarchyView.this.fillContextMenu(manager);
 			}
 		});
 		Menu menu = menuMgr.createContextMenu(viewer.getControl());

@@ -1,0 +1,6 @@
+1207714957285	Rename package 'org.eclipse.mylyn.internal.sandbox.views'
+1207715085806	Rename type 'ActiveHierarchyView'
+1207715296387	Rename type 'OpenRelatedElementsQuickView'
+1207715319532	Rename type 'ActiveSearchQuickView'
+1207715360791	Rename type 'OpenContextSearchQuickView'
+1207715375621	Rename type 'ContextSearchQuickView'

@@ -12,7 +12,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.mylyn.internal.context.ui.ContextUiImages;
 import org.eclipse.mylyn.internal.context.ui.ContextUiPlugin;
-import org.eclipse.mylyn.internal.sandbox.views.ActiveSearchView;
+import org.eclipse.mylyn.internal.sandbox.ui.views.ActiveSearchView;
 
 /**
  * @author Mik Kersten

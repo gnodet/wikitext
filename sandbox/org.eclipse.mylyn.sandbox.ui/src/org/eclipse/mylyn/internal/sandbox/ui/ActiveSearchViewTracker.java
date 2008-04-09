@@ -9,7 +9,7 @@
 package org.eclipse.mylyn.internal.sandbox.ui;
 
 import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
-import org.eclipse.mylyn.internal.sandbox.views.ActiveSearchView;
+import org.eclipse.mylyn.internal.sandbox.ui.views.ActiveSearchView;
 import org.eclipse.ui.IPageListener;
 import org.eclipse.ui.IPartListener2;
 import org.eclipse.ui.IWindowListener;

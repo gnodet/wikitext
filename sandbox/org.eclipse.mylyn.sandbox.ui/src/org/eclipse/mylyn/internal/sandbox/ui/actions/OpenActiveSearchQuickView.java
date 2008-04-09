@@ -6,13 +6,13 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.ide.ui.actions;
+package org.eclipse.mylyn.internal.sandbox.ui.actions;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionElement;
-import org.eclipse.mylyn.internal.context.ui.views.ActiveSearchQuickView;
+import org.eclipse.mylyn.internal.sandbox.ui.views.ActiveSearchQuickView;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
@@ -21,7 +21,7 @@ import org.eclipse.ui.PlatformUI;
 /**
  * @author Mik Kersten
  */
-public class OpenRelatedElementsQuickView implements IWorkbenchWindowActionDelegate {
+public class OpenActiveSearchQuickView implements IWorkbenchWindowActionDelegate {
 
 	private ActiveSearchQuickView inplaceDialog;
 

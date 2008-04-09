@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.context.ui.views;
+package org.eclipse.mylyn.internal.sandbox.ui.views;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.GroupMarker;
@@ -26,6 +26,9 @@ import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.internal.context.ui.ContextUiPlugin;
 import org.eclipse.mylyn.internal.context.ui.DoiOrderSorter;
+import org.eclipse.mylyn.internal.context.ui.views.ContextContentProvider;
+import org.eclipse.mylyn.internal.context.ui.views.ContextNodeOpenListener;
+import org.eclipse.mylyn.internal.context.ui.views.DelegatingContextLabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlAdapter;
 import org.eclipse.swt.events.ControlEvent;

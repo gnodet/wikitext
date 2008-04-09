@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.sandbox.views;
+package org.eclipse.mylyn.internal.sandbox.ui.views;
 
 import java.util.ArrayList;
 import java.util.Collection;
