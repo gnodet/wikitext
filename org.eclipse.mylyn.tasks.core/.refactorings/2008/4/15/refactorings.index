@@ -19,3 +19,6 @@
 1207800064751	Rename field 'synchronizeChangedTasks'
 1207802591963	Extract local variable 'tasks2'
 1207805758219	Extract local variable 'rule'
+1207870005541	Extract method 'firePreSynchronization'
+1207870088958	Extract method 'firePostSynchronization'
+1207870197098	Extract method 'synchronizeQueries'
