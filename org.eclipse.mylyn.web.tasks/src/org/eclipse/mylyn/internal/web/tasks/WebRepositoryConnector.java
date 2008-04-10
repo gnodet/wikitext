@@ -365,7 +365,10 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 						String status = p.group("Status", matcher);
 						if (status != null) {
 //							w.setCompleted(COMPLETED_STATUSES.contains(status.toLowerCase()));
-							schema.setCompleted(COMPLETED_STATUSES.contains(status.toLowerCase()));
+							if (COMPLETED_STATUSES.contains(status.toLowerCase())) {
+								// TODO: set actual completion date here
+								schema.setCompletionDate(new Date());
+							}
 						}
 
 						resultCollector.accept(data);

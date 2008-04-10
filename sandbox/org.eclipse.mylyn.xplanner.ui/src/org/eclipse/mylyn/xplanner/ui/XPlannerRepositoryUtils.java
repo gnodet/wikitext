@@ -60,13 +60,15 @@ public class XPlannerRepositoryUtils {
 		try {
 			if (XPlannerTask.Kind.TASK.toString().equals(xplannerTask.getTaskKind())) {
 				TaskData taskData = client.getTask(Integer.valueOf(xplannerTask.getTaskId()).intValue());
-				repositoryTaskData = XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(repository.getRepositoryUrl(),
-						taskData, RepositoryTaskHandleUtil.getTaskId(xplannerTask.getHandleIdentifier()));
+				repositoryTaskData = XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(
+						repository.getRepositoryUrl(), taskData,
+						RepositoryTaskHandleUtil.getTaskId(xplannerTask.getHandleIdentifier()));
 				xplannerTask.setCompleted(taskData.isCompleted());
 			} else if (XPlannerTask.Kind.USER_STORY.toString().equals(xplannerTask.getTaskKind())) {
 				UserStoryData userStory = client.getUserStory(Integer.valueOf(xplannerTask.getTaskId()).intValue());
-				repositoryTaskData = XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(repository.getRepositoryUrl(),
-						userStory, RepositoryTaskHandleUtil.getTaskId(xplannerTask.getHandleIdentifier()));
+				repositoryTaskData = XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(
+						repository.getRepositoryUrl(), userStory,
+						RepositoryTaskHandleUtil.getTaskId(xplannerTask.getHandleIdentifier()));
 				xplannerTask.setCompleted(userStory.isCompleted());
 			}
 		} catch (final Exception e) {
@@ -88,13 +90,13 @@ public class XPlannerRepositoryUtils {
 		try {
 			TaskData taskData = client.getTask(Integer.valueOf(taskId).intValue());
 			if (taskData != null) {
-				repositoryTaskData = XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(repository.getRepositoryUrl(),
-						taskData, taskId);
+				repositoryTaskData = XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(
+						repository.getRepositoryUrl(), taskData, taskId);
 			} else {
 				UserStoryData userStory = client.getUserStory(Integer.valueOf(taskId).intValue());
 				if (userStory != null) {
-					repositoryTaskData = XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(repository.getRepositoryUrl(),
-							userStory, taskId);
+					repositoryTaskData = XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(
+							repository.getRepositoryUrl(), userStory, taskId);
 				}
 			}
 		} catch (final Exception e) {
@@ -599,8 +601,9 @@ public class XPlannerRepositoryUtils {
 	}
 
 	public static void validateRepository(TaskRepository taskRepository) throws CoreException {
-		validateRepository(taskRepository.getRepositoryUrl(), taskRepository.getUserName(), taskRepository.getPassword(),
-				taskRepository.getProxy(), taskRepository.getHttpUser(), taskRepository.getHttpPassword());
+		validateRepository(taskRepository.getRepositoryUrl(), taskRepository.getUserName(),
+				taskRepository.getPassword(), taskRepository.getProxy(), taskRepository.getHttpUser(),
+				taskRepository.getHttpPassword());
 	}
 
 	public static void validateRepository(String url, String userName, String password) throws CoreException {
@@ -630,8 +633,8 @@ public class XPlannerRepositoryUtils {
 				XPlannerMylynUIPlugin.REPOSITORY_KIND);
 
 		XPlannerTaskDataHandler taskDataHandler = (XPlannerTaskDataHandler) connector.getTaskDataHandler();
-		AbstractAttributeFactory attributeFactory = taskDataHandler.getAttributeFactory(taskRepository.getRepositoryUrl(),
-				taskRepository.getConnectorKind(), AbstractTask.DEFAULT_TASK_KIND);
+		AbstractAttributeFactory attributeFactory = taskDataHandler.getAttributeFactory(
+				taskRepository.getRepositoryUrl(), taskRepository.getConnectorKind(), AbstractTask.DEFAULT_TASK_KIND);
 		RepositoryTaskData taskData = new RepositoryTaskData(attributeFactory, XPlannerMylynUIPlugin.REPOSITORY_KIND,
 				taskRepository.getRepositoryUrl(), TasksUiPlugin.getDefault().getNextNewRepositoryTaskId(),
 				XPlannerTask.Kind.TASK.toString());
