@@ -4,3 +4,17 @@
 1207696866880	Delete element
 1207696875297	Copy compilation unit
 1207774872164	Rename method 'setTitle'
+1207780037869	Extract interface 'ITaskJobFactory'
+1207780088273	Delete element
+1207781021061	Extract interface 'ITasksJobFactory'
+1207781026921	Rename type 'TaskJobFactory'
+1207781335010	Move compilation unit
+1207787727200	Delete element
+1207788547519	Change method 'synchronize'
+1207789612814	Rename method 'synchronize'
+1207789621966	Rename method 'synchronize'
+1207789632532	Rename method 'synchronize'
+1207789675139	Rename method 'synchronize'
+1207789833098	Extract method 'joinIfInTestMode'
+1207792663917	Rename method 'synchNow'
+1207792876368	Delete element

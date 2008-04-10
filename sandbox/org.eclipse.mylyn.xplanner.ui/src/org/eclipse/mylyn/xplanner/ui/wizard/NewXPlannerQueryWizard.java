@@ -10,7 +10,6 @@ package org.eclipse.mylyn.xplanner.ui.wizard;
 import java.util.HashSet;
 import java.util.List;
 
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiImages;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
@@ -57,8 +56,8 @@ public class NewXPlannerQueryWizard extends Wizard {
 			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
 					repository.getConnectorKind());
 			if (connector != null) {
-				TasksUi.synchronize(connector, repository,
-						new HashSet<AbstractRepositoryQuery>(queries), null, Job.LONG, 0, true);
+				TasksUi.synchronizeQueries(connector, repository,
+						new HashSet<AbstractRepositoryQuery>(queries), null, true);
 			}
 		} else {
 			AbstractRepositoryQuery query = queryPage.getQuery();
@@ -74,7 +73,7 @@ public class NewXPlannerQueryWizard extends Wizard {
 			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
 					repository.getConnectorKind());
 			if (connector != null) {
-				TasksUi.synchronize(connector, query, null, true);
+				TasksUi.synchronizeQuery(connector, query, null, true);
 			}
 		}
 	}
