@@ -51,7 +51,6 @@ import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.monitor.ui.AbstractCommandMonitor;
 import org.eclipse.mylyn.monitor.ui.IActionExecutionListener;
 import org.eclipse.mylyn.monitor.ui.IMonitorLifecycleListener;
-import org.eclipse.mylyn.monitor.ui.MonitorUi;
 import org.eclipse.mylyn.monitor.usage.AbstractStudyBackgroundPage;
 import org.eclipse.mylyn.monitor.usage.AbstractStudyQuestionnairePage;
 import org.eclipse.mylyn.web.core.WebClientUtil;
@@ -319,7 +318,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		}
 
 		IWorkbench workbench = PlatformUI.getWorkbench();
-		MonitorUi.addInteractionListener(interactionLogger);
+		MonitorUiPlugin.getDefault().addInteractionListener(interactionLogger);
 		getCommandMonitors().add(keybindingCommandMonitor);
 
 		getActionExecutionListeners().add(new ActionExecutionMonitor());
@@ -388,7 +387,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		}
 
 		IWorkbench workbench = PlatformUI.getWorkbench();
-		MonitorUi.removeInteractionListener(interactionLogger);
+		MonitorUiPlugin.getDefault().removeInteractionListener(interactionLogger);
 
 		getCommandMonitors().remove(keybindingCommandMonitor);
 		getActionExecutionListeners().remove(new ActionExecutionMonitor());
