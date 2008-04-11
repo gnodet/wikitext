@@ -9,7 +9,7 @@ package org.eclipse.mylyn.internal.monitor.reports.preferences;
 
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.mylyn.internal.monitor.reports.MonitorReportsPlugin;
-import org.eclipse.mylyn.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
