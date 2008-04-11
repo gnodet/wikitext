@@ -48,6 +48,7 @@ import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.tasks.core.ITaskActivityListener;
 import org.eclipse.mylyn.tasks.core.ITaskListChangeListener;
+import org.eclipse.mylyn.tasks.core.TaskActivityAdapter;
 import org.eclipse.mylyn.tasks.core.TaskContainerDelta;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.swt.SWT;
@@ -124,7 +125,7 @@ public class TaskActivityView extends ViewPart {
 	/**
 	 * TODO: need lazier refresh policy.
 	 */
-	private final ITaskActivityListener ACTIVITY_LISTENER = new ITaskActivityListener() {
+	private final ITaskActivityListener ACTIVITY_LISTENER = new TaskActivityAdapter() {
 
 		public void taskActivated(AbstractTask task) {
 			refresh();
@@ -136,7 +137,7 @@ public class TaskActivityView extends ViewPart {
 			// TaskActivityView.this.treeViewer.refresh(task);
 		}
 
-		public void activityChanged(ScheduledTaskContainer week) {
+		public void activityChanged() {
 			refresh();
 			// TaskActivityView.this.treeViewer.refresh(week);
 		}

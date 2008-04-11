@@ -22,3 +22,5 @@
 1207870005541	Extract method 'firePreSynchronization'
 1207870088958	Extract method 'firePostSynchronization'
 1207870197098	Extract method 'synchronizeQueries'
+1207945984427	Change method 'activityChanged'
+1207946021360	Delete element
