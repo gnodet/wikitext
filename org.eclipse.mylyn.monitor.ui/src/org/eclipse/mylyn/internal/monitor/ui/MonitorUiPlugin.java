@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.monitor.ui;
+package org.eclipse.mylyn.internal.monitor.ui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,14 +23,12 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.context.core.ContextCore;
-import org.eclipse.mylyn.internal.monitor.ui.ActivityContextManager;
-import org.eclipse.mylyn.internal.monitor.ui.IMonitoredWindow;
-import org.eclipse.mylyn.internal.monitor.ui.ShellLifecycleListener;
-import org.eclipse.mylyn.internal.monitor.ui.WorkbenchUserActivityMonitor;
 import org.eclipse.mylyn.monitor.core.CoreUtil;
 import org.eclipse.mylyn.monitor.core.IInteractionEventListener;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
+import org.eclipse.mylyn.monitor.ui.AbstractUserActivityMonitor;
+import org.eclipse.mylyn.monitor.ui.AbstractUserInteractionMonitor;
 import org.eclipse.ui.IPageListener;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IPerspectiveListener;

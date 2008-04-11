@@ -25,12 +25,12 @@ import org.eclipse.mylyn.internal.java.ui.JavaUiBridgePlugin;
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
 import org.eclipse.mylyn.internal.monitor.reports.collectors.FocusedUiUsageAnalysisCollector;
 import org.eclipse.mylyn.internal.monitor.reports.collectors.FocusedUiViewUsageCollector;
+import org.eclipse.mylyn.internal.monitor.ui.MonitorUiPlugin;
 import org.eclipse.mylyn.internal.monitor.usage.InteractionEventLogger;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.internal.monitor.usage.UsageStatisticsSummary;
 import org.eclipse.mylyn.internal.tasks.ui.actions.TaskActivateAction;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
-import org.eclipse.mylyn.monitor.ui.MonitorUiPlugin;
 import org.eclipse.mylyn.monitor.usage.ReportGenerator;
 
 /**
