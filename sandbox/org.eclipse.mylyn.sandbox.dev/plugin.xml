@@ -18,7 +18,7 @@
      <extension point="org.eclipse.ui.decorators">
       <decorator
             lightweight="true"
-            label="Sandbox: Interest Level Decorator"
+            label="Mylyn: Interest Debugging Decorator"
             class="org.eclipse.mylyn.internal.sandbox.dev.InterestDebuggingDecorator"
             state="false"
             id="org.eclipse.mylyn.sandbox.ui.decorator.interest">

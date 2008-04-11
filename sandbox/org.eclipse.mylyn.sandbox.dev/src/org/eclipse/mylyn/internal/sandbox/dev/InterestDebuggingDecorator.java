@@ -54,7 +54,7 @@ public class InterestDebuggingDecorator implements ILightweightLabelDecorator {
 				}
 			}
 			if (node != null) {
-				decoration.addSuffix(" {" + node.getInterest().getValue() + "}");
+				decoration.addSuffix(" {" + node.getInterest().getValue() + " [" + node.getInterest().getEncodedValue() + "] " + "}");
 			}
 		} catch (Exception e) {
 			StatusHandler.log(new Status(IStatus.WARNING, MylynDevPlugin.PLUGIN_ID, "Decoration failed", e));
