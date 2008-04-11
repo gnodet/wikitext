@@ -17,6 +17,7 @@ import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.mylyn.context.ui.AbstractContextUiBridge;
+import org.eclipse.mylyn.context.ui.ContextUi;
 import org.eclipse.mylyn.internal.context.ui.ContextUiImages;
 import org.eclipse.mylyn.internal.context.ui.ContextUiPlugin;
 import org.eclipse.mylyn.internal.sandbox.ui.views.ActiveSearchView;
@@ -76,7 +77,7 @@ public class LinkActiveSearchWithEditorAction extends Action {
 					if (view == null || !view.getViewer().getControl().isVisible()) {
 						return;
 					}
-					AbstractContextUiBridge bridge = ContextUiPlugin.getDefault().getUiBridgeForEditor(
+					AbstractContextUiBridge bridge = ContextUi.getUiBridgeForEditor(
 							(IEditorPart) part);
 					Object toSelect = bridge.getObjectForTextSelection((TextSelection) selection, (IEditorPart) part);
 					if (toSelect != null && view.getViewer().testFindItem(toSelect) != null) {

@@ -37,6 +37,7 @@ import org.eclipse.mylyn.context.core.IInteractionContext;
 import org.eclipse.mylyn.context.core.IInteractionContextListener;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.context.core.IInteractionRelation;
+import org.eclipse.mylyn.context.ui.ContextUi;
 import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.context.ui.ContextUiImages;
 import org.eclipse.mylyn.internal.context.ui.ContextUiPlugin;
@@ -248,7 +249,7 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 			node = ContextCore.getContextManager().getElement(handle);
 		}
 		if (node != null) {
-			ContextUiPlugin.getDefault().getUiBridge(node.getContentType()).open(node);
+			ContextUi.getUiBridge(node.getContentType()).open(node);
 		}
 		dispose();
 	}
