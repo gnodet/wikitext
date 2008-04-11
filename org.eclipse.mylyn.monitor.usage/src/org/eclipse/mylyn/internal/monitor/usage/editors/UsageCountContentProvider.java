@@ -13,7 +13,7 @@ import java.util.List;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventSummary;
-import org.eclipse.mylyn.monitor.usage.ReportGenerator;
+import org.eclipse.mylyn.internal.monitor.usage.ReportGenerator;
 
 /**
  * Acts as proxy to the Taskscape model.

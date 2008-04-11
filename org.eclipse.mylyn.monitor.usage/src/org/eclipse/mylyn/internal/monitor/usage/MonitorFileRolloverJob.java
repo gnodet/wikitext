@@ -29,7 +29,6 @@ import org.eclipse.mylyn.internal.monitor.usage.editors.UsageStatsEditorInput;
 import org.eclipse.mylyn.internal.monitor.usage.editors.UsageSummaryReportEditorPart;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
-import org.eclipse.mylyn.monitor.usage.ReportGenerator;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;

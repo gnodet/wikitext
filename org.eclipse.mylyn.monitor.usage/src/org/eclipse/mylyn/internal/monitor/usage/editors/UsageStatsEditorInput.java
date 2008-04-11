@@ -15,7 +15,7 @@ import java.io.OutputStream;
 import java.util.List;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylyn.monitor.usage.ReportGenerator;
+import org.eclipse.mylyn.internal.monitor.usage.ReportGenerator;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IPersistableElement;
 

@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.monitor.usage;
+package org.eclipse.mylyn.internal.monitor.usage;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -29,9 +29,6 @@ import org.eclipse.mylyn.internal.monitor.core.collection.IUsageScanner;
 import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventComparator;
 import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventSummary;
 import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventUtil;
-import org.eclipse.mylyn.internal.monitor.usage.InteractionEventLogger;
-import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
-import org.eclipse.mylyn.internal.monitor.usage.UsageStatisticsSummary;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 
