@@ -39,6 +39,7 @@ import org.eclipse.mylyn.tasks.core.ITaskFactory;
 import org.eclipse.mylyn.tasks.core.QueryHitCollector;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.tasks.ui.search.AbstractRepositoryQueryPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -114,7 +115,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 	private static String getDefaultQueryTitle(TaskRepository repository) {
 		String label = repository.getRepositoryLabel();
 		String title = label;
-		Set<AbstractRepositoryQuery> queries = TasksUiPlugin.getTaskListManager().getTaskList().getRepositoryQueries(
+		Set<AbstractRepositoryQuery> queries = TasksUi.getTaskListManager().getTaskList().getRepositoryQueries(
 				repository.getRepositoryUrl());
 		for (int n = 1; true; n++) {
 			for (AbstractRepositoryQuery query : queries) {

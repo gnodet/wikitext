@@ -39,6 +39,7 @@ import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskComment;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TaskFactory;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
@@ -148,16 +149,16 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 		String elementName = getFullyQualifiedName(javaElement);
 
 		// setup the search result collector
-		collector = new ProgressQueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList(), new TaskFactory(
+		collector = new ProgressQueryHitCollector(TasksUi.getTaskListManager().getTaskList(), new TaskFactory(
 				null));//SearchHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());
 		//collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
 
 		// get all of the root tasks and start the search
-		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getOrphanContainer(
+		Set<AbstractTask> tasks = TasksUi.getTaskListManager().getTaskList().getOrphanContainer(
 				LocalRepositoryConnector.REPOSITORY_URL).getChildren();
 		searchLocal(tasks, collector, elementName, monitor);
-		for (AbstractTaskContainer cat : TasksUiPlugin.getTaskListManager().getTaskList().getTaskContainers()) {
+		for (AbstractTaskContainer cat : TasksUi.getTaskListManager().getTaskList().getTaskContainers()) {
 			searchLocal(cat.getChildren(), collector, elementName, monitor);
 		}
 
@@ -179,16 +180,16 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 		String elementName = javaElement.getElementName();
 
 		// setup the search result collector
-		collector = new ProgressQueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList(), new TaskFactory(
+		collector = new ProgressQueryHitCollector(TasksUi.getTaskListManager().getTaskList(), new TaskFactory(
 				null));//SearchHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());
 		//collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
 
 		// get all of the root tasks and start the search
-		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getOrphanContainer(
+		Set<AbstractTask> tasks = TasksUi.getTaskListManager().getTaskList().getOrphanContainer(
 				LocalRepositoryConnector.REPOSITORY_URL).getChildren();
 		searchLocal(tasks, collector, elementName, monitor);
-		for (AbstractTaskContainer cat : TasksUiPlugin.getTaskListManager().getTaskList().getTaskContainers()) {
+		for (AbstractTaskContainer cat : TasksUi.getTaskListManager().getTaskList().getTaskContainers()) {
 			searchLocal(cat.getChildren(), collector, elementName, monitor);
 		}
 		// return the collector
@@ -333,7 +334,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 	@SuppressWarnings("deprecation")
 	private ProgressQueryHitCollector searchQualified(String repositoryUrl, IProgressMonitor monitor) {
 		// create a new collector for the results
-		collector = new ProgressQueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList(), new TaskFactory(
+		collector = new ProgressQueryHitCollector(TasksUi.getTaskListManager().getTaskList(), new TaskFactory(
 				null));//SearchHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());
 		//collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
@@ -355,7 +356,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 	@SuppressWarnings("deprecation")
 	private ProgressQueryHitCollector searchUnqualified(String repositoryUrl, IProgressMonitor monitor) {
 		// create a new collector for the results
-		collector = new ProgressQueryHitCollector(TasksUiPlugin.getTaskListManager().getTaskList(), new TaskFactory(
+		collector = new ProgressQueryHitCollector(TasksUi.getTaskListManager().getTaskList(), new TaskFactory(
 				null));//SearchHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());
 		//collector.setOperation(this);
 		collector.setProgressMonitor(monitor);

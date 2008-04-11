@@ -49,6 +49,7 @@ import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.SynchronizationEvent;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.TaskRepositoryManager;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.web.core.WebClientUtil;
 import org.eclipse.mylyn.web.core.WebLocation;
 import org.eclipse.mylyn.web.core.WebUtil;
@@ -192,7 +193,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			}
 		}
 
-		for (AbstractRepositoryQuery query : TasksUiPlugin.getTaskListManager().getTaskList().getQueries()) {
+		for (AbstractRepositoryQuery query : TasksUi.getTaskListManager().getTaskList().getQueries()) {
 			if (query instanceof WebQuery) {
 				WebQuery webQuery = (WebQuery) query;
 				TaskRepository repository = repositoryManager.getRepository(webQuery.getRepositoryKind(),

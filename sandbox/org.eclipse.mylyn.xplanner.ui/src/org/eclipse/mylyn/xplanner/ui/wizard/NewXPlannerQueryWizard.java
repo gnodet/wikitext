@@ -49,7 +49,7 @@ public class NewXPlannerQueryWizard extends Wizard {
 		if (queryPage instanceof MultipleQueryPage) {
 			List<AbstractRepositoryQuery> queries = ((MultipleQueryPage) queryPage).getQueries();
 			for (final AbstractRepositoryQuery query : queries) {
-				TasksUiPlugin.getTaskListManager().getTaskList().addQuery(query);
+				TasksUi.getTaskListManager().getTaskList().addQuery(query);
 			}
 
 			// need to synchronize multiple queries with single call, otherwise get ConcurrencyModificationException
@@ -69,7 +69,7 @@ public class NewXPlannerQueryWizard extends Wizard {
 
 	public static void addQuery(AbstractRepositoryQuery query, TaskRepository repository) {
 		if (query != null) {
-			TasksUiPlugin.getTaskListManager().getTaskList().addQuery(query);
+			TasksUi.getTaskListManager().getTaskList().addQuery(query);
 			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
 					repository.getConnectorKind());
 			if (connector != null) {

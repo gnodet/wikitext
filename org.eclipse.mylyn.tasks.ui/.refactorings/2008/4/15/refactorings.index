@@ -21,3 +21,5 @@
 1207883632221	Move compilation unit
 1207883839362	Move compilation unit
 1207884029496	Extract interface 'ITaskListManager'
+1207884408542	Move member 'getTaskListManager'
+1207884879533	Move compilation unit

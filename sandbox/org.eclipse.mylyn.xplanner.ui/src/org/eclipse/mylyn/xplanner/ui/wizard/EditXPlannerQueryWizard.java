@@ -41,7 +41,7 @@ public class EditXPlannerQueryWizard extends AbstractEditQueryWizard {
 		List<AbstractRepositoryQuery> queries = new ArrayList<AbstractRepositoryQuery>();
 
 		// always delete existing query, because new one(s) will get created below
-		TasksUiPlugin.getTaskListManager().getTaskList().deleteQuery(query);
+		TasksUi.getTaskListManager().getTaskList().deleteQuery(query);
 
 		if (queryPage instanceof MultipleQueryPage) {
 			queries = ((MultipleQueryPage) queryPage).getQueries();
@@ -61,7 +61,7 @@ public class EditXPlannerQueryWizard extends AbstractEditQueryWizard {
 
 	private void updateQuery(final AbstractRepositoryQuery query) {
 		// just in case one with this definition already exists...
-		TasksUiPlugin.getTaskListManager().getTaskList().deleteQuery(query);
+		TasksUi.getTaskListManager().getTaskList().deleteQuery(query);
 		// make sure query reflects changed name, if it was changed
 		if (query instanceof XPlannerCustomQuery) {
 			XPlannerCustomQuery xplannerQuery = (XPlannerCustomQuery) query;
@@ -71,7 +71,7 @@ public class EditXPlannerQueryWizard extends AbstractEditQueryWizard {
 				xplannerQuery.setHandleIdentifier(queryName);
 			}
 		}
-		TasksUiPlugin.getTaskListManager().getTaskList().addQuery(query);
+		TasksUi.getTaskListManager().getTaskList().addQuery(query);
 
 		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
 				repository.getConnectorKind());

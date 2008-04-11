@@ -21,6 +21,7 @@ import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
 
@@ -87,8 +88,8 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 					}
 				}
 			}
-			text += "\n\nNum tasks: " + TasksUiPlugin.getTaskListManager().getTaskList().getAllTasks().size();
-			text += "\nNum queries: " + TasksUiPlugin.getTaskListManager().getTaskList().getQueries().size();
+			text += "\n\nNum tasks: " + TasksUi.getTaskListManager().getTaskList().getAllTasks().size();
+			text += "\nNum queries: " + TasksUi.getTaskListManager().getTaskList().getQueries().size();
 
 			MessageDialog.openInformation(null, "Mylyn Sandbox", text);
 		}

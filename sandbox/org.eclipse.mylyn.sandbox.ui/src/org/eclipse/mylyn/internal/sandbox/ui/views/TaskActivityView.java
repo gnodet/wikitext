@@ -49,6 +49,7 @@ import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.tasks.core.ITaskActivityListener;
 import org.eclipse.mylyn.tasks.core.ITaskListChangeListener;
 import org.eclipse.mylyn.tasks.core.TaskContainerDelta;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.DND;
 import org.eclipse.swt.dnd.TextTransfer;
@@ -164,15 +165,15 @@ public class TaskActivityView extends ViewPart {
 
 	public TaskActivityView() {
 		INSTANCE = this;
-		TasksUiPlugin.getTaskListManager().addActivityListener(ACTIVITY_LISTENER);
-		TasksUiPlugin.getTaskListManager().getTaskList().addChangeListener(TASK_CHANGE_LISTENER);
+		TasksUi.getTaskListManager().addActivityListener(ACTIVITY_LISTENER);
+		TasksUi.getTaskListManager().getTaskList().addChangeListener(TASK_CHANGE_LISTENER);
 	}
 
 	@Override
 	public void dispose() {
 		super.dispose();
-		TasksUiPlugin.getTaskListManager().removeActivityListener(ACTIVITY_LISTENER);
-		TasksUiPlugin.getTaskListManager().getTaskList().removeChangeListener(TASK_CHANGE_LISTENER);
+		TasksUi.getTaskListManager().removeActivityListener(ACTIVITY_LISTENER);
+		TasksUi.getTaskListManager().getTaskList().removeChangeListener(TASK_CHANGE_LISTENER);
 	}
 
 	@Override

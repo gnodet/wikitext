@@ -36,6 +36,7 @@ import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.SynchronizationEvent;
 import org.eclipse.mylyn.tasks.core.TaskList;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.wsdl.soap.domain.DomainData;
 import org.xplanner.soap.TaskData;
@@ -99,7 +100,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
 				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryUrl);
 		String handleIdentifier = RepositoryTaskHandleUtil.getHandle(repository.getRepositoryUrl(), id);
-		AbstractTask existingTask = TasksUiPlugin.getTaskListManager().getTaskList().getTask(handleIdentifier);
+		AbstractTask existingTask = TasksUi.getTaskListManager().getTaskList().getTask(handleIdentifier);
 
 		if (existingTask instanceof XPlannerTask) {
 			task = existingTask;
@@ -267,7 +268,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 
 		for (TaskData data : tasks) {
 			String id = String.valueOf(data.getId());
-			AbstractTask task = TasksUiPlugin.getTaskListManager().getTaskList().getTask(repository.getRepositoryUrl(),
+			AbstractTask task = TasksUi.getTaskListManager().getTaskList().getTask(repository.getRepositoryUrl(),
 					id);
 			if (task != null) {
 				updateTaskDetails(repository.getRepositoryUrl(), (XPlannerTask) task, data, false);
@@ -411,7 +412,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 		}
 
 		if (notifyOfChange) {
-			TasksUiPlugin.getTaskListManager().getTaskList().notifyTaskChanged(task, true);
+			TasksUi.getTaskListManager().getTaskList().notifyTaskChanged(task, true);
 		}
 	}
 
@@ -438,7 +439,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 		task.setTaskKind(XPlannerTask.Kind.USER_STORY.toString());
 
 		if (notifyOfChange) {
-			TasksUiPlugin.getTaskListManager().getTaskList().notifyTaskChanged(task, true);
+			TasksUi.getTaskListManager().getTaskList().notifyTaskChanged(task, true);
 		}
 	}
 
@@ -446,7 +447,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 
 		XPlannerTask task;
 
-		AbstractTask existingTask = TasksUiPlugin.getTaskListManager().getTaskList().getTask(
+		AbstractTask existingTask = TasksUi.getTaskListManager().getTaskList().getTask(
 				repository.getRepositoryUrl(), id);
 		if (existingTask instanceof XPlannerTask) {
 			task = (XPlannerTask) existingTask;
