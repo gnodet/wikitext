@@ -44,11 +44,11 @@ import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskCollector;
 import org.eclipse.mylyn.tasks.core.AbstractTaskDataHandler;
 import org.eclipse.mylyn.tasks.core.DefaultTaskSchema;
+import org.eclipse.mylyn.tasks.core.ITaskRepositoryManager;
 import org.eclipse.mylyn.tasks.core.IdentityAttributeFactory;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.SynchronizationEvent;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
-import org.eclipse.mylyn.tasks.core.TaskRepositoryManager;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.web.core.WebClientUtil;
 import org.eclipse.mylyn.web.core.WebLocation;
@@ -185,7 +185,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		}
 
 		// lookup repository using task prefix url
-		TaskRepositoryManager repositoryManager = TasksUiPlugin.getRepositoryManager();
+		ITaskRepositoryManager repositoryManager = TasksUi.getRepositoryManager();
 		for (TaskRepository repository : repositoryManager.getRepositories(getConnectorKind())) {
 			String taskUrl = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
 			if (taskUrl != null && !taskUrl.equals("") && url.startsWith(taskUrl)) {
@@ -216,7 +216,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			return null;
 		}
 
-		TaskRepositoryManager repositoryManager = TasksUiPlugin.getRepositoryManager();
+		ITaskRepositoryManager repositoryManager = TasksUi.getRepositoryManager();
 		for (TaskRepository repository : repositoryManager.getRepositories(getConnectorKind())) {
 			String start = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
 			if (start != null && url.startsWith(start)) {
@@ -228,7 +228,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	@Override
 	public String getTaskUrl(String repositoryUrl, String taskId) {
-		TaskRepositoryManager repositoryManager = TasksUiPlugin.getRepositoryManager();
+		ITaskRepositoryManager repositoryManager = TasksUi.getRepositoryManager();
 		TaskRepository repository = repositoryManager.getRepository(getConnectorKind(), repositoryUrl);
 		if (repository != null) {
 			String prefix = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);

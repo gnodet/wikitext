@@ -19,6 +19,7 @@ import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.ITaskRepositoryListener;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.xplanner.core.XPlannerClientManager;
 import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
@@ -41,7 +42,7 @@ public class XPlannerClientFacade implements ITaskRepositoryListener {
 	private static XPlannerClientFacade instance = null;
 
 	public XPlannerClientFacade() {
-		TasksUiPlugin.getRepositoryManager().addListener(this);
+		TasksUi.getRepositoryManager().addListener(this);
 		clientManager = XPlannerCorePlugin.getDefault().getClientManager();
 	}
 

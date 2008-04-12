@@ -23,10 +23,10 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.ui.XPlannerClientFacade;
 import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
@@ -160,7 +160,7 @@ public class NewXPlannerTaskPage extends WizardPage {
 	private void updateProjectsFromRepository(final boolean force) {
 		if (force) { //!client.hasDetails() || force) {
 			try {
-				final AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager()
+				final AbstractRepositoryConnector connector = TasksUi.getRepositoryManager()
 						.getRepositoryConnector(repository.getConnectorKind());
 
 				getContainer().run(true, false, new IRunnableWithProgress() {

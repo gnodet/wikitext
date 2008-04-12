@@ -24,6 +24,7 @@ import org.eclipse.mylyn.internal.bugzilla.core.RepositoryConfiguration;
 import org.eclipse.mylyn.internal.bugzilla.ui.BugzillaUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
 
@@ -114,7 +115,7 @@ public class Util {
 	public static StringBuffer getQueryURLEnd(String repositoryUrl) {
 
 		StringBuffer sb = new StringBuffer();
-		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(repositoryUrl);
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(repositoryUrl);
 		RepositoryConfiguration repositoryConfiguration = null;
 		try {
 			repositoryConfiguration = BugzillaCorePlugin.getRepositoryConfiguration(repository, false);
@@ -161,7 +162,7 @@ public class Util {
 		}
 		sb.append("buglist.cgi?");
 
-		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
 				BugzillaCorePlugin.REPOSITORY_KIND, repositoryUrl);
 		if (repository != null && repository.hasCredentials()) {
 			// if (BugzillaPreferencePage.getUserName() != null

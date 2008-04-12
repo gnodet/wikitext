@@ -17,10 +17,10 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.resource.JFaceResources;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.tasks.ui.editors.RepositoryTaskEditorInput;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeFactory;
@@ -104,7 +104,7 @@ public class XPlannerUserStoryEditor extends FormPage {
 		setInput(input);
 		setPartName(this.input.getName());
 		RepositoryTaskData taskData = repositoryInput.getTaskData();
-		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(taskData.getConnectorKind(),
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(taskData.getConnectorKind(),
 				taskData.getRepositoryUrl());
 		try {
 			client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);

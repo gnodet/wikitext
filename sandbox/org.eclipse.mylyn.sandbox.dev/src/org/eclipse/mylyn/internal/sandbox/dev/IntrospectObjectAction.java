@@ -18,7 +18,6 @@ import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
@@ -69,7 +68,7 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 					task = (AbstractTask) object;
 				}
 				if (task != null) {
-					TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
+					TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
 							task.getConnectorKind(), task.getRepositoryUrl());
 					text += "\nHandle Identifier: " + task.getHandleIdentifier();
 					text += "\nLast time in SYNCHRONIZED state: " + task.getLastReadTimeStamp();

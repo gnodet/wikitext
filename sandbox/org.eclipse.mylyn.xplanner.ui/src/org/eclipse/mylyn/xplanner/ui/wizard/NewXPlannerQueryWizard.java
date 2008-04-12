@@ -12,7 +12,6 @@ import java.util.List;
 
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiImages;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
@@ -53,7 +52,7 @@ public class NewXPlannerQueryWizard extends Wizard {
 			}
 
 			// need to synchronize multiple queries with single call, otherwise get ConcurrencyModificationException
-			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
+			AbstractRepositoryConnector connector = TasksUi.getRepositoryManager().getRepositoryConnector(
 					repository.getConnectorKind());
 			if (connector != null) {
 				TasksUi.synchronizeQueries(connector, repository,
@@ -70,7 +69,7 @@ public class NewXPlannerQueryWizard extends Wizard {
 	public static void addQuery(AbstractRepositoryQuery query, TaskRepository repository) {
 		if (query != null) {
 			TasksUi.getTaskListManager().getTaskList().addQuery(query);
-			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
+			AbstractRepositoryConnector connector = TasksUi.getRepositoryManager().getRepositoryConnector(
 					repository.getConnectorKind());
 			if (connector != null) {
 				TasksUi.synchronizeQuery(connector, query, null, true);

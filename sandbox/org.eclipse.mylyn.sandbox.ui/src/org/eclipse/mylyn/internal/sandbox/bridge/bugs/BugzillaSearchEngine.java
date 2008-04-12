@@ -29,6 +29,7 @@ import org.eclipse.mylyn.internal.bugzilla.ui.BugzillaUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.util.WebBrowserDialog;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.ui.PlatformUI;
 
 /**
@@ -125,7 +126,7 @@ public class BugzillaSearchEngine {
 
 			BugzillaRepositoryQuery query = new BugzillaRepositoryQuery(repository.getRepositoryUrl(), urlString, "summary");
 
-			BugzillaRepositoryConnector bugzillaConnector = (BugzillaRepositoryConnector) TasksUiPlugin.getRepositoryManager()
+			BugzillaRepositoryConnector bugzillaConnector = (BugzillaRepositoryConnector) TasksUi.getRepositoryManager()
 					.getRepositoryConnector(BugzillaCorePlugin.REPOSITORY_KIND);
 
 			BugzillaClient client = bugzillaConnector.getClientManager().getClient(repository);

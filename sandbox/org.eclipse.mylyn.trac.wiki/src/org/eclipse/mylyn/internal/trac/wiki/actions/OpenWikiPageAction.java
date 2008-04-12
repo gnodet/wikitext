@@ -21,7 +21,6 @@ import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.trac.core.AbstractWikiHandler;
 import org.eclipse.mylyn.internal.trac.core.TracRepositoryConnector;
 import org.eclipse.mylyn.internal.trac.core.model.TracWikiPage;
@@ -31,6 +30,7 @@ import org.eclipse.mylyn.internal.trac.wiki.editor.TracWikiPageEditorInput;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -232,7 +232,7 @@ public class OpenWikiPageAction extends Action implements IViewActionDelegate {
 	public void selectionChanged(IAction action, ISelection selection) {
 		repository = getSelectedRepository(selection);
 		if (repository != null) {
-			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
+			AbstractRepositoryConnector connector = TasksUi.getRepositoryManager().getRepositoryConnector(
 					repository.getConnectorKind());
 			// Note: the following type checking on the connector won't be needed once the Wiki
 			//       functionality is generalized into AbstractRepositoryConnector

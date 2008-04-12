@@ -10,7 +10,6 @@ package org.eclipse.mylyn.xplanner.ui.wizard;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
@@ -73,7 +72,7 @@ public class EditXPlannerQueryWizard extends AbstractEditQueryWizard {
 		}
 		TasksUi.getTaskListManager().getTaskList().addQuery(query);
 
-		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
+		AbstractRepositoryConnector connector = TasksUi.getRepositoryManager().getRepositoryConnector(
 				repository.getConnectorKind());
 		if (connector != null) {
 			TasksUi.synchronizeQuery(connector, query, null, true);

@@ -341,7 +341,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 
 		// get the search url
 		String url = Util.getExactSearchURL(repositoryUrl, javaElement);
-		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
 				BugzillaCorePlugin.REPOSITORY_KIND, repositoryUrl);
 		return search(url, repository, collector, monitor);
 	}
@@ -363,7 +363,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 
 		// get the search url
 		String url = Util.getInexactSearchURL(repositoryUrl, javaElement);
-		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
 				BugzillaCorePlugin.REPOSITORY_KIND, repositoryUrl);
 
 		return search(url, repository, collector, monitor);

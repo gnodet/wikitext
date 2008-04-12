@@ -15,9 +15,9 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylyn.context.ui.IContextUiStartup;
 import org.eclipse.mylyn.internal.monitor.ui.MonitorUiPlugin;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -64,7 +64,7 @@ public class WebUiBridgePlugin extends AbstractUIPlugin {
 			browserTracker = new BrowserTracker();
 			MonitorUiPlugin.getDefault().addWindowPartListener(browserTracker);
 
-			for (TaskRepository repository : TasksUiPlugin.getRepositoryManager().getAllRepositories()) {
+			for (TaskRepository repository : TasksUi.getRepositoryManager().getAllRepositories()) {
 				String url = repository.getRepositoryUrl();
 				if (url != null) {
 					excludedUrls.add(url);

@@ -30,6 +30,7 @@ import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.xplanner.soap.IterationData;
@@ -133,7 +134,7 @@ public class XPlannerRepositoryUtils {
 	public static void setupTaskAttributes(TaskData taskData, RepositoryTaskData repositoryTaskData)
 			throws CoreException {
 
-		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
 				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryTaskData.getRepositoryUrl());
 		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 
@@ -208,7 +209,7 @@ public class XPlannerRepositoryUtils {
 	public static void setupNewTaskAttributes(UserStoryData userStoryData, RepositoryTaskData repositoryTaskData)
 			throws CoreException {
 
-		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
 				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryTaskData.getRepositoryUrl());
 		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 
@@ -305,7 +306,7 @@ public class XPlannerRepositoryUtils {
 	public static void setupUserStoryAttributes(UserStoryData userStory, RepositoryTaskData repositoryTaskData)
 			throws CoreException {
 
-		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
 				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryTaskData.getRepositoryUrl());
 		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 
@@ -593,7 +594,7 @@ public class XPlannerRepositoryUtils {
 			return;
 		}
 
-		TaskRepository taskRepository = TasksUiPlugin.getRepositoryManager().getRepository(
+		TaskRepository taskRepository = TasksUi.getRepositoryManager().getRepository(
 				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryUrl);
 		if (taskRepository != null && !isRepositoryUrlValidated(taskRepository.getRepositoryUrl())) {
 			validateRepository(taskRepository);
@@ -629,7 +630,7 @@ public class XPlannerRepositoryUtils {
 			return null;
 		}
 
-		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
+		AbstractRepositoryConnector connector = TasksUi.getRepositoryManager().getRepositoryConnector(
 				XPlannerMylynUIPlugin.REPOSITORY_KIND);
 
 		XPlannerTaskDataHandler taskDataHandler = (XPlannerTaskDataHandler) connector.getTaskDataHandler();

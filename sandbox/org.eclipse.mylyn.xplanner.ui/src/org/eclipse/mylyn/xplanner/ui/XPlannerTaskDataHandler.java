@@ -19,7 +19,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.AbstractAttributeFactory;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskDataHandler;
@@ -27,6 +26,7 @@ import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskList;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.xplanner.soap.TaskData;
@@ -108,7 +108,7 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 		String error = null;
 		String newTaskId = null;
 
-		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
 				repositoryTaskData.getConnectorKind(), repositoryTaskData.getRepositoryUrl());
 
 		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);

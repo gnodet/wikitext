@@ -482,7 +482,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 
 				Display.getDefault().asyncExec(new Runnable() {
 					public void run() {
-						AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager()
+						AbstractRepositoryConnector connector = TasksUi.getRepositoryManager()
 								.getRepositoryConnector(repository.getConnectorKind());
 						List<AbstractTask> tasks = new ArrayList<AbstractTask>();
 						for (RepositoryTaskData hit : queryHits) {

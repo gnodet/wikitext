@@ -9,11 +9,11 @@ package org.eclipse.mylyn.xplanner.ui.editor;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractRepositoryTaskEditor;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskEditorFactory;
 import org.eclipse.mylyn.tasks.ui.editors.RepositoryTaskEditorInput;
@@ -71,7 +71,7 @@ public class XPlannerTaskEditorFactory extends AbstractTaskEditorFactory {
 		if (task instanceof XPlannerTask) {
 			XPlannerTask xplannerTask = (XPlannerTask) task;
 
-			final TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
+			final TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
 					xplannerTask.getConnectorKind(), xplannerTask.getRepositoryUrl());
 			try {
 				input = new RepositoryTaskEditorInput(repository, xplannerTask.getTaskId(), xplannerTask.getUrl());

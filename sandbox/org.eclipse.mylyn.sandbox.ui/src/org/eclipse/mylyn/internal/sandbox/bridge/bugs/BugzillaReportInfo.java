@@ -17,10 +17,10 @@ import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaRepositoryConnector;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaTask;
 import org.eclipse.mylyn.internal.bugzilla.ui.tasklist.StackTrace;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.AbstractTaskDataHandler;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
 
 /**
  * Class to store the DoiInfo of a BugzillaSearchHit
@@ -106,9 +106,9 @@ public class BugzillaReportInfo {
 	public RepositoryTaskData getBug() throws CoreException {
 		if (bug == null) {
 			// get the bug report
-			TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
+			TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
 					BugzillaCorePlugin.REPOSITORY_KIND, hit.getRepositoryUrl());
-			BugzillaRepositoryConnector bugzillaConnector = (BugzillaRepositoryConnector) TasksUiPlugin.getRepositoryManager()
+			BugzillaRepositoryConnector bugzillaConnector = (BugzillaRepositoryConnector) TasksUi.getRepositoryManager()
 					.getRepositoryConnector(BugzillaCorePlugin.REPOSITORY_KIND);
 			AbstractTaskDataHandler handler = bugzillaConnector.getTaskDataHandler();
 			bug = handler.getTaskData(repository, hit.getTaskId(), new NullProgressMonitor());

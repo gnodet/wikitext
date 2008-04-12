@@ -97,7 +97,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	public AbstractTask createTask(String repositoryUrl, String id, String summary) {
 		AbstractTask task = null;
 
-		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
 				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryUrl);
 		String handleIdentifier = RepositoryTaskHandleUtil.getHandle(repository.getRepositoryUrl(), id);
 		AbstractTask existingTask = TasksUi.getTaskListManager().getTaskList().getTask(handleIdentifier);
@@ -475,7 +475,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	public String getTaskUrl(String repositoryUrl, String taskId) {
 		String taskUrl = null;
 
-		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
 				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryUrl);
 		try {
 			XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);

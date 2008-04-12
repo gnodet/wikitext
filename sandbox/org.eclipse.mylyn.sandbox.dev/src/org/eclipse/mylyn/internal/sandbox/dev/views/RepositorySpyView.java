@@ -23,6 +23,7 @@ import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiImages;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
@@ -190,7 +191,7 @@ public class RepositorySpyView extends ViewPart {
 		private void initialize() {
 
 			if (repositories == null) {
-				repositories = TasksUiPlugin.getRepositoryManager().getAllRepositories();
+				repositories = TasksUi.getRepositoryManager().getAllRepositories();
 			}
 		}
 	}
@@ -312,7 +313,7 @@ public class RepositorySpyView extends ViewPart {
 						viewer.refresh();
 					}
 				} else if (null == obj) {
-					List<TaskRepository> repositories = TasksUiPlugin.getRepositoryManager().getAllRepositories();
+					List<TaskRepository> repositories = TasksUi.getRepositoryManager().getAllRepositories();
 					for (TaskRepository repository : repositories) {
 						repository.removeProperty("config.lastupdate");
 						TasksUiPlugin.getRepositoryManager().saveRepositories(

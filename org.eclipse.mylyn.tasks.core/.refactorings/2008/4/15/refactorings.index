@@ -24,3 +24,6 @@
 1207870197098	Extract method 'synchronizeQueries'
 1207945984427	Change method 'activityChanged'
 1207946021360	Delete element
+1207961471992	Move compilation unit
+1207977024703	Extract interface 'ITaskRepositoryManager'
+1207977127070	Move compilation unit

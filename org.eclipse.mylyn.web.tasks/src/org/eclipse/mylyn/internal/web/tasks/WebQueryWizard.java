@@ -9,7 +9,6 @@
 package org.eclipse.mylyn.internal.web.tasks;
 
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
@@ -47,7 +46,7 @@ public class WebQueryWizard extends Wizard {
 		AbstractRepositoryQuery query = queryPage.getQuery();
 		if (query != null) {
 			TasksUi.getTaskListManager().getTaskList().addQuery(query);
-			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
+			AbstractRepositoryConnector connector = TasksUi.getRepositoryManager().getRepositoryConnector(
 					repository.getConnectorKind());
 			if (connector != null) {
 				TasksUi.synchronizeQuery(connector, query, null, true);
