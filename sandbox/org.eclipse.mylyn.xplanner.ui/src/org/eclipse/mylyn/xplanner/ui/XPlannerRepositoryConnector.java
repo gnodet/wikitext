@@ -97,8 +97,8 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	public AbstractTask createTask(String repositoryUrl, String id, String summary) {
 		AbstractTask task = null;
 
-		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
-				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryUrl);
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(XPlannerMylynUIPlugin.REPOSITORY_KIND,
+				repositoryUrl);
 		String handleIdentifier = RepositoryTaskHandleUtil.getHandle(repository.getRepositoryUrl(), id);
 		AbstractTask existingTask = TasksUi.getTaskListManager().getTaskList().getTask(handleIdentifier);
 
@@ -268,8 +268,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 
 		for (TaskData data : tasks) {
 			String id = String.valueOf(data.getId());
-			AbstractTask task = TasksUi.getTaskListManager().getTaskList().getTask(repository.getRepositoryUrl(),
-					id);
+			AbstractTask task = TasksUi.getTaskListManager().getTaskList().getTask(repository.getRepositoryUrl(), id);
 			if (task != null) {
 				updateTaskDetails(repository.getRepositoryUrl(), (XPlannerTask) task, data, false);
 			}
@@ -447,8 +446,8 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 
 		XPlannerTask task;
 
-		AbstractTask existingTask = TasksUi.getTaskListManager().getTaskList().getTask(
-				repository.getRepositoryUrl(), id);
+		AbstractTask existingTask = TasksUi.getTaskListManager().getTaskList().getTask(repository.getRepositoryUrl(),
+				id);
 		if (existingTask instanceof XPlannerTask) {
 			task = (XPlannerTask) existingTask;
 		} else {
@@ -467,7 +466,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public void updateAttributes(TaskRepository repository, IProgressMonitor monitor) throws CoreException {
+	public void updateRepositoryConfiguration(TaskRepository repository, IProgressMonitor monitor) throws CoreException {
 		XPlannerClientFacade.getDefault().refreshClientSettings(repository);
 	}
 
@@ -475,8 +474,8 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	public String getTaskUrl(String repositoryUrl, String taskId) {
 		String taskUrl = null;
 
-		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
-				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryUrl);
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(XPlannerMylynUIPlugin.REPOSITORY_KIND,
+				repositoryUrl);
 		try {
 			XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 			if (client != null) {

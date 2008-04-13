@@ -167,7 +167,7 @@ public class NewXPlannerTaskPage extends WizardPage {
 					public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 						monitor.beginTask("Updating repository ...", IProgressMonitor.UNKNOWN);
 						try {
-							connector.updateAttributes(repository, monitor);
+							connector.updateRepositoryConfiguration(repository, monitor);
 						} catch (Exception e) {
 							String msg = NLS.bind( //
 									"Error updating attributes: {0}\n"
