@@ -41,14 +41,14 @@ import org.eclipse.mylyn.tasks.core.AbstractAttachmentHandler;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.AbstractTaskCollector;
 import org.eclipse.mylyn.tasks.core.AbstractTaskDataHandler;
 import org.eclipse.mylyn.tasks.core.DefaultTaskSchema;
 import org.eclipse.mylyn.tasks.core.ITaskRepositoryManager;
 import org.eclipse.mylyn.tasks.core.IdentityAttributeFactory;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
-import org.eclipse.mylyn.tasks.core.SynchronizationEvent;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.core.data.AbstractTaskDataCollector;
+import org.eclipse.mylyn.tasks.core.sync.SynchronizationEvent;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.web.core.WebClientUtil;
 import org.eclipse.mylyn.web.core.WebLocation;
@@ -239,7 +239,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	@Override
 	public IStatus performQuery(TaskRepository repository, AbstractRepositoryQuery query,
-			AbstractTaskCollector resultCollector, SynchronizationEvent event, IProgressMonitor monitor) {
+			AbstractTaskDataCollector resultCollector, SynchronizationEvent event, IProgressMonitor monitor) {
 		if (query instanceof WebQuery) {
 			WebQuery webQuery = (WebQuery) query;
 			Map<String, String> queryParameters = webQuery.getQueryParameters();
@@ -308,7 +308,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	// utility methods
 
 	public static IStatus performQuery(String resource, String regexp, String taskPrefix, IProgressMonitor monitor,
-			AbstractTaskCollector resultCollector, TaskRepository repository) {
+			AbstractTaskDataCollector resultCollector, TaskRepository repository) {
 		NamedPattern p = new NamedPattern(regexp, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL
 				| Pattern.UNICODE_CASE | Pattern.CANON_EQ);
 
@@ -430,7 +430,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	public static IStatus performRssQuery(String queryUrl, IProgressMonitor monitor,
-			AbstractTaskCollector resultCollector, TaskRepository repository) {
+			AbstractTaskDataCollector resultCollector, TaskRepository repository) {
 		SyndFeedInput input = new SyndFeedInput();
 		try {
 			SyndFeed feed = input.build(new XmlReader(new URL(queryUrl)));
