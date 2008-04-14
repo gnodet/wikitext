@@ -15,6 +15,7 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -118,7 +119,8 @@ public class Util {
 		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(repositoryUrl);
 		RepositoryConfiguration repositoryConfiguration = null;
 		try {
-			repositoryConfiguration = BugzillaCorePlugin.getRepositoryConfiguration(repository, false);
+			repositoryConfiguration = BugzillaCorePlugin.getRepositoryConfiguration(repository, false,
+					new NullProgressMonitor());
 		} catch (final CoreException e) {
 			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 				public void run() {
@@ -129,9 +131,11 @@ public class Util {
 			});
 		}
 
-		String[] resolutionValues = BugzillaUiPlugin.getQueryOptions(IBugzillaConstants.VALUES_RESOLUTION, null, repositoryConfiguration);
+		String[] resolutionValues = BugzillaUiPlugin.getQueryOptions(IBugzillaConstants.VALUES_RESOLUTION, null,
+				repositoryConfiguration);
 
-		String[] statusValues = BugzillaUiPlugin.getQueryOptions(IBugzillaConstants.VALUES_STATUS, null, repositoryConfiguration);
+		String[] statusValues = BugzillaUiPlugin.getQueryOptions(IBugzillaConstants.VALUES_STATUS, null,
+				repositoryConfiguration);
 
 		// add the status and resolutions that we care about
 		sb.append("&bug_status=" + statusValues[0]); // UNCONFIRMED
@@ -162,8 +166,8 @@ public class Util {
 		}
 		sb.append("buglist.cgi?");
 
-		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
-				BugzillaCorePlugin.REPOSITORY_KIND, repositoryUrl);
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(BugzillaCorePlugin.REPOSITORY_KIND,
+				repositoryUrl);
 		if (repository != null && repository.hasCredentials()) {
 			// if (BugzillaPreferencePage.getUserName() != null
 			// && !BugzillaPreferencePage.getUserName().equals("")

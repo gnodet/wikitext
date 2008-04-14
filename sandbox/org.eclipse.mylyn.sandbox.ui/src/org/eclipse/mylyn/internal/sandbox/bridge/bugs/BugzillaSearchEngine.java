@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaClient;
@@ -124,13 +125,15 @@ public class BugzillaSearchEngine {
 				throw new OperationCanceledException("Search cancelled");
 			}
 
-			BugzillaRepositoryQuery query = new BugzillaRepositoryQuery(repository.getRepositoryUrl(), urlString, "summary");
+			BugzillaRepositoryQuery query = new BugzillaRepositoryQuery(repository.getRepositoryUrl(), urlString,
+					"summary");
 
 			BugzillaRepositoryConnector bugzillaConnector = (BugzillaRepositoryConnector) TasksUi.getRepositoryManager()
 					.getRepositoryConnector(BugzillaCorePlugin.REPOSITORY_KIND);
 
-			BugzillaClient client = bugzillaConnector.getClientManager().getClient(repository);
-			client.getSearchHits(query, collector);
+			BugzillaClient client = bugzillaConnector.getClientManager().getClient(repository,
+					new NullProgressMonitor());
+			client.getSearchHits(query, collector, new NullProgressMonitor());
 		} catch (CoreException e) {
 			status = new MultiStatus(BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR,
 					"Core Exception occurred while querying Bugzilla Server " + repository.getRepositoryUrl() + ".\n"
