@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;taskActivationHistory&apos; from expression &apos;TasksUiPlugin.getTaskListManager().getTaskActivationHistory()&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.ui&apos;&#x0A;- Variable name: &apos;taskActivationHistory&apos;&#x0A;- Destination method: &apos;org.eclipse.mylyn.internal.tasks.ui.actions.TaskSelectionDialog.TaskSelectionDialog()&apos;&#x0A;- Variable expression: &apos;TasksUiPlugin.getTaskListManager().getTaskActivationHistory()&apos;" description="Extract local variable &apos;taskActivationHistory&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.eclipse.mylyn.internal.tasks.ui.actions{TaskSelectionDialog.java" name="taskActivationHistory" replace="false" selection="12959 66" stamp="1208204181403" version="1.0"/>
+</session>
