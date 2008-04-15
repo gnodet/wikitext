@@ -1,2 +1,5 @@
 1208129490023	Delete element
 1208146968302	Change method 'isRepositoryConfigurationStale'
+1208223667855	Move compilation unit
+1208224336139	Extract interface 'ITaskList'
+1208224549948	Move compilation unit

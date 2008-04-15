@@ -22,9 +22,9 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.tasks.core.AbstractAttributeFactory;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskDataHandler;
+import org.eclipse.mylyn.tasks.core.ITaskList;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
-import org.eclipse.mylyn.tasks.core.TaskList;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
@@ -40,7 +40,7 @@ import org.xplanner.soap.UserStoryData;
 public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 	private final AbstractAttributeFactory attributeFactory = new XPlannerAttributeFactory();
 
-	public XPlannerTaskDataHandler(TaskList taskList) {
+	public XPlannerTaskDataHandler(ITaskList taskList) {
 		//TODO -- tasklist?
 	}
 

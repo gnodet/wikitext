@@ -12,12 +12,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.mylyn.internal.tasks.core.Person;
+import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListContentProvider;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.tasks.core.AbstractTask.RepositoryTaskSyncState;
-import org.eclipse.mylyn.tasks.ui.TasksUi;
 
 /**
  * @author Rob Elves
@@ -36,7 +36,7 @@ public class IncomingTaskListContentProvider extends TaskListContentProvider {
 		if (parent instanceof Person) {
 			return getChildren(parent);
 		} else {
-			for (AbstractTaskContainer container : applyFilter(TasksUi.getTaskListManager()
+			for (AbstractTaskContainer container : applyFilter(TasksUiPlugin.getTaskListManager()
 					.getTaskList()
 					.getRootElements())) {
 				for (AbstractTask task : container.getChildren()) {
@@ -54,7 +54,7 @@ public class IncomingTaskListContentProvider extends TaskListContentProvider {
 	public Object[] getChildren(Object parent) {
 		Set<AbstractTask> children = new HashSet<AbstractTask>();
 		if (parent instanceof Person) {
-			for (AbstractTaskContainer container : applyFilter(TasksUi.getTaskListManager()
+			for (AbstractTaskContainer container : applyFilter(TasksUiPlugin.getTaskListManager()
 					.getTaskList()
 					.getRootElements())) {
 				for (AbstractTask task : container.getChildren()) {

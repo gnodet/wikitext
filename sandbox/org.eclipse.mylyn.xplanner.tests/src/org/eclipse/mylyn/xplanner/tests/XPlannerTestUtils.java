@@ -14,7 +14,7 @@ import java.util.Date;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.TaskList;
+import org.eclipse.mylyn.tasks.core.ITaskList;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
@@ -265,8 +265,8 @@ public class XPlannerTestUtils {
 		return testTask;
 	}
 
-	public static TaskList getTaskList() {
-		TaskList taskList = TasksUiPlugin.getTaskListManager().getTaskList();
+	public static ITaskList getTaskList() {
+		ITaskList taskList = TasksUiPlugin.getTaskListManager().getTaskList();
 		TasksUiPlugin.getTaskListManager().saveTaskList();
 
 		return taskList;

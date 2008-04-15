@@ -25,11 +25,11 @@ import org.eclipse.mylyn.internal.sandbox.bridge.bugs.BugzillaMylynSearch;
 import org.eclipse.mylyn.internal.sandbox.bridge.bugs.BugzillaReportInfo;
 import org.eclipse.mylyn.internal.sandbox.bridge.bugs.MylynBugsManager;
 import org.eclipse.mylyn.internal.tasks.core.TaskCategory;
+import org.eclipse.mylyn.internal.tasks.ui.TaskListManager;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.java.tests.search.SearchPluginTestHelper;
 import org.eclipse.mylyn.java.tests.search.WorkspaceSetupHelper;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
-import org.eclipse.mylyn.tasks.ui.ITaskListManager;
 
 /*
  * TEST CASES TO HANDLE 1. what is here 2. different scopes ( local and remote )
@@ -220,7 +220,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 
 		String bugPrefix = "<server>-";
 
-		ITaskListManager manager = TasksUiPlugin.getTaskListManager();
+		TaskListManager manager = TasksUiPlugin.getTaskListManager();
 		TaskCategory cat = new TaskCategory("Testing Category");
 		manager.getTaskList().addCategory(cat);
 		BugzillaTask bugTask1 = new BugzillaTask(bugPrefix, "" + 94185, "<bugzilla info>");
@@ -286,7 +286,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 
 		String bugPrefix = "Bugzilla-";
 
-		ITaskListManager manager = TasksUiPlugin.getTaskListManager();
+		TaskListManager manager = TasksUiPlugin.getTaskListManager();
 		TaskCategory cat = new TaskCategory("Testing Category");
 		manager.getTaskList().addCategory(cat);
 		BugzillaTask bugTask1 = new BugzillaTask(bugPrefix, "" + 94185, "<bugzilla info>");

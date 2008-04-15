@@ -18,8 +18,8 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.ITaskFactory;
+import org.eclipse.mylyn.tasks.core.ITaskList;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
-import org.eclipse.mylyn.tasks.core.TaskList;
 import org.eclipse.mylyn.tasks.core.data.AbstractTaskDataCollector;
 
 public class ProgressQueryHitCollector extends AbstractTaskDataCollector {
@@ -48,11 +48,11 @@ public class ProgressQueryHitCollector extends AbstractTaskDataCollector {
 	/** The string to display to the user when the query is done */
 	private static final String DONE = "done";
 
-	protected TaskList taskList;
+	protected ITaskList taskList;
 
 	protected ITaskFactory taskFactory;
 
-	public ProgressQueryHitCollector(TaskList tasklist, ITaskFactory taskFactory) {
+	public ProgressQueryHitCollector(ITaskList tasklist, ITaskFactory taskFactory) {
 		this.taskList = tasklist;
 		this.taskFactory = taskFactory;
 	}

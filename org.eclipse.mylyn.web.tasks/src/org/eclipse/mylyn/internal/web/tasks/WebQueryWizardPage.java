@@ -115,7 +115,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 	private static String getDefaultQueryTitle(TaskRepository repository) {
 		String label = repository.getRepositoryLabel();
 		String title = label;
-		Set<AbstractRepositoryQuery> queries = TasksUi.getTaskListManager().getTaskList().getRepositoryQueries(
+		Set<AbstractRepositoryQuery> queries = TasksUiPlugin.getTaskListManager().getTaskList().getRepositoryQueries(
 				repository.getRepositoryUrl());
 		for (int n = 1; true; n++) {
 			for (AbstractRepositoryQuery query : queries) {
@@ -482,8 +482,8 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 
 				Display.getDefault().asyncExec(new Runnable() {
 					public void run() {
-						AbstractRepositoryConnector connector = TasksUi.getRepositoryManager()
-								.getRepositoryConnector(repository.getConnectorKind());
+						AbstractRepositoryConnector connector = TasksUi.getRepositoryManager().getRepositoryConnector(
+								repository.getConnectorKind());
 						List<AbstractTask> tasks = new ArrayList<AbstractTask>();
 						for (RepositoryTaskData hit : queryHits) {
 							AbstractTask task = connector.createTask(repository.getRepositoryUrl(), hit.getTaskId(), "");

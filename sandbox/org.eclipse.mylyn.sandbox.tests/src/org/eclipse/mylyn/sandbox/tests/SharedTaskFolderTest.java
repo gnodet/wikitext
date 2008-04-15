@@ -23,10 +23,10 @@ import org.eclipse.mylyn.internal.context.core.InteractionContext;
 import org.eclipse.mylyn.internal.sandbox.ui.SandboxUiPlugin;
 import org.eclipse.mylyn.internal.sandbox.ui.actions.SwitchTaskDataFolderAction;
 import org.eclipse.mylyn.internal.tasks.core.LocalTask;
+import org.eclipse.mylyn.internal.tasks.ui.TaskListManager;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.ui.ITaskListManager;
 
 /**
  * Tests changing the shared task directory currently in use.
@@ -45,7 +45,7 @@ public class SharedTaskFolderTest extends TestCase {
 
 	private String originalSharedDataDir = null;
 
-	private final ITaskListManager manager = TasksUiPlugin.getTaskListManager();
+	private final TaskListManager manager = TasksUiPlugin.getTaskListManager();
 
 	/**
 	 * Set up a shared task directory structure by creating some data in the main directory and copying it to the shared

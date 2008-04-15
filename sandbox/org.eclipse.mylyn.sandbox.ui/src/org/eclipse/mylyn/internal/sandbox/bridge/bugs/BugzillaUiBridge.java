@@ -19,9 +19,9 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.context.ui.AbstractContextUiBridge;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaClient;
+import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.editors.RepositoryTaskOutlinePage;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractRepositoryTaskEditor;
 import org.eclipse.mylyn.tasks.ui.editors.TaskEditor;
@@ -56,7 +56,7 @@ public class BugzillaUiBridge extends AbstractContextUiBridge {
 			bugHandle = bugHandle.substring(0, next);
 		}
 
-		final AbstractTask task = TasksUi.getTaskListManager().getTaskList().getTask(handle);
+		final AbstractTask task = TasksUiPlugin.getTaskListManager().getTaskList().getTask(handle);
 		if (task != null) {
 			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 				public void run() {

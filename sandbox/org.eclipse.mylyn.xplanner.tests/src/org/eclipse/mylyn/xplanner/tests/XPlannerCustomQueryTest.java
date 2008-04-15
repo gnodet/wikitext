@@ -18,7 +18,7 @@ import org.eclipse.mylyn.internal.tasks.ui.LocalTaskConnectorUi;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.TaskList;
+import org.eclipse.mylyn.tasks.core.ITaskList;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
 import org.eclipse.mylyn.tasks.ui.TaskFactory;
@@ -46,7 +46,7 @@ public class XPlannerCustomQueryTest extends TestCase {
 	}
 
 	public void testNoItemsQuery() {
-		TaskList taskList = XPlannerTestUtils.getTaskList();
+		ITaskList taskList = XPlannerTestUtils.getTaskList();
 		XPlannerCustomQuery query = new XPlannerCustomQuery(XPlannerTestUtils.SERVER_URL, "no items");
 		query.setPersonId(-1);
 
@@ -55,7 +55,7 @@ public class XPlannerCustomQueryTest extends TestCase {
 	}
 
 	public void testAdminItemsQuery() {
-		TaskList taskList = XPlannerTestUtils.getTaskList();
+		ITaskList taskList = XPlannerTestUtils.getTaskList();
 		XPlannerCustomQuery query = new XPlannerCustomQuery(XPlannerTestUtils.SERVER_URL, "admin items");
 		try {
 			query.setPersonId(XPlannerTestUtils.getAdminId(client));
@@ -76,7 +76,7 @@ public class XPlannerCustomQueryTest extends TestCase {
 		assertNotNull(wizard);
 	}
 
-	private Set<AbstractTask> performTestQuery(TaskList taskList, XPlannerCustomQuery query) {
+	private Set<AbstractTask> performTestQuery(ITaskList taskList, XPlannerCustomQuery query) {
 		TaskRepository repository = XPlannerTestUtils.getRepository();
 		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
 				repository.getConnectorKind());

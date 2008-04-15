@@ -22,7 +22,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.mylyn.internal.tasks.core.RepositoryTaskHandleUtil;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.AbstractAttachmentHandler;
@@ -30,9 +29,9 @@ import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskDataHandler;
+import org.eclipse.mylyn.tasks.core.ITaskList;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
-import org.eclipse.mylyn.tasks.core.TaskList;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.data.AbstractTaskDataCollector;
 import org.eclipse.mylyn.tasks.core.sync.SynchronizationEvent;
@@ -58,7 +57,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	public static final String NEW_TASK_DESC = Messages.XPlannerRepositoryConnector_NEW_TASK_DESCRIPTION;
 
 	@Override
-	public void init(TaskList taskList) {
+	public void init(ITaskList taskList) {
 		super.init(taskList);
 		this.offlineHandler = new XPlannerTaskDataHandler(taskList);
 	}
@@ -99,9 +98,8 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 
 		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(XPlannerMylynUIPlugin.REPOSITORY_KIND,
 				repositoryUrl);
-		String handleIdentifier = RepositoryTaskHandleUtil.getHandle(repository.getRepositoryUrl(), id);
-		AbstractTask existingTask = TasksUi.getTaskListManager().getTaskList().getTask(handleIdentifier);
-
+		AbstractTask existingTask = TasksUi.getTaskListManager().getTaskList().getTask(repository.getRepositoryUrl(),
+				id);
 		if (existingTask instanceof XPlannerTask) {
 			task = existingTask;
 		} else {
