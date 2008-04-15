@@ -22,10 +22,9 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionElement;
-import org.eclipse.mylyn.internal.context.core.InteractionContextManager;
+import org.eclipse.mylyn.internal.monitor.ui.MonitorUiPlugin;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
 import org.eclipse.mylyn.monitor.ui.AbstractUserInteractionMonitor;
-import org.eclipse.mylyn.monitor.ui.MonitorUiPlugin;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IPathEditorInput;
 import org.eclipse.ui.IWorkbenchPart;
@@ -124,8 +123,7 @@ public class SelectionMonitor extends AbstractUserInteractionMonitor {
 		}
 		IInteractionElement node = ContextCore.getContextManager().getElement(elementHandle);
 		String delta = "";
-		float selectionFactor = ContextCore.getCommonContextScaling()
-				.get(InteractionEvent.Kind.SELECTION);
+		float selectionFactor = ContextCore.getCommonContextScaling().get(InteractionEvent.Kind.SELECTION);
 
 		if (node != null) {
 			if (node.getInterest().getEncodedValue() <= selectionFactor
