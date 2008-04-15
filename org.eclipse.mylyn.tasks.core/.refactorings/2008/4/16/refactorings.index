@@ -10,3 +10,4 @@
 1208233782432	Extract method 'fireDelta'
 1208238294476	Inline local variable 'task'
 1208244257029	Delete element
+1208244480761	Move compilation unit
