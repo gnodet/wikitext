@@ -3,3 +3,9 @@
 1208223667855	Move compilation unit
 1208224336139	Extract interface 'ITaskList'
 1208224549948	Move compilation unit
+1208232615625	Rename method 'getOrphanContainer'
+1208232765020	Rename method 'getOrphanContainers'
+1208232807739	Rename method 'addOrphanContainer'
+1208232976631	Rename method 'removeOrphanContainer'
+1208233782432	Extract method 'fireDelta'
+1208238294476	Inline local variable 'task'

@@ -11,6 +11,7 @@
 package org.eclipse.mylyn.internal.sandbox.bridge.bugs;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -29,7 +30,6 @@ import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaTask;
 import org.eclipse.mylyn.internal.bugzilla.ui.tasklist.StackTrace;
 import org.eclipse.mylyn.internal.sandbox.ui.SandboxUiPlugin;
-import org.eclipse.mylyn.internal.tasks.core.LocalRepositoryConnector;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.search.AbstractRepositorySearchQuery;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
@@ -154,8 +154,10 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 		collector.setProgressMonitor(monitor);
 
 		// get all of the root tasks and start the search
-		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getOrphanContainer(
-				LocalRepositoryConnector.REPOSITORY_URL).getChildren();
+		// FIXME
+//		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getOrphanContainer(
+//				LocalRepositoryConnector.REPOSITORY_URL).getChildren();
+		Set<AbstractTask> tasks = new HashSet<AbstractTask>();
 		searchLocal(tasks, collector, elementName, monitor);
 		for (AbstractTaskContainer cat : TasksUiPlugin.getTaskListManager().getTaskList().getTaskContainers()) {
 			searchLocal(cat.getChildren(), collector, elementName, monitor);
@@ -184,8 +186,10 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 		collector.setProgressMonitor(monitor);
 
 		// get all of the root tasks and start the search
-		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getOrphanContainer(
-				LocalRepositoryConnector.REPOSITORY_URL).getChildren();
+		// FIXME
+//		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getOrphanContainer(
+//				LocalRepositoryConnector.REPOSITORY_URL).getChildren();
+		Set<AbstractTask> tasks = new HashSet<AbstractTask>();
 		searchLocal(tasks, collector, elementName, monitor);
 		for (AbstractTaskContainer cat : TasksUiPlugin.getTaskListManager().getTaskList().getTaskContainers()) {
 			searchLocal(cat.getChildren(), collector, elementName, monitor);
