@@ -9,3 +9,4 @@
 1208232976631	Rename method 'removeOrphanContainer'
 1208233782432	Extract method 'fireDelta'
 1208238294476	Inline local variable 'task'
+1208244257029	Delete element

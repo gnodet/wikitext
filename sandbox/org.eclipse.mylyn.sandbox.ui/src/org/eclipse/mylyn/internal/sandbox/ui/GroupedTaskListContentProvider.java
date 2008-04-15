@@ -10,7 +10,6 @@ package org.eclipse.mylyn.internal.sandbox.ui;
 
 import java.util.TreeMap;
 
-import org.eclipse.mylyn.internal.tasks.core.TaskArchive;
 import org.eclipse.mylyn.internal.tasks.core.TaskGroup;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListContentProvider;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
@@ -36,7 +35,7 @@ public class GroupedTaskListContentProvider extends TaskListContentProvider {
 	public Object[] getChildren(Object parent) {
 		Object[] children = super.getChildren(parent);
 
-		if ((parent instanceof AbstractRepositoryQuery || parent instanceof TaskArchive) && groupBy != GroupBy.None) {
+		if ((parent instanceof AbstractRepositoryQuery) && groupBy != GroupBy.None) {
 			return getGroups((AbstractTaskContainer) parent, children);
 		} else if (parent instanceof TaskGroup) {
 			return ((TaskGroup) parent).getChildren().toArray();
