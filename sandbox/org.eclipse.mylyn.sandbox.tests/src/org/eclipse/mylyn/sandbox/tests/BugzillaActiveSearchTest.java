@@ -225,26 +225,26 @@ public class BugzillaActiveSearchTest extends TestCase {
 		manager.getTaskList().addCategory(cat);
 		BugzillaTask bugTask1 = new BugzillaTask(bugPrefix, "" + 94185, "<bugzilla info>");
 
-		manager.getTaskList().moveTask(bugTask1, cat);
+		manager.getTaskList().addTask(bugTask1, cat);
 		// cat.addTask(bugTask1);
 		while (bugTask1.isSynchronizing()) {
 			Thread.sleep(500);
 		}
 		BugzillaTask bugTask2 = new BugzillaTask(bugPrefix, "" + 3692, "<bugzilla info>");
-		manager.getTaskList().moveTask(bugTask2, cat);
+		manager.getTaskList().addTask(bugTask2, cat);
 		// cat.addTask(bugTask2);
 		while (bugTask2.isSynchronizing()) {
 			Thread.sleep(500);
 		}
 		BugzillaTask bugTask3 = new BugzillaTask(bugPrefix, "" + 3693, "<bugzilla info>");
-		manager.getTaskList().moveTask(bugTask3, cat);
+		manager.getTaskList().addTask(bugTask3, cat);
 		// cat.addTask(bugTask3);
 		while (bugTask3.isSynchronizing()) {
 			Thread.sleep(500);
 		}
 
 		BugzillaTask bugTask4 = new BugzillaTask(bugPrefix, "" + 9583, "<bugzilla info>");
-		manager.getTaskList().moveTask(bugTask4, cat);
+		manager.getTaskList().addTask(bugTask4, cat);
 		// cat.addTask(bugTask4);
 		while (bugTask4.isSynchronizing()) {
 			Thread.sleep(500);
@@ -290,20 +290,20 @@ public class BugzillaActiveSearchTest extends TestCase {
 		TaskCategory cat = new TaskCategory("Testing Category");
 		manager.getTaskList().addCategory(cat);
 		BugzillaTask bugTask1 = new BugzillaTask(bugPrefix, "" + 94185, "<bugzilla info>");
-		manager.getTaskList().moveTask(bugTask1, cat);
+		manager.getTaskList().addTask(bugTask1, cat);
 		// cat.addTask(bugTask1);
 		while (bugTask1.isSynchronizing()) {
 			Thread.sleep(500);
 		}
 
 		BugzillaTask bugTask2 = new BugzillaTask(bugPrefix, "" + 9583, "<bugzilla info>");
-		manager.getTaskList().moveTask(bugTask2, cat);
+		manager.getTaskList().addTask(bugTask2, cat);
 		// cat.addTask(bugTask2);
 		while (bugTask2.isSynchronizing()) {
 			Thread.sleep(500);
 		}
 		BugzillaTask bugTask3 = new BugzillaTask(bugPrefix, "" + 3693, "<bugzilla info>");
-		manager.getTaskList().moveTask(bugTask3, cat);
+		manager.getTaskList().addTask(bugTask3, cat);
 		// cat.addTask(bugTask3);
 		while (bugTask3.isSynchronizing()) {
 			Thread.sleep(500);

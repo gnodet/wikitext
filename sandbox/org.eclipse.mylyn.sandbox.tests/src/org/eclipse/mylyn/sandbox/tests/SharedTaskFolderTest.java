@@ -162,7 +162,7 @@ public class SharedTaskFolderTest extends TestCase {
 
 		//Create the task and add it to the root of the task list
 		AbstractTask newTask = new LocalTask("" + Calendar.getInstance().getTimeInMillis(), taskName);
-		manager.getTaskList().moveTask(newTask, manager.getTaskList().getDefaultCategory());
+		manager.getTaskList().addTask(newTask, manager.getTaskList().getDefaultCategory());
 		InteractionContext mockContext = (InteractionContext) ContextCore.getContextManager().loadContext(
 				newTask.getHandleIdentifier());//, newTask.getContextPath());
 		InteractionEvent event = new InteractionEvent(InteractionEvent.Kind.EDIT, "structureKind", "handle", "originId");

@@ -11,3 +11,4 @@
 1208238294476	Inline local variable 'task'
 1208244257029	Delete element
 1208244480761	Move compilation unit
+1208289520511	Rename method 'moveTask'
