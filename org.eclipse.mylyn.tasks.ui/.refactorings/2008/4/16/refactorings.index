@@ -1,1 +1,4 @@
-1208204181403	Extract local variable 'taskActivationHistory'
+1208206619583	Rename method 'createNestedHandleElement'
+1208206856145	Rename method 'readSubTasks'
+1208219547566	Rename method 'readNestTaskReferences'
+1208219756878	Rename method 'createNestedTaskReference'
