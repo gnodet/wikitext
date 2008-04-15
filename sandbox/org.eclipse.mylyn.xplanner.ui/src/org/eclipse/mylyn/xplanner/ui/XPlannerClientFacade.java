@@ -58,9 +58,9 @@ public class XPlannerClientFacade implements ITaskRepositoryListener {
 // Also handle the case when serviceDelegate in the cachedClient is null
 
 //			if (client == null) {
-			client = clientManager.createClient(serverHostname, repository.getRepositoryUrl(), false, repository.getUserName(),
-					repository.getPassword(), false, repository.getProxy(), repository.getHttpUser(),
-					repository.getHttpPassword());
+			client = clientManager.createClient(serverHostname, repository.getRepositoryUrl(), false,
+					repository.getUserName(), repository.getPassword(), false, repository.getProxy(),
+					repository.getHttpUser(), repository.getHttpPassword());
 			clientManager.addClient(client);
 //			}
 			if (client == null) {
@@ -68,9 +68,8 @@ public class XPlannerClientFacade implements ITaskRepositoryListener {
 			}
 			return client;
 		} catch (CoreException ce) {
-			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
-					Messages.XPlannerClientFacade_SERVER_CONNECTION_ERROR, ce));
-			throw ce;
+			throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
+					Messages.XPlannerClientFacade_SERVER_CONNECTION_ERROR + ": " + ce.getMessage()));
 		} catch (ServiceUnavailableException sue) {
 			throw sue;
 		} catch (RuntimeException e) {
@@ -111,7 +110,7 @@ public class XPlannerClientFacade implements ITaskRepositoryListener {
 			try {
 				getXPlannerClient(repository);
 			} catch (CoreException e) {
-				StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, e.getMessage(), e));
+				; // do nothing here -- will get displayed other places where required by repository use
 			}
 		}
 	}
@@ -182,7 +181,8 @@ public class XPlannerClientFacade implements ITaskRepositoryListener {
 		try {
 			return new URL(repository.getRepositoryUrl()).getHost();
 		} catch (MalformedURLException ex) {
-			throw new RuntimeException(Messages.XPlannerClientFacade_INVALID_URL_EXCEPTION + repository.getRepositoryUrl(), ex);
+			throw new RuntimeException(Messages.XPlannerClientFacade_INVALID_URL_EXCEPTION
+					+ repository.getRepositoryUrl(), ex);
 		}
 	}
 

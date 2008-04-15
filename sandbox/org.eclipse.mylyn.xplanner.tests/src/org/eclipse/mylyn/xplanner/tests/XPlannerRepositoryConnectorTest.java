@@ -133,6 +133,10 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 	}
 
 	private void setSyncTimeStamp(TaskRepository repository, Set<AbstractTask> tasks) throws Exception {
+		if (tasks.size() == 0) {
+			return;
+		}
+
 		Date date = tasks.iterator().next().getCreationDate();
 		String timeStamp = XPlannerAttributeFactory.TIME_DATE_FORMAT.format(date);
 		for (AbstractTask task : tasks) {
@@ -167,13 +171,13 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		setSyncTimeStamp(repository, tasks);
 
 		String goodUrl = repository.getRepositoryUrl();
-		repository.setRepositoryUrl("http://localhost");
+		repository.setRepositoryUrl(XPlannerTestUtils.BAD_REPOSITORY_LOCATION);
 		try {
 			Set<AbstractTask> changedTasks = xplannerConnector.getChangedSinceLastSync(repository, tasks);
 			assertTrue(changedTasks != null);
 			assertTrue(changedTasks.size() == 0);
 		} catch (CoreException e) {
-			assertTrue(e.getMessage() != null && e.getMessage().contains("Connection error"));
+			assertTrue(e.getMessage() != null && e.getMessage().contains("Error connecting"));
 		} finally {
 			repository.setRepositoryUrl(goodUrl);
 		}

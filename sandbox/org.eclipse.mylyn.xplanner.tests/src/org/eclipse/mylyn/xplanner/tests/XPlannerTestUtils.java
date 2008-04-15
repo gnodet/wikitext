@@ -51,6 +51,8 @@ public class XPlannerTestUtils {
 
 	private final static String TEST_TASK_NAME = "TestTask";
 
+	public final static String BAD_REPOSITORY_LOCATION = "http://badXplannerLocation";
+
 	public static TaskRepository getRepository() {
 		return getRepository(USER, PASSWORD);
 	}

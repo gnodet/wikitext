@@ -99,8 +99,8 @@ public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
 				t.printStackTrace();
 			}
 		} else {
-			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
-					message == null ? Messages.MylynXPlannerPlugin_XPLANNER_ERROR_TITLE : message, e));
+			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, message == null
+					|| message.length() == 0 ? Messages.MylynXPlannerPlugin_XPLANNER_ERROR_TITLE : message, e));
 		}
 	}
 

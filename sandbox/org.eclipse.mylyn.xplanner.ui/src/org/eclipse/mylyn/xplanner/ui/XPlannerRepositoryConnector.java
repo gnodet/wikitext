@@ -291,8 +291,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 				taskData.setSummary(data.getName());
 				resultCollector.accept(taskData);
 			} catch (CoreException e) {
-				// FIXME
-				e.printStackTrace();
+				XPlannerMylynUIPlugin.log(e, "", false);
 			}
 //			} 
 //			catch (Exception e) {
