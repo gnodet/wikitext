@@ -196,7 +196,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		for (AbstractRepositoryQuery query : TasksUi.getTaskListManager().getTaskList().getQueries()) {
 			if (query instanceof WebQuery) {
 				WebQuery webQuery = (WebQuery) query;
-				TaskRepository repository = repositoryManager.getRepository(webQuery.getRepositoryKind(),
+				TaskRepository repository = repositoryManager.getRepository(webQuery.getConnectorKind(),
 						webQuery.getRepositoryUrl());
 				if (repository != null) {
 					String queryUrl = evaluateParams(webQuery.getTaskPrefix(), //

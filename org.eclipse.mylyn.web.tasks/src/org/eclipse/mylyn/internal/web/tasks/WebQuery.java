@@ -42,7 +42,7 @@ public class WebQuery extends AbstractRepositoryQuery {
 	}
 
 	@Override
-	public String getRepositoryKind() {
+	public String getConnectorKind() {
 		return WebRepositoryConnector.REPOSITORY_TYPE;
 	}
 

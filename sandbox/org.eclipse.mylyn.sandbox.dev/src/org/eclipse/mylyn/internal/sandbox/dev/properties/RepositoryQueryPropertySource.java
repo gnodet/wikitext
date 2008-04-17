@@ -57,7 +57,7 @@ public class RepositoryQueryPropertySource extends AbstractTaskContainerProperty
 		if (SUMMARY.equals(id)) {
 			return query.getSummary();
 		} else if (KIND.equals(id)) {
-			return query.getRepositoryKind();
+			return query.getConnectorKind();
 		} else if (REPOSITORY.equals(id)) {
 			return query.getRepositoryUrl();
 		} else if (QUERY.equals(id)) {
