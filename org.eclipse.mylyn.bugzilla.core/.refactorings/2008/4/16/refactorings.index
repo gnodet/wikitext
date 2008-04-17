@@ -1,1 +1,3 @@
 1208149470989	Change method 'addOperation'
+1208386302499	Extract local variable 'responseBodyAsStream'
+1208386490957	Extract local variable 'responseBodyAsStream'
