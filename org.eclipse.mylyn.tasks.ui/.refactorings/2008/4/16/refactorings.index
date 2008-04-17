@@ -4,3 +4,4 @@
 1208219756878	Rename method 'createNestedTaskReference'
 1208234585672	Extract local variable 'parentTaskCategory'
 1208236935390	Move compilation unit
+1208473876865	Move member 'isAnimationsEnabled'

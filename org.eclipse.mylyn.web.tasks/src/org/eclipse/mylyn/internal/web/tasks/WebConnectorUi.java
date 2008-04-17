@@ -36,7 +36,8 @@ public class WebConnectorUi extends AbstractRepositoryConnectorUi {
 	@Override
 	public IWizard getNewTaskWizard(TaskRepository taskRepository, TaskSelection taskSelection) {
 		return new NewWebTaskWizard(taskRepository, WebRepositoryConnector.evaluateParams(
-				taskRepository.getProperty(WebRepositoryConnector.PROPERTY_TASK_CREATION_URL), taskRepository));
+				taskRepository.getProperty(WebRepositoryConnector.PROPERTY_TASK_CREATION_URL), taskRepository),
+				taskSelection);
 	}
 
 	@Override
