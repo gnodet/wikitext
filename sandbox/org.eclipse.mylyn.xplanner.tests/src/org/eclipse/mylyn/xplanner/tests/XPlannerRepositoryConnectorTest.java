@@ -114,7 +114,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		assertTrue(connector instanceof XPlannerRepositoryConnector);
 		XPlannerRepositoryConnector xplannerConnector = (XPlannerRepositoryConnector) connector;
 
-		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getRepositoryTasks(
+		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getTasks(
 				repository.getRepositoryUrl());
 		setSyncTimeStamp(repository, tasks);
 
@@ -166,7 +166,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		XPlannerRepositoryConnector xplannerConnector = (XPlannerRepositoryConnector) connector;
 
 		// make bad url
-		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getRepositoryTasks(
+		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getTasks(
 				repository.getRepositoryUrl());
 		setSyncTimeStamp(repository, tasks);
 
