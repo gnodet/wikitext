@@ -5,11 +5,12 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylyn.internal.context.ui;
+package org.eclipse.mylyn.internal.sandbox.ui.highlighter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.mylyn.internal.context.ui.ColorMap;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 

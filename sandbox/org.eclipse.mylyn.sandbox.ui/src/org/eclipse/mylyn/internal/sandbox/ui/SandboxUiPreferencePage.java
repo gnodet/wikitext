@@ -26,10 +26,9 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.mylyn.internal.context.ui.ContextUiPlugin;
-import org.eclipse.mylyn.internal.context.ui.ContextUiPrefContstants;
-import org.eclipse.mylyn.internal.context.ui.Highlighter;
 import org.eclipse.mylyn.internal.context.ui.HighlighterImageDescriptor;
-import org.eclipse.mylyn.internal.context.ui.HighlighterList;
+import org.eclipse.mylyn.internal.sandbox.ui.highlighter.Highlighter;
+import org.eclipse.mylyn.internal.sandbox.ui.highlighter.HighlighterList;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPreferenceConstants;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
@@ -111,7 +110,7 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		contentProvider = new HighlighterContentProvider();
 		tableViewer.setContentProvider(contentProvider);
 		tableViewer.setLabelProvider(new HighlighterLabelProvider());
-		tableViewer.setInput(ContextUiPlugin.getDefault().getHighlighterList());
+		tableViewer.setInput(SandboxUiPlugin.getDefault().getHighlighterList());
 
 		return container;
 	}
@@ -245,9 +244,8 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		SandboxUiPlugin.getDefault().getPreferenceStore().setValue(
 				InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS, enableErrorInterest.getSelection());
 
-		getPreferenceStore().setValue(ContextUiPrefContstants.HIGHLIGHTER_PREFIX,
-				ContextUiPlugin.getDefault().getHighlighterList().externalizeToString());
-
+		getPreferenceStore().setValue(SandboxUiPlugin.HIGHLIGHTER_PREFIX,
+				SandboxUiPlugin.getDefault().getHighlighterList().externalizeToString());
 		return true;
 	}
 
@@ -256,8 +254,8 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		enableErrorInterest.setSelection(SandboxUiPlugin.getDefault().getPreferenceStore().getBoolean(
 				InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS));
 
-		String highlighters = getPreferenceStore().getString(ContextUiPrefContstants.HIGHLIGHTER_PREFIX);
-		ContextUiPlugin.getDefault().getHighlighterList().internalizeFromString(highlighters);
+		String highlighters = getPreferenceStore().getString(SandboxUiPlugin.HIGHLIGHTER_PREFIX);
+		SandboxUiPlugin.getDefault().getHighlighterList().internalizeFromString(highlighters);
 
 		IPreferenceStore uiPreferenceStore = TasksUiPlugin.getDefault().getPreferenceStore();
 		activateOnOpen.setSelection(uiPreferenceStore.getBoolean(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED));
@@ -277,7 +275,7 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 
 		contentProvider = new HighlighterContentProvider();
 		tableViewer.setContentProvider(contentProvider);
-		ContextUiPlugin.getDefault().getHighlighterList().setToDefaultList();
+		SandboxUiPlugin.getDefault().getHighlighterList().setToDefaultList();
 	}
 
 	/**
@@ -344,7 +342,7 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		 * getElements - returns array of Highlighters for table
 		 */
 		public Object[] getElements(Object inputElement) {
-			return ContextUiPlugin.getDefault().getHighlighterList().getHighlighters().toArray();
+			return SandboxUiPlugin.getDefault().getHighlighterList().getHighlighters().toArray();
 		}
 
 		public void dispose() {
@@ -600,7 +598,7 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				Highlighter hl = ContextUiPlugin.getDefault().getHighlighterList().addHighlighter();
+				Highlighter hl = SandboxUiPlugin.getDefault().getHighlighterList().addHighlighter();
 				contentProvider.addHighlighter(hl);
 			}
 		});
@@ -617,7 +615,7 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 			public void widgetSelected(SelectionEvent e) {
 				Highlighter hl = (Highlighter) ((IStructuredSelection) tableViewer.getSelection()).getFirstElement();
 				if (hl != null) {
-					ContextUiPlugin.getDefault().getHighlighterList().removeHighlighter(hl);
+					SandboxUiPlugin.getDefault().getHighlighterList().removeHighlighter(hl);
 					contentProvider.removeHighlighter(hl);
 				}
 			}

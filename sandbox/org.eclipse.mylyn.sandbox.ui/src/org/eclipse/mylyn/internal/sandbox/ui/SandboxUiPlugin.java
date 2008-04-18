@@ -8,9 +8,14 @@
 
 package org.eclipse.mylyn.internal.sandbox.ui;
 
+import java.util.List;
+
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.mylyn.internal.context.ui.ContextUiPlugin;
+import org.eclipse.mylyn.internal.sandbox.ui.highlighter.Highlighter;
+import org.eclipse.mylyn.internal.sandbox.ui.highlighter.HighlighterList;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -24,6 +29,10 @@ import org.osgi.framework.BundleContext;
  */
 public class SandboxUiPlugin extends AbstractUIPlugin {
 
+	public static final String HIGHLIGHTER_PREFIX = "org.eclipse.mylyn.ui.interest.highlighters";
+
+	public static final String TASK_HIGHLIGHTER_PREFIX = "org.eclipse.mylyn.ui.interest.highlighters.task.";
+
 	public final static String ID_PLUGIN = "org.eclipse.mylyn.sandbox.ui";
 
 	private static SandboxUiPlugin plugin;
@@ -35,6 +44,8 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 	private final ActiveSearchViewTracker activeSearchViewTracker = new ActiveSearchViewTracker();
 
 	private InterestInducingProblemListener problemListener;
+
+	private HighlighterList highlighters;
 
 	public SandboxUiPlugin() {
 		super();
@@ -76,8 +87,10 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 
 	@Override
 	public void stop(BundleContext context) throws Exception {
-		super.stop(context);
-		plugin = null;
+		if (highlighters != null) {
+			highlighters.dispose();
+			highlighters = null;
+		}
 
 		if (problemListener != null) {
 			getPreferenceStore().removePropertyChangeListener(problemListener);
@@ -95,6 +108,9 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 				}
 			}
 		}
+
+		plugin = null;
+		super.stop(context);
 	}
 
 	/**
@@ -118,4 +134,61 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 	public SharedDataDirectoryManager getSharedDataDirectoryManager() {
 		return sharedDataDirectoryManager;
 	}
+
+	private void initializeHighlighters() {
+		String hlist = getPreferenceStore().getString(HIGHLIGHTER_PREFIX);
+		if (hlist.equals("")) {
+			// migrate from context ui
+			hlist = ContextUiPlugin.getDefault().getPreferenceStore().getString(HIGHLIGHTER_PREFIX);
+			getPreferenceStore().setValue(HIGHLIGHTER_PREFIX, hlist);
+			ContextUiPlugin.getDefault().getPreferenceStore().setToDefault(HIGHLIGHTER_PREFIX);
+		}
+		if (hlist != null && hlist.length() != 0) {
+			highlighters = new HighlighterList(hlist);
+		} else {
+			highlighters = new HighlighterList();
+			highlighters.setToDefaultList();
+		}
+	}
+
+	public HighlighterList getHighlighterList() {
+		if (this.highlighters == null) {
+			initializeHighlighters();
+		}
+		return this.highlighters;
+	}
+
+	public List<Highlighter> getHighlighters() {
+		if (highlighters == null) {
+			initializeHighlighters();
+		}
+		return highlighters.getHighlighters();
+	}
+
+	/**
+	 * @return null if not found
+	 */
+	public Highlighter getHighlighter(String name) {
+		if (highlighters == null) {
+			initializeHighlighters();
+		}
+		return highlighters.getHighlighter(name);
+	}
+
+	public Highlighter getHighlighterForContextId(String id) {
+		String prefId = TASK_HIGHLIGHTER_PREFIX + id;
+		String highlighterName = getPreferenceStore().getString(prefId);
+		if (highlighterName.equals("")) {
+			highlighterName = ContextUiPlugin.getDefault().getPreferenceStore().getString(prefId);
+			getPreferenceStore().setValue(prefId, highlighterName);
+			ContextUiPlugin.getDefault().getPreferenceStore().setToDefault(prefId);
+		}
+		return getHighlighter(highlighterName);
+	}
+
+	public void setHighlighterMapping(String id, String name) {
+		String prefId = TASK_HIGHLIGHTER_PREFIX + id;
+		getPreferenceStore().putValue(prefId, name);
+	}
+
 }

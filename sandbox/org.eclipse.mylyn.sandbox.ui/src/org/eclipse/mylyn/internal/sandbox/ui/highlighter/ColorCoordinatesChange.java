@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.context.ui;
+package org.eclipse.mylyn.internal.sandbox.ui.highlighter;
 
 class ColorCoordinatesChange {
 	/**

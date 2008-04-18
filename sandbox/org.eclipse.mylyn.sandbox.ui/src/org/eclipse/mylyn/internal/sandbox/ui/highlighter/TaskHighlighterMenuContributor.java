@@ -6,14 +6,16 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.context.ui;
+package org.eclipse.mylyn.internal.sandbox.ui.highlighter;
 
 import java.util.List;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.mylyn.internal.context.ui.HighlighterImageDescriptor;
 import org.eclipse.mylyn.internal.context.ui.actions.EditHighlightersAction;
+import org.eclipse.mylyn.internal.sandbox.ui.SandboxUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.IDynamicSubMenuContributor;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
@@ -28,7 +30,7 @@ public class TaskHighlighterMenuContributor implements IDynamicSubMenuContributo
 
 	public MenuManager getSubMenuManager(final List<AbstractTaskContainer> selectedElements) {
 		final MenuManager subMenuManager = new MenuManager(CHOOSE_HIGHLIGHTER);
-		for (final Highlighter highlighter : ContextUiPlugin.getDefault().getHighlighters()) {
+		for (final Highlighter highlighter : SandboxUiPlugin.getDefault().getHighlighters()) {
 			Action action = new Action() {
 				@Override
 				public void run() {
@@ -38,7 +40,7 @@ public class TaskHighlighterMenuContributor implements IDynamicSubMenuContributo
 							task = (AbstractTask) selectedElement;
 						}
 						if (task != null) {
-							ContextUiPlugin.getDefault().setHighlighterMapping(task.getHandleIdentifier(),
+							SandboxUiPlugin.getDefault().setHighlighterMapping(task.getHandleIdentifier(),
 									highlighter.getName());
 							TasksUi.getTaskListManager().getTaskList().notifyTaskChanged(task, false);
 						}
