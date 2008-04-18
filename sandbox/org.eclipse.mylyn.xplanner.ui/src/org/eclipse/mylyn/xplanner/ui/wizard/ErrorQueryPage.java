@@ -14,6 +14,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 
+/**
+ * @since 3.0
+ */
 public class ErrorQueryPage extends AbstractXPlannerQueryWizardPage {
 	private final TaskRepository taskRepository;
 

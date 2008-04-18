@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract constant &apos;org.eclipse.mylyn.context.tests.AbstractContextTest.MOCK_HANDLE&apos; from expression &apos;&quot;&lt;mock-handle&gt;&quot;&apos;&#x0D;&#x0A;- Original project: &apos;org.eclipse.mylyn.context.tests&apos;&#x0D;&#x0A;- Constant name: &apos;MOCK_HANDLE&apos;&#x0D;&#x0A;- Constant expression: &apos;&quot;&lt;mock-handle&gt;&quot;&apos;&#x0D;&#x0A;- Declared visibility: &apos;protected&apos;&#x0D;&#x0A;- Replace occurrences of expression with constant" description="Extract constant &apos;MOCK_HANDLE&apos;" flags="786434" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylyn.context.tests{AbstractContextTest.java" name="MOCK_HANDLE" qualify="false" replace="true" selection="2104 15" stamp="1208461763325" version="1.0" visibility="4"/>
+</session>

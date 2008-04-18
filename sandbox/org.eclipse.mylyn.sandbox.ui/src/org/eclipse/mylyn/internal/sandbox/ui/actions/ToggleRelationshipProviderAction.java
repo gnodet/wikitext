@@ -30,6 +30,7 @@ import org.eclipse.swt.widgets.MenuItem;
 
 /**
  * @author Mik Kersten
+ * @since 3.0
  */
 public class ToggleRelationshipProviderAction extends Action implements IMenuCreator {
 

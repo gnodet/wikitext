@@ -11,4 +11,7 @@
 1208238294476	Inline local variable 'task'
 1208244257029	Delete element
 1208244480761	Move compilation unit
-1208391970019	Extract method 'getNewInstance'
+1208289520511	Rename method 'moveTask'
+1208473551308	Rename method 'getRepositoryKind'
+1208474984926	Rename method 'getRepositoryTasks'
+1208478567295	Move compilation unit

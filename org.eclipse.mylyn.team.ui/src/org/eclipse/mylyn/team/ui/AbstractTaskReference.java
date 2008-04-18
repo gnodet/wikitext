@@ -6,15 +6,14 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.tasks.core;
+package org.eclipse.mylyn.team.ui;
 
 /**
- * Task information linking tasks to resources.
- * 
  * @author Eugene Kuleshov
- * @since 2.0
+ * @author Mik Kersten
+ * @since 3.0
  */
-public interface ILinkedTaskInfo {
+public abstract class AbstractTaskReference {
 
 	public abstract String getTaskId();
 
@@ -22,8 +21,6 @@ public interface ILinkedTaskInfo {
 
 	public abstract String getRepositoryUrl();
 
-	public abstract AbstractTask getTask();
-
-	public abstract String getComment();
+	public abstract String getText();
 
 }

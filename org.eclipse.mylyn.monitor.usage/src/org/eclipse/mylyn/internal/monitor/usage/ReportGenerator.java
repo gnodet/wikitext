@@ -36,7 +36,7 @@ import org.eclipse.mylyn.monitor.core.StatusHandler;
  * Used for generating reports of user activity.
  * 
  * @author Mik Kersten
- * @since 2.0
+ * @since 3.0
  */
 public class ReportGenerator {
 

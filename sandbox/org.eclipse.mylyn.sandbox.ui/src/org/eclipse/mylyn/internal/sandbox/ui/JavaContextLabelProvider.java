@@ -35,6 +35,7 @@ import org.eclipse.swt.graphics.Image;
 
 /**
  * @author Mik Kersten
+ * @since 3.0
  */
 public class JavaContextLabelProvider extends AppearanceAwareLabelProvider {
 

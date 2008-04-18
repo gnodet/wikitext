@@ -16,6 +16,7 @@ import org.eclipse.mylyn.internal.sandbox.ui.views.ActiveSearchView;
 
 /**
  * @author Mik Kersten
+ * @since 3.0
  */
 public class ShowQualifiedNamesAction extends Action {
 

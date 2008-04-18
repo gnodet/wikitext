@@ -31,6 +31,7 @@ import org.eclipse.ui.PlatformUI;
 
 /**
  * @author Mik Kersten
+ * @since 3.0
  */
 public class LinkActiveSearchWithEditorAction extends Action {
 
