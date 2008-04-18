@@ -72,7 +72,6 @@ Java and all Java-based trademarks are trademarks of Sun Microsystems, Inc. in t
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.search"/>
       <import plugin="org.eclipse.jface.text"/>
-      <import feature="org.eclipse.mylyn_feature" version="3.0.0.qualifier" match="perfect"/>
       <import plugin="org.eclipse.mylyn.context.core" version="3.0.0" match="compatible"/>
       <import plugin="org.eclipse.mylyn.context.ui" version="3.0.0" match="compatible"/>
       <import plugin="org.eclipse.mylyn.tasks.ui" version="3.0.0" match="compatible"/>
@@ -82,6 +81,8 @@ Java and all Java-based trademarks are trademarks of Sun Microsystems, Inc. in t
       <import plugin="org.eclipse.mylyn.monitor.ui" version="3.0.0" match="compatible"/>
       <import plugin="org.eclipse.mylyn.java.ui" version="3.0.0" match="compatible"/>
       <import plugin="org.eclipse.mylyn.monitor.core" version="3.0.0" match="compatible"/>
+      <import feature="org.eclipse.mylyn_feature" version="3.0.0.qualifier" match="perfect"/>
+      <import plugin="org.eclipse.jdt.ui"/>
    </requires>
 
    <plugin

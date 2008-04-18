@@ -58,7 +58,7 @@ public class InterestInducingProblemListener implements IProblemChangedListener,
 				}
 			}
 		} catch (Exception e) {
-			StatusHandler.log(new Status(IStatus.ERROR, JavaUiBridgePlugin.PLUGIN_ID, "Could not update marker change",
+			StatusHandler.log(new Status(IStatus.ERROR, JavaUiBridgePlugin.ID_PLUGIN, "Could not update marker change",
 					e));
 		}
 	}

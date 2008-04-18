@@ -201,7 +201,7 @@ public class ContextHierarchyView extends ViewPart {
 				});
 			}
 		} catch (Throwable t) {
-			StatusHandler.log(new Status(IStatus.ERROR, JavaUiBridgePlugin.PLUGIN_ID, "Could not update viewer", t));
+			StatusHandler.log(new Status(IStatus.ERROR, JavaUiBridgePlugin.ID_PLUGIN, "Could not update viewer", t));
 		}
 	}
 
@@ -230,7 +230,7 @@ public class ContextHierarchyView extends ViewPart {
 				viewer.getControl().setRedraw(true);
 			}
 		} catch (Throwable t) {
-			StatusHandler.log(new Status(IStatus.ERROR, JavaUiBridgePlugin.PLUGIN_ID, "Could not update viewer", t));
+			StatusHandler.log(new Status(IStatus.ERROR, JavaUiBridgePlugin.ID_PLUGIN, "Could not update viewer", t));
 		}
 	}
 
@@ -255,7 +255,7 @@ public class ContextHierarchyView extends ViewPart {
 							IEditorPart part = JavaUI.openInEditor(element);
 							JavaUI.revealInEditor(part, element);
 						} catch (Throwable t) {
-							StatusHandler.log(new Status(IStatus.ERROR, JavaUiBridgePlugin.PLUGIN_ID,
+							StatusHandler.log(new Status(IStatus.ERROR, JavaUiBridgePlugin.ID_PLUGIN,
 									"Could not open type", t));
 						}
 					}
@@ -268,7 +268,7 @@ public class ContextHierarchyView extends ViewPart {
 			initDrag();
 			getSite().setSelectionProvider(getViewer());
 		} catch (Throwable t) {
-			StatusHandler.log(new Status(IStatus.ERROR, JavaUiBridgePlugin.PLUGIN_ID, "Create failed", t));
+			StatusHandler.log(new Status(IStatus.ERROR, JavaUiBridgePlugin.ID_PLUGIN, "Create failed", t));
 		}
 	}
 
