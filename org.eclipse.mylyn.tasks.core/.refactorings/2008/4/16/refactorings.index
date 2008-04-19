@@ -14,3 +14,4 @@
 1208391970019	Extract method 'getNewInstance'
 1208569070734	Rename method 'getStartDay'
 1208569078974	Rename method 'setStartDay'
+1208641199782	Rename method 'activityChanged'

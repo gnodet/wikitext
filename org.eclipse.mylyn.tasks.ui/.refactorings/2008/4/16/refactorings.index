@@ -5,3 +5,5 @@
 1208234585672	Extract local variable 'parentTaskCategory'
 1208236935390	Move compilation unit
 1208468842252	Extract constant 'RESET'
+1208637398150	Move compilation unit
+1208639025541	Rename field 'TASK_REFERESH_LISTENER'

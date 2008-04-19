@@ -13,7 +13,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.ITaskTimingListener;
+import org.eclipse.mylyn.tasks.core.ITaskActivityListener;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractRepositoryTaskEditor;
@@ -41,7 +41,7 @@ import org.eclipse.ui.forms.widgets.Section;
  * @author Helen Bershadskaya
  */
 public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor implements XPlannerEditorAttributeProvider,
-		ITaskTimingListener, SelectionListener {
+		ITaskActivityListener, SelectionListener {
 
 	private XPlannerTaskEditorExtraControls extraControls;
 
@@ -279,7 +279,7 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor implements 
 		GridDataFactory.fillDefaults().applyTo(replaceCurrentTimeButton);
 		replaceCurrentTimeButton.addSelectionListener(this);
 
-		TasksUiPlugin.getTaskListManager().addTimingListener(this);
+		TasksUiPlugin.getTaskActivityManager().addActivityListener(this);
 		loadValuesFromPreferenceSettings();
 		updateTimeTrackingControls();
 	}
@@ -295,7 +295,7 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor implements 
 	@Override
 	public void dispose() {
 		savePreferenceSettings();
-		TasksUiPlugin.getTaskListManager().removeTimingListener(this);
+		TasksUiPlugin.getTaskActivityManager().removeActivityListener(this);
 		super.dispose();
 	}
 
@@ -390,5 +390,8 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor implements 
 
 	private void setAddToCurrentTime(boolean addToCurrentTime) {
 		this.addToCurrentTime = addToCurrentTime;
+	}
+
+	public void activityReset() {
 	}
 }

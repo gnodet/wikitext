@@ -46,9 +46,9 @@ import org.eclipse.mylyn.internal.tasks.ui.views.TaskElementLabelProvider;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
-import org.eclipse.mylyn.tasks.core.ITaskActivityListener;
+import org.eclipse.mylyn.tasks.core.ITaskActivationListener;
 import org.eclipse.mylyn.tasks.core.ITaskListChangeListener;
-import org.eclipse.mylyn.tasks.core.TaskActivityAdapter;
+import org.eclipse.mylyn.tasks.core.TaskActivationAdapter;
 import org.eclipse.mylyn.tasks.core.TaskContainerDelta;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.swt.SWT;
@@ -125,31 +125,21 @@ public class TaskActivityView extends ViewPart {
 	/**
 	 * TODO: need lazier refresh policy.
 	 */
-	private final ITaskActivityListener ACTIVITY_LISTENER = new TaskActivityAdapter() {
+	private final ITaskActivationListener TASK_ACTIVATION_LISTENER = new TaskActivationAdapter() {
 
+		@Override
 		public void taskActivated(AbstractTask task) {
-			refresh();
-			// TaskActivityView.this.treeViewer.refresh(task);
-		}
-
-		public void taskDeactivated(AbstractTask task) {
-			// don't need to refresh here
-			// TaskActivityView.this.treeViewer.refresh(task);
-		}
-
-		public void activityChanged() {
-			refresh();
-			// TaskActivityView.this.treeViewer.refresh(week);
-		}
-
-		public void taskListRead() {
 			refresh();
 		}
 	};
 
-	private final ITaskListChangeListener TASK_CHANGE_LISTENER = new ITaskListChangeListener() {
+	private final ITaskListChangeListener TASKLIST_CHANGE_LISTENER = new ITaskListChangeListener() {
 
 		public void containersChanged(Set<TaskContainerDelta> containers) {
+			refresh();
+		}
+
+		public void taskListRead() {
 			refresh();
 		}
 	};
@@ -166,15 +156,15 @@ public class TaskActivityView extends ViewPart {
 
 	public TaskActivityView() {
 		INSTANCE = this;
-		TasksUi.getTaskListManager().addActivityListener(ACTIVITY_LISTENER);
-		TasksUi.getTaskListManager().getTaskList().addChangeListener(TASK_CHANGE_LISTENER);
+		TasksUi.getTaskListManager().addActivationListener(TASK_ACTIVATION_LISTENER);
+		TasksUi.getTaskListManager().getTaskList().addChangeListener(TASKLIST_CHANGE_LISTENER);
 	}
 
 	@Override
 	public void dispose() {
 		super.dispose();
-		TasksUi.getTaskListManager().removeActivityListener(ACTIVITY_LISTENER);
-		TasksUi.getTaskListManager().getTaskList().removeChangeListener(TASK_CHANGE_LISTENER);
+		TasksUi.getTaskListManager().removeActivationListener(TASK_ACTIVATION_LISTENER);
+		TasksUi.getTaskListManager().getTaskList().removeChangeListener(TASKLIST_CHANGE_LISTENER);
 	}
 
 	@Override
