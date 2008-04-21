@@ -75,7 +75,7 @@ import org.eclipse.ui.PlatformUI;
 /**
  * @author Mik Kersten
  * 
- * API-3.0: there is redundancy between this and RelatedElementsPopupDialog
+ * TODO there is redundancy between this and RelatedElementsPopupDialog
  */
 public class ActiveSearchQuickView {
 

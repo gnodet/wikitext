@@ -13,7 +13,6 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-// API 3.0 rename to WebTasksPlugin?
 public class TasksWebPlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
