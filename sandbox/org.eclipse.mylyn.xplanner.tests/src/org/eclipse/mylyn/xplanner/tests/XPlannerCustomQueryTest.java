@@ -21,7 +21,6 @@ import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.ITaskList;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
-import org.eclipse.mylyn.tasks.ui.TaskFactory;
 import org.eclipse.mylyn.tasks.ui.search.SearchHitCollector;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.ui.XPlannerCustomQuery;
@@ -81,8 +80,7 @@ public class XPlannerCustomQueryTest extends TestCase {
 		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
 				repository.getConnectorKind());
 
-		TaskFactory taskFactory = new TaskFactory(repository, false, false);
-		SearchHitCollector collector = new SearchHitCollector(taskList, repository, query, taskFactory);
+		SearchHitCollector collector = new SearchHitCollector(taskList, repository, query);
 		connector.performQuery(repository, query, collector, null, new NullProgressMonitor());
 
 		Set<AbstractTask> hits = collector.getTasks();
