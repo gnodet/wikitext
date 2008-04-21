@@ -1,0 +1,8 @@
+1208747386926	Extract interface 'ITaskDataManager2'
+1208747486410	Move compilation unit
+1208747520124	Extract interface 'ITaskDataState'
+1208747527178	Move compilation unit
+1208747591780	Rename method 'getNewTaskData'
+1208747602797	Rename method 'getEditsTaskData'
+1208747616588	Rename method 'getOldTaskData'
+1208755513453	Extract local variable 'readState'

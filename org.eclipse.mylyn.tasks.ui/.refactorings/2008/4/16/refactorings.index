@@ -7,3 +7,8 @@
 1208468842252	Extract constant 'RESET'
 1208637398150	Move compilation unit
 1208639025541	Rename field 'TASK_REFERESH_LISTENER'
+1208652654619	Extract local variable 'metaData'
+1208653631841	Move compilation unit
+1208674627503	Copy compilation unit
+1208684821235	Rename type 'AbstractReplyToCommenAction'
+1208684937857	Move compilation units

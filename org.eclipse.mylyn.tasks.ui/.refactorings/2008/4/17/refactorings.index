@@ -1,0 +1,4 @@
+1208751210799	Rename type 'ResetRepositoryConfigurationAction'
+1208751224911	Rename type 'RefreshRepositoryConfigurationAction'
+1208759242282	Change method 'AbstractTaskEditorPart'
+1208759295126	Rename method 'setInput'
