@@ -8,7 +8,8 @@
 
 package org.eclipse.mylyn.xplanner.ui.editor;
 
-import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -312,9 +313,11 @@ public class XPlannerTaskEditorExtraControls {
 	 * public for testing Formats input as single digit fraction string
 	 */
 	public static String formatSingleFractionHours(Float updatedHours) {
-		DecimalFormat format = new DecimalFormat("######.#");
+		NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
+		format.setMaximumIntegerDigits(5);
 		format.setMinimumFractionDigits(1);
 		format.setMaximumFractionDigits(1);
+		format.setGroupingUsed(false);
 		return format.format(updatedHours);
 	}
 

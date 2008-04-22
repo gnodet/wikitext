@@ -7,20 +7,32 @@
  *******************************************************************************/
 package org.eclipse.mylyn.xplanner.tests;
 
+import java.util.Locale;
+
 import junit.framework.TestCase;
 
 import org.eclipse.mylyn.xplanner.ui.editor.XPlannerTaskEditorExtraControls;
 
 public class XPlannerTaskEditorTest extends TestCase {
 
+	private Locale defaultLocale;
+
 	@Override
 	protected void setUp() throws Exception {
-		super.setUp();
+		defaultLocale = Locale.getDefault();
+		Locale.setDefault(Locale.US);
 	}
 
 	@Override
 	protected void tearDown() throws Exception {
-		super.tearDown();
+		Locale.setDefault(defaultLocale);
+	}
+
+	public void testFormatHoursRoundValueNoRoundLocaleUK() {
+		Locale.setDefault(Locale.FRENCH);
+		float inputValue = 1.0f;
+		String output = XPlannerTaskEditorExtraControls.formatHours(inputValue, false);
+		assertEquals(output, "1,0");
 	}
 
 	public void testFormatHoursRoundValueNoRound() {
