@@ -2,3 +2,6 @@
 1208751224911	Rename type 'RefreshRepositoryConfigurationAction'
 1208759242282	Change method 'AbstractTaskEditorPart'
 1208759295126	Rename method 'setInput'
+1208861366936	Extract method 'createTitleHyperLink'
+1208861500492	Extract local variable 'author'
+1208862191463	Copy compilation unit

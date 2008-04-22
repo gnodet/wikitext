@@ -6,3 +6,7 @@
 1208747602797	Rename method 'getEditsTaskData'
 1208747616588	Rename method 'getOldTaskData'
 1208755513453	Extract local variable 'readState'
+1208858529185	Rename method 'setNewTaskData'
+1208858542460	Rename method 'setRepositoryTaskData'
+1208858549108	Rename method 'setEditsTaskData'
+1208858562005	Rename method 'setOldTaskData'
