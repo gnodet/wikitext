@@ -10,3 +10,7 @@
 1208858542460	Rename method 'setRepositoryTaskData'
 1208858549108	Rename method 'setEditsTaskData'
 1208858562005	Rename method 'setOldTaskData'
+1208892530861	Infer generic type arguments
+1208893048276	Extract local variable 'attribute'
+1208893698391	Extract local variable 'repositoryPerson'
+1208894642724	Extract local variable 'longValue'
