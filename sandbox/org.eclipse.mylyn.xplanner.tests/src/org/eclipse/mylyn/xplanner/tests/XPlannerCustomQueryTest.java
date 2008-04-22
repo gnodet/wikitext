@@ -66,6 +66,14 @@ public class XPlannerCustomQueryTest extends TestCase {
 
 	}
 
+	public void testMyItemsQuery() {
+		ITaskList taskList = XPlannerTestUtils.getTaskList();
+		XPlannerCustomQuery query = new XPlannerCustomQuery(XPlannerTestUtils.SERVER_URL, "admin items");
+		query.setMyCurrentTasks(true);
+		Set<AbstractTask> hits = performTestQuery(taskList, query);
+		assert (hits.size() > 0);
+	}
+
 	public void testGetQueryWizardValidClient() {
 		TaskRepository taskRepository = XPlannerTestUtils.getRepository();
 

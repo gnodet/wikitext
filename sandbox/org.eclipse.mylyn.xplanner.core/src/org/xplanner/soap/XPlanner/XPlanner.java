@@ -75,11 +75,9 @@ public interface XPlanner extends java.rmi.Remote {
 
 	public void removeUserStory(int id) throws java.rmi.RemoteException;
 
-	public org.xplanner.soap.TaskData[] getCurrentTasksForPerson(int personId) throws java.rmi.RemoteException,
-			org.eclipse.mylyn.xplanner.wsdl.db.QueryException;
+	public org.xplanner.soap.TaskData[] getCurrentTasksForPerson(int personId) throws java.rmi.RemoteException;
 
-	public org.xplanner.soap.TaskData[] getPlannedTasksForPerson(int personId) throws java.rmi.RemoteException,
-			org.eclipse.mylyn.xplanner.wsdl.db.QueryException;
+	public org.xplanner.soap.TaskData[] getPlannedTasksForPerson(int personId) throws java.rmi.RemoteException;
 
 	public void removeTask(int id) throws java.rmi.RemoteException;
 
