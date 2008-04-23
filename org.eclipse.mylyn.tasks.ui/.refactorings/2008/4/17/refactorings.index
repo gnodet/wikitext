@@ -5,3 +5,8 @@
 1208861366936	Extract method 'createTitleHyperLink'
 1208861500492	Extract local variable 'author'
 1208862191463	Copy compilation unit
+1208913595956	Extract method 'activateHandler'
+1208918699996	Rename method 'refreshEditor'
+1208921751388	Extract constant 'VIEWER'
+1208924810845	Extract local variable 'assoctiatedAttribute'
+1208929288177	Extract local variable 'layout'
