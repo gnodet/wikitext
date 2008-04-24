@@ -10,3 +10,5 @@
 1208921751388	Extract constant 'VIEWER'
 1208924810845	Extract local variable 'assoctiatedAttribute'
 1208929288177	Extract local variable 'layout'
+1208982398179	Rename method 'setGlobalBusy'
+1208982435928	Rename method 'shwEditorBusy'
