@@ -7,7 +7,10 @@ import org.apache.axis.MessageContext;
 import org.apache.axis.transport.http.CommonsHTTPSender;
 import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
-import org.eclipse.mylyn.web.core.WebClientUtil;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.mylyn.web.core.IProxyProvider;
+import org.eclipse.mylyn.web.core.WebLocation;
+import org.eclipse.mylyn.web.core.WebUtil;
 
 @SuppressWarnings( { "serial" })
 public class XPlannerHttpSender extends CommonsHTTPSender {
@@ -20,10 +23,14 @@ public class XPlannerHttpSender extends CommonsHTTPSender {
 
 	@Override
 	protected HostConfiguration getHostConfiguration(HttpClient client, MessageContext context, URL url) {
-		Proxy proxy = (Proxy) context.getProperty(PROXY);
+		final Proxy proxy = (Proxy) context.getProperty(PROXY);
 		String httpUser = (String) context.getProperty(HTTP_USER);
 		String httpPassword = (String) context.getProperty(HTTP_PASSWORD);
-		WebClientUtil.setupHttpClient(client, proxy, url.toString(), httpUser, httpPassword);
-		return client.getHostConfiguration();
+		WebLocation webLocation = new WebLocation(url.toString(), httpUser, httpPassword, new IProxyProvider() {
+			public Proxy getProxyForHost(String host, String proxyType) {
+				return proxy;
+			}
+		});
+		return WebUtil.createHostConfiguration(client, webLocation, new NullProgressMonitor());
 	}
 }

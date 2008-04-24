@@ -1,0 +1,7 @@
+1208973195031	Extract local variable 'repositoryUrl'
+1208973205500	Extract local variable 'userName'
+1208973234156	Extract local variable 'repositoryPassword'
+1208973261015	Extract local variable 'proxy'
+1208973278578	Extract local variable 'httpUserName'
+1208973287750	Extract local variable 'httpPassword'
+1208974274078	Rename local variable 'taskData'

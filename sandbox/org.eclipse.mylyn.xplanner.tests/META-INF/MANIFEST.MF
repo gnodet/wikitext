@@ -12,7 +12,8 @@ Require-Bundle: org.junit,
  org.eclipse.mylyn.tasks.core,
  org.eclipse.mylyn.tasks.ui,
  org.eclipse.mylyn.xplanner.core,
- org.eclipse.mylyn.xplanner.ui
+ org.eclipse.mylyn.xplanner.ui,
+ org.eclipse.mylyn.web.core
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Vendor: Eclipse.org
 Export-Package: org.eclipse.mylyn.xplanner.tests;x-internal:=true

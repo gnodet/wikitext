@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;webLocation&apos; from expression &apos;new WebLocation(url.toString())&apos;&#x0D;&#x0A;- Original project: &apos;org.eclipse.mylyn.xplanner.core&apos;&#x0D;&#x0A;- Variable name: &apos;webLocation&apos;&#x0D;&#x0A;- Destination method: &apos;org.xplanner.soap.XPlanner.XPlannerHttpSender.getHostConfiguration()&apos;&#x0D;&#x0A;- Variable expression: &apos;new WebLocation(url.toString())&apos;&#x0D;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;webLocation&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.xplanner.soap.XPlanner{XPlannerHttpSender.java" name="webLocation" replace="true" selection="1118 31" stamp="1208990744625" version="1.0"/>
+</session>

@@ -19,6 +19,7 @@ import org.eclipse.swt.graphics.Image;
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
+@SuppressWarnings("restriction")
 public class XPlannerImages {
 
 	private static ImageRegistry imageRegistry;

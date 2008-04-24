@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;user&apos; in &apos;org.eclipse.mylyn.xplanner.tests.XPlannerTestUtils.getRepository(...)&apos; to &apos;userName&apos;&#x0D;&#x0A;- Original project: &apos;org.eclipse.mylyn.xplanner.tests&apos;&#x0D;&#x0A;- Original element: &apos;org.eclipse.mylyn.xplanner.tests.XPlannerTestUtils.getRepository(String, String).user&apos;&#x0D;&#x0A;- Renamed element: &apos;org.eclipse.mylyn.xplanner.tests.XPlannerTestUtils.getRepository(String, String).userName&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;user&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;org.eclipse.mylyn.xplanner.tests{XPlannerTestUtils.java[XPlannerTestUtils~getRepository~QString;~QString;@user!2558!2568!2565!2568!QString;" name="userName" references="true" stamp="1208989994984" version="1.0"/>
+</session>

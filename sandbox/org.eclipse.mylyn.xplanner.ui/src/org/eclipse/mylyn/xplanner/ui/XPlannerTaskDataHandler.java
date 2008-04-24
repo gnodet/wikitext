@@ -22,7 +22,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.tasks.core.AbstractAttributeFactory;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskDataHandler;
-import org.eclipse.mylyn.tasks.core.ITaskList;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
@@ -40,8 +39,7 @@ import org.xplanner.soap.UserStoryData;
 public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 	private final AbstractAttributeFactory attributeFactory = new XPlannerAttributeFactory();
 
-	public XPlannerTaskDataHandler(ITaskList taskList) {
-		//TODO -- tasklist?
+	public XPlannerTaskDataHandler() {
 	}
 
 	public RepositoryTaskData downloadTaskData(AbstractTask repositoryTask, TaskRepository repository,
@@ -108,8 +106,8 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 		String error = null;
 		String newTaskId = null;
 
-		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
-				repositoryTaskData.getConnectorKind(), repositoryTaskData.getRepositoryUrl());
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(repositoryTaskData.getConnectorKind(),
+				repositoryTaskData.getRepositoryUrl());
 
 		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 		if (client != null) {

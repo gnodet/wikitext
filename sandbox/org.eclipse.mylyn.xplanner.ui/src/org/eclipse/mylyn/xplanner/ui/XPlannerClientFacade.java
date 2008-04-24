@@ -12,14 +12,18 @@ import java.net.Proxy;
 import java.net.URL;
 import java.text.MessageFormat;
 
+import org.eclipse.core.net.proxy.IProxyData;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.ITaskRepositoryListener;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.core.TaskRepositoryLocationFactory;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
+import org.eclipse.mylyn.web.core.AbstractWebLocation;
+import org.eclipse.mylyn.web.core.AuthenticationCredentials;
+import org.eclipse.mylyn.web.core.AuthenticationType;
 import org.eclipse.mylyn.xplanner.core.XPlannerClientManager;
 import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
@@ -49,22 +53,35 @@ public class XPlannerClientFacade implements ITaskRepositoryListener {
 	/**
 	 * Lazily creates client.
 	 */
-	public XPlannerClient getXPlannerClient(TaskRepository repository) throws CoreException {
+	public XPlannerClient getXPlannerClient(TaskRepository taskRepository) throws CoreException {
 		try {
-			XPlannerRepositoryUtils.checkRepositoryValidated(repository.getRepositoryUrl());
-			String serverHostname = getServerHost(repository);
+			XPlannerRepositoryUtils.checkRepositoryValidated(taskRepository.getRepositoryUrl());
+			String serverHostname = getServerHost(taskRepository);
 			XPlannerClient client = clientManager.getClient(serverHostname);
 //TODO: add this check back once the listeners for client property change are hooked up
 // Also handle the case when serviceDelegate in the cachedClient is null
 
 //			if (client == null) {
-			client = clientManager.createClient(serverHostname, repository.getRepositoryUrl(), false,
-					repository.getUserName(), repository.getPassword(), false, repository.getProxy(),
-					repository.getHttpUser(), repository.getHttpPassword());
+			AuthenticationCredentials repositoryCredentials = taskRepository.getCredentials(AuthenticationType.REPOSITORY);
+			AuthenticationCredentials httpCredentials = taskRepository.getCredentials(AuthenticationType.HTTP);
+			XPlannerRepositoryConnector connector = (XPlannerRepositoryConnector) TasksUi.getRepositoryManager()
+					.getRepositoryConnector(XPlannerMylynUIPlugin.REPOSITORY_KIND);
+			TaskRepositoryLocationFactory locationFactory = connector.getTaskRepositoryLocationFactory();
+			AbstractWebLocation location = locationFactory.createWebLocation(taskRepository);
+
+			String repositoryUrl = taskRepository.getRepositoryUrl();
+			String repositoryUserName = repositoryCredentials.getUserName();
+			String repositoryPassword = repositoryCredentials.getPassword();
+			Proxy proxy = location.getProxyForHost(location.getUrl(), IProxyData.HTTP_PROXY_TYPE);
+			String httpUserName = httpCredentials == null ? null : httpCredentials.getUserName();
+			String httpPassword = httpCredentials == null ? null : httpCredentials.getPassword();
+
+			client = clientManager.createClient(serverHostname, repositoryUrl, false, repositoryUserName,
+					repositoryPassword, false, proxy, httpUserName, httpPassword);
 			clientManager.addClient(client);
 //			}
 			if (client == null) {
-				throw new ServiceUnavailableException(serverHostname + " " + repository.getRepositoryUrl()); //$NON-NLS-1$
+				throw new ServiceUnavailableException(serverHostname + " " + taskRepository.getRepositoryUrl()); //$NON-NLS-1$
 			}
 			return client;
 		} catch (CoreException ce) {
@@ -140,8 +157,8 @@ public class XPlannerClientFacade implements ITaskRepositoryListener {
 			if ((reason == null) || (reason.length() == 0)) {
 				reason = e.getClass().getName();
 			}
-			StatusHandler.log(new Status(IStatus.OK, TasksUiPlugin.ID_PLUGIN, IStatus.ERROR, MessageFormat.format(
-					Messages.XPlannerRepositoryConnector_PerformQueryFailure, reason), e));
+			StatusHandler.log(new Status(IStatus.OK, XPlannerMylynUIPlugin.PLUGIN_ID, IStatus.ERROR,
+					MessageFormat.format(Messages.XPlannerRepositoryConnector_PerformQueryFailure, reason), e));
 		}
 	}
 

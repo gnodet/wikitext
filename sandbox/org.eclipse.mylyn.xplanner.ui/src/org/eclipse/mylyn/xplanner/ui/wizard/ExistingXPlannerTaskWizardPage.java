@@ -13,6 +13,7 @@ import org.eclipse.mylyn.internal.tasks.ui.wizards.ExistingTaskWizardPage;
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
+@SuppressWarnings("restriction")  // for ExistingTaskWizardPage
 public class ExistingXPlannerTaskWizardPage extends ExistingTaskWizardPage {
 
 	private static final String DESCRIPTION = Messages.ExistingXPlannerTaskWizardPage_ENTER_XPLANNER_IDENTIFIER

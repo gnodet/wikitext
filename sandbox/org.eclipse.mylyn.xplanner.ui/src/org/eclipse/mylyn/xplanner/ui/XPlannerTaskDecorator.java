@@ -14,7 +14,6 @@ import org.eclipse.jface.viewers.ILabelProviderListener;
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
-//HeB -- testing
 public class XPlannerTaskDecorator {
 
 	public void decorate(Object element, IDecoration decoration) {

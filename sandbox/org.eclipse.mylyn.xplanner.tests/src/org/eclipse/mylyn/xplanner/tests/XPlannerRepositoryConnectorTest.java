@@ -15,11 +15,11 @@ import java.util.Set;
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.core.sync.SynchronizationEvent;
 import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeFactory;
@@ -49,8 +49,6 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 	@SuppressWarnings("null")
 	public void testCreateTaskFromExistingKeyForUserStory() throws Exception {
 		TaskRepository repository = XPlannerTestUtils.getRepository();
-		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
-				repository.getConnectorKind());
 		UserStoryData testUserStory = XPlannerTestUtils.findTestUserStory(client);
 
 		assertTrue(testUserStory != null);
@@ -64,8 +62,6 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 	@SuppressWarnings("null")
 	public void testCreateTaskFromExistingKeyForTask() throws Exception {
 		TaskRepository repository = XPlannerTestUtils.getRepository();
-		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
-				repository.getConnectorKind());
 		TaskData testTask = XPlannerTestUtils.findTestTask(client);
 
 		assertTrue(testTask != null);
@@ -112,24 +108,35 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 				repository.getConnectorKind());
 
 		assertTrue(connector instanceof XPlannerRepositoryConnector);
-		XPlannerRepositoryConnector xplannerConnector = (XPlannerRepositoryConnector) connector;
 
 		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getTasks(
 				repository.getRepositoryUrl());
+		if (tasks.size() == 0) {
+			testCreateTaskFromExistingKeyForUserStory();
+			tasks = TasksUiPlugin.getTaskListManager().getTaskList().getTasks(repository.getRepositoryUrl());
+		}
 		setSyncTimeStamp(repository, tasks);
 
 		String goodUrl = repository.getRepositoryUrl();
-		boolean stale = false;
+		SynchronizationEvent event = new SynchronizationEvent();
 		try {
 			repository.setRepositoryUrl("http://localhost");
-			stale = xplannerConnector.markStaleTasks(repository, tasks, new NullProgressMonitor());
+
+			event.tasks = tasks;
+			event.performQueries = true;
+			event.taskRepository = repository;
+			event.fullSynchronization = true;
+			connector.preSynchronization(event, null);
 		} catch (CoreException e) {
 			assertTrue(e.getMessage() != null && e.getMessage().contains("Connection error"));
 		} finally {
 			repository.setRepositoryUrl(goodUrl);
 		}
 
-		assertTrue(!stale);
+		assertTrue(event.performQueries);
+		for (AbstractTask task : tasks) {
+			assertTrue(!task.isStale());
+		}
 	}
 
 	private void setSyncTimeStamp(TaskRepository repository, Set<AbstractTask> tasks) throws Exception {
@@ -152,8 +159,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 			}
 		}
 
-		TasksUiPlugin.getRepositoryManager().setSynchronizationTime(repository, timeStamp,
-				TasksUiPlugin.getDefault().getRepositoriesFilePath());
+		repository.setSynchronizationTimeStamp(timeStamp);
 	}
 
 	@SuppressWarnings("null")

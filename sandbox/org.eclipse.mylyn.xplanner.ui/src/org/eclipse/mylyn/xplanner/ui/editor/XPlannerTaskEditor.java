@@ -16,6 +16,7 @@ import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.ITaskActivityListener;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractRepositoryTaskEditor;
 import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
 import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUtils;
@@ -40,6 +41,8 @@ import org.eclipse.ui.forms.widgets.Section;
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
+@SuppressWarnings("restriction")
+// for TasksUi and TaskActivityManager
 public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor implements XPlannerEditorAttributeProvider,
 		ITaskActivityListener, SelectionListener {
 
@@ -331,12 +334,9 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor implements 
 	}
 
 	private void forceElapsedTimeUpdated() {
-		AbstractTask task = TasksUiPlugin.getTaskListManager().getTaskList().getTask(
-				getRepositoryTaskData().getHandleIdentifier());
-		long elapsedTimeMillis = TasksUiPlugin.getTaskActivityManager()
-				.getElapsedTime(
-						TasksUiPlugin.getTaskListManager().getTaskList().getTask(
-								getRepositoryTaskData().getHandleIdentifier()));
+		AbstractTask task = TasksUi.getTaskListManager().getTaskList().getTask(repository.getRepositoryUrl(),
+				getRepositoryTaskData().getTaskId());
+		long elapsedTimeMillis = TasksUiPlugin.getTaskActivityManager().getElapsedTime(task);
 
 		elapsedTimeUpdated(task, elapsedTimeMillis);
 	}

@@ -23,6 +23,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 
+@SuppressWarnings("restriction")
 public class NewXPlannerTaskWizard extends Wizard implements INewWizard {
 
 	private final TaskRepository taskRepository;

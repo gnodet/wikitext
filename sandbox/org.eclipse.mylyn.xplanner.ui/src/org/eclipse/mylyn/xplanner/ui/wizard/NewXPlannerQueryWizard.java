@@ -23,6 +23,7 @@ import org.eclipse.mylyn.tasks.ui.TasksUi;
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
+@SuppressWarnings("restriction")
 public class NewXPlannerQueryWizard extends Wizard {
 
 	private static final String TITLE = Messages.NewXPlannerQueryWizard_NEW_XPLANNER_QUERY;
@@ -55,8 +56,8 @@ public class NewXPlannerQueryWizard extends Wizard {
 			AbstractRepositoryConnector connector = TasksUi.getRepositoryManager().getRepositoryConnector(
 					repository.getConnectorKind());
 			if (connector != null) {
-				TasksUi.synchronizeQueries(connector, repository,
-						new HashSet<AbstractRepositoryQuery>(queries), null, true);
+				TasksUi.synchronizeQueries(connector, repository, new HashSet<AbstractRepositoryQuery>(queries), null,
+						true);
 			}
 		} else {
 			AbstractRepositoryQuery query = queryPage.getQuery();

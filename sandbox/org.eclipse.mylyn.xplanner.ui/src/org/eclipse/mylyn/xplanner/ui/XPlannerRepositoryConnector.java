@@ -22,20 +22,20 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.tasks.core.AbstractAttachmentHandler;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskDataHandler;
-import org.eclipse.mylyn.tasks.core.ITaskList;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.core.TaskRepositoryLocationFactory;
 import org.eclipse.mylyn.tasks.core.data.AbstractTaskDataCollector;
 import org.eclipse.mylyn.tasks.core.sync.SynchronizationEvent;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
+import org.eclipse.mylyn.web.core.Policy;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.wsdl.soap.domain.DomainData;
 import org.xplanner.soap.TaskData;
@@ -49,17 +49,17 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 
 	//private static final String VERSION_SUPPORT = Messages.XPlannerRepositoryConnector_VERSION_SUPPORT;
 
-	private XPlannerTaskDataHandler offlineHandler;
+	private final XPlannerTaskDataHandler offlineHandler;
 
 	//private List<String> supportedVersions;
 
 	/** Name initially given to new tasks. Public for testing */
 	public static final String NEW_TASK_DESC = Messages.XPlannerRepositoryConnector_NEW_TASK_DESCRIPTION;
 
-	@Override
-	public void init(ITaskList taskList) {
-		super.init(taskList);
-		this.offlineHandler = new XPlannerTaskDataHandler(taskList);
+	private final TaskRepositoryLocationFactory taskRepositoryLocationFactory = new TaskRepositoryLocationFactory();
+
+	public XPlannerRepositoryConnector() {
+		this.offlineHandler = new XPlannerTaskDataHandler();
 	}
 
 	@Override
@@ -165,7 +165,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			if ((reason == null) || (reason.length() == 0)) {
 				reason = e.getClass().getName();
 			}
-			return new Status(IStatus.OK, TasksUiPlugin.ID_PLUGIN, IStatus.ERROR, MessageFormat.format(
+			return new Status(IStatus.OK, XPlannerMylynUIPlugin.PLUGIN_ID, IStatus.ERROR, MessageFormat.format(
 					Messages.XPlannerRepositoryConnector_PerformQueryFailure, reason), e);
 		} finally {
 			monitor.done();
@@ -350,29 +350,28 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 
 	@Override
 	public boolean updateTaskFromTaskData(TaskRepository repository, AbstractTask repositoryTask,
-			RepositoryTaskData taskData) {
+			RepositoryTaskData repositoryTaskData) {
 
-		if (taskData != null) {
+		if (repositoryTaskData != null) {
 			XPlannerTask xplannerTask = (XPlannerTask) repositoryTask;
-			String url = repository.getRepositoryUrl() + XPlannerMylynUIPlugin.TASK_URL_PREFIX + taskData.getTaskId();
+			String url = repository.getRepositoryUrl() + XPlannerMylynUIPlugin.TASK_URL_PREFIX
+					+ repositoryTaskData.getTaskId();
 			xplannerTask.setUrl(url);
-			xplannerTask.setSummary(taskData.getSummary());
-			xplannerTask.setOwner(taskData.getAssignedTo());
-			xplannerTask.setPriority(taskData.getAttributeValue(RepositoryTaskAttribute.PRIORITY));
-			xplannerTask.setTaskKind(taskData.getTaskKind());
+			xplannerTask.setSummary(repositoryTaskData.getSummary());
+			xplannerTask.setOwner(repositoryTaskData.getAssignedTo());
+			xplannerTask.setPriority(repositoryTaskData.getAttributeValue(RepositoryTaskAttribute.PRIORITY));
+			xplannerTask.setTaskKind(repositoryTaskData.getTaskKind());
 
-			if (XPlannerRepositoryUtils.isCompleted(taskData)) {
-				xplannerTask.setCompleted(true);
+			if (XPlannerRepositoryUtils.isCompleted(repositoryTaskData)) {
 				try {
 					xplannerTask.setCompletionDate( // guess that completed when last modified
-					XPlannerAttributeFactory.TIME_DATE_FORMAT.parse(taskData.getAttribute(
+					XPlannerAttributeFactory.TIME_DATE_FORMAT.parse(repositoryTaskData.getAttribute(
 							RepositoryTaskAttribute.DATE_MODIFIED).getValue()));
 				} catch (ParseException e) {
 					StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
 							Messages.XPlannerRepositoryConnector_COULD_NOT_CONVERT_TASK_DATE));
 				}
 			} else {
-				xplannerTask.setCompleted(false);
 				xplannerTask.setCompletionDate(null);
 			}
 		}
@@ -400,10 +399,8 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			}
 		}
 		if (taskData.isCompleted()) {
-			task.setCompleted(true);
 			task.setCompletionDate(taskData.getLastUpdateTime().getTime());
 		} else {
-			task.setCompleted(false);
 			task.setCompletionDate(null);
 		}
 
@@ -424,10 +421,8 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			}
 		}
 		if (userStory.isCompleted()) {
-			task.setCompleted(true);
 			task.setCompletionDate(userStory.getLastUpdateTime().getTime());
 		} else {
-			task.setCompleted(false);
 			task.setCompletionDate(null);
 		}
 
@@ -450,8 +445,6 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 		} else {
 			task = new XPlannerTask(repository.getRepositoryUrl(), id, name);
 			task.setKind(data);
-//HeB -- testing			
-//			TasksUiPlugin.getTaskListManager().getTaskList().addTask(task);
 		}
 
 		return task;
@@ -555,6 +548,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	public void preSynchronization(SynchronizationEvent event, IProgressMonitor monitor) throws CoreException {
 		boolean changed = false;
 		TaskRepository repository = event.taskRepository;
+		monitor = Policy.monitorFor(monitor);
 		try {
 			monitor.beginTask("Getting changed tasks", IProgressMonitor.UNKNOWN);
 
@@ -582,6 +576,10 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	public RepositoryTaskData getTaskData(TaskRepository repository, String taskId, IProgressMonitor monitor)
 			throws CoreException {
 		return getTaskDataHandler().getTaskData(repository, taskId, monitor);
+	}
+
+	public TaskRepositoryLocationFactory getTaskRepositoryLocationFactory() {
+		return taskRepositoryLocationFactory;
 	}
 
 }

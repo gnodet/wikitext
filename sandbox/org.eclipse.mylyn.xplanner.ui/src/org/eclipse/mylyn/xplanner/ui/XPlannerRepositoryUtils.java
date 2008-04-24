@@ -19,10 +19,10 @@ import java.util.HashSet;
 
 import javax.security.auth.login.LoginException;
 
+import org.eclipse.core.net.proxy.IProxyData;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.mylyn.internal.tasks.core.RepositoryTaskHandleUtil;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.AbstractAttributeFactory;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
@@ -30,7 +30,11 @@ import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.core.TaskRepositoryLocationFactory;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
+import org.eclipse.mylyn.web.core.AbstractWebLocation;
+import org.eclipse.mylyn.web.core.AuthenticationCredentials;
+import org.eclipse.mylyn.web.core.AuthenticationType;
 import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.xplanner.soap.IterationData;
@@ -43,6 +47,8 @@ import org.xplanner.soap.UserStoryData;
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
+@SuppressWarnings("restriction")
+// for TasksUi
 public class XPlannerRepositoryUtils {
 	private static final String TYPE_FEATURE = "Feature";
 
@@ -59,18 +65,23 @@ public class XPlannerRepositoryUtils {
 		RepositoryTaskData repositoryTaskData = null;
 
 		try {
+			Date completionDate = null;
 			if (XPlannerTask.Kind.TASK.toString().equals(xplannerTask.getTaskKind())) {
 				TaskData taskData = client.getTask(Integer.valueOf(xplannerTask.getTaskId()).intValue());
+				if (taskData.isCompleted()) {
+					completionDate = taskData.getLastUpdateTime().getTime();
+				}
 				repositoryTaskData = XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(
-						repository.getRepositoryUrl(), taskData,
-						RepositoryTaskHandleUtil.getTaskId(xplannerTask.getHandleIdentifier()));
-				xplannerTask.setCompleted(taskData.isCompleted());
+						repository.getRepositoryUrl(), taskData, xplannerTask.getTaskId());
+				xplannerTask.setCompletionDate(completionDate);
 			} else if (XPlannerTask.Kind.USER_STORY.toString().equals(xplannerTask.getTaskKind())) {
 				UserStoryData userStory = client.getUserStory(Integer.valueOf(xplannerTask.getTaskId()).intValue());
+				if (userStory.isCompleted()) {
+					completionDate = userStory.getLastUpdateTime().getTime();
+				}
 				repositoryTaskData = XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(
-						repository.getRepositoryUrl(), userStory,
-						RepositoryTaskHandleUtil.getTaskId(xplannerTask.getHandleIdentifier()));
-				xplannerTask.setCompleted(userStory.isCompleted());
+						repository.getRepositoryUrl(), userStory, xplannerTask.getTaskId());
+				xplannerTask.setCompletionDate(completionDate);
 			}
 		} catch (final Exception e) {
 			throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, 0, MessageFormat.format(
@@ -134,8 +145,8 @@ public class XPlannerRepositoryUtils {
 	public static void setupTaskAttributes(TaskData taskData, RepositoryTaskData repositoryTaskData)
 			throws CoreException {
 
-		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
-				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryTaskData.getRepositoryUrl());
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(XPlannerMylynUIPlugin.REPOSITORY_KIND,
+				repositoryTaskData.getRepositoryUrl());
 		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 
 		// description
@@ -209,8 +220,8 @@ public class XPlannerRepositoryUtils {
 	public static void setupNewTaskAttributes(UserStoryData userStoryData, RepositoryTaskData repositoryTaskData)
 			throws CoreException {
 
-		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
-				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryTaskData.getRepositoryUrl());
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(XPlannerMylynUIPlugin.REPOSITORY_KIND,
+				repositoryTaskData.getRepositoryUrl());
 		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 
 		// priority
@@ -306,8 +317,8 @@ public class XPlannerRepositoryUtils {
 	public static void setupUserStoryAttributes(UserStoryData userStory, RepositoryTaskData repositoryTaskData)
 			throws CoreException {
 
-		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
-				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryTaskData.getRepositoryUrl());
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(XPlannerMylynUIPlugin.REPOSITORY_KIND,
+				repositoryTaskData.getRepositoryUrl());
 		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 
 		// description
@@ -602,9 +613,21 @@ public class XPlannerRepositoryUtils {
 	}
 
 	public static void validateRepository(TaskRepository taskRepository) throws CoreException {
-		validateRepository(taskRepository.getRepositoryUrl(), taskRepository.getUserName(),
-				taskRepository.getPassword(), taskRepository.getProxy(), taskRepository.getHttpUser(),
-				taskRepository.getHttpPassword());
+		AuthenticationCredentials repositoryCredentials = taskRepository.getCredentials(AuthenticationType.REPOSITORY);
+		AuthenticationCredentials httpCredentials = taskRepository.getCredentials(AuthenticationType.HTTP);
+		XPlannerRepositoryConnector connector = (XPlannerRepositoryConnector) TasksUi.getRepositoryManager()
+				.getRepositoryConnector(XPlannerMylynUIPlugin.REPOSITORY_KIND);
+		TaskRepositoryLocationFactory locationFactory = connector.getTaskRepositoryLocationFactory();
+		AbstractWebLocation location = locationFactory.createWebLocation(taskRepository);
+
+		String repositoryUrl = taskRepository.getRepositoryUrl();
+		String repositoryUserName = repositoryCredentials.getUserName();
+		String repositoryPassword = repositoryCredentials.getPassword();
+		Proxy proxy = location.getProxyForHost(location.getUrl(), IProxyData.HTTP_PROXY_TYPE);
+		String httpUserName = httpCredentials == null ? null : httpCredentials.getUserName();
+		String httpPassword = httpCredentials == null ? null : httpCredentials.getPassword();
+
+		validateRepository(repositoryUrl, repositoryUserName, repositoryPassword, proxy, httpUserName, httpPassword);
 	}
 
 	public static void validateRepository(String url, String userName, String password) throws CoreException {

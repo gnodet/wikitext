@@ -17,6 +17,8 @@ import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.ITaskList;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
+import org.eclipse.mylyn.web.core.AuthenticationCredentials;
+import org.eclipse.mylyn.web.core.AuthenticationType;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.ui.XPlannerClientFacade;
 import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
@@ -57,13 +59,14 @@ public class XPlannerTestUtils {
 		return getRepository(USER, PASSWORD);
 	}
 
-	public static TaskRepository getRepository(String user, String password) {
+	public static TaskRepository getRepository(String userName, String password) {
 		TaskRepository repository;
 
 		repository = TasksUiPlugin.getRepositoryManager().getRepository(SERVER_URL);
 		if (repository == null) {
 			repository = new TaskRepository(XPlannerMylynUIPlugin.REPOSITORY_KIND, SERVER_URL);
-			repository.setAuthenticationCredentials(user, password);
+			AuthenticationCredentials credentials = new AuthenticationCredentials(userName, password);
+			repository.setCredentials(AuthenticationType.REPOSITORY, credentials, false);
 			TasksUiPlugin.getRepositoryManager().addRepository(repository,
 					TasksUiPlugin.getDefault().getRepositoriesFilePath());
 			TasksUiPlugin.getTaskListManager().resetTaskList();
