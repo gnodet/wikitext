@@ -10,6 +10,8 @@
 1208921751388	Extract constant 'VIEWER'
 1208924810845	Extract local variable 'assoctiatedAttribute'
 1208929288177	Extract local variable 'layout'
-1208982398179	Rename method 'setGlobalBusy'
-1208982435928	Rename method 'shwEditorBusy'
-1209013794882	Extract local variable 'label'
+1208999193770	Extract method 'addDateContainerSelection'
+1209000911854	Rename method 'addDateContainerSelection'
+1209002205486	Change method 'canSchedule'
+1209002248211	Change method 'canSchedule'
+1209054392601	Delete element
