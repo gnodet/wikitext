@@ -37,3 +37,5 @@
 1208993682111	Encapsulate field 'kind'
 1208993696335	Encapsulate field 'type'
 1208993704713	Encapsulate field 'label'
+1209003592570	Rename method 'putRepositoryTaskData'
+1209006801943	Extract local variable 'file'
