@@ -12,3 +12,4 @@
 1208929288177	Extract local variable 'layout'
 1208982398179	Rename method 'setGlobalBusy'
 1208982435928	Rename method 'shwEditorBusy'
+1209013794882	Extract local variable 'label'
