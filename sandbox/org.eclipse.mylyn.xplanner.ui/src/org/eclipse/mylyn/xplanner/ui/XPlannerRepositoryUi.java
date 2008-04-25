@@ -17,7 +17,6 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.mylyn.internal.tasks.ui.wizards.EditRepositoryWizard;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
@@ -90,7 +89,8 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 		return queryWizard;
 	}
 
-	@SuppressWarnings({ "unused", "restriction" })
+	@SuppressWarnings( { "unused", "restriction" })
+	// restriction suppression for EditRepositoryWizard
 	// Leave in case needed other places
 	private boolean ensureHaveValidClient(TaskRepository repository) {
 		boolean haveValidClient = true;
@@ -99,7 +99,8 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 			XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 		} catch (CoreException ce) {
 			try {
-				EditRepositoryWizard wizard = new EditRepositoryWizard(repository);
+				org.eclipse.mylyn.internal.tasks.ui.wizards.EditRepositoryWizard wizard = new org.eclipse.mylyn.internal.tasks.ui.wizards.EditRepositoryWizard(
+						repository);
 				Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 				if (shell != null && !shell.isDisposed()) {
 					WizardDialog dialog = new WizardDialog(shell, wizard);

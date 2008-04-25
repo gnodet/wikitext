@@ -9,8 +9,9 @@ Bundle-Localization: plugin
 Require-Bundle: javax.xml.rpc;bundle-version="1.1.0",
  org.apache.axis;bundle-version="1.4.0",
  org.eclipse.core.runtime,
- org.eclipse.mylyn.web.core;bundle-version="[3.0.0,4.0.0)"
-Eclipse-LazyStart: true
+ org.eclipse.mylyn.web.core;bundle-version="[3.0.0,4.0.0)",
+ org.eclipse.mylyn.tasks.core;bundle-version="3.0.0"
+Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.mylyn.xplanner.core;x-friends:="org.eclipse.mylyn.xplanner.ui",
  org.eclipse.mylyn.xplanner.core.service;x-friends:="org.eclipse.mylyn.xplanner.ui",
  org.eclipse.mylyn.xplanner.core.service.exceptions;x-friends:="org.eclipse.mylyn.xplanner.ui",
