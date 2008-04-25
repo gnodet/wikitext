@@ -22,3 +22,4 @@
 1209104549719	Rename field 'taskDataManager'
 1209104595117	Rename field 'synchronizationManager'
 1209104678961	Rename method 'getTaskSynchronizationManager'
+1209109328045	Extract method 'setTaskData'

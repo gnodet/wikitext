@@ -30,3 +30,6 @@
 1209105151920	Rename type 'TaskSynchronizationManager'
 1209105309806	Rename type 'AbstractAttributeMapper'
 1209105329901	Rename type 'AttributeMapper'
+1209105562210	Rename method 'addAttributeManagerListener'
+1209105571002	Rename method 'removeAttributeManagerListener'
+1209107176508	Extract local variable 'fileAndCreatePath'
