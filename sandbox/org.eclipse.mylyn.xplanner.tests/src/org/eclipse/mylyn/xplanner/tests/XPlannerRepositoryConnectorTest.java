@@ -19,7 +19,7 @@ import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
-import org.eclipse.mylyn.tasks.core.sync.SynchronizationEvent;
+import org.eclipse.mylyn.tasks.core.sync.SynchronizationContext;
 import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeFactory;
@@ -118,7 +118,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		setSyncTimeStamp(repository, tasks);
 
 		String goodUrl = repository.getRepositoryUrl();
-		SynchronizationEvent event = new SynchronizationEvent();
+		SynchronizationContext event = new SynchronizationContext();
 		try {
 			repository.setRepositoryUrl("http://localhost");
 

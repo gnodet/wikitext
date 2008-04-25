@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;org.eclipse.mylyn.tasks.tests.data.TaskDataManagerTest&apos; to &apos;TaskDataExternalizerTest&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.tests&apos;&#x0A;- Original element: &apos;org.eclipse.mylyn.tasks.tests.data.TaskDataManagerTest&apos;&#x0A;- Renamed element: &apos;org.eclipse.mylyn.tasks.tests.data.TaskDataExternalizerTest&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;TaskDataManagerTest&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;org.eclipse.mylyn.tasks.tests.data{TaskDataManagerTest.java[TaskDataManagerTest" matchStrategy="1" name="TaskDataExternalizerTest" qualified="false" references="true" similarDeclarations="false" stamp="1209105118552" textual="false" version="1.0"/>
+</session>

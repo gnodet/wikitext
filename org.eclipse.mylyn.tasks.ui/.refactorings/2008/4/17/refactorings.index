@@ -16,3 +16,9 @@
 1209002248211	Change method 'canSchedule'
 1209054392601	Delete element
 1209057708723	Rename method 'runOperation'
+1209103068765	Extract local variable 'repositoryTask'
+1209103646936	Rename method 'getSynchronizationManager'
+1209103670800	Rename method 'synchronizeAlllRepositories'
+1209104549719	Rename field 'taskDataManager'
+1209104595117	Rename field 'synchronizationManager'
+1209104678961	Rename method 'getTaskSynchronizationManager'

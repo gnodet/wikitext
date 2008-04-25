@@ -32,8 +32,8 @@ import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.TaskRepositoryLocationFactory;
-import org.eclipse.mylyn.tasks.core.data.AbstractTaskDataCollector;
-import org.eclipse.mylyn.tasks.core.sync.SynchronizationEvent;
+import org.eclipse.mylyn.tasks.core.data.TaskDataCollector;
+import org.eclipse.mylyn.tasks.core.sync.SynchronizationContext;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.web.core.Policy;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
@@ -141,7 +141,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 
 	@Override
 	public IStatus performQuery(TaskRepository repository, AbstractRepositoryQuery repositoryQuery,
-			AbstractTaskDataCollector resultCollector, SynchronizationEvent event, IProgressMonitor monitor) {
+			TaskDataCollector resultCollector, SynchronizationContext event, IProgressMonitor monitor) {
 
 		if (!(repositoryQuery instanceof XPlannerCustomQuery)) {
 			return Status.OK_STATUS;
@@ -199,7 +199,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 //	}
 
 	private IStatus queryMyCurrentTasks(XPlannerCustomQuery xplannerCustomQuery, XPlannerClient client,
-			TaskRepository repository, AbstractTaskDataCollector resultCollector) throws RemoteException {
+			TaskRepository repository, TaskDataCollector resultCollector) throws RemoteException {
 
 		ArrayList<TaskData> xplannerTasks = new ArrayList<TaskData>();
 		int currentPersonId = client.getCurrentPersonId();
@@ -211,7 +211,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	private IStatus queryTasks(XPlannerCustomQuery xplannerCustomQuery, XPlannerClient client,
-			TaskRepository repository, AbstractTaskDataCollector resultCollector) throws RemoteException {
+			TaskRepository repository, TaskDataCollector resultCollector) throws RemoteException {
 
 		List<Integer> contentIds = xplannerCustomQuery.getContentIds();
 		ArrayList<TaskData> xplannerTasks = new ArrayList<TaskData>();
@@ -262,7 +262,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	private IStatus getTaskQueryHits(List<TaskData> tasks, TaskRepository repository, XPlannerCustomQuery query,
-			AbstractTaskDataCollector resultCollector) {
+			TaskDataCollector resultCollector) {
 
 		for (TaskData data : tasks) {
 			String id = String.valueOf(data.getId());
@@ -545,7 +545,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public void preSynchronization(SynchronizationEvent event, IProgressMonitor monitor) throws CoreException {
+	public void preSynchronization(SynchronizationContext event, IProgressMonitor monitor) throws CoreException {
 		boolean changed = false;
 		TaskRepository repository = event.taskRepository;
 		monitor = Policy.monitorFor(monitor);

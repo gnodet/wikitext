@@ -20,9 +20,9 @@ import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.ITaskFactory;
 import org.eclipse.mylyn.tasks.core.ITaskList;
 import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
-import org.eclipse.mylyn.tasks.core.data.AbstractTaskDataCollector;
+import org.eclipse.mylyn.tasks.core.data.TaskDataCollector;
 
-public class ProgressQueryHitCollector extends AbstractTaskDataCollector {
+public class ProgressQueryHitCollector extends TaskDataCollector {
 
 	public static final int MAX_HITS = 5000;
 

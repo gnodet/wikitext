@@ -9,3 +9,24 @@
 1208900536859	Rename method 'getSearchHitCollector'
 1208908610926	Move compilation unit
 1209077012958	Rename type 'MylynBackgroundSaveJob'
+1209100706094	Rename type 'SynchronizationEvent'
+1209102315257	Delete element
+1209102682450	Rename type 'RepositorySynchronizationManager'
+1209102694751	Rename type 'IRepositorySynchronizationManager'
+1209102723683	Move compilation unit
+1209102735963	Move compilation unit
+1209102926582	Rename type 'TaskDataManager2'
+1209102961206	Rename local variable 'taskDataManager2'
+1209103593734	Inline local variable 'state'
+1209103864249	Delete element
+1209104474739	Rename type 'TaskDataManager'
+1209104497879	Rename type 'TaskDataStoreManager'
+1209104629820	Rename type 'ITaskSynchronizationManager'
+1209104711081	Rename type 'ITaskDataState'
+1209104835992	Rename type 'AttributeManager'
+1209104868599	Rename type 'IAttributeManagerListener'
+1209104930965	Rename type 'ITaskDataModelListener'
+1209105014699	Rename type 'AbstractTaskDataCollector'
+1209105151920	Rename type 'TaskSynchronizationManager'
+1209105309806	Rename type 'AbstractAttributeMapper'
+1209105329901	Rename type 'AttributeMapper'

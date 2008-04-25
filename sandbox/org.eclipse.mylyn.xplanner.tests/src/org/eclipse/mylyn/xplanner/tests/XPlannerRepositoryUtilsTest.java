@@ -44,7 +44,7 @@ public class XPlannerRepositoryUtilsTest extends TestCase {
 		try {
 			TaskData taskData = XPlannerTestUtils.findTestTask(client);
 			XPlannerTask task = XPlannerTestUtils.getTestXPlannerTask(client);
-			RepositoryTaskData repositoryTaskData = TasksUiPlugin.getTaskDataManager().getNewTaskData(
+			RepositoryTaskData repositoryTaskData = TasksUiPlugin.getTaskDataStorageManager().getNewTaskData(
 					task.getRepositoryUrl(), task.getTaskId());
 			XPlannerRepositoryUtils.setupTaskAttributes(taskData, repositoryTaskData);
 
@@ -72,7 +72,7 @@ public class XPlannerRepositoryUtilsTest extends TestCase {
 		try {
 			UserStoryData userStory = XPlannerTestUtils.findTestUserStory(client);
 			XPlannerTask task = XPlannerTestUtils.getTestXPlannerUserStoryTask(client);
-			RepositoryTaskData repositoryTaskData = TasksUiPlugin.getTaskDataManager().getNewTaskData(
+			RepositoryTaskData repositoryTaskData = TasksUiPlugin.getTaskDataStorageManager().getNewTaskData(
 					task.getRepositoryUrl(), task.getTaskId());
 			XPlannerRepositoryUtils.setupUserStoryAttributes(userStory, repositoryTaskData);
 
@@ -85,7 +85,7 @@ public class XPlannerRepositoryUtilsTest extends TestCase {
 	public void testIsCompleted() {
 		try {
 			XPlannerTask task = XPlannerTestUtils.getTestXPlannerTask(client);
-			RepositoryTaskData repositoryTaskData = TasksUiPlugin.getTaskDataManager().getNewTaskData(
+			RepositoryTaskData repositoryTaskData = TasksUiPlugin.getTaskDataStorageManager().getNewTaskData(
 					task.getRepositoryUrl(), task.getTaskId());
 			assert (!XPlannerRepositoryUtils.isCompleted(repositoryTaskData));
 		} catch (Exception e) {

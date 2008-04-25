@@ -225,7 +225,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 
 				// we have a bugzilla task, so get the bug report
 				BugzillaTask bugTask = (BugzillaTask) task;
-				RepositoryTaskData bugTaskData = TasksUiPlugin.getTaskDataManager().getNewTaskData(
+				RepositoryTaskData bugTaskData = TasksUiPlugin.getTaskDataStorageManager().getNewTaskData(
 						bugTask.getRepositoryUrl(), bugTask.getTaskId());
 				//RepositoryTaskData bugTaskData = bugTask.getTaskData();
 
