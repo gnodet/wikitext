@@ -8,3 +8,4 @@
 1208755513453	Extract local variable 'readState'
 1208900536859	Rename method 'getSearchHitCollector'
 1208908610926	Move compilation unit
+1209077012958	Rename type 'MylynBackgroundSaveJob'
