@@ -33,3 +33,5 @@
 1209105562210	Rename method 'addAttributeManagerListener'
 1209105571002	Rename method 'removeAttributeManagerListener'
 1209107176508	Extract local variable 'fileAndCreatePath'
+1209182198056	Rename local variable 'kind'
+1209182209911	Rename field 'kind'
