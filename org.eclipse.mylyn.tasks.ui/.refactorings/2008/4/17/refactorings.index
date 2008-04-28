@@ -23,3 +23,5 @@
 1209104595117	Rename field 'synchronizationManager'
 1209104678961	Rename method 'getTaskSynchronizationManager'
 1209109328045	Extract method 'setTaskData'
+1209191896035	Move compilation unit
+1209337866470	Rename method 'getAttributeManager'

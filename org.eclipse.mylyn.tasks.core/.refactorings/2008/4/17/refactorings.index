@@ -35,3 +35,8 @@
 1209107176508	Extract local variable 'fileAndCreatePath'
 1209182198056	Rename local variable 'kind'
 1209182209911	Rename field 'kind'
+1209192000298	Extract local variable 'taskDataHandler2'
+1209333448185	Extract method 'createTask'
+1209333814380	Extract local variable 'taskId'
+1209335254141	Rename method 'putTaskData'
+1209335472662	Inline local variable 'state'
