@@ -10,3 +10,10 @@
 1209367227152	Extract method 'openNewTask'
 1209371594330	Copy compilation unit
 1209371675860	Delete element
+1209417184284	Extract local variable 'searchResultTreeContentProvider'
+1209417203663	Extract local variable 'searchResultTreeContentProvider2'
+1209418053061	Copy compilation unit
+1209418229627	Extract local variable 'activeWorkbenchWindow'
+1209418407789	Extract local variable 'activeWorkbenchWindow'
+1209418488925	Extract local variable 'activePage'
+1209419605489	Delete element
