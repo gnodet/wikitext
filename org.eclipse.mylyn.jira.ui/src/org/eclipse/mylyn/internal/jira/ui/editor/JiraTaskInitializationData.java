@@ -6,20 +6,18 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.tasks.core.sync;
+package org.eclipse.mylyn.internal.jira.ui.editor;
 
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.mylyn.internal.jira.core.model.Project;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.core.TaskSelection;
 
-/**
- * @author Steffen Pingel
- */
-public abstract class SubmitJobListener {
+public class JiraTaskInitializationData {
 
-	public abstract void taskDataPosted(SubmitJobEvent event, IProgressMonitor monitor) throws CoreException;
+	public TaskSelection taskSelection;
 
-	public abstract void taskSynchronized(SubmitJobEvent event, IProgressMonitor monitor);
+	public TaskRepository taskRepository;
 
-	public abstract void done(SubmitJobEvent event);
+	public Project project;
 
 }

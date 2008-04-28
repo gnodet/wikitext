@@ -3,3 +3,10 @@
 1209344082620	Delete element
 1209344256729	Change method 'RichTextAttributeEditor'
 1209347137119	Rename method 'getAttributeEditorManager'
+1209354444897	Rename method 'getAttributeManager'
+1209354844246	Extract method 'setSelectedRadionButton'
+1209364219305	Rename method 'submitToRepository'
+1209364800894	Extract local variable 'activePage'
+1209367227152	Extract method 'openNewTask'
+1209371594330	Copy compilation unit
+1209371675860	Delete element
