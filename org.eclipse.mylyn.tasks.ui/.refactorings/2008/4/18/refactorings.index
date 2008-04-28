@@ -1,2 +1,4 @@
 1209341843429	Extract method 'expandComment'
 1209342145123	Extract local variable 'hasIncomingChanges'
+1209344082620	Delete element
+1209344256729	Change method 'RichTextAttributeEditor'
