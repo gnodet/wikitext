@@ -582,4 +582,17 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 		return taskRepositoryLocationFactory;
 	}
 
+	@Override
+	public void postSynchronization(SynchronizationContext event, IProgressMonitor monitor) throws CoreException {
+		try {
+			monitor.beginTask("", 1);
+			if (event.fullSynchronization) {
+				event.taskRepository.setSynchronizationTimeStamp(getSynchronizationTimestamp(event.taskRepository,
+						event.changedTasks));
+			}
+		} finally {
+			monitor.done();
+		}
+	}
+
 }
