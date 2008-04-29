@@ -17,3 +17,7 @@
 1209418407789	Extract local variable 'activeWorkbenchWindow'
 1209418488925	Extract local variable 'activePage'
 1209419605489	Delete element
+1209439172440	Copy compilation unit
+1209439509957	Rename type 'OpenTaskHandler'
+1209441299832	Copy compilation unit
+1209442047884	Delete element
