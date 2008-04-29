@@ -7,7 +7,7 @@ Bundle-Activator: org.eclipse.mylyn.internal.aspectj.AspectJBridgePlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.mylyn.context.core;bundle-version="[3.0.0,4.0.0)"
-Eclipse-AutoStart: true
+Bundle-ActivationPolicy: lazy
 Bundle-Vendor: Eclipse.org
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.eclipse.mylyn.internal.aspectj;x-internal:=true

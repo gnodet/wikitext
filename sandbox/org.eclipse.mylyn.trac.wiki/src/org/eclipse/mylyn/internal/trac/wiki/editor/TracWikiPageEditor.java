@@ -33,6 +33,7 @@ import org.eclipse.mylyn.internal.trac.core.model.TracWikiPage;
 import org.eclipse.mylyn.internal.trac.ui.editor.TracRenderingEngine;
 import org.eclipse.mylyn.internal.trac.wiki.TracWikiPlugin;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
+import org.eclipse.mylyn.provisional.workbench.ui.CommonImages;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractRenderingEngine;
 import org.eclipse.mylyn.tasks.ui.editors.BrowserFormPage;
@@ -264,7 +265,7 @@ public class TracWikiPageEditor extends FormEditor {
 			submitButton = toolkit.createButton(buttonComposite, LABEL_BUTTON_SUBMIT, SWT.NONE);
 			GridData submitButtonData = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
 			submitButtonData.widthHint = 100;
-			submitButton.setImage(TasksUiImages.getImage(TasksUiImages.REPOSITORY_SUBMIT));
+			submitButton.setImage(CommonImages.getImage(TasksUiImages.REPOSITORY_SUBMIT));
 			submitButton.setLayoutData(submitButtonData);
 			submitButton.addListener(SWT.Selection, new Listener() {
 				public void handleEvent(Event e) {

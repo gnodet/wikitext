@@ -22,6 +22,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiImages;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.provisional.workbench.ui.CommonImages;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.swt.SWT;
@@ -214,7 +215,7 @@ public class RepositorySpyView extends ViewPart {
 		public Image getImage(Object obj) {
 			String imageKey = ISharedImages.IMG_OBJ_ELEMENT;
 			if (obj instanceof List) {
-				return TasksUiImages.REPOSITORIES.createImage();
+				return TasksUiImages.REPOSITORIES_VIEW.createImage();
 			}
 			if (obj instanceof TaskRepository) {
 				// TODO: decorate with proper overlay
@@ -297,7 +298,7 @@ public class RepositorySpyView extends ViewPart {
 		refreshViewAction.setToolTipText("Rebuild Repository List");
 		// refereshViewAction.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
 		// getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
-		refreshViewAction.setImageDescriptor(TasksUiImages.REFRESH);
+		refreshViewAction.setImageDescriptor(CommonImages.REFRESH);
 
 		clearConfigLastUpdateAction = new Action() {
 			@Override

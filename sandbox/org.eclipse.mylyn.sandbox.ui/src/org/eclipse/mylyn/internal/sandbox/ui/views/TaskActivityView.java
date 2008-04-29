@@ -33,17 +33,17 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerDropAdapter;
+import org.eclipse.mylyn.internal.sandbox.ui.planner.ActivityReportAction;
+import org.eclipse.mylyn.internal.sandbox.ui.planner.ReminderCellEditor;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskDelegate;
 import org.eclipse.mylyn.internal.tasks.core.TaskActivityUtil;
-import org.eclipse.mylyn.internal.tasks.ui.TaskListColorsAndFonts;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.internal.tasks.ui.actions.ActivityReportAction;
 import org.eclipse.mylyn.internal.tasks.ui.actions.OpenTaskListElementAction;
-import org.eclipse.mylyn.internal.tasks.ui.planner.ReminderCellEditor;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskActivityLabelProvider;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskElementLabelProvider;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
+import org.eclipse.mylyn.provisional.workbench.ui.CommonColorsAndFonts;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.tasks.core.ITaskActivationListener;
@@ -113,10 +113,10 @@ public class TaskActivityView extends ViewPart {
 	private final IPropertyChangeListener THEME_CHANGE_LISTENER = new IPropertyChangeListener() {
 		public void propertyChange(PropertyChangeEvent event) {
 			if (event.getProperty().equals(IThemeManager.CHANGE_CURRENT_THEME)
-					|| event.getProperty().equals(TaskListColorsAndFonts.THEME_COLOR_TASKLIST_CATEGORY)) {
+					|| event.getProperty().equals(CommonColorsAndFonts.THEME_COLOR_TASKLIST_CATEGORY)) {
 				taskHistoryTreeLabelProvider.setCategoryBackgroundColor(themeManager.getCurrentTheme()
 						.getColorRegistry()
-						.get(TaskListColorsAndFonts.THEME_COLOR_TASKLIST_CATEGORY));
+						.get(CommonColorsAndFonts.THEME_COLOR_TASKLIST_CATEGORY));
 				refresh();
 			}
 		}
@@ -221,7 +221,7 @@ public class TaskActivityView extends ViewPart {
 
 		IThemeManager themeManager = getSite().getWorkbenchWindow().getWorkbench().getThemeManager();
 		Color categoryBackground = themeManager.getCurrentTheme().getColorRegistry().get(
-				TaskListColorsAndFonts.THEME_COLOR_TASKLIST_CATEGORY);
+				CommonColorsAndFonts.THEME_COLOR_TASKLIST_CATEGORY);
 
 		sorter = new TaskActivityViewSorter();
 		getViewer().setSorter(sorter);
