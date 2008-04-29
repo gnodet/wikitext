@@ -27,4 +27,48 @@
 1209449142259	Extract constant 'BACKUP_FILE_PREFIX'
 1209450414986	Rename method 'createImportBackupControl'
 1209452980658	Change method 'removeOldBackups'
-1209495175556	Move member 'CONTEXTS_DIRECTORY'
+1209461261027	Move compilation units
+1209467264060	Move compilation unit
+1209473259781	Copy folder
+1209473266833	Copy file
+1209473492639	Delete element
+1209473510347	Delete element
+1209473734926	Move compilation units
+1209473929043	Move compilation unit
+1209474343338	Move compilation unit
+1209474737577	Move compilation unit
+1209475226833	Move compilation unit
+1209475268828	Move compilation unit
+1209475298837	Move compilation unit
+1209475336578	Move compilation unit
+1209476020400	Move 1 resources to 'archive'
+1209476072536	Move 1 resources to 'archive'
+1209476196945	Move 1 resources to 'archive'
+1209476688368	Move 1 resources to 'archive'
+1209477754349	Rename type 'TasksUiImages2'
+1209479547705	Move 'overlay-repository.gif' to 'archive'
+1209479927114	Rename field 'OVERLAY_LOCAL_TASK'
+1209479937471	Rename field 'OVERLAY_WEB'
+1209480008379	Move 1 resources to 'archive'
+1209480493933	Move file
+1209480754758	Move folders
+1209480790575	Move member 'PRIORITY_1'
+1209480806573	Move member 'PRIORITY_2'
+1209480816574	Move member 'PRIORITY_3'
+1209480825946	Move member 'PRIORITY_4'
+1209480834930	Move member 'PRIORITY_5'
+1209483707250	Move compilation unit
+1209483805003	Move compilation unit
+1209483862291	Move compilation unit
+1209483913570	Move compilation unit
+1209485103522	Move compilation unit
+1209485141793	Move compilation unit
+1209485170531	Move compilation unit
+1209486202786	Rename field 'T_EVIEW'
+1209486208557	Rename field 'T_TOOL'
+1209486217869	Rename field 'T_OBJ'
+1209486229199	Rename field 'T_OVR'
+1209486474730	Move compilation unit
+1209486601098	Move compilation unit
+1209486873722	Move compilation unit
+1209504692290	Move compilation unit
