@@ -12,7 +12,7 @@ import java.net.URL;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
-import org.eclipse.mylyn.internal.tasks.ui.TaskListImageDescriptor;
+import org.eclipse.mylyn.internal.workbench.ui.TaskListImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 
 /**

@@ -137,7 +137,7 @@
     <extension point="org.eclipse.ui.newWizards">
 	  <wizard
             category="org.eclipse.mylyn.ui.wizards.new"
-            class="org.eclipse.mylyn.internal.tasks.ui.planner.TaskActivityWizard"
+            class="org.eclipse.mylyn.internal.sandbox.ui.planner.TaskActivityWizard"
             icon="icons/eview16/task-list.gif" 
             id="org.eclipse.mylyn.tasks.ui.wizards.activity.report"
             name="Task Activity Report (Sandbox)">
@@ -147,7 +147,7 @@
   	<extension
         point="org.eclipse.ui.editors">
     	<editor
-          class="org.eclipse.mylyn.internal.tasks.ui.planner.TaskActivityEditorPart"
+          class="org.eclipse.mylyn.internal.sandbox.ui.planner.TaskActivityEditorPart"
           contributorClass="org.eclipse.mylyn.internal.tasks.ui.editors.TaskEditorActionContributor"
           icon="icons/eview16/task-list.gif"
           id="org.eclipse.mylyn.tasks.ui.editors.planning"
