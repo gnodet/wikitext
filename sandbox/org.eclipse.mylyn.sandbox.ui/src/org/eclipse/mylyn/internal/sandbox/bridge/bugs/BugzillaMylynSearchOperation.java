@@ -11,6 +11,7 @@
 package org.eclipse.mylyn.internal.sandbox.bridge.bugs;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -210,8 +211,8 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 	 * @param monitor
 	 *            The progress monitor
 	 */
-	private void searchLocal(Set<AbstractTask> tasks, ProgressQueryHitCollector searchCollector, String elementName,
-			IProgressMonitor monitor) {
+	private void searchLocal(Collection<AbstractTask> tasks, ProgressQueryHitCollector searchCollector,
+			String elementName, IProgressMonitor monitor) {
 		if (tasks == null) {
 			return;
 		}

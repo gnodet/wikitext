@@ -1,2 +1,4 @@
 1209358992572	Rename method 'createWorkingCopy'
 1209364083738	Rename method 'getStatus'
+1209451931458	Change method 'getChildren'
+1209451956451	Change method 'getChildrenInternal'
