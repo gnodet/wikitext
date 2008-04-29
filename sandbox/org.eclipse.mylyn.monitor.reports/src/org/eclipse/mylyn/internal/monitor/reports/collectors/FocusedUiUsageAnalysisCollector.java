@@ -19,13 +19,13 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.mylyn.commons.core.StatusHandler;
+import org.eclipse.mylyn.commons.core.DateUtil;
 import org.eclipse.mylyn.internal.monitor.reports.MonitorReportsPlugin;
 import org.eclipse.mylyn.internal.monitor.usage.ReportGenerator;
 import org.eclipse.mylyn.internal.tasks.ui.actions.TaskActivateAction;
 import org.eclipse.mylyn.internal.tasks.ui.actions.TaskDeactivateAction;
-import org.eclipse.mylyn.monitor.core.DateUtil;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
-import org.eclipse.mylyn.monitor.core.StatusHandler;
 
 /**
  * Delagates to other collectors for additional info.

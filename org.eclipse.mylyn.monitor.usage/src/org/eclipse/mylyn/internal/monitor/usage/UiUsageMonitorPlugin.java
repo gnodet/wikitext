@@ -33,6 +33,7 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IContextStoreListener;
 import org.eclipse.mylyn.context.core.IInteractionContextManager;
@@ -47,10 +48,10 @@ import org.eclipse.mylyn.internal.monitor.ui.PreferenceChangeMonitor;
 import org.eclipse.mylyn.internal.monitor.ui.WindowChangeMonitor;
 import org.eclipse.mylyn.internal.monitor.usage.wizards.NewUsageSummaryEditorWizard;
 import org.eclipse.mylyn.monitor.core.IInteractionEventListener;
-import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.mylyn.monitor.ui.AbstractCommandMonitor;
 import org.eclipse.mylyn.monitor.ui.IActionExecutionListener;
 import org.eclipse.mylyn.monitor.ui.IMonitorLifecycleListener;
+import org.eclipse.mylyn.monitor.ui.MonitorUi;
 import org.eclipse.mylyn.monitor.usage.AbstractStudyBackgroundPage;
 import org.eclipse.mylyn.monitor.usage.AbstractStudyQuestionnairePage;
 import org.eclipse.mylyn.web.core.WebClientUtil;
@@ -318,7 +319,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		}
 
 		IWorkbench workbench = PlatformUI.getWorkbench();
-		MonitorUiPlugin.getDefault().addInteractionListener(interactionLogger);
+		MonitorUi.addInteractionListener(interactionLogger);
 		getCommandMonitors().add(keybindingCommandMonitor);
 
 		getActionExecutionListeners().add(new ActionExecutionMonitor());
@@ -387,7 +388,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		}
 
 		IWorkbench workbench = PlatformUI.getWorkbench();
-		MonitorUiPlugin.getDefault().removeInteractionListener(interactionLogger);
+		MonitorUi.removeInteractionListener(interactionLogger);
 
 		getCommandMonitors().remove(keybindingCommandMonitor);
 		getActionExecutionListeners().remove(new ActionExecutionMonitor());

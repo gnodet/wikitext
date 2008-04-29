@@ -16,7 +16,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.mylyn.monitor.core.StatusHandler;
+import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.monitor.usage.AbstractStudyQuestionnairePage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;

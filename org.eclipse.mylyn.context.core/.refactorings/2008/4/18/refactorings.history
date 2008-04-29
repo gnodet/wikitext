@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring accessors="true" comment="Delete 1 element(s) from project &apos;org.eclipse.mylyn.context.core&apos;&#x0D;&#x0A;- Original project: &apos;org.eclipse.mylyn.context.core&apos;&#x0D;&#x0A;- Original element: &apos;pom.xml&apos;" description="Delete element" element1="pom.xml" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="1" stamp="1209509373969" subPackages="false" version="1.0"/>
+</session>

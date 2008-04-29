@@ -24,13 +24,13 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.IJobChangeListener;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageScanner;
 import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventComparator;
 import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventSummary;
 import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventUtil;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
-import org.eclipse.mylyn.monitor.core.StatusHandler;
 
 /**
  * Used for generating reports of user activity.

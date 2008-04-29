@@ -15,6 +15,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
 import org.eclipse.mylyn.internal.monitor.reports.MonitorReportsPlugin;
@@ -22,7 +23,6 @@ import org.eclipse.mylyn.internal.monitor.reports.collectors.FocusedUiUsageAnaly
 import org.eclipse.mylyn.internal.monitor.usage.ReportGenerator;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.internal.monitor.usage.editors.UsageStatsEditorInput;
-import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;

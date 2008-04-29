@@ -10,7 +10,7 @@ package org.eclipse.mylyn.internal.sandbox.ui;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.mylyn.monitor.core.StatusHandler;
+import org.eclipse.mylyn.commons.core.StatusHandler;
 
 /**
  * @author Wesley Coelho

@@ -17,8 +17,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.mylyn.monitor.usage,
  org.eclipse.mylyn.monitor.ui,
  org.eclipse.mylyn.monitor.core,
- org.eclipse.mylyn,
- org.eclipse.mylyn.web.core
+ org.eclipse.mylyn.web.core,
+ org.eclipse.mylyn.commons.core;bundle-version="[3.0.0,4.0.0)"
 Eclipse-AutoStart: true
 Bundle-ClassPath: mylyn-study.jar 
 Export-Package: org.eclipse.mylyn.examples.monitor.study
