@@ -16,12 +16,11 @@
 1209002248211	Change method 'canSchedule'
 1209054392601	Delete element
 1209057708723	Rename method 'runOperation'
-1209103068765	Extract local variable 'repositoryTask'
-1209103646936	Rename method 'getSynchronizationManager'
-1209103670800	Rename method 'synchronizeAlllRepositories'
-1209104549719	Rename field 'taskDataManager'
-1209104595117	Rename field 'synchronizationManager'
-1209104678961	Rename method 'getTaskSynchronizationManager'
-1209109328045	Extract method 'setTaskData'
-1209191896035	Move compilation unit
-1209337866470	Rename method 'getAttributeManager'
+1209085142509	Copy compilation unit
+1209085284922	Copy compilation unit
+1209086684375	Move member 'OLD_TASK_LIST_FILE'
+1209159484741	Move member 'DEFAULT_TASK_LIST_FILE'
+1209159547196	Move member 'FILENAME_ENCODING'
+1209159554065	Move member 'PREFIX_TASKLIST'
+1209159559811	Move member 'DEFAULT_BACKUP_FOLDER_NAME'
+1209159565627	Move member 'FILE_EXTENSION'

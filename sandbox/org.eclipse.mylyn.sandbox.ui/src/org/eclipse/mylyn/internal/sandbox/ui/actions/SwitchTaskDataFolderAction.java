@@ -19,8 +19,8 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.sandbox.ui.SandboxUiPlugin;
+import org.eclipse.mylyn.internal.tasks.core.ITasksCoreConstants;
 import org.eclipse.mylyn.internal.tasks.ui.ComboSelectionDialog;
-import org.eclipse.mylyn.internal.tasks.ui.ITasksUiConstants;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.monitor.core.StatusHandler;
 import org.eclipse.swt.widgets.Shell;
@@ -143,7 +143,7 @@ public class SwitchTaskDataFolderAction extends Action implements IViewActionDel
 	protected boolean containsTaskData(File folder) {
 		File[] files = folder.listFiles();
 		for (File currFile : files) {
-			if (currFile.isFile() && currFile.getName().equals(ITasksUiConstants.DEFAULT_TASK_LIST_FILE)) {
+			if (currFile.isFile() && currFile.getName().equals(ITasksCoreConstants.DEFAULT_TASK_LIST_FILE)) {
 				return true;
 			}
 		}

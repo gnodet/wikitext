@@ -17,7 +17,13 @@
 1209418407789	Extract local variable 'activeWorkbenchWindow'
 1209418488925	Extract local variable 'activePage'
 1209419605489	Delete element
-1209439172440	Copy compilation unit
-1209439509957	Rename type 'OpenTaskHandler'
-1209441299832	Copy compilation unit
-1209442047884	Delete element
+1209431437856	Extract interface 'ITaskListWriter'
+1209431495154	Move compilation unit
+1209432450066	Change method 'getTaskListWriter'
+1209433053341	Rename type 'TaskListWriter'
+1209441156685	Delete element
+1209447830807	Rename type 'TaskDataExportJob'
+1209448189472	Rename field 'SNAPSHOT_REGEXP'
+1209449142259	Extract constant 'BACKUP_FILE_PREFIX'
+1209450414986	Rename method 'createImportBackupControl'
+1209452980658	Change method 'removeOldBackups'

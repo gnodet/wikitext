@@ -1,4 +1,11 @@
-1209358992572	Rename method 'createWorkingCopy'
-1209364083738	Rename method 'getStatus'
-1209451931458	Change method 'getChildren'
-1209451956451	Change method 'getChildrenInternal'
+1209425992226	Rename method 'readStart'
+1209426016981	Rename method 'readComplete'
+1209427932935	Extract constant 'ERROR_TASKLIST_READ'
+1209434653361	Rename type 'TaskListWriter2'
+1209435866673	Convert local variable 'delta' to field
+1209438748631	Rename method 'getStatus'
+1209438869735	Delete element
+1209441219024	Move compilation units
+1209441266119	Move compilation unit
+1209446845927	Move compilation unit
+1209446888972	Delete element
