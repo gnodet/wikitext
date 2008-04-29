@@ -27,3 +27,6 @@
 1209449142259	Extract constant 'BACKUP_FILE_PREFIX'
 1209450414986	Rename method 'createImportBackupControl'
 1209452980658	Change method 'removeOldBackups'
+1209496269257	Extract method 'processElements'
+1209496287604	Extract method 'internalClear'
+1209499328819	Inline local variable 'completed'
