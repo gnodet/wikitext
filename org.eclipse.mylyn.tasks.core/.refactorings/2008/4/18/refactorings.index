@@ -20,3 +20,13 @@
 1209524242668	Rename enum constant 'UNSUBMITTED'
 1209525087658	Inline local variable 'state'
 1209543307580	Move compilation unit
+1209588249235	Copy compilation unit
+1209593158798	Move compilation unit
+1209595875382	Copy compilation unit
+1209595900548	Delete element
+1209595934376	Extract interface 'ITaskComment'
+1209595981582	Extract interface 'ITaskAttachment'
+1209595995315	Rename type 'ITaskAttachment'
+1209596092237	Move compilation unit
+1209596110848	Move compilation unit
+1209597928460	Rename method 'init2'
