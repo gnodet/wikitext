@@ -14,3 +14,8 @@
 1209519728525	Rename type 'ITasksJobFactory'
 1209521659537	Move compilation unit
 1209522087697	Delete element
+1209523503361	Rename type 'RepositoryTaskSyncState'
+1209523560046	Rename type 'SyncronizationState'
+1209524200927	Rename enum constant 'UNREAD'
+1209524242668	Rename enum constant 'UNSUBMITTED'
+1209525087658	Inline local variable 'state'
