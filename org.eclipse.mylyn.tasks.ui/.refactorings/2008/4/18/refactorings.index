@@ -72,3 +72,16 @@
 1209486601098	Move compilation unit
 1209486873722	Move compilation unit
 1209504692290	Move compilation unit
+1209518594143	Move compilation unit
+1209518653875	Move compilation unit
+1209518872485	Move compilation unit
+1209518952582	Move compilation unit
+1209519354893	Delete element
+1209519483840	Move compilation units
+1209520130856	Delete element
+1209520681013	Move member 'refreshAndOpenTaskListElement'
+1209520730017	Move member 'openEditor'
+1209520770347	Move member 'getActiveRepositoryTaskEditors'
+1209520889736	Move compilation unit
+1209521215839	Extract method 'createNewTaskWizard'
+1209521229499	Move member 'createNewTaskWizard'
