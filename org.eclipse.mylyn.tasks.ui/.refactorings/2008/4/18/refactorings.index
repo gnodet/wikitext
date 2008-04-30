@@ -85,3 +85,4 @@
 1209520889736	Move compilation unit
 1209521215839	Extract method 'createNewTaskWizard'
 1209521229499	Move member 'createNewTaskWizard'
+1209528928715	Rename method 'getReference'
