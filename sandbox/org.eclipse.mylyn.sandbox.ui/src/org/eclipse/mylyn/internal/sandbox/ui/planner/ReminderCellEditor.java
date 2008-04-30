@@ -15,10 +15,10 @@ import java.util.Locale;
 
 import org.eclipse.jface.viewers.DialogCellEditor;
 import org.eclipse.jface.window.Window;
+import org.eclipse.mylyn.internal.provisional.commons.ui.DatePicker;
+import org.eclipse.mylyn.internal.provisional.commons.ui.DateSelectionDialog;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPreferenceConstants;
-import org.eclipse.mylyn.provisional.workbench.ui.DatePicker;
-import org.eclipse.mylyn.provisional.workbench.ui.DateSelectionDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
