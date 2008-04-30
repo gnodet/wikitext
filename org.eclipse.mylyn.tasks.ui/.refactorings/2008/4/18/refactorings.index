@@ -94,3 +94,10 @@
 1209541112741	Rename method 'updateHeader'
 1209541161534	Rename method 'updateFormTitle'
 1209541280911	Rename method 'updateHeaderControls'
+1209543013474	Move member 'updateRepositoryConfiguration'
+1209543161572	Move members
+1209543259068	Move member 'getJobFactory'
+1209543290973	Rename type 'TasksJobFactory'
+1209543389830	Move compilation unit
+1209543398617	Delete element
+1209543513171	Move compilation unit
