@@ -733,7 +733,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		// private MonitorUsageExtensionPointReader thisReader = new
 		// MonitorUsageExtensionPointReader();
 
-		@SuppressWarnings("deprecation")
 		public void initExtensions() {
 			try {
 				if (!extensionsRead) {
@@ -752,13 +751,14 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 									readMonitors(element);
 								}
 							}
-							customizingPlugin = extension.getNamespace();
+							customizingPlugin = extension.getContributor().getName();
 						}
 						extensionsRead = true;
 					}
 				}
 			} catch (Throwable t) {
-				StatusHandler.fail(t, "could not read monitor extension", false);
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+						"Could not read monitor extension", t));
 			}
 		}
 

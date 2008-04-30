@@ -31,6 +31,7 @@ import org.eclipse.mylyn.commons.net.AuthenticationType;
 import org.eclipse.mylyn.internal.provisional.commons.ui.CommonImages;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiImages;
 import org.eclipse.mylyn.internal.tasks.ui.editors.RepositoryTextViewerConfiguration;
+import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.internal.trac.core.TracCorePlugin;
 import org.eclipse.mylyn.internal.trac.core.model.TracWikiPage;
 import org.eclipse.mylyn.internal.trac.ui.editor.TracRenderingEngine;
@@ -320,7 +321,7 @@ public class TracWikiPageEditor extends FormEditor {
 								monitor);
 						jobStatus = Status.OK_STATUS;
 					} catch (CoreException e) {
-						StatusHandler.displayStatus("Submit failed", e.getStatus());
+						TasksUiInternal.displayStatus("Submit failed", e.getStatus());
 						jobStatus = e.getStatus();
 					} finally {
 						monitor.done();
@@ -536,12 +537,12 @@ public class TracWikiPageEditor extends FormEditor {
 					if (newPage != null) {
 						((TracWikiPageEditorInput) getEditorInput()).setPage(newPage);
 					} else {
-						StatusHandler.displayStatus("Download failed", new Status(IStatus.ERROR,
+						TasksUiInternal.displayStatus("Download failed", new Status(IStatus.ERROR,
 								TracCorePlugin.PLUGIN_ID, "Unable to retrieve wiki page "
 										+ page.getPageInfo().getPageName()));
 					}
 				} catch (CoreException e) {
-					StatusHandler.displayStatus("Download failed", e.getStatus());
+					TasksUiInternal.displayStatus("Download failed", e.getStatus());
 				} finally {
 					monitor.done();
 				}

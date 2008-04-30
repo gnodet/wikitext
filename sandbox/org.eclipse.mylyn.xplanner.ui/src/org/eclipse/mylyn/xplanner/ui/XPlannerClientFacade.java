@@ -20,6 +20,7 @@ import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.commons.net.AbstractWebLocation;
 import org.eclipse.mylyn.commons.net.AuthenticationCredentials;
 import org.eclipse.mylyn.commons.net.AuthenticationType;
+import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tasks.core.ITaskRepositoryListener;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.TaskRepositoryLocationFactory;
@@ -208,19 +209,19 @@ public class XPlannerClientFacade implements ITaskRepositoryListener {
 	 */
 	public static void handleConnectionException(Exception e) {
 		if (e instanceof ServiceUnavailableException) {
-			StatusHandler.displayStatus("XPlanner", new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
+			TasksUiInternal.displayStatus("XPlanner", new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
 					Messages.XPlannerClientFacade_CONNECTION_FAILURE_ERROR
 							+ Messages.XPlannerClientFacade_NETWORK_CONNECTION_FAILURE, e));
 		} else if (e instanceof AuthenticationException) {
-			StatusHandler.displayStatus("XPlanner", new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
+			TasksUiInternal.displayStatus("XPlanner", new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
 					Messages.XPlannerClientFacade_AUTHENTICATION_FAILED
 							+ Messages.XPlannerClientFacade_USERNAME_PASSWORD_ERROR, e));
 		} else if (e instanceof RuntimeException) {
-			StatusHandler.displayStatus("XPlanner", new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
+			TasksUiInternal.displayStatus("XPlanner", new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
 					Messages.XPlannerClientFacade_NO_REPOSITORY_FOUND
 							+ Messages.XPlannerClientFacade_VERIFY_VALID_REPOSITORY, e));
 		} else {
-			StatusHandler.displayStatus("XPlanner", new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
+			TasksUiInternal.displayStatus("XPlanner", new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
 					Messages.XPlannerClientFacade_COULD_NOT_CONNECT_TO_REPOSITORY
 							+ Messages.XPlannerClientFacade_CHECK_CREDENTIALS, e));
 		}

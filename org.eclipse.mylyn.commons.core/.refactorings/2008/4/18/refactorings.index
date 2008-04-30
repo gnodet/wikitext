@@ -4,3 +4,7 @@
 1209512895237	Delete element
 1209514385281	Rename type 'IMonitorCoreConstants'
 1209514636111	Move compilation unit
+1209581812151	Move method
+1209581881234	Delete element
+1209582013430	Move member 'displayStatus'
+1209582045099	Delete element

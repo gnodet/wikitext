@@ -21,7 +21,7 @@ import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
-import org.eclipse.mylyn.commons.core.StatusHandler;
+import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.internal.trac.core.AbstractWikiHandler;
 import org.eclipse.mylyn.internal.trac.core.TracRepositoryConnector;
 import org.eclipse.mylyn.internal.trac.core.model.TracWikiPage;
@@ -82,7 +82,7 @@ public class OpenWikiPageAction extends Action implements IViewActionDelegate {
 							OpenWikiPageSelectionDialog.this.close();
 						}
 					});
-					StatusHandler.displayStatus("Unable to download Wiki page names", e.getStatus());
+					TasksUiInternal.displayStatus("Unable to download Wiki page names", e.getStatus());
 				}
 				return Status.OK_STATUS;
 			}
@@ -278,11 +278,11 @@ public class OpenWikiPageAction extends Action implements IViewActionDelegate {
 						}
 					});
 				} else {
-					StatusHandler.displayStatus("Unable to open wiki page", new Status(IStatus.ERROR,
+					TasksUiInternal.displayStatus("Unable to open wiki page", new Status(IStatus.ERROR,
 							TracWikiPlugin.PLUGIN_ID, "Unable to retrieve wiki page " + pageName));
 				}
 			} catch (final CoreException e) {
-				StatusHandler.displayStatus("Unable to open wiki page", e.getStatus());
+				TasksUiInternal.displayStatus("Unable to open wiki page", e.getStatus());
 			} finally {
 				monitor.done();
 			}

@@ -24,6 +24,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.mylyn.commons.core.StatusHandler;
+import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
@@ -73,7 +74,7 @@ public class NewXPlannerTaskPage extends WizardPage {
 			this.client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 			setPageComplete(false);
 		} catch (CoreException ce) {
-			StatusHandler.displayStatus("Repository Error", ce.getStatus());
+			TasksUiInternal.displayStatus("Repository Error", ce.getStatus());
 		}
 	}
 

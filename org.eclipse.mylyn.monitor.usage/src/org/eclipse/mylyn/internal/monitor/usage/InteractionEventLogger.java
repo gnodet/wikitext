@@ -41,7 +41,7 @@ import org.eclipse.mylyn.monitor.core.InteractionEvent.Kind;
  * @author Mik Kersten
  * @author Ken Sueda (XML serialization)
  * 
- * TODO: use buffered output stream for better performance?
+ * 	TODO: use buffered output stream for better performance?
  */
 public class InteractionEventLogger extends AbstractMonitorLog implements IInteractionEventListener {
 
@@ -240,7 +240,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 			res.append(ENDL);
 			return res.toString();
 		} catch (Throwable t) {
-			StatusHandler.fail(t, "could not write event", false);
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not write event", t));
 			return "";
 		}
 	}

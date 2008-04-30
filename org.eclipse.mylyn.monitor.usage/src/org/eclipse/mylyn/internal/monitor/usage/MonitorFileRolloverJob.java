@@ -8,7 +8,6 @@
 package org.eclipse.mylyn.internal.monitor.usage;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -187,10 +186,9 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 				}
 				zipFileStream.closeEntry();
 				zipFileStream.close();
-			} catch (FileNotFoundException e) {
-				StatusHandler.fail(e, "Mylyn monitor log rollover failed", true);
 			} catch (IOException e) {
-				StatusHandler.fail(e, "Mylyn monitor log rollover failed", true);
+				StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+						"Mylyn monitor log rollover failed", e));
 			}
 
 		}
@@ -224,8 +222,9 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 					page.openEditor(input, UsageSummaryReportEditorPart.ID);
 				}
 
-			} catch (PartInitException e1) {
-				StatusHandler.fail(e1, "Could not show usage summary", true);
+			} catch (PartInitException e) {
+				StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+						"Could not show usage summary", e));
 			}
 
 		}
