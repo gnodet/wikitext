@@ -33,7 +33,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerDropAdapter;
-import org.eclipse.mylyn.internal.provisional.commons.ui.CommonColorsAndFonts;
+import org.eclipse.mylyn.internal.provisional.commons.ui.CommonThemes;
 import org.eclipse.mylyn.internal.sandbox.ui.planner.ActivityReportAction;
 import org.eclipse.mylyn.internal.sandbox.ui.planner.ReminderCellEditor;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
@@ -113,10 +113,10 @@ public class TaskActivityView extends ViewPart {
 	private final IPropertyChangeListener THEME_CHANGE_LISTENER = new IPropertyChangeListener() {
 		public void propertyChange(PropertyChangeEvent event) {
 			if (event.getProperty().equals(IThemeManager.CHANGE_CURRENT_THEME)
-					|| event.getProperty().equals(CommonColorsAndFonts.THEME_COLOR_TASKLIST_CATEGORY)) {
+					|| event.getProperty().equals(CommonThemes.COLOR_CATEGORY)) {
 				taskHistoryTreeLabelProvider.setCategoryBackgroundColor(themeManager.getCurrentTheme()
 						.getColorRegistry()
-						.get(CommonColorsAndFonts.THEME_COLOR_TASKLIST_CATEGORY));
+						.get(CommonThemes.COLOR_CATEGORY));
 				refresh();
 			}
 		}
@@ -221,7 +221,7 @@ public class TaskActivityView extends ViewPart {
 
 		IThemeManager themeManager = getSite().getWorkbenchWindow().getWorkbench().getThemeManager();
 		Color categoryBackground = themeManager.getCurrentTheme().getColorRegistry().get(
-				CommonColorsAndFonts.THEME_COLOR_TASKLIST_CATEGORY);
+				CommonThemes.COLOR_CATEGORY);
 
 		sorter = new TaskActivityViewSorter();
 		getViewer().setSorter(sorter);
