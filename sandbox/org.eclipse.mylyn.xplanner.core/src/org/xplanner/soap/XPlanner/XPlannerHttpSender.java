@@ -8,9 +8,9 @@ import org.apache.axis.transport.http.CommonsHTTPSender;
 import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.mylyn.web.core.IProxyProvider;
-import org.eclipse.mylyn.web.core.WebLocation;
-import org.eclipse.mylyn.web.core.WebUtil;
+import org.eclipse.mylyn.commons.net.IProxyProvider;
+import org.eclipse.mylyn.commons.net.WebLocation;
+import org.eclipse.mylyn.commons.net.WebUtil;
 
 @SuppressWarnings( { "serial" })
 public class XPlannerHttpSender extends CommonsHTTPSender {

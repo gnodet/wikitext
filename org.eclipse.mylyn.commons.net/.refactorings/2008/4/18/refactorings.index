@@ -1,1 +1,4 @@
 1209512865002	Move compilation unit
+1209569049215	Rename package 'org.eclipse.mylyn.internal.web.core'
+1209569104888	Rename package 'org.eclipse.mylyn.web.core'
+1209569151663	Rename type 'WebCorePlugin'
