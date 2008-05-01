@@ -72,33 +72,6 @@
 1209486601098	Move compilation unit
 1209486873722	Move compilation unit
 1209504692290	Move compilation unit
-1209518594143	Move compilation unit
-1209518653875	Move compilation unit
-1209518872485	Move compilation unit
-1209518952582	Move compilation unit
-1209519354893	Delete element
-1209519483840	Move compilation units
-1209520130856	Delete element
-1209520681013	Move member 'refreshAndOpenTaskListElement'
-1209520730017	Move member 'openEditor'
-1209520770347	Move member 'getActiveRepositoryTaskEditors'
-1209520889736	Move compilation unit
-1209521215839	Extract method 'createNewTaskWizard'
-1209521229499	Move member 'createNewTaskWizard'
-1209528928715	Rename method 'getReference'
-1209534296094	Extract local variable 'actionBars'
-1209538327523	Rename method 'getParentEditor'
-1209541036534	Rename method 'setFormHeaderLabel'
-1209541044782	Rename method 'setFormHeaderImage'
-1209541054393	Rename method 'setFormHeaderLabel'
-1209541112741	Rename method 'updateHeader'
-1209541161534	Rename method 'updateFormTitle'
-1209541280911	Rename method 'updateHeaderControls'
-1209543013474	Move member 'updateRepositoryConfiguration'
-1209543161572	Move members
-1209543259068	Move member 'getJobFactory'
-1209543290973	Rename type 'TasksJobFactory'
-1209543389830	Move compilation unit
-1209543398617	Delete element
-1209543513171	Move compilation unit
-1209598001572	Rename method 'resetLayout'
+1209519954858	Change method 'reloadDataDirectory'
+1209574711765	Move member 'TIMESTAMP_FORMAT'
+1209584859010	Move compilation unit

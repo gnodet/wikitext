@@ -32,7 +32,6 @@ import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionContextManager;
 import org.eclipse.mylyn.internal.tasks.core.ITasksCoreConstants;
-import org.eclipse.mylyn.internal.tasks.ui.TaskListBackupManager;
 import org.eclipse.mylyn.internal.tasks.ui.TaskListManager;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
@@ -137,7 +136,7 @@ public class TaskListSaveManager implements ITaskListChangeListener, IBackground
 	private synchronized void internalSaveTaskList() {
 		TaskListManager taskListManager = TasksUiPlugin.getTaskListManager();
 		File current = taskListManager.getTaskListFile();
-		SimpleDateFormat format = new SimpleDateFormat(TaskListBackupManager.TIMESTAMP_FORMAT, Locale.ENGLISH);
+		SimpleDateFormat format = new SimpleDateFormat(ITasksCoreConstants.TIMESTAMP_FORMAT, Locale.ENGLISH);
 		String date = format.format(new Date());
 		String backupFileName = ITasksCoreConstants.PREFIX_TASKLIST + "-" + date + ITasksCoreConstants.FILE_EXTENSION;
 
