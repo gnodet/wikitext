@@ -1,0 +1,14 @@
+1209610674849	Infer generic type arguments
+1209619040227	Copy compilation unit
+1209619450304	Copy compilation unit
+1209619543492	Extract local variable 'page'
+1209619689345	Extract local variable 'attachmentPage'
+1209619696977	Convert local variable 'editPage' to field
+1209620150477	Convert member type 'TaskAttachmentModel' to top level
+1209620200390	Move compilation unit
+1209620414216	Copy compilation unit
+1209622258077	Extract method 'getContent'
+1209622908410	Extract local variable 'stream'
+1209623464975	Extract local variable 'attachmentPage'
+1209623566377	Extract method 'openNewAttachmentWizard'
+1209624100462	Extract local variable 'previewAttachmentPage2'
