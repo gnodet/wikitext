@@ -12,3 +12,22 @@
 1209623464975	Extract local variable 'attachmentPage'
 1209623566377	Extract method 'openNewAttachmentWizard'
 1209624100462	Extract local variable 'previewAttachmentPage2'
+1209697182702	Move compilation unit
+1209697654248	Extract local variable 'model2'
+1209697951043	Extract local variable 'model2'
+1209698250822	Extract method 'runInWizard'
+1209700246168	Convert member type 'FileSource' to top level
+1209700266510	Move compilation unit
+1209700369913	Rename type 'FileSource'
+1209700403023	Move compilation unit
+1209702312838	Extract method 'runInBackground'
+1209702879618	Copy compilation unit
+1209703863564	Extract method 'getName'
+1209704271150	Copy compilation unit
+1209706505069	Rename type 'ClipboardSource'
+1209706532555	Convert member type 'TextTaskAttachmentSource' to top level
+1209706550215	Move compilation unit
+1209708995600	Move compilation unit
+1209709007206	Rename type 'TaskAttachmentPage2'
+1209709088062	Rename field 'supportsDescription'
+1209709464354	Delete element
