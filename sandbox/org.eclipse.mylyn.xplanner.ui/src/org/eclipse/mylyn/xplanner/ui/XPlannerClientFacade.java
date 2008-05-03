@@ -174,17 +174,17 @@ public class XPlannerClientFacade implements ITaskRepositoryListener {
 	 * Validate the server URL and user credentials
 	 * 
 	 * @param serverUrl
-	 *            Location of the XPlanner Server
+	 * 		Location of the XPlanner Server
 	 * @param user
-	 *            Username
+	 * 		Username
 	 * @param password
-	 *            Password
+	 * 		Password
 	 * @param proxy
-	 *            Proxy
+	 * 		Proxy
 	 * @param httpUser
-	 *            http user name
+	 * 		http user name
 	 * @param httpPassword
-	 *            http password
+	 * 		http password
 	 * @return String describing validation failure or null if the details are valid
 	 */
 	public void validateServerAndCredentials(String serverUrl, String user, String password, Proxy proxy,
@@ -225,5 +225,9 @@ public class XPlannerClientFacade implements ITaskRepositoryListener {
 					Messages.XPlannerClientFacade_COULD_NOT_CONNECT_TO_REPOSITORY
 							+ Messages.XPlannerClientFacade_CHECK_CREDENTIALS, e));
 		}
+	}
+
+	public void repositoryUrlChanged(TaskRepository repository, String oldUrl) {
+		// ignore
 	}
 }
