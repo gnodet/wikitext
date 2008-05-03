@@ -31,3 +31,5 @@
 1209709007206	Rename type 'TaskAttachmentPage2'
 1209709088062	Rename field 'supportsDescription'
 1209709464354	Delete element
+1209776583042	Rename type 'RefactorRepositoryUrlJob'
+1209778147098	Delete element
