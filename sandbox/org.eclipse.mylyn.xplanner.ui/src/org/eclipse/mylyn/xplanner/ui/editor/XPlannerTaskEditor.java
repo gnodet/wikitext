@@ -394,4 +394,16 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor implements 
 
 	public void activityReset() {
 	}
+
+	public void preTaskActivated(AbstractTask task) {
+	}
+
+	public void preTaskDeactivated(AbstractTask task) {
+	}
+
+	public void taskActivated(AbstractTask task) {
+	}
+
+	public void taskDeactivated(AbstractTask task) {
+	}
 }

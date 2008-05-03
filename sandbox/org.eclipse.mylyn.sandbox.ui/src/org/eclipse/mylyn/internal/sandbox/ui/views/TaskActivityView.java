@@ -46,9 +46,9 @@ import org.eclipse.mylyn.internal.tasks.ui.views.TaskElementLabelProvider;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
-import org.eclipse.mylyn.tasks.core.ITaskActivationListener;
+import org.eclipse.mylyn.tasks.core.ITaskActivityListener;
 import org.eclipse.mylyn.tasks.core.ITaskListChangeListener;
-import org.eclipse.mylyn.tasks.core.TaskActivationAdapter;
+import org.eclipse.mylyn.tasks.core.TaskActivityAdapter;
 import org.eclipse.mylyn.tasks.core.TaskContainerDelta;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.swt.SWT;
@@ -125,7 +125,7 @@ public class TaskActivityView extends ViewPart {
 	/**
 	 * TODO: need lazier refresh policy.
 	 */
-	private final ITaskActivationListener TASK_ACTIVATION_LISTENER = new TaskActivationAdapter() {
+	private final ITaskActivityListener TASK_ACTIVITY_LISTENER = new TaskActivityAdapter() {
 
 		@Override
 		public void taskActivated(AbstractTask task) {
@@ -156,14 +156,14 @@ public class TaskActivityView extends ViewPart {
 
 	public TaskActivityView() {
 		INSTANCE = this;
-		TasksUi.getTaskListManager().addActivationListener(TASK_ACTIVATION_LISTENER);
+		TasksUi.getTaskActivityManager().addActivityListener(TASK_ACTIVITY_LISTENER);
 		TasksUi.getTaskListManager().getTaskList().addChangeListener(TASKLIST_CHANGE_LISTENER);
 	}
 
 	@Override
 	public void dispose() {
 		super.dispose();
-		TasksUi.getTaskListManager().removeActivationListener(TASK_ACTIVATION_LISTENER);
+		TasksUi.getTaskActivityManager().removeActivityListener(TASK_ACTIVITY_LISTENER);
 		TasksUi.getTaskListManager().getTaskList().removeChangeListener(TASKLIST_CHANGE_LISTENER);
 	}
 
@@ -220,8 +220,7 @@ public class TaskActivityView extends ViewPart {
 		}
 
 		IThemeManager themeManager = getSite().getWorkbenchWindow().getWorkbench().getThemeManager();
-		Color categoryBackground = themeManager.getCurrentTheme().getColorRegistry().get(
-				CommonThemes.COLOR_CATEGORY);
+		Color categoryBackground = themeManager.getCurrentTheme().getColorRegistry().get(CommonThemes.COLOR_CATEGORY);
 
 		sorter = new TaskActivityViewSorter();
 		getViewer().setSorter(sorter);
