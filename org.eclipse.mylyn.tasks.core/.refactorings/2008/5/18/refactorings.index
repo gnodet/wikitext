@@ -7,3 +7,6 @@
 1209778196487	Delete element
 1209779689735	Change method 'notifyRepositoryUrlChanged'
 1209779710729	Change method 'repositoryUrlChanged'
+1209799691940	Rename method 'clearMetaData'
+1209799744995	Rename method 'clearMetaDatas'
+1209799755679	Rename method 'clearMetaData'
