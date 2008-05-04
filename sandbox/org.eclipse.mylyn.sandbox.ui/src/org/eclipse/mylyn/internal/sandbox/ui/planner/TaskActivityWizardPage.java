@@ -202,7 +202,7 @@ public class TaskActivityWizardPage extends WizardPage {
 	 * Selection of specific category to report on in the Task Planner
 	 * 
 	 * @param composite
-	 *            container to add categories combo box to
+	 * 		container to add categories combo box to
 	 */
 	private void createCategorySelectionGroup(Composite composite) {
 
@@ -222,8 +222,8 @@ public class TaskActivityWizardPage extends WizardPage {
 		}
 
 		List<AbstractTaskContainer> containers = new ArrayList<AbstractTaskContainer>();
-		containers.addAll(manager.getTaskList().getCategories());
-		containers.addAll(manager.getTaskList().getQueries());
+		containers.addAll(TasksUi.getTaskList().getCategories());
+		containers.addAll(TasksUi.getTaskList().getQueries());
 		//containers.add(manager.getTaskList().getArchiveContainer());
 		Collections.sort(containers, new Comparator<AbstractTaskContainer>() {
 
@@ -262,7 +262,7 @@ public class TaskActivityWizardPage extends WizardPage {
 	 * Creates the buttons for selecting all or none of the categories.
 	 * 
 	 * @param parent
-	 *            parent composite
+	 * 		parent composite
 	 */
 	private final void createButtonsGroup(Composite parent) {
 

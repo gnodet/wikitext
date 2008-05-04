@@ -38,7 +38,7 @@ public class TestTaskListNotificationAction implements IWorkbenchWindowActionDel
 	}
 
 	public void run(IAction action) {
-		Collection<AbstractTask> allTasks = TasksUi.getTaskListManager().getTaskList().getAllTasks();
+		Collection<AbstractTask> allTasks = TasksUi.getTaskList().getAllTasks();
 		Iterator<AbstractTask> iterator = allTasks.iterator();
 		Set<TaskListNotificationReminder> dummyNotifications = new HashSet<TaskListNotificationReminder>();
 		for (int i = 0; i < 6; i++) {

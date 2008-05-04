@@ -46,7 +46,7 @@ public class WebQueryWizard extends Wizard {
 
 		AbstractRepositoryQuery query = queryPage.getQuery();
 		if (query != null) {
-			TasksUi.getTaskListManager().getTaskList().addQuery(query);
+			TasksUi.getTaskList().addQuery(query);
 			AbstractRepositoryConnector connector = TasksUi.getRepositoryManager().getRepositoryConnector(
 					repository.getConnectorKind());
 			if (connector != null) {

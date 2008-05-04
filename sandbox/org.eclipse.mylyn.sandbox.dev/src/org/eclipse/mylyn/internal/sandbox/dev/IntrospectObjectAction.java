@@ -86,8 +86,8 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 					}
 				}
 			}
-			text += "\n\nNum tasks: " + TasksUi.getTaskListManager().getTaskList().getAllTasks().size();
-			text += "\nNum queries: " + TasksUi.getTaskListManager().getTaskList().getQueries().size();
+			text += "\n\nNum tasks: " + TasksUi.getTaskList().getAllTasks().size();
+			text += "\nNum queries: " + TasksUi.getTaskList().getQueries().size();
 
 			MessageDialog.openInformation(null, "Mylyn Sandbox", text);
 		}

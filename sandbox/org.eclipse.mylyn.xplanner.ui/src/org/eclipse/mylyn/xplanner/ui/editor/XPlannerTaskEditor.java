@@ -334,7 +334,7 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor implements 
 	}
 
 	private void forceElapsedTimeUpdated() {
-		AbstractTask task = TasksUi.getTaskListManager().getTaskList().getTask(repository.getRepositoryUrl(),
+		AbstractTask task = TasksUi.getTaskList().getTask(repository.getRepositoryUrl(),
 				getRepositoryTaskData().getTaskId());
 		long elapsedTimeMillis = TasksUiPlugin.getTaskActivityManager().getElapsedTime(task);
 

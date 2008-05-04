@@ -99,7 +99,7 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 
 		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(XPlannerMylynUIPlugin.REPOSITORY_KIND,
 				repositoryUrl);
-		AbstractTask existingTask = TasksUi.getTaskListManager().getTaskList().getTask(repository.getRepositoryUrl(),
+		AbstractTask existingTask = TasksUi.getTaskList().getTask(repository.getRepositoryUrl(),
 				id);
 		if (existingTask instanceof XPlannerTask) {
 			task = existingTask;
@@ -267,7 +267,7 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 
 		for (TaskData data : tasks) {
 			String id = String.valueOf(data.getId());
-			AbstractTask task = TasksUi.getTaskListManager().getTaskList().getTask(repository.getRepositoryUrl(), id);
+			AbstractTask task = TasksUi.getTaskList().getTask(repository.getRepositoryUrl(), id);
 			if (task != null) {
 				updateTaskDetails(repository.getRepositoryUrl(), (XPlannerTask) task, data, false);
 			}
@@ -406,7 +406,7 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 		}
 
 		if (notifyOfChange) {
-			TasksUi.getTaskListManager().getTaskList().notifyTaskChanged(task, true);
+			TasksUi.getTaskList().notifyTaskChanged(task, true);
 		}
 	}
 
@@ -431,7 +431,7 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 		task.setTaskKind(XPlannerTask.Kind.USER_STORY.toString());
 
 		if (notifyOfChange) {
-			TasksUi.getTaskListManager().getTaskList().notifyTaskChanged(task, true);
+			TasksUi.getTaskList().notifyTaskChanged(task, true);
 		}
 	}
 
@@ -439,7 +439,7 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 
 		XPlannerTask task;
 
-		AbstractTask existingTask = TasksUi.getTaskListManager().getTaskList().getTask(repository.getRepositoryUrl(),
+		AbstractTask existingTask = TasksUi.getTaskList().getTask(repository.getRepositoryUrl(),
 				id);
 		if (existingTask instanceof XPlannerTask) {
 			task = (XPlannerTask) existingTask;

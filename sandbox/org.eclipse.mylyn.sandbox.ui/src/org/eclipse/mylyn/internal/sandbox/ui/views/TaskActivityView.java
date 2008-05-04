@@ -157,14 +157,14 @@ public class TaskActivityView extends ViewPart {
 	public TaskActivityView() {
 		INSTANCE = this;
 		TasksUi.getTaskActivityManager().addActivityListener(TASK_ACTIVITY_LISTENER);
-		TasksUi.getTaskListManager().getTaskList().addChangeListener(TASKLIST_CHANGE_LISTENER);
+		TasksUi.getTaskList().addChangeListener(TASKLIST_CHANGE_LISTENER);
 	}
 
 	@Override
 	public void dispose() {
 		super.dispose();
 		TasksUi.getTaskActivityManager().removeActivityListener(TASK_ACTIVITY_LISTENER);
-		TasksUi.getTaskListManager().getTaskList().removeChangeListener(TASKLIST_CHANGE_LISTENER);
+		TasksUi.getTaskList().removeChangeListener(TASKLIST_CHANGE_LISTENER);
 	}
 
 	@Override
