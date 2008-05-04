@@ -24,13 +24,14 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.commons.net.Policy;
-import org.eclipse.mylyn.tasks.core.AbstractAttachmentHandler;
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractAttachmentHandler;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractLegacyRepositoryConnector;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractTaskDataHandler;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.LegacyTaskDataCollector;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskAttribute;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.AbstractTaskDataHandler;
-import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
-import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.TaskRepositoryLocationFactory;
 import org.eclipse.mylyn.tasks.core.data.TaskDataCollector;
@@ -45,7 +46,7 @@ import org.xplanner.soap.UserStoryData;
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
-public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
+public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnector {
 
 	//private static final String VERSION_SUPPORT = Messages.XPlannerRepositoryConnector_VERSION_SUPPORT;
 
@@ -79,7 +80,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public AbstractTaskDataHandler getTaskDataHandler() {
+	public AbstractTaskDataHandler getLegacyTaskDataHandler() {
 		return offlineHandler;
 	}
 
@@ -287,7 +288,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 						String.valueOf(data.getId()));
 				taskData.setPartial(true);
 				taskData.setSummary(data.getName());
-				resultCollector.accept(taskData);
+				((LegacyTaskDataCollector) resultCollector).accept(taskData);
 			} catch (CoreException e) {
 				XPlannerMylynUIPlugin.log(e, "", false);
 			}
@@ -575,7 +576,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	@Override
 	public RepositoryTaskData getTaskData(TaskRepository repository, String taskId, IProgressMonitor monitor)
 			throws CoreException {
-		return getTaskDataHandler().getTaskData(repository, taskId, monitor);
+		return getLegacyTaskDataHandler().getTaskData(repository, taskId, monitor);
 	}
 
 	public TaskRepositoryLocationFactory getTaskRepositoryLocationFactory() {

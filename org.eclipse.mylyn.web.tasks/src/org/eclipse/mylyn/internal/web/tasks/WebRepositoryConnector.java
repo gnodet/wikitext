@@ -40,15 +40,16 @@ import org.eclipse.mylyn.commons.net.WebClientUtil;
 import org.eclipse.mylyn.commons.net.WebLocation;
 import org.eclipse.mylyn.commons.net.WebUtil;
 import org.eclipse.mylyn.internal.tasks.core.IdentityAttributeFactory;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractAttachmentHandler;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractLegacyRepositoryConnector;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractTaskDataHandler;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.DefaultTaskSchema;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.LegacyTaskDataCollector;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.tasks.core.AbstractAttachmentHandler;
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.AbstractTaskDataHandler;
-import org.eclipse.mylyn.tasks.core.DefaultTaskSchema;
 import org.eclipse.mylyn.tasks.core.ITaskRepositoryManager;
-import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.data.TaskDataCollector;
 import org.eclipse.mylyn.tasks.core.sync.SynchronizationContext;
@@ -65,7 +66,7 @@ import com.sun.syndication.io.XmlReader;
  * 
  * @author Eugene Kuleshov
  */
-public class WebRepositoryConnector extends AbstractRepositoryConnector {
+public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 
 	public static final String REPOSITORY_TYPE = "web";
 
@@ -278,7 +279,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	@Override
-	public AbstractTaskDataHandler getTaskDataHandler() {
+	public AbstractTaskDataHandler getLegacyTaskDataHandler() {
 		// not supported
 		return null;
 	}
@@ -336,7 +337,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 						schema.setTaskUrl(taskPrefix + id);
 						schema.setSummary(description);
 						schema.setValue(KEY_TASK_PREFIX, taskPrefix);
-						resultCollector.accept(data);
+						((LegacyTaskDataCollector) resultCollector).accept(data);
 					}
 				} else {
 					String id = p.group("Id", matcher);
@@ -372,7 +373,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 							}
 						}
 
-						resultCollector.accept(data);
+						((LegacyTaskDataCollector) resultCollector).accept(data);
 					}
 				}
 
@@ -429,8 +430,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return sb.toString();
 	}
 
-	public static IStatus performRssQuery(String queryUrl, IProgressMonitor monitor,
-			TaskDataCollector resultCollector, TaskRepository repository) {
+	public static IStatus performRssQuery(String queryUrl, IProgressMonitor monitor, TaskDataCollector resultCollector,
+			TaskRepository repository) {
 		SyndFeedInput input = new SyndFeedInput();
 		try {
 			SyndFeed feed = input.build(new XmlReader(new URL(queryUrl)));
@@ -474,7 +475,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 				schema.setSummary(((date == null ? "" : df.format(date) + " - ") + entrTitle));
 				schema.setCreationDate(date);
 				schema.setOwner(author);
-				resultCollector.accept(data);
+				((LegacyTaskDataCollector) resultCollector).accept(data);
 			}
 			return Status.OK_STATUS;
 		} catch (Exception ex) {

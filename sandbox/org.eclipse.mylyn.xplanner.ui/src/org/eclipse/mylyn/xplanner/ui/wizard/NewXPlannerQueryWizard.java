@@ -11,9 +11,9 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractLegacyRepositoryConnector;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiImages;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
@@ -54,11 +54,11 @@ public class NewXPlannerQueryWizard extends Wizard {
 			}
 
 			// need to synchronize multiple queries with single call, otherwise get ConcurrencyModificationException
-			AbstractRepositoryConnector connector = TasksUi.getRepositoryManager().getRepositoryConnector(
-					repository.getConnectorKind());
+			AbstractLegacyRepositoryConnector connector = (AbstractLegacyRepositoryConnector) TasksUi.getRepositoryManager()
+					.getRepositoryConnector(repository.getConnectorKind());
 			if (connector != null) {
-				TasksUiInternal.synchronizeQueries(connector, repository, new HashSet<AbstractRepositoryQuery>(queries), null,
-						true);
+				TasksUiInternal.synchronizeQueries(connector, repository,
+						new HashSet<AbstractRepositoryQuery>(queries), null, true);
 			}
 		} else {
 			AbstractRepositoryQuery query = queryPage.getQuery();
@@ -71,8 +71,8 @@ public class NewXPlannerQueryWizard extends Wizard {
 	public static void addQuery(AbstractRepositoryQuery query, TaskRepository repository) {
 		if (query != null) {
 			TasksUi.getTaskListManager().getTaskList().addQuery(query);
-			AbstractRepositoryConnector connector = TasksUi.getRepositoryManager().getRepositoryConnector(
-					repository.getConnectorKind());
+			AbstractLegacyRepositoryConnector connector = (AbstractLegacyRepositoryConnector) TasksUi.getRepositoryManager()
+					.getRepositoryConnector(repository.getConnectorKind());
 			if (connector != null) {
 				TasksUiInternal.synchronizeQuery(connector, query, null, true);
 			}

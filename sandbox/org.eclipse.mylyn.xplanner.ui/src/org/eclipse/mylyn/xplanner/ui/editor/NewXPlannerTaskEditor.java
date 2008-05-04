@@ -11,11 +11,11 @@ package org.eclipse.mylyn.xplanner.ui.editor;
 import java.text.MessageFormat;
 
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskAttribute;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
 import org.eclipse.mylyn.internal.tasks.ui.ScheduleDatePicker;
+import org.eclipse.mylyn.internal.tasks.ui.deprecated.AbstractNewRepositoryTaskEditor;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
-import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
-import org.eclipse.mylyn.tasks.ui.editors.AbstractNewRepositoryTaskEditor;
 import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;

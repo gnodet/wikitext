@@ -57,7 +57,7 @@ public class Util {
 	 * Get the bugzilla url used for searching for exact matches
 	 * 
 	 * @param je
-	 *            The IMember to create the query string for
+	 * 		The IMember to create the query string for
 	 * @return A url string for the search
 	 */
 	public static String getExactSearchURL(String repositoryUrl, IMember je) {
@@ -83,7 +83,7 @@ public class Util {
 	 * Get the bugzilla url used for searching for inexact matches
 	 * 
 	 * @param je
-	 *            The IMember to create the query string for
+	 * 		The IMember to create the query string for
 	 * @return A url string for the search
 	 */
 	public static String getInexactSearchURL(String repositoryUrl, IMember je) {
@@ -116,7 +116,7 @@ public class Util {
 	public static StringBuffer getQueryURLEnd(String repositoryUrl) {
 
 		StringBuffer sb = new StringBuffer();
-		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(repositoryUrl);
+		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(repositoryUrl);
 		RepositoryConfiguration repositoryConfiguration = null;
 		try {
 			repositoryConfiguration = BugzillaCorePlugin.getRepositoryConfiguration(repository, false,
@@ -156,7 +156,7 @@ public class Util {
 	 * Create the bugzilla query URL start.
 	 * 
 	 * @return The start of the query url as a StringBuffer <br>
-	 *         Example: https://bugs.eclipse.org/bugs/buglist.cgi?long_desc_type=allwordssubstr&long_desc=
+	 * 	Example: https://bugs.eclipse.org/bugs/buglist.cgi?long_desc_type=allwordssubstr&long_desc=
 	 */
 	public static StringBuffer getQueryURLStart(String repositoryUrl) {
 		StringBuffer sb = new StringBuffer(repositoryUrl);
@@ -194,9 +194,9 @@ public class Util {
 	 * Search the given string for another string
 	 * 
 	 * @param elementName
-	 *            The name of the element that we are looking for
+	 * 		The name of the element that we are looking for
 	 * @param comment
-	 *            The text to search for this element name
+	 * 		The text to search for this element name
 	 * @return <code>true</code> if the element is found in the text else <code>false</code>
 	 */
 	public static boolean hasElementName(String elementName, String comment) {

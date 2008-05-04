@@ -62,7 +62,8 @@ public class XPlannerTestUtils {
 	public static TaskRepository getRepository(String userName, String password) {
 		TaskRepository repository;
 
-		repository = TasksUiPlugin.getRepositoryManager().getRepository(SERVER_URL);
+		repository = TasksUiPlugin.getRepositoryManager().getRepository(XPlannerMylynUIPlugin.REPOSITORY_KIND,
+				SERVER_URL);
 		if (repository == null) {
 			repository = new TaskRepository(XPlannerMylynUIPlugin.REPOSITORY_KIND, SERVER_URL);
 			AuthenticationCredentials credentials = new AuthenticationCredentials(userName, password);

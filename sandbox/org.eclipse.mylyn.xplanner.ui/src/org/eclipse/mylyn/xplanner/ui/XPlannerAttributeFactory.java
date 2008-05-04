@@ -13,8 +13,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.mylyn.tasks.core.AbstractAttributeFactory;
-import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractAttributeFactory;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskAttribute;
 
 /**
  * @author Ravi Kumar

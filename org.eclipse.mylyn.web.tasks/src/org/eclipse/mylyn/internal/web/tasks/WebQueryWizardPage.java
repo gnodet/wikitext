@@ -31,13 +31,12 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.ITaskFactory;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.QueryHitCollector;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.ITaskFactory;
-import org.eclipse.mylyn.tasks.core.QueryHitCollector;
-import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositoryQueryPage;
@@ -482,8 +481,8 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 
 				Display.getDefault().asyncExec(new Runnable() {
 					public void run() {
-						AbstractRepositoryConnector connector = TasksUi.getRepositoryManager().getRepositoryConnector(
-								repository.getConnectorKind());
+						WebRepositoryConnector connector = (WebRepositoryConnector) TasksUi.getRepositoryManager()
+								.getRepositoryConnector(repository.getConnectorKind());
 						List<AbstractTask> tasks = new ArrayList<AbstractTask>();
 						for (RepositoryTaskData hit : queryHits) {
 							AbstractTask task = connector.createTask(repository.getRepositoryUrl(), hit.getTaskId(), "");

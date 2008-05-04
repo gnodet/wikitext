@@ -14,6 +14,14 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractAttributeFactory;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractTaskDataHandler;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.ITaskFactory;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.QueryHitCollector;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryOperation;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskAttribute;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.TaskComment;
 import org.eclipse.mylyn.internal.tests.report.TestCaseResult.TestCaseResultType;
 import org.eclipse.mylyn.internal.trac.core.ITracClient;
 import org.eclipse.mylyn.internal.trac.core.TracRemoteException;
@@ -21,16 +29,8 @@ import org.eclipse.mylyn.internal.trac.core.TracRepositoryConnector;
 import org.eclipse.mylyn.internal.trac.core.TracRepositoryQuery;
 import org.eclipse.mylyn.internal.trac.core.TracTask;
 import org.eclipse.mylyn.internal.trac.core.model.TracSearch;
-import org.eclipse.mylyn.tasks.core.AbstractAttributeFactory;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.AbstractTaskDataHandler;
-import org.eclipse.mylyn.tasks.core.ITaskFactory;
-import org.eclipse.mylyn.tasks.core.QueryHitCollector;
-import org.eclipse.mylyn.tasks.core.RepositoryOperation;
-import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
-import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
-import org.eclipse.mylyn.tasks.core.TaskComment;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 
 /**
@@ -67,7 +67,7 @@ class TaskReporter implements TestCaseVisitor {
 		this.build = build;
 		this.repository = repository;
 		this.connector = new TracRepositoryConnector();
-		this.taskDataHandler = connector.getTaskDataHandler();
+		this.taskDataHandler = connector.getLegacyTaskDataHandler();
 		this.statistics = new TaskReporterStatistics();
 	}
 

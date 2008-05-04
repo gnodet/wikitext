@@ -9,10 +9,10 @@ package org.eclipse.mylyn.xplanner.tests;
 
 import junit.framework.TestCase;
 
+import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractLegacyRepositoryConnector;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
@@ -55,14 +55,14 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 			assert (("" + userStoryData.getId()).equals(newRepositoryTaskData.getAttribute(XPlannerAttributeFactory.ATTRIBUTE_USER_STORY_ID)));
 
 			// make sure we have the right connector
-			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
-					taskRepository.getConnectorKind());
+			AbstractLegacyRepositoryConnector connector = (AbstractLegacyRepositoryConnector) TasksUiPlugin.getRepositoryManager()
+					.getRepositoryConnector(taskRepository.getConnectorKind());
 			assert (connector.getConnectorKind().equals(XPlannerMylynUIPlugin.REPOSITORY_KIND));
 
 			// post new task data
 			String newTaskName = "new task";
 			newRepositoryTaskData.setSummary(newTaskName);
-			String returnValue = connector.getTaskDataHandler().postTaskData(taskRepository, newRepositoryTaskData,
+			String returnValue = connector.getLegacyTaskDataHandler().postTaskData(taskRepository, newRepositoryTaskData,
 					null);
 
 			// if new task, return value is new id -- make sure it's valid
@@ -93,8 +93,8 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 			TaskRepository taskRepository = XPlannerTestUtils.getRepository();
 
 			// make sure we have the right connector
-			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
-					taskRepository.getConnectorKind());
+			AbstractLegacyRepositoryConnector connector = (AbstractLegacyRepositoryConnector) TasksUiPlugin.getRepositoryManager()
+					.getRepositoryConnector(taskRepository.getConnectorKind());
 			assert (connector.getConnectorKind().equals(XPlannerMylynUIPlugin.REPOSITORY_KIND));
 
 			TaskRepository repository = XPlannerTestUtils.getRepository();
@@ -119,7 +119,7 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 			RepositoryTaskData testRepositoryTaskData = XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(
 					repository.getRepositoryUrl(), testTaskData, repositoryTask.getTaskId());
 
-			String returnValue = connector.getTaskDataHandler().postTaskData(taskRepository, testRepositoryTaskData,
+			String returnValue = connector.getLegacyTaskDataHandler().postTaskData(taskRepository, testRepositoryTaskData,
 					null);
 
 			// if new task, return value is new id -- make sure it's valid

@@ -8,7 +8,7 @@
 
 package org.eclipse.mylyn.xplanner.ui.editor;
 
-import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskAttribute;
 
 public interface XPlannerEditorAttributeProvider {
 	public boolean xplannerAttributeChanged(RepositoryTaskAttribute attribute);

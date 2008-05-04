@@ -26,12 +26,11 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.commons.net.AbstractWebLocation;
 import org.eclipse.mylyn.commons.net.AuthenticationCredentials;
 import org.eclipse.mylyn.commons.net.AuthenticationType;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractAttributeFactory;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskAttribute;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.tasks.core.AbstractAttributeFactory;
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.RepositoryTaskAttribute;
-import org.eclipse.mylyn.tasks.core.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.TaskRepositoryLocationFactory;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
@@ -653,10 +652,10 @@ public class XPlannerRepositoryUtils {
 			return null;
 		}
 
-		AbstractRepositoryConnector connector = TasksUi.getRepositoryManager().getRepositoryConnector(
-				XPlannerMylynUIPlugin.REPOSITORY_KIND);
+		XPlannerRepositoryConnector connector = (XPlannerRepositoryConnector) TasksUi.getRepositoryManager()
+				.getRepositoryConnector(XPlannerMylynUIPlugin.REPOSITORY_KIND);
 
-		XPlannerTaskDataHandler taskDataHandler = (XPlannerTaskDataHandler) connector.getTaskDataHandler();
+		XPlannerTaskDataHandler taskDataHandler = (XPlannerTaskDataHandler) connector.getLegacyTaskDataHandler();
 		AbstractAttributeFactory attributeFactory = taskDataHandler.getAttributeFactory(
 				taskRepository.getRepositoryUrl(), taskRepository.getConnectorKind(), AbstractTask.DEFAULT_TASK_KIND);
 		RepositoryTaskData taskData = new RepositoryTaskData(attributeFactory, XPlannerMylynUIPlugin.REPOSITORY_KIND,

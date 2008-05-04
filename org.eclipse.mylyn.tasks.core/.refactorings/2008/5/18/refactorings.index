@@ -25,3 +25,26 @@
 1209852228566	Rename type 'RepositoryPerson'
 1209852999505	Delete element
 1209856196040	Inline local variable 'attribute'
+1209868864517	Rename type 'AbstractRepositoryConnector'
+1209869112458	Extract superclass 'AbstractRepositoryConnector'
+1209870998494	Move compilation unit
+1209871206135	Move compilation units
+1209871238387	Move compilation units
+1209871272887	Move compilation units
+1209871314962	Move compilation units
+1209871334518	Move compilation unit
+1209871399952	Change method 'getRepositoryConnector'
+1209871443222	Rename type 'ITaskRepositoryPerson'
+1209871642992	Change method 'createSynchronizeTasksJob'
+1209871653659	Change method 'createSynchronizeQueriesJob'
+1209871669557	Change method 'createSubmitTaskJob'
+1209877375383	Delete element
+1209878646475	Copy compilation unit
+1209878816047	Rename field 'kind'
+1209879239190	Move compilation unit
+1209879705796	Rename type 'IPerson'
+1209879727958	Rename type 'TaskRepositoryPerson'
+1209879871035	Rename type 'ITaskAttachment2'
+1209879961573	Rename type 'AbstractTaskDataHandler2'
+1209880092364	Rename method 'getTaskDataHandler'
+1209880243701	Rename type 'TaskRepositoryListenerAdapter'

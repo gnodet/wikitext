@@ -11,39 +11,39 @@ package org.eclipse.mylyn.tasks.core;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.eclipse.mylyn.tasks.core.data.TaskData;
+
 /**
  * Extend to provide task duplicate detection facilities to the task editor (e.g. Java stack trace matching).
  * 
  * @author Gail Murphy
+ * @author Robert Elves
  * @since 3.0
  */
 public abstract class AbstractDuplicateDetector {
 
 	protected String name;
 
-	protected String kind;
+	protected String connectorKind;
 
-	public abstract AbstractRepositoryQuery getDuplicatesQuery(TaskRepository repository, RepositoryTaskData taskData);
+	public abstract AbstractRepositoryQuery getDuplicatesQuery(TaskRepository repository, TaskData taskData);
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public void setKind(String kind) {
-		this.kind = kind;
+	public void setConnectorKind(String kind) {
+		this.connectorKind = kind;
 	}
 
 	public String getName() {
 		return this.name;
 	}
 
-	public String getKind() {
-		return this.kind;
+	public String getConnectorKind() {
+		return this.connectorKind;
 	}
 
-	/**
-	 * TODO: Move to a core utility class
-	 */
 	public static String getStackTraceFromDescription(String description) {
 		String stackTrace = null;
 
