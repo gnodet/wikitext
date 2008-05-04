@@ -25,7 +25,6 @@ import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPreferenceConstants;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskElementLabelProvider;
 import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
-import org.eclipse.mylyn.tasks.core.ITaskListManager;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -215,11 +214,6 @@ public class TaskActivityWizardPage extends WizardPage {
 		categorySelectionGroup.setFont(composite.getFont());
 
 		createFilterTable(categorySelectionGroup, true);
-		ITaskListManager manager = TasksUi.getTaskListManager();
-		if (manager == null) {
-			filtersTable.setEnabled(false);
-			return;
-		}
 
 		List<AbstractTaskContainer> containers = new ArrayList<AbstractTaskContainer>();
 		containers.addAll(TasksUi.getTaskList().getCategories());
