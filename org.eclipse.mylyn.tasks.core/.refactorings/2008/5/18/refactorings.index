@@ -10,5 +10,18 @@
 1209799691940	Rename method 'clearMetaData'
 1209799744995	Rename method 'clearMetaDatas'
 1209799755679	Rename method 'clearMetaData'
-1209849504041	Delete element
-1209855875984	Change method 'getPreviousTasks'
+1209843467856	Move compilation unit
+1209843533593	Extract interface 'ITaskRepositoryPerson'
+1209843546932	Move compilation unit
+1209848336513	Move compilation unit
+1209848417468	Rename type 'TaskAttachment'
+1209848447124	Rename type 'TaskComment'
+1209848545312	Rename type 'TaskScheme'
+1209848596356	Copy compilation unit
+1209848810614	Move compilation unit
+1209848864998	Copy compilation unit
+1209852088170	Delete element
+1209852119148	Delete element
+1209852228566	Rename type 'RepositoryPerson'
+1209852999505	Delete element
+1209856196040	Inline local variable 'attribute'
