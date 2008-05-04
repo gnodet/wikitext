@@ -26,6 +26,7 @@ import org.eclipse.mylyn.internal.sandbox.ui.planner.TaskReportGenerator;
 import org.eclipse.mylyn.internal.tasks.core.TaskCategory;
 import org.eclipse.mylyn.internal.tasks.ui.TaskListManager;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
@@ -56,7 +57,7 @@ public class TaskReportGeneratorTest extends TestCase {
 	}
 
 	public void testCompletedTasksRetrieved() throws InvocationTargetException, InterruptedException {
-		AbstractTask task1 = manager.createNewLocalTask("task 1");
+		AbstractTask task1 = TasksUiInternal.createNewLocalTask("task 1");
 		manager.getTaskList().addTask(task1);
 
 		CompletedTaskCollector collector = new CompletedTaskCollector(new Date(0), new Date());
@@ -75,7 +76,7 @@ public class TaskReportGeneratorTest extends TestCase {
 	}
 
 	public void testCompletedTasksDateBoundsRetrieved() throws InvocationTargetException, InterruptedException {
-		AbstractTask task1 = manager.createNewLocalTask("task 1");
+		AbstractTask task1 = TasksUiInternal.createNewLocalTask("task 1");
 		manager.getTaskList().addTask(task1);
 		task1.setCompleted(true);
 		Thread.sleep(1000);
@@ -121,7 +122,7 @@ public class TaskReportGeneratorTest extends TestCase {
 	}
 
 	public void testCompletedTasksInCategoryRetrieved() throws InvocationTargetException, InterruptedException {
-		AbstractTask task1 = manager.createNewLocalTask("task 1");
+		AbstractTask task1 = TasksUiInternal.createNewLocalTask("task 1");
 		manager.getTaskList().addTask(task1);
 		task1.setCompleted(true);
 		TaskCategory cat1 = new TaskCategory("TaskReportGeneratorTest Category");
