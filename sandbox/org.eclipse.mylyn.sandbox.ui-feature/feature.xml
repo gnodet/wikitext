@@ -65,13 +65,14 @@ Java and all Java-based trademarks are trademarks of Sun Microsystems, Inc. in t
 
    <requires>
       <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.jface.text"/>
       <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.forms"/>
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.jdt.core"/>
-      <import plugin="org.eclipse.ui.forms"/>
-      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.jdt.ui"/>
       <import plugin="org.eclipse.search"/>
-      <import plugin="org.eclipse.jface.text"/>
       <import plugin="org.eclipse.mylyn.context.core" version="3.0.0" match="compatible"/>
       <import plugin="org.eclipse.mylyn.context.ui" version="3.0.0" match="compatible"/>
       <import plugin="org.eclipse.mylyn.tasks.ui" version="3.0.0" match="compatible"/>
@@ -82,7 +83,8 @@ Java and all Java-based trademarks are trademarks of Sun Microsystems, Inc. in t
       <import plugin="org.eclipse.mylyn.java.ui" version="3.0.0" match="compatible"/>
       <import plugin="org.eclipse.mylyn.monitor.core" version="3.0.0" match="compatible"/>
       <import feature="org.eclipse.mylyn_feature" version="3.0.0.qualifier" match="perfect"/>
-      <import plugin="org.eclipse.jdt.ui"/>
+      <import plugin="org.eclipse.mylyn.commons.core" version="3.0.0" match="compatible"/>
+      <import plugin="org.eclipse.mylyn.commons.ui" version="3.0.0" match="compatible"/>
    </requires>
 
    <plugin
