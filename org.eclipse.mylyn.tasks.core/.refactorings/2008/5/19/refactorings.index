@@ -16,3 +16,4 @@
 1210004469341	Move compilation units
 1210020900899	Extract interface 'ITaskActivityManager'
 1210023501573	Move compilation unit
+1210024226420	Rename method 'deactivateAllTasks'
