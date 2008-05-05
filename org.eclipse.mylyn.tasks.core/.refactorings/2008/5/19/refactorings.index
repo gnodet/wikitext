@@ -14,3 +14,5 @@
 1210004371630	Move compilation unit
 1210004423604	Move compilation unit
 1210004469341	Move compilation units
+1210020900899	Extract interface 'ITaskActivityManager'
+1210023501573	Move compilation unit
