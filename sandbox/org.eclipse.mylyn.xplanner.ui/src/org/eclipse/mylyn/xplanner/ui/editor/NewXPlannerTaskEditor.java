@@ -15,7 +15,7 @@ import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskAttribute;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
 import org.eclipse.mylyn.internal.tasks.ui.ScheduleDatePicker;
 import org.eclipse.mylyn.internal.tasks.ui.deprecated.AbstractNewRepositoryTaskEditor;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUtils;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
@@ -54,7 +54,7 @@ public class NewXPlannerTaskEditor extends AbstractNewRepositoryTaskEditor imple
 	}
 
 	@Override
-	protected void addAttachContextButton(Composite buttonComposite, AbstractTask task) {
+	protected void addAttachContextButton(Composite buttonComposite, ITask task) {
 		// disabled, see bug 155151
 	}
 

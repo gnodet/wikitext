@@ -15,7 +15,7 @@ import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskAttribute;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.deprecated.AbstractRepositoryTaskEditor;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.ITaskActivityListener;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
@@ -103,7 +103,7 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor implements 
 	}
 
 	@Override
-	protected void addAttachContextButton(Composite buttonComposite, AbstractTask task) {
+	protected void addAttachContextButton(Composite buttonComposite, ITask task) {
 		// disabled, see bug 155151
 	}
 
@@ -311,7 +311,7 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor implements 
 	/**
 	 * ITaskTimingListener Implementation
 	 */
-	public void elapsedTimeUpdated(AbstractTask task, final long newElapsedTime) {
+	public void elapsedTimeUpdated(ITask task, final long newElapsedTime) {
 		// only auto-update actual time if user chose to do so
 		if (!isUseAutoTimeTracking()) {
 			return;
@@ -334,7 +334,7 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor implements 
 	}
 
 	private void forceElapsedTimeUpdated() {
-		AbstractTask task = TasksUi.getTaskList().getTask(repository.getRepositoryUrl(),
+		ITask task = TasksUi.getTaskList().getTask(repository.getRepositoryUrl(),
 				getRepositoryTaskData().getTaskId());
 		long elapsedTimeMillis = TasksUiPlugin.getTaskActivityManager().getElapsedTime(task);
 
@@ -395,15 +395,15 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor implements 
 	public void activityReset() {
 	}
 
-	public void preTaskActivated(AbstractTask task) {
+	public void preTaskActivated(ITask task) {
 	}
 
-	public void preTaskDeactivated(AbstractTask task) {
+	public void preTaskDeactivated(ITask task) {
 	}
 
-	public void taskActivated(AbstractTask task) {
+	public void taskActivated(ITask task) {
 	}
 
-	public void taskDeactivated(AbstractTask task) {
+	public void taskDeactivated(ITask task) {
 	}
 }

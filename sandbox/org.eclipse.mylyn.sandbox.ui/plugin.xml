@@ -259,7 +259,7 @@
              id="org.eclipse.mylyn.sandbox.ui.decorator.tasks"
              label="Task Highlighter"
              lightweight="true"
-             objectClass="org.eclipse.mylyn.tasks.core.AbstractTask"
+             objectClass="org.eclipse.mylyn.internal.tasks.core.AbstractTask"
              state="true">
        </decorator>
     </extension>

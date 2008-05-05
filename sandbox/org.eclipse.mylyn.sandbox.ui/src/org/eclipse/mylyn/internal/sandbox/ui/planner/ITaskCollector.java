@@ -10,14 +10,14 @@ package org.eclipse.mylyn.internal.sandbox.ui.planner;
 
 import java.util.Set;
 
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
 
 /**
  * @author Ken Sueda
  */
 public interface ITaskCollector {
 
-	public abstract void consumeTask(AbstractTask task);
+	public abstract void consumeTask(ITask task);
 
-	public abstract Set<AbstractTask> getTasks();
+	public abstract Set<ITask> getTasks();
 }

@@ -7,7 +7,8 @@
  *******************************************************************************/
 package org.eclipse.mylyn.internal.sandbox.dev.properties;
 
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
@@ -70,7 +71,7 @@ public class AbstractTaskPropertiesSource extends AbstractTaskContainerPropertyS
 
 	@Override
 	public Object getPropertyValue(Object id) {
-		AbstractTask task = (AbstractTask) container;
+		ITask task = (ITask) container;
 		if (SUMMARY.equals(id)) {
 			return task.getSummary();
 		} else if (OWNER.equals(id)) {

@@ -30,7 +30,7 @@ import org.eclipse.mylyn.internal.context.core.DegreeOfSeparation;
 import org.eclipse.mylyn.internal.context.core.IActiveSearchListener;
 import org.eclipse.mylyn.internal.context.core.IActiveSearchOperation;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.ui.PlatformUI;
 
@@ -85,7 +85,7 @@ public class BugzillaReferencesProvider extends AbstractRelationProvider {
 	public IActiveSearchOperation getSearchOperation(IInteractionElement node, int limitTo, int degreeOfSepatation) {
 		IJavaElement javaElement = JavaCore.create(node.getHandleIdentifier());
 
-		AbstractTask task = TasksUiPlugin.getTaskListManager().getActiveTask();
+		ITask task = TasksUiPlugin.getTaskListManager().getActiveTask();
 		TaskRepository repository = TasksUiPlugin.getRepositoryManager().getRepository(task.getConnectorKind(),
 				task.getRepositoryUrl());
 		return new BugzillaMylynSearch(degreeOfSepatation, javaElement, repository.getRepositoryUrl());

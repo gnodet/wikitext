@@ -11,12 +11,13 @@ package org.eclipse.mylyn.internal.sandbox.ui;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.mylyn.internal.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.internal.tasks.core.Person;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListContentProvider;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
+import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.ITaskElement;
 
 /**
  * @author Rob Elves
@@ -35,10 +36,10 @@ public class IncomingTaskListContentProvider extends TaskListContentProvider {
 		if (parent instanceof Person) {
 			return getChildren(parent);
 		} else {
-			for (AbstractTaskContainer container : applyFilter(TasksUiPlugin.getTaskListManager()
+			for (ITaskElement container : applyFilter(TasksUiPlugin.getTaskListManager()
 					.getTaskList()
 					.getRootElements())) {
-				for (AbstractTask task : container.getChildren()) {
+				for (ITask task : container.getChildren()) {
 					if (task.getOwner() != null && task.getSynchronizationState().isIncoming()) {
 						people.add(new Person(task.getOwner(), task.getConnectorKind(), task.getRepositoryUrl()));
 					}
@@ -50,12 +51,12 @@ public class IncomingTaskListContentProvider extends TaskListContentProvider {
 
 	@Override
 	public Object[] getChildren(Object parent) {
-		Set<AbstractTask> children = new HashSet<AbstractTask>();
+		Set<ITask> children = new HashSet<ITask>();
 		if (parent instanceof Person) {
-			for (AbstractTaskContainer container : applyFilter(TasksUiPlugin.getTaskListManager()
+			for (ITaskElement container : applyFilter(TasksUiPlugin.getTaskListManager()
 					.getTaskList()
 					.getRootElements())) {
-				for (AbstractTask task : container.getChildren()) {
+				for (ITask task : container.getChildren()) {
 					if (task.getOwner() != null && task.getOwner().equals(((Person) parent).getHandleIdentifier())
 							&& task.getSynchronizationState().isIncoming()) {
 						children.add(task);

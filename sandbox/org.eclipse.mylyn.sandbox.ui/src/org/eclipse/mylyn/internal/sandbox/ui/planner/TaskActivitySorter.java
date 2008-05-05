@@ -11,7 +11,7 @@ package org.eclipse.mylyn.internal.sandbox.ui.planner;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
 
 /**
  * @author Ken Sueda
@@ -42,8 +42,8 @@ public class TaskActivitySorter extends ViewerSorter {
 
 	@Override
 	public int compare(Viewer viewer, Object obj1, Object obj2) {
-		AbstractTask t1 = (AbstractTask) obj1;
-		AbstractTask t2 = (AbstractTask) obj2;
+		ITask t1 = (ITask) obj1;
+		ITask t2 = (ITask) obj2;
 
 		switch (criteria) {
 		case DESCRIPTION:
@@ -63,23 +63,23 @@ public class TaskActivitySorter extends ViewerSorter {
 		}
 	}
 
-	protected int compareDescription(AbstractTask task1, AbstractTask task2) {
+	protected int compareDescription(ITask task1, ITask task2) {
 		return task1.getSummary().compareToIgnoreCase(task2.getSummary());
 	}
 
-	protected int comparePriority(AbstractTask task1, AbstractTask task2) {
+	protected int comparePriority(ITask task1, ITask task2) {
 		return task1.getPriority().compareTo(task2.getPriority());
 	}
 
-	protected int compareCompletedDate(AbstractTask task1, AbstractTask task2) {
+	protected int compareCompletedDate(ITask task1, ITask task2) {
 		return task2.getCompletionDate().compareTo(task1.getCompletionDate());
 	}
 
-	protected int compareEstimated(AbstractTask task1, AbstractTask task2) {
+	protected int compareEstimated(ITask task1, ITask task2) {
 		return task2.getEstimatedTimeHours() - task1.getEstimatedTimeHours();
 	}
 
-	protected int compareCreationDate(AbstractTask task1, AbstractTask task2) {
+	protected int compareCreationDate(ITask task1, ITask task2) {
 		if (task1.getCreationDate() == null) {
 			return 1;
 		} else if (task2.getCreationDate() == null) {
@@ -89,7 +89,7 @@ public class TaskActivitySorter extends ViewerSorter {
 		}
 	}
 
-	protected int compareDuration(AbstractTask task1, AbstractTask task2) {
+	protected int compareDuration(ITask task1, ITask task2) {
 		return TasksUiPlugin.getTaskActivityManager().getElapsedTime(task1) < TasksUiPlugin.getTaskActivityManager()
 				.getElapsedTime(task2) ? 1 : -1;
 	}

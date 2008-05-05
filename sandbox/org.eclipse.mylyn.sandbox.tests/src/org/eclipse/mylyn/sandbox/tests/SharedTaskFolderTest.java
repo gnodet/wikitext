@@ -22,11 +22,12 @@ import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.context.core.InteractionContext;
 import org.eclipse.mylyn.internal.sandbox.ui.SandboxUiPlugin;
 import org.eclipse.mylyn.internal.sandbox.ui.actions.SwitchTaskDataFolderAction;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.LocalTask;
 import org.eclipse.mylyn.internal.tasks.ui.TaskListManager;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
 
 /**
  * Tests changing the shared task directory currently in use.
@@ -98,7 +99,7 @@ public class SharedTaskFolderTest extends TestCase {
 		SwitchTaskDataFolderAction switchAction = new SwitchTaskDataFolderAction();
 
 		//Create a task to appear in the main data dir only
-		AbstractTask mainDataDirTask = createAndSaveTask("Main Dir Task");
+		ITask mainDataDirTask = createAndSaveTask("Main Dir Task");
 
 		//Check the options of folders to switch to
 		String[] sharedDataFolderOptions = switchAction.getFolderStrings();
@@ -157,7 +158,7 @@ public class SharedTaskFolderTest extends TestCase {
 	 * Creates a task with an interaction event and checks that it has been properly saved in the currently active data
 	 * directory
 	 */
-	protected AbstractTask createAndSaveTask(String taskName) {
+	protected ITask createAndSaveTask(String taskName) {
 
 		//Create the task and add it to the root of the task list
 		AbstractTask newTask = new LocalTask("" + Calendar.getInstance().getTimeInMillis(), taskName);

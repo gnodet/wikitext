@@ -36,6 +36,7 @@ import org.eclipse.jface.viewers.ViewerDropAdapter;
 import org.eclipse.mylyn.internal.provisional.commons.ui.CommonThemes;
 import org.eclipse.mylyn.internal.sandbox.ui.planner.ActivityReportAction;
 import org.eclipse.mylyn.internal.sandbox.ui.planner.ReminderCellEditor;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskDelegate;
 import org.eclipse.mylyn.internal.tasks.core.TaskActivityUtil;
@@ -44,9 +45,9 @@ import org.eclipse.mylyn.internal.tasks.ui.actions.OpenTaskListElementAction;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskActivityLabelProvider;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskElementLabelProvider;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
+import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.ITaskActivityListener;
+import org.eclipse.mylyn.tasks.core.ITaskElement;
 import org.eclipse.mylyn.tasks.core.ITaskListChangeListener;
 import org.eclipse.mylyn.tasks.core.TaskActivityAdapter;
 import org.eclipse.mylyn.tasks.core.TaskContainerDelta;
@@ -128,7 +129,7 @@ public class TaskActivityView extends ViewPart {
 	private final ITaskActivityListener TASK_ACTIVITY_LISTENER = new TaskActivityAdapter() {
 
 		@Override
-		public void taskActivated(AbstractTask task) {
+		public void taskActivated(ITask task) {
 			refresh();
 		}
 	};
@@ -298,7 +299,7 @@ public class TaskActivityView extends ViewPart {
 				for (Iterator<?> iter = selection.iterator(); iter.hasNext();) {
 					Object selectedObject = iter.next();
 					AbstractTask task = null;
-					if (selectedObject instanceof AbstractTask) {
+					if (selectedObject instanceof ITask) {
 						task = (AbstractTask) selectedObject;
 					}
 					if (task != null) {
@@ -314,7 +315,7 @@ public class TaskActivityView extends ViewPart {
 						.getViewer()
 						.getSelection()).getFirstElement();
 
-				if (selectedObject instanceof AbstractTaskContainer) {
+				if (selectedObject instanceof ITaskElement) {
 					return false;
 				}
 
@@ -385,7 +386,7 @@ public class TaskActivityView extends ViewPart {
 		}
 	}
 
-	public AbstractTask getSelectedTask() {
+	public ITask getSelectedTask() {
 		ISelection selection = getViewer().getSelection();
 		if (selection.isEmpty()) {
 			return null;
@@ -393,8 +394,8 @@ public class TaskActivityView extends ViewPart {
 		if (selection instanceof StructuredSelection) {
 			StructuredSelection structuredSelection = (StructuredSelection) selection;
 			Object element = structuredSelection.getFirstElement();
-			if (element instanceof AbstractTask) {
-				return (AbstractTask) structuredSelection.getFirstElement();
+			if (element instanceof ITask) {
+				return (ITask) structuredSelection.getFirstElement();
 			}
 		}
 		return null;
@@ -439,8 +440,8 @@ public class TaskActivityView extends ViewPart {
 		estimateEditor.addListener(new ICellEditorListener() {
 			public void applyEditorValue() {
 				Object selection = ((IStructuredSelection) treeViewer.getSelection()).getFirstElement();
-				if (selection instanceof AbstractTask) {
-					AbstractTask task = (AbstractTask) selection;
+				if (selection instanceof ITask) {
+					ITask task = (ITask) selection;
 					int estimate = (Integer) estimateEditor.getValue();
 					if (estimate == -1) {
 						estimate = 0;
@@ -484,7 +485,7 @@ public class TaskActivityView extends ViewPart {
 		public Object getValue(Object element, String property) {
 			if (element instanceof ScheduledTaskDelegate) {
 				ScheduledTaskDelegate activityDelegate = (ScheduledTaskDelegate) element;
-				AbstractTask task = activityDelegate.getCorrespondingTask();
+				ITask task = activityDelegate.getCorrespondingTask();
 				int columnIndex = Arrays.asList(columnNames).indexOf(property);
 				if (columnIndex == 5) {
 					if (task.getScheduledForDate() != null) {
@@ -501,8 +502,8 @@ public class TaskActivityView extends ViewPart {
 
 		public void modify(Object element, String property, Object value) {
 			int columnIndex = Arrays.asList(columnNames).indexOf(property);
-			if (element instanceof AbstractTask) {
-				AbstractTask task = (AbstractTask) element;
+			if (element instanceof ITask) {
+				ITask task = (ITask) element;
 				if (columnIndex == 4) {
 					if (value instanceof Integer) {
 						task.setEstimatedTimeHours(((Integer) value).intValue() * 10);

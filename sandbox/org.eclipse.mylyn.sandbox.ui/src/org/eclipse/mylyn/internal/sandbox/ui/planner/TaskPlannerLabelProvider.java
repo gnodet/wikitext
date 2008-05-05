@@ -22,8 +22,8 @@ import org.eclipse.mylyn.commons.core.DateUtil;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskElementLabelProvider;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
+import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.ITaskElement;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 
@@ -60,8 +60,8 @@ public class TaskPlannerLabelProvider extends TaskElementLabelProvider implement
 
 	public String getColumnText(Object element, int columnIndex) {
 		try {
-			if (element instanceof AbstractTask) {
-				AbstractTask task = (AbstractTask) element;
+			if (element instanceof ITask) {
+				ITask task = (ITask) element;
 				switch (columnIndex) {
 				case 1:
 					return task.getPriority();
@@ -87,8 +87,8 @@ public class TaskPlannerLabelProvider extends TaskElementLabelProvider implement
 						return "";
 					}
 				}
-			} else if (element instanceof AbstractTaskContainer) {
-				AbstractTaskContainer container = (AbstractTaskContainer) element;
+			} else if (element instanceof ITaskElement) {
+				ITaskElement container = (ITaskElement) element;
 				switch (columnIndex) {
 				case 1:
 					return null;
@@ -98,8 +98,8 @@ public class TaskPlannerLabelProvider extends TaskElementLabelProvider implement
 					ITreeContentProvider contentProvider = ((ITreeContentProvider) viewer.getContentProvider());
 					long duration = 0;
 					for (Object o : contentProvider.getChildren(container)) {
-						if (o instanceof AbstractTask) {
-							duration += TasksUiPlugin.getTaskActivityManager().getElapsedTime((AbstractTask) o,
+						if (o instanceof ITask) {
+							duration += TasksUiPlugin.getTaskActivityManager().getElapsedTime((ITask) o,
 									startDate, endDate);
 						}
 					}
@@ -109,8 +109,8 @@ public class TaskPlannerLabelProvider extends TaskElementLabelProvider implement
 					ITreeContentProvider contentProvider = ((ITreeContentProvider) viewer.getContentProvider());
 					long estimated = 0;
 					for (Object o : contentProvider.getChildren(container)) {
-						if (o instanceof AbstractTask) {
-							estimated += ((AbstractTask) o).getEstimatedTimeHours();
+						if (o instanceof ITask) {
+							estimated += ((ITask) o).getEstimatedTimeHours();
 						}
 					}
 					return estimated + " hours";

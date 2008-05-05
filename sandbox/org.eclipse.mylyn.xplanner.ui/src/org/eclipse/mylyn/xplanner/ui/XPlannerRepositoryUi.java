@@ -17,10 +17,10 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.TaskSelection;
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
+import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
@@ -45,7 +45,7 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 	}
 
 	@Override
-	public ImageDescriptor getTaskKindOverlay(AbstractTask task) {
+	public ImageDescriptor getTaskKindOverlay(ITask task) {
 		ImageDescriptor overlayImage;
 
 		XPlannerTask.Kind kind = XPlannerTask.Kind.fromString(task.getTaskKind());
@@ -164,7 +164,7 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 	}
 
 	@Override
-	public String getTaskKindLabel(AbstractTask repositoryTask) {
+	public String getTaskKindLabel(ITask repositoryTask) {
 		return repositoryTask == null ? super.getTaskKindLabel(repositoryTask) : repositoryTask.getTaskKind();
 	}
 

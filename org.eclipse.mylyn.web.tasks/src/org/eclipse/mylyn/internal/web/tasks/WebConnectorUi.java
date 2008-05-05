@@ -10,11 +10,11 @@ package org.eclipse.mylyn.internal.web.tasks;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.wizard.IWizard;
+import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.internal.tasks.core.LocalTask;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.TaskSelection;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiImages;
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
@@ -53,7 +53,7 @@ public class WebConnectorUi extends AbstractRepositoryConnectorUi {
 	 * Task kind overlay, recommended to override with connector-specific overlay.
 	 */
 	@Override
-	public ImageDescriptor getTaskKindOverlay(AbstractTask task) {
+	public ImageDescriptor getTaskKindOverlay(ITask task) {
 		if (!(task instanceof LocalTask) && (task instanceof WebTask)) {
 			return TasksUiImages.OVERLAY_TASK_WEB;
 		}

@@ -13,8 +13,9 @@ import java.util.Set;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.ITaskElement;
 
 /**
  * @author Rob Elves
@@ -35,7 +36,7 @@ public class TaskActivityContentProvider implements ITreeContentProvider, ITaskP
 //		return allTasks.toArray();
 	}
 
-	public void removeTask(AbstractTask task) {
+	public void removeTask(ITask task) {
 		editorInput.removeCompletedTask(task);
 		editorInput.removeInProgressTask(task);
 	}
@@ -45,15 +46,15 @@ public class TaskActivityContentProvider implements ITreeContentProvider, ITaskP
 	}
 
 	public Object[] getChildren(Object parentElement) {
-		Set<AbstractTask> result = new HashSet<AbstractTask>();
-		if (parentElement instanceof AbstractTaskContainer) {
-			AbstractTaskContainer parent = (AbstractTaskContainer) parentElement;
-			Set<AbstractTask> completedChildren = new HashSet<AbstractTask>();
+		Set<ITask> result = new HashSet<ITask>();
+		if (parentElement instanceof ITaskElement) {
+			ITaskElement parent = (ITaskElement) parentElement;
+			Set<ITask> completedChildren = new HashSet<ITask>();
 			completedChildren.addAll(editorInput.getCompletedTasks());
 			completedChildren.retainAll(parent.getChildren());
 			result.addAll(completedChildren);
 
-			Set<AbstractTask> inProgressChildren = new HashSet<AbstractTask>();
+			Set<ITask> inProgressChildren = new HashSet<ITask>();
 			inProgressChildren.addAll(editorInput.getInProgressTasks());
 			inProgressChildren.retainAll(parent.getChildren());
 			result.addAll(inProgressChildren);

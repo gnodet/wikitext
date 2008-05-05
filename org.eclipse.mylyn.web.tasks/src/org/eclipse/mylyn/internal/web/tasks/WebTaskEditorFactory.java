@@ -10,7 +10,7 @@ package org.eclipse.mylyn.internal.web.tasks;
 
 import org.eclipse.mylyn.internal.tasks.ui.deprecated.AbstractRepositoryTaskEditor;
 import org.eclipse.mylyn.internal.tasks.ui.deprecated.RepositoryTaskEditorInput;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskEditorFactory;
@@ -39,7 +39,7 @@ public class WebTaskEditorFactory extends AbstractTaskEditorFactory {
 	}
 
 	@Override
-	public IEditorInput createEditorInput(AbstractTask task) {
+	public IEditorInput createEditorInput(ITask task) {
 		if (task instanceof WebTask) {
 			final TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
 					WebRepositoryConnector.REPOSITORY_TYPE, task.getRepositoryUrl());
@@ -59,7 +59,7 @@ public class WebTaskEditorFactory extends AbstractTaskEditorFactory {
 	}
 
 	@Override
-	public boolean canCreateEditorFor(AbstractTask task) {
+	public boolean canCreateEditorFor(ITask task) {
 		return task instanceof WebTask;
 	}
 

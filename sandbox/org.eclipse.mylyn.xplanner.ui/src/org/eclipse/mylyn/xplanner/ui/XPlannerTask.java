@@ -7,7 +7,7 @@
  *******************************************************************************/
 package org.eclipse.mylyn.xplanner.ui;
 
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.xplanner.wsdl.soap.domain.DomainData;
 import org.xplanner.soap.IterationData;
 import org.xplanner.soap.UserStoryData;

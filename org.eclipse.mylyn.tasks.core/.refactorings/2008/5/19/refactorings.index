@@ -1,0 +1,16 @@
+1209968377806	Delete element
+1209968441201	Extract interface 'ITaskElement'
+1209968461660	Delete element
+1209968494632	Move compilation unit
+1209968621880	Move compilation unit
+1209968639635	Delete element
+1209968810071	Extract interface 'ITask'
+1209969580052	Change method 'taskActivated'
+1209970305280	Change method 'deactivateTask'
+1209970416994	Change method 'activateTask'
+1209970437541	Change method 'activateTask'
+1209970477216	Change method 'activateTask'
+1209970553703	Change method 'notifyTaskChanged'
+1210004371630	Move compilation unit
+1210004423604	Move compilation unit
+1210004469341	Move compilation units

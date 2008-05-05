@@ -17,7 +17,8 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionElement;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.ui.IViewActionDelegate;
@@ -60,10 +61,10 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 				}
 			}
 
-			if (object instanceof AbstractTask) {
+			if (object instanceof ITask) {
 
 				AbstractTask task = null;
-				if (object instanceof AbstractTask) {
+				if (object instanceof ITask) {
 					task = (AbstractTask) object;
 				}
 				if (task != null) {
@@ -80,7 +81,7 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 					text += "\nParents: " + task.getParentContainers();
 					if (task.getChildren() != null && !task.getChildren().isEmpty()) {
 						text += "\nChildren: ";
-						for (AbstractTask subTask : task.getChildren()) {
+						for (ITask subTask : task.getChildren()) {
 							text += "\n" + subTask;
 						}
 					}

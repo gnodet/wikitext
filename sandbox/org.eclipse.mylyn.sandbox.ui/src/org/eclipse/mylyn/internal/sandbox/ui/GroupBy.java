@@ -9,7 +9,7 @@ package org.eclipse.mylyn.internal.sandbox.ui;
 
 import java.util.Date;
 
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
 
 /**
  * @author Eugene Kuleshov
@@ -18,52 +18,52 @@ public enum GroupBy {
 
 	None() {
 		@Override
-		public String getKey(AbstractTask task) {
+		public String getKey(ITask task) {
 			return null;
 		}
 	},
 
 	Owner() {
 		@Override
-		public String getKey(AbstractTask task) {
+		public String getKey(ITask task) {
 			return task.getOwner();
 		}
 	},
 
 	Priority() {
 		@Override
-		public String getKey(AbstractTask task) {
+		public String getKey(ITask task) {
 			return task.getPriority();
 		}
 	},
 	Kind() {
 		@Override
-		public String getKey(AbstractTask task) {
+		public String getKey(ITask task) {
 			return task.getTaskKind();
 		}
 
 	},
 	Repository() {
 		@Override
-		public String getKey(AbstractTask task) {
+		public String getKey(ITask task) {
 			return task.getRepositoryUrl();
 		}
 	},
 	Due() {
 		@Override
-		public String getKey(AbstractTask task) {
+		public String getKey(ITask task) {
 			Date date = task.getDueDate();
 			return date == null ? null : date.toString();
 		}
 	},
 	Sheduled() {
 		@Override
-		public String getKey(AbstractTask task) {
+		public String getKey(ITask task) {
 			Date date = task.getScheduledForDate();
 			return date == null ? null : date.toString();
 		}
 	};
 
-	public abstract String getKey(AbstractTask task);
+	public abstract String getKey(ITask task);
 
 }

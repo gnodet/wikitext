@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
 
 /**
  * Collects tasks that are not complete but have been worked on during the specified date range.
@@ -25,13 +25,13 @@ import org.eclipse.mylyn.tasks.core.AbstractTask;
  */
 public class InProgressTaskCollector implements ITaskCollector {
 
-	private final Map<String, AbstractTask> inProgressTasks = new HashMap<String, AbstractTask>();
+	private final Map<String, ITask> inProgressTasks = new HashMap<String, ITask>();
 
 	private final Date periodStartDate;
 
 	private final Date periodEndDate;
 
-	protected static boolean hasActivity(AbstractTask task, Date startDate, Date endDate) {
+	protected static boolean hasActivity(ITask task, Date startDate, Date endDate) {
 		Calendar startCal = Calendar.getInstance();
 		startCal.setTime(startDate);
 
@@ -62,15 +62,15 @@ public class InProgressTaskCollector implements ITaskCollector {
 		return "Tasks in Progress";
 	}
 
-	public void consumeTask(AbstractTask task) {
+	public void consumeTask(ITask task) {
 		if (!task.isCompleted() && hasActivity(task, periodStartDate, periodEndDate)
 				&& !inProgressTasks.containsKey(task.getHandleIdentifier())) {
 			inProgressTasks.put(task.getHandleIdentifier(), task);
 		}
 	}
 
-	public Set<AbstractTask> getTasks() {
-		Set<AbstractTask> tasks = new HashSet<AbstractTask>();
+	public Set<ITask> getTasks() {
+		Set<ITask> tasks = new HashSet<ITask>();
 		tasks.addAll(inProgressTasks.values());
 		return tasks;
 	}

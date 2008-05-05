@@ -24,14 +24,15 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.commons.net.Policy;
+import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractAttachmentHandler;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractLegacyRepositoryConnector;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractTaskDataHandler;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.LegacyTaskDataCollector;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskAttribute;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.TaskRepositoryLocationFactory;
 import org.eclipse.mylyn.tasks.core.data.TaskDataCollector;
@@ -89,7 +90,7 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 		return true;
 	}
 
-	protected AbstractTask makeTask(String repositoryUrl, String id, String summary) {
+	protected ITask makeTask(String repositoryUrl, String id, String summary) {
 		return new XPlannerTask(repositoryUrl, id, summary);
 	}
 
@@ -99,8 +100,7 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 
 		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(XPlannerMylynUIPlugin.REPOSITORY_KIND,
 				repositoryUrl);
-		AbstractTask existingTask = TasksUi.getTaskList().getTask(repository.getRepositoryUrl(),
-				id);
+		AbstractTask existingTask = TasksUi.getTaskList().getTask(repository.getRepositoryUrl(), id);
 		if (existingTask instanceof XPlannerTask) {
 			task = existingTask;
 		} else {
@@ -267,7 +267,7 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 
 		for (TaskData data : tasks) {
 			String id = String.valueOf(data.getId());
-			AbstractTask task = TasksUi.getTaskList().getTask(repository.getRepositoryUrl(), id);
+			ITask task = TasksUi.getTaskList().getTask(repository.getRepositoryUrl(), id);
 			if (task != null) {
 				updateTaskDetails(repository.getRepositoryUrl(), (XPlannerTask) task, data, false);
 			}
@@ -350,7 +350,7 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 //	}
 
 	@Override
-	public boolean updateTaskFromTaskData(TaskRepository repository, AbstractTask repositoryTask,
+	public boolean updateTaskFromTaskData(TaskRepository repository, ITask repositoryTask,
 			RepositoryTaskData repositoryTaskData) {
 
 		if (repositoryTaskData != null) {
@@ -439,8 +439,7 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 
 		XPlannerTask task;
 
-		AbstractTask existingTask = TasksUi.getTaskList().getTask(repository.getRepositoryUrl(),
-				id);
+		ITask existingTask = TasksUi.getTaskList().getTask(repository.getRepositoryUrl(), id);
 		if (existingTask instanceof XPlannerTask) {
 			task = (XPlannerTask) existingTask;
 		} else {
@@ -507,17 +506,16 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 		return taskId;
 	}
 
-	public Set<AbstractTask> getChangedSinceLastSync(TaskRepository repository, Set<AbstractTask> tasks)
-			throws CoreException {
+	public Set<ITask> getChangedSinceLastSync(TaskRepository repository, Set<ITask> tasks) throws CoreException {
 
 		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 		if (client == null) {
 			return Collections.emptySet();
 		} else {
-			Set<AbstractTask> changedTasks = new HashSet<AbstractTask>();
+			Set<ITask> changedTasks = new HashSet<ITask>();
 			try {
 				XPlannerRepositoryUtils.validateRepository(repository);
-				for (AbstractTask task : tasks) {
+				for (ITask task : tasks) {
 					if (task instanceof XPlannerTask) {
 						XPlannerTask xplannerTask = (XPlannerTask) task;
 						TaskData taskData;
@@ -554,13 +552,13 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 			monitor.beginTask("Getting changed tasks", IProgressMonitor.UNKNOWN);
 
 			if (repository.getSynchronizationTimeStamp() == null) {
-				for (AbstractTask task : event.tasks) {
+				for (ITask task : event.tasks) {
 					task.setStale(true);
 				}
 				changed = true;
 			} else {
-				Set<AbstractTask> changedTasks = getChangedSinceLastSync(repository, event.tasks);
-				for (AbstractTask changedTask : changedTasks) {
+				Set<ITask> changedTasks = getChangedSinceLastSync(repository, event.tasks);
+				for (ITask changedTask : changedTasks) {
 					changedTask.setStale(true);
 				}
 

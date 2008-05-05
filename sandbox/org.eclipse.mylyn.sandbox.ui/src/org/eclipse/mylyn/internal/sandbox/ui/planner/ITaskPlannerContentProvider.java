@@ -8,11 +8,12 @@
 
 package org.eclipse.mylyn.internal.sandbox.ui.planner;
 
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
 
 public interface ITaskPlannerContentProvider {
 
-	public void removeTask(AbstractTask task);
+	public void removeTask(ITask task);
 
 	public void addTask(AbstractTask task);
 }

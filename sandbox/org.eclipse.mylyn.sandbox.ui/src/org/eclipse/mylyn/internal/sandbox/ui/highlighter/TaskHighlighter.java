@@ -14,7 +14,7 @@ import org.eclipse.jface.viewers.ILightweightLabelDecorator;
 import org.eclipse.mylyn.internal.sandbox.ui.SandboxUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.ITaskHighlighter;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.swt.graphics.Color;
 
 /**
@@ -37,8 +37,8 @@ public class TaskHighlighter implements ILightweightLabelDecorator, ITaskHighlig
 	}
 
 	public void decorate(Object element, IDecoration decoration) {
-		if (element instanceof AbstractTask) {
-			AbstractTask task = (AbstractTask) element;
+		if (element instanceof ITask) {
+			ITask task = (ITask) element;
 			Highlighter highlighter = SandboxUiPlugin.getDefault().getHighlighterForContextId(
 					"" + task.getHandleIdentifier());
 			if (highlighter != null) {
@@ -51,7 +51,7 @@ public class TaskHighlighter implements ILightweightLabelDecorator, ITaskHighlig
 		// ignore
 	}
 
-	public Color getHighlightColor(AbstractTask task) {
+	public Color getHighlightColor(ITask task) {
 		Highlighter highlighter = SandboxUiPlugin.getDefault().getHighlighterForContextId(
 				"" + task.getHandleIdentifier());
 		if (highlighter != null) {

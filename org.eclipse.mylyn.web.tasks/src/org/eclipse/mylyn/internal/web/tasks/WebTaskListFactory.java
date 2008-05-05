@@ -14,9 +14,10 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.mylyn.internal.commons.core.XmlStringConverter;
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskListFactory;
+import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.w3c.dom.Attr;
@@ -61,7 +62,7 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 	}
 
 	@Override
-	public boolean canCreate(AbstractTask task) {
+	public boolean canCreate(ITask task) {
 		return task instanceof WebTask;
 	}
 
@@ -81,7 +82,7 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 	}
 
 	@Override
-	public void setAdditionalAttributes(AbstractTask task, Element element) {
+	public void setAdditionalAttributes(ITask task, Element element) {
 		element.setAttribute(KEY_KEY, ((WebTask) task).getTaskId());
 		element.setAttribute(KEY_PREFIX, ((WebTask) task).getTaskPrefix());
 //		element.setAttribute(AbstractTaskListFactory.KEY_NAME, ((WebTask) task).getSummary());

@@ -11,15 +11,16 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTaskContainer;
+import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.ITaskElement;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
 /**
- * Abstract class to display various properties in the Eclipse Properties View.<br />
- * See <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=210639">Bug 210639</a> and <a
+ * Abstract class to display various properties in the Eclipse Properties View.<br /> See <a
+ * href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=210639">Bug 210639</a> and <a
  * href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=208275">Bug 208275</a><br />
  * 
  * @author Maarten Meijer
@@ -48,15 +49,14 @@ public abstract class AbstractTaskContainerPropertySource implements IPropertySo
 	/**
 	 * @return an expanded set of all descendants, excluding itself.
 	 */
-	public Set<AbstractTask> getDescendants(AbstractTaskContainer parent) {
-		Set<AbstractTask> childrenWithoutCycles = new HashSet<AbstractTask>();
+	public Set<ITask> getDescendants(ITaskElement parent) {
+		Set<ITask> childrenWithoutCycles = new HashSet<ITask>();
 		this.getDescendantsHelper(parent, childrenWithoutCycles, parent);
 		return Collections.unmodifiableSet(childrenWithoutCycles);
 	}
 
-	protected void getDescendantsHelper(AbstractTaskContainer parent, Set<AbstractTask> visited,
-			AbstractTaskContainer root) {
-		for (AbstractTask child : parent.getChildrenInternal()) {
+	protected void getDescendantsHelper(ITaskElement parent, Set<ITask> visited, ITaskElement root) {
+		for (ITask child : parent.getChildrenInternal()) {
 			if (child == root) {
 				cyclic = true;
 			}
@@ -71,22 +71,21 @@ public abstract class AbstractTaskContainerPropertySource implements IPropertySo
 	 * @return true if the parent also occurs in its descendants.
 	 */
 	public boolean containsCyclic(AbstractTaskContainer parent) {
-		Set<AbstractTask> childrenWithoutCycles = new HashSet<AbstractTask>();
-		Set<AbstractTaskContainer> parentStack = new HashSet<AbstractTaskContainer>();
+		Set<ITask> childrenWithoutCycles = new HashSet<ITask>();
+		Set<ITaskElement> parentStack = new HashSet<ITaskElement>();
 		cyclic = false;
 		this.containsCyclicHelper(parent, childrenWithoutCycles, parentStack);
 		return cyclic;
 	}
 
-	protected void containsCyclicHelper(AbstractTaskContainer parent, Set<AbstractTask> visited,
-			Set<AbstractTaskContainer> parentStack) {
+	protected void containsCyclicHelper(ITaskElement parent, Set<ITask> visited, Set<ITaskElement> parentStack) {
 		// fast exit
 		if (cyclic) {
 			return;
 		}
 
 		parentStack.add(parent);
-		for (AbstractTask child : parent.getChildrenInternal()) {
+		for (ITask child : parent.getChildrenInternal()) {
 			if (parentStack.contains(child)) {
 				cyclic = true;
 				return;

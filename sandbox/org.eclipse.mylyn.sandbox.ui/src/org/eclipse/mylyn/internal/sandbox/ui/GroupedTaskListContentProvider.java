@@ -10,12 +10,13 @@ package org.eclipse.mylyn.internal.sandbox.ui;
 
 import java.util.TreeMap;
 
+import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.TaskGroup;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListContentProvider;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
+import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.ITaskElement;
 
 /**
  * @author Eugene Kuleshov
@@ -36,7 +37,7 @@ public class GroupedTaskListContentProvider extends TaskListContentProvider {
 		Object[] children = super.getChildren(parent);
 
 		if ((parent instanceof AbstractRepositoryQuery) && groupBy != GroupBy.None) {
-			return getGroups((AbstractTaskContainer) parent, children);
+			return getGroups((ITaskElement) parent, children);
 		} else if (parent instanceof TaskGroup) {
 			return ((TaskGroup) parent).getChildren().toArray();
 		} else {
@@ -44,11 +45,11 @@ public class GroupedTaskListContentProvider extends TaskListContentProvider {
 		}
 	}
 
-	private TaskGroup[] getGroups(AbstractTaskContainer parent, Object[] children) {
+	private TaskGroup[] getGroups(ITaskElement parent, Object[] children) {
 		TreeMap<String, TaskGroup> groups = new TreeMap<String, TaskGroup>();
 
 		for (Object container : children) {
-			if (container instanceof AbstractTask) {
+			if (container instanceof ITask) {
 				AbstractTask task = (AbstractTask) container;
 				String key = groupBy.getKey(task);
 				if (key == null || key.length() == 0) {

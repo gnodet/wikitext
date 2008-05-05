@@ -13,7 +13,8 @@ import java.util.List;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
 
 /**
  * @author Ken Sueda
@@ -38,7 +39,7 @@ public class TaskPlanContentProvider implements IStructuredContentProvider {
 		}
 	}
 
-	public void removeTask(AbstractTask t) {
+	public void removeTask(ITask t) {
 		tasks.remove(t);
 	}
 

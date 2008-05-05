@@ -11,7 +11,7 @@ package org.eclipse.mylyn.internal.web.tasks;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
 
 /**
  * Represents pattern-based query on repository web page

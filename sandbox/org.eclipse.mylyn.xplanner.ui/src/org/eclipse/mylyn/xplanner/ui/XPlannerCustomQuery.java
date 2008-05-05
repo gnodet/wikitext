@@ -10,7 +10,7 @@ package org.eclipse.mylyn.xplanner.ui;
 import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
 
 /**
  * An XPlannerCustomQuery represents a query for tasks or user stories from a XPlanner repository.

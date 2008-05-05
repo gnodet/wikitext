@@ -14,9 +14,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractTaskListFactory;
+import org.eclipse.mylyn.tasks.core.ITask;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -56,7 +57,7 @@ public class XPlannerTaskListFactory extends AbstractTaskListFactory {
 		return category instanceof XPlannerCustomQuery;
 	}
 
-	public boolean canCreateElementFor(AbstractTask task) {
+	public boolean canCreateElementFor(ITask task) {
 		return task instanceof XPlannerTask;
 	}
 
@@ -277,7 +278,7 @@ public class XPlannerTaskListFactory extends AbstractTaskListFactory {
 	}
 
 	@Override
-	public boolean canCreate(AbstractTask task) {
+	public boolean canCreate(ITask task) {
 		return task instanceof XPlannerTask;
 	}
 

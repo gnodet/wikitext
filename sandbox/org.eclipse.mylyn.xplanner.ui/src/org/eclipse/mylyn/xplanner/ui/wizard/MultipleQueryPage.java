@@ -9,7 +9,7 @@ package org.eclipse.mylyn.xplanner.ui.wizard;
 
 import java.util.List;
 
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
 
 /**
  * @author Ravi Kumar

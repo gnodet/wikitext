@@ -12,7 +12,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.mylyn.internal.provisional.commons.ui.CommonImages;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
 
 /**
  * @author Rob Elves
@@ -32,8 +32,8 @@ public class RemoveTaskAction extends Action {
 	@Override
 	public void run() {
 		for (Object object : ((IStructuredSelection) viewer.getSelection()).toList()) {
-			if (object instanceof AbstractTask) {
-				AbstractTask task = (AbstractTask) object;
+			if (object instanceof ITask) {
+				ITask task = (ITask) object;
 				((ITaskPlannerContentProvider) (viewer.getContentProvider())).removeTask(task);
 			}
 		}

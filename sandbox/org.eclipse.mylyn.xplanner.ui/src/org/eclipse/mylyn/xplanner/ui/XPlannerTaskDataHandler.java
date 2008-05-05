@@ -23,7 +23,7 @@ import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractAttributeFactory
 import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractTaskDataHandler;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskAttribute;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
@@ -42,7 +42,7 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 	public XPlannerTaskDataHandler() {
 	}
 
-	public RepositoryTaskData downloadTaskData(AbstractTask repositoryTask, TaskRepository repository,
+	public RepositoryTaskData downloadTaskData(ITask repositoryTask, TaskRepository repository,
 			Proxy proxySettings) throws CoreException, LoginException {
 
 		if (!(repositoryTask instanceof XPlannerTask)) {

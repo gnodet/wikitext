@@ -55,14 +55,14 @@
          </adapter>
       </factory>
       <factory
-            adaptableType="org.eclipse.mylyn.tasks.core.AbstractTask"
+            adaptableType="org.eclipse.mylyn.internal.tasks.core.AbstractTask"
             class="org.eclipse.mylyn.internal.sandbox.dev.properties.MylynPropertiesSourceAdapterFactory">
          <adapter
                type="org.eclipse.ui.views.properties.IPropertySource">
          </adapter>
       </factory>
     <factory
-            adaptableType="org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery"
+            adaptableType="org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery"
             class="org.eclipse.mylyn.internal.sandbox.dev.properties.MylynPropertiesSourceAdapterFactory">
          <adapter
                type="org.eclipse.ui.views.properties.IPropertySource">
@@ -70,7 +70,7 @@
       </factory>
    
     <factory
-            adaptableType="org.eclipse.mylyn.tasks.core.AbstractTaskCategory"
+            adaptableType="org.eclipse.mylyn.internal.tasks.core.AbstractTaskCategory"
             class="org.eclipse.mylyn.internal.sandbox.dev.properties.MylynPropertiesSourceAdapterFactory">
          <adapter
                type="org.eclipse.ui.views.properties.IPropertySource">

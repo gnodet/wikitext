@@ -13,8 +13,9 @@ import java.util.Set;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.ITaskElement;
 
 /**
  * @author Rob Elves
@@ -42,14 +43,14 @@ public class PlannedTasksContentProvider implements ITreeContentProvider, ITaskP
 		editorInput.addPlannedTask(task);
 	}
 
-	public void removeTask(AbstractTask task) {
+	public void removeTask(ITask task) {
 		editorInput.removePlannedTask(task);
 	}
 
 	public Object[] getChildren(Object parentElement) {
-		Set<AbstractTask> plannedChildren = new HashSet<AbstractTask>();
-		if (parentElement instanceof AbstractTaskContainer) {
-			AbstractTaskContainer parent = (AbstractTaskContainer) parentElement;
+		Set<ITask> plannedChildren = new HashSet<ITask>();
+		if (parentElement instanceof ITaskElement) {
+			ITaskElement parent = (ITaskElement) parentElement;
 			plannedChildren.addAll(editorInput.getPlannedTasks());
 			plannedChildren.retainAll(parent.getChildren());
 		}

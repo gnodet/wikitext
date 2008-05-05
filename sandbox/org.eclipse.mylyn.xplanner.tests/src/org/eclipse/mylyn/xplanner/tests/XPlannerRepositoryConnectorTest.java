@@ -17,7 +17,7 @@ import junit.framework.TestCase;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.sync.SynchronizationContext;
 import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
@@ -53,7 +53,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 
 		assertTrue(testUserStory != null);
 
-		AbstractTask repositoryTask = TasksUiUtil.createTask(repository, "" + testUserStory.getId(), null);
+		ITask repositoryTask = TasksUiUtil.createTask(repository, "" + testUserStory.getId(), null);
 
 		assertTrue(repositoryTask instanceof XPlannerTask);
 		assertTrue(((XPlannerTask) repositoryTask).getSummary().equals(testUserStory.getName()));
@@ -66,7 +66,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 
 		assertTrue(testTask != null);
 
-		AbstractTask repositoryTask = TasksUiUtil.createTask(repository, "" + testTask.getId(), null);
+		ITask repositoryTask = TasksUiUtil.createTask(repository, "" + testTask.getId(), null);
 
 		assertTrue(repositoryTask instanceof XPlannerTask);
 		assertTrue(((XPlannerTask) repositoryTask).getSummary().equals(testTask.getName()));
@@ -109,8 +109,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 
 		assertTrue(connector instanceof XPlannerRepositoryConnector);
 
-		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getTasks(
-				repository.getRepositoryUrl());
+		Set<ITask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getTasks(repository.getRepositoryUrl());
 		if (tasks.size() == 0) {
 			testCreateTaskFromExistingKeyForUserStory();
 			tasks = TasksUiPlugin.getTaskListManager().getTaskList().getTasks(repository.getRepositoryUrl());
@@ -134,19 +133,19 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		}
 
 		assertTrue(event.performQueries);
-		for (AbstractTask task : tasks) {
+		for (ITask task : tasks) {
 			assertTrue(!task.isStale());
 		}
 	}
 
-	private void setSyncTimeStamp(TaskRepository repository, Set<AbstractTask> tasks) throws Exception {
+	private void setSyncTimeStamp(TaskRepository repository, Set<ITask> tasks) throws Exception {
 		if (tasks.size() == 0) {
 			return;
 		}
 
 		Date date = tasks.iterator().next().getCreationDate();
 		String timeStamp = XPlannerAttributeFactory.TIME_DATE_FORMAT.format(date);
-		for (AbstractTask task : tasks) {
+		for (ITask task : tasks) {
 			if (task instanceof XPlannerTask) {
 				TaskData taskData = client.getTask(Integer.valueOf(task.getTaskKey()).intValue());
 				if (taskData != null) {
@@ -172,14 +171,13 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		XPlannerRepositoryConnector xplannerConnector = (XPlannerRepositoryConnector) connector;
 
 		// make bad url
-		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getTasks(
-				repository.getRepositoryUrl());
+		Set<ITask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getTasks(repository.getRepositoryUrl());
 		setSyncTimeStamp(repository, tasks);
 
 		String goodUrl = repository.getRepositoryUrl();
 		repository.setRepositoryUrl(XPlannerTestUtils.BAD_REPOSITORY_LOCATION);
 		try {
-			Set<AbstractTask> changedTasks = xplannerConnector.getChangedSinceLastSync(repository, tasks);
+			Set<ITask> changedTasks = xplannerConnector.getChangedSinceLastSync(repository, tasks);
 			assertTrue(changedTasks != null);
 			assertTrue(changedTasks.size() == 0);
 		} catch (CoreException e) {

@@ -13,7 +13,7 @@ import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
 import org.eclipse.mylyn.internal.tasks.ui.deprecated.AbstractRepositoryTaskEditor;
 import org.eclipse.mylyn.internal.tasks.ui.deprecated.RepositoryTaskEditorInput;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskEditorFactory;
@@ -31,7 +31,7 @@ import org.eclipse.ui.IEditorPart;
 public class XPlannerTaskEditorFactory extends AbstractTaskEditorFactory {
 
 	@Override
-	public boolean canCreateEditorFor(AbstractTask task) {
+	public boolean canCreateEditorFor(ITask task) {
 		return task instanceof XPlannerTask;
 	}
 
@@ -44,7 +44,7 @@ public class XPlannerTaskEditorFactory extends AbstractTaskEditorFactory {
 			RepositoryTaskData taskData = ((RepositoryTaskEditorInput) editorInput).getTaskData();
 			kind = taskData.getTaskKind();
 		} else if (editorInput instanceof TaskEditorInput) {
-			AbstractTask task = ((TaskEditorInput) editorInput).getTask();
+			ITask task = ((TaskEditorInput) editorInput).getTask();
 			kind = task.getTaskKind();
 		}
 
@@ -65,7 +65,7 @@ public class XPlannerTaskEditorFactory extends AbstractTaskEditorFactory {
 	}
 
 	@Override
-	public IEditorInput createEditorInput(AbstractTask task) {
+	public IEditorInput createEditorInput(ITask task) {
 		IEditorInput input = null;
 
 		if (task instanceof XPlannerTask) {

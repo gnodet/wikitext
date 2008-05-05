@@ -39,6 +39,8 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.commons.net.WebClientUtil;
 import org.eclipse.mylyn.commons.net.WebLocation;
 import org.eclipse.mylyn.commons.net.WebUtil;
+import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.IdentityAttributeFactory;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractAttachmentHandler;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractLegacyRepositoryConnector;
@@ -47,8 +49,7 @@ import org.eclipse.mylyn.internal.tasks.core.deprecated.DefaultTaskSchema;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.LegacyTaskDataCollector;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.ITaskRepositoryManager;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.data.TaskDataCollector;
@@ -267,7 +268,7 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 
 	@Override
 	public void preSynchronization(SynchronizationContext event, IProgressMonitor monitor) throws CoreException {
-		for (AbstractTask task : event.tasks) {
+		for (ITask task : event.tasks) {
 			task.setStale(true);
 		}
 	}
@@ -300,7 +301,7 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 	}
 
 	@Override
-	public boolean updateTaskFromTaskData(TaskRepository repository, AbstractTask task, RepositoryTaskData taskData) {
+	public boolean updateTaskFromTaskData(TaskRepository repository, ITask task, RepositoryTaskData taskData) {
 		DefaultTaskSchema schema = new DefaultTaskSchema(taskData);
 		((WebTask) task).setTaskPrefix(schema.getValue(KEY_TASK_PREFIX));
 		return schema.applyTo(task);

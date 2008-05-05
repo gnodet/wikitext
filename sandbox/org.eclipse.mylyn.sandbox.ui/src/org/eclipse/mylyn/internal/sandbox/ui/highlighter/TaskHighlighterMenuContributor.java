@@ -16,9 +16,10 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.mylyn.internal.context.ui.HighlighterImageDescriptor;
 import org.eclipse.mylyn.internal.context.ui.actions.EditHighlightersAction;
 import org.eclipse.mylyn.internal.sandbox.ui.SandboxUiPlugin;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.ui.IDynamicSubMenuContributor;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
+import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.ITaskElement;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 
 /**
@@ -28,15 +29,15 @@ public class TaskHighlighterMenuContributor implements IDynamicSubMenuContributo
 
 	private static final String CHOOSE_HIGHLIGHTER = "Highlighter";
 
-	public MenuManager getSubMenuManager(final List<AbstractTaskContainer> selectedElements) {
+	public MenuManager getSubMenuManager(final List<ITaskElement> selectedElements) {
 		final MenuManager subMenuManager = new MenuManager(CHOOSE_HIGHLIGHTER);
 		for (final Highlighter highlighter : SandboxUiPlugin.getDefault().getHighlighters()) {
 			Action action = new Action() {
 				@Override
 				public void run() {
 					AbstractTask task = null;
-					for (AbstractTaskContainer selectedElement : selectedElements) {
-						if (selectedElement instanceof AbstractTask) {
+					for (ITaskElement selectedElement : selectedElements) {
+						if (selectedElement instanceof ITask) {
 							task = (AbstractTask) selectedElement;
 						}
 						if (task != null) {

@@ -8,7 +8,7 @@
 
 package org.eclipse.mylyn.internal.web.tasks;
 
-import org.eclipse.mylyn.tasks.core.AbstractTask;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 
 /**
  * Task used with generic web-based repositories

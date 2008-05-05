@@ -17,10 +17,11 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylyn.commons.core.StatusHandler;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.internal.tasks.core.TaskList;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
+import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IPersistableElement;
 import org.eclipse.ui.PlatformUI;
@@ -34,11 +35,11 @@ public class TaskActivityEditorInput implements IEditorInput {
 
 	private static final String TASK_ACTIVITY_REPORT = "Task Activity Report";
 
-	private Set<AbstractTask> completedTasks = new HashSet<AbstractTask>();
+	private Set<ITask> completedTasks = new HashSet<ITask>();
 
-	private Set<AbstractTask> inProgressTasks = new HashSet<AbstractTask>();
+	private Set<ITask> inProgressTasks = new HashSet<ITask>();
 
-	private final Set<AbstractTask> plannedTasks = new HashSet<AbstractTask>();
+	private final Set<ITask> plannedTasks = new HashSet<ITask>();
 
 	private TaskReportGenerator taskReportGenerator = null;
 
@@ -109,21 +110,21 @@ public class TaskActivityEditorInput implements IEditorInput {
 		return null;
 	}
 
-	public Set<AbstractTask> getCompletedTasks() {
+	public Set<ITask> getCompletedTasks() {
 		return completedTasks;
 	}
 
-	public Set<AbstractTask> getInProgressTasks() {
+	public Set<ITask> getInProgressTasks() {
 		return inProgressTasks;
 	}
 
-	public Set<AbstractTask> getPlannedTasks() {
+	public Set<ITask> getPlannedTasks() {
 		return plannedTasks;
 	}
 
 	public long getTotalTimeSpentOnCompletedTasks() {
 		long duration = 0;
-		for (AbstractTask t : completedTasks) {
+		for (ITask t : completedTasks) {
 			duration += TasksUiPlugin.getTaskActivityManager().getElapsedTime(t);
 		}
 		return duration;
@@ -131,7 +132,7 @@ public class TaskActivityEditorInput implements IEditorInput {
 
 	public long getTotalTimeSpentOnInProgressTasks() {
 		long duration = 0;
-		for (AbstractTask t : inProgressTasks) {
+		for (ITask t : inProgressTasks) {
 			duration += TasksUiPlugin.getTaskActivityManager().getElapsedTime(t);
 		}
 		return duration;
@@ -141,7 +142,7 @@ public class TaskActivityEditorInput implements IEditorInput {
 		return taskReportGenerator;
 	}
 
-	public boolean createdDuringReportPeriod(AbstractTask task) {
+	public boolean createdDuringReportPeriod(ITask task) {
 		Date creationDate = task.getCreationDate();
 		if (creationDate != null) {
 			return creationDate.compareTo(reportStartDate) > 0;
@@ -152,17 +153,17 @@ public class TaskActivityEditorInput implements IEditorInput {
 
 	public int getTotalTimeEstimated() {
 		int duration = 0;
-		for (AbstractTask task : inProgressTasks) {
+		for (ITask task : inProgressTasks) {
 			duration += task.getEstimatedTimeHours();
 		}
 		return duration;
 	}
 
-	public void removeCompletedTask(AbstractTask task) {
+	public void removeCompletedTask(ITask task) {
 		completedTasks.remove(task);
 	}
 
-	public void removeInProgressTask(AbstractTask task) {
+	public void removeInProgressTask(ITask task) {
 		inProgressTasks.remove(task);
 	}
 
@@ -170,13 +171,13 @@ public class TaskActivityEditorInput implements IEditorInput {
 		plannedTasks.add(task);
 	}
 
-	public void removePlannedTask(AbstractTask task) {
+	public void removePlannedTask(ITask task) {
 		plannedTasks.remove(task);
 	}
 
 	public int getPlannedEstimate() {
 		int estimated = 0;
-		for (AbstractTask task : plannedTasks) {
+		for (ITask task : plannedTasks) {
 			estimated += task.getEstimatedTimeHours();
 		}
 		return estimated;

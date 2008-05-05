@@ -20,11 +20,13 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.mylyn.commons.core.StatusHandler;
+import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.internal.tasks.core.TaskList;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
+import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.ITaskElement;
 
 /**
  * @author Ken Sueda
@@ -41,7 +43,7 @@ public class TaskReportGenerator implements IRunnableWithProgress {
 
 	private final List<ITaskCollector> collectors = new ArrayList<ITaskCollector>();
 
-	private final List<AbstractTask> tasks = new ArrayList<AbstractTask>();
+	private final List<ITask> tasks = new ArrayList<ITask>();
 
 	private final Set<AbstractTaskContainer> filterCategories;
 
@@ -82,7 +84,7 @@ public class TaskReportGenerator implements IRunnableWithProgress {
 
 		for (Object element : rootElements) {
 			monitor.worked(1);
-			if (element instanceof AbstractTask) {
+			if (element instanceof ITask) {
 				AbstractTask task = (AbstractTask) element;
 				for (ITaskCollector collector : collectors) {
 					collector.consumeTask(task);
@@ -90,14 +92,14 @@ public class TaskReportGenerator implements IRunnableWithProgress {
 			} else if (element instanceof AbstractRepositoryQuery) {
 				// process queries
 				AbstractRepositoryQuery repositoryQuery = (AbstractRepositoryQuery) element;
-				for (AbstractTask task : repositoryQuery.getChildren()) {
+				for (ITask task : repositoryQuery.getChildren()) {
 					for (ITaskCollector collector : collectors) {
 						collector.consumeTask(task);
 					}
 				}
-			} else if (element instanceof AbstractTaskContainer) {
-				AbstractTaskContainer cat = (AbstractTaskContainer) element;
-				for (AbstractTask task : cat.getChildren()) {
+			} else if (element instanceof ITaskElement) {
+				ITaskElement cat = (ITaskElement) element;
+				for (ITask task : cat.getChildren()) {
 					for (ITaskCollector collector : collectors) {
 						collector.consumeTask(task);
 					}
@@ -113,7 +115,7 @@ public class TaskReportGenerator implements IRunnableWithProgress {
 		monitor.done();
 	}
 
-	public List<AbstractTask> getAllCollectedTasks() {
+	public List<ITask> getAllCollectedTasks() {
 		return tasks;
 	}
 

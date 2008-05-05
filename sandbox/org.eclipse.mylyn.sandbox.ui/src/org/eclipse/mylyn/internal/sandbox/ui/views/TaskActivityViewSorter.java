@@ -12,9 +12,9 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskDelegate;
-import org.eclipse.mylyn.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.AbstractTaskContainer;
-import org.eclipse.mylyn.tasks.core.AbstractTask.PriorityLevel;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask.PriorityLevel;
+import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.ITaskElement;
 import org.eclipse.ui.IMemento;
 
 /**
@@ -148,8 +148,8 @@ public class TaskActivityViewSorter extends ViewerSorter {
 			} else {
 				return -1;
 			}
-		} else if (o1 instanceof AbstractTask) {
-			if (o2 instanceof AbstractTaskContainer) {
+		} else if (o1 instanceof ITask) {
+			if (o2 instanceof ITaskElement) {
 				return -1;
 			} else if (o2 instanceof ScheduledTaskDelegate) {
 				ScheduledTaskDelegate task1 = (ScheduledTaskDelegate) o1;

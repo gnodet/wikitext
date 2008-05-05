@@ -8,7 +8,7 @@
 package org.eclipse.mylyn.xplanner.ui.wizard;
 
 import org.eclipse.jface.wizard.IWizardPage;
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.xplanner.ui.XPlannerCustomQuery;
 import org.eclipse.swt.SWT;
