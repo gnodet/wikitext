@@ -14,8 +14,8 @@ import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
 /**
- * Display various {@link AbstractTask} properties in the Eclipse Properties View.<br />
- * See <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=210639">Bug 210639</a> and <a
+ * Display various {@link AbstractTask} properties in the Eclipse Properties View.<br /> See <a
+ * href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=210639">Bug 210639</a> and <a
  * href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=208275">Bug 208275</a><br />
  * 
  * @author Maarten Meijer
@@ -79,7 +79,8 @@ public class AbstractTaskPropertiesSource extends AbstractTaskContainerPropertyS
 		} else if (SCHEDULED.equals(id)) {
 			return task.getScheduledForDate() == null ? NULL_MSG : task.getScheduledForDate();
 		} else if (PARENT.equals(id)) {
-			return task.getParentContainers() == null ? NULL_MSG : task.getParentContainers().toString();
+			return ((AbstractTask) task).getParentContainers() == null ? NULL_MSG
+					: ((AbstractTask) task).getParentContainers().toString();
 		} else if (KIND.equals(id)) {
 			return task.getConnectorKind();
 		} else if (URL.equals(id)) {
