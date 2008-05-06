@@ -100,7 +100,7 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 
 		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(XPlannerMylynUIPlugin.REPOSITORY_KIND,
 				repositoryUrl);
-		AbstractTask existingTask = TasksUi.getTaskList().getTask(repository.getRepositoryUrl(), id);
+		AbstractTask existingTask = (AbstractTask) TasksUi.getTaskList().getTask(repository.getRepositoryUrl(), id);
 		if (existingTask instanceof XPlannerTask) {
 			task = existingTask;
 		} else {
