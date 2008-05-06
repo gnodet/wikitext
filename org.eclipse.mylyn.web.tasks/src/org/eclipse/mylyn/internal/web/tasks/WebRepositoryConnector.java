@@ -156,7 +156,7 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 //	}
 
 	@Override
-	public RepositoryTaskData getTaskData(TaskRepository repository, String taskId, IProgressMonitor monitor)
+	public RepositoryTaskData getLegacyTaskData(TaskRepository repository, String taskId, IProgressMonitor monitor)
 			throws CoreException {
 		if (REPOSITORY_TYPE.equals(repository.getConnectorKind())) {
 			String taskPrefix = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);

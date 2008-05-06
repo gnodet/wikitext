@@ -19,3 +19,8 @@
 1210024226420	Rename method 'deactivateAllTasks'
 1210026639316	Move compilation unit
 1210059268556	Move type
+1210061301373	Move compilation unit
+1210061713712	Rename method 'getTaskDataHandler2'
+1210061794206	Rename method 'getTaskData'
+1210061813764	Rename method 'getTaskData2'
+1210062310902	Move type
