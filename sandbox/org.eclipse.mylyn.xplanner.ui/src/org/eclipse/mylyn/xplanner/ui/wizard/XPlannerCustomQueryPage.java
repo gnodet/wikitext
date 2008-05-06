@@ -94,7 +94,6 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 
 	}
 
-	@Override
 	public void createControl(Composite parent) {
 		Composite dataComposite = new Composite(parent, SWT.NONE);
 		GridData gd = new GridData(GridData.FILL_BOTH);
@@ -125,8 +124,8 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 //	don't validate in beginning, so first time dialog comes up, no error message		
 //		validatePage();
 
-		if (scontainer != null) {
-			scontainer.setPerformActionEnabled(isPageComplete());
+		if (getSearchContainer() != null) {
+			getSearchContainer().setPerformActionEnabled(isPageComplete());
 		}
 
 		setControl(dataComposite);
@@ -401,7 +400,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 	public void validatePage() {
 		String errorMessage = null;
 		// need query name
-		if (getNameText().length() == 0) {
+		if (getQueryTitle().length() == 0) {
 			errorMessage = Messages.XPlannerCustomQueryPage_QUERY_NAME_NEEDED;
 		}
 
@@ -414,8 +413,8 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 
 		setErrorMessage(errorMessage);
 		setPageComplete(errorMessage == null);
-		if (scontainer != null) {
-			scontainer.setPerformActionEnabled(isPageComplete());
+		if (getSearchContainer() != null) {
+			getSearchContainer().setPerformActionEnabled(isPageComplete());
 		}
 	}
 
@@ -511,7 +510,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 			return;
 		}
 		// name
-		query.setQueryName(getNameText());
+		query.setQueryName(getQueryTitle());
 
 		// my current tasks?
 		if (myTasksButton.getSelection()) {
@@ -599,14 +598,15 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 //		
 //		return userStory;
 //	}
-	private String getNameText() {
+	@Override
+	public String getQueryTitle() {
 		return (nameText != null) ? nameText.getText() : "<search>"; //$NON-NLS-1$
 	}
 
 	@Override
 	public AbstractRepositoryQuery getQuery() {
 		if (getExistingQuery() == null) {
-			setExistingQuery(new XPlannerCustomQuery(getRepository().getRepositoryUrl(), getNameText()));
+			setExistingQuery(new XPlannerCustomQuery(getRepository().getRepositoryUrl(), getQueryTitle()));
 		}
 
 		applyChanges(getExistingQuery());
@@ -624,7 +624,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		if (isContentTypeTask()) {
 			// if don't have existing query, create one
 			if (getExistingQuery() == null) {
-				setExistingQuery(new XPlannerCustomQuery(getRepository().getRepositoryUrl(), getNameText()));
+				setExistingQuery(new XPlannerCustomQuery(getRepository().getRepositoryUrl(), getQueryTitle()));
 			}
 
 			applyChanges(getExistingQuery());
@@ -683,7 +683,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 
 			if (createQuery) {
 				String nameSuffix = Messages.XPlannerCustomQueryPage_USER_STORY + userStory.getName();
-				String queryName = getNameText();
+				String queryName = getQueryTitle();
 				if (!queryName.contains(nameSuffix)) {
 					queryName += nameSuffix;
 				}
@@ -712,4 +712,5 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		updateSelectionControls();
 		validatePage();
 	}
+
 }

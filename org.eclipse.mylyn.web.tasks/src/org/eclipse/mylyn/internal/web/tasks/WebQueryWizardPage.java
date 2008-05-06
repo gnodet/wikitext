@@ -78,8 +78,6 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 
 	private String webPage;
 
-	private final TaskRepository repository;
-
 	private final WebQuery query;
 
 	private UpdatePreviewJob updatePreviewJob;
@@ -92,13 +90,14 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 
 	private final ArrayList<ControlDecoration> decorations = new ArrayList<ControlDecoration>();
 
+	private Text title;
+
 	public WebQueryWizardPage(TaskRepository repository) {
 		this(repository, null);
 	}
 
 	public WebQueryWizardPage(TaskRepository repository, WebQuery query) {
-		super("New web query", query == null ? getDefaultQueryTitle(repository) : query.getSummary());
-		this.repository = repository;
+		super("New web query", repository);
 		this.query = query;
 		setTitle("Create web query");
 		setDescription("Specify query parameters for " + repository.getRepositoryUrl());
@@ -127,7 +126,35 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		}
 	}
 
+	private void createTitleGroup(Composite parent) {
+		Composite group = new Composite(parent, SWT.NONE);
+
+		GridLayout layout = new GridLayout(2, false);
+		group.setLayout(layout);
+
+		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
+		gd.horizontalSpan = 1;
+		group.setLayoutData(gd);
+
+		Label label = new Label(group, SWT.NONE);
+		label.setText("Query Title:");
+
+		title = new Text(group, SWT.BORDER);
+		title.setLayoutData(new GridData(GridData.FILL_HORIZONTAL | GridData.GRAB_HORIZONTAL));
+		title.setText(query == null ? getDefaultQueryTitle(getTaskRepository()) : query.getSummary());
+		title.addModifyListener(new ModifyListener() {
+			public void modifyText(ModifyEvent e) {
+				setPageComplete(isPageComplete());
+			}
+		});
+		title.setFocus();
+	}
+
 	@Override
+	public String getQueryTitle() {
+		return (title != null) ? title.getText() : null;
+	}
+
 	public void createControl(Composite parent) {
 		final Composite composite = new Composite(parent, SWT.NONE);
 		GridLayout gridLayout = new GridLayout();
@@ -137,7 +164,9 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		gridLayout.numColumns = 1;
 		composite.setLayout(gridLayout);
 
-		super.createControl(composite);
+		if (!inSearchContainer()) {
+			createTitleGroup(composite);
+		}
 
 		parametersEditor = new ParametersEditor(composite, SWT.NONE);
 		GridData gridData1 = new GridData(SWT.FILL, SWT.FILL, true, true);
@@ -299,11 +328,13 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 
 		LinkedHashMap<String, String> vars = new LinkedHashMap<String, String>();
 		Map<String, String> params = new LinkedHashMap<String, String>();
-		if (repository != null) {
-			queryUrlText.setText(addVars(vars, repository.getProperty(WebRepositoryConnector.PROPERTY_QUERY_URL)));
-			queryPatternText.setText(addVars(vars, repository.getProperty(WebRepositoryConnector.PROPERTY_QUERY_REGEXP)));
+		if (getTaskRepository() != null) {
+			queryUrlText.setText(addVars(vars, getTaskRepository().getProperty(
+					WebRepositoryConnector.PROPERTY_QUERY_URL)));
+			queryPatternText.setText(addVars(vars, getTaskRepository().getProperty(
+					WebRepositoryConnector.PROPERTY_QUERY_REGEXP)));
 
-			oldProperties = repository.getProperties();
+			oldProperties = getTaskRepository().getProperties();
 			params.putAll(oldProperties);
 		}
 		if (query != null) {
@@ -332,10 +363,10 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		String queryPattern = queryPatternText.getText();
 		Map<String, String> params = parametersEditor.getParameters();
 
-		String queryUrl = WebRepositoryConnector.evaluateParams(queryUrlTemplate, params, repository);
+		String queryUrl = WebRepositoryConnector.evaluateParams(queryUrlTemplate, params, getTaskRepository());
 
-		return new WebQuery(description, queryUrl, queryUrlTemplate, queryPattern,
-				repository.getProperty(WebRepositoryConnector.PROPERTY_TASK_URL), repository.getRepositoryUrl(), params);
+		return new WebQuery(description, queryUrl, queryUrlTemplate, queryPattern, getTaskRepository().getProperty(
+				WebRepositoryConnector.PROPERTY_TASK_URL), getTaskRepository().getRepositoryUrl(), params);
 	}
 
 	synchronized void updatePreview() {
@@ -356,10 +387,10 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		new Job("Opening Browser") {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
-				String evaluatedUrl = WebRepositoryConnector.evaluateParams(url, params, repository);
+				String evaluatedUrl = WebRepositoryConnector.evaluateParams(url, params, getTaskRepository());
 
 				try {
-					String webPage = WebRepositoryConnector.fetchResource(evaluatedUrl, params, repository);
+					String webPage = WebRepositoryConnector.fetchResource(evaluatedUrl, params, getTaskRepository());
 					File webPageFile = File.createTempFile("mylyn-web-connector", ".html");
 					webPageFile.deleteOnExit();
 
@@ -430,10 +461,10 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		@Override
 		protected IStatus run(IProgressMonitor monitor) {
 			String currentRegexp = regexp;
-			String queryPattern = WebRepositoryConnector.evaluateParams(currentRegexp, params, repository);
-			String evaluatedUrl = WebRepositoryConnector.evaluateParams(url, params, repository);
-			String taskPrefix = WebRepositoryConnector.evaluateParams(
-					repository.getProperty(WebRepositoryConnector.PROPERTY_TASK_URL), params, repository);
+			String queryPattern = WebRepositoryConnector.evaluateParams(currentRegexp, params, getTaskRepository());
+			String evaluatedUrl = WebRepositoryConnector.evaluateParams(url, params, getTaskRepository());
+			String taskPrefix = WebRepositoryConnector.evaluateParams(getTaskRepository().getProperty(
+					WebRepositoryConnector.PROPERTY_TASK_URL), params, getTaskRepository());
 			active = true;
 			do {
 				final MultiStatus queryStatus = new MultiStatus(TasksUiPlugin.ID_PLUGIN, IStatus.OK, "Query result",
@@ -441,7 +472,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 				final List<RepositoryTaskData> queryHits = new ArrayList<RepositoryTaskData>();
 				try {
 					if (webPage == null) {
-						webPage = WebRepositoryConnector.fetchResource(evaluatedUrl, params, repository);
+						webPage = WebRepositoryConnector.fetchResource(evaluatedUrl, params, getTaskRepository());
 					}
 
 					ITaskFactory taskFactory = new ITaskFactory() {
@@ -460,9 +491,10 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 					IStatus status;
 					if (queryPattern != null && queryPattern.trim().length() > 0) {
 						status = WebRepositoryConnector.performQuery(webPage, queryPattern, taskPrefix, monitor,
-								collector, repository);
+								collector, getTaskRepository());
 					} else {
-						status = WebRepositoryConnector.performRssQuery(evaluatedUrl, monitor, collector, repository);
+						status = WebRepositoryConnector.performRssQuery(evaluatedUrl, monitor, collector,
+								getTaskRepository());
 					}
 
 					if (!status.isOK()) {
@@ -483,11 +515,12 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 				Display.getDefault().asyncExec(new Runnable() {
 					public void run() {
 						WebRepositoryConnector connector = (WebRepositoryConnector) TasksUi.getRepositoryManager()
-								.getRepositoryConnector(repository.getConnectorKind());
+								.getRepositoryConnector(getTaskRepository().getConnectorKind());
 						List<AbstractTask> tasks = new ArrayList<AbstractTask>();
 						for (RepositoryTaskData hit : queryHits) {
-							AbstractTask task = connector.createTask(repository.getRepositoryUrl(), hit.getTaskId(), "");
-							connector.updateTaskFromTaskData(repository, task, hit);
+							AbstractTask task = connector.createTask(getTaskRepository().getRepositoryUrl(),
+									hit.getTaskId(), "");
+							connector.updateTaskFromTaskData(getTaskRepository(), task, hit);
 							tasks.add(task);
 						}
 						updatePreviewTable(tasks, queryStatus);

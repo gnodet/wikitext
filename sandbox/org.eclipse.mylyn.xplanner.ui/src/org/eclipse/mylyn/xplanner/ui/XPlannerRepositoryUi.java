@@ -16,7 +16,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.TaskSelection;
@@ -24,6 +23,7 @@ import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
+import org.eclipse.mylyn.tasks.ui.wizards.ITaskSearchPage;
 import org.eclipse.mylyn.xplanner.ui.wizard.EditXPlannerQueryWizard;
 import org.eclipse.mylyn.xplanner.ui.wizard.Messages;
 import org.eclipse.mylyn.xplanner.ui.wizard.NewXPlannerQueryWizard;
@@ -63,17 +63,14 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 	}
 
 	@Override
-	public WizardPage getSearchPage(TaskRepository repository, IStructuredSelection selection) {
-		WizardPage xplannerQueryPage = null;
-
+	public ITaskSearchPage getSearchPage(TaskRepository repository, IStructuredSelection selection) {
 		try {
-			xplannerQueryPage = new XPlannerCustomQueryPage(repository, null);
+			return new XPlannerCustomQueryPage(repository, null);
 		} catch (RuntimeException e) {
 			XPlannerMylynUIPlugin.log(e.getCause(),
 					Messages.XPlannerQueryWizardUtils_COULD_NOT_CREATE_QUERY_PAGE_MESSAGE, true);
+			return null;
 		}
-
-		return xplannerQueryPage;
 	}
 
 	@Override

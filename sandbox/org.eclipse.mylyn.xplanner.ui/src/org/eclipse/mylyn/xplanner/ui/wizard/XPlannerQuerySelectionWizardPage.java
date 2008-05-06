@@ -40,7 +40,6 @@ public class XPlannerQuerySelectionWizardPage extends AbstractXPlannerQueryWizar
 		setDescription(DESCRIPTION);
 	}
 
-	@Override
 	public void createControl(Composite parent) {
 		final Composite innerComposite = new Composite(parent, SWT.NONE);
 		innerComposite.setLayoutData(new GridData());
@@ -86,6 +85,11 @@ public class XPlannerQuerySelectionWizardPage extends AbstractXPlannerQueryWizar
 
 	@Override
 	protected String getHelpContextId() {
+		return null;
+	}
+
+	@Override
+	public String getQueryTitle() {
 		return null;
 	}
 

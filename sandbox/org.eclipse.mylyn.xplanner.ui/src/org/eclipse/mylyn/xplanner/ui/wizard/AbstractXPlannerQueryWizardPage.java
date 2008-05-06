@@ -28,8 +28,7 @@ public abstract class AbstractXPlannerQueryWizardPage extends AbstractRepository
 	}
 
 	public AbstractXPlannerQueryWizardPage(TaskRepository repository, XPlannerCustomQuery existingQuery) {
-		super(TITLE);
-		this.repository = repository;
+		super(TITLE, repository);
 		this.existingQuery = existingQuery;
 		setTitle(TITLE);
 		setPageComplete(true);
@@ -39,7 +38,7 @@ public abstract class AbstractXPlannerQueryWizardPage extends AbstractRepository
 	public abstract AbstractRepositoryQuery getQuery();
 
 	public TaskRepository getRepository() {
-		return repository;
+		return getTaskRepository();
 	}
 
 	public XPlannerCustomQuery getExistingQuery() {

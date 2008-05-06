@@ -1,3 +1,7 @@
 1209970082393	Change method 'getSubMenuManager'
 1210027341683	Rename type 'ActivityContextExternalizationParticipant'
 1210027646921	Change method 'parseInteractionEvent'
+1210053500921	Extract method 'getSearchPage'
+1210054321462	Encapsulate field 'repository'
+1210054896693	Extract local variable 'text'
+1210056470986	Rename method 'performAction'

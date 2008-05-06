@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Composite;
  * @since 3.0
  */
 public class ErrorQueryPage extends AbstractXPlannerQueryWizardPage {
+
 	private final TaskRepository taskRepository;
 
 	public ErrorQueryPage(TaskRepository taskRepository, String errorMessage) {
@@ -26,7 +27,6 @@ public class ErrorQueryPage extends AbstractXPlannerQueryWizardPage {
 		setErrorMessage(errorMessage);
 	}
 
-	@Override
 	public void createControl(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
 		composite.setLayout(new GridLayout());
@@ -51,6 +51,11 @@ public class ErrorQueryPage extends AbstractXPlannerQueryWizardPage {
 	@Override
 	public boolean canFlipToNextPage() {
 		return false;
+	}
+
+	@Override
+	public String getQueryTitle() {
+		return null;
 	}
 
 }
