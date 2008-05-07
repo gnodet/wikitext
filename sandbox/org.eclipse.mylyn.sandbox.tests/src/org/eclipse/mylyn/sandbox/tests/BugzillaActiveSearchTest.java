@@ -274,7 +274,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 		assertEquals("Results not the right size", 3, c.size());
 
 		MylynBugsManager.getBridge().removeFromLandmarksHash(astNodeType);
-		TasksUiPlugin.getTaskListManager().getTaskList().deleteCategory(cat);
+		TasksUiPlugin.getTaskList().deleteCategory(cat);
 	}
 
 	// TODO need to test a bug that wraps...should fail since we can only search
@@ -332,7 +332,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 		assertEquals("Results not the right size", 1, c.size());
 
 		MylynBugsManager.getBridge().removeFromLandmarksHash(astNodeType);
-		TasksUiPlugin.getTaskListManager().getTaskList().deleteCategory(cat);
+		TasksUiPlugin.getTaskList().deleteCategory(cat);
 	}
 
 }

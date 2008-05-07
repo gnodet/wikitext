@@ -270,7 +270,7 @@ public class XPlannerTestUtils {
 	}
 
 	public static ITaskList getTaskList() {
-		ITaskList taskList = TasksUiPlugin.getTaskListManager().getTaskList();
+		ITaskList taskList = TasksUiPlugin.getTaskList();
 		TasksUiPlugin.getTaskListManager().saveTaskList();
 
 		return taskList;

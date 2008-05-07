@@ -54,7 +54,7 @@ public class BugSubmissionHandler {
 
 	public void submitBugReport(BugzillaReportSubmitForm form, IJobChangeListener listener, boolean synchExec,
 			boolean addToTaskListRoot) {
-		submitBugReport(form, listener, synchExec, addToTaskListRoot ? TasksUiPlugin.getTaskListManager().getTaskList()
+		submitBugReport(form, listener, synchExec, addToTaskListRoot ? TasksUiPlugin.getTaskList()
 				.getRootCategory() : null);
 	}
 
@@ -146,9 +146,9 @@ public class BugSubmissionHandler {
 				"<bugzilla info>", true);
 
 		if (category != null) {
-			TasksUiPlugin.getTaskListManager().getTaskList().addTask(newTask, category);
+			TasksUiPlugin.getTaskList().addTask(newTask, category);
 		} else {
-			TasksUiPlugin.getTaskListManager().getTaskList().addTask(newTask);
+			TasksUiPlugin.getTaskList().addTask(newTask);
 		}
 		TasksUiPlugin.getSynchronizationScheduler().synchNow(0, Collections.singletonList(repository));
 
@@ -159,9 +159,9 @@ public class BugSubmissionHandler {
 		try {
 			String handle = AbstractTask.getHandle(repositoryTaskData.getRepositoryUrl(), repositoryTaskData
 					.getId());
-			final ITask task = TasksUiPlugin.getTaskListManager().getTaskList().getTask(handle);
+			final ITask task = TasksUiPlugin.getTaskList().getTask(handle);
 			if (task != null) {				
-				Set<AbstractRepositoryQuery> queriesWithHandle = TasksUiPlugin.getTaskListManager().getTaskList()
+				Set<AbstractRepositoryQuery> queriesWithHandle = TasksUiPlugin.getTaskList()
 						.getQueriesForHandle(task.getHandleIdentifier());
 				TasksUiPlugin.getSynchronizationManager().synchronize(connector, queriesWithHandle, null, Job.SHORT, 0,
 						false);

@@ -280,7 +280,7 @@ public class BugzillaSearchEngine {
 //		// // ignore, for testing
 //		// }
 //
-//		BugzillaQueryHit hit = new BugzillaQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), description,
+//		BugzillaQueryHit hit = new BugzillaQueryHit(TasksUiPlugin.getTaskList(), description,
 //				priority, serverUrl, String.valueOf(id), null, state);
 //
 //		return hit;

@@ -69,20 +69,20 @@ public class NewLocalTaskAction extends Action implements IViewActionDelegate {
 			selectedObject = ((IStructuredSelection) view.getViewer().getSelection()).getFirstElement();
 		}
 		if (selectedObject instanceof TaskCategory) {
-			TasksUiPlugin.getTaskListManager().getTaskList().addTask(newTask, (TaskCategory) selectedObject);
+			TasksUiPlugin.getTaskList().addTask(newTask, (TaskCategory) selectedObject);
 		} else if (selectedObject instanceof ITask) {
 			ITask task = (ITask) selectedObject;
 			if (task.getContainer() instanceof TaskCategory) {
-				TasksUiPlugin.getTaskListManager().getTaskList().addTask(newTask, task.getContainer());
+				TasksUiPlugin.getTaskList().addTask(newTask, task.getContainer());
 			} else if (view != null && view.getDrilledIntoCategory() instanceof TaskCategory) {
-				TasksUiPlugin.getTaskListManager().getTaskList().addTask(newTask,
+				TasksUiPlugin.getTaskList().addTask(newTask,
 						view.getDrilledIntoCategory());
 			} else {
-				TasksUiPlugin.getTaskListManager().getTaskList().addTask(newTask,
-						TasksUiPlugin.getTaskListManager().getTaskList().getUncategorizedCategory());
+				TasksUiPlugin.getTaskList().addTask(newTask,
+						TasksUiPlugin.getTaskList().getUncategorizedCategory());
 			}
 		} else if (view != null && view.getDrilledIntoCategory() instanceof TaskCategory) {
-			TasksUiPlugin.getTaskListManager().getTaskList().addTask(newTask,
+			TasksUiPlugin.getTaskList().addTask(newTask,
 					view.getDrilledIntoCategory());
 		} else {
 			if (view != null && view.getDrilledIntoCategory() != null) {
@@ -90,8 +90,8 @@ public class NewLocalTaskAction extends Action implements IViewActionDelegate {
 						.openInformation(Display.getCurrent().getActiveShell(), ITasksUiConstants.TITLE_DIALOG,
 								"The new task has been added to the root of the list, since tasks can not be added to a query.");
 			}
-			TasksUiPlugin.getTaskListManager().getTaskList().addTask(newTask,
-					TasksUiPlugin.getTaskListManager().getTaskList().getUncategorizedCategory());
+			TasksUiPlugin.getTaskList().addTask(newTask,
+					TasksUiPlugin.getTaskList().getUncategorizedCategory());
 		}
 
 		TasksUiUtil.openEditor(newTask, true);

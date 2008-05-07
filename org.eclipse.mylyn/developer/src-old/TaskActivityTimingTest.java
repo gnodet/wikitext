@@ -58,7 +58,7 @@ public class TaskActivityTimingTest extends TestCase {
 
 	public void tearDown() {
 		TasksUiPlugin.getTaskListManager().deactivateTask(task1);
-		ITask remaining = TasksUiPlugin.getTaskListManager().getTaskList().getActiveTask();
+		ITask remaining = TasksUiPlugin.getTaskList().getActiveTask();
 		if (remaining != null) {
 			TasksUiPlugin.getTaskListManager().deactivateTask(remaining);
 		}

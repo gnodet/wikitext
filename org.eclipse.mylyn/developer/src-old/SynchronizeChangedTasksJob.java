@@ -58,7 +58,7 @@ public class SynchronizeChangedTasksJob extends Job {
 		try {
 			monitor.beginTask("Synchronizing changed tasks", IProgressMonitor.UNKNOWN);
 			
-			TaskList taskList = TasksUiPlugin.getTaskListManager().getTaskList();
+			TaskList taskList = TasksUiPlugin.getTaskList();
 			Set<AbstractTask> tasks = taskList.getRepositoryTasks(repository.getUrl());
 
 			boolean changed = connector.markStaleTasks(repository, tasks, new SubProgressMonitor(monitor, 1));

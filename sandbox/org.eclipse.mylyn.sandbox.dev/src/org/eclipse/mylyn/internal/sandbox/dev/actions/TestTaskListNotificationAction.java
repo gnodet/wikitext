@@ -18,7 +18,6 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.notifications.TaskListNotificationReminder;
-import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 
@@ -38,7 +37,7 @@ public class TestTaskListNotificationAction implements IWorkbenchWindowActionDel
 	}
 
 	public void run(IAction action) {
-		Collection<AbstractTask> allTasks = TasksUi.getTaskList().getAllTasks();
+		Collection<AbstractTask> allTasks = TasksUiPlugin.getTaskList().getAllTasks();
 		Iterator<AbstractTask> iterator = allTasks.iterator();
 		Set<TaskListNotificationReminder> dummyNotifications = new HashSet<TaskListNotificationReminder>();
 		for (int i = 0; i < 6; i++) {

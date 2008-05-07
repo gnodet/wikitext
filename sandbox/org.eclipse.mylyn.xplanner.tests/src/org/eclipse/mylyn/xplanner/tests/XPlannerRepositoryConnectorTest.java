@@ -109,10 +109,10 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 
 		assertTrue(connector instanceof XPlannerRepositoryConnector);
 
-		Set<ITask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getTasks(repository.getRepositoryUrl());
+		Set<ITask> tasks = TasksUiPlugin.getTaskList().getTasks(repository.getRepositoryUrl());
 		if (tasks.size() == 0) {
 			testCreateTaskFromExistingKeyForUserStory();
-			tasks = TasksUiPlugin.getTaskListManager().getTaskList().getTasks(repository.getRepositoryUrl());
+			tasks = TasksUiPlugin.getTaskList().getTasks(repository.getRepositoryUrl());
 		}
 		setSyncTimeStamp(repository, tasks);
 
@@ -171,7 +171,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		XPlannerRepositoryConnector xplannerConnector = (XPlannerRepositoryConnector) connector;
 
 		// make bad url
-		Set<ITask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getTasks(repository.getRepositoryUrl());
+		Set<ITask> tasks = TasksUiPlugin.getTaskList().getTasks(repository.getRepositoryUrl());
 		setSyncTimeStamp(repository, tasks);
 
 		String goodUrl = repository.getRepositoryUrl();

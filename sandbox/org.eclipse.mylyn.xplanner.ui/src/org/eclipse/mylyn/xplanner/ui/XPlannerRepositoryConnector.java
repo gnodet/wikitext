@@ -307,7 +307,7 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 //		
 //		for (UserStoryData data : userStories) {
 //			String id = String.valueOf(data.getId());
-//			ITask task = TasksUiPlugin.getTaskListManager().getTaskList().getTask(repository.getUrl(), id);
+//			ITask task = TasksUiPlugin.getTaskList().getTask(repository.getUrl(), id);
 //			if (task != null) {
 //				updateTaskDetails(repository.getUrl(), (XPlannerTask) task, data, false);
 //			}

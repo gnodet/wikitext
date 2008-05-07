@@ -114,7 +114,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 	private static String getDefaultQueryTitle(TaskRepository repository) {
 		String label = repository.getRepositoryLabel();
 		String title = label;
-		Set<AbstractRepositoryQuery> queries = TasksUiPlugin.getTaskListManager().getTaskList().getRepositoryQueries(
+		Set<AbstractRepositoryQuery> queries = TasksUiPlugin.getTaskList().getRepositoryQueries(
 				repository.getRepositoryUrl());
 		for (int n = 1; true; n++) {
 			for (AbstractRepositoryQuery query : queries) {

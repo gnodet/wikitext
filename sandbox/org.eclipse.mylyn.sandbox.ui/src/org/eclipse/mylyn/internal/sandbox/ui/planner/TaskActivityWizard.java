@@ -46,7 +46,7 @@ public class TaskActivityWizard extends Wizard implements INewWizard {
 			}
 			IEditorInput input = new TaskActivityEditorInput(planningGamePage.getReportStartDate(),
 					planningGamePage.getReportEndDate(), planningGamePage.getSelectedContainers(),
-					TasksUiPlugin.getTaskListManager().getTaskList());
+					TasksUiPlugin.getTaskList());
 			page.openEditor(input, TasksUi.ID_PLANNING_PAGE);
 		} catch (PartInitException e) {
 			StatusHandler.log(new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, "Could not open summary editor", e));

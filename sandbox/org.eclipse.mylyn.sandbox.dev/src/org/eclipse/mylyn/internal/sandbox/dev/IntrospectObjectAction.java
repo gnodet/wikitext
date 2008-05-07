@@ -18,6 +18,7 @@ import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
+import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
@@ -68,8 +69,8 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 					task = (AbstractTask) object;
 				}
 				if (task != null) {
-					TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
-							task.getConnectorKind(), task.getRepositoryUrl());
+					TaskRepository repository = TasksUi.getRepositoryManager().getRepository(task.getConnectorKind(),
+							task.getRepositoryUrl());
 					text += "\nHandle Identifier: " + task.getHandleIdentifier();
 					text += "\nLast time in SYNCHRONIZED state: " + task.getLastReadTimeStamp();
 					if (repository != null) {
@@ -87,8 +88,8 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 					}
 				}
 			}
-			text += "\n\nNum tasks: " + TasksUi.getTaskList().getAllTasks().size();
-			text += "\nNum queries: " + TasksUi.getTaskList().getQueries().size();
+			text += "\n\nNum tasks: " + TasksUiPlugin.getTaskList().getAllTasks().size();
+			text += "\nNum queries: " + TasksUiPlugin.getTaskList().getQueries().size();
 
 			MessageDialog.openInformation(null, "Mylyn Sandbox", text);
 		}

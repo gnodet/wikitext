@@ -56,7 +56,7 @@ public class BugzillaUiBridge extends AbstractContextUiBridge {
 			bugHandle = bugHandle.substring(0, next);
 		}
 
-		final AbstractTask task = TasksUiPlugin.getTaskListManager().getTaskList().getTask(handle);
+		final AbstractTask task = TasksUiPlugin.getTaskList().getTask(handle);
 		if (task != null) {
 			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 				public void run() {

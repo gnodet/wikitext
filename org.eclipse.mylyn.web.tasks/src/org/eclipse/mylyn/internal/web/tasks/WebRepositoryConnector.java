@@ -144,7 +144,7 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 //				@Override
 //				protected void setTitle(String pageTitle) {
 //					task.setSummary(pageTitle);
-//					TasksUiPlugin.getTaskListManager().getTaskList().notifyTaskChanged(task, false);
+//					TasksUiPlugin.getTaskList().notifyTaskChanged(task, false);
 //				}
 //			};
 //			job.schedule();

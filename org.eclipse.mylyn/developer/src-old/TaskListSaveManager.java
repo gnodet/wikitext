@@ -65,7 +65,7 @@ public class TaskListSaveManager implements ITaskListChangeListener, IBackground
 		saveTimer.start();
 
 		taskListSaverJob = new TaskListSaverJob();
-		//taskListSaverJob.setRule(TasksUiPlugin.getTaskListManager().getTaskList());
+		//taskListSaverJob.setRule(TasksUiPlugin.getTaskList());
 		taskListSaverJob.schedule();
 	}
 

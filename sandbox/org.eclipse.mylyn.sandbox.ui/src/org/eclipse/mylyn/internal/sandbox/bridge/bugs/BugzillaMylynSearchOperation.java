@@ -151,17 +151,17 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 		String elementName = getFullyQualifiedName(javaElement);
 
 		// setup the search result collector
-		collector = new ProgressQueryHitCollector(TasksUi.getTaskList(), new TaskFactory(null));//SearchHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());
+		collector = new ProgressQueryHitCollector(TasksUi.getTaskList(), new TaskFactory(null));//SearchHitCollector(TasksUiPlugin.getTaskList());
 		//collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
 
 		// get all of the root tasks and start the search
 		// FIXME
-//		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getOrphanContainer(
+//		Set<AbstractTask> tasks = TasksUiPlugin.getTaskList().getOrphanContainer(
 //				LocalRepositoryConnector.REPOSITORY_URL).getChildren();
 		Set<ITask> tasks = new HashSet<ITask>();
 		searchLocal(tasks, collector, elementName, monitor);
-		for (ITaskElement cat : TasksUiPlugin.getTaskListManager().getTaskList().getTaskContainers()) {
+		for (ITaskElement cat : TasksUiPlugin.getTaskList().getTaskContainers()) {
 			searchLocal(cat.getChildren(), collector, elementName, monitor);
 		}
 
@@ -183,17 +183,17 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 		String elementName = javaElement.getElementName();
 
 		// setup the search result collector
-		collector = new ProgressQueryHitCollector(TasksUi.getTaskList(), new TaskFactory(null));//SearchHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());
+		collector = new ProgressQueryHitCollector(TasksUi.getTaskList(), new TaskFactory(null));//SearchHitCollector(TasksUiPlugin.getTaskList());
 		//collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
 
 		// get all of the root tasks and start the search
 		// FIXME
-//		Set<AbstractTask> tasks = TasksUiPlugin.getTaskListManager().getTaskList().getOrphanContainer(
+//		Set<AbstractTask> tasks = TasksUiPlugin.getTaskList().getOrphanContainer(
 //				LocalRepositoryConnector.REPOSITORY_URL).getChildren();
 		Set<ITask> tasks = new HashSet<ITask>();
 		searchLocal(tasks, collector, elementName, monitor);
-		for (ITaskElement cat : TasksUiPlugin.getTaskListManager().getTaskList().getTaskContainers()) {
+		for (ITaskElement cat : TasksUiPlugin.getTaskList().getTaskContainers()) {
 			searchLocal(cat.getChildren(), collector, elementName, monitor);
 		}
 		// return the collector
@@ -238,7 +238,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 				// determine if we have a hit or not
 				if (isHit) {
 //					// make a search hit from the bug and then add it to the collector
-//					BugzillaQueryHit hit = new BugzillaQueryHit(TasksUiPlugin.getTaskListManager().getTaskList(), bugTaskData.getDescription(), "", bugTaskData.getRepositoryUrl(), bugTaskData.getId(), null, "");
+//					BugzillaQueryHit hit = new BugzillaQueryHit(TasksUiPlugin.getTaskList(), bugTaskData.getDescription(), "", bugTaskData.getRepositoryUrl(), bugTaskData.getId(), null, "");
 //					BugzillaTask task = new BugzillaTask();
 					// FIXME
 					//					searchCollector.accept(bugTask);
@@ -338,7 +338,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 	@SuppressWarnings("deprecation")
 	private ProgressQueryHitCollector searchQualified(String repositoryUrl, IProgressMonitor monitor) {
 		// create a new collector for the results
-		collector = new ProgressQueryHitCollector(TasksUi.getTaskList(), new TaskFactory(null));//SearchHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());
+		collector = new ProgressQueryHitCollector(TasksUi.getTaskList(), new TaskFactory(null));//SearchHitCollector(TasksUiPlugin.getTaskList());
 		//collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
 
@@ -359,7 +359,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 	@SuppressWarnings("deprecation")
 	private ProgressQueryHitCollector searchUnqualified(String repositoryUrl, IProgressMonitor monitor) {
 		// create a new collector for the results
-		collector = new ProgressQueryHitCollector(TasksUi.getTaskList(), new TaskFactory(null));//SearchHitCollector(TasksUiPlugin.getTaskListManager().getTaskList());
+		collector = new ProgressQueryHitCollector(TasksUi.getTaskList(), new TaskFactory(null));//SearchHitCollector(TasksUiPlugin.getTaskList());
 		//collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
 
