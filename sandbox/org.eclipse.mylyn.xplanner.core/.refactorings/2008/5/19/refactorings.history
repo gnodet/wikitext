@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 1 elements(s) to &apos;org.eclipse.mylyn.xplanner.tests&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.xplanner.core&apos;&#x0A;- Destination element: &apos;org.eclipse.mylyn.xplanner.tests&apos;&#x0A;- Original element: &apos;about.html&apos;" description="Copy file" destination="=org.eclipse.mylyn.xplanner.tests" element1="about.html" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1210120724513" units="0" version="1.0"/>
+</session>
