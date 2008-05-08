@@ -56,7 +56,7 @@ public abstract class AbstractTaskContainerPropertySource implements IPropertySo
 	}
 
 	protected void getDescendantsHelper(ITaskElement parent, Set<ITask> visited, ITaskElement root) {
-		for (ITask child : parent.getChildrenInternal()) {
+		for (ITask child : parent.getChildren()) {
 			if (child == root) {
 				cyclic = true;
 			}
@@ -85,7 +85,7 @@ public abstract class AbstractTaskContainerPropertySource implements IPropertySo
 		}
 
 		parentStack.add(parent);
-		for (ITask child : parent.getChildrenInternal()) {
+		for (ITask child : parent.getChildren()) {
 			if (parentStack.contains(child)) {
 				cyclic = true;
 				return;
@@ -108,7 +108,7 @@ public abstract class AbstractTaskContainerPropertySource implements IPropertySo
 
 	public Object getPropertyValue(Object id) {
 		if (CHILDREN.equals(id)) {
-			return container.getChildrenInternal().size();
+			return container.getChildren().size();
 		} else if (DESCENDANDS.equals(id)) {
 			return getDescendants(container).size();
 		} else if (IS_CYCLIC.equals(id)) {

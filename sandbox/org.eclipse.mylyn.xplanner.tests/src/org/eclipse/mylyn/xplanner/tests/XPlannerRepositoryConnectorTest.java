@@ -153,8 +153,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 					lastUpdateTime.setTime(date);
 					taskData.setLastUpdateTime(lastUpdateTime);
 				}
-
-				task.setLastReadTimeStamp(timeStamp);
+				((XPlannerTask) task).setLastReadTimeStamp(timeStamp);
 			}
 		}
 
