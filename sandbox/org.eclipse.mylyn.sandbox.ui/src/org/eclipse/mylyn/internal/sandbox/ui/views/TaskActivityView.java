@@ -38,6 +38,7 @@ import org.eclipse.mylyn.internal.tasks.core.DateRange;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.actions.OpenTaskListElementAction;
+import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskElementLabelProvider;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
 import org.eclipse.mylyn.tasks.core.ITask;
@@ -155,14 +156,14 @@ public class TaskActivityView extends ViewPart {
 	public TaskActivityView() {
 		INSTANCE = this;
 		TasksUi.getTaskActivityManager().addActivityListener(TASK_ACTIVITY_LISTENER);
-		TasksUi.getTaskList().addChangeListener(TASKLIST_CHANGE_LISTENER);
+		TasksUiInternal.getTaskList().addChangeListener(TASKLIST_CHANGE_LISTENER);
 	}
 
 	@Override
 	public void dispose() {
 		super.dispose();
 		TasksUi.getTaskActivityManager().removeActivityListener(TASK_ACTIVITY_LISTENER);
-		TasksUi.getTaskList().removeChangeListener(TASKLIST_CHANGE_LISTENER);
+		TasksUiInternal.getTaskList().removeChangeListener(TASKLIST_CHANGE_LISTENER);
 	}
 
 	@Override

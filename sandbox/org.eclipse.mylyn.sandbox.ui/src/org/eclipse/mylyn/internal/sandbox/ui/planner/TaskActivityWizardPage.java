@@ -24,9 +24,9 @@ import org.eclipse.mylyn.internal.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.internal.tasks.core.TaskActivityUtil;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPreferenceConstants;
+import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskElementLabelProvider;
 import org.eclipse.mylyn.tasks.core.ITaskElement;
-import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -217,8 +217,8 @@ public class TaskActivityWizardPage extends WizardPage {
 		createFilterTable(categorySelectionGroup, true);
 
 		List<AbstractTaskContainer> containers = new ArrayList<AbstractTaskContainer>();
-		containers.addAll(TasksUi.getTaskList().getCategories());
-		containers.addAll(TasksUi.getTaskList().getQueries());
+		containers.addAll(TasksUiInternal.getTaskList().getCategories());
+		containers.addAll(TasksUiInternal.getTaskList().getQueries());
 		//containers.add(manager.getTaskList().getArchiveContainer());
 		Collections.sort(containers, new Comparator<AbstractTaskContainer>() {
 

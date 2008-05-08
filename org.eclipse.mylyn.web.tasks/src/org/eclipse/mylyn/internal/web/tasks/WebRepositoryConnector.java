@@ -48,6 +48,7 @@ import org.eclipse.mylyn.internal.tasks.core.deprecated.DefaultTaskSchema;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.LegacyTaskDataCollector;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.ITaskRepositoryManager;
@@ -195,7 +196,7 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 			}
 		}
 
-		for (IRepositoryQuery query : TasksUi.getTaskList().getQueries()) {
+		for (IRepositoryQuery query : TasksUiInternal.getTaskList().getQueries()) {
 			if (query instanceof WebQuery) {
 				WebQuery webQuery = (WebQuery) query;
 				TaskRepository repository = repositoryManager.getRepository(webQuery.getConnectorKind(),

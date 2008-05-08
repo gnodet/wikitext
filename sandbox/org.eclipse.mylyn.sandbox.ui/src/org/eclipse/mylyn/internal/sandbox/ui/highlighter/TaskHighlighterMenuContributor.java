@@ -18,9 +18,9 @@ import org.eclipse.mylyn.internal.context.ui.actions.EditHighlightersAction;
 import org.eclipse.mylyn.internal.sandbox.ui.SandboxUiPlugin;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.ui.IDynamicSubMenuContributor;
+import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.ITaskElement;
-import org.eclipse.mylyn.tasks.ui.TasksUi;
 
 /**
  * @author Mik Kersten
@@ -43,7 +43,7 @@ public class TaskHighlighterMenuContributor implements IDynamicSubMenuContributo
 						if (task != null) {
 							SandboxUiPlugin.getDefault().setHighlighterMapping(task.getHandleIdentifier(),
 									highlighter.getName());
-							TasksUi.getTaskList().notifyTaskChanged(task, false);
+							TasksUiInternal.getTaskList().notifyTaskChanged(task, false);
 						}
 					}
 				}

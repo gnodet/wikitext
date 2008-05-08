@@ -38,6 +38,7 @@ import org.eclipse.mylyn.internal.tasks.core.deprecated.TaskComment;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.deprecated.TaskFactory;
 import org.eclipse.mylyn.internal.tasks.ui.search.AbstractRepositorySearchQuery;
+import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.ITaskElement;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
@@ -151,7 +152,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 		String elementName = getFullyQualifiedName(javaElement);
 
 		// setup the search result collector
-		collector = new ProgressQueryHitCollector(TasksUi.getTaskList(), new TaskFactory(null));//SearchHitCollector(TasksUiPlugin.getTaskList());
+		collector = new ProgressQueryHitCollector(TasksUiInternal.getTaskList(), new TaskFactory(null));//SearchHitCollector(TasksUiPlugin.getTaskList());
 		//collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
 
@@ -183,7 +184,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 		String elementName = javaElement.getElementName();
 
 		// setup the search result collector
-		collector = new ProgressQueryHitCollector(TasksUi.getTaskList(), new TaskFactory(null));//SearchHitCollector(TasksUiPlugin.getTaskList());
+		collector = new ProgressQueryHitCollector(TasksUiInternal.getTaskList(), new TaskFactory(null));//SearchHitCollector(TasksUiPlugin.getTaskList());
 		//collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
 
@@ -338,7 +339,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 	@SuppressWarnings("deprecation")
 	private ProgressQueryHitCollector searchQualified(String repositoryUrl, IProgressMonitor monitor) {
 		// create a new collector for the results
-		collector = new ProgressQueryHitCollector(TasksUi.getTaskList(), new TaskFactory(null));//SearchHitCollector(TasksUiPlugin.getTaskList());
+		collector = new ProgressQueryHitCollector(TasksUiInternal.getTaskList(), new TaskFactory(null));//SearchHitCollector(TasksUiPlugin.getTaskList());
 		//collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
 
@@ -359,7 +360,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 	@SuppressWarnings("deprecation")
 	private ProgressQueryHitCollector searchUnqualified(String repositoryUrl, IProgressMonitor monitor) {
 		// create a new collector for the results
-		collector = new ProgressQueryHitCollector(TasksUi.getTaskList(), new TaskFactory(null));//SearchHitCollector(TasksUiPlugin.getTaskList());
+		collector = new ProgressQueryHitCollector(TasksUiInternal.getTaskList(), new TaskFactory(null));//SearchHitCollector(TasksUiPlugin.getTaskList());
 		//collector.setOperation(this);
 		collector.setProgressMonitor(monitor);
 

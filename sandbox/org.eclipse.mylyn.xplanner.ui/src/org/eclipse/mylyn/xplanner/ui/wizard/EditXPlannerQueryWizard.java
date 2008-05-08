@@ -62,7 +62,7 @@ public class EditXPlannerQueryWizard extends AbstractRepositoryQueryWizard {
 
 	private void updateQuery(final RepositoryQuery query) {
 		// just in case one with this definition already exists...
-		TasksUi.getTaskList().deleteQuery(query);
+		TasksUiInternal.getTaskList().deleteQuery(query);
 		// make sure query reflects changed name, if it was changed
 		if (query instanceof XPlannerCustomQuery) {
 			XPlannerCustomQuery xplannerQuery = (XPlannerCustomQuery) query;
@@ -72,7 +72,7 @@ public class EditXPlannerQueryWizard extends AbstractRepositoryQueryWizard {
 				xplannerQuery.setHandleIdentifier(queryName);
 			}
 		}
-		TasksUi.getTaskList().addQuery(query);
+		TasksUiInternal.getTaskList().addQuery(query);
 
 		AbstractLegacyRepositoryConnector connector = (AbstractLegacyRepositoryConnector) TasksUi.getRepositoryManager()
 				.getRepositoryConnector(repository.getConnectorKind());
