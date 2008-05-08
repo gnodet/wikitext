@@ -6,9 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.tasks.ui.views;
-
-import java.text.DateFormat;
+package org.eclipse.mylyn.internal.sandbox.ui.planner;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -21,10 +19,11 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.mylyn.commons.core.DateUtil;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.provisional.commons.ui.CommonFonts;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
-import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskDelegate;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiImages;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.internal.tasks.ui.views.TaskElementLabelProvider;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.ITaskActivityManager;
 import org.eclipse.mylyn.tasks.core.ITaskElement;
@@ -61,14 +60,12 @@ public class TaskActivityLabelProvider extends TaskElementLabelProvider implemen
 		if (columnIndex == 0) {
 			if (element instanceof ScheduledTaskContainer) {
 				super.getImage(element);
-			} else if (element instanceof ScheduledTaskDelegate) {
-				return super.getImage(((ScheduledTaskDelegate) element).getCorrespondingTask());
 			} else {
 				return super.getImage(element);
 			}
 		} else if (columnIndex == 1) {
-			if (element instanceof ScheduledTaskDelegate) {
-				ScheduledTaskDelegate taskElement = (ScheduledTaskDelegate) element;
+			if (element instanceof ITask) {
+				ITask taskElement = (ITask) element;
 				return TasksUiImages.getImageForPriority(PriorityLevel.fromString(taskElement.getPriority()));
 			}
 		}
@@ -76,23 +73,26 @@ public class TaskActivityLabelProvider extends TaskElementLabelProvider implemen
 	}
 
 	public String getColumnText(Object element, int columnIndex) {
-		if (element instanceof ScheduledTaskDelegate) {
-			ScheduledTaskDelegate activityDelegate = (ScheduledTaskDelegate) element;
-			ITask task = activityDelegate.getCorrespondingTask();
+		if (element instanceof ITask) {
+			AbstractTask task = (AbstractTask) element;
 			switch (columnIndex) {
 			case 2:
 				if (task != null) {
 					return task.getSummary();
 				}
 			case 3:
-				return DateUtil.getFormattedDurationShort(activityManager.getElapsedTime(task,
-						activityDelegate.getDateRangeContainer().getStart(), activityDelegate.getDateRangeContainer()
-								.getEnd()));
+				ScheduledTaskContainer container = (ScheduledTaskContainer) contentProvider.getParent(task);
+				if (container != null) {
+					return DateUtil.getFormattedDurationShort(activityManager.getElapsedTime(task,
+							container.getDateRange().getStartDate(), container.getDateRange().getEndDate()));
+				} else {
+					return "na";
+				}
 			case 4:
 				return task.getEstimatedTimeHours() + UNITS_HOURS;
 			case 5:
 				if (task.getScheduledForDate() != null) {
-					return DateFormat.getDateInstance(DateFormat.MEDIUM).format(task.getScheduledForDate());
+					return task.getScheduledForDate().toString();//DateFormat.getDateInstance(DateFormat.MEDIUM).format(task.getScheduledForDate());
 				} else {
 					return "";
 				}
@@ -119,11 +119,8 @@ public class TaskActivityLabelProvider extends TaskElementLabelProvider implemen
 
 					long elapsed = 0;
 					for (Object o : contentProvider.getChildren(taskCategory)) {
-						if (o instanceof ScheduledTaskDelegate) {
-							elapsed += activityManager.getElapsedTime(
-									((ScheduledTaskDelegate) o).getCorrespondingTask(), taskCategory.getStart(),
-									taskCategory.getEnd());
-						}
+						AbstractTask task = (AbstractTask) o;
+						elapsed += activityManager.getElapsedTime(task, taskCategory.getStart(), taskCategory.getEnd());
 					}
 
 					elapsedTimeString = DateUtil.getFormattedDurationShort(elapsed);
@@ -164,9 +161,9 @@ public class TaskActivityLabelProvider extends TaskElementLabelProvider implemen
 			if (container.isPresent()) {
 				return CommonFonts.BOLD;
 			}
-		} else if (element instanceof ScheduledTaskDelegate) {
-			ScheduledTaskDelegate durationDelegate = (ScheduledTaskDelegate) element;
-			return super.getFont(durationDelegate.getCorrespondingTask());
+		} else if (element instanceof ITask) {
+			AbstractTask task = (AbstractTask) element;
+			return super.getFont(task);
 		}
 		return super.getFont(element);
 	}

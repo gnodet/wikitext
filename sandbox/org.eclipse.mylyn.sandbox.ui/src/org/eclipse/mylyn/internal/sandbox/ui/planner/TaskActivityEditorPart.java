@@ -33,6 +33,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.mylyn.commons.core.DateUtil;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
+import org.eclipse.mylyn.internal.tasks.core.DateRange;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.swt.SWT;
@@ -567,7 +568,7 @@ public class TaskActivityEditorPart extends EditorPart {
 					elapsedTimeString = BLANK_CELL;
 				}
 
-				Date reminderDate = currentTask.getScheduledForDate();
+				DateRange reminderDate = currentTask.getScheduledForDate();
 				String reminderDateString = BLANK_CELL;
 				if (reminderDate != null) {
 					reminderDateString = format.format(reminderDate);

@@ -8,7 +8,6 @@
 package org.eclipse.mylyn.internal.sandbox.dev.properties;
 
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
-import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
@@ -71,7 +70,7 @@ public class AbstractTaskPropertiesSource extends AbstractTaskContainerPropertyS
 
 	@Override
 	public Object getPropertyValue(Object id) {
-		ITask task = (ITask) container;
+		AbstractTask task = (AbstractTask) container;
 		if (SUMMARY.equals(id)) {
 			return task.getSummary();
 		} else if (OWNER.equals(id)) {
@@ -79,8 +78,7 @@ public class AbstractTaskPropertiesSource extends AbstractTaskContainerPropertyS
 		} else if (SCHEDULED.equals(id)) {
 			return task.getScheduledForDate() == null ? NULL_MSG : task.getScheduledForDate();
 		} else if (PARENT.equals(id)) {
-			return ((AbstractTask) task).getParentContainers() == null ? NULL_MSG
-					: ((AbstractTask) task).getParentContainers().toString();
+			return (task).getParentContainers() == null ? NULL_MSG : (task).getParentContainers().toString();
 		} else if (KIND.equals(id)) {
 			return task.getConnectorKind();
 		} else if (URL.equals(id)) {

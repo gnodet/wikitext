@@ -9,6 +9,8 @@ package org.eclipse.mylyn.internal.sandbox.ui;
 
 import java.util.Date;
 
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
+import org.eclipse.mylyn.internal.tasks.core.DateRange;
 import org.eclipse.mylyn.tasks.core.ITask;
 
 /**
@@ -59,7 +61,7 @@ public enum GroupBy {
 	Sheduled() {
 		@Override
 		public String getKey(ITask task) {
-			Date date = task.getScheduledForDate();
+			DateRange date = ((AbstractTask) task).getScheduledForDate();
 			return date == null ? null : date.toString();
 		}
 	};

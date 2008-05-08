@@ -10,8 +10,9 @@ package org.eclipse.mylyn.internal.sandbox.ui.views;
 
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
-import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskDelegate;
+import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.ITaskElement;
 import org.eclipse.mylyn.tasks.core.ITask.PriorityLevel;
@@ -85,7 +86,7 @@ public class TaskActivityViewSorter extends ViewerSorter {
 	}
 
 	@SuppressWarnings("unchecked")
-	private int compare(ScheduledTaskDelegate task1, ScheduledTaskDelegate task2) {
+	private int compare(AbstractTask task1, AbstractTask task2) {
 		if (sortColumn >= directions.length) {
 			return 0;
 		}
@@ -104,8 +105,8 @@ public class TaskActivityViewSorter extends ViewerSorter {
 			return result * directions[sortColumn];
 		}
 		case ELAPSED: {
-			long elapsed1 = task1.getDateRangeContainer().getElapsed(task1);
-			long elapsed2 = task2.getDateRangeContainer().getElapsed(task2);
+			long elapsed1 = TasksUiPlugin.getTaskActivityManager().getElapsedTime(task1);
+			long elapsed2 = TasksUiPlugin.getTaskActivityManager().getElapsedTime(task2);
 			int result = new Long(elapsed1).compareTo(new Long(elapsed2));
 			return result * directions[sortColumn];
 		}
@@ -118,8 +119,8 @@ public class TaskActivityViewSorter extends ViewerSorter {
 		case REMINDER: {
 			int result = 0;
 			if (task1.getScheduledForDate() != null && task2.getScheduledForDate() != null) {
-				long reminder1 = task1.getScheduledForDate().getTime();
-				long reminder2 = task2.getScheduledForDate().getTime();
+				long reminder1 = task1.getScheduledForDate().getEndDate().getTimeInMillis();
+				long reminder2 = task2.getScheduledForDate().getEndDate().getTimeInMillis();
 				result = new Long(reminder1).compareTo(new Long(reminder2));
 			} else if (task1.getScheduledForDate() != null) {
 				result = 1;
@@ -129,10 +130,11 @@ public class TaskActivityViewSorter extends ViewerSorter {
 			return result * directions[sortColumn];
 		}
 		case LAST_ACTIVE: {
-			long active1 = task1.getStart();
-			long active2 = task2.getStart();
-			int result = new Long(active1).compareTo(new Long(active2));
-			return result * directions[sortColumn];
+//			long active1 = task1.getStart();
+//			long active2 = task2.getStart();
+//			int result = new Long(active1).compareTo(new Long(active2));
+//			return result * directions[sortColumn];
+			return directions[sortColumn];
 		}
 		}
 		return 0;
@@ -149,12 +151,12 @@ public class TaskActivityViewSorter extends ViewerSorter {
 				return -1;
 			}
 		} else if (o1 instanceof ITask) {
-			if (o2 instanceof ITaskElement) {
-				return -1;
-			} else if (o2 instanceof ScheduledTaskDelegate) {
-				ScheduledTaskDelegate task1 = (ScheduledTaskDelegate) o1;
-				ScheduledTaskDelegate task2 = (ScheduledTaskDelegate) o2;
+			if (o2 instanceof ITask) {
+				AbstractTask task1 = (AbstractTask) o1;
+				AbstractTask task2 = (AbstractTask) o2;
 				return compare(task1, task2);
+			} else if (o2 instanceof ITaskElement) {
+				return -1;
 			}
 		}
 		return 0;

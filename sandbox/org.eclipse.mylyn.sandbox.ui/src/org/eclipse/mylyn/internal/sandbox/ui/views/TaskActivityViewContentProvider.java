@@ -15,9 +15,12 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTaskContainer;
+import org.eclipse.mylyn.internal.tasks.core.DateRange;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
-import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskDelegate;
 import org.eclipse.mylyn.internal.tasks.core.TaskActivityManager;
+import org.eclipse.mylyn.internal.tasks.core.TaskActivityUtil;
+import org.eclipse.mylyn.internal.tasks.core.WeekDateRange;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 
 /**
@@ -33,32 +36,39 @@ public class TaskActivityViewContentProvider implements IStructuredContentProvid
 	}
 
 	public Object[] getElements(Object parent) {
-		Set<ScheduledTaskContainer> ranges = new HashSet<ScheduledTaskContainer>();
-		for (ScheduledTaskContainer container : taskActivityManager.getDateRanges()) {
-			if (!container.isFuture()) {
-				ranges.add(container);
-			}
+		Set<AbstractTaskContainer> containers = new HashSet<AbstractTaskContainer>();
+		WeekDateRange week = TaskActivityUtil.getCurrentWeek();
+		//containers.add(new ScheduledTaskContainer(TasksUiPlugin.getTaskActivityManager(), week.previous()));
+		for (DateRange day : week.getDaysOfWeek()) {
+			containers.add(new ScheduledTaskContainer(TasksUiPlugin.getTaskActivityManager(), day));
 		}
-		return ranges.toArray();
+//		containers.add(new ScheduledTaskContainer(TasksUiPlugin.getTaskActivityManager(), week));
+//		ScheduledTaskContainer nextWeekContainer = new ScheduledTaskContainer(taskActivityManager, week.next());
+//		containers.add(nextWeekContainer);
+
+		return containers.toArray();
 	}
 
 	public Object getParent(Object child) {
-		if (child instanceof ScheduledTaskDelegate) {
-			return ((ScheduledTaskDelegate) child).getDateRangeContainer();
-		} else {
-			return null;
+		for (Object o : getElements(null)) {
+			ScheduledTaskContainer container = ((ScheduledTaskContainer) o);
+			for (Object o2 : getChildren(container)) {
+				if (o2 instanceof AbstractTask) {
+					if (((AbstractTask) o2).equals(child)) {
+						return container;
+					}
+				}
+			}
 		}
+		return null;
 	}
 
 	public Object[] getChildren(Object parent) {
 		if (parent instanceof ScheduledTaskContainer) {
-			ScheduledTaskContainer taskContainer = (ScheduledTaskContainer) parent;
-			Set<ScheduledTaskDelegate> delegates = new HashSet<ScheduledTaskDelegate>();
-			for (AbstractTask task : TasksUiPlugin.getTaskActivityManager().getActiveTasks(taskContainer.getStart(),
-					taskContainer.getEnd())) {
-				delegates.add(new ScheduledTaskDelegate(taskContainer, task, null, null, 0));
-			}
-			return delegates.toArray();
+			DateRange range = ((ScheduledTaskContainer) parent).getDateRange();
+			Set<AbstractTask> activeTasks = TasksUiPlugin.getTaskActivityManager().getActiveTasks(range.getStartDate(),
+					range.getEndDate());
+			return activeTasks.toArray();
 		} else {
 			return new Object[0];
 		}

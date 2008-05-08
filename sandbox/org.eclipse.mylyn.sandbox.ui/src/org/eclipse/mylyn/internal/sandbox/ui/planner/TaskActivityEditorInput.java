@@ -19,6 +19,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTaskContainer;
+import org.eclipse.mylyn.internal.tasks.core.TaskActivityUtil;
 import org.eclipse.mylyn.internal.tasks.core.TaskList;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.ITask;
@@ -78,9 +79,9 @@ public class TaskActivityEditorInput implements IEditorInput {
 		completedTasks = completedTaskCollector.getTasks();
 		inProgressTasks = inProgressTaskCollector.getTasks();
 
-		plannedTasks.addAll(TasksUiPlugin.getTaskActivityManager().getActivityThisWeek().getChildren());
-		plannedTasks.addAll(TasksUiPlugin.getTaskActivityManager().getActivityNextWeek().getChildren());
-		plannedTasks.addAll(TasksUiPlugin.getTaskActivityManager().getActivityFuture().getChildren());
+		plannedTasks.addAll(TasksUiPlugin.getTaskActivityManager().getActiveTasks(
+				TaskActivityUtil.getCurrentWeek().getStartDate(), TaskActivityUtil.getCurrentWeek().getEndDate()));
+		plannedTasks.addAll(TasksUiPlugin.getTaskActivityManager().getAllScheduledTasks());
 
 		//plannedTasks = new HashSet<ITask>();
 	}

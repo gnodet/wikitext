@@ -8,10 +8,7 @@
 
 package org.eclipse.mylyn.internal.sandbox.ui.views;
 
-import java.text.DateFormat;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -35,14 +32,12 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.ViewerDropAdapter;
 import org.eclipse.mylyn.internal.provisional.commons.ui.CommonThemes;
 import org.eclipse.mylyn.internal.sandbox.ui.planner.ActivityReportAction;
-import org.eclipse.mylyn.internal.sandbox.ui.planner.ReminderCellEditor;
+import org.eclipse.mylyn.internal.sandbox.ui.planner.TaskActivityLabelProvider;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
+import org.eclipse.mylyn.internal.tasks.core.DateRange;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
-import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskDelegate;
-import org.eclipse.mylyn.internal.tasks.core.TaskActivityUtil;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.actions.OpenTaskListElementAction;
-import org.eclipse.mylyn.internal.tasks.ui.views.TaskActivityLabelProvider;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskElementLabelProvider;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
 import org.eclipse.mylyn.tasks.core.ITask;
@@ -108,6 +103,8 @@ public class TaskActivityView extends ViewPart {
 	private TreeViewer treeViewer;
 
 	private TaskActivityViewContentProvider taskActivityTableContentProvider;
+
+//	private TaskScheduleContentProvider taskActivityTableContentProvider;
 
 	private IThemeManager themeManager;
 
@@ -275,23 +272,12 @@ public class TaskActivityView extends ViewPart {
 
 				Object target = getCurrentTarget();
 				ScheduledTaskContainer container;
-				Calendar reminderCalendar;
+				DateRange reminderCalendar;
 				if (target instanceof ScheduledTaskContainer) {
 					container = (ScheduledTaskContainer) target;
-					if (container.isPresent()) {
-						reminderCalendar = Calendar.getInstance();
-						TaskActivityUtil.snapForwardNumDays(reminderCalendar, 1);
-					} else {
-						reminderCalendar = container.getStart();
-					}
-				} else if (target instanceof ScheduledTaskDelegate) {
-					ScheduledTaskDelegate dateRangeActivityDelegate = (ScheduledTaskDelegate) target;
-					if (dateRangeActivityDelegate.getDateRangeContainer().isPresent()) {
-						reminderCalendar = Calendar.getInstance();
-						TaskActivityUtil.snapForwardNumDays(reminderCalendar, 1);
-					} else {
-						reminderCalendar = dateRangeActivityDelegate.getDateRangeContainer().getStart();
-					}
+					reminderCalendar = container.getDateRange();
+				} else if (target instanceof ITask) {
+					reminderCalendar = ((AbstractTask) target).getScheduledForDate();
 				} else {
 					return false;
 				}
@@ -303,7 +289,7 @@ public class TaskActivityView extends ViewPart {
 						task = (AbstractTask) selectedObject;
 					}
 					if (task != null) {
-						TasksUiPlugin.getTaskActivityManager().setScheduledFor(task, reminderCalendar.getTime());
+						TasksUiPlugin.getTaskActivityManager().setScheduledFor(task, reminderCalendar);
 					}
 				}
 				return true;
@@ -323,9 +309,10 @@ public class TaskActivityView extends ViewPart {
 				ScheduledTaskContainer dateRangeContainer = null;
 				if (target instanceof ScheduledTaskContainer) {
 					dateRangeContainer = (ScheduledTaskContainer) target;
-				} else if (target instanceof ScheduledTaskDelegate) {
-					ScheduledTaskDelegate dateRangeActivityDelegate = (ScheduledTaskDelegate) target;
-					dateRangeContainer = dateRangeActivityDelegate.getDateRangeContainer();
+				} else if (target instanceof ITask) {
+					AbstractTask task = ((AbstractTask) target);
+					dateRangeContainer = new ScheduledTaskContainer(TasksUiPlugin.getTaskActivityManager(),
+							task.getScheduledForDate());
 				}
 
 				if (dateRangeContainer != null && (dateRangeContainer.isPresent() || dateRangeContainer.isFuture())) {
@@ -410,33 +397,32 @@ public class TaskActivityView extends ViewPart {
 		CellEditor[] editors = new CellEditor[columnNames.length];
 		final ComboBoxCellEditor estimateEditor = new ComboBoxCellEditor(treeViewer.getTree(), ESTIMATE_TIMES,
 				SWT.READ_ONLY);
-		final ReminderCellEditor reminderEditor = new ReminderCellEditor(treeViewer.getTree());
+//		final ReminderCellEditor reminderEditor = new ReminderCellEditor(treeViewer.getTree());
 		editors[0] = null; // not used
 		editors[1] = null;// not used
 		editors[2] = null;// not used
 		editors[3] = null;// not used
 		editors[4] = estimateEditor;
-		editors[5] = reminderEditor;
-		reminderEditor.addListener(new ICellEditorListener() {
-			public void applyEditorValue() {
-				Object selection = ((IStructuredSelection) treeViewer.getSelection()).getFirstElement();
-				if (selection instanceof ScheduledTaskDelegate) {
-					ScheduledTaskDelegate dateRangeActivityDelegate = (ScheduledTaskDelegate) selection;
-					Date newReminder = reminderEditor.getReminderDate();
-					if (newReminder != null) {
-						TasksUiPlugin.getTaskActivityManager().setScheduledFor(
-								dateRangeActivityDelegate.getCorrespondingTask(), newReminder);
-					}
-				}
-			}
-
-			public void cancelEditor() {
-			}
-
-			public void editorValueChanged(boolean oldValidState, boolean newValidState) {
-			}
-
-		});
+		editors[5] = null;//reminderEditor;
+//		reminderEditor.addListener(new ICellEditorListener() {
+//			public void applyEditorValue() {
+//				Object selection = ((IStructuredSelection) treeViewer.getSelection()).getFirstElement();
+//				if (selection instanceof ITask) {
+//					Date newReminder = reminderEditor.getReminderDate();
+//					if (newReminder != null) {
+//						TasksUiPlugin.getTaskActivityManager().setScheduledFor(
+//								dateRangeActivityDelegate.getCorrespondingTask(), newReminder);
+//					}
+//				}
+//			}
+//
+//			public void cancelEditor() {
+//			}
+//
+//			public void editorValueChanged(boolean oldValidState, boolean newValidState) {
+//			}
+//
+//		});
 		estimateEditor.addListener(new ICellEditorListener() {
 			public void applyEditorValue() {
 				Object selection = ((IStructuredSelection) treeViewer.getSelection()).getFirstElement();
@@ -473,9 +459,9 @@ public class TaskActivityView extends ViewPart {
 		}
 
 		public boolean canModify(Object element, String property) {
-			if (element instanceof ScheduledTaskDelegate) {
+			if (element instanceof ITask) {
 				int columnIndex = Arrays.asList(columnNames).indexOf(property);
-				if (columnIndex == 4 || columnIndex == 5) {
+				if (columnIndex == 4 /*|| columnIndex == 5*/) {
 					return true;
 				}
 			}
@@ -483,17 +469,16 @@ public class TaskActivityView extends ViewPart {
 		}
 
 		public Object getValue(Object element, String property) {
-			if (element instanceof ScheduledTaskDelegate) {
-				ScheduledTaskDelegate activityDelegate = (ScheduledTaskDelegate) element;
-				ITask task = activityDelegate.getCorrespondingTask();
+			if (element instanceof ITask) {
+				AbstractTask task = (AbstractTask) element;
 				int columnIndex = Arrays.asList(columnNames).indexOf(property);
-				if (columnIndex == 5) {
+				/*if (columnIndex == 5) {
 					if (task.getScheduledForDate() != null) {
 						return DateFormat.getDateInstance(DateFormat.MEDIUM).format(task.getScheduledForDate());
 					} else {
 						return null;
 					}
-				} else if (columnIndex == 4) {
+				} else*/if (columnIndex == 4) {
 					return new Integer(Arrays.asList(ESTIMATE_TIMES).indexOf(task.getEstimatedTimeHours()));
 				}
 			}

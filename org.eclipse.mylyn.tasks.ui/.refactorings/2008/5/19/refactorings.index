@@ -5,9 +5,8 @@
 1210054321462	Encapsulate field 'repository'
 1210054896693	Extract local variable 'text'
 1210056470986	Rename method 'performAction'
-1210220501813	Change method 'getQueryWizard'
-1210222044281	Move member 'openEditQueryDialog'
-1210222157575	Change method 'getLegendItems'
-1210223605102	Change method 'getNewTaskWizard'
-1210224037310	Change method 'getQuery'
-1210224770056	Rename type 'AbstractEditQueryWizard'
+1210140949303	Change method 'reloadActivityTime'
+1210183550520	Move compilation unit
+1210192869966	Delete element
+1210210517638	Rename compilation unit 'DelegatingTaskExternalizer.java'
+1210228762999	Delete element
