@@ -8,7 +8,7 @@
 
 package org.eclipse.mylyn.xplanner.ui.wizard;
 
-import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
@@ -34,7 +34,7 @@ public class ErrorQueryPage extends AbstractXPlannerQueryWizardPage {
 	}
 
 	@Override
-	public AbstractRepositoryQuery getQuery() {
+	public IRepositoryQuery getQuery() {
 		return null;
 	}
 

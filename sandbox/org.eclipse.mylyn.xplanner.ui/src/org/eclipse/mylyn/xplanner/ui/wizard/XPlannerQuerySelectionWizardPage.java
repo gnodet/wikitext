@@ -8,7 +8,7 @@
 package org.eclipse.mylyn.xplanner.ui.wizard;
 
 import org.eclipse.jface.wizard.IWizardPage;
-import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.xplanner.ui.XPlannerCustomQuery;
 import org.eclipse.swt.SWT;
@@ -72,9 +72,9 @@ public class XPlannerQuerySelectionWizardPage extends AbstractXPlannerQueryWizar
 	}
 
 	@Override
-	public AbstractRepositoryQuery getQuery() {
+	public IRepositoryQuery getQuery() {
 		if (xplannerCustomQueryPage != null) {
-			AbstractRepositoryQuery query = xplannerCustomQueryPage.getQuery();
+			IRepositoryQuery query = xplannerCustomQueryPage.getQuery();
 			if (query instanceof XPlannerCustomQuery) {
 				setExistingQuery((XPlannerCustomQuery) query);
 			}

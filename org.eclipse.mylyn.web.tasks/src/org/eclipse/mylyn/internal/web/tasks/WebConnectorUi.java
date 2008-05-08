@@ -10,11 +10,11 @@ package org.eclipse.mylyn.internal.web.tasks;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.wizard.IWizard;
-import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.internal.tasks.core.LocalTask;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.TaskSelection;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiImages;
+import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.ITaskMapping;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
@@ -34,14 +34,14 @@ public class WebConnectorUi extends AbstractRepositoryConnectorUi {
 	}
 
 	@Override
-	public IWizard getNewTaskWizard(TaskRepository taskRepository, TaskSelection taskSelection) {
+	public IWizard getNewTaskWizard(TaskRepository taskRepository, ITaskMapping taskSelection) {
 		return new NewWebTaskWizard(taskRepository, WebRepositoryConnector.evaluateParams(
 				taskRepository.getProperty(WebRepositoryConnector.PROPERTY_TASK_CREATION_URL), taskRepository),
 				taskSelection);
 	}
 
 	@Override
-	public IWizard getQueryWizard(TaskRepository repository, AbstractRepositoryQuery query) {
+	public IWizard getQueryWizard(TaskRepository repository, IRepositoryQuery query) {
 		if (query instanceof WebQuery) {
 			return new WebQueryEditWizard(repository, query);
 		} else {

@@ -11,14 +11,14 @@ package org.eclipse.mylyn.internal.web.tasks;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.internal.tasks.core.RepositoryQuery;
 
 /**
  * Represents pattern-based query on repository web page
  * 
  * @author Eugene Kuleshov
  */
-public class WebQuery extends AbstractRepositoryQuery {
+public class WebQuery extends RepositoryQuery {
 
 	private final String taskPrefix;
 

@@ -25,3 +25,20 @@
 1210061813764	Rename method 'getTaskData2'
 1210062310902	Move type
 1210062630848	Change method 'getTask'
+1210212497525	Extract interface 'IRepositoryQuery'
+1210212533655	Move compilation unit
+1210217601135	Encapsulate field 'fullSynchronization'
+1210217606768	Encapsulate field 'performQueries'
+1210217617888	Encapsulate field 'tasks'
+1210217623923	Encapsulate field 'changedTasks'
+1210217630921	Encapsulate field 'taskRepository'
+1210217637043	Encapsulate field 'data'
+1210217758066	Extract interface 'ISynchronizationContext'
+1210217770852	Move compilation unit
+1210217815811	Rename method 'isPerformQueries'
+1210217824171	Rename method 'setPerformQueries'
+1210218577690	Rename type 'AbstractRepositoryQuery'
+1210219383556	Extract local variable 'taskHandle'
+1210222680826	Extract interface 'ITaskMapping'
+1210222733481	Move compilation unit
+1210223551990	Rename method 'getTaskData'

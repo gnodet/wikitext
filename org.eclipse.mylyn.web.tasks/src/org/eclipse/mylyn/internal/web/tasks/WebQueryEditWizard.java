@@ -8,16 +8,16 @@
 
 package org.eclipse.mylyn.internal.web.tasks;
 
-import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
-import org.eclipse.mylyn.tasks.ui.wizards.AbstractEditQueryWizard;
+import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositoryQueryWizard;
 
 /**
  * @author Eugene Kuleshov
  */
-public class WebQueryEditWizard extends AbstractEditQueryWizard {
+public class WebQueryEditWizard extends AbstractRepositoryQueryWizard {
 
-	public WebQueryEditWizard(TaskRepository repository, AbstractRepositoryQuery query) {
+	public WebQueryEditWizard(TaskRepository repository, IRepositoryQuery query) {
 		super(repository, query);
 		setForcePreviousAndNextButtons(true);
 	}

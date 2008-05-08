@@ -19,7 +19,8 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.IWizardPage;
-import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.internal.tasks.core.RepositoryQuery;
+import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.ui.XPlannerClientFacade;
@@ -604,7 +605,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 	}
 
 	@Override
-	public AbstractRepositoryQuery getQuery() {
+	public IRepositoryQuery getQuery() {
 		if (getExistingQuery() == null) {
 			setExistingQuery(new XPlannerCustomQuery(getRepository().getRepositoryUrl(), getQueryTitle()));
 		}
@@ -618,8 +619,8 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 	 * 
 	 * @return
 	 */
-	public List<AbstractRepositoryQuery> getQueries() {
-		List<AbstractRepositoryQuery> queries = new ArrayList<AbstractRepositoryQuery>();
+	public List<RepositoryQuery> getQueries() {
+		List<RepositoryQuery> queries = new ArrayList<RepositoryQuery>();
 
 		if (isContentTypeTask()) {
 			// if don't have existing query, create one
@@ -661,14 +662,14 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		return userStories;
 	}
 
-	public List<AbstractRepositoryQuery> createTaskQueriesForUserStories(List<UserStoryData> userStories) {
+	public List<RepositoryQuery> createTaskQueriesForUserStories(List<UserStoryData> userStories) {
 
 		if (userStories == null || userStories.size() == 0) {
 			System.err.println(Messages.XPlannerCustomQueryPage_NO_USER_STORIES_SELECTED);
-			return new ArrayList<AbstractRepositoryQuery>();
+			return new ArrayList<RepositoryQuery>();
 		}
 
-		ArrayList<AbstractRepositoryQuery> queries = new ArrayList<AbstractRepositoryQuery>();
+		ArrayList<RepositoryQuery> queries = new ArrayList<RepositoryQuery>();
 		int personId = client.getCurrentPersonId();
 		for (UserStoryData userStory : userStories) {
 			boolean createQuery = true;

@@ -14,9 +14,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.internal.tasks.core.RepositoryQuery;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractTaskListFactory;
+import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -53,7 +54,7 @@ public class XPlannerTaskListFactory extends AbstractTaskListFactory {
 		return node.getNodeName().equals(KEY_XPLANNER_QUERY) || node.getNodeName().equals(KEY_XPLANNER_CUSTOM);
 	}
 
-	public boolean canCreateElementFor(AbstractRepositoryQuery category) {
+	public boolean canCreateElementFor(IRepositoryQuery category) {
 		return category instanceof XPlannerCustomQuery;
 	}
 
@@ -62,8 +63,8 @@ public class XPlannerTaskListFactory extends AbstractTaskListFactory {
 	}
 
 	@Override
-	public AbstractRepositoryQuery createQuery(String repositoryUrl, String queryString, String label, Element element) {
-		AbstractRepositoryQuery query = null;
+	public RepositoryQuery createQuery(String repositoryUrl, String queryString, String label, Element element) {
+		RepositoryQuery query = null;
 		query = new XPlannerCustomQuery(repositoryUrl, label);
 		initializeQuery((XPlannerCustomQuery) query, element);
 
@@ -136,7 +137,7 @@ public class XPlannerTaskListFactory extends AbstractTaskListFactory {
 	}
 
 	@Override
-	public void setAdditionalAttributes(AbstractRepositoryQuery query, Element node) {
+	public void setAdditionalAttributes(IRepositoryQuery query, Element node) {
 //		String queryTagName = getQueryTagNameForElement(query);
 
 //		node.setAttribute(KEY_NAME, query.getSummary());
@@ -265,7 +266,7 @@ public class XPlannerTaskListFactory extends AbstractTaskListFactory {
 	}
 
 	@Override
-	public String getQueryElementName(AbstractRepositoryQuery query) {
+	public String getQueryElementName(IRepositoryQuery query) {
 		if (query instanceof XPlannerCustomQuery) {
 			return KEY_XPLANNER_CUSTOM;
 		}
@@ -273,7 +274,7 @@ public class XPlannerTaskListFactory extends AbstractTaskListFactory {
 	}
 
 	@Override
-	public boolean canCreate(AbstractRepositoryQuery category) {
+	public boolean canCreate(IRepositoryQuery category) {
 		return category instanceof XPlannerCustomQuery;
 	}
 

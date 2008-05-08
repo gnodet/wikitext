@@ -3,13 +3,13 @@
  */
 package org.eclipse.mylyn.internal.sandbox.dev.properties;
 
-import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.internal.tasks.core.RepositoryQuery;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
 
 /**
- * Display various {@link AbstractRepositoryQuery} properties in the Eclipse Properties View.<br />
+ * Display various {@link RepositoryQuery} properties in the Eclipse Properties View.<br />
  * See <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=210639">Bug 210639</a> and <a
  * href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=208275">Bug 208275</a><br />
  *
@@ -29,7 +29,7 @@ public class RepositoryQueryPropertySource extends AbstractTaskContainerProperty
 
 	private static final String KIND = "kind";
 
-	public RepositoryQueryPropertySource(AbstractRepositoryQuery adaptableObject) {
+	public RepositoryQueryPropertySource(RepositoryQuery adaptableObject) {
 		super(adaptableObject);
 	}
 
@@ -53,7 +53,7 @@ public class RepositoryQueryPropertySource extends AbstractTaskContainerProperty
 
 	@Override
 	public Object getPropertyValue(Object id) {
-		AbstractRepositoryQuery query = (AbstractRepositoryQuery) container;
+		RepositoryQuery query = (RepositoryQuery) container;
 		if (SUMMARY.equals(id)) {
 			return query.getSummary();
 		} else if (KIND.equals(id)) {

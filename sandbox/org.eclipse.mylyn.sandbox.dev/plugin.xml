@@ -62,7 +62,7 @@
          </adapter>
       </factory>
     <factory
-            adaptableType="org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery"
+            adaptableType="org.eclipse.mylyn.internal.tasks.core.RepositoryQuery"
             class="org.eclipse.mylyn.internal.sandbox.dev.properties.MylynPropertiesSourceAdapterFactory">
          <adapter
                type="org.eclipse.ui.views.properties.IPropertySource">

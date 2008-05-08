@@ -10,7 +10,7 @@ package org.eclipse.mylyn.xplanner.ui;
 import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.internal.tasks.core.RepositoryQuery;
 
 /**
  * An XPlannerCustomQuery represents a query for tasks or user stories from a XPlanner repository.
@@ -18,7 +18,7 @@ import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
-public class XPlannerCustomQuery extends AbstractRepositoryQuery {
+public class XPlannerCustomQuery extends RepositoryQuery {
 
 	public static final int INVALID_ID = XPlannerAttributeFactory.INVALID_ID;
 

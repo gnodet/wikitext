@@ -10,23 +10,24 @@ package org.eclipse.mylyn.xplanner.ui.wizard;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.internal.tasks.core.RepositoryQuery;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractLegacyRepositoryConnector;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
+import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
-import org.eclipse.mylyn.tasks.ui.wizards.AbstractEditQueryWizard;
+import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositoryQueryWizard;
 import org.eclipse.mylyn.xplanner.ui.XPlannerCustomQuery;
 
 /**
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
-public class EditXPlannerQueryWizard extends AbstractEditQueryWizard {
+public class EditXPlannerQueryWizard extends AbstractRepositoryQueryWizard {
 
 	private AbstractXPlannerQueryWizardPage queryPage;
 
-	public EditXPlannerQueryWizard(TaskRepository repository, AbstractRepositoryQuery query) {
+	public EditXPlannerQueryWizard(TaskRepository repository, IRepositoryQuery query) {
 		super(repository, query);
 		setForcePreviousAndNextButtons(true);
 	}
@@ -38,28 +39,28 @@ public class EditXPlannerQueryWizard extends AbstractEditQueryWizard {
 
 	@Override
 	public boolean performFinish() {
-		List<AbstractRepositoryQuery> queries = new ArrayList<AbstractRepositoryQuery>();
+		List<RepositoryQuery> queries = new ArrayList<RepositoryQuery>();
 
 		// always delete existing query, because new one(s) will get created below
-		TasksUi.getTaskList().deleteQuery(query);
+		TasksUi.getTasksModel().deleteQuery(query);
 
 		if (queryPage instanceof MultipleQueryPage) {
 			queries = ((MultipleQueryPage) queryPage).getQueries();
 		} else {
-			final AbstractRepositoryQuery query = queryPage.getQuery();
+			final RepositoryQuery query = (RepositoryQuery) queryPage.getQuery();
 			if (query != null) {
 				queries.add(query);
 			}
 		}
 
-		for (AbstractRepositoryQuery query : queries) {
+		for (RepositoryQuery query : queries) {
 			updateQuery(query);
 		}
 
 		return true;
 	}
 
-	private void updateQuery(final AbstractRepositoryQuery query) {
+	private void updateQuery(final RepositoryQuery query) {
 		// just in case one with this definition already exists...
 		TasksUi.getTaskList().deleteQuery(query);
 		// make sure query reflects changed name, if it was changed

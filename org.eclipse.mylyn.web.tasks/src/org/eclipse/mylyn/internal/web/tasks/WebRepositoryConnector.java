@@ -39,7 +39,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.commons.net.WebClientUtil;
 import org.eclipse.mylyn.commons.net.WebLocation;
 import org.eclipse.mylyn.commons.net.WebUtil;
-import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.IdentityAttributeFactory;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractAttachmentHandler;
@@ -49,11 +48,12 @@ import org.eclipse.mylyn.internal.tasks.core.deprecated.DefaultTaskSchema;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.LegacyTaskDataCollector;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.ITaskRepositoryManager;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.data.TaskDataCollector;
-import org.eclipse.mylyn.tasks.core.sync.SynchronizationContext;
+import org.eclipse.mylyn.tasks.core.sync.ISynchronizationContext;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 
 import com.sun.syndication.feed.module.DCModule;
@@ -195,7 +195,7 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 			}
 		}
 
-		for (AbstractRepositoryQuery query : TasksUi.getTaskList().getQueries()) {
+		for (IRepositoryQuery query : TasksUi.getTaskList().getQueries()) {
 			if (query instanceof WebQuery) {
 				WebQuery webQuery = (WebQuery) query;
 				TaskRepository repository = repositoryManager.getRepository(webQuery.getConnectorKind(),
@@ -240,8 +240,8 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 	}
 
 	@Override
-	public IStatus performQuery(TaskRepository repository, AbstractRepositoryQuery query,
-			TaskDataCollector resultCollector, SynchronizationContext event, IProgressMonitor monitor) {
+	public IStatus performQuery(TaskRepository repository, IRepositoryQuery query,
+			TaskDataCollector resultCollector, ISynchronizationContext event, IProgressMonitor monitor) {
 		if (query instanceof WebQuery) {
 			WebQuery webQuery = (WebQuery) query;
 			Map<String, String> queryParameters = webQuery.getQueryParameters();
@@ -267,8 +267,8 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 	}
 
 	@Override
-	public void preSynchronization(SynchronizationContext event, IProgressMonitor monitor) throws CoreException {
-		for (ITask task : event.tasks) {
+	public void preSynchronization(ISynchronizationContext event, IProgressMonitor monitor) throws CoreException {
+		for (ITask task : event.getTasks()) {
 			task.setStale(true);
 		}
 	}

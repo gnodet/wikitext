@@ -16,10 +16,9 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
-import org.eclipse.mylyn.internal.tasks.core.AbstractTaskContainer;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.TaskSelection;
+import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.ITaskMapping;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
@@ -74,7 +73,7 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 	}
 
 	@Override
-	public IWizard getQueryWizard(TaskRepository repository, AbstractRepositoryQuery query) {
+	public IWizard getQueryWizard(TaskRepository repository, IRepositoryQuery query) {
 		IWizard queryWizard = null;
 
 		if (query instanceof XPlannerCustomQuery) {
@@ -145,7 +144,7 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 //	}
 
 	@Override
-	public IWizard getNewTaskWizard(TaskRepository taskRepository, TaskSelection taskSelection) {
+	public IWizard getNewTaskWizard(TaskRepository taskRepository, ITaskMapping taskSelection) {
 		// TODO pass taskSelection to task editor
 		return new NewXPlannerTaskWizard(taskRepository);
 	}
@@ -166,8 +165,8 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 	}
 
 	@Override
-	public List<AbstractTaskContainer> getLegendItems() {
-		List<AbstractTaskContainer> legendItems = new ArrayList<AbstractTaskContainer>();
+	public List<ITask> getLegendItems() {
+		List<ITask> legendItems = new ArrayList<ITask>();
 
 		XPlannerTask task = new XPlannerTask("", XPlannerTask.Kind.TASK.name(), XPlannerTask.Kind.TASK.toString());
 		task.setTaskKind(XPlannerTask.Kind.TASK.toString());

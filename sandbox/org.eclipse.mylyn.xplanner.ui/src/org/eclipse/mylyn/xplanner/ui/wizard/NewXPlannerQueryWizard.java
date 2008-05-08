@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.internal.tasks.core.RepositoryQuery;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractLegacyRepositoryConnector;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiImages;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
@@ -48,8 +48,8 @@ public class NewXPlannerQueryWizard extends Wizard {
 	@Override
 	public boolean performFinish() {
 		if (queryPage instanceof MultipleQueryPage) {
-			List<AbstractRepositoryQuery> queries = ((MultipleQueryPage) queryPage).getQueries();
-			for (final AbstractRepositoryQuery query : queries) {
+			List<RepositoryQuery> queries = ((MultipleQueryPage) queryPage).getQueries();
+			for (final RepositoryQuery query : queries) {
 				TasksUi.getTaskList().addQuery(query);
 			}
 
@@ -57,18 +57,18 @@ public class NewXPlannerQueryWizard extends Wizard {
 			AbstractLegacyRepositoryConnector connector = (AbstractLegacyRepositoryConnector) TasksUi.getRepositoryManager()
 					.getRepositoryConnector(repository.getConnectorKind());
 			if (connector != null) {
-				TasksUiInternal.synchronizeQueries(connector, repository,
-						new HashSet<AbstractRepositoryQuery>(queries), null, true);
+				TasksUiInternal.synchronizeQueries(connector, repository, new HashSet<RepositoryQuery>(queries), null,
+						true);
 			}
 		} else {
-			AbstractRepositoryQuery query = queryPage.getQuery();
+			RepositoryQuery query = (RepositoryQuery) queryPage.getQuery();
 			addQuery(query, repository);
 		}
 
 		return true;
 	}
 
-	public static void addQuery(AbstractRepositoryQuery query, TaskRepository repository) {
+	public static void addQuery(RepositoryQuery query, TaskRepository repository) {
 		if (query != null) {
 			TasksUi.getTaskList().addQuery(query);
 			AbstractLegacyRepositoryConnector connector = (AbstractLegacyRepositoryConnector) TasksUi.getRepositoryManager()

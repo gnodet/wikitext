@@ -15,11 +15,11 @@ import java.util.Set;
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.mylyn.internal.tasks.core.sync.SynchronizationContext;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
-import org.eclipse.mylyn.tasks.core.sync.SynchronizationContext;
 import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeFactory;
@@ -121,10 +121,10 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		try {
 			repository.setRepositoryUrl("http://localhost");
 
-			event.tasks = tasks;
-			event.performQueries = true;
-			event.taskRepository = repository;
-			event.fullSynchronization = true;
+			event.setTasks(tasks);
+			event.setNeedsPerformQueries(true);
+			event.setTaskRepository(repository);
+			event.setFullSynchronization(true);
 			connector.preSynchronization(event, null);
 		} catch (CoreException e) {
 			assertTrue(e.getMessage() != null && e.getMessage().contains("Connection error"));
@@ -132,7 +132,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 			repository.setRepositoryUrl(goodUrl);
 		}
 
-		assertTrue(event.performQueries);
+		assertTrue(event.needsPerformQueries());
 		for (ITask task : tasks) {
 			assertTrue(!task.isStale());
 		}

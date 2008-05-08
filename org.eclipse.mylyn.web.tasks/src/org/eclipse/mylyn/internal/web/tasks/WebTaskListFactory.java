@@ -14,9 +14,10 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.mylyn.internal.commons.core.XmlStringConverter;
-import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.internal.tasks.core.RepositoryQuery;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractTaskListFactory;
+import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
@@ -57,7 +58,7 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 	}
 
 	@Override
-	public boolean canCreate(AbstractRepositoryQuery category) {
+	public boolean canCreate(IRepositoryQuery category) {
 		return category instanceof WebQuery;
 	}
 
@@ -67,7 +68,7 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 	}
 
 	@Override
-	public void setAdditionalAttributes(AbstractRepositoryQuery query, Element node) {
+	public void setAdditionalAttributes(IRepositoryQuery query, Element node) {
 		if (query instanceof WebQuery) {
 			WebQuery webQuery = (WebQuery) query;
 			node.setAttribute(KEY_URL_TEMPLATE, webQuery.getQueryUrlTemplate());
@@ -117,7 +118,7 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 	}
 
 	@Override
-	public AbstractRepositoryQuery createQuery(String repositoryUrl, String queryString, String label, Element element) {
+	public RepositoryQuery createQuery(String repositoryUrl, String queryString, String label, Element element) {
 		String queryUrlTemplate = element.getAttribute(KEY_URL_TEMPLATE);
 		String queryPattern = element.getAttribute(KEY_REGEXP);
 		String taskPrefix = element.getAttribute(KEY_PREFIX);
@@ -144,7 +145,7 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 	}
 
 	@Override
-	public String getQueryElementName(AbstractRepositoryQuery query) {
+	public String getQueryElementName(IRepositoryQuery query) {
 		return query instanceof WebQuery ? KEY_WEB_QUERY : "";
 	}
 

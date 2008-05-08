@@ -31,7 +31,7 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
+import org.eclipse.mylyn.internal.tasks.core.RepositoryQuery;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.ITaskFactory;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.QueryHitCollector;
@@ -114,10 +114,10 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 	private static String getDefaultQueryTitle(TaskRepository repository) {
 		String label = repository.getRepositoryLabel();
 		String title = label;
-		Set<AbstractRepositoryQuery> queries = TasksUiPlugin.getTaskList().getRepositoryQueries(
+		Set<RepositoryQuery> queries = TasksUiPlugin.getTaskList().getRepositoryQueries(
 				repository.getRepositoryUrl());
 		for (int n = 1; true; n++) {
-			for (AbstractRepositoryQuery query : queries) {
+			for (RepositoryQuery query : queries) {
 				if (query.getSummary().equals(title)) {
 					title = label + " " + n;
 				}
@@ -357,7 +357,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 	}
 
 	@Override
-	public AbstractRepositoryQuery getQuery() {
+	public RepositoryQuery getQuery() {
 		String description = getQueryTitle();
 		String queryUrlTemplate = queryUrlText.getText();
 		String queryPattern = queryPatternText.getText();

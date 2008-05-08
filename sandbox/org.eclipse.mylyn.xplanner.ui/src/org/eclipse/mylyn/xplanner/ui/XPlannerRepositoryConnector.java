@@ -24,7 +24,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.commons.net.Policy;
-import org.eclipse.mylyn.internal.tasks.core.AbstractRepositoryQuery;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractAttachmentHandler;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractLegacyRepositoryConnector;
@@ -32,11 +31,12 @@ import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractTaskDataHandler;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.LegacyTaskDataCollector;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskAttribute;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
+import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.TaskRepositoryLocationFactory;
 import org.eclipse.mylyn.tasks.core.data.TaskDataCollector;
-import org.eclipse.mylyn.tasks.core.sync.SynchronizationContext;
+import org.eclipse.mylyn.tasks.core.sync.ISynchronizationContext;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.wsdl.soap.domain.DomainData;
@@ -141,8 +141,8 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 	}
 
 	@Override
-	public IStatus performQuery(TaskRepository repository, AbstractRepositoryQuery repositoryQuery,
-			TaskDataCollector resultCollector, SynchronizationContext event, IProgressMonitor monitor) {
+	public IStatus performQuery(TaskRepository repository, IRepositoryQuery repositoryQuery,
+			TaskDataCollector resultCollector, ISynchronizationContext event, IProgressMonitor monitor) {
 
 		if (!(repositoryQuery instanceof XPlannerCustomQuery)) {
 			return Status.OK_STATUS;
@@ -544,20 +544,20 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 	}
 
 	@Override
-	public void preSynchronization(SynchronizationContext event, IProgressMonitor monitor) throws CoreException {
+	public void preSynchronization(ISynchronizationContext event, IProgressMonitor monitor) throws CoreException {
 		boolean changed = false;
-		TaskRepository repository = event.taskRepository;
+		TaskRepository repository = event.getTaskRepository();
 		monitor = Policy.monitorFor(monitor);
 		try {
 			monitor.beginTask("Getting changed tasks", IProgressMonitor.UNKNOWN);
 
 			if (repository.getSynchronizationTimeStamp() == null) {
-				for (ITask task : event.tasks) {
+				for (ITask task : event.getTasks()) {
 					task.setStale(true);
 				}
 				changed = true;
 			} else {
-				Set<ITask> changedTasks = getChangedSinceLastSync(repository, event.tasks);
+				Set<ITask> changedTasks = getChangedSinceLastSync(repository, event.getTasks());
 				for (ITask changedTask : changedTasks) {
 					changedTask.setStale(true);
 				}
@@ -568,7 +568,7 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 			monitor.done();
 		}
 
-		event.performQueries = changed;
+		event.setNeedsPerformQueries(changed);
 	}
 
 	@Override
@@ -582,12 +582,12 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 	}
 
 	@Override
-	public void postSynchronization(SynchronizationContext event, IProgressMonitor monitor) throws CoreException {
+	public void postSynchronization(ISynchronizationContext event, IProgressMonitor monitor) throws CoreException {
 		try {
 			monitor.beginTask("", 1);
-			if (event.fullSynchronization) {
-				event.taskRepository.setSynchronizationTimeStamp(getSynchronizationTimestamp(event.taskRepository,
-						event.changedTasks));
+			if (event.isFullSynchronization()) {
+				event.getTaskRepository().setSynchronizationTimeStamp(getSynchronizationTimestamp(event.getTaskRepository(),
+						event.getChangedTasks()));
 			}
 		} finally {
 			monitor.done();
