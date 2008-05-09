@@ -26,7 +26,6 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.mylyn.tasks.core.RepositoryTemplate;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
-import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -79,8 +78,8 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 
 	private final ArrayList<ControlDecoration> decorations = new ArrayList<ControlDecoration>();
 
-	public WebRepositorySettingsPage(AbstractRepositoryConnectorUi repositoryUi) {
-		super(TITLE, DESCRIPTION, repositoryUi);
+	public WebRepositorySettingsPage(TaskRepository taskRepository) {
+		super(TITLE, DESCRIPTION, taskRepository);
 		setNeedsAnonymousLogin(true);
 		setNeedsValidation(false);
 	}
@@ -309,7 +308,8 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 	}
 
 	@Override
-	public void updateProperties(TaskRepository repository) {
+	public void applyTo(TaskRepository repository) {
+		super.applyTo(repository);
 		repository.setProperty(WebRepositoryConnector.PROPERTY_TASK_URL, taskUrlText.getText());
 		repository.setProperty(WebRepositoryConnector.PROPERTY_TASK_CREATION_URL, newTaskText.getText());
 
@@ -366,6 +366,11 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 	@Override
 	protected Validator getValidator(TaskRepository repository) {
 		return null;
+	}
+
+	@Override
+	public String getConnectorKind() {
+		return WebRepositoryConnector.REPOSITORY_TYPE;
 	}
 
 }

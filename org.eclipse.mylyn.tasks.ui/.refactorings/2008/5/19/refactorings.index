@@ -11,4 +11,15 @@
 1210210517638	Rename compilation unit 'DelegatingTaskExternalizer.java'
 1210228762999	Delete element
 1210232611995	Move member 'getTaskList'
-1210287813103	Delete element
+1210233398474	Encapsulate field 'repository'
+1210233406886	Encapsulate field 'query'
+1210234445084	Delete element
+1210234544300	Rename type 'AbstractRepositoryQueryWizard'
+1210271073613	Extract interface 'ITaskRepositoryPage'
+1210271271441	Change method 'getSettingsPage'
+1210285405149	Rename type 'SelectRepositoryClientPage'
+1210285572377	Extract method 'updateSettingsPage'
+1210285827961	Delete element
+1210286251169	Rename field 'repository'
+1210286307162	Rename method 'getServerUrl'
+1210288370665	Move compilation unit

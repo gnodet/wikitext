@@ -6,11 +6,20 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.jira.core.model;
+package org.eclipse.mylyn.tasks.ui.wizards;
 
-/**
- * @author Brock Janiczak
- */
-public interface Query {
+import org.eclipse.jface.wizard.IWizardPage;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
+
+public interface ITaskRepositoryPage extends IWizardPage {
+
+	public abstract TaskRepository createTaskRepository();
+
+	/**
+	 * @since 2.2
+	 */
+	public abstract void applyTo(TaskRepository repository);
+
+	public abstract String getRepositoryUrl();
 
 }

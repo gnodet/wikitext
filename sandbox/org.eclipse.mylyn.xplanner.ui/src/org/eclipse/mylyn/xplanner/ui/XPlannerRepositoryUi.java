@@ -21,7 +21,7 @@ import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.ITaskMapping;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
-import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
+import org.eclipse.mylyn.tasks.ui.wizards.ITaskRepositoryPage;
 import org.eclipse.mylyn.tasks.ui.wizards.ITaskSearchPage;
 import org.eclipse.mylyn.xplanner.ui.wizard.EditXPlannerQueryWizard;
 import org.eclipse.mylyn.xplanner.ui.wizard.Messages;
@@ -39,8 +39,8 @@ import org.eclipse.ui.PlatformUI;
 public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 
 	@Override
-	public AbstractRepositorySettingsPage getSettingsPage() {
-		return new XPlannerRepositorySettingsPage(this);
+	public ITaskRepositoryPage getSettingsPage(TaskRepository taskRepository) {
+		return new XPlannerRepositorySettingsPage(taskRepository);
 	}
 
 	@Override

@@ -15,7 +15,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
-import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
 import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
 import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUtils;
@@ -36,8 +35,8 @@ public class XPlannerRepositorySettingsPage extends AbstractRepositorySettingsPa
 
 	private static final String DESCRIPTION = Messages.XPlannerRepositorySettingsPage_URL_EXAMPLE;
 
-	public XPlannerRepositorySettingsPage(AbstractRepositoryConnectorUi connectorUi) {
-		super(TITLE, DESCRIPTION, connectorUi);
+	public XPlannerRepositorySettingsPage(TaskRepository taskRepository) {
+		super(TITLE, DESCRIPTION, taskRepository);
 		setNeedsProxy(true);
 		setNeedsHttpAuth(true);
 	}
@@ -81,4 +80,10 @@ public class XPlannerRepositorySettingsPage extends AbstractRepositorySettingsPa
 					Messages.XPlannerRepositorySettingsPage_VALID_SETTINGS_FOUND, null));
 		}
 	}
+
+	@Override
+	public String getConnectorKind() {
+		return XPlannerMylynUIPlugin.REPOSITORY_KIND;
+	}
+
 }
