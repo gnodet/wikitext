@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;attachmentHandler&apos; from expression &apos;((AbstractLegacyRepositoryConnector)connector).getAttachmentHandler()&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.ui&apos;&#x0A;- Variable name: &apos;attachmentHandler&apos;&#x0A;- Destination method: &apos;org.eclipse.mylyn.internal.tasks.ui.AttachmentUtil.canUploadAttachment()&apos;&#x0A;- Variable expression: &apos;((AbstractLegacyRepositoryConnector)connector).getAttachmentHandler()&apos;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;attachmentHandler&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.eclipse.mylyn.internal.tasks.ui{AttachmentUtil.java" name="attachmentHandler" replace="true" selection="9032 70" stamp="1210623975742" version="1.0"/>
+</session>
