@@ -66,8 +66,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 	protected void setUp() throws Exception {
 		WorkspaceSetupHelper.setupWorkspace();
 		repository = new TaskRepository(BugzillaCorePlugin.REPOSITORY_KIND, IBugzillaConstants.ECLIPSE_BUGZILLA_URL);
-		TasksUiPlugin.getRepositoryManager().addRepository(repository,
-				TasksUiPlugin.getDefault().getRepositoriesFilePath());
+		TasksUiPlugin.getRepositoryManager().addRepository(repository);
 
 		IJavaProject jp = WorkspaceSetupHelper.getJdtCoreDomProject();
 		astNodeType = WorkspaceSetupHelper.getType(jp, "org.eclipse.jdt.core.dom.ASTNode");
