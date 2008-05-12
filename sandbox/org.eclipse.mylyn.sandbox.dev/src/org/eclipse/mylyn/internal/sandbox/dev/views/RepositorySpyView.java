@@ -309,16 +309,14 @@ public class RepositorySpyView extends ViewPart {
 					if (askDeleteMessage((KeyValuePair) obj)) {
 						KeyValuePair kvp = (KeyValuePair) obj;
 						((TaskRepository) kvp.getParent()).removeProperty((String) kvp.getKey());
-						TasksUiPlugin.getRepositoryManager().saveRepositories(
-								TasksUiPlugin.getDefault().getRepositoriesFilePath());
+						TasksUiPlugin.getExternalizationManager().requestSave();
 						viewer.refresh();
 					}
 				} else if (null == obj) {
 					List<TaskRepository> repositories = TasksUi.getRepositoryManager().getAllRepositories();
 					for (TaskRepository repository : repositories) {
 						repository.removeProperty("config.lastupdate");
-						TasksUiPlugin.getRepositoryManager().saveRepositories(
-								TasksUiPlugin.getDefault().getRepositoriesFilePath());
+						TasksUiPlugin.getExternalizationManager().requestSave();
 						viewer.refresh();
 					}
 					showMessage("Removed config.lastupdate property");
@@ -338,8 +336,7 @@ public class RepositorySpyView extends ViewPart {
 					if (askDeleteMessage((KeyValuePair) obj)) {
 						KeyValuePair kvp = (KeyValuePair) obj;
 						((TaskRepository) kvp.getParent()).removeProperty((String) kvp.getKey());
-						TasksUiPlugin.getRepositoryManager().saveRepositories(
-								TasksUiPlugin.getDefault().getRepositoriesFilePath());
+						TasksUiPlugin.getExternalizationManager().requestSave();
 						viewer.refresh();
 					}
 				}

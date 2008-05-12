@@ -26,9 +26,4 @@
 1210209627277	Rename method 'isWeekDay'
 1210221254583	Delete element
 1210232644062	Move compilation unit
-1210286623774	Change method 'createQuery'
-1210286708922	Change method 'getDuplicatesQuery'
-1210286761908	Change method 'getDuplicatesQuery'
-1210287305947	Change method 'createQuery'
-1210288998112	Extract local variable 'attribute'
-1210291409187	Extract local variable 'removedChildren'
+1210294514130	Extract superclass 'AbstractExternalizationParticipant'
