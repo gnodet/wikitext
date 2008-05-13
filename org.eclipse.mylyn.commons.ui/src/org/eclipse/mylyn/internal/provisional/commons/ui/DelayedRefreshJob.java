@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.tasks.ui.views;
+package org.eclipse.mylyn.internal.provisional.commons.ui;
 
 import java.util.LinkedHashSet;
 
@@ -18,25 +18,22 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.mylyn.commons.core.StatusHandler;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.internal.tasks.ui.util.TreeWalker;
-import org.eclipse.mylyn.internal.tasks.ui.util.TreeWalker.TreeVisitor;
-import org.eclipse.mylyn.tasks.core.ITask;
-import org.eclipse.swt.SWTException;
+import org.eclipse.mylyn.internal.commons.ui.TreeWalker;
+import org.eclipse.mylyn.internal.commons.ui.TreeWalker.TreeVisitor;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.progress.WorkbenchJob;
 
 /**
  * @author Steffen Pingel
+ * @author Mik Kersten
  */
-abstract class DelayedRefreshJob extends WorkbenchJob {
+public abstract class DelayedRefreshJob extends WorkbenchJob {
 
 	static final long REFRESH_DELAY_DEFAULT = 200;
 
 	static final long REFRESH_DELAY_MAX = 500;
 
-	private final TreeViewer treeViewer;
+	protected final TreeViewer treeViewer;
 
 	private static final int NOT_SCHEDULED = -1;
 
@@ -86,12 +83,12 @@ abstract class DelayedRefreshJob extends WorkbenchJob {
 				items = queue.toArray(new Object[0]);
 			}
 			queue.clear();
-
 			scheduleTime = NOT_SCHEDULED;
 		}
 
 		// in case the refresh removes the currently selected item, 
 		// remember the next item in the tree to restore the selection
+		// TODO: consider making this optional
 		TreeItem[] selection = treeViewer.getTree().getSelection();
 		TreePath treePath = null;
 		if (selection.length > 0) {
@@ -116,26 +113,7 @@ abstract class DelayedRefreshJob extends WorkbenchJob {
 		return Status.OK_STATUS;
 	}
 
-	protected void refresh(final Object[] items) {
-		if (items == null) {
-			treeViewer.refresh(true);
-		} else if (items.length > 0) {
-			try {
-				for (Object item : items) {
-					if (item instanceof ITask) {
-						ITask task = (ITask) item;
-						treeViewer.refresh(task, true);
-					} else {
-						treeViewer.refresh(item, true);
-					}
-					updateExpansionState(item);
-				}
-			} catch (SWTException e) {
-				StatusHandler.log(new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, "Failed to refresh viewer: "
-						+ treeViewer, e));
-			}
-		}
-	}
+	protected abstract void refresh(final Object[] items);
 
 	protected abstract void updateExpansionState(Object item);
 

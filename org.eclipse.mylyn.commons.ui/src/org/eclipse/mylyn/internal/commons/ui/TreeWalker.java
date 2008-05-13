@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.tasks.ui.util;
+package org.eclipse.mylyn.internal.commons.ui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
