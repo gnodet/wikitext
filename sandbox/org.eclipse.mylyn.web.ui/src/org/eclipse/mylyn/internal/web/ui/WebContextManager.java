@@ -21,9 +21,9 @@ import java.util.Set;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.commons.core.StatusHandler;
+import org.eclipse.mylyn.context.core.AbstractContextListener;
 import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionContext;
-import org.eclipse.mylyn.context.core.IInteractionContextListener;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.internal.tasks.ui.RetrieveTitleFromUrlJob;
 
@@ -45,8 +45,9 @@ public class WebContextManager {
 
 	private final Properties titleCache = new Properties();
 
-	private final IInteractionContextListener UPDATE_LISTENER = new IInteractionContextListener() {
+	private final AbstractContextListener UPDATE_LISTENER = new AbstractContextListener() {
 
+		@Override
 		public void interestChanged(List<IInteractionElement> elements) {
 			for (IInteractionElement element : elements) {
 				if (WebResourceStructureBridge.CONTENT_TYPE.equals(element.getContentType())) {
@@ -55,11 +56,13 @@ public class WebContextManager {
 			}
 		}
 
+		@Override
 		public void contextActivated(IInteractionContext context) {
 			webContextEnabled = true;
 			updateContents();
 		}
 
+		@Override
 		public void contextDeactivated(IInteractionContext context) {
 			if (getGlobalContext() == null) {
 				webContextEnabled = false;
@@ -67,27 +70,12 @@ public class WebContextManager {
 			updateContents();
 		}
 
+		@Override
 		public void contextCleared(IInteractionContext context) {
 			if (getGlobalContext() == null) {
 				webContextEnabled = false;
 			}
 			updateContents();
-		}
-
-		public void landmarkAdded(IInteractionElement node) {
-			// ignore
-		}
-
-		public void landmarkRemoved(IInteractionElement node) {
-			// ignore
-		}
-
-		public void relationsChanged(IInteractionElement node) {
-			// ignore
-		}
-
-		public void elementDeleted(IInteractionElement node) {
-			// ignore
 		}
 	};
 

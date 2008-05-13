@@ -28,11 +28,10 @@ import org.eclipse.jface.util.TransferDragSourceListener;
 import org.eclipse.jface.viewers.DecoratingLabelProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.mylyn.commons.core.StatusHandler;
+import org.eclipse.mylyn.context.core.AbstractContextListener;
 import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionContext;
-import org.eclipse.mylyn.context.core.IInteractionContextListener;
-import org.eclipse.mylyn.context.core.IInteractionContextListener2;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.context.ui.AbstractContextUiBridge;
 import org.eclipse.mylyn.internal.context.core.AbstractRelationProvider;
@@ -99,50 +98,48 @@ public class ActiveSearchView extends ViewPart {
 	 */
 	private boolean syncExecForTesting = true;
 
-	private final IInteractionContextListener REFRESH_UPDATE_LISTENER = new IInteractionContextListener2() {
+	private final AbstractContextListener REFRESH_UPDATE_LISTENER = new AbstractContextListener() {
 
+		@Override
 		public void interestChanged(List<IInteractionElement> nodes) {
 			refresh(nodes.get(nodes.size() - 1), false);
 		}
 
+		@Override
 		public void contextActivated(IInteractionContext taskscape) {
 			refreshRelatedElements();
 			refresh(null, true);
 		}
 
+		@Override
 		public void contextDeactivated(IInteractionContext taskscape) {
 			refresh(null, true);
 		}
 
+		@Override
 		public void contextCleared(IInteractionContext context) {
 			refresh(null, true);
 		}
 
+		@Override
 		public void landmarkAdded(IInteractionElement node) {
 			refresh(null, true);
 		}
 
+		@Override
 		public void landmarkRemoved(IInteractionElement node) {
 			refresh(null, true);
 		}
 
+		@Override
 		public void relationsChanged(IInteractionElement node) {
 			refresh(node, true);
 		}
 
-		public void elementDeleted(IInteractionElement node) {
-			refresh(null, true);
-		}
-
+		@Override
 		public void elementsDeleted(List<IInteractionElement> elements) {
 			refresh(null, true);
 		}
-
-		public void contextPreActivated(IInteractionContext context) {
-			// ignore
-
-		}
-
 	};
 
 	public static ActiveSearchView getFromActivePerspective() {

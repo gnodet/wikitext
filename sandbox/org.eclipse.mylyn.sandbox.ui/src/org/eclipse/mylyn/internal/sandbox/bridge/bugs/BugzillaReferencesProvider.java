@@ -24,6 +24,7 @@ import org.eclipse.jdt.core.IMember;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.mylyn.context.core.IDegreeOfSeparation;
+import org.eclipse.mylyn.context.core.IInteractionContext;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.internal.context.core.AbstractRelationProvider;
 import org.eclipse.mylyn.internal.context.core.DegreeOfSeparation;
@@ -183,5 +184,13 @@ public class BugzillaReferencesProvider extends AbstractRelationProvider {
 	@Override
 	protected int getDefaultDegreeOfSeparation() {
 		return DEFAULT_DEGREE;
+	}
+
+	public void contextPreActivated(IInteractionContext context) {
+		// ignore	
+	}
+
+	public void elementsDeleted(List<IInteractionElement> elements) {
+		// ignore
 	}
 }

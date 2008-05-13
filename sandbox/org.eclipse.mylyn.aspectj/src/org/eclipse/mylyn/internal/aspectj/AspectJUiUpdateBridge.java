@@ -8,54 +8,13 @@
 
 package org.eclipse.mylyn.internal.aspectj;
 
-import java.util.List;
-
-import org.eclipse.mylyn.context.core.IInteractionContext;
-import org.eclipse.mylyn.context.core.IInteractionContextListener;
-import org.eclipse.mylyn.context.core.IInteractionElement;
+import org.eclipse.mylyn.context.core.AbstractContextListener;
 
 /**
  * @author Mik Kersten
  */
-public class AspectJUiUpdateBridge implements IInteractionContextListener {
+public class AspectJUiUpdateBridge extends AbstractContextListener {
 
-	public void contextActivated(IInteractionContext context) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void contextDeactivated(IInteractionContext context) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void contextCleared(IInteractionContext context) {
-		// ignore
-	}
-
-	public void interestChanged(List<IInteractionElement> nodes) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void elementDeleted(IInteractionElement node) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void landmarkAdded(IInteractionElement node) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void landmarkRemoved(IInteractionElement node) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void relationsChanged(IInteractionElement node) {
-		// TODO Auto-generated method stub
-
-	}
+	// TODO: implement
 
 }

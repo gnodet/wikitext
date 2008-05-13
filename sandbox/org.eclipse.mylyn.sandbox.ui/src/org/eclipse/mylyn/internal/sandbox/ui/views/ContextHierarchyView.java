@@ -38,9 +38,9 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.mylyn.commons.core.StatusHandler;
+import org.eclipse.mylyn.context.core.AbstractContextListener;
 import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionContext;
-import org.eclipse.mylyn.context.core.IInteractionContextListener;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.internal.context.ui.ActiveViewSelectionDragAdapter;
 import org.eclipse.mylyn.internal.context.ui.views.ActiveViewDelegatingDragAdapter;
@@ -74,38 +74,32 @@ public class ContextHierarchyView extends ViewPart {
 
 	private final Map<String, TreeParent> nodeMap = new HashMap<String, TreeParent>();
 
-	final IInteractionContextListener MODEL_LISTENER = new IInteractionContextListener() {
+	final AbstractContextListener MODEL_LISTENER = new AbstractContextListener() {
 
+		@Override
 		public void contextActivated(IInteractionContext taskscape) {
 			refreshHierarchy();
 		}
 
+		@Override
 		public void contextDeactivated(IInteractionContext taskscape) {
 			refreshHierarchy();
 		}
 
+		@Override
 		public void contextCleared(IInteractionContext context) {
 			refreshHierarchy();
 		}
 
-		public void interestChanged(List<IInteractionElement> nodes) {
-		}
-
+		@Override
 		public void landmarkAdded(IInteractionElement element) {
 			refreshHierarchy();
 		}
 
+		@Override
 		public void landmarkRemoved(IInteractionElement element) {
 			refreshHierarchy();
 		}
-
-		public void relationsChanged(IInteractionElement node) {
-		}
-
-		public void elementDeleted(IInteractionElement node) {
-			// ignore
-		}
-
 	};
 
 	class ViewContentProvider implements IStructuredContentProvider, ITreeContentProvider {
