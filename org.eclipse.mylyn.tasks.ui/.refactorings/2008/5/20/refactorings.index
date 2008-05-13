@@ -1,4 +1,14 @@
 1210623975742	Extract local variable 'attachmentHandler'
-1210708055318	Convert anonymous class to nested
-1210708173722	Move compilation unit
-1210708224564	Move compilation unit
+1210626132073	Copy compilation unit
+1210627787010	Copy compilation unit
+1210633953559	Copy compilation unit
+1210634731743	Delete element
+1210635367567	Delete element
+1210635385522	Delete element
+1210636611970	Delete element
+1210636770675	Delete element
+1210636918241	Rename type 'TaskListTooltipHandler'
+1210636969000	Delete elements
+1210708990405	Move member 'isAnimationsEnabled'
+1210709233505	Move members
+1210709830724	Move member 'MAX_CHANGED_ATTRIBUTES'
