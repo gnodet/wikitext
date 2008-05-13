@@ -82,9 +82,6 @@ import org.eclipse.ui.IWorkingSet;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
-/**
- * @author Steffen Pingel
- */
 public class TasksUiInternal {
 
 	public static MultiRepositoryAwareWizard createNewTaskWizard(ITaskMapping taskSelection) {
