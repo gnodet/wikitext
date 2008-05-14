@@ -86,7 +86,7 @@ public class AbstractTaskPropertiesSource extends AbstractTaskContainerPropertyS
 		} else if (STATE.equals(id)) {
 			return task.getSynchronizationState() == null ? NULL_MSG : task.getSynchronizationState().toString();
 		} else if (STATUS.equals(id)) {
-			return task.getSynchronizationStatus() == null ? NULL_MSG : task.getSynchronizationStatus().toString();
+			return task.getErrorStatus() == null ? NULL_MSG : task.getErrorStatus().toString();
 		} else if (LAST_READ.equals(id)) {
 			return task.getLastReadTimeStamp() == null ? NULL_MSG : task.getLastReadTimeStamp().toString();
 		}

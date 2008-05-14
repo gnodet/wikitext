@@ -4,3 +4,7 @@
 1210734344656	Rename type 'AbstractDuplicateDetector'
 1210734500233	Move member 'getStackTraceFromDescription'
 1210734987136	Move compilation unit
+1210800327603	Rename method 'getError'
+1210800389083	Rename method 'getSynchronizationStatus'
+1210800944454	Rename method 'setSynchronizationStatus'
+1210800959398	Rename field 'synchronizationStatus'
