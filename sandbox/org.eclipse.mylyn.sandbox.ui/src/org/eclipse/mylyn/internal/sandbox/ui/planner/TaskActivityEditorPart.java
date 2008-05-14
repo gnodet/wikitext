@@ -35,6 +35,7 @@ import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.DateRange;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -577,7 +578,7 @@ public class TaskActivityEditorPart extends EditorPart {
 				writer.write("<tr>");
 				writer.write("<td width=\"59\">ICON</td><td width=\"55\">" + currentTask.getPriority()
 						+ "</td><td width=\"495\">");
-				if (currentTask.hasValidUrl()) {
+				if (TasksUiInternal.isValidUrl(currentTask.getUrl())) {
 					writer.write("<a href='" + currentTask.getUrl() + "'>" + currentTask.getSummary() + "</a>");
 				} else {
 					writer.write(currentTask.getSummary());
@@ -634,7 +635,7 @@ public class TaskActivityEditorPart extends EditorPart {
 				writer.write("<td width=\"59\">ICON</td><td width=\"55\">" + currentTask.getPriority()
 						+ "</td><td width=\"495\">");
 
-				if (currentTask.hasValidUrl()) {
+				if (TasksUiInternal.isValidUrl(currentTask.getUrl())) {
 					writer.write("<a href='" + currentTask.getUrl() + "'>" + currentTask.getSummary() + "</a>");
 				} else {
 					writer.write(currentTask.getSummary());

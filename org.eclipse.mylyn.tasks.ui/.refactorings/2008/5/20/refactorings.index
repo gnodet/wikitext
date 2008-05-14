@@ -12,3 +12,6 @@
 1210708990405	Move member 'isAnimationsEnabled'
 1210709233505	Move members
 1210709830724	Move member 'MAX_CHANGED_ATTRIBUTES'
+1210720746035	Copy compilation unit
+1210723634823	Rename method 'getContextAttachments'
+1210726182673	Copy compilation unit
