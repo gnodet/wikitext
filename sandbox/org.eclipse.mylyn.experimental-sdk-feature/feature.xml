@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.eclipse.mylyn.monitor_feature"
-      label="Mylyn UI Usage Reporting"
+      id="org.eclipse.mylyn.experimental_sdk_feature"
+      label="Mylyn Experimental SDK"
       version="3.0.0.qualifier"
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylyn">
 
-   <description>
-      Generate personal usage data reports and optionally share usage
-statistics with the eclipse.org community.
+   <description url="http://eclipse.org/mylyn">
+      Provides sources for the Trac Wiki Support, Sandbox and UI
+Usage features.
    </description>
 
    <copyright>
@@ -64,32 +64,28 @@ Java and all Java-based trademarks are trademarks of Sun Microsystems, Inc. in t
       <update label="Mylyn Experimental Features" url="http://download.eclipse.org/tools/mylyn/update/experimental"/>
    </url>
 
-   <requires>
-      <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.jface.text"/>
-      <import plugin="org.eclipse.update.ui"/>
-      <import plugin="org.eclipse.update.core"/>
-      <import plugin="org.eclipse.ui.browser"/>
-      <import plugin="org.eclipse.ui.editors"/>
-      <import plugin="org.eclipse.ui.workbench.texteditor"/>
-      <import plugin="org.eclipse.ui.forms"/>
-      <import plugin="org.eclipse.core.filesystem"/>
-      <import plugin="org.eclipse.ui.ide"/>
-      <import plugin="org.eclipse.mylyn.context.core" version="3.0.0" match="compatible"/>
-      <import plugin="org.eclipse.mylyn.context.ui" version="3.0.0" match="compatible"/>
-      <import plugin="org.eclipse.mylyn.monitor.ui" version="3.0.0" match="compatible"/>
-      <import plugin="org.eclipse.mylyn.commons.core" version="3.0.0" match="compatible"/>
-      <import plugin="org.eclipse.mylyn.commons.net" version="3.0.0" match="compatible"/>
-      <import plugin="org.eclipse.mylyn.monitor.core" version="3.0.0" match="compatible"/>
-   </requires>
-
    <plugin
-         id="org.eclipse.mylyn.monitor.usage"
+         id="org.eclipse.mylyn.sandbox.dev.source"
          download-size="0"
          install-size="0"
-         version="3.0.0.qualifier"
-         unpack="false"/>
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.mylyn.sandbox.ui.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.mylyn.trac.wiki.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.mylyn.monitor.usage.source"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
 
 </feature>
