@@ -9,3 +9,4 @@
 1210820736964	Extract method 'resetStatus'
 1210820933267	Delete element
 1210823175964	Move compilation unit
+1210827108619	Inline local variable 'key'
