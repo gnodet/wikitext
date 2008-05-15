@@ -17,10 +17,10 @@ import junit.framework.TestCase;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.mylyn.internal.tasks.core.sync.SynchronizationContext;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
-import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeFactory;
 import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryConnector;
@@ -53,7 +53,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 
 		assertTrue(testUserStory != null);
 
-		ITask repositoryTask = TasksUiUtil.createTask(repository, "" + testUserStory.getId(), null);
+		ITask repositoryTask = TasksUiInternal.createTask(repository, "" + testUserStory.getId(), null);
 
 		assertTrue(repositoryTask instanceof XPlannerTask);
 		assertTrue(((XPlannerTask) repositoryTask).getSummary().equals(testUserStory.getName()));
@@ -66,7 +66,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 
 		assertTrue(testTask != null);
 
-		ITask repositoryTask = TasksUiUtil.createTask(repository, "" + testTask.getId(), null);
+		ITask repositoryTask = TasksUiInternal.createTask(repository, "" + testTask.getId(), null);
 
 		assertTrue(repositoryTask instanceof XPlannerTask);
 		assertTrue(((XPlannerTask) repositoryTask).getSummary().equals(testTask.getName()));

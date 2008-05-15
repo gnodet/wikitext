@@ -12,9 +12,9 @@ import junit.framework.TestCase;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractLegacyRepositoryConnector;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
-import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeFactory;
 import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
@@ -100,7 +100,7 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 			TaskRepository repository = XPlannerTestUtils.getRepository();
 			assertTrue(repository != null);
 
-			ITask repositoryTask = TasksUiUtil.createTask(repository, "" + testTaskData.getId(), null);
+			ITask repositoryTask = TasksUiInternal.createTask(repository, "" + testTaskData.getId(), null);
 
 			assertTrue(repositoryTask instanceof XPlannerTask);
 

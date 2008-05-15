@@ -16,9 +16,9 @@ import org.eclipse.mylyn.commons.net.AuthenticationCredentials;
 import org.eclipse.mylyn.commons.net.AuthenticationType;
 import org.eclipse.mylyn.internal.tasks.core.ITaskList;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
-import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.ui.XPlannerClientFacade;
 import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
@@ -306,7 +306,7 @@ public class XPlannerTestUtils {
 	public static XPlannerTask getTestXPlannerTask(XPlannerClient client) throws Exception {
 		TaskRepository repository = getRepository();
 		TaskData testTask = findTestTask(client);
-		ITask task = TasksUiUtil.createTask(repository, "" + testTask.getId(), null);
+		ITask task = TasksUiInternal.createTask(repository, "" + testTask.getId(), null);
 		return (XPlannerTask) task;
 	}
 
@@ -316,7 +316,7 @@ public class XPlannerTestUtils {
 	public static XPlannerTask getTestXPlannerUserStoryTask(XPlannerClient client) throws Exception {
 		TaskRepository repository = getRepository();
 		UserStoryData testUserStory = findTestUserStory(client);
-		ITask task = TasksUiUtil.createTask(repository, "" + testUserStory.getId(), null);
+		ITask task = TasksUiInternal.createTask(repository, "" + testUserStory.getId(), null);
 		return (XPlannerTask) task;
 	}
 

@@ -25,3 +25,5 @@
 1210823367764	Move member 'ID_PERSPECTIVE_PLANNING'
 1210823812430	Move compilation unit
 1210832800773	Rename type 'TasksUiPreferenceConstants'
+1210868190631	Move member 'closeEditorInActivePage'
+1210868629302	Move members
