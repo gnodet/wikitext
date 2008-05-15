@@ -17,3 +17,5 @@
 1210726182673	Copy compilation unit
 1210736916118	Inline local variable 'allDetectors'
 1210736968822	Extract method 'isValidDuplicateDetector'
+1210801673801	Delete element
+1210816963745	Extract local variable 'imageDescriptorFromPlugin'
