@@ -22,7 +22,6 @@ import org.eclipse.swt.graphics.Image;
  * TODO: refactor edge stuff
  * 
  * @author Mik Kersten
- * @since 3.0
  */
 public class DelegatingContextLabelProvider implements ILabelProvider {
 

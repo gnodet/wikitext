@@ -2,3 +2,5 @@
 1210649909532	Delete element
 1210651110885	Rename type 'IInteractionContextListener'
 1210823607560	Move member 'CONTENT_TYPE_RESOURCE'
+1210836261495	Rename method 'getKnownContentTypes'
+1210836268541	Rename method 'getKnownContentTypes'
