@@ -42,7 +42,7 @@ public class EditXPlannerQueryWizard extends AbstractRepositoryQueryWizard {
 		List<RepositoryQuery> queries = new ArrayList<RepositoryQuery>();
 
 		// always delete existing query, because new one(s) will get created below
-		TasksUi.getTasksModel().deleteQuery(query);
+		TasksUiInternal.getTaskList().deleteQuery((RepositoryQuery) query);
 
 		if (queryPage instanceof MultipleQueryPage) {
 			queries = ((MultipleQueryPage) queryPage).getQueries();
