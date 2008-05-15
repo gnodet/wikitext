@@ -43,7 +43,7 @@ public class TaskHighlighterMenuContributor implements IDynamicSubMenuContributo
 						if (task != null) {
 							SandboxUiPlugin.getDefault().setHighlighterMapping(task.getHandleIdentifier(),
 									highlighter.getName());
-							TasksUiInternal.getTaskList().notifyTaskChanged(task, false);
+							TasksUiInternal.getTaskList().notifyElementChanged(task);
 						}
 					}
 				}

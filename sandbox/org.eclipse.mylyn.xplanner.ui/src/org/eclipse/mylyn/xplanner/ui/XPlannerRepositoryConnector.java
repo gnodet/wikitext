@@ -407,7 +407,7 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 		}
 
 		if (notifyOfChange) {
-			TasksUiInternal.getTaskList().notifyTaskChanged(task, true);
+			TasksUiInternal.getTaskList().notifyElementChanged(task);
 		}
 	}
 
@@ -432,7 +432,7 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 		task.setTaskKind(XPlannerTask.Kind.USER_STORY.toString());
 
 		if (notifyOfChange) {
-			TasksUiInternal.getTaskList().notifyTaskChanged(task, true);
+			TasksUiInternal.getTaskList().notifyElementChanged(task);
 		}
 	}
 

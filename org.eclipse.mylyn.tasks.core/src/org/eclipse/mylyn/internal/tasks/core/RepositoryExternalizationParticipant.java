@@ -61,6 +61,7 @@ public class RepositoryExternalizationParticipant extends AbstractExternalizatio
 
 		switch (context.getKind()) {
 		case SAVE:
+			System.err.println(">>> save repositories");
 			if (!takeSnapshot(repositoriesFile)) {
 				StatusHandler.fail(new Status(IStatus.WARNING, ITasksCoreConstants.ID_PLUGIN,
 						"Task List snapshot failed"));
@@ -77,7 +78,6 @@ public class RepositoryExternalizationParticipant extends AbstractExternalizatio
 				if (restoreSnapshot(repositoriesFile)) {
 					repositoryManager.readRepositories(filePath);
 				} else {
-					// TODO: sufficient?
 					throw new CoreException(new Status(IStatus.ERROR, ITasksCoreConstants.ID_PLUGIN,
 							"Failed to load repositories", e));
 				}
