@@ -58,6 +58,7 @@ import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTaskCategory;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.internal.tasks.core.TaskCategory;
+import org.eclipse.mylyn.internal.tasks.core.TaskContainerDelta;
 import org.eclipse.mylyn.internal.tasks.core.UncategorizedTaskContainer;
 import org.eclipse.mylyn.internal.tasks.core.UnmatchedTaskContainer;
 import org.eclipse.mylyn.internal.tasks.ui.AbstractTaskListFilter;
@@ -70,9 +71,8 @@ import org.eclipse.mylyn.internal.tasks.ui.TaskListPatternFilter;
 import org.eclipse.mylyn.internal.tasks.ui.TaskPriorityFilter;
 import org.eclipse.mylyn.internal.tasks.ui.TaskTransfer;
 import org.eclipse.mylyn.internal.tasks.ui.TaskWorkingSetFilter;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiImages;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPreferenceConstants;
+import org.eclipse.mylyn.internal.tasks.ui.ITasksUiPreferenceConstants;
 import org.eclipse.mylyn.internal.tasks.ui.actions.CollapseAllAction;
 import org.eclipse.mylyn.internal.tasks.ui.actions.CopyTaskDetailsAction;
 import org.eclipse.mylyn.internal.tasks.ui.actions.DeleteAction;
@@ -106,9 +106,9 @@ import org.eclipse.mylyn.tasks.core.ITaskActivityListener;
 import org.eclipse.mylyn.tasks.core.ITaskElement;
 import org.eclipse.mylyn.tasks.core.ITaskListChangeListener;
 import org.eclipse.mylyn.tasks.core.TaskActivityAdapter;
-import org.eclipse.mylyn.tasks.core.TaskContainerDelta;
 import org.eclipse.mylyn.tasks.core.ITask.PriorityLevel;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
+import org.eclipse.mylyn.tasks.ui.TasksUiImages;
 import org.eclipse.mylyn.tasks.ui.editors.TaskEditorInput;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -769,7 +769,7 @@ public class TaskListView extends ViewPart implements IPropertyChangeListener {
 		filterWorkingSet.updateWorkingSet(getSite().getPage().getAggregateWorkingSet());
 		addFilter(filterWorkingSet);
 		addFilter(filterPriority);
-		if (TasksUiPlugin.getDefault().getPreferenceStore().contains(TasksUiPreferenceConstants.FILTER_COMPLETE_MODE)) {
+		if (TasksUiPlugin.getDefault().getPreferenceStore().contains(ITasksUiPreferenceConstants.FILTER_COMPLETE_MODE)) {
 			addFilter(filterComplete);
 		}
 
@@ -1396,7 +1396,7 @@ public class TaskListView extends ViewPart implements IPropertyChangeListener {
 		getViewer().addDoubleClickListener(new IDoubleClickListener() {
 			public void doubleClick(DoubleClickEvent event) {
 				if (TasksUiPlugin.getDefault().getPreferenceStore().getBoolean(
-						TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED)) {
+						ITasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED)) {
 					AbstractTask selectedTask = TaskListView.getFromActivePerspective().getSelectedTask();
 					if (selectedTask != null) {
 						activateAction.run(selectedTask);
@@ -1627,10 +1627,10 @@ public class TaskListView extends ViewPart implements IPropertyChangeListener {
 	}
 
 	public static String getCurrentPriorityLevel() {
-		if (TasksUiPlugin.getDefault().getPreferenceStore().contains(TasksUiPreferenceConstants.FILTER_PRIORITY)) {
+		if (TasksUiPlugin.getDefault().getPreferenceStore().contains(ITasksUiPreferenceConstants.FILTER_PRIORITY)) {
 			return TasksUiPlugin.getDefault()
 					.getPreferenceStore()
-					.getString(TasksUiPreferenceConstants.FILTER_PRIORITY);
+					.getString(ITasksUiPreferenceConstants.FILTER_PRIORITY);
 		} else {
 			return PriorityLevel.P5.toString();
 		}

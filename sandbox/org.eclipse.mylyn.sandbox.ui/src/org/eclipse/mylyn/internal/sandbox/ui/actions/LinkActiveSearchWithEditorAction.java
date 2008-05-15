@@ -19,8 +19,8 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.context.ui.AbstractContextUiBridge;
 import org.eclipse.mylyn.context.ui.ContextUi;
-import org.eclipse.mylyn.internal.context.ui.ContextUiImages;
 import org.eclipse.mylyn.internal.context.ui.ContextUiPlugin;
+import org.eclipse.mylyn.internal.provisional.commons.ui.CommonImages;
 import org.eclipse.mylyn.internal.sandbox.ui.views.ActiveSearchView;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.IEditorPart;
@@ -47,7 +47,7 @@ public class LinkActiveSearchWithEditorAction extends Action {
 		super(LABEL, IAction.AS_CHECK_BOX);
 		INSTANCE = this;
 		setId(ID);
-		setImageDescriptor(ContextUiImages.LINK_WITH_EDITOR);
+		setImageDescriptor(CommonImages.LINK_EDITOR);
 		setText(LABEL);
 		setToolTipText(LABEL);
 		ContextUiPlugin.getDefault().getPreferenceStore().setDefault(ID, true);
@@ -78,8 +78,7 @@ public class LinkActiveSearchWithEditorAction extends Action {
 					if (view == null || !view.getViewer().getControl().isVisible()) {
 						return;
 					}
-					AbstractContextUiBridge bridge = ContextUi.getUiBridgeForEditor(
-							(IEditorPart) part);
+					AbstractContextUiBridge bridge = ContextUi.getUiBridgeForEditor((IEditorPart) part);
 					Object toSelect = bridge.getObjectForTextSelection((TextSelection) selection, (IEditorPart) part);
 					if (toSelect != null && view.getViewer().testFindItem(toSelect) != null) {
 						view.getViewer().setSelection(new StructuredSelection(toSelect), true);

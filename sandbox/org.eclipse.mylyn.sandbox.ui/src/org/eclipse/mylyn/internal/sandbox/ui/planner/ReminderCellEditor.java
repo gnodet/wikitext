@@ -18,7 +18,7 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.mylyn.internal.provisional.commons.ui.DatePicker;
 import org.eclipse.mylyn.internal.provisional.commons.ui.DateSelectionDialog;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPreferenceConstants;
+import org.eclipse.mylyn.internal.tasks.ui.ITasksUiPreferenceConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -64,7 +64,7 @@ public class ReminderCellEditor extends DialogCellEditor {
 		}
 
 		dialog = new DateSelectionDialog(cellEditorWindow.getShell(), newCalendar, DatePicker.TITLE_DIALOG, true,
-				TasksUiPlugin.getDefault().getPreferenceStore().getInt(TasksUiPreferenceConstants.PLANNING_ENDHOUR));
+				TasksUiPlugin.getDefault().getPreferenceStore().getInt(ITasksUiPreferenceConstants.PLANNING_ENDHOUR));
 		int dialogResponse = dialog.open();
 
 		if (dialogResponse == Window.CANCEL) {

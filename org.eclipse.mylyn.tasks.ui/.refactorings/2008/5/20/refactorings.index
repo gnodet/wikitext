@@ -17,6 +17,11 @@
 1210726182673	Copy compilation unit
 1210736916118	Inline local variable 'allDetectors'
 1210736968822	Extract method 'isValidDuplicateDetector'
-1210801673801	Delete element
-1210816963745	Extract local variable 'imageDescriptorFromPlugin'
-1210821190667	Copy compilation unit
+1210822991267	Rename field 'ID_PERSPECTIVE'
+1210823011510	Rename field 'ID_PLANNING_PAGE'
+1210823023252	Rename field 'ID_EDITOR_PAGE_PLANNING'
+1210823283871	Move compilation unit
+1210823357954	Move member 'ID_PAGE_PLANNING'
+1210823367764	Move member 'ID_PERSPECTIVE_PLANNING'
+1210823812430	Move compilation unit
+1210832800773	Rename type 'TasksUiPreferenceConstants'

@@ -30,7 +30,7 @@ import org.eclipse.mylyn.internal.context.ui.HighlighterImageDescriptor;
 import org.eclipse.mylyn.internal.sandbox.ui.highlighter.Highlighter;
 import org.eclipse.mylyn.internal.sandbox.ui.highlighter.HighlighterList;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPreferenceConstants;
+import org.eclipse.mylyn.internal.tasks.ui.ITasksUiPreferenceConstants;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -130,7 +130,7 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		showTaskTrimButton = new Button(navigationGroup, SWT.CHECK);
 		showTaskTrimButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true, false));
 		showTaskTrimButton.setText("Show Task Trim widget");
-		showTaskTrimButton.setSelection(uiPreferenceStore.getBoolean(TasksUiPreferenceConstants.SHOW_TRIM));
+		showTaskTrimButton.setSelection(uiPreferenceStore.getBoolean(ITasksUiPreferenceConstants.SHOW_TRIM));
 	}
 
 	private void createTaskListGroup(Composite parent) {
@@ -143,15 +143,15 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 
 		incomingOverlaysButton = new Button(group, SWT.CHECK);
 		incomingOverlaysButton.setText("Use Synchronize View style incoming overlays and placement");
-		incomingOverlaysButton.setSelection(uiPreferenceStore.getBoolean(TasksUiPreferenceConstants.OVERLAYS_INCOMING_TIGHT));
+		incomingOverlaysButton.setSelection(uiPreferenceStore.getBoolean(ITasksUiPreferenceConstants.OVERLAYS_INCOMING_TIGHT));
 
 		activateOnOpen = new Button(group, SWT.CHECK);
 		activateOnOpen.setText("Activate tasks on open");
-		activateOnOpen.setSelection(uiPreferenceStore.getBoolean(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED));
+		activateOnOpen.setSelection(uiPreferenceStore.getBoolean(ITasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED));
 
 		enableLocalSubTasksButton = new Button(group, SWT.CHECK);
 		enableLocalSubTasksButton.setText("Enable subtasks for local tasks");
-		enableLocalSubTasksButton.setSelection(uiPreferenceStore.getBoolean(TasksUiPreferenceConstants.LOCAL_SUB_TASKS_ENABLED));
+		enableLocalSubTasksButton.setSelection(uiPreferenceStore.getBoolean(ITasksUiPreferenceConstants.LOCAL_SUB_TASKS_ENABLED));
 	}
 
 	private void createJavaGroup(Composite parent) {
@@ -227,14 +227,14 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 	public boolean performOk() {
 		IPreferenceStore uiPreferenceStore = TasksUiPlugin.getDefault().getPreferenceStore();
 
-		uiPreferenceStore.setValue(TasksUiPreferenceConstants.SHOW_TRIM, showTaskTrimButton.getSelection());
+		uiPreferenceStore.setValue(ITasksUiPreferenceConstants.SHOW_TRIM, showTaskTrimButton.getSelection());
 
-		uiPreferenceStore.setValue(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED, activateOnOpen.getSelection());
+		uiPreferenceStore.setValue(ITasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED, activateOnOpen.getSelection());
 
-		uiPreferenceStore.setValue(TasksUiPreferenceConstants.LOCAL_SUB_TASKS_ENABLED,
+		uiPreferenceStore.setValue(ITasksUiPreferenceConstants.LOCAL_SUB_TASKS_ENABLED,
 				enableLocalSubTasksButton.getSelection());
 
-		uiPreferenceStore.setValue(TasksUiPreferenceConstants.OVERLAYS_INCOMING_TIGHT,
+		uiPreferenceStore.setValue(ITasksUiPreferenceConstants.OVERLAYS_INCOMING_TIGHT,
 				incomingOverlaysButton.getSelection());
 		TaskListView view = TaskListView.getFromActivePerspective();
 		if (view != null) {
@@ -258,9 +258,9 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		SandboxUiPlugin.getDefault().getHighlighterList().internalizeFromString(highlighters);
 
 		IPreferenceStore uiPreferenceStore = TasksUiPlugin.getDefault().getPreferenceStore();
-		activateOnOpen.setSelection(uiPreferenceStore.getBoolean(TasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED));
-		enableLocalSubTasksButton.setSelection(uiPreferenceStore.getBoolean(TasksUiPreferenceConstants.LOCAL_SUB_TASKS_ENABLED));
-		showTaskTrimButton.setSelection(uiPreferenceStore.getBoolean(TasksUiPreferenceConstants.SHOW_TRIM));
+		activateOnOpen.setSelection(uiPreferenceStore.getBoolean(ITasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED));
+		enableLocalSubTasksButton.setSelection(uiPreferenceStore.getBoolean(ITasksUiPreferenceConstants.LOCAL_SUB_TASKS_ENABLED));
+		showTaskTrimButton.setSelection(uiPreferenceStore.getBoolean(ITasksUiPreferenceConstants.SHOW_TRIM));
 
 		contentProvider = new HighlighterContentProvider();
 		tableViewer.setContentProvider(contentProvider);

@@ -23,7 +23,7 @@ import org.eclipse.mylyn.internal.provisional.commons.ui.DatePicker;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.internal.tasks.core.TaskActivityUtil;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPreferenceConstants;
+import org.eclipse.mylyn.internal.tasks.ui.ITasksUiPreferenceConstants;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskElementLabelProvider;
 import org.eclipse.mylyn.tasks.core.ITaskElement;
@@ -140,7 +140,7 @@ public class TaskActivityWizardPage extends WizardPage {
 		dateRadioButton.setText("Date range        Start:");
 
 		final DatePicker datePicker = new DatePicker(reportPeriodGroup, SWT.BORDER, "<start date>", true,
-				TasksUiPlugin.getDefault().getPreferenceStore().getInt(TasksUiPreferenceConstants.PLANNING_ENDHOUR));
+				TasksUiPlugin.getDefault().getPreferenceStore().getInt(ITasksUiPreferenceConstants.PLANNING_ENDHOUR));
 		datePicker.setEnabled(false);
 		Calendar startCal = Calendar.getInstance();
 		TaskActivityUtil.snapStartOfDay(startCal);
@@ -161,7 +161,7 @@ public class TaskActivityWizardPage extends WizardPage {
 		new Label(reportPeriodGroup, SWT.NONE).setText("End:");
 
 		final DatePicker endDatePicker = new DatePicker(reportPeriodGroup, SWT.BORDER, "<end date>", true,
-				TasksUiPlugin.getDefault().getPreferenceStore().getInt(TasksUiPreferenceConstants.PLANNING_ENDHOUR));
+				TasksUiPlugin.getDefault().getPreferenceStore().getInt(ITasksUiPreferenceConstants.PLANNING_ENDHOUR));
 		endDatePicker.setEnabled(false);
 		Calendar endCal = Calendar.getInstance();
 		TaskActivityUtil.snapEndOfWorkDay(endCal);
