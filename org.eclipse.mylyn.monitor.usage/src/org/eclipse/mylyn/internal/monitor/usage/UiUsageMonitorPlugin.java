@@ -18,6 +18,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.apache.commons.httpclient.HttpClient;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -274,7 +275,9 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 					// ------- moved from synch start
 					new MonitorUsageExtensionPointReader().initExtensions();
 
-					preferenceMonitor = new PreferenceChangeMonitor();
+					if (preferenceMonitor == null) {
+						preferenceMonitor = new PreferenceChangeMonitor();
+					}
 
 					interactionLogger = new InteractionEventLogger(getMonitorLogFile());
 					perspectiveMonitor = new PerspectiveChangeMonitor();
@@ -353,12 +356,10 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 	}
 
 	public void addMonitoredPreferences(Preferences preferences) {
-		if (preferenceMonitor != null) {
-			preferences.addPropertyChangeListener(preferenceMonitor);
-		} else {
-			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.PLUGIN_ID,
-					"UI Usage Monitor not started", new Exception()));
+		if (preferenceMonitor == null) {
+			preferenceMonitor = new PreferenceChangeMonitor();
 		}
+		preferences.addPropertyChangeListener(preferenceMonitor);
 	}
 
 	public void removeMonitoredPreferences(Preferences preferences) {
@@ -445,51 +446,12 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		return commandMonitors;
 	}
 
-	// /**
-	// * @return true if the list was set
-	// */
-	// public boolean setAcceptedUrlMatchList(String urlBuffer) {
-	// if (browserMonitor != null) {
-	// browserMonitor.setAcceptedUrls(urlBuffer);
-	// return true;
-	// } else {
-	// return false;
-	// }
-	// }
-	// private void installBrowserMonitor(IWorkbench workbench) {
-	// workbench.addWindowListener(browserMonitor);
-	// IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
-	// for (int i = 0; i < windows.length; i++) {
-	// windows[i].addPageListener(browserMonitor);
-	// IWorkbenchPage[] pages = windows[i].getPages();
-	// for (int j = 0; j < pages.length; j++) {
-	// pages[j].addPartListener(browserMonitor);
-	// }
-	// }
-	// }
-	//
-	// private void uninstallBrowserMonitor(IWorkbench workbench) {
-	// workbench.removeWindowListener(browserMonitor);
-	// IWorkbenchWindow[] windows = workbench.getWorkbenchWindows();
-	// for (int i = 0; i < windows.length; i++) {
-	// windows[i].removePageListener(browserMonitor);
-	// IWorkbenchPage[] pages = windows[i].getPages();
-	// for (int j = 0; j < pages.length; j++) {
-	// pages[j].removePartListener(browserMonitor);
-	// }
-	// }
-	// }
-
+	/**
+	 * Parallels TasksUiPlugin.getDefaultDataDirectory()
+	 */
 	public File getMonitorLogFile() {
-		File rootDir;
-		if (ContextCore.getContextStore() != null) {
-			rootDir = ContextCore.getContextStore().getRootDirectory();
-		} else {
-			rootDir = new File(getStateLocation().toString());
-		}
-
+		File rootDir = new File(ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + "/.metadata/.mylyn");
 		File file = new File(rootDir, MONITOR_LOG_NAME + IInteractionContextManager.CONTEXT_FILE_EXTENSION_OLD);
-
 		if (!file.exists() || !file.canWrite()) {
 			try {
 				file.createNewFile();
@@ -651,21 +613,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		Proxy proxy = WebClientUtil.getPlatformProxy();
 		WebClientUtil.setupHttpClient(httpClient, proxy, uploadScript, uploadAuthentication.getUser(),
 				uploadAuthentication.getPassword());
-		// if (proxy != null) {
-		// String proxyHost = proxy.
-		// int proxyPort =
-		// UpdateCore.getPlugin().getPluginPreferences().getInt(UpdateCore.HTTP_PROXY_PORT);
-		// httpClient.getHostConfiguration().setProxy(proxyHost, proxyPort);
-		// if (uploadAuthentication == null)
-		// uploadAuthentication =
-		// UserValidationDialog.getAuthentication(proxyHost,
-		// "(Leave fields blank if authentication is not required)");
-		// if (uploadAuthentication != null) {
-		// httpClient.getState().setProxyCredentials(
-		// new AuthScope(proxyHost, proxyPort),
-		// new UsernamePasswordCredentials(uploadAuthentication.getUser(), ));
-		// }
-		// }
 	}
 
 	public static IPreferenceStore getPrefs() {
