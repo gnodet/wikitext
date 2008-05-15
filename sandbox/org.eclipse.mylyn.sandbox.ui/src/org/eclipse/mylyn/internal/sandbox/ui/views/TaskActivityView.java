@@ -138,9 +138,6 @@ public class TaskActivityView extends ViewPart {
 			refresh();
 		}
 
-		public void taskListRead() {
-			refresh();
-		}
 	};
 
 	private TaskActivityViewSorter sorter;
