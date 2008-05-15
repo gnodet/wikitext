@@ -29,7 +29,7 @@ import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
  */
 public class TaskActivityViewContentProvider implements IStructuredContentProvider, ITreeContentProvider {
 
-	private final TaskActivityManager taskActivityManager;
+	protected final TaskActivityManager taskActivityManager;
 
 	public TaskActivityViewContentProvider(TaskActivityManager taskActivityManager) {
 		this.taskActivityManager = taskActivityManager;

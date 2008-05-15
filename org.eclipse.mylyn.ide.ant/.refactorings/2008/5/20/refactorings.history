@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;p&apos; in &apos;org.eclipse.mylyn.internal.ide.ant.AntUiBridge.openInEditor(...)&apos; to &apos;page&apos;&#x0D;&#x0A;- Original project: &apos;org.eclipse.mylyn.ide.ant&apos;&#x0D;&#x0A;- Original element: &apos;org.eclipse.mylyn.internal.ide.ant.AntUiBridge.openInEditor(IFile, boolean).p&apos;&#x0D;&#x0A;- Renamed element: &apos;org.eclipse.mylyn.internal.ide.ant.AntUiBridge.openInEditor(IFile, boolean).page&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;p&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;org.eclipse.mylyn.internal.ide.ant{AntUiBridge.java[AntUiBridge~openInEditor~QIFile;~Z@p!4178!4265!4193!4193!QIWorkbenchPage;" name="page" references="true" stamp="1210836709249" version="1.0"/>
+</session>

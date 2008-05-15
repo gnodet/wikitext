@@ -270,7 +270,6 @@
     <extension point="org.eclipse.ui.bindings">
       <key
         sequence="M1+M2+M3+ARROW_LEFT"
-        contextId="org.eclipse.ui.globalScope"
         commandId="org.eclipse.mylyn.sandbox.ui.commands.open.related.dialog"
         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration">
       </key>
