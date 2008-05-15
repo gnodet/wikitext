@@ -6,3 +6,8 @@
 1210734987136	Move compilation unit
 1210802046932	Rename method 'setFactories'
 1210806992864	Inline local variable 'queryChildren'
+1210886796771	Rename method 'getRepositoriesFile'
+1210886999820	Pull up members to 'AbstractExternalizationParticipant'
+1210887153333	Extract constant 'EXTERNALIZER_ID'
+1210887172282	Rename field 'EXTERNALIZER_ID'
+1210887453821	Extract constant 'DESCRIPTION'
