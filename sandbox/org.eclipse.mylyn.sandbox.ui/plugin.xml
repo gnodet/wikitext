@@ -197,7 +197,7 @@
 
    <extension point="org.eclipse.mylyn.tasks.ui.actions"> 
       <dynamicPopupMenu
-            class="org.eclipse.mylyn.internal.sandbox.ui.highlighter.TaskHighlighterMenuContributor"
+            class="org.eclipse.mylyn.internal.sandbox.ui.highlighters.TaskHighlighterMenuContributor"
             menuPath="context"/>
    </extension>
    
@@ -277,7 +277,7 @@
     <extension
           point="org.eclipse.ui.decorators">
        <decorator
-             class="org.eclipse.mylyn.internal.sandbox.ui.highlighter.TaskHighlighter"
+             class="org.eclipse.mylyn.internal.sandbox.ui.highlighters.TaskHighlighter"
              icon="icons/etool16/presentation.gif"
              id="org.eclipse.mylyn.sandbox.ui.decorator.tasks"
              label="Task Highlighter"

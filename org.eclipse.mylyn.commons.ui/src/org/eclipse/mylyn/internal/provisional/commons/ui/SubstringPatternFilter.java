@@ -5,14 +5,14 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylyn.internal.tasks.ui;
+package org.eclipse.mylyn.internal.provisional.commons.ui;
 
 import org.eclipse.ui.dialogs.PatternFilter;
 
 /**
  * @author Mik Kersten
  */
-public class TaskListPatternFilter extends PatternFilter {
+public class SubstringPatternFilter extends PatternFilter {
 
 	@Override
 	public void setPattern(String patternString) {

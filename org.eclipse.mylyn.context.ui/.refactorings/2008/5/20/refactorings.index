@@ -28,3 +28,7 @@
 1210833617132	Move compilation unit
 1210833624319	Rename field 'PREF_NAVIGATORS_FOCUS_ENABLED'
 1210833639294	Rename field 'NAVIGATORS_FOCUS_ENABLED'
+1210898986809	Rename local variable 'task'
+1210899004597	Rename local variable 'task'
+1210899789062	Delete element
+1210900168265	Move compilation unit

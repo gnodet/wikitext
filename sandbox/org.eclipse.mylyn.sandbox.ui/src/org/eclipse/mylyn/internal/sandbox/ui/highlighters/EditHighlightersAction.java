@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.context.ui.actions;
+package org.eclipse.mylyn.internal.sandbox.ui.highlighters;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;

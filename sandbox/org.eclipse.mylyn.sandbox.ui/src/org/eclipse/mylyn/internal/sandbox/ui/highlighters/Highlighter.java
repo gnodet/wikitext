@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.sandbox.ui.highlighter;
+package org.eclipse.mylyn.internal.sandbox.ui.highlighters;
 
 import java.util.ArrayList;
 import java.util.Iterator;
