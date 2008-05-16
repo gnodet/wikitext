@@ -11,3 +11,4 @@
 1210887153333	Extract constant 'EXTERNALIZER_ID'
 1210887172282	Rename field 'EXTERNALIZER_ID'
 1210887453821	Extract constant 'DESCRIPTION'
+1210959504083	Extract method 'resetTaskList'

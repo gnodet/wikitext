@@ -33,4 +33,4 @@
 1210888894741	Rename method 'getLegendItems'
 1210888903678	Rename method 'getLegacyLegendItems'
 1210888926533	Rename type 'LegendItem'
-1210892004598	Rename method 'getAttachmentPage'
+1210954811990	Extract method 'loadDataSources'
