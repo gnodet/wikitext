@@ -18,9 +18,19 @@
 
 	<extension point="org.eclipse.mylyn.context.ui.bridges">
 	    <labelProvider
-	          class="org.eclipse.mylyn.internal.sandbox.ui.JavaContextLabelProvider"
-	          contentType="java"/>
+	        class="org.eclipse.mylyn.internal.sandbox.ui.JavaContextLabelProvider"
+	        contentType="java"/>
+  		<labelProvider
+          	class="org.eclipse.mylyn.internal.ide.ant.AntContextLabelProvider"
+          	contentType="build.xml"/>
+        <labelProvider
+          	class="org.eclipse.mylyn.internal.pde.ui.PdeContextLabelProvider"
+          contentType="plugin.xml"/>
+		<labelProvider
+            class="org.eclipse.mylyn.internal.resources.ui.ResourceContextLabelProvider"
+            contentType="resource"/>
 	</extension>
+
 
    <extension point="org.eclipse.mylyn.tasks.ui.presentations">
       <presentation 
