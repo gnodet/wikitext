@@ -1,0 +1,4 @@
+1211259851009	Move member 'getForegroundForElement'
+1211259883170	Rename method 'getForegroundForElement'
+1211260145678	Move compilation units
+1211260226448	Extract constant 'LABEL_SHELL'
