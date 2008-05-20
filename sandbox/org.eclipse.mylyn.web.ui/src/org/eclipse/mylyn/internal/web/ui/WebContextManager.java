@@ -25,7 +25,7 @@ import org.eclipse.mylyn.context.core.AbstractContextListener;
 import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionContext;
 import org.eclipse.mylyn.context.core.IInteractionElement;
-import org.eclipse.mylyn.internal.tasks.ui.RetrieveTitleFromUrlJob;
+import org.eclipse.mylyn.internal.provisional.commons.ui.AbstractRetrieveTitleFromUrlJob;
 
 /**
  * @author Mik Kersten
@@ -208,7 +208,7 @@ public class WebContextManager {
 	}
 
 	public void updateTitle(final WebPage page) {
-		RetrieveTitleFromUrlJob job = new RetrieveTitleFromUrlJob(page.getUrl()) {
+		AbstractRetrieveTitleFromUrlJob job = new AbstractRetrieveTitleFromUrlJob(page.getUrl()) {
 			@Override
 			protected void titleRetrieved(final String pageTitle) {
 				page.setTitle(pageTitle);

@@ -6,13 +6,13 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.tasks.tests;
+package org.eclipse.mylyn.commons.tests;
 
 import java.lang.reflect.InvocationTargetException;
 
 import junit.framework.TestCase;
 
-import org.eclipse.mylyn.internal.tasks.ui.RetrieveTitleFromUrlJob;
+import org.eclipse.mylyn.internal.provisional.commons.ui.AbstractRetrieveTitleFromUrlJob;
 import org.eclipse.ui.PlatformUI;
 
 /**
@@ -26,7 +26,7 @@ public class RetrieveTitleFromUrlTest extends TestCase {
 	public void testRetrieve() throws InterruptedException, InvocationTargetException {
 		final String url = "http://eclipse.org/mylyn";
 		final String knownTitle = "Eclipse Mylyn Open Source Project";
-		RetrieveTitleFromUrlJob job = new RetrieveTitleFromUrlJob(url) {
+		AbstractRetrieveTitleFromUrlJob job = new AbstractRetrieveTitleFromUrlJob(url) {
 			@Override
 			public void titleRetrieved(String title) {
 				retrievedTitle = title;

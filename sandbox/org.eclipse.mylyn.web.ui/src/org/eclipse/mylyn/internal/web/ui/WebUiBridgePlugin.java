@@ -15,7 +15,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.context.ui.IContextUiStartup;
-import org.eclipse.mylyn.internal.monitor.ui.MonitorUiPlugin;
+import org.eclipse.mylyn.monitor.ui.MonitorUi;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -62,7 +62,7 @@ public class WebUiBridgePlugin extends AbstractUIPlugin {
 		webResourceManager = new WebContextManager();
 		try {
 			browserTracker = new BrowserTracker();
-			MonitorUiPlugin.getDefault().addWindowPartListener(browserTracker);
+			MonitorUi.addWindowPartListener(browserTracker);
 
 			for (TaskRepository repository : TasksUi.getRepositoryManager().getAllRepositories()) {
 				String url = repository.getRepositoryUrl();
@@ -77,7 +77,7 @@ public class WebUiBridgePlugin extends AbstractUIPlugin {
 
 	private void lazyStop() {
 		if (browserTracker != null) {
-			MonitorUiPlugin.getDefault().removeWindowPartListener(browserTracker);
+			MonitorUi.removeWindowPartListener(browserTracker);
 		}
 		if (webResourceManager != null) {
 			webResourceManager.dispose();
@@ -98,7 +98,7 @@ public class WebUiBridgePlugin extends AbstractUIPlugin {
 
 	/**
 	 * @param url
-	 *            String representation of URL to be excluded from context
+	 * 		String representation of URL to be excluded from context
 	 */
 	public void addExcludedUrl(String url) {
 		excludedUrls.add(url);
@@ -108,7 +108,7 @@ public class WebUiBridgePlugin extends AbstractUIPlugin {
 	 * Returns an image descriptor for the image file at the given plug-in relative path.
 	 * 
 	 * @param path
-	 *            the path
+	 * 		the path
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {

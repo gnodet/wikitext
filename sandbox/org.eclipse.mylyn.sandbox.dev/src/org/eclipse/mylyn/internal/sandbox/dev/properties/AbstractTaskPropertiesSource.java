@@ -68,6 +68,7 @@ public class AbstractTaskPropertiesSource extends AbstractTaskContainerPropertyS
 		return super.appendSpecifics(specific, super.getPropertyDescriptors());
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Object getPropertyValue(Object id) {
 		AbstractTask task = (AbstractTask) container;

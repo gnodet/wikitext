@@ -5,3 +5,5 @@
 1211252930587	Rename method 'createSections'
 1211252939476	Extract method 'createSections'
 1211268660860	Move compilation unit
+1211306183035	Rename type 'RetrieveTitleFromUrlJob'
+1211306237569	Move compilation unit

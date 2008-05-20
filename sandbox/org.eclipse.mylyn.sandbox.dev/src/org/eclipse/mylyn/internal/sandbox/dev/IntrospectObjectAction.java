@@ -36,6 +36,7 @@ public class IntrospectObjectAction implements IViewActionDelegate {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	public void run(IAction action) {
 		if (currentSelection instanceof StructuredSelection) {
 			StructuredSelection selection = (StructuredSelection) currentSelection;

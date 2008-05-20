@@ -5,7 +5,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.eclipse.mylyn.internal.tasks.ui;
+package org.eclipse.mylyn.internal.provisional.commons.ui;
 
 import java.io.IOException;
 
@@ -15,6 +15,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.mylyn.commons.net.WebLocation;
 import org.eclipse.mylyn.commons.net.WebUtil;
+import org.eclipse.mylyn.internal.commons.ui.CommonsUiPlugin;
 import org.eclipse.ui.PlatformUI;
 
 /**
@@ -24,7 +25,7 @@ import org.eclipse.ui.PlatformUI;
  * @author Mik Kersten
  * @author Steffen Pingel
  */
-public abstract class RetrieveTitleFromUrlJob extends Job {
+public abstract class AbstractRetrieveTitleFromUrlJob extends Job {
 
 	public static final String LABEL_TITLE = "Retrieving summary from URL";
 
@@ -32,7 +33,7 @@ public abstract class RetrieveTitleFromUrlJob extends Job {
 
 	private final String url;
 
-	public RetrieveTitleFromUrlJob(String url) {
+	public AbstractRetrieveTitleFromUrlJob(String url) {
 		super(LABEL_TITLE);
 		this.url = url;
 	}
@@ -55,7 +56,7 @@ public abstract class RetrieveTitleFromUrlJob extends Job {
 				}
 			});
 		} catch (IOException e) {
-			return new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, "Retrieving summary from URL failed", e);
+			return new Status(IStatus.ERROR, CommonsUiPlugin.ID_PLUGIN, "Retrieving summary from URL failed", e);
 		}
 		return Status.OK_STATUS;
 	}
