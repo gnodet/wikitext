@@ -126,6 +126,16 @@
    </extension>
    -->
 
+   	<!-- ==================== Commands ==================== -->
+	
+   	<extension point="org.eclipse.ui.commands">
+      <command
+            categoryId="org.eclipse.mylyn.context.ui.commands"
+            defaultHandler="org.eclipse.mylyn.internal.sandbox.ui.commands.ContextCapturePauseHandler"
+            id="org.eclipse.mylyn.ui.context.capture.pause.command"
+            name="Pause Capturing Context"/>
+    </extension>
+
 	<!-- ==================== Markers ==================== -->
 	
 	<extension

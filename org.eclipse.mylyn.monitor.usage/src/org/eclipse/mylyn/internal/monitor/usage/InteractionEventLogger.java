@@ -30,7 +30,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.commons.net.HtmlStreamTokenizer;
 import org.eclipse.mylyn.commons.net.HtmlStreamTokenizer.Token;
-import org.eclipse.mylyn.internal.commons.core.XmlStringConverter;
 import org.eclipse.mylyn.internal.context.core.InteractionContextExternalizer;
 import org.eclipse.mylyn.monitor.core.AbstractMonitorLog;
 import org.eclipse.mylyn.monitor.core.IInteractionEventListener;
@@ -41,7 +40,7 @@ import org.eclipse.mylyn.monitor.core.InteractionEvent.Kind;
  * @author Mik Kersten
  * @author Ken Sueda (XML serialization)
  * 
- * 	TODO: use buffered output stream for better performance?
+ *         TODO: use buffered output stream for better performance?
  */
 public class InteractionEventLogger extends AbstractMonitorLog implements IInteractionEventListener {
 
@@ -249,10 +248,11 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 		buffer.append(interestContribution);
 	}
 
+	@SuppressWarnings("deprecation")
 	private void formatContent(StringBuffer buffer, String content) {
 		if (content != null && content.length() > 0) {
 			String xmlContent;
-			xmlContent = XmlStringConverter.convertToXmlString(content);
+			xmlContent = org.eclipse.mylyn.internal.commons.core.XmlStringConverter.convertToXmlString(content);
 			xmlContent = xmlContent.replace("\n", "\n\t\t");
 			buffer.append(xmlContent);
 		}
@@ -341,6 +341,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 		return null;
 	}
 
+	@SuppressWarnings("deprecation")
 	private String readStringContent(HtmlStreamTokenizer tokenizer, String endTag) throws IOException, ParseException {
 		StringBuffer content = new StringBuffer();
 		Token token = tokenizer.nextToken();
@@ -351,6 +352,6 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 			content.append(token.getValue().toString());
 			token = tokenizer.nextToken();
 		}
-		return XmlStringConverter.convertXmlToString(content.toString()).trim();
+		return org.eclipse.mylyn.internal.commons.core.XmlStringConverter.convertXmlToString(content.toString()).trim();
 	}
 }

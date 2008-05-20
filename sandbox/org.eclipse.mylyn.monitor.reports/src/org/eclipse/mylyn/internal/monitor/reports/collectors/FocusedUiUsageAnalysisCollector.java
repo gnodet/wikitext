@@ -436,13 +436,13 @@ public class FocusedUiUsageAnalysisCollector extends AbstractMylynUsageCollector
 	public String getStartDate(int id) {
 		Calendar start = Calendar.getInstance();
 		start.setTime(startDates.get(id));
-		return DateUtil.getFormattedDate(start);
+		return DateUtil.getIsoFormattedDate(start);
 	}
 
 	public String getEndDate(int id) {
 		Calendar end = Calendar.getInstance();
 		end.setTime(endDates.get(id));
-		return DateUtil.getFormattedDate(end);
+		return DateUtil.getIsoFormattedDate(end);
 	}
 
 	public int getNumBaselineSelections(int id) {

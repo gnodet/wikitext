@@ -11,7 +11,7 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.net.NoRouteToHostException;
 import java.net.UnknownHostException;
-import java.util.Date;
+import java.util.Calendar;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.PostMethod;
@@ -102,12 +102,10 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 		try {
 			final PostMethod filePost = new PostMethod(uploadScript);
 
-			long time = new Date().getTime();
-
 			Part[] parts;
 			Part[] p = { new FilePart("MYLYN" + uid, UiUsageMonitorPlugin.UPLOAD_FILE_LABEL + "-"
 					+ UiUsageMonitorPlugin.VERSION + "-" + "feedback" + "-" + uid + "-"
-					+ DateUtil.getFormattedDateTime(time) + ".txt", f) };
+					+ DateUtil.getIsoFormattedDateTime(Calendar.getInstance()) + ".txt", f) };
 			parts = p;
 
 			filePost.setRequestEntity(new MultipartRequestEntity(parts, filePost.getParams()));

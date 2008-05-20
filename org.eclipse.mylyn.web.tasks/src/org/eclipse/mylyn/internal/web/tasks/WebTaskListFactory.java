@@ -13,7 +13,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.mylyn.internal.commons.core.XmlStringConverter;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.RepositoryQuery;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractTaskListFactory;
@@ -67,6 +66,7 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 		return task instanceof WebTask;
 	}
 
+	@SuppressWarnings( { "deprecation", "restriction" })
 	@Override
 	public void setAdditionalAttributes(IRepositoryQuery query, Element node) {
 		if (query instanceof WebQuery) {
@@ -76,8 +76,9 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 			node.setAttribute(KEY_PREFIX, webQuery.getTaskPrefix());
 
 			for (Map.Entry<String, String> e : webQuery.getQueryParameters().entrySet()) {
-				node.setAttribute(XmlStringConverter.convertToXmlString(e.getKey()), //
-						XmlStringConverter.convertToXmlString(e.getValue()));
+				node.setAttribute(
+						org.eclipse.mylyn.internal.commons.core.XmlStringConverter.convertToXmlString(e.getKey()), //
+						org.eclipse.mylyn.internal.commons.core.XmlStringConverter.convertToXmlString(e.getValue()));
 			}
 		}
 	}
@@ -117,6 +118,7 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 		return task;
 	}
 
+	@SuppressWarnings( { "deprecation", "restriction" })
 	@Override
 	public RepositoryQuery createQuery(String repositoryUrl, String queryString, String label, Element element) {
 		String queryUrlTemplate = element.getAttribute(KEY_URL_TEMPLATE);
@@ -129,8 +131,8 @@ public class WebTaskListFactory extends AbstractTaskListFactory {
 			Attr attr = (Attr) attributes.item(i);
 			String name = attr.getName();
 			if (name.startsWith(WebRepositoryConnector.PARAM_PREFIX)) {
-				params.put(XmlStringConverter.convertXmlToString(name), //
-						XmlStringConverter.convertXmlToString(attr.getValue()));
+				params.put(org.eclipse.mylyn.internal.commons.core.XmlStringConverter.convertXmlToString(name), //
+						org.eclipse.mylyn.internal.commons.core.XmlStringConverter.convertXmlToString(attr.getValue()));
 			}
 		}
 

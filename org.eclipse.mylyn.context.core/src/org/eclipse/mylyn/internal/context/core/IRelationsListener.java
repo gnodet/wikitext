@@ -6,22 +6,15 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.tests;
+package org.eclipse.mylyn.internal.context.core;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
-import org.eclipse.mylyn.tasks.tests.AllTasksPerformanceTests;
+import org.eclipse.mylyn.context.core.IInteractionElement;
 
 /**
- * @author Steffen Pingel
+ * @author Mik Kersten
  */
-public class AllPerformanceTests {
+public interface IRelationsListener {
 
-	public static Test suite() {
-		TestSuite suite = new TestSuite("Performance tests for org.eclipse.mylyn.tests");
-		suite.addTest(AllTasksPerformanceTests.suite());
-		return suite;
-	}
+	public void relationsChanged(IInteractionElement element);
 
 }

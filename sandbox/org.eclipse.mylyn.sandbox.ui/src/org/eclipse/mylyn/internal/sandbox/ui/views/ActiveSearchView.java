@@ -36,6 +36,7 @@ import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.context.ui.AbstractContextUiBridge;
 import org.eclipse.mylyn.internal.context.core.AbstractRelationProvider;
 import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
+import org.eclipse.mylyn.internal.context.core.IRelationsListener;
 import org.eclipse.mylyn.internal.context.ui.ActiveViewSelectionDragAdapter;
 import org.eclipse.mylyn.internal.context.ui.ContextUiImages;
 import org.eclipse.mylyn.internal.context.ui.ContextUiPlugin;
@@ -70,36 +71,7 @@ import org.eclipse.ui.part.ViewPart;
  */
 public class ActiveSearchView extends ViewPart {
 
-	private static final String STOP_JOBS_LABEL = "Stop Active Search Jobs";
-
-	public static final String ID = "org.eclipse.mylyn.ui.views.active.search";
-
-	private TreeViewer viewer;
-
-	private final List<ToggleRelationshipProviderAction> relationshipProviderActions = new ArrayList<ToggleRelationshipProviderAction>();
-
-	private final DelegatingContextLabelProvider labelProvider = new DelegatingContextLabelProvider();
-
-	public void refreshRelatedElements() {
-		try {
-			for (AbstractRelationProvider provider : ContextCorePlugin.getDefault().getRelationProviders()) {
-				List<AbstractRelationProvider> providerList = new ArrayList<AbstractRelationProvider>();
-				providerList.add(provider);
-				updateDegreesOfSeparation(providerList, provider.getCurrentDegreeOfSeparation());
-			}
-		} catch (Throwable t) {
-			StatusHandler.log(new Status(IStatus.ERROR, ContextUiPlugin.ID_PLUGIN,
-					"Could not refresh related elements", t));
-		}
-	}
-
-	/**
-	 * For testing.
-	 */
-	private boolean syncExecForTesting = true;
-
-	private final AbstractContextListener REFRESH_UPDATE_LISTENER = new AbstractContextListener() {
-
+	private final class ContextListener extends AbstractContextListener implements IRelationsListener {
 		@Override
 		public void interestChanged(List<IInteractionElement> nodes) {
 			refresh(nodes.get(nodes.size() - 1), false);
@@ -131,7 +103,6 @@ public class ActiveSearchView extends ViewPart {
 			refresh(null, true);
 		}
 
-		@Override
 		public void relationsChanged(IInteractionElement node) {
 			refresh(node, true);
 		}
@@ -140,7 +111,37 @@ public class ActiveSearchView extends ViewPart {
 		public void elementsDeleted(List<IInteractionElement> elements) {
 			refresh(null, true);
 		}
-	};
+	}
+
+	private static final String STOP_JOBS_LABEL = "Stop Active Search Jobs";
+
+	public static final String ID = "org.eclipse.mylyn.ui.views.active.search";
+
+	private TreeViewer viewer;
+
+	private final List<ToggleRelationshipProviderAction> relationshipProviderActions = new ArrayList<ToggleRelationshipProviderAction>();
+
+	private final DelegatingContextLabelProvider labelProvider = new DelegatingContextLabelProvider();
+
+	public void refreshRelatedElements() {
+		try {
+			for (AbstractRelationProvider provider : ContextCorePlugin.getDefault().getRelationProviders()) {
+				List<AbstractRelationProvider> providerList = new ArrayList<AbstractRelationProvider>();
+				providerList.add(provider);
+				updateDegreesOfSeparation(providerList, provider.getCurrentDegreeOfSeparation());
+			}
+		} catch (Throwable t) {
+			StatusHandler.log(new Status(IStatus.ERROR, ContextUiPlugin.ID_PLUGIN,
+					"Could not refresh related elements", t));
+		}
+	}
+
+	/**
+	 * For testing.
+	 */
+	private boolean syncExecForTesting = true;
+
+	private final AbstractContextListener REFRESH_UPDATE_LISTENER = new ContextListener();
 
 	public static ActiveSearchView getFromActivePerspective() {
 		if (PlatformUI.getWorkbench() == null) {

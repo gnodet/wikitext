@@ -1,1 +1,4 @@
 1211306278108	Move compilation unit
+1211321747290	Rename method 'getFormattedDate'
+1211322034132	Inline method 'getFormattedDate'
+1211322339927	Rename method 'getFormattedTime'

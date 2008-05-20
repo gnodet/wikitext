@@ -156,7 +156,6 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 			refresh(null, true);
 		}
 
-		@Override
 		public void relationsChanged(IInteractionElement node) {
 			refresh(node, true);
 		}
@@ -453,9 +452,9 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 	 * </p>
 	 * 
 	 * @param pattern
-	 * 		the pattern
+	 *            the pattern
 	 * @param update
-	 * 		<code>true</code> if the viewer should be updated
+	 *            <code>true</code> if the viewer should be updated
 	 */
 	private void setMatcherString(String pattern, boolean update) {
 		if (pattern.length() == 0) {
