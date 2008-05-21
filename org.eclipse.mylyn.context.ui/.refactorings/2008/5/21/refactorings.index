@@ -3,3 +3,5 @@
 1211260145678	Move compilation units
 1211260226448	Extract constant 'LABEL_SHELL'
 1211325205714	Move compilation unit
+1211331568381	Rename method 'isEditorManagementEnabled'
+1211331780093	Rename field 'AUTO_MANAGE_EDITOR_CLOSE_ACTION'

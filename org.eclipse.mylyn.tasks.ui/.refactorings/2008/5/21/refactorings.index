@@ -7,3 +7,6 @@
 1211268660860	Move compilation unit
 1211306183035	Rename type 'RetrieveTitleFromUrlJob'
 1211306237569	Move compilation unit
+1211329794551	Move member 'openInActivePerspective'
+1211329823051	Move member 'openInActivePerspective'
+1211329994107	Rename method 'openInActivePerspective'

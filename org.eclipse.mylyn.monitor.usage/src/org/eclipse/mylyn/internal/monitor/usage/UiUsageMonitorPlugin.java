@@ -35,7 +35,6 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylyn.commons.core.StatusHandler;
-import org.eclipse.mylyn.commons.net.WebClientUtil;
 import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IContextStoreListener;
 import org.eclipse.mylyn.context.core.IInteractionContextManager;
@@ -609,10 +608,12 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_NUM_USER_EVENTS, numEvents);
 	}
 
+	// TODO: move to new proxy support
+	@SuppressWarnings("deprecation")
 	public void configureProxy(HttpClient httpClient, String uploadScript) {
-		Proxy proxy = WebClientUtil.getPlatformProxy();
-		WebClientUtil.setupHttpClient(httpClient, proxy, uploadScript, uploadAuthentication.getUser(),
-				uploadAuthentication.getPassword());
+		Proxy proxy = org.eclipse.mylyn.commons.net.WebClientUtil.getPlatformProxy();
+		org.eclipse.mylyn.commons.net.WebClientUtil.setupHttpClient(httpClient, proxy, uploadScript,
+				uploadAuthentication.getUser(), uploadAuthentication.getPassword());
 	}
 
 	public static IPreferenceStore getPrefs() {
