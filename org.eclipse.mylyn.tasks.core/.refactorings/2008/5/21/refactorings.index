@@ -1,1 +1,5 @@
 1211313883228	Extract method 'createAttribute'
+1211487643905	Rename method 'notifySyncStateChanged'
+1211487655045	Rename method 'notifySyncStateChanged'
+1211488164883	Extract local variable 'integerValue'
+1211488195261	Extract constant '_0'
