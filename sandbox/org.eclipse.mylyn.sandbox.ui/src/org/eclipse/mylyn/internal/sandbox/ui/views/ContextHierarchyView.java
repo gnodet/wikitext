@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IStatus;
@@ -165,7 +166,7 @@ public class ContextHierarchyView extends ViewPart {
 				root.removeAllChildren();
 			}
 			nodeMap.clear();
-			List<IInteractionElement> landmarks = ContextCore.getContextManager().getActiveLandmarks();
+			Set<IInteractionElement> landmarks = ContextCore.getContextManager().getActiveLandmarks();
 			for (IInteractionElement node : landmarks) {
 				IJavaElement element = null;
 				if (node.getContentType().equals(JavaStructureBridge.CONTENT_TYPE)) {
