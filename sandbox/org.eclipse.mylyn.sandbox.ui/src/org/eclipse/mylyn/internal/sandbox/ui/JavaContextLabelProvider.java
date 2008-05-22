@@ -19,9 +19,9 @@ import org.eclipse.jdt.internal.ui.viewsupport.JavaElementImageProvider;
 import org.eclipse.jdt.internal.ui.viewsupport.TreeHierarchyLayoutProblemsDecorator;
 import org.eclipse.jdt.ui.JavaElementLabels;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylyn.context.core.IInteractionContextManager;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.context.core.IInteractionRelation;
+import org.eclipse.mylyn.internal.context.core.InteractionContextManager;
 import org.eclipse.mylyn.internal.context.ui.ContextUiImages;
 import org.eclipse.mylyn.internal.java.ui.JavaStructureBridge;
 import org.eclipse.mylyn.internal.java.ui.JavaUiBridgePlugin;
@@ -133,7 +133,7 @@ public class JavaContextLabelProvider extends AppearanceAwareLabelProvider {
 			return JavaWriteAccessProvider.NAME;
 		} else if (relationshipHandle.equals(JavaReadAccessProvider.ID)) {
 			return JavaReadAccessProvider.NAME;
-		} else if (relationshipHandle.equals(IInteractionContextManager.CONTAINMENT_PROPAGATION_ID)) {
+		} else if (relationshipHandle.equals(InteractionContextManager.CONTAINMENT_PROPAGATION_ID)) {
 			return "Containment"; // TODO: make this generic?
 		} else {
 			return null;

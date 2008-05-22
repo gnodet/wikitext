@@ -44,7 +44,6 @@ import org.eclipse.mylyn.context.core.IInteractionContext;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.internal.context.ui.ActiveViewSelectionDragAdapter;
 import org.eclipse.mylyn.internal.context.ui.views.ActiveViewDelegatingDragAdapter;
-import org.eclipse.mylyn.internal.context.ui.views.ActiveViewDropAdapter;
 import org.eclipse.mylyn.internal.java.ui.JavaStructureBridge;
 import org.eclipse.mylyn.internal.java.ui.JavaUiBridgePlugin;
 import org.eclipse.mylyn.internal.sandbox.ui.JavaContextLabelProvider;

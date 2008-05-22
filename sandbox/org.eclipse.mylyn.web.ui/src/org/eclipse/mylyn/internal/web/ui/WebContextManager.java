@@ -25,6 +25,7 @@ import org.eclipse.mylyn.context.core.AbstractContextListener;
 import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionContext;
 import org.eclipse.mylyn.context.core.IInteractionElement;
+import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.provisional.commons.ui.AbstractRetrieveTitleFromUrlJob;
 
 /**
@@ -116,8 +117,8 @@ public class WebContextManager {
 			context = getGlobalContext();
 		}
 		if (context != null) {
-			Collection<IInteractionElement> interestingElements = ContextCore.getContextManager()
-					.getInterestingDocuments(context);
+			Collection<IInteractionElement> interestingElements = ContextCore.getContextManager().getActiveDocuments(
+					context);
 			for (IInteractionElement element : interestingElements) {
 				// TODO: this check is unnecessary for the global context
 				if (WebResourceStructureBridge.CONTENT_TYPE.equals(element.getContentType())) {
@@ -136,7 +137,7 @@ public class WebContextManager {
 	 * NOTE: returns first found
 	 */
 	private IInteractionContext getGlobalContext() {
-		for (IInteractionContext globalContext : ContextCore.getContextManager().getGlobalContexts()) {
+		for (IInteractionContext globalContext : ContextCorePlugin.getContextManager().getGlobalContexts()) {
 			if (globalContext.getContentLimitedTo().equals(WebResourceStructureBridge.CONTENT_TYPE)) {
 				return globalContext;
 			}

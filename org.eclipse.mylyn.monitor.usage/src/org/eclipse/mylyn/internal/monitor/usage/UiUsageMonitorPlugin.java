@@ -35,9 +35,9 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylyn.commons.core.StatusHandler;
-import org.eclipse.mylyn.context.core.IInteractionContextManager;
 import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.context.core.IContextStoreListener;
+import org.eclipse.mylyn.internal.context.core.InteractionContextManager;
 import org.eclipse.mylyn.internal.monitor.ui.ActionExecutionMonitor;
 import org.eclipse.mylyn.internal.monitor.ui.ActivityChangeMonitor;
 import org.eclipse.mylyn.internal.monitor.ui.KeybindingCommandMonitor;
@@ -449,7 +449,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 	 */
 	public File getMonitorLogFile() {
 		File rootDir = new File(ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + "/.metadata/.mylyn");
-		File file = new File(rootDir, MONITOR_LOG_NAME + IInteractionContextManager.CONTEXT_FILE_EXTENSION_OLD);
+		File file = new File(rootDir, MONITOR_LOG_NAME + InteractionContextManager.CONTEXT_FILE_EXTENSION_OLD);
 		if (!file.exists() || !file.canWrite()) {
 			try {
 				file.createNewFile();

@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.context.ui.views;
+package org.eclipse.mylyn.internal.sandbox.ui.views;
 
 import org.eclipse.jface.util.LocalSelectionTransfer;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -15,6 +15,7 @@ import org.eclipse.jface.viewers.ViewerDropAdapter;
 import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionElement;
+import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.context.ui.UiUtil;
 import org.eclipse.swt.dnd.TransferData;
 
@@ -37,8 +38,8 @@ public class ActiveViewDropAdapter extends ViewerDropAdapter {
 			AbstractContextStructureBridge bridge = ContextCore.getStructureBridge(firstElement);
 			String handle = bridge.getHandleIdentifier(firstElement);
 			IInteractionElement node = ContextCore.getContextManager().getElement(handle);
-			boolean manipulated = ContextCore.getContextManager().manipulateInterestForElement(node, true, true, false,
-					ID_MANIPULATION);
+			boolean manipulated = ContextCorePlugin.getContextManager().manipulateInterestForElement(node, true, true,
+					false, ID_MANIPULATION);
 			if (!manipulated) {
 				UiUtil.displayInterestManipulationFailure();
 			}
