@@ -16,3 +16,12 @@
 1211352386189	Extract constant 'ATTACHMENTS'
 1211353493798	Move compilation unit
 1211355130980	Extract method 'setSubmitEnabled'
+1211398358604	Rename type 'WorkspaceAwareContextStore'
+1211405819268	Extract method 'addToCache'
+1211405832354	Extract method 'removeFromCache'
+1211406193006	Extract method 'initCache'
+1211414334586	Extract method 'getContextStoreDir'
+1211414680422	Move compilation unit
+1211420013880	Rename local variable 'importedTasks'
+1211420018733	Rename local variable 'file'
+1211420030741	Move member 'importTasks'

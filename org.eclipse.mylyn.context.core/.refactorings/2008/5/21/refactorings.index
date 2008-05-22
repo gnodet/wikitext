@@ -1,1 +1,17 @@
 1211324063084	Rename local variable 'node'
+1211398787591	Rename method 'hasContext'
+1211401446691	Change method 'copyContext'
+1211404394981	Rename method 'saveActivityContext'
+1211409981306	Rename local variable 'context_listener'
+1211410177338	Delete element
+1211412692818	Rename local variable 'contextDirectory'
+1211418203305	Rename method 'readContextFromXML'
+1211418209156	Rename method 'readContextFromXML'
+1211418365932	Rename local variable 'outFile'
+1211421565301	Push down
+1211421576487	Push down 'contextStoreMoved'
+1211421662315	Rename method 'init'
+1211421669081	Rename local variable 'contextDirectory'
+1211421722902	Rename type 'AbstractContextStore'
+1211421941630	Rename method 'loadContext'
+1211424075101	Rename method 'hasSavedContext'

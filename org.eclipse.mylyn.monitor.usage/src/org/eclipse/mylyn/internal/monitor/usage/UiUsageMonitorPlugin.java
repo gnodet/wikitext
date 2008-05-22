@@ -35,7 +35,6 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylyn.commons.core.StatusHandler;
-import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IContextStoreListener;
 import org.eclipse.mylyn.context.core.IInteractionContextManager;
 import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
@@ -217,7 +216,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 		private final IContextStoreListener DATA_DIR_MOVE_LISTENER = new IContextStoreListener() {
 
-			public void contextStoreMoved() {
+			public void contextStoreMoved(File file) {
 				if (!isPerformingUpload()) {
 					for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners()) {
 						listener.stopMonitoring();
@@ -231,11 +230,11 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		};
 
 		void start() {
-			ContextCore.getContextStore().addListener(DATA_DIR_MOVE_LISTENER);
+//			ContextCore.getContextStore().addListener(DATA_DIR_MOVE_LISTENER);
 		}
 
 		void stop() {
-			ContextCore.getContextStore().removeListener(DATA_DIR_MOVE_LISTENER);
+//			ContextCore.getContextStore().removeListener(DATA_DIR_MOVE_LISTENER);
 		}
 	}
 

@@ -5,3 +5,5 @@
 1211325205714	Move compilation unit
 1211331568381	Rename method 'isEditorManagementEnabled'
 1211331780093	Rename field 'AUTO_MANAGE_EDITOR_CLOSE_ACTION'
+1211416028467	Copy file
+1211420448030	Extract constant 'TITLE_DIALOG'
