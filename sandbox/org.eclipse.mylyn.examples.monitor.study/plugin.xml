@@ -4,7 +4,7 @@
 <plugin>
 
     <extension
-         name="Mylyn User Study Example Plug-in"
+         name="Mylyn User Study Example"
          point="org.eclipse.ui.startup">
        <startup
              class="org.eclipse.mylyn.examples.monitor.study.MylynUserStudyExamplePlugin$MylynUserStudyExampleStartup"></startup>

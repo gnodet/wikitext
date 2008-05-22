@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Mylyn Aspectj Plug-in
+Bundle-Name: Mylyn AspectJ Connector
 Bundle-SymbolicName: org.eclipse.mylyn.aspectj;singleton:=true
 Bundle-Version: 0.3.0
 Bundle-Activator: org.eclipse.mylyn.internal.aspectj.AspectJBridgePlugin
