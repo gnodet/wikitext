@@ -25,3 +25,4 @@
 1211420013880	Rename local variable 'importedTasks'
 1211420018733	Rename local variable 'file'
 1211420030741	Move member 'importTasks'
+1211579055879	Extract method 'synchronizeTask'
