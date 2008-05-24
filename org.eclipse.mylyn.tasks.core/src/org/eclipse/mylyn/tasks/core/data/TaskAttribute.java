@@ -295,7 +295,7 @@ public final class TaskAttribute {
 		attributeById = null;
 	}
 
-	void clearMetaDataMap() {
+	void clearMetaData() {
 		metaData = null;
 	}
 
@@ -480,7 +480,7 @@ public final class TaskAttribute {
 		}
 	}
 
-	void removeMetaDatum(String metaDataId) {
+	void removeMetaDataValue(String metaDataId) {
 		if (metaData != null) {
 			metaData.remove(metaDataId);
 		}

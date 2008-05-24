@@ -31,11 +31,6 @@ public class TaskAttributeMetaData {
 		return this;
 	}
 
-	public TaskAttributeMetaData clear() {
-		taskAttribute.clearMetaDataMap();
-		return this;
-	}
-
 	public String getDefaultOption() {
 		return taskAttribute.getMetaDatum(TaskAttribute.META_DEFAULT_OPTION);
 	}
@@ -60,6 +55,11 @@ public class TaskAttributeMetaData {
 		return taskAttribute.getMetaDataMap();
 	}
 
+	public TaskAttributeMetaData putValue(String key, String value) {
+		taskAttribute.putMetaDatum(key, value);
+		return this;
+	}
+
 	public boolean isReadOnly() {
 		return Boolean.parseBoolean(taskAttribute.getMetaDatum(TaskAttribute.META_READ_ONLY));
 	}
@@ -68,16 +68,11 @@ public class TaskAttributeMetaData {
 		return Boolean.parseBoolean(taskAttribute.getMetaDatum(TaskAttribute.META_SHOW_IN_TOOL_TIP));
 	}
 
-	public TaskAttributeMetaData putValue(String key, String value) {
-		taskAttribute.putMetaDatum(key, value);
-		return this;
-	}
-
 	public TaskAttributeMetaData setDefaultOption(String defaultOption) {
 		if (getDefaultOption() != null) {
 			taskAttribute.putMetaDatum(TaskAttribute.META_DEFAULT_OPTION, defaultOption);
 		} else {
-			taskAttribute.removeMetaDatum(TaskAttribute.META_DEFAULT_OPTION);
+			taskAttribute.removeMetaDataValue(TaskAttribute.META_DEFAULT_OPTION);
 		}
 		return this;
 	}
@@ -86,7 +81,7 @@ public class TaskAttributeMetaData {
 		if (value != null) {
 			taskAttribute.putMetaDatum(TaskAttribute.META_ATTRIBUTE_KIND, value);
 		} else {
-			taskAttribute.removeMetaDatum(TaskAttribute.META_ATTRIBUTE_KIND);
+			taskAttribute.removeMetaDataValue(TaskAttribute.META_ATTRIBUTE_KIND);
 		}
 		return this;
 	}
@@ -95,7 +90,7 @@ public class TaskAttributeMetaData {
 		if (value != null) {
 			taskAttribute.putMetaDatum(TaskAttribute.META_LABEL, value);
 		} else {
-			taskAttribute.removeMetaDatum(TaskAttribute.META_LABEL);
+			taskAttribute.removeMetaDataValue(TaskAttribute.META_LABEL);
 		}
 		return this;
 	}
@@ -114,7 +109,7 @@ public class TaskAttributeMetaData {
 		if (getType() != null) {
 			taskAttribute.putMetaDatum(TaskAttribute.META_ATTRIBUTE_TYPE, value);
 		} else {
-			taskAttribute.removeMetaDatum(TaskAttribute.META_ATTRIBUTE_TYPE);
+			taskAttribute.removeMetaDataValue(TaskAttribute.META_ATTRIBUTE_TYPE);
 		}
 		return this;
 	}
