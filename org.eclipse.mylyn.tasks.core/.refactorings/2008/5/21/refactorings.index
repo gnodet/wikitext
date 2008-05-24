@@ -14,3 +14,5 @@
 1211606198142	Rename method 'setActiveOperation'
 1211606206969	Rename method 'setOperationValue'
 1211606252977	Rename method 'getActiveOperation'
+1211607828270	Rename method 'setTaskOperationValue'
+1211607841227	Rename method 'getTaskOperationValue'
