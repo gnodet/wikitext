@@ -16,3 +16,5 @@
 1211606252977	Rename method 'getActiveOperation'
 1211607828270	Rename method 'setTaskOperationValue'
 1211607841227	Rename method 'getTaskOperationValue'
+1211612174868	Rename field 'source'
+1211612251274	Rename field 'target'
