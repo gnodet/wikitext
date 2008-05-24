@@ -3,3 +3,5 @@
 1211487655045	Rename method 'notifySyncStateChanged'
 1211488164883	Extract local variable 'integerValue'
 1211488195261	Extract constant '_0'
+1211585501905	Rename field 'DATE_MODIFIED'
+1211587155609	Rename field 'TYPE_NUMBER'
