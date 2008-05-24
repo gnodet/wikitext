@@ -25,5 +25,3 @@
 1211615681006	Rename method 'getMetaData'
 1211615734617	Rename type 'TaskAttributeProperties'
 1211615759981	Rename method 'getProperties'
-1211616248336	Rename method 'clearMetaData'
-1211616295405	Rename method 'removeMetaDataValue'
