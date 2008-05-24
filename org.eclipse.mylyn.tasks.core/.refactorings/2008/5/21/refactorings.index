@@ -8,3 +8,9 @@
 1211598492312	Delete element
 1211599674122	Move members
 1211600423531	Rename field 'ATTACHMENT_PREFIX'
+1211603614951	Inline local variable 'operationId'
+1211605221562	Extract local variable 'taskAttribute'
+1211605403835	Rename method 'setTaskOperation'
+1211606198142	Rename method 'setActiveOperation'
+1211606206969	Rename method 'setOperationValue'
+1211606252977	Rename method 'getActiveOperation'
