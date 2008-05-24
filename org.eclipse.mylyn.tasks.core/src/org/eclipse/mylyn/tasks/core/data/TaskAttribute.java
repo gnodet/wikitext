@@ -327,15 +327,6 @@ public final class TaskAttribute {
 		}
 	}
 
-	// API 3.0 remove
-	public void deepCopyFrom(TaskAttribute source) {
-		if (source.attributeById != null) {
-			for (TaskAttribute child : source.attributeById.values()) {
-				deepAddCopy(child);
-			}
-		}
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -480,7 +471,7 @@ public final class TaskAttribute {
 		}
 	}
 
-	void removeMetaDataValue(String metaDataId) {
+	void removeMetaDatum(String metaDataId) {
 		if (metaData != null) {
 			metaData.remove(metaDataId);
 		}
