@@ -9,3 +9,4 @@
 1211420448030	Extract constant 'TITLE_DIALOG'
 1211434374704	Move compilation unit
 1211434856555	Rename method 'getElementsFromTaskscape'
+1211710112812	Extract method 'createRefreshJob'
