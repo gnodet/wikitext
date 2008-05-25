@@ -27,3 +27,5 @@
 1211420030741	Move member 'importTasks'
 1211579055879	Extract method 'synchronizeTask'
 1211697772256	Copy files
+1211700673074	Extract local variable 'activeWorkbenchWindow'
+1211700687134	Extract local variable 'activePage'
