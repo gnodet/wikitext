@@ -241,8 +241,8 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 	}
 
 	@Override
-	public IStatus performQuery(TaskRepository repository, IRepositoryQuery query,
-			TaskDataCollector resultCollector, ISynchronizationContext event, IProgressMonitor monitor) {
+	public IStatus performQuery(TaskRepository repository, IRepositoryQuery query, TaskDataCollector resultCollector,
+			ISynchronizationContext event, IProgressMonitor monitor) {
 		if (query instanceof WebQuery) {
 			WebQuery webQuery = (WebQuery) query;
 			Map<String, String> queryParameters = webQuery.getQueryParameters();
@@ -305,6 +305,8 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 	public boolean updateTaskFromTaskData(TaskRepository repository, ITask task, RepositoryTaskData taskData) {
 		DefaultTaskSchema schema = new DefaultTaskSchema(taskData);
 		((WebTask) task).setTaskPrefix(schema.getValue(KEY_TASK_PREFIX));
+		// XXX WebTask overrides getTaskKind()
+		schema.setTaskKind(task.getTaskKind());
 		return schema.applyTo(task);
 	}
 

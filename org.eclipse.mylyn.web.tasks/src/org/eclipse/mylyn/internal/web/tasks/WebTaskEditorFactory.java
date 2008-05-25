@@ -8,6 +8,7 @@
 
 package org.eclipse.mylyn.internal.web.tasks;
 
+import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.deprecated.AbstractRepositoryTaskEditor;
 import org.eclipse.mylyn.internal.tasks.ui.deprecated.RepositoryTaskEditorInput;
 import org.eclipse.mylyn.tasks.core.ITask;
@@ -19,6 +20,7 @@ import org.eclipse.mylyn.tasks.ui.editors.TaskEditor;
 import org.eclipse.mylyn.tasks.ui.editors.TaskEditorInput;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.part.EditorPart;
 
 /**
@@ -33,7 +35,7 @@ public class WebTaskEditorFactory extends AbstractTaskEditorFactory {
 		AbstractRepositoryTaskEditor editor = null;
 		if (editorInput instanceof TaskEditorInput) {
 			TaskEditorInput taskInput = (TaskEditorInput) editorInput;
-			return createBrowser(parentEditor, taskInput.getTask().getUrl());
+			return createBrowser(parentEditor, taskInput.getTask());
 		}
 		return editor;
 	}
@@ -49,8 +51,14 @@ public class WebTaskEditorFactory extends AbstractTaskEditorFactory {
 		}
 	}
 
-	private EditorPart createBrowser(TaskEditor parentEditor, String url) {
-		return new BrowserFormPage(parentEditor, TITLE);
+	private EditorPart createBrowser(TaskEditor parentEditor, final ITask task) {
+		return new BrowserFormPage(parentEditor, TITLE) {
+			@Override
+			public void init(IEditorSite site, IEditorInput input) {
+				super.init(site, input);
+				TasksUiPlugin.getTaskDataManager().setTaskRead(task, true);
+			}
+		};
 	}
 
 	@Override
