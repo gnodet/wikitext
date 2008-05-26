@@ -42,10 +42,10 @@ import org.eclipse.mylyn.internal.tasks.ui.actions.OpenTaskListElementAction;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
 import org.eclipse.mylyn.tasks.core.ITask;
-import org.eclipse.mylyn.tasks.core.ITaskActivityListener;
+import org.eclipse.mylyn.tasks.core.ITaskActivationListener;
 import org.eclipse.mylyn.tasks.core.ITaskElement;
 import org.eclipse.mylyn.tasks.core.ITaskListChangeListener;
-import org.eclipse.mylyn.tasks.core.TaskActivityAdapter;
+import org.eclipse.mylyn.tasks.core.TaskActivationAdapter;
 import org.eclipse.mylyn.tasks.ui.TaskElementLabelProvider;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.swt.SWT;
@@ -124,7 +124,7 @@ public class TaskActivityView extends ViewPart {
 	/**
 	 * TODO: need lazier refresh policy.
 	 */
-	private final ITaskActivityListener TASK_ACTIVITY_LISTENER = new TaskActivityAdapter() {
+	private final ITaskActivationListener TASK_ACTIVATION_LISTENER = new TaskActivationAdapter() {
 
 		@Override
 		public void taskActivated(ITask task) {
@@ -152,14 +152,14 @@ public class TaskActivityView extends ViewPart {
 
 	public TaskActivityView() {
 		INSTANCE = this;
-		TasksUi.getTaskActivityManager().addActivityListener(TASK_ACTIVITY_LISTENER);
+		TasksUi.getTaskActivityManager().addActivationListener(TASK_ACTIVATION_LISTENER);
 		TasksUiInternal.getTaskList().addChangeListener(TASKLIST_CHANGE_LISTENER);
 	}
 
 	@Override
 	public void dispose() {
 		super.dispose();
-		TasksUi.getTaskActivityManager().removeActivityListener(TASK_ACTIVITY_LISTENER);
+		TasksUi.getTaskActivityManager().removeActivationListener(TASK_ACTIVATION_LISTENER);
 		TasksUiInternal.getTaskList().removeChangeListener(TASKLIST_CHANGE_LISTENER);
 	}
 
