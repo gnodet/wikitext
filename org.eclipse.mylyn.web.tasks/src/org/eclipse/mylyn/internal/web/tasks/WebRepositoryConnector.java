@@ -49,6 +49,7 @@ import org.eclipse.mylyn.internal.tasks.core.deprecated.LegacyTaskDataCollector;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
+import org.eclipse.mylyn.tasks.core.ICapabilityContext;
 import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.ITaskRepositoryManager;
@@ -687,6 +688,15 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 			vars.add(m.group(1));
 		}
 		return vars;
+	}
+
+	@Override
+	public boolean hasCapability(Capability capability, TaskRepository taskRepository, ITask task,
+			ICapabilityContext context) {
+		if (capability == Capability.LOCAL_COMPLETION_STATE) {
+			return true;
+		}
+		return false;
 	}
 
 }

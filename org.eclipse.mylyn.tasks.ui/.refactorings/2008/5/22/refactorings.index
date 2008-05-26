@@ -1,3 +1,5 @@
 1211831259518	Rename field 'CONTEXT_TASK_ACTIVITY_LISTENER'
 1211831308059	Rename field 'TASK_ACTIVITY_LISTENER'
 1211834218239	Rename type 'LocalTaskConnectorUi'
+1211837758853	Extract method 'extracted'
+1211838578214	Move member 'hasCapability'

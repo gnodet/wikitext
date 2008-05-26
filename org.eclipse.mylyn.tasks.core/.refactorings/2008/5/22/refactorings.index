@@ -1,2 +1,3 @@
 1211829852956	Extract interface 'ITaskActivationListener'
 1211830026173	Extract superclass 'TaskActivationAdapter'
+1211838373549	Change method 'hasChanged'
