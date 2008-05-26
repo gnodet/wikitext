@@ -3,3 +3,5 @@
 1211834218239	Rename type 'LocalTaskConnectorUi'
 1211837758853	Extract method 'extracted'
 1211838578214	Move member 'hasCapability'
+1211840027016	Extract method 'decorateIncoming'
+1211840036810	Extract method 'decorateOutgoing'
