@@ -16,7 +16,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.ITaskList;
-import org.eclipse.mylyn.internal.tasks.ui.LocalTaskConnectorUi;
+import org.eclipse.mylyn.internal.tasks.ui.LocalRepositoryConnectorUi;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.search.SearchHitCollector;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
@@ -78,7 +78,7 @@ public class XPlannerCustomQueryTest extends TestCase {
 		TaskRepository taskRepository = XPlannerTestUtils.getRepository();
 
 		AbstractRepositoryConnectorUi connectorUi = TasksUiPlugin.getConnectorUi(taskRepository.getConnectorKind());
-		assertTrue(!(connectorUi instanceof LocalTaskConnectorUi));
+		assertTrue(!(connectorUi instanceof LocalRepositoryConnectorUi));
 		IWizard wizard = connectorUi.getQueryWizard(taskRepository, null);
 		assertNotNull(wizard);
 	}
