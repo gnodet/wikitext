@@ -2,3 +2,5 @@
 1211830026173	Extract superclass 'TaskActivationAdapter'
 1211838373549	Change method 'hasChanged'
 1211844956044	Change method 'save'
+1211850280143	Change method 'canInitializeSubTaskData'
+1211850295478	Change method 'canGetMultiTaskData'
