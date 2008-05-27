@@ -30,7 +30,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaTask;
-import org.eclipse.mylyn.internal.bugzilla.ui.tasklist.StackTrace;
 import org.eclipse.mylyn.internal.sandbox.ui.SandboxUiPlugin;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
@@ -42,6 +41,7 @@ import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.ITaskElement;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.core.data.TaskData;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
@@ -142,7 +142,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 	 * Search the local bugs for the member using the qualified name
 	 * 
 	 * @param monitor
-	 * 		The progress monitor to search with
+	 *            The progress monitor to search with
 	 * @return The QueryHitCollector with the results of the search
 	 */
 	@SuppressWarnings("deprecation")
@@ -174,7 +174,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 	 * Search the local bugs for the member using the unqualified name
 	 * 
 	 * @param monitor
-	 * 		The progress monitor to search with
+	 *            The progress monitor to search with
 	 * @return The QueryHitCollector with the results of the search
 	 */
 	@SuppressWarnings("deprecation")
@@ -205,13 +205,13 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 	 * Search the local bugs for the member
 	 * 
 	 * @param tasks
-	 * 		The tasks to search
+	 *            The tasks to search
 	 * @param searchCollector
-	 * 		The collector to add the results to
+	 *            The collector to add the results to
 	 * @param elementName
-	 * 		The name of the element that we are looking for
+	 *            The name of the element that we are looking for
 	 * @param monitor
-	 * 		The progress monitor
+	 *            The progress monitor
 	 */
 	private void searchLocal(Collection<ITask> tasks, ProgressQueryHitCollector searchCollector, String elementName,
 			IProgressMonitor monitor) {
@@ -253,9 +253,9 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 	 * Search the bug for the given element name
 	 * 
 	 * @param elementName
-	 * 		The name of the element to search for
+	 *            The name of the element to search for
 	 * @param bug
-	 * 		The bug to search in
+	 *            The bug to search in
 	 */
 	private boolean search(String elementName, RepositoryTaskData bug) {
 
@@ -291,11 +291,11 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 	 * Perform the actual search on the Bugzilla server
 	 * 
 	 * @param url
-	 * 		The url to use for the search
+	 *            The url to use for the search
 	 * @param searchCollector
-	 * 		The collector to put the search results into
+	 *            The collector to put the search results into
 	 * @param monitor
-	 * 		The progress monitor to use for the search
+	 *            The progress monitor to use for the search
 	 * @return The QueryHitCollector with the search results
 	 */
 	private ProgressQueryHitCollector search(String url, TaskRepository repository,
@@ -333,7 +333,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 	 * Perform a search for qualified instances of the member
 	 * 
 	 * @param monitor
-	 * 		The progress monitor to use
+	 *            The progress monitor to use
 	 * @return The QueryHitCollector with the search results
 	 */
 	@SuppressWarnings("deprecation")
@@ -345,7 +345,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 
 		// get the search url
 		String url = Util.getExactSearchURL(repositoryUrl, javaElement);
-		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(BugzillaCorePlugin.REPOSITORY_KIND,
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(BugzillaCorePlugin.CONNECTOR_KIND,
 				repositoryUrl);
 		return search(url, repository, collector, monitor);
 	}
@@ -354,7 +354,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 	 * Perform a search for unqualified instances of the member
 	 * 
 	 * @param monitor
-	 * 		The progress monitor to use
+	 *            The progress monitor to use
 	 * @return The QueryHitCollector with the search results
 	 */
 	@SuppressWarnings("deprecation")
@@ -366,7 +366,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 
 		// get the search url
 		String url = Util.getInexactSearchURL(repositoryUrl, javaElement);
-		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(BugzillaCorePlugin.REPOSITORY_KIND,
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(BugzillaCorePlugin.CONNECTOR_KIND,
 				repositoryUrl);
 
 		return search(url, repository, collector, monitor);
@@ -377,7 +377,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 	 * exact search results
 	 * 
 	 * @param doiList
-	 * 		- the list of BugzillaSearchHitDOI elements to parse
+	 *            - the list of BugzillaSearchHitDOI elements to parse
 	 */
 	public static void secondPassBugzillaParser(List<BugzillaReportInfo> doiList) {
 
@@ -386,7 +386,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 
 			// get the bug report so that we have all of the data
 			// - descriptions, comments, etc
-			RepositoryTaskData b = null;
+			TaskData b = null;
 			try {
 				b = info.getBug();
 			} catch (Exception e) {
@@ -398,30 +398,32 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 				continue;
 			}
 
+			// Add back:
 			// see if the summary has a stack trace in it
-			StackTrace[] stackTrace = StackTrace.getStackTrace(b.getDescription(), b.getDescription());
-			if (stackTrace != null) {
+//			StackTrace[] stackTrace = StackTrace.getStackTrace(b.getDescription(), b.getDescription());
+//			if (stackTrace != null) {
+//
+//				// add the stack trace to the doi info
+//				info.setExact(true);
+//				info.addStackTraces(stackTrace);
+//			}
 
-				// add the stack trace to the doi info
-				info.setExact(true);
-				info.addStackTraces(stackTrace);
-			}
-
+			// Add back:
 			// go through all of the comments for the bug
-			Iterator<TaskComment> comItr = b.getComments().iterator();
-			while (comItr.hasNext()) {
-				TaskComment taskComment = comItr.next();
-				String commentText = taskComment.getText();
-
-				// see if the comment has a stack trace in it
-				stackTrace = StackTrace.getStackTrace(commentText, taskComment);
-				if (stackTrace != null) {
-
-					// add the stack trace to the doi info
-					info.setExact(true);
-					info.addStackTraces(stackTrace);
-				}
-			}
+//			Iterator<TaskComment> comItr = b.getComments().iterator();
+//			while (comItr.hasNext()) {
+//				TaskComment taskComment = comItr.next();
+//				String commentText = taskComment.getText();
+//
+//				// see if the comment has a stack trace in it
+//				stackTrace = StackTrace.getStackTrace(commentText, taskComment);
+//				if (stackTrace != null) {
+//
+//					// add the stack trace to the doi info
+//					info.setExact(true);
+//					info.addStackTraces(stackTrace);
+//				}
+//			}
 		}
 	}
 
@@ -429,9 +431,9 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 	 * Add the results returned to the Hash of landmarks
 	 * 
 	 * @param results
-	 * 		The list of results
+	 *            The list of results
 	 * @param isExact
-	 * 		whether the search was exact or not
+	 *            whether the search was exact or not
 	 */
 	private List<BugzillaReportInfo> getDoiList(Set<AbstractTask> results) {
 		List<BugzillaReportInfo> doiList = new ArrayList<BugzillaReportInfo>();
@@ -512,9 +514,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 	}
 
 	/**
-	 * @see
-	 * 	org.eclipse.mylyn.internal.bugs.core.search.IBugzillaSearchOperation#setQuery(org.eclipse.mylyn.internal.bugs
-	 * 	.core.search.AbstractRepositorySearchQuery)
+	 * @see org.eclipse.mylyn.internal.bugs.core.search.IBugzillaSearchOperation#setQuery(org.eclipse.mylyn.internal.bugs.core.search.AbstractRepositorySearchQuery)
 	 */
 	public void setQuery(AbstractRepositorySearchQuery newQuery) {
 		this.query = newQuery;

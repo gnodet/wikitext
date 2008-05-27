@@ -16,10 +16,10 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaRepositoryConnector;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaTask;
+import org.eclipse.mylyn.internal.bugzilla.core.BugzillaTaskDataHandler;
 import org.eclipse.mylyn.internal.bugzilla.ui.tasklist.StackTrace;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractTaskDataHandler;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.core.data.TaskData;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 
 /**
@@ -45,7 +45,7 @@ public class BugzillaReportInfo {
 	private final List<StackTrace> stackTraces;
 
 	/** The bug report associated with this DoiInfo */
-	private RepositoryTaskData bug;
+	private TaskData bug;
 
 	/**
 	 * Constructor
@@ -90,8 +90,8 @@ public class BugzillaReportInfo {
 	/**
 	 * Set whether this bug has any exact elements in it - the search used was fully qualified
 	 * 
-	 * @param isExact -
-	 *            Whether there are any exact element matches in it
+	 * @param isExact
+	 *            - Whether there are any exact element matches in it
 	 */
 	public void setExact(boolean isExact) {
 		this.isExact = isExact;
@@ -103,14 +103,14 @@ public class BugzillaReportInfo {
 	 * 
 	 * @return Returns the BugReport
 	 */
-	public RepositoryTaskData getBug() throws CoreException {
+	public TaskData getBug() throws CoreException {
 		if (bug == null) {
 			// get the bug report
-			TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
-					BugzillaCorePlugin.REPOSITORY_KIND, hit.getRepositoryUrl());
+			TaskRepository repository = TasksUi.getRepositoryManager().getRepository(BugzillaCorePlugin.CONNECTOR_KIND,
+					hit.getRepositoryUrl());
 			BugzillaRepositoryConnector bugzillaConnector = (BugzillaRepositoryConnector) TasksUi.getRepositoryManager()
-					.getRepositoryConnector(BugzillaCorePlugin.REPOSITORY_KIND);
-			AbstractTaskDataHandler handler = bugzillaConnector.getLegacyTaskDataHandler();
+					.getRepositoryConnector(BugzillaCorePlugin.CONNECTOR_KIND);
+			BugzillaTaskDataHandler handler = new BugzillaTaskDataHandler(bugzillaConnector);
 			bug = handler.getTaskData(repository, hit.getTaskId(), new NullProgressMonitor());
 		}
 		return bug;
@@ -119,10 +119,10 @@ public class BugzillaReportInfo {
 	/**
 	 * Set the bug report associated with this DoiInfo
 	 * 
-	 * @param bug -
-	 *            BugReport that this is associated with
+	 * @param bug
+	 *            - BugReport that this is associated with
 	 */
-	public void setBug(RepositoryTaskData bug) {
+	public void setBug(TaskData bug) {
 		this.bug = bug;
 	}
 
@@ -147,8 +147,8 @@ public class BugzillaReportInfo {
 	/**
 	 * Add a stack trace to this DoiInfo
 	 * 
-	 * @param stackTrace -
-	 *            The StackTrace to add
+	 * @param stackTrace
+	 *            - The StackTrace to add
 	 */
 	public void addStackTrace(StackTrace stackTrace) {
 		this.stackTraces.add(stackTrace);
@@ -157,8 +157,8 @@ public class BugzillaReportInfo {
 	/**
 	 * Add an array of stack traces to this DoiInfo
 	 * 
-	 * @param stackTracesToAdd -
-	 *            The StackTraces to add
+	 * @param stackTracesToAdd
+	 *            - The StackTraces to add
 	 */
 	public void addStackTraces(StackTrace[] stackTracesToAdd) {
 		for (StackTrace element : stackTracesToAdd) {

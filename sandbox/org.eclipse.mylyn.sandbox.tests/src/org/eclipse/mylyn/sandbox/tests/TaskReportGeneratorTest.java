@@ -97,7 +97,7 @@ public class TaskReportGeneratorTest extends TestCase {
 	}
 
 	public void testCompletedBugzillaTasksRetrieved() throws InvocationTargetException, InterruptedException {
-		TaskRepository repository = new TaskRepository(BugzillaCorePlugin.REPOSITORY_KIND,
+		TaskRepository repository = new TaskRepository(BugzillaCorePlugin.CONNECTOR_KIND,
 				IBugzillaConstants.ECLIPSE_BUGZILLA_URL);
 		TasksUiPlugin.getRepositoryManager().addRepository(repository);
 		BugzillaTask task1 = new BugzillaTask(IBugzillaConstants.ECLIPSE_BUGZILLA_URL, "1", "bugzillatask 1");

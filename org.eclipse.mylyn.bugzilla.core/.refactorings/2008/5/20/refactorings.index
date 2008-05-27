@@ -1,1 +1,4 @@
 1210734328587	Rename type 'StackTraceDuplicateDetector'
+1210971188860	Rename field 'REPOSITORY_KIND'
+1210973071627	Delete element
+1210976615822	Rename method 'getKeyString'

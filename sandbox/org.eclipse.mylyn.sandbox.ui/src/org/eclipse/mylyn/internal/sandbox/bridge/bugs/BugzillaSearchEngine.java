@@ -81,8 +81,8 @@ public class BugzillaSearchEngine {
 	/**
 	 * Wrapper for search
 	 * 
-	 * @param collector -
-	 *            The collector for the results to go into
+	 * @param collector
+	 *            - The collector for the results to go into
 	 */
 	public IStatus search(ProgressQueryHitCollector collector) throws LoginException {
 		return this.search(collector, 0, IBugzillaConstants.RETURN_ALL_HITS);
@@ -91,10 +91,10 @@ public class BugzillaSearchEngine {
 	/**
 	 * Wrapper for search
 	 * 
-	 * @param collector -
-	 *            The collector for the results to go into
-	 * @param startMatches -
-	 *            The number of matches to start with for the progress monitor
+	 * @param collector
+	 *            - The collector for the results to go into
+	 * @param startMatches
+	 *            - The number of matches to start with for the progress monitor
 	 */
 	public IStatus search(ProgressQueryHitCollector collector, int startMatches) throws LoginException {
 		return this.search(collector, startMatches, BugzillaUiPlugin.getDefault().getMaxResults());
@@ -103,12 +103,12 @@ public class BugzillaSearchEngine {
 	/**
 	 * Executes the query, parses the response, and adds hits to the search result collector.
 	 * 
-	 * @param collector -
-	 *            The collector for the search results
-	 * @param startMatches -
-	 *            The number of matches to start with for the progress monitor
-	 * @param maxHits -
-	 *            the maximum number of matches to return or IBugzillaConstants.RETURN_ALL_HITS for unlimited
+	 * @param collector
+	 *            - The collector for the search results
+	 * @param startMatches
+	 *            - The number of matches to start with for the progress monitor
+	 * @param maxHits
+	 *            - the maximum number of matches to return or IBugzillaConstants.RETURN_ALL_HITS for unlimited
 	 */
 	public IStatus search(ProgressQueryHitCollector collector, int startMatches, int maxHits) throws LoginException {
 		IProgressMonitor monitor = collector.getProgressMonitor();
@@ -129,11 +129,12 @@ public class BugzillaSearchEngine {
 					"summary");
 
 			BugzillaRepositoryConnector bugzillaConnector = (BugzillaRepositoryConnector) TasksUi.getRepositoryManager()
-					.getRepositoryConnector(BugzillaCorePlugin.REPOSITORY_KIND);
+					.getRepositoryConnector(BugzillaCorePlugin.CONNECTOR_KIND);
 
 			BugzillaClient client = bugzillaConnector.getClientManager().getClient(repository,
 					new NullProgressMonitor());
-			client.getSearchHits(query, collector, new NullProgressMonitor());
+			client.getSearchHits(query, collector, bugzillaConnector.getTaskDataHandler()
+					.getAttributeMapper(repository), new NullProgressMonitor());
 		} catch (CoreException e) {
 			status = new MultiStatus(BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR,
 					"Core Exception occurred while querying Bugzilla Server " + repository.getRepositoryUrl() + ".\n"

@@ -166,7 +166,7 @@ public class Util {
 		}
 		sb.append("buglist.cgi?");
 
-		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(BugzillaCorePlugin.REPOSITORY_KIND,
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(BugzillaCorePlugin.CONNECTOR_KIND,
 				repositoryUrl);
 		if (repository != null && repository.hasCredentials()) {
 			// if (BugzillaPreferencePage.getUserName() != null

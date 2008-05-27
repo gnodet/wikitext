@@ -65,7 +65,7 @@ public class BugzillaActiveSearchTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		WorkspaceSetupHelper.setupWorkspace();
-		repository = new TaskRepository(BugzillaCorePlugin.REPOSITORY_KIND, IBugzillaConstants.ECLIPSE_BUGZILLA_URL);
+		repository = new TaskRepository(BugzillaCorePlugin.CONNECTOR_KIND, IBugzillaConstants.ECLIPSE_BUGZILLA_URL);
 		TasksUiPlugin.getRepositoryManager().addRepository(repository);
 
 		IJavaProject jp = WorkspaceSetupHelper.getJdtCoreDomProject();
