@@ -1,2 +1,4 @@
 1211850706026	Convert member type 'BugzillaPeoplePart' to top level
 1211924876230	Rename type 'KeywordEditorPart'
+1211932093649	Rename type 'BugzillaCCAttributeEditor'
+1211933143043	Rename type 'BugzillaRemoveCCAttributeEditor'

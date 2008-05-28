@@ -2,3 +2,4 @@
 1211860142992	Rename type 'BugzillaAttachmentHandler'
 1211860262392	Delete element
 1211923497968	Rename local variable 'fieldName'
+1211932059485	Rename field 'EDITOR_TYPE_CC'
