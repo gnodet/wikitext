@@ -470,7 +470,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 	}
 
 	/**
-	 * @see org.eclipse.mylyn.internal.bugs.core.search.IBugzillaSearchOperation#getErrorStatus()
+	 * @see org.eclipse.mylyn.internal.bugs.core.search.IBugzillaSearchOperation#getStatus()
 	 */
 	public IStatus getStatus() throws LoginException {
 		// if a LoginException was thrown while trying to search, throw this

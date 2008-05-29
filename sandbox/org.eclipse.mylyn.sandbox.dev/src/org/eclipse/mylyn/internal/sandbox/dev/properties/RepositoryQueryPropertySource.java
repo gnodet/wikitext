@@ -63,7 +63,7 @@ public class RepositoryQueryPropertySource extends AbstractTaskContainerProperty
 		} else if (QUERY.equals(id)) {
 			return query.getUrl();
 		} else if (STATUS.equals(id)) {
-			return query.getSynchronizationStatus() == null ? NULL_MSG : query.getSynchronizationStatus().toString();
+			return query.getStatus() == null ? NULL_MSG : query.getStatus().toString();
 		} else if (LAST_READ.equals(id)) {
 			return query.getLastSynchronizedTimeStamp() == null ? NULL_MSG : query.getLastSynchronizedTimeStamp()
 					.toString();

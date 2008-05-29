@@ -4,3 +4,10 @@
 1211844956044	Change method 'save'
 1211850280143	Change method 'canInitializeSubTaskData'
 1211850295478	Change method 'canGetMultiTaskData'
+1212020604558	Infer generic type arguments
+1212021167614	Rename method 'getErrorStatus'
+1212021582780	Rename method 'getErrorStatus'
+1212021634900	Rename method 'getErrorStatus'
+1212021641516	Rename method 'setErrorStatus'
+1212022100199	Rename method 'getSynchronizationStatus'
+1212022109569	Rename method 'setSynchronizationStatus'
