@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;org.eclipse.mylyn.internal.team.ui.templates.CommitTemplateVariables.getTaskData(...)&apos; to &apos;getTaskMapping&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.team.ui&apos;&#x0A;- Original element: &apos;org.eclipse.mylyn.internal.team.ui.templates.CommitTemplateVariables.getTaskData(...)&apos;&#x0A;- Renamed element: &apos;org.eclipse.mylyn.internal.team.ui.templates.CommitTemplateVariables.getTaskMapping(...)&apos;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;getTaskData&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylyn.internal.team.ui.templates{CommitTemplateVariables.java[CommitTemplateVariables~getTaskData~QITask;" name="getTaskMapping" references="true" stamp="1212090248651" version="1.0"/>
+</session>

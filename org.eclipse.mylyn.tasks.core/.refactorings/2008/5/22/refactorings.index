@@ -8,3 +8,5 @@
 1212034294123	Extract local variable 'unmodifiableCollection'
 1212034378581	Rename type 'SynchronizationContext'
 1212042723355	Extract method 'synchronizedTaskRelations'
+1212094253682	Change method 'getKeywords'
+1212094265384	Change method 'getCc'
