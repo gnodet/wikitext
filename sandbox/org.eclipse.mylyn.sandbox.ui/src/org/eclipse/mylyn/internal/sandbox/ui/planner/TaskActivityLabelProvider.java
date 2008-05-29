@@ -135,8 +135,8 @@ public class TaskActivityLabelProvider extends TaskElementLabelProvider implemen
 			case 4:
 				long estimated = 0;
 				for (Object o : contentProvider.getChildren(taskCategory)) {
-					if (o instanceof ITask) {
-						estimated += ((ITask) o).getEstimatedTimeHours();
+					if (o instanceof AbstractTask) {
+						estimated += ((AbstractTask) o).getEstimatedTimeHours();
 					}
 				}
 				return estimated + UNITS_HOURS;

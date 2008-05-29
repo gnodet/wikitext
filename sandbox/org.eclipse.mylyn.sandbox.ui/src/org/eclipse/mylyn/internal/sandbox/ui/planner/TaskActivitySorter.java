@@ -10,6 +10,7 @@ package org.eclipse.mylyn.internal.sandbox.ui.planner;
 
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.ITask;
 
@@ -42,8 +43,8 @@ public class TaskActivitySorter extends ViewerSorter {
 
 	@Override
 	public int compare(Viewer viewer, Object obj1, Object obj2) {
-		ITask t1 = (ITask) obj1;
-		ITask t2 = (ITask) obj2;
+		AbstractTask t1 = (AbstractTask) obj1;
+		AbstractTask t2 = (AbstractTask) obj2;
 
 		switch (criteria) {
 		case DESCRIPTION:
@@ -75,7 +76,7 @@ public class TaskActivitySorter extends ViewerSorter {
 		return task2.getCompletionDate().compareTo(task1.getCompletionDate());
 	}
 
-	protected int compareEstimated(ITask task1, ITask task2) {
+	protected int compareEstimated(AbstractTask task1, AbstractTask task2) {
 		return task2.getEstimatedTimeHours() - task1.getEstimatedTimeHours();
 	}
 

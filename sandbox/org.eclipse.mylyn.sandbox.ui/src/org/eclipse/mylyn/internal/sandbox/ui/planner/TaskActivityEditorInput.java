@@ -36,11 +36,11 @@ public class TaskActivityEditorInput implements IEditorInput {
 
 	private static final String TASK_ACTIVITY_REPORT = "Task Activity Report";
 
-	private Set<ITask> completedTasks = new HashSet<ITask>();
+	private Set<AbstractTask> completedTasks = new HashSet<AbstractTask>();
 
-	private Set<ITask> inProgressTasks = new HashSet<ITask>();
+	private Set<AbstractTask> inProgressTasks = new HashSet<AbstractTask>();
 
-	private final Set<ITask> plannedTasks = new HashSet<ITask>();
+	private final Set<AbstractTask> plannedTasks = new HashSet<AbstractTask>();
 
 	private TaskReportGenerator taskReportGenerator = null;
 
@@ -81,7 +81,7 @@ public class TaskActivityEditorInput implements IEditorInput {
 
 		plannedTasks.addAll(TasksUiPlugin.getTaskActivityManager().getActiveTasks(
 				TaskActivityUtil.getCurrentWeek().getStartDate(), TaskActivityUtil.getCurrentWeek().getEndDate()));
-		plannedTasks.addAll(TasksUiPlugin.getTaskActivityManager().getAllScheduledTasks());
+		plannedTasks.addAll(TasksUiPlugin.getTaskActivityManager().getAllScheduledTasksInternal());
 
 		//plannedTasks = new HashSet<ITask>();
 	}
@@ -111,15 +111,15 @@ public class TaskActivityEditorInput implements IEditorInput {
 		return null;
 	}
 
-	public Set<ITask> getCompletedTasks() {
+	public Set<AbstractTask> getCompletedTasks() {
 		return completedTasks;
 	}
 
-	public Set<ITask> getInProgressTasks() {
+	public Set<AbstractTask> getInProgressTasks() {
 		return inProgressTasks;
 	}
 
-	public Set<ITask> getPlannedTasks() {
+	public Set<AbstractTask> getPlannedTasks() {
 		return plannedTasks;
 	}
 
@@ -154,7 +154,7 @@ public class TaskActivityEditorInput implements IEditorInput {
 
 	public int getTotalTimeEstimated() {
 		int duration = 0;
-		for (ITask task : inProgressTasks) {
+		for (AbstractTask task : inProgressTasks) {
 			duration += task.getEstimatedTimeHours();
 		}
 		return duration;
@@ -178,7 +178,7 @@ public class TaskActivityEditorInput implements IEditorInput {
 
 	public int getPlannedEstimate() {
 		int estimated = 0;
-		for (ITask task : plannedTasks) {
+		for (AbstractTask task : plannedTasks) {
 			estimated += task.getEstimatedTimeHours();
 		}
 		return estimated;

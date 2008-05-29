@@ -14,14 +14,14 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 
 /**
  * @author Ken Sueda
  */
 public class CompletedTaskCollector implements ITaskCollector {
 
-	private final Map<String, ITask> completedTasks = new HashMap<String, ITask>();
+	private final Map<String, AbstractTask> completedTasks = new HashMap<String, AbstractTask>();
 
 	private final Date periodStartDate;
 
@@ -37,7 +37,7 @@ public class CompletedTaskCollector implements ITaskCollector {
 		return "Completed Tasks";
 	}
 
-	public void consumeTask(ITask task) {
+	public void consumeTask(AbstractTask task) {
 		if (task.isCompleted() && task.getCompletionDate() != null
 				&& task.getCompletionDate().compareTo(periodStartDate) >= 0
 				&& task.getCompletionDate().compareTo(periodEndDate) <= 0
@@ -46,8 +46,8 @@ public class CompletedTaskCollector implements ITaskCollector {
 		}
 	}
 
-	public Set<ITask> getTasks() {
-		Set<ITask> tasks = new HashSet<ITask>();
+	public Set<AbstractTask> getTasks() {
+		Set<AbstractTask> tasks = new HashSet<AbstractTask>();
 		tasks.addAll(completedTasks.values());
 		return tasks;
 	}

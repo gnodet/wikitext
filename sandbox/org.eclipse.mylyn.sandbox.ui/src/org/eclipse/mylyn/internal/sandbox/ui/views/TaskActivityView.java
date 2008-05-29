@@ -424,16 +424,14 @@ public class TaskActivityView extends ViewPart {
 		estimateEditor.addListener(new ICellEditorListener() {
 			public void applyEditorValue() {
 				Object selection = ((IStructuredSelection) treeViewer.getSelection()).getFirstElement();
-				if (selection instanceof ITask) {
-					ITask task = (ITask) selection;
+				if (selection instanceof AbstractTask) {
+					AbstractTask task = (AbstractTask) selection;
 					int estimate = (Integer) estimateEditor.getValue();
 					if (estimate == -1) {
 						estimate = 0;
 					}
 					task.setEstimatedTimeHours(estimate);
-					// updateLabels();
 					refresh();
-					// treeViewer.refresh();
 				}
 			}
 
@@ -485,8 +483,8 @@ public class TaskActivityView extends ViewPart {
 
 		public void modify(Object element, String property, Object value) {
 			int columnIndex = Arrays.asList(columnNames).indexOf(property);
-			if (element instanceof ITask) {
-				ITask task = (ITask) element;
+			if (element instanceof AbstractTask) {
+				AbstractTask task = (AbstractTask) element;
 				if (columnIndex == 4) {
 					if (value instanceof Integer) {
 						task.setEstimatedTimeHours(((Integer) value).intValue() * 10);

@@ -20,6 +20,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.mylyn.commons.core.DateUtil;
 import org.eclipse.mylyn.commons.core.StatusHandler;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.ITaskElement;
@@ -60,8 +61,8 @@ public class TaskPlannerLabelProvider extends TaskElementLabelProvider implement
 
 	public String getColumnText(Object element, int columnIndex) {
 		try {
-			if (element instanceof ITask) {
-				ITask task = (ITask) element;
+			if (element instanceof AbstractTask) {
+				AbstractTask task = (AbstractTask) element;
 				switch (columnIndex) {
 				case 1:
 					return task.getPriority();
@@ -99,8 +100,8 @@ public class TaskPlannerLabelProvider extends TaskElementLabelProvider implement
 					long duration = 0;
 					for (Object o : contentProvider.getChildren(container)) {
 						if (o instanceof ITask) {
-							duration += TasksUiPlugin.getTaskActivityManager().getElapsedTime((ITask) o,
-									startDate, endDate);
+							duration += TasksUiPlugin.getTaskActivityManager().getElapsedTime((ITask) o, startDate,
+									endDate);
 						}
 					}
 					return DateUtil.getFormattedDurationShort(duration);
@@ -109,8 +110,8 @@ public class TaskPlannerLabelProvider extends TaskElementLabelProvider implement
 					ITreeContentProvider contentProvider = ((ITreeContentProvider) viewer.getContentProvider());
 					long estimated = 0;
 					for (Object o : contentProvider.getChildren(container)) {
-						if (o instanceof ITask) {
-							estimated += ((ITask) o).getEstimatedTimeHours();
+						if (o instanceof AbstractTask) {
+							estimated += ((AbstractTask) o).getEstimatedTimeHours();
 						}
 					}
 					return estimated + " hours";

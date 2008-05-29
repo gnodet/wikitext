@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.ITask;
 
@@ -25,7 +26,7 @@ import org.eclipse.mylyn.tasks.core.ITask;
  */
 public class InProgressTaskCollector implements ITaskCollector {
 
-	private final Map<String, ITask> inProgressTasks = new HashMap<String, ITask>();
+	private final Map<String, AbstractTask> inProgressTasks = new HashMap<String, AbstractTask>();
 
 	private final Date periodStartDate;
 
@@ -62,15 +63,15 @@ public class InProgressTaskCollector implements ITaskCollector {
 		return "Tasks in Progress";
 	}
 
-	public void consumeTask(ITask task) {
+	public void consumeTask(AbstractTask task) {
 		if (!task.isCompleted() && hasActivity(task, periodStartDate, periodEndDate)
 				&& !inProgressTasks.containsKey(task.getHandleIdentifier())) {
 			inProgressTasks.put(task.getHandleIdentifier(), task);
 		}
 	}
 
-	public Set<ITask> getTasks() {
-		Set<ITask> tasks = new HashSet<ITask>();
+	public Set<AbstractTask> getTasks() {
+		Set<AbstractTask> tasks = new HashSet<AbstractTask>();
 		tasks.addAll(inProgressTasks.values());
 		return tasks;
 	}
