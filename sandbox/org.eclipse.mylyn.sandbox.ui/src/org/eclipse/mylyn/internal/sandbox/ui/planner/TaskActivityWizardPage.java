@@ -25,7 +25,8 @@ import org.eclipse.mylyn.internal.tasks.core.TaskActivityUtil;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.ITasksUiPreferenceConstants;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
-import org.eclipse.mylyn.tasks.core.ITaskElement;
+import org.eclipse.mylyn.tasks.core.ITaskContainer;
+import org.eclipse.mylyn.tasks.core.IRepositoryElement;
 import org.eclipse.mylyn.tasks.ui.TaskElementLabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -235,7 +236,7 @@ public class TaskActivityWizardPage extends WizardPage {
 		});
 
 		// populate table
-		for (ITaskElement container : containers) {
+		for (IRepositoryElement container : containers) {
 			TableItem item = new TableItem(filtersTable, SWT.NONE);
 			item.setImage(labelProvider.getImage(container));
 			item.setText(container.getSummary());
@@ -335,7 +336,7 @@ public class TaskActivityWizardPage extends WizardPage {
 		Set<AbstractTaskContainer> result = new HashSet<AbstractTaskContainer>();
 		TableItem[] items = filtersTable.getItems();
 		for (TableItem item : items) {
-			if (item.getChecked() && item.getData() instanceof ITaskElement) {
+			if (item.getChecked() && item.getData() instanceof ITaskContainer) {
 				result.add((AbstractTaskContainer) item.getData());
 			}
 		}

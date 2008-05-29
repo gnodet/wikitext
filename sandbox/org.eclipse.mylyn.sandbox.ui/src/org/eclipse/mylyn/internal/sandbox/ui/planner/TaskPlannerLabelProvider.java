@@ -23,7 +23,8 @@ import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.ITask;
-import org.eclipse.mylyn.tasks.core.ITaskElement;
+import org.eclipse.mylyn.tasks.core.ITaskContainer;
+import org.eclipse.mylyn.tasks.core.IRepositoryElement;
 import org.eclipse.mylyn.tasks.ui.TaskElementLabelProvider;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
@@ -88,8 +89,8 @@ public class TaskPlannerLabelProvider extends TaskElementLabelProvider implement
 						return "";
 					}
 				}
-			} else if (element instanceof ITaskElement) {
-				ITaskElement container = (ITaskElement) element;
+			} else if (element instanceof ITaskContainer) {
+				IRepositoryElement container = (IRepositoryElement) element;
 				switch (columnIndex) {
 				case 1:
 					return null;

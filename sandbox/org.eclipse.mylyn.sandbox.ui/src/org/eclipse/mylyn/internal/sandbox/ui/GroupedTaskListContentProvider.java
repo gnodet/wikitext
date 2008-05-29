@@ -16,7 +16,7 @@ import org.eclipse.mylyn.internal.tasks.ui.views.TaskListContentProvider;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
 import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.ITask;
-import org.eclipse.mylyn.tasks.core.ITaskElement;
+import org.eclipse.mylyn.tasks.core.IRepositoryElement;
 
 /**
  * @author Eugene Kuleshov
@@ -37,7 +37,7 @@ public class GroupedTaskListContentProvider extends TaskListContentProvider {
 		Object[] children = super.getChildren(parent);
 
 		if ((parent instanceof IRepositoryQuery) && groupBy != GroupBy.None) {
-			return getGroups((ITaskElement) parent, children);
+			return getGroups((IRepositoryElement) parent, children);
 		} else if (parent instanceof TaskGroup) {
 			return ((TaskGroup) parent).getChildren().toArray();
 		} else {
@@ -45,7 +45,7 @@ public class GroupedTaskListContentProvider extends TaskListContentProvider {
 		}
 	}
 
-	private TaskGroup[] getGroups(ITaskElement parent, Object[] children) {
+	private TaskGroup[] getGroups(IRepositoryElement parent, Object[] children) {
 		TreeMap<String, TaskGroup> groups = new TreeMap<String, TaskGroup>();
 
 		for (Object container : children) {

@@ -13,7 +13,7 @@ import java.util.Set;
 
 import org.eclipse.mylyn.internal.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.tasks.core.ITask;
-import org.eclipse.mylyn.tasks.core.ITaskElement;
+import org.eclipse.mylyn.tasks.core.ITaskContainer;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
@@ -49,20 +49,22 @@ public abstract class AbstractTaskContainerPropertySource implements IPropertySo
 	/**
 	 * @return an expanded set of all descendants, excluding itself.
 	 */
-	public Set<ITask> getDescendants(ITaskElement parent) {
+	public Set<ITask> getDescendants(ITaskContainer parent) {
 		Set<ITask> childrenWithoutCycles = new HashSet<ITask>();
 		this.getDescendantsHelper(parent, childrenWithoutCycles, parent);
 		return Collections.unmodifiableSet(childrenWithoutCycles);
 	}
 
-	protected void getDescendantsHelper(ITaskElement parent, Set<ITask> visited, ITaskElement root) {
+	protected void getDescendantsHelper(ITaskContainer parent, Set<ITask> visited, ITaskContainer root) {
 		for (ITask child : parent.getChildren()) {
 			if (child == root) {
 				cyclic = true;
 			}
-			if (!visited.contains(child) && child != root) {
-				visited.add(child);
-				getDescendantsHelper(child, visited, root);
+			if (child instanceof ITaskContainer) {
+				if (!visited.contains(child) && child != root) {
+					visited.add(child);
+					getDescendantsHelper((ITaskContainer) child, visited, root);
+				}
 			}
 		}
 	}
@@ -70,15 +72,16 @@ public abstract class AbstractTaskContainerPropertySource implements IPropertySo
 	/**
 	 * @return true if the parent also occurs in its descendants.
 	 */
-	public boolean containsCyclic(AbstractTaskContainer parent) {
-		Set<ITask> childrenWithoutCycles = new HashSet<ITask>();
-		Set<ITaskElement> parentStack = new HashSet<ITaskElement>();
+	public boolean containsCyclic(ITaskContainer parent) {
+		Set<AbstractTaskContainer> childrenWithoutCycles = new HashSet<AbstractTaskContainer>();
+		Set<ITaskContainer> parentStack = new HashSet<ITaskContainer>();
 		cyclic = false;
 		this.containsCyclicHelper(parent, childrenWithoutCycles, parentStack);
 		return cyclic;
 	}
 
-	protected void containsCyclicHelper(ITaskElement parent, Set<ITask> visited, Set<ITaskElement> parentStack) {
+	protected void containsCyclicHelper(ITaskContainer parent, Set<AbstractTaskContainer> visited,
+			Set<ITaskContainer> parentStack) {
 		// fast exit
 		if (cyclic) {
 			return;
@@ -86,11 +89,13 @@ public abstract class AbstractTaskContainerPropertySource implements IPropertySo
 
 		parentStack.add(parent);
 		for (ITask child : parent.getChildren()) {
-			if (parentStack.contains(child)) {
-				cyclic = true;
-				return;
-			} else {
-				containsCyclicHelper(child, visited, parentStack);
+			if (child instanceof AbstractTaskContainer) {
+				if (parentStack.contains(child)) {
+					cyclic = true;
+					return;
+				} else {
+					containsCyclicHelper((ITaskContainer) child, visited, parentStack);
+				}
 			}
 		}
 		parentStack.remove(parent);

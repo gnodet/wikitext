@@ -15,7 +15,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.ITask;
-import org.eclipse.mylyn.tasks.core.ITaskElement;
+import org.eclipse.mylyn.tasks.core.ITaskContainer;
 
 /**
  * @author Rob Elves
@@ -47,8 +47,8 @@ public class TaskActivityContentProvider implements ITreeContentProvider, ITaskP
 
 	public Object[] getChildren(Object parentElement) {
 		Set<ITask> result = new HashSet<ITask>();
-		if (parentElement instanceof ITaskElement) {
-			ITaskElement parent = (ITaskElement) parentElement;
+		if (parentElement instanceof ITaskContainer) {
+			ITaskContainer parent = (ITaskContainer) parentElement;
 			Set<ITask> completedChildren = new HashSet<ITask>();
 			completedChildren.addAll(editorInput.getCompletedTasks());
 			completedChildren.retainAll(parent.getChildren());

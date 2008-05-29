@@ -24,7 +24,7 @@ import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.ITaskActivityManager;
-import org.eclipse.mylyn.tasks.core.ITaskElement;
+import org.eclipse.mylyn.tasks.core.ITaskContainer;
 import org.eclipse.mylyn.tasks.core.ITask.PriorityLevel;
 import org.eclipse.mylyn.tasks.ui.TaskElementLabelProvider;
 import org.eclipse.mylyn.tasks.ui.TasksUiImages;
@@ -147,7 +147,7 @@ public class TaskActivityLabelProvider extends TaskElementLabelProvider implemen
 
 	@Override
 	public Color getBackground(Object element) {
-		if (element instanceof ITaskElement && !(element instanceof ITask)) {
+		if (element instanceof ITaskContainer && !(element instanceof ITask)) {
 			return categoryBackgroundColor;
 		} else {
 			return super.getBackground(element);

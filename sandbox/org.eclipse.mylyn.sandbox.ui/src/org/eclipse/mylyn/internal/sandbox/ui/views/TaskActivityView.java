@@ -43,7 +43,7 @@ import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.ITaskActivationListener;
-import org.eclipse.mylyn.tasks.core.ITaskElement;
+import org.eclipse.mylyn.tasks.core.ITaskContainer;
 import org.eclipse.mylyn.tasks.core.ITaskListChangeListener;
 import org.eclipse.mylyn.tasks.core.TaskActivationAdapter;
 import org.eclipse.mylyn.tasks.ui.TaskElementLabelProvider;
@@ -299,7 +299,7 @@ public class TaskActivityView extends ViewPart {
 						.getViewer()
 						.getSelection()).getFirstElement();
 
-				if (selectedObject instanceof ITaskElement) {
+				if (selectedObject instanceof ITaskContainer) {
 					return false;
 				}
 

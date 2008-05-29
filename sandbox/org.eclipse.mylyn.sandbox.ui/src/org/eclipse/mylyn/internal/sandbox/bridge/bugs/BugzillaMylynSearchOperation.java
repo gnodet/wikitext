@@ -32,6 +32,7 @@ import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaTask;
 import org.eclipse.mylyn.internal.sandbox.ui.SandboxUiPlugin;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTaskCategory;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.TaskComment;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
@@ -39,7 +40,6 @@ import org.eclipse.mylyn.internal.tasks.ui.deprecated.TaskFactory;
 import org.eclipse.mylyn.internal.tasks.ui.search.AbstractRepositorySearchQuery;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tasks.core.ITask;
-import org.eclipse.mylyn.tasks.core.ITaskElement;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.data.TaskData;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
@@ -162,7 +162,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 //				LocalRepositoryConnector.REPOSITORY_URL).getChildren();
 		Set<ITask> tasks = new HashSet<ITask>();
 		searchLocal(tasks, collector, elementName, monitor);
-		for (ITaskElement cat : TasksUiPlugin.getTaskList().getTaskContainers()) {
+		for (AbstractTaskCategory cat : TasksUiPlugin.getTaskList().getTaskCategories()) {
 			searchLocal(cat.getChildren(), collector, elementName, monitor);
 		}
 
@@ -194,7 +194,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 //				LocalRepositoryConnector.REPOSITORY_URL).getChildren();
 		Set<ITask> tasks = new HashSet<ITask>();
 		searchLocal(tasks, collector, elementName, monitor);
-		for (ITaskElement cat : TasksUiPlugin.getTaskList().getTaskContainers()) {
+		for (AbstractTaskCategory cat : TasksUiPlugin.getTaskList().getTaskCategories()) {
 			searchLocal(cat.getChildren(), collector, elementName, monitor);
 		}
 		// return the collector

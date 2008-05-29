@@ -18,8 +18,8 @@ import org.eclipse.mylyn.internal.sandbox.ui.SandboxUiPlugin;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.ui.IDynamicSubMenuContributor;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
+import org.eclipse.mylyn.tasks.core.IRepositoryElement;
 import org.eclipse.mylyn.tasks.core.ITask;
-import org.eclipse.mylyn.tasks.core.ITaskElement;
 
 /**
  * @author Mik Kersten
@@ -28,14 +28,14 @@ public class TaskHighlighterMenuContributor implements IDynamicSubMenuContributo
 
 	private static final String CHOOSE_HIGHLIGHTER = "Highlighter";
 
-	public MenuManager getSubMenuManager(final List<ITaskElement> selectedElements) {
+	public MenuManager getSubMenuManager(final List<IRepositoryElement> selectedElements) {
 		final MenuManager subMenuManager = new MenuManager(CHOOSE_HIGHLIGHTER);
 		for (final Highlighter highlighter : SandboxUiPlugin.getDefault().getHighlighters()) {
 			Action action = new Action() {
 				@Override
 				public void run() {
 					AbstractTask task = null;
-					for (ITaskElement selectedElement : selectedElements) {
+					for (IRepositoryElement selectedElement : selectedElements) {
 						if (selectedElement instanceof ITask) {
 							task = (AbstractTask) selectedElement;
 						}

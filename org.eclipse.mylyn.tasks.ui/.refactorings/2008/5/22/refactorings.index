@@ -8,4 +8,4 @@
 1211860500720	Extract method 'createLegacyTask'
 1211861188999	Rename method 'openNewTask'
 1212010694503	Rename method 'downloadContext'
-1212097821535	Extract method 'preserveSelection'
+1212101933791	Inline local variable 'taskListElement'

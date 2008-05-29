@@ -17,7 +17,7 @@ import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListContentProvider;
 import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
 import org.eclipse.mylyn.tasks.core.ITask;
-import org.eclipse.mylyn.tasks.core.ITaskElement;
+import org.eclipse.mylyn.tasks.core.ITaskContainer;
 
 /**
  * @author Rob Elves
@@ -36,7 +36,7 @@ public class IncomingTaskListContentProvider extends TaskListContentProvider {
 		if (parent instanceof Person) {
 			return getChildren(parent);
 		} else {
-			for (ITaskElement container : applyFilter(TasksUiPlugin.getTaskListManager()
+			for (ITaskContainer container : applyFilter(TasksUiPlugin.getTaskListManager()
 					.getTaskList()
 					.getRootElements())) {
 				for (ITask task : container.getChildren()) {
@@ -53,7 +53,7 @@ public class IncomingTaskListContentProvider extends TaskListContentProvider {
 	public Object[] getChildren(Object parent) {
 		Set<ITask> children = new HashSet<ITask>();
 		if (parent instanceof Person) {
-			for (ITaskElement container : applyFilter(TasksUiPlugin.getTaskListManager()
+			for (ITaskContainer container : applyFilter(TasksUiPlugin.getTaskListManager()
 					.getTaskList()
 					.getRootElements())) {
 				for (ITask task : container.getChildren()) {

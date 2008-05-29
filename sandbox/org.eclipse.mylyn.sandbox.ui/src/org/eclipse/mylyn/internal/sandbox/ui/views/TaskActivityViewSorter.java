@@ -14,7 +14,7 @@ import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.ScheduledTaskContainer;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.ITask;
-import org.eclipse.mylyn.tasks.core.ITaskElement;
+import org.eclipse.mylyn.tasks.core.ITaskContainer;
 import org.eclipse.mylyn.tasks.core.ITask.PriorityLevel;
 import org.eclipse.ui.IMemento;
 
@@ -155,7 +155,7 @@ public class TaskActivityViewSorter extends ViewerSorter {
 				AbstractTask task1 = (AbstractTask) o1;
 				AbstractTask task2 = (AbstractTask) o2;
 				return compare(task1, task2);
-			} else if (o2 instanceof ITaskElement) {
+			} else if (o2 instanceof ITaskContainer) {
 				return -1;
 			}
 		}

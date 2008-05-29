@@ -27,7 +27,7 @@ import org.eclipse.mylyn.internal.tasks.core.TaskList;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.ITask;
-import org.eclipse.mylyn.tasks.core.ITaskElement;
+import org.eclipse.mylyn.tasks.core.ITaskContainer;
 
 /**
  * @author Ken Sueda
@@ -100,8 +100,8 @@ public class TaskReportGenerator implements IRunnableWithProgress {
 						}
 					}
 				}
-			} else if (element instanceof ITaskElement) {
-				ITaskElement cat = (ITaskElement) element;
+			} else if (element instanceof ITaskContainer) {
+				ITaskContainer cat = (ITaskContainer) element;
 				for (ITask task : cat.getChildren()) {
 					for (ITaskCollector collector : collectors) {
 						if (task instanceof AbstractTask) {
