@@ -15,7 +15,7 @@ import java.util.Set;
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.mylyn.internal.tasks.core.sync.SynchronizationContext;
+import org.eclipse.mylyn.internal.tasks.core.sync.SynchronizationSession;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
@@ -117,7 +117,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		setSyncTimeStamp(repository, tasks);
 
 		String goodUrl = repository.getRepositoryUrl();
-		SynchronizationContext event = new SynchronizationContext();
+		SynchronizationSession event = new SynchronizationSession();
 		try {
 			repository.setRepositoryUrl("http://localhost");
 
@@ -134,7 +134,8 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 
 		assertTrue(event.needsPerformQueries());
 		for (ITask task : tasks) {
-			assertTrue(!task.isStale());
+			fail();
+			// FIXME assertTrue(!task.isStale());
 		}
 	}
 

@@ -55,7 +55,7 @@ import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.ITaskRepositoryManager;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.data.TaskDataCollector;
-import org.eclipse.mylyn.tasks.core.sync.ISynchronizationContext;
+import org.eclipse.mylyn.tasks.core.sync.ISynchronizationSession;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 
 import com.sun.syndication.feed.module.DCModule;
@@ -243,7 +243,7 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 
 	@Override
 	public IStatus performQuery(TaskRepository repository, IRepositoryQuery query, TaskDataCollector resultCollector,
-			ISynchronizationContext event, IProgressMonitor monitor) {
+			ISynchronizationSession event, IProgressMonitor monitor) {
 		if (query instanceof WebQuery) {
 			WebQuery webQuery = (WebQuery) query;
 			Map<String, String> queryParameters = webQuery.getQueryParameters();
@@ -269,9 +269,9 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 	}
 
 	@Override
-	public void preSynchronization(ISynchronizationContext event, IProgressMonitor monitor) throws CoreException {
-		for (ITask task : event.getTasks()) {
-			task.setStale(true);
+	public void preSynchronization(ISynchronizationSession session, IProgressMonitor monitor) throws CoreException {
+		for (ITask task : session.getTasks()) {
+			session.markStale(task);
 		}
 	}
 

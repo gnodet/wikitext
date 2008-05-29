@@ -37,7 +37,7 @@ import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.TaskRepositoryLocationFactory;
 import org.eclipse.mylyn.tasks.core.data.TaskDataCollector;
-import org.eclipse.mylyn.tasks.core.sync.ISynchronizationContext;
+import org.eclipse.mylyn.tasks.core.sync.ISynchronizationSession;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.wsdl.soap.domain.DomainData;
@@ -101,7 +101,8 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 
 		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(XPlannerMylynUIPlugin.REPOSITORY_KIND,
 				repositoryUrl);
-		AbstractTask existingTask = (AbstractTask) TasksUiInternal.getTaskList().getTask(repository.getRepositoryUrl(), id);
+		AbstractTask existingTask = (AbstractTask) TasksUiInternal.getTaskList().getTask(repository.getRepositoryUrl(),
+				id);
 		if (existingTask instanceof XPlannerTask) {
 			task = existingTask;
 		} else {
@@ -143,7 +144,7 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 
 	@Override
 	public IStatus performQuery(TaskRepository repository, IRepositoryQuery repositoryQuery,
-			TaskDataCollector resultCollector, ISynchronizationContext event, IProgressMonitor monitor) {
+			TaskDataCollector resultCollector, ISynchronizationSession event, IProgressMonitor monitor) {
 
 		if (!(repositoryQuery instanceof XPlannerCustomQuery)) {
 			return Status.OK_STATUS;
@@ -545,22 +546,22 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 	}
 
 	@Override
-	public void preSynchronization(ISynchronizationContext event, IProgressMonitor monitor) throws CoreException {
+	public void preSynchronization(ISynchronizationSession session, IProgressMonitor monitor) throws CoreException {
 		boolean changed = false;
-		TaskRepository repository = event.getTaskRepository();
+		TaskRepository repository = session.getTaskRepository();
 		monitor = Policy.monitorFor(monitor);
 		try {
 			monitor.beginTask("Getting changed tasks", IProgressMonitor.UNKNOWN);
 
 			if (repository.getSynchronizationTimeStamp() == null) {
-				for (ITask task : event.getTasks()) {
-					task.setStale(true);
+				for (ITask task : session.getTasks()) {
+					session.markStale(task);
 				}
 				changed = true;
 			} else {
-				Set<ITask> changedTasks = getChangedSinceLastSync(repository, event.getTasks());
+				Set<ITask> changedTasks = getChangedSinceLastSync(repository, session.getTasks());
 				for (ITask changedTask : changedTasks) {
-					changedTask.setStale(true);
+					session.markStale(changedTask);
 				}
 
 				changed = changedTasks.size() > 0;
@@ -569,7 +570,7 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 			monitor.done();
 		}
 
-		event.setNeedsPerformQueries(changed);
+		session.setNeedsPerformQueries(changed);
 	}
 
 	@Override
@@ -583,12 +584,12 @@ public class XPlannerRepositoryConnector extends AbstractLegacyRepositoryConnect
 	}
 
 	@Override
-	public void postSynchronization(ISynchronizationContext event, IProgressMonitor monitor) throws CoreException {
+	public void postSynchronization(ISynchronizationSession event, IProgressMonitor monitor) throws CoreException {
 		try {
 			monitor.beginTask("", 1);
 			if (event.isFullSynchronization()) {
-				event.getTaskRepository().setSynchronizationTimeStamp(getSynchronizationTimestamp(event.getTaskRepository(),
-						event.getChangedTasks()));
+				event.getTaskRepository().setSynchronizationTimeStamp(
+						getSynchronizationTimestamp(event.getTaskRepository(), event.getChangedTasks()));
 			}
 		} finally {
 			monitor.done();
