@@ -9,8 +9,7 @@
       <connectorCore
             class="org.eclipse.mylyn.internal.web.tasks.WebRepositoryConnector"
             id="org.eclipse.mylyn.web.tasklist.repositories"
-            name="Generic web-based repository"
-            type="web"/>
+            name="Generic web-based repository"/>
       <connectorUi
             brandingIcon="icons/obj16/repository-web.gif"
             class="org.eclipse.mylyn.internal.web.tasks.WebConnectorUi"
