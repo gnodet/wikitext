@@ -10,8 +10,7 @@
       <connectorCore
             class="org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryConnector"
             id="org.eclipse.mylyn.xplanner.tasklist.repositories"
-            name="%connectorName"
-            type="xPlanner"/>
+            name="%connectorName"/>
 	  <connectorUi
          brandingIcon="icons/eview16/xplanner-logo.gif"
          class="org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUi"
