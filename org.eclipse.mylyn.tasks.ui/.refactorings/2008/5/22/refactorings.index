@@ -25,3 +25,5 @@
 1212113552868	Move compilation unit
 1212123469861	Extract local variable 'data'
 1212129148470	Delete element
+1212177962142	Rename method 'getConnector'
+1212177969336	Rename method 'getConnectorUi'
