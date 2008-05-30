@@ -16,3 +16,4 @@
 1212100946887	Rename method 'getTaskContainers'
 1212113634318	Encapsulate field 'propertyChangeListeners'
 1212129003943	Delete element
+1212171086207	Extract method 'updateTaskFromTaskData'
