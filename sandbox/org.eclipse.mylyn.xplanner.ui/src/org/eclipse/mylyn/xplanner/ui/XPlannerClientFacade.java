@@ -21,7 +21,7 @@ import org.eclipse.mylyn.commons.net.AbstractWebLocation;
 import org.eclipse.mylyn.commons.net.AuthenticationCredentials;
 import org.eclipse.mylyn.commons.net.AuthenticationType;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
-import org.eclipse.mylyn.tasks.core.ITaskRepositoryListener;
+import org.eclipse.mylyn.tasks.core.IRepositoryListener;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.TaskRepositoryLocationFactory;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
@@ -40,7 +40,7 @@ import org.eclipse.mylyn.xplanner.core.service.exceptions.ServiceUnavailableExce
  * @author Helen Bershadskaya
  * 
  */
-public class XPlannerClientFacade implements ITaskRepositoryListener {
+public class XPlannerClientFacade implements IRepositoryListener {
 
 	private XPlannerClientManager clientManager = null;
 

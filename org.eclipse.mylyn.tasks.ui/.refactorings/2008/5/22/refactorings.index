@@ -9,3 +9,6 @@
 1211861188999	Rename method 'openNewTask'
 1212010694503	Rename method 'downloadContext'
 1212101933791	Inline local variable 'taskListElement'
+1212103511071	Rename method 'getTasksModel'
+1212103616706	Rename method 'getTasksModel'
+1212104326346	Move compilation unit

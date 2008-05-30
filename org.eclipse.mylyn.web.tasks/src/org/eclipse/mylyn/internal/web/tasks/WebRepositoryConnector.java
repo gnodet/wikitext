@@ -52,7 +52,7 @@ import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tasks.core.ICapabilityContext;
 import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.ITask;
-import org.eclipse.mylyn.tasks.core.ITaskRepositoryManager;
+import org.eclipse.mylyn.tasks.core.IRepositoryManager;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.data.TaskDataCollector;
 import org.eclipse.mylyn.tasks.core.sync.ISynchronizationSession;
@@ -189,7 +189,7 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 		}
 
 		// lookup repository using task prefix url
-		ITaskRepositoryManager repositoryManager = TasksUi.getRepositoryManager();
+		IRepositoryManager repositoryManager = TasksUi.getRepositoryManager();
 		for (TaskRepository repository : repositoryManager.getRepositories(getConnectorKind())) {
 			String taskUrl = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
 			if (taskUrl != null && !taskUrl.equals("") && url.startsWith(taskUrl)) {
@@ -220,7 +220,7 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 			return null;
 		}
 
-		ITaskRepositoryManager repositoryManager = TasksUi.getRepositoryManager();
+		IRepositoryManager repositoryManager = TasksUi.getRepositoryManager();
 		for (TaskRepository repository : repositoryManager.getRepositories(getConnectorKind())) {
 			String start = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
 			if (start != null && url.startsWith(start)) {
@@ -232,7 +232,7 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 
 	@Override
 	public String getTaskUrl(String repositoryUrl, String taskId) {
-		ITaskRepositoryManager repositoryManager = TasksUi.getRepositoryManager();
+		IRepositoryManager repositoryManager = TasksUi.getRepositoryManager();
 		TaskRepository repository = repositoryManager.getRepository(getConnectorKind(), repositoryUrl);
 		if (repository != null) {
 			String prefix = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
