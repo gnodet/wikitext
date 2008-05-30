@@ -23,3 +23,4 @@
 1212113155732	Rename field 'PREFS_PAGE_ID_COLORS_AND_FONTS'
 1212113454128	Move compilation unit
 1212113552868	Move compilation unit
+1212123469861	Extract local variable 'data'
