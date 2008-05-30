@@ -714,4 +714,9 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		validatePage();
 	}
 
+	@Override
+	public void applyTo(IRepositoryQuery query) {
+		throw new UnsupportedOperationException();
+	}
+
 }

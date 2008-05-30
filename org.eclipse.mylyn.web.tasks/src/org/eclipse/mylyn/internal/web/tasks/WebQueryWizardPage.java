@@ -31,12 +31,13 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.mylyn.internal.tasks.core.RepositoryQuery;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
+import org.eclipse.mylyn.internal.tasks.core.RepositoryQuery;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.ITaskFactory;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.QueryHitCollector;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
@@ -114,8 +115,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 	private static String getDefaultQueryTitle(TaskRepository repository) {
 		String label = repository.getRepositoryLabel();
 		String title = label;
-		Set<RepositoryQuery> queries = TasksUiPlugin.getTaskList().getRepositoryQueries(
-				repository.getRepositoryUrl());
+		Set<RepositoryQuery> queries = TasksUiPlugin.getTaskList().getRepositoryQueries(repository.getRepositoryUrl());
 		for (int n = 1; true; n++) {
 			for (RepositoryQuery query : queries) {
 				if (query.getSummary().equals(title)) {
@@ -530,6 +530,11 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 			active = false;
 			return Status.OK_STATUS;
 		}
+	}
+
+	@Override
+	public void applyTo(IRepositoryQuery query) {
+		throw new UnsupportedOperationException();
 	}
 
 }

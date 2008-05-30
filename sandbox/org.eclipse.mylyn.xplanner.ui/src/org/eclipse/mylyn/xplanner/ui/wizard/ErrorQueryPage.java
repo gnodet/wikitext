@@ -58,4 +58,9 @@ public class ErrorQueryPage extends AbstractXPlannerQueryWizardPage {
 		return null;
 	}
 
+	@Override
+	public void applyTo(IRepositoryQuery query) {
+		throw new UnsupportedOperationException();
+	}
+
 }

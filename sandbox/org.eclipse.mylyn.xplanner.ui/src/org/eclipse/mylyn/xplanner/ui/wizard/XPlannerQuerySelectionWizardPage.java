@@ -93,4 +93,9 @@ public class XPlannerQuerySelectionWizardPage extends AbstractXPlannerQueryWizar
 		return null;
 	}
 
+	@Override
+	public void applyTo(IRepositoryQuery query) {
+		throw new UnsupportedOperationException();
+	}
+
 }
