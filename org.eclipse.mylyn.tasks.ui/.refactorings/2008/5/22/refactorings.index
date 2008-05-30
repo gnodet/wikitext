@@ -17,3 +17,9 @@
 1212110612862	Rename method 'getReply'
 1212110914288	Move member 'openRepositoryTask'
 1212111319754	Rename method 'getTaskListElementIcon'
+1212111766198	Rename field 'CATEGORY_ARCHIVE'
+1212113023529	Move member 'openTaskInBackground'
+1212113048697	Move field
+1212113155732	Rename field 'PREFS_PAGE_ID_COLORS_AND_FONTS'
+1212113454128	Move compilation unit
+1212113552868	Move compilation unit
