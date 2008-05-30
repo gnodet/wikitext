@@ -49,10 +49,9 @@ import org.eclipse.mylyn.internal.tasks.core.deprecated.LegacyTaskDataCollector;
 import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
-import org.eclipse.mylyn.tasks.core.ICapabilityContext;
+import org.eclipse.mylyn.tasks.core.IRepositoryManager;
 import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.ITask;
-import org.eclipse.mylyn.tasks.core.IRepositoryManager;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.data.TaskDataCollector;
 import org.eclipse.mylyn.tasks.core.sync.ISynchronizationSession;
@@ -691,12 +690,8 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 	}
 
 	@Override
-	public boolean hasCapability(Capability capability, TaskRepository taskRepository, ITask task,
-			ICapabilityContext context) {
-		if (capability == Capability.LOCAL_COMPLETION_STATE) {
-			return true;
-		}
-		return false;
+	public boolean hasLocalCompletionState(TaskRepository taskRepository, ITask task) {
+		return true;
 	}
 
 }

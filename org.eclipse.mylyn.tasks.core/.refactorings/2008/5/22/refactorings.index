@@ -15,3 +15,4 @@
 1212028696769	Rename type 'ITaskElement'
 1212100946887	Rename method 'getTaskContainers'
 1212113634318	Encapsulate field 'propertyChangeListeners'
+1212129003943	Delete element
