@@ -18,3 +18,4 @@
 1212129003943	Delete element
 1212171086207	Extract method 'updateTaskFromTaskData'
 1212191951377	Inline local variable 'syncState'
+1212265561707	Extract method 'migrate'
