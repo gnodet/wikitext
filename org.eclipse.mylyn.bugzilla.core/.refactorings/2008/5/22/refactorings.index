@@ -3,3 +3,13 @@
 1211860262392	Delete element
 1211923497968	Rename local variable 'fieldName'
 1211932059485	Rename field 'EDITOR_TYPE_CC'
+1212180300200	Rename field 'ATTRIBUTE_LAST_READ_DATE'
+1212182318802	Extract method 'updateExtendedAttributes'
+1212183524359	Rename type 'BugzillaReportElement'
+1212183778730	Rename type 'BUGZILLA_OPERATION'
+1212183815102	Convert member type 'BugzillaOperation' to top level
+1212183932415	Rename field 'type'
+1212183972225	Rename method 'getType'
+1212190531807	Extract method 'addCommentsAndDescription'
+1212191338766	Rename method 'addCommentsAndDescription'
+1212191402085	Extract method 'updateAttachmentMetaData'
