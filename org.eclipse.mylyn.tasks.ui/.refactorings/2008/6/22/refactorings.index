@@ -10,3 +10,9 @@
 1212296342033	Extract constant 'YYYY_MM_DD'
 1212297258908	Rename field 'comment'
 1212297307673	Extract local variable 'author'
+1212310147884	Copy compilation unit
+1212310251937	Extract method 'detectHyperlinks'
+1212311867688	Rename method 'getRepository'
+1212312178057	Extract method 'isSeparatorChar'
+1212313321159	Extract local variable 'length'
+1212314209707	Delete element
