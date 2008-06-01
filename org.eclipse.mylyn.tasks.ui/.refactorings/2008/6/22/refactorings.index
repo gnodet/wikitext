@@ -1,0 +1,8 @@
+1212290183817	Extract local variable 'text'
+1212290977872	Extract local variable 'hasSpellChecking'
+1212292542398	Extract local variable 'type'
+1212294155376	Copy compilation unit
+1212294162826	Delete element
+1212294172021	Copy compilation unit
+1212294213926	Copy compilation unit
+1212294500889	Rename method 'getKey'
