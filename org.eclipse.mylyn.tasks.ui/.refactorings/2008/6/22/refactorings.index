@@ -6,3 +6,7 @@
 1212294172021	Copy compilation unit
 1212294213926	Copy compilation unit
 1212294500889	Rename method 'getKey'
+1212295549005	Extract local variable 'author'
+1212296342033	Extract constant 'YYYY_MM_DD'
+1212297258908	Rename field 'comment'
+1212297307673	Extract local variable 'author'

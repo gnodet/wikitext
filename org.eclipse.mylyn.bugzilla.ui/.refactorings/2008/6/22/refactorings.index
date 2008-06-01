@@ -1,0 +1,3 @@
+1212302271781	Rename type 'BugzillaCCAttributeEditor'
+1212302278936	Rename field 'attrRemoveCC'
+1212302949748	Extract local variable 'mappedAttribute'
