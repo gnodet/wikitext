@@ -1,1 +1,4 @@
 1212090248651	Rename method 'getTaskData'
+1212193065221	Rename field 'TASKLIST_CHANGE_LISTENER'
+1212193218511	Rename type 'IContextChangeSetManager'
+1212194092786	Delete element
