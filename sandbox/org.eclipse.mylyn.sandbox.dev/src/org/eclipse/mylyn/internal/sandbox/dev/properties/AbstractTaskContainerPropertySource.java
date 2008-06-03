@@ -35,6 +35,8 @@ public abstract class AbstractTaskContainerPropertySource implements IPropertySo
 
 	protected static final String SUMMARY = "summary";
 
+	protected static final String HANDLE = "handle";
+
 	private boolean cyclic;
 
 	protected AbstractTaskContainer container;
@@ -102,17 +104,21 @@ public abstract class AbstractTaskContainerPropertySource implements IPropertySo
 	}
 
 	public IPropertyDescriptor[] getPropertyDescriptors() {
+		TextPropertyDescriptor handle = new TextPropertyDescriptor(HANDLE, "Handle Identifier");
+		handle.setCategory(description);
 		TextPropertyDescriptor children = new TextPropertyDescriptor(CHILDREN, "Total Children (internal)");
 		children.setCategory(description);
 		TextPropertyDescriptor descendants = new TextPropertyDescriptor(DESCENDANDS, "Total Descendants");
 		descendants.setCategory(description);
 		TextPropertyDescriptor cyclic = new TextPropertyDescriptor(IS_CYCLIC, "Cycle in descendants graph?");
 		cyclic.setCategory(description);
-		return new IPropertyDescriptor[] { children, descendants, cyclic };
+		return new IPropertyDescriptor[] { handle, children, descendants, cyclic };
 	}
 
 	public Object getPropertyValue(Object id) {
-		if (CHILDREN.equals(id)) {
+		if (HANDLE.equals(id)) {
+			return container.getHandleIdentifier();
+		} else if (CHILDREN.equals(id)) {
 			return container.getChildren().size();
 		} else if (DESCENDANDS.equals(id)) {
 			return getDescendants(container).size();
