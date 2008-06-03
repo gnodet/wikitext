@@ -2,3 +2,5 @@
 1212381972354	Convert member type 'TaskAttributeDiff' to top level
 1212387128201	Extract local variable 'size'
 1212388250355	Extract local variable 'label'
+1212471274458	Copy compilation unit
+1212472132488	Convert member type 'TaskAttachmentStorage' to top level
