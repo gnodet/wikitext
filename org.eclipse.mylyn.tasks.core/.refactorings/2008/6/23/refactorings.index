@@ -4,3 +4,4 @@
 1212462044402	Inline method 'createTaskListRoot'
 1212462173973	Inline method 'writeTaskList'
 1212463643920	Rename type 'TasksModel'
+1212468845234	Rename method 'createQuery'
