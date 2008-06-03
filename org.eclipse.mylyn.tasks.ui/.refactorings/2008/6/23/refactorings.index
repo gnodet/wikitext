@@ -7,3 +7,5 @@
 1212523605929	Extract local variable 'createTaskComment'
 1212523657895	Extract local variable 'createNode'
 1212523750375	Rename method 'getTasksJobFactory'
+1212527785166	Extract method 'openNewAttachmentWizard'
+1212528850466	Convert member type 'TaskAttachmentDropListener' to top level
