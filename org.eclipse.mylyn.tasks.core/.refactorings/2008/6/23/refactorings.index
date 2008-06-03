@@ -1,3 +1,6 @@
 1212377409575	Rename method 'putUpdatedTaskData'
 1212380332166	Rename method 'hasChanged'
 1212454549425	Extract local variable 'legacyParentCategoryMap'
+1212462044402	Inline method 'createTaskListRoot'
+1212462173973	Inline method 'writeTaskList'
+1212463643920	Rename type 'TasksModel'

@@ -270,7 +270,7 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 	@Override
 	public void preSynchronization(ISynchronizationSession session, IProgressMonitor monitor) throws CoreException {
 		for (ITask task : session.getTasks()) {
-			session.markStale(task);
+			((AbstractTask) task).setStale(false);
 		}
 	}
 
