@@ -1,2 +1,3 @@
 1212377409575	Rename method 'putUpdatedTaskData'
 1212380332166	Rename method 'hasChanged'
+1212454549425	Extract local variable 'legacyParentCategoryMap'
