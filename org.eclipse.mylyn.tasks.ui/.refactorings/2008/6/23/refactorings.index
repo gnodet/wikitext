@@ -10,3 +10,4 @@
 1212527785166	Extract method 'openNewAttachmentWizard'
 1212528850466	Convert member type 'TaskAttachmentDropListener' to top level
 1212536902189	Extract method 'refresh'
+1212537647114	Extract local variable 'task2'
