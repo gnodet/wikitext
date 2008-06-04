@@ -1,6 +1,16 @@
 
+-------------------------------------------------------------------------
+Merging 3.4 with 3.3
 
-FOR MYLYN 2.3:  merge features due to depencency changes
+org.eclipse.mylyn.ui exclude:
+* FocusAllMarkersViewAction
+* FocusBookmarkMarkersViewAction
+* FocusProblemsListAction
+* plugin.xml
+
+org.eclipse.mylyn.pde.ui
+* PdeEditingMonitor (organize imports)
+
 
 -------------------------------------------------------------------------
 Merging 3.3 with 3.2
