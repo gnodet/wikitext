@@ -4,11 +4,5 @@
 1212388250355	Extract local variable 'label'
 1212471274458	Copy compilation unit
 1212472132488	Convert member type 'TaskAttachmentStorage' to top level
-1212523605929	Extract local variable 'createTaskComment'
-1212523657895	Extract local variable 'createNode'
-1212523750375	Rename method 'getTasksJobFactory'
-1212527785166	Extract method 'openNewAttachmentWizard'
-1212528850466	Convert member type 'TaskAttachmentDropListener' to top level
-1212536902189	Extract method 'refresh'
-1212537647114	Extract local variable 'task2'
-1212554914675	Extract local variable 'task'
+1212540180670	Rename type 'DataFolderBackup'
+1212542122503	Delete element
