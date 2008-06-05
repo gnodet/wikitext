@@ -9,11 +9,11 @@
       <connectorCore
             class="org.eclipse.mylyn.internal.web.tasks.WebRepositoryConnector"
             id="org.eclipse.mylyn.web.tasklist.repositories"
-            name="Generic web-based repository"/>
+            name="Web Templates Core"/>
       <connectorUi
             brandingIcon="icons/obj16/repository-web.gif"
             class="org.eclipse.mylyn.internal.web.tasks.WebConnectorUi"
-            name="Generic web-based repsoitory UI"
+            name="Web Templates UI"
             overlayIcon="icons/obj16/overlay-web.gif"/>
       <taskListFactory
             class="org.eclipse.mylyn.internal.web.tasks.WebTaskListFactory"

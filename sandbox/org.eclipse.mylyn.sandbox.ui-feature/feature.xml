@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.mylyn.sandbox.ui_feature"
-      label="Mylyn UI Experimentation (Not Recommended)"
+      label="Mylyn UI Experiments (Incubation)"
       version="3.0.0.qualifier"
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylyn">

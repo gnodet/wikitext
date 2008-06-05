@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.mylyn.trac.wiki_feature"
-      label="Mylyn Trac Connector Wiki Support (Experimental)"
+      label="Mylyn Connector: Trac Wiki Support (Incubation)"
       version="3.0.0.qualifier"
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylyn">

@@ -115,7 +115,7 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 
 	@Override
 	public String getLabel() {
-		return "Generic web-based access (Advanced)";
+		return "Web Template (Advanced)";
 	}
 
 	@Override
