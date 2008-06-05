@@ -61,7 +61,7 @@ Java and all Java-based trademarks are trademarks of Sun Microsystems, Inc. in t
    </license>
 
    <url>
-      <update label="Mylyn Experimental Features" url="http://download.eclipse.org/tools/mylyn/update/weekly/experimental"/>
+      <update label="Mylyn Incubator for Eclipse 3.3 and 3.4" url="http://download.eclipse.org/tools/mylyn/update/weekly/incubator"/>
    </url>
 
    <requires>
