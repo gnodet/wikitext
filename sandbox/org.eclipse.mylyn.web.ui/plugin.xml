@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
+	
+   <!-- ================================================================================ -->
+   <!-- Sample code for extending web resources structure bridge and providing content	 -->
+   <!-- NOTE: these extensions are not being maintained                                  -->
+   <!-- ================================================================================ -->
+   <!--
+   
    <extension
          point="org.eclipse.mylyn.context.ui.startup">
       <startup
             class="org.eclipse.mylyn.internal.web.ui.WebUiBridgePlugin$WebUiBridgeStartup">
       </startup>
    </extension>
-	
-   <!-- ================================================================================ -->
-   <!-- Sample code for extending web resources structure bridge and providing content	 -->
-   <!-- NOTE: tehse extensions points are likely to change for Mylyn 3.                  -->
-   <!-- ================================================================================ -->
-   <!--
    
    <extension point = "org.eclipse.ui.popupMenus">
      <objectContribution
