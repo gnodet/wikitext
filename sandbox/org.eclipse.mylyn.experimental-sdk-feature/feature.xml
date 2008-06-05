@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.mylyn.experimental_sdk_feature"
-      label="Mylyn Experimental SDK"
+      label="Mylyn Incubator SDK"
       version="3.0.0.qualifier"
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylyn">
