@@ -8,3 +8,4 @@
 1212542122503	Delete element
 1212608773575	Delete element
 1212630963031	Rename type 'DialogReporter'
+1212702423475	Extract method 'handleCheckStateChangeHelper'
