@@ -12,3 +12,6 @@
 1212547753358	Rename method 'reLoad'
 1212548370644	Rename method 'saveNow'
 1212631675852	Rename method 'copyFrom'
+1212706398807	Rename field 'attemptRestore20Tasklist'
+1212707832783	Extract method 'performLoad'
+1212708026187	Change method 'performLoad'
