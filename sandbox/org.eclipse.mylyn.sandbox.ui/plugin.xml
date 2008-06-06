@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
+    <extension-point id="taskEditorExtensions" name="Task Editor Extension" schema="schema/taskEditorExtensions.exsd"/>
 
 	<extension point="org.eclipse.ui.views">
      	<category name="Mylyn Sandbox" id="org.eclipse.mylyn.sandbox"/>

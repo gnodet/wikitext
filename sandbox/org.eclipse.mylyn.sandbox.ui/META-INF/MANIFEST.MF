@@ -34,6 +34,7 @@ Export-Package: org.eclipse.mylyn.internal.sandbox.bridge.bugs;x-internal:=true,
  org.eclipse.mylyn.internal.sandbox.ui;x-internal:=true,
  org.eclipse.mylyn.internal.sandbox.ui.actions;x-internal:=true,
  org.eclipse.mylyn.internal.sandbox.ui.commands;x-internal:=true,
+ org.eclipse.mylyn.internal.sandbox.ui.editors;x-internal:=true,
  org.eclipse.mylyn.internal.sandbox.ui.highlighters;x-internal:=true,
  org.eclipse.mylyn.internal.sandbox.ui.planner;x-internal:=true,
  org.eclipse.mylyn.internal.sandbox.ui.views;x-internal:=true
