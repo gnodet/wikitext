@@ -10,3 +10,6 @@
 1212630963031	Rename type 'DialogReporter'
 1212702423475	Extract method 'handleCheckStateChangeHelper'
 1212708027889	Extract constant 'APPLICATION_OCTET_STREAM'
+1212710754558	Move member 'MAXIMUM_WIDTH'
+1212710764060	Move member 'MAXIMUM_HEIGHT'
+1212710792280	Move member 'TEXT_FONT'
