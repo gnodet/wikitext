@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;templates&apos; from expression &apos;TasksUiPlugin.getRepositoryTemplateManager().getTemplates(WebRepositoryConnector.REPOSITORY_TYPE)&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tests&apos;&#x0A;- Variable name: &apos;templates&apos;&#x0A;- Destination method: &apos;org.eclipse.mylyn.tests.integration.LiveWebConnectorTemplatesTest.suite()&apos;&#x0A;- Variable expression: &apos;TasksUiPlugin.getRepositoryTemplateManager().getTemplates(WebRepositoryConnector.REPOSITORY_TYPE)&apos;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;templates&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.eclipse.mylyn.tests.integration{LiveWebConnectorTemplatesTest.java" name="templates" replace="true" selection="5037 97" stamp="1212712677316" version="1.0"/>
+</session>
