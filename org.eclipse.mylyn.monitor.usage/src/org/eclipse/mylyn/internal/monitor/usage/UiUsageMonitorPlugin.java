@@ -610,8 +610,8 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 	// TODO: move to new proxy support
 	@SuppressWarnings("deprecation")
 	public void configureProxy(HttpClient httpClient, String uploadScript) {
-		Proxy proxy = org.eclipse.mylyn.commons.net.WebClientUtil.getPlatformProxy();
-		org.eclipse.mylyn.commons.net.WebClientUtil.setupHttpClient(httpClient, proxy, uploadScript,
+		Proxy proxy = org.eclipse.mylyn.internal.commons.net.WebClientUtil.getPlatformProxy();
+		org.eclipse.mylyn.internal.commons.net.WebClientUtil.setupHttpClient(httpClient, proxy, uploadScript,
 				uploadAuthentication.getUser(), uploadAuthentication.getPassword());
 	}
 
