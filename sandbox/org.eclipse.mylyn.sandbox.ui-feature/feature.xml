@@ -68,6 +68,7 @@ Java and all Java-based trademarks are trademarks of Sun Microsystems, Inc. in t
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.jface.text"/>
       <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.editors"/>
       <import plugin="org.eclipse.ui.forms"/>
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.jdt.core"/>
@@ -84,11 +85,12 @@ Java and all Java-based trademarks are trademarks of Sun Microsystems, Inc. in t
       <import plugin="org.eclipse.mylyn.commons.core" version="3.0.0" match="compatible"/>
       <import plugin="org.eclipse.mylyn.commons.ui" version="3.0.0" match="compatible"/>
       <import plugin="org.eclipse.mylyn.monitor.core" version="3.0.0" match="compatible"/>
-      <import plugin="org.eclipse.ui.editors"/>
       <import plugin="org.eclipse.mylyn.resources.ui" version="3.0.0" match="compatible"/>
       <import plugin="org.eclipse.mylyn.ide.ant" version="3.0.0" match="compatible"/>
-      <import plugin="org.eclipse.mylyn.pde.ui" version="3.0.0" match="compatible"/>
       <import feature="org.eclipse.mylyn.context_feature" version="3.0.0.qualifier" match="perfect"/>
+      <import plugin="org.eclipse.mylyn.pde.ui" version="3.0.0" match="compatible"/>
+      <import feature="org.eclipse.mylyn.pde_feature" version="3.0.0.qualifier" match="perfect"/>
+      <import feature="org.eclipse.mylyn.java_feature" version="3.0.0.qualifier" match="perfect"/>
    </requires>
 
    <plugin
