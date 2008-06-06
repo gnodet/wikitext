@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.mylyn.web.tasks_feature"
-      label="Mylyn Connector: Generic Issue Tracker (Advanced)"
+      label="Mylyn Connector: Web Templates (Advanced)"
       version="3.0.0.qualifier"
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylyn">
