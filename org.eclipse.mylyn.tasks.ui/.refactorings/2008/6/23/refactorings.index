@@ -13,3 +13,7 @@
 1212710754558	Move member 'MAXIMUM_WIDTH'
 1212710764060	Move member 'MAXIMUM_HEIGHT'
 1212710792280	Move member 'TEXT_FONT'
+1212818875111	Extract method 'expandSection'
+1212819180463	Extract method 'expandSection'
+1212819335299	Extract local variable 'expandedState'
+1212819433000	Extract method 'expandSection'
