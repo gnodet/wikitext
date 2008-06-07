@@ -17,3 +17,5 @@
 1212819180463	Extract method 'expandSection'
 1212819335299	Extract local variable 'expandedState'
 1212819433000	Extract method 'expandSection'
+1212830022750	Extract method 'refresh'
+1212830041237	Inline local variable 'task'
