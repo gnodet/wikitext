@@ -17,10 +17,9 @@ import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
 import org.eclipse.mylyn.tasks.ui.wizards.ITaskRepositoryPage;
 import org.eclipse.mylyn.tasks.ui.wizards.NewWebTaskWizard;
+import org.eclipse.mylyn.tasks.ui.wizards.RepositoryQueryWizard;
 
 /**
- * TODO: refactor into extension points?
- * 
  * @author Mik Kersten
  * @author Eugene Kuleshov
  */
@@ -40,11 +39,9 @@ public class WebConnectorUi extends AbstractRepositoryConnectorUi {
 
 	@Override
 	public IWizard getQueryWizard(TaskRepository repository, IRepositoryQuery query) {
-		if (query instanceof WebQuery) {
-			return new WebQueryEditWizard(repository, query);
-		} else {
-			return new WebQueryWizard(repository);
-		}
+		RepositoryQueryWizard wizard = new RepositoryQueryWizard(repository);
+		wizard.addPage(new WebQueryWizardPage(repository, query));
+		return wizard;
 	}
 
 	/**
@@ -52,7 +49,7 @@ public class WebConnectorUi extends AbstractRepositoryConnectorUi {
 	 */
 	@Override
 	public ImageDescriptor getTaskKindOverlay(ITask task) {
-		if (task instanceof WebTask) {
+		if (task.getConnectorKind().equals(WebRepositoryConnector.REPOSITORY_TYPE)) {
 			return WebImages.OVERLAY_TASK_WEB;
 		}
 		return null;
@@ -67,4 +64,5 @@ public class WebConnectorUi extends AbstractRepositoryConnectorUi {
 	public boolean hasSearchPage() {
 		return false;
 	}
+
 }

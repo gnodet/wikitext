@@ -15,14 +15,17 @@
             class="org.eclipse.mylyn.internal.web.tasks.WebConnectorUi"
             name="Web Templates UI"
             overlayIcon="icons/obj16/overlay-web.gif"/>
-      <taskListFactory
-            class="org.eclipse.mylyn.internal.web.tasks.WebTaskListFactory"
-            id="org.eclipse.mylyn.web.tasklist.taskListFactory"/>
+      <taskListMigrator
+            class="org.eclipse.mylyn.internal.web.tasks.WebTaskListMigrator">
+      </taskListMigrator>
    </extension>
 
    <extension
          point="org.eclipse.mylyn.tasks.ui.editors">
-      <editorFactory class="org.eclipse.mylyn.internal.web.tasks.WebTaskEditorFactory"/>
+      <pageFactory
+            class="org.eclipse.mylyn.internal.web.tasks.WebTaskEditorPageFactory"
+            id="org.eclipse.mylyn.web.tasks.pageFactory">
+      </pageFactory>
    </extension>
 
    <extension

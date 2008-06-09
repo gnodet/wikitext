@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.codec.EncoderException;
 import org.apache.commons.codec.net.URLCodec;
 import org.apache.commons.httpclient.Header;
+import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
@@ -36,25 +37,22 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.mylyn.commons.net.AbstractWebLocation;
+import org.eclipse.mylyn.commons.net.AuthenticationCredentials;
+import org.eclipse.mylyn.commons.net.AuthenticationType;
 import org.eclipse.mylyn.commons.net.WebLocation;
 import org.eclipse.mylyn.commons.net.WebUtil;
-import org.eclipse.mylyn.internal.commons.net.WebClientUtil;
-import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
-import org.eclipse.mylyn.internal.tasks.core.IdentityAttributeFactory;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractAttachmentHandler;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractLegacyRepositoryConnector;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractTaskDataHandler;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.DefaultTaskSchema;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.LegacyTaskDataCollector;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.IRepositoryManager;
 import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.core.data.TaskAttributeMapper;
+import org.eclipse.mylyn.tasks.core.data.TaskData;
 import org.eclipse.mylyn.tasks.core.data.TaskDataCollector;
+import org.eclipse.mylyn.tasks.core.data.TaskMapper;
 import org.eclipse.mylyn.tasks.core.sync.ISynchronizationSession;
+import org.eclipse.mylyn.tasks.ui.TaskRepositoryLocationUiFactory;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 
 import com.sun.syndication.feed.module.DCModule;
@@ -68,7 +66,7 @@ import com.sun.syndication.io.XmlReader;
  * 
  * @author Eugene Kuleshov
  */
-public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
+public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	public static final String REPOSITORY_TYPE = "web";
 
@@ -106,7 +104,13 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 
 	private static final String COMPLETED_STATUSES = "completed|fixed|resolved|invalid|verified|deleted|closed|done";
 
-	private static final String KEY_TASK_PREFIX = "taskPrefix";
+	public static final String KEY_TASK_PREFIX = "taskPrefix";
+
+	public static final String KEY_QUERY_TEMPLATE = "UrlTemplate";
+
+	public static final String KEY_QUERY_PATTERN = "Regexp";
+
+	private static final String USER_AGENT = "WebTemplatesConnector";
 
 	@Override
 	public String getConnectorKind() {
@@ -116,11 +120,6 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 	@Override
 	public String getLabel() {
 		return "Web Template (Advanced)";
-	}
-
-	@Override
-	public String[] getPepositoryPropertyNames() {
-		return new String[] { PROPERTY_TASK_URL, PROPERTY_TASK_CREATION_URL };
 	}
 
 	@Override
@@ -157,30 +156,24 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 //	}
 
 	@Override
-	public RepositoryTaskData getLegacyTaskData(TaskRepository repository, String taskId, IProgressMonitor monitor)
+	public TaskData getTaskData(TaskRepository repository, String taskId, IProgressMonitor monitor)
 			throws CoreException {
-		if (REPOSITORY_TYPE.equals(repository.getConnectorKind())) {
-			String taskPrefix = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
-
-			RepositoryTaskData taskData = createTaskData(repository.getRepositoryUrl(), taskId);
-			final DefaultTaskSchema schema = new DefaultTaskSchema(taskData);
-			schema.setSummary(taskId);
-			schema.setTaskUrl(taskPrefix + taskId);
-			schema.setValue(KEY_TASK_PREFIX, taskPrefix);
-
-			String pageTitle;
-			try {
-				pageTitle = WebUtil.getTitleFromUrl(new WebLocation(taskPrefix + taskId), monitor);
-				schema.setSummary(pageTitle);
-			} catch (IOException e) {
-				// log to error log?
-			}
-			return taskData;
+		String taskPrefix = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
+		TaskData taskData = createTaskData(repository, taskId);
+		TaskMapper mapper = new TaskMapper(taskData, true);
+		mapper.setSummary(taskId);
+		mapper.setTaskUrl(taskPrefix + taskId);
+		mapper.setValue(KEY_TASK_PREFIX, taskPrefix);
+		try {
+			String pageTitle = WebUtil.getTitleFromUrl(new WebLocation(taskPrefix + taskId), monitor);
+			mapper.setSummary(pageTitle);
+		} catch (IOException e) {
+			// log to error log?
 		}
-
-		return null;
+		return taskData;
 	}
 
+	@SuppressWarnings("restriction")
 	@Override
 	public String getRepositoryUrlFromTaskUrl(String url) {
 		if (url == null) {
@@ -196,21 +189,30 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 			}
 		}
 
-		for (IRepositoryQuery query : TasksUiInternal.getTaskList().getQueries()) {
-			if (query instanceof WebQuery) {
-				WebQuery webQuery = (WebQuery) query;
-				TaskRepository repository = repositoryManager.getRepository(webQuery.getConnectorKind(),
-						webQuery.getRepositoryUrl());
-				if (repository != null) {
-					String queryUrl = evaluateParams(webQuery.getTaskPrefix(), //
-							webQuery.getQueryParameters(), repository);
-					if (queryUrl != null && !queryUrl.equals("") && url.startsWith(queryUrl)) {
-						return webQuery.getRepositoryUrl();
-					}
+		for (IRepositoryQuery query : org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal.getTaskList()
+				.getQueries()) {
+			TaskRepository repository = repositoryManager.getRepository(query.getConnectorKind(),
+					query.getRepositoryUrl());
+			if (repository != null) {
+				String queryUrl = evaluateParams(query.getAttribute(KEY_TASK_PREFIX), //
+						getQueryParams(query), repository);
+				if (queryUrl != null && !queryUrl.equals("") && url.startsWith(queryUrl)) {
+					return query.getRepositoryUrl();
 				}
 			}
 		}
 		return null;
+	}
+
+	public static Map<String, String> getQueryParams(IRepositoryQuery query) {
+		Map<String, String> params = new LinkedHashMap<String, String>();
+		Map<String, String> attributes = query.getAttributes();
+		for (String name : attributes.keySet()) {
+			if (name.startsWith(WebRepositoryConnector.PARAM_PREFIX)) {
+				params.put(name, attributes.get(name));
+			}
+		}
+		return params;
 	}
 
 	@Override
@@ -242,48 +244,30 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 
 	@Override
 	public IStatus performQuery(TaskRepository repository, IRepositoryQuery query, TaskDataCollector resultCollector,
-			ISynchronizationSession event, IProgressMonitor monitor) {
-		if (query instanceof WebQuery) {
-			WebQuery webQuery = (WebQuery) query;
-			Map<String, String> queryParameters = webQuery.getQueryParameters();
-			String queryUrl = evaluateParams(query.getUrl(), queryParameters, repository);
-
-			try {
-				if (webQuery.isRss()) {
-					return performRssQuery(queryUrl, monitor, resultCollector, repository);
-				} else {
-					String taskPrefix = evaluateParams(webQuery.getTaskPrefix(), queryParameters, repository);
-					String queryPattern = evaluateParams(webQuery.getQueryPattern(), queryParameters, repository);
-					return performQuery(fetchResource(queryUrl, queryParameters, repository), queryPattern, taskPrefix,
-							monitor, resultCollector, repository);
-				}
-
-			} catch (IOException ex) {
-				String msg = ex.getMessage() == null ? ex.toString() : ex.getMessage();
-				return new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, IStatus.ERROR, //
-						"Could not fetch resource: " + queryUrl + "\n" + msg, ex);
+			ISynchronizationSession session, IProgressMonitor monitor) {
+		Map<String, String> queryParameters = getQueryParams(query);
+		String queryUrl = evaluateParams(query.getUrl(), queryParameters, repository);
+		try {
+			String taskPrefixAttribute = query.getAttribute(KEY_TASK_PREFIX);
+			if (!Util.isPresent(taskPrefixAttribute)) {
+				return performRssQuery(queryUrl, monitor, resultCollector, repository);
+			} else {
+				String taskPrefix = evaluateParams(taskPrefixAttribute, queryParameters, repository);
+				String queryPattern = evaluateParams(query.getAttribute(KEY_QUERY_PATTERN), queryParameters, repository);
+				return performQuery(fetchResource(queryUrl, queryParameters, repository), queryPattern, taskPrefix,
+						monitor, resultCollector, repository);
 			}
-		}
-		return Status.OK_STATUS;
-	}
-
-	@Override
-	public void preSynchronization(ISynchronizationSession session, IProgressMonitor monitor) throws CoreException {
-		for (ITask task : session.getTasks()) {
-			((AbstractTask) task).setStale(false);
+		} catch (IOException e) {
+			String msg = e.getMessage() == null ? e.toString() : e.getMessage();
+			return new Status(IStatus.ERROR, TasksWebPlugin.ID_PLUGIN, IStatus.ERROR, //
+					"Could not fetch resource: " + queryUrl + "\n" + msg, e);
 		}
 	}
 
 	@Override
-	public AbstractAttachmentHandler getAttachmentHandler() {
-		// not supported
-		return null;
-	}
-
-	@Override
-	public AbstractTaskDataHandler getLegacyTaskDataHandler() {
-		// not supported
-		return null;
+	public boolean isRepositoryConfigurationStale(TaskRepository repository, IProgressMonitor monitor)
+			throws CoreException {
+		return false;
 	}
 
 	@Override
@@ -291,26 +275,12 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 		// ignore
 	}
 
-//	@Override
-//	public void updateTaskFromRepository(TaskRepository repository, AbstractTask repositoryTask,
-//			IProgressMonitor monitor) throws CoreException {
-//	}
-
 	@Override
-	public AbstractTask createTask(String repositoryUrl, String id, String summary) {
-		return new WebTask(id, summary, "", repositoryUrl, WebRepositoryConnector.REPOSITORY_TYPE);
+	public void updateTaskFromTaskData(TaskRepository repository, ITask task, TaskData taskData) {
+		TaskMapper mapper = new TaskMapper(taskData);
+		task.setAttribute(KEY_TASK_PREFIX, mapper.getValue(KEY_TASK_PREFIX));
+		mapper.applyTo(task);
 	}
-
-	@Override
-	public boolean updateTaskFromTaskData(TaskRepository repository, ITask task, RepositoryTaskData taskData) {
-		DefaultTaskSchema schema = new DefaultTaskSchema(taskData);
-		((WebTask) task).setTaskPrefix(schema.getValue(KEY_TASK_PREFIX));
-		// XXX WebTask overrides getTaskKind()
-		schema.setTaskKind(task.getTaskKind());
-		return schema.applyTo(task);
-	}
-
-	// utility methods
 
 	public static IStatus performQuery(String resource, String regexp, String taskPrefix, IProgressMonitor monitor,
 			TaskDataCollector resultCollector, TaskRepository repository) {
@@ -333,15 +303,13 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 						String id = matcher.group(1);
 						String description = matcher.groupCount() > 1 ? cleanup(matcher.group(2), repository) : null;
 						description = unescapeHtml(description);
-//						resultCollector.accept(new WebTask(id, description, taskPrefix, repository.getUrl(),
-//								REPOSITORY_TYPE));
 
-						RepositoryTaskData data = createTaskData(repository.getRepositoryUrl(), id);
-						DefaultTaskSchema schema = new DefaultTaskSchema(data);
-						schema.setTaskUrl(taskPrefix + id);
-						schema.setSummary(description);
-						schema.setValue(KEY_TASK_PREFIX, taskPrefix);
-						((LegacyTaskDataCollector) resultCollector).accept(data);
+						TaskData data = createTaskData(repository, id);
+						TaskMapper mapper = new TaskMapper(data, true);
+						mapper.setTaskUrl(taskPrefix + id);
+						mapper.setSummary(description);
+						mapper.setValue(KEY_TASK_PREFIX, taskPrefix);
+						resultCollector.accept(data);
 					}
 				} else {
 					String id = p.group("Id", matcher);
@@ -360,41 +328,39 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 						type = unescapeHtml(type);
 //						w.setTaskKind(type);
 
-						RepositoryTaskData data = createTaskData(repository.getRepositoryUrl(), id);
-						DefaultTaskSchema schema = new DefaultTaskSchema(data);
-						schema.setTaskUrl(taskPrefix + id);
-						schema.setSummary(description);
-						schema.setValue(KEY_TASK_PREFIX, taskPrefix);
-						schema.setOwner(owner);
-						schema.setTaskKind(type);
+						TaskData data = createTaskData(repository, id);
+						TaskMapper mapper = new TaskMapper(data);
+						mapper.setTaskUrl(taskPrefix + id);
+						mapper.setSummary(description);
+						mapper.setValue(KEY_TASK_PREFIX, taskPrefix);
+						mapper.setOwner(owner);
+						mapper.setTaskKind(type);
 
 						String status = p.group("Status", matcher);
 						if (status != null) {
-//							w.setCompleted(COMPLETED_STATUSES.contains(status.toLowerCase()));
 							if (COMPLETED_STATUSES.contains(status.toLowerCase())) {
-								// TODO: set actual completion date here
-								schema.setCompletionDate(new Date());
+								// TODO set actual completion date here
+								mapper.setCompletionDate(new Date());
 							}
 						}
 
-						((LegacyTaskDataCollector) resultCollector).accept(data);
+						resultCollector.accept(data);
 					}
 				}
-
 			} while (matcher.find() && !monitor.isCanceled());
 
 			if (isCorrect) {
 				return Status.OK_STATUS;
 			} else {
-				return new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, IStatus.ERROR,
+				return new Status(IStatus.ERROR, TasksWebPlugin.ID_PLUGIN, IStatus.ERROR,
 						"Require two matching groups (taskId and summary). Check query regexp", null);
 			}
 		}
 	}
 
-	private static RepositoryTaskData createTaskData(String repositoryUrl, String id) {
-		RepositoryTaskData data = new RepositoryTaskData(IdentityAttributeFactory.getInstance(),
-				WebRepositoryConnector.REPOSITORY_TYPE, repositoryUrl, id);
+	private static TaskData createTaskData(TaskRepository taskRepository, String id) {
+		TaskData data = new TaskData(new TaskAttributeMapper(taskRepository), WebRepositoryConnector.REPOSITORY_TYPE,
+				taskRepository.getRepositoryUrl(), id);
 		data.setPartial(true);
 		return data;
 	}
@@ -469,22 +435,17 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 
 				String entrTitle = entry.getTitle();
 
-//				WebTask webTask = new WebTask(entryUri.replaceAll("-", "%2D"), //
-//						(date == null ? "" : df.format(date) + " - ") + entrTitle, //
-//						"", repository.getUrl(), REPOSITORY_TYPE);
-//				webTask.setCreationDate(date);
-//				webTask.setOwner(author);
-				RepositoryTaskData data = createTaskData(repository.getRepositoryUrl(), entryUri.replaceAll("-", "%2D"));
-				DefaultTaskSchema schema = new DefaultTaskSchema(data);
+				TaskData data = createTaskData(repository, entryUri.replaceAll("-", "%2D"));
+				TaskMapper schema = new TaskMapper(data);
 				schema.setSummary(((date == null ? "" : df.format(date) + " - ") + entrTitle));
 				schema.setCreationDate(date);
 				schema.setOwner(author);
-				((LegacyTaskDataCollector) resultCollector).accept(data);
+				resultCollector.accept(data);
 			}
 			return Status.OK_STATUS;
 		} catch (Exception ex) {
 			String msg = ex.getMessage() == null ? ex.toString() : ex.getMessage();
-			return new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, IStatus.ERROR, //
+			return new Status(IStatus.ERROR, TasksWebPlugin.ID_PLUGIN, IStatus.ERROR, //
 					"Could not fetch resource: " + queryUrl + "\n" + msg, ex);
 		}
 	}
@@ -492,19 +453,20 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 	public static String fetchResource(String url, Map<String, String> params, TaskRepository repository)
 			throws IOException {
 		HttpClient client = new HttpClient();
-		WebClientUtil.setupHttpClient(client, repository.getProxy(), url, //
-				repository.getUserName(), repository.getPassword());
+		WebUtil.configureHttpClient(client, USER_AGENT);
+		AbstractWebLocation location = new TaskRepositoryLocationUiFactory().createWebLocation(repository);
+		HostConfiguration hostConfiguration = WebUtil.createHostConfiguration(client, location, null);
 
-		loginRequestIfNeeded(client, params, repository);
+		loginRequestIfNeeded(client, hostConfiguration, params, repository);
 
 		GetMethod method = new GetMethod(url);
 		// method.setFollowRedirects(false);
-		return requestResource(url, client, method);
+		return requestResource(url, client, hostConfiguration, method);
 	}
 
-	private static void loginRequestIfNeeded(HttpClient client, Map<String, String> params, TaskRepository repository)
-			throws HttpException, IOException {
-		if (!isPresent(repository.getUserName()) || !isPresent(repository.getPassword())
+	private static void loginRequestIfNeeded(HttpClient client, HostConfiguration hostConfiguration,
+			Map<String, String> params, TaskRepository repository) throws HttpException, IOException {
+		if (repository.getCredentials(AuthenticationType.REPOSITORY) == null
 				|| !isPresent(repository.getProperty(PROPERTY_LOGIN_REQUEST_URL))) {
 			return;
 		}
@@ -514,7 +476,7 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 		if (isPresent(loginFormUrl) || isPresent(loginToken)) {
 			GetMethod method = new GetMethod(loginFormUrl);
 			// method.setFollowRedirects(false);
-			String loginFormPage = requestResource(loginFormUrl, client, method);
+			String loginFormPage = requestResource(loginFormUrl, client, hostConfiguration, method);
 			if (loginFormPage != null) {
 				Pattern p = Pattern.compile(loginToken);
 				Matcher m = p.matcher(loginFormPage);
@@ -525,7 +487,7 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 		}
 
 		String loginRequestUrl = evaluateParams(repository.getProperty(PROPERTY_LOGIN_REQUEST_URL), params, repository);
-		requestResource(loginRequestUrl, client, getLoginMethod(params, repository));
+		requestResource(loginRequestUrl, client, hostConfiguration, getLoginMethod(params, repository));
 	}
 
 	public static HttpMethod getLoginMethod(Map<String, String> params, TaskRepository repository) {
@@ -559,11 +521,11 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 		return postMethod;
 	}
 
-	private static String requestResource(String url, HttpClient client, HttpMethod method) throws IOException,
-			HttpException {
+	private static String requestResource(String url, HttpClient client, HostConfiguration hostConfiguration,
+			HttpMethod method) throws IOException, HttpException {
 		String refreshUrl = null;
 		try {
-			client.executeMethod(method);
+			client.executeMethod(hostConfiguration, method);
 //          int statusCode = client.executeMethod(method);
 //			if (statusCode == 300 || statusCode == 301 || statusCode == 302 || statusCode == 303 || statusCode == 307) {
 //				Header location = method.getResponseHeader("Location");
@@ -585,7 +547,7 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 
 		method = new GetMethod(refreshUrl);
 		try {
-			client.executeMethod(method);
+			client.executeMethod(hostConfiguration, method);
 			return method.getResponseBodyAsString();
 		} finally {
 			method.releaseConnection();
@@ -660,8 +622,11 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 	private static Map<String, String> getParams(TaskRepository repository, Map<String, String> params) {
 		Map<String, String> mergedParams = new LinkedHashMap<String, String>(repository.getProperties());
 		mergedParams.put(PARAM_SERVER_URL, repository.getRepositoryUrl());
-		mergedParams.put(PARAM_USER_ID, repository.getUserName());
-		mergedParams.put(PARAM_PASSWORD, repository.getPassword());
+		AuthenticationCredentials credentials = repository.getCredentials(AuthenticationType.REPOSITORY);
+		if (credentials != null) {
+			mergedParams.put(PARAM_USER_ID, credentials.getUserName());
+			mergedParams.put(PARAM_PASSWORD, credentials.getPassword());
+		}
 		if (params != null) {
 			mergedParams.putAll(params);
 		}
@@ -692,6 +657,11 @@ public class WebRepositoryConnector extends AbstractLegacyRepositoryConnector {
 	@Override
 	public boolean hasLocalCompletionState(TaskRepository taskRepository, ITask task) {
 		return true;
+	}
+
+	@Override
+	public boolean hasTaskChanged(TaskRepository taskRepository, ITask task, TaskData taskData) {
+		return new TaskMapper(taskData).hasChanges(task);
 	}
 
 }
