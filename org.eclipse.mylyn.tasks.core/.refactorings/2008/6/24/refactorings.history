@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;org.eclipse.mylyn.tasks.core.ITaskMapping.getPriority()&apos; to &apos;getPriorityLevel&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.core&apos;&#x0A;- Original element: &apos;org.eclipse.mylyn.tasks.core.ITaskMapping.getPriority()&apos;&#x0A;- Renamed element: &apos;org.eclipse.mylyn.tasks.core.ITaskMapping.getPriorityLevel()&apos;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;getPriority&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylyn.tasks.core{ITaskMapping.java[ITaskMapping~getPriority" name="getPriorityLevel" references="true" stamp="1213069545028" version="1.0"/>
+</session>
