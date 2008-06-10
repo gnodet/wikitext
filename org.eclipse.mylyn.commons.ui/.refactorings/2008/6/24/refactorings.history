@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;org.eclipse.mylyn.commons.ui/icons/eview16/overlay-outgoing.gif&apos; to &apos;overlay-outgoing-new.gif&apos;" description="Rename resource &apos;overlay-outgoing.gif&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="icons/eview16/overlay-outgoing.gif" name="overlay-outgoing-new.gif" stamp="1213066365678" updateReferences="true"/>
+</session>
