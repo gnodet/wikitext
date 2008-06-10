@@ -89,8 +89,6 @@ Java and all Java-based trademarks are trademarks of Sun Microsystems, Inc. in t
       <import plugin="org.eclipse.mylyn.ide.ant" version="3.0.0" match="compatible"/>
       <import feature="org.eclipse.mylyn.context_feature" version="3.0.0.qualifier" match="perfect"/>
       <import plugin="org.eclipse.mylyn.pde.ui" version="3.0.0" match="compatible"/>
-      <import feature="org.eclipse.mylyn.pde_feature" version="3.0.0.qualifier" match="perfect"/>
-      <import feature="org.eclipse.mylyn.java_feature" version="3.0.0.qualifier" match="perfect"/>
    </requires>
 
    <plugin
