@@ -1,5 +1,6 @@
 1213069082794	Extract local variable 'priority'
 1213069906470	Extract local variable 'resolution'
-1213140424999	Extract local variable 'data'
-1213142049635	Rename method 'refreshEditorContents'
-1213143998593	Extract local variable 'control'
+1213199983077	Rename field 'DESCRIPTION'
+1213201590042	Rename type 'TaskListHyperlink'
+1213201699417	Extract superclass 'ScalingHyperlink'
+1213201895713	Move compilation unit
