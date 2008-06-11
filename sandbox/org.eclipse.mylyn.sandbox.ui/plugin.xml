@@ -4,15 +4,15 @@
     <extension-point id="taskEditorExtensions" name="Task Editor Extension" schema="schema/taskEditorExtensions.exsd"/>
 
 	<extension point="org.eclipse.ui.views">
-     	<category name="Mylyn Sandbox" id="org.eclipse.mylyn.sandbox"/>
+     	<category name="Experimental" id="org.eclipse.mylyn.sandbox"/>
     </extension>
 
     <extension point="org.eclipse.ui.preferencePages">
       <page 
-         name="Sandbox"
+         name="Experimental"
          class="org.eclipse.mylyn.internal.sandbox.ui.SandboxUiPreferencePage"
          id="org.eclipse.mylyn.sandbox.ui.preferences"
-         category="org.eclipse.mylyn.ui.preferences">
+         category="org.eclipse.mylyn.tasks.ui.preferences">
          <keywordReference id="org.eclipse.mylyn.java.keywords"/>
       </page> 
     </extension>
@@ -222,7 +222,7 @@
       <command 
          id="org.eclipse.mylyn.ui.context.capture.pause"
          commandId="org.eclipse.mylyn.ui.context.capture.pause.command"
-         label="Pause Context (Sandbox)"
+         label="Pause Context (Experimental)"
          tooltip="Pause Capturing Context"
          icon="icons/elcl16/capture-pause.gif"
          style="toggle"/>
@@ -235,7 +235,7 @@
             class="org.eclipse.mylyn.internal.sandbox.ui.planner.TaskActivityWizard"
             icon="icons/eview16/task-list.gif" 
             id="org.eclipse.mylyn.tasks.ui.wizards.activity.report"
-            name="Task Activity Report (Sandbox)">
+            name="Task Activity Report (Experimental)">
       </wizard> 
 	</extension>
 
@@ -258,7 +258,7 @@
             class="org.eclipse.mylyn.internal.sandbox.ui.actions.ContextCapturePauseAction"
             icon="icons/elcl16/capture-pause.gif"
             id="org.eclipse.mylyn.ui.context.capture.pause"
-            label="Pause Context (Sandbox)"
+            label="Pause Context (Experimental)"
             menubarPath="additions"
             style="toggle"
             tooltip="Pause Capturing Context"/>
@@ -307,14 +307,14 @@
    
     <extension point="org.eclipse.ui.actionSets">
       <actionSet
-        label="Mylyn Task Context"
-        description="Mylyn Focus"
+        label="Task Context (Experimental)"
+        description="Task Context (Experimental)"
         visible="true"
         id="org.eclipse.mylyn.sandbox.ui.actionSet">
         
         <action
           definitionId="org.eclipse.mylyn.sandbox.ui.commands.open.related.dialog"
-          label="Open Mylyn Related Elements"
+          label="Open Related Elements"
           class="org.eclipse.mylyn.internal.sandbox.ui.actions.OpenRelatedElementsPopupDialogAction"
           menubarPath="navigate/open.ext2"
           id="org.eclipse.mylyn.sandbox.ui.actions.open.related.dialog"
@@ -325,7 +325,7 @@
 
 	<extension point="org.eclipse.ui.commands">
 		<category
-			name="Mylyn UI"
+			name="Task Context Search (Experimental)"
 			description="Mylyn UI Commands"
 			id="org.eclipse.mylyn.context.ui.commands">
 		</category>
@@ -402,7 +402,7 @@
             class="org.eclipse.mylyn.internal.sandbox.ui.actions.SwitchTaskDataFolderAction"
             icon="icons/eview16/folder.gif"
             id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.switchTask"
-            label="Sandbox: Switch Task Data Folder..."
+            label="Experimental: Switch Task Data Folder..."
             menubarPath="context"
             style="push">
       </action>

@@ -18,7 +18,7 @@
      <extension point="org.eclipse.ui.decorators">
       <decorator
             lightweight="true"
-            label="Mylyn: Interest Debugging Decorator"
+            label="Experimental: Interest Debugging Decorator"
             class="org.eclipse.mylyn.internal.sandbox.dev.InterestDebuggingDecorator"
             state="false"
             id="org.eclipse.mylyn.sandbox.ui.decorator.interest">
@@ -42,7 +42,7 @@
       </view>
       <category
             id="org.eclipse.mylyn.sandbox"
-            name="Mylyn Sandbox">
+            name="Experimental">
       </category>
    </extension>
    <extension
@@ -107,7 +107,7 @@
         point="org.eclipse.ui.actionSets">
      <actionSet
            id="org.eclipse.mylyn.sandbox.dev.actions"
-           label="Mylyn Sandbox Dev Actions"
+           label="Experimental Dev Actions"
            visible="false">
         <action
               class="org.eclipse.mylyn.internal.sandbox.dev.actions.TestTaskListNotificationAction"

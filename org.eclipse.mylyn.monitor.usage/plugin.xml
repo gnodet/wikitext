@@ -4,7 +4,7 @@
    <extension-point id="study" name="UI Usage Monitor" schema="schema/study.exsd"/>
 
    <extension
-         name="Mylyn UI Usage Monitoring Startup"
+         name="UI Usage Monitoring Startup"
          point="org.eclipse.ui.startup">
       <startup
             class="org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin$UiUsageMonitorStartup">
@@ -16,7 +16,7 @@
          name="Usage Data"
          class="org.eclipse.mylyn.internal.monitor.usage.preferences.UsageDataPreferencePage"
          id="org.eclipse.mylyn.monitor.ui.ui.preferences"
-		 category="org.eclipse.mylyn.ui.preferences">
+		 category="org.eclipse.mylyn.tasks.ui.preferences">
          <keywordReference id="org.eclipse.mylyn.monitor.ui.keywords"/>
       </page> 
    </extension>
