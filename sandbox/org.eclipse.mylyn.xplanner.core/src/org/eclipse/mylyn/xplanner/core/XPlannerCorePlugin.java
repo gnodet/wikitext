@@ -31,6 +31,8 @@ import org.osgi.framework.BundleContext;
 public class XPlannerCorePlugin extends Plugin {
 	public static final String ID = "org.eclipse.mylyn.xplanner.core"; //$NON-NLS-1$
 
+	public static final String CONNECTOR_KIND = "xplanner"; //$NON-NLS-1$
+
 	//The shared instance.
 	private static XPlannerCorePlugin plugin;
 
