@@ -15,7 +15,7 @@ import org.eclipse.mylyn.tasks.ui.editors.BrowserFormPage;
 import org.eclipse.mylyn.tasks.ui.editors.TaskEditor;
 import org.eclipse.mylyn.tasks.ui.editors.TaskEditorInput;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.ui.forms.editor.FormPage;
+import org.eclipse.ui.forms.editor.IFormPage;
 
 /**
  * @author Steffen Pingel
@@ -33,7 +33,7 @@ public class WebTaskEditorPageFactory extends AbstractTaskEditorPageFactory {
 	}
 
 	@Override
-	public FormPage createPage(TaskEditor parentEditor) {
+	public IFormPage createPage(TaskEditor parentEditor) {
 		return new BrowserFormPage(parentEditor, TITLE);
 	}
 
