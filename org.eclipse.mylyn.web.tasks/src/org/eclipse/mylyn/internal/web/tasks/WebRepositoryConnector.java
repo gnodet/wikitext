@@ -132,6 +132,11 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return repository.hasProperty(PROPERTY_TASK_URL);
 	}
 
+	@Override
+	public boolean canSynchronizeTask(TaskRepository taskRepository, ITask task) {
+		return false;
+	}
+
 //	@Override
 //	public AbstractTask createTaskFromExistingId(TaskRepository repository, final String id, IProgressMonitor monitor)
 //			throws CoreException {
