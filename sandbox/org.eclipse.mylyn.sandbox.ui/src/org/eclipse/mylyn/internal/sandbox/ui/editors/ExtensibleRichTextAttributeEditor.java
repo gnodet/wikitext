@@ -8,12 +8,15 @@
 
 package org.eclipse.mylyn.internal.sandbox.ui.editors;
 
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.ITextListener;
 import org.eclipse.jface.text.TextEvent;
+import org.eclipse.jface.text.source.AnnotationModel;
 import org.eclipse.jface.text.source.SourceViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.mylyn.internal.provisional.commons.ui.CommonThemes;
+import org.eclipse.mylyn.internal.tasks.ui.editors.EditorUtil;
 import org.eclipse.mylyn.internal.tasks.ui.editors.RichTextAttributeEditor;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
@@ -28,6 +31,7 @@ import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.contexts.IContextActivation;
@@ -42,6 +46,7 @@ import org.eclipse.ui.themes.IThemeManager;
  * create its own SourceViewer without overriding createControl and copying the code in it
  * 
  * @author Jingwen Ou
+ * @author David Green added context activation, layout
  */
 public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 
@@ -78,9 +83,10 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 			source = extension.createViewer(taskRepository, parent, styles);
 			source.setDocument(new Document(getValue()));
 
-			setControl(source instanceof Viewer ? ((Viewer) source).getControl() : source.getTextWidget());
+			setControl(source.getControl());
 		} else {
 			CTabFolder folder = new CTabFolder(parent, SWT.FLAT | SWT.BOTTOM);
+			folder.setLayout(new GridLayout());
 
 			/** wikitext markup editor **/
 
@@ -89,8 +95,13 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 			viewerItem.setToolTipText("Edit Source");
 
 			source = extension.createEditor(taskRepository, folder, styles | SWT.V_SCROLL);
+			source.getControl().setLayoutData(GridDataFactory.fillDefaults().grab(true, true).create());
+
+			// we must do this otherwise the cut/copy/paste commands don't work
+			EditorUtil.setTextViewer(source.getTextWidget(), source);
+
 			if (source.getDocument() == null) {
-				source.setDocument(new Document(getValue()));
+				source.setDocument(new Document(getValue()), new AnnotationModel());
 			}
 			source.addTextListener(new ITextListener() {
 				public void textChanged(TextEvent event) {
@@ -131,7 +142,7 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 			previewItem.setText("Preview");
 			previewItem.setToolTipText("Preview Source");
 
-			final SourceViewer preview = extension.createViewer(taskRepository, folder, styles);
+			final SourceViewer preview = extension.createViewer(taskRepository, folder, styles | SWT.V_SCROLL);
 
 			previewItem.setControl(preview instanceof Viewer ? ((Viewer) preview).getControl()
 					: preview.getTextWidget());
@@ -173,4 +184,5 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 			contextActivation = contextService.activateContext(extension.getEditorContextId());
 		}
 	}
+
 }
