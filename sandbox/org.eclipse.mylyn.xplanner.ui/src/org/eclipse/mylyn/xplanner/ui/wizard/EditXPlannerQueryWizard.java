@@ -11,35 +11,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.mylyn.internal.tasks.core.RepositoryQuery;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractLegacyRepositoryConnector;
-import org.eclipse.mylyn.internal.tasks.ui.deprecated.AbstractRepositoryQueryWizard;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
-import org.eclipse.mylyn.xplanner.ui.XPlannerCustomQuery;
+import org.eclipse.mylyn.tasks.ui.wizards.RepositoryQueryWizard;
+import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 
 /**
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
-public class EditXPlannerQueryWizard extends AbstractRepositoryQueryWizard {
+public class EditXPlannerQueryWizard extends RepositoryQueryWizard {
 
 	private AbstractXPlannerQueryWizardPage queryPage;
 
+	private final IRepositoryQuery query;
+
 	public EditXPlannerQueryWizard(TaskRepository repository, IRepositoryQuery query) {
-		super(repository, query);
+		super(repository);
 		setForcePreviousAndNextButtons(true);
+		this.query = query;
 	}
 
 	@Override
 	public void addPages() {
-		queryPage = XPlannerQueryWizardUtils.addQueryWizardFirstPage(this, repository, (XPlannerCustomQuery) query);
+		queryPage = XPlannerQueryWizardUtils.addQueryWizardFirstPage(this, getTaskRepository(), query);
 	}
 
 	@Override
 	public boolean performFinish() {
-		List<RepositoryQuery> queries = new ArrayList<RepositoryQuery>();
+		List<IRepositoryQuery> queries = new ArrayList<IRepositoryQuery>();
 
 		// always delete existing query, because new one(s) will get created below
 		TasksUiInternal.getTaskList().deleteQuery((RepositoryQuery) query);
@@ -47,37 +50,36 @@ public class EditXPlannerQueryWizard extends AbstractRepositoryQueryWizard {
 		if (queryPage instanceof MultipleQueryPage) {
 			queries = ((MultipleQueryPage) queryPage).getQueries();
 		} else {
-			final RepositoryQuery query = (RepositoryQuery) queryPage.getQuery();
+			final IRepositoryQuery query = queryPage.getQuery();
 			if (query != null) {
 				queries.add(query);
 			}
 		}
 
-		for (RepositoryQuery query : queries) {
+		for (IRepositoryQuery query : queries) {
 			updateQuery(query);
 		}
 
 		return true;
 	}
 
-	private void updateQuery(final RepositoryQuery query) {
+	private void updateQuery(final IRepositoryQuery query) {
 		// just in case one with this definition already exists...
-		TasksUiInternal.getTaskList().deleteQuery(query);
+		TasksUiInternal.getTaskList().deleteQuery((RepositoryQuery) query);
 		// make sure query reflects changed name, if it was changed
-		if (query instanceof XPlannerCustomQuery) {
-			XPlannerCustomQuery xplannerQuery = (XPlannerCustomQuery) query;
-			String handleIdentifier = xplannerQuery.getHandleIdentifier();
-			String queryName = xplannerQuery.getQueryName();
+		if (query.getConnectorKind().equals(XPlannerCorePlugin.CONNECTOR_KIND)) {
+			String handleIdentifier = ((RepositoryQuery) query).getHandleIdentifier();
+			String queryName = query.getSummary();
 			if (!handleIdentifier.equals(queryName)) {
-				xplannerQuery.setHandleIdentifier(queryName);
+				((RepositoryQuery) query).setHandleIdentifier(queryName);
 			}
 		}
-		TasksUiInternal.getTaskList().addQuery(query);
+		TasksUiInternal.getTaskList().addQuery((RepositoryQuery) query);
 
-		AbstractLegacyRepositoryConnector connector = (AbstractLegacyRepositoryConnector) TasksUi.getRepositoryManager()
-				.getRepositoryConnector(repository.getConnectorKind());
+		AbstractRepositoryConnector connector = TasksUi.getRepositoryManager().getRepositoryConnector(
+				getTaskRepository().getConnectorKind());
 		if (connector != null) {
-			TasksUiInternal.synchronizeQuery(connector, query, null, true);
+			TasksUiInternal.synchronizeQuery(connector, (RepositoryQuery) query, null, true);
 		}
 	}
 

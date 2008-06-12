@@ -9,7 +9,7 @@ package org.eclipse.mylyn.xplanner.ui.wizard;
 
 import java.util.List;
 
-import org.eclipse.mylyn.internal.tasks.core.RepositoryQuery;
+import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 
 /**
  * @author Ravi Kumar
@@ -17,5 +17,5 @@ import org.eclipse.mylyn.internal.tasks.core.RepositoryQuery;
  */
 public interface MultipleQueryPage {
 
-	public List<RepositoryQuery> getQueries();
+	public List<IRepositoryQuery> getQueries();
 }

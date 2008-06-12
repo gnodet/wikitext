@@ -19,12 +19,13 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.IWizardPage;
-import org.eclipse.mylyn.internal.tasks.core.RepositoryQuery;
 import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
+import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeMapper;
 import org.eclipse.mylyn.xplanner.ui.XPlannerClientFacade;
-import org.eclipse.mylyn.xplanner.ui.XPlannerCustomQuery;
+import org.eclipse.mylyn.xplanner.ui.XPlannerTaskListMigrator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
@@ -84,7 +85,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 	 * @param title
 	 * @param titleImage
 	 */
-	public XPlannerCustomQueryPage(TaskRepository repository, XPlannerCustomQuery existingQuery) {
+	public XPlannerCustomQueryPage(TaskRepository repository, IRepositoryQuery existingQuery) {
 		super(repository, existingQuery);
 		try {
 			this.client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
@@ -141,7 +142,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 
 		if (tasksButton == null) {
 			if (getExistingQuery() != null) {
-				isContentTypeTask = getExistingQuery().isUseTasks();
+				isContentTypeTask = XPlannerTaskListMigrator.isUseTasks(getExistingQuery());
 			}
 		} else {
 			isContentTypeTask = tasksButton.getSelection();
@@ -449,29 +450,33 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 
 	private void loadFromExistingQuery() {
 		// name
-		if (getExistingQuery().getQueryName() != null) {
-			nameText.setText(getExistingQuery().getQueryName());
+		if (getExistingQuery().getSummary() != null) {
+			nameText.setText(getExistingQuery().getSummary());
 		}
 
-		myTasksButton.setSelection(getExistingQuery().isMyCurrentTasks());
-		selectedTasksButton.setSelection(!getExistingQuery().isMyCurrentTasks());
+		boolean isMyCurrentTasks = XPlannerTaskListMigrator.isMyCurrentTasks(getExistingQuery());
+		myTasksButton.setSelection(isMyCurrentTasks);
+		selectedTasksButton.setSelection(!isMyCurrentTasks);
 
 		// tasks or user stories?
-		if (getExistingQuery().getPersonId() != XPlannerCustomQuery.INVALID_ID) {
+		int personId = XPlannerTaskListMigrator.getPersonId(getExistingQuery());
+		if (personId != XPlannerAttributeMapper.INVALID_ID) {
 			myTasksOrStoriesButton.setSelection(true);
 		} else {
 			allTasksOrStoriesButton.setSelection(true);
 		}
 
 		// use tasks
-		if (getExistingQuery().isUseTasks()) {
+		boolean isUseTasks = XPlannerTaskListMigrator.isUseTasks(getExistingQuery());
+		if (isUseTasks) {
 			tasksButton.setSelection(true);
 		} else {
 			storiesButton.setSelection(true);
 		}
 
 		// select appropriate tree item
-		if (getExistingQuery().getContentIds() != XPlannerCustomQuery.INVALID_IDS) {
+		List<Integer> contentIds = XPlannerTaskListMigrator.getContentIds(getExistingQuery());
+		if (contentIds != XPlannerTaskListMigrator.INVALID_IDS) {
 			List<Object> selection = getProjectElementsToSelect();
 
 			projectsViewer.setSelection(new StructuredSelection(selection));
@@ -481,16 +486,16 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 	private List<Object> getProjectElementsToSelect() {
 		ArrayList<Object> selection = new ArrayList<Object>();
 
-		XPlannerCustomQuery.ContentIdType contentIdType = getExistingQuery().getContentIdType();
-		List<Integer> contentIds = getExistingQuery().getContentIds();
+		XPlannerTaskListMigrator.ContentIdType contentIdType = XPlannerTaskListMigrator.getContentIdType(getExistingQuery());
+		List<Integer> contentIds = XPlannerTaskListMigrator.getContentIds(getExistingQuery());
 
 		for (int contentId : contentIds) {
 			try {
-				if (contentIdType == XPlannerCustomQuery.ContentIdType.PROJECT) {
+				if (contentIdType == XPlannerTaskListMigrator.ContentIdType.PROJECT) {
 					selection.add(client.getProject(contentId));
-				} else if (contentIdType == XPlannerCustomQuery.ContentIdType.ITERATION) {
+				} else if (contentIdType == XPlannerTaskListMigrator.ContentIdType.ITERATION) {
 					selection.add(client.getIteration(contentId));
-				} else if (contentIdType == XPlannerCustomQuery.ContentIdType.USER_STORY) {
+				} else if (contentIdType == XPlannerTaskListMigrator.ContentIdType.USER_STORY) {
 					selection.add(client.getUserStory(contentId));
 				}
 			} catch (RemoteException e) {
@@ -506,49 +511,49 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		return allTasksOrStoriesButton.getSelection();
 	}
 
-	void applyChanges(XPlannerCustomQuery query) {
+	void applyChanges(IRepositoryQuery query) {
 		if (query == null) {
 			return;
 		}
 		// name
-		query.setQueryName(getQueryTitle());
+		query.setSummary(getQueryTitle());
 
 		// my current tasks?
 		if (myTasksButton.getSelection()) {
-			query.setMyCurrentTasks(true);
+			XPlannerTaskListMigrator.setMyCurrentTasks(query, true);
 		} else {
-			query.setMyCurrentTasks(false);
+			XPlannerTaskListMigrator.setMyCurrentTasks(query, false);
 
 			// use tasks?
-			query.setUseTasks(tasksButton.getSelection());
+			XPlannerTaskListMigrator.setUseTasks(query, tasksButton.getSelection());
 
 			// use all?
 			if (!isUseAll()) {
-				query.setPersonId(client.getCurrentPersonId());
+				XPlannerTaskListMigrator.setPersonId(query, client.getCurrentPersonId());
 			} else {
-				query.setPersonId(XPlannerCustomQuery.INVALID_ID);
+				XPlannerTaskListMigrator.setPersonId(query, XPlannerAttributeMapper.INVALID_ID);
 			}
 
 			// content id
-			query.setContentIds(getSelectedContentIds());
+			XPlannerTaskListMigrator.setContentIds(query, getSelectedContentIds());
 
 			// content id type
-			query.setContentIdType(getSelectedContentIdType());
+			XPlannerTaskListMigrator.setContentIdType(query, getSelectedContentIdType());
 		}
 	}
 
-	private XPlannerCustomQuery.ContentIdType getSelectedContentIdType() {
-		XPlannerCustomQuery.ContentIdType contentIdType = XPlannerCustomQuery.ContentIdType.USER_STORY;
+	private XPlannerTaskListMigrator.ContentIdType getSelectedContentIdType() {
+		XPlannerTaskListMigrator.ContentIdType contentIdType = XPlannerTaskListMigrator.ContentIdType.USER_STORY;
 
 		StructuredSelection selection = (StructuredSelection) projectsViewer.getSelection();
 		Object selectedElement = selection.getFirstElement();
 
 		if (selectedElement instanceof ProjectData) {
-			contentIdType = XPlannerCustomQuery.ContentIdType.PROJECT;
+			contentIdType = XPlannerTaskListMigrator.ContentIdType.PROJECT;
 		} else if (selectedElement instanceof IterationData) {
-			contentIdType = XPlannerCustomQuery.ContentIdType.ITERATION;
+			contentIdType = XPlannerTaskListMigrator.ContentIdType.ITERATION;
 		} else if (selectedElement instanceof UserStoryData) {
-			contentIdType = XPlannerCustomQuery.ContentIdType.USER_STORY;
+			contentIdType = XPlannerTaskListMigrator.ContentIdType.USER_STORY;
 		}
 
 		return contentIdType;
@@ -560,7 +565,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		StructuredSelection selection = (StructuredSelection) projectsViewer.getSelection();
 
 		if (selection.size() == 0) {
-			selectedIds.add(XPlannerCustomQuery.INVALID_ID);
+			selectedIds.add(XPlannerAttributeMapper.INVALID_ID);
 		} else {
 			for (Iterator iter = selection.iterator(); iter.hasNext();) {
 				Object selectedElement = iter.next();
@@ -599,6 +604,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 //		
 //		return userStory;
 //	}
+
 	@Override
 	public String getQueryTitle() {
 		return (nameText != null) ? nameText.getText() : "<search>"; //$NON-NLS-1$
@@ -607,7 +613,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 	@Override
 	public IRepositoryQuery getQuery() {
 		if (getExistingQuery() == null) {
-			setExistingQuery(new XPlannerCustomQuery(getRepository().getRepositoryUrl(), getQueryTitle()));
+			setExistingQuery(TasksUi.getRepositoryModel().createRepositoryQuery(getRepository()));
 		}
 
 		applyChanges(getExistingQuery());
@@ -619,13 +625,13 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 	 * 
 	 * @return
 	 */
-	public List<RepositoryQuery> getQueries() {
-		List<RepositoryQuery> queries = new ArrayList<RepositoryQuery>();
+	public List<IRepositoryQuery> getQueries() {
+		List<IRepositoryQuery> queries = new ArrayList<IRepositoryQuery>();
 
 		if (isContentTypeTask()) {
 			// if don't have existing query, create one
 			if (getExistingQuery() == null) {
-				setExistingQuery(new XPlannerCustomQuery(getRepository().getRepositoryUrl(), getQueryTitle()));
+				setExistingQuery(TasksUi.getRepositoryModel().createRepositoryQuery(getRepository()));
 			}
 
 			applyChanges(getExistingQuery());
@@ -662,14 +668,14 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		return userStories;
 	}
 
-	public List<RepositoryQuery> createTaskQueriesForUserStories(List<UserStoryData> userStories) {
+	public List<IRepositoryQuery> createTaskQueriesForUserStories(List<UserStoryData> userStories) {
 
 		if (userStories == null || userStories.size() == 0) {
 			System.err.println(Messages.XPlannerCustomQueryPage_NO_USER_STORIES_SELECTED);
-			return new ArrayList<RepositoryQuery>();
+			return new ArrayList<IRepositoryQuery>();
 		}
 
-		ArrayList<RepositoryQuery> queries = new ArrayList<RepositoryQuery>();
+		ArrayList<IRepositoryQuery> queries = new ArrayList<IRepositoryQuery>();
 		int personId = client.getCurrentPersonId();
 		for (UserStoryData userStory : userStories) {
 			boolean createQuery = true;
@@ -689,13 +695,13 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 					queryName += nameSuffix;
 				}
 
-				XPlannerCustomQuery query = new XPlannerCustomQuery(getRepository().getRepositoryUrl(), queryName);
+				IRepositoryQuery query = TasksUi.getRepositoryModel().createRepositoryQuery(getTaskRepository());
 
 				applyChanges(query);
-				query.setQueryName(queryName);
-				query.setContentIds(Arrays.asList(new Integer[] { userStory.getId() }));
-				query.setContentIdType(XPlannerCustomQuery.ContentIdType.USER_STORY);
-				query.setUseTasks(true);
+				query.setSummary(queryName);
+				XPlannerTaskListMigrator.setContentIds(query, Arrays.asList(new Integer[] { userStory.getId() }));
+				XPlannerTaskListMigrator.setContentIdType(query, XPlannerTaskListMigrator.ContentIdType.USER_STORY);
+				XPlannerTaskListMigrator.setUseTasks(query, true);
 				queries.add(query);
 			}
 		}
@@ -716,7 +722,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 
 	@Override
 	public void applyTo(IRepositoryQuery query) {
-		throw new UnsupportedOperationException();
+		applyChanges(query);
 	}
 
 }

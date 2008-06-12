@@ -10,7 +10,6 @@ package org.eclipse.mylyn.xplanner.ui.wizard;
 import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositoryQueryPage;
-import org.eclipse.mylyn.xplanner.ui.XPlannerCustomQuery;
 import org.eclipse.ui.PlatformUI;
 
 /**
@@ -21,13 +20,13 @@ public abstract class AbstractXPlannerQueryWizardPage extends AbstractRepository
 
 	private static final String TITLE = Messages.AbstractXPlannerQueryWizardPage_NEW_XPLANNER_QUERY;
 
-	private XPlannerCustomQuery existingQuery;
+	private IRepositoryQuery existingQuery;
 
 	public AbstractXPlannerQueryWizardPage(TaskRepository repository) {
 		this(repository, null);
 	}
 
-	public AbstractXPlannerQueryWizardPage(TaskRepository repository, XPlannerCustomQuery existingQuery) {
+	public AbstractXPlannerQueryWizardPage(TaskRepository repository, IRepositoryQuery existingQuery) {
 		super(TITLE, repository);
 		this.existingQuery = existingQuery;
 		setTitle(TITLE);
@@ -41,11 +40,11 @@ public abstract class AbstractXPlannerQueryWizardPage extends AbstractRepository
 		return getTaskRepository();
 	}
 
-	public XPlannerCustomQuery getExistingQuery() {
+	public IRepositoryQuery getExistingQuery() {
 		return existingQuery;
 	}
 
-	public void setExistingQuery(XPlannerCustomQuery existingQuery) {
+	public void setExistingQuery(IRepositoryQuery existingQuery) {
 		this.existingQuery = existingQuery;
 	}
 

@@ -9,8 +9,8 @@ package org.eclipse.mylyn.xplanner.ui.wizard;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
-import org.eclipse.mylyn.xplanner.ui.XPlannerCustomQuery;
 import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
 
 /**
@@ -29,7 +29,7 @@ public class XPlannerQueryWizardUtils {
 	}
 
 	public static AbstractXPlannerQueryWizardPage addQueryWizardFirstPage(Wizard wizard, TaskRepository repository,
-			XPlannerCustomQuery existingQuery) {
+			IRepositoryQuery existingQuery) {
 
 		AbstractXPlannerQueryWizardPage queryPage = null;
 

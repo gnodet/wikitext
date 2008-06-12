@@ -16,6 +16,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
+import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
 import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUtils;
 import org.eclipse.swt.widgets.Composite;
@@ -83,7 +84,7 @@ public class XPlannerRepositorySettingsPage extends AbstractRepositorySettingsPa
 
 	@Override
 	public String getConnectorKind() {
-		return XPlannerMylynUIPlugin.REPOSITORY_KIND;
+		return XPlannerCorePlugin.CONNECTOR_KIND;
 	}
 
 }

@@ -10,7 +10,7 @@ package org.eclipse.mylyn.xplanner.ui.wizard;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
-import org.eclipse.mylyn.xplanner.ui.XPlannerCustomQuery;
+import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -35,7 +35,7 @@ public class XPlannerQuerySelectionWizardPage extends AbstractXPlannerQueryWizar
 		this(repository, null);
 	}
 
-	public XPlannerQuerySelectionWizardPage(TaskRepository repository, XPlannerCustomQuery existingQuery) {
+	public XPlannerQuerySelectionWizardPage(TaskRepository repository, IRepositoryQuery existingQuery) {
 		super(repository, existingQuery);
 		setDescription(DESCRIPTION);
 	}
@@ -75,8 +75,8 @@ public class XPlannerQuerySelectionWizardPage extends AbstractXPlannerQueryWizar
 	public IRepositoryQuery getQuery() {
 		if (xplannerCustomQueryPage != null) {
 			IRepositoryQuery query = xplannerCustomQueryPage.getQuery();
-			if (query instanceof XPlannerCustomQuery) {
-				setExistingQuery((XPlannerCustomQuery) query);
+			if (query.getConnectorKind().equals(XPlannerCorePlugin.CONNECTOR_KIND)) {
+				setExistingQuery(query);
 			}
 		}
 

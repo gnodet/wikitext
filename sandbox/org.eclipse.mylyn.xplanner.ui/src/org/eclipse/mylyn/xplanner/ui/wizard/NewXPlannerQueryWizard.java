@@ -12,8 +12,9 @@ import java.util.List;
 
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.mylyn.internal.tasks.core.RepositoryQuery;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractLegacyRepositoryConnector;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
+import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.tasks.ui.TasksUiImages;
@@ -48,17 +49,19 @@ public class NewXPlannerQueryWizard extends Wizard {
 	@Override
 	public boolean performFinish() {
 		if (queryPage instanceof MultipleQueryPage) {
-			List<RepositoryQuery> queries = ((MultipleQueryPage) queryPage).getQueries();
-			for (final RepositoryQuery query : queries) {
-				TasksUiInternal.getTaskList().addQuery(query);
+			List<IRepositoryQuery> queries = ((MultipleQueryPage) queryPage).getQueries();
+			HashSet<RepositoryQuery> queriesSet = new HashSet<RepositoryQuery>();
+			for (final IRepositoryQuery query : queries) {
+				RepositoryQuery tempQuery = (RepositoryQuery) query;
+				TasksUiInternal.getTaskList().addQuery(tempQuery);
+				queriesSet.add(tempQuery);
 			}
 
 			// need to synchronize multiple queries with single call, otherwise get ConcurrencyModificationException
-			AbstractLegacyRepositoryConnector connector = (AbstractLegacyRepositoryConnector) TasksUi.getRepositoryManager()
-					.getRepositoryConnector(repository.getConnectorKind());
+			AbstractRepositoryConnector connector = TasksUi.getRepositoryManager().getRepositoryConnector(
+					repository.getConnectorKind());
 			if (connector != null) {
-				TasksUiInternal.synchronizeQueries(connector, repository, new HashSet<RepositoryQuery>(queries), null,
-						true);
+				TasksUiInternal.synchronizeQueries(connector, repository, queriesSet, null, true);
 			}
 		} else {
 			RepositoryQuery query = (RepositoryQuery) queryPage.getQuery();
@@ -71,8 +74,8 @@ public class NewXPlannerQueryWizard extends Wizard {
 	public static void addQuery(RepositoryQuery query, TaskRepository repository) {
 		if (query != null) {
 			TasksUiInternal.getTaskList().addQuery(query);
-			AbstractLegacyRepositoryConnector connector = (AbstractLegacyRepositoryConnector) TasksUi.getRepositoryManager()
-					.getRepositoryConnector(repository.getConnectorKind());
+			AbstractRepositoryConnector connector = TasksUi.getRepositoryManager().getRepositoryConnector(
+					repository.getConnectorKind());
 			if (connector != null) {
 				TasksUiInternal.synchronizeQuery(connector, query, null, true);
 			}

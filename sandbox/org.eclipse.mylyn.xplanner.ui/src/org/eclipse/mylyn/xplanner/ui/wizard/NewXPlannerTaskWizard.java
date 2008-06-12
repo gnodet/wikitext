@@ -8,30 +8,19 @@
 
 package org.eclipse.mylyn.xplanner.ui.wizard;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
-import org.eclipse.mylyn.internal.tasks.ui.deprecated.NewTaskEditorInput;
+import org.eclipse.mylyn.tasks.core.ITaskMapping;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiImages;
-import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
-import org.eclipse.mylyn.tasks.ui.editors.TaskEditor;
-import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUtils;
-import org.eclipse.ui.INewWizard;
+import org.eclipse.mylyn.tasks.ui.wizards.NewTaskWizard;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PlatformUI;
 
-@SuppressWarnings("restriction")
-public class NewXPlannerTaskWizard extends Wizard implements INewWizard {
-
-	private final TaskRepository taskRepository;
+public class NewXPlannerTaskWizard extends NewTaskWizard {
 
 	private final NewXPlannerTaskPage userStoryPage;
 
 	public NewXPlannerTaskWizard(TaskRepository taskRepository) {
-		this.taskRepository = taskRepository;
+		super(taskRepository);
 
 		userStoryPage = new NewXPlannerTaskPage(taskRepository);
 
@@ -41,6 +30,7 @@ public class NewXPlannerTaskWizard extends Wizard implements INewWizard {
 		setNeedsProgressMonitor(true);
 	}
 
+	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 	}
 
@@ -61,17 +51,8 @@ public class NewXPlannerTaskWizard extends Wizard implements INewWizard {
 	}
 
 	@Override
-	public boolean performFinish() {
-		try {
-			RepositoryTaskData taskData = XPlannerRepositoryUtils.getNewRepositoryTaskData(taskRepository,
-					userStoryPage.getSelectedUserStory());
-
-			NewTaskEditorInput editorInput = new NewTaskEditorInput(taskRepository, taskData);
-			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-			TasksUiUtil.openEditor(editorInput, TaskEditor.ID_EDITOR, page);
-			return true;
-		} catch (CoreException e) {
-			throw new RuntimeException(e);
-		}
+	protected ITaskMapping getInitializationData() {
+		return new XPlannerTaskMapping(userStoryPage.getSelectedUserStory());
 	}
+
 }
