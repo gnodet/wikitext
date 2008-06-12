@@ -6,12 +6,10 @@
 1213201895713	Move compilation unit
 1213220621176	Change method 'createPage'
 1213222760431	Extract method 'getPriorityImage'
+1213223492423	Extract method 'createScheduledDatePicker'
+1213223509735	Extract method 'createDueDatePicker'
+1213223626268	Extract method 'createEstimatedTime'
 1213224501261	Delete element
-1213239593449	Extract constant 'LABEL_RESOURCES'
-1213240835314	Rename field 'tasksCategory'
-1213241600882	Rename field 'resourcesCategory'
-1213241701045	Rename field 'repositoryMap'
-1213242540994	Extract local variable 'projectMapping'
 1213303049145	Change method 'select'
 1213303235332	Change method 'select'
 1213303467367	Rename method 'ignoreFilterText'
