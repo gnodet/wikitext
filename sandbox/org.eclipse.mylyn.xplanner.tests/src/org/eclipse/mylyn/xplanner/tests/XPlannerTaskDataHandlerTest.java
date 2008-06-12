@@ -7,19 +7,22 @@
  *******************************************************************************/
 package org.eclipse.mylyn.xplanner.tests;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import junit.framework.TestCase;
 
-import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractLegacyRepositoryConnector;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.RepositoryResponse;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
+import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
-import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeFactory;
-import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
+import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeMapper;
 import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUtils;
-import org.eclipse.mylyn.xplanner.ui.XPlannerTask;
 import org.xplanner.soap.TaskData;
 import org.xplanner.soap.UserStoryData;
 
@@ -47,27 +50,30 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 			// get new task data
 			UserStoryData userStoryData = XPlannerTestUtils.findTestUserStory(client);
 			TaskRepository taskRepository = XPlannerTestUtils.getRepository();
-			RepositoryTaskData newRepositoryTaskData = XPlannerRepositoryUtils.getNewRepositoryTaskData(taskRepository,
-					userStoryData);
+			org.eclipse.mylyn.tasks.core.data.TaskData newRepositoryTaskData = XPlannerRepositoryUtils.getNewRepositoryTaskData(
+					taskRepository, userStoryData);
 
 			assert (newRepositoryTaskData != null);
 			assert (newRepositoryTaskData.isNew());
-			assert (("" + userStoryData.getId()).equals(newRepositoryTaskData.getAttribute(XPlannerAttributeFactory.ATTRIBUTE_USER_STORY_ID)));
+			assert (("" + userStoryData.getId()).equals(XPlannerRepositoryUtils.getAttributeValue(
+					newRepositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_USER_STORY_ID)));
 
 			// make sure we have the right connector
-			AbstractLegacyRepositoryConnector connector = (AbstractLegacyRepositoryConnector) TasksUiPlugin.getRepositoryManager()
-					.getRepositoryConnector(taskRepository.getConnectorKind());
-			assert (connector.getConnectorKind().equals(XPlannerMylynUIPlugin.REPOSITORY_KIND));
+			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
+					taskRepository.getConnectorKind());
+			assert (connector.getConnectorKind().equals(XPlannerCorePlugin.CONNECTOR_KIND));
 
 			// post new task data
 			String newTaskName = "new task";
-			newRepositoryTaskData.setSummary(newTaskName);
-			String returnValue = connector.getLegacyTaskDataHandler().postTaskData(taskRepository, newRepositoryTaskData,
-					null);
+			XPlannerRepositoryUtils.setAttributeValue(newRepositoryTaskData, TaskAttribute.SUMMARY, newTaskName);
+
+			Set<TaskAttribute> changed = getAttributes(newRepositoryTaskData, new String[] { TaskAttribute.SUMMARY });
+			RepositoryResponse returnValue = connector.getTaskDataHandler().postTaskData(taskRepository,
+					newRepositoryTaskData, changed, null);
 
 			// if new task, return value is new id -- make sure it's valid
 			assert (returnValue != null);
-			int id = Integer.valueOf(returnValue).intValue();
+			int id = Integer.valueOf(returnValue.getTaskId());
 			assert (id > 0);
 			TaskData taskData = client.getTask(id);
 			assert (taskData != null);
@@ -93,16 +99,16 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 			TaskRepository taskRepository = XPlannerTestUtils.getRepository();
 
 			// make sure we have the right connector
-			AbstractLegacyRepositoryConnector connector = (AbstractLegacyRepositoryConnector) TasksUiPlugin.getRepositoryManager()
-					.getRepositoryConnector(taskRepository.getConnectorKind());
-			assert (connector.getConnectorKind().equals(XPlannerMylynUIPlugin.REPOSITORY_KIND));
+			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
+					taskRepository.getConnectorKind());
+			assert (connector.getConnectorKind().equals(XPlannerCorePlugin.CONNECTOR_KIND));
 
 			TaskRepository repository = XPlannerTestUtils.getRepository();
 			assertTrue(repository != null);
 
-			ITask repositoryTask = TasksUiInternal.createTask(repository, "" + testTaskData.getId(), null);
+			ITask repositoryTask = TasksUi.getRepositoryModel().createTask(repository, "" + testTaskData.getId());
 
-			assertTrue(repositoryTask instanceof XPlannerTask);
+			assertTrue(repositoryTask.getConnectorKind().equals(XPlannerCorePlugin.CONNECTOR_KIND));
 
 			// post updated task data
 			Double estTime = testTaskData.getAdjustedEstimatedHours();
@@ -116,11 +122,13 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 			}
 
 			testTaskData.setActualHours(actTime);
-			RepositoryTaskData testRepositoryTaskData = XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(
+			org.eclipse.mylyn.tasks.core.data.TaskData testRepositoryTaskData = XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(
 					repository.getRepositoryUrl(), testTaskData, repositoryTask.getTaskId());
 
-			String returnValue = connector.getLegacyTaskDataHandler().postTaskData(taskRepository, testRepositoryTaskData,
-					null);
+			Set<TaskAttribute> changed = getAttributes(testRepositoryTaskData,
+					new String[] { XPlannerAttributeMapper.ATTRIBUTE_ACT_HOURS_NAME });
+			RepositoryResponse returnValue = connector.getTaskDataHandler().postTaskData(taskRepository,
+					testRepositoryTaskData, changed, null);
 
 			// if new task, return value is new id -- make sure it's valid
 			assert (returnValue == null);
@@ -135,6 +143,20 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 		} catch (Exception e) {
 			fail("could not set up task attributes: " + e.getMessage());
 		}
+	}
+
+	private Set<TaskAttribute> getAttributes(org.eclipse.mylyn.tasks.core.data.TaskData testRepositoryTaskData,
+			String[] attributeNames) {
+
+		Set<TaskAttribute> changed = new HashSet<TaskAttribute>();
+		for (String attributeName : attributeNames) {
+			TaskAttribute attribute = testRepositoryTaskData.getRoot().getMappedAttribute(attributeName);
+			if (attribute != null) {
+				changed.add(attribute);
+			}
+		}
+
+		return changed;
 	}
 
 	public void testUpdateActualTimeWithValidTime() {

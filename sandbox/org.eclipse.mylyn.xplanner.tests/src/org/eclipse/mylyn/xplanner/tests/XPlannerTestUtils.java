@@ -16,13 +16,13 @@ import org.eclipse.mylyn.commons.net.AuthenticationCredentials;
 import org.eclipse.mylyn.commons.net.AuthenticationType;
 import org.eclipse.mylyn.internal.tasks.core.ITaskList;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
+import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
+import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeMapper;
 import org.eclipse.mylyn.xplanner.ui.XPlannerClientFacade;
-import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
-import org.eclipse.mylyn.xplanner.ui.XPlannerTask;
 import org.xplanner.soap.IterationData;
 import org.xplanner.soap.PersonData;
 import org.xplanner.soap.ProjectData;
@@ -62,13 +62,13 @@ public class XPlannerTestUtils {
 	public static TaskRepository getRepository(String userName, String password) {
 		TaskRepository repository;
 
-		repository = TasksUiPlugin.getRepositoryManager().getRepository(XPlannerMylynUIPlugin.REPOSITORY_KIND,
-				SERVER_URL);
+		repository = TasksUiPlugin.getRepositoryManager().getRepository(XPlannerCorePlugin.CONNECTOR_KIND, SERVER_URL);
 		if (repository == null) {
-			repository = new TaskRepository(XPlannerMylynUIPlugin.REPOSITORY_KIND, SERVER_URL);
+			repository = new TaskRepository(XPlannerCorePlugin.CONNECTOR_KIND, SERVER_URL);
 			AuthenticationCredentials credentials = new AuthenticationCredentials(userName, password);
 			repository.setCredentials(AuthenticationType.REPOSITORY, credentials, false);
 			TasksUiPlugin.getRepositoryManager().addRepository(repository);
+			//TODO -- HeB -- not sure how to clear task list in 3.0
 			TasksUiPlugin.getTaskListManager().resetTaskList();
 		}
 
@@ -270,7 +270,7 @@ public class XPlannerTestUtils {
 
 	public static ITaskList getTaskList() {
 		ITaskList taskList = TasksUiPlugin.getTaskList();
-		TasksUiPlugin.getTaskListManager().saveTaskList();
+		TasksUiPlugin.getExternalizationManager().requestSave();
 
 		return taskList;
 	}
@@ -303,21 +303,26 @@ public class XPlannerTestUtils {
 	/**
 	 * setUpTestData() needs to be called before this method
 	 */
-	public static XPlannerTask getTestXPlannerTask(XPlannerClient client) throws Exception {
+	public static ITask getTestXPlannerTask(XPlannerClient client) throws Exception {
 		TaskRepository repository = getRepository();
 		TaskData testTask = findTestTask(client);
-		ITask task = TasksUiInternal.createTask(repository, "" + testTask.getId(), null);
-		return (XPlannerTask) task;
+		return TasksUi.getRepositoryModel().createTask(repository, "" + testTask.getId());
 	}
 
 	/**
 	 * setUpTestData() needs to be called before this method
 	 */
-	public static XPlannerTask getTestXPlannerUserStoryTask(XPlannerClient client) throws Exception {
+	public static ITask getTestXPlannerUserStoryTask(XPlannerClient client) throws Exception {
 		TaskRepository repository = getRepository();
 		UserStoryData testUserStory = findTestUserStory(client);
-		ITask task = TasksUiInternal.createTask(repository, "" + testUserStory.getId(), null);
-		return (XPlannerTask) task;
+		return TasksUi.getRepositoryModel().createTask(repository, "" + testUserStory.getId());
 	}
 
+	public static org.eclipse.mylyn.tasks.core.data.TaskData getNewXPlannerTaskData(ITask task) {
+		org.eclipse.mylyn.tasks.core.data.TaskData repositoryTaskData = new org.eclipse.mylyn.tasks.core.data.TaskData(
+				new XPlannerAttributeMapper(XPlannerTestUtils.getRepository()), XPlannerCorePlugin.CONNECTOR_KIND,
+				XPlannerTestUtils.getRepository().getRepositoryUrl(), task.getTaskId());
+
+		return repositoryTaskData;
+	}
 }

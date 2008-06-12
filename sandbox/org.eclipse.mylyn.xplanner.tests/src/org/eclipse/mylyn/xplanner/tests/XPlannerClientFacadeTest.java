@@ -27,7 +27,7 @@ public class XPlannerClientFacadeTest extends TestCase {
 			XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 			fail("Expected CoreException");
 		} catch (CoreException e) {
-			assertEquals("Error connecting", e.getMessage());
+			assertTrue(e.getMessage().startsWith("Error connecting"));
 		} finally {
 			repository.setRepositoryUrl(goodUrl);
 		}

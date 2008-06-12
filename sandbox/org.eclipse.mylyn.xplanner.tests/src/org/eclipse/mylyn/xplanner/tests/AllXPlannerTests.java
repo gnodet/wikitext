@@ -17,11 +17,10 @@ public class AllXPlannerTests {
 
 	public static Test suite() {
 		TestSuite suite = new TestSuite("Test for mylyn.xplanner.tests");
-
 		// $JUnit-BEGIN$
 		suite.addTestSuite(XPlannerRepositoryUtilsTest.class);
 		suite.addTestSuite(XPlannerRepositoryConnectorTest.class);
-		suite.addTestSuite(XPlannerCustomQueryTest.class);
+		suite.addTestSuite(XPlannerQueryTest.class);
 		suite.addTestSuite(XPlannerTaskDataHandlerTest.class);
 		suite.addTestSuite(XPlannerTaskEditorTest.class);
 		suite.addTestSuite(XPlannerMylynUIPluginTest.class);
@@ -30,4 +29,5 @@ public class AllXPlannerTests {
 		// $JUnit-END$
 		return suite;
 	}
+
 }
