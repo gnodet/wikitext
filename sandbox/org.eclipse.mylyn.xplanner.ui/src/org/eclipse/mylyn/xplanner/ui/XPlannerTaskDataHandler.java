@@ -10,7 +10,6 @@ package org.eclipse.mylyn.xplanner.ui;
 import java.net.Proxy;
 import java.rmi.RemoteException;
 import java.util.Calendar;
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.security.auth.login.LoginException;
@@ -19,15 +18,17 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractAttributeFactory;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractTaskDataHandler;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskAttribute;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
 import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.ITaskMapping;
+import org.eclipse.mylyn.tasks.core.RepositoryResponse;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
-import org.eclipse.mylyn.tasks.ui.TasksUi;
+import org.eclipse.mylyn.tasks.core.RepositoryResponse.ResponseKind;
+import org.eclipse.mylyn.tasks.core.data.AbstractTaskDataHandler;
+import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
+import org.eclipse.mylyn.tasks.core.data.TaskAttributeMapper;
 import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
+import org.eclipse.mylyn.xplanner.ui.wizard.XPlannerTaskMapping;
 import org.xplanner.soap.TaskData;
 import org.xplanner.soap.TimeEntryData;
 import org.xplanner.soap.UserStoryData;
@@ -37,77 +38,84 @@ import org.xplanner.soap.UserStoryData;
  * @author Helen Bershadskaya
  */
 public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
-	private final AbstractAttributeFactory attributeFactory = new XPlannerAttributeFactory();
+	private TaskAttributeMapper attributeFactory = null;
 
 	public XPlannerTaskDataHandler() {
 	}
 
-	public RepositoryTaskData downloadTaskData(ITask repositoryTask, TaskRepository repository,
+	public org.eclipse.mylyn.tasks.core.data.TaskData downloadTaskData(ITask repositoryTask, TaskRepository repository,
 			Proxy proxySettings) throws CoreException, LoginException {
 
-		if (!(repositoryTask instanceof XPlannerTask)) {
+		if (!repositoryTask.getConnectorKind().equals(XPlannerCorePlugin.CONNECTOR_KIND)) {
 			return null;
 		}
 
-		RepositoryTaskData repositoryTaskData = null;
-		XPlannerTask xplannerTask = (XPlannerTask) repositoryTask;
+		org.eclipse.mylyn.tasks.core.data.TaskData repositoryTaskData = null;
 
 		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
-		repositoryTaskData = XPlannerRepositoryUtils.createRepositoryTaskData(repository, xplannerTask, client);
+		repositoryTaskData = XPlannerRepositoryUtils.createRepositoryTaskData(repository, repositoryTask, client);
 
 		return repositoryTaskData;
 	}
 
 	@Override
-	public boolean initializeTaskData(TaskRepository repository, RepositoryTaskData data, IProgressMonitor monitor)
-			throws CoreException {
+	public boolean initializeTaskData(TaskRepository repository,
+			org.eclipse.mylyn.tasks.core.data.TaskData repositoryTaskData, ITaskMapping initializationData,
+			IProgressMonitor monitor) throws CoreException {
 
-		// currently don't create new tasks
-		return false;
-	}
-
-	public boolean initializeTaskData(TaskRepository repository, RepositoryTaskData data, UserStoryData userStory)
-			throws CoreException {
-
-		if (repository == null || data == null || userStory == null) {
+		if (!(initializationData instanceof XPlannerTaskMapping)) {
 			return false;
 		}
 
-		XPlannerRepositoryUtils.setupNewTaskAttributes(userStory, data);
+		XPlannerTaskMapping xplannerTaskMapping = (XPlannerTaskMapping) initializationData;
+
+		return initializeTaskData(repository, repositoryTaskData, xplannerTaskMapping.getUserStoryData());
+	}
+
+	public boolean initializeTaskData(TaskRepository repository,
+			org.eclipse.mylyn.tasks.core.data.TaskData repositoryTaskData, UserStoryData userStory)
+			throws CoreException {
+
+		if (repository == null || repositoryTaskData == null || userStory == null) {
+			return false;
+		}
+
+		XPlannerRepositoryUtils.setupNewTaskAttributes(userStory, repositoryTaskData);
 		return true;
 	}
 
 	@Override
-	public AbstractAttributeFactory getAttributeFactory(String repositoryUrl, String repositoryKind, String taskKind) {
+	public TaskAttributeMapper getAttributeMapper(TaskRepository taskRepository) {
+		if (attributeFactory == null) {
+			attributeFactory = new XPlannerAttributeMapper(taskRepository);
+		}
+
 		return attributeFactory;
 	}
 
 	@Override
-	public AbstractAttributeFactory getAttributeFactory(RepositoryTaskData taskData) {
-		return getAttributeFactory(taskData.getRepositoryUrl(), taskData.getConnectorKind(), taskData.getTaskKind());
-	}
+	public RepositoryResponse postTaskData(TaskRepository repository,
+			org.eclipse.mylyn.tasks.core.data.TaskData repositoryTaskData, Set<TaskAttribute> changedAttributes,
+			IProgressMonitor monitor) throws CoreException {
 
-	@Override
-	public String postTaskData(TaskRepository repository, RepositoryTaskData taskData, IProgressMonitor monitor)
-			throws CoreException {
-		String resultId = null;
+		RepositoryResponse result = new RepositoryResponse();
 
 		try {
-			resultId = postChangesToRepository(taskData);
+			result = postChangesToRepository(repository, repositoryTaskData);
 		} catch (Exception e) {
 			throw new CoreException(new Status(IStatus.ERROR, XPlannerCorePlugin.ID, IStatus.ERROR,
 					Messages.XPlannerOfflineTaskHandler_CANNOT_POST_DATA_TO_SERVER, null));
 		}
 
-		return resultId;
+		return result;
 	}
 
-	private String postChangesToRepository(RepositoryTaskData repositoryTaskData) throws CoreException {
+	private RepositoryResponse postChangesToRepository(TaskRepository repository,
+			org.eclipse.mylyn.tasks.core.data.TaskData repositoryTaskData) throws CoreException {
+		RepositoryResponse response = new RepositoryResponse();
+
 		String error = null;
 		String newTaskId = null;
-
-		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(repositoryTaskData.getConnectorKind(),
-				repositoryTaskData.getRepositoryUrl());
 
 		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 		if (client != null) {
@@ -125,10 +133,9 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 				}
 
 				if (taskData != null) {
-					taskData.setName(repositoryTaskData.getSummary());
+					taskData.setName(XPlannerRepositoryUtils.getName(repositoryTaskData));
 					taskData.setDescription(XPlannerRepositoryUtils.getDescription(repositoryTaskData));
-					taskData.setEstimatedHours(Double.valueOf(repositoryTaskData.getAttribute(
-							XPlannerAttributeFactory.ATTRIBUTE_EST_HOURS_NAME).getValue()));
+					taskData.setEstimatedHours(Double.valueOf(XPlannerRepositoryUtils.getEstimatedHours(repositoryTaskData)));
 					taskData.setCompleted(XPlannerRepositoryUtils.isCompleted(repositoryTaskData));
 					// assign to current person
 					int personId = client.getCurrentPersonId();
@@ -137,8 +144,7 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 					}
 					// set actual time
 					Double currentActualHours = taskData.getActualHours();
-					Double changedActualHours = Double.valueOf(repositoryTaskData.getAttribute(
-							XPlannerAttributeFactory.ATTRIBUTE_ACT_HOURS_NAME).getValue());
+					Double changedActualHours = Double.valueOf(XPlannerRepositoryUtils.getActualHours(repositoryTaskData));
 					if (currentActualHours < changedActualHours) {
 						TimeEntryData newTimeEntry = new TimeEntryData();
 						newTimeEntry.setDuration(changedActualHours - currentActualHours);
@@ -150,23 +156,26 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 
 					XPlannerRepositoryUtils.ensureTaskDataValid(taskData);
 					client.update(taskData);
+
+					response = new RepositoryResponse(repositoryTaskData.isNew() ? ResponseKind.TASK_CREATED
+							: ResponseKind.TASK_UPDATED, "" + taskData.getId());
 				} else {
 					// otherwise check if a user story exists
 					UserStoryData userStory = client.getUserStory(Integer.valueOf(repositoryTaskData.getTaskId())
 							.intValue());
 					if (userStory != null) {
-						userStory.setName(repositoryTaskData.getSummary());
+						userStory.setName(XPlannerRepositoryUtils.getName(repositoryTaskData));
 						userStory.setDescription(XPlannerRepositoryUtils.getDescription(repositoryTaskData));
-						userStory.setActualHours(Double.valueOf(repositoryTaskData.getAttribute(
-								XPlannerAttributeFactory.ATTRIBUTE_ACT_HOURS_NAME).getValue()));
+						userStory.setActualHours(XPlannerRepositoryUtils.getActualHours(repositoryTaskData));
 						client.update(userStory);
+						response = new RepositoryResponse(ResponseKind.TASK_UPDATED, repositoryTaskData.getTaskId());
 					}
 				}
 			} catch (NumberFormatException e) {
-				XPlannerMylynUIPlugin.log(e.getCause(), "", false); //$NON-NLS-1$
+				XPlannerMylynUIPlugin.log(e.getCause(), "", false);
 				error = e.getMessage();
 			} catch (RemoteException e) {
-				XPlannerMylynUIPlugin.log(e.getCause(), "", false); //$NON-NLS-1$
+				XPlannerMylynUIPlugin.log(e.getCause(), "", false);
 				error = e.getMessage();
 			}
 		}
@@ -176,23 +185,13 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 			error = newTaskId;
 		}
 
-		return error;
+		return response;
 	}
 
-	@Override
-	public RepositoryTaskData getTaskData(TaskRepository repository, String taskId, IProgressMonitor monitor)
-			throws CoreException {
+	public boolean initializeSubTaskData(TaskRepository repository, TaskData taskData, TaskData parentTaskData,
+			IProgressMonitor monitor) throws CoreException {
 
-		return XPlannerRepositoryUtils.createRepositoryTaskData(repository, taskId);
-	}
-
-	@Override
-	public Set<String> getSubTaskIds(RepositoryTaskData taskData) {
-		Set<String> subIds = new HashSet<String>();
-		RepositoryTaskAttribute attribute = taskData.getAttribute(XPlannerAttributeFactory.Attribute.SUBTASK_IDS.getCommonAttributeKey());
-		if (attribute != null) {
-			subIds.addAll(attribute.getValues());
-		}
-		return subIds;
+		// currently not supported, but should be in future
+		return false;
 	}
 }

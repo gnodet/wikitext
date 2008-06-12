@@ -13,20 +13,31 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractAttributeFactory;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskAttribute;
+import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
+import org.eclipse.mylyn.tasks.core.data.TaskAttributeMapper;
+import org.eclipse.mylyn.xplanner.wsdl.soap.domain.DomainData;
+import org.xplanner.soap.IterationData;
+import org.xplanner.soap.UserStoryData;
 
 /**
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
-public class XPlannerAttributeFactory extends AbstractAttributeFactory {
+public class XPlannerAttributeMapper extends TaskAttributeMapper {
+
+	public XPlannerAttributeMapper(TaskRepository repository) {
+		super(repository);
+	}
 
 	private static final long serialVersionUID = -4685044081450189855L;
 
 	private static final String TIME_DATE_FORMAT_STRING = "yyyy-MM-dd HH:mm:ss";// "EEE //$NON-NLS-1$
 
 	public static final int INVALID_ID = -1;
+
+	public static final String INVALID_ID_STRING = String.valueOf(INVALID_ID);
 
 	public static final DateFormat DATE_FORMAT = DateFormat.getDateInstance(DateFormat.MEDIUM);
 
@@ -65,15 +76,15 @@ public class XPlannerAttributeFactory extends AbstractAttributeFactory {
 	private static Map<String, Attribute> commonKeyToAttributesMap = new HashMap<String, Attribute>();
 
 	public enum Attribute {
-		DESCRIPTION("Description:", RepositoryTaskAttribute.DESCRIPTION, false), //$NON-NLS-1$
-		OWNER("Acceptor:", RepositoryTaskAttribute.USER_ASSIGNED, true), //$NON-NLS-1$
-		PRIORITY("Priority:", RepositoryTaskAttribute.PRIORITY, true), //$NON-NLS-1$
-		STATUS("Status:", RepositoryTaskAttribute.STATUS, true), //$NON-NLS-1$
-		NAME("Name:", RepositoryTaskAttribute.SUMMARY, false), //$NON-NLS-1$
-		CREATED_ON("Created:", RepositoryTaskAttribute.DATE_CREATION, true), //$NON-NLS-1$
-		MODIFIED_TIME("Last Update:", RepositoryTaskAttribute.DATE_MODIFIED, true), //$NON-NLS-1$
-		SUBTASK_IDS("Subtask ids:", XPlannerAttributeFactory.ATTRIBUTE_SUBTASK_IDS, true), SUBTASK_KEYS("Sub-Tasks:",
-				XPlannerAttributeFactory.ATTRIBUTE_SUBTASK_KEYS, true),
+		DESCRIPTION("Description:", TaskAttribute.DESCRIPTION, false), //$NON-NLS-1$
+		OWNER("Acceptor:", TaskAttribute.USER_ASSIGNED, true), //$NON-NLS-1$
+		PRIORITY("Priority:", TaskAttribute.PRIORITY, true), //$NON-NLS-1$
+		STATUS("Status:", TaskAttribute.STATUS, true), //$NON-NLS-1$
+		NAME("Name:", TaskAttribute.SUMMARY, false), //$NON-NLS-1$
+		CREATED_ON("Created:", TaskAttribute.DATE_CREATION, true), //$NON-NLS-1$
+		MODIFIED_TIME("Last Update:", TaskAttribute.DATE_MODIFICATION, true), //$NON-NLS-1$
+		SUBTASK_IDS("Subtask ids:", XPlannerAttributeMapper.ATTRIBUTE_SUBTASK_IDS, true), SUBTASK_KEYS("Sub-Tasks:",
+				XPlannerAttributeMapper.ATTRIBUTE_SUBTASK_KEYS, true),
 
 		;
 
@@ -114,44 +125,89 @@ public class XPlannerAttributeFactory extends AbstractAttributeFactory {
 		Attribute.values();
 	}
 
+	public enum XPlannerTaskKind {
+		ITERATION, USER_STORY, TASK;
+
+		@Override
+		public String toString() {
+			switch (this) {
+			case ITERATION:
+				return "Iteration"; //$NON-NLS-1$
+			case USER_STORY:
+				return "User Story"; //$NON-NLS-1$
+			case TASK:
+				return "Task"; //$NON-NLS-1$
+			default:
+				return ""; //$NON-NLS-1$
+			}
+		}
+
+		public static XPlannerTaskKind fromString(String kindValue) {
+			XPlannerTaskKind kind = TASK;
+
+			if (kindValue.equals(TASK.toString())) {
+				kind = TASK;
+			} else if (kindValue.equals(USER_STORY.toString())) {
+				kind = USER_STORY;
+			} else if (kindValue.equals(ITERATION.toString())) {
+				kind = ITERATION;
+			}
+
+			return kind;
+		}
+
+	}
+
+	public static void setKind(ITask mylynTask, DomainData data) {
+		String tempKind = XPlannerTaskKind.TASK.toString();
+
+		if (data instanceof IterationData) {
+			tempKind = XPlannerTaskKind.ITERATION.toString();
+		} else if (data instanceof UserStoryData) {
+			tempKind = XPlannerTaskKind.USER_STORY.toString();
+		}
+
+		mylynTask.setTaskKind(tempKind);
+	}
+
 	@Override
-	public String getName(String key) {
+	public String mapToRepositoryKey(TaskAttribute parent, String key) {
 		Attribute attribute = commonKeyToAttributesMap.get(key);
-		return (attribute != null) ? attribute.getDisplayName() : key;
+		if (attribute != null) {
+			return attribute.getCommonAttributeKey();
+		}
+
+		return super.mapToRepositoryKey(parent, key);
 	}
 
 	@Override
-	public String mapCommonAttributeKey(String key) {
-		return key;
+	public Date getDateValue(TaskAttribute attribute) {
+		if (attribute == null) {
+			return null;
+		}
+		String dateString = attribute.getValue();
+		Date parsedDate = getDateForAttributeType(attribute, dateString);
+		if (parsedDate == null) {
+			parsedDate = super.getDateValue(attribute);
+		}
+		return parsedDate;
 	}
 
-	@Override
-	public boolean isHidden(String key) {
-		return false;
-	}
-
-	@Override
-	public boolean isReadOnly(String key) {
-		Attribute attribute = commonKeyToAttributesMap.get(key);
-		return (attribute != null) ? attribute.isReadOnly() : false;
-	}
-
-	@Override
-	public Date getDateForAttributeType(String attributeKey, String dateString) {
+	public Date getDateForAttributeType(TaskAttribute attribute, String dateString) {
 		if (dateString == null || dateString.equals("")) { //$NON-NLS-1$
 			return null;
 		}
 		Date date = null;
 
 		try {
-			String mappedKey = mapCommonAttributeKey(attributeKey);
-			if (mappedKey.equals(XPlannerAttributeFactory.ATTRIBUTE_ACT_HOURS_NAME)
-					|| mappedKey.equals(XPlannerAttributeFactory.ATTRIBUTE_EST_HOURS_NAME)
-					|| mappedKey.equals(XPlannerAttributeFactory.ATTRIBUTE_REMAINING_HOURS_NAME)
-					|| mappedKey.equals(RepositoryTaskAttribute.DATE_CREATION)) {
+			String mappedKey = mapToRepositoryKey(attribute, attribute.getId());
+			if (mappedKey.equals(XPlannerAttributeMapper.ATTRIBUTE_ACT_HOURS_NAME)
+					|| mappedKey.equals(XPlannerAttributeMapper.ATTRIBUTE_EST_HOURS_NAME)
+					|| mappedKey.equals(XPlannerAttributeMapper.ATTRIBUTE_REMAINING_HOURS_NAME)
+					|| mappedKey.equals(TaskAttribute.DATE_CREATION)) {
 
 				date = DATE_FORMAT.parse(dateString);
-			} else if (mappedKey.equals(RepositoryTaskAttribute.DATE_MODIFIED)) {
+			} else if (mappedKey.equals(TaskAttribute.DATE_MODIFICATION)) {
 				date = TIME_DATE_FORMAT.parse(dateString);
 			}
 		} catch (Exception e) {
@@ -160,5 +216,4 @@ public class XPlannerAttributeFactory extends AbstractAttributeFactory {
 
 		return date;
 	}
-
 }

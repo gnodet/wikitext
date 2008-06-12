@@ -27,19 +27,20 @@ import org.eclipse.mylyn.commons.net.AbstractWebLocation;
 import org.eclipse.mylyn.commons.net.AuthenticationCredentials;
 import org.eclipse.mylyn.commons.net.AuthenticationType;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractAttributeFactory;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskAttribute;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.TaskRepositoryLocationFactory;
+import org.eclipse.mylyn.tasks.core.ITask.PriorityLevel;
+import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
+import org.eclipse.mylyn.tasks.core.data.TaskAttributeMapper;
+import org.eclipse.mylyn.tasks.core.data.TaskData;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.xplanner.soap.IterationData;
 import org.xplanner.soap.PersonData;
 import org.xplanner.soap.ProjectData;
-import org.xplanner.soap.TaskData;
 import org.xplanner.soap.UserStoryData;
 
 /**
@@ -59,21 +60,25 @@ public class XPlannerRepositoryUtils {
 
 	}
 
-	public static RepositoryTaskData createRepositoryTaskData(TaskRepository repository, XPlannerTask xplannerTask,
-			XPlannerClient client) throws CoreException {
-		RepositoryTaskData repositoryTaskData = null;
+	public static org.eclipse.mylyn.tasks.core.data.TaskData createRepositoryTaskData(TaskRepository repository,
+			ITask xplannerTask, XPlannerClient client) throws CoreException {
+		TaskData repositoryTaskData = null;
 
 		try {
 			Date completionDate = null;
-			if (XPlannerTask.Kind.TASK.toString().equals(xplannerTask.getTaskKind())) {
-				TaskData taskData = client.getTask(Integer.valueOf(xplannerTask.getTaskId()).intValue());
+			if (XPlannerAttributeMapper.XPlannerTaskKind.TASK.toString().equals(xplannerTask.getTaskKind())
+					|| AbstractTask.DEFAULT_TASK_KIND.equals(xplannerTask.getTaskKind())) {
+
+				org.xplanner.soap.TaskData taskData = client.getTask(Integer.valueOf(xplannerTask.getTaskId())
+						.intValue());
 				if (taskData.isCompleted()) {
 					completionDate = taskData.getLastUpdateTime().getTime();
 				}
 				repositoryTaskData = XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(
 						repository.getRepositoryUrl(), taskData, xplannerTask.getTaskId());
 				xplannerTask.setCompletionDate(completionDate);
-			} else if (XPlannerTask.Kind.USER_STORY.toString().equals(xplannerTask.getTaskKind())) {
+			} else if (XPlannerAttributeMapper.XPlannerTaskKind.USER_STORY.toString()
+					.equals(xplannerTask.getTaskKind())) {
 				UserStoryData userStory = client.getUserStory(Integer.valueOf(xplannerTask.getTaskId()).intValue());
 				if (userStory.isCompleted()) {
 					completionDate = userStory.getLastUpdateTime().getTime();
@@ -91,15 +96,15 @@ public class XPlannerRepositoryUtils {
 		return repositoryTaskData;
 	}
 
-	public static RepositoryTaskData createRepositoryTaskData(TaskRepository repository, String taskId)
-			throws CoreException {
+	public static org.eclipse.mylyn.tasks.core.data.TaskData createRepositoryTaskData(TaskRepository repository,
+			String taskId) throws CoreException {
 
-		RepositoryTaskData repositoryTaskData = null;
+		TaskData repositoryTaskData = null;
 
 		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 
 		try {
-			TaskData taskData = client.getTask(Integer.valueOf(taskId).intValue());
+			org.xplanner.soap.TaskData taskData = client.getTask(Integer.valueOf(taskId).intValue());
 			if (taskData != null) {
 				repositoryTaskData = XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(
 						repository.getRepositoryUrl(), taskData, taskId);
@@ -119,176 +124,200 @@ public class XPlannerRepositoryUtils {
 		return repositoryTaskData;
 	}
 
-	public static RepositoryTaskData getXPlannerRepositoryTaskData(String repositoryUrl, TaskData taskData, String id)
-			throws IOException, MalformedURLException, LoginException, GeneralSecurityException, CoreException {
+	public static TaskData getXPlannerRepositoryTaskData(String repositoryUrl, org.xplanner.soap.TaskData taskData,
+			String id) throws IOException, MalformedURLException, LoginException, GeneralSecurityException,
+			CoreException {
 
-		RepositoryTaskData repositoryTaskData = new RepositoryTaskData(new XPlannerAttributeFactory(),
-				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryUrl, id, XPlannerTask.Kind.TASK.toString());
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(XPlannerCorePlugin.CONNECTOR_KIND,
+				repositoryUrl);
+		TaskData repositoryTaskData = new TaskData(new XPlannerAttributeMapper(repository),
+				XPlannerCorePlugin.CONNECTOR_KIND, repositoryUrl, id);
 
 		setupTaskAttributes(taskData, repositoryTaskData);
 
 		return repositoryTaskData;
 	}
 
-	public static RepositoryTaskData getXPlannerRepositoryTaskData(String repositoryUrl, UserStoryData userStory,
-			String id) throws IOException, MalformedURLException, LoginException, GeneralSecurityException,
-			CoreException {
+	public static TaskData getXPlannerRepositoryTaskData(String repositoryUrl, UserStoryData userStory, String id)
+			throws IOException, MalformedURLException, LoginException, GeneralSecurityException, CoreException {
 
-		RepositoryTaskData repositoryTaskData = new RepositoryTaskData(new XPlannerAttributeFactory(),
-				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryUrl, id, XPlannerTask.Kind.USER_STORY.toString());
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(XPlannerCorePlugin.CONNECTOR_KIND,
+				repositoryUrl);
+		TaskData repositoryTaskData = new TaskData(new XPlannerAttributeMapper(repository),
+				XPlannerCorePlugin.CONNECTOR_KIND, repositoryUrl, id);
 		setupUserStoryAttributes(userStory, repositoryTaskData);
 
 		return repositoryTaskData;
 	}
 
-	public static void setupTaskAttributes(TaskData taskData, RepositoryTaskData repositoryTaskData)
-			throws CoreException {
+	public static void setupTaskAttributes(org.xplanner.soap.TaskData taskData,
+			org.eclipse.mylyn.tasks.core.data.TaskData repositoryTaskData) throws CoreException {
 
-		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(XPlannerMylynUIPlugin.REPOSITORY_KIND,
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(XPlannerCorePlugin.CONNECTOR_KIND,
 				repositoryTaskData.getRepositoryUrl());
 		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 
+		// kind
+		setAttributeValue(repositoryTaskData, TaskAttribute.TASK_KIND,
+				XPlannerAttributeMapper.XPlannerTaskKind.TASK.toString());
+
 		// description
-		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.DESCRIPTION, taskData.getDescription());
+		setAttributeValue(repositoryTaskData, TaskAttribute.DESCRIPTION, taskData.getDescription());
 
 		// priority
-		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.PRIORITY, getPriorityFromXPlannerObject(taskData,
-				client));
+		setAttributeValue(repositoryTaskData, TaskAttribute.PRIORITY, getPriorityFromXPlannerObject(taskData, client));
 
 		// status
-		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.STATUS, taskData.getDispositionName());
+		setAttributeValue(repositoryTaskData, TaskAttribute.STATUS, taskData.getDispositionName());
 
 		// summary
-		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.SUMMARY, taskData.getName());
+		setAttributeValue(repositoryTaskData, TaskAttribute.SUMMARY, taskData.getName());
 
 		// assigned to 
-		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.USER_ASSIGNED, getPersonName(
-				taskData.getAcceptorId(), client));
+		setAttributeValue(repositoryTaskData, TaskAttribute.USER_ASSIGNED, getPersonName(taskData.getAcceptorId(),
+				client));
 
 		// createdDate 
 		if (taskData.getCreatedDate() != null) {
 			Date createdDate = taskData.getCreatedDate().getTime();
-			repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.DATE_CREATION,
-					XPlannerAttributeFactory.DATE_FORMAT.format(createdDate));
+			setAttributeValue(repositoryTaskData, TaskAttribute.DATE_CREATION,
+					XPlannerAttributeMapper.DATE_FORMAT.format(createdDate));
 		}
 
 		// last updated
 		Date lastUpdatedDate = taskData.getLastUpdateTime().getTime();
 		if (lastUpdatedDate != null) {
-			repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.DATE_MODIFIED,
-					XPlannerAttributeFactory.TIME_DATE_FORMAT.format(lastUpdatedDate));
+			setAttributeValue(repositoryTaskData, TaskAttribute.DATE_MODIFICATION,
+					XPlannerAttributeMapper.TIME_DATE_FORMAT.format(lastUpdatedDate));
 		}
 
 		// est time
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_EST_HOURS_NAME,
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_EST_HOURS_NAME,
 				"" + taskData.getEstimatedHours()); //$NON-NLS-1$
 
 		// act time
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ACT_HOURS_NAME,
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ACT_HOURS_NAME,
 				"" + taskData.getActualHours()); //$NON-NLS-1$
 
-		// act time
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_REMAINING_HOURS_NAME,
+		// remaining time
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_REMAINING_HOURS_NAME,
 				"" + taskData.getRemainingHours()); //$NON-NLS-1$
 
 		// est original hours
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ESTIMATED_ORIGINAL_HOURS_NAME,
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ESTIMATED_ORIGINAL_HOURS_NAME,
 				"" + taskData.getEstimatedOriginalHours()); //$NON-NLS-1$
 
 		// est adjusted estimated hours
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ADJUSTED_ESTIMATED_HOURS_NAME,
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ADJUSTED_ESTIMATED_HOURS_NAME,
 				"" + taskData.getAdjustedEstimatedHours()); //$NON-NLS-1$
 
 		// project name
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_PROJECT_NAME, getProjectName(taskData,
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_PROJECT_NAME, getProjectName(taskData,
 				client));
 
 		// iteration name
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ITERATION_NAME, getIterationName(
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ITERATION_NAME, getIterationName(
 				taskData, client));
 
 		// user story name
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_USER_STORY_NAME, getUserStoryName(
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_USER_STORY_NAME, getUserStoryName(
 				taskData, client));
 
 		// completed
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_TASK_COMPLETED,
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_TASK_COMPLETED,
 				taskData.isCompleted() ? "1" : "0"); //$NON-NLS-1$//$NON-NLS-2$
+
+		// completion date
+		if (taskData.isCompleted()) {
+			Date completionDate = taskData.getLastUpdateTime().getTime();
+			if (completionDate != null) {
+				setAttributeValue(repositoryTaskData, TaskAttribute.DATE_COMPLETION,
+						XPlannerAttributeMapper.TIME_DATE_FORMAT.format(lastUpdatedDate));
+			}
+		}
+
 	}
 
-	public static void setupNewTaskAttributes(UserStoryData userStoryData, RepositoryTaskData repositoryTaskData)
+	public static void setupNewTaskAttributes(UserStoryData userStoryData, TaskData repositoryTaskData)
 			throws CoreException {
 
-		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(XPlannerMylynUIPlugin.REPOSITORY_KIND,
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(XPlannerCorePlugin.CONNECTOR_KIND,
 				repositoryTaskData.getRepositoryUrl());
 		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 
+		// kind
+		setAttributeValue(repositoryTaskData, TaskAttribute.TASK_KIND,
+				XPlannerAttributeMapper.XPlannerTaskKind.TASK.toString());
+
+		// kind
+		setAttributeValue(repositoryTaskData, TaskAttribute.SUMMARY, "");
+
 		// priority
-		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.PRIORITY, getPriorityFromXPlannerObject(
-				userStoryData, client));
+		setAttributeValue(repositoryTaskData, TaskAttribute.PRIORITY, getPriorityFromXPlannerObject(userStoryData,
+				client));
 
 		// status
-		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.STATUS, userStoryData.getDispositionName());
+		setAttributeValue(repositoryTaskData, TaskAttribute.STATUS, userStoryData.getDispositionName());
 
 		// assigned to 
-		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.USER_ASSIGNED, getPersonName(
-				userStoryData.getTrackerId(), client));
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ASSIGNED_ID, ""
+		setAttributeValue(repositoryTaskData, TaskAttribute.USER_ASSIGNED, getPersonName(userStoryData.getTrackerId(),
+				client));
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ASSIGNED_ID, ""
 				+ userStoryData.getTrackerId());
 
 		// project info
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_PROJECT_NAME, getProjectName(
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_PROJECT_NAME, getProjectName(
 				userStoryData, client));
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_PROJECT_ID, ""
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_PROJECT_ID, ""
 				+ getProjectId(userStoryData, client));
 
 		// iteration info
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ITERATION_NAME, getIterationName(
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ITERATION_NAME, getIterationName(
 				userStoryData, client));
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ITERATION_ID, ""
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ITERATION_ID, ""
 				+ getIterationId(userStoryData, client));
 
 		// user story info
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_USER_STORY_NAME,
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_USER_STORY_NAME,
 				userStoryData.getName());
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_USER_STORY_ID, ""
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_USER_STORY_ID, ""
 				+ userStoryData.getId());
 
 		// completed
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_TASK_COMPLETED, "0");
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_TASK_COMPLETED, "0");
 
 		// est time
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_EST_HOURS_NAME, "0.0"); //$NON-NLS-1$
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_EST_HOURS_NAME, "0.0"); //$NON-NLS-1$
 
 		// act time
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ACT_HOURS_NAME, "0.0"); //$NON-NLS-1$
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ACT_HOURS_NAME, "0.0");
 
 		// est original hours
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ESTIMATED_ORIGINAL_HOURS_NAME, "0.0"); //$NON-NLS-1$
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ESTIMATED_ORIGINAL_HOURS_NAME, "0.0");
 
 		// act time
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_REMAINING_HOURS_NAME, "" + "0.0"); //$NON-NLS-1$
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_REMAINING_HOURS_NAME, "" + "0.0");
 
 		// est adjusted estimated hours
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ADJUSTED_ESTIMATED_HOURS_NAME, "0.0"); //$NON-NLS-1$
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ADJUSTED_ESTIMATED_HOURS_NAME, "0.0");
 	}
 
-	public static TaskData createNewTaskData(RepositoryTaskData repositoryTaskData, XPlannerClient client) {
+	public static org.xplanner.soap.TaskData createNewTaskData(TaskData repositoryTaskData, XPlannerClient client) {
 
-		TaskData taskData = new TaskData();
+		org.xplanner.soap.TaskData taskData = new org.xplanner.soap.TaskData();
 
 		// assigned to 
-		String assignedToId = repositoryTaskData.getAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ASSIGNED_ID);
-		taskData.setAcceptorId(assignedToId == null || assignedToId.length() == 0 ? XPlannerAttributeFactory.INVALID_ID
+		String assignedToId = getAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ASSIGNED_ID);
+		taskData.setAcceptorId(assignedToId == null || assignedToId.length() == 0 ? XPlannerAttributeMapper.INVALID_ID
 				: Integer.valueOf(assignedToId).intValue());
 
 		// user story info
-		String userStoryId = repositoryTaskData.getAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_USER_STORY_ID);
-		taskData.setStoryId(userStoryId == null || userStoryId.length() == 0 ? XPlannerAttributeFactory.INVALID_ID
+		String userStoryId = getAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_USER_STORY_ID);
+		taskData.setStoryId(userStoryId == null || userStoryId.length() == 0 ? XPlannerAttributeMapper.INVALID_ID
 				: Integer.valueOf(userStoryId).intValue());
 
 		// completed
-		String completed = repositoryTaskData.getAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_TASK_COMPLETED);
+		String completed = getAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_TASK_COMPLETED);
 		taskData.setCompleted(completed != null && !("0".equals(completed)));
 
 		// disposition -- some servers ok without this value in new tasks, but some not, so for safety...
@@ -300,8 +329,8 @@ public class XPlannerRepositoryUtils {
 		return taskData;
 	}
 
-	// Sanity check to make sure taskdata has minimum settings that will avoid corrupting parent story
-	public static void ensureTaskDataValid(TaskData taskData) {
+	// Sanity check to make sure TaskData has minimum settings that will avoid corrupting parent story
+	public static void ensureTaskDataValid(org.xplanner.soap.TaskData taskData) {
 		if (taskData != null) { // more sanity, shouldn't happen
 			if (taskData.getDispositionName() == null || taskData.getDispositionName().length() == 0) {
 				taskData.setDispositionName(DISPOSITION_PLANNED);
@@ -313,78 +342,81 @@ public class XPlannerRepositoryUtils {
 		}
 	}
 
-	public static void setupUserStoryAttributes(UserStoryData userStory, RepositoryTaskData repositoryTaskData)
+	public static void setupUserStoryAttributes(UserStoryData userStory, TaskData repositoryTaskData)
 			throws CoreException {
 
-		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(XPlannerMylynUIPlugin.REPOSITORY_KIND,
+		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(XPlannerCorePlugin.CONNECTOR_KIND,
 				repositoryTaskData.getRepositoryUrl());
 		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 
+		// kind
+		setAttributeValue(repositoryTaskData, TaskAttribute.TASK_KIND,
+				XPlannerAttributeMapper.XPlannerTaskKind.USER_STORY.toString());
+
 		// description
-		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.DESCRIPTION, userStory.getDescription());
+		setAttributeValue(repositoryTaskData, TaskAttribute.DESCRIPTION, userStory.getDescription());
 
 		// priority
-		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.PRIORITY, getPriorityFromXPlannerObject(userStory,
-				client));
+		setAttributeValue(repositoryTaskData, TaskAttribute.PRIORITY, getPriorityFromXPlannerObject(userStory, client));
 
 		// summary
-		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.SUMMARY, userStory.getName());
+		setAttributeValue(repositoryTaskData, TaskAttribute.SUMMARY, userStory.getName());
 
 		// status
-		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.STATUS, userStory.getDispositionName());
+		setAttributeValue(repositoryTaskData, TaskAttribute.STATUS, userStory.getDispositionName());
 
 		// assigned to 
-		repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.USER_ASSIGNED, getPersonName(
-				userStory.getTrackerId(), client));
+		setAttributeValue(repositoryTaskData, TaskAttribute.USER_ASSIGNED, getPersonName(userStory.getTrackerId(),
+				client));
 
 		// createdDate -- user story doesn't have created date
 
 		// last updated
 		Date lastUpdatedDate = userStory.getLastUpdateTime().getTime();
 		if (lastUpdatedDate != null) {
-			repositoryTaskData.setAttributeValue(RepositoryTaskAttribute.DATE_MODIFIED,
-					XPlannerAttributeFactory.TIME_DATE_FORMAT.format(lastUpdatedDate));
+			setAttributeValue(repositoryTaskData, TaskAttribute.DATE_MODIFICATION,
+					XPlannerAttributeMapper.TIME_DATE_FORMAT.format(lastUpdatedDate));
 		}
 
 		// est time
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_EST_HOURS_NAME,
-				"" + userStory.getEstimatedHours()); //$NON-NLS-1$
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_EST_HOURS_NAME, ""
+				+ userStory.getEstimatedHours());
 
 		// act time
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ACT_HOURS_NAME,
-				"" + userStory.getActualHours()); //$NON-NLS-1$
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ACT_HOURS_NAME, ""
+				+ userStory.getActualHours());
 
 		// est original hours
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ESTIMATED_ORIGINAL_HOURS_NAME,
-				"" + userStory.getEstimatedOriginalHours()); //$NON-NLS-1$
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ESTIMATED_ORIGINAL_HOURS_NAME, ""
+				+ userStory.getEstimatedOriginalHours());
 
 		// act time
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_REMAINING_HOURS_NAME,
-				"" + userStory.getRemainingHours()); //$NON-NLS-1$
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_REMAINING_HOURS_NAME, ""
+				+ userStory.getRemainingHours());
 
 		// est adjusted estimated hours
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ADJUSTED_ESTIMATED_HOURS_NAME,
-				"" + userStory.getAdjustedEstimatedHours()); //$NON-NLS-1$
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ADJUSTED_ESTIMATED_HOURS_NAME, ""
+				+ userStory.getAdjustedEstimatedHours());
 
 		// project name
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_PROJECT_NAME, getProjectName(userStory,
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_PROJECT_NAME, getProjectName(userStory,
 				client));
 
 		// iteration name
-		repositoryTaskData.setAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ITERATION_NAME, getIterationName(
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ITERATION_NAME, getIterationName(
 				userStory, client));
 	}
 
-	public static String getProjectName(RepositoryTaskData repositoryTaskData) {
-		return repositoryTaskData.getAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_PROJECT_NAME);
+	public static String getProjectName(TaskData repositoryTaskData) {
+		return getAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_PROJECT_NAME);
 	}
 
-	public static String getIterationName(RepositoryTaskData repositoryTaskData) {
-		return repositoryTaskData.getAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ITERATION_NAME);
+	public static String getIterationName(TaskData repositoryTaskData) {
+		return getAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ITERATION_NAME);
 	}
 
-	public static String getUserStoryName(RepositoryTaskData repositoryTaskData) {
-		return repositoryTaskData.getAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_USER_STORY_NAME);
+	public static String getUserStoryName(TaskData repositoryTaskData) {
+		return getAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_USER_STORY_NAME);
 	}
 
 	public static String getPersonName(int personId, XPlannerClient client) {
@@ -402,45 +434,73 @@ public class XPlannerRepositoryUtils {
 		return personName;
 	}
 
-	public static double getActualHours(RepositoryTaskData repositoryTaskData) {
-		String hours = repositoryTaskData.getAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ACT_HOURS_NAME);
+	public static void setAttributeValue(TaskData repositoryTaskData, String attributeId, String value) {
+		TaskAttribute attribute = repositoryTaskData.getRoot().getMappedAttribute(attributeId);
+
+		if (attribute == null) {
+			attribute = repositoryTaskData.getRoot().createMappedAttribute(attributeId);
+			attribute.getMetaData().defaults();
+			attribute.getMetaData().setReadOnly(false);
+		}
+
+		if (attribute != null) {
+			repositoryTaskData.getAttributeMapper().setValue(attribute, value == null ? "" : value);
+		}
+	}
+
+	public static String getAttributeValue(TaskData repositoryTaskData, String attributeId) {
+		String value = null;
+
+		TaskAttribute attribute = repositoryTaskData.getRoot().getMappedAttribute(attributeId);
+
+		if (attribute != null) {
+			value = repositoryTaskData.getAttributeMapper().getValue(attribute);
+		}
+
+		return value;
+	}
+
+	public static double getActualHours(TaskData repositoryTaskData) {
+		String hours = getAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ACT_HOURS_NAME);
 		return Double.valueOf(hours).doubleValue();
 	}
 
-	public static double getRemainingHours(RepositoryTaskData repositoryTaskData) {
-		String hours = repositoryTaskData.getAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_REMAINING_HOURS_NAME);
+	public static double getRemainingHours(TaskData repositoryTaskData) {
+		String hours = getAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_REMAINING_HOURS_NAME);
 		return Double.valueOf(hours).doubleValue();
 	}
 
-	public static double getEstimatedHours(RepositoryTaskData repositoryTaskData) {
-		String hours = repositoryTaskData.getAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_EST_HOURS_NAME);
+	public static double getEstimatedHours(TaskData repositoryTaskData) {
+		String hours = getAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_EST_HOURS_NAME);
 		return Double.valueOf(hours).doubleValue();
 	}
 
-	public static Double getAdjustedEstimatedHours(RepositoryTaskData repositoryTaskData) {
-		String hours = repositoryTaskData.getAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ADJUSTED_ESTIMATED_HOURS_NAME);
+	public static Double getAdjustedEstimatedHours(TaskData repositoryTaskData) {
+		String hours = getAttributeValue(repositoryTaskData,
+				XPlannerAttributeMapper.ATTRIBUTE_ADJUSTED_ESTIMATED_HOURS_NAME);
 		return Double.valueOf(hours).doubleValue();
 	}
 
-	public static Double getEstimatedOriginalHours(RepositoryTaskData repositoryTaskData) {
-		String hours = repositoryTaskData.getAttributeValue(XPlannerAttributeFactory.ATTRIBUTE_ESTIMATED_ORIGINAL_HOURS_NAME);
+	public static Double getEstimatedOriginalHours(TaskData repositoryTaskData) {
+		String hours = getAttributeValue(repositoryTaskData,
+				XPlannerAttributeMapper.ATTRIBUTE_ESTIMATED_ORIGINAL_HOURS_NAME);
 		return Double.valueOf(hours).doubleValue();
 	}
 
-	public static Date getCreatedDate(RepositoryTaskData repositoryTaskData) {
+	public static Date getCreatedDate(TaskData repositoryTaskData) {
 		Date createdDate = null;
 
-		String dateString = repositoryTaskData.getAttributeValue(RepositoryTaskAttribute.DATE_CREATION);
+		String dateString = getAttributeValue(repositoryTaskData, TaskAttribute.DATE_CREATION);
 		try {
-			createdDate = XPlannerAttributeFactory.DATE_FORMAT.parse(dateString);
+			createdDate = XPlannerAttributeMapper.DATE_FORMAT.parse(dateString);
 		} catch (ParseException e) {
-			XPlannerMylynUIPlugin.log(e.getCause(), "", false); //$NON-NLS-1$
+			XPlannerMylynUIPlugin.log(e.getCause(), "", false);
 		}
 
 		return createdDate;
 	}
 
-	public static String getProjectName(TaskData taskData, XPlannerClient client) {
+	public static String getProjectName(org.xplanner.soap.TaskData taskData, XPlannerClient client) {
 		String projectName = Messages.XPlannerRepositoryUtils_NO_PROJECT_NAME;
 
 		UserStoryData userStory;
@@ -476,7 +536,7 @@ public class XPlannerRepositoryUtils {
 	}
 
 	public static int getProjectId(UserStoryData userStory, XPlannerClient client) {
-		int projectId = XPlannerAttributeFactory.INVALID_ID;
+		int projectId = XPlannerAttributeMapper.INVALID_ID;
 
 		try {
 			if (userStory != null) {
@@ -492,7 +552,7 @@ public class XPlannerRepositoryUtils {
 		return projectId;
 	}
 
-	public static String getIterationName(TaskData taskData, XPlannerClient client) {
+	public static String getIterationName(org.xplanner.soap.TaskData taskData, XPlannerClient client) {
 		String iterationName = Messages.XPlannerRepositoryUtils_NO_ITERATION_NAME;
 
 		try {
@@ -522,7 +582,7 @@ public class XPlannerRepositoryUtils {
 	}
 
 	public static int getIterationId(UserStoryData userStory, XPlannerClient client) {
-		int iterationId = XPlannerAttributeFactory.INVALID_ID;
+		int iterationId = XPlannerAttributeMapper.INVALID_ID;
 
 		try {
 			IterationData iteration = client.getIteration(userStory.getIterationId());
@@ -536,7 +596,7 @@ public class XPlannerRepositoryUtils {
 		return iterationId;
 	}
 
-	public static String getUserStoryName(TaskData taskData, XPlannerClient client) {
+	public static String getUserStoryName(org.xplanner.soap.TaskData taskData, XPlannerClient client) {
 		String userStoryName = Messages.XPlannerRepositoryUtils_NO_USER_STORY_NAME;
 
 		try {
@@ -551,17 +611,34 @@ public class XPlannerRepositoryUtils {
 		return userStoryName;
 	}
 
-	public static String getDescription(RepositoryTaskData repositoryTaskData) {
-		return repositoryTaskData.getAttributeValue(RepositoryTaskAttribute.DESCRIPTION);
+	public static String getDescription(TaskData repositoryTaskData) {
+		return getAttributeValue(repositoryTaskData, TaskAttribute.DESCRIPTION);
 	}
 
-	public static boolean isCompleted(RepositoryTaskData repositoryTaskData) {
-		return "1".equals(repositoryTaskData.getAttributeValue( //$NON-NLS-1$
-		XPlannerAttributeFactory.ATTRIBUTE_TASK_COMPLETED));
+	public static boolean isCompleted(TaskData repositoryTaskData) {
+		return "1".equals(getAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_TASK_COMPLETED));
 	}
 
-	public static String getName(RepositoryTaskData repositoryTaskData) {
-		return repositoryTaskData.getAttributeValue(RepositoryTaskAttribute.SUMMARY);
+	public static String getName(TaskData repositoryTaskData) {
+		String name = null;
+
+		TaskAttribute attribute = repositoryTaskData.getRoot().getMappedAttribute(TaskAttribute.SUMMARY);
+		if (attribute != null) {
+			name = repositoryTaskData.getAttributeMapper().getValue(attribute);
+		}
+
+		return name;
+	}
+
+	public static String getAssignedTo(TaskData repositoryTaskData) {
+		String name = null;
+
+		TaskAttribute attribute = repositoryTaskData.getRoot().getMappedAttribute(TaskAttribute.USER_ASSIGNED);
+		if (attribute != null) {
+			name = repositoryTaskData.getAttributeMapper().getValue(attribute);
+		}
+
+		return name;
 	}
 
 	public static String getPriorityFromXPlannerObject(Object xplannerObject, XPlannerClient client) {
@@ -569,8 +646,8 @@ public class XPlannerRepositoryUtils {
 		UserStoryData userStory = null;
 
 		try {
-			if (xplannerObject instanceof TaskData) {
-				userStory = client.getUserStory(((TaskData) xplannerObject).getStoryId());
+			if (xplannerObject instanceof org.xplanner.soap.TaskData) {
+				userStory = client.getUserStory(((org.xplanner.soap.TaskData) xplannerObject).getStoryId());
 			} else if (xplannerObject instanceof UserStoryData) {
 				userStory = (UserStoryData) xplannerObject;
 			}
@@ -582,7 +659,7 @@ public class XPlannerRepositoryUtils {
 			e.printStackTrace();
 		}
 
-		return priority == -1 ? "" : String.valueOf(priority); //$NON-NLS-1$
+		return priority == -1 ? "" : String.valueOf(priority);
 	}
 
 	private static HashSet<String> validatedRepositoryUrls = new HashSet<String>();
@@ -604,8 +681,8 @@ public class XPlannerRepositoryUtils {
 			return;
 		}
 
-		TaskRepository taskRepository = TasksUi.getRepositoryManager().getRepository(
-				XPlannerMylynUIPlugin.REPOSITORY_KIND, repositoryUrl);
+		TaskRepository taskRepository = TasksUi.getRepositoryManager().getRepository(XPlannerCorePlugin.CONNECTOR_KIND,
+				repositoryUrl);
 		if (taskRepository != null && !isRepositoryUrlValidated(taskRepository.getRepositoryUrl())) {
 			validateRepository(taskRepository);
 		}
@@ -615,7 +692,7 @@ public class XPlannerRepositoryUtils {
 		AuthenticationCredentials repositoryCredentials = taskRepository.getCredentials(AuthenticationType.REPOSITORY);
 		AuthenticationCredentials httpCredentials = taskRepository.getCredentials(AuthenticationType.HTTP);
 		XPlannerRepositoryConnector connector = (XPlannerRepositoryConnector) TasksUi.getRepositoryManager()
-				.getRepositoryConnector(XPlannerMylynUIPlugin.REPOSITORY_KIND);
+				.getRepositoryConnector(XPlannerCorePlugin.CONNECTOR_KIND);
 		TaskRepositoryLocationFactory locationFactory = connector.getTaskRepositoryLocationFactory();
 		AbstractWebLocation location = locationFactory.createWebLocation(taskRepository);
 
@@ -645,7 +722,7 @@ public class XPlannerRepositoryUtils {
 
 	}
 
-	public static RepositoryTaskData getNewRepositoryTaskData(TaskRepository taskRepository, UserStoryData userStoryData)
+	public static TaskData getNewRepositoryTaskData(TaskRepository taskRepository, UserStoryData userStoryData)
 			throws CoreException {
 
 		if (taskRepository == null || userStoryData == null) {
@@ -653,17 +730,44 @@ public class XPlannerRepositoryUtils {
 		}
 
 		XPlannerRepositoryConnector connector = (XPlannerRepositoryConnector) TasksUi.getRepositoryManager()
-				.getRepositoryConnector(XPlannerMylynUIPlugin.REPOSITORY_KIND);
+				.getRepositoryConnector(XPlannerCorePlugin.CONNECTOR_KIND);
 
-		XPlannerTaskDataHandler taskDataHandler = (XPlannerTaskDataHandler) connector.getLegacyTaskDataHandler();
-		AbstractAttributeFactory attributeFactory = taskDataHandler.getAttributeFactory(
-				taskRepository.getRepositoryUrl(), taskRepository.getConnectorKind(), AbstractTask.DEFAULT_TASK_KIND);
-		RepositoryTaskData taskData = new RepositoryTaskData(attributeFactory, XPlannerMylynUIPlugin.REPOSITORY_KIND,
-				taskRepository.getRepositoryUrl(), TasksUiPlugin.getDefault().getNextNewRepositoryTaskId(),
-				XPlannerTask.Kind.TASK.toString());
-		taskData.setNew(true);
-		taskDataHandler.initializeTaskData(taskRepository, taskData, userStoryData);
+		XPlannerTaskDataHandler taskDataHandler = (XPlannerTaskDataHandler) connector.getTaskDataHandler();
+		TaskAttributeMapper attributeMapper = taskDataHandler.getAttributeMapper(taskRepository);
+		TaskData repositoryTaskData = new TaskData(attributeMapper, XPlannerCorePlugin.CONNECTOR_KIND,
+				taskRepository.getRepositoryUrl(), ""); //HeB -- testing TasksUiPlugin.getDefault().getNextNewRepositoryTaskId());
+//		repositoryTaskData.setNew(true);
+		taskDataHandler.initializeTaskData(taskRepository, repositoryTaskData, userStoryData);
 
-		return taskData;
+		return repositoryTaskData;
+	}
+
+	public static PriorityLevel getPriorityLevel(String priority) {
+		PriorityLevel priorityLevel = PriorityLevel.getDefault();
+
+		int priorityValue = Integer.valueOf(priority);
+
+		switch (priorityValue) {
+		case 0:
+			priorityLevel = PriorityLevel.P1;
+			break;
+		case 1:
+			priorityLevel = PriorityLevel.P1;
+			break;
+		case 2:
+			priorityLevel = PriorityLevel.P2;
+			break;
+		case 3:
+			priorityLevel = PriorityLevel.P3;
+			break;
+		case 4:
+			priorityLevel = PriorityLevel.P4;
+			break;
+		case 5:
+			priorityLevel = PriorityLevel.P5;
+			break;
+		}
+
+		return priorityLevel;
 	}
 }
