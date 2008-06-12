@@ -8,150 +8,133 @@
 package org.eclipse.mylyn.xplanner.ui.editor;
 
 import java.text.MessageFormat;
+import java.util.Iterator;
+import java.util.Set;
 
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.layout.GridDataFactory;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskAttribute;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.internal.tasks.ui.deprecated.AbstractRepositoryTaskEditor;
-import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
-import org.eclipse.mylyn.tasks.core.ITask;
-import org.eclipse.mylyn.tasks.core.ITaskActivityListener;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.mylyn.internal.tasks.ui.editors.TaskEditorActionPart;
+import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
+import org.eclipse.mylyn.tasks.core.data.TaskData;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
+import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskEditorPage;
+import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskEditorPart;
+import org.eclipse.mylyn.tasks.ui.editors.TaskEditor;
+import org.eclipse.mylyn.tasks.ui.editors.TaskEditorPartDescriptor;
+import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
 import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUtils;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorSite;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.forms.editor.FormEditor;
-import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.ImageHyperlink;
-import org.eclipse.ui.forms.widgets.Section;
 
 /**
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
-@SuppressWarnings("restriction")
 // for TasksUi and TaskActivityManager
-public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor implements XPlannerEditorAttributeProvider,
-		ITaskActivityListener, SelectionListener {
-
+public class XPlannerTaskEditor extends AbstractTaskEditorPage implements XPlannerEditorAttributeProvider {
 	private XPlannerTaskEditorExtraControls extraControls;
 
-	private Button useTimeTrackingButton;
+	private XPlannerTimeTrackingEditorPart timeTrackingControls;
 
-	private Button addToCurrentTimeButton;
+	private static final String ID_PART_XPLANNER_TIME_TRACKING = "org.eclipse.mylyn.xplanner.ui.editors.part.timetracking";
 
-	private Button replaceCurrentTimeButton;
+	private boolean newTask = false;
 
-	private Button roundToHalfHourButton;
+	public XPlannerTaskEditor(TaskEditor editor) {
+		this(editor, false);
+	}
 
-	private boolean useAutoTimeTracking;
-
-	private boolean roundToHalfHour;
-
-	private boolean addToCurrentTime;
-
-	private Section timeTrackingSection;
-
-	public XPlannerTaskEditor(FormEditor editor) {
-		super(editor);
+	public XPlannerTaskEditor(TaskEditor editor, boolean newTask) {
+		super(editor, XPlannerCorePlugin.CONNECTOR_KIND);
+		this.newTask = newTask;
 	}
 
 	@Override
-	public void init(IEditorSite site, IEditorInput input) {
-		super.init(site, input);
-		updateEditorTitle();
-		extraControls = new XPlannerTaskEditorExtraControls(this, getRepositoryTaskData());
-		setExpandAttributeSection(true);
-	}
+	protected Set<TaskEditorPartDescriptor> createPartDescriptors() {
+		Set<TaskEditorPartDescriptor> descriptors = super.createPartDescriptors();
 
-	@Override
-	protected void addRadioButtons(Composite buttonComposite) {
-		createTimeTrackingPanel(buttonComposite);
-	}
+		// remove unnecessary default editor parts
+		for (Iterator<TaskEditorPartDescriptor> iterator = descriptors.iterator(); iterator.hasNext();) {
+			TaskEditorPartDescriptor taskEditorPartDescriptor = iterator.next();
 
-	@Override
-	protected void createPeopleLayout(Composite composite) {
-		// disabled
-	}
+			if (taskEditorPartDescriptor.getId().equals(ID_PART_PEOPLE)
+					|| taskEditorPartDescriptor.getId().equals(ID_PART_ATTRIBUTES)
+					|| taskEditorPartDescriptor.getId().equals(ID_PART_ATTACHMENTS)
+					|| taskEditorPartDescriptor.getId().equals(ID_PART_COMMENTS)
+					|| taskEditorPartDescriptor.getId().equals(ID_PART_NEW_COMMENT)
+					|| taskEditorPartDescriptor.getId().equals(ID_PART_ACTIONS)) {
 
-	@Override
-	protected void addActionButtons(Composite buttonComposite) {
-		super.addActionButtons(buttonComposite);
-		//TODO -- ok with submit only, and no compare?
-	}
-
-	@Override
-	protected void validateInput() {
-		submitButton.setEnabled(true);
-	}
-
-	@Override
-	protected void createAttributeLayout(Composite composite) {
-		// xplanner related attributes displayed in separate section
-	}
-
-	@Override
-	protected void addAttachContextButton(Composite buttonComposite, ITask task) {
-		// disabled, see bug 155151
-	}
-
-	@Override
-	protected void createAttachmentLayout(Composite parent) {
-		// don't want this
-	}
-
-	@Override
-	protected void createCommentLayout(Composite composite) {
-		// don't want this
-	}
-
-	@Override
-	protected void createNewCommentLayout(Composite composite) {
-		// don't want this
-	}
-
-	@Override
-	protected ImageHyperlink createReplyHyperlink(final int commentNum, Composite composite, final String commentBody) {
-		// don't want this for now -- don't support comments in XPlanner
-		return null;
-	}
-
-	@Override
-	protected void createCustomAttributeLayout(Composite composite) {
-		// make sure we only use one column
-		if (composite.getLayout() instanceof GridLayout) {
-			GridLayout layout = (GridLayout) composite.getLayout();
-			layout.numColumns = 1;
+				iterator.remove();
+			}
 		}
 
-		extraControls.createPartControlCustom(composite, true);
+		// Add XPlanner attributes
+		descriptors.add(new TaskEditorPartDescriptor(ID_PART_ATTRIBUTES) {
+			@Override
+			public AbstractTaskEditorPart createPart() {
+				return getExtraControls();
+			}
+		}.setPath(PATH_ATTRIBUTES));
+
+		// Add XPlanner time tracking part
+		if (!newTask) {
+			try {
+				TaskData data = TasksUi.getTaskDataManager().getTaskData(getTask());
+				if (data != null) {
+					descriptors.add(new TaskEditorPartDescriptor(ID_PART_XPLANNER_TIME_TRACKING) {
+						@Override
+						public AbstractTaskEditorPart createPart() {
+							timeTrackingControls = new XPlannerTimeTrackingEditorPart(getTask(),
+									XPlannerTaskEditor.this);
+							return timeTrackingControls;
+						}
+					}.setPath(PATH_ATTRIBUTES));
+				}
+			} catch (CoreException e) {
+				// ignore
+			}
+		}
+
+		// add actions with context attachment section removed
+		descriptors.add(new TaskEditorPartDescriptor(ID_PART_ACTIONS) {
+			@Override
+			public AbstractTaskEditorPart createPart() {
+				return new TaskEditorActionPart() {
+
+					@Override
+					protected void addAttachContextButton(Composite buttonComposite, FormToolkit toolkit) {
+						// do not add attachContextButton
+					}
+
+				};
+			}
+		}.setPath(PATH_ACTIONS));
+		return descriptors;
 	}
+
+	protected XPlannerTaskEditorExtraControls getExtraControls() {
+		if (extraControls == null) {
+			// show task hierarchy element if aren't creating new task
+			extraControls = new XPlannerTaskEditorExtraControls(XPlannerTaskEditor.this, !newTask);
+		}
+
+		return extraControls;
+	}
+
+// TODO -- HeB -- make sure similar validation exists in 3.0	
+//	@Override
+//	protected void validateInput() {
+//		submitButton.setEnabled(true);
+//	}
 
 	// just in case, leave in method -- before had to get from editorInput
-	public RepositoryTaskData getRepositoryTaskData() {
-		return taskData;
-	}
-
-	@Override
-	public boolean isDirty() {
-		return isDirty;
+	public TaskData getRepositoryTaskData() {
+		return getModel().getTaskData();
 	}
 
 	public String getFormTitle() {
 		return MessageFormat.format(Messages.XPlannerTaskEditor_FORM_TASK_TITLE,
-				XPlannerRepositoryUtils.getName(getRepositoryTaskData()), getRepositoryTaskData().getTaskId() + ""); // so doesn't get formatted as number with a comma	 //$NON-NLS-1$
+				XPlannerRepositoryUtils.getName(getRepositoryTaskData()), getRepositoryTaskData().getTaskId() + ""); // so doesn't get formatted as number with a comma	 
 	}
 
 	@Override
@@ -162,248 +145,43 @@ public class XPlannerTaskEditor extends AbstractRepositoryTaskEditor implements 
 		return XPlannerMylynUIPlugin.PLUGIN_ID;
 	}
 
-	public boolean xplannerAttributeChanged(RepositoryTaskAttribute attribute) {
-		return attributeChanged(attribute);
+	public void xplannerAttributeChanged(TaskAttribute attribute) {
+		getModel().attributeChanged(attribute);
 	}
 
-	@Override
-	public void submitToRepository() {
-		String errorMessage = null;
-		Control errorControl = null;
-
-		if (summaryText.getText().equals("")) {
-			errorMessage = "Task name cannot be empty.";
-			errorControl = summaryText;
-		}
-		if (errorMessage == null) {
-			errorMessage = extraControls.validate();
-		}
-
-		if (errorMessage != null) {
-			MessageDialog.openInformation(this.getSite().getShell(), "Submit Error", errorMessage);
-			if (errorControl != null) {
-				errorControl.setFocus();
-			}
-		}
-
-		if (errorMessage == null) {
-			savePreferenceSettings();
-			super.submitToRepository();
-
-		}
-	}
-
-	private void loadValuesFromPreferenceSettings() {
-		// auto tracking
-		boolean useTimeTrackingPreference = XPlannerMylynUIPlugin.getBooleanPreference(XPlannerMylynUIPlugin.USE_AUTO_TIME_TRACKING_PREFERENCE_NAME);
-		useTimeTrackingButton.setSelection(useTimeTrackingPreference);
-		setUseAutoTimeTracking(useTimeTrackingPreference);
-		updateTimeTrackingSection();
-
-		// rounding
-		boolean roundToHalfHourPreference = XPlannerMylynUIPlugin.getBooleanPreference(XPlannerMylynUIPlugin.ROUND_AUTO_TIME_TRACKING_TO_HALF_HOUR_PREFERENCE_NAME);
-		roundToHalfHourButton.setSelection(roundToHalfHourPreference);
-		setRoundToHalfHour(roundToHalfHourPreference);
-
-		// add or replace
-		boolean addToCurrentTimePreference = XPlannerMylynUIPlugin.getBooleanPreference(XPlannerMylynUIPlugin.ADD_AUTO_TRACKED_TIME_TO_REPOSITORY_VALUE_PREFERENCE_NAME);
-		addToCurrentTimeButton.setSelection(addToCurrentTimePreference);
-		replaceCurrentTimeButton.setSelection(!addToCurrentTimePreference);
-		setAddToCurrentTime(addToCurrentTimePreference);
-	}
-
-	private void updateTimeTrackingSection() {
-		timeTrackingSection.setExpanded(useTimeTrackingButton.getSelection());
-	}
-
-	private void savePreferenceSettings() {
-		// auto tracking
-		XPlannerMylynUIPlugin.setBooleanPreference(XPlannerMylynUIPlugin.USE_AUTO_TIME_TRACKING_PREFERENCE_NAME,
-				isUseAutoTimeTracking());
-
-		// rounding
-		XPlannerMylynUIPlugin.setBooleanPreference(
-				XPlannerMylynUIPlugin.ROUND_AUTO_TIME_TRACKING_TO_HALF_HOUR_PREFERENCE_NAME, isRoundToHalfHour());
-
-		// add or replace
-		XPlannerMylynUIPlugin.setBooleanPreference(
-				XPlannerMylynUIPlugin.ADD_AUTO_TRACKED_TIME_TO_REPOSITORY_VALUE_PREFERENCE_NAME, isAddToCurrentTime());
-	}
-
-	private void createTimeTrackingPanel(Composite parent) {
-		FormToolkit toolkit = new FormToolkit(getSite().getShell().getDisplay());
-		timeTrackingSection = toolkit.createSection(parent, ExpandableComposite.LEFT_TEXT_CLIENT_ALIGNMENT
-				| ExpandableComposite.TWISTIE | ExpandableComposite.CLIENT_INDENT);
-		timeTrackingSection.setLayout(new GridLayout());
-		GridDataFactory.fillDefaults().span(4, 1).applyTo(timeTrackingSection);
-		timeTrackingSection.setText("");
-
-		useTimeTrackingButton = toolkit.createButton(timeTrackingSection,
-				"Update actual task time from Mylyn's time tracker", SWT.CHECK);
-		GridDataFactory.fillDefaults().span(1, 1).grab(true, false).align(SWT.LEFT, SWT.CENTER).applyTo(
-				useTimeTrackingButton);
-		useTimeTrackingButton.addSelectionListener(new SelectionListener() {
-			public void widgetDefaultSelected(SelectionEvent e) {
-			}
-
-			public void widgetSelected(SelectionEvent e) {
-				if (e.getSource().equals(useTimeTrackingButton)) {
-					updateTimeTrackingSection();
-				}
-			}
-
-		});
-
-		useTimeTrackingButton.addSelectionListener(this);
-
-		timeTrackingSection.setTextClient(useTimeTrackingButton);
-
-		Composite timeTrackingComposite = toolkit.createComposite(timeTrackingSection, SWT.NONE);
-		timeTrackingSection.setClient(timeTrackingComposite);
-
-		GridDataFactory.fillDefaults().span(4, 1).applyTo(timeTrackingComposite);
-		timeTrackingComposite.setLayout(new GridLayout(1, false));
-
-		roundToHalfHourButton = toolkit.createButton(timeTrackingComposite, "Round time to half hour", SWT.CHECK);
-		GridDataFactory.fillDefaults().indent(new Point(15, 5)).applyTo(roundToHalfHourButton);
-		roundToHalfHourButton.addSelectionListener(this);
-
-		Composite updateMethodComposite = toolkit.createComposite(timeTrackingComposite);
-		GridDataFactory.fillDefaults().indent(new Point(10, 0)).applyTo(updateMethodComposite);
-		updateMethodComposite.setLayout(new GridLayout(2, true));
-		addToCurrentTimeButton = toolkit.createButton(updateMethodComposite, "Add to current repository time",
-				SWT.RADIO);
-		GridDataFactory.fillDefaults().applyTo(addToCurrentTimeButton);
-		addToCurrentTimeButton.setSelection(true); // just for a single radio default
-		addToCurrentTimeButton.addSelectionListener(this);
-
-		replaceCurrentTimeButton = toolkit.createButton(updateMethodComposite, "Replace current repository time",
-				SWT.RADIO);
-		GridDataFactory.fillDefaults().applyTo(replaceCurrentTimeButton);
-		replaceCurrentTimeButton.addSelectionListener(this);
-
-		TasksUiPlugin.getTaskActivityManager().addActivityListener(this);
-		loadValuesFromPreferenceSettings();
-		updateTimeTrackingControls();
-	}
-
-	private void updateTimeTrackingControls() {
-		boolean enabled = isUseAutoTimeTracking();
-
-		roundToHalfHourButton.setEnabled(enabled);
-		addToCurrentTimeButton.setEnabled(enabled);
-		replaceCurrentTimeButton.setEnabled(enabled);
-	}
-
-	@Override
-	public void dispose() {
-		savePreferenceSettings();
-		TasksUiPlugin.getTaskActivityManager().removeActivityListener(this);
-		super.dispose();
-	}
-
+// TODO -- HeB -- make sure similar validation will work for 3.0	
+//	@Override
+//	public void submitToRepository() {
+//		String errorMessage = null;
+//		Control errorControl = null;
+//
+//		if (summaryText.getText().equals("")) {
+//			errorMessage = "Task name cannot be empty.";
+//			errorControl = summaryText;
+//		}
+//		if (errorMessage == null) {
+//			errorMessage = extraControls.validate();
+//		}
+//
+//		if (errorMessage != null) {
+//			MessageDialog.openInformation(this.getSite().getShell(), "Submit Error", errorMessage);
+//			if (errorControl != null) {
+//				errorControl.setFocus();
+//			}
+//		}
+//
+//		if (errorMessage == null) {
+//			savePreferenceSettings();
+//			super.submitToRepository();
+//
+//		}
+//	}
+//
 	@Override
 	public void close() {
-		savePreferenceSettings();
+		if (timeTrackingControls != null) {
+			timeTrackingControls.savePreferenceSettings();
+		}
 		super.close();
-	}
-
-	/**
-	 * ITaskTimingListener Implementation
-	 */
-	public void elapsedTimeUpdated(ITask task, final long newElapsedTime) {
-		// only auto-update actual time if user chose to do so
-		if (!isUseAutoTimeTracking()) {
-			return;
-		}
-
-		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-			public void run() {
-				extraControls.updateActualTimeWithElapsed(newElapsedTime, isAddToCurrentTime(), isRoundToHalfHour());
-			}
-		});
-
-	}
-
-	public void setUseAutoTimeTracking(boolean useTimeTracking) {
-		this.useAutoTimeTracking = useTimeTracking;
-	}
-
-	public boolean isUseAutoTimeTracking() {
-		return useAutoTimeTracking;
-	}
-
-	private void forceElapsedTimeUpdated() {
-		ITask task = TasksUiInternal.getTaskList().getTask(repository.getRepositoryUrl(),
-				getRepositoryTaskData().getTaskId());
-		long elapsedTimeMillis = TasksUiPlugin.getTaskActivityManager().getElapsedTime(task);
-
-		elapsedTimeUpdated(task, elapsedTimeMillis);
-	}
-
-	public void widgetDefaultSelected(SelectionEvent e) {
-		Object source = e.getSource();
-
-		if (source.equals(useTimeTrackingButton)) {
-			updateTimeTrackingControls();
-		}
-	}
-
-	public void widgetSelected(SelectionEvent e) {
-		Object source = e.getSource();
-
-		if (source.equals(useTimeTrackingButton)) {
-			setUseAutoTimeTracking(useTimeTrackingButton.getSelection());
-
-			if (isUseAutoTimeTracking()) {
-				forceElapsedTimeUpdated();
-			}
-
-			updateTimeTrackingControls();
-		} else if (source.equals(roundToHalfHourButton)) {
-			setRoundToHalfHour(roundToHalfHourButton.getSelection());
-			forceElapsedTimeUpdated();
-		} else if (source.equals(replaceCurrentTimeButton)) {
-			setAddToCurrentTime(!replaceCurrentTimeButton.getSelection());
-			if (!isAddToCurrentTime()) {
-				forceElapsedTimeUpdated();
-			}
-		} else if (source.equals(addToCurrentTimeButton)) {
-			setAddToCurrentTime(addToCurrentTimeButton.getSelection());
-			if (isAddToCurrentTime()) {
-				forceElapsedTimeUpdated();
-			}
-		}
-	}
-
-	private boolean isRoundToHalfHour() {
-		return roundToHalfHour;
-	}
-
-	private void setRoundToHalfHour(boolean roundToHalfHour) {
-		this.roundToHalfHour = roundToHalfHour;
-	}
-
-	private boolean isAddToCurrentTime() {
-		return addToCurrentTime;
-	}
-
-	private void setAddToCurrentTime(boolean addToCurrentTime) {
-		this.addToCurrentTime = addToCurrentTime;
-	}
-
-	public void activityReset() {
-	}
-
-	public void preTaskActivated(ITask task) {
-	}
-
-	public void preTaskDeactivated(ITask task) {
-	}
-
-	public void taskActivated(ITask task) {
-	}
-
-	public void taskDeactivated(ITask task) {
 	}
 }

@@ -18,12 +18,13 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.mylyn.commons.core.StatusHandler;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
-import org.eclipse.mylyn.internal.tasks.ui.deprecated.RepositoryTaskEditorInput;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.core.data.TaskData;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
+import org.eclipse.mylyn.tasks.ui.editors.TaskEditorInput;
+import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
-import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeFactory;
+import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeMapper;
 import org.eclipse.mylyn.xplanner.ui.XPlannerClientFacade;
 import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
 import org.eclipse.swt.SWT;
@@ -61,7 +62,7 @@ public class XPlannerUserStoryEditor extends FormPage {
 
 	private static final String NO_TRACKER_NAME = Messages.XPlannerUserStoryEditor_NO_TRACKER_NAME;
 
-	private RepositoryTaskEditorInput input;
+	private TaskEditorInput input;
 
 	private boolean isDirty = false;
 
@@ -90,12 +91,12 @@ public class XPlannerUserStoryEditor extends FormPage {
 
 	@Override
 	public void init(IEditorSite site, IEditorInput input) {
-		if (!(input instanceof RepositoryTaskEditorInput)) {
+		if (!(input instanceof TaskEditorInput)) {
 			return;
 		}
 
-		RepositoryTaskEditorInput repositoryInput = (RepositoryTaskEditorInput) input;
-		if (!XPlannerMylynUIPlugin.REPOSITORY_KIND.equals(repositoryInput.getRepository().getConnectorKind())) {
+		TaskEditorInput repositoryInput = (TaskEditorInput) input;
+		if (!XPlannerCorePlugin.CONNECTOR_KIND.equals(repositoryInput.getTaskRepository().getConnectorKind())) {
 			return;
 		}
 
@@ -103,10 +104,10 @@ public class XPlannerUserStoryEditor extends FormPage {
 		setSite(site);
 		setInput(input);
 		setPartName(this.input.getName());
-		RepositoryTaskData taskData = repositoryInput.getTaskData();
-		TaskRepository repository = TasksUi.getRepositoryManager().getRepository(taskData.getConnectorKind(),
-				taskData.getRepositoryUrl());
 		try {
+			TaskData taskData = TasksUi.getTaskDataManager().getTaskData(repositoryInput.getTask());
+			TaskRepository repository = TasksUi.getRepositoryManager().getRepository(taskData.getConnectorKind(),
+					taskData.getRepositoryUrl());
 			client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 			String id = taskData.getTaskId();
 			if (id == null || id.trim().equals("")) { //$NON-NLS-1$
@@ -284,7 +285,7 @@ public class XPlannerUserStoryEditor extends FormPage {
 		// last updated time text
 		Label lastUpdatedTimeValue = toolkit.createLabel(
 				dataComposite,
-				XPlannerAttributeFactory.DATE_FORMAT.format(((GregorianCalendar) getUserStoryData().getLastUpdateTime()).getTime())
+				XPlannerAttributeMapper.DATE_FORMAT.format(((GregorianCalendar) getUserStoryData().getLastUpdateTime()).getTime())
 						+ ""); //$NON-NLS-1$
 		GridDataFactory.fillDefaults().grab(true, false).applyTo(lastUpdatedTimeValue);
 

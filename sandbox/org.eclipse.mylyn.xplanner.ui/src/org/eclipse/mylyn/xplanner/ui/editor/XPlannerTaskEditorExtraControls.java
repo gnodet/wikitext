@@ -16,10 +16,11 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.mylyn.commons.core.StatusHandler;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskAttribute;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
-import org.eclipse.mylyn.internal.tasks.ui.deprecated.AbstractRepositoryTaskEditor;
-import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeFactory;
+import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
+import org.eclipse.mylyn.tasks.core.data.TaskData;
+import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskEditorPage;
+import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskEditorPart;
+import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeMapper;
 import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
 import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUtils;
 import org.eclipse.swt.SWT;
@@ -39,10 +40,8 @@ import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
-public class XPlannerTaskEditorExtraControls {
-	private final AbstractRepositoryTaskEditor editor;
-
-	RepositoryTaskData repositoryTaskData;
+public class XPlannerTaskEditorExtraControls extends AbstractTaskEditorPart {
+	private final AbstractTaskEditorPage editor;
 
 	private Label remainingTimeValueLabel;
 
@@ -56,24 +55,39 @@ public class XPlannerTaskEditorExtraControls {
 
 	private Double lastRepositoryActualTime = 0.0;
 
-	public XPlannerTaskEditorExtraControls(AbstractRepositoryTaskEditor editor, RepositoryTaskData repositoryTaskData) {
+	private boolean showTask = false;
 
-		this.editor = editor;
-		this.repositoryTaskData = repositoryTaskData;
+	public XPlannerTaskEditorExtraControls(AbstractTaskEditorPage editor) {
+		this(editor, true);
 	}
 
-	protected void createPartControlCustom(Composite parent, boolean showTask) {
-		FormToolkit toolkit = new FormToolkit(editor.getSite().getShell().getDisplay());
+	public XPlannerTaskEditorExtraControls(AbstractTaskEditorPage editor, boolean showTask) {
+		this.editor = editor;
+		this.showTask = showTask;
+		setPartName("Attributes");
+	}
+
+	@Override
+	public void createControl(Composite parent, FormToolkit toolkit) {
+		Section section = createSection(parent, toolkit, true);
+		Composite composite = toolkit.createComposite(section);
+		GridLayout layout = new GridLayout(1, false);
+		layout.marginWidth = 5;
+		composite.setLayout(layout);
 
 		// hierarchy
-		createHierarchySection(toolkit, parent, repositoryTaskData, showTask);
+		createHierarchySection(toolkit, composite, getRepositoryTaskData(), showTask);
 
 		// data
-		createDataSection(toolkit, parent, repositoryTaskData);
+		createDataSection(toolkit, composite, getRepositoryTaskData());
+
+		toolkit.paintBordersFor(composite);
+		section.setClient(composite);
+		setSection(toolkit, section);
 	}
 
-	protected void createHierarchySection(FormToolkit toolkit, final Composite formBody,
-			RepositoryTaskData repositoryTaskData, boolean showTask) {
+	protected void createHierarchySection(FormToolkit toolkit, final Composite formBody, TaskData repositoryTaskData,
+			boolean showTask) {
 
 		Section hierarchySection = toolkit.createSection(formBody, ExpandableComposite.TITLE_BAR
 				| ExpandableComposite.TWISTIE);
@@ -113,7 +127,7 @@ public class XPlannerTaskEditorExtraControls {
 		hierarchySection.setExpanded(true);
 	}
 
-	private void createDataSection(FormToolkit toolkit, final Composite formBody, RepositoryTaskData repositoryTaskData) {
+	private void createDataSection(FormToolkit toolkit, final Composite formBody, TaskData repositoryTaskData) {
 
 		Section dataSection = toolkit.createSection(formBody, ExpandableComposite.TITLE_BAR
 				| ExpandableComposite.TWISTIE);
@@ -133,7 +147,7 @@ public class XPlannerTaskEditorExtraControls {
 		// acceptor text
 		Label acceptorValue = toolkit.createLabel(dataComposite, ""); //$NON-NLS-1$
 		GridDataFactory.fillDefaults().grab(true, false).align(SWT.BEGINNING, SWT.CENTER).applyTo(acceptorValue);
-		acceptorValue.setText(repositoryTaskData.getAssignedTo());
+		acceptorValue.setText(getAssignedToValue());
 
 		// estimated hours label
 		Label estimatedHoursLabel = toolkit.createLabel(dataComposite, Messages.XPlannerTaskEditor_ESTIMATED_HOURS_TEXT);
@@ -144,7 +158,7 @@ public class XPlannerTaskEditorExtraControls {
 				XPlannerRepositoryUtils.getAdjustedEstimatedHours(repositoryTaskData) + ""); //$NON-NLS-1$
 		estimatedTimeText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
-				updateAttribute(XPlannerAttributeFactory.ATTRIBUTE_EST_HOURS_NAME, estimatedTimeText.getText());
+				updateAttribute(XPlannerAttributeMapper.ATTRIBUTE_EST_HOURS_NAME, estimatedTimeText.getText());
 			}
 		});
 
@@ -155,7 +169,7 @@ public class XPlannerTaskEditorExtraControls {
 		completedButton = toolkit.createButton(dataComposite, Messages.XPlannerTaskEditor_COMPLETED_BUTTON, SWT.CHECK);
 		completedButton.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
-				updateAttribute(XPlannerAttributeFactory.ATTRIBUTE_TASK_COMPLETED,
+				updateAttribute(XPlannerAttributeMapper.ATTRIBUTE_TASK_COMPLETED,
 						completedButton.getSelection() ? "1" : "0"); //$NON-NLS-1$//$NON-NLS-2$
 			}
 
@@ -177,7 +191,7 @@ public class XPlannerTaskEditorExtraControls {
 		actualTimeText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				if (validateActualTime() == null) {
-					updateAttribute(XPlannerAttributeFactory.ATTRIBUTE_ACT_HOURS_NAME, actualTimeText.getText());
+					updateAttribute(XPlannerAttributeMapper.ATTRIBUTE_ACT_HOURS_NAME, actualTimeText.getText());
 				}
 			}
 		});
@@ -196,6 +210,10 @@ public class XPlannerTaskEditorExtraControls {
 		dataSection.setExpanded(true);
 	}
 
+	private String getAssignedToValue() {
+		return XPlannerRepositoryUtils.getAssignedTo(getModel().getTaskData());
+	}
+
 	private void updateRemainingTimeFont() {
 		if (remainingTimeValueLabel != null) {
 			if (isTaskCompleted()) { // no remaining time if task completed
@@ -211,8 +229,7 @@ public class XPlannerTaskEditorExtraControls {
 	}
 
 	private void updateAttribute(final String attributeName, final String attributeValue) {
-
-		RepositoryTaskAttribute attribute = repositoryTaskData.getAttribute(attributeName);
+		TaskAttribute attribute = getRepositoryTaskData().getRoot().getMappedAttribute(attributeName);
 
 		attribute.setValue(attributeValue);
 		if (editor instanceof XPlannerEditorAttributeProvider) {
@@ -233,7 +250,7 @@ public class XPlannerTaskEditorExtraControls {
 
 	private String validateActualTime() {
 		Double updatedActualTimeValue = Double.valueOf(actualTimeText.getText());
-		Double currentActualTimeValue = XPlannerRepositoryUtils.getActualHours(repositoryTaskData);
+		Double currentActualTimeValue = XPlannerRepositoryUtils.getActualHours(getRepositoryTaskData());
 		if (updatedActualTimeValue < currentActualTimeValue) {
 			errorMessage = "Cannot decrease actual time value";
 			errorControl = actualTimeText;
@@ -321,4 +338,7 @@ public class XPlannerTaskEditorExtraControls {
 		return format.format(updatedHours);
 	}
 
+	private TaskData getRepositoryTaskData() {
+		return editor.getModel().getTaskData();
+	}
 }
