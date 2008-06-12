@@ -1,1 +1,7 @@
 1213246271403	Rename field 'PLUGIN_ID'
+1213249345090	Rename local variable 'file'
+1213249352611	Rename local variable 'sourceFile'
+1213249473234	Rename local variable 'file'
+1213249638174	Rename local variable 'file'
+1213249667293	Rename local variable 'file'
+1213251816499	Rename local variable 'sourceContext'
