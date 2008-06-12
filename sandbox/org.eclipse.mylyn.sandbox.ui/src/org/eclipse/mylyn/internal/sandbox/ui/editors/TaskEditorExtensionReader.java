@@ -28,7 +28,7 @@ public class TaskEditorExtensionReader {
 
 	public static final String ATTR_NAME = "name";
 
-	public static final String EXTENSION_TASK_EDITOR_EXTENSIONS = "org.eclipse.mylyn.tasks.ui.taskEditorExtensions";
+	public static final String EXTENSION_TASK_EDITOR_EXTENSIONS = "org.eclipse.mylyn.sandbox.ui.taskEditorExtensions";
 
 	private static final String REPOSITORY_ASSOCIATION = "repositoryAssociation";
 

@@ -357,6 +357,13 @@
              state="true">
        </decorator>
     </extension>
+   <extension
+         point="org.eclipse.mylyn.tasks.ui.editors">
+      <pageFactory
+            class="org.eclipse.mylyn.internal.sandbox.ui.editors.ExtensibleBugzillaTaskEditorPageFactory"
+            id="org.eclipse.mylyn.sandbox..pageFactories.extensibleBugzillaTaskEditor">
+      </pageFactory>     
+      </extension>
    
    
    
@@ -389,6 +396,7 @@
             contentProvider="org.eclipse.mylyn.internal.sandbox.ui.GroupedTaskListContentProvider:Sheduled"/>
    </extension>
    -->
+  
    
 </plugin>
 

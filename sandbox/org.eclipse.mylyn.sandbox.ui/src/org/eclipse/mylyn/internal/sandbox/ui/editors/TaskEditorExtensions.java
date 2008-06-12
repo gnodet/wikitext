@@ -34,6 +34,7 @@ public class TaskEditorExtensions {
 	private static boolean initialized;
 
 	public static SortedSet<RegisteredTaskEditorExtension> getTaskEditorExtensions() {
+		init();
 		return new TreeSet<RegisteredTaskEditorExtension>(extensionsById.values());
 	}
 
