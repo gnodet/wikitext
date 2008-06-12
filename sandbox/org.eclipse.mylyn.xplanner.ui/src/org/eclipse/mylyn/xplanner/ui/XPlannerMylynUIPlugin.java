@@ -29,8 +29,6 @@ public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
 
 	public static final String PLUGIN_ID = "org.eclipse.mylyn.xplanner.ui"; //$NON-NLS-1$
 
-	public final static String REPOSITORY_KIND = "xplanner"; //$NON-NLS-1$
-
 	public final static String XPLANNER_CLIENT_LABEL = Messages.MylynXPlannerPlugin_CLIENT_LABEL;
 
 	public final static String TITLE_MESSAGE_DIALOG = Messages.MylynXPlannerPlugin_CLIENT_DIALOG_TITLE;
@@ -54,6 +52,9 @@ public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
 	public final static String ROUND_AUTO_TIME_TRACKING_TO_HALF_HOUR_PREFERENCE_NAME = "RoundAutoTimeTrackingToHalfHour";
 
 	public final static String ADD_AUTO_TRACKED_TIME_TO_REPOSITORY_VALUE_PREFERENCE_NAME = "AddAutoTrackedTimeToRepositoryValue";
+
+	@Deprecated
+	public static final String REPOSITORY_KIND = "xplanner";
 
 	public XPlannerMylynUIPlugin() {
 		INSTANCE = this;
