@@ -12,3 +12,6 @@
 1213241600882	Rename field 'resourcesCategory'
 1213241701045	Rename field 'repositoryMap'
 1213242540994	Extract local variable 'projectMapping'
+1213303049145	Change method 'select'
+1213303235332	Change method 'select'
+1213303467367	Rename method 'ignoreFilterText'
