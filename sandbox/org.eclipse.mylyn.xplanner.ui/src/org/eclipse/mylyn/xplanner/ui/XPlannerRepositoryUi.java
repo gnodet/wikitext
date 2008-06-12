@@ -21,8 +21,10 @@ import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.ITaskMapping;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
+import org.eclipse.mylyn.tasks.ui.LegendElement;
 import org.eclipse.mylyn.tasks.ui.wizards.ITaskRepositoryPage;
 import org.eclipse.mylyn.tasks.ui.wizards.ITaskSearchPage;
+import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.xplanner.ui.wizard.EditXPlannerQueryWizard;
 import org.eclipse.mylyn.xplanner.ui.wizard.Messages;
 import org.eclipse.mylyn.xplanner.ui.wizard.NewXPlannerQueryWizard;
@@ -47,13 +49,11 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 	public ImageDescriptor getTaskKindOverlay(ITask task) {
 		ImageDescriptor overlayImage;
 
-		XPlannerTask.Kind kind = XPlannerTask.Kind.fromString(task.getTaskKind());
-		if (kind.equals(XPlannerTask.Kind.TASK)) {
+		XPlannerAttributeMapper.XPlannerTaskKind kind = XPlannerAttributeMapper.XPlannerTaskKind.fromString(task.getTaskKind());
+		if (kind.equals(XPlannerAttributeMapper.XPlannerTaskKind.TASK)) {
 			overlayImage = XPlannerImages.OVERLAY_TASK;
-		} else if (kind.equals(XPlannerTask.Kind.USER_STORY)) {
+		} else if (kind.equals(XPlannerAttributeMapper.XPlannerTaskKind.USER_STORY)) {
 			overlayImage = XPlannerImages.OVERLAY_USER_STORY;
-		} else if (kind.equals(XPlannerTask.Kind.ITERATION)) {
-			overlayImage = XPlannerImages.OVERLAY_ITERATION;
 		} else {
 			overlayImage = super.getTaskKindOverlay(task);
 		}
@@ -76,7 +76,7 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 	public IWizard getQueryWizard(TaskRepository repository, IRepositoryQuery query) {
 		IWizard queryWizard = null;
 
-		if (query instanceof XPlannerCustomQuery) {
+		if (query != null) {
 			queryWizard = new EditXPlannerQueryWizard(repository, query);
 		} else {
 			queryWizard = new NewXPlannerQueryWizard(repository);
@@ -151,7 +151,7 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 
 	@Override
 	public String getConnectorKind() {
-		return XPlannerMylynUIPlugin.REPOSITORY_KIND;
+		return XPlannerCorePlugin.CONNECTOR_KIND;
 	}
 
 	@Override
@@ -165,24 +165,12 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 	}
 
 	@Override
-	public List<ITask> getLegendItems() {
-		List<ITask> legendItems = new ArrayList<ITask>();
+	public List<LegendElement> getLegendElements() {
+		List<LegendElement> legendElements = new ArrayList<LegendElement>();
 
-		XPlannerTask task = new XPlannerTask("", XPlannerTask.Kind.TASK.name(), XPlannerTask.Kind.TASK.toString());
-		task.setTaskKind(XPlannerTask.Kind.TASK.toString());
-		legendItems.add(task);
+		legendElements.add(LegendElement.createTask("Task", XPlannerImages.OVERLAY_TASK));
+		legendElements.add(LegendElement.createTask("User Story", XPlannerImages.OVERLAY_USER_STORY));
 
-		XPlannerTask userStory = new XPlannerTask("", XPlannerTask.Kind.USER_STORY.name(),
-				XPlannerTask.Kind.USER_STORY.toString());
-		userStory.setTaskKind(XPlannerTask.Kind.USER_STORY.toString());
-		legendItems.add(userStory);
-
-		XPlannerTask iteration = new XPlannerTask("", XPlannerTask.Kind.ITERATION.name(),
-				XPlannerTask.Kind.ITERATION.toString());
-		iteration.setTaskKind(XPlannerTask.Kind.ITERATION.toString());
-		legendItems.add(iteration);
-
-		return legendItems;
+		return legendElements;
 	}
-
 }

@@ -66,7 +66,7 @@ public class XPlannerClientFacade implements IRepositoryListener {
 			AuthenticationCredentials repositoryCredentials = taskRepository.getCredentials(AuthenticationType.REPOSITORY);
 			AuthenticationCredentials httpCredentials = taskRepository.getCredentials(AuthenticationType.HTTP);
 			XPlannerRepositoryConnector connector = (XPlannerRepositoryConnector) TasksUi.getRepositoryManager()
-					.getRepositoryConnector(XPlannerMylynUIPlugin.REPOSITORY_KIND);
+					.getRepositoryConnector(XPlannerCorePlugin.CONNECTOR_KIND);
 			TaskRepositoryLocationFactory locationFactory = connector.getTaskRepositoryLocationFactory();
 			AbstractWebLocation location = locationFactory.createWebLocation(taskRepository);
 
@@ -124,7 +124,7 @@ public class XPlannerClientFacade implements IRepositoryListener {
 	}
 
 	public void repositoryAdded(TaskRepository repository) {
-		if (repository.getConnectorKind().equals(XPlannerMylynUIPlugin.REPOSITORY_KIND)) {
+		if (repository.getConnectorKind().equals(XPlannerCorePlugin.CONNECTOR_KIND)) {
 			try {
 				getXPlannerClient(repository);
 			} catch (CoreException e) {
@@ -134,7 +134,7 @@ public class XPlannerClientFacade implements IRepositoryListener {
 	}
 
 	public void repositoryRemoved(TaskRepository repository) {
-		if (repository.getConnectorKind().equals(XPlannerMylynUIPlugin.REPOSITORY_KIND)) {
+		if (repository.getConnectorKind().equals(XPlannerCorePlugin.CONNECTOR_KIND)) {
 			String serverHostname = getServerHost(repository);
 			XPlannerClient client = clientManager.getClient(serverHostname);
 			removeClient(client);
