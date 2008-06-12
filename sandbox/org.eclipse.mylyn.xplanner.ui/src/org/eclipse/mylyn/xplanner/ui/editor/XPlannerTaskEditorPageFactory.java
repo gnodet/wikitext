@@ -70,4 +70,9 @@ public class XPlannerTaskEditorPageFactory extends AbstractTaskEditorPageFactory
 		return Messages.XPlannerTaskEditorFactory_TITLE;
 	}
 
+	@Override
+	public int getPriority() {
+		return PRIORITY_TASK;
+	}
+
 }
