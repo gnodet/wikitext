@@ -175,7 +175,7 @@ public class NewXPlannerTaskPage extends WizardPage {
 											+ "Please check repository settings in the Task Repositories view.", //
 									e.getMessage());
 							showWarning(msg);
-							StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, msg, e));
+							StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN, msg, e));
 						} finally {
 							monitor.done();
 						}

@@ -111,13 +111,13 @@ public class XPlannerUserStoryEditor extends FormPage {
 			client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 			String id = taskData.getTaskId();
 			if (id == null || id.trim().equals("")) { //$NON-NLS-1$
-				StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
+				StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
 						Messages.XPlannerTaskEditor_NO_TASK_KEY_EXCEPTION));
 			} else {
 				setUserStoryData(id);
 			}
 		} catch (CoreException e) {
-			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
+			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
 					"Error initializing task editor", e));
 		}
 	}

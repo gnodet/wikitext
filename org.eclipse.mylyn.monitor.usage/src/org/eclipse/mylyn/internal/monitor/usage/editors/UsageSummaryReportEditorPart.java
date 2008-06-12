@@ -162,7 +162,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 					IWorkbenchBrowserSupport support = PlatformUI.getWorkbench().getBrowserSupport();
 					support.getExternalBrowser().openURL(new URL(URL_USAGE_PAGE));
 				} catch (Exception e) {
-					StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+					StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
 							"Could not open task url", e));
 				}
 			} else {

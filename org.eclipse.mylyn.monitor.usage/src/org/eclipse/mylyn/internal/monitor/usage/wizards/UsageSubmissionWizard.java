@@ -111,7 +111,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	}
 
 	private void setTitles() {
-		super.setDefaultPageImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.PLUGIN_ID,
+		super.setDefaultPageImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.ID_PLUGIN,
 				"icons/wizban/banner-user.gif"));
 		super.setWindowTitle("Mylyn Feedback");
 	}
@@ -184,7 +184,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 					// op.run(monitor);
 					return Status.OK_STATUS;
 				} catch (Exception e) {
-					Status status = new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, IStatus.ERROR,
+					Status status = new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, IStatus.ERROR,
 							"Error uploading statistics", e);
 					StatusHandler.log(status);
 					return status;
@@ -338,7 +338,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 								+ ": \n" + e.getClass().getCanonicalName());
 					}
 				});
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Error uploading", e));
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Error uploading", e));
 			}
 		}
 
@@ -460,7 +460,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 													+ e.getClass().getCanonicalName() + e.getMessage());
 								}
 							});
-							StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+							StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
 									"Error uploading", e));
 						}
 					}
@@ -509,7 +509,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 								+ e.getClass().getCanonicalName());
 					}
 				});
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Error uploading", e));
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Error uploading", e));
 			}
 		}
 		return -1;
@@ -629,7 +629,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			} else {
 				MessageDialog.openError(null, "Error Uploading", "There was an error getting a new user id: \n"
 						+ e.getClass().getCanonicalName());
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Error uploading", e));
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Error uploading", e));
 			}
 		}
 		return -1;
@@ -644,7 +644,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 				data += s;
 			}
 		} catch (IOException e) {
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Error uploading", e));
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Error uploading", e));
 		}
 		return data;
 	}
@@ -684,7 +684,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			fileWriter.flush();
 			fileWriter.close();
 		} catch (IOException e) {
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
 					"Error unzipping backup monitor log files", e));
 		}
 	}
@@ -713,7 +713,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 							}
 						}
 					} catch (IOException e) {
-						StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+						StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
 								"Error unzipping backup monitor log files", e));
 					}
 				}
@@ -726,7 +726,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			ZipFileUtil.createZipFile(zipFile, files);
 			return zipFile;
 		} catch (Exception e) {
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Error uploading", e));
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Error uploading", e));
 			return null;
 		}
 	}

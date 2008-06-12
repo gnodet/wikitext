@@ -40,7 +40,7 @@ public class UsageSummaryEditorWizardPage extends WizardPage implements IWizardP
 		super(TITLE);
 		setTitle(TITLE);
 		setDescription(DESCRIPTION);
-		setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.PLUGIN_ID,
+		setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.ID_PLUGIN,
 				"icons/wizban/banner-usage.gif"));
 	}
 

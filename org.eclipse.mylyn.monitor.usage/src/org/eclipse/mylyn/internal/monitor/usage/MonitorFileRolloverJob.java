@@ -187,7 +187,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 				zipFileStream.closeEntry();
 				zipFileStream.close();
 			} catch (IOException e) {
-				StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+				StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
 						"Mylyn monitor log rollover failed", e));
 			}
 
@@ -215,7 +215,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 						.getActiveWorkbenchWindow()
 						.getActivePage();
 				if (page == null) {
-					return new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, IStatus.OK, "Mylyn Usage Summary",
+					return new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, IStatus.OK, "Mylyn Usage Summary",
 							null);
 				}
 				if (input != null) {
@@ -223,7 +223,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 				}
 
 			} catch (PartInitException e) {
-				StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+				StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
 						"Could not show usage summary", e));
 			}
 
@@ -259,7 +259,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 					}
 
 				} catch (PartInitException e) {
-					StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+					StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
 							"Could not show usage summary", e));
 				}
 			}

@@ -89,7 +89,7 @@ public class BugzillaMylynSearchJob extends Job {
 					null,
 					"Login Error",
 					"Bugzilla could not log you in to get the information you requested since login name or password is incorrect.\nPlease check your settings in the bugzilla preferences. ");
-			BugzillaCorePlugin.log(new Status(IStatus.ERROR, BugzillaUiPlugin.PLUGIN_ID, IStatus.OK, "", e));
+			BugzillaCorePlugin.log(new Status(IStatus.ERROR, BugzillaUiPlugin.ID_PLUGIN, IStatus.OK, "", e));
 		} finally {
 			// make sure that we know that this job is not running anymore
 			BugzillaSearchManager.removeSearchJob(operation.getSearchMember().getHandleIdentifier() + " "

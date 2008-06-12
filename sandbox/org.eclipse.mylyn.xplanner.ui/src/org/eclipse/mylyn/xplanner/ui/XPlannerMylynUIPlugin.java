@@ -27,7 +27,7 @@ public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
 
 	private static XPlannerMylynUIPlugin INSTANCE;
 
-	public static final String PLUGIN_ID = "org.eclipse.mylyn.xplanner.ui"; //$NON-NLS-1$
+	public static final String ID_PLUGIN = "org.eclipse.mylyn.xplanner.ui"; //$NON-NLS-1$
 
 	public final static String XPLANNER_CLIENT_LABEL = Messages.MylynXPlannerPlugin_CLIENT_LABEL;
 
@@ -43,7 +43,7 @@ public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
 
 	public final static String ITERATION_URL_PREFIX = DELIM_URL_PREFIX + "iteration" + DELIM_URL_SUFFIX; //$NON-NLS-1$
 
-	public final static IStatus NO_LICENSE_STATUS = new Status(IStatus.INFO, XPlannerMylynUIPlugin.PLUGIN_ID, 0,
+	public final static IStatus NO_LICENSE_STATUS = new Status(IStatus.INFO, XPlannerMylynUIPlugin.ID_PLUGIN, 0,
 			Messages.MylynXPlannerPlugin_NOT_AVAILABLE_IN_SKU, null);
 
 	// Preference setting names
@@ -100,7 +100,7 @@ public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
 				t.printStackTrace();
 			}
 		} else {
-			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, message == null
+			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN, message == null
 					|| message.length() == 0 ? Messages.MylynXPlannerPlugin_XPLANNER_ERROR_TITLE : message, e));
 		}
 	}
@@ -117,7 +117,7 @@ public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
-		return AbstractUIPlugin.imageDescriptorFromPlugin(PLUGIN_ID, path);
+		return AbstractUIPlugin.imageDescriptorFromPlugin(ID_PLUGIN, path);
 	}
 
 	public static void setBooleanPreference(String name, boolean value) {

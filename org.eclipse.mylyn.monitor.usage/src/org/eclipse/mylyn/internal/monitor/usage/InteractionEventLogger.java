@@ -73,7 +73,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 			}
 			eventAccumulartor++;
 		} catch (Throwable t) {
-			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.PLUGIN_ID,
+			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.ID_PLUGIN,
 					"Could not log interaction event", t));
 		}
 	}
@@ -136,7 +136,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 			}
 
 		} catch (Exception e) {
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
 					"Could not read interaction history", e));
 		}
 		return events;
@@ -239,7 +239,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 			res.append(ENDL);
 			return res.toString();
 		} catch (Throwable t) {
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not write event", t));
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Could not write event", t));
 			return "";
 		}
 	}

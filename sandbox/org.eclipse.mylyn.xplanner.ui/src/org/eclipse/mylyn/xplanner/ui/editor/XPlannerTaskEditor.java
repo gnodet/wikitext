@@ -142,7 +142,7 @@ public class XPlannerTaskEditor extends AbstractTaskEditorPage implements XPlann
 	}
 
 	public String getPluginId() {
-		return XPlannerMylynUIPlugin.PLUGIN_ID;
+		return XPlannerMylynUIPlugin.ID_PLUGIN;
 	}
 
 	public void xplannerAttributeChanged(TaskAttribute attribute) {

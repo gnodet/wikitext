@@ -58,7 +58,7 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 	public FeedbackWizard() {
 		super();
 		setNeedsProgressMonitor(true);
-		super.setDefaultPageImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.PLUGIN_ID,
+		super.setDefaultPageImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.ID_PLUGIN,
 				"icons/wizban/banner-user.gif"));
 		super.setWindowTitle("Mylyn Feedback");
 		feedbackPage = new SubmitFeedbackPage(null);

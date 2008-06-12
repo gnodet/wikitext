@@ -105,11 +105,11 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 	public static final String DEFAULT_CONTACT_CONSENT_FIELD = "false";
 
-	public static final String UI_PLUGIN_ID = "org.eclipse.mylyn.ui";
+	public static final String ID_UI_PLUGIN = "org.eclipse.mylyn.ui";
 
 	public static final String MONITOR_LOG_NAME = "monitor-log";
 
-	public static final String PLUGIN_ID = "org.eclipse.mylyn.monitor.usage";
+	public static final String ID_PLUGIN = "org.eclipse.mylyn.monitor.usage";
 
 	private InteractionEventLogger interactionLogger;
 
@@ -303,7 +303,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 								lastTransmit.getTime());
 					}
 				} catch (Throwable t) {
-					StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+					StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
 							"Monitor failed to start", t));
 				}
 			}
@@ -364,7 +364,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		if (preferenceMonitor != null) {
 			preferences.removePropertyChangeListener(preferenceMonitor);
 		} else {
-			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.PLUGIN_ID,
+			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.ID_PLUGIN,
 					"UI Usage Monitor not started", new Exception()));
 		}
 	}
@@ -454,7 +454,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
 						"Could not create monitor file", e));
 			}
 		}
@@ -704,7 +704,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 					}
 				}
 			} catch (Throwable t) {
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
 						"Could not read monitor extension", t));
 			}
 		}
@@ -733,7 +733,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 					UiUsageMonitorPlugin.getDefault().setQuestionnaireEnabled(false);
 				}
 			} catch (CoreException e) {
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
 						"Could not load questionaire", e));
 				UiUsageMonitorPlugin.getDefault().setQuestionnaireEnabled(false);
 			}
@@ -750,7 +750,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 					UiUsageMonitorPlugin.getDefault().setBackgroundEnabled(false);
 				}
 			} catch (CoreException e) {
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
 						"Could not load background page", e));
 				UiUsageMonitorPlugin.getDefault().setBackgroundEnabled(false);
 			}

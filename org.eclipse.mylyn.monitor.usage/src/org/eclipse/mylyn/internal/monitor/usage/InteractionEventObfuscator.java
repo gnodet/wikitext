@@ -64,7 +64,7 @@ public class InteractionEventObfuscator {
 			obfuscatedString = new String(Base64.encode(digest)).replace(DELIM_PATH, '=');
 			// obfuscatedString = "" + new String(digest).hashCode();
 		} catch (NoSuchAlgorithmException e) {
-			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.PLUGIN_ID, "SHA not available", e));
+			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.ID_PLUGIN, "SHA not available", e));
 			obfuscatedString = LABEL_FAILED_TO_OBFUSCATE;
 		}
 		return obfuscatedString;

@@ -88,7 +88,7 @@ public class XPlannerRepositoryUtils {
 				xplannerTask.setCompletionDate(completionDate);
 			}
 		} catch (final Exception e) {
-			throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, 0, MessageFormat.format(
+			throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN, 0, MessageFormat.format(
 					Messages.XPlannerRepositoryUtils_TASK_DOWNLOAD_FAILED, xplannerTask.getRepositoryUrl(),
 					TasksUiPlugin.LABEL_VIEW_REPOSITORIES), e));
 		}
@@ -116,7 +116,7 @@ public class XPlannerRepositoryUtils {
 				}
 			}
 		} catch (final Exception e) {
-			throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, 0, MessageFormat.format(
+			throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN, 0, MessageFormat.format(
 					Messages.XPlannerRepositoryUtils_TASK_DOWNLOAD_FAILED, repository.getRepositoryUrl(),
 					TasksUiPlugin.LABEL_VIEW_REPOSITORIES), e));
 		}

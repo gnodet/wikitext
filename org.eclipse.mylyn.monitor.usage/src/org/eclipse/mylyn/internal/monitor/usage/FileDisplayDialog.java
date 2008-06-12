@@ -120,7 +120,7 @@ public class FileDisplayDialog extends MessageDialog {
 			}
 
 		} catch (IOException e) {
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID, "Could not get contents", e));
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Could not get contents", e));
 		}
 		return sb.toString();
 	}

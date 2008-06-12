@@ -44,7 +44,7 @@ public class UsageFileSelectionWizardPage extends WizardPage {
 
 	protected UsageFileSelectionWizardPage(String pageName) {
 		super("org.eclipse.mylyn.monitor.usage.fileSelectionPage", PAGE_TITLE,
-				AbstractUIPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.PLUGIN_ID,
+				AbstractUIPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.ID_PLUGIN,
 						"icons/wizban/banner-submission.gif"));
 		setDescription(DESCRIPTION);
 	}
@@ -140,7 +140,7 @@ public class UsageFileSelectionWizardPage extends WizardPage {
 			// setPageComplete(validate());
 		} catch (RuntimeException e) {
 			// FIXME what exception is caught here?
-			StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.PLUGIN_ID,
+			StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
 					"Could not create import wizard page", e));
 		}
 	}

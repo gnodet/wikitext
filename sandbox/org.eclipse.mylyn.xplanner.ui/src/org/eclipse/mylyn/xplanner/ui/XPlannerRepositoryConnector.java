@@ -102,7 +102,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			if ((reason == null) || (reason.length() == 0)) {
 				reason = e.getClass().getName();
 			}
-			return new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, MessageFormat.format(
+			return new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN, MessageFormat.format(
 					Messages.XPlannerRepositoryConnector_PerformQueryFailure, reason), e);
 		} finally {
 			monitor.done();
@@ -327,7 +327,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 						completionDate = XPlannerAttributeMapper.TIME_DATE_FORMAT.parse(XPlannerRepositoryUtils.getAttributeValue(
 								repositoryTaskData, TaskAttribute.DATE_MODIFICATION));
 					} catch (ParseException e) {
-						StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
+						StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
 								Messages.XPlannerRepositoryConnector_COULD_NOT_CONVERT_TASK_DATE));
 					}
 				}
@@ -493,7 +493,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 				throw ce;
 			} catch (Exception e) {
 				// TODO propagate exception
-				StatusHandler.fail(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID, e.getMessage()));
+				StatusHandler.fail(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN, e.getMessage()));
 			}
 
 			return changedTasks;

@@ -86,12 +86,12 @@ public class XPlannerClientFacade implements IRepositoryListener {
 			}
 			return client;
 		} catch (CoreException ce) {
-			throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
+			throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
 					Messages.XPlannerClientFacade_SERVER_CONNECTION_ERROR + ": " + ce.getMessage()));
 		} catch (ServiceUnavailableException sue) {
 			throw sue;
 		} catch (RuntimeException e) {
-			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
+			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
 					Messages.XPlannerClientFacade_SERVER_CONNECTION_ERROR, e));
 			throw e;
 		}
@@ -158,7 +158,7 @@ public class XPlannerClientFacade implements IRepositoryListener {
 			if ((reason == null) || (reason.length() == 0)) {
 				reason = e.getClass().getName();
 			}
-			StatusHandler.log(new Status(IStatus.OK, XPlannerMylynUIPlugin.PLUGIN_ID, IStatus.ERROR,
+			StatusHandler.log(new Status(IStatus.OK, XPlannerMylynUIPlugin.ID_PLUGIN, IStatus.ERROR,
 					MessageFormat.format(Messages.XPlannerRepositoryConnector_PerformQueryFailure, reason), e));
 		}
 	}
@@ -209,19 +209,19 @@ public class XPlannerClientFacade implements IRepositoryListener {
 	 */
 	public static void handleConnectionException(Exception e) {
 		if (e instanceof ServiceUnavailableException) {
-			TasksUiInternal.displayStatus("XPlanner", new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
+			TasksUiInternal.displayStatus("XPlanner", new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
 					Messages.XPlannerClientFacade_CONNECTION_FAILURE_ERROR
 							+ Messages.XPlannerClientFacade_NETWORK_CONNECTION_FAILURE, e));
 		} else if (e instanceof AuthenticationException) {
-			TasksUiInternal.displayStatus("XPlanner", new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
+			TasksUiInternal.displayStatus("XPlanner", new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
 					Messages.XPlannerClientFacade_AUTHENTICATION_FAILED
 							+ Messages.XPlannerClientFacade_USERNAME_PASSWORD_ERROR, e));
 		} else if (e instanceof RuntimeException) {
-			TasksUiInternal.displayStatus("XPlanner", new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
+			TasksUiInternal.displayStatus("XPlanner", new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
 					Messages.XPlannerClientFacade_NO_REPOSITORY_FOUND
 							+ Messages.XPlannerClientFacade_VERIFY_VALID_REPOSITORY, e));
 		} else {
-			TasksUiInternal.displayStatus("XPlanner", new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
+			TasksUiInternal.displayStatus("XPlanner", new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
 					Messages.XPlannerClientFacade_COULD_NOT_CONNECT_TO_REPOSITORY
 							+ Messages.XPlannerClientFacade_CHECK_CREDENTIALS, e));
 		}

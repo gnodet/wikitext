@@ -77,7 +77,7 @@ public class XPlannerRepositorySettingsPage extends AbstractRepositorySettingsPa
 		public void run(IProgressMonitor monitor) throws CoreException {
 			XPlannerRepositoryUtils.validateRepository(repository);
 
-			setStatus(new Status(IStatus.OK, XPlannerMylynUIPlugin.PLUGIN_ID, IStatus.OK,
+			setStatus(new Status(IStatus.OK, XPlannerMylynUIPlugin.ID_PLUGIN, IStatus.OK,
 					Messages.XPlannerRepositorySettingsPage_VALID_SETTINGS_FOUND, null));
 		}
 	}

@@ -12,7 +12,7 @@ import org.osgi.framework.BundleContext;
  */
 public class MylynDevPlugin extends AbstractUIPlugin {
 
-	public static final String PLUGIN_ID = "org.eclipse.mylyn.sandbox.dev";
+	public static final String ID_PLUGIN = "org.eclipse.mylyn.sandbox.dev";
 
 	private static MylynDevPlugin INSTANCE;
 

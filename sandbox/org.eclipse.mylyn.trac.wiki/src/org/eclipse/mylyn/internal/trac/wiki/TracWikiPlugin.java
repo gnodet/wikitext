@@ -15,7 +15,7 @@ import org.osgi.framework.BundleContext;
  */
 public class TracWikiPlugin extends AbstractUIPlugin {
 
-	public static final String PLUGIN_ID = "org.eclipse.mylyn.trac.wiki";
+	public static final String ID_PLUGIN = "org.eclipse.mylyn.trac.wiki";
 
 	private static TracWikiPlugin plugin;
 

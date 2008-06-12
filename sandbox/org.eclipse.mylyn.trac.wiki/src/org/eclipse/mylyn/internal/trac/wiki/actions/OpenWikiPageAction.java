@@ -279,7 +279,7 @@ public class OpenWikiPageAction extends Action implements IViewActionDelegate {
 					});
 				} else {
 					TasksUiInternal.displayStatus("Unable to open wiki page", new Status(IStatus.ERROR,
-							TracWikiPlugin.PLUGIN_ID, "Unable to retrieve wiki page " + pageName));
+							TracWikiPlugin.ID_PLUGIN, "Unable to retrieve wiki page " + pageName));
 				}
 			} catch (final CoreException e) {
 				TasksUiInternal.displayStatus("Unable to open wiki page", e.getStatus());

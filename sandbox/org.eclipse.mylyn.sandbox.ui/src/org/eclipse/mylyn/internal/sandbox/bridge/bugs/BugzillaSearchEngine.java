@@ -136,7 +136,7 @@ public class BugzillaSearchEngine {
 			client.getSearchHits(query, collector, bugzillaConnector.getTaskDataHandler()
 					.getAttributeMapper(repository), new NullProgressMonitor());
 		} catch (CoreException e) {
-			status = new MultiStatus(BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR,
+			status = new MultiStatus(BugzillaUiPlugin.ID_PLUGIN, IStatus.ERROR,
 					"Core Exception occurred while querying Bugzilla Server " + repository.getRepositoryUrl() + ".\n"
 							+ "\nClick Details for more information.", e);
 			((MultiStatus) status).add(e.getStatus());
@@ -144,7 +144,7 @@ public class BugzillaSearchEngine {
 			// write error to log
 			BugzillaCorePlugin.log(status);
 		} catch (OperationCanceledException e) {
-			status = new Status(IStatus.CANCEL, BugzillaUiPlugin.PLUGIN_ID, IStatus.CANCEL, "", null);
+			status = new Status(IStatus.CANCEL, BugzillaUiPlugin.ID_PLUGIN, IStatus.CANCEL, "", null);
 //		} catch (LoginException e) {
 //			status = new MultiStatus(BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR,
 //					"Login error occurred while querying Bugzilla Server " + repository.getUrl() + ".\n"
@@ -164,25 +164,25 @@ public class BugzillaSearchEngine {
 							"Unrecognized response from server", e.getMessage());
 				}
 			});
-			status = new MultiStatus(BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR,
+			status = new MultiStatus(BugzillaUiPlugin.ID_PLUGIN, IStatus.ERROR,
 					"Unrecognized response from Bugzilla server " + repository.getRepositoryUrl(), e);
 
-			IStatus s = new Status(IStatus.ERROR, BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR, e.getClass().toString()
+			IStatus s = new Status(IStatus.ERROR, BugzillaUiPlugin.ID_PLUGIN, IStatus.ERROR, e.getClass().toString()
 					+ ":  ", e);
 			((MultiStatus) status).add(s);
-			s = new Status(IStatus.ERROR, BugzillaUiPlugin.PLUGIN_ID, IStatus.OK, "search failed", e);
+			s = new Status(IStatus.ERROR, BugzillaUiPlugin.ID_PLUGIN, IStatus.OK, "search failed", e);
 			((MultiStatus) status).add(s);
 
 		} catch (Exception e) {
-			status = new MultiStatus(BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR,
+			status = new MultiStatus(BugzillaUiPlugin.ID_PLUGIN, IStatus.ERROR,
 					"An error occurred while querying Bugzilla Server " + repository.getRepositoryUrl() + ".\n"
 							+ "\nCheck network connection and repository configuration in "
 							+ TasksUiPlugin.LABEL_VIEW_REPOSITORIES + ".", e);
 
-			IStatus s = new Status(IStatus.ERROR, BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR, e.getClass().toString()
+			IStatus s = new Status(IStatus.ERROR, BugzillaUiPlugin.ID_PLUGIN, IStatus.ERROR, e.getClass().toString()
 					+ ":  ", e);
 			((MultiStatus) status).add(s);
-			s = new Status(IStatus.ERROR, BugzillaUiPlugin.PLUGIN_ID, IStatus.OK, "search failed", e);
+			s = new Status(IStatus.ERROR, BugzillaUiPlugin.ID_PLUGIN, IStatus.OK, "search failed", e);
 			((MultiStatus) status).add(s);
 		} finally {
 			if (monitor != null) {
@@ -194,7 +194,7 @@ public class BugzillaSearchEngine {
 					in.close();
 				}
 			} catch (IOException e) {
-				BugzillaCorePlugin.log(new Status(IStatus.ERROR, BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR,
+				BugzillaCorePlugin.log(new Status(IStatus.ERROR, BugzillaUiPlugin.ID_PLUGIN, IStatus.ERROR,
 						"Problem closing the stream", e));
 			}
 		}
@@ -207,7 +207,7 @@ public class BugzillaSearchEngine {
 		}
 
 		if (status == null) {
-			return new Status(IStatus.OK, BugzillaUiPlugin.PLUGIN_ID, IStatus.OK, "", null);
+			return new Status(IStatus.OK, BugzillaUiPlugin.ID_PLUGIN, IStatus.OK, "", null);
 		} else {
 			return status;
 		}

@@ -268,7 +268,7 @@ public class XPlannerTaskEditorExtraControls extends AbstractTaskEditorPart {
 		try {
 			elapsedHoursString = getElapsedHoursAsString(newElapsedTime, addToCurrent, roundToHalfHour);
 		} catch (RuntimeException e1) {
-			StatusHandler.fail(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.PLUGIN_ID,
+			StatusHandler.fail(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
 					"Could not format elapsed time", e1));
 		}
 
