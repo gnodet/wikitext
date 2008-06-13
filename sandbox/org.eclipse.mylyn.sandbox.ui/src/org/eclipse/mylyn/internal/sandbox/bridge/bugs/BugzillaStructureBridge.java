@@ -13,12 +13,13 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
-import org.eclipse.mylyn.internal.bugzilla.core.BugzillaTask;
 import org.eclipse.mylyn.internal.context.core.AbstractRelationProvider;
 import org.eclipse.mylyn.internal.tasks.ui.editors.ContentOutlineTools;
 import org.eclipse.mylyn.internal.tasks.ui.editors.RepositoryTaskOutlineNode;
 import org.eclipse.mylyn.internal.tasks.ui.editors.RepositoryTaskSelection;
 import org.eclipse.ui.views.markers.internal.ProblemMarker;
+
+import com.eclipse.mylyn.bugzilla.deprecated.BugzillaTask;
 
 /**
  * @author Mik Kersten

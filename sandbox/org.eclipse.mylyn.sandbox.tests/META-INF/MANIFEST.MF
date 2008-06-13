@@ -29,7 +29,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.mylyn.monitor.usage,
  org.eclipse.jdt.ui,
  org.eclipse.mylyn.monitor.tests,
- org.eclipse.mylyn.context.tests
+ org.eclipse.mylyn.context.tests,
+ org.eclipse.mylyn.bugzilla.tests;bundle-version="0.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.eclipse.mylyn.sandbox.tests;x-internal:=true

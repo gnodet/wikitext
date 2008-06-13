@@ -23,7 +23,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaClient;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaRepositoryConnector;
-import org.eclipse.mylyn.internal.bugzilla.core.BugzillaRepositoryQuery;
 import org.eclipse.mylyn.internal.bugzilla.core.IBugzillaConstants;
 import org.eclipse.mylyn.internal.bugzilla.core.UnrecognizedReponseException;
 import org.eclipse.mylyn.internal.bugzilla.ui.BugzillaUiPlugin;
@@ -32,6 +31,8 @@ import org.eclipse.mylyn.internal.tasks.ui.util.WebBrowserDialog;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.ui.PlatformUI;
+
+import com.eclipse.mylyn.bugzilla.deprecated.BugzillaRepositoryQuery;
 
 /**
  * Queries the Bugzilla server for the list of bugs matching search criteria.

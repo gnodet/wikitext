@@ -18,7 +18,6 @@ import junit.framework.TestCase;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
-import org.eclipse.mylyn.internal.bugzilla.core.BugzillaTask;
 import org.eclipse.mylyn.internal.bugzilla.core.IBugzillaConstants;
 import org.eclipse.mylyn.internal.context.core.IActiveSearchListener;
 import org.eclipse.mylyn.internal.sandbox.bridge.bugs.BugzillaMylynSearch;
@@ -30,6 +29,8 @@ import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.java.tests.search.SearchPluginTestHelper;
 import org.eclipse.mylyn.java.tests.search.WorkspaceSetupHelper;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+
+import com.eclipse.mylyn.bugzilla.deprecated.BugzillaTask;
 
 /*
  * TEST CASES TO HANDLE 1. what is here 2. different scopes ( local and remote )

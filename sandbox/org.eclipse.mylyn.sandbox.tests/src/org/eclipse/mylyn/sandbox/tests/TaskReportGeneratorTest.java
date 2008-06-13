@@ -18,8 +18,6 @@ import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
-import org.eclipse.mylyn.internal.bugzilla.core.BugzillaRepositoryQuery;
-import org.eclipse.mylyn.internal.bugzilla.core.BugzillaTask;
 import org.eclipse.mylyn.internal.bugzilla.core.IBugzillaConstants;
 import org.eclipse.mylyn.internal.sandbox.ui.planner.CompletedTaskCollector;
 import org.eclipse.mylyn.internal.sandbox.ui.planner.TaskReportGenerator;
@@ -30,6 +28,9 @@ import org.eclipse.mylyn.internal.tasks.ui.TaskListManager;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+
+import com.eclipse.mylyn.bugzilla.deprecated.BugzillaRepositoryQuery;
+import com.eclipse.mylyn.bugzilla.deprecated.BugzillaTask;
 
 /**
  * @author Mik Kersten
