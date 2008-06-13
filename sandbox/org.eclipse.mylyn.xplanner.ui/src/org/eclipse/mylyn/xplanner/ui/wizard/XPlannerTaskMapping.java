@@ -8,11 +8,10 @@
 
 package org.eclipse.mylyn.xplanner.ui.wizard;
 
-import org.eclipse.mylyn.tasks.core.ITaskMapping;
 import org.eclipse.mylyn.tasks.core.TaskMapping;
 import org.xplanner.soap.UserStoryData;
 
-public class XPlannerTaskMapping extends TaskMapping implements ITaskMapping {
+public class XPlannerTaskMapping extends TaskMapping {
 
 	private final UserStoryData userStoryData;
 
