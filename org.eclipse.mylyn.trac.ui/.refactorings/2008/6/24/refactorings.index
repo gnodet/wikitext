@@ -1,1 +1,10 @@
-1213246394567	Rename field 'PLUGIN_ID'
+1213156369855	Inline local variable 'date'
+1213162918938	Delete elements
+1213162948896	Rename type 'TracCustomQueryPage'
+1213162991832	Rename type 'TracQueryWizardPage'
+1213163252993	Delete element
+1213163322133	Delete element
+1213165069679	Move compilation unit
+1213165083933	Delete element
+1213259673308	Rename field 'PLUGIN_ID'
+1213344045894	Rename type 'BugzillaPeoplePart'

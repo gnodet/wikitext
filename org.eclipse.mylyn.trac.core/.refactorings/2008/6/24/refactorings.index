@@ -1,1 +1,18 @@
-1213246340433	Rename field 'PLUGIN_ID'
+1213156066389	Rename field 'REPOSITORY_KIND'
+1213156403827	Rename type 'Kind'
+1213156416180	Rename type 'Status'
+1213156447490	Move types
+1213158138340	Rename type 'TracAttributeFactory'
+1213158269098	Rename type 'Attribute'
+1213158334438	Rename type 'TracAttribute'
+1213158360419	Convert member type 'TracAttribute' to top level
+1213159734340	Change method 'createAttribute'
+1213159762442	Change method 'createAttribute'
+1213159906773	Change method 'createAttribute'
+1213159916455	Change method 'createDefaultAttributes'
+1213162485932	Delete element
+1213165507286	Move compilation unit
+1213165533207	Move compilation unit
+1213259631655	Rename field 'PLUGIN_ID'
+1213345544951	Extract local variable 'taskMapper'
+1213351460695	Move member 'getTracTicket'
