@@ -12,14 +12,7 @@
 1213241600882	Rename field 'resourcesCategory'
 1213241701045	Rename field 'repositoryMap'
 1213242540994	Extract local variable 'projectMapping'
-1213310680632	Extract constant 'LABEL_SUNDAY'
-1213310731302	Extract constant 'LABEL_MONDAY'
-1213322688394	Copy compilation unit
-1213322708229	Delete element
-1213329217263	Move compilation unit
-1213329225790	Copy compilation unit
-1213329244299	Move compilation unit
-1213329997470	Move compilation unit
-1213330017319	Copy compilation unit
-1213330037783	Move compilation unit
-1213330060860	Move compilation unit
+1213303049145	Change method 'select'
+1213303235332	Change method 'select'
+1213303467367	Rename method 'ignoreFilterText'
+1213334363718	Convert local variable 'cal' to field
