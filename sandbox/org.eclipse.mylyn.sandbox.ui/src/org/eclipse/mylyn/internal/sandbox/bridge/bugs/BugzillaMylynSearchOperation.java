@@ -44,8 +44,6 @@ import org.eclipse.mylyn.tasks.core.data.TaskData;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
-import com.eclipse.mylyn.bugzilla.deprecated.BugzillaTask;
-
 /**
  * Bugzilla search operation for Mylar
  * 
@@ -225,27 +223,27 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 			monitor.worked(1);
 
 			// check what kind of task it is
-			if (task instanceof BugzillaTask) {
+//			if (task instanceof BugzillaTask) {
 
-				// we have a bugzilla task, so get the bug report
-				BugzillaTask bugTask = (BugzillaTask) task;
-				RepositoryTaskData bugTaskData = TasksUiPlugin.getTaskDataStorageManager().getNewTaskData(
-						bugTask.getRepositoryUrl(), bugTask.getTaskId());
-				//RepositoryTaskData bugTaskData = bugTask.getTaskData();
+			// we have a bugzilla task, so get the bug report
+//				BugzillaTask bugTask = (BugzillaTask) task;
+			RepositoryTaskData bugTaskData = TasksUiPlugin.getTaskDataStorageManager().getNewTaskData(
+					task.getRepositoryUrl(), task.getTaskId());
+			//RepositoryTaskData bugTaskData = bugTask.getTaskData();
 
-				// parse the bug report for the element that we are searching
-				// for
-				boolean isHit = search(elementName, bugTaskData);
+			// parse the bug report for the element that we are searching
+			// for
+			boolean isHit = search(elementName, bugTaskData);
 
-				// determine if we have a hit or not
-				if (isHit) {
+			// determine if we have a hit or not
+			if (isHit) {
 //					// make a search hit from the bug and then add it to the collector
 //					BugzillaQueryHit hit = new BugzillaQueryHit(TasksUiPlugin.getTaskList(), bugTaskData.getDescription(), "", bugTaskData.getRepositoryUrl(), bugTaskData.getId(), null, "");
 //					BugzillaTask task = new BugzillaTask();
-					// FIXME
-					//					searchCollector.accept(bugTask);
-				}
+				// FIXME
+				//					searchCollector.accept(bugTask);
 			}
+//			}
 		}
 		status = Status.OK_STATUS;
 	}
@@ -448,7 +446,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 
 			try {
 				float value = 0;
-				info = new BugzillaReportInfo(value, (BugzillaTask) hit, isExact);
+				info = new BugzillaReportInfo(value, (ITask) hit, isExact);
 
 				// only download the bug for the exact matches
 				// downloading bugs kills the time - can we do this elsewhere? -

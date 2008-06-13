@@ -17,11 +17,10 @@ import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaRepositoryConnector;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaTaskDataHandler;
 import org.eclipse.mylyn.internal.bugzilla.ui.tasklist.StackTrace;
+import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.data.TaskData;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
-
-import com.eclipse.mylyn.bugzilla.deprecated.BugzillaTask;
 
 /**
  * Class to store the DoiInfo of a BugzillaSearchHit
@@ -37,7 +36,7 @@ public class BugzillaReportInfo {
 	private static final long serialVersionUID = 3257004367222419506L;
 
 	/** The BugzillaSearchHit associated with this DoiInfo */
-	private final BugzillaTask hit;
+	private final ITask hit;
 
 	/** Whether this search hit was from an exact search like a stack trace */
 	private boolean isExact = false;
@@ -58,7 +57,7 @@ public class BugzillaReportInfo {
 	 * @param isExact
 	 *            Whether the search was exact or not
 	 */
-	public BugzillaReportInfo(float initialValue, BugzillaTask hit, boolean isExact) {
+	public BugzillaReportInfo(float initialValue, ITask hit, boolean isExact) {
 		this.hit = hit;
 		this.isExact = isExact;
 		bug = null;
@@ -70,7 +69,7 @@ public class BugzillaReportInfo {
 	 * 
 	 * @return The BugzillaSearchHit related to this DoiInfo
 	 */
-	public BugzillaTask getHit() {
+	public ITask getHit() {
 		return hit;
 	}
 

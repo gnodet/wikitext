@@ -23,14 +23,14 @@ import org.eclipse.mylyn.internal.context.core.IActiveSearchListener;
 import org.eclipse.mylyn.internal.sandbox.bridge.bugs.BugzillaMylynSearch;
 import org.eclipse.mylyn.internal.sandbox.bridge.bugs.BugzillaReportInfo;
 import org.eclipse.mylyn.internal.sandbox.bridge.bugs.MylynBugsManager;
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.TaskCategory;
+import org.eclipse.mylyn.internal.tasks.core.TaskTask;
 import org.eclipse.mylyn.internal.tasks.ui.TaskListManager;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.java.tests.search.SearchPluginTestHelper;
 import org.eclipse.mylyn.java.tests.search.WorkspaceSetupHelper;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
-
-import com.eclipse.mylyn.bugzilla.deprecated.BugzillaTask;
 
 /*
  * TEST CASES TO HANDLE 1. what is here 2. different scopes ( local and remote )
@@ -222,27 +222,27 @@ public class BugzillaActiveSearchTest extends TestCase {
 		TaskListManager manager = TasksUiPlugin.getTaskListManager();
 		TaskCategory cat = new TaskCategory("Testing Category");
 		manager.getTaskList().addCategory(cat);
-		BugzillaTask bugTask1 = new BugzillaTask(bugPrefix, "" + 94185, "<bugzilla info>");
+		AbstractTask bugTask1 = new TaskTask(bugPrefix, "" + 94185, "<bugzilla info>");
 
 		manager.getTaskList().addTask(bugTask1, cat);
 		// cat.addTask(bugTask1);
 		while (bugTask1.isSynchronizing()) {
 			Thread.sleep(500);
 		}
-		BugzillaTask bugTask2 = new BugzillaTask(bugPrefix, "" + 3692, "<bugzilla info>");
+		AbstractTask bugTask2 = new TaskTask(bugPrefix, "" + 3692, "<bugzilla info>");
 		manager.getTaskList().addTask(bugTask2, cat);
 		// cat.addTask(bugTask2);
 		while (bugTask2.isSynchronizing()) {
 			Thread.sleep(500);
 		}
-		BugzillaTask bugTask3 = new BugzillaTask(bugPrefix, "" + 3693, "<bugzilla info>");
+		AbstractTask bugTask3 = new TaskTask(bugPrefix, "" + 3693, "<bugzilla info>");
 		manager.getTaskList().addTask(bugTask3, cat);
 		// cat.addTask(bugTask3);
 		while (bugTask3.isSynchronizing()) {
 			Thread.sleep(500);
 		}
 
-		BugzillaTask bugTask4 = new BugzillaTask(bugPrefix, "" + 9583, "<bugzilla info>");
+		AbstractTask bugTask4 = new TaskTask(bugPrefix, "" + 9583, "<bugzilla info>");
 		manager.getTaskList().addTask(bugTask4, cat);
 		// cat.addTask(bugTask4);
 		while (bugTask4.isSynchronizing()) {
@@ -287,20 +287,20 @@ public class BugzillaActiveSearchTest extends TestCase {
 		TaskListManager manager = TasksUiPlugin.getTaskListManager();
 		TaskCategory cat = new TaskCategory("Testing Category");
 		manager.getTaskList().addCategory(cat);
-		BugzillaTask bugTask1 = new BugzillaTask(bugPrefix, "" + 94185, "<bugzilla info>");
+		AbstractTask bugTask1 = new TaskTask(bugPrefix, "" + 94185, "<bugzilla info>");
 		manager.getTaskList().addTask(bugTask1, cat);
 		// cat.addTask(bugTask1);
 		while (bugTask1.isSynchronizing()) {
 			Thread.sleep(500);
 		}
 
-		BugzillaTask bugTask2 = new BugzillaTask(bugPrefix, "" + 9583, "<bugzilla info>");
+		AbstractTask bugTask2 = new TaskTask(bugPrefix, "" + 9583, "<bugzilla info>");
 		manager.getTaskList().addTask(bugTask2, cat);
 		// cat.addTask(bugTask2);
 		while (bugTask2.isSynchronizing()) {
 			Thread.sleep(500);
 		}
-		BugzillaTask bugTask3 = new BugzillaTask(bugPrefix, "" + 3693, "<bugzilla info>");
+		AbstractTask bugTask3 = new TaskTask(bugPrefix, "" + 3693, "<bugzilla info>");
 		manager.getTaskList().addTask(bugTask3, cat);
 		// cat.addTask(bugTask3);
 		while (bugTask3.isSynchronizing()) {

@@ -24,13 +24,11 @@ import org.eclipse.mylyn.internal.sandbox.ui.planner.TaskReportGenerator;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.internal.tasks.core.TaskCategory;
+import org.eclipse.mylyn.internal.tasks.core.TaskTask;
 import org.eclipse.mylyn.internal.tasks.ui.TaskListManager;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
-
-import com.eclipse.mylyn.bugzilla.deprecated.BugzillaRepositoryQuery;
-import com.eclipse.mylyn.bugzilla.deprecated.BugzillaTask;
 
 /**
  * @author Mik Kersten
@@ -101,7 +99,7 @@ public class TaskReportGeneratorTest extends TestCase {
 		TaskRepository repository = new TaskRepository(BugzillaCorePlugin.CONNECTOR_KIND,
 				IBugzillaConstants.ECLIPSE_BUGZILLA_URL);
 		TasksUiPlugin.getRepositoryManager().addRepository(repository);
-		BugzillaTask task1 = new BugzillaTask(IBugzillaConstants.ECLIPSE_BUGZILLA_URL, "1", "bugzillatask 1");
+		TaskTask task1 = new TaskTask(IBugzillaConstants.ECLIPSE_BUGZILLA_URL, "1", "bugzillatask 1");
 		manager.getTaskList().addTask(task1);
 
 		Calendar cal = Calendar.getInstance();
@@ -145,7 +143,7 @@ public class TaskReportGeneratorTest extends TestCase {
 	}
 
 	public void testCompletedBugzillaTasksInCategoryRetrieved() throws InvocationTargetException, InterruptedException {
-		BugzillaTask task1 = new BugzillaTask("repo", "1", "task 1");
+		TaskTask task1 = new TaskTask("repo", "1", "task 1");
 		manager.getTaskList().addTask(task1);
 		task1.setCompleted(true);
 		TaskCategory cat1 = new TaskCategory("TaskReportGeneratorTest Category");
@@ -168,35 +166,36 @@ public class TaskReportGeneratorTest extends TestCase {
 	}
 
 	public void testCompletedBugzillaTasksInQueryRetrieved() throws InvocationTargetException, InterruptedException {
-		BugzillaTask task1 = new BugzillaTask("repo", "1", "task 1");
+		TaskTask task1 = new TaskTask("repo", "1", "task 1");
 		manager.getTaskList().addTask(task1);
 		task1.setCompleted(false);
 
-		BugzillaRepositoryQuery bugQuery = new BugzillaRepositoryQuery("repositoryUrl", "queryUrl",
-				"TaskReportGeneratorBugzillaQueryCategory");
-
-		manager.getTaskList().addQuery(bugQuery);
-
-		Set<AbstractTaskContainer> catagories = new HashSet<AbstractTaskContainer>();
-		catagories.add(bugQuery);
-		Calendar future = Calendar.getInstance();
-		future.add(Calendar.MINUTE, 1);
-		CompletedTaskCollector collector = new CompletedTaskCollector(new Date(0), future.getTime());
-		TaskReportGenerator generator = new TaskReportGenerator(manager.getTaskList(), catagories);
-		generator.addCollector(collector);
-		generator.run(new NullProgressMonitor());
-		assertEquals(0, generator.getAllCollectedTasks().size());
-
-		manager.getTaskList().addTask(task1, bugQuery);
-
-		generator.run(new NullProgressMonitor());
-		assertEquals(0, generator.getAllCollectedTasks().size());
-
-		task1.setCompleted(true);
-
-		generator.run(new NullProgressMonitor());
-		assertEquals(1, generator.getAllCollectedTasks().size());
-		assertEquals(task1, generator.getAllCollectedTasks().get(0));
+		fail("test not implemented, comment out lines below this statement");
+//		BugzillaRepositoryQuery bugQuery = new BugzillaRepositoryQuery("repositoryUrl", "queryUrl",
+//				"TaskReportGeneratorBugzillaQueryCategory");
+//
+//		manager.getTaskList().addQuery(bugQuery);
+//
+//		Set<AbstractTaskContainer> catagories = new HashSet<AbstractTaskContainer>();
+//		catagories.add(bugQuery);
+//		Calendar future = Calendar.getInstance();
+//		future.add(Calendar.MINUTE, 1);
+//		CompletedTaskCollector collector = new CompletedTaskCollector(new Date(0), future.getTime());
+//		TaskReportGenerator generator = new TaskReportGenerator(manager.getTaskList(), catagories);
+//		generator.addCollector(collector);
+//		generator.run(new NullProgressMonitor());
+//		assertEquals(0, generator.getAllCollectedTasks().size());
+//
+//		manager.getTaskList().addTask(task1, bugQuery);
+//
+//		generator.run(new NullProgressMonitor());
+//		assertEquals(0, generator.getAllCollectedTasks().size());
+//
+//		task1.setCompleted(true);
+//
+//		generator.run(new NullProgressMonitor());
+//		assertEquals(1, generator.getAllCollectedTasks().size());
+//		assertEquals(task1, generator.getAllCollectedTasks().get(0));
 	}
 
 }

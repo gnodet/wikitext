@@ -17,9 +17,8 @@ import org.eclipse.mylyn.internal.context.core.AbstractRelationProvider;
 import org.eclipse.mylyn.internal.tasks.ui.editors.ContentOutlineTools;
 import org.eclipse.mylyn.internal.tasks.ui.editors.RepositoryTaskOutlineNode;
 import org.eclipse.mylyn.internal.tasks.ui.editors.RepositoryTaskSelection;
+import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.ui.views.markers.internal.ProblemMarker;
-
-import com.eclipse.mylyn.bugzilla.deprecated.BugzillaTask;
 
 /**
  * @author Mik Kersten
@@ -91,7 +90,7 @@ public class BugzillaStructureBridge extends AbstractContextStructureBridge {
 			RepositoryTaskOutlineNode b = (RepositoryTaskOutlineNode) object;
 			return ContentOutlineTools.getName(b);
 		} else if (object instanceof BugzillaReportInfo) {
-			BugzillaTask hit = ((BugzillaReportInfo) object).getHit();
+			ITask hit = ((BugzillaReportInfo) object).getHit();
 			return hit.getRepositoryUrl() + ": Bug#: " + hit.getTaskId() + ": " + hit.getSummary();
 		}
 		return "";

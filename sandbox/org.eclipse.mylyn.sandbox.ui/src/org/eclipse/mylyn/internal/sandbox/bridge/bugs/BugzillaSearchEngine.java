@@ -17,22 +17,13 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.mylyn.internal.bugzilla.core.BugzillaClient;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
-import org.eclipse.mylyn.internal.bugzilla.core.BugzillaRepositoryConnector;
 import org.eclipse.mylyn.internal.bugzilla.core.IBugzillaConstants;
-import org.eclipse.mylyn.internal.bugzilla.core.UnrecognizedReponseException;
 import org.eclipse.mylyn.internal.bugzilla.ui.BugzillaUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.internal.tasks.ui.util.WebBrowserDialog;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
-import org.eclipse.mylyn.tasks.ui.TasksUi;
-import org.eclipse.ui.PlatformUI;
-
-import com.eclipse.mylyn.bugzilla.deprecated.BugzillaRepositoryQuery;
 
 /**
  * Queries the Bugzilla server for the list of bugs matching search criteria.
@@ -122,20 +113,22 @@ public class BugzillaSearchEngine {
 			monitor.beginTask(QUERYING_SERVER, maxHits);// IProgressMonitor.UNKNOWN
 			collector.aboutToStart(startMatches);
 
-			if (monitor.isCanceled()) {
-				throw new OperationCanceledException("Search cancelled");
-			}
+			throw new OperationCanceledException("Bugzilla Active Searchn not implemented");
 
-			BugzillaRepositoryQuery query = new BugzillaRepositoryQuery(repository.getRepositoryUrl(), urlString,
-					"summary");
-
-			BugzillaRepositoryConnector bugzillaConnector = (BugzillaRepositoryConnector) TasksUi.getRepositoryManager()
-					.getRepositoryConnector(BugzillaCorePlugin.CONNECTOR_KIND);
-
-			BugzillaClient client = bugzillaConnector.getClientManager().getClient(repository,
-					new NullProgressMonitor());
-			client.getSearchHits(query, collector, bugzillaConnector.getTaskDataHandler()
-					.getAttributeMapper(repository), new NullProgressMonitor());
+//			if (monitor.isCanceled()) {
+//				throw new OperationCanceledException("Search cancelled");
+//			}
+//
+//			BugzillaRepositoryQuery query = new BugzillaRepositoryQuery(repository.getRepositoryUrl(), urlString,
+//					"summary");
+//
+//			BugzillaRepositoryConnector bugzillaConnector = (BugzillaRepositoryConnector) TasksUi.getRepositoryManager()
+//					.getRepositoryConnector(BugzillaCorePlugin.CONNECTOR_KIND);
+//
+//			BugzillaClient client = bugzillaConnector.getClientManager().getClient(repository,
+//					new NullProgressMonitor());
+//			client.getSearchHits(query, collector, bugzillaConnector.getTaskDataHandler()
+//					.getAttributeMapper(repository), new NullProgressMonitor());
 		} catch (CoreException e) {
 			status = new MultiStatus(BugzillaUiPlugin.ID_PLUGIN, IStatus.ERROR,
 					"Core Exception occurred while querying Bugzilla Server " + repository.getRepositoryUrl() + ".\n"
@@ -146,33 +139,22 @@ public class BugzillaSearchEngine {
 			BugzillaCorePlugin.log(status);
 		} catch (OperationCanceledException e) {
 			status = new Status(IStatus.CANCEL, BugzillaUiPlugin.ID_PLUGIN, IStatus.CANCEL, "", null);
-//		} catch (LoginException e) {
-//			status = new MultiStatus(BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR,
-//					"Login error occurred while querying Bugzilla Server " + repository.getUrl() + ".\n"
-//							+ "\nEnsure proper configuration in " + TasksUiPlugin.LABEL_VIEW_REPOSITORIES + ".", e);
+//		} catch (final UnrecognizedReponseException e) {
 //
-//			IStatus s = new Status(IStatus.ERROR, BugzillaUiPlugin.PLUGIN_ID, IStatus.ERROR, e.getClass().toString()
+//			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+//				public void run() {
+//					WebBrowserDialog.openAcceptAgreement(null, "Report Download Failed",
+//							"Unrecognized response from server", e.getMessage());
+//				}
+//			});
+//			status = new MultiStatus(BugzillaUiPlugin.ID_PLUGIN, IStatus.ERROR,
+//					"Unrecognized response from Bugzilla server " + repository.getRepositoryUrl(), e);
+//
+//			IStatus s = new Status(IStatus.ERROR, BugzillaUiPlugin.ID_PLUGIN, IStatus.ERROR, e.getClass().toString()
 //					+ ":  ", e);
 //			((MultiStatus) status).add(s);
-//			s = new Status(IStatus.ERROR, BugzillaUiPlugin.PLUGIN_ID, IStatus.OK, "search failed for query "
-//					+ queryStringWithoutLogin, e);
+//			s = new Status(IStatus.ERROR, BugzillaUiPlugin.ID_PLUGIN, IStatus.OK, "search failed", e);
 //			((MultiStatus) status).add(s);
-		} catch (final UnrecognizedReponseException e) {
-
-			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-				public void run() {
-					WebBrowserDialog.openAcceptAgreement(null, "Report Download Failed",
-							"Unrecognized response from server", e.getMessage());
-				}
-			});
-			status = new MultiStatus(BugzillaUiPlugin.ID_PLUGIN, IStatus.ERROR,
-					"Unrecognized response from Bugzilla server " + repository.getRepositoryUrl(), e);
-
-			IStatus s = new Status(IStatus.ERROR, BugzillaUiPlugin.ID_PLUGIN, IStatus.ERROR, e.getClass().toString()
-					+ ":  ", e);
-			((MultiStatus) status).add(s);
-			s = new Status(IStatus.ERROR, BugzillaUiPlugin.ID_PLUGIN, IStatus.OK, "search failed", e);
-			((MultiStatus) status).add(s);
 
 		} catch (Exception e) {
 			status = new MultiStatus(BugzillaUiPlugin.ID_PLUGIN, IStatus.ERROR,
