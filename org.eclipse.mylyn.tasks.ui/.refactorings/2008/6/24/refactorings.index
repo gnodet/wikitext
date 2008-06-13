@@ -14,3 +14,5 @@
 1213242540994	Extract local variable 'projectMapping'
 1213310680632	Extract constant 'LABEL_SUNDAY'
 1213310731302	Extract constant 'LABEL_MONDAY'
+1213322688394	Copy compilation unit
+1213322708229	Delete element
