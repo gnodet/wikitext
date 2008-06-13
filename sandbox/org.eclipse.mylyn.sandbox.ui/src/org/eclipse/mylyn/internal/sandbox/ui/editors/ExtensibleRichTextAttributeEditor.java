@@ -164,7 +164,7 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 		IThemeManager themeManager = PlatformUI.getWorkbench().getThemeManager();
 		Font font = themeManager.getCurrentTheme().getFontRegistry().get(CommonThemes.FONT_EDITOR_COMMENT);
 		source.getTextWidget().setFont(font);
-		toolkit.adapt(source.getControl(), true, false);
+		toolkit.adapt(source.getControl(), false, false);
 
 	}
 
