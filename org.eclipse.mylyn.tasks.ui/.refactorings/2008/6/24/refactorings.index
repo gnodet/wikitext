@@ -16,3 +16,4 @@
 1213303235332	Change method 'select'
 1213303467367	Rename method 'ignoreFilterText'
 1213334363718	Convert local variable 'cal' to field
+1213380679386	Rename type 'ShowMylynLegendAction'
