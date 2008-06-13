@@ -16,3 +16,5 @@
 1213259631655	Rename field 'PLUGIN_ID'
 1213345544951	Extract local variable 'taskMapper'
 1213351460695	Move member 'getTracTicket'
+1213352955490	Move compilation units
+1213352971171	Move compilation unit
