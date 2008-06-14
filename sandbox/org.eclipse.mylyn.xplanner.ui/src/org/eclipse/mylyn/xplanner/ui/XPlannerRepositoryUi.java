@@ -10,12 +10,9 @@ package org.eclipse.mylyn.xplanner.ui;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.IWizard;
-import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.ITaskMapping;
@@ -31,8 +28,6 @@ import org.eclipse.mylyn.xplanner.ui.wizard.NewXPlannerQueryWizard;
 import org.eclipse.mylyn.xplanner.ui.wizard.NewXPlannerTaskWizard;
 import org.eclipse.mylyn.xplanner.ui.wizard.XPlannerCustomQueryPage;
 import org.eclipse.mylyn.xplanner.ui.wizard.XPlannerRepositorySettingsPage;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI;
 
 /**
  * @author Ravi Kumar
@@ -85,36 +80,35 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 		return queryWizard;
 	}
 
-	@SuppressWarnings( { "unused", "restriction" })
 	// restriction suppression for EditRepositoryWizard
 	// Leave in case needed other places
-	private boolean ensureHaveValidClient(TaskRepository repository) {
-		boolean haveValidClient = true;
-
-		try {
-			XPlannerClientFacade.getDefault().getXPlannerClient(repository);
-		} catch (CoreException ce) {
-			try {
-				org.eclipse.mylyn.internal.tasks.ui.wizards.EditRepositoryWizard wizard = new org.eclipse.mylyn.internal.tasks.ui.wizards.EditRepositoryWizard(
-						repository);
-				Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-				if (shell != null && !shell.isDisposed()) {
-					WizardDialog dialog = new WizardDialog(shell, wizard);
-					dialog.create();
-					dialog.setErrorMessage("Authentication credentials missing.");
-					dialog.setBlockOnOpen(true);
-					if (dialog.open() == Window.CANCEL) {
-						dialog.close();
-						haveValidClient = false;
-					}
-				}
-			} catch (Exception e) {
-				haveValidClient = false;
-			}
-		}
-
-		return haveValidClient;
-	}
+//	private boolean ensureHaveValidClient(TaskRepository repository) {
+//		boolean haveValidClient = true;
+//
+//		try {
+//			XPlannerClientFacade.getDefault().getXPlannerClient(repository);
+//		} catch (CoreException ce) {
+//			try {
+//				org.eclipse.mylyn.internal.tasks.ui.wizards.EditRepositoryWizard wizard = new org.eclipse.mylyn.internal.tasks.ui.wizards.EditRepositoryWizard(
+//						repository);
+//				Shell shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+//				if (shell != null && !shell.isDisposed()) {
+//					WizardDialog dialog = new WizardDialog(shell, wizard);
+//					dialog.create();
+//					dialog.setErrorMessage("Authentication credentials missing.");
+//					dialog.setBlockOnOpen(true);
+//					if (dialog.open() == Window.CANCEL) {
+//						dialog.close();
+//						haveValidClient = false;
+//					}
+//				}
+//			} catch (Exception e) {
+//				haveValidClient = false;
+//			}
+//		}
+//
+//		return haveValidClient;
+//	}
 
 //	@Override
 //	public void openEditQueryDialog(AbstractRepositoryQuery query) {

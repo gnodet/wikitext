@@ -36,7 +36,6 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
-import org.eclipse.mylyn.internal.context.core.IContextStoreListener;
 import org.eclipse.mylyn.internal.context.core.InteractionContextManager;
 import org.eclipse.mylyn.internal.monitor.ui.ActionExecutionMonitor;
 import org.eclipse.mylyn.internal.monitor.ui.ActivityChangeMonitor;
@@ -214,20 +213,20 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 	 */
 	private class LogMoveUtility {
 
-		private final IContextStoreListener DATA_DIR_MOVE_LISTENER = new IContextStoreListener() {
-
-			public void contextStoreMoved(File file) {
-				if (!isPerformingUpload()) {
-					for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners()) {
-						listener.stopMonitoring();
-					}
-					interactionLogger.moveOutputFile(getMonitorLogFile().getAbsolutePath());
-					for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners()) {
-						listener.startMonitoring();
-					}
-				}
-			}
-		};
+//		private final IContextStoreListener DATA_DIR_MOVE_LISTENER = new IContextStoreListener() {
+//
+//			public void contextStoreMoved(File file) {
+//				if (!isPerformingUpload()) {
+//					for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners()) {
+//						listener.stopMonitoring();
+//					}
+//					interactionLogger.moveOutputFile(getMonitorLogFile().getAbsolutePath());
+//					for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners()) {
+//						listener.startMonitoring();
+//					}
+//				}
+//			}
+//		};
 
 		void start() {
 //			ContextCore.getContextStore().addListener(DATA_DIR_MOVE_LISTENER);

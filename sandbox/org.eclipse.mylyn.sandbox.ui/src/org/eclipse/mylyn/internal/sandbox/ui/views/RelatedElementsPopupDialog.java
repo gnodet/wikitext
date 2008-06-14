@@ -156,9 +156,10 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 			refresh(null, true);
 		}
 
-		public void relationsChanged(IInteractionElement node) {
-			refresh(node, true);
-		}
+		// TODO move this somewhere?
+//		public void relationsChanged(IInteractionElement node) {
+//			refresh(node, true);
+//		}
 
 		@Override
 		public void elementsDeleted(List<IInteractionElement> elements) {

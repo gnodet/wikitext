@@ -42,7 +42,7 @@ public class BugzillaSearchEngine {
 
 	public static final Pattern reValueBugzilla220 = Pattern.compile("<td style=\"white-space: nowrap\">([^<]*)");
 
-	private final String urlString;
+//	private final String urlString;
 
 	private final TaskRepository repository;
 
@@ -51,7 +51,7 @@ public class BugzillaSearchEngine {
 //	private String queryStringWithoutLogin;
 
 	public BugzillaSearchEngine(TaskRepository repository, String queryUrl) {
-		urlString = queryUrl;
+//		urlString = queryUrl;
 //		queryStringWithoutLogin = urlString;
 		// urlString = urlString.concat(IBugzillaConstants.CONTENT_TYPE_RDF);
 		this.repository = repository;
