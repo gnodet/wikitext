@@ -18,3 +18,4 @@
 1213334363718	Convert local variable 'cal' to field
 1213380679386	Rename type 'ShowMylynLegendAction'
 1213403946005	Rename method 'addUnmatchedCategories'
+1213434920538	Extract method 'extracted'
