@@ -8,55 +8,47 @@
 package org.eclipse.mylyn.internal.tests.report;
 
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractAttributeFactory;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.AbstractTaskDataHandler;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.ITaskFactory;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.QueryHitCollector;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryOperation;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskAttribute;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskData;
-import org.eclipse.mylyn.internal.tasks.core.deprecated.TaskComment;
+import org.eclipse.mylyn.internal.tasks.core.RepositoryModel;
+import org.eclipse.mylyn.internal.tasks.core.TaskList;
+import org.eclipse.mylyn.internal.tasks.core.TaskRepositoryManager;
 import org.eclipse.mylyn.internal.tests.report.TestCaseResult.TestCaseResultType;
-import org.eclipse.mylyn.internal.trac.core.ITracClient;
-import org.eclipse.mylyn.internal.trac.core.TracRemoteException;
 import org.eclipse.mylyn.internal.trac.core.TracRepositoryConnector;
-import org.eclipse.mylyn.internal.trac.core.TracRepositoryQuery;
-import org.eclipse.mylyn.internal.trac.core.TracTask;
+import org.eclipse.mylyn.internal.trac.core.TracRepositoryConnector.TaskStatus;
+import org.eclipse.mylyn.internal.trac.core.client.ITracClient;
+import org.eclipse.mylyn.internal.trac.core.client.TracRemoteException;
 import org.eclipse.mylyn.internal.trac.core.model.TracSearch;
 import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
-import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.ITaskComment;
+import org.eclipse.mylyn.tasks.core.ITaskMapping;
+import org.eclipse.mylyn.tasks.core.RepositoryResponse;
+import org.eclipse.mylyn.tasks.core.TaskMapping;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.core.data.AbstractTaskDataHandler;
+import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
+import org.eclipse.mylyn.tasks.core.data.TaskData;
+import org.eclipse.mylyn.tasks.core.data.TaskDataCollector;
+import org.eclipse.mylyn.tasks.core.data.TaskOperation;
 
 /**
  * @author Steffen Pingel
  */
 class TaskReporter implements TestCaseVisitor {
 
-	private static final RepositoryOperation OPERATION_REOPEN;
+	private static final TaskOperation OPERATION_REOPEN = new TaskOperation("", "", "", "reopen");
 
-	private static final RepositoryOperation OPERATION_RESOLVE;
+	private static final TaskOperation OPERATION_RESOLVE = new TaskOperation("", "", "", "resolve");
 
 	private static final int MAX_ERROR_TIMEOUT = 3;
-
-	static {
-		OPERATION_REOPEN = new RepositoryOperation("reopen", "");
-
-		OPERATION_RESOLVE = new RepositoryOperation("resolve", "");
-		OPERATION_RESOLVE.setOptionSelection("fixed");
-	}
 
 	private final TracRepositoryConnector connector;
 
 	private final AbstractTaskDataHandler taskDataHandler;
 
-	private final TaskRepository repository;
+	private final TaskRepository taskRepository;
 
 	private final Build build;
 
@@ -64,24 +56,34 @@ class TaskReporter implements TestCaseVisitor {
 
 	private int timeoutErrorCount;
 
-	public TaskReporter(Build build, TaskRepository repository) {
+	private final RepositoryModel repositoryModel;
+
+	public TaskReporter(Build build, TaskRepository taskRepository) {
 		this.build = build;
-		this.repository = repository;
+		this.taskRepository = taskRepository;
 		this.connector = new TracRepositoryConnector();
-		this.taskDataHandler = connector.getLegacyTaskDataHandler();
+		this.taskDataHandler = connector.getTaskDataHandler();
 		this.statistics = new TaskReporterStatistics();
+		TaskRepositoryManager repositoryManager = new TaskRepositoryManager();
+		repositoryManager.addRepository(taskRepository);
+		this.repositoryModel = new RepositoryModel(new TaskList(), repositoryManager);
 	}
 
-	private RepositoryTaskData createTaskData(TestCase testCase) throws CoreException {
-		AbstractAttributeFactory attributeFactory = taskDataHandler.getAttributeFactory(repository.getRepositoryUrl(),
-				repository.getConnectorKind(), AbstractTask.DEFAULT_TASK_KIND);
+	private TaskData createTaskData(final TestCase testCase) throws CoreException {
+		TaskData taskData = new TaskData(taskDataHandler.getAttributeMapper(taskRepository),
+				taskRepository.getConnectorKind(), taskRepository.getRepositoryUrl(), "");
+		ITaskMapping initializationData = new TaskMapping() {
+			@Override
+			public String getSummary() {
+				return getTaskSummary(testCase);
+			}
 
-		RepositoryTaskData taskData = new RepositoryTaskData(attributeFactory, repository.getConnectorKind(),
-				repository.getRepositoryUrl(), "0");
-		taskData.setNew(true);
-		taskDataHandler.initializeTaskData(repository, taskData, new NullProgressMonitor());
-		taskData.setSummary(getTaskSummary(testCase));
-		taskData.setDescription(getTaskDescription(testCase));
+			@Override
+			public String getDescription() {
+				return getTaskDescription(testCase);
+			}
+		};
+		taskDataHandler.initializeTaskData(taskRepository, taskData, initializationData, null);
 		return taskData;
 	}
 
@@ -91,7 +93,7 @@ class TaskReporter implements TestCaseVisitor {
 		search.addFilter("description", getTaskDescription(testCase));
 
 		StringBuilder sb = new StringBuilder();
-		sb.append(repository.getRepositoryUrl());
+		sb.append(taskRepository.getRepositoryUrl());
 		sb.append(ITracClient.QUERY_URL);
 		sb.append(search.toUrl());
 		return sb.toString();
@@ -134,32 +136,27 @@ class TaskReporter implements TestCaseVisitor {
 		System.exit(1);
 	}
 
-	private void handleResults(TestCase testCase, Set<AbstractTask> tasks) throws CoreException {
-		String id;
-		RepositoryTaskData taskData = null;
-		if (tasks.isEmpty()) {
+	private void handleResults(TestCase testCase, TaskData taskData) throws CoreException {
+		if (taskData == null) {
 			if (testCase.getResult() != null) {
 				message(" creating task");
 				taskData = createTaskData(testCase);
-				id = taskDataHandler.postTaskData(repository, taskData, new NullProgressMonitor());
+				// create task to post comment in second step
+				RepositoryResponse response = taskDataHandler.postTaskData(taskRepository, taskData, null, null);
+				taskData = connector.getTaskData(taskRepository, response.getTaskId(), null);
 			} else {
 				statistics.tasksUntouched++;
 				// test case succeeded and task does not exist
 				message(" nothing to do");
 				return;
 			}
-		} else {
-			ITask task = tasks.iterator().next();
-			id = task.getTaskId();
 		}
 
-		message(" downloading task");
-		taskData = taskDataHandler.getTaskData(repository, id, new NullProgressMonitor());
-
-		String status = taskData.getAttribute(RepositoryTaskAttribute.STATUS).getValue();
+		ITaskMapping taskMapping = connector.getTaskMapping(taskData);
+		String status = taskMapping.getStatus();
 		if (testCase.getResult() != null) {
-			if (TracTask.Status.CLOSED == TracTask.Status.fromStatus(status)) {
-				taskData.setSelectedOperation(OPERATION_REOPEN);
+			if (TaskStatus.CLOSED == TaskStatus.fromStatus(status)) {
+				setTaskOperation(taskData, OPERATION_REOPEN);
 			}
 			if (matchesLastComment(taskData, testCase.getResult())) {
 				statistics.tasksStackTraceUpToDate++;
@@ -167,10 +164,10 @@ class TaskReporter implements TestCaseVisitor {
 			} else {
 				statistics.tasksReopened++;
 				message(" adding new stack trace");
-				taskData.setNewComment(getTaskComment(testCase.getResult()));
+				setNewComment(taskData, getTaskComment(testCase.getResult()));
 			}
 		} else {
-			if (TracTask.Status.CLOSED == TracTask.Status.fromStatus(status)) {
+			if (TaskStatus.CLOSED == TaskStatus.fromStatus(status)) {
 				statistics.tasksUntouched++;
 				// test case succeeded and task is closed
 				message(" nothing to do, task is alread closed");
@@ -178,19 +175,31 @@ class TaskReporter implements TestCaseVisitor {
 			} else {
 				statistics.tasksResolved++;
 				message(" resolving task");
-				taskData.setNewComment("Fixed in build " + build.getId());
-				taskData.setSelectedOperation(OPERATION_RESOLVE);
+				setNewComment(taskData, "Fixed in build " + build.getId());
+				setTaskOperation(taskData, OPERATION_RESOLVE);
 			}
 		}
 
 		message(" submitting task");
-		taskDataHandler.postTaskData(repository, taskData, new NullProgressMonitor());
+		taskDataHandler.postTaskData(taskRepository, taskData, null, new NullProgressMonitor());
 	}
 
-	private boolean matchesLastComment(RepositoryTaskData taskData, TestCaseResult result) {
-		List<TaskComment> comments = taskData.getComments();
+	private void setNewComment(TaskData taskData, String comment) {
+		TaskAttribute attribute = taskData.getRoot().getMappedAttribute(TaskAttribute.COMMENT_NEW);
+		taskData.getAttributeMapper().setValue(attribute, comment);
+	}
+
+	private void setTaskOperation(TaskData taskData, TaskOperation operation) {
+		TaskAttribute operationAttribute = taskData.getRoot().getMappedAttribute(TaskAttribute.OPERATION);
+		taskData.getAttributeMapper().setTaskOperation(operationAttribute, operation);
+	}
+
+	private boolean matchesLastComment(TaskData taskData, TestCaseResult result) {
+		List<TaskAttribute> comments = taskData.getAttributeMapper().getAttributesByType(taskData,
+				TaskAttribute.TYPE_COMMENT);
 		if (comments != null && !comments.isEmpty()) {
-			TaskComment lastComment = comments.get(comments.size() - 1);
+			TaskAttribute taskAttribute = comments.get(comments.size() - 1);
+			ITaskComment lastComment = repositoryModel.createTaskComment(taskAttribute);
 			if (lastComment.getText().endsWith(result.getStackTrace())) {
 				return true;
 			}
@@ -216,16 +225,13 @@ class TaskReporter implements TestCaseVisitor {
 		//
 		message("Processing: " + testCase.getClassName() + "#" + testCase.getTestName());
 		String queryUrl = getQueryUrl(testCase);
-		IRepositoryQuery query = new TracRepositoryQuery(repository.getRepositoryUrl(), queryUrl, "");
-		QueryHitCollector resultCollector = new QueryHitCollector(new ITaskFactory() {
-			public AbstractTask createTask(RepositoryTaskData taskData, IProgressMonitor monitor) throws CoreException {
-				throw new UnsupportedOperationException();
-			}
-		});
-		IStatus status = connector.performQuery(repository, query, resultCollector, null, new NullProgressMonitor());
+		IRepositoryQuery query = repositoryModel.createRepositoryQuery(taskRepository);
+		query.setUrl(queryUrl);
+		SingleResultCollector resultCollector = new SingleResultCollector();
+		IStatus status = connector.performQuery(taskRepository, query, resultCollector, null, new NullProgressMonitor());
 		if (status.isOK()) {
 			try {
-				handleResults(testCase, resultCollector.getTasks());
+				handleResults(testCase, resultCollector.getTaskData());
 			} catch (CoreException e) {
 				if (e.getStatus().getException() instanceof TracRemoteException) {
 					String message = e.getStatus().getException().getMessage();
@@ -246,4 +252,16 @@ class TaskReporter implements TestCaseVisitor {
 		}
 	}
 
+	private class SingleResultCollector extends TaskDataCollector {
+		private TaskData taskData;
+
+		@Override
+		public void accept(TaskData taskData) {
+			this.taskData = taskData;
+		}
+
+		public TaskData getTaskData() {
+			return taskData;
+		}
+	};
 }

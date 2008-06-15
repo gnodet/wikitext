@@ -18,7 +18,7 @@ import javax.xml.stream.XMLInputFactory;
 import org.eclipse.mylyn.commons.net.AuthenticationCredentials;
 import org.eclipse.mylyn.commons.net.AuthenticationType;
 import org.eclipse.mylyn.internal.trac.core.TracCorePlugin;
-import org.eclipse.mylyn.internal.trac.core.ITracClient.Version;
+import org.eclipse.mylyn.internal.trac.core.client.ITracClient.Version;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 
 /**
@@ -97,7 +97,7 @@ public class Main {
 			String password = properties.getProperty("password", "");
 			AuthenticationCredentials credentials = new AuthenticationCredentials(userName, password);
 
-			TaskRepository repository = new TaskRepository(TracCorePlugin.REPOSITORY_KIND, url);
+			TaskRepository repository = new TaskRepository(TracCorePlugin.CONNECTOR_KIND, url);
 			repository.setCredentials(AuthenticationType.REPOSITORY, credentials, false);
 			repository.setVersion(Version.XML_RPC.name());
 			return repository;
