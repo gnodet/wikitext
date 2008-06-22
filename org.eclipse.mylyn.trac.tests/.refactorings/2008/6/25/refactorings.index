@@ -9,3 +9,14 @@
 1214106765547	Move compilation unit
 1214106793057	Move compilation unit
 1214106814567	Move compilation unit
+1214107624636	Extract local variable 'repositoryUrl'
+1214107659294	Rename type 'TracQueryTest'
+1214107703581	Rename type 'TracUtilsTest'
+1214107934362	Delete element
+1214108041140	Rename type 'RepositorySearchQueryTest'
+1214108686616	Extract local variable 'taskId'
+1214111356425	Rename method 'initTaskRepository'
+1214112664863	Extract method 'createSession'
+1214114786368	Inline local variable 'queryUrl'
+1214115395273	Extract local variable 'string'
+1214117491138	Delete elements
