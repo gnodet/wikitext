@@ -1,2 +1,8 @@
 1214107691076	Rename type 'TracUtils'
 1214119726799	Extract local variable 'taskKind2'
+1214123025415	Extract local variable 'attribute'
+1214123048632	Extract local variable 'attribute'
+1214123109229	Extract local variable 'attribute'
+1214123499994	Extract local variable 'type'
+1214124114309	Extract local variable 'priorityLevel'
+1214126818116	Extract local variable 'root'
