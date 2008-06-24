@@ -7,8 +7,10 @@
  *******************************************************************************/
 package org.eclipse.mylyn.xplanner.ui;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -52,6 +54,8 @@ public class XPlannerTaskListMigrator extends AbstractTaskListMigrator {
 	private static final String KEY_QUERY_PERSON_ID = "QueryPersonId"; //$NON-NLS-1$
 
 	private static final String KEY_QUERY_MY_CURRENT_TASKS = "QueryMyCurrentTasks"; //$NON-NLS-1$
+
+	public static final String KEY_TASK_UPDATE = "LastUpdate"; //$NON-NLS-1$
 
 	public static enum ContentIdType {
 		PROJECT, ITERATION, USER_STORY
@@ -144,8 +148,17 @@ public class XPlannerTaskListMigrator extends AbstractTaskListMigrator {
 	@Override
 	public void migrateTask(ITask task, Element element) {
 		String taskKind = element.getAttribute(KEY_TASK);
-		task.setTaskKind(taskKind == null || taskKind.length() == 0 || taskKind.equals(TaskAttribute.KIND_DEFAULT) ? XPlannerAttributeMapper.XPlannerTaskKind.TASK.name()
-				: taskKind);
+		boolean setDefaultKind = taskKind == null || taskKind.length() == 0
+				|| taskKind.equals(TaskAttribute.KIND_DEFAULT);
+		task.setTaskKind(setDefaultKind ? XPlannerAttributeMapper.XPlannerTaskKind.TASK.toString() : taskKind);
+		String lastModDate = element.getAttribute(KEY_LAST_MOD_DATE);
+		task.setAttribute(KEY_TASK_UPDATE, lastModDate);
+		try {
+			Date lastUpdated = XPlannerAttributeMapper.TIME_DATE_FORMAT.parse(lastModDate);
+			task.setModificationDate(lastUpdated);
+		} catch (ParseException e) {
+			// ignore
+		}
 	}
 
 	// Query related attributes

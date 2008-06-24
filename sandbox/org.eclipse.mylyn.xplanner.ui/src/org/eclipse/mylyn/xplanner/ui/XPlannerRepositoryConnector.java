@@ -290,6 +290,11 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			String url = repository.getRepositoryUrl() + XPlannerMylynUIPlugin.TASK_URL_PREFIX
 					+ repositoryTaskData.getTaskId();
 			task.setUrl(url);
+
+			if (!repositoryTaskData.isPartial()) {
+				task.setAttribute(XPlannerTaskListMigrator.KEY_TASK_UPDATE, XPlannerRepositoryUtils.getAttributeValue(
+						repositoryTaskData, TaskAttribute.DATE_MODIFICATION));
+			}
 		}
 	}
 
@@ -536,12 +541,29 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	public boolean hasTaskChanged(TaskRepository taskRepository, ITask task,
 			org.eclipse.mylyn.tasks.core.data.TaskData repositoryTaskData) {
 		TaskMapper scheme = getTaskMapper(repositoryTaskData);
-		Date repositoryDate = scheme.getModificationDate();
-		Date localDate = task.getModificationDate();
-		if (repositoryDate != null && repositoryDate.equals(localDate)) {
-			return false;
+		if (repositoryTaskData.isPartial()) {
+			Date repositoryDate = scheme.getModificationDate();
+			Date localDate = task.getModificationDate();
+			if (repositoryDate != null && repositoryDate.equals(localDate)) {
+				return false;
+			}
+			return true;
+		} else {
+			Date repositoryDate = scheme.getModificationDate();
+			Date localDate = null;
+			String updateDateString = task.getAttribute(XPlannerTaskListMigrator.KEY_TASK_UPDATE);
+			if (updateDateString != null) {
+				try {
+					localDate = XPlannerAttributeMapper.TIME_DATE_FORMAT.parse(updateDateString);
+				} catch (ParseException e) {
+					// ignore
+				}
+			}
+			if (repositoryDate != null && repositoryDate.equals(localDate)) {
+				return false;
+			}
+			return true;
 		}
-		return true;
 	}
 
 }

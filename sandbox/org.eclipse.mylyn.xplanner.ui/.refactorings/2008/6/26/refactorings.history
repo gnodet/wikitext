@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;attribute&apos; from expression &apos;element.getAttribute(KEY_LAST_MOD_DATE)&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.xplanner.ui&apos;&#x0A;- Variable name: &apos;attribute&apos;&#x0A;- Destination method: &apos;org.eclipse.mylyn.xplanner.ui.XPlannerTaskListMigrator.migrateTask()&apos;&#x0A;- Variable expression: &apos;element.getAttribute(KEY_LAST_MOD_DATE)&apos;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;attribute&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.eclipse.mylyn.xplanner.ui{XPlannerTaskListMigrator.java" name="attribute" replace="true" selection="5770 39" stamp="1214340976736" version="1.0"/>
+</session>
