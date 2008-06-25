@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.mylyn.xplanner_feature"
       label="Mylyn Connector: XPlanner (Incubation)"
-      version="3.0.0.qualifier"
+      version="3.0.1.qualifier"
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylyn">
 
@@ -11,7 +11,7 @@
    </description>
 
    <copyright>
-      Copyright (c) 2007 - 2008 CodeGear and others.
+      Copyright (c) 2007, 2008 CodeGear and others.
    </copyright>
 
    <license url="license.html">
@@ -129,21 +129,21 @@ Inc. in the United States, other countries, or both.
       <import plugin="org.apache.ant" version="1.6.5" match="compatible"/>
       <import plugin="org.eclipse.osgi"/>
       <import plugin="org.apache.commons.logging" version="1.0.4" match="compatible"/>
-      <import feature="org.eclipse.mylyn_feature" version="3.0.0.qualifier" match="perfect"/>
+      <import feature="org.eclipse.mylyn_feature" version="3.0.1.qualifier" match="perfect"/>
    </requires>
 
    <plugin
          id="org.eclipse.mylyn.xplanner.core"
          download-size="0"
          install-size="0"
-         version="3.0.0.qualifier"
+         version="3.0.1.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.mylyn.xplanner.ui"
          download-size="0"
          install-size="0"
-         version="3.0.0.qualifier"
+         version="3.0.1.qualifier"
          unpack="false"/>
 
    <plugin
