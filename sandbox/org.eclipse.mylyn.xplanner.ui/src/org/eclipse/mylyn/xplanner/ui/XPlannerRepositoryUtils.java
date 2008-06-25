@@ -38,6 +38,7 @@ import org.eclipse.mylyn.tasks.core.data.TaskData;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
+import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeMapper.Attribute;
 import org.xplanner.soap.IterationData;
 import org.xplanner.soap.PersonData;
 import org.xplanner.soap.ProjectData;
@@ -441,11 +442,24 @@ public class XPlannerRepositoryUtils {
 			attribute = repositoryTaskData.getRoot().createMappedAttribute(attributeId);
 			attribute.getMetaData().defaults();
 			attribute.getMetaData().setReadOnly(false);
+			attribute.getMetaData().setType(getType(attributeId));
+			Attribute xplannerAttribute = XPlannerAttributeMapper.getAttribute(attributeId);
+			if (xplannerAttribute != null) {
+				attribute.getMetaData().setLabel(xplannerAttribute.getDisplayName());
+				attribute.getMetaData().setReadOnly(xplannerAttribute.isReadOnly());
+			}
 		}
 
 		if (attribute != null) {
 			repositoryTaskData.getAttributeMapper().setValue(attribute, value == null ? "" : value);
 		}
+	}
+
+	public static String getType(String attributeId) {
+		if (attributeId.equals(Attribute.DESCRIPTION.getCommonAttributeKey())) {
+			return TaskAttribute.TYPE_LONG_RICH_TEXT;
+		}
+		return TaskAttribute.TYPE_SHORT_TEXT;
 	}
 
 	public static String getAttributeValue(TaskData repositoryTaskData, String attributeId) {

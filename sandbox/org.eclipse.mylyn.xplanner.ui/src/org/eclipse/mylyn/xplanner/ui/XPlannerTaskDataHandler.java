@@ -9,7 +9,9 @@ package org.eclipse.mylyn.xplanner.ui;
 
 import java.net.Proxy;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Set;
 
 import javax.security.auth.login.LoginException;
@@ -28,6 +30,7 @@ import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
 import org.eclipse.mylyn.tasks.core.data.TaskAttributeMapper;
 import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
+import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeMapper.Attribute;
 import org.eclipse.mylyn.xplanner.ui.wizard.XPlannerTaskMapping;
 import org.xplanner.soap.TaskData;
 import org.xplanner.soap.TimeEntryData;
@@ -194,4 +197,28 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 		// currently not supported, but should be in future
 		return false;
 	}
+
+	@Override
+	public void migrateTaskData(TaskRepository taskRepository, org.eclipse.mylyn.tasks.core.data.TaskData taskData) {
+		int version = 0;
+		if (taskData.getVersion() != null) {
+			try {
+				version = Integer.parseInt(taskData.getVersion());
+			} catch (NumberFormatException e) {
+				// ignore
+			}
+		}
+
+		if (version < 1) {
+			TaskAttribute root = taskData.getRoot();
+			List<TaskAttribute> attributes = new ArrayList<TaskAttribute>(root.getAttributes().values());
+			for (TaskAttribute attribute : attributes) {
+				if (Attribute.DESCRIPTION.getCommonAttributeKey().equals(attribute.getId())) {
+					attribute.getMetaData().setType(XPlannerRepositoryUtils.getType(attribute.getId()));
+				}
+			}
+			taskData.setVersion("1");
+		}
+	}
+
 }

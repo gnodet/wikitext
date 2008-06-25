@@ -216,4 +216,9 @@ public class XPlannerAttributeMapper extends TaskAttributeMapper {
 
 		return date;
 	}
+
+	public static Attribute getAttribute(String commonKey) {
+		return commonKeyToAttributesMap.get(commonKey);
+	}
+
 }

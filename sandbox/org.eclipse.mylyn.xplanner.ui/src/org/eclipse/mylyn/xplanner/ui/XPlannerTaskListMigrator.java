@@ -124,7 +124,7 @@ public class XPlannerTaskListMigrator extends AbstractTaskListMigrator {
 
 	@Override
 	public void migrateQuery(IRepositoryQuery query, Element element) {
-		boolean isMyCurrentTasks = Boolean.getBoolean(element.getAttribute(KEY_QUERY_MY_CURRENT_TASKS));
+		boolean isMyCurrentTasks = Boolean.parseBoolean(element.getAttribute(KEY_QUERY_MY_CURRENT_TASKS));
 		setMyCurrentTasks(query, isMyCurrentTasks);
 
 		if (!isMyCurrentTasks) {

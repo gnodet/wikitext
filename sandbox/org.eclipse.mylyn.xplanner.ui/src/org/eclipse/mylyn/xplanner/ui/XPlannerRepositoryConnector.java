@@ -12,6 +12,7 @@ import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
@@ -34,6 +35,7 @@ import org.eclipse.mylyn.tasks.core.data.AbstractTaskDataHandler;
 import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
 import org.eclipse.mylyn.tasks.core.data.TaskDataCollector;
 import org.eclipse.mylyn.tasks.core.data.TaskMapper;
+import org.eclipse.mylyn.tasks.core.data.TaskRelation;
 import org.eclipse.mylyn.tasks.core.sync.ISynchronizationSession;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
@@ -566,4 +568,17 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 		}
 	}
 
+	@Override
+	public Collection<TaskRelation> getTaskRelations(org.eclipse.mylyn.tasks.core.data.TaskData repositoryTaskData) {
+		List<TaskRelation> relations = new ArrayList<TaskRelation>();
+		TaskAttribute attribute = repositoryTaskData.getRoot().getAttribute(
+				XPlannerAttributeMapper.Attribute.SUBTASK_IDS.getCommonAttributeKey());
+		if (attribute != null) {
+			for (String taskId : attribute.getValues()) {
+				relations.add(TaskRelation.subtask(taskId));
+			}
+		}
+
+		return relations;
+	}
 }
