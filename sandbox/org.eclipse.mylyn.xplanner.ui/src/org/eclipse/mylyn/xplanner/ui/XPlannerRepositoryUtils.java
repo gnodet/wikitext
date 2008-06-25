@@ -14,8 +14,10 @@ import java.rmi.RemoteException;
 import java.security.GeneralSecurityException;
 import java.text.MessageFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 
 import javax.security.auth.login.LoginException;
 
@@ -26,7 +28,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.commons.net.AbstractWebLocation;
 import org.eclipse.mylyn.commons.net.AuthenticationCredentials;
 import org.eclipse.mylyn.commons.net.AuthenticationType;
-import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
@@ -68,7 +69,7 @@ public class XPlannerRepositoryUtils {
 		try {
 			Date completionDate = null;
 			if (XPlannerAttributeMapper.XPlannerTaskKind.TASK.toString().equals(xplannerTask.getTaskKind())
-					|| AbstractTask.DEFAULT_TASK_KIND.equals(xplannerTask.getTaskKind())) {
+					|| XPlannerAttributeMapper.DEFAULT_REPOSITORY_TASK_KIND.equals(xplannerTask.getTaskKind())) {
 
 				org.xplanner.soap.TaskData taskData = client.getTask(Integer.valueOf(xplannerTask.getTaskId())
 						.intValue());
@@ -301,6 +302,28 @@ public class XPlannerRepositoryUtils {
 
 		// est adjusted estimated hours
 		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ADJUSTED_ESTIMATED_HOURS_NAME, "0.0");
+
+		// user story task ids
+		setAttributeValues(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_SUBTASK_IDS, getUserStoryTaskIds(
+				userStoryData, client));
+	}
+
+	private static List<String> getUserStoryTaskIds(UserStoryData userStoryData, XPlannerClient client)
+			throws CoreException {
+		ArrayList<String> taskIds = new ArrayList<String>();
+
+		org.xplanner.soap.TaskData[] userStoryTasks;
+		try {
+			userStoryTasks = client.getTasks(userStoryData.getId());
+			for (org.xplanner.soap.TaskData taskData : userStoryTasks) {
+				taskIds.add("" + taskData.getId());
+			}
+
+		} catch (RemoteException re) {
+			throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN, re.getMessage(), re));
+		}
+
+		return taskIds;
 	}
 
 	public static org.xplanner.soap.TaskData createNewTaskData(TaskData repositoryTaskData, XPlannerClient client) {
@@ -406,6 +429,10 @@ public class XPlannerRepositoryUtils {
 		// iteration name
 		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ITERATION_NAME, getIterationName(
 				userStory, client));
+
+		// user story task ids
+		setAttributeValues(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_SUBTASK_IDS, getUserStoryTaskIds(
+				userStory, client));
 	}
 
 	public static String getProjectName(TaskData repositoryTaskData) {
@@ -436,22 +463,38 @@ public class XPlannerRepositoryUtils {
 	}
 
 	public static void setAttributeValue(TaskData repositoryTaskData, String attributeId, String value) {
+		TaskAttribute taskAttribute = repositoryTaskData.getRoot().getMappedAttribute(attributeId);
+
+		if (taskAttribute == null) {
+			taskAttribute = repositoryTaskData.getRoot().createMappedAttribute(attributeId);
+			taskAttribute.getMetaData().defaults();
+			taskAttribute.getMetaData().setReadOnly(false);
+			taskAttribute.getMetaData().setType(getType(attributeId));
+
+			Attribute xplannerAttribute = XPlannerAttributeMapper.getAttribute(attributeId);
+			if (xplannerAttribute != null) {
+				taskAttribute.getMetaData().setLabel(xplannerAttribute.getDisplayName());
+				taskAttribute.getMetaData().setReadOnly(xplannerAttribute.isReadOnly());
+			}
+		}
+
+		if (taskAttribute != null) {
+			repositoryTaskData.getAttributeMapper().setValue(taskAttribute, value == null ? "" : value);
+		}
+	}
+
+	public static void setAttributeValues(TaskData repositoryTaskData, String attributeId, List<String> values) {
 		TaskAttribute attribute = repositoryTaskData.getRoot().getMappedAttribute(attributeId);
 
 		if (attribute == null) {
 			attribute = repositoryTaskData.getRoot().createMappedAttribute(attributeId);
 			attribute.getMetaData().defaults();
 			attribute.getMetaData().setReadOnly(false);
-			attribute.getMetaData().setType(getType(attributeId));
-			Attribute xplannerAttribute = XPlannerAttributeMapper.getAttribute(attributeId);
-			if (xplannerAttribute != null) {
-				attribute.getMetaData().setLabel(xplannerAttribute.getDisplayName());
-				attribute.getMetaData().setReadOnly(xplannerAttribute.isReadOnly());
-			}
 		}
 
 		if (attribute != null) {
-			repositoryTaskData.getAttributeMapper().setValue(attribute, value == null ? "" : value);
+			repositoryTaskData.getAttributeMapper().setValues(attribute,
+					values == null ? new ArrayList<String>() : values);
 		}
 	}
 
@@ -514,7 +557,8 @@ public class XPlannerRepositoryUtils {
 		return createdDate;
 	}
 
-	public static String getProjectName(org.xplanner.soap.TaskData taskData, XPlannerClient client) {
+	public static String getProjectName(org.xplanner.soap.TaskData taskData, XPlannerClient client)
+			throws CoreException {
 		String projectName = Messages.XPlannerRepositoryUtils_NO_PROJECT_NAME;
 
 		UserStoryData userStory;
@@ -522,8 +566,7 @@ public class XPlannerRepositoryUtils {
 			userStory = client.getUserStory(taskData.getStoryId());
 			projectName = getProjectName(userStory, client);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN, e.getMessage(), e));
 		}
 
 		return projectName;
@@ -566,15 +609,15 @@ public class XPlannerRepositoryUtils {
 		return projectId;
 	}
 
-	public static String getIterationName(org.xplanner.soap.TaskData taskData, XPlannerClient client) {
+	public static String getIterationName(org.xplanner.soap.TaskData taskData, XPlannerClient client)
+			throws CoreException {
 		String iterationName = Messages.XPlannerRepositoryUtils_NO_ITERATION_NAME;
 
 		try {
 			UserStoryData userStory = client.getUserStory(taskData.getStoryId());
 			iterationName = getIterationName(userStory, client);
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN, e.getMessage(), e));
 		}
 
 		return iterationName;

@@ -1,0 +1,13 @@
+1212542372953	Rename type 'XPlannerTaskListFactory'
+1212543212140	Move member 'REPOSITORY_KIND'
+1212608196843	Extract local variable 'contentIdsValue'
+1212608250109	Extract local variable 'personIdValue'
+1212608392046	Extract local variable 'contentIdTypeValue'
+1212609864140	Rename type 'Kind'
+1212692311515	Extract local variable 'query2'
+1212693430328	Rename type 'Kind'
+1212694551000	Rename type 'XPlannerTaskEditorFactory'
+1212706147171	Delete element
+1212777600687	Encapsulate field 'userStoryData'
+1212790791312	Rename field 'offlineHandler'
+1212795034328	Rename type 'XPlannerAttributeFactory'

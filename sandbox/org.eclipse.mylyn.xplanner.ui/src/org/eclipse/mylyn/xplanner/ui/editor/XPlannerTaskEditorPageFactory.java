@@ -8,7 +8,6 @@
 package org.eclipse.mylyn.xplanner.ui.editor;
 
 import org.eclipse.mylyn.internal.provisional.commons.ui.CommonImages;
-import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.ui.TasksUiImages;
 import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
@@ -47,7 +46,7 @@ public class XPlannerTaskEditorPageFactory extends AbstractTaskEditorPageFactory
 		String kind = task.getTaskKind();
 
 		if (XPlannerAttributeMapper.XPlannerTaskKind.TASK.toString().equals(kind)
-				|| AbstractTask.DEFAULT_TASK_KIND.equals(kind)) {
+				|| XPlannerAttributeMapper.DEFAULT_REPOSITORY_TASK_KIND.equals(kind)) {
 			if (TasksUiUtil.isOutgoingNewTask(editorInput.getTask(), XPlannerCorePlugin.CONNECTOR_KIND)) {
 				editor = new XPlannerTaskEditor(parentEditor, true);
 			} else {

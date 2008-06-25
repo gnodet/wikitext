@@ -126,9 +126,11 @@ public class XPlannerUserStoryEditor extends FormPage {
 		try {
 			this.userStoryData = client.getUserStory(Integer.valueOf(key).intValue());
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
+					"Error formatting user story key", e));
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
+					"Error retrieving user story: " + key, e));
 		}
 	}
 

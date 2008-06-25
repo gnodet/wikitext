@@ -10,11 +10,13 @@ package org.eclipse.mylyn.xplanner.tests;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Set;
 
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.sync.SynchronizationSession;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
@@ -22,6 +24,7 @@ import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.ITask.SynchronizationState;
+import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
@@ -49,26 +52,12 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		super.tearDown();
 	}
 
-	@SuppressWarnings("null")
 	public void testCreateTaskFromExistingKeyForUserStory() throws Exception {
-		TaskRepository repository = XPlannerTestUtils.getRepository();
-		UserStoryData testUserStory = XPlannerTestUtils.findTestUserStory(client);
-
-		assertTrue(testUserStory != null);
-
-		ITask repositoryTask = TasksUi.getRepositoryModel().createTask(repository, "" + testUserStory.getId());
-		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
-				repository.getConnectorKind());
-		org.eclipse.mylyn.tasks.core.data.TaskData repositoryTaskData = connector.getTaskData(repository, ""
-				+ testUserStory.getId(), null);
-		connector.updateTaskFromTaskData(repository, repositoryTask, repositoryTaskData);
-
-		assertTrue(repositoryTask.getConnectorKind().equals(XPlannerCorePlugin.CONNECTOR_KIND));
-		assertTrue(repositoryTask.getSummary().equals(testUserStory.getName()));
+		getTestRepositoryUserStory();
 	}
 
 	@SuppressWarnings("null")
-	public void testCreateTaskFromExistingKeyForTask() throws Exception {
+	private ITask getTestRepositoryTask() throws Exception {
 		TaskRepository repository = XPlannerTestUtils.getRepository();
 		TaskData testTask = XPlannerTestUtils.findTestTask(client);
 
@@ -83,6 +72,32 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 
 		assertTrue(repositoryTask.getConnectorKind().equals(XPlannerCorePlugin.CONNECTOR_KIND));
 		assertTrue(repositoryTask.getSummary().equals(testTask.getName()));
+
+		return repositoryTask;
+	}
+
+	@SuppressWarnings("null")
+	private ITask getTestRepositoryUserStory() throws Exception {
+		TaskRepository repository = XPlannerTestUtils.getRepository();
+		UserStoryData testUserStory = XPlannerTestUtils.findTestUserStory(client);
+
+		assertTrue(testUserStory != null);
+
+		ITask repositoryTask = TasksUi.getRepositoryModel().createTask(repository, "" + testUserStory.getId());
+		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
+				repository.getConnectorKind());
+		org.eclipse.mylyn.tasks.core.data.TaskData repositoryTaskData = connector.getTaskData(repository, ""
+				+ testUserStory.getId(), null);
+		connector.updateTaskFromTaskData(repository, repositoryTask, repositoryTaskData);
+
+		assertTrue(repositoryTask.getConnectorKind().equals(XPlannerCorePlugin.CONNECTOR_KIND));
+		assertTrue(repositoryTask.getSummary().equals(testUserStory.getName()));
+
+		return repositoryTask;
+	}
+
+	public void testCreateTaskFromExistingKeyForTask() throws Exception {
+		getTestRepositoryTask();
 	}
 
 	@SuppressWarnings("null")
@@ -131,8 +146,8 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		ITask repositoryTask = null;
 
 		if (tasks.size() == 0) {
-			testCreateTaskFromExistingKeyForUserStory();
-			repositoryTask = XPlannerTestUtils.getTestXPlannerUserStoryTask(client);
+			testCreateTaskFromExistingKeyForTask();
+			repositoryTask = XPlannerTestUtils.getTestXPlannerTask(client);
 			TasksUiPlugin.getTaskList().addTask(repositoryTask);
 			tasks = TasksUiPlugin.getTaskList().getTasks(repository.getRepositoryUrl());
 		}
@@ -178,11 +193,12 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		String timeStamp = XPlannerAttributeMapper.TIME_DATE_FORMAT.format(date);
 		for (ITask task : tasks) {
 			if (task instanceof AbstractTask) {
-				TaskData taskData = client.getTask(Integer.valueOf(task.getTaskKey()).intValue());
+				TaskData taskData = client.getTask(Integer.valueOf(task.getTaskId()).intValue());
 				if (taskData != null) {
 					Calendar lastUpdateTime = new GregorianCalendar();
 					lastUpdateTime.setTime(date);
 					taskData.setLastUpdateTime(lastUpdateTime);
+					client.update(taskData);
 				}
 				((AbstractTask) task).setSynchronizationState(SynchronizationState.SYNCHRONIZED);
 			}
@@ -214,6 +230,113 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 			assertTrue(e.getMessage() != null && e.getMessage().contains("Error connecting"));
 		} finally {
 			repository.setRepositoryUrl(goodUrl);
+		}
+	}
+
+	public void testPostSynchronizationNoChanges() throws Exception {
+		TaskRepository repository = XPlannerTestUtils.getRepository();
+		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
+				repository.getConnectorKind());
+
+		assertTrue(connector instanceof XPlannerRepositoryConnector);
+
+		Set<ITask> tasks = TasksUiPlugin.getTaskList().getTasks(repository.getRepositoryUrl());
+
+		ITask repositoryTask = getTestRepositoryTask();
+
+		TasksUiPlugin.getTaskList().addTask(repositoryTask);
+		tasks = TasksUiPlugin.getTaskList().getTasks(repository.getRepositoryUrl());
+
+		SynchronizationSession event = new SynchronizationSession(TasksUiPlugin.getTaskDataManager());
+
+		String synchronizationTimeStamp = XPlannerAttributeMapper.TIME_DATE_FORMAT.format(Calendar.getInstance()
+				.getTime());
+		repository.setSynchronizationTimeStamp(synchronizationTimeStamp);
+
+		event.setChangedTasks(tasks);
+		event.setNeedsPerformQueries(false);
+		event.setTaskRepository(repository);
+		event.setFullSynchronization(true);
+		connector.postSynchronization(event, new NullProgressMonitor());
+
+		assertTrue(!event.needsPerformQueries());
+		assertTrue(repository.getSynchronizationTimeStamp().equals(synchronizationTimeStamp));
+
+		// cleanup
+		if (repositoryTask != null) {
+			TasksUiPlugin.getTaskList().deleteTask(repositoryTask);
+		}
+	}
+
+	public void testPostSynchronizationHaveChanges() throws Exception {
+		TaskRepository repository = XPlannerTestUtils.getRepository();
+		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
+				repository.getConnectorKind());
+
+		assertTrue(connector instanceof XPlannerRepositoryConnector);
+
+		Set<ITask> tasks = TasksUiPlugin.getTaskList().getTasks(repository.getRepositoryUrl());
+
+		ITask repositoryTask = getTestRepositoryTask();
+		TasksUiPlugin.getTaskList().addTask(repositoryTask);
+		tasks = TasksUiPlugin.getTaskList().getTasks(repository.getRepositoryUrl());
+		setSyncTimeStamp(repository, tasks);
+
+		// change task description
+		TaskData testTask = XPlannerTestUtils.findTestTask(client);
+		String originalDescription = testTask.getDescription();
+		testTask.setDescription("new test task description");
+		client.update(testTask);
+
+		SynchronizationSession event = new SynchronizationSession();
+
+		String initialSynchronizationTimeStampString = repository.getSynchronizationTimeStamp();
+		Date initialSynchronizationTimeStamp = XPlannerAttributeMapper.TIME_DATE_FORMAT.parse(initialSynchronizationTimeStampString);
+
+		event.setChangedTasks(tasks);
+		event.setTaskRepository(repository);
+		event.setFullSynchronization(true);
+		connector.postSynchronization(event, new NullProgressMonitor());
+
+		String finalSynchronizationTimeStampString = repository.getSynchronizationTimeStamp();
+		Date finalSynchronizationTimeStamp = XPlannerAttributeMapper.TIME_DATE_FORMAT.parse(finalSynchronizationTimeStampString);
+
+		assertTrue(finalSynchronizationTimeStamp.equals(repositoryTask.getModificationDate()));
+		assertTrue(finalSynchronizationTimeStamp.after(initialSynchronizationTimeStamp));
+
+		// cleanup
+		if (repositoryTask != null) {
+			TasksUiPlugin.getTaskList().deleteTask(repositoryTask);
+			testTask.setDescription(originalDescription);
+			client.update(testTask);
+		}
+	}
+
+	public void testGetTaskRelationsNoRelations() throws Exception {
+		ITask repositoryTask = getTestRepositoryTask();
+
+		if (repositoryTask != null) {
+			String subTasksAttributeValue = repositoryTask.getAttribute(XPlannerAttributeMapper.ATTRIBUTE_SUBTASK_IDS);
+			assertNull(subTasksAttributeValue);
+		}
+	}
+
+	public void testGetTaskRelationsHaveRelations() throws Exception {
+		TaskRepository repository = XPlannerTestUtils.getRepository();
+		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
+				repository.getConnectorKind());
+
+		ITask repositoryTask = getTestRepositoryUserStory();
+
+		if (repositoryTask != null) {
+			org.eclipse.mylyn.tasks.core.data.TaskData taskData = connector.getTaskData(repository,
+					repositoryTask.getTaskId(), null);
+			assertNotNull(taskData);
+			TaskAttribute subTasksAttribute = taskData.getRoot().getAttribute(
+					XPlannerAttributeMapper.ATTRIBUTE_SUBTASK_IDS);
+			assertNotNull(subTasksAttribute);
+			List<String> values = subTasksAttribute.getValues();
+			assertTrue(!values.isEmpty());
 		}
 	}
 }

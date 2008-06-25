@@ -98,8 +98,15 @@ public class XPlannerTaskListMigrator extends AbstractTaskListMigrator {
 
 	public static int getPersonId(IRepositoryQuery query) {
 		String personIdValue = query.getAttribute(KEY_QUERY_PERSON_ID);
-		return personIdValue == null || personIdValue.length() == 0 ? XPlannerAttributeMapper.INVALID_ID
-				: Integer.valueOf(personIdValue);
+		int personId = XPlannerAttributeMapper.INVALID_ID;
+		try {
+			personId = personIdValue == null || personIdValue.length() == 0 ? XPlannerAttributeMapper.INVALID_ID
+					: Integer.valueOf(personIdValue);
+		} catch (NumberFormatException e) {
+			XPlannerMylynUIPlugin.log(e, "Could not format person id: " + personIdValue, false);
+		}
+
+		return personId;
 	}
 
 	public static void setPersonId(IRepositoryQuery query, int personId) {
@@ -148,6 +155,10 @@ public class XPlannerTaskListMigrator extends AbstractTaskListMigrator {
 	@Override
 	public void migrateTask(ITask task, Element element) {
 		String taskKind = element.getAttribute(KEY_TASK);
+		task.setTaskKind(taskKind == null || taskKind.length() == 0 || taskKind.equals(TaskAttribute.KIND_DEFAULT) ? XPlannerAttributeMapper.XPlannerTaskKind.TASK.toString()
+				: taskKind);
+		task.setModificationDate(XPlannerAttributeMapper.getDateForAttributeType(KEY_LAST_MOD_DATE,
+				element.getAttribute(KEY_LAST_MOD_DATE)));
 		boolean setDefaultKind = taskKind == null || taskKind.length() == 0
 				|| taskKind.equals(TaskAttribute.KIND_DEFAULT);
 		task.setTaskKind(setDefaultKind ? XPlannerAttributeMapper.XPlannerTaskKind.TASK.toString() : taskKind);
@@ -215,7 +226,12 @@ public class XPlannerTaskListMigrator extends AbstractTaskListMigrator {
 		StringTokenizer tokens = new StringTokenizer(encoded, TOKEN_SEPARATOR);
 		ArrayList<Integer> ids = new ArrayList<Integer>();
 		while (tokens.hasMoreTokens()) {
-			ids.add(Integer.valueOf(tokens.nextToken()));
+			String token = tokens.nextToken();
+			try {
+				ids.add(Integer.valueOf(token));
+			} catch (NumberFormatException e) {
+				XPlannerMylynUIPlugin.log(e, "Could not format query id: " + token, false);
+			}
 		}
 
 		return ids;

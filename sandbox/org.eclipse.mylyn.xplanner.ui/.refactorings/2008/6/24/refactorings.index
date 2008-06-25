@@ -1,1 +1,3 @@
 1213246314317	Rename field 'PLUGIN_ID'
+1213395935851	Extract local variable 'modificationDateValue'
+1213396026053	Extract local variable 'modificationDateValue'

@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.mylyn.tasks.core.AbstractTaskListMigrator;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
@@ -32,6 +33,8 @@ public class XPlannerAttributeMapper extends TaskAttributeMapper {
 	}
 
 	private static final long serialVersionUID = -4685044081450189855L;
+
+	public static final String DEFAULT_REPOSITORY_TASK_KIND = "task";
 
 	private static final String TIME_DATE_FORMAT_STRING = "yyyy-MM-dd HH:mm:ss";// "EEE //$NON-NLS-1$
 
@@ -180,6 +183,10 @@ public class XPlannerAttributeMapper extends TaskAttributeMapper {
 		return super.mapToRepositoryKey(parent, key);
 	}
 
+	public static Attribute getAttribute(String commonKey) {
+		return commonKeyToAttributesMap.get(commonKey);
+	}
+
 	@Override
 	public Date getDateValue(TaskAttribute attribute) {
 		if (attribute == null) {
@@ -194,20 +201,29 @@ public class XPlannerAttributeMapper extends TaskAttributeMapper {
 	}
 
 	public Date getDateForAttributeType(TaskAttribute attribute, String dateString) {
-		if (dateString == null || dateString.equals("")) { //$NON-NLS-1$
+		String mappedAttributeKey = mapToRepositoryKey(attribute, attribute.getId());
+		return getDateForAttributeType(mappedAttributeKey, dateString);
+	}
+
+	public static Date getDateForAttributeType(String mappedAttributeKey, String dateString) {
+		if (mappedAttributeKey == null || mappedAttributeKey.length() == 0 || dateString == null
+				|| dateString.length() == 0) {
+
 			return null;
 		}
+
 		Date date = null;
 
 		try {
-			String mappedKey = mapToRepositoryKey(attribute, attribute.getId());
-			if (mappedKey.equals(XPlannerAttributeMapper.ATTRIBUTE_ACT_HOURS_NAME)
-					|| mappedKey.equals(XPlannerAttributeMapper.ATTRIBUTE_EST_HOURS_NAME)
-					|| mappedKey.equals(XPlannerAttributeMapper.ATTRIBUTE_REMAINING_HOURS_NAME)
-					|| mappedKey.equals(TaskAttribute.DATE_CREATION)) {
+			if (mappedAttributeKey.equals(XPlannerAttributeMapper.ATTRIBUTE_ACT_HOURS_NAME)
+					|| mappedAttributeKey.equals(XPlannerAttributeMapper.ATTRIBUTE_EST_HOURS_NAME)
+					|| mappedAttributeKey.equals(XPlannerAttributeMapper.ATTRIBUTE_REMAINING_HOURS_NAME)
+					|| mappedAttributeKey.equals(TaskAttribute.DATE_CREATION)) {
 
 				date = DATE_FORMAT.parse(dateString);
-			} else if (mappedKey.equals(TaskAttribute.DATE_MODIFICATION)) {
+			} else if (mappedAttributeKey.equals(TaskAttribute.DATE_MODIFICATION)
+					|| mappedAttributeKey.equals(AbstractTaskListMigrator.KEY_LAST_MOD_DATE)) {
+
 				date = TIME_DATE_FORMAT.parse(dateString);
 			}
 		} catch (Exception e) {
@@ -216,9 +232,4 @@ public class XPlannerAttributeMapper extends TaskAttributeMapper {
 
 		return date;
 	}
-
-	public static Attribute getAttribute(String commonKey) {
-		return commonKeyToAttributesMap.get(commonKey);
-	}
-
 }

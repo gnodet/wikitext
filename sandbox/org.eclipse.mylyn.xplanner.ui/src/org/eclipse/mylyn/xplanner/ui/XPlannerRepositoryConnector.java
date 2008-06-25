@@ -25,7 +25,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.commons.net.Policy;
-import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.ITask;
@@ -83,11 +82,6 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	@Override
 	public IStatus performQuery(TaskRepository repository, IRepositoryQuery repositoryQuery,
 			TaskDataCollector resultCollector, ISynchronizationSession event, IProgressMonitor monitor) {
-		// TODO throw exception instead? Passing a non-XPlanner query is probably a programming error. 
-		if (!(repositoryQuery.getConnectorKind().equals(XPlannerCorePlugin.CONNECTOR_KIND))) {
-			return Status.OK_STATUS;
-		}
-
 		try {
 			XPlannerRepositoryUtils.validateRepository(repository);
 			monitor.beginTask("Running query", IProgressMonitor.UNKNOWN);
@@ -115,25 +109,6 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	public boolean canCreateNewTask(TaskRepository repository) {
 		return true;
 	}
-
-//TODO -- no longer used -- remove if really unnecessary	
-//	private IStatus queryUserStories(XPlannerCustomQuery xplannerCustomQuery, 
-//		XPlannerClient client, TaskRepository repository, QueryHitCollector resultCollector) throws RemoteException {
-//		
-//		int iterationId = xplannerCustomQuery.getContentId();
-//		UserStoryData[] userStories;
-//		
-//		// check if want all or person's stories
-//		if (xplannerCustomQuery.getPersonId() != XPlannerCustomQuery.INVALID_ID) {
-//			int trackerId = xplannerCustomQuery.getPersonId();
-//			userStories = client.getIterationUserStoriesForTracker(trackerId, iterationId);
-//		}
-//		else {
-//			userStories = client.getUserStories(iterationId);
-//		}
-//		
-//		return getUserStoryQueryHits(Arrays.asList(userStories), repository, xplannerCustomQuery, resultCollector);
-//	}
 
 	private IStatus queryMyCurrentTasks(IRepositoryQuery repositoryQuery, XPlannerClient client,
 			TaskRepository repository, TaskDataCollector resultCollector) throws RemoteException {
@@ -185,18 +160,13 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	}
 
 	private void addUserStoryTasks(IRepositoryQuery repositoryQuery, int userStoryId, List<TaskData> xplannerTasks,
-			XPlannerClient client) {
+			XPlannerClient client) throws RemoteException {
 		// check if want all or person's tasks
 		int personId = XPlannerTaskListMigrator.getPersonId(repositoryQuery);
 		if (personId != XPlannerAttributeMapper.INVALID_ID) {
 			xplannerTasks.addAll(Arrays.asList(client.getUserStoryTasksForPerson(personId, userStoryId)));
 		} else {
-			try {
-				xplannerTasks.addAll(Arrays.asList(client.getTasks(userStoryId)));
-			} catch (RemoteException e) {
-				// TODO propage exception
-				e.printStackTrace();
-			}
+			xplannerTasks.addAll(Arrays.asList(client.getTasks(userStoryId)));
 		}
 	}
 
@@ -204,16 +174,6 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			TaskDataCollector resultCollector) {
 
 		for (TaskData data : tasks) {
-			//HeB -- testing -- appears not necessary?
-//			String id = String.valueOf(data.getId());
-//			ITask task = TasksUiInternal.getTaskList().getTask(repository.getRepositoryUrl(), id);
-//			if (task != null) {
-//				updateTaskDetails(repository.getRepositoryUrl(), task, data, false);
-//			}
-//			else {
-//				task = createTask(data, data.getName(), String.valueOf(data.getId()), repository);
-//			}
-
 			try {
 				org.eclipse.mylyn.tasks.core.data.TaskData repositoryTaskData = XPlannerRepositoryUtils.createRepositoryTaskData(
 						repository, String.valueOf(data.getId()));
@@ -284,19 +244,17 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	@Override
 	public void updateTaskFromTaskData(TaskRepository repository, ITask task,
 			org.eclipse.mylyn.tasks.core.data.TaskData repositoryTaskData) {
-		// TODO remove null check?
-		if (repositoryTaskData != null) {
-			TaskMapper mapper = getTaskMapper(repositoryTaskData);
-			mapper.applyTo(task);
 
-			String url = repository.getRepositoryUrl() + XPlannerMylynUIPlugin.TASK_URL_PREFIX
-					+ repositoryTaskData.getTaskId();
-			task.setUrl(url);
+		TaskMapper mapper = getTaskMapper(repositoryTaskData);
+		mapper.applyTo(task);
 
-			if (!repositoryTaskData.isPartial()) {
-				task.setAttribute(XPlannerTaskListMigrator.KEY_TASK_UPDATE, XPlannerRepositoryUtils.getAttributeValue(
-						repositoryTaskData, TaskAttribute.DATE_MODIFICATION));
-			}
+		String url = repository.getRepositoryUrl() + XPlannerMylynUIPlugin.TASK_URL_PREFIX
+				+ repositoryTaskData.getTaskId();
+		task.setUrl(url);
+
+		if (!repositoryTaskData.isPartial()) {
+			task.setAttribute(XPlannerTaskListMigrator.KEY_TASK_UPDATE, XPlannerRepositoryUtils.getAttributeValue(
+					repositoryTaskData, TaskAttribute.DATE_MODIFICATION));
 		}
 	}
 
@@ -316,9 +274,9 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			public String getTaskKind() {
 				String taskValue = XPlannerRepositoryUtils.getAttributeValue(repositoryTaskData,
 						TaskAttribute.TASK_KIND);
-				// TODO copy value from AbstractTask.DEFAULT_TASK_KIND?
-				if (taskValue == null || taskValue.length() == 0 || taskValue.equals(AbstractTask.DEFAULT_TASK_KIND)) {
-					taskValue = XPlannerAttributeMapper.XPlannerTaskKind.TASK.name();
+				if (taskValue == null || taskValue.length() == 0
+						|| taskValue.equals(XPlannerAttributeMapper.DEFAULT_REPOSITORY_TASK_KIND)) {
+					taskValue = XPlannerAttributeMapper.XPlannerTaskKind.TASK.toString();
 				}
 
 				return taskValue;
@@ -331,8 +289,11 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 				if (XPlannerRepositoryUtils.isCompleted(repositoryTaskData)) {
 					try {
 						// guess that completed when last modified
-						completionDate = XPlannerAttributeMapper.TIME_DATE_FORMAT.parse(XPlannerRepositoryUtils.getAttributeValue(
-								repositoryTaskData, TaskAttribute.DATE_MODIFICATION));
+						String lastModificationDateValue = XPlannerRepositoryUtils.getAttributeValue(
+								repositoryTaskData, TaskAttribute.DATE_COMPLETION);
+						if (lastModificationDateValue != null) {
+							completionDate = XPlannerAttributeMapper.TIME_DATE_FORMAT.parse(lastModificationDateValue);
+						}
 					} catch (ParseException e) {
 						StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
 								Messages.XPlannerRepositoryConnector_COULD_NOT_CONVERT_TASK_DATE));
@@ -351,6 +312,25 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			public void setProduct(String product) {
 				// ignore, set during task data initialization
 			}
+
+			@Override
+			public Date getModificationDate() {
+				Date modificationDate = null;
+
+				try {
+					String modificationDateValue = XPlannerRepositoryUtils.getAttributeValue(repositoryTaskData,
+							TaskAttribute.DATE_MODIFICATION);
+					if (modificationDateValue != null) {
+						modificationDate = XPlannerAttributeMapper.TIME_DATE_FORMAT.parse(modificationDateValue);
+					}
+				} catch (ParseException e) {
+					StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
+							Messages.XPlannerRepositoryConnector_COULD_NOT_CONVERT_TASK_DATE));
+				}
+
+				return modificationDate;
+			}
+
 		};
 	}
 
@@ -499,7 +479,6 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			} catch (CoreException ce) {
 				throw ce;
 			} catch (Exception e) {
-				// TODO propagate exception
 				StatusHandler.fail(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN, e.getMessage()));
 			}
 
@@ -533,6 +512,39 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 		}
 
 		session.setNeedsPerformQueries(changed);
+	}
+
+	@Override
+	public void postSynchronization(ISynchronizationSession event, IProgressMonitor monitor) throws CoreException {
+		try {
+			monitor.beginTask("", 1);
+			if (event.isFullSynchronization() && event.getStatus() == null) {
+				event.getTaskRepository().setSynchronizationTimeStamp(getSynchronizationTimestamp(event));
+			}
+		} finally {
+			monitor.done();
+		}
+	}
+
+	private String getSynchronizationTimestamp(ISynchronizationSession event) throws CoreException {
+
+		String mostRecentTimeStamp = event.getTaskRepository().getSynchronizationTimeStamp();
+		Date mostRecent = null;
+		try {
+			mostRecent = XPlannerAttributeMapper.TIME_DATE_FORMAT.parse(mostRecentTimeStamp);
+		} catch (ParseException e) {
+			; // don't do anything if invalid sync time stamp
+		}
+
+		for (ITask task : event.getChangedTasks()) {
+			Date taskModifiedDate = task.getModificationDate();
+			if (taskModifiedDate != null && (mostRecent == null || taskModifiedDate.after(mostRecent))) {
+				mostRecent = taskModifiedDate;
+				mostRecentTimeStamp = XPlannerAttributeMapper.TIME_DATE_FORMAT.format(mostRecent);
+			}
+		}
+
+		return mostRecentTimeStamp;
 	}
 
 	public TaskRepositoryLocationFactory getTaskRepositoryLocationFactory() {
