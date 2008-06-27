@@ -334,7 +334,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 //						w.setTaskKind(type);
 
 						TaskData data = createTaskData(repository, id);
-						TaskMapper mapper = new TaskMapper(data);
+						TaskMapper mapper = new TaskMapper(data, true);
 						mapper.setTaskUrl(taskPrefix + id);
 						mapper.setSummary(description);
 						mapper.setValue(KEY_TASK_PREFIX, taskPrefix);
@@ -441,7 +441,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 				String entrTitle = entry.getTitle();
 
 				TaskData data = createTaskData(repository, entryUri.replaceAll("-", "%2D"));
-				TaskMapper schema = new TaskMapper(data);
+				TaskMapper schema = new TaskMapper(data, true);
 				schema.setSummary(((date == null ? "" : df.format(date) + " - ") + entrTitle));
 				schema.setCreationDate(date);
 				schema.setOwner(author);
