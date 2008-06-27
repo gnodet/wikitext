@@ -364,6 +364,20 @@
             id="org.eclipse.mylyn.sandbox..pageFactories.extensibleBugzillaTaskEditor">
       </pageFactory>     
       </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.mylyn.tasks.ui.views.repositories?after=additions">
+         <menu
+               label="WikiText Editor Style"
+               tooltip="Select editor style">
+            <dynamic
+                  class="org.eclipse.mylyn.internal.sandbox.ui.editors.EditorStyleContributionItem"
+                  id="org.eclipse.mylyn.sandbox.ui.editorStyleDropDown">
+            </dynamic>
+         </menu>
+      </menuContribution>
+   </extension>
    
    
    
