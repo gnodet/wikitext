@@ -369,7 +369,7 @@
       <menuContribution
             locationURI="popup:org.eclipse.mylyn.tasks.ui.views.repositories?after=additions">
          <menu
-               label="WikiText Editor Style"
+               label="Task Editor Extension"
                tooltip="Select editor style">
             <dynamic
                   class="org.eclipse.mylyn.internal.sandbox.ui.editors.EditorStyleContributionItem"
