@@ -28,8 +28,6 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -40,14 +38,13 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.themes.IThemeManager;
 
 /**
- * A multitab source viewer that can edit and preview Textile wikitext markup.
- * 
- * TODO generalize RichTextAttributeEditor: add a protected method to create the SourceViewer then subclasses can then
- * create its own SourceViewer without overriding createControl and copying the code in it
+ * A multi-tab source viewer that can edit and preview markup.
  * 
  * @author Jingwen Ou
  * @author David Green added context activation, layout
  */
+// TODO generalize RichTextAttributeEditor: add a protected method to create the SourceViewer then subclasses can then
+// create its own SourceViewer without overriding createControl and copying the code in it
 public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 
 	private SourceViewer source;
@@ -62,6 +59,10 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 
 	private final AbstractTaskEditorExtension extension;
 
+	private CTabFolder folder;
+
+	private SourceViewer preview;
+
 	public ExtensibleRichTextAttributeEditor(IContextService contextService, TaskDataModel manager,
 			TaskRepository taskRepository, AbstractTaskEditorExtension extension, TaskAttribute taskAttribute,
 			int styles) {
@@ -73,23 +74,18 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 	}
 
 	@Override
-	public SourceViewer getViewer() {
-		return source;
-	}
-
-	@Override
 	public void createControl(Composite parent, FormToolkit toolkit) {
 		if (isReadOnly()) {
 			source = extension.createViewer(taskRepository, parent, styles);
 			source.setDocument(new Document(getValue()));
-
 			setControl(source.getControl());
 		} else {
-			CTabFolder folder = new CTabFolder(parent, SWT.FLAT | SWT.BOTTOM);
+			folder = new CTabFolder(parent, SWT.FLAT | SWT.BOTTOM);
 			folder.setLayout(new GridLayout());
+			// invisible tab text
+			folder.setTabHeight(0);
 
-			/** wikitext markup editor **/
-
+			// editor
 			CTabItem viewerItem = new CTabItem(folder, SWT.NONE);
 			viewerItem.setText("Source");
 			viewerItem.setToolTipText("Edit Source");
@@ -97,7 +93,7 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 			source = extension.createEditor(taskRepository, folder, styles | SWT.V_SCROLL);
 			source.getControl().setLayoutData(GridDataFactory.fillDefaults().grab(true, true).create());
 
-			// we must do this otherwise the cut/copy/paste commands don't work
+			// enable cut/copy/paste
 			EditorUtil.setTextViewer(source.getTextWidget(), source);
 
 			if (source.getDocument() == null) {
@@ -114,7 +110,6 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 			});
 			source.getControl().setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER);
 
-			//setting up focus stuff, copied from Daivd's solution
 			FocusListener focusListener = new FocusListener() {
 
 				public void focusGained(FocusEvent e) {
@@ -136,43 +131,34 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 			viewerItem.setControl(source instanceof Viewer ? ((Viewer) source).getControl() : source.getTextWidget());
 			folder.setSelection(viewerItem);
 
-			/** wikitext markup viewer **/
-
+			// preview
 			CTabItem previewItem = new CTabItem(folder, SWT.NONE);
 			previewItem.setText("Preview");
 			previewItem.setToolTipText("Preview Source");
 
-			final SourceViewer preview = extension.createViewer(taskRepository, folder, styles | SWT.V_SCROLL);
+			preview = extension.createViewer(taskRepository, folder, styles | SWT.V_SCROLL);
 
 			previewItem.setControl(preview instanceof Viewer ? ((Viewer) preview).getControl()
 					: preview.getTextWidget());
 
-			folder.addSelectionListener(new SelectionListener() {
-				public void widgetDefaultSelected(SelectionEvent selectionevent) {
-					widgetSelected(selectionevent);
-				}
-
-				public void widgetSelected(SelectionEvent selectionevent) {
-					Document document = new Document(source.getDocument().get());
-					preview.setDocument(document);
-				}
-			});
+			preview.getTextWidget().setFont(getFont());
 
 			setControl(folder);
 		}
 
-		IThemeManager themeManager = PlatformUI.getWorkbench().getThemeManager();
-		Font font = themeManager.getCurrentTheme().getFontRegistry().get(CommonThemes.FONT_EDITOR_COMMENT);
-		source.getTextWidget().setFont(font);
+		source.getTextWidget().setFont(getFont());
 		toolkit.adapt(source.getControl(), false, false);
-
 	}
 
-	protected void unsetContext() {
-		if (contextActivation != null) {
-			contextService.deactivateContext(contextActivation);
-			contextActivation = null;
-		}
+	private Font getFont() {
+		IThemeManager themeManager = PlatformUI.getWorkbench().getThemeManager();
+		Font font = themeManager.getCurrentTheme().getFontRegistry().get(CommonThemes.FONT_EDITOR_COMMENT);
+		return font;
+	}
+
+	@Override
+	public SourceViewer getViewer() {
+		return source;
 	}
 
 	protected void setContext() {
@@ -182,6 +168,25 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 		}
 		if (contextService != null && extension.getEditorContextId() != null) {
 			contextActivation = contextService.activateContext(extension.getEditorContextId());
+		}
+	}
+
+	public void toggleEditing(boolean editing) {
+		if (!isReadOnly() && folder != null) {
+			if (!editing) {
+				folder.setSelection(1);
+				Document document = new Document(source.getDocument().get());
+				preview.setDocument(document);
+			} else {
+				folder.setSelection(0);
+			}
+		}
+	}
+
+	protected void unsetContext() {
+		if (contextActivation != null) {
+			contextService.deactivateContext(contextActivation);
+			contextActivation = null;
 		}
 	}
 
