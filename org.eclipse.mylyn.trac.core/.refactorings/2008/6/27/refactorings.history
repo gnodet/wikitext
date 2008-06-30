@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;modificationDate&apos; from expression &apos;mapper.getModificationDate()&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.trac.core&apos;&#x0A;- Variable name: &apos;modificationDate&apos;&#x0A;- Destination method: &apos;org.eclipse.mylyn.internal.trac.core.TracRepositoryConnector.updateTaskFromTaskData()&apos;&#x0A;- Variable expression: &apos;mapper.getModificationDate()&apos;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;modificationDate&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.eclipse.mylyn.internal.trac.core{TracRepositoryConnector.java" name="modificationDate" replace="true" selection="17593 28" stamp="1214865697391" version="1.0"/>
+</session>
