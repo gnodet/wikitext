@@ -1,0 +1,4 @@
+1214882001335	Extract superclass 'AutomaticRepositoryTaskContainer'
+1214882482290	Rename method 'getCustomHandle'
+1214882491810	Rename method 'getCommonHandle'
+1214882494998	Rename method 'getCommonHandleSuffix'
