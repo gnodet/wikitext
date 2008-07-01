@@ -27,7 +27,7 @@ public class ExtensibleTaskEditorNewCommentPart extends TaskEditorNewCommentPart
 				toggleEditing(this);
 			}
 		};
-		toggleEditingAction.setImageDescriptor(CommonImages.PART_MAXIMIZE);
+		toggleEditingAction.setImageDescriptor(CommonImages.PREVIEW_WEB);
 		toggleEditingAction.setToolTipText("Click to preview");
 		toggleEditingAction.setChecked(false);
 
