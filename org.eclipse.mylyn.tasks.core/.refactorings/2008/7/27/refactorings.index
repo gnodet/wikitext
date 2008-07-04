@@ -2,3 +2,4 @@
 1214882482290	Rename method 'getCustomHandle'
 1214882491810	Rename method 'getCommonHandle'
 1214882494998	Rename method 'getCommonHandleSuffix'
+1215139956581	Extract method 'updateQueries'
