@@ -375,8 +375,33 @@
                   class="org.eclipse.mylyn.internal.sandbox.ui.editors.EditorStyleContributionItem"
                   id="org.eclipse.mylyn.sandbox.ui.editorStyleDropDown">
             </dynamic>
+            <visibleWhen
+                  checkEnabled="false">
+               <and>
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                     <test
+                           forcePluginActivation="false"
+                           property="org.eclipse.mylyn.repository.connectorKind"
+                           value="bugzilla">
+                     </test>
+                  </iterate>
+               </and>
+            </visibleWhen>
          </menu>
       </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="org.eclipse.mylyn.internal.sandbox.ui.util.TaskRepositoryPropertyTester"
+            id="org.eclipse.mylyn.sandbox.ui.repositoryPropertyTester"
+            namespace="org.eclipse.mylyn.repository"
+            properties="connectorKind"
+            type="org.eclipse.mylyn.tasks.core.TaskRepository">
+      </propertyTester>
    </extension>
    
    
