@@ -28,7 +28,7 @@ public class ExtensibleTaskEditorNewCommentPart extends TaskEditorNewCommentPart
 			}
 		};
 		toggleEditingAction.setImageDescriptor(CommonImages.PREVIEW_WEB);
-		toggleEditingAction.setToolTipText("Click to preview");
+		toggleEditingAction.setToolTipText("Preview");
 		toggleEditingAction.setChecked(false);
 
 		barManager.add(toggleEditingAction);
@@ -40,11 +40,6 @@ public class ExtensibleTaskEditorNewCommentPart extends TaskEditorNewCommentPart
 		if (getEditor() instanceof ExtensibleRichTextAttributeEditor) {
 			ExtensibleRichTextAttributeEditor editor = (ExtensibleRichTextAttributeEditor) getEditor();
 			editor.toggleEditing(!action.isChecked());
-			if (!action.isChecked()) {
-				action.setToolTipText("Preview");
-			} else {
-				action.setToolTipText("Edit");
-			}
 		}
 	}
 }
