@@ -165,7 +165,7 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 
 	@Override
 	protected boolean isValidUrl(String name) {
-		return true;
+		return name != null && name.trim().length() > 0;
 	}
 
 	private void createParameterEditor(Composite composite) {
