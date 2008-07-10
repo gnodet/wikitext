@@ -82,9 +82,11 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	@Override
 	public IStatus performQuery(TaskRepository repository, IRepositoryQuery repositoryQuery,
 			TaskDataCollector resultCollector, ISynchronizationSession event, IProgressMonitor monitor) {
+
+		monitor = Policy.monitorFor(monitor);
+		monitor.beginTask("Running query", IProgressMonitor.UNKNOWN);
 		try {
 			XPlannerRepositoryUtils.validateRepository(repository);
-			monitor.beginTask("Running query", IProgressMonitor.UNKNOWN);
 			XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 
 			if (XPlannerTaskListMigrator.isMyCurrentTasks(repositoryQuery)) {
@@ -245,7 +247,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	public void updateTaskFromTaskData(TaskRepository repository, ITask task,
 			org.eclipse.mylyn.tasks.core.data.TaskData repositoryTaskData) {
 
-		TaskMapper mapper = getTaskMapper(repositoryTaskData);
+		TaskMapper mapper = getTaskMapping(repositoryTaskData);
 		mapper.applyTo(task);
 
 		String url = repository.getRepositoryUrl() + XPlannerMylynUIPlugin.TASK_URL_PREFIX
@@ -258,7 +260,8 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 		}
 	}
 
-	public TaskMapper getTaskMapper(final org.eclipse.mylyn.tasks.core.data.TaskData repositoryTaskData) {
+	@Override
+	public TaskMapper getTaskMapping(final org.eclipse.mylyn.tasks.core.data.TaskData repositoryTaskData) {
 		return new TaskMapper(repositoryTaskData) {
 			@Override
 			public String getSummary() {
@@ -554,7 +557,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	@Override
 	public boolean hasTaskChanged(TaskRepository taskRepository, ITask task,
 			org.eclipse.mylyn.tasks.core.data.TaskData repositoryTaskData) {
-		TaskMapper scheme = getTaskMapper(repositoryTaskData);
+		TaskMapper scheme = getTaskMapping(repositoryTaskData);
 		if (repositoryTaskData.isPartial()) {
 			Date repositoryDate = scheme.getModificationDate();
 			Date localDate = task.getModificationDate();
