@@ -112,6 +112,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	private static final String USER_AGENT = "WebTemplatesConnector";
 
+	private final static Date DEFAULT_COMPLETION_DATE = new Date(0);
+
 	@Override
 	public String getConnectorKind() {
 		return REPOSITORY_TYPE;
@@ -345,7 +347,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 						if (status != null) {
 							if (COMPLETED_STATUSES.contains(status.toLowerCase())) {
 								// TODO set actual completion date here
-								mapper.setCompletionDate(new Date());
+								mapper.setCompletionDate(DEFAULT_COMPLETION_DATE);
 							}
 						}
 
