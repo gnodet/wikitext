@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;activeWorkbenchWindow&apos; from expression &apos;PlatformUI.getWorkbench().getActiveWorkbenchWindow()&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.ui&apos;&#x0A;- Variable name: &apos;activeWorkbenchWindow&apos;&#x0A;- Destination method: &apos;org.eclipse.mylyn.tasks.ui.TasksUiUtil.openEditor()&apos;&#x0A;- Variable expression: &apos;PlatformUI.getWorkbench().getActiveWorkbenchWindow()&apos;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;activeWorkbenchWindow&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.eclipse.mylyn.tasks.ui{TasksUiUtil.java" name="activeWorkbenchWindow" replace="true" selection="7025 52" stamp="1216175156738" version="1.0"/>
+</session>
