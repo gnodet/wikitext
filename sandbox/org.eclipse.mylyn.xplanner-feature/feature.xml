@@ -129,7 +129,7 @@ Inc. in the United States, other countries, or both.
       <import plugin="org.apache.ant" version="1.6.5" match="compatible"/>
       <import plugin="org.eclipse.osgi"/>
       <import plugin="org.apache.commons.logging" version="1.0.4" match="compatible"/>
-      <import feature="org.eclipse.mylyn_feature" version="3.0.1.qualifier" match="equivalent"/>
+      <import feature="org.eclipse.mylyn_feature" version="3.0.1.mylynQualifier" match="equivalent"/>
    </requires>
 
    <plugin
