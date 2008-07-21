@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.mylyn.sandbox.ui" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="org.eclipse.mylyn.sandbox.ui" id="resourceHyperlinkExtensions" name="Resource Hyperlink Extension"/>
+      </appInfo>
+      <documentation>
+         An extension to the Mylyn task editor that can detect resource hyperlinks.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element internal="true" />
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence minOccurs="1" maxOccurs="unbounded">
+            <element ref="resourceHyperlinkExtension"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="resourceHyperlinkExtension">
+      <complexType>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  Should implement IResourceHyperlinkExtension, but may subclass AbstractResourceHyperlinkExtension instead which provides various helper methods.
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.mylyn.internal.sandbox.ui.hyperlinks.IResourceHyperlinkExtension"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="fileType" type="string" use="required">
+            <annotation>
+               <documentation>
+                  the file type of the resource, e.g. *.java, *.cpp, *.txt
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="generatedPrefix" type="string" use="required">
+            <annotation>
+               <documentation>
+                  correspondent prefix for a certain file type, e.g. for ITask.java, the generatedPrefix is &quot;java class&quot; and the whole is &quot;java class ITask&quot;.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         [Enter the first release in which this extension point appears.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="examples"/>
+      </appInfo>
+      <documentation>
+         [Enter extension point usage example here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiinfo"/>
+      </appInfo>
+      <documentation>
+         [Enter API information here.]
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="implementation"/>
+      </appInfo>
+      <documentation>
+         [Enter information about supplied implementation of this extension point.]
+      </documentation>
+   </annotation>
+
+
+</schema>

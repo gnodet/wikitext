@@ -2,7 +2,8 @@
 <?eclipse version="3.0"?>
 <plugin>
     <extension-point id="taskEditorExtensions" name="Task Editor Extension" schema="schema/taskEditorExtensions.exsd"/>
-
+    <extension-point id="resourceHyperlinkExtensions" name="Resource Hyperlink Extension" schema="schema/resourceHyperlinkExtensions.exsd"/>
+    
 	<extension point="org.eclipse.ui.views">
      	<category name="Experimental" id="org.eclipse.mylyn.sandbox"/>
     </extension>
