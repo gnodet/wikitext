@@ -437,10 +437,6 @@
    </extension>
    -->
   
-   
-</plugin>
-
-
    <!--
    <extension point="org.eclipse.ui.viewActions"> 
    <viewContribution
@@ -499,3 +495,5 @@
 	 </objectContribution>
   </extension>
   -->
+   
+</plugin>

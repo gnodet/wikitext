@@ -11,8 +11,12 @@ package org.eclipse.mylyn.internal.sandbox.ui.editors;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.mylyn.internal.provisional.commons.ui.CommonImages;
+import org.eclipse.mylyn.internal.tasks.ui.editors.EditorUtil;
 import org.eclipse.mylyn.internal.tasks.ui.editors.TaskEditorNewCommentPart;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.ui.forms.widgets.FormToolkit;
 
 /**
  * @author Jingwen Ou
@@ -32,7 +36,7 @@ public class ExtensibleTaskEditorNewCommentPart extends TaskEditorNewCommentPart
 		toggleEditingAction.setChecked(false);
 
 		barManager.add(toggleEditingAction);
-
+		barManager.add(getMaximizePartAction());
 		super.fillToolBar(barManager);
 	}
 
@@ -42,4 +46,17 @@ public class ExtensibleTaskEditorNewCommentPart extends TaskEditorNewCommentPart
 			editor.toggleEditing(!action.isChecked());
 		}
 	}
+
+	@Override
+	public void createControl(Composite parent, FormToolkit toolkit) {
+		super.createControl(parent, toolkit);
+
+		getEditor().getControl().setData(EditorUtil.KEY_TOGGLE_TO_MAXIMIZE_ACTION, getMaximizePartAction());
+		if (getEditor().getControl() instanceof Composite) {
+			for (Control control : ((Composite) getEditor().getControl()).getChildren()) {
+				control.setData(EditorUtil.KEY_TOGGLE_TO_MAXIMIZE_ACTION, getMaximizePartAction());
+			}
+		}
+	}
+
 }
