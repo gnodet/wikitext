@@ -50,11 +50,12 @@ public class ExtensibleTaskEditorNewCommentPart extends TaskEditorNewCommentPart
 	@Override
 	public void createControl(Composite parent, FormToolkit toolkit) {
 		super.createControl(parent, toolkit);
-
-		getEditor().getControl().setData(EditorUtil.KEY_TOGGLE_TO_MAXIMIZE_ACTION, getMaximizePartAction());
-		if (getEditor().getControl() instanceof Composite) {
-			for (Control control : ((Composite) getEditor().getControl()).getChildren()) {
-				control.setData(EditorUtil.KEY_TOGGLE_TO_MAXIMIZE_ACTION, getMaximizePartAction());
+		if (getControl() != null) {
+			getEditor().getControl().setData(EditorUtil.KEY_TOGGLE_TO_MAXIMIZE_ACTION, getMaximizePartAction());
+			if (getEditor().getControl() instanceof Composite) {
+				for (Control control : ((Composite) getEditor().getControl()).getChildren()) {
+					control.setData(EditorUtil.KEY_TOGGLE_TO_MAXIMIZE_ACTION, getMaximizePartAction());
+				}
 			}
 		}
 	}
