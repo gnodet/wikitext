@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.mylyn.xplanner_feature"
       label="Mylyn Connector: XPlanner (Incubation)"
-      version="3.0.1.qualifier"
+      version="3.0.2.qualifier"
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylyn">
 
@@ -136,14 +136,14 @@ Inc. in the United States, other countries, or both.
          id="org.eclipse.mylyn.xplanner.core"
          download-size="0"
          install-size="0"
-         version="3.0.1.qualifier"
+         version="3.0.2.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.mylyn.xplanner.ui"
          download-size="0"
          install-size="0"
-         version="3.0.1.qualifier"
+         version="3.0.2.qualifier"
          unpack="false"/>
 
    <plugin
