@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract method &apos;private void installMenu(final SourceViewer viewer)&apos; from &apos;org.eclipse.mylyn.tasks.ui.editors.AttributeEditorToolkit.adapt()&apos; to &apos;org.eclipse.mylyn.tasks.ui.editors.AttributeEditorToolkit&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.ui&apos;&#x0A;- Method name: &apos;installMenu&apos;&#x0A;- Destination type: &apos;org.eclipse.mylyn.tasks.ui.editors.AttributeEditorToolkit&apos;&#x0A;- Declared visibility: &apos;private&apos;" comments="false" description="Extract method &apos;installMenu&apos;" destination="0" exceptions="false" flags="786434" id="org.eclipse.jdt.ui.extract.method" input="/src&lt;org.eclipse.mylyn.tasks.ui.editors{AttributeEditorToolkit.java" name="installMenu" replace="false" selection="6791 67" stamp="1217731560895" version="1.0" visibility="2"/>
+</session>

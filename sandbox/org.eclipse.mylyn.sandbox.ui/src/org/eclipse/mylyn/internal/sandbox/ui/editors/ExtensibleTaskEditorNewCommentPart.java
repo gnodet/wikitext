@@ -43,7 +43,11 @@ public class ExtensibleTaskEditorNewCommentPart extends TaskEditorNewCommentPart
 	private void toggleEditing(Action action) {
 		if (getEditor() instanceof ExtensibleRichTextAttributeEditor) {
 			ExtensibleRichTextAttributeEditor editor = (ExtensibleRichTextAttributeEditor) getEditor();
-			editor.toggleEditing(!action.isChecked());
+			if (action.isChecked()) {
+				editor.showPreview();
+			} else {
+				editor.showEditor();
+			}
 		}
 	}
 

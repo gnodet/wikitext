@@ -8,60 +8,71 @@
 
 package org.eclipse.mylyn.internal.sandbox.ui.editors;
 
-import org.eclipse.jface.layout.GridDataFactory;
+import java.util.Iterator;
+
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.ITextListener;
 import org.eclipse.jface.text.TextEvent;
 import org.eclipse.jface.text.source.AnnotationModel;
+import org.eclipse.jface.text.source.IAnnotationAccess;
 import org.eclipse.jface.text.source.SourceViewer;
-import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.mylyn.internal.provisional.commons.ui.CommonThemes;
 import org.eclipse.mylyn.internal.tasks.ui.editors.EditorUtil;
+import org.eclipse.mylyn.internal.tasks.ui.editors.RepositoryTextViewer;
+import org.eclipse.mylyn.internal.tasks.ui.editors.RepositoryTextViewerConfiguration;
 import org.eclipse.mylyn.internal.tasks.ui.editors.RichTextAttributeEditor;
+import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
 import org.eclipse.mylyn.tasks.core.data.TaskDataModel;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CTabFolder;
-import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.contexts.IContextActivation;
 import org.eclipse.ui.contexts.IContextService;
+import org.eclipse.ui.editors.text.EditorsUI;
 import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.texteditor.AnnotationPreference;
+import org.eclipse.ui.texteditor.DefaultMarkerAnnotationAccess;
+import org.eclipse.ui.texteditor.MarkerAnnotationPreferences;
+import org.eclipse.ui.texteditor.SourceViewerDecorationSupport;
 import org.eclipse.ui.themes.IThemeManager;
 
 /**
- * A multi-tab source viewer that can edit and preview markup.
+ * A text attribute that can switch between a source editor and a preview using StackLayout.
  * 
  * @author Jingwen Ou
- * @author David Green added context activation, layout
+ * @author Steffen Pingel
  */
-// TODO generalize RichTextAttributeEditor: add a protected method to create the SourceViewer then subclasses can then
-// create its own SourceViewer without overriding createControl and copying the code in it
 public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
-
-	private SourceViewer source;
-
-	private final TaskRepository taskRepository;
-
-	private final int styles;
-
-	private final IContextService contextService;
 
 	private IContextActivation contextActivation;
 
+	private final IContextService contextService;
+
+	private SourceViewer defaultViewer;
+
+	private Composite editorComposite;
+
+	private StackLayout editorLayout;
+
 	private final AbstractTaskEditorExtension extension;
 
-	private CTabFolder folder;
+	private SourceViewer editorViewer;
 
-	private SourceViewer preview;
+	private SourceViewer previewViewer;
+
+	private final int styles;
+
+	private final TaskRepository taskRepository;
+
+	private FormToolkit toolkit;
 
 	public ExtensibleRichTextAttributeEditor(IContextService contextService, TaskDataModel manager,
 			TaskRepository taskRepository, AbstractTaskEditorExtension extension, TaskAttribute taskAttribute,
@@ -73,45 +84,79 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 		this.styles = styles;
 	}
 
-	@Override
-	public void createControl(Composite parent, FormToolkit toolkit) {
-		if (isReadOnly()) {
-			source = extension.createViewer(taskRepository, parent, styles);
-			source.setDocument(new Document(getValue()));
-			setControl(source.getControl());
-		} else {
-			folder = new CTabFolder(parent, SWT.FLAT | SWT.BOTTOM);
-			folder.setLayout(new GridLayout());
-			// invisible tab text
-			folder.setTabHeight(0);
-
-			// editor
-			CTabItem viewerItem = new CTabItem(folder, SWT.NONE);
-			viewerItem.setText("Source");
-			viewerItem.setToolTipText("Edit Source");
-
-			source = extension.createEditor(taskRepository, folder, styles | SWT.V_SCROLL);
-			source.getControl().setLayoutData(GridDataFactory.fillDefaults().grab(true, true).create());
-
-			// enable cut/copy/paste
-			EditorUtil.setTextViewer(source.getTextWidget(), source);
-
-			if (source.getDocument() == null) {
-				source.setDocument(new Document(getValue()), new AnnotationModel());
+	/** Configures annontation model for spell checking. */
+	private void configureAsTextEditor(SourceViewer viewer, Document document) {
+		AnnotationModel annotationModel = new AnnotationModel();
+		viewer.showAnnotations(false);
+		viewer.showAnnotationsOverview(false);
+		IAnnotationAccess annotationAccess = new DefaultMarkerAnnotationAccess();
+		final SourceViewerDecorationSupport support = new SourceViewerDecorationSupport(viewer, null, annotationAccess,
+				EditorsUI.getSharedTextColors());
+		Iterator<?> e = new MarkerAnnotationPreferences().getAnnotationPreferences().iterator();
+		while (e.hasNext()) {
+			support.setAnnotationPreference((AnnotationPreference) e.next());
+		}
+		support.install(EditorsUI.getPreferenceStore());
+		viewer.getTextWidget().addDisposeListener(new DisposeListener() {
+			public void widgetDisposed(DisposeEvent e) {
+				support.uninstall();
 			}
-			source.addTextListener(new ITextListener() {
+		});
+		viewer.getTextWidget().setIndent(2);
+		viewer.setDocument(document, annotationModel);
+	}
+
+	private SourceViewer configureEditor(final SourceViewer viewer, boolean readOnly) {
+		Document document = new Document(getValue());
+		if (readOnly) {
+			viewer.setDocument(document);
+		} else {
+			configureAsTextEditor(viewer, document);
+			viewer.addTextListener(new ITextListener() {
 				public void textChanged(TextEvent event) {
 					// filter out events caused by text presentation changes, e.g. annotation drawing
-					String value = source.getTextWidget().getText();
+					String value = viewer.getTextWidget().getText();
 					if (!getValue().equals(value)) {
 						setValue(value);
+						EditorUtil.ensureVisible(viewer.getTextWidget());
 					}
 				}
 			});
-			source.getControl().setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER);
 
-			FocusListener focusListener = new FocusListener() {
+			viewer.getControl().setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER);
 
+			// drop & drag support, under review
+			// TaskEditorDropTarget.addDropTargetSupport(viewer);
+		}
+
+		// enable cut/copy/paste
+		EditorUtil.setTextViewer(viewer.getTextWidget(), viewer);
+		viewer.setEditable(!readOnly);
+		viewer.getTextWidget().setFont(getFont());
+		toolkit.adapt(viewer.getControl(), false, false);
+
+		return viewer;
+	}
+
+	@Override
+	public void createControl(Composite parent, FormToolkit toolkit) {
+		this.toolkit = toolkit;
+
+		editorComposite = new Composite(parent, SWT.NULL);
+		editorLayout = new StackLayout();
+		editorComposite.setLayout(editorLayout);
+		setControl(editorComposite);
+
+		int styles = this.styles;
+		if (!isReadOnly() && (styles & TasksUiInternal.SWT_NO_SCROLL) == 0) {
+			styles |= SWT.V_SCROLL;
+		}
+
+		if (isReadOnly()) {
+			editorViewer = extension.createViewer(taskRepository, editorComposite, styles);
+		} else {
+			editorViewer = extension.createEditor(taskRepository, editorComposite, styles);
+			editorViewer.getTextWidget().addFocusListener(new FocusListener() {
 				public void focusGained(FocusEvent e) {
 					setContext();
 				}
@@ -119,35 +164,38 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 				public void focusLost(FocusEvent e) {
 					unsetContext();
 				}
-			};
-			source.getTextWidget().addFocusListener(focusListener);
-			DisposeListener disposeListener = new DisposeListener() {
+			});
+			editorViewer.getTextWidget().addDisposeListener(new DisposeListener() {
 				public void widgetDisposed(DisposeEvent e) {
 					unsetContext();
 				}
-			};
-			source.getTextWidget().addDisposeListener(disposeListener);
-
-			viewerItem.setControl(source instanceof Viewer ? ((Viewer) source).getControl() : source.getTextWidget());
-			folder.setSelection(viewerItem);
-
-			// preview
-			CTabItem previewItem = new CTabItem(folder, SWT.NONE);
-			previewItem.setText("Preview");
-			previewItem.setToolTipText("Preview Source");
-
-			preview = extension.createViewer(taskRepository, folder, styles | SWT.V_SCROLL);
-
-			previewItem.setControl(preview instanceof Viewer ? ((Viewer) preview).getControl()
-					: preview.getTextWidget());
-
-			preview.getTextWidget().setFont(getFont());
-
-			setControl(folder);
+			});
 		}
+		configureEditor(editorViewer, isReadOnly());
 
-		source.getTextWidget().setFont(getFont());
-		toolkit.adapt(source.getControl(), false, false);
+		show(editorViewer);
+	}
+
+	private SourceViewer createDefaultEditor(Composite parent, int styles) {
+		SourceViewer defaultEditor = new RepositoryTextViewer(taskRepository, parent, styles);
+
+		RepositoryTextViewerConfiguration viewerConfig = new RepositoryTextViewerConfiguration(taskRepository,
+				isSpellCheckingEnabled());
+		viewerConfig.setMode(getMode());
+		defaultEditor.configure(viewerConfig);
+
+		return defaultEditor;
+	}
+
+	private SourceViewer getDefaultViewer() {
+		if (defaultViewer == null) {
+			defaultViewer = createDefaultEditor(editorComposite, styles);
+			configureEditor(defaultViewer, isReadOnly());
+			// adapt maximize action
+			defaultViewer.getControl().setData(EditorUtil.KEY_TOGGLE_TO_MAXIMIZE_ACTION,
+					editorViewer.getControl().getData(EditorUtil.KEY_TOGGLE_TO_MAXIMIZE_ACTION));
+		}
+		return defaultViewer;
 	}
 
 	private Font getFont() {
@@ -156,12 +204,36 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 		return font;
 	}
 
-	@Override
-	public SourceViewer getViewer() {
-		return source;
+	private SourceViewer getPreviewViewer() {
+		// construct as needed
+		if (previewViewer == null) {
+			previewViewer = extension.createViewer(taskRepository, editorComposite, styles);
+			configureEditor(previewViewer, true);
+			// adapt maximize action
+			previewViewer.getControl().setData(EditorUtil.KEY_TOGGLE_TO_MAXIMIZE_ACTION,
+					editorViewer.getControl().getData(EditorUtil.KEY_TOGGLE_TO_MAXIMIZE_ACTION));
+		}
+		Document document = new Document(editorViewer.getDocument().get());
+		previewViewer.setDocument(document);
+		return previewViewer;
 	}
 
-	protected void setContext() {
+	public SourceViewer getEditorViewer() {
+		return editorViewer;
+	}
+
+	@Override
+	public SourceViewer getViewer() {
+		if (defaultViewer != null && editorLayout.topControl == defaultViewer.getControl()) {
+			return defaultViewer;
+		} else if (previewViewer != null && editorLayout.topControl == previewViewer.getControl()) {
+			return previewViewer;
+		} else {
+			return editorViewer;
+		}
+	}
+
+	private void setContext() {
 		if (contextActivation != null) {
 			contextService.deactivateContext(contextActivation);
 			contextActivation = null;
@@ -171,19 +243,30 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 		}
 	}
 
-	public void toggleEditing(boolean editing) {
-		if (!isReadOnly() && folder != null) {
-			if (!editing) {
-				folder.setSelection(1);
-				Document document = new Document(source.getDocument().get());
-				preview.setDocument(document);
-			} else {
-				folder.setSelection(0);
-			}
+	/**
+	 * Brings <code>viewer</code> to top.
+	 */
+	private void show(SourceViewer viewer) {
+		editorLayout.topControl = viewer.getControl();
+		editorComposite.layout();
+		viewer.getControl().setFocus();
+	}
+
+	public void showDefault() {
+		show(getDefaultViewer());
+	}
+
+	public void showPreview() {
+		if (!isReadOnly()) {
+			show(getPreviewViewer());
 		}
 	}
 
-	protected void unsetContext() {
+	public void showEditor() {
+		show(getEditorViewer());
+	}
+
+	private void unsetContext() {
 		if (contextActivation != null) {
 			contextService.deactivateContext(contextActivation);
 			contextActivation = null;
