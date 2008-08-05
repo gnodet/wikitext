@@ -32,8 +32,8 @@ import org.eclipse.mylyn.tasks.ui.editors.TaskEditor;
 import org.eclipse.mylyn.tasks.ui.editors.TaskEditorPartDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
@@ -79,15 +79,16 @@ public class ExtensibleBugzillaTaskEditorPage extends BugzillaTaskEditorPage {
 					findComposite.setLayout(new RowLayout());
 					findComposite.setBackground(null);
 
-					final Text findTextbox = toolkit.createText(findComposite, "", SWT.FLAT);
-					findTextbox.setLayoutData(new RowData(100, SWT.DEFAULT));
-					findTextbox.setFocus();
-					toolkit.adapt(findTextbox, false, false);
-					findTextbox.addModifyListener(new ModifyListener() {
-						public void modifyText(ModifyEvent e) {
+					final Text findText = toolkit.createText(findComposite, "", SWT.FLAT);
+					findText.setLayoutData(new RowData(100, SWT.DEFAULT));
+					findText.setFocus();
+					toolkit.adapt(findText, false, false);
+					findText.addSelectionListener(new SelectionAdapter() {
+						@Override
+						public void widgetDefaultSelected(SelectionEvent event) {
 							try {
 								setReflow(false);
-								findAndHighlight(ExtensibleBugzillaTaskEditorPage.this, findTextbox.getText());
+								findAndHighlight(ExtensibleBugzillaTaskEditorPage.this, findText.getText());
 								// always toggle attachment part close after every search, since all ExpandableComposites are open
 								AbstractTaskEditorPart attachmentsPart = getPart(AbstractTaskEditorPage.ID_PART_ATTACHMENTS);
 								EditorUtil.toggleExpandableComposite(false,
