@@ -12,8 +12,10 @@ import java.net.MalformedURLException;
 import java.net.Proxy;
 import java.rmi.RemoteException;
 import java.security.GeneralSecurityException;
+import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -159,6 +161,8 @@ public class XPlannerRepositoryUtils {
 				repositoryTaskData.getRepositoryUrl());
 		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 
+		DateFormat timeDateFormat = new SimpleDateFormat(XPlannerAttributeMapper.TIME_DATE_FORMAT_STRING);
+
 		// kind
 		setAttributeValue(repositoryTaskData, TaskAttribute.TASK_KIND,
 				XPlannerAttributeMapper.XPlannerTaskKind.TASK.toString());
@@ -182,15 +186,16 @@ public class XPlannerRepositoryUtils {
 		// createdDate 
 		if (taskData.getCreatedDate() != null) {
 			Date createdDate = taskData.getCreatedDate().getTime();
-			setAttributeValue(repositoryTaskData, TaskAttribute.DATE_CREATION,
-					XPlannerAttributeMapper.DATE_FORMAT.format(createdDate));
+			DateFormat dateFormat = java.text.DateFormat.getDateInstance(XPlannerAttributeMapper.DATE_FORMAT_STYLE);
+
+			setAttributeValue(repositoryTaskData, TaskAttribute.DATE_CREATION, dateFormat.format(createdDate));
 		}
 
 		// last updated
 		Date lastUpdatedDate = taskData.getLastUpdateTime().getTime();
 		if (lastUpdatedDate != null) {
 			setAttributeValue(repositoryTaskData, TaskAttribute.DATE_MODIFICATION,
-					XPlannerAttributeMapper.TIME_DATE_FORMAT.format(lastUpdatedDate));
+					timeDateFormat.format(lastUpdatedDate));
 		}
 
 		// est time
@@ -234,7 +239,7 @@ public class XPlannerRepositoryUtils {
 			Date completionDate = taskData.getLastUpdateTime().getTime();
 			if (completionDate != null) {
 				setAttributeValue(repositoryTaskData, TaskAttribute.DATE_COMPLETION,
-						XPlannerAttributeMapper.TIME_DATE_FORMAT.format(lastUpdatedDate));
+						timeDateFormat.format(lastUpdatedDate));
 			}
 		}
 
@@ -373,6 +378,8 @@ public class XPlannerRepositoryUtils {
 				repositoryTaskData.getRepositoryUrl());
 		XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 
+		DateFormat timeDateFormat = new SimpleDateFormat(XPlannerAttributeMapper.TIME_DATE_FORMAT_STRING);
+
 		// kind
 		setAttributeValue(repositoryTaskData, TaskAttribute.TASK_KIND,
 				XPlannerAttributeMapper.XPlannerTaskKind.USER_STORY.toString());
@@ -399,7 +406,7 @@ public class XPlannerRepositoryUtils {
 		Date lastUpdatedDate = userStory.getLastUpdateTime().getTime();
 		if (lastUpdatedDate != null) {
 			setAttributeValue(repositoryTaskData, TaskAttribute.DATE_MODIFICATION,
-					XPlannerAttributeMapper.TIME_DATE_FORMAT.format(lastUpdatedDate));
+					timeDateFormat.format(lastUpdatedDate));
 		}
 
 		// est time
@@ -549,7 +556,8 @@ public class XPlannerRepositoryUtils {
 
 		String dateString = getAttributeValue(repositoryTaskData, TaskAttribute.DATE_CREATION);
 		try {
-			createdDate = XPlannerAttributeMapper.DATE_FORMAT.parse(dateString);
+			DateFormat dateFormat = DateFormat.getDateInstance(XPlannerAttributeMapper.DATE_FORMAT_STYLE);
+			createdDate = dateFormat.parse(dateString);
 		} catch (ParseException e) {
 			XPlannerMylynUIPlugin.log(e.getCause(), "", false);
 		}
@@ -747,6 +755,10 @@ public class XPlannerRepositoryUtils {
 
 	public static void validateRepository(TaskRepository taskRepository) throws CoreException {
 		AuthenticationCredentials repositoryCredentials = taskRepository.getCredentials(AuthenticationType.REPOSITORY);
+		if (repositoryCredentials == null) {
+			return;
+		}
+
 		AuthenticationCredentials httpCredentials = taskRepository.getCredentials(AuthenticationType.HTTP);
 		XPlannerRepositoryConnector connector = (XPlannerRepositoryConnector) TasksUi.getRepositoryManager()
 				.getRepositoryConnector(XPlannerCorePlugin.CONNECTOR_KIND);

@@ -7,6 +7,8 @@
  *******************************************************************************/
 package org.eclipse.mylyn.xplanner.tests;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -190,7 +192,8 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		}
 
 		Date date = tasks.iterator().next().getCreationDate();
-		String timeStamp = XPlannerAttributeMapper.TIME_DATE_FORMAT.format(date);
+		DateFormat timeDateFormat = new SimpleDateFormat(XPlannerAttributeMapper.TIME_DATE_FORMAT_STRING);
+		String timeStamp = timeDateFormat.format(date);
 		for (ITask task : tasks) {
 			if (task instanceof AbstractTask) {
 				TaskData taskData = client.getTask(Integer.valueOf(task.getTaskId()).intValue());
@@ -249,8 +252,8 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 
 		SynchronizationSession event = new SynchronizationSession(TasksUiPlugin.getTaskDataManager());
 
-		String synchronizationTimeStamp = XPlannerAttributeMapper.TIME_DATE_FORMAT.format(Calendar.getInstance()
-				.getTime());
+		DateFormat timeDateFormat = new SimpleDateFormat(XPlannerAttributeMapper.TIME_DATE_FORMAT_STRING);
+		String synchronizationTimeStamp = timeDateFormat.format(Calendar.getInstance().getTime());
 		repository.setSynchronizationTimeStamp(synchronizationTimeStamp);
 
 		event.setChangedTasks(tasks);
@@ -289,9 +292,10 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		client.update(testTask);
 
 		SynchronizationSession event = new SynchronizationSession();
+		DateFormat timeDateFormat = new SimpleDateFormat(XPlannerAttributeMapper.TIME_DATE_FORMAT_STRING);
 
 		String initialSynchronizationTimeStampString = repository.getSynchronizationTimeStamp();
-		Date initialSynchronizationTimeStamp = XPlannerAttributeMapper.TIME_DATE_FORMAT.parse(initialSynchronizationTimeStampString);
+		Date initialSynchronizationTimeStamp = timeDateFormat.parse(initialSynchronizationTimeStampString);
 
 		event.setChangedTasks(tasks);
 		event.setTaskRepository(repository);
@@ -299,7 +303,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		connector.postSynchronization(event, new NullProgressMonitor());
 
 		String finalSynchronizationTimeStampString = repository.getSynchronizationTimeStamp();
-		Date finalSynchronizationTimeStamp = XPlannerAttributeMapper.TIME_DATE_FORMAT.parse(finalSynchronizationTimeStampString);
+		Date finalSynchronizationTimeStamp = timeDateFormat.parse(finalSynchronizationTimeStampString);
 
 		assertTrue(finalSynchronizationTimeStamp.equals(repositoryTask.getModificationDate()));
 		assertTrue(finalSynchronizationTimeStamp.after(initialSynchronizationTimeStamp));

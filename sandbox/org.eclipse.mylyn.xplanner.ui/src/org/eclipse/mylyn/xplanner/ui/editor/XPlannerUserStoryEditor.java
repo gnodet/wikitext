@@ -8,6 +8,7 @@
 package org.eclipse.mylyn.xplanner.ui.editor;
 
 import java.rmi.RemoteException;
+import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.util.GregorianCalendar;
 
@@ -285,10 +286,9 @@ public class XPlannerUserStoryEditor extends FormPage {
 		GridDataFactory.fillDefaults().grab(false, false).applyTo(lastUpdatedTimeLabel);
 
 		// last updated time text
-		Label lastUpdatedTimeValue = toolkit.createLabel(
-				dataComposite,
-				XPlannerAttributeMapper.DATE_FORMAT.format(((GregorianCalendar) getUserStoryData().getLastUpdateTime()).getTime())
-						+ ""); //$NON-NLS-1$
+		DateFormat dateFormat = DateFormat.getDateInstance(XPlannerAttributeMapper.DATE_FORMAT_STYLE);
+		Label lastUpdatedTimeValue = toolkit.createLabel(dataComposite,
+				dateFormat.format(((GregorianCalendar) getUserStoryData().getLastUpdateTime()).getTime()) + ""); //$NON-NLS-1$
 		GridDataFactory.fillDefaults().grab(true, false).applyTo(lastUpdatedTimeValue);
 
 		// disposition label

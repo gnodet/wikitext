@@ -36,15 +36,13 @@ public class XPlannerAttributeMapper extends TaskAttributeMapper {
 
 	public static final String DEFAULT_REPOSITORY_TASK_KIND = "task";
 
-	private static final String TIME_DATE_FORMAT_STRING = "yyyy-MM-dd HH:mm:ss";// "EEE //$NON-NLS-1$
+	public static final String TIME_DATE_FORMAT_STRING = "yyyy-MM-dd HH:mm:ss";// "EEE //$NON-NLS-1$
+
+	public static final int DATE_FORMAT_STYLE = DateFormat.MEDIUM;
 
 	public static final int INVALID_ID = -1;
 
 	public static final String INVALID_ID_STRING = String.valueOf(INVALID_ID);
-
-	public static final DateFormat DATE_FORMAT = DateFormat.getDateInstance(DateFormat.MEDIUM);
-
-	public static final DateFormat TIME_DATE_FORMAT = new SimpleDateFormat(TIME_DATE_FORMAT_STRING);
 
 	public static final String ATTRIBUTE_EST_HOURS_NAME = "estimatedHours"; //$NON-NLS-1$
 
@@ -220,11 +218,14 @@ public class XPlannerAttributeMapper extends TaskAttributeMapper {
 					|| mappedAttributeKey.equals(XPlannerAttributeMapper.ATTRIBUTE_REMAINING_HOURS_NAME)
 					|| mappedAttributeKey.equals(TaskAttribute.DATE_CREATION)) {
 
-				date = DATE_FORMAT.parse(dateString);
+				DateFormat dateFormat = DateFormat.getDateInstance(DATE_FORMAT_STYLE);
+				date = dateFormat.parse(dateString);
+
 			} else if (mappedAttributeKey.equals(TaskAttribute.DATE_MODIFICATION)
 					|| mappedAttributeKey.equals(AbstractTaskListMigrator.KEY_LAST_MOD_DATE)) {
 
-				date = TIME_DATE_FORMAT.parse(dateString);
+				DateFormat timeDateFormat = new SimpleDateFormat(TIME_DATE_FORMAT_STRING);
+				date = timeDateFormat.parse(dateString);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

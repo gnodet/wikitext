@@ -7,7 +7,9 @@
  *******************************************************************************/
 package org.eclipse.mylyn.xplanner.ui;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -165,7 +167,8 @@ public class XPlannerTaskListMigrator extends AbstractTaskListMigrator {
 		String lastModDate = element.getAttribute(KEY_LAST_MOD_DATE);
 		task.setAttribute(KEY_TASK_UPDATE, lastModDate);
 		try {
-			Date lastUpdated = XPlannerAttributeMapper.TIME_DATE_FORMAT.parse(lastModDate);
+			DateFormat timeDateFormat = new SimpleDateFormat(XPlannerAttributeMapper.TIME_DATE_FORMAT_STRING);
+			Date lastUpdated = timeDateFormat.parse(lastModDate);
 			task.setModificationDate(lastUpdated);
 		} catch (ParseException e) {
 			// ignore

@@ -8,8 +8,10 @@
 package org.eclipse.mylyn.xplanner.ui;
 
 import java.rmi.RemoteException;
+import java.text.DateFormat;
 import java.text.MessageFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -295,7 +297,9 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 						String lastModificationDateValue = XPlannerRepositoryUtils.getAttributeValue(
 								repositoryTaskData, TaskAttribute.DATE_COMPLETION);
 						if (lastModificationDateValue != null) {
-							completionDate = XPlannerAttributeMapper.TIME_DATE_FORMAT.parse(lastModificationDateValue);
+							DateFormat timeDateFormat = new SimpleDateFormat(
+									XPlannerAttributeMapper.TIME_DATE_FORMAT_STRING);
+							completionDate = timeDateFormat.parse(lastModificationDateValue);
 						}
 					} catch (ParseException e) {
 						StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
@@ -324,7 +328,9 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 					String modificationDateValue = XPlannerRepositoryUtils.getAttributeValue(repositoryTaskData,
 							TaskAttribute.DATE_MODIFICATION);
 					if (modificationDateValue != null) {
-						modificationDate = XPlannerAttributeMapper.TIME_DATE_FORMAT.parse(modificationDateValue);
+						DateFormat timeDateFormat = new SimpleDateFormat(
+								XPlannerAttributeMapper.TIME_DATE_FORMAT_STRING);
+						modificationDate = timeDateFormat.parse(modificationDateValue);
 					}
 				} catch (ParseException e) {
 					StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
@@ -460,6 +466,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			return Collections.emptySet();
 		} else {
 			Set<ITask> changedTasks = new HashSet<ITask>();
+			DateFormat timeDateFormat = new SimpleDateFormat(XPlannerAttributeMapper.TIME_DATE_FORMAT_STRING);
 			try {
 				XPlannerRepositoryUtils.validateRepository(repository);
 				for (ITask task : tasks) {
@@ -471,7 +478,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 							String lastSynchStamp = repository.getSynchronizationTimeStamp();
 							Date lastSynchTime = null;
 							if (lastSynchStamp != null && lastSynchStamp.length() > 0) {
-								lastSynchTime = XPlannerAttributeMapper.TIME_DATE_FORMAT.parse(lastSynchStamp);
+								lastSynchTime = timeDateFormat.parse(lastSynchStamp);
 							}
 							if (lastSynchTime == null || lastUpdateTime.after(lastSynchTime)) {
 								changedTasks.add(task);
@@ -531,11 +538,12 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 
 	private String getSynchronizationTimestamp(ISynchronizationSession event) throws CoreException {
 
+		DateFormat timeDateFormat = new SimpleDateFormat(XPlannerAttributeMapper.TIME_DATE_FORMAT_STRING);
 		String mostRecentTimeStamp = event.getTaskRepository().getSynchronizationTimeStamp();
 		Date mostRecent = null;
 		try {
-			mostRecent = XPlannerAttributeMapper.TIME_DATE_FORMAT.parse(mostRecentTimeStamp);
-		} catch (ParseException e) {
+			mostRecent = timeDateFormat.parse(mostRecentTimeStamp);
+		} catch (Exception e) { // more general than ParseException, since it also catches NPE if mostRecentTimeStamp is null
 			; // don't do anything if invalid sync time stamp
 		}
 
@@ -543,7 +551,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			Date taskModifiedDate = task.getModificationDate();
 			if (taskModifiedDate != null && (mostRecent == null || taskModifiedDate.after(mostRecent))) {
 				mostRecent = taskModifiedDate;
-				mostRecentTimeStamp = XPlannerAttributeMapper.TIME_DATE_FORMAT.format(mostRecent);
+				mostRecentTimeStamp = timeDateFormat.format(mostRecent);
 			}
 		}
 
@@ -571,7 +579,8 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			String updateDateString = task.getAttribute(XPlannerTaskListMigrator.KEY_TASK_UPDATE);
 			if (updateDateString != null) {
 				try {
-					localDate = XPlannerAttributeMapper.TIME_DATE_FORMAT.parse(updateDateString);
+					DateFormat timeDateFormat = new SimpleDateFormat(XPlannerAttributeMapper.TIME_DATE_FORMAT_STRING);
+					localDate = timeDateFormat.parse(updateDateString);
 				} catch (ParseException e) {
 					// ignore
 				}
