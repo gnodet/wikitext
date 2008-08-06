@@ -539,12 +539,14 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	private String getSynchronizationTimestamp(ISynchronizationSession event) throws CoreException {
 
 		DateFormat timeDateFormat = new SimpleDateFormat(XPlannerAttributeMapper.TIME_DATE_FORMAT_STRING);
-		String mostRecentTimeStamp = event.getTaskRepository().getSynchronizationTimeStamp();
 		Date mostRecent = null;
-		try {
-			mostRecent = timeDateFormat.parse(mostRecentTimeStamp);
-		} catch (Exception e) { // more general than ParseException, since it also catches NPE if mostRecentTimeStamp is null
-			; // don't do anything if invalid sync time stamp
+		String mostRecentTimeStamp = event.getTaskRepository().getSynchronizationTimeStamp();
+		if (mostRecentTimeStamp != null) {
+			try {
+				mostRecent = timeDateFormat.parse(mostRecentTimeStamp);
+			} catch (ParseException e) {
+				; // don't do anything if invalid sync time stamp
+			}
 		}
 
 		for (ITask task : event.getChangedTasks()) {
