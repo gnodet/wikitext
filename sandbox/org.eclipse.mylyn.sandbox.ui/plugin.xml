@@ -405,8 +405,29 @@
       </propertyTester>
    </extension>
    
-   
-   
+   <extension
+         point="org.eclipse.ui.workbench.texteditor.hyperlinkDetectors">
+      <hyperlinkDetector
+            class="org.eclipse.mylyn.internal.sandbox.ui.hyperlinks.ResourceHyperlinkDetector"
+            id="org.eclipse.mylyn.sandbox.ui.hyperlinkDetector"
+            name="Resource Hyperlink Detector"
+            targetId="org.eclipse.ui.DefaultTextEditor">
+      </hyperlinkDetector>
+   </extension>
+   <extension
+          point="org.eclipse.mylyn.sandbox.ui.resourceHyperlinkExtensions">
+       <resourceHyperlinkExtension
+             class="org.eclipse.mylyn.internal.sandbox.ui.hyperlinks.JavaResourceHyperlinkExtension"
+             fileType="java"
+             generatedPrefix="java class">
+       </resourceHyperlinkExtension>    
+       <resourceHyperlinkExtension
+             class="org.eclipse.mylyn.internal.sandbox.ui.hyperlinks.DefaultResourceHyperlinkExtension"
+             fileType="default"
+             generatedPrefix="file">
+       </resourceHyperlinkExtension>
+    </extension>
+      
    <!--
    <extension point="org.eclipse.mylyn.tasks.ui.presentations">
       <presentation 

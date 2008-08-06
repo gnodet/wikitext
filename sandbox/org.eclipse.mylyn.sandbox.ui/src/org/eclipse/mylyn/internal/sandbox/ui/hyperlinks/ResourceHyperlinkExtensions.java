@@ -83,11 +83,8 @@ public class ResourceHyperlinkExtensions {
 		return resourceHyperlinkExtension == null ? null : resourceHyperlinkExtension.getGeneratedPrefix();
 	}
 
-	public static String getUnknownGeneratedPrefix() {
-		init();
-		RegisteredResourceHyperlinkExtension unknownResourceHyperlinkExtension = extensionByFileType.get("unknown");
-		return unknownResourceHyperlinkExtension == null ? null
-				: unknownResourceHyperlinkExtension.getGeneratedPrefix();
+	public static String getDefaultPrefix() {
+		return getGeneratedPrefix("default");
 	}
 
 	public static List<IResourceHyperlinkExtension> getResourceHyperlinkExtensions() {
