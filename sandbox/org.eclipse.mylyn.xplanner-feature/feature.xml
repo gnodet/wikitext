@@ -126,10 +126,10 @@ Inc. in the United States, other countries, or both.
       <import plugin="javax.xml.soap" version="1.2.0" match="compatible"/>
       <import plugin="javax.wsdl" version="1.5.1" match="compatible"/>
       <import plugin="org.apache.commons.discovery" version="0.2.0" match="compatible"/>
-      <import plugin="org.apache.ant" version="1.6.5" match="compatible"/>
       <import plugin="org.eclipse.osgi"/>
       <import plugin="org.apache.commons.logging" version="1.0.4" match="compatible"/>
       <import feature="org.eclipse.mylyn_feature" version="3.0.1.mylynQualifier" match="equivalent"/>
+      <import plugin="javax.activation" version="1.1.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
@@ -204,11 +204,5 @@ Inc. in the United States, other countries, or both.
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
-   <plugin
-         id="org.apache.ant"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
 
 </feature>
