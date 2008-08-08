@@ -326,14 +326,9 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 					}
 					if (id != null) {
 						description = unescapeHtml(description);
-//						WebTask w = new WebTask(id, description, taskPrefix, repository.getUrl(), REPOSITORY_TYPE);
 
-						String owner = cleanup(p.group("Owner", matcher), repository);
-						owner = unescapeHtml(owner);
-//						w.setOwner(owner);
-						String type = cleanup(p.group("Type", matcher), repository);
-						type = unescapeHtml(type);
-//						w.setTaskKind(type);
+						String owner = unescapeHtml(cleanup(p.group("Owner", matcher), repository));
+						String type = unescapeHtml(cleanup(p.group("Type", matcher), repository));
 
 						TaskData data = createTaskData(repository, id);
 						TaskMapper mapper = new TaskMapper(data, true);
@@ -374,9 +369,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	private static String unescapeHtml(String text) {
 		if (text == null) {
-			return null;
+			return "";
 		}
-
 		return StringEscapeUtils.unescapeHtml(text);
 	}
 
