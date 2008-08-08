@@ -448,6 +448,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 				schema.setSummary(((date == null ? "" : df.format(date) + " - ") + entrTitle));
 				schema.setCreationDate(date);
 				schema.setOwner(author);
+				schema.setTaskUrl(entryUri);
 				resultCollector.accept(data);
 			}
 			return Status.OK_STATUS;
