@@ -462,7 +462,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 						status = WebRepositoryConnector.performQuery(webPage, queryPattern, taskPrefix, monitor,
 								collector, getTaskRepository());
 					} else {
-						status = WebRepositoryConnector.performRssQuery(evaluatedUrl, monitor, collector,
+						status = WebRepositoryConnector.performRssQuery(webPage, monitor, collector,
 								getTaskRepository());
 					}
 

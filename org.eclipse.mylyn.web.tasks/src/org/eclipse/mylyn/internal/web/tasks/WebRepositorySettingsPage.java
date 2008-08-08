@@ -81,6 +81,7 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 		super(TITLE, DESCRIPTION, taskRepository);
 		setNeedsAnonymousLogin(true);
 		setNeedsValidation(false);
+		setNeedsHttpAuth(true);
 	}
 
 	@Override

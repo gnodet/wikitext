@@ -10,8 +10,8 @@ package org.eclipse.mylyn.internal.web.tasks;
 
 import static org.eclipse.mylyn.internal.web.tasks.Util.isPresent;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -255,14 +255,15 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		Map<String, String> queryParameters = getQueryParams(query);
 		String queryUrl = evaluateParams(query.getUrl(), queryParameters, repository);
 		try {
+			String content = fetchResource(queryUrl, queryParameters, repository);
+
 			String taskPrefixAttribute = query.getAttribute(KEY_TASK_PREFIX);
 			if (!Util.isPresent(taskPrefixAttribute)) {
-				return performRssQuery(queryUrl, monitor, resultCollector, repository);
+				return performRssQuery(content, monitor, resultCollector, repository);
 			} else {
 				String taskPrefix = evaluateParams(taskPrefixAttribute, queryParameters, repository);
 				String queryPattern = evaluateParams(query.getAttribute(KEY_QUERY_PATTERN), queryParameters, repository);
-				return performQuery(fetchResource(queryUrl, queryParameters, repository), queryPattern, taskPrefix,
-						monitor, resultCollector, repository);
+				return performQuery(content, queryPattern, taskPrefix, monitor, resultCollector, repository);
 			}
 		} catch (IOException e) {
 			String msg = e.getMessage() == null ? e.toString() : e.getMessage();
@@ -285,7 +286,13 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 	@Override
 	public void updateTaskFromTaskData(TaskRepository repository, ITask task, TaskData taskData) {
 		TaskMapper mapper = new TaskMapper(taskData);
-		task.setAttribute(KEY_TASK_PREFIX, mapper.getValue(KEY_TASK_PREFIX));
+		if (Util.isPresent(mapper.getValue(KEY_TASK_PREFIX))) {
+			task.setAttribute(KEY_TASK_PREFIX, mapper.getValue(KEY_TASK_PREFIX));
+			task.setTaskKey(task.getTaskId());
+		} else {
+			// do not show task id for RSS items
+			task.setTaskKey(null);
+		}
 		mapper.applyTo(task);
 	}
 
@@ -401,11 +408,11 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		return sb.toString();
 	}
 
-	public static IStatus performRssQuery(String queryUrl, IProgressMonitor monitor, TaskDataCollector resultCollector,
+	public static IStatus performRssQuery(String content, IProgressMonitor monitor, TaskDataCollector resultCollector,
 			TaskRepository repository) {
 		SyndFeedInput input = new SyndFeedInput();
 		try {
-			SyndFeed feed = input.build(new XmlReader(new URL(queryUrl)));
+			SyndFeed feed = input.build(new XmlReader(new ByteArrayInputStream(content.getBytes())));
 
 			SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd HH:mm");
 
@@ -444,10 +451,10 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 				resultCollector.accept(data);
 			}
 			return Status.OK_STATUS;
-		} catch (Exception ex) {
-			String msg = ex.getMessage() == null ? ex.toString() : ex.getMessage();
+		} catch (Exception e) {
+			String msg = e.getMessage() == null ? e.toString() : e.getMessage();
 			return new Status(IStatus.ERROR, TasksWebPlugin.ID_PLUGIN, IStatus.ERROR, //
-					"Could not fetch resource: " + queryUrl + "\n" + msg, ex);
+					"Failed to parse RSS feed: \"" + msg + "\"", e);
 		}
 	}
 
