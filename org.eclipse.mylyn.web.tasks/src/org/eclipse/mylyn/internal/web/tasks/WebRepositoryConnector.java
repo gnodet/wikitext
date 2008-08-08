@@ -112,7 +112,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	private static final String USER_AGENT = "WebTemplatesConnector";
 
-	private final static Date DEFAULT_COMPLETION_DATE = new Date(0);
+	private final static Date DEFAULT_DATE = new Date(0);
 
 	@Override
 	public String getConnectorKind() {
@@ -168,6 +168,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		String taskPrefix = evaluateParams(repository.getProperty(PROPERTY_TASK_URL), repository);
 		TaskData taskData = createTaskData(repository, taskId);
 		TaskMapper mapper = new TaskMapper(taskData, true);
+		mapper.setCreationDate(DEFAULT_DATE);
 		mapper.setSummary(taskId);
 		mapper.setTaskUrl(taskPrefix + taskId);
 		mapper.setValue(KEY_TASK_PREFIX, taskPrefix);
@@ -320,6 +321,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 						TaskData data = createTaskData(repository, id);
 						TaskMapper mapper = new TaskMapper(data, true);
+						mapper.setCreationDate(DEFAULT_DATE);
 						mapper.setTaskUrl(taskPrefix + id);
 						mapper.setSummary(description);
 						mapper.setValue(KEY_TASK_PREFIX, taskPrefix);
@@ -339,6 +341,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 						TaskData data = createTaskData(repository, id);
 						TaskMapper mapper = new TaskMapper(data, true);
+						mapper.setCreationDate(DEFAULT_DATE);
 						mapper.setTaskUrl(taskPrefix + id);
 						mapper.setSummary(description);
 						mapper.setValue(KEY_TASK_PREFIX, taskPrefix);
@@ -349,7 +352,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 						if (status != null) {
 							if (COMPLETED_STATUSES.contains(status.toLowerCase())) {
 								// TODO set actual completion date here
-								mapper.setCompletionDate(DEFAULT_COMPLETION_DATE);
+								mapper.setCompletionDate(DEFAULT_DATE);
 							}
 						}
 
