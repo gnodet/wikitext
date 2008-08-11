@@ -8,9 +8,11 @@
 
 package org.eclipse.mylyn.internal.sandbox.ui;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.internal.tasks.core.Person;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
@@ -39,7 +41,7 @@ public class IncomingTaskListContentProvider extends TaskListContentProvider {
 			for (ITaskContainer container : applyFilter(TasksUiPlugin.getTaskListManager()
 					.getTaskList()
 					.getRootElements())) {
-				for (ITask task : container.getChildren()) {
+				for (ITask task : getAllTasks(container.getChildren())) {
 					if (task.getOwner() != null && task.getSynchronizationState().isIncoming()) {
 						people.add(new Person(task.getOwner(), task.getConnectorKind(), task.getRepositoryUrl()));
 					}
@@ -49,6 +51,23 @@ public class IncomingTaskListContentProvider extends TaskListContentProvider {
 		return people.toArray();
 	}
 
+	private Set<ITask> getAllTasks(Collection<ITask> children) {
+		if (children != null) {
+			Set<ITask> alltasks = new HashSet<ITask>(children);
+
+			for (ITask task : children) {
+				if (task instanceof AbstractTask) {
+					Set<ITask> childTasks = getAllTasks(((AbstractTask) task).getChildren());
+					if (childTasks != null) {
+						alltasks.addAll(childTasks);
+					}
+				}
+			}
+			return alltasks;
+		}
+		return null;
+	}
+
 	@Override
 	public Object[] getChildren(Object parent) {
 		Set<ITask> children = new HashSet<ITask>();
@@ -56,7 +75,7 @@ public class IncomingTaskListContentProvider extends TaskListContentProvider {
 			for (ITaskContainer container : applyFilter(TasksUiPlugin.getTaskListManager()
 					.getTaskList()
 					.getRootElements())) {
-				for (ITask task : container.getChildren()) {
+				for (ITask task : getAllTasks(container.getChildren())) {
 					if (task.getOwner() != null && task.getOwner().equals(((Person) parent).getHandleIdentifier())
 							&& task.getSynchronizationState().isIncoming()) {
 						children.add(task);
