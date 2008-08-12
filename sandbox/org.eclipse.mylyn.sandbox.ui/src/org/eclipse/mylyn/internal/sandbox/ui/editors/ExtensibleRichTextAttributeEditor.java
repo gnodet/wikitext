@@ -10,6 +10,8 @@ package org.eclipse.mylyn.internal.sandbox.ui.editors;
 
 import java.util.Iterator;
 
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.ITextListener;
 import org.eclipse.jface.text.TextEvent;
@@ -17,6 +19,7 @@ import org.eclipse.jface.text.source.AnnotationModel;
 import org.eclipse.jface.text.source.IAnnotationAccess;
 import org.eclipse.jface.text.source.SourceViewer;
 import org.eclipse.mylyn.internal.provisional.commons.ui.CommonThemes;
+import org.eclipse.mylyn.internal.sandbox.ui.commands.ViewSourceHandler;
 import org.eclipse.mylyn.internal.tasks.ui.editors.EditorUtil;
 import org.eclipse.mylyn.internal.tasks.ui.editors.RepositoryTextViewer;
 import org.eclipse.mylyn.internal.tasks.ui.editors.RepositoryTextViewerConfiguration;
@@ -29,10 +32,13 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.contexts.IContextActivation;
 import org.eclipse.ui.contexts.IContextService;
@@ -68,11 +74,31 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 
 	private SourceViewer previewViewer;
 
-	private final int styles;
+	private int styles;
 
 	private final TaskRepository taskRepository;
 
 	private FormToolkit toolkit;
+
+	public class ViewSourceAction extends Action {
+
+		public ViewSourceAction() {
+			super("Viewer Source", SWT.TOGGLE);
+			setChecked(false);
+		}
+
+		@Override
+		public void run() {
+			if (isChecked()) {
+				showDefault();
+			} else {
+				showEditor();
+			}
+		}
+
+	}
+
+	private final IAction viewSourceAction = new ViewSourceAction();
 
 	public ExtensibleRichTextAttributeEditor(IContextService contextService, TaskDataModel manager,
 			TaskRepository taskRepository, AbstractTaskEditorExtension extension, TaskAttribute taskAttribute,
@@ -110,6 +136,14 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 		Document document = new Document(getValue());
 		if (readOnly) {
 			viewer.setDocument(document);
+			// setting view source action
+			viewer.getControl().setData(ViewSourceHandler.VIEW_SOURCE_ACTION, viewSourceAction);
+			viewer.getControl().addFocusListener(new FocusAdapter() {
+				@Override
+				public void focusGained(FocusEvent e) {
+					ViewSourceHandler.setChecked(getViewer() == defaultViewer);
+				}
+			});
 		} else {
 			configureAsTextEditor(viewer, document);
 			viewer.addTextListener(new ITextListener() {
@@ -147,7 +181,6 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 		editorComposite.setLayout(editorLayout);
 		setControl(editorComposite);
 
-		int styles = this.styles;
 		if (!isReadOnly() && (styles & TasksUiInternal.SWT_NO_SCROLL) == 0) {
 			styles |= SWT.V_SCROLL;
 		}
@@ -177,7 +210,7 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 	}
 
 	private SourceViewer createDefaultEditor(Composite parent, int styles) {
-		SourceViewer defaultEditor = new RepositoryTextViewer(taskRepository, parent, styles);
+		SourceViewer defaultEditor = new RepositoryTextViewer(taskRepository, parent, styles | SWT.WRAP);
 
 		RepositoryTextViewerConfiguration viewerConfig = new RepositoryTextViewerConfiguration(taskRepository,
 				isSpellCheckingEnabled());
@@ -194,8 +227,21 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 			// adapt maximize action
 			defaultViewer.getControl().setData(EditorUtil.KEY_TOGGLE_TO_MAXIMIZE_ACTION,
 					editorViewer.getControl().getData(EditorUtil.KEY_TOGGLE_TO_MAXIMIZE_ACTION));
+			// adapt menu to the new viewer
+			installMenu(defaultViewer.getControl(), editorViewer.getControl().getMenu());
 		}
 		return defaultViewer;
+	}
+
+	private void installMenu(final Control control, Menu menu) {
+		if (menu != null) {
+			control.setMenu(menu);
+			control.addDisposeListener(new DisposeListener() {
+				public void widgetDisposed(DisposeEvent e) {
+					control.setMenu(null);
+				}
+			});
+		}
 	}
 
 	private Font getFont() {
