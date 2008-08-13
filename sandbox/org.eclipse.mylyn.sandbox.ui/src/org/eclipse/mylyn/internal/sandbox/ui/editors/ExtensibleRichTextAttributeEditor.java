@@ -12,6 +12,7 @@ import java.util.Iterator;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.ITextListener;
 import org.eclipse.jface.text.TextEvent;
@@ -36,6 +37,7 @@ import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
@@ -177,7 +179,12 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 		this.toolkit = toolkit;
 
 		editorComposite = new Composite(parent, SWT.NULL);
-		editorLayout = new StackLayout();
+		editorLayout = new StackLayout() {
+			@Override
+			protected Point computeSize(Composite composite, int hint, int hint2, boolean flushCache) {
+				return topControl.computeSize(hint, hint2, flushCache);
+			}
+		};
 		editorComposite.setLayout(editorLayout);
 		setControl(editorComposite);
 
@@ -224,6 +231,9 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 		if (defaultViewer == null) {
 			defaultViewer = createDefaultEditor(editorComposite, styles);
 			configureEditor(defaultViewer, isReadOnly());
+
+			// fixed font size
+			defaultViewer.getTextWidget().setFont(JFaceResources.getFontRegistry().get(JFaceResources.TEXT_FONT));
 			// adapt maximize action
 			defaultViewer.getControl().setData(EditorUtil.KEY_TOGGLE_TO_MAXIMIZE_ACTION,
 					editorViewer.getControl().getData(EditorUtil.KEY_TOGGLE_TO_MAXIMIZE_ACTION));

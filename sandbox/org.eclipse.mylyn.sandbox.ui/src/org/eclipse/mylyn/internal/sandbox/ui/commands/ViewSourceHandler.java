@@ -83,6 +83,7 @@ public class ViewSourceHandler extends AbstractHandler implements IElementUpdate
 						action.setChecked(!action.isChecked());
 						action.run();
 						setChecked(action.isChecked());
+						EditorUtil.reflow(focusedControl);
 					}
 				}
 			}
