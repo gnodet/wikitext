@@ -13,6 +13,7 @@ import org.eclipse.mylyn.commons.net.AuthenticationType;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaAttribute;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaRepositoryConnector;
+import org.eclipse.mylyn.internal.commons.net.CommonsNetPlugin;
 import org.eclipse.mylyn.tasks.core.ITaskMapping;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
@@ -23,7 +24,9 @@ import org.eclipse.mylyn.tasks.core.data.TaskData;
  */
 public class Main {
 
-	private static final String URL = "https://landfill.bugzilla.org/bugzilla-tip/";
+	private static final String URL = "https://landfill.bugzilla.org/bugzilla-3.0-branch";
+
+	private static final String BUG_ID = "6740";
 
 	public static void main(String[] args) {
 		// create task repository
@@ -40,7 +43,7 @@ public class Main {
 
 		try {
 			// get a report from repository
-			TaskData taskData = connector.getTaskData(repository, "1", null);
+			TaskData taskData = connector.getTaskData(repository, BUG_ID, null);
 
 			// access task information
 			ITaskMapping taskMapping = connector.getTaskMapping(taskData);
@@ -48,19 +51,23 @@ public class Main {
 			System.out.println("Priority:    " + taskMapping.getPriority());
 
 			// access report data via attributes
-			TaskAttribute descriptionAttribute = taskData.getRoot().getMappedAttribute(TaskAttribute.DESCRIPTION);
-			System.out.println("Description: " + descriptionAttribute.getValue());
+			TaskAttribute descriptionAttribute = taskData.getRoot().getMappedAttribute(TaskAttribute.COMPONENT);
+			System.out.println("Component:   " + descriptionAttribute.getValue());
 
 			// ...or by Bugzilla keys
 			TaskAttribute severityAttribute = taskData.getRoot().getAttribute(BugzillaAttribute.BUG_SEVERITY.getKey());
 			System.out.println("Severity:    " + severityAttribute.getValue());
 
 			// Post modified report to repository
-			System.out.println("\nPosting a new description...");
-			descriptionAttribute.setValue("Hello world.");
+			System.out.print("\nPosting a new comment... ");
+			TaskAttribute newCommentAttribute = taskData.getRoot().getMappedAttribute(TaskAttribute.COMMENT_NEW);
+			newCommentAttribute.setValue("Hello world.");
 			connector.getTaskDataHandler().postTaskData(repository, taskData, null, null);
+			System.out.println("done");
 		} catch (CoreException e) {
 			e.printStackTrace();
+		} finally {
+			CommonsNetPlugin.getExecutorService().shutdown();
 		}
 	}
 }
