@@ -22,7 +22,12 @@ import org.eclipse.ui.contexts.IContextService;
 public abstract class AbstractTaskEditorExtension {
 
 	/**
-	 * Create a source viewer that can be used to view content in the task editor. The source viewer should be
+	 * The key to access the {@link TaskRepository} property that stores the URL of an associated wiki.
+	 */
+	public static final String INTERNAL_WIKI_LINK_PATTERN = "wikiLinkPattern";
+
+	/**
+	 * Creates a source viewer that can be used to view content in the task editor. The source viewer should be
 	 * configured with a source viewer configuration prior to returning.
 	 * 
 	 * @param taskRepository
@@ -35,7 +40,7 @@ public abstract class AbstractTaskEditorExtension {
 	public abstract SourceViewer createViewer(TaskRepository taskRepository, Composite parent, int style);
 
 	/**
-	 * Create a source viewer that can be used to edit content in the task editor. The source viewer should be
+	 * Creates a source viewer that can be used to edit content in the task editor. The source viewer should be
 	 * configured with a source viewer configuration prior to returning.
 	 * 
 	 * @param taskRepository
@@ -48,7 +53,8 @@ public abstract class AbstractTaskEditorExtension {
 	public abstract SourceViewer createEditor(TaskRepository taskRepository, Composite parent, int style);
 
 	/**
-	 * Get the editor context id, to be passed to the {@link IContextService} when the editor is in focus.
+	 * Returns the editor context id, to be passed to the {@link IContextService} when the editor is in focus.
 	 */
 	public abstract String getEditorContextId();
+
 }

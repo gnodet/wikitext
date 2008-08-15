@@ -15,9 +15,14 @@ import java.util.SortedSet;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.action.IContributionItem;
+import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.dialogs.IInputValidator;
+import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.window.Window;
 import org.eclipse.mylyn.internal.sandbox.ui.editors.TaskEditorExtensions.RegisteredTaskEditorExtension;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.CompoundContributionItem;
 
 /**
@@ -93,6 +98,44 @@ public class EditorStyleContributionItem extends CompoundContributionItem {
 			items.add(item);
 		}
 
+		items.add(new Separator());
+		items.add(new ActionContributionItem(new InteranlLinkAction()));
+
 		return items.toArray(new IContributionItem[items.size()]);
+	}
+
+	private class InteranlLinkAction extends Action {
+		public InteranlLinkAction() {
+			super("Set Internal Link...");
+			setToolTipText("Set the internal link pattern for choosen markup language");
+		}
+
+		@Override
+		public void run() {
+			String title = "Internal link pattern setting";
+			String message = "Set the internal link pattern for choosen markup language,\ne.g. http://wiki.eclipse.org/{0}";
+
+			TaskRepository taskRepository = TasksUiUtil.getSelectedRepository();
+			String initialValue = taskRepository.getProperty(AbstractTaskEditorExtension.INTERNAL_WIKI_LINK_PATTERN);
+			if (initialValue == null) {
+				initialValue = "";
+			}
+
+			InputDialog dialog = new InputDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+					title, message, initialValue, new IInputValidator() {
+						public String isValid(String newText) {
+							return newText.indexOf("://") == -1 ? "Enter a valid URL" : null;
+						}
+					});
+
+			if (dialog.open() == Window.OK) {
+				setInternalLink(dialog.getValue());
+			}
+		}
+	}
+
+	private static void setInternalLink(String internalLink) {
+		TaskRepository taskRepository = TasksUiUtil.getSelectedRepository();
+		taskRepository.setProperty(AbstractTaskEditorExtension.INTERNAL_WIKI_LINK_PATTERN, internalLink);
 	}
 }
