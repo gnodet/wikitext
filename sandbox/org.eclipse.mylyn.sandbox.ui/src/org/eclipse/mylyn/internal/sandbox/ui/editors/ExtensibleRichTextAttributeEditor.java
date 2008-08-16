@@ -162,7 +162,7 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 			viewer.getControl().setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER);
 
 			// drop & drag support, under review
-			// TaskEditorDropTarget.addDropTargetSupport(viewer);
+			TaskEditorDropTarget.addDropTargetSupport(viewer);
 		}
 
 		// enable cut/copy/paste
