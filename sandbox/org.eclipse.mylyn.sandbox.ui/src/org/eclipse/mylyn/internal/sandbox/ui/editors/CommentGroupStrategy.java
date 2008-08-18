@@ -60,7 +60,7 @@ public class CommentGroupStrategy {
 		List<CommentGroup> commentGroups = new ArrayList<CommentGroup>();
 		List<TaskAttribute> comments = new ArrayList<TaskAttribute>();
 
-		int recentFromIndex = 0, currentFromIndex = 0;
+		int currentFromIndex = -1;
 		String currentPersonId = taskDataModel.getTaskRepository().getUserName();
 
 		// current
@@ -88,7 +88,7 @@ public class CommentGroupStrategy {
 		}
 
 		// group by last author
-		if (currentFromIndex < comments.size()) {
+		if (currentFromIndex != -1 && currentFromIndex < comments.size()) {
 			current.addAll(0, new ArrayList<TaskAttribute>(comments.subList(currentFromIndex, comments.size())));
 			if (current.size() > 0) {
 				comments.removeAll(current);
@@ -96,7 +96,7 @@ public class CommentGroupStrategy {
 		}
 
 		// recent
-		recentFromIndex = comments.size() - 20 < 0 ? 0 : comments.size() - 20;
+		int recentFromIndex = comments.size() - 20 < 0 ? 0 : comments.size() - 20;
 		List<TaskAttribute> recent = new ArrayList<TaskAttribute>(comments.subList(recentFromIndex, comments.size()));
 		if (recent.size() > 0) {
 			comments.removeAll(recent);
