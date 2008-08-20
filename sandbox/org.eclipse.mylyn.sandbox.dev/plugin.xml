@@ -119,5 +119,21 @@
         </action>
      </actionSet>
   </extension>
+  <extension
+        point="org.eclipse.ui.popupMenus">
+     <viewerContribution
+           id="org.eclipse.mylyn.sandbox.dev.propertiesContribution"
+           targetID=" org.eclipse.mylyn.tasks.ui.views.tasks">
+        <action
+              class="org.eclipse.mylyn.internal.sandbox.dev.actions.ShowPropertiesAction"
+              enablesFor="1"
+              icon="icons/debug.gif"
+              id="org.eclipse.mylyn.sandbox.dev.ShowPropertiesAction"
+              label="Show in Properties View"
+              menubarPath="additions"
+              tooltip="Show properties in Properties View">
+        </action>
+     </viewerContribution>
+  </extension>
   
 </plugin>
