@@ -8,8 +8,6 @@
 
 package org.eclipse.mylyn.internal.sandbox.ui.hyperlinks;
 
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jdt.internal.debug.ui.actions.OpenTypeAction;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.hyperlink.IHyperlink;
 
@@ -27,11 +25,7 @@ public class JavaResourceHyperlinkExtension extends AbstractResourceHyperlinkExt
 
 	@Override
 	protected boolean isResourceExists(String resourceName) {
-		try {
-			return OpenTypeAction.findTypeInWorkspace(resourceName) != null;
-		} catch (CoreException e) {
-			return false;
-		}
+		return true;
 	}
 
 	@Override
