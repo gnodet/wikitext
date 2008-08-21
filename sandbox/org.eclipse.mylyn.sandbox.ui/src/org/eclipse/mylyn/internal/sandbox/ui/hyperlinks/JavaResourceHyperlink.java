@@ -37,7 +37,6 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.hyperlink.IHyperlink;
 import org.eclipse.jface.viewers.ArrayContentProvider;
-import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ListDialog;
@@ -175,26 +174,6 @@ public class JavaResourceHyperlink implements IHyperlink {
 		dialog.setInput(sources.toArray());
 		dialog.setContentProvider(new ArrayContentProvider());
 		dialog.setLabelProvider(new JavaElementLabelProvider() {
-			@Override
-			public StyledString getStyledText(Object element) {
-				IType type = (IType) element;
-				StyledString styledString = super.getStyledText(type);
-
-				IPackageFragment fragment = type.getPackageFragment();
-				if (fragment != null) {
-					styledString.append(JavaElementLabels.CONCAT_STRING);
-					styledString.append(super.getText(fragment));
-				}
-
-				IJavaProject project = type.getJavaProject();
-				if (project != null) {
-					styledString.append(JavaElementLabels.CONCAT_STRING);
-					styledString.append(super.getText(project));
-				}
-
-				return styledString;
-			}
-
 			@Override
 			public String getText(Object element) {
 				IType type = (IType) element;
