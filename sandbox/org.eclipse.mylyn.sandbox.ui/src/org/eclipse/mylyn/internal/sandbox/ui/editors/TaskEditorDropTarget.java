@@ -48,25 +48,18 @@ public class TaskEditorDropTarget extends StyledTextDropTargetEffect {
 		super(editor.getTextWidget());
 		this.editor = editor;
 
-		DropTarget target = new DropTarget(editor.getControl(), DND.DROP_COPY | DND.DROP_MOVE);
+		DropTarget target = new DropTarget(editor.getControl(), DND.DROP_COPY);
 		// TODO: may also add TaskTransfer?
 		// TODO: this concern may also go to IResourceHyperlinkExtension by adding something like IResourceHyperlinkExtension.getTransfers()?
 		target.setTransfer(new Transfer[] { JavaUI.getJavaElementClipboardTransfer(), ResourceTransfer.getInstance(),
 				TextTransfer.getInstance() });
 		target.addDropListener(this);
-
 	}
 
 	@Override
 	public void dragEnter(DropTargetEvent event) {
-		if (event.detail == DND.DROP_MOVE || event.detail == DND.DROP_DEFAULT) {
-			if ((event.operations & DND.DROP_COPY) != 0) {
-				event.detail = DND.DROP_COPY;
-			} else {
-				event.detail = DND.DROP_NONE;
-			}
-		}
 		super.dragEnter(event);
+		event.detail = DND.DROP_COPY;
 	}
 
 	@Override
