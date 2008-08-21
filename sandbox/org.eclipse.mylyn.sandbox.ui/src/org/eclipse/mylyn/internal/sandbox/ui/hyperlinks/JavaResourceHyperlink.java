@@ -47,7 +47,7 @@ import org.eclipse.ui.progress.UIJob;
  * Truncated class of JavaStackTraceFileHyperlink, open a hyperlink using OpenTypeAction
  * 
  * @author Rob Elves
- * @author Jingwe Ou
+ * @author Jingwen Ou
  * @author David Green fix bug 244352
  */
 public class JavaResourceHyperlink implements IHyperlink {
