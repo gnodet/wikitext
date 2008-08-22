@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.sandbox.ui.util;
+package org.eclipse.mylyn.internal.tasks.ui.util;
 
 import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
