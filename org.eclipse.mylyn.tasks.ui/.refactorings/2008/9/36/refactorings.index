@@ -2,3 +2,4 @@
 1220460545191	Extract constant 'LABEL_WEDNESDAY'
 1220460555211	Extract constant 'LABEL_THURSDAY'
 1220460568203	Extract constant 'LABEL_FRIDAY'
+1220464970755	Rename type 'MigrateNewTaskActivityHandles'
