@@ -7,11 +7,15 @@
  *******************************************************************************/
 package org.eclipse.mylyn.internal.sandbox.dev.properties;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.mylyn.internal.tasks.core.AbstractTaskContainer;
+import org.eclipse.mylyn.tasks.core.IAttributeContainer;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.ITaskContainer;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
@@ -43,9 +47,14 @@ public abstract class AbstractTaskContainerPropertySource implements IPropertySo
 
 	protected String description;
 
+	protected IAttributeContainer attributeContainer = null;
+
 	public AbstractTaskContainerPropertySource(AbstractTaskContainer adaptableObject) {
 		container = adaptableObject;
 		description = container.getClass().getName();
+		if (adaptableObject instanceof IAttributeContainer) {
+			attributeContainer = (IAttributeContainer) adaptableObject;
+		}
 	}
 
 	/**
@@ -112,7 +121,8 @@ public abstract class AbstractTaskContainerPropertySource implements IPropertySo
 		descendants.setCategory(description);
 		TextPropertyDescriptor cyclic = new TextPropertyDescriptor(IS_CYCLIC, "Cycle in descendants graph?");
 		cyclic.setCategory(description);
-		return new IPropertyDescriptor[] { handle, children, descendants, cyclic };
+		IPropertyDescriptor[] these = new IPropertyDescriptor[] { handle, children, descendants, cyclic };
+		return appendSpecifics(getAttributesAsProperties(), these);
 	}
 
 	public Object getPropertyValue(Object id) {
@@ -124,6 +134,10 @@ public abstract class AbstractTaskContainerPropertySource implements IPropertySo
 			return getDescendants(container).size();
 		} else if (IS_CYCLIC.equals(id)) {
 			return containsCyclic(container) ? "Cyclic" : "Not Cyclic";
+		} else if (null != attributeContainer) {
+			if (attributeContainer.getAttributes().containsKey(id)) {
+				return attributeContainer.getAttribute((String) id);
+			}
 		}
 		return null;
 	}
@@ -153,4 +167,20 @@ public abstract class AbstractTaskContainerPropertySource implements IPropertySo
 		return all;
 	}
 
+	public IPropertyDescriptor[] getAttributesAsProperties() {
+		if (null == attributeContainer) {
+			return new IPropertyDescriptor[0];
+		}
+		String categoryname = IAttributeContainer.class.getCanonicalName();
+
+		List<IPropertyDescriptor> props = new ArrayList<IPropertyDescriptor>();
+
+		Map<String, String> attributes = attributeContainer.getAttributes();
+		for (String key : attributes.keySet()) {
+			TextPropertyDescriptor desc = new TextPropertyDescriptor(key, key);
+			desc.setCategory(categoryname);
+			props.add(desc);
+		}
+		return props.toArray(new IPropertyDescriptor[0]);
+	}
 }
