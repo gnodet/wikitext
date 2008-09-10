@@ -8,8 +8,7 @@
 
 package org.eclipse.mylyn.xplanner.ui.editor;
 
-import java.text.NumberFormat;
-import java.util.Locale;
+import java.text.DecimalFormatSymbols;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -28,6 +27,8 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -154,17 +155,24 @@ public class XPlannerTaskEditorExtraControls extends AbstractTaskEditorPart {
 		estimatedHoursLabel.setFont(JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT));
 
 		// estimated hours text
-		final Text estimatedTimeText = toolkit.createText(dataComposite,
-				XPlannerRepositoryUtils.getAdjustedEstimatedHours(repositoryTaskData) + ""); //$NON-NLS-1$
+		final Text estimatedTimeText = toolkit.createText(
+				dataComposite,
+				XPlannerRepositoryUtils.formatSingleFractionHours(XPlannerRepositoryUtils.getAdjustedEstimatedHours(repositoryTaskData)));
 		estimatedTimeText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
-				updateAttribute(XPlannerAttributeMapper.ATTRIBUTE_EST_HOURS_NAME, estimatedTimeText.getText());
+				Double value = XPlannerRepositoryUtils.getHoursValue(estimatedTimeText.getText());
+				updateAttribute(XPlannerAttributeMapper.ATTRIBUTE_EST_HOURS_NAME, Double.toString(value));
 			}
 		});
 
+		estimatedTimeText.addVerifyListener(new HoursVerifyListener());
+
 		// original estimated hours label
-		toolkit.createLabel(dataComposite,
-				" (" + XPlannerRepositoryUtils.getEstimatedOriginalHours(repositoryTaskData) + ")"); //$NON-NLS-1$ //$NON-NLS-2$
+		toolkit.createLabel(
+				dataComposite,
+				" (" //$NON-NLS-1$
+						+ XPlannerRepositoryUtils.formatSingleFractionHours(XPlannerRepositoryUtils.getEstimatedOriginalHours(repositoryTaskData))
+						+ ")"); //$NON-NLS-1$ 
 
 		completedButton = toolkit.createButton(dataComposite, Messages.XPlannerTaskEditor_COMPLETED_BUTTON, SWT.CHECK);
 		completedButton.addSelectionListener(new SelectionListener() {
@@ -186,15 +194,18 @@ public class XPlannerTaskEditorExtraControls extends AbstractTaskEditorPart {
 
 		// actual hours text
 		lastRepositoryActualTime = XPlannerRepositoryUtils.getActualHours(repositoryTaskData);
-		actualTimeText = toolkit.createText(dataComposite, lastRepositoryActualTime + ""); //$NON-NLS-1$
+		actualTimeText = toolkit.createText(dataComposite,
+				XPlannerRepositoryUtils.formatSingleFractionHours(lastRepositoryActualTime));
 
 		actualTimeText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				if (validateActualTime() == null) {
-					updateAttribute(XPlannerAttributeMapper.ATTRIBUTE_ACT_HOURS_NAME, actualTimeText.getText());
+					Double value = XPlannerRepositoryUtils.getHoursValue(actualTimeText.getText());
+					updateAttribute(XPlannerAttributeMapper.ATTRIBUTE_ACT_HOURS_NAME, Double.toString(value));
 				}
 			}
 		});
+		actualTimeText.addVerifyListener(new HoursVerifyListener());
 
 		// remaining time label
 		Label remainingTimeLabel = toolkit.createLabel(dataComposite, Messages.XPlannerTaskEditor_REMAINING_HOURS_TEXT);
@@ -202,8 +213,8 @@ public class XPlannerTaskEditorExtraControls extends AbstractTaskEditorPart {
 		GridDataFactory.fillDefaults().grab(true, false).span(3, 1).align(SWT.END, SWT.CENTER).applyTo(
 				remainingTimeLabel);
 
-		Float remainingHours = new Float(XPlannerRepositoryUtils.getRemainingHours(repositoryTaskData));
-		String formattedRemainingHours = formatSingleFractionHours(remainingHours);
+		Double remainingHours = new Double(XPlannerRepositoryUtils.getRemainingHours(repositoryTaskData));
+		String formattedRemainingHours = XPlannerRepositoryUtils.formatSingleFractionHours(remainingHours);
 		remainingTimeValueLabel = toolkit.createLabel(dataComposite, formattedRemainingHours);
 
 		updateRemainingTimeFont();
@@ -249,22 +260,26 @@ public class XPlannerTaskEditorExtraControls extends AbstractTaskEditorPart {
 	}
 
 	private String validateActualTime() {
-		Double updatedActualTimeValue = Double.valueOf(actualTimeText.getText());
-		Double currentActualTimeValue = XPlannerRepositoryUtils.getActualHours(getRepositoryTaskData());
-		if (updatedActualTimeValue < currentActualTimeValue) {
-			errorMessage = "Cannot decrease actual time value";
-			errorControl = actualTimeText;
-		} else {
-			errorMessage = null;
-			errorControl = null;
+		try {
+			Double updatedActualTimeValue = XPlannerRepositoryUtils.getHoursValue(actualTimeText.getText());
+			Double currentActualTimeValue = XPlannerRepositoryUtils.getActualHours(getRepositoryTaskData());
+			if (updatedActualTimeValue < currentActualTimeValue) {
+				errorMessage = "Cannot decrease actual time value";
+				errorControl = actualTimeText;
+			} else {
+				errorMessage = null;
+				errorControl = null;
+			}
+			return errorMessage;
+		} catch (Throwable t) {
+			return "bad";
 		}
 
-		return errorMessage;
 	}
 
 	protected void updateActualTimeWithElapsed(long newElapsedTime, boolean addToCurrent, boolean roundToHalfHour) {
 
-		String elapsedHoursString = "0.0";
+		String elapsedHoursString = XPlannerRepositoryUtils.formatSingleFractionHours(0.0d);
 		try {
 			elapsedHoursString = getElapsedHoursAsString(newElapsedTime, addToCurrent, roundToHalfHour);
 		} catch (RuntimeException e1) {
@@ -275,9 +290,9 @@ public class XPlannerTaskEditorExtraControls extends AbstractTaskEditorPart {
 		actualTimeText.setText(elapsedHoursString);
 	}
 
-	private static float convertMilliSecondsToHours(long milliSeconds) {
+	private static double convertMilliSecondsToHours(long milliSeconds) {
 		Long minutes = ((Long) Long.valueOf("" + milliSeconds)) / (1000 * 60);
-		Float hours = minutes / 60F;
+		Double hours = minutes / 60d;
 
 		return hours;
 	}
@@ -286,59 +301,42 @@ public class XPlannerTaskEditorExtraControls extends AbstractTaskEditorPart {
 
 		String hoursString;
 
-		Float hours = convertMilliSecondsToHours(milliSeconds);
+		Double hours = convertMilliSecondsToHours(milliSeconds);
 		if (addToCurrent) {
-			hours = new Float(lastRepositoryActualTime + hours);
+			hours = new Double(lastRepositoryActualTime + hours);
 		}
 		if (hours == 0) {
-			hoursString = "0.0";
+			hoursString = XPlannerRepositoryUtils.formatSingleFractionHours(0.0d);
 		} else {
 
-			hoursString = formatHours(hours, roundToHalfHour);
+			hoursString = XPlannerRepositoryUtils.formatHours(hours, roundToHalfHour);
 		}
 
 		return hoursString;
 	}
 
-	/**
-	 * public for testing rounds to nearest .5 if roundToHalfHour is true, otherwise, keeps input as is with single
-	 * fraction digit formatting
-	 */
-	public static String formatHours(Float hours, boolean roundToHalfHour) {
-		Float updatedHours = hours;
+	private TaskData getRepositoryTaskData() {
+		return editor.getModel().getTaskData();
+	}
 
-		if (roundToHalfHour) {
-			Float decimal = new Float(Math.floor(hours));
-			Float fraction = hours - decimal;
-			if (fraction == .5f || fraction == .0f) {
-				updatedHours = hours;
-			} else if (fraction > 0f && fraction < .25f) {
-				updatedHours = decimal;
-			} else if (fraction >= .25f && fraction < .5f) {
-				updatedHours = decimal + .5f;
-			} else if (fraction > .5f && fraction < .75f) {
-				updatedHours = decimal + .5f;
-			} else { // .75 and up
-				updatedHours = decimal + 1;
+	class HoursVerifyListener implements VerifyListener {
+		public void verifyText(VerifyEvent event) {
+			switch (event.keyCode) {
+			case SWT.BS: // Backspace  
+			case SWT.DEL: // Delete  
+			case SWT.HOME: // Home  
+			case SWT.END: // End  
+			case SWT.ARROW_LEFT: // Left arrow  
+			case SWT.ARROW_RIGHT: // Right arrow  
+				return;
+			}
+
+			if (!Character.isDigit(event.character)
+					&& event.character != (new DecimalFormatSymbols().getDecimalSeparator())) {
+
+				event.doit = false; // don't allow the action  
 			}
 		}
 
-		return formatSingleFractionHours(updatedHours);
-	}
-
-	/**
-	 * public for testing Formats input as single digit fraction string
-	 */
-	public static String formatSingleFractionHours(Float updatedHours) {
-		NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
-		format.setMaximumIntegerDigits(5);
-		format.setMinimumFractionDigits(1);
-		format.setMaximumFractionDigits(1);
-		format.setGroupingUsed(false);
-		return format.format(updatedHours);
-	}
-
-	private TaskData getRepositoryTaskData() {
-		return editor.getModel().getTaskData();
 	}
 }

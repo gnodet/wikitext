@@ -228,7 +228,7 @@ public class XPlannerAttributeMapper extends TaskAttributeMapper {
 				date = timeDateFormat.parse(dateString);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			XPlannerMylynUIPlugin.log(e.getCause(), "", false);
 		}
 
 		return date;

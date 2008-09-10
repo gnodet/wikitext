@@ -14,12 +14,14 @@ import java.rmi.RemoteException;
 import java.security.GeneralSecurityException;
 import java.text.DateFormat;
 import java.text.MessageFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 
 import javax.security.auth.login.LoginException;
 
@@ -294,19 +296,24 @@ public class XPlannerRepositoryUtils {
 		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_TASK_COMPLETED, "0");
 
 		// est time
-		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_EST_HOURS_NAME, "0.0"); //$NON-NLS-1$
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_EST_HOURS_NAME,
+				XPlannerRepositoryUtils.formatSingleFractionHours(0.0d));
 
 		// act time
-		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ACT_HOURS_NAME, "0.0");
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ACT_HOURS_NAME,
+				XPlannerRepositoryUtils.formatSingleFractionHours(0.0d));
 
 		// est original hours
-		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ESTIMATED_ORIGINAL_HOURS_NAME, "0.0");
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ESTIMATED_ORIGINAL_HOURS_NAME,
+				XPlannerRepositoryUtils.formatSingleFractionHours(0.0d));
 
 		// act time
-		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_REMAINING_HOURS_NAME, "" + "0.0");
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_REMAINING_HOURS_NAME,
+				XPlannerRepositoryUtils.formatSingleFractionHours(0.0d));
 
 		// est adjusted estimated hours
-		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ADJUSTED_ESTIMATED_HOURS_NAME, "0.0");
+		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ADJUSTED_ESTIMATED_HOURS_NAME,
+				XPlannerRepositoryUtils.formatSingleFractionHours(0.0d));
 
 		// user story task ids
 		setAttributeValues(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_SUBTASK_IDS, getUserStoryTaskIds(
@@ -525,21 +532,25 @@ public class XPlannerRepositoryUtils {
 	}
 
 	public static double getActualHours(TaskData repositoryTaskData) {
+		// hours are always stored in . decimal format, but presentation in editor uses locale
 		String hours = getAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ACT_HOURS_NAME);
 		return Double.valueOf(hours).doubleValue();
 	}
 
 	public static double getRemainingHours(TaskData repositoryTaskData) {
+		// hours are always stored in . decimal format, but presentation in editor uses locale
 		String hours = getAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_REMAINING_HOURS_NAME);
 		return Double.valueOf(hours).doubleValue();
 	}
 
 	public static double getEstimatedHours(TaskData repositoryTaskData) {
+		// hours are always stored in . decimal format, but presentation in editor uses locale
 		String hours = getAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_EST_HOURS_NAME);
 		return Double.valueOf(hours).doubleValue();
 	}
 
 	public static Double getAdjustedEstimatedHours(TaskData repositoryTaskData) {
+		// hours are always stored in . decimal format, but presentation in editor uses locale
 		String hours = getAttributeValue(repositoryTaskData,
 				XPlannerAttributeMapper.ATTRIBUTE_ADJUSTED_ESTIMATED_HOURS_NAME);
 		return Double.valueOf(hours).doubleValue();
@@ -838,5 +849,60 @@ public class XPlannerRepositoryUtils {
 		}
 
 		return priorityLevel;
+	}
+
+	/**
+	 * public for testing rounds to nearest .5 if roundToHalfHour is true, otherwise, keeps input as is with single
+	 * fraction digit formatting
+	 */
+	public static String formatHours(Double hours, boolean roundToHalfHour) {
+		Double updatedHours = hours;
+
+		if (roundToHalfHour) {
+			Double decimal = new Double(Math.floor(hours));
+			Double fraction = hours - decimal;
+			if (fraction == .5d || fraction == .0d) {
+				updatedHours = hours;
+			} else if (fraction > 0d && fraction < .25d) {
+				updatedHours = decimal;
+			} else if (fraction >= .25d && fraction < .5d) {
+				updatedHours = decimal + .5f;
+			} else if (fraction > .5d && fraction < .75d) {
+				updatedHours = decimal + .5d;
+			} else { // .75 and up
+				updatedHours = decimal + 1;
+			}
+		}
+
+		return XPlannerRepositoryUtils.formatSingleFractionHours(updatedHours);
+	}
+
+	/**
+	 * public for testing Formats input as single digit fraction string
+	 */
+	public static String formatSingleFractionHours(Double updatedHours) {
+		NumberFormat format = getHoursNumberFormat();
+		return format.format(updatedHours);
+	}
+
+	public static Double getHoursValue(String hoursStringValue) {
+		Double hoursValue = 0.0d;
+		try {
+			hoursValue = getHoursNumberFormat().parse(hoursStringValue).doubleValue();
+		} catch (ParseException e) {
+			XPlannerMylynUIPlugin.log(e.getCause(), "", false);
+		}
+
+		return hoursValue;
+	}
+
+	public static NumberFormat getHoursNumberFormat() {
+		NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
+		format.setMaximumIntegerDigits(5);
+		format.setMinimumFractionDigits(1);
+		format.setMaximumFractionDigits(1);
+		format.setGroupingUsed(false);
+		format.setParseIntegerOnly(false);
+		return format;
 	}
 }

@@ -1,0 +1,3 @@
+1219857555865	Move member 'formatHours'
+1219857611810	Move member 'formatSingleFractionHours'
+1219861018625	Extract method 'getHoursNumberFormat'

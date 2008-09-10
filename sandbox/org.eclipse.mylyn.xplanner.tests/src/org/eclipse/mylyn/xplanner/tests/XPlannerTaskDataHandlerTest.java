@@ -7,16 +7,12 @@
  *******************************************************************************/
 package org.eclipse.mylyn.xplanner.tests;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import junit.framework.TestCase;
 
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
-import org.eclipse.mylyn.tasks.core.ITask;
-import org.eclipse.mylyn.tasks.core.RepositoryResponse;
-import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.core.*;
 import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
@@ -121,6 +117,8 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 				actTime = testTaskData.getActualHours() - 1;
 			}
 
+			actTime = XPlannerRepositoryUtils.getHoursValue(XPlannerRepositoryUtils.formatSingleFractionHours(actTime));
+
 			testTaskData.setActualHours(actTime);
 			org.eclipse.mylyn.tasks.core.data.TaskData testRepositoryTaskData = XPlannerRepositoryUtils.getXPlannerRepositoryTaskData(
 					repository.getRepositoryUrl(), testTaskData, repositoryTask.getTaskId());
@@ -167,4 +165,11 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 		testUpdateActualTime(false);
 	}
 
+	public void testUpdateActualTimeWithValidTimeEuropeanLocale() {
+		Locale saveLocale = Locale.getDefault();
+		Locale.setDefault(Locale.FRENCH);
+		testUpdateActualTime(true);
+		Locale.setDefault(saveLocale);
+
+	}
 }

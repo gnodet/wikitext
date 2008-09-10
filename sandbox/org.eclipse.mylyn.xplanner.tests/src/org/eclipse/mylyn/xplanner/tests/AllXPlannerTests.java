@@ -22,7 +22,6 @@ public class AllXPlannerTests {
 		suite.addTestSuite(XPlannerRepositoryConnectorTest.class);
 		suite.addTestSuite(XPlannerQueryTest.class);
 		suite.addTestSuite(XPlannerTaskDataHandlerTest.class);
-		suite.addTestSuite(XPlannerTaskEditorTest.class);
 		suite.addTestSuite(XPlannerMylynUIPluginTest.class);
 		suite.addTestSuite(XPlannerQueryWizardUtilsTest.class);
 		suite.addTestSuite(XPlannerClientFacadeTest.class);

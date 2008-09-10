@@ -7,6 +7,8 @@
  *******************************************************************************/
 package org.eclipse.mylyn.xplanner.tests;
 
+import java.util.Locale;
+
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.CoreException;
@@ -22,6 +24,8 @@ public class XPlannerRepositoryUtilsTest extends TestCase {
 
 	private static XPlannerClient client;
 
+	private Locale defaultLocale;
+
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
@@ -30,10 +34,13 @@ public class XPlannerRepositoryUtilsTest extends TestCase {
 			XPlannerTestUtils.clearTestData(client);
 			XPlannerTestUtils.setUpTestData(client);
 		}
+		defaultLocale = Locale.getDefault();
+		Locale.setDefault(Locale.US);
 	}
 
 	@Override
 	protected void tearDown() throws Exception {
+		Locale.setDefault(defaultLocale);
 		super.tearDown();
 	}
 
@@ -104,4 +111,81 @@ public class XPlannerRepositoryUtilsTest extends TestCase {
 		assert (taskData.getName() != null && taskData.getName().length() > 0);
 		assert (taskData.getDispositionName() != null && taskData.getDispositionName().length() > 0);
 	}
+
+	/**
+	 * Formatting tests
+	 */
+	public void testFormatHoursRoundValueNoRoundLocaleFrench() {
+		Locale.setDefault(Locale.FRENCH);
+		double inputValue = 1.0d;
+		String output = XPlannerRepositoryUtils.formatHours(inputValue, false);
+		assertEquals(output, "1,0");
+	}
+
+	public void testFormatHoursRoundValueNoRound() {
+		double inputValue = 1.0d;
+		String output = XPlannerRepositoryUtils.formatHours(inputValue, false);
+		assertEquals(output, "1.0");
+	}
+
+	public void testFormatHoursRoundValueRound() {
+		double inputValue = 1.0d;
+		String output = XPlannerRepositoryUtils.formatHours(inputValue, true);
+		assertEquals(output, "1.0");
+	}
+
+	public void testFormatHoursNotRoundValueRoundHalf() {
+		double inputValue = 1.5d;
+		String output = XPlannerRepositoryUtils.formatHours(inputValue, true);
+		assertEquals(output, "1.5");
+	}
+
+	public void testFormatHoursNotRoundValueRound_1_4() {
+		double inputValue = 1.4d;
+		String output = XPlannerRepositoryUtils.formatHours(inputValue, true);
+		assertEquals(output, "1.5");
+	}
+
+	public void testFormatHoursNotRoundValueRound_1_2() {
+		double inputValue = 1.2d;
+		String output = XPlannerRepositoryUtils.formatHours(inputValue, true);
+		assertEquals(output, "1.0");
+	}
+
+	public void testFormatHoursNotRoundValueRound_1_6() {
+		double inputValue = 1.6d;
+		String output = XPlannerRepositoryUtils.formatHours(inputValue, true);
+		assertEquals(output, "1.5");
+	}
+
+	public void testFormatHoursNotRoundValueRound_1_8() {
+		double inputValue = 1.8d;
+		String output = XPlannerRepositoryUtils.formatHours(inputValue, true);
+		assertEquals(output, "2.0");
+	}
+
+	public void testFormatHoursNotRoundValueNotRound() {
+		double inputValue = 1.3d;
+		String output = XPlannerRepositoryUtils.formatHours(inputValue, false);
+		assertEquals(output, "1.3");
+	}
+
+	public void testFormatHoursNotRoundLongValueNotRound() {
+		double inputValue = 1.345678d;
+		String output = XPlannerRepositoryUtils.formatHours(inputValue, false);
+		assertEquals(output, "1.3");
+	}
+
+	public void testFormatSingleFractionHoursNotRoundLongValue() {
+		double inputValue = 1.366666d;
+		String output = XPlannerRepositoryUtils.formatSingleFractionHours(inputValue);
+		assertEquals(output, "1.4");
+	}
+
+	public void testFormatSingleFractionHoursRoundValue() {
+		double inputValue = 1d;
+		String output = XPlannerRepositoryUtils.formatSingleFractionHours(inputValue);
+		assertEquals(output, "1.0");
+	}
+
 }
