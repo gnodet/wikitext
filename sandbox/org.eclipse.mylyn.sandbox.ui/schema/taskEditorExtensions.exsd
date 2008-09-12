@@ -49,14 +49,19 @@
    </element>
 
    <element name="taskEditorExtension">
+      <annotation>
+         <documentation>
+            Declare an extension to the Mylyn task editor.  Extensions are typically capable of providing improved editing capabilities, such as markup-aware.
+         </documentation>
+      </annotation>
       <complexType>
          <attribute name="class" type="string" use="required">
             <annotation>
                <documentation>
-                  the fully qualified class name of the class that extends org.eclipse.mylyn.tasks.ui.editors.TaskEditorExtension
+                  the fully qualified class name of the class that extends org.eclipse.mylyn.internal.sandbox.ui.editors.AbstractTaskEditorExtension
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="org.eclipse.mylyn.tasks.ui.editors.TaskEditorExtension:"/>
+                  <meta.attribute kind="java" basedOn="org.eclipse.mylyn.internal.sandbox.ui.editors.AbstractTaskEditorExtension:"/>
                </appInfo>
             </annotation>
          </attribute>
@@ -84,18 +89,23 @@
    </element>
 
    <element name="repositoryAssociation">
+      <annotation>
+         <documentation>
+            Associate the task editor extension with a kind of repository.  Making such an association causes the taskEditorExtension to become the default or preferred setting for a kind of repository.
+         </documentation>
+      </annotation>
       <complexType>
-         <attribute name="repository" type="string" use="required">
+         <attribute name="connectorKind" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  the kind of connector for that this task editor extension should be associated with.
                </documentation>
             </annotation>
          </attribute>
          <attribute name="taskEditorExtension" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  the id of the taskEditorExtension to associate
                </documentation>
             </annotation>
          </attribute>

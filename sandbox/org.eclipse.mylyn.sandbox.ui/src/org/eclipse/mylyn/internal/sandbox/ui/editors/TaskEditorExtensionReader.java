@@ -27,6 +27,8 @@ import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
  */
 public class TaskEditorExtensionReader {
 
+	private static final String CONNECTOR_KIND = "connectorKind";
+
 	public static final String ATTR_ID = "id";
 
 	public static final String ATTR_NAME = "name";
@@ -71,12 +73,12 @@ public class TaskEditorExtensionReader {
 
 	private static void readEditorExtensionAssociation(IConfigurationElement element) {
 		try {
-			String repository = element.getAttribute("repository");
-			String taskEditorExtension = element.getAttribute("taskEditorExtension");
+			String repository = element.getAttribute(CONNECTOR_KIND);
+			String taskEditorExtension = element.getAttribute(TASK_EDITOR_EXTENSION);
 			TaskEditorExtensions.addRepositoryAssociation(repository, taskEditorExtension);
 		} catch (Exception e) {
-			StatusHandler.log(new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, "Could not load taskEditorExtension",
-					e));
+			StatusHandler.log(new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN,
+					"Could not load repositoryAssociation", e));
 		}
 	}
 
