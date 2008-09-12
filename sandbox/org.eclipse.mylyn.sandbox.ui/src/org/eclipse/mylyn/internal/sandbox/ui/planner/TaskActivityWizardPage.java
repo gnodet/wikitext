@@ -1,9 +1,13 @@
 /*******************************************************************************
- * Copyright (c) 2004, 2007 Mylyn project committers and others.
+* Copyright (c) 2004, 2008 Tasktop Technologies and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Tasktop Technologies - initial API and implementation
+ *     Ken Sueda - original prototype
  *******************************************************************************/
 
 package org.eclipse.mylyn.internal.sandbox.ui.planner;
@@ -22,11 +26,11 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.mylyn.internal.provisional.commons.ui.DatePicker;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTaskContainer;
 import org.eclipse.mylyn.internal.tasks.core.TaskActivityUtil;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.ITasksUiPreferenceConstants;
+import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
-import org.eclipse.mylyn.tasks.core.ITaskContainer;
 import org.eclipse.mylyn.tasks.core.IRepositoryElement;
+import org.eclipse.mylyn.tasks.core.ITaskContainer;
 import org.eclipse.mylyn.tasks.ui.TaskElementLabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -48,7 +52,6 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * @author Mik Kersten
- * @author Ken Sueda (original prototype)
  * @author Rob Elves
  */
 public class TaskActivityWizardPage extends WizardPage {
@@ -203,7 +206,7 @@ public class TaskActivityWizardPage extends WizardPage {
 	 * Selection of specific category to report on in the Task Planner
 	 * 
 	 * @param composite
-	 * 		container to add categories combo box to
+	 *            container to add categories combo box to
 	 */
 	private void createCategorySelectionGroup(Composite composite) {
 
@@ -258,7 +261,7 @@ public class TaskActivityWizardPage extends WizardPage {
 	 * Creates the buttons for selecting all or none of the categories.
 	 * 
 	 * @param parent
-	 * 		parent composite
+	 *            parent composite
 	 */
 	private final void createButtonsGroup(Composite parent) {
 

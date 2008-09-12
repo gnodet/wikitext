@@ -1,13 +1,14 @@
 /*******************************************************************************
- * Copyright (c) 2004, 2007 Mylyn project committers and others.
+* Copyright (c) 2004, 2008 Tasktop Technologies and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
-/*
- * Created on Nov 19, 2004
- */
+
 package org.eclipse.mylyn.internal.sandbox.bridge.bugs;
 
 import java.io.UnsupportedEncodingException;
@@ -57,7 +58,7 @@ public class Util {
 	 * Get the bugzilla url used for searching for exact matches
 	 * 
 	 * @param je
-	 * 		The IMember to create the query string for
+	 *            The IMember to create the query string for
 	 * @return A url string for the search
 	 */
 	public static String getExactSearchURL(String repositoryUrl, IMember je) {
@@ -83,7 +84,7 @@ public class Util {
 	 * Get the bugzilla url used for searching for inexact matches
 	 * 
 	 * @param je
-	 * 		The IMember to create the query string for
+	 *            The IMember to create the query string for
 	 * @return A url string for the search
 	 */
 	public static String getInexactSearchURL(String repositoryUrl, IMember je) {
@@ -156,7 +157,7 @@ public class Util {
 	 * Create the bugzilla query URL start.
 	 * 
 	 * @return The start of the query url as a StringBuffer <br>
-	 * 	Example: https://bugs.eclipse.org/bugs/buglist.cgi?long_desc_type=allwordssubstr&long_desc=
+	 *         Example: https://bugs.eclipse.org/bugs/buglist.cgi?long_desc_type=allwordssubstr&long_desc=
 	 */
 	public static StringBuffer getQueryURLStart(String repositoryUrl) {
 		StringBuffer sb = new StringBuffer(repositoryUrl);
@@ -194,9 +195,9 @@ public class Util {
 	 * Search the given string for another string
 	 * 
 	 * @param elementName
-	 * 		The name of the element that we are looking for
+	 *            The name of the element that we are looking for
 	 * @param comment
-	 * 		The text to search for this element name
+	 *            The text to search for this element name
 	 * @return <code>true</code> if the element is found in the text else <code>false</code>
 	 */
 	public static boolean hasElementName(String elementName, String comment) {

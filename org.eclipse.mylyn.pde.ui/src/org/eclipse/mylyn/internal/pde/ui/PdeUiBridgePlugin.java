@@ -1,16 +1,19 @@
 /*******************************************************************************
- * Copyright (c) 2004, 2007 Mylyn project committers and others.
+* Copyright (c) 2004, 2008 Tasktop Technologies and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.mylyn.internal.pde.ui;
 
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.mylyn.context.ui.IContextUiStartup;
-import org.eclipse.mylyn.internal.monitor.ui.MonitorUiPlugin;
+import org.eclipse.mylyn.monitor.ui.MonitorUi;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -42,12 +45,12 @@ public class PdeUiBridgePlugin extends Plugin {
 
 	private void lazyStart() {
 		pdeEditingMonitor = new PdeEditingMonitor();
-		MonitorUiPlugin.getDefault().getSelectionMonitors().add(pdeEditingMonitor);
+		MonitorUi.getSelectionMonitors().add(pdeEditingMonitor);
 	}
 
 	private void lazyStop() {
 		if (pdeEditingMonitor != null) {
-			MonitorUiPlugin.getDefault().getSelectionMonitors().remove(pdeEditingMonitor);
+			MonitorUi.getSelectionMonitors().remove(pdeEditingMonitor);
 		}
 	}
 

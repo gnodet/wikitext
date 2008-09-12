@@ -1,13 +1,14 @@
 /*******************************************************************************
- * Copyright (c) 2004, 2007 Mylyn project committers and others.
+* Copyright (c) 2004, 2008 Tasktop Technologies and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
-/**
- * 
- */
+
 package org.eclipse.mylyn.internal.monitor.usage;
 
 import java.io.BufferedReader;
@@ -35,7 +36,6 @@ import org.eclipse.swt.widgets.Text;
  * Dialog that displays the contents of a file to the user
  * 
  * @author Shawn Minto
- * 
  */
 public class FileDisplayDialog extends MessageDialog {
 

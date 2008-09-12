@@ -1,9 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2004, 2007 Mylyn project committers and others.
+* Copyright (c) 2004, 2008 Tasktop Technologies and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.mylyn.internal.web.ui;
@@ -24,18 +27,6 @@ public class WebNavigatorLabelProvider extends WorkbenchLabelProvider implements
 	public void init(ICommonContentExtensionSite config) {
 		extensionSite = config;
 	}
-
-//    public Image getImage(Object element) {
-//    	if (element instanceof WebRoot) {
-//    		return WebImages.getImage(WebImages.WEB_ROOT);
-//    	} else if (element instanceof WebSite) {
-//    		return WebImages.getImage(WebImages.WEB_SITE);
-//    	} else if (element instanceof WebPage) {
-//    		return WebImages.getImage(WebImages.WEB_PAGE);
-//    	} else {
-//    		return null;
-//    	}
-//    }
 
 	public void restoreState(IMemento aMemento) {
 		// Nothing to do

@@ -1,13 +1,14 @@
 /*******************************************************************************
- * Copyright (c) 2004, 2007 Mylyn project committers and others.
+* Copyright (c) 2004, 2008 Tasktop Technologies and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
-/*
- * Created on Oct 14, 2004
- */
+
 package org.eclipse.mylyn.internal.sandbox.bridge.bugs;
 
 import java.util.ArrayList;
@@ -446,7 +447,7 @@ public class BugzillaMylynSearchOperation extends WorkspaceModifyOperation imple
 
 			try {
 				float value = 0;
-				info = new BugzillaReportInfo(value, (ITask) hit, isExact);
+				info = new BugzillaReportInfo(value, hit, isExact);
 
 				// only download the bug for the exact matches
 				// downloading bugs kills the time - can we do this elsewhere? -
