@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2004, 2008 Tasktop Technologies and others.
+ * Copyright (c) 2000, 2008 Tasktop Technologies and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,20 +9,21 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.tests;
+package org.eclipse.mylyn.commons.tests;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
 /**
- * @author Steffen Pingel
+ * @author Mik Kersten
  */
-public class AllCoreTests {
+public class AllCommonsTests {
 
 	public static Test suite() {
-		TestSuite suite = new TestSuite("Test for org.eclipse.mylyn.core.tests");
-		suite.addTestSuite(WebUtilTest.class);
+		TestSuite suite = new TestSuite("Test for org.eclipse.mylyn.commons.tests");
+		suite.addTestSuite(RetrieveTitleFromUrlTest.class);
 		suite.addTestSuite(SslProtocolSocketFactoryTest.class);
+		suite.addTestSuite(WebUtilTest.class);
 		return suite;
 	}
 

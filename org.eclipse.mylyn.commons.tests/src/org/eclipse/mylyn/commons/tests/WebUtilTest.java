@@ -9,7 +9,7 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.tests;
+package org.eclipse.mylyn.commons.tests;
 
 import java.net.InetSocketAddress;
 import java.net.Proxy;
@@ -32,9 +32,9 @@ import org.eclipse.mylyn.commons.net.AuthenticationType;
 import org.eclipse.mylyn.commons.net.IProxyProvider;
 import org.eclipse.mylyn.commons.net.WebLocation;
 import org.eclipse.mylyn.commons.net.WebUtil;
+import org.eclipse.mylyn.commons.tests.TestProxy.Message;
 import org.eclipse.mylyn.internal.commons.net.AuthenticatedProxy;
 import org.eclipse.mylyn.internal.commons.net.SslProtocolSocketFactory;
-import org.eclipse.mylyn.tests.TestProxy.Message;
 
 /**
  * @author Steffen Pingel
