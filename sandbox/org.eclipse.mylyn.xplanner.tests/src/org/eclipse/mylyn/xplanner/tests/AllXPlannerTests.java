@@ -16,7 +16,7 @@ import junit.framework.TestSuite;
 public class AllXPlannerTests {
 
 	public static Test suite() {
-		TestSuite suite = new TestSuite("Test for mylyn.xplanner.tests");
+		TestSuite suite = new TestSuite("Test for org.eclipse.mylyn.xplanner.tests");
 		// $JUnit-BEGIN$
 		suite.addTestSuite(XPlannerRepositoryUtilsTest.class);
 		suite.addTestSuite(XPlannerRepositoryConnectorTest.class);
