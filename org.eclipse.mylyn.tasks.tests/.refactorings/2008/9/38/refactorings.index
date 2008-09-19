@@ -12,3 +12,4 @@
 1221696821663	Rename type 'TaskActivityListenerTest'
 1221697540234	Delete element
 1221698310240	Inline local variable 'newDesc'
+1221792832698	Inline method 'reloadTaskList'
