@@ -13,3 +13,4 @@
 1221697540234	Delete element
 1221698310240	Inline local variable 'newDesc'
 1221792832698	Inline method 'reloadTaskList'
+1221794657523	Extract local variable 'serverUrl'
