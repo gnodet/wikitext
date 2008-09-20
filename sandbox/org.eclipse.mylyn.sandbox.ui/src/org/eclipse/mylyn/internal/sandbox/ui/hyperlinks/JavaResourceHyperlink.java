@@ -22,8 +22,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.debug.ui.IDebugModelPresentation;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
 import org.eclipse.jdt.core.search.SearchEngine;
@@ -33,18 +31,15 @@ import org.eclipse.jdt.core.search.SearchPattern;
 import org.eclipse.jdt.core.search.SearchRequestor;
 import org.eclipse.jdt.internal.debug.ui.JDIDebugUIPlugin;
 import org.eclipse.jdt.internal.ui.JavaUIMessages;
+import org.eclipse.jdt.internal.ui.dialogs.OpenTypeSelectionDialog;
 import org.eclipse.jdt.internal.ui.util.ExceptionHandler;
-import org.eclipse.jdt.ui.JavaElementLabelProvider;
-import org.eclipse.jdt.ui.JavaElementLabels;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.hyperlink.IHyperlink;
-import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.dialogs.ListDialog;
 import org.eclipse.ui.progress.UIJob;
 
 /**
@@ -130,7 +125,7 @@ public class JavaResourceHyperlink implements IHyperlink {
 			@Override
 			public IStatus runInUIThread(IProgressMonitor monitor) {
 				if (sources.size() > 1) {
-					openTypeDialog(sources, typeName);
+					openTypeDialog(typeName);
 				} else if (sources.size() == 1 && sources.get(0) != null) {
 					IType type = sources.get(0);
 					processSearchResult(type, typeName);
@@ -172,36 +167,15 @@ public class JavaResourceHyperlink implements IHyperlink {
 		}
 	}
 
-	private void openTypeDialog(final List<IType> sources, final String typeName) {
-		ListDialog dialog = new ListDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
-		dialog.setInput(sources.toArray());
-		dialog.setContentProvider(new ArrayContentProvider());
-		dialog.setLabelProvider(new JavaElementLabelProvider() {
-			@Override
-			public String getText(Object element) {
-				IType type = (IType) element;
-				StringBuilder builder = new StringBuilder();
-				builder.append(super.getText(type));
-
-				IPackageFragment fragment = type.getPackageFragment();
-				if (fragment != null) {
-					builder.append(JavaElementLabels.CONCAT_STRING);
-					builder.append(super.getText(fragment));
-				}
-
-				IJavaProject project = type.getJavaProject();
-				if (project != null) {
-					builder.append(JavaElementLabels.CONCAT_STRING);
-					builder.append(super.getText(project));
-				}
-
-				return builder.toString();
-			}
-		});
+	private void openTypeDialog(final String typeName) {
+		OpenTypeSelectionDialog dialog = new OpenTypeSelectionDialog(PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow()
+				.getShell(), true, PlatformUI.getWorkbench().getProgressService(), null, IJavaSearchConstants.TYPE);
 
 		dialog.setTitle("Open Hyperlink");
 		dialog.setMessage("More than one types are detected, please select one:");
 		dialog.setHelpAvailable(false);
+		dialog.setInitialPattern(typeName);
 
 		int result = dialog.open();
 		if (result != IDialogConstants.OK_ID) {
