@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.mylyn.internal.tasks.core.TaskComment;
+import org.eclipse.mylyn.internal.tasks.ui.util.AttachmentUtil;
 import org.eclipse.mylyn.tasks.core.IRepositoryPerson;
 import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
 import org.eclipse.mylyn.tasks.core.data.TaskDataModel;
@@ -70,6 +71,7 @@ public class CommentGroupStrategy {
 		List<TaskAttribute> current = new ArrayList<TaskAttribute>();
 
 		// update task comment and get current group index
+		TaskComment latestComment = null;
 		for (int i = 0; i < taskAttributes.size(); i++) {
 			TaskAttribute commentAttribute = taskAttributes.get(i);
 			final TaskComment taskComment = convertToTaskComment(taskDataModel, commentAttribute);
@@ -83,6 +85,7 @@ public class CommentGroupStrategy {
 			IRepositoryPerson person = taskComment.getAuthor();
 			if (person != null && person.getPersonId().equals(currentPersonId)) {
 				currentFromIndex = i;
+				latestComment = taskComment;
 			}
 		}
 
@@ -92,6 +95,17 @@ public class CommentGroupStrategy {
 
 		// group by last author
 		if (currentFromIndex != -1 && currentFromIndex < comments.size()) {
+			// bug 238038 comment #58, if the latest comment is generated automatically, lookback one comment
+			if (latestComment != null && latestComment.getText().contains(AttachmentUtil.CONTEXT_DESCRIPTION)
+					&& currentFromIndex > 0) {
+				TaskComment secondLatestComment = convertToTaskComment(taskDataModel,
+						comments.get(currentFromIndex - 1));
+				IRepositoryPerson person = secondLatestComment.getAuthor();
+				if (person != null && person.getPersonId().equals(currentPersonId)) {
+					currentFromIndex--;
+				}
+			}
+
 			current.addAll(0, new ArrayList<TaskAttribute>(comments.subList(currentFromIndex, comments.size())));
 			if (current.size() > 0) {
 				comments.removeAll(current);
