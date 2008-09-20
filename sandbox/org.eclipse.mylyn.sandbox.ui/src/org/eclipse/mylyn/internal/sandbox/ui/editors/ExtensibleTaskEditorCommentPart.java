@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2004, 2008 Tasktop Technologies and others.
+ * Copyright (c) 2004, 2008 Tasktop Technologies and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -154,22 +154,27 @@ public class ExtensibleTaskEditorCommentPart extends TaskEditorCommentPart {
 
 	@Override
 	protected void expandAllComments() {
-		// first toggle on all subSections
-		try {
-			getTaskEditorPage().setReflow(false);
+		if (section != null) {
+			EditorUtil.toggleExpandableComposite(true, section);
+		}
+		if (subSections != null) {
+			// first toggle on all subSections
+			try {
+				getTaskEditorPage().setReflow(false);
 
-			if (section != null) {
-				EditorUtil.toggleExpandableComposite(true, section);
-			}
-
-			for (Section subSection : subSections) {
-				if (subSection.isDisposed()) {
-					continue;
+				if (section != null) {
+					EditorUtil.toggleExpandableComposite(true, section);
 				}
-				EditorUtil.toggleExpandableComposite(true, subSection);
+
+				for (Section subSection : subSections) {
+					if (subSection.isDisposed()) {
+						continue;
+					}
+					EditorUtil.toggleExpandableComposite(true, subSection);
+				}
+			} finally {
+				getTaskEditorPage().setReflow(true);
 			}
-		} finally {
-			getTaskEditorPage().setReflow(true);
 		}
 
 		super.expandAllComments();
