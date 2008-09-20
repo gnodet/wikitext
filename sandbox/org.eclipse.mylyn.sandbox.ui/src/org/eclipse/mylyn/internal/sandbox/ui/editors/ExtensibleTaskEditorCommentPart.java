@@ -20,9 +20,12 @@ import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.mylyn.internal.provisional.commons.ui.CommonImages;
 import org.eclipse.mylyn.internal.sandbox.ui.editors.CommentGroupStrategy.CommentGroup;
+import org.eclipse.mylyn.internal.tasks.core.TaskComment;
 import org.eclipse.mylyn.internal.tasks.ui.editors.EditorUtil;
 import org.eclipse.mylyn.internal.tasks.ui.editors.TaskEditorCommentPart;
+import org.eclipse.mylyn.tasks.core.ITaskComment;
 import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
+import org.eclipse.mylyn.tasks.core.data.TaskDataModel;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -61,9 +64,21 @@ public class ExtensibleTaskEditorCommentPart extends TaskEditorCommentPart {
 		setPartName("Comments");
 	}
 
+	private TaskComment convertToTaskComment(TaskDataModel taskDataModel, TaskAttribute commentAttribute) {
+		TaskComment taskComment = new TaskComment(taskDataModel.getTaskRepository(), taskDataModel.getTask(),
+				commentAttribute);
+		taskDataModel.getTaskData().getAttributeMapper().updateTaskComment(taskComment, commentAttribute);
+		return taskComment;
+	}
+
 	private void createCommentSubsections(final FormToolkit toolkit, final Composite composite,
-			List<TaskAttribute> comments) {
-		List<CommentGroup> commentGroups = getCommentGroupStrategy().groupCommentsFromModel(getModel());
+			List<TaskAttribute> commentAttributes) {
+		List<ITaskComment> comments = new ArrayList<ITaskComment>();
+		for (TaskAttribute commentAttribute : commentAttributes) {
+			comments.add(convertToTaskComment(getModel(), commentAttribute));
+		}
+		String currentPersonId = getModel().getTaskRepository().getUserName();
+		List<CommentGroup> commentGroups = getCommentGroupStrategy().groupComments(comments, currentPersonId);
 
 		// if there is only one subsection, then don't show it
 		if (commentGroups.size() == 1) {
@@ -217,9 +232,13 @@ public class ExtensibleTaskEditorCommentPart extends TaskEditorCommentPart {
 
 	private CommentGroupStrategy getCommentGroupStrategy() {
 		if (commentGroupStrategy == null) {
-			commentGroupStrategy = new CommentGroupStrategy();
+			commentGroupStrategy = new CommentGroupStrategy() {
+				@Override
+				protected boolean hasIncomingChanges(ITaskComment taskComment) {
+					return getModel().hasIncomingChanges(taskComment.getTaskAttribute());
+				}
+			};
 		}
-
 		return commentGroupStrategy;
 	}
 

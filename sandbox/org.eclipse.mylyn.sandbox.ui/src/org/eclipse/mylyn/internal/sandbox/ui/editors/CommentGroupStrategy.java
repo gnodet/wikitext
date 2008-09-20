@@ -7,48 +7,53 @@
  *
  * Contributors:
  *     Jingwen Ou - initial API and implementation
+ *     Tasktop Technologies - improvements
  *******************************************************************************/
 
 package org.eclipse.mylyn.internal.sandbox.ui.editors;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.mylyn.internal.tasks.core.TaskComment;
 import org.eclipse.mylyn.internal.tasks.ui.util.AttachmentUtil;
 import org.eclipse.mylyn.tasks.core.IRepositoryPerson;
+import org.eclipse.mylyn.tasks.core.ITaskComment;
 import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
-import org.eclipse.mylyn.tasks.core.data.TaskDataModel;
 
 /**
  * @author Jingwen Ou
+ * @author Steffen Pingel
  */
 public class CommentGroupStrategy {
+
 	public class CommentGroup {
-		private final List<TaskAttribute> commentAttributes;
+
+		private final List<ITaskComment> comments;
 
 		private final String groupName;
 
-		CommentGroup(String groupName, List<TaskAttribute> commentAttributes) {
+		CommentGroup(String groupName, List<ITaskComment> comments) {
 			this.groupName = groupName;
-			this.commentAttributes = commentAttributes;
+			this.comments = comments;
 		}
 
 		public List<TaskAttribute> getCommentAttributes() {
-			return commentAttributes;
+			List<TaskAttribute> commentAttributes = new ArrayList<TaskAttribute>(comments.size());
+			for (ITaskComment comment : comments) {
+				commentAttributes.add(comment.getTaskAttribute());
+			}
+			return Collections.unmodifiableList(commentAttributes);
+		}
+
+		public List<ITaskComment> getComments() {
+			return Collections.unmodifiableList(comments);
 		}
 
 		public String getGroupName() {
 			return groupName;
 		}
-	}
 
-	private TaskComment convertToTaskComment(TaskDataModel taskDataModel, TaskAttribute commentAttribute) {
-		TaskComment taskComment = new TaskComment(taskDataModel.getTaskRepository(), taskDataModel.getTask(),
-				commentAttribute);
-		taskDataModel.getTaskData().getAttributeMapper().updateTaskComment(taskComment, commentAttribute);
-
-		return taskComment;
 	}
 
 	/**
@@ -58,28 +63,21 @@ public class CommentGroupStrategy {
 	 *            extracts groups of comment for the model
 	 * @return list of comment groups. Groups will be ignored if there are no comments under them.
 	 */
-	public List<CommentGroup> groupCommentsFromModel(TaskDataModel taskDataModel) {
-		List<TaskAttribute> taskAttributes = taskDataModel.getTaskData().getAttributeMapper().getAttributesByType(
-				taskDataModel.getTaskData(), TaskAttribute.TYPE_COMMENT);
+	public List<CommentGroup> groupComments(List<ITaskComment> comments, String currentPersonId) {
 		List<CommentGroup> commentGroups = new ArrayList<CommentGroup>();
-		List<TaskAttribute> comments = new ArrayList<TaskAttribute>();
-
-		int currentFromIndex = -1;
-		String currentPersonId = taskDataModel.getTaskRepository().getUserName();
 
 		// current
-		List<TaskAttribute> current = new ArrayList<TaskAttribute>();
+		int currentFromIndex = -1;
+		List<ITaskComment> current = new ArrayList<ITaskComment>();
 
 		// update task comment and get current group index
-		TaskComment latestComment = null;
-		for (int i = 0; i < taskAttributes.size(); i++) {
-			TaskAttribute commentAttribute = taskAttributes.get(i);
-			final TaskComment taskComment = convertToTaskComment(taskDataModel, commentAttribute);
-			comments.add(commentAttribute);
+		ITaskComment latestComment = null;
+		for (int i = 0; i < comments.size(); i++) {
+			ITaskComment taskComment = comments.get(i);
 
 			// add all incoming changes
-			if (taskDataModel.hasIncomingChanges(taskComment.getTaskAttribute())) {
-				current.add(commentAttribute);
+			if (hasIncomingChanges(taskComment)) {
+				current.add(taskComment);
 			}
 
 			IRepositoryPerson person = taskComment.getAuthor();
@@ -98,15 +96,14 @@ public class CommentGroupStrategy {
 			// bug 238038 comment #58, if the latest comment is generated automatically, lookback one comment
 			if (latestComment != null && latestComment.getText().contains(AttachmentUtil.CONTEXT_DESCRIPTION)
 					&& currentFromIndex > 0) {
-				TaskComment secondLatestComment = convertToTaskComment(taskDataModel,
-						comments.get(currentFromIndex - 1));
+				ITaskComment secondLatestComment = comments.get(currentFromIndex - 1);
 				IRepositoryPerson person = secondLatestComment.getAuthor();
 				if (person != null && person.getPersonId().equals(currentPersonId)) {
 					currentFromIndex--;
 				}
 			}
 
-			current.addAll(0, new ArrayList<TaskAttribute>(comments.subList(currentFromIndex, comments.size())));
+			current.addAll(0, new ArrayList<ITaskComment>(comments.subList(currentFromIndex, comments.size())));
 			if (current.size() > 0) {
 				comments.removeAll(current);
 			}
@@ -114,7 +111,7 @@ public class CommentGroupStrategy {
 
 		// recent
 		int recentFromIndex = comments.size() - 20 < 0 ? 0 : comments.size() - 20;
-		List<TaskAttribute> recent = new ArrayList<TaskAttribute>(comments.subList(recentFromIndex, comments.size()));
+		List<ITaskComment> recent = new ArrayList<ITaskComment>(comments.subList(recentFromIndex, comments.size()));
 		if (recent.size() > 0) {
 			comments.removeAll(recent);
 		}
@@ -136,4 +133,9 @@ public class CommentGroupStrategy {
 
 		return commentGroups;
 	}
+
+	protected boolean hasIncomingChanges(ITaskComment taskComment) {
+		return false;
+	}
+
 }
