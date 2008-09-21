@@ -1,2 +1,4 @@
 1221966262780	Delete element
 1221966936094	Inline local variable 'backupFolder'
+1221968586027	Extract local variable 'taskList'
+1221973375197	Extract method 'addTaskAndRefreshView'
