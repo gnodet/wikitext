@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.mylyn.xplanner_feature"
       label="Mylyn Connector: XPlanner (Incubation)"
-      version="3.0.2.qualifier"
+      version="3.1.0.qualifier"
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylyn">
 
@@ -82,7 +82,7 @@ Java and all Java-based trademarks are trademarks of Sun Microsystems, Inc. in t
       <import plugin="org.apache.commons.discovery" version="0.2.0" match="compatible"/>
       <import plugin="org.eclipse.osgi"/>
       <import plugin="org.apache.commons.logging" version="1.0.4" match="compatible"/>
-      <import feature="org.eclipse.mylyn_feature" version="3.0.2.mylynQualifier" match="equivalent"/>
+      <import feature="org.eclipse.mylyn_feature" version="3.1.0.mylynQualifier" match="equivalent"/>
       <import plugin="javax.activation" version="1.1.0" match="greaterOrEqual"/>
    </requires>
 
@@ -90,14 +90,14 @@ Java and all Java-based trademarks are trademarks of Sun Microsystems, Inc. in t
          id="org.eclipse.mylyn.xplanner.core"
          download-size="0"
          install-size="0"
-         version="3.0.2.qualifier"
+         version="3.1.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.mylyn.xplanner.ui"
          download-size="0"
          install-size="0"
-         version="3.0.2.qualifier"
+         version="3.1.0.qualifier"
          unpack="false"/>
 
    <plugin

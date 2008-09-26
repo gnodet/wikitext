@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.mylyn.monitor_feature"
       label="Mylyn UI Usage Reporting"
-      version="3.0.2.qualifier"
+      version="3.1.0.qualifier"
       provider-name="Eclipse.org"
       plugin="org.eclipse.mylyn">
 
