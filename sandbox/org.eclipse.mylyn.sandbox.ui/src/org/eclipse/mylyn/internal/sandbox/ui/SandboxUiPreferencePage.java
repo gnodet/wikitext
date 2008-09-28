@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2004, 2008 Tasktop Technologies and others.
+ * Copyright (c) 2004, 2008 Tasktop Technologies and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -76,8 +76,6 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 
 	private Button activateOnOpen;
 
-	private Button enableLocalSubTasksButton;
-
 	private Button showTaskTrimButton;
 
 	private Highlighter selection = null;
@@ -153,10 +151,6 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		activateOnOpen = new Button(group, SWT.CHECK);
 		activateOnOpen.setText("Activate tasks on open");
 		activateOnOpen.setSelection(uiPreferenceStore.getBoolean(ITasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED));
-
-		enableLocalSubTasksButton = new Button(group, SWT.CHECK);
-		enableLocalSubTasksButton.setText("Enable subtasks for local tasks");
-		enableLocalSubTasksButton.setSelection(uiPreferenceStore.getBoolean(ITasksUiPreferenceConstants.LOCAL_SUB_TASKS_ENABLED));
 	}
 
 	private void createJavaGroup(Composite parent) {
@@ -236,9 +230,6 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 
 		uiPreferenceStore.setValue(ITasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED, activateOnOpen.getSelection());
 
-		uiPreferenceStore.setValue(ITasksUiPreferenceConstants.LOCAL_SUB_TASKS_ENABLED,
-				enableLocalSubTasksButton.getSelection());
-
 		uiPreferenceStore.setValue(ITasksUiPreferenceConstants.OVERLAYS_INCOMING_TIGHT,
 				incomingOverlaysButton.getSelection());
 		TaskListView view = TaskListView.getFromActivePerspective();
@@ -264,7 +255,6 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 
 		IPreferenceStore uiPreferenceStore = TasksUiPlugin.getDefault().getPreferenceStore();
 		activateOnOpen.setSelection(uiPreferenceStore.getBoolean(ITasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED));
-		enableLocalSubTasksButton.setSelection(uiPreferenceStore.getBoolean(ITasksUiPreferenceConstants.LOCAL_SUB_TASKS_ENABLED));
 		showTaskTrimButton.setSelection(uiPreferenceStore.getBoolean(ITasksUiPreferenceConstants.SHOW_TRIM));
 
 		contentProvider = new HighlighterContentProvider();
