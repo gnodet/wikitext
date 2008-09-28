@@ -7,12 +7,18 @@
  *******************************************************************************/
 package org.eclipse.mylyn.xplanner.tests;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
 
 import junit.framework.TestCase;
 
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.tasks.core.*;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
+import org.eclipse.mylyn.tasks.core.ITask;
+import org.eclipse.mylyn.tasks.core.RepositoryResponse;
+import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.core.RepositoryResponse.ResponseKind;
 import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
@@ -49,15 +55,15 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 			org.eclipse.mylyn.tasks.core.data.TaskData newRepositoryTaskData = XPlannerRepositoryUtils.getNewRepositoryTaskData(
 					taskRepository, userStoryData);
 
-			assert (newRepositoryTaskData != null);
-			assert (newRepositoryTaskData.isNew());
-			assert (("" + userStoryData.getId()).equals(XPlannerRepositoryUtils.getAttributeValue(
-					newRepositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_USER_STORY_ID)));
+			assertNotNull(newRepositoryTaskData);
+			assertTrue(newRepositoryTaskData.isNew());
+			assertEquals(("" + userStoryData.getId()), XPlannerRepositoryUtils.getAttributeValue(newRepositoryTaskData,
+					XPlannerAttributeMapper.ATTRIBUTE_USER_STORY_ID));
 
 			// make sure we have the right connector
 			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
 					taskRepository.getConnectorKind());
-			assert (connector.getConnectorKind().equals(XPlannerCorePlugin.CONNECTOR_KIND));
+			assertEquals(connector.getConnectorKind(), XPlannerCorePlugin.CONNECTOR_KIND);
 
 			// post new task data
 			String newTaskName = "new task";
@@ -68,20 +74,20 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 					newRepositoryTaskData, changed, null);
 
 			// if new task, return value is new id -- make sure it's valid
-			assert (returnValue != null);
+			assertNotNull(returnValue);
 			int id = Integer.valueOf(returnValue.getTaskId());
-			assert (id > 0);
+			assertTrue(id > 0);
 			TaskData taskData = client.getTask(id);
-			assert (taskData != null);
-			assert (newTaskName.equals(taskData.getName()));
+			assertNotNull(taskData);
+			assertEquals(newTaskName, taskData.getName());
 
 			// need to make sure user story did not get corrupted for complete test
 			UserStoryData userStory = client.getUserStory(taskData.getStoryId());
-			assert (userStory != null);
+			assertNotNull(userStory);
 
 			// ensure saved user name in task
 			int currentPersonId = client.getCurrentPersonId();
-			assert (taskData.getAcceptorId() == currentPersonId);
+			assertEquals(taskData.getAcceptorId(), currentPersonId);
 		} catch (Exception e) {
 			fail("could not set up task attributes: " + e.getMessage());
 		}
@@ -97,7 +103,7 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 			// make sure we have the right connector
 			AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
 					taskRepository.getConnectorKind());
-			assert (connector.getConnectorKind().equals(XPlannerCorePlugin.CONNECTOR_KIND));
+			assertEquals(connector.getConnectorKind(), XPlannerCorePlugin.CONNECTOR_KIND);
 
 			TaskRepository repository = XPlannerTestUtils.getRepository();
 			assertTrue(repository != null);
@@ -129,14 +135,14 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 					testRepositoryTaskData, changed, null);
 
 			// if new task, return value is new id -- make sure it's valid
-			assert (returnValue == null);
+			assertEquals(returnValue.getReposonseKind(), ResponseKind.TASK_UPDATED);
 			// try to set to time that's lower than previous
 			TaskData taskData = client.getTask(testTaskData.getId());
-			assert (taskData != null);
+			assertNotNull(taskData);
 			if (validHours) {
-				assert (taskData.getActualHours() == actTime);
+				assertEquals(taskData.getActualHours(), actTime);
 			} else {
-				assert (taskData.getActualHours() == originalActHours);
+				assertEquals(taskData.getActualHours(), originalActHours);
 			}
 		} catch (Exception e) {
 			fail("could not set up task attributes: " + e.getMessage());

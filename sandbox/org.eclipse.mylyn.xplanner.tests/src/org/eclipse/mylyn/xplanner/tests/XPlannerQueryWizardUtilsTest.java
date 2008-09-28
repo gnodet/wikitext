@@ -23,6 +23,7 @@ public class XPlannerQueryWizardUtilsTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
+		XPlannerTestUtils.removeXPlannerRepository();
 	}
 
 	@Override
@@ -36,8 +37,8 @@ public class XPlannerQueryWizardUtilsTest extends TestCase {
 			NewXPlannerQueryWizard wizard = new NewXPlannerQueryWizard(badRepository);
 			AbstractXPlannerQueryWizardPage queryPage = XPlannerQueryWizardUtils.addQueryWizardFirstPage(wizard,
 					badRepository, null);
-			assert (queryPage != null);
-			assert (queryPage instanceof ErrorQueryPage);
+			assertNotNull(queryPage);
+			assertTrue(queryPage instanceof ErrorQueryPage);
 
 		} catch (Exception e) {
 			fail(e.getMessage());
@@ -50,8 +51,9 @@ public class XPlannerQueryWizardUtilsTest extends TestCase {
 			NewXPlannerQueryWizard wizard = new NewXPlannerQueryWizard(goodRepository);
 			AbstractXPlannerQueryWizardPage queryPage = XPlannerQueryWizardUtils.addQueryWizardFirstPage(wizard,
 					goodRepository, null);
-			assert (queryPage != null);
-			assert (queryPage instanceof XPlannerCustomQueryPage || queryPage instanceof XPlannerQuerySelectionWizardPage);
+			assertNotNull(queryPage);
+			assertTrue(queryPage instanceof XPlannerCustomQueryPage
+					|| queryPage instanceof XPlannerQuerySelectionWizardPage);
 
 		} catch (Exception e) {
 			fail(e.getMessage());

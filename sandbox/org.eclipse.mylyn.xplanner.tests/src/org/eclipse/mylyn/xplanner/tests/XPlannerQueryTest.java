@@ -26,6 +26,7 @@ import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeMapper;
 import org.eclipse.mylyn.xplanner.ui.XPlannerTaskListMigrator;
+import org.eclipse.mylyn.xplanner.ui.XPlannerTaskListMigrator.ContentIdType;
 
 public class XPlannerQueryTest extends TestCase {
 
@@ -52,20 +53,25 @@ public class XPlannerQueryTest extends TestCase {
 		XPlannerTaskListMigrator.setPersonId(query, XPlannerAttributeMapper.INVALID_ID);
 
 		Set<ITask> hits = performTestQuery(taskList, query);
-		assert (hits.size() == 0);
+		assertEquals(hits.size(), 0);
 	}
 
-	public void testAdminItemsQuery() {
-		ITaskList taskList = XPlannerTestUtils.getTaskList();
+	public void testAdminItemsQuery() throws Exception {
+		ITaskList taskList = XPlannerTestUtils.getTaskListWithXPlannerTask();
 		RepositoryQuery query = new RepositoryQuery(XPlannerTestUtils.SERVER_URL, "admin items");
 		try {
+			String contentId = Integer.toString(XPlannerTestUtils.findTestUserStory(
+					XPlannerTestUtils.getXPlannerClient()).getId());
+
 			XPlannerTaskListMigrator.setPersonId(query, XPlannerTestUtils.getAdminId(client));
+			XPlannerTaskListMigrator.setContentIdType(query, ContentIdType.USER_STORY.name());
+			XPlannerTaskListMigrator.setContentIds(query, contentId);
+
 			Set<ITask> hits = performTestQuery(taskList, query);
-			assert (hits.size() == 1);
+			assertEquals(hits.size(), 1);
 		} catch (RemoteException e) {
 			fail("Could not perform admin items query test");
 		}
-
 	}
 
 	public void testMyItemsQuery() {
@@ -73,7 +79,7 @@ public class XPlannerQueryTest extends TestCase {
 		RepositoryQuery query = new RepositoryQuery(XPlannerTestUtils.SERVER_URL, "admin items");
 		XPlannerTaskListMigrator.setMyCurrentTasks(query, true);
 		Set<ITask> hits = performTestQuery(taskList, query);
-		assert (hits.size() > 0);
+		assertTrue(hits.size() > 0);
 	}
 
 	public void testGetQueryWizardValidClient() {

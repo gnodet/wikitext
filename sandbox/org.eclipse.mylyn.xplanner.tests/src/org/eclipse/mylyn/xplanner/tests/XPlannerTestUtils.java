@@ -16,6 +16,7 @@ import org.eclipse.mylyn.commons.net.AuthenticationCredentials;
 import org.eclipse.mylyn.commons.net.AuthenticationType;
 import org.eclipse.mylyn.internal.tasks.core.ITaskList;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
@@ -59,10 +60,10 @@ public class XPlannerTestUtils {
 		return getRepository(USER, PASSWORD);
 	}
 
-	public static TaskRepository getRepository(String userName, String password) {
+	protected static TaskRepository getRepository(String userName, String password) {
 		TaskRepository repository;
 
-		repository = TasksUiPlugin.getRepositoryManager().getRepository(XPlannerCorePlugin.CONNECTOR_KIND, SERVER_URL);
+		repository = findXPlannerRepository();
 		if (repository == null) {
 			repository = new TaskRepository(XPlannerCorePlugin.CONNECTOR_KIND, SERVER_URL);
 			AuthenticationCredentials credentials = new AuthenticationCredentials(userName, password);
@@ -73,6 +74,18 @@ public class XPlannerTestUtils {
 		}
 
 		return repository;
+	}
+
+	public static void removeXPlannerRepository() {
+		TaskRepository xplannerRepository = findXPlannerRepository();
+
+		if (xplannerRepository != null) {
+			removeRepository(xplannerRepository);
+		}
+	}
+
+	private static TaskRepository findXPlannerRepository() {
+		return TasksUiPlugin.getRepositoryManager().getRepository(XPlannerCorePlugin.CONNECTOR_KIND, SERVER_URL);
 	}
 
 	public static void removeRepository(TaskRepository repository) {
@@ -275,6 +288,20 @@ public class XPlannerTestUtils {
 		return taskList;
 	}
 
+	public static ITaskList getTaskListWithXPlannerTask() throws Exception {
+		ITask repositoryTask = getTestXPlannerTask(getXPlannerClient());
+		ITaskList taskList = getTaskList();
+		taskList.addTask(repositoryTask);
+		TaskRepository repository = getRepository();
+		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
+				repository.getConnectorKind());
+		org.eclipse.mylyn.tasks.core.data.TaskData repositoryTaskData = connector.getTaskData(repository, ""
+				+ repositoryTask.getTaskId(), null);
+		connector.updateTaskFromTaskData(repository, repositoryTask, repositoryTaskData);
+
+		return taskList;
+	}
+
 	public static UserStoryData findTestUserStory(XPlannerClient client) throws RemoteException {
 		UserStoryData testUserStory = null;
 
@@ -320,8 +347,8 @@ public class XPlannerTestUtils {
 
 	public static org.eclipse.mylyn.tasks.core.data.TaskData getNewXPlannerTaskData(ITask task) {
 		org.eclipse.mylyn.tasks.core.data.TaskData repositoryTaskData = new org.eclipse.mylyn.tasks.core.data.TaskData(
-				new XPlannerAttributeMapper(XPlannerTestUtils.getRepository()), XPlannerCorePlugin.CONNECTOR_KIND,
-				XPlannerTestUtils.getRepository().getRepositoryUrl(), task.getTaskId());
+				new XPlannerAttributeMapper(getRepository()), XPlannerCorePlugin.CONNECTOR_KIND,
+				getRepository().getRepositoryUrl(), task.getTaskId());
 
 		return repositoryTaskData;
 	}

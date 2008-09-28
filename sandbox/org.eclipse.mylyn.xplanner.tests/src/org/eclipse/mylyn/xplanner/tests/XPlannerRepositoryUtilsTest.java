@@ -14,6 +14,7 @@ import junit.framework.TestCase;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeMapper;
 import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUtils;
@@ -51,7 +52,7 @@ public class XPlannerRepositoryUtilsTest extends TestCase {
 			org.eclipse.mylyn.tasks.core.data.TaskData repositoryTaskData = XPlannerTestUtils.getNewXPlannerTaskData(task);
 			XPlannerRepositoryUtils.setupTaskAttributes(taskData, repositoryTaskData);
 
-			assert (taskData.getDescription().equals(XPlannerRepositoryUtils.getDescription(repositoryTaskData)));
+			assertEquals(taskData.getDescription(), XPlannerRepositoryUtils.getDescription(repositoryTaskData));
 		} catch (Exception e) {
 			fail("could not set up task attributes");
 		}
@@ -63,10 +64,10 @@ public class XPlannerRepositoryUtilsTest extends TestCase {
 			TaskRepository taskRepository = XPlannerTestUtils.getRepository();
 			org.eclipse.mylyn.tasks.core.data.TaskData newRepositoryTaskData = XPlannerRepositoryUtils.getNewRepositoryTaskData(
 					taskRepository, userStoryData);
-			assert (newRepositoryTaskData != null);
-			assert (newRepositoryTaskData.isNew());
-			assert (("" + userStoryData.getId()).equals(XPlannerRepositoryUtils.getAttributeValue(
-					newRepositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_USER_STORY_ID)));
+			assertNotNull(newRepositoryTaskData);
+			assertTrue(newRepositoryTaskData.isNew());
+			assertEquals("" + userStoryData.getId(), XPlannerRepositoryUtils.getAttributeValue(newRepositoryTaskData,
+					XPlannerAttributeMapper.ATTRIBUTE_USER_STORY_ID));
 		} catch (Exception e) {
 			fail("could not set up task attributes: " + e.getMessage());
 		}
@@ -79,8 +80,8 @@ public class XPlannerRepositoryUtilsTest extends TestCase {
 			org.eclipse.mylyn.tasks.core.data.TaskData repositoryTaskData = XPlannerTestUtils.getNewXPlannerTaskData(task);
 			XPlannerRepositoryUtils.setupUserStoryAttributes(userStory, repositoryTaskData);
 
-			assert (userStory.getName().equals(XPlannerRepositoryUtils.getAttributeValue(repositoryTaskData,
-					XPlannerAttributeMapper.ATTRIBUTE_USER_STORY_NAME)));
+			assertEquals(userStory.getName(), XPlannerRepositoryUtils.getAttributeValue(repositoryTaskData,
+					TaskAttribute.SUMMARY));
 		} catch (Exception e) {
 			fail("could not set up user story attributes");
 		}
@@ -90,7 +91,7 @@ public class XPlannerRepositoryUtilsTest extends TestCase {
 		try {
 			ITask task = XPlannerTestUtils.getTestXPlannerTask(client);
 			org.eclipse.mylyn.tasks.core.data.TaskData repositoryTaskData = XPlannerTestUtils.getNewXPlannerTaskData(task);
-			assert (!XPlannerRepositoryUtils.isCompleted(repositoryTaskData));
+			assertFalse(XPlannerRepositoryUtils.isCompleted(repositoryTaskData));
 		} catch (Exception e) {
 			fail("Coule not check if task is completed");
 		}
@@ -108,8 +109,8 @@ public class XPlannerRepositoryUtilsTest extends TestCase {
 	public void testEnsureNewTaskDataValid() {
 		TaskData taskData = new TaskData();
 		XPlannerRepositoryUtils.ensureTaskDataValid(taskData);
-		assert (taskData.getName() != null && taskData.getName().length() > 0);
-		assert (taskData.getDispositionName() != null && taskData.getDispositionName().length() > 0);
+		assertTrue(taskData.getName() != null && taskData.getName().length() > 0);
+		assertTrue(taskData.getDispositionName() != null && taskData.getDispositionName().length() > 0);
 	}
 
 	/**

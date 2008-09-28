@@ -158,6 +158,7 @@ public class XPlannerRepositoryConnectorTest extends TestCase {
 		String goodUrl = repository.getRepositoryUrl();
 		SynchronizationSession event = new SynchronizationSession();
 		try {
+//HeB -- testing			
 			repository.setRepositoryUrl("http://localhost");
 
 			event.setTasks(tasks);
