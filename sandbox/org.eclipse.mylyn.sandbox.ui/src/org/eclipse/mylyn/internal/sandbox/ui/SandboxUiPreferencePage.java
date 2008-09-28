@@ -9,7 +9,6 @@
  *     Ken Sueda - initial API and implementation
  *     Tasktop Technologies - initial API and implementation
  *     Eugene Kuleshov - improvements
- *     Frank Becker - fixes for bug 169916
  *******************************************************************************/
 
 package org.eclipse.mylyn.internal.sandbox.ui;
