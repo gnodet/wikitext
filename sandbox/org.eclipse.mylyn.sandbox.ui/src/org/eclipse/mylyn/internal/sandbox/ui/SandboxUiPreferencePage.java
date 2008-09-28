@@ -9,6 +9,7 @@
  *     Ken Sueda - initial API and implementation
  *     Tasktop Technologies - initial API and implementation
  *     Eugene Kuleshov - improvements
+ *     Frank Becker - fixes for bug 169916
  *******************************************************************************/
 
 package org.eclipse.mylyn.internal.sandbox.ui;
@@ -79,6 +80,8 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 	private Button showTaskTrimButton;
 
 	private Highlighter selection = null;
+
+	private Button useStrikethrough;
 
 	private HighlighterContentProvider contentProvider = null;
 
@@ -151,6 +154,10 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		activateOnOpen = new Button(group, SWT.CHECK);
 		activateOnOpen.setText("Activate tasks on open");
 		activateOnOpen.setSelection(uiPreferenceStore.getBoolean(ITasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED));
+
+		useStrikethrough = new Button(group, SWT.CHECK);
+		useStrikethrough.setText("Use strikethrough for completed tasks");
+		useStrikethrough.setSelection(uiPreferenceStore.getBoolean(ITasksUiPreferenceConstants.USE_STRIKETHROUGH_FOR_COMPLETED));
 	}
 
 	private void createJavaGroup(Composite parent) {
@@ -228,6 +235,9 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 
 		uiPreferenceStore.setValue(ITasksUiPreferenceConstants.SHOW_TRIM, showTaskTrimButton.getSelection());
 
+		uiPreferenceStore.setValue(ITasksUiPreferenceConstants.USE_STRIKETHROUGH_FOR_COMPLETED,
+				useStrikethrough.getSelection());
+
 		uiPreferenceStore.setValue(ITasksUiPreferenceConstants.ACTIVATE_WHEN_OPENED, activateOnOpen.getSelection());
 
 		uiPreferenceStore.setValue(ITasksUiPreferenceConstants.OVERLAYS_INCOMING_TIGHT,
@@ -250,6 +260,9 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		enableErrorInterest.setSelection(SandboxUiPlugin.getDefault().getPreferenceStore().getBoolean(
 				InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS));
 
+		useStrikethrough.setSelection(TasksUiPlugin.getDefault().getPreferenceStore().getBoolean(
+				ITasksUiPreferenceConstants.USE_STRIKETHROUGH_FOR_COMPLETED));
+
 		String highlighters = getPreferenceStore().getString(SandboxUiPlugin.HIGHLIGHTER_PREFIX);
 		SandboxUiPlugin.getDefault().getHighlighterList().internalizeFromString(highlighters);
 
@@ -267,6 +280,9 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 		super.performDefaults();
 		enableErrorInterest.setSelection(SandboxUiPlugin.getDefault().getPreferenceStore().getDefaultBoolean(
 				InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS));
+
+		useStrikethrough.setSelection(TasksUiPlugin.getDefault().getPreferenceStore().getDefaultBoolean(
+				ITasksUiPreferenceConstants.USE_STRIKETHROUGH_FOR_COMPLETED));
 
 		contentProvider = new HighlighterContentProvider();
 		tableViewer.setContentProvider(contentProvider);
