@@ -29,6 +29,8 @@ import org.eclipse.mylyn.internal.tasks.ui.editors.EditorUtil;
 import org.eclipse.mylyn.internal.tasks.ui.editors.RepositoryTextViewer;
 import org.eclipse.mylyn.internal.tasks.ui.editors.RepositoryTextViewerConfiguration;
 import org.eclipse.mylyn.internal.tasks.ui.editors.RichTextAttributeEditor;
+import org.eclipse.mylyn.internal.tasks.ui.editors.TaskHyperlinkDetector;
+import org.eclipse.mylyn.internal.tasks.ui.editors.TaskHyperlinkTextPresentationManager;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
@@ -174,6 +176,10 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 		viewer.setEditable(!readOnly);
 		viewer.getTextWidget().setFont(getFont());
 		toolkit.adapt(viewer.getControl(), false, false);
+
+		TaskHyperlinkTextPresentationManager hyperlinkTextPresentationManager = new TaskHyperlinkTextPresentationManager();
+		hyperlinkTextPresentationManager.setHyperlinkDetector(new TaskHyperlinkDetector());
+		hyperlinkTextPresentationManager.install(viewer);
 
 		return viewer;
 	}
