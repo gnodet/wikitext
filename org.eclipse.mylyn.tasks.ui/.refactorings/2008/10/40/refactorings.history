@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;region&apos; from expression &apos;new Region(contentOffset + m.start(),m.end() - m.start())&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.ui&apos;&#x0A;- Variable name: &apos;region&apos;&#x0A;- Destination method: &apos;org.eclipse.mylyn.internal.tasks.ui.editors.TaskRelationHyperlinkDetector.detectHyperlinks()&apos;&#x0A;- Variable expression: &apos;new Region(contentOffset + m.start(),m.end() - m.start())&apos;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;region&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.eclipse.mylyn.internal.tasks.ui.editors{TaskRelationHyperlinkDetector.java" name="region" replace="true" selection="2559 58" stamp="1222829814229" version="1.0"/>
+</session>
