@@ -10,9 +10,12 @@
  *******************************************************************************/
 package org.eclipse.mylyn.internal.examples.jira;
 
+import java.util.Date;
+
 import org.eclipse.mylyn.commons.net.WebLocation;
 import org.eclipse.mylyn.internal.commons.net.CommonsNetPlugin;
 import org.eclipse.mylyn.internal.jira.core.model.JiraIssue;
+import org.eclipse.mylyn.internal.jira.core.model.filter.DateRangeFilter;
 import org.eclipse.mylyn.internal.jira.core.model.filter.FilterDefinition;
 import org.eclipse.mylyn.internal.jira.core.model.filter.ProjectFilter;
 import org.eclipse.mylyn.internal.jira.core.service.JiraClient;
@@ -40,6 +43,7 @@ public class JiraClientExample {
 
 			// access task information
 			FilterDefinition filter = new FilterDefinition();
+			filter.setUpdatedDateFilter(new DateRangeFilter(new Date(2008, 6, 30), new Date(2008, 7, 31)));
 			filter.setProjectFilter(new ProjectFilter(client.getCache().getProjectByKey("SCRATCH")));
 
 			// do the search
