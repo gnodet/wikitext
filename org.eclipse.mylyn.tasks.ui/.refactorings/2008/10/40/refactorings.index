@@ -1,1 +1,3 @@
 1222829814229	Extract local variable 'region'
+1222846950167	Rename method 'setManualFiltersEnabled'
+1222847079631	Inline local variable 'text'
