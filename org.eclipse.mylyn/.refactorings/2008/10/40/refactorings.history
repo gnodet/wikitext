@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move 2 elements(s) to &apos;tasks&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn&apos;&#x0A;- Destination element: &apos;tasks&apos;&#x0A;- Original elements:&#x0A;     TaskDataStorageManager.java&#x0A;     ITaskDataStorage.java" description="Move files" element1="TaskDataStorageManager.java" element2="ITaskDataStorage.java" files="2" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1222929968279" target="developer/src-old/tasks" units="0" version="1.0"/>
+</session>
