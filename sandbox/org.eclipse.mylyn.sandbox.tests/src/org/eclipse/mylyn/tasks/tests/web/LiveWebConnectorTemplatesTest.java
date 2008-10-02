@@ -21,7 +21,6 @@ import junit.extensions.ActiveTestSuite;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.eclipse.core.runtime.AssertionFailedException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
@@ -131,9 +130,7 @@ public class LiveWebConnectorTemplatesTest extends TestCase {
 		TestSuite suite = new ActiveTestSuite(LiveWebConnectorTemplatesTest.class.getName());
 		Set<RepositoryTemplate> templates = TasksUiPlugin.getRepositoryTemplateManager().getTemplates(
 				WebRepositoryConnector.REPOSITORY_TYPE);
-		if (templates.isEmpty()) {
-			throw new AssertionFailedException("No temlates found");
-		}
+		assertTrue("No templates found", templates.size() > 0);
 		for (RepositoryTemplate template : templates) {
 			if (excluded.indexOf(template.repositoryUrl + ",") == -1) {
 				suite.addTest(new LiveWebConnectorTemplatesTest(template));
