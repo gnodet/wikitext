@@ -1,0 +1,5 @@
+1222280473218	Extract method 'writeAndReadContext'
+1222280626765	Rename local variable 'loaded2'
+1222280631250	Rename local variable 'loaded'
+1222280766312	Rename local variable 'loaded3'
+1222280858187	Rename local variable 'context'
