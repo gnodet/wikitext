@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2004, 2008 Tasktop Technologies and others.
+ * Copyright (c) 2004, 2008 Tasktop Technologies and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -61,6 +61,10 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 
 	public synchronized void interactionObserved(InteractionEvent event) {
 //		 System.err.println("> " + event);
+		if (UiUsageMonitorPlugin.getDefault() == null) {
+			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.ID_PLUGIN,
+					"Attempted to log event before usage monitor start"));
+		}
 		if (UiUsageMonitorPlugin.getDefault().isObfuscationEnabled()) {
 			String obfuscatedHandle = handleObfuscator.obfuscateHandle(event.getStructureKind(),
 					event.getStructureHandle());
