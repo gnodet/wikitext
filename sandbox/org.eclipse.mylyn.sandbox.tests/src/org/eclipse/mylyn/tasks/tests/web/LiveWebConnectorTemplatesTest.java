@@ -9,7 +9,7 @@
  *     Eugene Kuleshov - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.tests.integration;
+package org.eclipse.mylyn.tasks.tests.web;
 
 import java.util.ArrayList;
 import java.util.HashMap;
