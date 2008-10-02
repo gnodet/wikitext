@@ -1,102 +1,252 @@
 /*******************************************************************************
- * Copyright (c) 2004 - 2006 University Of British Columbia and others.
+ * Copyright (c) 2004, 2008 Tasktop Technologies and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     University Of British Columbia - initial API and implementation
+ *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.bugzilla.ui.editor;
+package org.eclipse.mylyn.bugzilla.deprecated;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.action.IMenuListener;
-import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.MenuManager;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.mylyn.context.core.MylarStatusHandler;
-import org.eclipse.mylyn.internal.tasks.ui.editors.MylarTaskEditor;
-import org.eclipse.mylyn.internal.tasks.ui.editors.NewBugEditorInput;
-import org.eclipse.swt.widgets.Menu;
+import org.eclipse.jface.fieldassist.ContentProposalAdapter;
+import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.mylyn.internal.bugzilla.core.BugzillaAttribute;
+import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
+import org.eclipse.mylyn.internal.bugzilla.ui.BugzillaUiPlugin;
+import org.eclipse.mylyn.internal.tasks.core.deprecated.RepositoryTaskAttribute;
+import org.eclipse.mylyn.internal.tasks.ui.deprecated.AbstractNewRepositoryTaskEditor;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorSite;
-import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.fieldassist.ContentAssistCommandAdapter;
+import org.eclipse.ui.forms.editor.FormEditor;
+import org.eclipse.ui.forms.widgets.FormToolkit;
+import org.eclipse.ui.forms.widgets.Section;
 
 /**
- * @author Rob Elves 
+ * An editor used to view a locally created bug that does not yet exist on a repository.
  * 
- * TODO: Get rid of this wrapper.
- * Before this can be done a factory must be added to handle new bug editor input in MylarTaskEditor.addPages()
- * then all occurrences of BugzillaUiPlugin.NEW_BUG_EDITOR_ID can be replaced with TaskListPreferenceConstants.TASK_EDITOR_ID
- * so that MylarTaskEditor is opened rather than this.
+ * @author Rob Elves
  */
-public class NewBugzillaTaskEditor extends MylarTaskEditor {
+public class NewBugzillaTaskEditor extends AbstractNewRepositoryTaskEditor {
 
-	private Menu contextMenu;
-	
-	private NewBugEditor newBugEditor;
+	protected Text assignedTo;
 
-	@Override
-	public void init(IEditorSite site, IEditorInput input) throws PartInitException {
-		setSite(site);
-		setInput(input);		
+	public NewBugzillaTaskEditor(FormEditor editor) {
+		super(editor);
 	}
 
 	@Override
-	protected void addPages() {
-		MenuManager manager = new MenuManager();
-		IMenuListener listener = new IMenuListener() {
-			public void menuAboutToShow(IMenuManager manager) {
-				contextMenuAboutToShow(manager);
-			}
-		};
-		manager.setRemoveAllWhenShown(true);
-		manager.addMenuListener(listener);
-		contextMenu = manager.createContextMenu(getContainer());
-		getContainer().setMenu(contextMenu);
-		try {
-			newBugEditor = new NewBugEditor(this);
-			int index = addPage(newBugEditor);
-			String label = "<unsubmitted> "+((NewBugEditorInput)getEditorInput()).getRepository().getUrl();
-			setPageText(index, "Bugzilla");			
-			setPartName(label);
-		} catch (PartInitException e) {
-			MylarStatusHandler.fail(e, "Could not add new bug form", true);
+	public void init(IEditorSite site, IEditorInput input) {
+		super.init(site, input);
+
+		setExpandAttributeSection(true);
+	}
+
+	@Override
+	protected void saveTaskOffline(IProgressMonitor progressMonitor) {
+		String text = descriptionTextViewer.getTextWidget().getText();
+		if (repository.getVersion().startsWith("2.18")) {
+			text = BugzillaUiPlugin.formatTextToLineWrap(text, true);
+			descriptionTextViewer.getTextWidget().setText(text);
+		}
+		super.saveTaskOffline(progressMonitor);
+	}
+
+	@Override
+	protected void createPeopleLayout(Composite composite) {
+		FormToolkit toolkit = getManagedForm().getToolkit();
+		Section peopleSection = createSection(composite, getSectionLabel(SECTION_NAME.PEOPLE_SECTION));
+		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(peopleSection);
+		Composite peopleComposite = toolkit.createComposite(peopleSection);
+		GridLayout layout = new GridLayout(2, false);
+		layout.marginRight = 5;
+		peopleComposite.setLayout(layout);
+		GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(peopleComposite);
+
+		addAssignedTo(peopleComposite);
+		//addSelfToCC(peopleComposite);
+		addCCList(peopleComposite);
+		getManagedForm().getToolkit().paintBordersFor(peopleComposite);
+		peopleSection.setClient(peopleComposite);
+		peopleSection.setEnabled(true);
+	}
+
+	@Override
+	public void submitToRepository() {
+		if (summaryText.getText().equals("")) {
+			MessageDialog.openInformation(this.getSite().getShell(), "Submit Error",
+					"Please provide a brief summary with new reports.");
+			summaryText.setFocus();
+			return;
+		} else if (descriptionTextViewer.getTextWidget().getText().equals("")) {
+			MessageDialog.openInformation(this.getSite().getShell(), "Submit Error",
+					"Please proved a detailed description with new reports");
+			descriptionTextViewer.getTextWidget().setFocus();
+			return;
+		}
+		RepositoryTaskAttribute attribute = taskData.getAttribute(BugzillaAttribute.COMPONENT.getKey());
+		String componentValue = attribute.getValue();
+		if (componentValue.equals("")) {
+			MessageDialog.openInformation(this.getSite().getShell(), "Submit Error",
+					"Please select a component with new reports");
+			descriptionTextViewer.getTextWidget().setFocus();
+			return;
+		}
+		super.submitToRepository();
+	}
+
+	@Override
+	protected void createCustomAttributeLayout(Composite composite) {
+
+		RepositoryTaskAttribute attribute = this.taskData.getAttribute(BugzillaAttribute.DEPENDSON.getKey());
+		if (attribute != null && !attribute.isReadOnly()) {
+			Label label = createLabel(composite, attribute);
+			GridDataFactory.fillDefaults().align(SWT.RIGHT, SWT.CENTER).applyTo(label);
+			Composite textFieldComposite = getManagedForm().getToolkit().createComposite(composite);
+			GridLayout textLayout = new GridLayout();
+			textLayout.marginWidth = 1;
+			textLayout.marginHeight = 3;
+			textLayout.verticalSpacing = 3;
+			textFieldComposite.setLayout(textLayout);
+			GridData textData = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
+			textData.horizontalSpan = 1;
+			textData.widthHint = 135;
+
+			final Text text = createTextField(textFieldComposite, attribute, SWT.FLAT);
+			text.setLayoutData(textData);
+			getManagedForm().getToolkit().paintBordersFor(textFieldComposite);
+		}
+
+		attribute = this.taskData.getAttribute(BugzillaAttribute.BLOCKED.getKey());
+		if (attribute != null && !attribute.isReadOnly()) {
+			Label label = createLabel(composite, attribute);
+			GridDataFactory.fillDefaults().align(SWT.RIGHT, SWT.CENTER).applyTo(label);
+			Composite textFieldComposite = getManagedForm().getToolkit().createComposite(composite);
+			GridLayout textLayout = new GridLayout();
+			textLayout.marginWidth = 1;
+			textLayout.marginHeight = 3;
+			textLayout.verticalSpacing = 3;
+			textFieldComposite.setLayout(textLayout);
+			GridData textData = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
+			textData.horizontalSpan = 1;
+			textData.widthHint = 135;
+			final Text text = createTextField(textFieldComposite, attribute, SWT.FLAT);
+			text.setLayoutData(textData);
+			getManagedForm().getToolkit().paintBordersFor(textFieldComposite);
 		}
 	}
-	
-	@Override
-	public Object getAdapter(Class adapter) {
-		return newBugEditor.getAdapter(adapter);
-	}
-
-	public NewBugEditor getPage() {
-		return newBugEditor;
-	}
 
 	@Override
-	public void doSave(IProgressMonitor monitor) {
-		MessageDialog.openWarning(this.newBugEditor.getSite().getShell(), "Operation not supported", "Save of un-submitted new tasks is not currently supported.\nPlease submit all new tasks.");
-		monitor.setCanceled(true);
+	protected boolean hasContentAssist(RepositoryTaskAttribute attribute) {
+		return BugzillaAttribute.NEWCC.getKey().equals(attribute.getId());
 	}
 
+	/**
+	 * FIXME: A lot of duplicated code here between this and BugzillaTaskEditor
+	 */
 	@Override
-	public void doSaveAs() {
-		// ignore
+	protected void addAssignedTo(Composite peopleComposite) {
+		RepositoryTaskAttribute assignedAttribute = taskData.getAttribute(RepositoryTaskAttribute.USER_ASSIGNED);
+		if (assignedAttribute != null) {
+			String bugzillaVersion;
+			try {
+				bugzillaVersion = BugzillaCorePlugin.getRepositoryConfiguration(repository, false,
+						new NullProgressMonitor()).getInstallVersion();
+			} catch (CoreException e1) {
+				// ignore
+				bugzillaVersion = "2.18";
+			}
+			if (bugzillaVersion.compareTo("3.1") < 0) {
+				// old bugzilla workflow is used
+				super.addAssignedTo(peopleComposite);
+				return;
+			}
+			Label label = createLabel(peopleComposite, assignedAttribute);
+			GridDataFactory.fillDefaults().align(SWT.RIGHT, SWT.CENTER).applyTo(label);
+			if (assignedAttribute.isReadOnly()) {
+				assignedTo = createTextField(peopleComposite, assignedAttribute, SWT.FLAT | SWT.READ_ONLY);
+			} else {
+				assignedTo = createTextField(peopleComposite, assignedAttribute, SWT.FLAT);
+			}
+			GridDataFactory.fillDefaults().hint(150, SWT.DEFAULT).applyTo(assignedTo);
+			assignedTo.addModifyListener(new ModifyListener() {
+				public void modifyText(ModifyEvent e) {
+					String sel = assignedTo.getText();
+					RepositoryTaskAttribute a = taskData.getAttribute(RepositoryTaskAttribute.USER_ASSIGNED);
+					if (!(a.getValue().equals(sel))) {
+						a.setValue(sel);
+						markDirty(true);
+					}
+				}
+			});
+			ContentAssistCommandAdapter adapter = applyContentAssist(assignedTo,
+					createContentProposalProvider(assignedAttribute));
+			ILabelProvider propsalLabelProvider = createProposalLabelProvider(assignedAttribute);
+			if (propsalLabelProvider != null) {
+				adapter.setLabelProvider(propsalLabelProvider);
+			}
+			adapter.setProposalAcceptanceStyle(ContentProposalAdapter.PROPOSAL_REPLACE);
 
+			FormToolkit toolkit = getManagedForm().getToolkit();
+			Label dummylabel = toolkit.createLabel(peopleComposite, "");
+			GridDataFactory.fillDefaults().align(SWT.RIGHT, SWT.CENTER).applyTo(dummylabel);
+			RepositoryTaskAttribute attribute = taskData.getAttribute(BugzillaAttribute.SET_DEFAULT_ASSIGNEE.getKey());
+			if (attribute == null) {
+				taskData.setAttributeValue(BugzillaAttribute.SET_DEFAULT_ASSIGNEE.getKey(), "0");
+				attribute = taskData.getAttribute(BugzillaAttribute.SET_DEFAULT_ASSIGNEE.getKey());
+			}
+			addButtonField(peopleComposite, attribute, SWT.CHECK);
+		}
 	}
 
-	@Override
-	public boolean isSaveAsAllowed() {
-		// ignore
-		return false;
-	}
+	private Button addButtonField(Composite rolesComposite, RepositoryTaskAttribute attribute, int style) {
+		if (attribute == null) {
+			return null;
+		}
+		String name = attribute.getName();
+		if (hasOutgoingChange(attribute)) {
+			name += "*";
+		}
 
-	@Override
-	public boolean isDirty() {
-		return true;
+		final Button button = getManagedForm().getToolkit().createButton(rolesComposite, name, style);
+		if (!attribute.isReadOnly()) {
+			button.setData(attribute);
+			button.setSelection(attribute.getValue().equals("1"));
+			button.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
+			button.addSelectionListener(new SelectionAdapter() {
+
+				@Override
+				public void widgetSelected(SelectionEvent e) {
+					String sel = "1";
+					if (!button.getSelection()) {
+						sel = "0";
+					}
+					RepositoryTaskAttribute a = (RepositoryTaskAttribute) button.getData();
+					a.setValue(sel);
+					attributeChanged(a);
+				}
+			});
+		}
+		return button;
 	}
 
 }

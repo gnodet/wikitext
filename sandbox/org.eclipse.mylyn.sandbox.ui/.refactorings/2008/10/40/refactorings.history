@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move 1 package(s) to &apos;src-old&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.sandbox.ui&apos;&#x0A;- Destination element: &apos;src-old&apos;&#x0A;- Original element: &apos;org.eclipse.mylyn.sandbox.ui/src/org.eclipse.mylyn.internal.sandbox.bridge.bugs&apos;" description="Move package" element1="/src&lt;org.eclipse.mylyn.internal.sandbox.bridge.bugs" flags="589830" fragments="1" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.movePackages" stamp="1222915464105" target="/org.eclipse.mylyn/developer/src-old" version="1.0"/>
+</session>

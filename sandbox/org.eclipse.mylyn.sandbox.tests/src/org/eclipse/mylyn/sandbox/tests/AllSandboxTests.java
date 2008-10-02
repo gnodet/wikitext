@@ -33,7 +33,6 @@ public class AllSandboxTests {
 		suite.addTestSuite(ActiveSearchTest.class);
 		suite.addTestSuite(StatisticsReportingTest.class);
 		suite.addTestSuite(SharedTaskFolderTest.class);
-		suite.addTestSuite(BugzillaActiveSearchTest.class);
 
 		// web connector tests
 		suite.addTestSuite(NamedPatternTest.class);
