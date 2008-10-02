@@ -2,3 +2,5 @@
 1222909470137	Move compilation unit
 1222909641356	Rename type 'BugzillaRepositoryConnectorTest'
 1222909736802	Delete element
+1222911094859	Rename type 'BugzillaTaskListManagerTest'
+1222911349440	Rename type 'BugzillaSearchEngineTest'
