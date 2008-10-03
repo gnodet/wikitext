@@ -1,1 +1,3 @@
 1223001466659	Move compilation unit
+1223004162351	Inline local variable 'initialHeight'
+1223004165752	Inline local variable 'initialWidth'
