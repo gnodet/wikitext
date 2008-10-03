@@ -9,7 +9,7 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.commons.ui;
+package org.eclipse.mylyn.internal.tasks.ui.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
