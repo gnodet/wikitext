@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2004, 2008 Tasktop Technologies and others.
+ * Copyright (c) 2004, 2008 Tasktop Technologies and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -41,9 +41,7 @@ public class IncomingTaskListContentProvider extends TaskListContentProvider {
 		if (parent instanceof Person) {
 			return getChildren(parent);
 		} else {
-			for (ITaskContainer container : applyFilter(TasksUiPlugin.getTaskListManager()
-					.getTaskList()
-					.getRootElements())) {
+			for (ITaskContainer container : applyFilter(TasksUiPlugin.getTaskList().getRootElements())) {
 				for (ITask task : getAllTasks(container.getChildren())) {
 					if (task.getOwner() != null && task.getSynchronizationState().isIncoming()) {
 						people.add(new Person(task.getOwner(), task.getConnectorKind(), task.getRepositoryUrl()));
@@ -75,9 +73,7 @@ public class IncomingTaskListContentProvider extends TaskListContentProvider {
 	public Object[] getChildren(Object parent) {
 		Set<ITask> children = new HashSet<ITask>();
 		if (parent instanceof Person) {
-			for (ITaskContainer container : applyFilter(TasksUiPlugin.getTaskListManager()
-					.getTaskList()
-					.getRootElements())) {
+			for (ITaskContainer container : applyFilter(TasksUiPlugin.getTaskList().getRootElements())) {
 				for (ITask task : getAllTasks(container.getChildren())) {
 					if (task.getOwner() != null && task.getOwner().equals(((Person) parent).getHandleIdentifier())
 							&& task.getSynchronizationState().isIncoming()) {

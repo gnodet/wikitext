@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2004, 2008 Tasktop Technologies and others.
+ * Copyright (c) 2004, 2008 Tasktop Technologies and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -27,7 +27,7 @@ import org.eclipse.mylyn.internal.sandbox.ui.SandboxUiPlugin;
 import org.eclipse.mylyn.internal.sandbox.ui.actions.SwitchTaskDataFolderAction;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.LocalTask;
-import org.eclipse.mylyn.internal.tasks.ui.TaskListManager;
+import org.eclipse.mylyn.internal.tasks.core.TaskList;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
 import org.eclipse.mylyn.tasks.core.ITask;
@@ -49,7 +49,7 @@ public class SharedTaskFolderTest extends TestCase {
 
 	private String originalSharedDataDir = null;
 
-	private final TaskListManager manager = TasksUiPlugin.getTaskListManager();
+	private TaskList taskList;
 
 	/**
 	 * Set up a shared task directory structure by creating some data in the main directory and copying it to the shared
@@ -93,6 +93,8 @@ public class SharedTaskFolderTest extends TestCase {
 				.getSharedDataDirectoryManager()
 				.setSharedDataDirectory(sharedDataRootDir.getPath());
 		assertFalse(TasksUiPlugin.getDefault().getDataDirectory().equals(sharedDataRootDir.getPath()));
+
+		taskList = TasksUiPlugin.getTaskList();
 	}
 
 	/**
@@ -117,7 +119,7 @@ public class SharedTaskFolderTest extends TestCase {
 		File mainDataDirTaskFile = ContextCorePlugin.getContextStore().getFileForContext(
 				mainDataDirTask.getHandleIdentifier());
 		assertFalse(mainDataDirTaskFile.exists());
-		assertNull(manager.getTaskList().getTask(mainDataDirTask.getHandleIdentifier()));
+		assertNull(taskList.getTask(mainDataDirTask.getHandleIdentifier()));
 
 		fail(); // uncomment below
 		//Create a new task in bob's task data folder only and check that it exists in the right place
@@ -165,7 +167,7 @@ public class SharedTaskFolderTest extends TestCase {
 
 		//Create the task and add it to the root of the task list
 		AbstractTask newTask = new LocalTask("" + Calendar.getInstance().getTimeInMillis(), taskName);
-		manager.getTaskList().addTask(newTask, manager.getTaskList().getDefaultCategory());
+		taskList.addTask(newTask, taskList.getDefaultCategory());
 		InteractionContext mockContext = (InteractionContext) ContextCorePlugin.getContextStore().loadContext(
 				newTask.getHandleIdentifier());//, newTask.getContextPath());
 		InteractionEvent event = new InteractionEvent(InteractionEvent.Kind.EDIT, "structureKind", "handle", "originId");

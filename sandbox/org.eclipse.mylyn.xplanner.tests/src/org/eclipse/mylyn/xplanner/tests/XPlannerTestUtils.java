@@ -19,6 +19,7 @@ import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.tests.TaskTestUtil;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
@@ -70,7 +71,11 @@ public class XPlannerTestUtils {
 			repository.setCredentials(AuthenticationType.REPOSITORY, credentials, false);
 			TasksUiPlugin.getRepositoryManager().addRepository(repository);
 			//TODO -- HeB -- not sure how to clear task list in 3.0
-			TasksUiPlugin.getTaskListManager().resetTaskList();
+			try {
+				TaskTestUtil.resetTaskList();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
 		}
 
 		return repository;
