@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2004, 2008 Tasktop Technologies and others.
+ * Copyright (c) 2004, 2008 Tasktop Technologies and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,8 @@
  *******************************************************************************/
 
 package org.eclipse.mylyn.internal.sandbox.ui.planner;
+
+import java.util.Date;
 
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
@@ -85,12 +87,16 @@ public class TaskActivitySorter extends ViewerSorter {
 	}
 
 	protected int compareCreationDate(ITask task1, ITask task2) {
-		if (task1.getCreationDate() == null) {
+		Date creationDate1 = task1.getCreationDate();
+		if (creationDate1 == null) {
 			return 1;
-		} else if (task2.getCreationDate() == null) {
-			return -1;
 		} else {
-			return task2.getCreationDate().compareTo(task1.getCreationDate());
+			Date creationDate2 = task2.getCreationDate();
+			if (creationDate2 == null) {
+				return -1;
+			} else {
+				return creationDate2.compareTo(creationDate1);
+			}
 		}
 	}
 

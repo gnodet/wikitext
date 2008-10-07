@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2004, 2008 Tasktop Technologies and others.
+ * Copyright (c) 2004, 2008 Tasktop Technologies and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -79,8 +79,9 @@ public class TaskPlannerLabelProvider extends TaskElementLabelProvider implement
 				case 4:
 					return task.getEstimatedTimeHours() + " hours";
 				case 5:
-					if (task.getCreationDate() != null) {
-						return DateFormat.getDateInstance(DateFormat.MEDIUM).format(task.getCreationDate());
+					Date creationDate = task.getCreationDate();
+					if (creationDate != null) {
+						return DateFormat.getDateInstance(DateFormat.MEDIUM).format(creationDate);
 					} else {
 						StatusHandler.log(new Status(IStatus.WARNING, TasksUiPlugin.ID_PLUGIN,
 								"Task has no creation date: " + task.getSummary()));
