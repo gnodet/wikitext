@@ -9,16 +9,14 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.monitor.core;
+package org.eclipse.mylyn.internal.context.core;
 
 import java.util.Date;
 
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
 
 /**
- * 
  * @author Shawn Minto
- * @since 3.1
  */
 public class AggregateInteractionEvent extends InteractionEvent {
 
@@ -29,8 +27,6 @@ public class AggregateInteractionEvent extends InteractionEvent {
 
 	/**
 	 * For parameter description see this class's getters.
-	 * 
-	 * @since 3.1
 	 */
 	public AggregateInteractionEvent(Kind kind, String structureKind, String handle, String originId,
 			String navigatedRelation, String delta, float interestContribution, int numCollapsedEvents,
@@ -53,16 +49,14 @@ public class AggregateInteractionEvent extends InteractionEvent {
 	}
 
 	/**
-	 * @return The number of events this event represents
-	 * @since 3.1
+	 * Returns the number of events this event represents
 	 */
 	public int getNumCollapsedEvents() {
 		return numCollapsedEvents;
 	}
 
 	/**
-	 * @return the number of user events that had occurred when this was created or -1 to use the context's count
-	 * @since 3.1
+	 * Returns the number of user events that had occurred when this was created or -1 to use the context's count
 	 */
 	public int getEventCountOnCreation() {
 		return eventCountOnCreation;
