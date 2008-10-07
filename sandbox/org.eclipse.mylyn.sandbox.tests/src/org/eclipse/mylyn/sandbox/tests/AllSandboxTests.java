@@ -32,7 +32,6 @@ public class AllSandboxTests {
 		suite.addTestSuite(ActiveHierarchyTest.class);
 		suite.addTestSuite(ActiveSearchTest.class);
 		suite.addTestSuite(StatisticsReportingTest.class);
-		suite.addTestSuite(SharedTaskFolderTest.class);
 
 		// web connector tests
 		suite.addTestSuite(NamedPatternTest.class);

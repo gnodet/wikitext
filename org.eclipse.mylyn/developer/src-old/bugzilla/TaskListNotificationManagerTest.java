@@ -108,7 +108,7 @@ public class TaskListNotificationManagerTest extends TestCase {
 	}
 
 	public void testTaskListNotificationQueryIncomingRepeats() {
-		TasksUiPlugin.getTaskListManager().resetTaskList();
+		TaskTestUtil.resetTaskList();
 		BugzillaTask hit = new BugzillaTask("https://bugs.eclipse.org/bugs", "1", "summary");
 		String hitHandle = hit.getHandleIdentifier();
 		assertFalse(hit.isNotified());
@@ -125,7 +125,7 @@ public class TaskListNotificationManagerTest extends TestCase {
 		assertTrue(hit.isNotified());
 
 		TasksUiPlugin.getTaskListManager().saveTaskList();
-		TasksUiPlugin.getTaskListManager().resetTaskList();
+		TaskTestUtil.resetTaskList();
 		assertEquals(0, TasksUiPlugin.getTaskList().getQueries().size());
 		assertTrue(TasksUiPlugin.getTaskListManager().readExistingOrCreateNewList());
 		assertEquals(1, TasksUiPlugin.getTaskList().getQueries().size());
