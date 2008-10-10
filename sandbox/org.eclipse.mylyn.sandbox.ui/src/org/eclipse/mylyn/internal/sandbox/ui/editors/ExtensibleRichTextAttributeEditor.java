@@ -25,12 +25,14 @@ import org.eclipse.jface.text.source.IAnnotationAccess;
 import org.eclipse.jface.text.source.SourceViewer;
 import org.eclipse.mylyn.internal.provisional.commons.ui.CommonThemes;
 import org.eclipse.mylyn.internal.sandbox.ui.commands.ViewSourceHandler;
+import org.eclipse.mylyn.internal.tasks.ui.editors.AbstractHyperlinkTextPresentationManager;
 import org.eclipse.mylyn.internal.tasks.ui.editors.EditorUtil;
+import org.eclipse.mylyn.internal.tasks.ui.editors.HighlightingHyperlinkTextPresentationManager;
 import org.eclipse.mylyn.internal.tasks.ui.editors.RepositoryTextViewer;
 import org.eclipse.mylyn.internal.tasks.ui.editors.RepositoryTextViewerConfiguration;
 import org.eclipse.mylyn.internal.tasks.ui.editors.RichTextAttributeEditor;
-import org.eclipse.mylyn.internal.tasks.ui.editors.TaskHyperlinkDetector;
 import org.eclipse.mylyn.internal.tasks.ui.editors.TaskHyperlinkTextPresentationManager;
+import org.eclipse.mylyn.internal.tasks.ui.editors.RepositoryTextViewerConfiguration.Mode;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
@@ -140,7 +142,33 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 		viewer.setDocument(document, annotationModel);
 	}
 
+	private RepositoryTextViewerConfiguration configure(SourceViewer viewer) {
+		RepositoryTextViewerConfiguration configuration = new RepositoryTextViewerConfiguration(taskRepository, false);
+		configuration.setMode(getMode());
+
+		// do not configure viewer, this has already been done in extension
+
+		AbstractHyperlinkTextPresentationManager manager;
+		if (getMode() == Mode.DEFAULT) {
+			manager = new HighlightingHyperlinkTextPresentationManager();
+			manager.setHyperlinkDetectors(configuration.getDefaultHyperlinkDetectors(viewer, null));
+			manager.install(viewer);
+
+			manager = new TaskHyperlinkTextPresentationManager();
+			manager.setHyperlinkDetectors(configuration.getDefaultHyperlinkDetectors(viewer, Mode.TASK));
+			manager.install(viewer);
+		} else if (getMode() == Mode.TASK_RELATION) {
+			manager = new TaskHyperlinkTextPresentationManager();
+			manager.setHyperlinkDetectors(configuration.getDefaultHyperlinkDetectors(viewer, Mode.TASK_RELATION));
+			manager.install(viewer);
+		}
+
+		return configuration;
+	}
+
 	private SourceViewer configureEditor(final SourceViewer viewer, boolean readOnly) {
+		configure(viewer);
+
 		Document document = new Document(getValue());
 		if (readOnly) {
 			viewer.setDocument(document);
@@ -177,9 +205,17 @@ public class ExtensibleRichTextAttributeEditor extends RichTextAttributeEditor {
 		viewer.getTextWidget().setFont(getFont());
 		toolkit.adapt(viewer.getControl(), false, false);
 
+		RepositoryTextViewerConfiguration configuration = new RepositoryTextViewerConfiguration(
+				getModel().getTaskRepository(), false);
+
 		TaskHyperlinkTextPresentationManager hyperlinkTextPresentationManager = new TaskHyperlinkTextPresentationManager();
-		hyperlinkTextPresentationManager.setHyperlinkDetector(new TaskHyperlinkDetector());
+		hyperlinkTextPresentationManager.setHyperlinkDetectors(configuration.getDefaultHyperlinkDetectors(viewer,
+				Mode.TASK));
 		hyperlinkTextPresentationManager.install(viewer);
+
+		HighlightingHyperlinkTextPresentationManager manager = new HighlightingHyperlinkTextPresentationManager();
+		manager.setHyperlinkDetectors(configuration.getDefaultHyperlinkDetectors(viewer, null));
+		manager.install(viewer);
 
 		return viewer;
 	}

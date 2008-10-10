@@ -1,3 +1,9 @@
 1223349309545	Extract local variable 'creationDate'
 1223349625902	Extract local variable 'creationDate'
 1223356018401	Inline method 'getTaskListWriter'
+1223448958499	Copy compilation unit
+1223590794763	Extract superclass 'AbstractHyperlinkTextPresentationManager'
+1223591328013	Extract method 'getRegions'
+1223591400793	Extract method 'decorateText'
+1223593256344	Extract method 'getDefaultHyperlinkTarget'
+1223594300796	Extract method 'configure'
