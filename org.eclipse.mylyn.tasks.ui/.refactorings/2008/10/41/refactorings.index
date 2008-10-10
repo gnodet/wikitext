@@ -7,3 +7,4 @@
 1223591400793	Extract method 'decorateText'
 1223593256344	Extract method 'getDefaultHyperlinkTarget'
 1223594300796	Extract method 'configure'
+1223606594250	Delete element
