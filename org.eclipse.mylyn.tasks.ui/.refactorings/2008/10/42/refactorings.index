@@ -1,0 +1,4 @@
+1223778926275	Extract superclass 'AbstractTaskHyperlinkDetector'
+1223779415294	Extract method 'detectHyperlinks'
+1223779435913	Inline local variable 'hyperlinks'
+1223779680820	Move compilation unit
