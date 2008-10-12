@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Inline local variable &apos;org.eclipse.mylyn.internal.java.tasks.JavaStackTraceHyperlinkDetector.detectHyperlinks().offset&apos; in &apos;org.eclipse.mylyn.internal.java.tasks.JavaStackTraceHyperlinkDetector.detectHyperlinks()&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.java.tasks&apos;&#x0A;- Original element: &apos;org.eclipse.mylyn.internal.java.tasks.JavaStackTraceHyperlinkDetector.detectHyperlinks().offset&apos;" description="Inline local variable &apos;offset&apos;" id="org.eclipse.jdt.ui.inline.temp" input="/src&lt;org.eclipse.mylyn.internal.java.tasks{JavaStackTraceHyperlinkDetector.java" selection="1366 27" stamp="1223786285748" version="1.0"/>
+</session>
