@@ -1,4 +1,2 @@
-1223778926275	Extract superclass 'AbstractTaskHyperlinkDetector'
-1223779415294	Extract method 'detectHyperlinks'
-1223779435913	Inline local variable 'hyperlinks'
-1223779680820	Move compilation unit
+1224001802457	Extract constant 'MESSAGE_ADDED_TO_UNCATEGORIZED'
+1224001879859	Extract constant 'LABEL_CREATE_TASK'
