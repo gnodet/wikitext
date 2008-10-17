@@ -26,11 +26,8 @@ import org.eclipse.jface.text.TextViewer;
 import org.eclipse.mylyn.internal.bugzilla.ui.editor.BugzillaTaskEditorPage;
 import org.eclipse.mylyn.internal.provisional.commons.ui.CommonImages;
 import org.eclipse.mylyn.internal.tasks.ui.editors.EditorUtil;
-import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
-import org.eclipse.mylyn.tasks.ui.editors.AbstractAttributeEditor;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskEditorPage;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskEditorPart;
-import org.eclipse.mylyn.tasks.ui.editors.AttributeEditorFactory;
 import org.eclipse.mylyn.tasks.ui.editors.TaskEditor;
 import org.eclipse.mylyn.tasks.ui.editors.TaskEditorPartDescriptor;
 import org.eclipse.swt.SWT;
@@ -45,7 +42,6 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.actions.ActionFactory;
-import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.IFormPage;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
@@ -134,27 +130,6 @@ public class ExtensibleBugzillaTaskEditorPage extends BugzillaTaskEditorPage {
 		}
 
 		return super.canPerformAction(actionId);
-	}
-
-	@Override
-	protected AttributeEditorFactory createAttributeEditorFactory() {
-		final AttributeEditorFactory bugzillaFactory = super.createAttributeEditorFactory();
-		AttributeEditorFactory factory = new AttributeEditorFactory(getModel(), getTaskRepository()) {
-			@Override
-			public AbstractAttributeEditor createEditor(String type, TaskAttribute taskAttribute) {
-				// replace description part and the comment part
-				AbstractTaskEditorExtension extension = TaskEditorExtensions.getTaskEditorExtension(getTaskRepository());
-				if (extension != null) {
-					if (TaskAttribute.TYPE_LONG_RICH_TEXT.equals(type)) {
-						return new ExtensibleRichTextAttributeEditor((IContextService) getEditor().getEditorSite()
-								.getService(IContextService.class), getModel(), getTaskRepository(), extension,
-								taskAttribute, SWT.MULTI);
-					}
-				}
-				return bugzillaFactory.createEditor(type, taskAttribute);
-			}
-		};
-		return factory;
 	}
 
 	@Override

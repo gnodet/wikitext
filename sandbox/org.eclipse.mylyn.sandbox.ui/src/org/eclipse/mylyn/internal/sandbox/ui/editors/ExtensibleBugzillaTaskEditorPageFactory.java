@@ -13,6 +13,7 @@
 package org.eclipse.mylyn.internal.sandbox.ui.editors;
 
 import org.eclipse.mylyn.internal.bugzilla.ui.editor.BugzillaTaskEditorPageFactory;
+import org.eclipse.mylyn.internal.tasks.ui.editors.TaskEditorExtensions;
 import org.eclipse.mylyn.tasks.ui.editors.TaskEditor;
 import org.eclipse.mylyn.tasks.ui.editors.TaskEditorInput;
 import org.eclipse.ui.forms.editor.FormPage;

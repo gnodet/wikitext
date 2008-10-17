@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.eclipse.mylyn.sandbox.ui" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.eclipse.mylyn.tasks.ui" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
-      <appInfo>
-         <meta.schema plugin="org.eclipse.mylyn.sandbox.ui" id="taskEditorExtensions" name="Task Editor Extensions"/>
-      </appInfo>
+      <appinfo>
+         <meta.schema plugin="org.eclipse.mylyn.tasks.ui" id="taskEditorExtensions" name="Task Editor Extensions"/>
+      </appinfo>
       <documentation>
          An extension to the Mylyn task editor that can provide viewing and editing controls that are markup-aware.
       </documentation>
@@ -12,9 +12,9 @@
 
    <element name="extension">
       <annotation>
-         <appInfo>
-            <meta.element internal="true" />
-         </appInfo>
+         <appinfo>
+            <meta.element />
+         </appinfo>
       </annotation>
       <complexType>
          <sequence>
@@ -40,9 +40,9 @@
                <documentation>
                   
                </documentation>
-               <appInfo>
+               <appinfo>
                   <meta.attribute translatable="true"/>
-               </appInfo>
+               </appinfo>
             </annotation>
          </attribute>
       </complexType>
@@ -60,9 +60,9 @@
                <documentation>
                   the fully qualified class name of the class that extends org.eclipse.mylyn.internal.sandbox.ui.editors.AbstractTaskEditorExtension
                </documentation>
-               <appInfo>
+               <appinfo>
                   <meta.attribute kind="java" basedOn="org.eclipse.mylyn.internal.sandbox.ui.editors.AbstractTaskEditorExtension:"/>
-               </appInfo>
+               </appinfo>
             </annotation>
          </attribute>
          <attribute name="id" type="string" use="required">
@@ -70,9 +70,9 @@
                <documentation>
                   a unique identifier identifying the extension
                </documentation>
-               <appInfo>
+               <appinfo>
                   <meta.attribute kind="identifier"/>
-               </appInfo>
+               </appinfo>
             </annotation>
          </attribute>
          <attribute name="name" type="string" use="required">
@@ -80,9 +80,9 @@
                <documentation>
                   A human-readable name for the extension that is presented to the Eclipse user in the UI.    Should be translated.  Used in the UI to identify the type of extension, so the name should indicate what the extension is for, and it should be short so that it can be displayed on one line (for example as an option in a combo box.)  Example: &quot;TracWiki&quot;, or &quot;Textile&quot;.
                </documentation>
-               <appInfo>
+               <appinfo>
                   <meta.attribute translatable="true"/>
-               </appInfo>
+               </appinfo>
             </annotation>
          </attribute>
       </complexType>
@@ -113,36 +113,36 @@
    </element>
 
    <annotation>
-      <appInfo>
+      <appinfo>
          <meta.section type="since"/>
-      </appInfo>
+      </appinfo>
       <documentation>
          3.0
       </documentation>
    </annotation>
 
    <annotation>
-      <appInfo>
+      <appinfo>
          <meta.section type="examples"/>
-      </appInfo>
+      </appinfo>
       <documentation>
          [Enter extension point usage example here.]
       </documentation>
    </annotation>
 
    <annotation>
-      <appInfo>
+      <appinfo>
          <meta.section type="apiinfo"/>
-      </appInfo>
+      </appinfo>
       <documentation>
          [Enter API information here.]
       </documentation>
    </annotation>
 
    <annotation>
-      <appInfo>
+      <appinfo>
          <meta.section type="implementation"/>
-      </appInfo>
+      </appinfo>
       <documentation>
          [Enter information about supplied implementation of this extension point.]
       </documentation>

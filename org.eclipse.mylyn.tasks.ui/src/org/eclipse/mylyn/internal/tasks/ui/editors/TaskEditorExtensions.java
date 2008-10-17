@@ -9,7 +9,7 @@
  *     David Green - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.sandbox.ui.editors;
+package org.eclipse.mylyn.internal.tasks.ui.editors;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskEditorExtension;
 
 /**
  * @author David Green
@@ -85,7 +86,8 @@ public class TaskEditorExtensions {
 		init();
 		String id = taskRepository.getProperty(REPOSITORY_PROPERTY_EDITOR_EXTENSION);
 		if (id == null) {
-			id = getDefaultTaskEditorExtensionId(taskRepository);
+			// TODO 3.1 disabled until bug 244653 is resolved
+			//id = getDefaultTaskEditorExtensionId(taskRepository);
 		}
 		return id;
 	}

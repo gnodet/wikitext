@@ -9,7 +9,7 @@
  *     David Green - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.sandbox.ui.editors;
+package org.eclipse.mylyn.tasks.ui.editors;
 
 import org.eclipse.jface.text.source.SourceViewer;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
@@ -21,6 +21,7 @@ import org.eclipse.ui.contexts.IContextService;
  * editing and viewing
  * 
  * @author David Green
+ * @since 3.1
  */
 public abstract class AbstractTaskEditorExtension {
 

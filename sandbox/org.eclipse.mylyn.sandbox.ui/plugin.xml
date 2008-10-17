@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
-    <extension-point id="taskEditorExtensions" name="Task Editor Extension" schema="schema/taskEditorExtensions.exsd"/>
     <extension-point id="resourceHyperlinkExtensions" name="Resource Hyperlink Extension" schema="schema/resourceHyperlinkExtensions.exsd"/>
     
 	<extension point="org.eclipse.ui.views">
@@ -382,13 +381,6 @@
                   <count
                         value="1">
                   </count>
-                  <iterate>
-                     <test
-                           forcePluginActivation="false"
-                           property="org.eclipse.mylyn.taskRepository.connectorKind"
-                           value="bugzilla">
-                     </test>
-                  </iterate>
                </and>
             </visibleWhen>
          </menu>
@@ -431,15 +423,6 @@
    </command>
 		</menuContribution>
 	</extension>
-        <extension
-              point="org.eclipse.ui.commands">
-           <command
-                 categoryId="org.eclipse.mylyn.tasks.ui.commands"
-                 defaultHandler="org.eclipse.mylyn.internal.sandbox.ui.commands.ViewSourceHandler"
-                 id="org.eclipse.mylyn.sandbox.ui.viewSource.command"
-                 name="View Source">
-           </command>
-        </extension>
    <!--
    <extension point="org.eclipse.mylyn.tasks.ui.presentations">
       <presentation 

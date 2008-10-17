@@ -9,7 +9,7 @@
  *     David Green - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.sandbox.ui.editors;
+package org.eclipse.mylyn.internal.tasks.ui.editors;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -21,6 +21,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskEditorExtension;
 
 /**
  * @author David Green
@@ -33,7 +34,7 @@ public class TaskEditorExtensionReader {
 
 	public static final String ATTR_NAME = "name";
 
-	public static final String EXTENSION_TASK_EDITOR_EXTENSIONS = "org.eclipse.mylyn.sandbox.ui.taskEditorExtensions";
+	public static final String EXTENSION_TASK_EDITOR_EXTENSIONS = "org.eclipse.mylyn.tasks.ui.taskEditorExtensions";
 
 	private static final String REPOSITORY_ASSOCIATION = "repositoryAssociation";
 

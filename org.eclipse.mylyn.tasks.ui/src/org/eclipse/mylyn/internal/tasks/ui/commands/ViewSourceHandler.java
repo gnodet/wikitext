@@ -10,7 +10,7 @@
  *     Tasktop Technologies - improvements
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.sandbox.ui.commands;
+package org.eclipse.mylyn.internal.tasks.ui.commands;
 
 import java.util.Map;
 
