@@ -1,2 +1,6 @@
 1224001802457	Extract constant 'MESSAGE_ADDED_TO_UNCATEGORIZED'
 1224001879859	Extract constant 'LABEL_CREATE_TASK'
+1224219079967	Rename method 'hasPreview'
+1224219158981	Rename method 'hasPreviewViewer'
+1224219346195	Extract local variable 'browserViewer2'
+1224220595894	Rename type 'PreviewAttributeEditor'
