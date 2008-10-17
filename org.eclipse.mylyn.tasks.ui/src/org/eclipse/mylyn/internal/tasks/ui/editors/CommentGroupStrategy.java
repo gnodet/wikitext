@@ -10,7 +10,7 @@
  *     Tasktop Technologies - improvements
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.sandbox.ui.editors;
+package org.eclipse.mylyn.internal.tasks.ui.editors;
 
 import java.util.ArrayList;
 import java.util.Collections;
