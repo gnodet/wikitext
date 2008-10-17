@@ -44,8 +44,6 @@ import org.eclipse.mylyn.internal.context.ui.ActiveViewSelectionDragAdapter;
 import org.eclipse.mylyn.internal.context.ui.ContextUiImages;
 import org.eclipse.mylyn.internal.context.ui.ContextUiPlugin;
 import org.eclipse.mylyn.internal.context.ui.DoiOrderSorter;
-import org.eclipse.mylyn.internal.context.ui.views.ActiveViewDelegatingDragAdapter;
-import org.eclipse.mylyn.internal.context.ui.views.ContextContentProvider;
 import org.eclipse.mylyn.internal.context.ui.views.ContextNodeOpenListener;
 import org.eclipse.mylyn.internal.sandbox.ui.DelegatingContextLabelProvider;
 import org.eclipse.mylyn.internal.sandbox.ui.actions.LinkActiveSearchWithEditorAction;

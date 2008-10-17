@@ -29,7 +29,6 @@ import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.internal.context.ui.ContextUiPlugin;
 import org.eclipse.mylyn.internal.context.ui.DoiOrderSorter;
-import org.eclipse.mylyn.internal.context.ui.views.ContextContentProvider;
 import org.eclipse.mylyn.internal.context.ui.views.ContextNodeOpenListener;
 import org.eclipse.mylyn.internal.sandbox.ui.DelegatingContextLabelProvider;
 import org.eclipse.swt.SWT;
