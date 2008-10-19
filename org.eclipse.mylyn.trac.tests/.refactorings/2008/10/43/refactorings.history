@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;repositorySearchResult&apos; from expression &apos;((RepositorySearchResult)collector.getSearchResult())&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.trac.tests&apos;&#x0A;- Variable name: &apos;repositorySearchResult&apos;&#x0A;- Destination method: &apos;org.eclipse.mylyn.trac.tests.RepositorySearchTest.testSearch()&apos;&#x0A;- Variable expression: &apos;((RepositorySearchResult)collector.getSearchResult())&apos;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;repositorySearchResult&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.eclipse.mylyn.trac.tests{RepositorySearchTest.java" name="repositorySearchResult" replace="true" selection="3429 54" stamp="1224450927798" version="1.0"/>
+</session>

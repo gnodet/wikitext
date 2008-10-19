@@ -18,10 +18,10 @@ import org.eclipse.mylyn.internal.tasks.core.ITaskList;
 import org.eclipse.mylyn.internal.tasks.core.RepositoryQuery;
 import org.eclipse.mylyn.internal.tasks.ui.LocalRepositoryConnectorUi;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.internal.tasks.ui.search.SearchHitCollector;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.tests.util.TestTaskDataCollector;
 import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeMapper;
@@ -96,11 +96,9 @@ public class XPlannerQueryTest extends TestCase {
 		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
 				repository.getConnectorKind());
 
-		SearchHitCollector collector = new SearchHitCollector(taskList, repository, query);
+		TestTaskDataCollector collector = new TestTaskDataCollector();
 		connector.performQuery(repository, query, collector, null, new NullProgressMonitor());
-
-		Set<ITask> hits = collector.getTasks();
-		return hits;
+		return collector.getTasks(connector, repository);
 	}
 
 }
