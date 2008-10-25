@@ -1,2 +1,4 @@
 1224453298513	Delete element
 1224737272005	Extract local variable 'repositoryPerson'
+1224895812722	Extract local variable 'taskKindLabel2'
+1224895850167	Extract local variable 'taskKind'
