@@ -355,7 +355,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 		return null;
 	}
 
-//HeB -- testing -- appears no longer necessary	
+//HeB -- appears no longer necessary	
 //	public void updateTaskDetails(String repositoryUrl, ITask task, TaskData taskData, boolean notifyOfChange) {
 //		if (taskData.getId() > 0) {
 //			String url = repositoryUrl + XPlannerMylynUIPlugin.TASK_URL_PREFIX + taskData.getId();
@@ -375,7 +375,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 //		}
 //	}
 
-//HeB -- testing -- appears no longer necessary	
+//HeB -- appears no longer necessary	
 //	public static void updateTaskDetails(String repositoryUrl, ITask task, UserStoryData userStory,
 //			boolean notifyOfChange) {
 //
