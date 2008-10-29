@@ -19,9 +19,15 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.mylyn.commons.core.StatusHandler;
+import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.internal.tasks.ui.editors.RichTextAttributeEditor;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.core.data.ITaskDataWorkingCopy;
+import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
 import org.eclipse.mylyn.tasks.core.data.TaskData;
+import org.eclipse.mylyn.tasks.core.data.TaskDataModel;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
+import org.eclipse.mylyn.tasks.ui.editors.AbstractAttributeEditor;
 import org.eclipse.mylyn.tasks.ui.editors.TaskEditorInput;
 import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
@@ -33,7 +39,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IEditorInput;
@@ -54,6 +59,7 @@ import org.xplanner.soap.UserStoryData;
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
+@SuppressWarnings("restriction")
 public class XPlannerUserStoryEditor extends FormPage {
 	private static final String NO_PROJECT_NAME = Messages.XPlannerTaskEditor_NO_PROJECT_NAME;
 
@@ -70,6 +76,8 @@ public class XPlannerUserStoryEditor extends FormPage {
 	private XPlannerClient client;
 
 	private UserStoryData userStoryData;
+
+	private TaskData repositoryTaskData;
 
 	public XPlannerUserStoryEditor(FormEditor parent) {
 		super(parent, "id", "label"); //$NON-NLS-1$//$NON-NLS-2$
@@ -106,11 +114,11 @@ public class XPlannerUserStoryEditor extends FormPage {
 		setInput(input);
 		setPartName(this.input.getName());
 		try {
-			TaskData taskData = TasksUi.getTaskDataManager().getTaskData(repositoryInput.getTask());
-			TaskRepository repository = TasksUi.getRepositoryManager().getRepository(taskData.getConnectorKind(),
-					taskData.getRepositoryUrl());
+			repositoryTaskData = TasksUi.getTaskDataManager().getTaskData(repositoryInput.getTask());
+			TaskRepository repository = TasksUi.getRepositoryManager().getRepository(
+					repositoryTaskData.getConnectorKind(), repositoryTaskData.getRepositoryUrl());
 			client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
-			String id = taskData.getTaskId();
+			String id = repositoryTaskData.getTaskId();
 			if (id == null || id.trim().equals("")) { //$NON-NLS-1$
 				StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
 						Messages.XPlannerTaskEditor_NO_TASK_KEY_EXCEPTION));
@@ -216,13 +224,30 @@ public class XPlannerUserStoryEditor extends FormPage {
 		descriptionComposite.setLayout(descriptionCompositeLayout);
 		GridDataFactory.fillDefaults().grab(true, true).applyTo(descriptionComposite);
 
-		//@TODO -- need to replace text with url tags
-		Text descriptionText = toolkit.createText(descriptionComposite, getUserStoryData().getDescription(),
-				SWT.V_SCROLL | SWT.H_SCROLL);
-		descriptionText.setEditable(false);
-		GridDataFactory.fillDefaults().grab(true, true).applyTo(descriptionText);
-
+		createDescriptionEditor(descriptionComposite, toolkit);
 		descriptionSection.setClient(descriptionComposite);
+	}
+
+	private void createDescriptionEditor(Composite composite, FormToolkit toolkit) {
+		try {
+			AbstractAttributeEditor editor = new RichTextAttributeEditor(createModel(), input.getTaskRepository(),
+					repositoryTaskData.getRoot().getMappedAttribute(TaskAttribute.DESCRIPTION), SWT.READ_ONLY
+							| SWT.BORDER);
+			if (editor != null) {
+				editor.setReadOnly(true);
+				editor.createControl(composite, toolkit);
+				GridDataFactory.fillDefaults().grab(true, true).applyTo(editor.getControl());
+				toolkit.adapt(editor.getControl(), true, true);
+			}
+		} catch (CoreException e) {
+			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
+					"Could not create editor model", e));
+		}
+	}
+
+	protected TaskDataModel createModel() throws CoreException {
+		ITaskDataWorkingCopy taskDataState = TasksUiPlugin.getTaskDataManager().getWorkingCopy(input.getTask());
+		return new TaskDataModel(input.getTaskRepository(), input.getTask(), taskDataState);
 	}
 
 	private void createDataSection(FormToolkit toolkit, final Composite formBody) {

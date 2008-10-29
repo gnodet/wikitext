@@ -8,9 +8,15 @@
 package org.eclipse.mylyn.xplanner.ui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.text.IRegion;
+import org.eclipse.jface.text.Region;
+import org.eclipse.jface.text.hyperlink.IHyperlink;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
@@ -19,6 +25,7 @@ import org.eclipse.mylyn.tasks.core.ITaskMapping;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
 import org.eclipse.mylyn.tasks.ui.LegendElement;
+import org.eclipse.mylyn.tasks.ui.TaskHyperlink;
 import org.eclipse.mylyn.tasks.ui.wizards.ITaskRepositoryPage;
 import org.eclipse.mylyn.tasks.ui.wizards.ITaskSearchPage;
 import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
@@ -34,6 +41,11 @@ import org.eclipse.mylyn.xplanner.ui.wizard.XPlannerRepositorySettingsPage;
  * @author Helen Bershadskaya
  */
 public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
+	private static final String regexp = "(task|story):(\\d+)";
+
+	private static final Pattern PATTERN = Pattern.compile(regexp, Pattern.CASE_INSENSITIVE);
+
+	private static final int DOMAIN_ID_GROUP = 2;
 
 	@Override
 	public ITaskRepositoryPage getSettingsPage(TaskRepository taskRepository) {
@@ -167,4 +179,52 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 
 		return legendElements;
 	}
+
+	@Override
+	public IHyperlink[] findHyperlinks(TaskRepository repository, String text, int index, int textOffset) {
+		ArrayList<IHyperlink> hyperlinksFound = null;
+
+		Matcher m = PATTERN.matcher(text);
+		while (m.find()) {
+			if (index == -1 || (index >= m.start() && index <= m.end())) {
+				IHyperlink link = extractHyperlink(repository, textOffset, m);
+				if (link != null) {
+					if (hyperlinksFound == null) {
+						hyperlinksFound = new ArrayList<IHyperlink>();
+					}
+					hyperlinksFound.add(link);
+				}
+			}
+		}
+
+		return (hyperlinksFound != null) ? hyperlinksFound.toArray(new IHyperlink[0]) : null;
+	}
+
+	private final HashMap<String, String> taskIdToSummary = new HashMap<String, String>();
+
+	private IHyperlink extractHyperlink(TaskRepository repository, int regionOffset, Matcher m) {
+
+		int start = m.start();
+
+		int end = m.end();
+
+		if (end == -1) {
+			end = m.group().length();
+		}
+
+		try {
+
+			String domainId = m.group(DOMAIN_ID_GROUP).trim();
+			start += regionOffset;
+			end += regionOffset;
+
+			IRegion sregion = new Region(start, end - start);
+
+			return new TaskHyperlink(sregion, repository, domainId);
+
+		} catch (NumberFormatException e) {
+			return null;
+		}
+	}
+
 }

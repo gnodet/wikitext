@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Convert local variable &apos;org.eclipse.mylyn.xplanner.ui.editor.XPlannerUserStoryEditor.init().taskData&apos; in &apos;org.eclipse.mylyn.xplanner.ui.editor.XPlannerUserStoryEditor.init()&apos; to field&#x0D;&#x0A;- Original project: &apos;org.eclipse.mylyn.xplanner.ui&apos;&#x0D;&#x0A;- Original element: &apos;org.eclipse.mylyn.xplanner.ui.editor.XPlannerUserStoryEditor.init().taskData&apos;&#x0D;&#x0A;- Field name: &apos;taskData&apos;&#x0D;&#x0A;- Initialize field in method&#x0D;&#x0A;- Declared visibility: &apos;private&apos;" description="Convert local variable &apos;taskData&apos; to field" final="false" flags="2" id="org.eclipse.jdt.ui.promote.temp" initialize="1" input="/src&lt;org.eclipse.mylyn.xplanner.ui.editor{XPlannerUserStoryEditor.java" name="taskData" selection="4374 78" stamp="1225235152947" static="false" version="1.0" visibility="2"/>
+</session>
