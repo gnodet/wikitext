@@ -815,7 +815,7 @@ public class XPlannerRepositoryUtils {
 		XPlannerTaskDataHandler taskDataHandler = (XPlannerTaskDataHandler) connector.getTaskDataHandler();
 		TaskAttributeMapper attributeMapper = taskDataHandler.getAttributeMapper(taskRepository);
 		TaskData repositoryTaskData = new TaskData(attributeMapper, XPlannerCorePlugin.CONNECTOR_KIND,
-				taskRepository.getRepositoryUrl(), ""); //HeB -- testing TasksUiPlugin.getDefault().getNextNewRepositoryTaskId());
+				taskRepository.getRepositoryUrl(), "");
 //		repositoryTaskData.setNew(true);
 		taskDataHandler.initializeTaskData(taskRepository, repositoryTaskData, userStoryData);
 
