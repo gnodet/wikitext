@@ -511,5 +511,13 @@
 	 </objectContribution>
   </extension>
   -->
+
+   <extension point="org.eclipse.mylyn.tasks.ui.projectLinkProviders">
+      <linkProvider
+          id="org.eclipse.mylyn.sandbox.ui.eclipsePluginRepositoryLinkProvider"
+          class="org.eclipse.mylyn.internal.sandbox.ui.EclipseTaskRepositoryLinkProvider"
+          name="Eclipse.org Plugin Link"
+          order="2000"/>
+   </extension>  
    
 </plugin>
