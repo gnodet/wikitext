@@ -8,7 +8,6 @@
 package org.eclipse.mylyn.xplanner.ui;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -199,8 +198,6 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 
 		return (hyperlinksFound != null) ? hyperlinksFound.toArray(new IHyperlink[0]) : null;
 	}
-
-	private final HashMap<String, String> taskIdToSummary = new HashMap<String, String>();
 
 	private IHyperlink extractHyperlink(TaskRepository repository, int regionOffset, Matcher m) {
 
