@@ -12,7 +12,12 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.action.ActionContributionItem;
+import org.eclipse.jface.action.IContributionItem;
+import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.mylyn.internal.tasks.ui.editors.AbstractReplyToCommentAction;
 import org.eclipse.mylyn.internal.tasks.ui.editors.TaskEditorActionPart;
+import org.eclipse.mylyn.internal.tasks.ui.editors.TaskEditorDescriptionPart;
 import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
 import org.eclipse.mylyn.tasks.core.data.TaskData;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
@@ -24,12 +29,14 @@ import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
 import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUtils;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 /**
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
+@SuppressWarnings("restriction")
 // for TasksUi and TaskActivityManager
 public class XPlannerTaskEditor extends AbstractTaskEditorPage implements XPlannerEditorAttributeProvider {
 	private XPlannerTaskEditorExtraControls extraControls;
@@ -59,6 +66,7 @@ public class XPlannerTaskEditor extends AbstractTaskEditorPage implements XPlann
 
 			if (taskEditorPartDescriptor.getId().equals(ID_PART_PEOPLE)
 					|| taskEditorPartDescriptor.getId().equals(ID_PART_ATTRIBUTES)
+					|| taskEditorPartDescriptor.getId().equals(ID_PART_DESCRIPTION)
 					|| taskEditorPartDescriptor.getId().equals(ID_PART_ATTACHMENTS)
 					|| taskEditorPartDescriptor.getId().equals(ID_PART_COMMENTS)
 					|| taskEditorPartDescriptor.getId().equals(ID_PART_NEW_COMMENT)
@@ -67,12 +75,39 @@ public class XPlannerTaskEditor extends AbstractTaskEditorPage implements XPlann
 				iterator.remove();
 			}
 		}
-
 		// Add XPlanner attributes
 		descriptors.add(new TaskEditorPartDescriptor(ID_PART_ATTRIBUTES) {
 			@Override
 			public AbstractTaskEditorPart createPart() {
 				return getExtraControls();
+			}
+		}.setPath(PATH_ATTRIBUTES));
+
+		descriptors.add(new TaskEditorPartDescriptor(ID_PART_DESCRIPTION) {
+			@Override
+			public AbstractTaskEditorPart createPart() {
+				TaskEditorDescriptionPart part = new TaskEditorDescriptionPart() {
+					/**
+					 * Remove replyTo action -- doesn't apply to description for XPlanner
+					 */
+					@Override
+					protected void fillToolBar(ToolBarManager toolBar) {
+						super.fillToolBar(toolBar);
+						for (IContributionItem contributionItem : toolBar.getItems()) {
+							if (contributionItem instanceof ActionContributionItem
+									&& ((ActionContributionItem) contributionItem).getAction() instanceof AbstractReplyToCommentAction) {
+
+								toolBar.remove(contributionItem);
+								break;
+							}
+						}
+					}
+				};
+				if (getModel().getTaskData().isNew()) {
+					part.setExpandVertically(true);
+					part.setSectionStyle(ExpandableComposite.TITLE_BAR | ExpandableComposite.EXPANDED);
+				}
+				return part;
 			}
 		}.setPath(PATH_ATTRIBUTES));
 
