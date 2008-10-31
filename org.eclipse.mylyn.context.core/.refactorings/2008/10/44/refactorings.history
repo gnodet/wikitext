@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;dest&apos; from expression &apos;new File(file.getAbsolutePath() + &quot;-save&quot;)&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.context.core&apos;&#x0A;- Variable name: &apos;dest&apos;&#x0A;- Destination method: &apos;org.eclipse.mylyn.internal.context.core.SaxContextReader.readContext()&apos;&#x0A;- Variable expression: &apos;new File(file.getAbsolutePath() + &quot;-save&quot;)&apos;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;dest&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.eclipse.mylyn.internal.context.core{SaxContextReader.java" name="dest" replace="true" selection="2926 42" stamp="1225441239655" version="1.0"/>
+</session>
