@@ -4,5 +4,7 @@
     <extension
          name="Java 5 Compatibility Checker"
          point="org.eclipse.ui.startup">
+       <startup
+             class="org.eclipse.mylyn.internal.compatibility.JavaRuntimeVersionChecker"></startup>
     </extension>
 </plugin>
