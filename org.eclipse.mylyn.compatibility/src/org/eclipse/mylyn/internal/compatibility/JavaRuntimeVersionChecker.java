@@ -27,9 +27,9 @@ import org.osgi.framework.BundleContext;
  */
 public class JavaRuntimeVersionChecker extends AbstractUIPlugin implements IStartup {
 
-	private static final String ID_PLUGIN = "org.eclipse.mylyn.compatibility";
+	private static final String ID_PLUGIN = "org.eclipse.mylyn.compatibility"; //$NON-NLS-1$
 
-	private static final String PREF_WARN_DISABLED = "org.eclipse.mylyn.internal.compatibility.warn.disabled";
+	private static final String PREF_WARN_DISABLED = "org.eclipse.mylyn.internal.compatibility.warn.disabled"; //$NON-NLS-1$
 
 	private static final float JRE_MIN_VERSION = 1.5f;
 
@@ -46,7 +46,7 @@ public class JavaRuntimeVersionChecker extends AbstractUIPlugin implements IStar
 		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 			public void run() {
 				try {
-					String versionString = System.getProperty("java.runtime.version");
+					String versionString = System.getProperty("java.runtime.version"); //$NON-NLS-1$
 					int minorMinorIndex = versionString.lastIndexOf('.');
 					if (minorMinorIndex != -1) {
 						String minorString = versionString.substring(0, minorMinorIndex);
@@ -54,17 +54,17 @@ public class JavaRuntimeVersionChecker extends AbstractUIPlugin implements IStar
 						if (versionFloat.compareTo(new Float(JRE_MIN_VERSION)) < 0) {
 							if (!getPreferenceStore().getBoolean(PREF_WARN_DISABLED)) {
 								MessageDialogWithToggle dialog = MessageDialogWithToggle.openWarning(
-										PlatformUI.getWorkbench().getDisplay().getActiveShell(), "JDK Version Check",
-										"Mylyn was installed but requires Java 5 or later to run. "
-												+ "Please download and install the latest Java version and restart.",
-										"Do not warn again", false, getPreferenceStore(), PREF_WARN_DISABLED);
+										PlatformUI.getWorkbench().getDisplay().getActiveShell(),
+										Messages.JavaRuntimeVersionChecker_JDK_Version_Check,
+										Messages.JavaRuntimeVersionChecker_Mylyn_was_installed_but_requires_Java_5_or_later_to_run,
+										Messages.JavaRuntimeVersionChecker_Do_not_warn_again, false, getPreferenceStore(), PREF_WARN_DISABLED);
 								getPreferenceStore().setValue(PREF_WARN_DISABLED, dialog.getToggleState());
 							}
 						}
 					}
 				} catch (Throwable t) {
 					StatusManager.getManager().handle(
-							new Status(IStatus.INFO, ID_PLUGIN, "Could determine JRE version.", t), StatusManager.LOG);
+							new Status(IStatus.INFO, ID_PLUGIN, "Could determine JRE version.", t), StatusManager.LOG); //$NON-NLS-1$
 				}
 			}
 		});
