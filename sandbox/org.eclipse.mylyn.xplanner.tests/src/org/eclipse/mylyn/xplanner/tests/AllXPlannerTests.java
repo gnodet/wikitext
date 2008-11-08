@@ -27,8 +27,8 @@ public class AllXPlannerTests {
 		suite.addTestSuite(XPlannerClientFacadeTest.class);
 		suite.addTestSuite(XPlannerAttributeMapperTest.class);
 		suite.addTestSuite(XPlannerRepositoryUiTest.class);
+		suite.addTestSuite(XPlannerTaskEditorTest.class);
 		// $JUnit-END$
 		return suite;
 	}
-
 }

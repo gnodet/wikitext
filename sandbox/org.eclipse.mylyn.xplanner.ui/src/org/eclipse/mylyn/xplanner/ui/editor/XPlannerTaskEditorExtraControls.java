@@ -319,7 +319,10 @@ public class XPlannerTaskEditorExtraControls extends AbstractTaskEditorPart {
 		return editor.getModel().getTaskData();
 	}
 
-	class HoursVerifyListener implements VerifyListener {
+	/**
+	 * public for testing
+	 */
+	public class HoursVerifyListener implements VerifyListener {
 		public void verifyText(VerifyEvent event) {
 			switch (event.keyCode) {
 			case SWT.BS: // Backspace  
@@ -331,12 +334,21 @@ public class XPlannerTaskEditorExtraControls extends AbstractTaskEditorPart {
 				return;
 			}
 
-			if (!Character.isDigit(event.character)
-					&& event.character != (new DecimalFormatSymbols().getDecimalSeparator())) {
-
-				event.doit = false; // don't allow the action  
+			if (event.character != '\0') {
+				if (!isValidCharacter(event.character)) {
+					event.doit = false; // don't allow the action  
+				}
+			} else if (event.text != null) {
+				for (int i = 0; i < event.text.length() && event.doit; i++) {
+					if (!isValidCharacter(event.text.charAt(i))) {
+						event.doit = false;
+					}
+				}
 			}
 		}
 
+		private boolean isValidCharacter(char character) {
+			return Character.isDigit(character) || character == (new DecimalFormatSymbols().getDecimalSeparator());
+		}
 	}
 }
