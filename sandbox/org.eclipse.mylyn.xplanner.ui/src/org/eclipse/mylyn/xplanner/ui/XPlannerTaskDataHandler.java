@@ -106,8 +106,10 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 		try {
 			result = postChangesToRepository(repository, repositoryTaskData);
 		} catch (Exception e) {
+			String additionalInfo = e.getLocalizedMessage() != null && e.getLocalizedMessage().length() > 0 ? ": "
+					+ e.getLocalizedMessage() : "";
 			throw new CoreException(new Status(IStatus.ERROR, XPlannerCorePlugin.ID, IStatus.ERROR,
-					Messages.XPlannerOfflineTaskHandler_CANNOT_POST_DATA_TO_SERVER, null));
+					Messages.XPlannerOfflineTaskHandler_CANNOT_POST_DATA_TO_SERVER + additionalInfo, e));
 		}
 
 		return result;
@@ -145,16 +147,18 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 					if (personId >= 0) {
 						taskData.setAcceptorId(personId);
 					}
+
 					// set actual time
 					Double currentActualHours = taskData.getActualHours();
 					Double changedActualHours = Double.valueOf(XPlannerRepositoryUtils.getActualHours(repositoryTaskData));
-					if (currentActualHours < changedActualHours) {
+					if (!repositoryTaskData.isNew() && currentActualHours < changedActualHours) {
 						TimeEntryData newTimeEntry = new TimeEntryData();
 						newTimeEntry.setDuration(changedActualHours - currentActualHours);
 						newTimeEntry.setPerson1Id(taskData.getAcceptorId());
 						newTimeEntry.setTaskId(taskData.getId());
 						newTimeEntry.setReportDate(Calendar.getInstance());
 						client.addTimeEntry(newTimeEntry);
+						//
 					}
 
 					XPlannerRepositoryUtils.ensureTaskDataValid(taskData);
@@ -186,6 +190,8 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 		// for new tasks, return their id
 		if (error == null && repositoryTaskData.isNew()) {
 			error = newTaskId;
+		} else if (error != null) {
+			throw new CoreException(new Status(IStatus.ERROR, XPlannerCorePlugin.ID, error));
 		}
 
 		return response;

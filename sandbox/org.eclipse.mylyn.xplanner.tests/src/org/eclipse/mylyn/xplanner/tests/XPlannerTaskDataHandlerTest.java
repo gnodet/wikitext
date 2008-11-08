@@ -26,6 +26,7 @@ import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeMapper;
 import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUtils;
 import org.xplanner.soap.TaskData;
+import org.xplanner.soap.TimeEntryData;
 import org.xplanner.soap.UserStoryData;
 
 public class XPlannerTaskDataHandlerTest extends TestCase {
@@ -80,6 +81,8 @@ public class XPlannerTaskDataHandlerTest extends TestCase {
 			TaskData taskData = client.getTask(id);
 			assertNotNull(taskData);
 			assertEquals(newTaskName, taskData.getName());
+			TimeEntryData[] timeEntries = client.getTimeEntries(id);
+			assertEquals(timeEntries.length, 0);
 
 			// need to make sure user story did not get corrupted for complete test
 			UserStoryData userStory = client.getUserStory(taskData.getStoryId());
