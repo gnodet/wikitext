@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2004, 2008 Tasktop Technologies and others.
+ * Copyright (c) 2004, 2008 Tasktop Technologies and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -34,7 +34,6 @@ import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.mylyn.commons.core.DateUtil;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.DateRange;
@@ -284,7 +283,7 @@ public class TaskActivityEditorPart extends EditorPart {
 //		numberCompleted.setForeground(toolkit.getColors().getColor(FormColors.TITLE));
 
 		String totalCompletedTaskTime = "Total time on completed: "
-				+ DateUtil.getFormattedDuration(editorInput.getTotalTimeSpentOnCompletedTasks(), false);
+				+ TasksUiInternal.getFormattedDuration(editorInput.getTotalTimeSpentOnCompletedTasks(), false);
 		totalTimeOnCompleted = toolkit.createLabel(summaryContainer, totalCompletedTaskTime, SWT.NULL);
 //		totalTimeOnCompleted.setForeground(toolkit.getColors().getColor(FormColors.TITLE));
 
@@ -293,7 +292,7 @@ public class TaskActivityEditorPart extends EditorPart {
 //		numberInProgress.setForeground(toolkit.getColors().getColor(FormColors.TITLE));
 
 		String totalInProgressTaskTime = "Total time on incomplete: "
-				+ DateUtil.getFormattedDuration(editorInput.getTotalTimeSpentOnInProgressTasks(), false);
+				+ TasksUiInternal.getFormattedDuration(editorInput.getTotalTimeSpentOnInProgressTasks(), false);
 		totalTimeOnIncomplete = toolkit.createLabel(summaryContainer, totalInProgressTaskTime, SWT.NULL);
 //		totalTimeOnIncomplete.setForeground(toolkit.getColors().getColor(FormColors.TITLE));
 
@@ -313,14 +312,14 @@ public class TaskActivityEditorPart extends EditorPart {
 		numberCompleted.setText(numComplete);
 
 		String totalCompletedTaskTime = "Total time on completed: "
-				+ DateUtil.getFormattedDuration(editorInput.getTotalTimeSpentOnCompletedTasks(), false);
+				+ TasksUiInternal.getFormattedDuration(editorInput.getTotalTimeSpentOnCompletedTasks(), false);
 		totalTimeOnCompleted.setText(totalCompletedTaskTime);
 
 		String numInProgress = "Number in progress: " + editorInput.getInProgressTasks().size();
 		numberInProgress.setText(numInProgress);
 
 		String totalInProgressTaskTime = "Total time on incomplete: "
-				+ DateUtil.getFormattedDuration(editorInput.getTotalTimeSpentOnInProgressTasks(), false);
+				+ TasksUiInternal.getFormattedDuration(editorInput.getTotalTimeSpentOnInProgressTasks(), false);
 		totalTimeOnIncomplete.setText(totalInProgressTaskTime);
 
 		String spacer = "        ";
@@ -392,7 +391,7 @@ public class TaskActivityEditorPart extends EditorPart {
 	// }
 
 	private String getTotalTime() {
-		return DateUtil.getFormattedDuration(editorInput.getTotalTimeSpentOnCompletedTasks()
+		return TasksUiInternal.getFormattedDuration(editorInput.getTotalTimeSpentOnCompletedTasks()
 				+ editorInput.getTotalTimeSpentOnInProgressTasks(), false);
 	}
 
@@ -564,7 +563,7 @@ public class TaskActivityEditorPart extends EditorPart {
 				String formatString = "dd-MM-yyyy";
 				SimpleDateFormat format = new SimpleDateFormat(formatString, Locale.ENGLISH);
 
-				String elapsedTimeString = DateUtil.getFormattedDuration(TasksUiPlugin.getTaskActivityManager()
+				String elapsedTimeString = TasksUiInternal.getFormattedDuration(TasksUiPlugin.getTaskActivityManager()
 						.getElapsedTime(currentTask), false);
 				String estimatedTimeString = currentTask.getEstimatedTimeHours() + " hours";
 				if (elapsedTimeString.equals("")) {
@@ -614,7 +613,7 @@ public class TaskActivityEditorPart extends EditorPart {
 				String formatString = "dd-MM-yyyy";
 				SimpleDateFormat format = new SimpleDateFormat(formatString, Locale.ENGLISH);
 
-				String elapsedTimeString = DateUtil.getFormattedDuration(TasksUiPlugin.getTaskActivityManager()
+				String elapsedTimeString = TasksUiInternal.getFormattedDuration(TasksUiPlugin.getTaskActivityManager()
 						.getElapsedTime(currentTask), false);
 				String estimatedTimeString = currentTask.getEstimatedTimeHours() + " hours";
 				if (elapsedTimeString.equals("")) {
@@ -680,13 +679,15 @@ public class TaskActivityEditorPart extends EditorPart {
 				+ "</td>");
 
 		writer.write("<td width=\"169\">Total time on completed:</td><td width=\"376\">"
-				+ DateUtil.getFormattedDuration(editorInput.getTotalTimeSpentOnCompletedTasks(), false) + "</td>");
+				+ TasksUiInternal.getFormattedDuration(editorInput.getTotalTimeSpentOnCompletedTasks(), false)
+				+ "</td>");
 		writer.write("</tr>");
 
 		writer.write("<tr><td width=\"138\">Number in Progress:</td><td>" + editorInput.getInProgressTasks().size()
 				+ "</td>");
 		writer.write("<td width=\"169\">Total time on incompleted:</td><td width=\"376\">"
-				+ DateUtil.getFormattedDuration(editorInput.getTotalTimeSpentOnInProgressTasks(), false) + "</td>");
+				+ TasksUiInternal.getFormattedDuration(editorInput.getTotalTimeSpentOnInProgressTasks(), false)
+				+ "</td>");
 		writer.write("</tr>");
 
 		writer.write("<tr><td width=\"138\">Outstanding estimated hours:</td><td>"
