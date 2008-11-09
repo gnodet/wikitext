@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring clone="true" comment="Infer generic type arguments on &apos;org.eclipse.mylyn.context.ui&apos;&#x0D;&#x0A;- Original project: &apos;org.eclipse.mylyn.context.ui&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     org.eclipse.mylyn.internal.context.ui.editors.ContextEditorFormPage.java&#x0D;&#x0A;- Assume clone() returns an instance of the receiver type&#x0D;&#x0A;- Leave unconstrained type arguments raw" description="Infer generic type arguments" element1="/src&lt;org.eclipse.mylyn.internal.context.ui.editors{ContextEditorFormPage.java" flags="6" id="org.eclipse.jdt.ui.infer.typearguments" leave="true" stamp="1226204307260" version="1.0"/>
+</session>

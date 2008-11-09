@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;org.eclipse.mylyn.internal.commons.ui.SwtUtil.collectItems(...)&apos; to &apos;collectItemData&apos;&#x0D;&#x0A;- Original project: &apos;org.eclipse.mylyn.commons.ui&apos;&#x0D;&#x0A;- Original element: &apos;org.eclipse.mylyn.internal.commons.ui.SwtUtil.collectItems(...)&apos;&#x0D;&#x0A;- Renamed element: &apos;org.eclipse.mylyn.internal.commons.ui.SwtUtil.collectItemData(...)&apos;&#x0D;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;collectItems&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylyn.internal.commons.ui{SwtUtil.java[SwtUtil~collectItems~\[QTreeItem;~QSet\&lt;QObject;&gt;;" name="collectItemData" references="true" stamp="1226206473551" version="1.0"/>
+</session>
