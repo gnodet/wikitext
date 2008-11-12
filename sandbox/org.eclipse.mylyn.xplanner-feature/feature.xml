@@ -19,7 +19,7 @@
    </license>
 
    <url>
-      <update label="updateSiteName" url="http://download.eclipse.org/tools/mylyn/update/incubator"/>
+      <update label="%updateSiteName" url="http://download.eclipse.org/tools/mylyn/update/incubator"/>
    </url>
 
    <requires>
