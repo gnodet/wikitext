@@ -34,9 +34,13 @@ public class Messages extends NLS {
 
 	public static String XPlannerRepositoryConnector_ErrorDialogTitle;
 
+	public static String XPlannerRepositoryConnector_GETTING_CHANGED_TASKS;
+
 	public static String XPlannerRepositoryConnector_NEW_TASK_DESCRIPTION;
 
 	public static String XPlannerRepositoryConnector_PerformQueryFailure;
+
+	public static String XPlannerRepositoryConnector_RUNNING_QUERY;
 
 	public static String XPlannerRepositoryConnector_VERSION_SUPPORT;
 
@@ -45,6 +49,8 @@ public class Messages extends NLS {
 	public static String XPlannerRepositoryUtils_NO_PERSON_NAME;
 
 	public static String XPlannerRepositoryUtils_NO_PROJECT_NAME;
+
+	public static String XPlannerRepositoryUtils_NO_TASK_NAME;
 
 	public static String XPlannerRepositoryUtils_NO_USER_STORY_NAME;
 

@@ -15,6 +15,7 @@ import org.eclipse.mylyn.internal.tasks.ui.wizards.ExistingTaskWizardPage;
  */
 //TODO 3.1 remove class
 @Deprecated
+@SuppressWarnings("restriction")
 public class ExistingXPlannerTaskWizardPage extends ExistingTaskWizardPage {
 
 	private static final String DESCRIPTION = Messages.ExistingXPlannerTaskWizardPage_ENTER_XPLANNER_IDENTIFIER

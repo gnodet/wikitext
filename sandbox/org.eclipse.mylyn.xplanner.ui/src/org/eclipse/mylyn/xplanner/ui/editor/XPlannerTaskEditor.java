@@ -43,7 +43,7 @@ public class XPlannerTaskEditor extends AbstractTaskEditorPage implements XPlann
 
 	private XPlannerTimeTrackingEditorPart timeTrackingControls;
 
-	private static final String ID_PART_XPLANNER_TIME_TRACKING = "org.eclipse.mylyn.xplanner.ui.editors.part.timetracking";
+	private static final String ID_PART_XPLANNER_TIME_TRACKING = "org.eclipse.mylyn.xplanner.ui.editors.part.timetracking"; //$NON-NLS-1$
 
 	private boolean newTask = false;
 
@@ -169,7 +169,7 @@ public class XPlannerTaskEditor extends AbstractTaskEditorPage implements XPlann
 
 	public String getFormTitle() {
 		return MessageFormat.format(Messages.XPlannerTaskEditor_FORM_TASK_TITLE,
-				XPlannerRepositoryUtils.getName(getRepositoryTaskData()), getRepositoryTaskData().getTaskId() + ""); // so doesn't get formatted as number with a comma	 
+				XPlannerRepositoryUtils.getName(getRepositoryTaskData()), getRepositoryTaskData().getTaskId() + ""); // so doesn't get formatted as number with a comma	  //$NON-NLS-1$
 	}
 
 	@Override

@@ -47,14 +47,14 @@ public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
 			Messages.MylynXPlannerPlugin_NOT_AVAILABLE_IN_SKU, null);
 
 	// Preference setting names
-	public final static String USE_AUTO_TIME_TRACKING_PREFERENCE_NAME = "UseAutoTimeTracking";
+	public final static String USE_AUTO_TIME_TRACKING_PREFERENCE_NAME = "UseAutoTimeTracking"; //$NON-NLS-1$
 
-	public final static String ROUND_AUTO_TIME_TRACKING_TO_HALF_HOUR_PREFERENCE_NAME = "RoundAutoTimeTrackingToHalfHour";
+	public final static String ROUND_AUTO_TIME_TRACKING_TO_HALF_HOUR_PREFERENCE_NAME = "RoundAutoTimeTrackingToHalfHour"; //$NON-NLS-1$
 
-	public final static String ADD_AUTO_TRACKED_TIME_TO_REPOSITORY_VALUE_PREFERENCE_NAME = "AddAutoTrackedTimeToRepositoryValue";
+	public final static String ADD_AUTO_TRACKED_TIME_TO_REPOSITORY_VALUE_PREFERENCE_NAME = "AddAutoTrackedTimeToRepositoryValue"; //$NON-NLS-1$
 
 	@Deprecated
-	public static final String REPOSITORY_KIND = "xplanner";
+	public static final String REPOSITORY_KIND = "xplanner"; //$NON-NLS-1$
 
 	public XPlannerMylynUIPlugin() {
 		INSTANCE = this;

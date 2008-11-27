@@ -127,7 +127,7 @@ public class XPlannerUserStoryEditor extends FormPage {
 			}
 		} catch (CoreException e) {
 			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
-					"Error initializing task editor", e));
+					"Error initializing task editor", e)); //$NON-NLS-1$
 		}
 	}
 
@@ -136,10 +136,10 @@ public class XPlannerUserStoryEditor extends FormPage {
 			this.userStoryData = client.getUserStory(Integer.valueOf(key).intValue());
 		} catch (NumberFormatException e) {
 			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
-					"Error formatting user story key", e));
+					"Error formatting user story key", e)); //$NON-NLS-1$
 		} catch (RemoteException e) {
 			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
-					"Error retrieving user story: " + key, e));
+					"Error retrieving user story: " + key, e)); //$NON-NLS-1$
 		}
 	}
 
@@ -241,7 +241,7 @@ public class XPlannerUserStoryEditor extends FormPage {
 			}
 		} catch (CoreException e) {
 			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
-					"Could not create editor model", e));
+					"Could not create editor model", e)); //$NON-NLS-1$
 		}
 	}
 

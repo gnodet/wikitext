@@ -23,6 +23,7 @@ import org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin;
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
+@SuppressWarnings("restriction")
 public class EditXPlannerQueryWizard extends RepositoryQueryWizard {
 
 	private AbstractXPlannerQueryWizardPage queryPage;

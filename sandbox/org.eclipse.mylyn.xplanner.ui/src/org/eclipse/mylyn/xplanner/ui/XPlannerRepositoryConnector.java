@@ -86,7 +86,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			TaskDataCollector resultCollector, ISynchronizationSession event, IProgressMonitor monitor) {
 
 		monitor = Policy.monitorFor(monitor);
-		monitor.beginTask("Running query", IProgressMonitor.UNKNOWN);
+		monitor.beginTask(Messages.XPlannerRepositoryConnector_RUNNING_QUERY, IProgressMonitor.UNKNOWN);
 		try {
 			XPlannerRepositoryUtils.validateRepository(repository);
 			XPlannerClient client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
@@ -185,7 +185,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 				XPlannerRepositoryUtils.setAttributeValue(repositoryTaskData, TaskAttribute.SUMMARY, data.getName());
 				resultCollector.accept(repositoryTaskData);
 			} catch (CoreException e) {
-				XPlannerMylynUIPlugin.log(e, "", false);
+				XPlannerMylynUIPlugin.log(e, "", false); //$NON-NLS-1$
 			}
 		}
 		return Status.OK_STATUS;
@@ -502,7 +502,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 		TaskRepository repository = session.getTaskRepository();
 		monitor = Policy.monitorFor(monitor);
 		try {
-			monitor.beginTask("Getting changed tasks", IProgressMonitor.UNKNOWN);
+			monitor.beginTask(Messages.XPlannerRepositoryConnector_GETTING_CHANGED_TASKS, IProgressMonitor.UNKNOWN);
 
 			if (repository.getSynchronizationTimeStamp() == null) {
 				for (ITask task : session.getTasks()) {
@@ -527,7 +527,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 	@Override
 	public void postSynchronization(ISynchronizationSession event, IProgressMonitor monitor) throws CoreException {
 		try {
-			monitor.beginTask("", 1);
+			monitor.beginTask("", 1); //$NON-NLS-1$
 			if (event.isFullSynchronization() && event.getStatus() == null) {
 				event.getTaskRepository().setSynchronizationTimeStamp(getSynchronizationTimestamp(event));
 			}

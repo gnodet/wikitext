@@ -46,6 +46,12 @@ public class Messages extends NLS {
 
 	public static String XPlannerTaskEditor_REMAINING_HOURS_TEXT;
 
+	public static String XPlannerTaskEditorExtraControls_ATTRIBUTES_TITLE;
+
+	public static String XPlannerTaskEditorExtraControls_CANNOT_DECREASE_ACTUAL_TIME_VALUE_ERROR;
+
+	public static String XPlannerTaskEditorExtraControls_COULD_NOT_FORMAT_ELAPSED_TIME_ERROR;
+
 	public static String XPlannerTaskEditorFactory_COULD_NOT_CREATE_EDITOR_INPUT;
 
 	public static String XPlannerTaskEditorFactory_ENSURE_PRPOPER_REPOSITORY_CONFIGURATION;
@@ -55,6 +61,16 @@ public class Messages extends NLS {
 	public static String XPlannerTaskEditorFactory_TASK_DOWNLOAD_FAILED;
 
 	public static String XPlannerTaskEditorFactory_TITLE;
+
+	public static String XPlannerTimeTrackingEditorPart_ADD_TO_CURRENT_REPOSITORY_TIME;
+
+	public static String XPlannerTimeTrackingEditorPart_REPLACE_CURRENT_REPOSITORY_TIME;
+
+	public static String XPlannerTimeTrackingEditorPart_ROUND_TO_HALF_HOUR;
+
+	public static String XPlannerTimeTrackingEditorPart_TIME_TRACKING_TITLE;
+
+	public static String XPlannerTimeTrackingEditorPart_UPDATE_TASK_TIME_FROM_MYLYN;
 
 	public static String XPlannerUserStoryEditor_DISPOSITION_LABEL;
 

@@ -50,12 +50,13 @@ import org.xplanner.soap.UserStoryData;
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
+@SuppressWarnings("restriction")
 public class NewXPlannerTaskPage extends WizardPage {
 
-	private static final String DESCRIPTION = "Pick a user story to open the new task editor.\n"
-			+ "Press the Update button if the story is not in the list.";
+	private static final String DESCRIPTION = Messages.NewXPlannerTaskPage_PICK_USER_STORY
+			+ Messages.NewXPlannerTaskPage_PRESS_UPDATE_BUTTON;
 
-	private static final String LABEL_UPDATE = "Update from Repository";
+	private static final String LABEL_UPDATE = Messages.NewXPlannerTaskPage_UPDATE_FROM_REPOSITORY;
 
 	private FilteredTree projectTree;
 
@@ -64,17 +65,17 @@ public class NewXPlannerTaskPage extends WizardPage {
 	private final TaskRepository repository;
 
 	public NewXPlannerTaskPage(TaskRepository repository) {
-		super("XPlannerUserStory");
+		super("XPlannerUserStory"); //$NON-NLS-1$
 		this.repository = repository;
 
-		setTitle("New XPlanner Task");
+		setTitle(Messages.NewXPlannerTaskPage_NEW_XPLANNER_TASK);
 		setDescription(DESCRIPTION);
 
 		try {
 			this.client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 			setPageComplete(false);
 		} catch (CoreException ce) {
-			TasksUiInternal.displayStatus("Repository Error", ce.getStatus());
+			TasksUiInternal.displayStatus(Messages.NewXPlannerTaskPage_REPOSITORY_ERROR, ce.getStatus());
 		}
 	}
 
@@ -142,7 +143,7 @@ public class NewXPlannerTaskPage extends WizardPage {
 
 		// need user story to be selected
 		if (getSelectedUserStory() == null) {
-			errorMessage = "A user story for the new task needs to be selected";
+			errorMessage = Messages.NewXPlannerTaskPage_USER_STORY_NEEDS_TO_BE_SELECTED;
 		}
 
 		setErrorMessage(errorMessage);
@@ -161,18 +162,18 @@ public class NewXPlannerTaskPage extends WizardPage {
 	private void updateProjectsFromRepository(final boolean force) {
 		if (force) { //!client.hasDetails() || force) {
 			try {
-				final AbstractRepositoryConnector connector = TasksUi.getRepositoryManager()
-						.getRepositoryConnector(repository.getConnectorKind());
+				final AbstractRepositoryConnector connector = TasksUi.getRepositoryManager().getRepositoryConnector(
+						repository.getConnectorKind());
 
 				getContainer().run(true, false, new IRunnableWithProgress() {
 					public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-						monitor.beginTask("Updating repository ...", IProgressMonitor.UNKNOWN);
+						monitor.beginTask(Messages.NewXPlannerTaskPage_UPDATING_REPOSITORY, IProgressMonitor.UNKNOWN);
 						try {
 							connector.updateRepositoryConfiguration(repository, monitor);
 						} catch (Exception e) {
 							String msg = NLS.bind( //
-									"Error updating attributes: {0}\n"
-											+ "Please check repository settings in the Task Repositories view.", //
+									Messages.NewXPlannerTaskPage_ERROR_UPDATING_ATTRIBUTES
+											+ Messages.NewXPlannerTaskPage_CHECK_REPOSITORY_SETTINGS, //
 									e.getMessage());
 							showWarning(msg);
 							StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN, msg, e));

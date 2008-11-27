@@ -106,8 +106,8 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 		try {
 			result = postChangesToRepository(repository, repositoryTaskData);
 		} catch (Exception e) {
-			String additionalInfo = e.getLocalizedMessage() != null && e.getLocalizedMessage().length() > 0 ? ": "
-					+ e.getLocalizedMessage() : "";
+			String additionalInfo = e.getLocalizedMessage() != null && e.getLocalizedMessage().length() > 0 ? ": " //$NON-NLS-1$
+					+ e.getLocalizedMessage() : ""; //$NON-NLS-1$
 			throw new CoreException(new Status(IStatus.ERROR, XPlannerCorePlugin.ID, IStatus.ERROR,
 					Messages.XPlannerOfflineTaskHandler_CANNOT_POST_DATA_TO_SERVER + additionalInfo, e));
 		}
@@ -132,7 +132,7 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 					if (taskData.getCreatedDate() == null) {
 						taskData.setCreatedDate(taskData.getLastUpdateTime());
 					}
-					newTaskId = "" + taskData.getId();
+					newTaskId = "" + taskData.getId(); //$NON-NLS-1$
 				} else {
 					taskData = client.getTask(Integer.valueOf(repositoryTaskData.getTaskId()).intValue());
 				}
@@ -165,7 +165,7 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 					client.update(taskData);
 
 					response = new RepositoryResponse(repositoryTaskData.isNew() ? ResponseKind.TASK_CREATED
-							: ResponseKind.TASK_UPDATED, "" + taskData.getId());
+							: ResponseKind.TASK_UPDATED, "" + taskData.getId()); //$NON-NLS-1$
 				} else {
 					// otherwise check if a user story exists
 					UserStoryData userStory = client.getUserStory(Integer.valueOf(repositoryTaskData.getTaskId())
@@ -179,10 +179,10 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 					}
 				}
 			} catch (NumberFormatException e) {
-				XPlannerMylynUIPlugin.log(e.getCause(), "", false);
+				XPlannerMylynUIPlugin.log(e.getCause(), "", false); //$NON-NLS-1$
 				error = e.getMessage();
 			} catch (RemoteException e) {
-				XPlannerMylynUIPlugin.log(e.getCause(), "", false);
+				XPlannerMylynUIPlugin.log(e.getCause(), "", false); //$NON-NLS-1$
 				error = e.getMessage();
 			}
 		}
@@ -223,7 +223,7 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 					attribute.getMetaData().setType(XPlannerRepositoryUtils.getType(attribute.getId()));
 				}
 			}
-			taskData.setVersion("1");
+			taskData.setVersion("1"); //$NON-NLS-1$
 		}
 	}
 

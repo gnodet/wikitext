@@ -40,7 +40,7 @@ import org.eclipse.mylyn.xplanner.ui.wizard.XPlannerRepositorySettingsPage;
  * @author Helen Bershadskaya
  */
 public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
-	private static final String regexp = "(task|story):(\\d+)";
+	private static final String regexp = "(task|story):(\\d+)"; //$NON-NLS-1$
 
 	private static final Pattern PATTERN = Pattern.compile(regexp, Pattern.CASE_INSENSITIVE);
 
@@ -173,8 +173,8 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 	public List<LegendElement> getLegendElements() {
 		List<LegendElement> legendElements = new ArrayList<LegendElement>();
 
-		legendElements.add(LegendElement.createTask("Task", XPlannerImages.OVERLAY_TASK));
-		legendElements.add(LegendElement.createTask("User Story", XPlannerImages.OVERLAY_USER_STORY));
+		legendElements.add(LegendElement.createTask(Messages.XPlannerRepositoryUi_TASK, XPlannerImages.OVERLAY_TASK));
+		legendElements.add(LegendElement.createTask(Messages.XPlannerRepositoryUi_USER_STORY, XPlannerImages.OVERLAY_USER_STORY));
 
 		return legendElements;
 	}

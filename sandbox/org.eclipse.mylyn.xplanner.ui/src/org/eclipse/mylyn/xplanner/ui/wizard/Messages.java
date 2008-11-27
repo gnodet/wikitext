@@ -26,13 +26,33 @@ public class Messages extends NLS {
 
 	public static String NewXPlannerQueryWizard_NEW_XPLANNER_QUERY;
 
+	public static String NewXPlannerTaskPage_CHECK_REPOSITORY_SETTINGS;
+
 	public static String NewXPlannerTaskPage_CREATE_VIA_BROWSER;
 
+	public static String NewXPlannerTaskPage_ERROR_UPDATING_ATTRIBUTES;
+
 	public static String NewXPlannerTaskPage_NEW_TASK;
+
+	public static String NewXPlannerTaskPage_NEW_XPLANNER_TASK;
 
 	public static String NewXPlannerTaskPage_NOTE_TO_LOG_IN;
 
 	public static String NewXPlannerTaskPage_ONCE_SUBMITTED_SYNCHRONIZE_QUERIES;
+
+	public static String NewXPlannerTaskPage_PICK_USER_STORY;
+
+	public static String NewXPlannerTaskPage_PRESS_UPDATE_BUTTON;
+
+	public static String NewXPlannerTaskPage_REPOSITORY_ERROR;
+
+	public static String NewXPlannerTaskPage_UPDATE_FROM_REPOSITORY;
+
+	public static String NewXPlannerTaskPage_UPDATING_REPOSITORY;
+
+	public static String NewXPlannerTaskPage_USER_STORY_NEEDS_TO_BE_SELECTED;
+
+	public static String NewXPlannerTaskWizard_NEW_TASK_TITLE;
 
 	public static String ProjectsViewerContentProvider_COULD_NOT_UPDATE_PROJECT_ELEMENT_CHILD_COUNT;
 
@@ -81,6 +101,10 @@ public class Messages extends NLS {
 	public static String XPlannerRepositorySettingsPage_VALIDATING_SETTINGS;
 
 	public static String XPlannerRepositorySettingsPage_XPLANNER_REPPOSITORY_SETTINGS;
+
+	public static String XPlannerRepositoryUi_TASK;
+
+	public static String XPlannerRepositoryUi_USER_STORY;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

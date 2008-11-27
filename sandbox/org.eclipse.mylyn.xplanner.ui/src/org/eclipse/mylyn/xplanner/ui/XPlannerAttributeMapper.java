@@ -34,7 +34,7 @@ public class XPlannerAttributeMapper extends TaskAttributeMapper {
 
 	private static final long serialVersionUID = -4685044081450189855L;
 
-	public static final String DEFAULT_REPOSITORY_TASK_KIND = "task";
+	public static final String DEFAULT_REPOSITORY_TASK_KIND = "task"; //$NON-NLS-1$
 
 	public static final String TIME_DATE_FORMAT_STRING = "yyyy-MM-dd HH:mm:ss";// "EEE //$NON-NLS-1$
 
@@ -70,9 +70,9 @@ public class XPlannerAttributeMapper extends TaskAttributeMapper {
 
 	public static final String ATTRIBUTE_USER_STORY_ID = "userStoryId"; //$NON-NLS-1$
 
-	public static final String ATTRIBUTE_SUBTASK_IDS = "attribute.xplanner.subtask_ids";
+	public static final String ATTRIBUTE_SUBTASK_IDS = "attribute.xplanner.subtask_ids"; //$NON-NLS-1$
 
-	public static final String ATTRIBUTE_SUBTASK_KEYS = "attribute.xplanner.subtask_keys";
+	public static final String ATTRIBUTE_SUBTASK_KEYS = "attribute.xplanner.subtask_keys"; //$NON-NLS-1$
 
 	private static Map<String, Attribute> commonKeyToAttributesMap = new HashMap<String, Attribute>();
 
@@ -84,7 +84,7 @@ public class XPlannerAttributeMapper extends TaskAttributeMapper {
 		NAME("Name:", TaskAttribute.SUMMARY, false), //$NON-NLS-1$
 		CREATED_ON("Created:", TaskAttribute.DATE_CREATION, true), //$NON-NLS-1$
 		MODIFIED_TIME("Last Update:", TaskAttribute.DATE_MODIFICATION, true), //$NON-NLS-1$
-		SUBTASK_IDS("Subtask ids:", XPlannerAttributeMapper.ATTRIBUTE_SUBTASK_IDS, true), SUBTASK_KEYS("Sub-Tasks:",
+		SUBTASK_IDS("Subtask ids:", XPlannerAttributeMapper.ATTRIBUTE_SUBTASK_IDS, true), SUBTASK_KEYS("Sub-Tasks:", //$NON-NLS-1$ //$NON-NLS-2$
 				XPlannerAttributeMapper.ATTRIBUTE_SUBTASK_KEYS, true),
 
 		;
@@ -228,7 +228,7 @@ public class XPlannerAttributeMapper extends TaskAttributeMapper {
 				date = timeDateFormat.parse(dateString);
 			}
 		} catch (Exception e) {
-			XPlannerMylynUIPlugin.log(e.getCause(), "", false);
+			XPlannerMylynUIPlugin.log(e.getCause(), "", false); //$NON-NLS-1$
 		}
 
 		return date;

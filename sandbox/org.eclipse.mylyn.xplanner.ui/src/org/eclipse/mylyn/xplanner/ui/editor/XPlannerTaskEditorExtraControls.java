@@ -65,7 +65,7 @@ public class XPlannerTaskEditorExtraControls extends AbstractTaskEditorPart {
 	public XPlannerTaskEditorExtraControls(AbstractTaskEditorPage editor, boolean showTask) {
 		this.editor = editor;
 		this.showTask = showTask;
-		setPartName("Attributes");
+		setPartName(Messages.XPlannerTaskEditorExtraControls_ATTRIBUTES_TITLE);
 	}
 
 	@Override
@@ -264,7 +264,7 @@ public class XPlannerTaskEditorExtraControls extends AbstractTaskEditorPart {
 			Double updatedActualTimeValue = XPlannerRepositoryUtils.getHoursValue(actualTimeText.getText());
 			Double currentActualTimeValue = XPlannerRepositoryUtils.getActualHours(getRepositoryTaskData());
 			if (updatedActualTimeValue < currentActualTimeValue) {
-				errorMessage = "Cannot decrease actual time value";
+				errorMessage = Messages.XPlannerTaskEditorExtraControls_CANNOT_DECREASE_ACTUAL_TIME_VALUE_ERROR;
 				errorControl = actualTimeText;
 			} else {
 				errorMessage = null;
@@ -272,7 +272,7 @@ public class XPlannerTaskEditorExtraControls extends AbstractTaskEditorPart {
 			}
 			return errorMessage;
 		} catch (Throwable t) {
-			return "bad";
+			return "bad"; //$NON-NLS-1$
 		}
 
 	}
@@ -284,14 +284,14 @@ public class XPlannerTaskEditorExtraControls extends AbstractTaskEditorPart {
 			elapsedHoursString = getElapsedHoursAsString(newElapsedTime, addToCurrent, roundToHalfHour);
 		} catch (RuntimeException e1) {
 			StatusHandler.fail(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
-					"Could not format elapsed time", e1));
+					Messages.XPlannerTaskEditorExtraControls_COULD_NOT_FORMAT_ELAPSED_TIME_ERROR, e1));
 		}
 
 		actualTimeText.setText(elapsedHoursString);
 	}
 
 	private static double convertMilliSecondsToHours(long milliSeconds) {
-		Long minutes = ((Long) Long.valueOf("" + milliSeconds)) / (1000 * 60);
+		Long minutes = ((Long) Long.valueOf("" + milliSeconds)) / (1000 * 60); //$NON-NLS-1$
 		Double hours = minutes / 60d;
 
 		return hours;

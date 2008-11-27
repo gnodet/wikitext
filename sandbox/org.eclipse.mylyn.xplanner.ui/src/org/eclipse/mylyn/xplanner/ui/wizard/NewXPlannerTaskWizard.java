@@ -24,7 +24,7 @@ public class NewXPlannerTaskWizard extends NewTaskWizard {
 
 		userStoryPage = new NewXPlannerTaskPage(taskRepository);
 
-		setWindowTitle("New Task");
+		setWindowTitle(Messages.NewXPlannerTaskWizard_NEW_TASK_TITLE);
 		setDefaultPageImageDescriptor(TasksUiImages.BANNER_REPOSITORY);
 
 		setNeedsProgressMonitor(true);
