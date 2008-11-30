@@ -14,7 +14,10 @@ package org.eclipse.mylyn.internal.tests.report;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
+import java.util.StringTokenizer;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
@@ -31,53 +34,65 @@ import org.eclipse.mylyn.tasks.core.TaskRepository;
 public class Main {
 
 	public static void main(String[] args) {
+		List<String> filenames = new ArrayList<String>();
 		Build build = null;
-		String filename = null;
 		String propertiesFilename = null;
 		String tag = null;
+		boolean clear = false;
 		for (int i = 0; i < args.length; i++) {
-			if ("-build".equals(args[i])) {
-				build = new Build(readArg(args, ++i));
-			} else if ("-in".equals(args[i])) {
-				filename = readArg(args, ++i);
-			}
-			if ("-config".equals(args[i])) {
-				propertiesFilename = readArg(args, ++i);
-			}
-			if ("-tag".equals(args[i])) {
-				tag = readArg(args, ++i);
+			if (args[i].startsWith("-")) {
+				if ("-build".equals(args[i])) {
+					build = new Build(readArg(args, ++i));
+				} else if ("-config".equals(args[i])) {
+					propertiesFilename = readArg(args, ++i);
+				} else if ("-tag".equals(args[i])) {
+					tag = readArg(args, ++i);
+				} else if ("-clear".equals(args[i])) {
+					clear = "YES".equals(readArg(args, ++i));
+				}
+
+			} else {
+				StringTokenizer t = new StringTokenizer(args[i], File.pathSeparator);
+				while (t.hasMoreTokens()) {
+					filenames.add(t.nextToken());
+				}
 			}
 		}
 
-		if (build == null || filename == null || propertiesFilename == null) {
+		if (build == null || filenames.isEmpty() || propertiesFilename == null) {
 			printUsage();
 			System.exit(1);
 		}
 
 		try {
 			TaskRepository repository = readConfig(new File(propertiesFilename));
-			process(repository, new File(filename), build, tag);
+			TaskReporter reporter = new TaskReporter(build, repository, tag);
+			if (clear) {
+				reporter.clearAll();
+			}
+			reporter.initialize();
+			for (String filename : filenames) {
+				process(repository, new File(filename), reporter);
+			}
+			reporter.done();
+			System.out.println(reporter.getStatistics());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	private static void printUsage() {
-		System.err.println("Main -in [junit report file] -config [config file] -build [id]");
+		System.err.println("Main -config [config file] -build [id] [junit report file]...");
 
 	}
 
-	private static void process(TaskRepository repository, File file, Build build, String tag) throws Exception {
+	private static void process(TaskRepository repository, File file, TaskReporter reporter) throws Exception {
 		XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 		InputStream in = new FileInputStream(file);
 		try {
 			XMLEventReader reader = inputFactory.createXMLEventReader(in);
-			TaskReporter reporter = new TaskReporter(build, repository, tag);
-			reporter.initialize();
 			JUnitReportParser parser = new JUnitReportParser(reporter);
 			parser.parse(reader);
-			reporter.done();
-			System.out.println(reporter.getStatistics());
 		} finally {
 			in.close();
 		}

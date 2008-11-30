@@ -12,7 +12,11 @@
 package org.eclipse.mylyn.internal.tests.report;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
@@ -22,6 +26,7 @@ import org.eclipse.mylyn.internal.tasks.core.TaskList;
 import org.eclipse.mylyn.internal.tasks.core.TaskRepositoryManager;
 import org.eclipse.mylyn.internal.tests.report.TestCaseResult.TestCaseResultType;
 import org.eclipse.mylyn.internal.trac.core.TracRepositoryConnector;
+import org.eclipse.mylyn.internal.trac.core.TracTaskDataHandler;
 import org.eclipse.mylyn.internal.trac.core.TracTaskMapper;
 import org.eclipse.mylyn.internal.trac.core.TracRepositoryConnector.TaskStatus;
 import org.eclipse.mylyn.internal.trac.core.client.ITracClient;
@@ -30,6 +35,7 @@ import org.eclipse.mylyn.internal.trac.core.model.TracSearch;
 import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.ITaskMapping;
 import org.eclipse.mylyn.tasks.core.RepositoryResponse;
+import org.eclipse.mylyn.tasks.core.RepositoryStatus;
 import org.eclipse.mylyn.tasks.core.TaskMapping;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.data.AbstractTaskDataHandler;
@@ -66,9 +72,9 @@ class TaskReporter implements TestCaseVisitor {
 
 	private final String tag;
 
-	private List<TaskData> tasks;
+	private Map<String, TaskData> tasks;
 
-	private List<TaskData> processedTasks;
+	private Set<String> processedTasks;
 
 	public TaskReporter(Build build, TaskRepository taskRepository, String tag) {
 		this.build = build;
@@ -101,6 +107,25 @@ class TaskReporter implements TestCaseVisitor {
 		return taskData;
 	}
 
+	private TaskData createParentTaskData(final TestCase testCase) throws CoreException {
+		TaskData taskData = new TaskData(taskDataHandler.getAttributeMapper(taskRepository),
+				taskRepository.getConnectorKind(), taskRepository.getRepositoryUrl(), "");
+		ITaskMapping initializationData = new TaskMapping() {
+			@Override
+			public String getSummary() {
+				return getParentTaskSummary(testCase);
+			}
+
+			@Override
+			public String getDescription() {
+				return getParentTaskDescription(testCase);
+			}
+		};
+		taskDataHandler.initializeTaskData(taskRepository, taskData, null, null);
+		connector.getTaskMapping(taskData).merge(initializationData);
+		return taskData;
+	}
+
 //	private String getQueryUrl(TestCase testCase) {
 //		TracSearch search = new TracSearch();
 //		search.addFilter("summary", getTaskSummary(testCase));
@@ -113,7 +138,7 @@ class TaskReporter implements TestCaseVisitor {
 //		return sb.toString();
 //	}
 
-	private String getQueryUrl() {
+	private String getQueryUrl(String tag) {
 		TracSearch search = new TracSearch();
 		if (tag != null) {
 			search.addFilter("summary", "^" + tag);
@@ -151,15 +176,29 @@ class TaskReporter implements TestCaseVisitor {
 		return "Test results for " + testCase.getClassName() + "." + testCase.getTestName() + "()";
 	}
 
+	private String getParentTaskDescription(TestCase testCase) {
+		return "Test results for " + testCase.getClassName();
+	}
+
 	private String getTaskSummary(TestCase testCase) {
 		StringBuilder sb = new StringBuilder();
 		if (tag != null) {
 			sb.append(tag);
 			sb.append(" ");
 		}
-		sb.append(testCase.getShortClassName());
-		sb.append(": ");
+//		sb.append(testCase.getShortClassName());
+//		sb.append(": ");
 		sb.append(testCase.getTestName());
+		return sb.toString();
+	}
+
+	private String getParentTaskSummary(TestCase testCase) {
+		StringBuilder sb = new StringBuilder();
+		if (tag != null) {
+			sb.append(tag);
+			sb.append(" ");
+		}
+		sb.append(testCase.getShortClassName());
 		return sb.toString();
 	}
 
@@ -186,11 +225,14 @@ class TaskReporter implements TestCaseVisitor {
 				return;
 			}
 		} else {
-			processedTasks.add(taskData);
+			processedTasks.add(taskData.getTaskId());
 			if (taskData.isPartial()) {
 				taskData = connector.getTaskData(taskRepository, taskData.getTaskId(), null);
 			}
 		}
+
+		// set as sub task
+		updateParentTask(testCase, taskData);
 
 		ITaskMapping taskMapping = connector.getTaskMapping(taskData);
 		String status = taskMapping.getStatus();
@@ -222,6 +264,35 @@ class TaskReporter implements TestCaseVisitor {
 
 		message(" submitting task");
 		taskDataHandler.postTaskData(taskRepository, taskData, null, new NullProgressMonitor());
+	}
+
+	private void updateParentTask(TestCase testCase, TaskData taskData) throws CoreException {
+		TaskData parentTaskData = getParentTask(testCase);
+		if (parentTaskData == null) {
+			message(" creating parent task");
+			parentTaskData = createParentTaskData(testCase);
+			RepositoryResponse response = taskDataHandler.postTaskData(taskRepository, parentTaskData, null, null);
+			parentTaskData = connector.getTaskData(taskRepository, response.getTaskId(), null);
+			tasks.put(parentTaskData.getTaskId(), parentTaskData);
+		}
+
+		TaskAttribute attribute = parentTaskData.getRoot().getAttribute(TracTaskDataHandler.ATTRIBUTE_BLOCKED_BY);
+		if (attribute != null) {
+			String childId = " " + taskData.getTaskId();
+			if (!(" " + attribute.getValue() + " ").contains(childId + " ")) {
+				message(" updating parent task");
+				attribute.setValue(attribute.getValue() + childId);
+//				try {
+//					Thread.sleep(1000);
+//				} catch (InterruptedException e) {
+//				}
+				RepositoryResponse response = taskDataHandler.postTaskData(taskRepository, parentTaskData, null, null);
+				parentTaskData = connector.getTaskData(taskRepository, response.getTaskId(), null);
+				tasks.put(parentTaskData.getTaskId(), parentTaskData);
+			}
+		}
+
+		processedTasks.add(parentTaskData.getTaskId());
 	}
 
 	private void setNewComment(TaskData taskData, String comment) {
@@ -288,10 +359,21 @@ class TaskReporter implements TestCaseVisitor {
 	}
 
 	private TaskData getTask(TestCase testCase) {
-		for (TaskData task : tasks) {
+		for (TaskData task : tasks.values()) {
 			TracTaskMapper mapping = connector.getTaskMapping(task);
 			if (getTaskSummary(testCase).equals(mapping.getSummary())
 					&& getTaskDescription(testCase).equals(mapping.getDescription())) {
+				return task;
+			}
+		}
+		return null;
+	}
+
+	private TaskData getParentTask(TestCase testCase) {
+		for (TaskData task : tasks.values()) {
+			TracTaskMapper mapping = connector.getTaskMapping(task);
+			if (getParentTaskSummary(testCase).equals(mapping.getSummary())
+					&& getParentTaskDescription(testCase).equals(mapping.getDescription())) {
 				return task;
 			}
 		}
@@ -326,32 +408,27 @@ class TaskReporter implements TestCaseVisitor {
 
 	public void initialize() {
 		message("Retrieving tasks from " + taskRepository.getRepositoryLabel());
-		String queryUrl = getQueryUrl();
+		String queryUrl = getQueryUrl(tag);
 		IRepositoryQuery query = repositoryModel.createRepositoryQuery(taskRepository);
 		query.setUrl(queryUrl);
 		ResultCollector resultCollector = new ResultCollector();
 		IStatus status = connector.performQuery(taskRepository, query, resultCollector, null, new NullProgressMonitor());
 		if (status.isOK()) {
-			this.tasks = resultCollector.getResults();
-//			for (TaskData task : this.tasks) {
-//				ITracClient client = connector.getClientManager().getTracClient(taskRepository);
-//				try {
-//					client.deleteTicket(Integer.parseInt(task.getTaskId()), null);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-			this.processedTasks = new ArrayList<TaskData>();
+			this.processedTasks = new HashSet<String>();
+			this.tasks = new HashMap<String, TaskData>();
+			for (TaskData task : resultCollector.getResults()) {
+				this.tasks.put(task.getTaskId(), task);
+			}
 		} else {
 			handleError(status);
 		}
 	}
 
 	public void done() {
-		List<TaskData> deletedTasks = new ArrayList<TaskData>(tasks);
+		List<String> deletedTasks = new ArrayList<String>(tasks.keySet());
 		deletedTasks.removeAll(processedTasks);
-		for (TaskData taskData : deletedTasks) {
-			handleDeleted(taskData);
+		for (String taskId : deletedTasks) {
+			handleDeleted(tasks.get(taskId));
 		}
 	}
 
@@ -359,7 +436,7 @@ class TaskReporter implements TestCaseVisitor {
 		ITaskMapping taskMapping = connector.getTaskMapping(taskData);
 		message("Processing task: " + taskMapping.getSummary());
 		try {
-			processedTasks.add(taskData);
+			processedTasks.add(taskData.getTaskId());
 
 			String status = taskMapping.getStatus();
 			if (TaskStatus.CLOSED == TaskStatus.fromStatus(status)) {
@@ -378,6 +455,27 @@ class TaskReporter implements TestCaseVisitor {
 			taskDataHandler.postTaskData(taskRepository, taskData, null, new NullProgressMonitor());
 		} catch (CoreException e) {
 			handleSubmitException(e);
+		}
+	}
+
+	public void clearAll() {
+		message("Deleting all tasks from " + taskRepository.getRepositoryLabel());
+		String queryUrl = getQueryUrl(null);
+		IRepositoryQuery query = repositoryModel.createRepositoryQuery(taskRepository);
+		query.setUrl(queryUrl);
+		ResultCollector resultCollector = new ResultCollector();
+		IStatus status = connector.performQuery(taskRepository, query, resultCollector, null, new NullProgressMonitor());
+		if (status.isOK()) {
+			ITracClient client = connector.getClientManager().getTracClient(taskRepository);
+			for (TaskData task : resultCollector.getResults()) {
+				try {
+					client.deleteTicket(Integer.parseInt(task.getTaskId()), null);
+				} catch (Exception e) {
+					handleError(new RepositoryStatus(taskRepository, IStatus.ERROR, "", 0, "Error deleting task", e));
+				}
+			}
+		} else {
+			handleError(status);
 		}
 	}
 
