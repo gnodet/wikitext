@@ -34,7 +34,7 @@ public class Main {
 		Build build = null;
 		String filename = null;
 		String propertiesFilename = null;
-
+		String tag = null;
 		for (int i = 0; i < args.length; i++) {
 			if ("-build".equals(args[i])) {
 				build = new Build(readArg(args, ++i));
@@ -43,6 +43,9 @@ public class Main {
 			}
 			if ("-config".equals(args[i])) {
 				propertiesFilename = readArg(args, ++i);
+			}
+			if ("-tag".equals(args[i])) {
+				tag = readArg(args, ++i);
 			}
 		}
 
@@ -53,7 +56,7 @@ public class Main {
 
 		try {
 			TaskRepository repository = readConfig(new File(propertiesFilename));
-			process(repository, new File(filename), build);
+			process(repository, new File(filename), build, tag);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -64,14 +67,16 @@ public class Main {
 
 	}
 
-	private static void process(TaskRepository repository, File file, Build build) throws Exception {
+	private static void process(TaskRepository repository, File file, Build build, String tag) throws Exception {
 		XMLInputFactory inputFactory = XMLInputFactory.newInstance();
 		InputStream in = new FileInputStream(file);
 		try {
 			XMLEventReader reader = inputFactory.createXMLEventReader(in);
-			TaskReporter reporter = new TaskReporter(build, repository);
+			TaskReporter reporter = new TaskReporter(build, repository, tag);
+			reporter.initialize();
 			JUnitReportParser parser = new JUnitReportParser(reporter);
 			parser.parse(reader);
+			reporter.done();
 			System.out.println(reporter.getStatistics());
 		} finally {
 			in.close();
