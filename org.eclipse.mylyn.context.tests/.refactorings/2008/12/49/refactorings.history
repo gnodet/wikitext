@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move &apos;org.eclipse.mylyn.context.tests.AbstractContextTest.openView(...)&apos; to &apos;org.eclipse.mylyn.context.tests.support.TestUtil&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.context.tests&apos;&#x0A;- Original element: &apos;org.eclipse.mylyn.context.tests.AbstractContextTest.openView(...)&apos;&#x0A;- Destination type: &apos;org.eclipse.mylyn.context.tests.support.TestUtil&apos;" delegate="false" deprecate="true" description="Move member &apos;openView&apos;" element1="/src&lt;org.eclipse.mylyn.context.tests{AbstractContextTest.java[AbstractContextTest~openView~QString;" flags="589830" id="org.eclipse.jdt.ui.move.static" input="/src&lt;org.eclipse.mylyn.context.tests.support{TestUtil.java[TestUtil" stamp="1228598414998" version="1.0"/>
+</session>
