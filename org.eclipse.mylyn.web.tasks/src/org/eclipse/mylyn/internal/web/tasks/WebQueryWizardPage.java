@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.viewers.ILabelProviderListener;
@@ -336,6 +337,8 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 			params.putAll(WebRepositoryConnector.getQueryParams(query));
 		}
 		parametersEditor.addParams(params, vars);
+
+		Dialog.applyDialogFont(composite);
 	}
 
 	private static String addVars(LinkedHashMap<String, String> vars, String property) {
