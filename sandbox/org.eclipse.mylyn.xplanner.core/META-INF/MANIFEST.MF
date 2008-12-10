@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Mylyn XPlanner Connector Core
+Bundle-Name: %bundleName
 Bundle-SymbolicName: org.eclipse.mylyn.xplanner.core;singleton:=true
 Bundle-Version: 3.1.0.qualifier
 Bundle-Activator: org.eclipse.mylyn.xplanner.core.XPlannerCorePlugin
-Bundle-Vendor: Eclipse.org
+Bundle-Vendor: %bundleVendor
 Bundle-Localization: plugin
 Require-Bundle: javax.xml.rpc;bundle-version="1.1.0",
  org.apache.axis;bundle-version="1.4.0",
