@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2004, 2008 Tasktop Technologies and others.
+ * Copyright (c) 2004, 2008 Tasktop Technologies and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,13 +13,13 @@ package org.eclipse.mylyn.internal.monitor.usage;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.Proxy;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -38,6 +38,8 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylyn.commons.core.StatusHandler;
+import org.eclipse.mylyn.commons.net.WebLocation;
+import org.eclipse.mylyn.commons.net.WebUtil;
 import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.context.core.InteractionContextManager;
 import org.eclipse.mylyn.internal.monitor.ui.ActionExecutionMonitor;
@@ -609,12 +611,11 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_NUM_USER_EVENTS, numEvents);
 	}
 
-	// TODO: move to new proxy support
-	@SuppressWarnings("deprecation")
 	public void configureProxy(HttpClient httpClient, String uploadScript) {
-		Proxy proxy = org.eclipse.mylyn.internal.commons.net.WebClientUtil.getPlatformProxy();
-		org.eclipse.mylyn.internal.commons.net.WebClientUtil.setupHttpClient(httpClient, proxy, uploadScript,
-				uploadAuthentication.getUser(), uploadAuthentication.getPassword());
+		WebUtil.configureHttpClient(httpClient, null);
+		HostConfiguration hostConfiguration = WebUtil.createHostConfiguration(httpClient, new WebLocation(uploadScript,
+				uploadAuthentication.getUser(), uploadAuthentication.getPassword()), null);
+		httpClient.setHostConfiguration(hostConfiguration);
 	}
 
 	public static IPreferenceStore getPrefs() {
