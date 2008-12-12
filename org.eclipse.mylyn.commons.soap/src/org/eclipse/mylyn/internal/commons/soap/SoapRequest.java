@@ -8,8 +8,7 @@
  * Contributors:
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
-
-package org.eclipse.mylyn.internal.jira.core.service.soap;
+package org.eclipse.mylyn.internal.commons.soap;
 
 import org.apache.commons.httpclient.HttpMethodBase;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -18,27 +17,27 @@ import org.eclipse.core.runtime.OperationCanceledException;
 /**
  * @author Steffen Pingel
  */
-public class JiraRequest {
+public class SoapRequest {
+
+	private static ThreadLocal<SoapRequest> currentRequest = new ThreadLocal<SoapRequest>();
 
 	private static final int METHOD_POLL_INTERVAL = 200;
 
-	private static ThreadLocal<JiraRequest> currentRequest = new ThreadLocal<JiraRequest>();
-
-	public static JiraRequest getCurrentRequest() {
+	public static SoapRequest getCurrentRequest() {
 		return currentRequest.get();
 	}
 
-	public static void setCurrentRequest(JiraRequest request) {
+	public static void setCurrentRequest(SoapRequest request) {
 		currentRequest.set(request);
 	}
+
+	private volatile boolean done;
 
 	private volatile HttpMethodBase method;
 
 	private final IProgressMonitor monitor;
 
-	private volatile boolean done;
-
-	public JiraRequest(IProgressMonitor monitor) {
+	public SoapRequest(IProgressMonitor monitor) {
 		this.monitor = monitor;
 
 	}
@@ -59,6 +58,10 @@ public class JiraRequest {
 		method.abort();
 	}
 
+	public void done() {
+		done = true;
+	}
+
 	public HttpMethodBase getMethod() {
 		return method;
 	}
@@ -69,10 +72,6 @@ public class JiraRequest {
 
 	public void setMethod(HttpMethodBase method) {
 		this.method = method;
-	}
-
-	public void done() {
-		done = true;
 	}
 
 }

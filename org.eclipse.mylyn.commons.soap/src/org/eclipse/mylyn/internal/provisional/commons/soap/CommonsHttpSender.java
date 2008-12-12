@@ -27,8 +27,9 @@
  *   - reformatted source and added @SuppressWarnings annotation
  *   - commented calls to commons logging out 
  *   - added timeout thread for idle connections
+ *   - added AxisHttpFault to provide additional details in case of http error
  */
-package org.eclipse.mylyn.internal.jira.core.service.soap;
+package org.eclipse.mylyn.internal.provisional.commons.soap;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FilterInputStream;
@@ -49,7 +50,6 @@ import javax.xml.soap.MimeHeaders;
 import javax.xml.soap.SOAPException;
 
 import org.apache.axis.AxisFault;
-import org.apache.axis.Constants;
 import org.apache.axis.Message;
 import org.apache.axis.MessageContext;
 import org.apache.axis.components.net.CommonsHTTPClientProperties;
@@ -208,14 +208,15 @@ public class CommonsHttpSender extends BasicHandler {
 
 				// SOAP Fault should be in here - so fall through
 			} else {
-				String statusMessage = method.getStatusText();
-				AxisFault fault = new AxisFault("HTTP", "(" + returnCode + ")" + statusMessage, null, null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+//				String statusMessage = method.getStatusText();
+//				AxisFault fault = new AxisFault("HTTP", "(" + returnCode + ")" + statusMessage, null, null); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
 				try {
-					fault.setFaultDetailString(Messages.getMessage("return01", "" + returnCode, //$NON-NLS-1$ //$NON-NLS-2$
-							method.getResponseBodyAsString()));
-					fault.addFaultDetail(Constants.QNAME_FAULTDETAIL_HTTPERRORCODE, Integer.toString(returnCode));
-					throw fault;
+//					fault.setFaultDetailString(Messages.getMessage("return01", "" + returnCode, //$NON-NLS-1$ //$NON-NLS-2$
+//							method.getResponseBodyAsString()));
+//					fault.addFaultDetail(Constants.QNAME_FAULTDETAIL_HTTPERRORCODE, Integer.toString(returnCode));
+//					throw fault;
+					throw AxisHttpFault.makeFault(method);
 				} finally {
 					method.releaseConnection(); // release connection back to pool.
 				}
