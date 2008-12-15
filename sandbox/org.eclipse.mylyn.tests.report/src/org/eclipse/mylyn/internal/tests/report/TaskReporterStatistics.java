@@ -34,7 +34,7 @@ public class TaskReporterStatistics {
 		sb.append("Tasks untouched : ").append(tasksUntouched).append("\n");
 		sb.append("Tasks resolved  : ").append(tasksResolved).append("\n");
 		sb.append("Tasks reopened  : ").append(tasksReopened).append("\n");
-		sb.append("Tasks deleted   : ").append(tasksDeleted).append("\n");
+		sb.append("Tasks closed    : ").append(tasksDeleted).append("\n");
 		sb.append("Tasks up-to-date: ").append(tasksStackTraceUpToDate).append("\n");
 		if (ignoredErrors > 0) {
 			sb.append("Ignored errors  : ").append(ignoredErrors).append("\n");

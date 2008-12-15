@@ -226,19 +226,22 @@ class TaskReporter implements TestCaseVisitor {
 			}
 		} else {
 			processedTasks.add(taskData.getTaskId());
-			if (taskData.isPartial()) {
-				taskData = connector.getTaskData(taskRepository, taskData.getTaskId(), null);
-			}
 		}
 
 		// set as sub task
-		updateParentTask(testCase, taskData);
+		TaskData parentTaskData = updateParentTask(testCase, taskData, testCase.getResult() != null);
 
 		ITaskMapping taskMapping = connector.getTaskMapping(taskData);
 		String status = taskMapping.getStatus();
+		boolean modified = false;
 		if (testCase.getResult() != null) {
+			if (taskData.isPartial()) {
+				message(" retrieving full details");
+				taskData = connector.getTaskData(taskRepository, taskData.getTaskId(), null);
+			}
 			if (TaskStatus.CLOSED == TaskStatus.fromStatus(status)) {
 				setTaskOperation(taskData, OPERATION_REOPEN);
+				modified = true;
 			}
 			if (matchesLastComment(taskData, testCase.getResult())) {
 				statistics.tasksStackTraceUpToDate++;
@@ -247,26 +250,31 @@ class TaskReporter implements TestCaseVisitor {
 				statistics.tasksReopened++;
 				message(" adding new stack trace");
 				setNewComment(taskData, getTaskComment(testCase.getResult()));
+				modified = true;
 			}
+			// this parent's task should not be closed
+			processedTasks.add(parentTaskData.getTaskId());
 		} else {
-			if (TaskStatus.CLOSED == TaskStatus.fromStatus(status)) {
-				statistics.tasksUntouched++;
-				// test case succeeded and task is closed
-				message(" nothing to do, task is alread closed");
-				return;
-			} else {
+			if (TaskStatus.CLOSED != TaskStatus.fromStatus(status)) {
 				statistics.tasksResolved++;
 				message(" resolving task");
 				setNewComment(taskData, "Fixed in build " + build.getId());
 				setTaskOperation(taskData, OPERATION_RESOLVE);
+				modified = true;
 			}
 		}
 
-		message(" submitting task");
-		taskDataHandler.postTaskData(taskRepository, taskData, null, new NullProgressMonitor());
+		if (modified) {
+			message(" submitting task");
+			taskDataHandler.postTaskData(taskRepository, taskData, null, new NullProgressMonitor());
+		} else {
+			statistics.tasksUntouched++;
+			// test case succeeded and task is closed
+			message(" nothing to do, task is already closed");
+		}
 	}
 
-	private void updateParentTask(TestCase testCase, TaskData taskData) throws CoreException {
+	private TaskData updateParentTask(TestCase testCase, TaskData taskData, boolean reopen) throws CoreException {
 		TaskData parentTaskData = getParentTask(testCase);
 		if (parentTaskData == null) {
 			message(" creating parent task");
@@ -276,23 +284,34 @@ class TaskReporter implements TestCaseVisitor {
 			tasks.put(parentTaskData.getTaskId(), parentTaskData);
 		}
 
+		boolean modified = false;
 		TaskAttribute attribute = parentTaskData.getRoot().getAttribute(TracTaskDataHandler.ATTRIBUTE_BLOCKED_BY);
 		if (attribute != null) {
 			String childId = " " + taskData.getTaskId();
 			if (!(" " + attribute.getValue() + " ").contains(childId + " ")) {
 				message(" updating parent task");
 				attribute.setValue(attribute.getValue() + childId);
-//				try {
-//					Thread.sleep(1000);
-//				} catch (InterruptedException e) {
-//				}
-				RepositoryResponse response = taskDataHandler.postTaskData(taskRepository, parentTaskData, null, null);
-				parentTaskData = connector.getTaskData(taskRepository, response.getTaskId(), null);
-				tasks.put(parentTaskData.getTaskId(), parentTaskData);
+				modified = true;
 			}
 		}
-
-		processedTasks.add(parentTaskData.getTaskId());
+		ITaskMapping taskMapping = connector.getTaskMapping(parentTaskData);
+		String status = taskMapping.getStatus();
+		if (reopen && TaskStatus.CLOSED == TaskStatus.fromStatus(status)) {
+			message(" reopening parent task");
+			setTaskOperation(parentTaskData, OPERATION_REOPEN);
+			modified = true;
+		}
+		if (modified) {
+			// avoid database exceptions when running fast locally
+//			try {
+//				Thread.sleep(1000);
+//			} catch (InterruptedException e) {
+//			}
+			RepositoryResponse response = taskDataHandler.postTaskData(taskRepository, parentTaskData, null, null);
+			parentTaskData = connector.getTaskData(taskRepository, response.getTaskId(), null);
+			tasks.put(parentTaskData.getTaskId(), parentTaskData);
+		}
+		return parentTaskData;
 	}
 
 	private void setNewComment(TaskData taskData, String comment) {
@@ -447,7 +466,7 @@ class TaskReporter implements TestCaseVisitor {
 			} else {
 				statistics.tasksDeleted++;
 				message(" resolving task");
-				setNewComment(taskData, "Removed in build " + build.getId());
+				setNewComment(taskData, "Fixed or removed in build " + build.getId());
 				setTaskOperation(taskData, OPERATION_RESOLVE);
 			}
 
