@@ -9,11 +9,14 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.context.tests;
+package org.eclipse.mylyn.commons.tests.manual;
 
 import junit.framework.TestCase;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -21,13 +24,22 @@ import org.eclipse.ui.PlatformUI;
 /**
  * @author Mik Kersten
  */
-public abstract class AbstractManualTest extends TestCase {
+public class StatusHandlerTest extends TestCase {
 
-	private boolean questionResponse = false;
+	public void testErrorDialog() {
+		try {
+			int i = 10 / 0;
+			System.out.println(i);
+		} catch (Throwable t) {
+			StatusHandler.fail(new Status(IStatus.ERROR, "org.eclipse.mylyn", "whoops", t));
+		}
+		StatusHandler.fail(new Status(IStatus.ERROR, "org.eclipse.mylyn", "whoops"));
 
-	public synchronized boolean confirmWithUser(String message) {
+		assertTrue(confirmWithUser("Did an error dialog show up correctly?"));
+	}
 
-		questionResponse = false;
+	public boolean confirmWithUser(String message) {
+		final boolean[] questionResponse = new boolean[1];
 		final String finalMsg = message;
 		PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 			public void run() {
@@ -35,14 +47,13 @@ public abstract class AbstractManualTest extends TestCase {
 					IWorkbenchWindow iww = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 
 					Shell shell = iww.getShell();
-					questionResponse = MessageDialog.openQuestion(shell, "JUnit Verification", finalMsg);
+					questionResponse[0] = MessageDialog.openQuestion(shell, "JUnit Verification", finalMsg);
 				} catch (Throwable t) {
 					t.printStackTrace();
 				}
 			}
 		});
-
-		return questionResponse;
+		return questionResponse[0];
 	}
 
 }
