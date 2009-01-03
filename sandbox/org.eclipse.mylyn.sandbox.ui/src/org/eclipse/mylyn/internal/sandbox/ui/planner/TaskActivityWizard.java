@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2004, 2008 Tasktop Technologies and others.
+ * Copyright (c) 2004, 2008 Tasktop Technologies and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,7 +18,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.tasks.ui.ITasksUiConstants;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
@@ -31,14 +30,14 @@ import org.eclipse.ui.PartInitException;
  */
 public class TaskActivityWizard extends Wizard implements INewWizard {
 
-	private static final String TITLE = "New Task Activity Report";
+	private static final String ID_ACTIVITY_EDITOR = "org.eclipse.mylyn.sandbox.ui.editors.activity";
 
 	private TaskActivityWizardPage planningGamePage;
 
 	public TaskActivityWizard() {
 		super();
 		init();
-		setWindowTitle(TITLE);
+		setWindowTitle("New Task Activity Report");
 	}
 
 	@Override
@@ -51,7 +50,7 @@ public class TaskActivityWizard extends Wizard implements INewWizard {
 			IEditorInput input = new TaskActivityEditorInput(planningGamePage.getReportStartDate(),
 					planningGamePage.getReportEndDate(), planningGamePage.getSelectedContainers(),
 					TasksUiPlugin.getTaskList());
-			page.openEditor(input, ITasksUiConstants.ID_PAGE_PLANNING);
+			page.openEditor(input, ID_ACTIVITY_EDITOR);
 		} catch (PartInitException e) {
 			StatusHandler.log(new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, "Could not open summary editor", e));
 		}

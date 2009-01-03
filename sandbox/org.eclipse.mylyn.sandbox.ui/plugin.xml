@@ -245,7 +245,7 @@
           class="org.eclipse.mylyn.internal.sandbox.ui.planner.TaskActivityEditorPart"
           contributorClass="org.eclipse.mylyn.internal.tasks.ui.editors.TaskEditorActionContributor"
           icon="icons/eview16/task-list.gif"
-          id="org.eclipse.mylyn.tasks.ui.editors.planning"
+          id="org.eclipse.mylyn.sandbox.ui.editors.activity"
           name="Task Planner"/>     
   	</extension>
 
