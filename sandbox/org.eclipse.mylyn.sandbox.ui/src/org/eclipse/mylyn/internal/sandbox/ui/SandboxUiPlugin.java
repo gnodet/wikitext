@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylyn.commons.core.StatusHandler;
+import org.eclipse.mylyn.internal.context.ui.ColorMap;
 import org.eclipse.mylyn.internal.context.ui.ContextUiPlugin;
 import org.eclipse.mylyn.internal.sandbox.ui.highlighters.Highlighter;
 import org.eclipse.mylyn.internal.sandbox.ui.highlighters.HighlighterList;
@@ -65,6 +66,11 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 		getPreferenceStore().addPropertyChangeListener(problemListener);
 		if (getPreferenceStore().getBoolean(InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS)) {
 			problemListener.enable();
+		}
+
+		// trigger initialization of colors to work around deadlock on bug 237596
+		if (ColorMap.DEFAULT != null) {
+			// ignore
 		}
 
 		final IWorkbench workbench = PlatformUI.getWorkbench();
@@ -154,33 +160,22 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 		}
 	}
 
-	public HighlighterList getHighlighterList() {
-		if (this.highlighters == null) {
-			initializeHighlighters();
-		}
-		return this.highlighters;
-	}
-
-	public List<Highlighter> getHighlighters() {
+	public synchronized HighlighterList getHighlighterList() {
 		if (highlighters == null) {
 			initializeHighlighters();
 		}
-		return highlighters.getHighlighters();
+		return highlighters;
+	}
+
+	public List<Highlighter> getHighlighters() {
+		return getHighlighterList().getHighlighters();
 	}
 
 	/**
 	 * @return null if not found
 	 */
 	public Highlighter getHighlighter(String name) {
-		// TODO 3.1 reenable when bug 237596 is fixed
-		if (true) {
-			return null;
-		}
-
-		if (highlighters == null) {
-			initializeHighlighters();
-		}
-		return highlighters.getHighlighter(name);
+		return getHighlighterList().getHighlighter(name);
 	}
 
 	public Highlighter getHighlighterForContextId(String id) {
