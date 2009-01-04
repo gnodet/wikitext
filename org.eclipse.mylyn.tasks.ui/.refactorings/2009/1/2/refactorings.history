@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin.loadDataSources()&apos; to &apos;initializeDataSources&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.ui&apos;&#x0A;- Original element: &apos;org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin.loadDataSources()&apos;&#x0A;- Renamed element: &apos;org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin.initializeDataSources()&apos;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;loadDataSources&apos;" flags="589826" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylyn.internal.tasks.ui{TasksUiPlugin.java[TasksUiPlugin~loadDataSources" name="initializeDataSources" references="true" stamp="1231085473263" version="1.0"/>
+</session>

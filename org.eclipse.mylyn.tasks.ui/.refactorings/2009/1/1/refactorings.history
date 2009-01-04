@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Inline local variable &apos;org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin.loadDataSources().storeFile&apos; in &apos;org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin.loadDataSources()&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.ui&apos;&#x0A;- Original element: &apos;org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin.loadDataSources().storeFile&apos;" description="Inline local variable &apos;storeFile&apos;" id="org.eclipse.jdt.ui.inline.temp" input="/src&lt;org.eclipse.mylyn.internal.tasks.ui{TasksUiPlugin.java" selection="31654 32" stamp="1230936119176" version="1.0"/>
+</session>
