@@ -10,9 +10,9 @@ package org.eclipse.mylyn.xplanner.tests;
 
 import junit.framework.TestCase;
 
+import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.xplanner.ui.editor.XPlannerTaskEditorExtraControls;
 import org.eclipse.swt.events.VerifyEvent;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 
 public class XPlannerTaskEditorTest extends TestCase {
@@ -32,7 +32,7 @@ public class XPlannerTaskEditorTest extends TestCase {
 	private VerifyEvent createVerifyEvent() {
 		Event event = new Event();
 //		Dialog d = new MessageDialog(Display.getDefault().getActiveShell(), "", null, null, MessageDialog.NONE, null, 0);
-		event.widget = Display.getDefault().getActiveShell();
+		event.widget = TasksUiInternal.getShell();
 		return new VerifyEvent(event);
 	}
 
