@@ -17,7 +17,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylyn.commons.core.StatusHandler;
-import org.eclipse.mylyn.internal.context.ui.ColorMap;
 import org.eclipse.mylyn.internal.context.ui.ContextUiPlugin;
 import org.eclipse.mylyn.internal.sandbox.ui.highlighters.Highlighter;
 import org.eclipse.mylyn.internal.sandbox.ui.highlighters.HighlighterList;
@@ -68,10 +67,8 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 			problemListener.enable();
 		}
 
-		// trigger initialization of colors to work around deadlock on bug 237596
-		if (ColorMap.DEFAULT != null) {
-			// ignore
-		}
+		// initialize colors to work around deadlock on bug 237596
+		getHighlighterList();
 
 		final IWorkbench workbench = PlatformUI.getWorkbench();
 		workbench.getDisplay().asyncExec(new Runnable() {
@@ -146,17 +143,17 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 
 	private void initializeHighlighters() {
 		String hlist = getPreferenceStore().getString(HIGHLIGHTER_PREFIX);
-		if (hlist.equals("")) {
-			// migrate from context ui
+		if (hlist.length() == 0) {
+			// migrate preference from context ui
 			hlist = ContextUiPlugin.getDefault().getPreferenceStore().getString(HIGHLIGHTER_PREFIX);
 			getPreferenceStore().setValue(HIGHLIGHTER_PREFIX, hlist);
 			ContextUiPlugin.getDefault().getPreferenceStore().setToDefault(HIGHLIGHTER_PREFIX);
 		}
-		if (hlist != null && hlist.length() != 0) {
-			highlighters = new HighlighterList(hlist);
-		} else {
+		if (hlist.length() == 0) {
 			highlighters = new HighlighterList();
 			highlighters.setToDefaultList();
+		} else {
+			highlighters = new HighlighterList(hlist);
 		}
 	}
 
