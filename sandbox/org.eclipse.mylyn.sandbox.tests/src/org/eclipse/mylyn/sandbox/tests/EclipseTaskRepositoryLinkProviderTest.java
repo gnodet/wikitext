@@ -23,6 +23,24 @@ import org.eclipse.mylyn.tasks.core.TaskRepository;
  */
 public class EclipseTaskRepositoryLinkProviderTest extends TestCase {
 
+	public void testGetRepositoryForResourceNullProvider() throws Exception {
+		TaskRepository repo1 = TasksUiPlugin.getRepositoryManager().getRepository("https://bugs.eclipse.org/bugs");
+		assertNotNull("Eclipse.org repository is not found", repo1);
+		String mf = "Manifest-Version: 1.0\n" + //
+				"Bundle-ManifestVersion: 2\n" + //
+				"Bundle-Name: Mylyn PDE Tests 1\n" + // 
+				"Bundle-SymbolicName: org.eclipse.mylyn.pde.tests1\n" + // 
+				"Bundle-Version: 1.0.0\n";
+		PdeProject pdeProject = new PdeProject("eclipsePluginProject");
+		try {
+			pdeProject.createPlugin(mf);
+			IProject project = pdeProject.getProject();
+			assertNull(TasksUiPlugin.getDefault().getRepositoryForResource(project));
+		} finally {
+			pdeProject.delete();
+		}
+	}
+
 	public void testEclipsePluginProject() throws Exception {
 		TaskRepository repo1 = TasksUiPlugin.getRepositoryManager().getRepository("https://bugs.eclipse.org/bugs");
 		assertNotNull("Eclipse.org repository is not found", repo1);

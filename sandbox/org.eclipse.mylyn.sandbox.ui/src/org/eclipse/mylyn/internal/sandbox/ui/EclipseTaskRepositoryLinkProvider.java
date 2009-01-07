@@ -13,6 +13,7 @@ package org.eclipse.mylyn.internal.sandbox.ui;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
 import org.eclipse.mylyn.tasks.core.IRepositoryManager;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
@@ -39,13 +40,17 @@ public class EclipseTaskRepositoryLinkProvider extends AbstractTaskRepositoryLin
 			IPluginModelBase pluginModel = PluginRegistry.findModel(project);
 			if (pluginModel != null) {
 				String providerName = pluginModel.getPluginBase().getProviderName();
-				return getTaskRepository(providerName, pluginModel, repositoryManager);
+				if (providerName != null) {
+					return getTaskRepository(providerName, pluginModel, repositoryManager);
+				}
 			}
 		} else if (PDE.hasFeatureNature(project)) {
 			IFeatureModel featureModel = PDECore.getDefault().getFeatureModelManager().getFeatureModel(project);
 			if (featureModel != null) {
 				String providerName = featureModel.getFeature().getProviderName();
-				return getTaskRepository(providerName, featureModel, repositoryManager);
+				if (providerName != null) {
+					return getTaskRepository(providerName, featureModel, repositoryManager);
+				}
 			}
 		} else if (PDE.hasUpdateSiteNature(project)) {
 			// TODO could use referenced features to lookup task repository
@@ -54,6 +59,9 @@ public class EclipseTaskRepositoryLinkProvider extends AbstractTaskRepositoryLin
 	}
 
 	private TaskRepository getTaskRepository(String providerName, IModel model, IRepositoryManager repositoryManager) {
+		Assert.isNotNull(providerName);
+		Assert.isNotNull(model);
+		Assert.isNotNull(repositoryManager);
 		if (providerName.startsWith("%")) {
 			providerName = model.getResourceString(providerName);
 		}
