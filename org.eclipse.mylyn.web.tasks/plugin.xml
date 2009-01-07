@@ -139,9 +139,9 @@
             urlRepository="http://code.google.com/p/eclipse-outliner/issues"
             urlTask="${serverUrl}/detail?id="
             urlNewTask="${serverUrl}/entry"
-            urlTaskQuery="${serverUrl}/list">
+            urlTaskQuery="${serverUrl}/csv?colspec=ID+Status+Type+Owner+Summary">
         <attribute name="queryPattern"
-                   value="&lt;td.+?class=&quot;vt col_1&quot;.+?&lt;a.+?&gt;({Type}.+?)&lt;/a&gt;.*?&lt;/td&gt;.*?&lt;td.+?class=&quot;vt col_2&quot;.+?&lt;a.+?&gt;({Status}.+?)&lt;/a&gt;.*?&lt;/td&gt;.*?&lt;td.+?class=&quot;vt col_5&quot;.+?&lt;a.+?&gt;({Owner}.+?)&lt;/a&gt;.*?&lt;/td&gt;.*?&lt;td.+?class=&quot;vt col_6&quot;.+?&lt;a.+?href=&quot;detail\?id=({Id}[0-9]+).*?&quot;&gt;({Description}.+?)&lt;/a&gt;.+?&lt;/td&gt;"/>
+                   value="&quot;({Id}[0-9]+?)&quot;,&quot;({Status}.*?)&quot;,&quot;({Type}.*?)&quot;,&quot;({Owner}.*?)&quot;,&quot;({Description}.*?)&quot;\n"/>
      </repository>
      <repository
            anonymous="false"
