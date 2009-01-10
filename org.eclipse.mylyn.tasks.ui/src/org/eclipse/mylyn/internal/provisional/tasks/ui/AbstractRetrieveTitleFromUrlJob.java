@@ -9,7 +9,7 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.provisional.commons.ui;
+package org.eclipse.mylyn.internal.provisional.tasks.ui;
 
 import java.io.IOException;
 
@@ -19,8 +19,8 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.mylyn.commons.net.WebLocation;
 import org.eclipse.mylyn.commons.net.WebUtil;
-import org.eclipse.mylyn.internal.commons.ui.CommonsUiPlugin;
-import org.eclipse.mylyn.internal.commons.ui.Messages;
+import org.eclipse.mylyn.internal.tasks.ui.Messages;
+import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.ui.PlatformUI;
 
 /**
@@ -32,14 +32,12 @@ import org.eclipse.ui.PlatformUI;
  */
 public abstract class AbstractRetrieveTitleFromUrlJob extends Job {
 
-	public static final String LABEL_TITLE = Messages.AbstractRetrieveTitleFromUrlJob_Retrieving_summary_from_URL;
-
 	private volatile String pageTitle;
 
 	private final String url;
 
 	public AbstractRetrieveTitleFromUrlJob(String url) {
-		super(LABEL_TITLE);
+		super(Messages.AbstractRetrieveTitleFromUrlJob_Retrieving_summary_from_URL);
 		this.url = url;
 	}
 
@@ -63,7 +61,7 @@ public abstract class AbstractRetrieveTitleFromUrlJob extends Job {
 				});
 			}
 		} catch (IOException e) {
-			return new Status(IStatus.ERROR, CommonsUiPlugin.ID_PLUGIN, "Retrieving summary from URL failed", e); //$NON-NLS-1$
+			return new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, "Retrieving summary from URL failed", e); //$NON-NLS-1$
 		}
 		return Status.OK_STATUS;
 	}

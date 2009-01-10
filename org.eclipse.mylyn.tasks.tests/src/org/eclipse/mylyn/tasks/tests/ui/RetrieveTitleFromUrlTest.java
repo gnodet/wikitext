@@ -9,13 +9,13 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.commons.tests.ui;
+package org.eclipse.mylyn.tasks.tests.ui;
 
 import java.lang.reflect.InvocationTargetException;
 
 import junit.framework.TestCase;
 
-import org.eclipse.mylyn.internal.provisional.commons.ui.AbstractRetrieveTitleFromUrlJob;
+import org.eclipse.mylyn.internal.provisional.tasks.ui.AbstractRetrieveTitleFromUrlJob;
 import org.eclipse.ui.PlatformUI;
 
 /**

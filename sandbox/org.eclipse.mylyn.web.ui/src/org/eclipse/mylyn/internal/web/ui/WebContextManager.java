@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (c) 2004, 2008 Tasktop Technologies and others.
+ * Copyright (c) 2004, 2008 Tasktop Technologies and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,7 +29,6 @@ import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionContext;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
-import org.eclipse.mylyn.internal.provisional.commons.ui.AbstractRetrieveTitleFromUrlJob;
 
 /**
  * @author Mik Kersten
@@ -212,17 +211,17 @@ public class WebContextManager {
 	}
 
 	public void updateTitle(final WebPage page) {
-		AbstractRetrieveTitleFromUrlJob job = new AbstractRetrieveTitleFromUrlJob(page.getUrl()) {
-			@Override
-			protected void titleRetrieved(final String pageTitle) {
-				page.setTitle(pageTitle);
-				titleCache.put(page.getUrl(), pageTitle);
-				for (IWebResourceListener listener : listeners) {
-					listener.webPageUpdated(page);
-				}
-			}
-		};
-		job.schedule();
+//		AbstractRetrieveTitleFromUrlJob job = new AbstractRetrieveTitleFromUrlJob(page.getUrl()) {
+//			@Override
+//			protected void titleRetrieved(final String pageTitle) {
+//				page.setTitle(pageTitle);
+//				titleCache.put(page.getUrl(), pageTitle);
+//				for (IWebResourceListener listener : listeners) {
+//					listener.webPageUpdated(page);
+//				}
+//			}
+//		};
+//		job.schedule();
 	}
 
 	public WebRoot getWebRoot() {
