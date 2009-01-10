@@ -14,7 +14,16 @@ import org.eclipse.osgi.util.NLS;
  * @author Helen Bershadskaya
  */
 public class Messages extends NLS {
+
 	private static final String BUNDLE_NAME = "org.eclipse.mylyn.xplanner.ui.messages"; //$NON-NLS-1$
+
+	static {
+		// initialize resource bundle
+		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
+	}
+
+	private Messages() {
+	}
 
 	public static String MylynXPlannerPlugin_CLIENT_DIALOG_TITLE;
 
@@ -28,12 +37,6 @@ public class Messages extends NLS {
 
 	public static String XPlannerRepositoryConnector_COULD_NOT_CONVERT_TASK_DATE;
 
-	public static String XPlannerRepositoryConnector_ERROR_RETRIEVING_RESULTS;
-
-	public static String XPlannerRepositoryConnector_ERROR_UPDATING_TASK;
-
-	public static String XPlannerRepositoryConnector_ErrorDialogTitle;
-
 	public static String XPlannerRepositoryConnector_GETTING_CHANGED_TASKS;
 
 	public static String XPlannerRepositoryConnector_NEW_TASK_DESCRIPTION;
@@ -41,8 +44,6 @@ public class Messages extends NLS {
 	public static String XPlannerRepositoryConnector_PerformQueryFailure;
 
 	public static String XPlannerRepositoryConnector_RUNNING_QUERY;
-
-	public static String XPlannerRepositoryConnector_VERSION_SUPPORT;
 
 	public static String XPlannerRepositoryUtils_NO_ITERATION_NAME;
 
@@ -76,16 +77,4 @@ public class Messages extends NLS {
 
 	public static String XPlannerClientFacade_VERIFY_VALID_REPOSITORY;
 
-	public static String XPlannerTaskExternalizer_DESCRIPTION_NOT_STORED_EXCEPTION;
-
-	public static String XPlannerTaskExternalizer_FAILED_TO_LOAD_HITS_EXCEPTION;
-
-	public static String XPlannerTaskExternalizer_HANDLE_NOT_STORED_EXCEPTION;
-	static {
-		// initialize resource bundle
-		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
-	}
-
-	private Messages() {
-	}
 }

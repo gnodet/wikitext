@@ -20,8 +20,6 @@ public class Messages extends NLS {
 
 	public static String XPlannerTaskEditor_ACTUAL_HOURS_TEXT;
 
-	public static String XPlannerTaskEditor_ATTRIBUTES_TITLE;
-
 	public static String XPlannerTaskEditor_COMPLETED_BUTTON;
 
 	public static String XPlannerTaskEditor_DATA_SECTION_TITLE;
@@ -31,8 +29,6 @@ public class Messages extends NLS {
 	public static String XPlannerTaskEditor_ESTIMATED_HOURS_TEXT;
 
 	public static String XPlannerTaskEditor_FORM_TASK_TITLE;
-
-	public static String XPlannerTaskEditor_HelpSearchExpression;
 
 	public static String XPlannerTaskEditor_HIERARCHY_SECTION_TITLE;
 
@@ -51,14 +47,6 @@ public class Messages extends NLS {
 	public static String XPlannerTaskEditorExtraControls_CANNOT_DECREASE_ACTUAL_TIME_VALUE_ERROR;
 
 	public static String XPlannerTaskEditorExtraControls_COULD_NOT_FORMAT_ELAPSED_TIME_ERROR;
-
-	public static String XPlannerTaskEditorFactory_COULD_NOT_CREATE_EDITOR_INPUT;
-
-	public static String XPlannerTaskEditorFactory_ENSURE_PRPOPER_REPOSITORY_CONFIGURATION;
-
-	public static String XPlannerTaskEditorFactory_REPOSITORY_AND_USERNAME;
-
-	public static String XPlannerTaskEditorFactory_TASK_DOWNLOAD_FAILED;
 
 	public static String XPlannerTaskEditorFactory_TITLE;
 
@@ -81,10 +69,6 @@ public class Messages extends NLS {
 	public static String XPlannerUserStoryEditor_PRIORITY_LABEL;
 
 	public static String XPlannerUserStoryEditor_REMAINING_HOURS_LABEL;
-
-	public static String XPlannerUserStoryEditor_STATUS_LABEL;
-
-	public static String XPlannerUserStoryEditor_STATUS_PLACEHOLDER;
 
 	public static String XPlannerUserStoryEditor_STORY_TITLE;
 
