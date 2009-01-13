@@ -25,6 +25,7 @@ import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.TextViewer;
 import org.eclipse.mylyn.internal.bugzilla.ui.editor.BugzillaTaskEditorPage;
 import org.eclipse.mylyn.internal.provisional.commons.ui.CommonImages;
+import org.eclipse.mylyn.internal.provisional.commons.ui.CommonTextSupport;
 import org.eclipse.mylyn.internal.tasks.ui.editors.EditorUtil;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskEditorPage;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskEditorPart;
@@ -171,7 +172,7 @@ public class ExtensibleBugzillaTaskEditorPage extends BugzillaTaskEditorPage {
 	private static void findTextViewerControl(Composite composite, List<TextViewer> found) {
 		if (!composite.isDisposed()) {
 			for (Control child : composite.getChildren()) {
-				TextViewer viewer = EditorUtil.getTextViewer(child);
+				TextViewer viewer = CommonTextSupport.getTextViewer(child);
 				if (viewer != null && viewer.getDocument().get().length() > 0) {
 					found.add(viewer);
 				}
