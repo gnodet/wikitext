@@ -36,6 +36,10 @@ public class EclipseTaskRepositoryLinkProvider extends AbstractTaskRepositoryLin
 	@Override
 	public TaskRepository getTaskRepository(IResource resource, IRepositoryManager repositoryManager) {
 		IProject project = resource.getProject();
+		if (project == null || !project.isAccessible()) {
+			return null;
+		}
+
 		if (PDE.hasPluginNature(project)) {
 			IPluginModelBase pluginModel = PluginRegistry.findModel(project);
 			if (pluginModel != null) {
@@ -55,6 +59,7 @@ public class EclipseTaskRepositoryLinkProvider extends AbstractTaskRepositoryLin
 		} else if (PDE.hasUpdateSiteNature(project)) {
 			// TODO could use referenced features to lookup task repository
 		}
+
 		return null;
 	}
 

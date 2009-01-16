@@ -13,10 +13,14 @@ package org.eclipse.mylyn.sandbox.tests;
 
 import junit.framework.TestCase;
 
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.mylyn.internal.sandbox.ui.EclipseTaskRepositoryLinkProvider;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.sandbox.tests.util.PdeProject;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.ui.TasksUi;
 
 /**
  * @author Eugene Kuleshov
@@ -24,6 +28,7 @@ import org.eclipse.mylyn.tasks.core.TaskRepository;
 public class EclipseTaskRepositoryLinkProviderTest extends TestCase {
 
 	public void testGetRepositoryForResourceNullProvider() throws Exception {
+		EclipseTaskRepositoryLinkProvider provider = new EclipseTaskRepositoryLinkProvider();
 		TaskRepository repo1 = TasksUiPlugin.getRepositoryManager().getRepository("https://bugs.eclipse.org/bugs");
 		assertNotNull("Eclipse.org repository is not found", repo1);
 		String mf = "Manifest-Version: 1.0\n" + //
@@ -35,7 +40,30 @@ public class EclipseTaskRepositoryLinkProviderTest extends TestCase {
 		try {
 			pdeProject.createPlugin(mf);
 			IProject project = pdeProject.getProject();
-			assertNull(TasksUiPlugin.getDefault().getRepositoryForResource(project));
+			assertNull(provider.getTaskRepository(project, TasksUi.getRepositoryManager()));
+		} finally {
+			pdeProject.delete();
+		}
+	}
+
+	public void testGetRepositoryForResourceClosedProject() throws Exception {
+		EclipseTaskRepositoryLinkProvider provider = new EclipseTaskRepositoryLinkProvider();
+		TaskRepository repo1 = TasksUiPlugin.getRepositoryManager().getRepository("https://bugs.eclipse.org/bugs");
+		assertNotNull("Eclipse.org repository is not found", repo1);
+		String mf = "Manifest-Version: 1.0\n" + //
+				"Bundle-ManifestVersion: 2\n" + //
+				"Bundle-Name: Mylyn PDE Tests 1\n" + // 
+				"Bundle-SymbolicName: org.eclipse.mylyn.pde.tests1\n" + // 
+				"Bundle-Version: 1.0.0\n";
+		PdeProject pdeProject = new PdeProject("eclipsePluginProject");
+		try {
+			pdeProject.createPlugin(mf);
+			IProject project = pdeProject.getProject();
+			IFolder folder = project.getFolder("file.txt");
+			folder.create(true, true, null);
+			project.close(new NullProgressMonitor());
+			assertNull(provider.getTaskRepository(project, TasksUi.getRepositoryManager()));
+			assertNull(provider.getTaskRepository(folder, TasksUi.getRepositoryManager()));
 		} finally {
 			pdeProject.delete();
 		}
