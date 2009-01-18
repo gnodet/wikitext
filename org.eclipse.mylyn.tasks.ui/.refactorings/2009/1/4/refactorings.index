@@ -1,0 +1,6 @@
+1232267642768	Delete element
+1232267754013	Rename method 'getTaskComparator'
+1232268042715	Move member 'getSortableFromElement'
+1232268203893	Rename type 'TaskListTableSorter'
+1232268326733	Rename type 'TaskListViewerSorter'
+1232268732300	Rename type 'SearchResultSorterDescription'
