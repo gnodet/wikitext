@@ -14,7 +14,7 @@ import java.util.Date;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.mylyn.commons.net.AuthenticationCredentials;
 import org.eclipse.mylyn.commons.net.AuthenticationType;
-import org.eclipse.mylyn.internal.tasks.core.ITaskList;
+import org.eclipse.mylyn.internal.tasks.core.TaskList;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.ITask;
@@ -286,16 +286,16 @@ public class XPlannerTestUtils {
 		return testTask;
 	}
 
-	public static ITaskList getTaskList() {
-		ITaskList taskList = TasksUiPlugin.getTaskList();
+	public static TaskList getTaskList() {
+		TaskList taskList = TasksUiPlugin.getTaskList();
 		TasksUiPlugin.getExternalizationManager().requestSave();
 
 		return taskList;
 	}
 
-	public static ITaskList getTaskListWithXPlannerTask() throws Exception {
+	public static TaskList getTaskListWithXPlannerTask() throws Exception {
 		ITask repositoryTask = getTestXPlannerTask(getXPlannerClient());
-		ITaskList taskList = getTaskList();
+		TaskList taskList = getTaskList();
 		taskList.addTask(repositoryTask);
 		TaskRepository repository = getRepository();
 		AbstractRepositoryConnector connector = TasksUiPlugin.getRepositoryManager().getRepositoryConnector(
