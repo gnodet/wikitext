@@ -4,3 +4,9 @@
 1233210913620	Delete element
 1233210970772	Delete element
 1233213919708	Delete element
+1233271233628	Rename type 'TaskDataExportOperation'
+1233271281116	Copy compilation unit
+1233271369065	Delete element
+1233271755850	Extract method 'exportChosen'
+1233292540383	Encapsulate field 'totalWork'
+1233292644568	Extract constant 'EXPORT_JOB_LABEL'

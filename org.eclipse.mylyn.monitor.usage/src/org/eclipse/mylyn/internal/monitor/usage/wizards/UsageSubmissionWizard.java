@@ -33,6 +33,7 @@ import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -709,7 +710,8 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 				if (file.exists()) {
 					List<File> unzippedFiles;
 					try {
-						unzippedFiles = ZipFileUtil.unzipFiles(file, System.getProperty("java.io.tmpdir"));
+						unzippedFiles = ZipFileUtil.unzipFiles(file, System.getProperty("java.io.tmpdir"),
+								new NullProgressMonitor());
 
 						if (unzippedFiles.size() > 0) {
 							for (File f : unzippedFiles) {
