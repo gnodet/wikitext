@@ -12,12 +12,12 @@ import java.util.Locale;
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.mylyn.internal.xplanner.core.service.XPlannerClient;
+import org.eclipse.mylyn.internal.xplanner.ui.XPlannerAttributeMapper;
+import org.eclipse.mylyn.internal.xplanner.ui.XPlannerRepositoryUtils;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
-import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
-import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeMapper;
-import org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUtils;
 import org.xplanner.soap.TaskData;
 import org.xplanner.soap.UserStoryData;
 

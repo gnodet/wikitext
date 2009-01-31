@@ -11,8 +11,8 @@ import java.util.Date;
 
 import junit.framework.TestCase;
 
+import org.eclipse.mylyn.internal.xplanner.ui.XPlannerAttributeMapper;
 import org.eclipse.mylyn.tasks.core.AbstractTaskListMigrator;
-import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeMapper;
 
 public class XPlannerAttributeMapperTest extends TestCase {
 	@Override

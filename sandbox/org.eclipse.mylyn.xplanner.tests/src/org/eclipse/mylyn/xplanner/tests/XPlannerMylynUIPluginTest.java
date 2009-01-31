@@ -9,7 +9,7 @@ package org.eclipse.mylyn.xplanner.tests;
 
 import junit.framework.TestCase;
 
-import org.eclipse.mylyn.xplanner.ui.XPlannerMylynUIPlugin;
+import org.eclipse.mylyn.internal.xplanner.ui.XPlannerMylynUIPlugin;
 
 public class XPlannerMylynUIPluginTest extends TestCase {
 

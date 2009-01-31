@@ -12,10 +12,10 @@ import junit.framework.TestCase;
 
 import org.eclipse.jface.text.hyperlink.IHyperlink;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.internal.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
 import org.eclipse.mylyn.tasks.ui.TaskHyperlink;
-import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
 
 public class XPlannerRepositoryUiTest extends TestCase {
 

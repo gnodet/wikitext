@@ -11,7 +11,7 @@ package org.eclipse.mylyn.xplanner.tests;
 import junit.framework.TestCase;
 
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
-import org.eclipse.mylyn.xplanner.ui.editor.XPlannerTaskEditorExtraControls;
+import org.eclipse.mylyn.internal.xplanner.ui.editor.XPlannerTaskEditorExtraControls;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.widgets.Event;
 

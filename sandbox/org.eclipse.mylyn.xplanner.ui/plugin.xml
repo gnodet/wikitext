@@ -8,17 +8,17 @@
          point="org.eclipse.mylyn.tasks.ui.repositories">
 
       <connectorCore
-            class="org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryConnector"
+            class="org.eclipse.mylyn.internal.xplanner.ui.XPlannerRepositoryConnector"
             id="org.eclipse.mylyn.xplanner.tasklist.repositories"
             name="%connectorName"/>
 	  <connectorUi
          brandingIcon="icons/eview16/xplanner-logo.gif"
-         class="org.eclipse.mylyn.xplanner.ui.XPlannerRepositoryUi"
+         class="org.eclipse.mylyn.internal.xplanner.ui.XPlannerRepositoryUi"
          name="%connectorUiName"
          overlayIcon="icons/eview16/overlay-xplanner.gif"/>
             
       <taskListMigrator
-            class="org.eclipse.mylyn.xplanner.ui.XPlannerTaskListMigrator"/>
+            class="org.eclipse.mylyn.internal.xplanner.ui.XPlannerTaskListMigrator"/>
    </extension>  
    
    <!--
@@ -34,7 +34,7 @@
    <extension
          point="org.eclipse.mylyn.tasks.ui.editors">
       <pageFactory
-            class="org.eclipse.mylyn.xplanner.ui.editor.XPlannerTaskEditorPageFactory"
+            class="org.eclipse.mylyn.internal.xplanner.ui.editor.XPlannerTaskEditorPageFactory"
             id="org.eclipse.mylyn.xplanner.ui.XPlannerTaskEditorFactory"/>
    </extension>
 

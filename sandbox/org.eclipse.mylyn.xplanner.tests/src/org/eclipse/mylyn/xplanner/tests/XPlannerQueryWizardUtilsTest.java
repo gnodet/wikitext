@@ -10,13 +10,13 @@ package org.eclipse.mylyn.xplanner.tests;
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.mylyn.internal.xplanner.ui.wizard.AbstractXPlannerQueryWizardPage;
+import org.eclipse.mylyn.internal.xplanner.ui.wizard.ErrorQueryPage;
+import org.eclipse.mylyn.internal.xplanner.ui.wizard.NewXPlannerQueryWizard;
+import org.eclipse.mylyn.internal.xplanner.ui.wizard.XPlannerCustomQueryPage;
+import org.eclipse.mylyn.internal.xplanner.ui.wizard.XPlannerQuerySelectionWizardPage;
+import org.eclipse.mylyn.internal.xplanner.ui.wizard.XPlannerQueryWizardUtils;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
-import org.eclipse.mylyn.xplanner.ui.wizard.AbstractXPlannerQueryWizardPage;
-import org.eclipse.mylyn.xplanner.ui.wizard.ErrorQueryPage;
-import org.eclipse.mylyn.xplanner.ui.wizard.NewXPlannerQueryWizard;
-import org.eclipse.mylyn.xplanner.ui.wizard.XPlannerCustomQueryPage;
-import org.eclipse.mylyn.xplanner.ui.wizard.XPlannerQuerySelectionWizardPage;
-import org.eclipse.mylyn.xplanner.ui.wizard.XPlannerQueryWizardUtils;
 
 public class XPlannerQueryWizardUtilsTest extends TestCase {
 

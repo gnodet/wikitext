@@ -9,7 +9,7 @@
    <extension
          point="org.eclipse.mylyn.xplanner.core.serviceProviderFactory"> 
       <serviceProviderFactory
-            class="org.eclipse.mylyn.xplanner.core.service.soap.SoapXPlannerServiceFactory"
+            class="org.eclipse.mylyn.internal.xplanner.core.service.soap.SoapXPlannerServiceFactory"
             name="%serviceProviderFactoryNameSoap"/>
    </extension>
 </plugin>

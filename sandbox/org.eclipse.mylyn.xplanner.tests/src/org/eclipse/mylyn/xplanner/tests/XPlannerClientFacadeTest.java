@@ -10,8 +10,8 @@ package org.eclipse.mylyn.xplanner.tests;
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.mylyn.internal.xplanner.ui.XPlannerClientFacade;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
-import org.eclipse.mylyn.xplanner.ui.XPlannerClientFacade;
 
 /**
  * @author Helen Bershadskaya

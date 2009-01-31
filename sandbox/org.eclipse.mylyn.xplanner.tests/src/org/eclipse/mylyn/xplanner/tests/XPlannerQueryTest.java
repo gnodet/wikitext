@@ -18,15 +18,15 @@ import org.eclipse.mylyn.internal.tasks.core.ITaskList;
 import org.eclipse.mylyn.internal.tasks.core.RepositoryQuery;
 import org.eclipse.mylyn.internal.tasks.ui.LocalRepositoryConnectorUi;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.internal.xplanner.core.service.XPlannerClient;
+import org.eclipse.mylyn.internal.xplanner.ui.XPlannerAttributeMapper;
+import org.eclipse.mylyn.internal.xplanner.ui.XPlannerTaskListMigrator;
+import org.eclipse.mylyn.internal.xplanner.ui.XPlannerTaskListMigrator.ContentIdType;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.tests.util.TestTaskDataCollector;
 import org.eclipse.mylyn.tasks.ui.AbstractRepositoryConnectorUi;
-import org.eclipse.mylyn.xplanner.core.service.XPlannerClient;
-import org.eclipse.mylyn.xplanner.ui.XPlannerAttributeMapper;
-import org.eclipse.mylyn.xplanner.ui.XPlannerTaskListMigrator;
-import org.eclipse.mylyn.xplanner.ui.XPlannerTaskListMigrator.ContentIdType;
 
 public class XPlannerQueryTest extends TestCase {
 
