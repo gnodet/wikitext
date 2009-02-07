@@ -1,0 +1,7 @@
+1233871586564	Rename method 'getGroupSecurityInformation'
+1233874608909	Encapsulate field 'token'
+1233963345955	Rename method 'authenticate'
+1233965212293	Copy compilation unit
+1233965404432	Delete element
+1233965419784	Rename type 'CopyOfBugzillaClient'
+1233971260332	Rename method 'login'
