@@ -1,0 +1,5 @@
+1234830352822	Extract method 'createSection'
+1234831223727	Extract method 'initializeOldValues'
+1234835010398	Extract method 'addHttpAuthSection'
+1234835037678	Extract method 'addAdvancedSection'
+1234835828998	Extract local variable 'layout'
