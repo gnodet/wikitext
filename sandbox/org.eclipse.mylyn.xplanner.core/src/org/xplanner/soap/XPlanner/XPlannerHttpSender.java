@@ -21,6 +21,10 @@ public class XPlannerHttpSender extends CommonsHTTPSender {
 
 	public static final String HTTP_PASSWORD = "org.eclipse.mylyn.xplanner.httpPassword"; //$NON-NLS-1$
 
+	public XPlannerHttpSender() {
+		this.connectionManager = WebUtil.getConnectionManager();
+	}
+
 	@Override
 	protected HostConfiguration getHostConfiguration(HttpClient client, MessageContext context, URL url) {
 		final Proxy proxy = (Proxy) context.getProperty(PROXY);
