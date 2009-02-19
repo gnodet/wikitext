@@ -202,23 +202,23 @@ public class XPlannerRepositoryUtils {
 
 		// est time
 		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_EST_HOURS_NAME,
-				"" + taskData.getEstimatedHours()); //$NON-NLS-1$
+				getStringValue(taskData.getEstimatedHours()));
 
 		// act time
 		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ACT_HOURS_NAME,
-				"" + taskData.getActualHours()); //$NON-NLS-1$
+				getStringValue(taskData.getActualHours()));
 
 		// remaining time
 		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_REMAINING_HOURS_NAME,
-				"" + taskData.getRemainingHours()); //$NON-NLS-1$
+				getStringValue(taskData.getRemainingHours()));
 
-		// est original hours
+		// estimated original hours
 		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ESTIMATED_ORIGINAL_HOURS_NAME,
-				"" + taskData.getEstimatedOriginalHours()); //$NON-NLS-1$
+				getStringValue(taskData.getEstimatedOriginalHours()));
 
 		// est adjusted estimated hours
 		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ADJUSTED_ESTIMATED_HOURS_NAME,
-				"" + taskData.getAdjustedEstimatedHours()); //$NON-NLS-1$
+				getStringValue(taskData.getAdjustedEstimatedHours()));
 
 		// project name
 		setAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_PROJECT_NAME, getProjectName(taskData,
@@ -531,35 +531,47 @@ public class XPlannerRepositoryUtils {
 		return value;
 	}
 
+	public static String getStringValue(Double hours) {
+		return getStandardHoursNumberFormat().format(hours);
+	}
+
+	public static double getDoubleValue(String hours) {
+		double doubleValue = 0.0;
+
+		try {
+			doubleValue = getStandardHoursNumberFormat().parse(hours).doubleValue();
+		} catch (ParseException e) {
+			doubleValue = Double.valueOf(hours);
+		}
+
+		return doubleValue;
+	}
+
 	public static double getActualHours(TaskData repositoryTaskData) {
-		// hours are always stored in . decimal format, but presentation in editor uses locale
 		String hours = getAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_ACT_HOURS_NAME);
-		return Double.valueOf(hours).doubleValue();
+		return getDoubleValue(hours);
 	}
 
 	public static double getRemainingHours(TaskData repositoryTaskData) {
-		// hours are always stored in . decimal format, but presentation in editor uses locale
 		String hours = getAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_REMAINING_HOURS_NAME);
-		return Double.valueOf(hours).doubleValue();
+		return getDoubleValue(hours);
 	}
 
 	public static double getEstimatedHours(TaskData repositoryTaskData) {
-		// hours are always stored in . decimal format, but presentation in editor uses locale
 		String hours = getAttributeValue(repositoryTaskData, XPlannerAttributeMapper.ATTRIBUTE_EST_HOURS_NAME);
-		return Double.valueOf(hours).doubleValue();
+		return getDoubleValue(hours);
 	}
 
 	public static Double getAdjustedEstimatedHours(TaskData repositoryTaskData) {
-		// hours are always stored in . decimal format, but presentation in editor uses locale
 		String hours = getAttributeValue(repositoryTaskData,
 				XPlannerAttributeMapper.ATTRIBUTE_ADJUSTED_ESTIMATED_HOURS_NAME);
-		return Double.valueOf(hours).doubleValue();
+		return getDoubleValue(hours);
 	}
 
 	public static Double getEstimatedOriginalHours(TaskData repositoryTaskData) {
 		String hours = getAttributeValue(repositoryTaskData,
 				XPlannerAttributeMapper.ATTRIBUTE_ESTIMATED_ORIGINAL_HOURS_NAME);
-		return Double.valueOf(hours).doubleValue();
+		return getDoubleValue(hours);
 	}
 
 	public static Date getCreatedDate(TaskData repositoryTaskData) {
@@ -896,8 +908,16 @@ public class XPlannerRepositoryUtils {
 		return hoursValue;
 	}
 
+	public static NumberFormat getStandardHoursNumberFormat() {
+		return getHoursNumberFormat(Locale.US);
+	}
+
 	public static NumberFormat getHoursNumberFormat() {
-		NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
+		return getHoursNumberFormat(Locale.getDefault());
+	}
+
+	public static NumberFormat getHoursNumberFormat(Locale locale) {
+		NumberFormat format = NumberFormat.getInstance(locale);
 		format.setMaximumIntegerDigits(5);
 		format.setMinimumFractionDigits(1);
 		format.setMaximumFractionDigits(1);
