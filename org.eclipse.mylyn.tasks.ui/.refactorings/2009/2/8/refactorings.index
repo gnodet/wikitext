@@ -2,3 +2,5 @@
 1234844595768	Extract constant 'LABEL_NEW_TASK'
 1234846034866	Rename method 'openNewTaskEditor'
 1234846256298	Extract method 'constructNewTaskData'
+1235167186260	Copy compilation unit
+1235168390092	Delete element
