@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;gridLayout&apos; from expression &apos;new GridLayout(2,false)&apos;&#x0D;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.ui&apos;&#x0D;&#x0A;- Variable name: &apos;gridLayout&apos;&#x0D;&#x0A;- Destination method: &apos;org.eclipse.mylyn.internal.tasks.ui.notifications.TaskListNotificationPopup.createContentArea()&apos;&#x0D;&#x0A;- Variable expression: &apos;new GridLayout(2,false)&apos;&#x0D;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;gridLayout&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.eclipse.mylyn.internal.tasks.ui.notifications{TaskListNotificationPopup.java" name="gridLayout" replace="true" selection="2585 24" stamp="1235681795379" version="1.0"/>
+</session>

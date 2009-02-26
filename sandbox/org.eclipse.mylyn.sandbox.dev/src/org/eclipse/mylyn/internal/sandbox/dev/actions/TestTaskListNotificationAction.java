@@ -46,10 +46,10 @@ public class TestTaskListNotificationAction implements IWorkbenchWindowActionDel
 		for (int i = 0; i < 6; i++) {
 			TaskListNotificationReminder notification = new TaskListNotificationReminder(iterator.next());
 			notification.setDescription("Mylyn is the Task-Focused UI for Eclipse that reduces information overload "
-					+ "\nand makes multi-tasking easy. It does this by making tasks a first class part of"
-					+ "\nEclipse, and integrating rich and offline editing for repositories such as Bugzilla, "
-					+ "\nTrac, and JIRA. Once your tasks are integrated, Mylyn monitors your work activity to "
-					+ "\nidentify information relevant to the task-at-hand, and uses this task context to focus ");
+					+ "\n..........and makes multi-tasking easy. It does this by making tasks a first class part of");
+//					+ "Eclipse, and integrating rich and offline editing for repositories such as Bugzilla, "
+//					+ "Trac, and JIRA. Once your tasks are integrated, Mylyn monitors your work activity to "
+//					+ "inidentify information relevant to the task-at-hand, and uses this task context to focus ");
 			dummyNotifications.add(notification);
 			TasksUiPlugin.getTaskListNotificationManager().getNotifications().add(notification);
 		}
