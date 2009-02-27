@@ -1,0 +1,5 @@
+1234315572339	Rename local variable 'field1'
+1234315580336	Rename local variable 'filterExpressionField1'
+1234315592283	Rename local variable 'field2'
+1234315657460	Convert local variable 'filterExpressionField2' to field
+1234315664549	Convert local variable 'filterExpressionField1' to field
