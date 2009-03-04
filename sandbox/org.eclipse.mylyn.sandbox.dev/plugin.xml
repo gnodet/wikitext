@@ -107,7 +107,7 @@
         point="org.eclipse.ui.actionSets">
      <actionSet
            id="org.eclipse.mylyn.sandbox.dev.actions"
-           label="Mylyn Dev Actions"
+           label="Mylyn Development"
            visible="false">
         <action
               class="org.eclipse.mylyn.internal.sandbox.dev.actions.TestTaskListNotificationAction"

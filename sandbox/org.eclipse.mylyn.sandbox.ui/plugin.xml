@@ -409,20 +409,7 @@
              generatedPrefix="file">
        </resourceHyperlinkExtension>
     </extension>
-        <extension point="org.eclipse.ui.menus">
-		<menuContribution
-			locationURI="popup:org.eclipse.mylyn.tasks.ui.editors.task?after=additions">
-   <command
-         commandId="org.eclipse.mylyn.sandbox.ui.viewSource.command"
-         id="org.eclipse.mylyn.sandbox.ui.viewSource"
-         label="View Source"
-         style="toggle">
-      <visibleWhen
-            checkEnabled="true">
-      </visibleWhen>
-   </command>
-		</menuContribution>
-	</extension>
+	
    <!--
    <extension point="org.eclipse.mylyn.tasks.ui.presentations">
       <presentation 
