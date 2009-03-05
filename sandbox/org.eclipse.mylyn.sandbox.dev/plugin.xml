@@ -7,7 +7,7 @@
         id="org.eclipse.mylyn.ui.instrospection"
         objectClass="java.lang.Object">
 	    <action
-  		  	label="Sanbox: Introspect Object"
+  		  	label="Sandbox: Introspect Object"
 	  		menubarPath="additions"
 	  		id="org.eclipse.mylyn.sandbox.actions.introspect"
 	  		class="org.eclipse.mylyn.internal.sandbox.dev.IntrospectObjectAction"
