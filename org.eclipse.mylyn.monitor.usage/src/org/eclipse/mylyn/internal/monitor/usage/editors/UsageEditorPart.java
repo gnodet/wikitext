@@ -183,8 +183,7 @@ public class UsageEditorPart extends EditorPart {
 				 * REL=STYLESHEET HREF=\"http://eclipse.org/default_style.css\"
 				 * TYPE=\"text/css\"></head><body topmargin=0 leftmargin=0
 				 * rightmargin=0><font size=-1>\n"; for (String description :
-				 * summary) { htmlText += description; System.err.println("> " +
-				 * description); } htmlText += "</font></body></html>";
+				 * summary) { htmlText += description;  } htmlText += "</font></body></html>";
 				 * browser.setText(htmlText);
 				 */
 				// if (description.equals(ReportGenerator.SUMMARY_SEPARATOR)) {

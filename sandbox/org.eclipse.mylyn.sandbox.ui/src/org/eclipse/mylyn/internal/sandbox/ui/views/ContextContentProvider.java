@@ -109,12 +109,10 @@ public class ContextContentProvider implements IStructuredContentProvider, ITree
 	}
 
 	public Object getParent(Object child) {
-		System.err.println(child);
 		return null;
 	}
 
 	public Object[] getChildren(Object parent) {
-		System.err.println(parent);
 		if (parent == null) {
 			return new Object[0];
 		}

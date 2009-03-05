@@ -150,21 +150,18 @@ public class SaxConfigurationContentHandler extends DefaultHandler {
 			if (about != null) {
 				String name = String.copyValueOf(ch, start, length);
 				componentNames.put(about, name);
-				// System.err.println("Component: "+about+" ---> "+name);
 			}
 			break;
 		case IN_VERSIONS | IN_LI | IN_VERSION | IN_NAME:
 			if (about != null) {
 				String name = String.copyValueOf(ch, start, length);
 				versionNames.put(about, name);
-				// System.err.println("Version: "+about+" ---> "+name);
 			}
 			break;
 		case IN_TARGET_MILESTONES | IN_LI | IN_TARGET_MILESTONE | IN_NAME:
 			if (about != null) {
 				String name = String.copyValueOf(ch, start, length);
 				milestoneNames.put(about, name);
-				// System.err.println("Version: "+about+" ---> "+name);
 			}
 			break;
 		case IN_PLATFORM | IN_LI:

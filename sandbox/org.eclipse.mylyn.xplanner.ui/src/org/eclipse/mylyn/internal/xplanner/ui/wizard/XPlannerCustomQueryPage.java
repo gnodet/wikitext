@@ -671,7 +671,6 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 	public List<IRepositoryQuery> createTaskQueriesForUserStories(List<UserStoryData> userStories) {
 
 		if (userStories == null || userStories.size() == 0) {
-			System.err.println(Messages.XPlannerCustomQueryPage_NO_USER_STORIES_SELECTED);
 			return new ArrayList<IRepositoryQuery>();
 		}
 

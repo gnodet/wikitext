@@ -22,6 +22,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
 import org.eclipse.mylyn.internal.monitor.core.collection.PercentUsageComparator;
 import org.eclipse.mylyn.internal.monitor.ui.PerspectiveChangeMonitor;
@@ -99,8 +102,8 @@ public class PerspectiveUsageCollector implements IUsageCollector {
 			writer.close();
 
 		} catch (IOException e) {
-			System.err.println("Unable to write CVS file <" + filename + ">");
-			e.printStackTrace(System.err);
+			StatusHandler.log(new Status(IStatus.ERROR, "org.eclipse.mylyn.monitor.core", "Unable to write CVS file <" //$NON-NLS-1$//$NON-NLS-2$
+					+ filename + ">", e)); //$NON-NLS-1$
 		}
 
 	}

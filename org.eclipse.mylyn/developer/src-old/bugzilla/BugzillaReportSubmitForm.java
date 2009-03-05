@@ -219,12 +219,10 @@ public class BugzillaReportSubmitForm {
 			}
 			if (a != null && a.getID() != null && a.getID().compareTo("") != 0 && !a.isHidden()) {
 				String value = a.getValue();
-				// System.err.println(a.getID()+" "+a.getValue());
 				// add the attribute to the bug post
 				form.add(a.getID(), value != null ? value : "");
 			} else if (a != null && a.getID() != null && a.getID().compareTo("") != 0 && a.isHidden()) {
 				// we have a hidden attribute and we should send it back.
-				// System.err.println(a.getID()+" "+a.getValue());
 				String value = a.getValue();
 
 				// Strip off timezone information
