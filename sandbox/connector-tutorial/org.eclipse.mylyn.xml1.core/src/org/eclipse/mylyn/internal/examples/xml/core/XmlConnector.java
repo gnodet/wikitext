@@ -49,7 +49,7 @@ public class XmlConnector extends AbstractRepositoryConnector {
 
 	@Override
 	public String getLabel() {
-		return "File-based XML Tasks (example)";
+		return "File-Based XML Tasks (example)";
 	}
 
 	@Override

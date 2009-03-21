@@ -33,7 +33,7 @@ public class XmlRepositoryPage extends AbstractRepositorySettingsPage {
 	public XmlRepositoryPage(TaskRepository taskRepository) {
 		super("XML Connector Settings", "Specify a directory", taskRepository);
 		setNeedsAnonymousLogin(true);
-		setNeedsAdvanced(true);
+		setNeedsAdvanced(false);
 		setNeedsEncoding(false);
 		setNeedsHttpAuth(false);
 		setNeedsProxy(false);
@@ -53,7 +53,7 @@ public class XmlRepositoryPage extends AbstractRepositorySettingsPage {
 
 	@Override
 	protected void createAdditionalControls(Composite parent) {
-		addRepositoryTemplatesToServerUrlCombo();
+		// ignore
 	}
 
 	@Override

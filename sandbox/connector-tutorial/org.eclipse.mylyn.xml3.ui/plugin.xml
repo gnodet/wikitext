@@ -14,8 +14,8 @@
          point="org.eclipse.mylyn.tasks.core.templates">
       <repository
             anonymous="true"
-            label="Local Workspace"
-            repositoryKind="org.eclipse.mylyn.xml"
+            label="Workspace"
+            repositoryKind="org.eclipse.mylyn.examples.xml"
             urlRepository="Tasks">
       </repository>
    </extension>
