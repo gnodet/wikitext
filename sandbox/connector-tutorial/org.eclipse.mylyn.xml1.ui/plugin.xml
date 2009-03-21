@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.3"?>
+<plugin>
+   <extension
+         point="org.eclipse.mylyn.tasks.ui.repositories">
+      <connectorCore
+            class="org.eclipse.mylyn.internal.examples.xml.core.XmlConnector">
+      </connectorCore>
+      <connectorUi
+            class="org.eclipse.mylyn.internal.examples.xml.ui.XmlConnectorUi">
+      </connectorUi>
+   </extension>
+</plugin>
