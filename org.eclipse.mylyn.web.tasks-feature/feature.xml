@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.mylyn.web.tasks_feature"
       label="%featureName"
-      version="3.1.0.qualifier"
+      version="3.2.0.qualifier"
       provider-name="%providerName"
       plugin="org.eclipse.mylyn">
 
@@ -30,7 +30,7 @@
       <import plugin="org.eclipse.ui.forms"/>
       <import plugin="org.eclipse.mylyn.tasks.core" version="3.0.0" match="compatible"/>
       <import plugin="org.eclipse.mylyn.tasks.ui" version="3.0.0" match="compatible"/>
-      <import feature="org.eclipse.mylyn_feature" version="3.1.0.mylynQualifier" match="equivalent"/>
+      <import feature="org.eclipse.mylyn_feature" version="3.2.0.mylynQualifier" match="equivalent"/>
       <import plugin="org.eclipse.mylyn.commons.core" version="3.0.0" match="compatible"/>
       <import plugin="org.eclipse.mylyn.commons.net" version="3.0.0" match="compatible"/>
       <import plugin="org.eclipse.mylyn.commons.ui" version="3.0.0" match="compatible"/>
@@ -40,7 +40,7 @@
          id="org.eclipse.mylyn.web.tasks"
          download-size="0"
          install-size="0"
-         version="3.1.0.qualifier"
+         version="3.2.0.qualifier"
          unpack="false"/>
 
    <plugin
