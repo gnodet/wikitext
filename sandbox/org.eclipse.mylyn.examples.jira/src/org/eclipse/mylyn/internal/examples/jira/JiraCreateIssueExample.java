@@ -18,10 +18,10 @@ import org.eclipse.mylyn.commons.net.AuthenticationType;
 import org.eclipse.mylyn.internal.commons.net.CommonsNetPlugin;
 import org.eclipse.mylyn.internal.jira.core.JiraCorePlugin;
 import org.eclipse.mylyn.internal.jira.core.JiraRepositoryConnector;
-import org.eclipse.mylyn.internal.tasks.core.DefaultTaskMapping;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.ITaskMapping;
 import org.eclipse.mylyn.tasks.core.RepositoryResponse;
+import org.eclipse.mylyn.tasks.core.TaskMapping;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.data.AbstractTaskDataHandler;
 import org.eclipse.mylyn.tasks.core.data.TaskData;
@@ -56,15 +56,19 @@ public class JiraCreateIssueExample {
 		AbstractTaskDataHandler dataHandler = connector.getTaskDataHandler();
 
 		try {
-			TaskData taskData = new TaskData(dataHandler.getAttributeMapper(repository), JiraCorePlugin.CONNECTOR_KIND,
+			TaskData taskData = new TaskData(dataHandler.getAttributeMapper(repository), repository.getConnectorKind(),
 					repository.getRepositoryUrl(), "");
-			DefaultTaskMapping mapping = new DefaultTaskMapping() {
+			TaskMapping mapping = new TaskMapping() {
 				@Override
 				public String getProduct() {
 					return "SCRATCH";
 				}
+
+				@Override
+				public String getSummary() {
+					return "Issue created by JiraCreateIssueExample";
+				}
 			};
-			mapping.setSummary("Issue created by JiraCreateIssueExample");
 
 			System.out.println("Initializing project...");
 			dataHandler.initializeTaskData(repository, taskData, mapping, null);
