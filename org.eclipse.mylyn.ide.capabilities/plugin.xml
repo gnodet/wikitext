@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         id="org.eclipse.mylyn.ide.capabilities"
+         name="General"
+         point="org.eclipse.ui.activities">
+      <category
+            id="org.eclipse.mylyn.capabilities.category"
+            name="%activity.category.name">
+      </category>
+   </extension>
+   <extension
+         id="org.eclipse.mylyn.ide.capabilities.taskFocusedInterface"
+         name="Task-Focused Interface"
+         point="org.eclipse.ui.activities">
+      <activity
+            id="org.eclipse.mylyn.capabilities.taskFocusedInterface"
+            name="%activity.Task_Focused_Interface.name">
+      </activity>
+      <categoryActivityBinding
+            activityId="org.eclipse.mylyn.capabilities.taskFocusedInterface"
+            categoryId="org.eclipse.mylyn.capabilities.category">
+      </categoryActivityBinding>
+      <activityPatternBinding
+            activityId="org.eclipse.mylyn.capabilities.taskFocusedInterface"
+            pattern="org\.eclipse\.mylyn\.context\.ui/.*">
+      </activityPatternBinding>
+      <defaultEnablement
+            id="org.eclipse.mylyn.capabilities.taskFocusedInterface">
+      </defaultEnablement>
+   </extension>
+   <extension
+         id="org.eclipse.mylyn.ide.capabilities.taskManagement"
+         name="Task Management"
+         point="org.eclipse.ui.activities">
+      <activity
+            id="org.eclipse.mylyn.capabilities.taskManagement"
+            name="%activity.Task_Management.name">
+      </activity>
+      <categoryActivityBinding
+            activityId="org.eclipse.mylyn.capabilities.taskManagement"
+            categoryId="org.eclipse.mylyn.capabilities.category">
+      </categoryActivityBinding>
+      <activityPatternBinding
+            activityId="org.eclipse.mylyn.capabilities.taskManagement"
+            pattern="org\.eclipse\.mylyn\.tasks\.ui/.*">
+      </activityPatternBinding>
+      <defaultEnablement
+            id="org.eclipse.mylyn.capabilities.taskManagement">
+      </defaultEnablement>
+   </extension>
+   <extension
+         id="org.eclipse.mylyn.ide.capabilities.wikitext"
+         name="WikiText"
+         point="org.eclipse.ui.activities">
+      <activity
+            id="org.eclipse.mylyn.capabilities.wikiText"
+            name="%activity.WikiText.name">
+      </activity>
+      <categoryActivityBinding
+            activityId="org.eclipse.mylyn.capabilities.wikiText"
+            categoryId="org.eclipse.mylyn.capabilities.category">
+      </categoryActivityBinding>
+      <activityPatternBinding
+            activityId="org.eclipse.mylyn.capabilities.wikiText"
+            pattern="org\.eclipse\.mylyn\.wikitext\.ui/.*">
+      </activityPatternBinding>
+      <defaultEnablement
+            id="org.eclipse.mylyn.capabilities.wikiText">
+      </defaultEnablement>
+   </extension> 
+
+</plugin>
