@@ -10,12 +10,9 @@
  *******************************************************************************/
 package org.eclipse.mylyn.internal.examples.jira;
 
-import java.util.Date;
-
 import org.eclipse.mylyn.commons.net.WebLocation;
 import org.eclipse.mylyn.internal.commons.net.CommonsNetPlugin;
 import org.eclipse.mylyn.internal.jira.core.model.JiraIssue;
-import org.eclipse.mylyn.internal.jira.core.model.filter.DateRangeFilter;
 import org.eclipse.mylyn.internal.jira.core.model.filter.FilterDefinition;
 import org.eclipse.mylyn.internal.jira.core.model.filter.ProjectFilter;
 import org.eclipse.mylyn.internal.jira.core.service.JiraClient;
@@ -24,13 +21,13 @@ import org.eclipse.mylyn.internal.jira.core.service.JiraException;
 /**
  * @author Steffen Pingel
  */
-public class JiraClientExample {
+public class JiraClientSearchExample {
 
-	private static final String URL = "https://mylyn.eclipse.org/jiratest";
+	private static final String URL = "http://mylyn.eclipse.org/jiratest";
 
 	public static void main(String[] args) {
 		if (args.length != 2) {
-			System.err.println("usage: JiraClientExample username password");
+			System.err.println("usage: JiraClientSearchExample username password");
 			System.exit(1);
 		}
 
@@ -43,7 +40,6 @@ public class JiraClientExample {
 
 			// access task information
 			FilterDefinition filter = new FilterDefinition();
-			filter.setUpdatedDateFilter(new DateRangeFilter(new Date(2008, 6, 30), new Date(2008, 7, 31)));
 			filter.setProjectFilter(new ProjectFilter(client.getCache().getProjectByKey("SCRATCH")));
 
 			// do the search
