@@ -9,20 +9,22 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.tests.integration;
+package org.eclipse.mylyn.web.tests;
 
-import junit.framework.TestCase;
-
-import org.eclipse.mylyn.internal.monitor.usage.MonitorPreferenceConstants;
-import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
  * @author Mik Kersten
  */
-public class DefaultPreferenceConfigTest extends TestCase {
+public class AllWebTests {
 
-	public void testMonitorPreferences() {
-		assertNotNull(UiUsageMonitorPlugin.getDefault());
-		assertTrue(UiUsageMonitorPlugin.getPrefs().getBoolean(MonitorPreferenceConstants.PREF_MONITORING_OBFUSCATE));
+	public static Test suite() {
+		TestSuite suite = new TestSuite("Test for org.eclipse.mylyn.web.tests");
+		suite.addTestSuite(UrlExclusionTest.class);
+		suite.addTestSuite(HypertextStructureBridgeTest.class);
+		suite.addTestSuite(GetFaviconForUrlTest.class);
+		return suite;
 	}
+
 }

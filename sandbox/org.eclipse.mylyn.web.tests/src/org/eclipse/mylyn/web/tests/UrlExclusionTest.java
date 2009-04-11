@@ -9,7 +9,7 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.tests.misc;
+package org.eclipse.mylyn.web.tests;
 
 import junit.framework.TestCase;
 

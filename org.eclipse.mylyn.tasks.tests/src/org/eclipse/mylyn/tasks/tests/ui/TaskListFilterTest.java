@@ -9,7 +9,7 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.tests.integration;
+package org.eclipse.mylyn.tasks.tests.ui;
 
 import java.util.Arrays;
 import java.util.Calendar;
