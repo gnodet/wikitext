@@ -22,7 +22,6 @@ import org.osgi.framework.BundleContext;
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
-// TODO 3.1 rename to XPlannerUiPlugin?
 public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
 
 	private static XPlannerMylynUIPlugin INSTANCE;
