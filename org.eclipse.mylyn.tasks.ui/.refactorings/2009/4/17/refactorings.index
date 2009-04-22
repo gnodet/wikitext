@@ -1,2 +1,6 @@
 1240381185291	Copy compilation units
 1240383961521	Move compilation unit
+1240384258614	Move member 'ID'
+1240384377817	Rename field 'ID'
+1240384798264	Move member 'ID'
+1240384824998	Rename field 'ID'
