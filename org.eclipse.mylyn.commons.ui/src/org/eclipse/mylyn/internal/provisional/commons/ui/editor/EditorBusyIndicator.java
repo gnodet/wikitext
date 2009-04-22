@@ -9,22 +9,22 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.tasks.ui.editors;
+package org.eclipse.mylyn.internal.provisional.commons.ui.editor;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.mylyn.internal.commons.ui.CommonsUiPlugin;
 import org.eclipse.mylyn.internal.provisional.commons.ui.CommonImages;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.WorkbenchPlugin;
 
 /**
  * Provides a spinner animation for the tab title of an editor.
  * 
  * @author Shawn Minto
  * @author Steffen Pingel
- * @deprecated use {@link org.eclipse.mylyn.internal.provisional.commons.ui.editor.EditorBusyIndicator} instead
  */
-@Deprecated
 public class EditorBusyIndicator {
 
 	private class Animator implements Runnable {
@@ -49,10 +49,11 @@ public class EditorBusyIndicator {
 				imageDataIndex = (imageDataIndex + 1) % images.length;
 
 				if (updateTitleImage(image)) {
-					PlatformUI.getWorkbench().getDisplay().timerExec(DELAY, this);
+					PlatformUI.getWorkbench().getDisplay().timerExec(UPDATE_INTERVAL, this);
 				}
 			} catch (Exception e) {
-				WorkbenchPlugin.log(e);
+				CommonsUiPlugin.getDefault().getLog().log(
+						new Status(IStatus.ERROR, CommonsUiPlugin.ID_PLUGIN, "Failed to update animation", e)); //$NON-NLS-1$
 			}
 		}
 
@@ -61,7 +62,7 @@ public class EditorBusyIndicator {
 		}
 	}
 
-	public static final int DELAY = 90;
+	private static final int UPDATE_INTERVAL = 90;
 
 	private Animator animator;
 
@@ -101,7 +102,8 @@ public class EditorBusyIndicator {
 				animator.run();
 			}
 		} catch (SWTException e) {
-			WorkbenchPlugin.log(e);
+			CommonsUiPlugin.getDefault().getLog().log(
+					new Status(IStatus.ERROR, CommonsUiPlugin.ID_PLUGIN, "Failed to start animation", e)); //$NON-NLS-1$
 		}
 	}
 

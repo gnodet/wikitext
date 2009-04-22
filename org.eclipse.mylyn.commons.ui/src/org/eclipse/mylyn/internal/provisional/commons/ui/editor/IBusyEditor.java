@@ -9,19 +9,31 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.tasks.ui.editors;
+package org.eclipse.mylyn.internal.provisional.commons.ui.editor;
 
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.ui.part.WorkbenchPart;
 
 /**
+ * A callback for modifying the title image of an editor. Clients that provide busy animations should implement this
+ * interface and delegate to the respective methods in {@link WorkbenchPart}.
+ * 
  * @author Shawn Minto
- * @deprecated use {@link org.eclipse.mylyn.internal.provisional.commons.ui.editor.IBusyEditor} instead
+ * @see EditorBusyIndicator
  */
-@Deprecated
 public interface IBusyEditor {
 
+	/**
+	 * Updates the title image of the editor to <code>image</code>.
+	 * 
+	 * @param image
+	 *            the image
+	 */
 	public void setTitleImage(Image image);
 
+	/**
+	 * Returns the current title image of the editor.
+	 */
 	public Image getTitleImage();
 
 }
