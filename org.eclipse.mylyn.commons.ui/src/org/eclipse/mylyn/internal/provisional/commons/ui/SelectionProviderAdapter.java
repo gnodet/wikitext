@@ -9,7 +9,7 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.tasks.ui.util;
+package org.eclipse.mylyn.internal.provisional.commons.ui;
 
 import org.eclipse.core.commands.common.EventManager;
 import org.eclipse.core.runtime.SafeRunner;
@@ -20,10 +20,11 @@ import org.eclipse.jface.viewers.ISelectionProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 
 /**
+ * Provides an simple implementation of {@link ISelectionProvider} that propagates selection events to registered
+ * listeners.
+ * 
  * @author Steffen Pingel
- * @deprecated use {@link org.eclipse.mylyn.internal.provisional.commons.ui.SelectionProviderAdapter} instead
  */
-@Deprecated
 public class SelectionProviderAdapter extends EventManager implements ISelectionProvider {
 
 	private ISelection selection;
