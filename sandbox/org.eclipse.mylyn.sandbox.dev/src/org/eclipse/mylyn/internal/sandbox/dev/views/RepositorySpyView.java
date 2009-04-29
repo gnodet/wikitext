@@ -1,12 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2004, 2008 Tasktop Technologies and others.
+ * Copyright (c) 2004, 2008 Maarten Meijer and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Tasktop Technologies - initial API and implementation
+ *     Maarten Meijer - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.mylyn.internal.sandbox.dev.views;
@@ -56,6 +56,8 @@ import org.eclipse.ui.part.ViewPart;
  * same model objects using different labels and icons, if needed. Alternatively, a single label provider can be shared
  * between views in order to ensure that objects of the same type are presented in the same way everywhere.
  * <p>
+ * 
+ * @author Maarten Meijer
  */
 public class RepositorySpyView extends ViewPart {
 	class RefreshAction extends Action {
