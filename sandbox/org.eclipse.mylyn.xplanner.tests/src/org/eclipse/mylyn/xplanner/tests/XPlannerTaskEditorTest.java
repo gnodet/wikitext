@@ -10,7 +10,7 @@ package org.eclipse.mylyn.xplanner.tests;
 
 import junit.framework.TestCase;
 
-import org.eclipse.mylyn.internal.commons.ui.WorkbenchUtil;
+import org.eclipse.mylyn.internal.provisional.commons.ui.WorkbenchUtil;
 import org.eclipse.mylyn.internal.xplanner.ui.editor.XPlannerTaskEditorExtraControls;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.widgets.Event;
