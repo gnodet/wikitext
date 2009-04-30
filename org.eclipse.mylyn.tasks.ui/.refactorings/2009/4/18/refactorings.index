@@ -3,3 +3,8 @@
 1241063563829	Move member 'ensureVisible'
 1241063595196	Move member 'toggleExpandableComposite'
 1241063846379	Move members
+1241064884682	Extract method 'copyProperties'
+1241064981180	Extract method 'addTask'
+1241065047340	Extract method 'closeAndOpen'
+1241065619318	Extract method 'delete'
+1241065809782	Rename field 'deleteOldTask'
