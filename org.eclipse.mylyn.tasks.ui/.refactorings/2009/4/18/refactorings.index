@@ -8,3 +8,5 @@
 1241065047340	Extract method 'closeAndOpen'
 1241065619318	Extract method 'delete'
 1241065809782	Rename field 'deleteOldTask'
+1241113707747	Rename field 'ID_VIEW_TASK_LIST'
+1241113855486	Rename field 'ID_VIEW_TASK_REPOSITORIES'
