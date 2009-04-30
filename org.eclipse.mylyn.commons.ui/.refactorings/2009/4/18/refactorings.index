@@ -1,1 +1,5 @@
 1241061658407	Move compilation unit
+1241063329679	Rename type 'CommonsUiUtil'
+1241063626763	Rename method 'toggleExpandableComposite'
+1241063636368	Change method 'setExpanded'
+1241063910326	Rename method 'setEnabledState'

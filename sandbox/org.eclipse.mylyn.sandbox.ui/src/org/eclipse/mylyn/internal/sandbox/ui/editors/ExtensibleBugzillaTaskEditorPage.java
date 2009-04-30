@@ -24,9 +24,9 @@ import org.eclipse.jface.text.FindReplaceDocumentAdapter;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.TextViewer;
 import org.eclipse.mylyn.internal.bugzilla.ui.editor.BugzillaTaskEditorPage;
+import org.eclipse.mylyn.internal.provisional.commons.ui.CommonFormUtil;
 import org.eclipse.mylyn.internal.provisional.commons.ui.CommonImages;
 import org.eclipse.mylyn.internal.provisional.commons.ui.CommonTextSupport;
-import org.eclipse.mylyn.internal.tasks.ui.editors.EditorUtil;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskEditorPage;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskEditorPart;
 import org.eclipse.mylyn.tasks.ui.editors.TaskEditor;
@@ -91,8 +91,8 @@ public class ExtensibleBugzillaTaskEditorPage extends BugzillaTaskEditorPage {
 								findAndHighlight(ExtensibleBugzillaTaskEditorPage.this, findText.getText());
 								// always toggle attachment part close after every search, since all ExpandableComposites are open
 								AbstractTaskEditorPart attachmentsPart = getPart(AbstractTaskEditorPage.ID_PART_ATTACHMENTS);
-								EditorUtil.toggleExpandableComposite(false,
-										(ExpandableComposite) attachmentsPart.getControl());
+								CommonFormUtil.setExpanded((ExpandableComposite) attachmentsPart.getControl(),
+										false);
 							} finally {
 								setReflow(true);
 							}
@@ -179,7 +179,7 @@ public class ExtensibleBugzillaTaskEditorPage extends BugzillaTaskEditorPage {
 
 				// have to do this since TaskEditorCommentPart.expendComment(..) will dispose the TextViewer when the ExpandableComposite is close
 				if (child instanceof ExpandableComposite) {
-					EditorUtil.toggleExpandableComposite(true, (ExpandableComposite) child);
+					CommonFormUtil.setExpanded((ExpandableComposite) child, true);
 				}
 
 				if (child instanceof Composite) {
@@ -236,7 +236,7 @@ public class ExtensibleBugzillaTaskEditorPage extends BugzillaTaskEditorPage {
 					while (comp != null) {
 						if (comp instanceof ExpandableComposite) {
 							ExpandableComposite ex = (ExpandableComposite) comp;
-							EditorUtil.toggleExpandableComposite(false, ex);
+							CommonFormUtil.setExpanded(ex, false);
 							break;
 						}
 						comp = comp.getParent();
