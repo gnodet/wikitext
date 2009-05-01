@@ -1,0 +1,8 @@
+1241196444890	Rename method 'contextUpdated'
+1241197005843	Convert member type 'ContextChangeEvent' to top level
+1241197018828	Move type
+1241211583906	Rename enum constant 'PRE_ACTIVATE'
+1241211595421	Rename enum constant 'ACTIVATE'
+1241211600281	Rename enum constant 'DEACTIVATE'
+1241211605437	Rename enum constant 'CLEAR'
+1241217024468	Extract local variable 'activeContext'
