@@ -40,10 +40,8 @@ public class ShowPropertiesAction implements IViewActionDelegate {
 
 	public void run(IAction action) {
 		IWorkbenchPage page = view.getSite().getPage();
-		IViewPart props;
 		try {
-			props = page.showView(PROPERTIES_ID);
-			page.activate(props);
+			page.showView(PROPERTIES_ID, null, IWorkbenchPage.VIEW_VISIBLE);
 		} catch (PartInitException e) {
 			StatusHandler.log(new Status(IStatus.ERROR, MylynDevPlugin.ID_PLUGIN,
 					"Unexpected exception while opening properties view", e));
