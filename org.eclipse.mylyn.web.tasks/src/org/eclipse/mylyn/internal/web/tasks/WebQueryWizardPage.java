@@ -104,20 +104,25 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		super.dispose();
 	}
 
-	@SuppressWarnings("restriction")
 	private static String getDefaultQueryTitle(TaskRepository repository) {
 		String label = repository.getRepositoryLabel();
 		String title = label;
+		for (int n = 1; hasQueryWithTitle(repository, title); n++) {
+			title = label + " " + n;
+		}
+		return title;
+	}
+
+	@SuppressWarnings("restriction")
+	private static boolean hasQueryWithTitle(TaskRepository repository, String title) {
 		Set<org.eclipse.mylyn.internal.tasks.core.RepositoryQuery> queries = org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin.getTaskList()
 				.getRepositoryQueries(repository.getRepositoryUrl());
-		for (int n = 1; true; n++) {
-			for (IRepositoryQuery query : queries) {
-				if (query.getSummary().equals(title)) {
-					title = label + " " + n;
-				}
+		for (IRepositoryQuery query : queries) {
+			if (query.getSummary().equals(title)) {
+				return true;
 			}
-			return title;
 		}
+		return false;
 	}
 
 	private void createTitleGroup(Composite parent) {
@@ -272,7 +277,7 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 			}
 
 			public Object[] getElements(Object inputElement) {
-				if (inputElement instanceof Collection) {
+				if (inputElement instanceof Collection<?>) {
 					return ((Collection<?>) inputElement).toArray();
 				}
 				return new Object[0];

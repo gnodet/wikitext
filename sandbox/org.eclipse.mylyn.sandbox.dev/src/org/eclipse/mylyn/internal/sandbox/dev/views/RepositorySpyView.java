@@ -179,7 +179,7 @@ public class RepositorySpyView extends ViewPart {
 		}
 
 		public Object[] getChildren(Object parent) {
-			if (parent instanceof List) {
+			if (parent instanceof List<?>) {
 				return repositories.toArray();
 			}
 			if (parent instanceof TaskRepository) {
@@ -191,7 +191,7 @@ public class RepositorySpyView extends ViewPart {
 		}
 
 		public boolean hasChildren(Object parent) {
-			if (parent instanceof List) {
+			if (parent instanceof List<?>) {
 				return repositories.size() > 0;
 			}
 			if (parent instanceof TaskRepository) {
@@ -213,7 +213,7 @@ public class RepositorySpyView extends ViewPart {
 
 		@Override
 		public String getText(Object obj) {
-			if (obj instanceof List) {
+			if (obj instanceof List<?>) {
 				return "Repositories";
 			}
 			if (obj instanceof TaskRepository) {
@@ -226,7 +226,7 @@ public class RepositorySpyView extends ViewPart {
 		@Override
 		public Image getImage(Object obj) {
 			String imageKey = ISharedImages.IMG_OBJ_ELEMENT;
-			if (obj instanceof List) {
+			if (obj instanceof List<?>) {
 				return TasksUiImages.REPOSITORIES_VIEW.createImage();
 			}
 			if (obj instanceof TaskRepository) {

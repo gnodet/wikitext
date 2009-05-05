@@ -49,7 +49,7 @@ public class XPlannerCorePlugin extends Plugin {
 		plugin = this;
 
 		// disable Axis attachment support, see bug 197819
-		AxisProperties.setProperty(AxisEngine.PROP_ATTACHMENT_IMPLEMENTATION, "org.eclipse.mylyn.does.not.exist");
+		AxisProperties.setProperty(AxisEngine.PROP_ATTACHMENT_IMPLEMENTATION, "org.eclipse.mylyn.does.not.exist"); //$NON-NLS-1$
 	}
 
 	/**
