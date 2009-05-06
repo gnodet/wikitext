@@ -32,7 +32,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.commons.net.AbstractWebLocation;
 import org.eclipse.mylyn.commons.net.AuthenticationCredentials;
 import org.eclipse.mylyn.commons.net.AuthenticationType;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.internal.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.internal.xplanner.ui.XPlannerAttributeMapper.Attribute;
@@ -95,8 +94,7 @@ public class XPlannerRepositoryUtils {
 			}
 		} catch (final Exception e) {
 			throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN, 0, MessageFormat.format(
-					Messages.XPlannerRepositoryUtils_TASK_DOWNLOAD_FAILED, xplannerTask.getRepositoryUrl(),
-					TasksUiPlugin.LABEL_VIEW_REPOSITORIES), e));
+					Messages.XPlannerRepositoryUtils_TASK_DOWNLOAD_FAILED, xplannerTask.getRepositoryUrl()), e));
 		}
 
 		return repositoryTaskData;
@@ -123,8 +121,7 @@ public class XPlannerRepositoryUtils {
 			}
 		} catch (final Exception e) {
 			throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN, 0, MessageFormat.format(
-					Messages.XPlannerRepositoryUtils_TASK_DOWNLOAD_FAILED, repository.getRepositoryUrl(),
-					TasksUiPlugin.LABEL_VIEW_REPOSITORIES), e));
+					Messages.XPlannerRepositoryUtils_TASK_DOWNLOAD_FAILED, repository.getRepositoryUrl()), e));
 		}
 
 		return repositoryTaskData;

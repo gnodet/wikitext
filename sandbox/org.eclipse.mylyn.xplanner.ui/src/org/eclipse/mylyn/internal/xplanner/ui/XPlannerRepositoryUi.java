@@ -150,8 +150,7 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 
 	@Override
 	public IWizard getNewTaskWizard(TaskRepository taskRepository, ITaskMapping taskSelection) {
-		// TODO pass taskSelection to task editor
-		return new NewXPlannerTaskWizard(taskRepository);
+		return new NewXPlannerTaskWizard(taskRepository, taskSelection);
 	}
 
 	@Override

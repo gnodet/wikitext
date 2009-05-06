@@ -19,8 +19,8 @@ public class NewXPlannerTaskWizard extends NewTaskWizard {
 
 	private final NewXPlannerTaskPage userStoryPage;
 
-	public NewXPlannerTaskWizard(TaskRepository taskRepository) {
-		super(taskRepository);
+	public NewXPlannerTaskWizard(TaskRepository taskRepository, ITaskMapping selection) {
+		super(taskRepository, selection);
 
 		userStoryPage = new NewXPlannerTaskPage(taskRepository);
 
