@@ -52,8 +52,6 @@ import org.xplanner.soap.UserStoryData;
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
-@SuppressWarnings("restriction")
-// for TasksUi
 public class XPlannerRepositoryUtils {
 	private static final String TYPE_FEATURE = "Feature"; //$NON-NLS-1$
 
