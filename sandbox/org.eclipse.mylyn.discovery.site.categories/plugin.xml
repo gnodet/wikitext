@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.mylyn.discovery.core.connectorDiscovery">
+      <connectorCategory
+            description="%connectorCategory.description.0"
+            id="org.eclipse.mylyn.discovery.site.categories.connectorCategoryEclipseOrg"
+            name="%connectorCategory.name.0">
+         <icon
+               image32="images/eclipse32.png"/>
+      </connectorCategory>
+   </extension>
+
+</plugin>

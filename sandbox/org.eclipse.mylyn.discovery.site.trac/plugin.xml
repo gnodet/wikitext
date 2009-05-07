@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.mylyn.discovery.core.connectorDiscovery">
+      <connectorDescriptor
+            categoryId="org.eclipse.mylyn.discovery.site.categories.connectorCategoryEclipseOrg"
+            description="%connectorDescriptor.description.0"
+            id="org.eclipse.mylyn.trac_feature"
+            kind="task"
+            license="%connectorDescriptor.license.0"
+            name="%connectorDescriptor.name.0"
+            provider="%connectorDescriptor.provider.0"
+            siteUrl="http://download.eclipse.org/tools/mylyn/update/extras">
+         <icon
+               image32="images/trac32.png"
+               image64="images/trac64.png">
+         </icon>
+         <overview
+               screenshot="images/screenshot-320-240.png"
+               summary="%connectorDescriptor.overview.summary.0">
+         </overview>
+      </connectorDescriptor>
+   </extension>
+
+</plugin>
