@@ -7,11 +7,20 @@
  *
  * Contributors:
  *     Maarten Meijer - initial API and implementation
+ *     Tasktop Technologies - improvements
  *******************************************************************************/
 
 package org.eclipse.mylyn.internal.sandbox.dev.properties;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
+import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
+import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
+import org.eclipse.mylyn.tasks.core.data.TaskData;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.TextPropertyDescriptor;
@@ -22,10 +31,6 @@ import org.eclipse.ui.views.properties.TextPropertyDescriptor;
  * @author Maarten Meijer
  */
 public class AbstractTaskPropertiesSource extends AbstractTaskContainerPropertySource implements IPropertySource {
-
-	private static final String NULL_MSG = "<null>";
-
-	private static final String LAST_READ = "last_read";
 
 	private static final String STATE = "state";
 
@@ -41,8 +46,15 @@ public class AbstractTaskPropertiesSource extends AbstractTaskContainerPropertyS
 
 	private static final String SCHEDULED = "scheduled";
 
+	private final AbstractTask task;
+
+	private Map<String, TaskAttribute> taskdata;
+
+	private static final String dataCategoryName = TaskData.class.getCanonicalName();
+
 	public AbstractTaskPropertiesSource(AbstractTask adaptableObject) {
 		super(adaptableObject);
+		this.task = adaptableObject;
 	}
 
 	@Override
@@ -63,37 +75,74 @@ public class AbstractTaskPropertiesSource extends AbstractTaskContainerPropertyS
 		status.setCategory(description);
 		TextPropertyDescriptor state = new TextPropertyDescriptor(STATE, "Synchronization State");
 		state.setCategory(description);
-		TextPropertyDescriptor lastRead = new TextPropertyDescriptor(LAST_READ, "Last Read Timestamp");
-		lastRead.setCategory(description);
 		IPropertyDescriptor[] specific = new IPropertyDescriptor[] { summary, owner, scheduled, parent, kind, url,
-				status, state, lastRead };
-		return super.appendSpecifics(specific, super.getPropertyDescriptors());
+				status, state };
+		IPropertyDescriptor[] descriptors = super.appendSpecifics(specific, getTaskDataAsProperties());
+		return super.appendSpecifics(descriptors, super.getPropertyDescriptors());
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public Object getPropertyValue(Object id) {
 		AbstractTask task = (AbstractTask) container;
 		if (SUMMARY.equals(id)) {
-			return task.getSummary();
+			return safeObject(task.getSummary());
 		} else if (OWNER.equals(id)) {
-			return task.getOwner();
+			return safeObject(task.getOwner());
 		} else if (SCHEDULED.equals(id)) {
-			return task.getScheduledForDate() == null ? NULL_MSG : task.getScheduledForDate();
+			return safeObject(task.getScheduledForDate());
 		} else if (PARENT.equals(id)) {
-			return (task).getParentContainers() == null ? NULL_MSG : (task).getParentContainers().toString();
+			return safeObject((task).getParentContainers()).toString();
 		} else if (KIND.equals(id)) {
 			return task.getConnectorKind();
 		} else if (URL.equals(id)) {
 			return task.getRepositoryUrl();
 		} else if (STATE.equals(id)) {
-			return task.getSynchronizationState() == null ? NULL_MSG : task.getSynchronizationState().toString();
+			return safeObject(task.getSynchronizationState()).toString();
 		} else if (STATUS.equals(id)) {
-			return task.getStatus() == null ? NULL_MSG : task.getStatus().toString();
-		} else if (LAST_READ.equals(id)) {
-			return task.getLastReadTimeStamp() == null ? NULL_MSG : task.getLastReadTimeStamp().toString();
+			return safeObject(task.getStatus()).toString();
+		}
+		Object dataValue = getTaskDataValue(id);
+		if (null != dataValue) {
+			return dataValue;
 		}
 		return super.getPropertyValue(id);
 	}
 
+	private Object getTaskDataValue(Object id) {
+		try {
+			Map<String, TaskAttribute> taskdata = getAttributes();
+			if (taskdata.containsKey(id)) {
+				return safeObject(taskdata.get(id)).toString();
+			}
+		} catch (CoreException e) {
+			// fail silently
+		}
+		return null;
+	}
+
+	private Map<String, TaskAttribute> getAttributes() throws CoreException {
+		if (taskdata == null) {
+			taskdata = TasksUiPlugin.getTaskDataManager()
+					.getWorkingCopy(task, false)
+					.getLocalData()
+					.getRoot()
+					.getAttributes();
+		}
+		return taskdata;
+	}
+
+	private IPropertyDescriptor[] getTaskDataAsProperties() {
+		List<TextPropertyDescriptor> props = new ArrayList<TextPropertyDescriptor>();
+		try {
+			Map<String, TaskAttribute> taskdata = getAttributes();
+			for (String key : taskdata.keySet()) {
+				TextPropertyDescriptor desc = new TextPropertyDescriptor(key, key);
+				desc.setCategory(dataCategoryName);
+				props.add(desc);
+			}
+		} catch (CoreException e) {
+			// fail silently
+		}
+		return props.toArray(new TextPropertyDescriptor[0]);
+	}
 }

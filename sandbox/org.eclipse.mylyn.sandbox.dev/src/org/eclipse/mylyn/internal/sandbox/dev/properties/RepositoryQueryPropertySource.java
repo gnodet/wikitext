@@ -23,8 +23,6 @@ import org.eclipse.ui.views.properties.TextPropertyDescriptor;
  */
 public class RepositoryQueryPropertySource extends AbstractTaskContainerPropertySource implements IPropertySource {
 
-	private static final String NULL_MSG = "<null>";
-
 	private static final String LAST_READ = "last_read";
 
 	private static final String STATUS = "status";
@@ -63,16 +61,15 @@ public class RepositoryQueryPropertySource extends AbstractTaskContainerProperty
 		if (SUMMARY.equals(id)) {
 			return query.getSummary();
 		} else if (KIND.equals(id)) {
-			return query.getConnectorKind();
+			return safeObject(query.getConnectorKind());
 		} else if (REPOSITORY.equals(id)) {
-			return query.getRepositoryUrl();
+			return safeObject(query.getRepositoryUrl());
 		} else if (QUERY.equals(id)) {
-			return query.getUrl();
+			return safeObject(query.getUrl());
 		} else if (STATUS.equals(id)) {
-			return query.getStatus() == null ? NULL_MSG : query.getStatus().toString();
+			return safeObject(query.getStatus());
 		} else if (LAST_READ.equals(id)) {
-			return query.getLastSynchronizedTimeStamp() == null ? NULL_MSG : query.getLastSynchronizedTimeStamp()
-					.toString();
+			return safeObject(query.getLastSynchronizedTimeStamp()).toString();
 		}
 		return super.getPropertyValue(id);
 	}

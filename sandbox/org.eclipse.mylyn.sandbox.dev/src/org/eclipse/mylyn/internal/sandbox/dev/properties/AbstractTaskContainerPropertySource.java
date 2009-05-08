@@ -33,6 +33,8 @@ import org.eclipse.ui.views.properties.TextPropertyDescriptor;
  */
 public abstract class AbstractTaskContainerPropertySource implements IPropertySource {
 
+	protected static final String NULL_MSG = "<null>";
+
 	protected static final String CHILDREN = "children";
 
 	protected static final String DESCENDANDS = "descendents";
@@ -53,7 +55,7 @@ public abstract class AbstractTaskContainerPropertySource implements IPropertySo
 
 	public AbstractTaskContainerPropertySource(AbstractTaskContainer adaptableObject) {
 		container = adaptableObject;
-		description = container.getClass().getName();
+		description = container.getClass().getName() + " (Abstract)";
 		if (adaptableObject instanceof IAttributeContainer) {
 			attributeContainer = (IAttributeContainer) adaptableObject;
 		}
@@ -129,36 +131,36 @@ public abstract class AbstractTaskContainerPropertySource implements IPropertySo
 
 	public Object getPropertyValue(Object id) {
 		if (HANDLE.equals(id)) {
-			return container.getHandleIdentifier();
+			return safeObject(container.getHandleIdentifier());
 		} else if (CHILDREN.equals(id)) {
-			return container.getChildren().size();
+			return safeObject(container.getChildren().size());
 		} else if (DESCENDANDS.equals(id)) {
-			return getDescendants(container).size();
+			return safeObject(getDescendants(container).size());
 		} else if (IS_CYCLIC.equals(id)) {
 			return containsCyclic(container) ? "Cyclic" : "Not Cyclic";
 		} else if (null != attributeContainer) {
 			if (attributeContainer.getAttributes().containsKey(id)) {
-				return attributeContainer.getAttribute((String) id);
+				return safeObject(attributeContainer.getAttribute((String) id));
 			}
 		}
 		return null;
 	}
 
+	protected Object safeObject(Object s) {
+		return s == null ? NULL_MSG : s;
+	}
+
 	public boolean isPropertySet(Object id) {
-		// ignore
 		return false;
 	}
 
 	public void resetPropertyValue(Object id) {
-		// ignore
 	}
 
 	public void setPropertyValue(Object id, Object value) {
-		// ignore
 	}
 
 	public Object getEditableValue() {
-		// ignore
 		return null;
 	}
 
