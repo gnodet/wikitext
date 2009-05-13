@@ -11,7 +11,7 @@
             license="%connectorDescriptor.license.0"
             name="%connectorDescriptor.name.0"
             provider="%connectorDescriptor.provider.0"
-            siteUrl="download.eclipse.org/tools/mylyn/update/weekly/extras">
+            siteUrl="http://download.eclipse.org/tools/mylyn/update/weekly/extras">
          <icon
                image32="images/trac32.png"
                image64="images/trac64.png">
