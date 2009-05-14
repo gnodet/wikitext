@@ -79,6 +79,7 @@ public class NewXPlannerTaskPage extends WizardPage {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public void createControl(Composite parent) {
 		// create the composite to hold the widgets
 		Composite composite = new Composite(parent, SWT.NULL);
@@ -87,6 +88,7 @@ public class NewXPlannerTaskPage extends WizardPage {
 		composite.setLayout(new GridLayout());
 
 		// create the list of bug reports
+		// TODO e3.5 move to new FilteredTree API
 		projectTree = new FilteredTree(composite, SWT.SINGLE | SWT.BORDER, new PatternFilter());
 		projectTree.setLayoutData(GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).hint(
 				SWT.DEFAULT, 200).create());
