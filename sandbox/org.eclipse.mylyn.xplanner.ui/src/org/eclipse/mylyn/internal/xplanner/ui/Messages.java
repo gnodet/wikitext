@@ -25,13 +25,11 @@ public class Messages extends NLS {
 	private Messages() {
 	}
 
-	public static String MylynXPlannerPlugin_CLIENT_DIALOG_TITLE;
+	public static String XPlannerPlugin_CLIENT_DIALOG_TITLE;
 
-	public static String MylynXPlannerPlugin_CLIENT_LABEL;
+	public static String XPlannerPlugin_CLIENT_LABEL;
 
-	public static String MylynXPlannerPlugin_XPLANNER_ERROR_TITLE;
-
-	public static String MylynXPlannerPlugin_NOT_AVAILABLE_IN_SKU;
+	public static String XPlannerPlugin_XPLANNER_ERROR_TITLE;
 
 	public static String XPlannerOfflineTaskHandler_CANNOT_POST_DATA_TO_SERVER;
 

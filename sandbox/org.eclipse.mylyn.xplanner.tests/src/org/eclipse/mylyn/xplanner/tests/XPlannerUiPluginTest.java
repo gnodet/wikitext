@@ -9,9 +9,13 @@ package org.eclipse.mylyn.xplanner.tests;
 
 import junit.framework.TestCase;
 
-import org.eclipse.mylyn.internal.xplanner.ui.XPlannerMylynUIPlugin;
+import org.eclipse.mylyn.internal.xplanner.ui.XPlannerUiPlugin;
 
-public class XPlannerMylynUIPluginTest extends TestCase {
+/**
+ * @author Ravi Kumar
+ * @author Helen Bershadskaya
+ */
+public class XPlannerUiPluginTest extends TestCase {
 
 	@Override
 	protected void setUp() throws Exception {
@@ -24,7 +28,7 @@ public class XPlannerMylynUIPluginTest extends TestCase {
 	}
 
 	public void testStopWithoutFacadeInitialization() {
-		XPlannerMylynUIPlugin plugin = XPlannerMylynUIPlugin.getDefault();
+		XPlannerUiPlugin plugin = XPlannerUiPlugin.getDefault();
 
 		assertNotNull(plugin);
 

@@ -179,10 +179,10 @@ public class XPlannerTaskDataHandler extends AbstractTaskDataHandler {
 					}
 				}
 			} catch (NumberFormatException e) {
-				XPlannerMylynUIPlugin.log(e.getCause(), "", false); //$NON-NLS-1$
+				XPlannerUiPlugin.log(e.getCause(), "", false); //$NON-NLS-1$
 				error = e.getMessage();
 			} catch (RemoteException e) {
-				XPlannerMylynUIPlugin.log(e.getCause(), "", false); //$NON-NLS-1$
+				XPlannerUiPlugin.log(e.getCause(), "", false); //$NON-NLS-1$
 				error = e.getMessage();
 			}
 		}

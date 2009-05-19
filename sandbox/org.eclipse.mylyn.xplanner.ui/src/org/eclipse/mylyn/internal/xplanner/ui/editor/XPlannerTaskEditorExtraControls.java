@@ -16,7 +16,7 @@ import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.xplanner.ui.XPlannerAttributeMapper;
-import org.eclipse.mylyn.internal.xplanner.ui.XPlannerMylynUIPlugin;
+import org.eclipse.mylyn.internal.xplanner.ui.XPlannerUiPlugin;
 import org.eclipse.mylyn.internal.xplanner.ui.XPlannerRepositoryUtils;
 import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
 import org.eclipse.mylyn.tasks.core.data.TaskData;
@@ -283,7 +283,7 @@ public class XPlannerTaskEditorExtraControls extends AbstractTaskEditorPart {
 		try {
 			elapsedHoursString = getElapsedHoursAsString(newElapsedTime, addToCurrent, roundToHalfHour);
 		} catch (RuntimeException e1) {
-			StatusHandler.fail(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
+			StatusHandler.fail(new Status(IStatus.ERROR, XPlannerUiPlugin.ID_PLUGIN,
 					Messages.XPlannerTaskEditorExtraControls_COULD_NOT_FORMAT_ELAPSED_TIME_ERROR, e1));
 		}
 

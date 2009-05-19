@@ -15,7 +15,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.internal.xplanner.core.XPlannerCorePlugin;
-import org.eclipse.mylyn.internal.xplanner.ui.XPlannerMylynUIPlugin;
+import org.eclipse.mylyn.internal.xplanner.ui.XPlannerUiPlugin;
 import org.eclipse.mylyn.internal.xplanner.ui.XPlannerRepositoryUtils;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
@@ -77,7 +77,7 @@ public class XPlannerRepositorySettingsPage extends AbstractRepositorySettingsPa
 		public void run(IProgressMonitor monitor) throws CoreException {
 			XPlannerRepositoryUtils.validateRepository(repository);
 
-			setStatus(new Status(IStatus.OK, XPlannerMylynUIPlugin.ID_PLUGIN, IStatus.OK,
+			setStatus(new Status(IStatus.OK, XPlannerUiPlugin.ID_PLUGIN, IStatus.OK,
 					Messages.XPlannerRepositorySettingsPage_VALID_SETTINGS_FOUND, null));
 		}
 	}

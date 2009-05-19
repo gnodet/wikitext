@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %bundleName
 Bundle-SymbolicName: org.eclipse.mylyn.xplanner.ui;singleton:=true
 Bundle-Version: 3.2.0.qualifier
-Bundle-Activator: org.eclipse.mylyn.internal.xplanner.ui.XPlannerMylynUIPlugin
+Bundle-Activator: org.eclipse.mylyn.internal.xplanner.ui.XPlannerUiPlugin
 Bundle-Vendor: %bundleVendor
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,

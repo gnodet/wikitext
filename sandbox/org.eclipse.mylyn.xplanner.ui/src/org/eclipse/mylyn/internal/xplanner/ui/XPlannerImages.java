@@ -26,8 +26,8 @@ public class XPlannerImages {
 
 	private static final String T_VIEW = "eview16"; //$NON-NLS-1$
 
-	private static final URL baseURL = XPlannerMylynUIPlugin.getDefault() == null ? null
-			: XPlannerMylynUIPlugin.getDefault().getBundle().getEntry("/icons/"); //$NON-NLS-1$ 
+	private static final URL baseURL = XPlannerUiPlugin.getDefault() == null ? null
+			: XPlannerUiPlugin.getDefault().getBundle().getEntry("/icons/"); //$NON-NLS-1$ 
 
 	public static final ImageDescriptor OVERLAY_XPLANNER = create(T_VIEW, "overlay-xplanner.gif"); //$NON-NLS-1$
 

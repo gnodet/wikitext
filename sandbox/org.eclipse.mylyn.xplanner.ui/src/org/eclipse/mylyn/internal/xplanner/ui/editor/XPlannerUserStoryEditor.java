@@ -25,7 +25,7 @@ import org.eclipse.mylyn.internal.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.internal.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.internal.xplanner.ui.XPlannerAttributeMapper;
 import org.eclipse.mylyn.internal.xplanner.ui.XPlannerClientFacade;
-import org.eclipse.mylyn.internal.xplanner.ui.XPlannerMylynUIPlugin;
+import org.eclipse.mylyn.internal.xplanner.ui.XPlannerUiPlugin;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.data.ITaskDataWorkingCopy;
 import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
@@ -120,13 +120,13 @@ public class XPlannerUserStoryEditor extends FormPage {
 			client = XPlannerClientFacade.getDefault().getXPlannerClient(repository);
 			String id = repositoryTaskData.getTaskId();
 			if (id == null || id.trim().equals("")) { //$NON-NLS-1$
-				StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
+				StatusHandler.log(new Status(IStatus.ERROR, XPlannerUiPlugin.ID_PLUGIN,
 						Messages.XPlannerTaskEditor_NO_TASK_KEY_EXCEPTION));
 			} else {
 				setUserStoryData(id);
 			}
 		} catch (CoreException e) {
-			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
+			StatusHandler.log(new Status(IStatus.ERROR, XPlannerUiPlugin.ID_PLUGIN,
 					"Error initializing task editor", e)); //$NON-NLS-1$
 		}
 	}
@@ -135,10 +135,10 @@ public class XPlannerUserStoryEditor extends FormPage {
 		try {
 			this.userStoryData = client.getUserStory(Integer.valueOf(key).intValue());
 		} catch (NumberFormatException e) {
-			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
+			StatusHandler.log(new Status(IStatus.ERROR, XPlannerUiPlugin.ID_PLUGIN,
 					"Error formatting user story key", e)); //$NON-NLS-1$
 		} catch (RemoteException e) {
-			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
+			StatusHandler.log(new Status(IStatus.ERROR, XPlannerUiPlugin.ID_PLUGIN,
 					"Error retrieving user story: " + key, e)); //$NON-NLS-1$
 		}
 	}
@@ -240,7 +240,7 @@ public class XPlannerUserStoryEditor extends FormPage {
 				toolkit.adapt(editor.getControl(), true, true);
 			}
 		} catch (CoreException e) {
-			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
+			StatusHandler.log(new Status(IStatus.ERROR, XPlannerUiPlugin.ID_PLUGIN,
 					"Could not create editor model", e)); //$NON-NLS-1$
 		}
 	}

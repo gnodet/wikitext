@@ -105,7 +105,7 @@ public class XPlannerTaskListMigrator extends AbstractTaskListMigrator {
 			personId = personIdValue == null || personIdValue.length() == 0 ? XPlannerAttributeMapper.INVALID_ID
 					: Integer.valueOf(personIdValue);
 		} catch (NumberFormatException e) {
-			XPlannerMylynUIPlugin.log(e, "Could not format person id: " + personIdValue, false); //$NON-NLS-1$
+			XPlannerUiPlugin.log(e, "Could not format person id: " + personIdValue, false); //$NON-NLS-1$
 		}
 
 		return personId;
@@ -233,7 +233,7 @@ public class XPlannerTaskListMigrator extends AbstractTaskListMigrator {
 			try {
 				ids.add(Integer.valueOf(token));
 			} catch (NumberFormatException e) {
-				XPlannerMylynUIPlugin.log(e, "Could not format query id: " + token, false); //$NON-NLS-1$
+				XPlannerUiPlugin.log(e, "Could not format query id: " + token, false); //$NON-NLS-1$
 			}
 		}
 

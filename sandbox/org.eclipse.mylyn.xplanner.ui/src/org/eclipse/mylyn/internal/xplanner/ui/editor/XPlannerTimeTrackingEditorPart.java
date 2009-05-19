@@ -10,7 +10,7 @@ package org.eclipse.mylyn.internal.xplanner.ui.editor;
 
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.internal.xplanner.ui.XPlannerMylynUIPlugin;
+import org.eclipse.mylyn.internal.xplanner.ui.XPlannerUiPlugin;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.ITaskActivityListener;
 import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskEditorPart;
@@ -203,18 +203,18 @@ public class XPlannerTimeTrackingEditorPart extends AbstractTaskEditorPart imple
 
 	private void loadValuesFromPreferenceSettings() {
 		// auto tracking
-		boolean useTimeTrackingPreference = XPlannerMylynUIPlugin.getBooleanPreference(XPlannerMylynUIPlugin.USE_AUTO_TIME_TRACKING_PREFERENCE_NAME);
+		boolean useTimeTrackingPreference = XPlannerUiPlugin.getBooleanPreference(XPlannerUiPlugin.USE_AUTO_TIME_TRACKING_PREFERENCE_NAME);
 		useTimeTrackingButton.setSelection(useTimeTrackingPreference);
 		setUseAutoTimeTracking(useTimeTrackingPreference);
 		updateTimeTrackingSection();
 
 		// rounding
-		boolean roundToHalfHourPreference = XPlannerMylynUIPlugin.getBooleanPreference(XPlannerMylynUIPlugin.ROUND_AUTO_TIME_TRACKING_TO_HALF_HOUR_PREFERENCE_NAME);
+		boolean roundToHalfHourPreference = XPlannerUiPlugin.getBooleanPreference(XPlannerUiPlugin.ROUND_AUTO_TIME_TRACKING_TO_HALF_HOUR_PREFERENCE_NAME);
 		roundToHalfHourButton.setSelection(roundToHalfHourPreference);
 		setRoundToHalfHour(roundToHalfHourPreference);
 
 		// add or replace
-		boolean addToCurrentTimePreference = XPlannerMylynUIPlugin.getBooleanPreference(XPlannerMylynUIPlugin.ADD_AUTO_TRACKED_TIME_TO_REPOSITORY_VALUE_PREFERENCE_NAME);
+		boolean addToCurrentTimePreference = XPlannerUiPlugin.getBooleanPreference(XPlannerUiPlugin.ADD_AUTO_TRACKED_TIME_TO_REPOSITORY_VALUE_PREFERENCE_NAME);
 		addToCurrentTimeButton.setSelection(addToCurrentTimePreference);
 		replaceCurrentTimeButton.setSelection(!addToCurrentTimePreference);
 		setAddToCurrentTime(addToCurrentTimePreference);
@@ -222,16 +222,16 @@ public class XPlannerTimeTrackingEditorPart extends AbstractTaskEditorPart imple
 
 	protected void savePreferenceSettings() {
 		// auto tracking
-		XPlannerMylynUIPlugin.setBooleanPreference(XPlannerMylynUIPlugin.USE_AUTO_TIME_TRACKING_PREFERENCE_NAME,
+		XPlannerUiPlugin.setBooleanPreference(XPlannerUiPlugin.USE_AUTO_TIME_TRACKING_PREFERENCE_NAME,
 				isUseAutoTimeTracking());
 
 		// rounding
-		XPlannerMylynUIPlugin.setBooleanPreference(
-				XPlannerMylynUIPlugin.ROUND_AUTO_TIME_TRACKING_TO_HALF_HOUR_PREFERENCE_NAME, isRoundToHalfHour());
+		XPlannerUiPlugin.setBooleanPreference(
+				XPlannerUiPlugin.ROUND_AUTO_TIME_TRACKING_TO_HALF_HOUR_PREFERENCE_NAME, isRoundToHalfHour());
 
 		// add or replace
-		XPlannerMylynUIPlugin.setBooleanPreference(
-				XPlannerMylynUIPlugin.ADD_AUTO_TRACKED_TIME_TO_REPOSITORY_VALUE_PREFERENCE_NAME, isAddToCurrentTime());
+		XPlannerUiPlugin.setBooleanPreference(
+				XPlannerUiPlugin.ADD_AUTO_TRACKED_TIME_TO_REPOSITORY_VALUE_PREFERENCE_NAME, isAddToCurrentTime());
 	}
 
 	/**

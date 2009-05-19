@@ -28,7 +28,7 @@ import org.eclipse.mylyn.internal.provisional.commons.ui.EnhancedFilteredTree;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.internal.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.internal.xplanner.ui.XPlannerClientFacade;
-import org.eclipse.mylyn.internal.xplanner.ui.XPlannerMylynUIPlugin;
+import org.eclipse.mylyn.internal.xplanner.ui.XPlannerUiPlugin;
 import org.eclipse.mylyn.tasks.core.AbstractRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
@@ -179,7 +179,7 @@ public class NewXPlannerTaskPage extends WizardPage {
 											+ Messages.NewXPlannerTaskPage_CHECK_REPOSITORY_SETTINGS, //
 									e.getMessage());
 							showWarning(msg);
-							StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN, msg, e));
+							StatusHandler.log(new Status(IStatus.ERROR, XPlannerUiPlugin.ID_PLUGIN, msg, e));
 						} finally {
 							monitor.done();
 						}

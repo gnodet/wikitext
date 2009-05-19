@@ -9,7 +9,7 @@ package org.eclipse.mylyn.internal.xplanner.ui.wizard;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.mylyn.internal.xplanner.ui.XPlannerMylynUIPlugin;
+import org.eclipse.mylyn.internal.xplanner.ui.XPlannerUiPlugin;
 import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 
@@ -43,7 +43,7 @@ public class XPlannerQueryWizardUtils {
 			wizard.addPage(queryPage);
 		} catch (RuntimeException e) {
 			if (e.getCause() instanceof CoreException) {
-				XPlannerMylynUIPlugin.log(e.getCause(),
+				XPlannerUiPlugin.log(e.getCause(),
 						Messages.XPlannerQueryWizardUtils_COULD_NOT_CREATE_QUERY_PAGE_MESSAGE, true);
 				queryPage = new ErrorQueryPage(repository, e.getCause().getMessage());
 				queryPage.setWizard(wizard);

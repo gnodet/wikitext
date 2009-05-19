@@ -50,8 +50,6 @@ public class Messages extends NLS {
 
 	public static String XPlannerCustomQueryPage_MY_BUTTON;
 
-	public static String XPlannerCustomQueryPage_NO_USER_STORIES_SELECTED;
-
 	public static String XPlannerCustomQueryPage_PROJECT_ELEMENT_NEEDED;
 
 	public static String XPlannerCustomQueryPage_PROJECTS_TREE_TITLE;

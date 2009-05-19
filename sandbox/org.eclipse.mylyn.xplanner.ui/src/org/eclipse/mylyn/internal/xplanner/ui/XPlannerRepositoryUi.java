@@ -72,7 +72,7 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 		try {
 			return new XPlannerCustomQueryPage(repository, null);
 		} catch (RuntimeException e) {
-			XPlannerMylynUIPlugin.log(e.getCause(),
+			XPlannerUiPlugin.log(e.getCause(),
 					Messages.XPlannerQueryWizardUtils_COULD_NOT_CREATE_QUERY_PAGE_MESSAGE, true);
 			return null;
 		}

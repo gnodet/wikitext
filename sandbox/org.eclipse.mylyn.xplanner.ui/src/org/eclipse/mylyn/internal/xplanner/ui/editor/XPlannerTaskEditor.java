@@ -19,7 +19,7 @@ import org.eclipse.mylyn.internal.tasks.ui.editors.AbstractReplyToCommentAction;
 import org.eclipse.mylyn.internal.tasks.ui.editors.TaskEditorActionPart;
 import org.eclipse.mylyn.internal.tasks.ui.editors.TaskEditorDescriptionPart;
 import org.eclipse.mylyn.internal.xplanner.core.XPlannerCorePlugin;
-import org.eclipse.mylyn.internal.xplanner.ui.XPlannerMylynUIPlugin;
+import org.eclipse.mylyn.internal.xplanner.ui.XPlannerUiPlugin;
 import org.eclipse.mylyn.internal.xplanner.ui.XPlannerRepositoryUtils;
 import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
 import org.eclipse.mylyn.tasks.core.data.TaskData;
@@ -177,7 +177,7 @@ public class XPlannerTaskEditor extends AbstractTaskEditorPage implements XPlann
 	}
 
 	public String getPluginId() {
-		return XPlannerMylynUIPlugin.ID_PLUGIN;
+		return XPlannerUiPlugin.ID_PLUGIN;
 	}
 
 	public void xplannerAttributeChanged(TaskAttribute attribute) {

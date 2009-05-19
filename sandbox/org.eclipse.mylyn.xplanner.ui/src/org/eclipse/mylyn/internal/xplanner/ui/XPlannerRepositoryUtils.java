@@ -91,7 +91,7 @@ public class XPlannerRepositoryUtils {
 				xplannerTask.setCompletionDate(completionDate);
 			}
 		} catch (final Exception e) {
-			throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN, 0, MessageFormat.format(
+			throw new CoreException(new Status(IStatus.ERROR, XPlannerUiPlugin.ID_PLUGIN, 0, MessageFormat.format(
 					Messages.XPlannerRepositoryUtils_TASK_DOWNLOAD_FAILED, xplannerTask.getRepositoryUrl()), e));
 		}
 
@@ -118,7 +118,7 @@ public class XPlannerRepositoryUtils {
 				}
 			}
 		} catch (final Exception e) {
-			throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN, 0, MessageFormat.format(
+			throw new CoreException(new Status(IStatus.ERROR, XPlannerUiPlugin.ID_PLUGIN, 0, MessageFormat.format(
 					Messages.XPlannerRepositoryUtils_TASK_DOWNLOAD_FAILED, repository.getRepositoryUrl()), e));
 		}
 
@@ -327,7 +327,7 @@ public class XPlannerRepositoryUtils {
 			}
 
 		} catch (RemoteException re) {
-			throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN, re.getMessage(), re));
+			throw new CoreException(new Status(IStatus.ERROR, XPlannerUiPlugin.ID_PLUGIN, re.getMessage(), re));
 		}
 
 		return taskIds;
@@ -577,7 +577,7 @@ public class XPlannerRepositoryUtils {
 			DateFormat dateFormat = DateFormat.getDateInstance(XPlannerAttributeMapper.DATE_FORMAT_STYLE);
 			createdDate = dateFormat.parse(dateString);
 		} catch (ParseException e) {
-			XPlannerMylynUIPlugin.log(e.getCause(), "", false); //$NON-NLS-1$
+			XPlannerUiPlugin.log(e.getCause(), "", false); //$NON-NLS-1$
 		}
 
 		return createdDate;
@@ -592,7 +592,7 @@ public class XPlannerRepositoryUtils {
 			userStory = client.getUserStory(taskData.getStoryId());
 			projectName = getProjectName(userStory, client);
 		} catch (RemoteException e) {
-			throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN, e.getMessage(), e));
+			throw new CoreException(new Status(IStatus.ERROR, XPlannerUiPlugin.ID_PLUGIN, e.getMessage(), e));
 		}
 
 		return projectName;
@@ -643,7 +643,7 @@ public class XPlannerRepositoryUtils {
 			UserStoryData userStory = client.getUserStory(taskData.getStoryId());
 			iterationName = getIterationName(userStory, client);
 		} catch (RemoteException e) {
-			throw new CoreException(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN, e.getMessage(), e));
+			throw new CoreException(new Status(IStatus.ERROR, XPlannerUiPlugin.ID_PLUGIN, e.getMessage(), e));
 		}
 
 		return iterationName;
@@ -897,7 +897,7 @@ public class XPlannerRepositoryUtils {
 		try {
 			hoursValue = getHoursNumberFormat().parse(hoursStringValue).doubleValue();
 		} catch (ParseException e) {
-			XPlannerMylynUIPlugin.log(e.getCause(), "", false); //$NON-NLS-1$
+			XPlannerUiPlugin.log(e.getCause(), "", false); //$NON-NLS-1$
 		}
 
 		return hoursValue;

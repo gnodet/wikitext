@@ -63,7 +63,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 
 	@Override
 	public String getLabel() {
-		return XPlannerMylynUIPlugin.XPLANNER_CLIENT_LABEL;
+		return XPlannerUiPlugin.XPLANNER_CLIENT_LABEL;
 	}
 
 	@Override
@@ -102,7 +102,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			if ((reason == null) || (reason.length() == 0)) {
 				reason = e.getClass().getName();
 			}
-			return new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN, MessageFormat.format(
+			return new Status(IStatus.ERROR, XPlannerUiPlugin.ID_PLUGIN, MessageFormat.format(
 					Messages.XPlannerRepositoryConnector_PerformQueryFailure, reason), e);
 		} finally {
 			monitor.done();
@@ -185,7 +185,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 				XPlannerRepositoryUtils.setAttributeValue(repositoryTaskData, TaskAttribute.SUMMARY, data.getName());
 				resultCollector.accept(repositoryTaskData);
 			} catch (CoreException e) {
-				XPlannerMylynUIPlugin.log(e, "", false); //$NON-NLS-1$
+				XPlannerUiPlugin.log(e, "", false); //$NON-NLS-1$
 			}
 		}
 		return Status.OK_STATUS;
@@ -252,7 +252,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 		TaskMapper mapper = getTaskMapping(repositoryTaskData);
 		mapper.applyTo(task);
 
-		String url = repository.getRepositoryUrl() + XPlannerMylynUIPlugin.TASK_URL_PREFIX
+		String url = repository.getRepositoryUrl() + XPlannerUiPlugin.TASK_URL_PREFIX
 				+ repositoryTaskData.getTaskId();
 		task.setUrl(url);
 
@@ -302,7 +302,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 							completionDate = timeDateFormat.parse(lastModificationDateValue);
 						}
 					} catch (ParseException e) {
-						StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
+						StatusHandler.log(new Status(IStatus.ERROR, XPlannerUiPlugin.ID_PLUGIN,
 								Messages.XPlannerRepositoryConnector_COULD_NOT_CONVERT_TASK_DATE));
 					}
 				}
@@ -333,7 +333,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 						modificationDate = timeDateFormat.parse(modificationDateValue);
 					}
 				} catch (ParseException e) {
-					StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN,
+					StatusHandler.log(new Status(IStatus.ERROR, XPlannerUiPlugin.ID_PLUGIN,
 							Messages.XPlannerRepositoryConnector_COULD_NOT_CONVERT_TASK_DATE));
 				}
 
@@ -348,7 +348,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 		if (url == null) {
 			return null;
 		}
-		int index = url.indexOf(XPlannerMylynUIPlugin.DELIM_URL_PREFIX);
+		int index = url.indexOf(XPlannerUiPlugin.DELIM_URL_PREFIX);
 		if (index != -1) {
 			return url.substring(0, index);
 		}
@@ -426,18 +426,18 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 				// first check if TaskData exists
 				if (taskData != null) {
 					if (taskData.getId() > 0) {
-						taskUrl = repositoryUrl + XPlannerMylynUIPlugin.TASK_URL_PREFIX + taskData.getId();
+						taskUrl = repositoryUrl + XPlannerUiPlugin.TASK_URL_PREFIX + taskData.getId();
 					}
 				} else {
 					// otherwise check if a user story exists
 					UserStoryData userStory = client.getUserStory(Integer.valueOf(taskId).intValue());
 					if (userStory != null) {
-						taskUrl = repositoryUrl + XPlannerMylynUIPlugin.USER_STORY_URL_PREFIX + userStory.getId();
+						taskUrl = repositoryUrl + XPlannerUiPlugin.USER_STORY_URL_PREFIX + userStory.getId();
 					}
 				}
 			}
 		} catch (Exception e) {
-			XPlannerMylynUIPlugin.log(e, "", false); //$NON-NLS-1$
+			XPlannerUiPlugin.log(e, "", false); //$NON-NLS-1$
 		}
 
 		return taskUrl;
@@ -451,9 +451,9 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			return null;
 		}
 
-		int index = url.indexOf(XPlannerMylynUIPlugin.DELIM_URL_SUFFIX);
+		int index = url.indexOf(XPlannerUiPlugin.DELIM_URL_SUFFIX);
 		if (index != -1) {
-			taskId = url.substring(index + XPlannerMylynUIPlugin.DELIM_URL_SUFFIX.length());
+			taskId = url.substring(index + XPlannerUiPlugin.DELIM_URL_SUFFIX.length());
 		}
 
 		return taskId;
@@ -489,7 +489,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 			} catch (CoreException ce) {
 				throw ce;
 			} catch (Exception e) {
-				StatusHandler.fail(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN, e.getMessage()));
+				StatusHandler.fail(new Status(IStatus.ERROR, XPlannerUiPlugin.ID_PLUGIN, e.getMessage()));
 			}
 
 			return changedTasks;

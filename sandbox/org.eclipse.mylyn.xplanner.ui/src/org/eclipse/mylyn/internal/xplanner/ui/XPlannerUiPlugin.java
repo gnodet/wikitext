@@ -22,15 +22,15 @@ import org.osgi.framework.BundleContext;
  * @author Ravi Kumar
  * @author Helen Bershadskaya
  */
-public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
+public class XPlannerUiPlugin extends AbstractUIPlugin {
 
-	private static XPlannerMylynUIPlugin INSTANCE;
+	private static XPlannerUiPlugin INSTANCE;
 
 	public static final String ID_PLUGIN = "org.eclipse.mylyn.xplanner.ui"; //$NON-NLS-1$
 
-	public final static String XPLANNER_CLIENT_LABEL = Messages.MylynXPlannerPlugin_CLIENT_LABEL;
+	public final static String XPLANNER_CLIENT_LABEL = Messages.XPlannerPlugin_CLIENT_LABEL;
 
-	public final static String TITLE_MESSAGE_DIALOG = Messages.MylynXPlannerPlugin_CLIENT_DIALOG_TITLE;
+	public final static String TITLE_MESSAGE_DIALOG = Messages.XPlannerPlugin_CLIENT_DIALOG_TITLE;
 
 	public static final String DELIM_URL_PREFIX = "/do/view/"; //$NON-NLS-1$
 
@@ -42,9 +42,6 @@ public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
 
 	public final static String ITERATION_URL_PREFIX = DELIM_URL_PREFIX + "iteration" + DELIM_URL_SUFFIX; //$NON-NLS-1$
 
-	public final static IStatus NO_LICENSE_STATUS = new Status(IStatus.INFO, XPlannerMylynUIPlugin.ID_PLUGIN, 0,
-			Messages.MylynXPlannerPlugin_NOT_AVAILABLE_IN_SKU, null);
-
 	// Preference setting names
 	public final static String USE_AUTO_TIME_TRACKING_PREFERENCE_NAME = "UseAutoTimeTracking"; //$NON-NLS-1$
 
@@ -55,7 +52,7 @@ public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
 	@Deprecated
 	public static final String REPOSITORY_KIND = "xplanner"; //$NON-NLS-1$
 
-	public XPlannerMylynUIPlugin() {
+	public XPlannerUiPlugin() {
 		INSTANCE = this;
 	}
 
@@ -91,20 +88,19 @@ public class XPlannerMylynUIPlugin extends AbstractUIPlugin {
 							shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 						}
 						String displayMessage = message == null ? e.getMessage() : message + "\n" + e.getMessage(); //$NON-NLS-1$
-						MessageDialog.openError(shell, Messages.MylynXPlannerPlugin_XPLANNER_ERROR_TITLE,
-								displayMessage);
+						MessageDialog.openError(shell, Messages.XPlannerPlugin_XPLANNER_ERROR_TITLE, displayMessage);
 					}
 				});
 			} catch (Throwable t) {
 				t.printStackTrace();
 			}
 		} else {
-			StatusHandler.log(new Status(IStatus.ERROR, XPlannerMylynUIPlugin.ID_PLUGIN, message == null
-					|| message.length() == 0 ? Messages.MylynXPlannerPlugin_XPLANNER_ERROR_TITLE : message, e));
+			StatusHandler.log(new Status(IStatus.ERROR, XPlannerUiPlugin.ID_PLUGIN, message == null
+					|| message.length() == 0 ? Messages.XPlannerPlugin_XPLANNER_ERROR_TITLE : message, e));
 		}
 	}
 
-	public static XPlannerMylynUIPlugin getDefault() {
+	public static XPlannerUiPlugin getDefault() {
 		return INSTANCE;
 	}
 
