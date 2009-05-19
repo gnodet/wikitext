@@ -24,6 +24,7 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.mylyn.commons.core.StatusHandler;
+import org.eclipse.mylyn.internal.provisional.commons.ui.EnhancedFilteredTree;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.internal.xplanner.core.service.XPlannerClient;
 import org.eclipse.mylyn.internal.xplanner.ui.XPlannerClientFacade;
@@ -89,7 +90,7 @@ public class NewXPlannerTaskPage extends WizardPage {
 
 		// create the list of bug reports
 		// TODO e3.5 move to new FilteredTree API
-		projectTree = new FilteredTree(composite, SWT.SINGLE | SWT.BORDER, new PatternFilter());
+		projectTree = new EnhancedFilteredTree(composite, SWT.SINGLE | SWT.BORDER, new PatternFilter());
 		projectTree.setLayoutData(GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).hint(
 				SWT.DEFAULT, 200).create());
 
