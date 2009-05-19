@@ -80,7 +80,6 @@ public class NewXPlannerTaskPage extends WizardPage {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	public void createControl(Composite parent) {
 		// create the composite to hold the widgets
 		Composite composite = new Composite(parent, SWT.NULL);
