@@ -4,3 +4,4 @@
 1243453876095	Rename local variable 'dlg'
 1243453894188	Rename field 'activate'
 1243575319556	Rename field 'REPOSITORY_SYNCHRONIZE_ATTRIBUTES'
+1243677122714	Extract local variable 'selectionProvider'

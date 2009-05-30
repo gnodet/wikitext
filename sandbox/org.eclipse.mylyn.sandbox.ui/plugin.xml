@@ -269,7 +269,7 @@
    <extension point="org.eclipse.mylyn.tasks.ui.actions"> 
       <dynamicPopupMenu
             class="org.eclipse.mylyn.internal.sandbox.ui.highlighters.TaskHighlighterMenuContributor"
-            menuPath="context"/>
+            menuPath="operations"/>
    </extension>
    
    <extension

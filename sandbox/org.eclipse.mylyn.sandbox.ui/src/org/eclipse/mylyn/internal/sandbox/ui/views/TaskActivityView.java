@@ -325,7 +325,8 @@ public class TaskActivityView extends ViewPart {
 	}
 
 	private void makeActions() {
-		openTaskEditor = new OpenTaskListElementAction(this.getViewer());
+		openTaskEditor = new OpenTaskListElementAction();
+		getViewer().addSelectionChangedListener(openTaskEditor);
 		// openUrlInExternal = new OpenTaskInExternalBrowserAction();
 	}
 
