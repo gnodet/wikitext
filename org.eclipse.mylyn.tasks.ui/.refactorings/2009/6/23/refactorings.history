@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract method &apos;private static boolean extracted()&apos; from &apos;org.eclipse.mylyn.internal.tasks.ui.util.PlatformUtil.getTreeItemSquish()&apos; to &apos;org.eclipse.mylyn.internal.tasks.ui.util.PlatformUtil&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.ui&apos;&#x0A;- Method name: &apos;extracted&apos;&#x0A;- Destination type: &apos;org.eclipse.mylyn.internal.tasks.ui.util.PlatformUtil&apos;&#x0A;- Declared visibility: &apos;private&apos;" comments="false" description="Extract method &apos;extracted&apos;" destination="0" exceptions="false" flags="786434" id="org.eclipse.jdt.ui.extract.method" input="/src&lt;org.eclipse.mylyn.internal.tasks.ui.util{PlatformUtil.java" name="extracted" replace="false" selection="3188 71" stamp="1243905877601" version="1.0" visibility="2"/>
+</session>
