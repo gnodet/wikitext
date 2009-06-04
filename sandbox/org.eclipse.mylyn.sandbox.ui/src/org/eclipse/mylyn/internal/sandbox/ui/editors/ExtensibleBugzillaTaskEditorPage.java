@@ -18,7 +18,6 @@ import java.util.Set;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ControlContribution;
 import org.eclipse.jface.action.IToolBarManager;
-import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.FindReplaceDocumentAdapter;
 import org.eclipse.jface.text.IRegion;
@@ -42,6 +41,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.IFormPage;
@@ -67,11 +67,8 @@ public class ExtensibleBugzillaTaskEditorPage extends BugzillaTaskEditorPage {
 	}
 
 	private void addFindAction(IToolBarManager toolBarManager) {
-		toolBarManager.add(new Separator("find"));
-
 		if (toggleFindAction != null && toggleFindAction.isChecked()) {
 			ControlContribution findTextboxControl = new ControlContribution("Find") {
-
 				@Override
 				protected Control createControl(Composite parent) {
 					FormToolkit toolkit = getTaskEditor().getHeaderForm().getToolkit();
@@ -81,6 +78,7 @@ public class ExtensibleBugzillaTaskEditorPage extends BugzillaTaskEditorPage {
 
 					final Text findText = toolkit.createText(findComposite, "", SWT.FLAT);
 					findText.setLayoutData(new RowData(100, SWT.DEFAULT));
+					findText.setData(FormToolkit.KEY_DRAW_BORDER, FormToolkit.TEXT_BORDER);
 					findText.setFocus();
 					toolkit.adapt(findText, false, false);
 					findText.addSelectionListener(new SelectionAdapter() {
@@ -91,20 +89,19 @@ public class ExtensibleBugzillaTaskEditorPage extends BugzillaTaskEditorPage {
 								findAndHighlight(ExtensibleBugzillaTaskEditorPage.this, findText.getText());
 								// always toggle attachment part close after every search, since all ExpandableComposites are open
 								AbstractTaskEditorPart attachmentsPart = getPart(AbstractTaskEditorPage.ID_PART_ATTACHMENTS);
-								CommonFormUtil.setExpanded((ExpandableComposite) attachmentsPart.getControl(),
-										false);
+								CommonFormUtil.setExpanded((ExpandableComposite) attachmentsPart.getControl(), false);
 							} finally {
 								setReflow(true);
 							}
 							reflow();
 						}
 					});
-
+					toolkit.paintBordersFor(findComposite);
 					return findComposite;
 				}
 
 			};
-			toolBarManager.add(findTextboxControl);
+			toolBarManager.appendToGroup(IWorkbenchActionConstants.MB_ADDITIONS, findTextboxControl);
 		}
 
 		if (toggleFindAction == null) {
@@ -120,8 +117,7 @@ public class ExtensibleBugzillaTaskEditorPage extends BugzillaTaskEditorPage {
 			//getManagedForm().getForm().setData(TaskEditorFindHandler.KEY_FIND_ACTION, toggleFindAction);
 		}
 
-		toolBarManager.add(toggleFindAction);
-
+		toolBarManager.appendToGroup(IWorkbenchActionConstants.MB_ADDITIONS, toggleFindAction);
 	}
 
 	@Override
