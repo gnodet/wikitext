@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;org.eclipse.mylyn.internal.provisional.commons.ui.AbstractFilteredTree.setFindLabel()&apos; to &apos;setFindForeround&apos;&#x0D;&#x0A;- Original project: &apos;org.eclipse.mylyn.commons.ui&apos;&#x0D;&#x0A;- Original element: &apos;org.eclipse.mylyn.internal.provisional.commons.ui.AbstractFilteredTree.setFindLabel()&apos;&#x0D;&#x0A;- Renamed element: &apos;org.eclipse.mylyn.internal.provisional.commons.ui.AbstractFilteredTree.setFindForeround()&apos;&#x0D;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;setFindLabel&apos;" flags="589826" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;org.eclipse.mylyn.internal.provisional.commons.ui{AbstractFilteredTree.java[AbstractFilteredTree~setFindLabel" name="setFindForeround" references="true" stamp="1244246771375" version="1.0"/>
+</session>
