@@ -735,7 +735,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 				} else {
 					UiUsageMonitorPlugin.getDefault().setQuestionnaireEnabled(false);
 				}
-			} catch (CoreException e) {
+			} catch (Throwable e) {
 				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
 						"Could not load questionaire", e));
 				UiUsageMonitorPlugin.getDefault().setQuestionnaireEnabled(false);
@@ -752,7 +752,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 				} else {
 					UiUsageMonitorPlugin.getDefault().setBackgroundEnabled(false);
 				}
-			} catch (CoreException e) {
+			} catch (Throwable e) {
 				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
 						"Could not load background page", e));
 				UiUsageMonitorPlugin.getDefault().setBackgroundEnabled(false);

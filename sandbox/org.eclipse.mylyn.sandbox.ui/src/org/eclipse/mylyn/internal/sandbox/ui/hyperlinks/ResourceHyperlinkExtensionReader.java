@@ -11,7 +11,6 @@
 
 package org.eclipse.mylyn.internal.sandbox.ui.hyperlinks;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
@@ -63,7 +62,7 @@ public class ResourceHyperlinkExtensionReader {
 						"Could not load resourceHyperlinkExtension: expected instanceof IResourceHyperlink, got "
 								+ extension.getClass()));
 			}
-		} catch (CoreException e) {
+		} catch (Throwable e) {
 			StatusHandler.log(new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN,
 					"Could not load resourceHyperlinkExtension", e));
 		}
