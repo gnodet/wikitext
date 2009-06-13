@@ -9,6 +9,7 @@
  *     Ken Sueda - initial API and implementation
  *     Tasktop Technologies - initial API and implementation
  *     Eugene Kuleshov - improvements
+ *     Frank Becker - fixes for bug 169916
  *******************************************************************************/
 
 package org.eclipse.mylyn.internal.sandbox.ui;
@@ -561,12 +562,6 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 			return h1.getHighlightKind().compareTo(h2.getHighlightKind());
 		}
 
-		/**
-		 * getCriteria
-		 */
-		public int getCriteria() {
-			return criteria;
-		}
 	}
 
 	private void createTableViewer() {
