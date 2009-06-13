@@ -19,8 +19,8 @@ import org.eclipse.mylyn.internal.tasks.ui.editors.AbstractReplyToCommentAction;
 import org.eclipse.mylyn.internal.tasks.ui.editors.TaskEditorActionPart;
 import org.eclipse.mylyn.internal.tasks.ui.editors.TaskEditorDescriptionPart;
 import org.eclipse.mylyn.internal.xplanner.core.XPlannerCorePlugin;
-import org.eclipse.mylyn.internal.xplanner.ui.XPlannerUiPlugin;
 import org.eclipse.mylyn.internal.xplanner.ui.XPlannerRepositoryUtils;
+import org.eclipse.mylyn.internal.xplanner.ui.XPlannerUiPlugin;
 import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
 import org.eclipse.mylyn.tasks.core.data.TaskData;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
@@ -156,7 +156,7 @@ public class XPlannerTaskEditor extends AbstractTaskEditorPage implements XPlann
 		return extraControls;
 	}
 
-// TODO -- HeB -- make sure similar validation exists in 3.0	
+// TODO 3.3 fix validation	
 //	@Override
 //	protected void validateInput() {
 //		submitButton.setEnabled(true);
@@ -184,7 +184,7 @@ public class XPlannerTaskEditor extends AbstractTaskEditorPage implements XPlann
 		getModel().attributeChanged(attribute);
 	}
 
-// TODO -- HeB -- make sure similar validation will work for 3.0	
+// TODO 3.3 fix validation	
 //	@Override
 //	public void submitToRepository() {
 //		String errorMessage = null;

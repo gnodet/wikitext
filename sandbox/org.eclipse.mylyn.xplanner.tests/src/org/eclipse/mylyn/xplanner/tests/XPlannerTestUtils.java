@@ -36,7 +36,6 @@ import org.xplanner.soap.UserStoryData;
  * which were the user/password used to install XPlanner, otherwise don't have rights to create projects
  * 
  * @author Helen Bershadskaya
- * 
  */
 public class XPlannerTestUtils {
 	private static final int DAY = 60 * 60 * 24 * 1000; // one day in milliseconds	
@@ -70,7 +69,6 @@ public class XPlannerTestUtils {
 			AuthenticationCredentials credentials = new AuthenticationCredentials(userName, password);
 			repository.setCredentials(AuthenticationType.REPOSITORY, credentials, false);
 			TasksUiPlugin.getRepositoryManager().addRepository(repository);
-			//TODO -- HeB -- not sure how to clear task list in 3.0
 			try {
 				TaskTestUtil.resetTaskList();
 			} catch (Exception e) {
