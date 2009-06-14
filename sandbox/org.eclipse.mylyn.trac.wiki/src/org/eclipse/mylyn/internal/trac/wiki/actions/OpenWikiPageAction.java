@@ -24,6 +24,7 @@ import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
+import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.internal.trac.core.TracRepositoryConnector;
 import org.eclipse.mylyn.internal.trac.core.client.AbstractWikiHandler;
@@ -85,7 +86,9 @@ public class OpenWikiPageAction extends Action implements IViewActionDelegate {
 							OpenWikiPageSelectionDialog.this.close();
 						}
 					});
-					TasksUiInternal.displayStatus("Unable to download Wiki page names", e.getStatus());
+					StatusHandler.log(new Status(IStatus.ERROR, TracWikiPlugin.ID_PLUGIN,
+							"Unable to download Wiki page names", e));
+					TasksUiInternal.asyncDisplayStatus("Unable to download Wiki page names", e.getStatus());
 				}
 				return Status.OK_STATUS;
 			}
