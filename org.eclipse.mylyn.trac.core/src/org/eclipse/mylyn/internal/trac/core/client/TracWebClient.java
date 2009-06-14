@@ -66,6 +66,7 @@ import org.eclipse.mylyn.internal.trac.core.model.TracSearchFilter.CompareOperat
 import org.eclipse.mylyn.internal.trac.core.model.TracTicket.Key;
 import org.eclipse.mylyn.internal.trac.core.util.TracUtil;
 import org.eclipse.mylyn.internal.trac.core.util.TracHttpClientTransportFactory.TracHttpException;
+import org.eclipse.osgi.util.NLS;
 
 /**
  * Represents a Trac repository that is accessed through the Trac's query script and web interface.
@@ -428,12 +429,12 @@ public class TracWebClient extends AbstractTracClient {
 					if (version.startsWith("Trac 0.9")) { //$NON-NLS-1$
 						return new TracRepositoryInfo(0, 0, 0, version);
 					} else if (version.startsWith("Trac 0.10")) { //$NON-NLS-1$
-						return new TracRepositoryInfo(0, 1, 0, version);
+						return new TracRepositoryInfo(0, 0, 1, version);
 					} else if (version.startsWith("Trac 0.11")) { //$NON-NLS-1$
 						return new TracRepositoryInfo(1, 0, 0, version);
 					} else {
-						throw new TracException("The Trac version " + version //$NON-NLS-1$
-								+ " is unsupported. Please use version 0.9, 0.10. or 0.11"); //$NON-NLS-1$
+						throw new TracException(NLS.bind(
+								Messages.TracWebClient_Trac_version_X_is_unsupported_Error, version));
 					}
 				}
 
