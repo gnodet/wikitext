@@ -12,6 +12,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.mylyn.commons.core.CoreUtil;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
@@ -80,17 +81,21 @@ public class XPlannerUiPlugin extends AbstractUIPlugin {
 	public static void log(final Throwable e, final String message, boolean informUser) {
 		if (Platform.isRunning() && informUser) {
 			try {
-				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-					public void run() {
-						Shell shell = null;
-						if (PlatformUI.getWorkbench() != null
-								&& PlatformUI.getWorkbench().getActiveWorkbenchWindow() != null) {
-							shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+				if (!CoreUtil.TEST_MODE) {
+					PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+						public void run() {
+							Shell shell = null;
+							if (PlatformUI.getWorkbench() != null
+									&& PlatformUI.getWorkbench().getActiveWorkbenchWindow() != null) {
+								shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+							}
+							String displayMessage = message == null ? e.getMessage() : message + "\n" + e.getMessage(); //$NON-NLS-1$
+							MessageDialog.openError(shell, Messages.XPlannerPlugin_XPLANNER_ERROR_TITLE, displayMessage);
 						}
-						String displayMessage = message == null ? e.getMessage() : message + "\n" + e.getMessage(); //$NON-NLS-1$
-						MessageDialog.openError(shell, Messages.XPlannerPlugin_XPLANNER_ERROR_TITLE, displayMessage);
-					}
-				});
+					});
+				} else {
+					System.err.println("XPlanner error: " + message); //$NON-NLS-1$
+				}
 			} catch (Throwable t) {
 				t.printStackTrace();
 			}
