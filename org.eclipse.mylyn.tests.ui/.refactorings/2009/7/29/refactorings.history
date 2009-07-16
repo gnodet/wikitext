@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;withText&apos; from expression &apos;WidgetMatcherFactory.withText(&quot;Connector Discovery Error&quot;)&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tests.ui&apos;&#x0A;- Variable name: &apos;withText&apos;&#x0A;- Destination method: &apos;org.eclipse.mylyn.tests.ui.discovery.DiscoverySystemTest.activateDiscoveryUi()&apos;&#x0A;- Variable expression: &apos;WidgetMatcherFactory.withText(&quot;Connector Discovery Error&quot;)&apos;" description="Extract local variable &apos;withText&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.eclipse.mylyn.tests.ui.discovery{DiscoverySystemTest.java" name="withText" replace="false" selection="4942 58" stamp="1247771254140" version="1.0"/>
+</session>
