@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?eclipse version="3.0"?>
-<plugin>
-	
-   <!-- ================================================================================ -->
+<!-- ================================================================================ -->
    <!-- Sample code for extending web resources structure bridge and providing content	 -->
    <!-- NOTE: these extensions are not being maintained                                  -->
    <!-- ================================================================================ -->
    <!--
+   
+   <?xml version="1.0" encoding="UTF-8"?>
+	<?eclipse version="3.0"?>
+	<plugin>
    
    <extension
          point="org.eclipse.mylyn.context.ui.startup">
@@ -135,6 +135,5 @@
           </includes>
        </viewerContentBinding>
    </extension>	
-  -->
-  
 </plugin>
+-->
