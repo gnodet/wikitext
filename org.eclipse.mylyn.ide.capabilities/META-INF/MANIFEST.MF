@@ -5,5 +5,4 @@ Bundle-SymbolicName: org.eclipse.mylyn.ide.capabilities;singleton:=true
 Bundle-Version: 3.2.0.qualifier
 Bundle-Vendor: %Bundle-Vendor
 Require-Bundle: org.eclipse.ui
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-Localization: plugin
