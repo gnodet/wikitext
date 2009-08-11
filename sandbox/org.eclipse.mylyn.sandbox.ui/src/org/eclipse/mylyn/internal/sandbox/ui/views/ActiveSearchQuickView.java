@@ -76,9 +76,8 @@ import org.eclipse.ui.PlatformUI;
 
 /**
  * @author Mik Kersten
- * 
- *         TODO there is redundancy between this and RelatedElementsPopupDialog
  */
+// TODO there is redundancy between this and RelatedElementsPopupDialog
 public class ActiveSearchQuickView {
 
 	/**
@@ -755,13 +754,6 @@ public class ActiveSearchQuickView {
 				throw new IllegalArgumentException();
 			}
 			fBorderSize = borderSize;
-		}
-
-		/**
-		 * Returns the border size.
-		 */
-		public int getBorderSize() {
-			return fBorderSize;
 		}
 
 		@Override
