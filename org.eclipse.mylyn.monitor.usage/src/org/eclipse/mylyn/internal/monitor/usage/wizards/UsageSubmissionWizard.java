@@ -314,7 +314,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		int status = 0;
 
 		try {
-			String servletUrl = UiUsageMonitorPlugin.getDefault().getStudyParameters().getServletUrl();
+			String servletUrl = UiUsageMonitorPlugin.getDefault().getStudyParameters().getUploadServletUrl();
 			final PostMethod filePost = new PostMethod(servletUrl);
 
 			Part[] parts = { new FilePart("temp.txt", f) };
@@ -404,8 +404,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 			// TODO, do this method properly
 			// create a new post method
-			String url = UiUsageMonitorPlugin.getDefault().getStudyParameters().getServletUrl()
-					+ UiUsageMonitorPlugin.getDefault().getStudyParameters().getServletUrl();
+			String url = UiUsageMonitorPlugin.getDefault().getStudyParameters().getUserIdServletUrl();
 			final GetMethod getUidMethod = new GetMethod(url);
 
 			NameValuePair first = new NameValuePair("firstName", firstName);
@@ -522,9 +521,9 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	}
 
 	public int getNewUid() {
-		final PostMethod filePost = new PostMethod(UiUsageMonitorPlugin.DEFAULT_UPLOAD_SERVER
-				+ UiUsageMonitorPlugin.DEFAULT_UPLOAD_SERVLET_ID);
-
+		final PostMethod filePost = new PostMethod(UiUsageMonitorPlugin.getDefault()
+				.getStudyParameters()
+				.getUserIdServletUrl());
 		filePost.addParameter(new NameValuePair("MylarUserID", ""));
 		final HttpClient client = new HttpClient();
 		int status = 0;
@@ -560,8 +559,9 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		try {
 			addBackgroundPage();
 
-			final PostMethod filePost = new PostMethod(UiUsageMonitorPlugin.DEFAULT_UPLOAD_SERVER
-					+ UiUsageMonitorPlugin.DEFAULT_UPLOAD_SERVLET_ID);
+			final PostMethod filePost = new PostMethod(UiUsageMonitorPlugin.getDefault()
+					.getStudyParameters()
+					.getUserIdServletUrl());
 			filePost.addParameter(new NameValuePair("MylarUserID", ""));
 			final HttpClient client = new HttpClient();
 			int status = 0;

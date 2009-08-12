@@ -12,6 +12,7 @@
 package org.eclipse.mylyn.internal.monitor.usage;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -27,6 +28,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.IJobChangeListener;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageScanner;
@@ -34,6 +36,8 @@ import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventCompar
 import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventSummary;
 import org.eclipse.mylyn.internal.monitor.core.collection.InteractionEventUtil;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.progress.IProgressService;
 
 /**
  * Used for generating reports of user activity.
@@ -115,18 +119,37 @@ public class ReportGenerator {
 
 	public void getStatisticsFromInteractionHistories(List<File> sources, IJobChangeListener jobChangeListener) {
 
-		GenerateStatisticsJob job = new GenerateStatisticsJob(this, sources);
-		if (jobChangeListener != null) {
-			job.addJobChangeListener(jobChangeListener);
-		}
-		if (this.listener != null) {
-			job.addJobChangeListener(this.listener);
-		}
-		job.setPriority(Job.LONG);
-		if (forceSyncForTesting) {
-			job.run(new NullProgressMonitor());
+		final GenerateStatisticsJob job = new GenerateStatisticsJob(this, sources);
+		if (jobChangeListener == null) {
+			IProgressService service = PlatformUI.getWorkbench().getProgressService();
+			try {
+				service.run(true, false, new IRunnableWithProgress() {
+
+					public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+						job.run(monitor);
+					}
+
+				});
+			} catch (InvocationTargetException e) {
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, e.getMessage(), e));
+			} catch (InterruptedException e) {
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, e.getMessage(), e));
+			}
+
 		} else {
-			job.schedule();
+
+			if (jobChangeListener != null) {
+				job.addJobChangeListener(jobChangeListener);
+			}
+			if (this.listener != null) {
+				job.addJobChangeListener(this.listener);
+			}
+			job.setPriority(Job.LONG);
+			if (forceSyncForTesting) {
+				job.run(new NullProgressMonitor());
+			} else {
+				job.schedule();
+			}
 		}
 
 	}

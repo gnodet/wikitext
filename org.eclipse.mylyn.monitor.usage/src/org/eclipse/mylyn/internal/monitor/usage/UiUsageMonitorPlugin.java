@@ -89,11 +89,11 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 	private static final long DELAY_ON_USER_REQUEST = 5 * DAY;
 
+	public static final long DEFAULT_DELAY_BETWEEN_TRANSMITS = 21 * 24 * HOUR;
+
 	public static final String DEFAULT_TITLE = "Mylyn Feedback";
 
 	public static final String DEFAULT_DESCRIPTION = "Fill out the following form to help us improve Mylyn based on your input.\n";
-
-	public static final long DEFAULT_DELAY_BETWEEN_TRANSMITS = 21 * 24 * HOUR;
 
 	public static final String DEFAULT_ETHICS_FORM = "doc/study-ethics.html";
 
@@ -277,6 +277,22 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 					// ------- moved from synch start
 					new MonitorUsageExtensionPointReader().initExtensions();
 
+					if (studyParameters.isEmpty()) {
+
+						studyParameters.setVersion(DEFAULT_VERSION);
+						studyParameters.setUploadServletUrl(DEFAULT_UPLOAD_SERVER + DEFAULT_UPLOAD_SERVLET);
+						studyParameters.setUserIdServletUrl(DEFAULT_UPLOAD_SERVER + DEFAULT_UPLOAD_SERVLET_ID);
+						studyParameters.setQuestionaireServletUrl(null);
+
+						studyParameters.setTitle(DEFAULT_TITLE);
+						studyParameters.setDescription(DEFAULT_DESCRIPTION);
+						studyParameters.setTransmitPromptPeriod(DEFAULT_DELAY_BETWEEN_TRANSMITS);
+						studyParameters.setUseContactField(DEFAULT_CONTACT_CONSENT_FIELD);
+						studyParameters.setAcceptedUrlList(DEFAULT_ACCEPTED_URL_LIST);
+						studyParameters.setFormsConsent("/" + DEFAULT_ETHICS_FORM);
+
+					}
+
 					if (preferenceMonitor == null) {
 						preferenceMonitor = new PreferenceChangeMonitor();
 					}
@@ -288,10 +304,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 					menuMonitor = new MenuCommandMonitor();
 					keybindingCommandMonitor = new KeybindingCommandMonitor();
 
-					// browserMonitor = new BrowserMonitor();
-					// setAcceptedUrlMatchList(studyParameters.getAcceptedUrlList());
-
-					studyParameters.setServletUrl(DEFAULT_UPLOAD_SERVER + DEFAULT_UPLOAD_SERVLET);
 					// ------- moved from synch start
 
 					if (getPreferenceStore().getBoolean(MonitorPreferenceConstants.PREF_MONITORING_ENABLED)) {
@@ -315,6 +327,10 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 	}
 
 	public void startMonitoring() {
+		if (studyParameters == null || !studyParameters.isComplete()) {
+			System.out.println("here");
+			return;
+		}
 		if (getPreferenceStore().contains(MonitorPreferenceConstants.PREF_MONITORING_STARTED)) {
 			return;
 		}
@@ -613,8 +629,10 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 	public void configureProxy(HttpClient httpClient, String uploadScript) {
 		WebUtil.configureHttpClient(httpClient, null);
+
 		HostConfiguration hostConfiguration = WebUtil.createHostConfiguration(httpClient, new WebLocation(uploadScript,
-				uploadAuthentication.getUser(), uploadAuthentication.getPassword()), null);
+				uploadAuthentication != null ? uploadAuthentication.getUser() : null,
+				uploadAuthentication != null ? uploadAuthentication.getPassword() : null), null);
 		httpClient.setHostConfiguration(hostConfiguration);
 	}
 
@@ -644,7 +662,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 	class MonitorUsageExtensionPointReader {
 
-		public static final String EXTENSION_ID_STUDY = "org.eclipse.mylyn.monitor.ui.study";
+		public static final String EXTENSION_ID_STUDY = "org.eclipse.mylyn.monitor.usage.study";
 
 		public static final String ELEMENT_SCRIPTS = "scripts";
 
@@ -691,6 +709,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 					if (extensionPoint != null) {
 						IExtension[] extensions = extensionPoint.getExtensions();
 						for (IExtension extension : extensions) {
+							//TODO make this support multiple studies properly
 							IConfigurationElement[] elements = extension.getConfigurationElements();
 							for (IConfigurationElement element : elements) {
 								if (element.getName().compareTo(ELEMENT_SCRIPTS) == 0) {
@@ -714,6 +733,15 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 		private void readScripts(IConfigurationElement element) {
 			studyParameters.setVersion(element.getAttribute(ELEMENT_SCRIPTS_VERSION));
+			String serverUrl = element.getAttribute(ELEMENT_SCRIPTS_SERVER_URL);
+			String userIdScript = element.getAttribute(ELEMENT_SCRIPTS_GET_USER_ID);
+			String usageUploadScript = element.getAttribute(ELEMENT_SCRIPTS_UPLOAD_USAGE);
+			String questionaireUploadScript = element.getAttribute(ELEMENT_SCRIPTS_UPLOAD_QUESTIONNAIRE);
+
+			studyParameters.setUploadServletUrl(serverUrl + usageUploadScript);
+			studyParameters.setUserIdServletUrl(serverUrl + userIdScript);
+			studyParameters.setQuestionaireServletUrl(serverUrl + questionaireUploadScript);
+
 		}
 
 		private void readForms(IConfigurationElement element) throws CoreException {

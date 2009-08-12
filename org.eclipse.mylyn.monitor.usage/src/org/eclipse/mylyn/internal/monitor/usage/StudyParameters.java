@@ -21,9 +21,9 @@ import org.eclipse.mylyn.monitor.usage.AbstractStudyQuestionnairePage;
  */
 public class StudyParameters {
 
-	private String title = UiUsageMonitorPlugin.DEFAULT_TITLE;
+	private String title;
 
-	private String description = UiUsageMonitorPlugin.DEFAULT_DESCRIPTION;
+	private String description;
 
 	private AbstractStudyQuestionnairePage questionnairePage = null;
 
@@ -31,23 +31,47 @@ public class StudyParameters {
 
 	private long transmitPromptPeriod = UiUsageMonitorPlugin.DEFAULT_DELAY_BETWEEN_TRANSMITS;
 
-	private String acceptedUrlList = UiUsageMonitorPlugin.DEFAULT_ACCEPTED_URL_LIST;
+	private String acceptedUrlList;
 
-	private String useContactField = UiUsageMonitorPlugin.DEFAULT_CONTACT_CONSENT_FIELD;
+	private String useContactField;
 
-	private String formsConsent = UiUsageMonitorPlugin.DEFAULT_ETHICS_FORM;
+	private String formsConsent;
 
-	private String version = UiUsageMonitorPlugin.DEFAULT_VERSION;
+	private String version;
 
-	private String servletUrl = UiUsageMonitorPlugin.DEFAULT_UPLOAD_SERVER;
+	private String uploadServletUrl;
 
-	public String getServletUrl() {
-		return servletUrl;
+	private String idServletUrl;
+
+	private String questionaireServletUrl;
+
+	public String getUploadServletUrl() {
+		return uploadServletUrl;
 	}
 
-	public void setServletUrl(String servletServerUrl) {
-		if (servletUrl != null) {
-			this.servletUrl = servletServerUrl;
+	public void setUploadServletUrl(String servletServerUrl) {
+		if (servletServerUrl != null) {
+			this.uploadServletUrl = servletServerUrl;
+		}
+	}
+
+	public String getUserIdServletUrl() {
+		return idServletUrl;
+	}
+
+	public void setUserIdServletUrl(String servletUserId) {
+		if (servletUserId != null) {
+			this.idServletUrl = servletUserId;
+		}
+	}
+
+	public String getQuestionaireServletUrl() {
+		return questionaireServletUrl;
+	}
+
+	public void setQuestionaireServletUrl(String servletQuestionaire) {
+		if (servletQuestionaire != null) {
+			this.questionaireServletUrl = servletQuestionaire;
 		}
 	}
 
@@ -138,4 +162,13 @@ public class StudyParameters {
 			this.useContactField = useContactField;
 		}
 	}
+
+	public boolean isComplete() {
+		return title != null && description != null && uploadServletUrl != null && idServletUrl != null;
+	}
+
+	public boolean isEmpty() {
+		return title == null && description == null && uploadServletUrl == null && idServletUrl == null;
+	}
+
 }

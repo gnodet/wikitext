@@ -18,10 +18,11 @@
          	userId="getUID.cgi"
          	questionnaire="questionnaire.cgi"/>
          <ui
-         	title="Mylyn User Study Example"
-         	daysBetweenUpload="6"
-         	questionnairePage="org.eclipse.mylyn.examples.monitor.study.QuestionnaireWizardPage"
-         	consentForm="doc/study-ethics.html"/>
+               consentForm="doc/study-ethics.html"
+               daysBetweenUpload="6"
+               description="Sample user stydy upload"
+               questionnairePage="org.eclipse.mylyn.examples.monitor.study.QuestionnaireWizardPage"
+               title="Mylyn User Study Example"/>
    </extension>
    
    <extension point="org.eclipse.ui.newWizards">

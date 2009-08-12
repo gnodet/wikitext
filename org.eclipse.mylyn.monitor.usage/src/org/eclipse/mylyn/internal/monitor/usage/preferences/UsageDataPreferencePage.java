@@ -150,7 +150,7 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		uploadUrl = new Text(group, SWT.BORDER);
 		uploadUrl.setEditable(false);
 		uploadUrl.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		uploadUrl.setText(UiUsageMonitorPlugin.getDefault().getStudyParameters().getServletUrl());
+		uploadUrl.setText(UiUsageMonitorPlugin.getDefault().getStudyParameters().getUploadServletUrl());
 
 		Label events = new Label(group, SWT.NULL);
 		events.setText(" Events since upload:");

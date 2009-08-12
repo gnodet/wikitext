@@ -55,7 +55,7 @@ public class UsageUploadWizardPage extends WizardPage {
 		setTitle("Usage Data Submission");
 		if (UiUsageMonitorPlugin.getDefault().getCustomizingPlugin() != null) {
 			String customizedTitle = UiUsageMonitorPlugin.getDefault().getStudyParameters().getTitle();
-			if (!customizedTitle.equals("")) {
+			if (customizedTitle != null && !customizedTitle.equals("")) {
 				setTitle(customizedTitle + ": Usage Data Upload");
 			}
 		}
@@ -98,7 +98,7 @@ public class UsageUploadWizardPage extends WizardPage {
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		serverAddrText.setLayoutData(gd);
 		serverAddrText.setEditable(false);
-		serverAddrText.setText(UiUsageMonitorPlugin.getDefault().getStudyParameters().getServletUrl());
+		serverAddrText.setText(UiUsageMonitorPlugin.getDefault().getStudyParameters().getUploadServletUrl());
 
 		label = new Label(topContainer, SWT.NULL);
 		label.setText("Usage file location:");

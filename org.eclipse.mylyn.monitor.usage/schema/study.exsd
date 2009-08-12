@@ -12,7 +12,7 @@
 
    <element name="study">
       <complexType>
-         <sequence>
+         <sequence minOccurs="1" maxOccurs="unbounded">
             <element ref="scripts"/>
             <element ref="ui"/>
             <element ref="monitors"/>
