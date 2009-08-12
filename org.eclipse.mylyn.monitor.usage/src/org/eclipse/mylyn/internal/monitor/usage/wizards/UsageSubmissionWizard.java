@@ -11,33 +11,20 @@
 
 package org.eclipse.mylyn.internal.monitor.usage.wizards;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
-import java.net.NoRouteToHostException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.multipart.FilePart;
-import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
-import org.apache.commons.httpclient.methods.multipart.Part;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
@@ -66,17 +53,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 	public static final String STATS = "usage";
 
-	public static final String QUESTIONAIRE = "questionaire";
-
-	public static final String BACKGROUND = "background";
-
 	private static final String ORG_ECLIPSE_PREFIX = "org.eclipse.";
-
-	public static final int HTTP_SERVLET_RESPONSE_SC_OK = 200;
-
-	public static final int SIZE_OF_INT = 8;
-
-	private boolean failed = false;
 
 	private boolean displayBackgroundPage = false;
 
@@ -126,7 +103,23 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		setNeedsProgressMonitor(true);
 		uid = UiUsageMonitorPlugin.getDefault().getPreferenceStore().getInt(UiUsageMonitorPlugin.PREF_USER_ID);
 		if (uid == 0 || uid == -1) {
-			uid = this.getNewUid();
+			addBackgroundPage();
+			final int[] newUid = new int[1];
+			try {
+				// TODO make sure that this works in some way 
+				getContainer().run(false, true, new IRunnableWithProgress() {
+
+					public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+						newUid[0] = UiUsageMonitorPlugin.getDefault().getUploadManager().getNewUid(monitor);
+					}
+				});
+			} catch (InvocationTargetException e1) {
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, e1.getMessage(), e1));
+			} catch (InterruptedException e1) {
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, e1.getMessage(), e1));
+			}
+			uid = newUid[0];
+
 			UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(UiUsageMonitorPlugin.PREF_USER_ID, uid);
 		}
 		uploadPage = new UsageUploadWizardPage(this);
@@ -203,12 +196,11 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	}
 
 	public void performUpload(IProgressMonitor monitor) {
+		String servletUrl = UiUsageMonitorPlugin.getDefault().getStudyParameters().getUploadServletUrl();
+		boolean failed = false;
 		if (UiUsageMonitorPlugin.getDefault().isBackgroundEnabled() && performUpload && backgroundFile != null) {
-			upload(backgroundFile, BACKGROUND, monitor);
-
-			if (failed) {
-				failed = false;
-			}
+			failed = !UiUsageMonitorPlugin.getDefault().getUploadManager().uploadFile(servletUrl, backgroundFile, uid,
+					monitor);
 
 			if (backgroundFile.exists()) {
 				backgroundFile.delete();
@@ -216,11 +208,8 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		}
 
 		if (UiUsageMonitorPlugin.getDefault().isQuestionnaireEnabled() && performUpload && questionnaireFile != null) {
-			upload(questionnaireFile, QUESTIONAIRE, monitor);
-
-			if (failed) {
-				failed = false;
-			}
+			failed = !UiUsageMonitorPlugin.getDefault().getUploadManager().uploadFile(servletUrl, questionnaireFile,
+					uid, monitor);
 
 			if (questionnaireFile.exists()) {
 				questionnaireFile.delete();
@@ -231,7 +220,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			return;
 		}
 
-		upload(zipFile, STATS, monitor);
+		failed = !UiUsageMonitorPlugin.getDefault().getUploadManager().uploadFile(servletUrl, zipFile, uid, monitor);
 
 		if (zipFile.exists()) {
 			zipFile.delete();
@@ -300,92 +289,6 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		}
 	}
 
-	/**
-	 * Method to upload a file to a cgi script
-	 * 
-	 * @param f
-	 *            The file to upload
-	 */
-	private void upload(File f, String type, IProgressMonitor monitor) {
-		if (failed) {
-			return;
-		}
-
-		int status = 0;
-
-		try {
-			String servletUrl = UiUsageMonitorPlugin.getDefault().getStudyParameters().getUploadServletUrl();
-			final PostMethod filePost = new PostMethod(servletUrl);
-
-			Part[] parts = { new FilePart("temp.txt", f) };
-
-			filePost.setRequestEntity(new MultipartRequestEntity(parts, filePost.getParams()));
-
-			final HttpClient client = new HttpClient();
-
-			status = client.executeMethod(filePost);
-			filePost.releaseConnection();
-
-		} catch (final Exception e) {
-			// there was a problem with the file upload so throw up an error
-			// dialog to inform the user and log the exception
-			failed = true;
-			if (e instanceof NoRouteToHostException || e instanceof UnknownHostException) {
-				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-					public void run() {
-						MessageDialog.openError(null, "Error Uploading", "There was an error uploading the file"
-								+ ": \n" + "No network connection.  Please try again later");
-					}
-				});
-			} else {
-				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-					public void run() {
-						MessageDialog.openError(null, "Error Uploading", "There was an error uploading the file"
-								+ ": \n" + e.getClass().getCanonicalName());
-					}
-				});
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Error uploading", e));
-			}
-		}
-
-		monitor.worked(1);
-
-		final String filedesc = f.getName();
-
-		final int httpResponseStatus = status;
-
-		if (status == 401) {
-			// The uid was incorrect so inform the user
-			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-				public void run() {
-					MessageDialog.openError(null, "Error Uploading", "There was an error uploading the " + filedesc
-							+ ": \n" + "Your uid was incorrect: " + uid + "\n");
-				}
-			});
-		} else if (status == 407) {
-			failed = true;
-			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-				public void run() {
-					MessageDialog.openError(null, "Error Uploading",
-							"Could not upload because proxy server authentication failed.  Please check your proxy server settings.");
-				}
-			});
-		} else if (status != 200) {
-			failed = true;
-			// there was a problem with the file upload so throw up an error
-			// dialog to inform the user
-			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-				public void run() {
-					MessageDialog.openError(null, "Error Uploading", "There was an error uploading the " + filedesc
-							+ ": \n" + "HTTP Response Code " + httpResponseStatus + "\n" + "Please try again later");
-				}
-			});
-		} else {
-			// the file was uploaded successfully
-		}
-
-	}
-
 	public String getMonitorFileName() {
 		return monitorFile.getAbsolutePath();
 	}
@@ -396,271 +299,8 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	/** the response for the http request */
 	private String resp;
 
-	public int getExistingUid(String firstName, String lastName, String emailAddress, boolean anonymous) {
-		if (failed) {
-			return -1;
-		}
-		try {
-
-			// TODO, do this method properly
-			// create a new post method
-			String url = UiUsageMonitorPlugin.getDefault().getStudyParameters().getUserIdServletUrl();
-			final GetMethod getUidMethod = new GetMethod(url);
-
-			NameValuePair first = new NameValuePair("firstName", firstName);
-			NameValuePair last = new NameValuePair("lastName", lastName);
-			NameValuePair email = new NameValuePair("email", emailAddress);
-			NameValuePair job = new NameValuePair("jobFunction", "");
-			NameValuePair size = new NameValuePair("companySize", "");
-			NameValuePair buisness = new NameValuePair("companyBuisness", "");
-			NameValuePair contact = new NameValuePair("contact", "");
-			NameValuePair anon = null;
-			if (anonymous) {
-				anon = new NameValuePair("anonymous", "true");
-			} else {
-				anon = new NameValuePair("anonymous", "false");
-			}
-
-			if (UiUsageMonitorPlugin.getDefault().usingContactField()) {
-				getUidMethod.setQueryString(new NameValuePair[] { first, last, email, job, size, buisness, anon,
-						contact });
-			} else {
-				getUidMethod.setQueryString(new NameValuePair[] { first, last, email, job, size, buisness, anon });
-			}
-
-			// create a new client and upload the file
-			final HttpClient client = new HttpClient();
-			UiUsageMonitorPlugin.getDefault().configureProxy(client, url);
-
-			ProgressMonitorDialog pmd = new ProgressMonitorDialog(Display.getCurrent().getActiveShell());
-			pmd.run(false, false, new IRunnableWithProgress() {
-				public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-					monitor.beginTask("Get User Id", 1);
-
-					try {
-						status = client.executeMethod(getUidMethod);
-
-						resp = getData(getUidMethod.getResponseBodyAsStream());
-
-						// release the connection to the server
-						getUidMethod.releaseConnection();
-					} catch (final Exception e) {
-						// there was a problem with the file upload so throw up
-						// an error
-						// dialog to inform the user and log the exception
-						failed = true;
-						if (e instanceof NoRouteToHostException || e instanceof UnknownHostException) {
-							PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-								public void run() {
-									MessageDialog.openError(null, "Error Uploading",
-											"There was an error getting a new user id: \n"
-													+ "No network connection.  Please try again later");
-								}
-							});
-						} else {
-							PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-								public void run() {
-									MessageDialog.openError(null, "Error Uploading",
-											"There was an error getting a new user id: \n"
-													+ e.getClass().getCanonicalName() + e.getMessage());
-								}
-							});
-							StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-									"Error uploading", e));
-						}
-					}
-					monitor.worked(1);
-					monitor.done();
-				}
-			});
-
-			if (status != 200) {
-				// there was a problem with the file upload so throw up an error
-				// dialog to inform the user
-
-				failed = true;
-
-				// there was a problem with the file upload so throw up an error
-				// dialog to inform the user
-				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-					public void run() {
-						MessageDialog.openError(null, "Error Getting User ID",
-								"There was an error getting a user id: \n" + "HTTP Response Code " + status + "\n"
-										+ "Please try again later");
-					}
-				});
-			} else {
-				resp = resp.substring(resp.indexOf(":") + 1).trim();
-				uid = Integer.parseInt(resp);
-				UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(UiUsageMonitorPlugin.PREF_USER_ID, uid);
-				return uid;
-			}
-
-		} catch (final Exception e) {
-			// there was a problem with the file upload so throw up an error
-			// dialog to inform the user and log the exception
-			failed = true;
-			if (e instanceof NoRouteToHostException || e instanceof UnknownHostException) {
-				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-					public void run() {
-						MessageDialog.openError(null, "Error Uploading", "There was an error getting a new user id: \n"
-								+ "No network connection.  Please try again later");
-					}
-				});
-			} else {
-				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-					public void run() {
-						MessageDialog.openError(null, "Error Uploading", "There was an error getting a new user id: \n"
-								+ e.getClass().getCanonicalName());
-					}
-				});
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Error uploading", e));
-			}
-		}
-		return -1;
-	}
-
-	public int getNewUid() {
-		final PostMethod filePost = new PostMethod(UiUsageMonitorPlugin.getDefault()
-				.getStudyParameters()
-				.getUserIdServletUrl());
-		filePost.addParameter(new NameValuePair("MylarUserID", ""));
-		final HttpClient client = new HttpClient();
-		int status = 0;
-
-		try {
-			status = client.executeMethod(filePost);
-
-			if (status == HTTP_SERVLET_RESPONSE_SC_OK) {
-				InputStream inputStream = filePost.getResponseBodyAsStream();
-				byte[] buffer = new byte[SIZE_OF_INT];
-				int numBytesRead = inputStream.read(buffer);
-				int uid = new Integer(new String(buffer, 0, numBytesRead)).intValue();
-				filePost.releaseConnection();
-
-				return uid;
-			} else {
-				return -1;
-			}
-
-		} catch (final Exception e) {
-			// there was a problem with the file upload so throw up an error
-			// dialog to inform the user and log the exception
-			return -1;
-
-		}
-	}
-
-	public int getNewUid(String firstName, String lastName, String emailAddress, boolean anonymous, String jobFunction,
-			String companySize, String companyFunction, boolean contactEmail) {
-		if (failed) {
-			return -1;
-		}
-		try {
-			addBackgroundPage();
-
-			final PostMethod filePost = new PostMethod(UiUsageMonitorPlugin.getDefault()
-					.getStudyParameters()
-					.getUserIdServletUrl());
-			filePost.addParameter(new NameValuePair("MylarUserID", ""));
-			final HttpClient client = new HttpClient();
-			int status = 0;
-
-			try {
-				status = client.executeMethod(filePost);
-
-				if (status == 202) {
-					InputStream inputStream = filePost.getResponseBodyAsStream();
-					byte[] buffer = new byte[8];
-					int numBytesRead = inputStream.read(buffer);
-					int uid = new Integer(new String(buffer, 0, numBytesRead)).intValue();
-					filePost.releaseConnection();
-
-					return uid;
-				} else {
-					return -1;
-				}
-
-			} catch (final Exception e) {
-				// there was a problem with the file upload so throw up an error
-				// dialog to inform the user and log the exception
-			}
-
-			// NameValuePair first = new NameValuePair("firstName", firstName);
-			// NameValuePair last = new NameValuePair("lastName", lastName);
-			// NameValuePair email = new NameValuePair("email", emailAddress);
-			// NameValuePair job = new NameValuePair("jobFunction",
-			// jobFunction);
-			// NameValuePair size = new NameValuePair("companySize",
-			// companySize);
-			// NameValuePair buisness = new NameValuePair("companyBuisness",
-			// companyFunction);
-			// NameValuePair contact = null;
-			// if (contactEmail) {
-			// contact = new NameValuePair("contact", "true");
-			// } else {
-			// contact = new NameValuePair("contact", "false");
-			// }
-			// NameValuePair anon = null;
-			// if (anonymous) {
-			// anon = new NameValuePair("anonymous", "true");
-			// } else {
-			// anon = new NameValuePair("anonymous", "false");
-			// }
-
-			if (status != 200) {
-				// there was a problem with the file upload so throw up an error
-				// dialog to inform the user
-
-				failed = true;
-
-				// there was a problem with the file upload so throw up an error
-				// dialog to inform the user
-				MessageDialog.openError(null, "Error Getting User ID", "There was an error getting a user id: \n"
-						+ "HTTP Response Code " + status + "\n" + "Please try again later");
-			} else {
-				resp = resp.substring(resp.indexOf(":") + 1).trim();
-				uid = Integer.parseInt(resp);
-				UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(UiUsageMonitorPlugin.PREF_USER_ID, uid);
-				return uid;
-			}
-
-		} catch (Exception e) {
-			// there was a problem with the file upload so throw up an error
-			// dialog to inform the user and log the exception
-			failed = true;
-			if (e instanceof NoRouteToHostException || e instanceof UnknownHostException) {
-				MessageDialog.openError(null, "Error Uploading", "There was an error getting a new user id: \n"
-						+ "No network connection.  Please try again later");
-			} else {
-				MessageDialog.openError(null, "Error Uploading", "There was an error getting a new user id: \n"
-						+ e.getClass().getCanonicalName());
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Error uploading", e));
-			}
-		}
-		return -1;
-	}
-
-	private String getData(InputStream i) {
-		String s = "";
-		String data = "";
-		BufferedReader br = new BufferedReader(new InputStreamReader(i));
-		try {
-			while ((s = br.readLine()) != null) {
-				data += s;
-			}
-		} catch (IOException e) {
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Error uploading", e));
-		}
-		return data;
-	}
-
 	public int getUid() {
 		return uid;
-	}
-
-	public boolean failed() {
-		return failed;
 	}
 
 	private File processMonitorFile(File monitorFile) {

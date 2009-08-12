@@ -19,8 +19,6 @@ import java.util.List;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.apache.commons.httpclient.HostConfiguration;
-import org.apache.commons.httpclient.HttpClient;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -38,8 +36,6 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylyn.commons.core.StatusHandler;
-import org.eclipse.mylyn.commons.net.WebLocation;
-import org.eclipse.mylyn.commons.net.WebUtil;
 import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.context.core.InteractionContextManager;
 import org.eclipse.mylyn.internal.monitor.ui.ActionExecutionMonitor;
@@ -68,7 +64,6 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.eclipse.update.internal.ui.security.Authentication;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -141,8 +136,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 	private static Date lastTransmit = null;
 
-	private final Authentication uploadAuthentication = null;
-
 	private static boolean performingUpload = false;
 
 	private boolean questionnaireEnabled = true;
@@ -152,6 +145,12 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 	private final StudyParameters studyParameters = new StudyParameters();
 
 	private final ListenerList lifecycleListeners = new ListenerList();
+
+	private final UsageUploadManager uploadManager = new UsageUploadManager();
+
+	public UsageUploadManager getUploadManager() {
+		return uploadManager;
+	}
 
 	public static class UiUsageMonitorStartup implements IStartup {
 
@@ -625,15 +624,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		int numEvents = getPreferenceStore().getInt(MonitorPreferenceConstants.PREF_NUM_USER_EVENTS);
 		numEvents += increment;
 		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_NUM_USER_EVENTS, numEvents);
-	}
-
-	public void configureProxy(HttpClient httpClient, String uploadScript) {
-		WebUtil.configureHttpClient(httpClient, null);
-
-		HostConfiguration hostConfiguration = WebUtil.createHostConfiguration(httpClient, new WebLocation(uploadScript,
-				uploadAuthentication != null ? uploadAuthentication.getUser() : null,
-				uploadAuthentication != null ? uploadAuthentication.getPassword() : null), null);
-		httpClient.setHostConfiguration(hostConfiguration);
 	}
 
 	public static IPreferenceStore getPrefs() {

@@ -1,0 +1,8 @@
+1250111278545	Rename method 'upload'
+1250111362255	Rename type 'UsageUploadUtil'
+1250112093844	Extract local variable 'studyParameters'
+1250112794942	Rename method 'getData'
+1250113880323	Rename local variable 'filePost'
+1250113884355	Rename local variable 'getUserId'
+1250116243437	Rename local variable 'f'
+1250116251541	Rename local variable 'f'

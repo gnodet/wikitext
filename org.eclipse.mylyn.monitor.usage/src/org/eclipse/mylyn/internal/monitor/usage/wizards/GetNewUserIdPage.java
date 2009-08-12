@@ -11,13 +11,19 @@
 
 package org.eclipse.mylyn.internal.monitor.usage.wizards;
 
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
@@ -372,8 +378,27 @@ public class GetNewUserIdPage extends WizardPage {
 			public void widgetSelected(SelectionEvent e) {
 				if (e.widget instanceof Button) {
 					if (hasAllFields(false)) {
-						if (wizard.getNewUid(first, last, email, anon, jobFunction, companySize, companyFunction,
-								contactEmail) != -1) {
+						final int[] uid = new int[1];
+						try {
+							getWizard().getContainer().run(false, true, new IRunnableWithProgress() {
+
+								public void run(IProgressMonitor monitor) throws InvocationTargetException,
+										InterruptedException {
+									uid[0] = UiUsageMonitorPlugin.getDefault().getUploadManager().getNewUid(first,
+											last, email, anon, jobFunction, companySize, companyFunction, contactEmail,
+											monitor);
+								}
+							});
+						} catch (InvocationTargetException e1) {
+							StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
+									e1.getMessage(), e1));
+						} catch (InterruptedException e1) {
+							StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
+									e1.getMessage(), e1));
+						}
+						if (uid[0] != -1) {
+							UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(
+									UiUsageMonitorPlugin.PREF_USER_ID, uid[0]);
 							if (wizard.getUploadPage() != null) {
 								wizard.getUploadPage().updateUid();
 							}
@@ -403,7 +428,26 @@ public class GetNewUserIdPage extends WizardPage {
 			public void widgetSelected(SelectionEvent e) {
 				if (e.widget instanceof Button) {
 					if (hasAllFields(true)) {
-						if (wizard.getExistingUid(first, last, email, anon) != -1) {
+						final int[] uid = new int[1];
+						try {
+							getWizard().getContainer().run(false, true, new IRunnableWithProgress() {
+
+								public void run(IProgressMonitor monitor) throws InvocationTargetException,
+										InterruptedException {
+									uid[0] = UiUsageMonitorPlugin.getDefault().getUploadManager().getExistingUid(first,
+											last, email, anon, monitor);
+								}
+							});
+						} catch (InvocationTargetException e1) {
+							StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
+									e1.getMessage(), e1));
+						} catch (InterruptedException e1) {
+							StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
+									e1.getMessage(), e1));
+						}
+						if (uid[0] != -1) {
+							UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(
+									UiUsageMonitorPlugin.PREF_USER_ID, uid[0]);
 							if (wizard.getUploadPage() != null) {
 								wizard.getUploadPage().updateUid();
 							}
@@ -414,6 +458,8 @@ public class GetNewUserIdPage extends WizardPage {
 									"Your Mylyn feedback ID is: "
 											+ wizard.getUid()
 											+ "\n\nPlease record this number if you are using multiple copies of eclipse so that you do not have to register again.\n\nYou can also retrieve this ID by repeating the consent process at a later time.");
+						} else {
+							// TODO handle the error better here
 						}
 					} else {
 						MessageDialog.openError(Display.getDefault().getActiveShell(), "Incomplete Form Input",
@@ -457,7 +503,23 @@ public class GetNewUserIdPage extends WizardPage {
 		getNewUid.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
 				if (e.widget instanceof Button) {
-					if (wizard.getNewUid(null, null, null, true, null, null, null, false) != -1) {
+					final int[] uid = new int[1];
+					try {
+						getWizard().getContainer().run(false, true, new IRunnableWithProgress() {
+
+							public void run(IProgressMonitor monitor) throws InvocationTargetException,
+									InterruptedException {
+								uid[0] = UiUsageMonitorPlugin.getDefault().getUploadManager().getNewUid(monitor);
+							}
+						});
+					} catch (InvocationTargetException e1) {
+						StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, e1.getMessage(), e1));
+					} catch (InterruptedException e1) {
+						StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, e1.getMessage(), e1));
+					}
+					if (uid[0] != -1) {
+						UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(
+								UiUsageMonitorPlugin.PREF_USER_ID, uid[0]);
 						if (wizard.getUploadPage() != null) {
 							wizard.getUploadPage().updateUid();
 						}

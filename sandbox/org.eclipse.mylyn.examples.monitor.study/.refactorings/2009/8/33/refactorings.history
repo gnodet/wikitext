@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract local variable &apos;stringUid&apos; from expression &apos;feedbackPage.getStringUid()&apos;&#x0D;&#x0A;- Original project: &apos;org.eclipse.mylyn.examples.monitor.study&apos;&#x0D;&#x0A;- Variable name: &apos;stringUid&apos;&#x0D;&#x0A;- Destination method: &apos;org.eclipse.mylyn.examples.monitor.study.FeedbackWizard.performFinish()&apos;&#x0D;&#x0A;- Variable expression: &apos;feedbackPage.getStringUid()&apos;" description="Extract local variable &apos;stringUid&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.eclipse.mylyn.examples.monitor.study{FeedbackWizard.java" name="stringUid" replace="false" selection="2367 27" stamp="1250110965817" version="1.0"/>
+</session>
