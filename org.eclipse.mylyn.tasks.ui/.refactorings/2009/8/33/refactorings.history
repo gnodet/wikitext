@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Inline method &apos;org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage.credentialsComplete()&apos; in &apos;org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.ui&apos;&#x0A;- Original element: &apos;org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage.credentialsComplete()&apos;&#x0A;- Replace all references to method with statements" delete="false" description="Inline method &apos;credentialsComplete&apos;" flags="786434" id="org.eclipse.jdt.ui.inline.method" input="/src&lt;org.eclipse.mylyn.tasks.ui.wizards{AbstractRepositorySettingsPage.java" mode="1" selection="39231 0" stamp="1250202703333" version="1.0"/>
+</session>
