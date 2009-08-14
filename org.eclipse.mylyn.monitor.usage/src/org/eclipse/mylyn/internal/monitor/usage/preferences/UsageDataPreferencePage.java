@@ -16,6 +16,7 @@ import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.mylyn.internal.monitor.usage.InteractionEventObfuscator;
 import org.eclipse.mylyn.internal.monitor.usage.MonitorPreferenceConstants;
+import org.eclipse.mylyn.internal.monitor.usage.StudyParameters;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -58,10 +59,15 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 
 	private Text submissionTime;
 
+	private final StudyParameters studyParameters;
+
 	public UsageDataPreferencePage() {
 		super();
-		setPreferenceStore(UiUsageMonitorPlugin.getPrefs());
+		setPreferenceStore(UiUsageMonitorPlugin.getDefault().getPreferenceStore());
 		setDescription(DESCRIPTION);
+
+		studyParameters = UiUsageMonitorPlugin.getDefault().getStudyParameters();
+
 	}
 
 	@Override
@@ -70,9 +76,9 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		GridLayout layout = new GridLayout(1, false);
 		container.setLayout(layout);
 
-		if (UiUsageMonitorPlugin.getDefault().getCustomizingPlugin() != null) {
+		if (studyParameters.getCustomizingPlugin() != null) {
 			Label label = new Label(parent, SWT.NULL);
-			label.setText(UiUsageMonitorPlugin.getDefault().getCustomizedByMessage());
+			label.setText(studyParameters.getCustomizedByMessage());
 			label.setFont(JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT));
 		}
 
@@ -135,6 +141,12 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		enableObfuscation.setText("Obfuscate elements using: ");
 		enableObfuscation.setSelection(getPreferenceStore().getBoolean(
 				MonitorPreferenceConstants.PREF_MONITORING_OBFUSCATE));
+
+		if (studyParameters.forceObfuscation()) {
+			enableObfuscation.setSelection(true);
+			enableObfuscation.setEnabled(false);
+		}
+
 		Label obfuscationLablel = new Label(group, SWT.NULL);
 		obfuscationLablel.setText(InteractionEventObfuscator.ENCRYPTION_ALGORITHM + " message digest one-way hash");
 	}
@@ -150,7 +162,7 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		uploadUrl = new Text(group, SWT.BORDER);
 		uploadUrl.setEditable(false);
 		uploadUrl.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-		uploadUrl.setText(UiUsageMonitorPlugin.getDefault().getStudyParameters().getUploadServletUrl());
+		uploadUrl.setText(studyParameters.getUploadServletUrl());
 
 		Label events = new Label(group, SWT.NULL);
 		events.setText(" Events since upload:");
@@ -180,9 +192,9 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		gridData.widthHint = 15;
 		submissionTime.setLayoutData(gridData);
 		long submissionFreq = UiUsageMonitorPlugin.DEFAULT_DELAY_BETWEEN_TRANSMITS;
-		if (UiUsageMonitorPlugin.getPrefs().contains(MonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY)) {
-			submissionFreq = UiUsageMonitorPlugin.getPrefs().getLong(
-					MonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY);
+		if (UiUsageMonitorPlugin.getDefault().getPreferenceStore().contains(
+				MonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY)) {
+			submissionFreq = getPreferenceStore().getLong(MonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY);
 		}
 		long submissionFreqInDays = submissionFreq / DAYS_IN_MS;
 		submissionTime.setText("" + submissionFreqInDays);
@@ -231,7 +243,7 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 
 		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY, transmitFrequency);
 
-		UiUsageMonitorPlugin.getDefault().getStudyParameters().setTransmitPromptPeriod(transmitFrequency);
+		studyParameters.setTransmitPromptPeriod(transmitFrequency);
 		return true;
 	}
 

@@ -32,6 +32,7 @@ import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.commons.core.ZipFileUtil;
 import org.eclipse.mylyn.internal.monitor.usage.InteractionEventLogger;
 import org.eclipse.mylyn.internal.monitor.usage.MonitorFileRolloverJob;
+import org.eclipse.mylyn.internal.monitor.usage.StudyParameters;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
 import org.eclipse.mylyn.monitor.usage.AbstractStudyBackgroundPage;
@@ -80,14 +81,15 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 	private List<String> backupFilesToUpload;
 
+	private final StudyParameters studyParameters;
+
 	public UsageSubmissionWizard() {
-		super();
-		setTitles();
-		init(true);
+		this(true);
 	}
 
 	public UsageSubmissionWizard(boolean performUpload) {
 		super();
+		studyParameters = UiUsageMonitorPlugin.getDefault().getStudyParameters();
 		setTitles();
 		init(performUpload);
 	}
@@ -110,7 +112,8 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 				getContainer().run(false, true, new IRunnableWithProgress() {
 
 					public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-						newUid[0] = UiUsageMonitorPlugin.getDefault().getUploadManager().getNewUid(monitor);
+						newUid[0] = UiUsageMonitorPlugin.getDefault().getUploadManager().getNewUid(studyParameters,
+								monitor);
 					}
 				});
 			} catch (InvocationTargetException e1) {
@@ -122,18 +125,14 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 			UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(UiUsageMonitorPlugin.PREF_USER_ID, uid);
 		}
-		uploadPage = new UsageUploadWizardPage(this);
+		uploadPage = new UsageUploadWizardPage(this, studyParameters);
 		fileSelectionPage = new UsageFileSelectionWizardPage("TODO, change this string");
-		if (UiUsageMonitorPlugin.getDefault().isBackgroundEnabled()) {
-			AbstractStudyBackgroundPage page = UiUsageMonitorPlugin.getDefault()
-					.getStudyParameters()
-					.getBackgroundPage();
+		if (studyParameters.isBackgroundEnabled()) {
+			AbstractStudyBackgroundPage page = studyParameters.getBackgroundPage();
 			backgroundPage = page;
 		}
-		if (UiUsageMonitorPlugin.getDefault().isQuestionnaireEnabled() && performUpload) {
-			AbstractStudyQuestionnairePage page = UiUsageMonitorPlugin.getDefault()
-					.getStudyParameters()
-					.getQuestionnairePage();
+		if (studyParameters.isQuestionnaireEnabled() && performUpload) {
+			AbstractStudyQuestionnairePage page = studyParameters.getQuestionnairePage();
 			questionnairePage = page;
 		}
 		super.setForcePreviousAndNextButtons(true);
@@ -150,11 +149,10 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		if (!performUpload) {
 			return true;
 		}
-		if (UiUsageMonitorPlugin.getDefault().isQuestionnaireEnabled() && performUpload && questionnairePage != null) {
+		if (studyParameters.isQuestionnaireEnabled() && performUpload && questionnairePage != null) {
 			questionnaireFile = questionnairePage.createFeedbackFile();
 		}
-		if (UiUsageMonitorPlugin.getDefault().isBackgroundEnabled() && performUpload && displayBackgroundPage
-				&& backgroundPage != null) {
+		if (studyParameters.isBackgroundEnabled() && performUpload && displayBackgroundPage && backgroundPage != null) {
 			backgroundFile = backgroundPage.createFeedbackFile();
 		}
 
@@ -196,9 +194,9 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	}
 
 	public void performUpload(IProgressMonitor monitor) {
-		String servletUrl = UiUsageMonitorPlugin.getDefault().getStudyParameters().getUploadServletUrl();
+		String servletUrl = studyParameters.getUploadServletUrl();
 		boolean failed = false;
-		if (UiUsageMonitorPlugin.getDefault().isBackgroundEnabled() && performUpload && backgroundFile != null) {
+		if (studyParameters.isBackgroundEnabled() && performUpload && backgroundFile != null) {
 			failed = !UiUsageMonitorPlugin.getDefault().getUploadManager().uploadFile(servletUrl, backgroundFile, uid,
 					monitor);
 
@@ -207,7 +205,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			}
 		}
 
-		if (UiUsageMonitorPlugin.getDefault().isQuestionnaireEnabled() && performUpload && questionnaireFile != null) {
+		if (studyParameters.isQuestionnaireEnabled() && performUpload && questionnaireFile != null) {
 			failed = !UiUsageMonitorPlugin.getDefault().getUploadManager().uploadFile(servletUrl, questionnaireFile,
 					uid, monitor);
 
@@ -270,7 +268,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 	@Override
 	public void addPages() {
-		if (UiUsageMonitorPlugin.getDefault().isQuestionnaireEnabled() && performUpload && questionnairePage != null) {
+		if (studyParameters.isQuestionnaireEnabled() && performUpload && questionnairePage != null) {
 			addPage(questionnairePage);
 		}
 		if (performUpload) {
@@ -283,7 +281,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	}
 
 	public void addBackgroundPage() {
-		if (UiUsageMonitorPlugin.getDefault().isBackgroundEnabled() && backgroundPage != null) {
+		if (studyParameters.isBackgroundEnabled() && backgroundPage != null) {
 			addPage(backgroundPage);
 			displayBackgroundPage = true;
 		}
@@ -293,16 +291,11 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		return monitorFile.getAbsolutePath();
 	}
 
-	/** The status from the http request */
-	private int status;
-
-	/** the response for the http request */
-	private String resp;
-
 	public int getUid() {
 		return uid;
 	}
 
+	// TODO allow this to be customized
 	private File processMonitorFile(File monitorFile) {
 		File processedFile = new File("processed-" + UiUsageMonitorPlugin.MONITOR_LOG_NAME + processedFileCount++
 				+ ".xml");
@@ -312,6 +305,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 		if (eventList.size() > 0) {
 			for (InteractionEvent event : eventList) {
+
 				if (event.getOriginId().startsWith(ORG_ECLIPSE_PREFIX)) {
 					logger.interactionObserved(event);
 				}

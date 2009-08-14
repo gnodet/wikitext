@@ -14,7 +14,7 @@ package org.eclipse.mylyn.internal.monitor.usage.wizards;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
+import org.eclipse.mylyn.internal.monitor.usage.StudyParameters;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -46,15 +46,18 @@ public class UsageUploadWizardPage extends WizardPage {
 
 	private final UsageSubmissionWizard wizard;
 
+	private final StudyParameters studyParameters;
+
 	/**
 	 * Constructor
 	 */
-	public UsageUploadWizardPage(UsageSubmissionWizard wizard) {
+	public UsageUploadWizardPage(UsageSubmissionWizard wizard, StudyParameters studyParameters) {
 		super("Usage Data Submission Wizard");
+		this.studyParameters = studyParameters;
 
 		setTitle("Usage Data Submission");
-		if (UiUsageMonitorPlugin.getDefault().getCustomizingPlugin() != null) {
-			String customizedTitle = UiUsageMonitorPlugin.getDefault().getStudyParameters().getTitle();
+		if (studyParameters.getCustomizingPlugin() != null) {
+			String customizedTitle = studyParameters.getTitle();
 			if (customizedTitle != null && !customizedTitle.equals("")) {
 				setTitle(customizedTitle + ": Usage Data Upload");
 			}
@@ -85,10 +88,10 @@ public class UsageUploadWizardPage extends WizardPage {
 		topContainerLayout.verticalSpacing = 9;
 
 		Label label;
-		if (UiUsageMonitorPlugin.getDefault().getCustomizingPlugin() != null) {
+		if (studyParameters.getCustomizingPlugin() != null) {
 			label = new Label(parent, SWT.NULL);
 			label.setFont(JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT));
-			label.setText(UiUsageMonitorPlugin.getDefault().getCustomizedByMessage());
+			label.setText(studyParameters.getCustomizedByMessage());
 		}
 
 		label = new Label(topContainer, SWT.NULL);
@@ -98,7 +101,7 @@ public class UsageUploadWizardPage extends WizardPage {
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
 		serverAddrText.setLayoutData(gd);
 		serverAddrText.setEditable(false);
-		serverAddrText.setText(UiUsageMonitorPlugin.getDefault().getStudyParameters().getUploadServletUrl());
+		serverAddrText.setText(studyParameters.getUploadServletUrl());
 
 		label = new Label(topContainer, SWT.NULL);
 		label.setText("Usage file location:");

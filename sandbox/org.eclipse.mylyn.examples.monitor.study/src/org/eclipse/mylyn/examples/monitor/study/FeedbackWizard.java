@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.mylyn.commons.core.DateUtil;
+import org.eclipse.mylyn.internal.monitor.usage.StudyParameters;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.internal.monitor.usage.wizards.UsageSubmissionWizard;
 import org.eclipse.ui.INewWizard;
@@ -34,6 +35,8 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 
 	private final SubmitFeedbackPage feedbackPage;
 
+	private final StudyParameters studyParameters;
+
 	/**
 	 * Constructor for SampleNewWizard.
 	 */
@@ -42,15 +45,14 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 		setNeedsProgressMonitor(true);
 
 		feedbackPage = new SubmitFeedbackPage(wizard);
-	}
-
-	public FeedbackWizard() {
-		super();
-		setNeedsProgressMonitor(true);
 		super.setDefaultPageImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.ID_PLUGIN,
 				"icons/wizban/banner-user.gif"));
 		super.setWindowTitle("Mylyn Feedback");
-		feedbackPage = new SubmitFeedbackPage(null);
+		studyParameters = UiUsageMonitorPlugin.getDefault().getStudyParameters();
+	}
+
+	public FeedbackWizard() {
+		this(null);
 	}
 
 	@Override
@@ -75,7 +77,7 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 				uploadScript,
 				"MYLYN" + uid,
 				f,
-				UiUsageMonitorPlugin.UPLOAD_FILE_LABEL + "-" + UiUsageMonitorPlugin.VERSION + "-" + "feedback" + "-"
+				studyParameters.getUploadFileLabel() + "-" + studyParameters.getVersion() + "-" + "feedback" + "-"
 						+ uid + "-" + DateUtil.getIsoFormattedDateTime(Calendar.getInstance()) + ".txt", uid,
 				new NullProgressMonitor());
 		if (f.exists()) {

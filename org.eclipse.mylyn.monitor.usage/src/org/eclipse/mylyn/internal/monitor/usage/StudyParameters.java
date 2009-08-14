@@ -43,7 +43,9 @@ public class StudyParameters {
 
 	private String idServletUrl;
 
-	private String questionaireServletUrl;
+	private String customizingPlugin;
+
+	private boolean forceObfuscation = false;
 
 	public String getUploadServletUrl() {
 		return uploadServletUrl;
@@ -62,16 +64,6 @@ public class StudyParameters {
 	public void setUserIdServletUrl(String servletUserId) {
 		if (servletUserId != null) {
 			this.idServletUrl = servletUserId;
-		}
-	}
-
-	public String getQuestionaireServletUrl() {
-		return questionaireServletUrl;
-	}
-
-	public void setQuestionaireServletUrl(String servletQuestionaire) {
-		if (servletQuestionaire != null) {
-			this.questionaireServletUrl = servletQuestionaire;
 		}
 	}
 
@@ -163,12 +155,55 @@ public class StudyParameters {
 		}
 	}
 
+	public void setCustomizingPlugin(String name) {
+		this.customizingPlugin = name;
+	}
+
+	public String getCustomizingPlugin() {
+		return customizingPlugin;
+	}
+
+	public boolean isBackgroundEnabled() {
+		return backgroundPage != null;
+	}
+
+	public boolean isQuestionnaireEnabled() {
+		return questionnairePage != null;
+	}
+
+	public String getCustomizedByMessage() {
+		String customizedBy = getCustomizingPlugin();
+		String message = "NOTE: You have previously downloaded the Mylyn monitor and a user study plug-in with id: "
+				+ customizedBy + "\n" + "If you are not familiar with this plug-in do not upload data.";
+		return message;
+	}
+
+	public boolean usingContactField() {
+		if (getUseContactField().equals("true")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public boolean isComplete() {
 		return title != null && description != null && uploadServletUrl != null && idServletUrl != null;
 	}
 
 	public boolean isEmpty() {
 		return title == null && description == null && uploadServletUrl == null && idServletUrl == null;
+	}
+
+	public boolean forceObfuscation() {
+		return forceObfuscation;
+	}
+
+	public void setForceObfuscation(boolean forceObfuscation) {
+		this.forceObfuscation = forceObfuscation;
+	}
+
+	public String getUploadFileLabel() {
+		return "USAGE";// TODO make this extensible
 	}
 
 }

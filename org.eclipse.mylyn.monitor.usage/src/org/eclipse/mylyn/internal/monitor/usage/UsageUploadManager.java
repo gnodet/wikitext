@@ -125,10 +125,10 @@ public class UsageUploadManager {
 		return false;
 	}
 
-	public int getExistingUid(String firstName, String lastName, String emailAddress, boolean anonymous,
-			IProgressMonitor monitor) {
+	public int getExistingUid(StudyParameters studyParameters, String firstName, String lastName, String emailAddress,
+			boolean anonymous, IProgressMonitor monitor) {
 		// TODO extract url for servlet
-		String url = UiUsageMonitorPlugin.getDefault().getStudyParameters().getUserIdServletUrl();
+		String url = studyParameters.getUserIdServletUrl();
 		final GetMethod getUidMethod = new GetMethod(url);
 
 		try {
@@ -146,7 +146,7 @@ public class UsageUploadManager {
 				anon = new NameValuePair("anonymous", "false");
 			}
 
-			if (UiUsageMonitorPlugin.getDefault().usingContactField()) {
+			if (studyParameters.usingContactField()) {
 				getUidMethod.setQueryString(new NameValuePair[] { first, last, email, job, size, buisness, anon,
 						contact });
 			} else {
@@ -219,9 +219,9 @@ public class UsageUploadManager {
 		return data;
 	}
 
-	public int getNewUid(IProgressMonitor monitor) {
+	public int getNewUid(StudyParameters studyParameters, IProgressMonitor monitor) {
 		// TODO extract url for servlet
-		String url = UiUsageMonitorPlugin.getDefault().getStudyParameters().getUserIdServletUrl();
+		String url = studyParameters.getUserIdServletUrl();
 		final PostMethod getUserIdMethod = new PostMethod(url);
 		try {
 			getUserIdMethod.addParameter(new NameValuePair("MylarUserID", ""));
@@ -232,7 +232,7 @@ public class UsageUploadManager {
 
 			if (status == HttpStatus.SC_ACCEPTED) {
 				InputStream inputStream = WebUtil.getResponseBodyAsStream(getUserIdMethod, monitor);
-				byte[] buffer = new byte[8];
+				byte[] buffer = new byte[SIZE_OF_INT];
 				int numBytesRead = inputStream.read(buffer);
 				int uid = new Integer(new String(buffer, 0, numBytesRead)).intValue();
 				inputStream.close();
@@ -256,9 +256,10 @@ public class UsageUploadManager {
 		return -1;
 	}
 
-	public int getNewUid(String firstName, String lastName, String emailAddress, boolean anonymous, String jobFunction,
-			String companySize, String companyFunction, boolean contactEmail, IProgressMonitor monitor) {
-		return getNewUid(monitor);
+	public int getNewUid(StudyParameters studyParameters, String firstName, String lastName, String emailAddress,
+			boolean anonymous, String jobFunction, String companySize, String companyFunction, boolean contactEmail,
+			IProgressMonitor monitor) {
+		return getNewUid(studyParameters, monitor);
 		// TODO add back the code for dealing with creasting a user given a name 
 //			// NameValuePair first = new NameValuePair("firstName", firstName);
 //			// NameValuePair last = new NameValuePair("lastName", lastName);

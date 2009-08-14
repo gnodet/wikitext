@@ -15,8 +15,7 @@
          <scripts
          	url="http://my.server"
          	upload="upload.cgi"
-         	userId="getUID.cgi"
-         	questionnaire="questionnaire.cgi"/>
+         	userId="getUID.cgi"/>
          <ui
                consentForm="doc/study-ethics.html"
                daysBetweenUpload="6"

@@ -24,6 +24,7 @@ import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.mylyn.commons.core.StatusHandler;
+import org.eclipse.mylyn.internal.monitor.usage.StudyParameters;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
@@ -88,15 +89,18 @@ public class GetNewUserIdPage extends WizardPage {
 
 	private boolean extendedMonitor = false;
 
-	public GetNewUserIdPage(UsageSubmissionWizard wizard, boolean performUpload) {
+	private final StudyParameters studyParameters;
+
+	public GetNewUserIdPage(UsageSubmissionWizard wizard, StudyParameters studyParameters, boolean performUpload) {
 		super("Statistics Wizard");
+		this.studyParameters = studyParameters;
 		this.performUpload = performUpload;
 		setTitle("Get Mylyn Feedback User ID");
 		setDescription("In order to submit usage feedback you first need to get a User ID.\n");
 		this.wizard = wizard;
-		if (UiUsageMonitorPlugin.getDefault().getCustomizingPlugin() != null) {
+		if (studyParameters.getCustomizingPlugin() != null) {
 			extendedMonitor = true;
-			String customizedTitle = UiUsageMonitorPlugin.getDefault().getStudyParameters().getTitle();
+			String customizedTitle = studyParameters.getTitle();
 			if (!customizedTitle.equals("")) {
 				setTitle(customizedTitle + ": Consent Form and User ID");
 			}
@@ -117,7 +121,7 @@ public class GetNewUserIdPage extends WizardPage {
 			createInstructionSection(container);
 			createNamesSection(container);
 			createJobDetailSection(container);
-			if (UiUsageMonitorPlugin.getDefault().usingContactField()) {
+			if (studyParameters.usingContactField()) {
 				createContactSection(container);
 			}
 			createUserIdButtons(container);
@@ -132,7 +136,7 @@ public class GetNewUserIdPage extends WizardPage {
 		if (extendedMonitor) {
 			Label label = new Label(parent, SWT.NULL);
 			label.setFont(JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT));
-			label.setText(UiUsageMonitorPlugin.getDefault().getCustomizedByMessage());
+			label.setText(studyParameters.getCustomizedByMessage());
 
 			Composite container = new Composite(parent, SWT.NULL);
 			GridLayout layout = new GridLayout();
@@ -144,8 +148,8 @@ public class GetNewUserIdPage extends WizardPage {
 			gd.widthHint = 600;
 			browser.setLayoutData(gd);
 
-			URL url = Platform.getBundle(UiUsageMonitorPlugin.getDefault().getCustomizingPlugin()).getEntry(
-					UiUsageMonitorPlugin.getDefault().getStudyParameters().getFormsConsent());
+			URL url = Platform.getBundle(studyParameters.getCustomizingPlugin()).getEntry(
+					studyParameters.getFormsConsent());
 			try {
 				URL localURL = Platform.asLocalURL(url);
 				browser.setUrl(localURL.toString());
@@ -384,9 +388,9 @@ public class GetNewUserIdPage extends WizardPage {
 
 								public void run(IProgressMonitor monitor) throws InvocationTargetException,
 										InterruptedException {
-									uid[0] = UiUsageMonitorPlugin.getDefault().getUploadManager().getNewUid(first,
-											last, email, anon, jobFunction, companySize, companyFunction, contactEmail,
-											monitor);
+									uid[0] = UiUsageMonitorPlugin.getDefault().getUploadManager().getNewUid(
+											studyParameters, first, last, email, anon, jobFunction, companySize,
+											companyFunction, contactEmail, monitor);
 								}
 							});
 						} catch (InvocationTargetException e1) {
@@ -434,8 +438,8 @@ public class GetNewUserIdPage extends WizardPage {
 
 								public void run(IProgressMonitor monitor) throws InvocationTargetException,
 										InterruptedException {
-									uid[0] = UiUsageMonitorPlugin.getDefault().getUploadManager().getExistingUid(first,
-											last, email, anon, monitor);
+									uid[0] = UiUsageMonitorPlugin.getDefault().getUploadManager().getExistingUid(
+											studyParameters, first, last, email, anon, monitor);
 								}
 							});
 						} catch (InvocationTargetException e1) {
@@ -509,7 +513,8 @@ public class GetNewUserIdPage extends WizardPage {
 
 							public void run(IProgressMonitor monitor) throws InvocationTargetException,
 									InterruptedException {
-								uid[0] = UiUsageMonitorPlugin.getDefault().getUploadManager().getNewUid(monitor);
+								uid[0] = UiUsageMonitorPlugin.getDefault().getUploadManager().getNewUid(
+										studyParameters, monitor);
 							}
 						});
 					} catch (InvocationTargetException e1) {

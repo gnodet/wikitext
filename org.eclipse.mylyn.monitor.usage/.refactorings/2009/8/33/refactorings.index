@@ -6,3 +6,8 @@
 1250113884355	Rename local variable 'getUserId'
 1250116243437	Rename local variable 'f'
 1250116251541	Rename local variable 'f'
+1250192908984	Convert member type 'MonitorUsageExtensionPointReader' to top level
+1250192924816	Rename type 'MonitorUsageExtensionPointReader'
+1250193185660	Extract local variable 'uiUsageMonitorExtensionPointReader'
+1250198892427	Extract method 'initializeDefaultStudyParameters'
+1250200076406	Delete element

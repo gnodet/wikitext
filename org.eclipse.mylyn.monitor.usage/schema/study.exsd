@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.eclipse.mylar.monitor.ui">
+<schema targetNamespace="org.eclipse.mylar.monitor.ui" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
-      <appInfo>
+      <appinfo>
          <meta.schema plugin="org.eclipse.mylar.monitor.ui" id="study" name="Mylar Monitor Study"/>
-      </appInfo>
+      </appinfo>
       <documentation>
          Provides a mechanism to connect a user study plug-in with the Mylyn Monitors usage monitoring facilities.  For more information please see: http://wiki.eclipse.org/index.php/Mylyn_Integrator_Reference#Monitor_API
       </documentation>
@@ -36,9 +36,9 @@
                <documentation>
                   
                </documentation>
-               <appInfo>
+               <appinfo>
                   <meta.attribute translatable="true"/>
-               </appInfo>
+               </appinfo>
             </annotation>
          </attribute>
       </complexType>
@@ -67,13 +67,6 @@
                </documentation>
             </annotation>
          </attribute>
-         <attribute name="questionnaire" type="string">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-            </annotation>
-         </attribute>
          <attribute name="background" type="string">
             <annotation>
                <documentation>
@@ -82,6 +75,13 @@
             </annotation>
          </attribute>
          <attribute name="version" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="forceObfuscation" type="boolean">
             <annotation>
                <documentation>
                   
@@ -119,9 +119,9 @@
                <documentation>
                   
                </documentation>
-               <appInfo>
+               <appinfo>
                   <meta.attribute kind="java" basedOn="org.eclipse.mylyn.monitor.usage.AbstractStudyQuestionnairePage:"/>
-               </appInfo>
+               </appinfo>
             </annotation>
          </attribute>
          <attribute name="backgroundPage" type="string">
@@ -129,9 +129,9 @@
                <documentation>
                   
                </documentation>
-               <appInfo>
+               <appinfo>
                   <meta.attribute kind="java"/>
-               </appInfo>
+               </appinfo>
             </annotation>
          </attribute>
          <attribute name="consentForm" type="string">
@@ -139,9 +139,9 @@
                <documentation>
                   
                </documentation>
-               <appInfo>
+               <appinfo>
                   <meta.attribute kind="resource"/>
-               </appInfo>
+               </appinfo>
             </annotation>
          </attribute>
          <attribute name="useContactField" type="boolean">
@@ -167,48 +167,24 @@
    </element>
 
    <annotation>
-      <appInfo>
+      <appinfo>
          <meta.section type="since"/>
-      </appInfo>
+      </appinfo>
       <documentation>
          1.0
       </documentation>
    </annotation>
 
    <annotation>
-      <appInfo>
+      <appinfo>
          <meta.section type="examples"/>
-      </appInfo>
+      </appinfo>
       <documentation>
          See the org.eclipse.mylyn.examples.monitor.study plug-in for a reference implementation.
       </documentation>
    </annotation>
 
-   <annotation>
-      <appInfo>
-         <meta.section type="apiInfo"/>
-      </appInfo>
-      <documentation>
-         
-      </documentation>
-   </annotation>
 
-   <annotation>
-      <appInfo>
-         <meta.section type="implementation"/>
-      </appInfo>
-      <documentation>
-         
-      </documentation>
-   </annotation>
 
-   <annotation>
-      <appInfo>
-         <meta.section type="copyright"/>
-      </appInfo>
-      <documentation>
-         
-      </documentation>
-   </annotation>
 
 </schema>

@@ -20,20 +20,13 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExtension;
-import org.eclipse.core.runtime.IExtensionPoint;
-import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.ListenerList;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Preferences;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
@@ -52,8 +45,6 @@ import org.eclipse.mylyn.monitor.ui.AbstractCommandMonitor;
 import org.eclipse.mylyn.monitor.ui.IActionExecutionListener;
 import org.eclipse.mylyn.monitor.ui.IMonitorLifecycleListener;
 import org.eclipse.mylyn.monitor.ui.MonitorUi;
-import org.eclipse.mylyn.monitor.usage.AbstractStudyBackgroundPage;
-import org.eclipse.mylyn.monitor.usage.AbstractStudyQuestionnairePage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.events.ShellListener;
@@ -72,47 +63,24 @@ import org.osgi.framework.BundleContext;
  */
 public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
+	// TODO make ids be per-study
 	public static final String PREF_USER_ID = "org.eclipse.mylyn.user.id";
 
-	public static String VERSION = "1.0";
+	public static final long HOUR = 60 * 60 * 1000;
 
-	public static String UPLOAD_FILE_LABEL = "USAGE";
+	public static final long DAY = HOUR * 24;
 
-	private static final long HOUR = 3600 * 1000;
+	public static final long DELAY_ON_USER_REQUEST = 5 * DAY;
 
-	private static final long DAY = HOUR * 24;
+	public static final long DEFAULT_DELAY_DAYS_BETWEEN_TRANSMITS = 21;
 
-	private static final long DELAY_ON_USER_REQUEST = 5 * DAY;
-
-	public static final long DEFAULT_DELAY_BETWEEN_TRANSMITS = 21 * 24 * HOUR;
-
-	public static final String DEFAULT_TITLE = "Mylyn Feedback";
-
-	public static final String DEFAULT_DESCRIPTION = "Fill out the following form to help us improve Mylyn based on your input.\n";
-
-	public static final String DEFAULT_ETHICS_FORM = "doc/study-ethics.html";
-
-	public static final String DEFAULT_VERSION = "";
-
-	public static final String DEFAULT_UPLOAD_SERVER = "http://mylyn.eclipse.org/monitor/upload";
-
-	public static final String DEFAULT_UPLOAD_SERVLET_ID = "/GetUserIDServlet";
-
-	public static final String DEFAULT_UPLOAD_SERVLET = "/MylarUsageUploadServlet";
-
-	public static final String DEFAULT_ACCEPTED_URL_LIST = "";
-
-	public static final String DEFAULT_CONTACT_CONSENT_FIELD = "false";
-
-	public static final String ID_UI_PLUGIN = "org.eclipse.mylyn.ui";
+	public static final long DEFAULT_DELAY_BETWEEN_TRANSMITS = DEFAULT_DELAY_DAYS_BETWEEN_TRANSMITS * DAY;
 
 	public static final String MONITOR_LOG_NAME = "monitor-log";
 
 	public static final String ID_PLUGIN = "org.eclipse.mylyn.monitor.usage";
 
 	private InteractionEventLogger interactionLogger;
-
-	private String customizingPlugin = null;
 
 	private PreferenceChangeMonitor preferenceMonitor;
 
@@ -138,11 +106,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 	private static boolean performingUpload = false;
 
-	private boolean questionnaireEnabled = true;
-
-	private boolean backgroundEnabled = false;
-
-	private final StudyParameters studyParameters = new StudyParameters();
+	private StudyParameters studyParameters = new StudyParameters();
 
 	private final ListenerList lifecycleListeners = new ListenerList();
 
@@ -274,21 +238,12 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 			public void run() {
 				try {
 					// ------- moved from synch start
-					new MonitorUsageExtensionPointReader().initExtensions();
+					UiUsageMonitorExtensionPointReader uiUsageMonitorExtensionPointReader = new UiUsageMonitorExtensionPointReader();
+					studyParameters = uiUsageMonitorExtensionPointReader.getStudyParameters();
 
-					if (studyParameters.isEmpty()) {
+					if (studyParameters == null || studyParameters.isEmpty()) {
 
-						studyParameters.setVersion(DEFAULT_VERSION);
-						studyParameters.setUploadServletUrl(DEFAULT_UPLOAD_SERVER + DEFAULT_UPLOAD_SERVLET);
-						studyParameters.setUserIdServletUrl(DEFAULT_UPLOAD_SERVER + DEFAULT_UPLOAD_SERVLET_ID);
-						studyParameters.setQuestionaireServletUrl(null);
-
-						studyParameters.setTitle(DEFAULT_TITLE);
-						studyParameters.setDescription(DEFAULT_DESCRIPTION);
-						studyParameters.setTransmitPromptPeriod(DEFAULT_DELAY_BETWEEN_TRANSMITS);
-						studyParameters.setUseContactField(DEFAULT_CONTACT_CONSENT_FIELD);
-						studyParameters.setAcceptedUrlList(DEFAULT_ACCEPTED_URL_LIST);
-						studyParameters.setFormsConsent("/" + DEFAULT_ETHICS_FORM);
+						initializeDefaultStudyParameters();
 
 					}
 
@@ -327,7 +282,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 	public void startMonitoring() {
 		if (studyParameters == null || !studyParameters.isComplete()) {
-			System.out.println("here");
 			return;
 		}
 		if (getPreferenceStore().contains(MonitorPreferenceConstants.PREF_MONITORING_STARTED)) {
@@ -389,7 +343,8 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 	}
 
 	public boolean isObfuscationEnabled() {
-		return UiUsageMonitorPlugin.getPrefs().getBoolean(MonitorPreferenceConstants.PREF_MONITORING_OBFUSCATE);
+		return UiUsageMonitorPlugin.getDefault().getPreferenceStore().getBoolean(
+				MonitorPreferenceConstants.PREF_MONITORING_OBFUSCATE);
 	}
 
 	public void stopMonitoring() {
@@ -626,10 +581,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_NUM_USER_EVENTS, numEvents);
 	}
 
-	public static IPreferenceStore getPrefs() {
-		return getDefault().getPreferenceStore();
-	}
-
 	public static boolean isPerformingUpload() {
 		return performingUpload;
 	}
@@ -642,190 +593,24 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		return interactionLogger;
 	}
 
-	public boolean isQuestionnaireEnabled() {
-		return questionnaireEnabled;
-	}
-
-	public void setQuestionnaireEnabled(boolean questionnaireEnabled) {
-		this.questionnaireEnabled = questionnaireEnabled;
-	}
-
-	class MonitorUsageExtensionPointReader {
-
-		public static final String EXTENSION_ID_STUDY = "org.eclipse.mylyn.monitor.usage.study";
-
-		public static final String ELEMENT_SCRIPTS = "scripts";
-
-		public static final String ELEMENT_SCRIPTS_VERSION = "version";
-
-		public static final String ELEMENT_SCRIPTS_SERVER_URL = "url";
-
-		public static final String ELEMENT_SCRIPTS_UPLOAD_USAGE = "upload";
-
-		public static final String ELEMENT_SCRIPTS_GET_USER_ID = "userId";
-
-		public static final String ELEMENT_SCRIPTS_UPLOAD_QUESTIONNAIRE = "questionnaire";
-
-		public static final String ELEMENT_UI = "ui";
-
-		public static final String ELEMENT_UI_TITLE = "title";
-
-		public static final String ELEMENT_UI_DESCRIPTION = "description";
-
-		public static final String ELEMENT_UI_UPLOAD_PROMPT = "daysBetweenUpload";
-
-		public static final String ELEMENT_UI_QUESTIONNAIRE_PAGE = "questionnairePage";
-
-		public static final String ELEMENT_UI_BACKGROUND_PAGE = "backgroundPage";
-
-		public static final String ELEMENT_UI_CONSENT_FORM = "consentForm";
-
-		public static final String ELEMENT_UI_CONTACT_CONSENT_FIELD = "useContactField";
-
-		public static final String ELEMENT_MONITORS = "monitors";
-
-		public static final String ELEMENT_MONITORS_BROWSER_URL = "browserUrlFilter";
-
-		private boolean extensionsRead = false;
-
-		// private MonitorUsageExtensionPointReader thisReader = new
-		// MonitorUsageExtensionPointReader();
-
-		public void initExtensions() {
-			try {
-				if (!extensionsRead) {
-					IExtensionRegistry registry = Platform.getExtensionRegistry();
-					IExtensionPoint extensionPoint = registry.getExtensionPoint(EXTENSION_ID_STUDY);
-					if (extensionPoint != null) {
-						IExtension[] extensions = extensionPoint.getExtensions();
-						for (IExtension extension : extensions) {
-							//TODO make this support multiple studies properly
-							IConfigurationElement[] elements = extension.getConfigurationElements();
-							for (IConfigurationElement element : elements) {
-								if (element.getName().compareTo(ELEMENT_SCRIPTS) == 0) {
-									readScripts(element);
-								} else if (element.getName().compareTo(ELEMENT_UI) == 0) {
-									readForms(element);
-								} else if (element.getName().compareTo(ELEMENT_MONITORS) == 0) {
-									readMonitors(element);
-								}
-							}
-							customizingPlugin = extension.getContributor().getName();
-						}
-						extensionsRead = true;
-					}
-				}
-			} catch (Throwable t) {
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-						"Could not read monitor extension", t));
-			}
-		}
-
-		private void readScripts(IConfigurationElement element) {
-			studyParameters.setVersion(element.getAttribute(ELEMENT_SCRIPTS_VERSION));
-			String serverUrl = element.getAttribute(ELEMENT_SCRIPTS_SERVER_URL);
-			String userIdScript = element.getAttribute(ELEMENT_SCRIPTS_GET_USER_ID);
-			String usageUploadScript = element.getAttribute(ELEMENT_SCRIPTS_UPLOAD_USAGE);
-			String questionaireUploadScript = element.getAttribute(ELEMENT_SCRIPTS_UPLOAD_QUESTIONNAIRE);
-
-			studyParameters.setUploadServletUrl(serverUrl + usageUploadScript);
-			studyParameters.setUserIdServletUrl(serverUrl + userIdScript);
-			studyParameters.setQuestionaireServletUrl(serverUrl + questionaireUploadScript);
-
-		}
-
-		private void readForms(IConfigurationElement element) throws CoreException {
-			studyParameters.setTitle(element.getAttribute(ELEMENT_UI_TITLE));
-			studyParameters.setDescription(element.getAttribute(ELEMENT_UI_DESCRIPTION));
-			if (element.getAttribute(ELEMENT_UI_UPLOAD_PROMPT) != null) {
-				Integer uploadInt = new Integer(element.getAttribute(ELEMENT_UI_UPLOAD_PROMPT));
-				studyParameters.setTransmitPromptPeriod(HOUR * 24 * uploadInt);
-			}
-			studyParameters.setUseContactField(element.getAttribute(ELEMENT_UI_CONTACT_CONSENT_FIELD));
-
-			try {
-				if (element.getAttribute(ELEMENT_UI_QUESTIONNAIRE_PAGE) != null) {
-					Object questionnaireObject = element.createExecutableExtension(ELEMENT_UI_QUESTIONNAIRE_PAGE);
-					if (questionnaireObject instanceof AbstractStudyQuestionnairePage) {
-						AbstractStudyQuestionnairePage page = (AbstractStudyQuestionnairePage) questionnaireObject;
-						studyParameters.setQuestionnairePage(page);
-					}
-				} else {
-					UiUsageMonitorPlugin.getDefault().setQuestionnaireEnabled(false);
-				}
-			} catch (Throwable e) {
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-						"Could not load questionaire", e));
-				UiUsageMonitorPlugin.getDefault().setQuestionnaireEnabled(false);
-			}
-
-			try {
-				if (element.getAttribute(ELEMENT_UI_BACKGROUND_PAGE) != null) {
-					Object backgroundObject = element.createExecutableExtension(ELEMENT_UI_BACKGROUND_PAGE);
-					if (backgroundObject instanceof AbstractStudyBackgroundPage) {
-						AbstractStudyBackgroundPage page = (AbstractStudyBackgroundPage) backgroundObject;
-						studyParameters.setBackgroundPage(page);
-						UiUsageMonitorPlugin.getDefault().setBackgroundEnabled(true);
-					}
-				} else {
-					UiUsageMonitorPlugin.getDefault().setBackgroundEnabled(false);
-				}
-			} catch (Throwable e) {
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-						"Could not load background page", e));
-				UiUsageMonitorPlugin.getDefault().setBackgroundEnabled(false);
-			}
-
-			studyParameters.setFormsConsent("/" + element.getAttribute(ELEMENT_UI_CONSENT_FORM));
-
-		}
-
-		private void readMonitors(IConfigurationElement element) throws CoreException {
-			// TODO: This should parse a list of filters but right now it takes
-			// the
-			// entire string as a single filter.
-			// ArrayList<String> urlList = new ArrayList<String>();
-			String urlList = element.getAttribute(ELEMENT_MONITORS_BROWSER_URL);
-			studyParameters.setAcceptedUrlList(urlList);
-		}
-	}
-
 	public StudyParameters getStudyParameters() {
 		return studyParameters;
-	}
-
-	public String getCustomizingPlugin() {
-		return customizingPlugin;
 	}
 
 	public boolean isMonitoringEnabled() {
 		return getPreferenceStore().getBoolean(MonitorPreferenceConstants.PREF_MONITORING_ENABLED);
 	}
 
-	public String getCustomizedByMessage() {
-		String customizedBy = UiUsageMonitorPlugin.getDefault().getCustomizingPlugin();
-		String message = "NOTE: You have previously downloaded the Mylyn monitor and a user study plug-in with id: "
-				+ customizedBy + "\n" + "If you are not familiar with this plug-in do not upload data.";
-		return message;
-	}
+	private void initializeDefaultStudyParameters() {
+		studyParameters.setVersion("");
+		studyParameters.setUploadServletUrl("http://mylyn.eclipse.org/monitor/upload/MylarUsageUploadServlet");
+		studyParameters.setUserIdServletUrl("http://mylyn.eclipse.org/monitor/upload/GetUserIDServlet");
 
-	public boolean isBackgroundEnabled() {
-		return backgroundEnabled;
-	}
-
-	public void setBackgroundEnabled(boolean backgroundEnabled) {
-		this.backgroundEnabled = backgroundEnabled;
-	}
-
-	public String getExtensionVersion() {
-		return studyParameters.getVersion();
-	}
-
-	public boolean usingContactField() {
-		if (studyParameters.getUseContactField().equals("true")) {
-			return true;
-		} else {
-			return false;
-		}
+		studyParameters.setTitle("Mylyn Feedback");
+		studyParameters.setDescription("Fill out the following form to help us improve Mylyn based on your input.\n");
+		studyParameters.setTransmitPromptPeriod(DEFAULT_DELAY_BETWEEN_TRANSMITS);
+		studyParameters.setUseContactField("false");
+		studyParameters.setAcceptedUrlList("");
+		studyParameters.setFormsConsent("/doc/study-ethics.html");
 	}
 }
