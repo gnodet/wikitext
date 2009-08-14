@@ -547,7 +547,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		studyParameters.setAcceptedUrlList("");
 		studyParameters.setFormsConsent("/doc/study-ethics.html");
 		studyParameters.setUsagePageUrl("http://mylyn.eclipse.org/monitor/upload/usageSummary.html");
-		studyParameters.setStudyName("Eclipse.org");
+		studyParameters.setStudyName("Eclipse.org Mylyn");
 		studyParameters.addFilteredIdPattern("org.eclipse.");
 	}
 }

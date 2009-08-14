@@ -183,8 +183,9 @@ public class StudyParameters {
 
 	public String getCustomizedByMessage() {
 		String customizedBy = getCustomizingPlugin();
-		String message = "NOTE: You have previously downloaded the Mylyn monitor and a user study plug-in with id: "
-				+ customizedBy + "\n" + "If you are not familiar with this plug-in do not upload data.";
+		String message = "NOTE: You have previously downloaded the " + getStudyName()
+				+ " monitor and a user study plug-in with id: " + customizedBy + "\n"
+				+ "If you are not familiar with this plug-in do not upload data.";
 		return message;
 	}
 

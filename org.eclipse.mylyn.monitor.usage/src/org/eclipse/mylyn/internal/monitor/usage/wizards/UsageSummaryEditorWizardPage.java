@@ -13,7 +13,9 @@ package org.eclipse.mylyn.internal.monitor.usage.wizards;
 
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.mylyn.internal.monitor.usage.StudyParameters;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -32,7 +34,7 @@ public class UsageSummaryEditorWizardPage extends WizardPage implements IWizardP
 
 	private static final String TITLE = "Usage Summary and Submission";
 
-	private static final String DESCRIPTION = "Summarizes usage and provides mechanism for uploading to eclipse.org \n"
+	private static final String DESCRIPTION = "Summarizes usage and provides mechanism for uploading to {0} \n"
 			+ "server for usage analysis. May take a lot of memory for large histories.";
 
 	private Button perspectiveCheckbox = null;
@@ -42,7 +44,8 @@ public class UsageSummaryEditorWizardPage extends WizardPage implements IWizardP
 	public UsageSummaryEditorWizardPage() {
 		super(TITLE);
 		setTitle(TITLE);
-		setDescription(DESCRIPTION);
+		StudyParameters studyParameters = UiUsageMonitorPlugin.getDefault().getStudyParameters();
+		setDescription(NLS.bind(DESCRIPTION, studyParameters.getStudyName()));
 		setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.ID_PLUGIN,
 				"icons/wizban/banner-usage.gif"));
 	}

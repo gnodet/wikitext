@@ -97,7 +97,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	private void setTitles() {
 		super.setDefaultPageImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.ID_PLUGIN,
 				"icons/wizban/banner-user.gif"));
-		super.setWindowTitle("Mylyn Feedback");
+		super.setWindowTitle(studyParameters.getStudyName() + " Feedback");
 	}
 
 	private void init(boolean performUpload) {
@@ -132,7 +132,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(UiUsageMonitorPlugin.PREF_USER_ID, uid);
 		}
 		uploadPage = new UsageUploadWizardPage(this, studyParameters);
-		fileSelectionPage = new UsageFileSelectionWizardPage("TODO, change this string");
+		fileSelectionPage = new UsageFileSelectionWizardPage(studyParameters);
 		if (studyParameters.isBackgroundEnabled()) {
 			AbstractStudyBackgroundPage page = studyParameters.getBackgroundPage();
 			backgroundPage = page;

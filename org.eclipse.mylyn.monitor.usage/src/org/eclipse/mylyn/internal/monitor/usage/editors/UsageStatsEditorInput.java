@@ -60,7 +60,7 @@ public class UsageStatsEditorInput implements IEditorInput {
 	}
 
 	public String getToolTipText() {
-		return "Mylyn Usage Statistics";
+		return studyParameters.getStudyName() + " Usage Statistics";
 	}
 
 	@SuppressWarnings("unchecked")

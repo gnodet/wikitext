@@ -95,7 +95,8 @@ public class GetNewUserIdPage extends WizardPage {
 		super("Statistics Wizard");
 		this.studyParameters = studyParameters;
 		this.performUpload = performUpload;
-		setTitle("Get Mylyn Feedback User ID");
+
+		setTitle("Get " + studyParameters.getStudyName() + " Feedback User ID");
 		setDescription("In order to submit usage feedback you first need to get a User ID.\n");
 		this.wizard = wizard;
 		if (studyParameters.getCustomizingPlugin() != null) {
@@ -407,8 +408,9 @@ public class GetNewUserIdPage extends WizardPage {
 								wizard.getUploadPage().updateUid();
 							}
 							hasValidated = true;
-							MessageDialog.openInformation(Display.getDefault().getActiveShell(), "Mylyn User Study ID",
-									"Your Mylyn user study ID is: " + wizard.getUid());
+							MessageDialog.openInformation(Display.getDefault().getActiveShell(),
+									studyParameters.getStudyName() + " User Study ID", "Your "
+											+ studyParameters.getStudyName() + " user study ID is: " + wizard.getUid());
 						}
 					} else {
 						MessageDialog.openError(Display.getDefault().getActiveShell(), "Incomplete Form Input",
@@ -458,8 +460,10 @@ public class GetNewUserIdPage extends WizardPage {
 							hasValidated = true;
 							MessageDialog.openInformation(
 									Display.getDefault().getActiveShell(),
-									"Mylyn Feedback User ID",
-									"Your Mylyn feedback ID is: "
+									studyParameters.getStudyName() + " Feedback User ID",
+									"Your "
+											+ studyParameters.getStudyName()
+											+ " feedback ID is: "
 											+ wizard.getUid()
 											+ "\n\nPlease record this number if you are using multiple copies of eclipse so that you do not have to register again.\n\nYou can also retrieve this ID by repeating the consent process at a later time.");
 						} else {
@@ -490,7 +494,7 @@ public class GetNewUserIdPage extends WizardPage {
 		Label label = new Label(container, SWT.NONE);
 		label.setText("Your data will not be traceable back to you, but an ID helps us analyze the usage statistics.");
 		label = new Label(container, SWT.NONE);
-		label.setText("Before switching workspaces please retrieve this ID from the Mylyn Preferences so that you can use it again.");
+		label.setText("Before switching workspaces please retrieve this ID from the Tasks Preferences so that you can use it again.");
 		// GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
 		// label.setLayoutData(gd);
 
@@ -531,8 +535,10 @@ public class GetNewUserIdPage extends WizardPage {
 						hasValidated = true;
 						MessageDialog.openInformation(
 								Display.getDefault().getActiveShell(),
-								"Mylyn User Study ID",
-								"Your Mylyn user study id is: "
+								studyParameters.getStudyName() + " User Study ID",
+								"Your "
+										+ studyParameters.getStudyName()
+										+ " user study id is: "
 										+ wizard.getUid()
 										+ "\n Please record this number if you are using multiple copies of eclipse so that you do not have to register again.");
 					}

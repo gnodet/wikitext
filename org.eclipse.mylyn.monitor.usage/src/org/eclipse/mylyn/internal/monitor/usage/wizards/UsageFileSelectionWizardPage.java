@@ -26,6 +26,7 @@ import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.monitor.usage.MonitorFileRolloverJob;
+import org.eclipse.mylyn.internal.monitor.usage.StudyParameters;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
@@ -39,17 +40,17 @@ public class UsageFileSelectionWizardPage extends WizardPage {
 
 	private final static String PAGE_TITLE = "Select any archived Mylyn usage files you wish to upload";
 
-	private static final String DESCRIPTION = "Please select the archived usage files you want to upload to eclipse.org";
+	private static final String DESCRIPTION = "Please select the archived usage files you want to upload to ";
 
 	private Table zippedFilesTable;
 
 	public static final String SUBMISSION_LOG_FILE_NAME = "submittedUsageLogs.txt";
 
-	protected UsageFileSelectionWizardPage(String pageName) {
+	protected UsageFileSelectionWizardPage(StudyParameters studyParameters) {
 		super("org.eclipse.mylyn.monitor.usage.fileSelectionPage", PAGE_TITLE,
 				AbstractUIPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.ID_PLUGIN,
 						"icons/wizban/banner-submission.gif"));
-		setDescription(DESCRIPTION);
+		setDescription(DESCRIPTION + studyParameters.getStudyName());
 	}
 
 	private static List<File> getBackupFiles() {
