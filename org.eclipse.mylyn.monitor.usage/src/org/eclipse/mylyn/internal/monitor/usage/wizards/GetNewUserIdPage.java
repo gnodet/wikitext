@@ -26,6 +26,7 @@ import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.monitor.usage.StudyParameters;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.events.ModifyEvent;
@@ -49,8 +50,6 @@ import org.eclipse.swt.widgets.Text;
  * @author Shawn Minto
  */
 public class GetNewUserIdPage extends WizardPage {
-
-	private static final String SELECT_BELOW = "<Select Below>";
 
 	private Text firstName;
 
@@ -77,11 +76,11 @@ public class GetNewUserIdPage extends WizardPage {
 
 	private boolean hasValidated = false;
 
-	private String jobFunction = SELECT_BELOW;
+	private String jobFunction = Messages.GetNewUserIdPage_Select_Below;
 
-	private String companySize = SELECT_BELOW;
+	private String companySize = Messages.GetNewUserIdPage_Select_Below;
 
-	private String companyFunction = SELECT_BELOW;
+	private String companyFunction = Messages.GetNewUserIdPage_Select_Below;
 
 	private final UsageSubmissionWizard wizard;
 
@@ -92,18 +91,18 @@ public class GetNewUserIdPage extends WizardPage {
 	private final StudyParameters studyParameters;
 
 	public GetNewUserIdPage(UsageSubmissionWizard wizard, StudyParameters studyParameters, boolean performUpload) {
-		super("Statistics Wizard");
+		super(Messages.GetNewUserIdPage_Statistics_Wizard);
 		this.studyParameters = studyParameters;
 		this.performUpload = performUpload;
 
-		setTitle("Get " + studyParameters.getStudyName() + " Feedback User ID");
-		setDescription("In order to submit usage feedback you first need to get a User ID.\n");
+		setTitle(NLS.bind(Messages.GetNewUserIdPage_Get_X_Feedback_Id, studyParameters.getStudyName()));
+		setDescription(Messages.GetNewUserIdPage_In_Order_To_Submit_User_Id);
 		this.wizard = wizard;
 		if (studyParameters.getCustomizingPlugin() != null) {
 			extendedMonitor = true;
 			String customizedTitle = studyParameters.getTitle();
-			if (!customizedTitle.equals("")) {
-				setTitle(customizedTitle + ": Consent Form and User ID");
+			if (!customizedTitle.equals("")) { //$NON-NLS-1$
+				setTitle(NLS.bind(Messages.GetNewUserIdPage_X_Consent_Form_And_User_Id, customizedTitle));
 			}
 		}
 	}
@@ -155,11 +154,11 @@ public class GetNewUserIdPage extends WizardPage {
 				URL localURL = Platform.asLocalURL(url);
 				browser.setUrl(localURL.toString());
 			} catch (Exception e) {
-				browser.setText("Feedback description could not be located.");
+				browser.setText(Messages.GetNewUserIdPage_Feedback_Description_Not_Located);
 			}
 		} else {
 			Label label = new Label(parent, SWT.NULL);
-			label.setText("bla bla");
+			label.setText(""); //$NON-NLS-1$
 		}
 	}
 
@@ -202,7 +201,7 @@ public class GetNewUserIdPage extends WizardPage {
 		names.setLayout(layout);
 
 		Label label = new Label(names, SWT.NULL);
-		label.setText("First Name:");
+		label.setText(Messages.GetNewUserIdPage_First_Name);
 
 		firstName = new Text(names, SWT.BORDER | SWT.SINGLE);
 		GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
@@ -218,7 +217,7 @@ public class GetNewUserIdPage extends WizardPage {
 		});
 
 		label = new Label(names, SWT.NULL);
-		label.setText("Last Name:");
+		label.setText(Messages.GetNewUserIdPage_Last_Name);
 
 		lastName = new Text(names, SWT.BORDER | SWT.SINGLE);
 		gd = new GridData(SWT.FILL, SWT.FILL, true, true);
@@ -234,7 +233,7 @@ public class GetNewUserIdPage extends WizardPage {
 		});
 
 		label = new Label(names, SWT.NONE);
-		label.setText("Email Address:");
+		label.setText(Messages.GetNewUserIdPage_Email_Address);
 
 		emailAddress = new Text(names, SWT.BORDER | SWT.SINGLE);
 		gd = new GridData(GridData.GRAB_HORIZONTAL | GridData.FILL_BOTH);
@@ -257,22 +256,22 @@ public class GetNewUserIdPage extends WizardPage {
 		layout.numColumns = 2;
 
 		Label l = new Label(container, SWT.NULL);
-		l.setText("Job Function:");
+		l.setText(Messages.GetNewUserIdPage_Job_Function);
 		final Combo jobFunctionCombo = new Combo(container, SWT.DROP_DOWN);
 		jobFunctionCombo.setText(jobFunction);
-		jobFunctionCombo.add("Application Developer");
-		jobFunctionCombo.add("QA/Testing");
-		jobFunctionCombo.add("Program Director");
-		jobFunctionCombo.add("CIO/CTO");
-		jobFunctionCombo.add("VP Development Systems Integrator");
-		jobFunctionCombo.add("Application Architect");
-		jobFunctionCombo.add("Project Manager");
-		jobFunctionCombo.add("Student");
-		jobFunctionCombo.add("Faculty");
-		jobFunctionCombo.add("Business");
-		jobFunctionCombo.add("Analyst");
-		jobFunctionCombo.add("Database Administrator");
-		jobFunctionCombo.add("Other");
+		jobFunctionCombo.add(Messages.GetNewUserIdPage_Application_Developer);
+		jobFunctionCombo.add(Messages.GetNewUserIdPage_QA);
+		jobFunctionCombo.add(Messages.GetNewUserIdPage_Program_Director);
+		jobFunctionCombo.add(Messages.GetNewUserIdPage_CIO);
+		jobFunctionCombo.add(Messages.GetNewUserIdPage_VP_Development);
+		jobFunctionCombo.add(Messages.GetNewUserIdPage_Application_Architect);
+		jobFunctionCombo.add(Messages.GetNewUserIdPage_Project_Manager);
+		jobFunctionCombo.add(Messages.GetNewUserIdPage_Student);
+		jobFunctionCombo.add(Messages.GetNewUserIdPage_Faculty);
+		jobFunctionCombo.add(Messages.GetNewUserIdPage_Business);
+		jobFunctionCombo.add(Messages.GetNewUserIdPage_Analyst);
+		jobFunctionCombo.add(Messages.GetNewUserIdPage_Database_Administrator);
+		jobFunctionCombo.add(Messages.GetNewUserIdPage_Other);
 		jobFunctionCombo.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -282,16 +281,16 @@ public class GetNewUserIdPage extends WizardPage {
 		});
 
 		l = new Label(container, SWT.NULL);
-		l.setText("Company Size:");
+		l.setText(Messages.GetNewUserIdPage_Company_Size);
 		final Combo companySizecombo = new Combo(container, SWT.DROP_DOWN);
 		companySizecombo.setText(companySize);
-		companySizecombo.add("Individual");
-		companySizecombo.add("<50");
-		companySizecombo.add("50-100");
-		companySizecombo.add("100-500");
-		companySizecombo.add("500-1000");
-		companySizecombo.add("1000-2500");
-		companySizecombo.add(">2500");
+		companySizecombo.add(Messages.GetNewUserIdPage_Individual);
+		companySizecombo.add(Messages.GetNewUserIdPage_Gt_Fifty);
+		companySizecombo.add(Messages.GetNewUserIdPage_Fifty_Hundred);
+		companySizecombo.add(Messages.GetNewUserIdPage_Hundred_Five_Hundred);
+		companySizecombo.add(Messages.GetNewUserIdPage_Five_Hundred_Thousand);
+		companySizecombo.add(Messages.GetNewUserIdPage_Thousand_Twenty_Five_Hundred);
+		companySizecombo.add(Messages.GetNewUserIdPage_Gt_Twenty_Five_Hundred);
 		companySizecombo.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -301,23 +300,23 @@ public class GetNewUserIdPage extends WizardPage {
 		});
 
 		l = new Label(container, SWT.NULL);
-		l.setText("Company Business");
+		l.setText(Messages.GetNewUserIdPage_Company_Business);
 		final Combo companyBuisnesscombo = new Combo(container, SWT.DROP_DOWN);
 		companyBuisnesscombo.setText(companyFunction);
-		companyBuisnesscombo.add("Financial service/insurance");
-		companyBuisnesscombo.add("Energy");
-		companyBuisnesscombo.add("Government");
-		companyBuisnesscombo.add("Hardware Manufacturer");
-		companyBuisnesscombo.add("Networking");
-		companyBuisnesscombo.add("Pharmaceutical/Medical");
-		companyBuisnesscombo.add("Automotive");
-		companyBuisnesscombo.add("Software Manufacturer");
-		companyBuisnesscombo.add("Communications");
-		companyBuisnesscombo.add("Transportation");
-		companyBuisnesscombo.add("Retail");
-		companyBuisnesscombo.add("Utilities");
-		companyBuisnesscombo.add("Other Manufacturing");
-		companyBuisnesscombo.add("Academic/Education");
+		companyBuisnesscombo.add(Messages.GetNewUserIdPage_Financial);
+		companyBuisnesscombo.add(Messages.GetNewUserIdPage_Energy);
+		companyBuisnesscombo.add(Messages.GetNewUserIdPage_Government);
+		companyBuisnesscombo.add(Messages.GetNewUserIdPage_Hardware);
+		companyBuisnesscombo.add(Messages.GetNewUserIdPage_Networking);
+		companyBuisnesscombo.add(Messages.GetNewUserIdPage_Pharmaceutical);
+		companyBuisnesscombo.add(Messages.GetNewUserIdPage_Automotive);
+		companyBuisnesscombo.add(Messages.GetNewUserIdPage_Software);
+		companyBuisnesscombo.add(Messages.GetNewUserIdPage_Communications);
+		companyBuisnesscombo.add(Messages.GetNewUserIdPage_Transportation);
+		companyBuisnesscombo.add(Messages.GetNewUserIdPage_Retail);
+		companyBuisnesscombo.add(Messages.GetNewUserIdPage_Utilities);
+		companyBuisnesscombo.add(Messages.GetNewUserIdPage_Other_Manufacturing);
+		companyBuisnesscombo.add(Messages.GetNewUserIdPage_Academic);
 		companyBuisnesscombo.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -335,7 +334,7 @@ public class GetNewUserIdPage extends WizardPage {
 
 		Label l = new Label(container, SWT.NONE);
 		// l.setFont(JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT));
-		l.setText("To create a user ID please fill in the following information. If you already have an ID please fill out the information again to retrieve it.");
+		l.setText(Messages.GetNewUserIdPage_To_Create_User_Id_Fill_In);
 
 		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
 		l.setLayoutData(gd);
@@ -348,7 +347,7 @@ public class GetNewUserIdPage extends WizardPage {
 		container.setLayout(layout);
 
 		contactAgreement = new Button(container, SWT.CHECK);
-		contactAgreement.setText("I would be willing to receive email about my participation in this study.");
+		contactAgreement.setText(Messages.GetNewUserIdPage_Willing_To_Receive_Email);
 		contactAgreement.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -365,7 +364,7 @@ public class GetNewUserIdPage extends WizardPage {
 
 		Label l = new Label(container, SWT.NONE);
 		l.setFont(JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT));
-		l.setText("By clicking \"I consent\" you acknowledge that you have received this consent form, and are consenting to participate in the study.");
+		l.setText(Messages.GetNewUserIdPage_I_Consent_Acknowledge);
 		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
 		l.setLayoutData(gd);
 
@@ -378,7 +377,7 @@ public class GetNewUserIdPage extends WizardPage {
 		gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
 		getNewUid.setLayoutData(gd);
 		getNewUid.setSelection(false);
-		getNewUid.setText("I consent; get me a new user ID");
+		getNewUid.setText(Messages.GetNewUserIdPage_I_Consent);
 		getNewUid.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
 				if (e.widget instanceof Button) {
@@ -403,18 +402,20 @@ public class GetNewUserIdPage extends WizardPage {
 						}
 						if (uid[0] != -1) {
 							UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(
-									UiUsageMonitorPlugin.PREF_USER_ID, uid[0]);
+									studyParameters.getUserIdPreferenceId(), uid[0]);
 							if (wizard.getUploadPage() != null) {
 								wizard.getUploadPage().updateUid();
 							}
 							hasValidated = true;
-							MessageDialog.openInformation(Display.getDefault().getActiveShell(),
-									studyParameters.getStudyName() + " User Study ID", "Your "
-											+ studyParameters.getStudyName() + " user study ID is: " + wizard.getUid());
+							MessageDialog.openInformation(Display.getDefault().getActiveShell(), NLS.bind(
+									Messages.GetNewUserIdPage_X_User_Study_Id, studyParameters.getStudyName()),
+									NLS.bind(Messages.GetNewUserIdPage_Your_X_User_Study_Id_Y,
+											studyParameters.getStudyName(), wizard.getUid()));
 						}
 					} else {
-						MessageDialog.openError(Display.getDefault().getActiveShell(), "Incomplete Form Input",
-								"Please complete all of the fields.");
+						MessageDialog.openError(Display.getDefault().getActiveShell(),
+								Messages.GetNewUserIdPage_Incomplete_Form_Input,
+								Messages.GetNewUserIdPage_Please_Complete_All_Fields);
 					}
 					GetNewUserIdPage.this.setPageComplete(GetNewUserIdPage.this.isPageComplete());
 				}
@@ -429,7 +430,7 @@ public class GetNewUserIdPage extends WizardPage {
 		gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
 		getExistingUid.setLayoutData(gd);
 		getExistingUid.setSelection(false);
-		getExistingUid.setText("I have already consented; retrieve my existing user ID");
+		getExistingUid.setText(Messages.GetNewUserIdPage_Already_Consented);
 		getExistingUid.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
 				if (e.widget instanceof Button) {
@@ -452,26 +453,24 @@ public class GetNewUserIdPage extends WizardPage {
 									e1.getMessage(), e1));
 						}
 						if (uid[0] != -1) {
+
 							UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(
-									UiUsageMonitorPlugin.PREF_USER_ID, uid[0]);
+									studyParameters.getUserIdPreferenceId(), uid[0]);
 							if (wizard.getUploadPage() != null) {
 								wizard.getUploadPage().updateUid();
 							}
 							hasValidated = true;
-							MessageDialog.openInformation(
-									Display.getDefault().getActiveShell(),
-									studyParameters.getStudyName() + " Feedback User ID",
-									"Your "
-											+ studyParameters.getStudyName()
-											+ " feedback ID is: "
-											+ wizard.getUid()
-											+ "\n\nPlease record this number if you are using multiple copies of eclipse so that you do not have to register again.\n\nYou can also retrieve this ID by repeating the consent process at a later time.");
+							MessageDialog.openInformation(Display.getDefault().getActiveShell(), NLS.bind(
+									Messages.GetNewUserIdPage_X_User_Study_Id, studyParameters.getStudyName()),
+									NLS.bind(Messages.GetNewUserIdPage_Your_X_User_Study_Id_Y_Retrieve_By_Repeating,
+											studyParameters.getStudyName(), wizard.getUid()));
 						} else {
 							// TODO handle the error better here
 						}
 					} else {
-						MessageDialog.openError(Display.getDefault().getActiveShell(), "Incomplete Form Input",
-								"Please complete all of the fields.");
+						MessageDialog.openError(Display.getDefault().getActiveShell(),
+								Messages.GetNewUserIdPage_Incomplete_Form_Input,
+								Messages.GetNewUserIdPage_Please_Complete_All_Fields);
 					}
 					GetNewUserIdPage.this.setPageComplete(GetNewUserIdPage.this.isPageComplete());
 				}
@@ -492,9 +491,9 @@ public class GetNewUserIdPage extends WizardPage {
 		container.setLayout(layout);
 
 		Label label = new Label(container, SWT.NONE);
-		label.setText("Your data will not be traceable back to you, but an ID helps us analyze the usage statistics.");
+		label.setText(Messages.GetNewUserIdPage_Your_Data_Not_Traceable);
 		label = new Label(container, SWT.NONE);
-		label.setText("Before switching workspaces please retrieve this ID from the Tasks Preferences so that you can use it again.");
+		label.setText(Messages.GetNewUserIdPage_Before_Switching_Retrieve_From_Preferences);
 		// GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
 		// label.setLayoutData(gd);
 
@@ -507,7 +506,7 @@ public class GetNewUserIdPage extends WizardPage {
 		GridData gd = new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING);
 		getNewUid.setLayoutData(gd);
 		getNewUid.setSelection(false);
-		getNewUid.setText("Create or Retrieve ID");
+		getNewUid.setText(Messages.GetNewUserIdPage_Create_Or_Retrieve_Id);
 		getNewUid.addSelectionListener(new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
 				if (e.widget instanceof Button) {
@@ -528,19 +527,15 @@ public class GetNewUserIdPage extends WizardPage {
 					}
 					if (uid[0] != -1) {
 						UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(
-								UiUsageMonitorPlugin.PREF_USER_ID, uid[0]);
+								studyParameters.getUserIdPreferenceId(), uid[0]);
 						if (wizard.getUploadPage() != null) {
 							wizard.getUploadPage().updateUid();
 						}
 						hasValidated = true;
-						MessageDialog.openInformation(
-								Display.getDefault().getActiveShell(),
-								studyParameters.getStudyName() + " User Study ID",
-								"Your "
-										+ studyParameters.getStudyName()
-										+ " user study id is: "
-										+ wizard.getUid()
-										+ "\n Please record this number if you are using multiple copies of eclipse so that you do not have to register again.");
+						MessageDialog.openInformation(Display.getDefault().getActiveShell(), NLS.bind(
+								Messages.GetNewUserIdPage_X_User_Study_Id, studyParameters.getStudyName()), NLS.bind(
+								Messages.GetNewUserIdPage_Your_X_User_Study_Id_Y_Record,
+								studyParameters.getStudyName(), wizard.getUid()));
 					}
 					GetNewUserIdPage.this.setPageComplete(GetNewUserIdPage.this.isPageComplete());
 				}
@@ -557,13 +552,14 @@ public class GetNewUserIdPage extends WizardPage {
 		if (!extendedMonitor) {
 			return;
 		}
-		boolean nameFilled = (!firstName.getText().equals("") && !lastName.getText().equals("") && !emailAddress.getText()
-				.equals(""))
+		boolean nameFilled = (!firstName.getText().equals("") && !lastName.getText().equals("") && !emailAddress.getText() //$NON-NLS-1$ //$NON-NLS-2$
+				.equals("")) //$NON-NLS-1$
 				|| anon;
 		// if(nameFilled){
 		// getExistingUid.setEnabled(true);
-		boolean jobFilled = !jobFunction.equals(SELECT_BELOW) && !companyFunction.equals(SELECT_BELOW)
-				&& !companySize.equals(SELECT_BELOW);
+		boolean jobFilled = !jobFunction.equals(Messages.GetNewUserIdPage_Select_Below)
+				&& !companyFunction.equals(Messages.GetNewUserIdPage_Select_Below)
+				&& !companySize.equals(Messages.GetNewUserIdPage_Select_Below);
 		// if(jobFilled){
 		// getNewUid.setEnabled(true);
 		// } else {
@@ -582,11 +578,12 @@ public class GetNewUserIdPage extends WizardPage {
 		if (!extendedMonitor) {
 			return true;
 		}
-		boolean nameFilled = !firstName.getText().equals("") && !lastName.getText().equals("")
-				&& !emailAddress.getText().equals("");
+		boolean nameFilled = !firstName.getText().equals("") && !lastName.getText().equals("") //$NON-NLS-1$//$NON-NLS-2$
+				&& !emailAddress.getText().equals(""); //$NON-NLS-1$
 		if (!existing) {
-			boolean jobFilled = !jobFunction.equals(SELECT_BELOW) && !companyFunction.equals(SELECT_BELOW)
-					&& !companySize.equals(SELECT_BELOW);
+			boolean jobFilled = !jobFunction.equals(Messages.GetNewUserIdPage_Select_Below)
+					&& !companyFunction.equals(Messages.GetNewUserIdPage_Select_Below)
+					&& !companySize.equals(Messages.GetNewUserIdPage_Select_Below);
 			return (jobFilled && nameFilled);
 		} else {
 			return nameFilled || anon;

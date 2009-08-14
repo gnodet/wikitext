@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.mylyn.commons.core.StatusHandler;
+import org.eclipse.mylyn.internal.monitor.usage.StudyParameters;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.internal.monitor.usage.wizards.UsageSubmissionWizard;
 import org.eclipse.swt.SWT;
@@ -78,11 +79,14 @@ public class SubmitFeedbackPage extends WizardPage {
 
 	private final UsageSubmissionWizard uploadWizard;
 
+	private final StudyParameters studyParameters;
+
 	/**
 	 * Constructor
 	 */
-	public SubmitFeedbackPage(UsageSubmissionWizard uploadWizard) {
+	public SubmitFeedbackPage(UsageSubmissionWizard uploadWizard, StudyParameters studyParameters) {
 		super("Feedback Wizard");
+		this.studyParameters = studyParameters;
 		setTitle("Submit feedback for Mylyn User Study");
 		// setDescription(QuestionnaireWizardPage.FEEDBACK_REQUEST);
 		this.uploadWizard = uploadWizard;
@@ -201,7 +205,7 @@ public class SubmitFeedbackPage extends WizardPage {
 		gd.horizontalSpan = 1;
 		uid.setLayoutData(gd);
 		uid.setEditable(false);
-		id = UiUsageMonitorPlugin.getDefault().getPreferenceStore().getInt(UiUsageMonitorPlugin.PREF_USER_ID);
+		id = UiUsageMonitorPlugin.getDefault().getPreferenceStore().getInt(studyParameters.getUserIdPreferenceId());
 		if (id == 0) {
 			id = -1;
 		}

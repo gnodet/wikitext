@@ -43,6 +43,7 @@ import org.eclipse.mylyn.monitor.ui.AbstractCommandMonitor;
 import org.eclipse.mylyn.monitor.ui.IActionExecutionListener;
 import org.eclipse.mylyn.monitor.ui.IMonitorLifecycleListener;
 import org.eclipse.mylyn.monitor.ui.MonitorUi;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.events.ShellListener;
@@ -61,9 +62,6 @@ import org.osgi.framework.BundleContext;
  */
 public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
-	// TODO make ids be per-study
-	public static final String PREF_USER_ID = "org.eclipse.mylyn.user.id";
-
 	public static final long HOUR = 60 * 60 * 1000;
 
 	public static final long DAY = HOUR * 24;
@@ -74,9 +72,11 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 	public static final long DEFAULT_DELAY_BETWEEN_TRANSMITS = DEFAULT_DELAY_DAYS_BETWEEN_TRANSMITS * DAY;
 
-	public static final String MONITOR_LOG_NAME = "monitor-log";
+	private static final String METADATA_MYLYN_DIR = "/.metadata/.mylyn"; //$NON-NLS-1$
 
-	public static final String ID_PLUGIN = "org.eclipse.mylyn.monitor.usage";
+	public static final String MONITOR_LOG_NAME = "monitor-log"; //$NON-NLS-1$
+
+	public static final String ID_PLUGIN = "org.eclipse.mylyn.monitor.usage"; //$NON-NLS-1$
 
 	private InteractionEventLogger interactionLogger;
 
@@ -241,7 +241,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 					}
 				} catch (Throwable t) {
 					StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-							"Monitor failed to start", t));
+							"Monitor failed to start", t)); //$NON-NLS-1$
 				}
 			}
 		});
@@ -290,6 +290,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_MONITORING_STARTED, true);
 	}
 
+	@SuppressWarnings("deprecation")
 	public void addMonitoredPreferences(Preferences preferences) {
 		if (preferenceMonitor == null) {
 			preferenceMonitor = new PreferenceChangeMonitor();
@@ -297,12 +298,13 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		preferences.addPropertyChangeListener(preferenceMonitor);
 	}
 
+	@SuppressWarnings("deprecation")
 	public void removeMonitoredPreferences(Preferences preferences) {
 		if (preferenceMonitor != null) {
 			preferences.removePropertyChangeListener(preferenceMonitor);
 		} else {
 			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.ID_PLUGIN,
-					"UI Usage Monitor not started", new Exception()));
+					"UI Usage Monitor not started", new Exception())); //$NON-NLS-1$
 		}
 	}
 
@@ -386,14 +388,14 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 	 * Parallels TasksUiPlugin.getDefaultDataDirectory()
 	 */
 	public File getMonitorLogFile() {
-		File rootDir = new File(ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + "/.metadata/.mylyn");
+		File rootDir = new File(ResourcesPlugin.getWorkspace().getRoot().getLocation().toString() + METADATA_MYLYN_DIR);
 		File file = new File(rootDir, MONITOR_LOG_NAME + InteractionContextManager.CONTEXT_FILE_EXTENSION_OLD);
 		if (!file.exists() || !file.canWrite()) {
 			try {
 				file.createNewFile();
 			} catch (IOException e) {
 				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-						"Could not create monitor file", e));
+						"Could not create monitor file", e)); //$NON-NLS-1$
 			}
 		}
 		return file;
@@ -447,14 +449,13 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		if (currentTime.getTime() > lastTransmit.getTime() + studyParameters.getTransmitPromptPeriod()
 				&& getPreferenceStore().getBoolean(MonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION)) {
 
-			String ending = getUserPromptDelay() == 1 ? "" : "s";
-			MessageDialog message = new MessageDialog(
-					Display.getDefault().getActiveShell(),
-					"Send Usage Feedback",
-					null,
-					"To help improve the Eclipse and Mylyn user experience please consider uploading your UI usage statistics.",
-					MessageDialog.QUESTION, new String[] { "Open UI Usage Report",
-							"Remind me in " + getUserPromptDelay() + " day" + ending, "Don't ask again" }, 0);
+			String ending = getUserPromptDelay() == 1 ? "" : "s"; //$NON-NLS-1$//$NON-NLS-2$
+			MessageDialog message = new MessageDialog(Display.getDefault().getActiveShell(),
+					Messages.UiUsageMonitorPlugin_Send_Usage_Feedback, null,
+					Messages.UiUsageMonitorPlugin_Help_Improve_Eclipse_And_Mylyn, MessageDialog.QUESTION, new String[] {
+							Messages.UiUsageMonitorPlugin_Open_Ui_Usage_Report,
+							NLS.bind(Messages.UiUsageMonitorPlugin_Remind_Me_In_X_Days, getUserPromptDelay(), ending),
+							Messages.UiUsageMonitorPlugin_Dont_Ask_Again, }, 0);
 			int result = 0;
 			if ((result = message.open()) == 0) {
 				// time must be stored right away into preferences, to prevent
@@ -467,13 +468,8 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 						MonitorPreferenceConstants.PREF_MONITORING_MYLYN_ECLIPSE_ORG_CONSENT_VIEWED)
 						|| !plugin.getPreferenceStore().getBoolean(
 								MonitorPreferenceConstants.PREF_MONITORING_MYLYN_ECLIPSE_ORG_CONSENT_VIEWED)) {
-					MessageDialog consentMessage = new MessageDialog(
-							Display.getDefault().getActiveShell(),
-							"Consent",
-							null,
-							"All data that is submitted to mylyn.eclipse.org will be publicly available under the "
-									+ "Eclipse Public License (EPL).  By submitting your data, you are agreeing that it can be publicly "
-									+ "available. Please press cancel on the submission dialog box if you do not wish to share your data.",
+					MessageDialog consentMessage = new MessageDialog(Display.getDefault().getActiveShell(),
+							Messages.UiUsageMonitorPlugin_Consent, null, Messages.UiUsageMonitorPlugin_All_Data_Public,
 							MessageDialog.INFORMATION, new String[] { IDialogConstants.OK_LABEL }, 0);
 					consentMessage.open();
 					plugin.getPreferenceStore().setValue(
@@ -536,18 +532,18 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 	private void initializeDefaultStudyParameters() {
 		studyParameters = new StudyParameters();
-		studyParameters.setVersion("");
-		studyParameters.setUploadServletUrl("http://mylyn.eclipse.org/monitor/upload/MylarUsageUploadServlet");
-		studyParameters.setUserIdServletUrl("http://mylyn.eclipse.org/monitor/upload/GetUserIDServlet");
+		studyParameters.setVersion(""); //$NON-NLS-1$
+		studyParameters.setUploadServletUrl("http://mylyn.eclipse.org/monitor/upload/MylarUsageUploadServlet"); //$NON-NLS-1$
+		studyParameters.setUserIdServletUrl("http://mylyn.eclipse.org/monitor/upload/GetUserIDServlet"); //$NON-NLS-1$
 
-		studyParameters.setTitle("Mylyn Feedback");
-		studyParameters.setDescription("Fill out the following form to help us improve Mylyn based on your input.\n");
+		studyParameters.setTitle(Messages.UiUsageMonitorPlugin_Mylyn_Feedback);
+		studyParameters.setDescription(Messages.UiUsageMonitorPlugin_Fill_Out_Form);
 		studyParameters.setTransmitPromptPeriod(DEFAULT_DELAY_BETWEEN_TRANSMITS);
-		studyParameters.setUseContactField("false");
-		studyParameters.setAcceptedUrlList("");
-		studyParameters.setFormsConsent("/doc/study-ethics.html");
-		studyParameters.setUsagePageUrl("http://mylyn.eclipse.org/monitor/upload/usageSummary.html");
-		studyParameters.setStudyName("Eclipse.org Mylyn");
-		studyParameters.addFilteredIdPattern("org.eclipse.");
+		studyParameters.setUseContactField("false"); //$NON-NLS-1$
+		studyParameters.setAcceptedUrlList(""); //$NON-NLS-1$
+		studyParameters.setFormsConsent("/doc/study-ethics.html"); //$NON-NLS-1$
+		studyParameters.setUsagePageUrl("http://mylyn.eclipse.org/monitor/upload/usageSummary.html"); //$NON-NLS-1$
+		studyParameters.setStudyName(Messages.UiUsageMonitorPlugin_Eclipse_Mylyn);
+		studyParameters.addFilteredIdPattern("org.eclipse."); //$NON-NLS-1$
 	}
 }

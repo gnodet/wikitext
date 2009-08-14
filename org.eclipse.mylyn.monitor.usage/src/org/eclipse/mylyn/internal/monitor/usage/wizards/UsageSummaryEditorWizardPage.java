@@ -32,10 +32,9 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  */
 public class UsageSummaryEditorWizardPage extends WizardPage implements IWizardPage {
 
-	private static final String TITLE = "Usage Summary and Submission";
+	private static final String TITLE = Messages.UsageSummaryEditorWizardPage_Usage_Summary_And_Submission;
 
-	private static final String DESCRIPTION = "Summarizes usage and provides mechanism for uploading to {0} \n"
-			+ "server for usage analysis. May take a lot of memory for large histories.";
+	private static final String DESCRIPTION = Messages.UsageSummaryEditorWizardPage_Summarizes_Usage_And_Uploads_To_X;
 
 	private Button perspectiveCheckbox = null;
 
@@ -47,7 +46,7 @@ public class UsageSummaryEditorWizardPage extends WizardPage implements IWizardP
 		StudyParameters studyParameters = UiUsageMonitorPlugin.getDefault().getStudyParameters();
 		setDescription(NLS.bind(DESCRIPTION, studyParameters.getStudyName()));
 		setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.ID_PLUGIN,
-				"icons/wizban/banner-usage.gif"));
+				"icons/wizban/banner-usage.gif")); //$NON-NLS-1$
 	}
 
 	public void createControl(Composite parent) {
@@ -57,8 +56,7 @@ public class UsageSummaryEditorWizardPage extends WizardPage implements IWizardP
 		layout.numColumns = 1;
 
 		Label label = new Label(container, SWT.LEFT);
-		label.setText("This will run in the background because it may take a long time for large histories.\n"
-				+ "The editor will open when the summary has been generated.");
+		label.setText(Messages.UsageSummaryEditorWizardPage_This_WIll_Run_In_Background);
 
 		createCheckboxes(container);
 
@@ -73,16 +71,16 @@ public class UsageSummaryEditorWizardPage extends WizardPage implements IWizardP
 
 		checkboxGroup.setLayout(layout);
 		checkboxGroup.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL));
-		checkboxGroup.setText("Show usage summaries for:");
+		checkboxGroup.setText(Messages.UsageSummaryEditorWizardPage_Show_Usage_Summaries_For);
 		checkboxGroup.setFont(parent.getFont());
 
 		perspectiveCheckbox = new Button(checkboxGroup, SWT.CHECK | SWT.LEFT | SWT.NO_FOCUS);
-		perspectiveCheckbox.setText("Use of perspectives");
+		perspectiveCheckbox.setText(Messages.UsageSummaryEditorWizardPage_Use_Of_Perspectives);
 		perspectiveCheckbox.setSelection(true);
 		perspectiveCheckbox.addSelectionListener(new CheckboxSelectionListener());
 
 		viewCheckbox = new Button(checkboxGroup, SWT.CHECK | SWT.LEFT | SWT.NO_FOCUS);
-		viewCheckbox.setText("Use of views");
+		viewCheckbox.setText(Messages.UsageSummaryEditorWizardPage_Use_Of_Views);
 		viewCheckbox.setSelection(true);
 		viewCheckbox.addSelectionListener(new CheckboxSelectionListener());
 	}

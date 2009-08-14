@@ -38,6 +38,7 @@ import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.commons.net.AbstractWebLocation;
 import org.eclipse.mylyn.commons.net.WebLocation;
 import org.eclipse.mylyn.commons.net.WebUtil;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.PlatformUI;
 
 public class UsageUploadManager {
@@ -47,7 +48,7 @@ public class UsageUploadManager {
 	private static final int SIZE_OF_INT = 8;
 
 	public boolean uploadFile(final String postUrl, final File file, final int uid, IProgressMonitor monitor) {
-		return uploadFile(postUrl, "temp.txt", file, file.getName(), uid, monitor);
+		return uploadFile(postUrl, "temp.txt", file, file.getName(), uid, monitor); //$NON-NLS-1$
 
 	}
 
@@ -68,15 +69,15 @@ public class UsageUploadManager {
 				// The uid was incorrect so inform the user
 				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 					public void run() {
-						MessageDialog.openError(null, "Error Uploading", "There was an error uploading the "
-								+ file.getName() + ": \n" + "Your uid was incorrect: " + uid + "\n");
+						MessageDialog.openError(null, Messages.UsageUploadManager_Error_Uploading, NLS.bind(
+								Messages.UsageUploadManager_Error_Uploading_Uid_Incorrect, file.getName(), uid));
 					}
 				});
 			} else if (status == HttpStatus.SC_PROXY_AUTHENTICATION_REQUIRED) {
 				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 					public void run() {
-						MessageDialog.openError(null, "Error Uploading",
-								"Could not upload because proxy server authentication failed.  Please check your proxy server settings.");
+						MessageDialog.openError(null, Messages.UsageUploadManager_Error_Uploading,
+								Messages.UsageUploadManager_Error_Uploading_Proxy_Authentication);
 					}
 				});
 			} else if (status != 200) {
@@ -84,9 +85,8 @@ public class UsageUploadManager {
 				// dialog to inform the user
 				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 					public void run() {
-						MessageDialog.openError(null, "Error Uploading", "There was an error uploading the "
-								+ file.getName() + ": \n" + "HTTP Response Code " + status + "\n"
-								+ "Please try again later");
+						MessageDialog.openError(null, Messages.UsageUploadManager_Error_Uploading, NLS.bind(
+								Messages.UsageUploadManager_Error_Uploading_Http_Response, file.getName(), status));
 					}
 				});
 			} else {
@@ -97,27 +97,30 @@ public class UsageUploadManager {
 		} catch (final FileNotFoundException e) {
 			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 				public void run() {
-					MessageDialog.openError(null, "Error Uploading", "There was an error uploading the file" + ": \n"
-							+ e.getClass().getCanonicalName());
+					MessageDialog.openError(null, Messages.UsageUploadManager_Error_Uploading, NLS.bind(
+							Messages.UsageUploadManager_Error_Uploading_X_Y, file.getName(), e.getClass()
+									.getCanonicalName()));
 				}
 			});
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Error uploading", e));
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
+					Messages.UsageUploadManager_Error_Uploading, e));
 		} catch (final IOException e) {
 			if (e instanceof NoRouteToHostException || e instanceof UnknownHostException) {
 				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 					public void run() {
-						MessageDialog.openError(null, "Error Uploading", "There was an error uploading the file"
-								+ ": \n" + "No network connection.  Please try again later");
+						MessageDialog.openError(null, Messages.UsageUploadManager_Error_Uploading, NLS.bind(
+								Messages.UsageUploadManager_Error_Uploading_X_No_Network, file.getName()));
 					}
 				});
 			} else {
 				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 					public void run() {
-						MessageDialog.openError(null, "Error Uploading", "There was an error uploading the file"
-								+ ": \n" + e.getClass().getCanonicalName());
+						MessageDialog.openError(null, Messages.UsageUploadManager_Error_Uploading, NLS.bind(
+								Messages.UsageUploadManager_Error_Uploading_X_Y, file.getName(), e.getClass()
+										.getCanonicalName()));
 					}
 				});
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Error uploading", e));
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Error uploading", e)); //$NON-NLS-1$
 			}
 		} finally {
 			filePost.releaseConnection();
@@ -132,18 +135,18 @@ public class UsageUploadManager {
 		final GetMethod getUidMethod = new GetMethod(url);
 
 		try {
-			NameValuePair first = new NameValuePair("firstName", firstName);
-			NameValuePair last = new NameValuePair("lastName", lastName);
-			NameValuePair email = new NameValuePair("email", emailAddress);
-			NameValuePair job = new NameValuePair("jobFunction", "");
-			NameValuePair size = new NameValuePair("companySize", "");
-			NameValuePair buisness = new NameValuePair("companyBuisness", "");
-			NameValuePair contact = new NameValuePair("contact", "");
+			NameValuePair first = new NameValuePair("firstName", firstName); //$NON-NLS-1$
+			NameValuePair last = new NameValuePair("lastName", lastName); //$NON-NLS-1$
+			NameValuePair email = new NameValuePair("email", emailAddress); //$NON-NLS-1$
+			NameValuePair job = new NameValuePair("jobFunction", ""); //$NON-NLS-1$ //$NON-NLS-2$
+			NameValuePair size = new NameValuePair("companySize", ""); //$NON-NLS-1$ //$NON-NLS-2$
+			NameValuePair buisness = new NameValuePair("companyBuisness", ""); //$NON-NLS-1$ //$NON-NLS-2$
+			NameValuePair contact = new NameValuePair("contact", ""); //$NON-NLS-1$ //$NON-NLS-2$
 			NameValuePair anon = null;
 			if (anonymous) {
-				anon = new NameValuePair("anonymous", "true");
+				anon = new NameValuePair("anonymous", "true"); //$NON-NLS-1$ //$NON-NLS-2$
 			} else {
-				anon = new NameValuePair("anonymous", "false");
+				anon = new NameValuePair("anonymous", "false"); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 
 			if (studyParameters.usingContactField()) {
@@ -160,7 +163,7 @@ public class UsageUploadManager {
 
 			if (status == HttpStatus.SC_OK) {
 				String response = getStringFromStream(WebUtil.getResponseBodyAsStream(getUidMethod, monitor));
-				response = response.substring(response.indexOf(":") + 1).trim();
+				response = response.substring(response.indexOf(":") + 1).trim(); //$NON-NLS-1$
 				int uid = Integer.parseInt(response);
 				return uid;
 			} else {
@@ -168,9 +171,8 @@ public class UsageUploadManager {
 				// dialog to inform the user
 				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 					public void run() {
-						MessageDialog.openError(null, "Error Getting User ID",
-								"There was an error getting a user id: \n" + "HTTP Response Code " + status + "\n"
-										+ "Please try again later");
+						MessageDialog.openError(null, Messages.UsageUploadManager_Error_Getting_Uid, NLS.bind(
+								Messages.UsageUploadManager_Error_Getting_Uid_Http_Response, status));
 					}
 				});
 				return -1;
@@ -179,27 +181,31 @@ public class UsageUploadManager {
 		} catch (final IOException e) {
 			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 				public void run() {
-					MessageDialog.openError(null, "Error Uploading", "There was an error getting a new user id: \n"
-							+ e.getClass().getCanonicalName() + e.getMessage());
+					MessageDialog.openError(null, Messages.UsageUploadManager_Error_Uploading, NLS.bind(
+							Messages.UsageUploadManager_Error_Getting_UidX_Y, e.getClass().getCanonicalName(),
+							e.getMessage()));
 				}
 			});
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Error uploading", e));
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
+					Messages.UsageUploadManager_Error_Uploading, e));
 		} catch (final Exception e) {
 			if (e instanceof NoRouteToHostException || e instanceof UnknownHostException) {
 				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 					public void run() {
-						MessageDialog.openError(null, "Error Uploading", "There was an error getting a new user id: \n"
-								+ "No network connection.  Please try again later");
+						MessageDialog.openError(null, Messages.UsageUploadManager_Error_Uploading,
+								Messages.UsageUploadManager_Error_Getting_Uid_No_Network);
 					}
 				});
 			} else {
 				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 					public void run() {
-						MessageDialog.openError(null, "Error Uploading", "There was an error getting a new user id: \n"
-								+ e.getClass().getCanonicalName() + e.getMessage());
+						MessageDialog.openError(null, Messages.UsageUploadManager_Error_Uploading, NLS.bind(
+								Messages.UsageUploadManager_Error_Getting_Uid_X_Y, e.getClass().getCanonicalName(),
+								e.getMessage()));
 					}
 				});
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Error uploading", e));
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
+						Messages.UsageUploadManager_Error_Uploading, e));
 			}
 
 		} finally {
@@ -209,8 +215,8 @@ public class UsageUploadManager {
 	}
 
 	private String getStringFromStream(InputStream i) throws IOException {
-		String s = "";
-		String data = "";
+		String s = ""; //$NON-NLS-1$
+		String data = ""; //$NON-NLS-1$
 		BufferedReader br = new BufferedReader(new InputStreamReader(i));
 		while ((s = br.readLine()) != null) {
 			data += s;
@@ -224,7 +230,7 @@ public class UsageUploadManager {
 		String url = studyParameters.getUserIdServletUrl();
 		final PostMethod getUserIdMethod = new PostMethod(url);
 		try {
-			getUserIdMethod.addParameter(new NameValuePair("MylarUserID", ""));
+			getUserIdMethod.addParameter(new NameValuePair("MylarUserID", "")); //$NON-NLS-1$//$NON-NLS-2$
 
 			AbstractWebLocation location = new WebLocation(url);
 			HostConfiguration hostConfiguration = WebUtil.createHostConfiguration(httpClient, location, monitor);
@@ -243,12 +249,13 @@ public class UsageUploadManager {
 
 		} catch (final IOException e) {
 			if (e instanceof NoRouteToHostException || e instanceof UnknownHostException) {
-				MessageDialog.openError(null, "Error Uploading", "There was an error getting a new user id: \n"
-						+ "No network connection.  Please try again later");
+				MessageDialog.openError(null, Messages.UsageUploadManager_Error_Uploading,
+						Messages.UsageUploadManager_Error_Getting_Uid_No_Network);
 			} else {
-				MessageDialog.openError(null, "Error Uploading", "There was an error getting a new user id: \n"
-						+ e.getClass().getCanonicalName());
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Error uploading", e));
+				MessageDialog.openError(null, Messages.UsageUploadManager_Error_Uploading, NLS.bind(
+						Messages.UsageUploadManager_Error_Getting_Uid_X, e.getClass().getCanonicalName()));
+				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
+						Messages.UsageUploadManager_Error_Uploading, e));
 			}
 		} finally {
 			getUserIdMethod.releaseConnection();

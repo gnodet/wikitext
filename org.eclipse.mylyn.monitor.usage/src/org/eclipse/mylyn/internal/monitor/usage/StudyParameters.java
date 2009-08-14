@@ -18,12 +18,15 @@ import java.util.HashSet;
 
 import org.eclipse.mylyn.monitor.usage.AbstractStudyBackgroundPage;
 import org.eclipse.mylyn.monitor.usage.AbstractStudyQuestionnairePage;
+import org.eclipse.osgi.util.NLS;
 
 /**
  * @author Mik Kersten
  * @author Leah Findlater
  */
 public class StudyParameters {
+
+	private static final String PREF_USER_ID_PREFIX = "org.eclipse.mylyn.user.id"; //$NON-NLS-1$
 
 	private String title;
 
@@ -182,15 +185,12 @@ public class StudyParameters {
 	}
 
 	public String getCustomizedByMessage() {
-		String customizedBy = getCustomizingPlugin();
-		String message = "NOTE: You have previously downloaded the " + getStudyName()
-				+ " monitor and a user study plug-in with id: " + customizedBy + "\n"
-				+ "If you are not familiar with this plug-in do not upload data.";
-		return message;
+		return NLS.bind(Messages.StudyParameters_Previously_Downloaded_X_Monitor, getStudyName(),
+				getCustomizingPlugin());
 	}
 
 	public boolean usingContactField() {
-		if (getUseContactField().equals("true")) {
+		if (getUseContactField().equals("true")) { //$NON-NLS-1$
 			return true;
 		} else {
 			return false;
@@ -214,7 +214,8 @@ public class StudyParameters {
 	}
 
 	public String getUploadFileLabel() {
-		return "USAGE";// TODO make this extensible
+		// TODO make this extensible 
+		return "USAGE";//$NON-NLS-1$
 	}
 
 	public void setUsagePageUrl(String usagePageUrl) {
@@ -247,14 +248,23 @@ public class StudyParameters {
 		Collection<String> filteredIds = getFilteredIds();
 		if (filteredIds.size() != 0) {
 
-			String filteredIdsString = "";
+			String filteredIdsString = ""; //$NON-NLS-1$
 			for (String id : filteredIds) {
-				filteredIdsString += id + "* ";
+				filteredIdsString += id + "* "; //$NON-NLS-1$
 			}
-			return "Only events from " + filteredIdsString + "packages will be submitted to " + getStudyName();
+			return NLS.bind(Messages.StudyParameters_Only_Events_From_X_Submitted_To_Y, filteredIdsString,
+					getStudyName());
 		} else {
-			return "All events will be submitted to " + getStudyName();
+			return NLS.bind(Messages.StudyParameters_All_Events_Submitted_To_Y, getStudyName());
 		}
+	}
+
+	public String getUserIdPreferenceId() {
+		String preferenceId = PREF_USER_ID_PREFIX;
+		if (getCustomizingPlugin() != null) {
+			preferenceId += "." + getCustomizingPlugin(); //$NON-NLS-1$
+		}
+		return preferenceId;
 	}
 
 }

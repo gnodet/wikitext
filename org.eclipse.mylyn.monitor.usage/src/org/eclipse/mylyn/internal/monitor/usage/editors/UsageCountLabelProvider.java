@@ -48,7 +48,7 @@ class UsageCountLabelProvider extends LabelProvider implements ITableLabelProvid
 			labelText = ((InteractionEventSummary) obj).getUserIds().toString();
 			break;
 		default:
-			labelText = "";
+			labelText = ""; //$NON-NLS-1$
 		}
 		return labelText;
 	}

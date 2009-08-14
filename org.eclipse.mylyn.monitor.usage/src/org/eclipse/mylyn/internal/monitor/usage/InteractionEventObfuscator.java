@@ -33,12 +33,12 @@ public class InteractionEventObfuscator {
 
 	private static final char DELIM_PATH = '/';
 
-	public static final String LABEL_FAILED_TO_OBFUSCATE = "<failed to obfuscate>";
+	public static final String LABEL_FAILED_TO_OBFUSCATE = "<failed to obfuscate>"; //$NON-NLS-1$
 
-	public static final String ENCRYPTION_ALGORITHM = "SHA";
+	public static final String ENCRYPTION_ALGORITHM = "SHA"; //$NON-NLS-1$
 
 	public String obfuscateHandle(String structureKind, String structureHandle) {
-		if (structureHandle == null || structureHandle.equals("")) {
+		if (structureHandle == null || structureHandle.equals("")) { //$NON-NLS-1$
 			return structureHandle;
 		}
 		StringBuilder obfuscated = new StringBuilder();
@@ -67,7 +67,7 @@ public class InteractionEventObfuscator {
 			obfuscatedString = new String(Base64.encode(digest)).replace(DELIM_PATH, '=');
 			// obfuscatedString = "" + new String(digest).hashCode();
 		} catch (NoSuchAlgorithmException e) {
-			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.ID_PLUGIN, "SHA not available", e));
+			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.ID_PLUGIN, "SHA not available", e)); //$NON-NLS-1$
 			obfuscatedString = LABEL_FAILED_TO_OBFUSCATE;
 		}
 		return obfuscatedString;
@@ -75,7 +75,7 @@ public class InteractionEventObfuscator {
 
 	public String obfuscateResourcePath(IPath path) {
 		if (path == null) {
-			return "";
+			return ""; //$NON-NLS-1$
 		} else {
 			StringBuffer obfuscatedPath = new StringBuffer();
 			for (int i = 0; i < path.segmentCount(); i++) {

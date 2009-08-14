@@ -39,7 +39,7 @@ import org.eclipse.swt.widgets.Text;
  */
 public class FileDisplayDialog extends MessageDialog {
 
-	private static String contents = "";
+	private static String contents;
 
 	public FileDisplayDialog(Shell parentShell, String dialogTitle, Image dialogTitleImage, String dialogMessage,
 			int dialogImageType, String[] dialogButtonLabels, int defaultIndex, String contents) {
@@ -81,7 +81,9 @@ public class FileDisplayDialog extends MessageDialog {
 		gd.verticalSpan = 50;
 		t.setLayoutData(gd);
 		t.setEditable(false);
-		t.setText(contents);
+		if (contents != null) {
+			t.setText(contents);
+		}
 		return parent;
 	}
 
@@ -112,22 +114,17 @@ public class FileDisplayDialog extends MessageDialog {
 		try {
 
 			// get the contents
-			String s = "";
+			String s = ""; //$NON-NLS-1$
 			while ((s = br.readLine()) != null && (i < maxNumLines || maxNumLines == -1)) {
 				sb.append(s);
-				sb.append("\n");
+				sb.append("\n"); //$NON-NLS-1$
 				i++;
 			}
 
 		} catch (IOException e) {
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Could not get contents", e));
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Could not get contents", e)); //$NON-NLS-1$
 		}
 		return sb.toString();
 	}
 
 }
-
-/*
- * stringbuffer sb = new stringbuffer(); for (int i = 1; i <= n; i++) {
- * sb.append("*"); } string str2 = sb.tostring();
- */

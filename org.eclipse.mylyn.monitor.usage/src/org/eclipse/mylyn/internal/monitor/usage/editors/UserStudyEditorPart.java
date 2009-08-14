@@ -49,7 +49,7 @@ public class UserStudyEditorPart extends UsageEditorPart {
 
 	private TableViewer tableViewer;
 
-	private final String[] columnNames = new String[] { "Kind", "ID", "Num", "Last Delta", "Users" };
+	private final String[] columnNames = new String[] { Messages.UserStudyEditorPart_Kind, Messages.UserStudyEditorPart_Id, Messages.UserStudyEditorPart_Num, Messages.UserStudyEditorPart_Last_Delta, Messages.UserStudyEditorPart_Users };
 
 	public UserStudyEditorPart(String id, String title) {
 		// super(id, title);
@@ -64,7 +64,7 @@ public class UserStudyEditorPart extends UsageEditorPart {
 
 	private void createUsageSection(Composite parent, FormToolkit toolkit) {
 		Section section = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR);
-		section.setText("Usage Details");
+		section.setText(Messages.UserStudyEditorPart_Usage_Details);
 		section.setLayout(new TableWrapLayout());
 		section.setLayoutData(new TableWrapData(TableWrapData.FILL_GRAB));
 		Composite container = toolkit.createComposite(section);
@@ -152,13 +152,13 @@ public class UserStudyEditorPart extends UsageEditorPart {
 		// files
 		try {
 			DirectoryDialog dialog = new DirectoryDialog(getSite().getWorkbenchWindow().getShell());
-			dialog.setText("Specify a directory for the CSV files");
+			dialog.setText(Messages.UserStudyEditorPart_Specify_Directory_For_Csv_Files);
 			String directoryName = dialog.open();
 
 			File outputFile;
 			FileOutputStream outputStream;
 
-			String filename = directoryName + File.separator + "Usage.csv";
+			String filename = directoryName + File.separator + "Usage.csv"; //$NON-NLS-1$
 			outputFile = new File(filename);
 
 			outputStream = new FileOutputStream(outputFile, false);
@@ -173,22 +173,22 @@ public class UserStudyEditorPart extends UsageEditorPart {
 
 				for (int i = 0; i < columnCount - 1; i++) {
 
-					outputStream.write((item.getText(i) + ",").getBytes());
+					outputStream.write((item.getText(i) + ",").getBytes()); //$NON-NLS-1$
 				}
 
 				outputStream.write(item.getText(columnCount - 1).getBytes());
-				outputStream.write(("\n").getBytes());
+				outputStream.write(("\n").getBytes()); //$NON-NLS-1$
 
 			}
 			outputStream.flush();
 			outputStream.close();
 		} catch (SWTException e) {
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Unable to get directory name",
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Unable to get directory name", //$NON-NLS-1$
 					e));
 		} catch (FileNotFoundException e) {
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Could not resolve file", e));
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Could not resolve file", e)); //$NON-NLS-1$
 		} catch (IOException e) {
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Could not write to file", e));
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Could not write to file", e)); //$NON-NLS-1$
 		}
 	}
 

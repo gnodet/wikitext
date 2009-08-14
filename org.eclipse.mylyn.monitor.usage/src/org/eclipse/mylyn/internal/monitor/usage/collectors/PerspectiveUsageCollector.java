@@ -30,6 +30,7 @@ import org.eclipse.mylyn.internal.monitor.core.collection.PercentUsageComparator
 import org.eclipse.mylyn.internal.monitor.ui.PerspectiveChangeMonitor;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
+import org.eclipse.osgi.util.NLS;
 
 /**
  * @author Mik Kersten
@@ -39,7 +40,7 @@ public class PerspectiveUsageCollector implements IUsageCollector {
 
 	private final Map<String, Integer> perspectiveUsage = new HashMap<String, Integer>();
 
-	private String currentPerspective = "";
+	private String currentPerspective = ""; //$NON-NLS-1$
 
 	private int numUnassociatedEvents = 0;
 
@@ -69,31 +70,31 @@ public class PerspectiveUsageCollector implements IUsageCollector {
 	}
 
 	public String getReportTitle() {
-		return "Perspective Usage";
+		return Messages.PerspectiveUsageCollector_Perspective_Usage;
 	}
 
 	public void exportAsCSVFile(String directory) {
-		String filename = directory + File.separator + "PerspectiveUsage.csv";
+		String filename = directory + File.separator + "PerspectiveUsage.csv"; //$NON-NLS-1$
 
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(new File(filename)));
 
 			// Write header
-			writer.write("Perspective");
-			writer.write(",");
-			writer.write("Events");
+			writer.write("Perspective"); //$NON-NLS-1$
+			writer.write(","); //$NON-NLS-1$
+			writer.write("Events"); //$NON-NLS-1$
 			writer.newLine();
 
 			// Write Data
 			for (String perspective : perspectiveUsage.keySet()) {
 				writer.write(perspective);
-				writer.write(",");
+				writer.write(","); //$NON-NLS-1$
 				writer.write(new Integer(perspectiveUsage.get(perspective)).toString());
 				writer.newLine();
 			}
 
-			writer.write("Unclassified");
-			writer.write(",");
+			writer.write("Unclassified"); //$NON-NLS-1$
+			writer.write(","); //$NON-NLS-1$
 			writer.write(numUnassociatedEvents);
 			writer.newLine();
 
@@ -113,37 +114,37 @@ public class PerspectiveUsageCollector implements IUsageCollector {
 
 	private List<String> getReport(boolean html) {
 		List<String> summaries = new ArrayList<String>();
-		summaries.add("Perspectives (based on total user events, with " + numUnassociatedEvents
-				+ " unclassified events)");
-		summaries.add(" ");
+		summaries.add(NLS.bind(Messages.PerspectiveUsageCollector_Perspectives_Based_On_Total_User_Events,
+				numUnassociatedEvents));
+		summaries.add(" "); //$NON-NLS-1$
 
 		List<String> perspectiveUsageList = new ArrayList<String>();
 		for (String perspective : perspectiveUsage.keySet()) {
 			float perspectiveUse = 100 * perspectiveUsage.get(perspective) / (numEvents);
-			String formattedPerspectiveUse = ("" + perspectiveUse);
+			String formattedPerspectiveUse = ("" + perspectiveUse); //$NON-NLS-1$
 			int indexOf2ndDecimal = formattedPerspectiveUse.indexOf('.') + 3;
 			if (indexOf2ndDecimal <= formattedPerspectiveUse.length()) {
 				formattedPerspectiveUse = formattedPerspectiveUse.substring(0, indexOf2ndDecimal);
 			}
 			String perspectiveName = perspective; // .substring(perspective.lastIndexOf(".")+1,
 			// perspective.length());
-			if (perspectiveName.contains("Perspective")) {
-				perspectiveName = perspectiveName.substring(0, perspectiveName.indexOf("Perspective"));
+			if (perspectiveName.contains("Perspective")) { //$NON-NLS-1$
+				perspectiveName = perspectiveName.substring(0, perspectiveName.indexOf("Perspective")); //$NON-NLS-1$
 			}
-			perspectiveUsageList.add(formattedPerspectiveUse + "%: " + perspectiveName + " ("
-					+ perspectiveUsage.get(perspective) + ")");
+			perspectiveUsageList.add(formattedPerspectiveUse + "%: " + perspectiveName + " (" //$NON-NLS-1$//$NON-NLS-2$
+					+ perspectiveUsage.get(perspective) + ")"); //$NON-NLS-1$
 		}
 		Collections.sort(perspectiveUsageList, new PercentUsageComparator());
 		for (String perspectiveUsageSummary : perspectiveUsageList) {
 			if (html) {
-				summaries.add("<br>" + perspectiveUsageSummary);
+				summaries.add("<br>" + perspectiveUsageSummary); //$NON-NLS-1$
 			} else {
 				summaries.add(perspectiveUsageSummary);
 			}
 		}
 
 		if (perspectiveUsage.size() % 2 != 0) {
-			summaries.add(" ");
+			summaries.add(" "); //$NON-NLS-1$
 		}
 		return summaries;
 

@@ -60,11 +60,11 @@ import org.eclipse.ui.internal.browser.WorkbenchBrowserSupport;
  */
 public class UsageSummaryReportEditorPart extends UsageEditorPart {
 
-	public static final String ID = "org.eclipse.mylyn.monitor.usage.summary.editor";
+	public static final String ID = "org.eclipse.mylyn.monitor.usage.summary.editor"; //$NON-NLS-1$
 
 	private static final long MAX_FILE_LENGTH = 1024 * 1024;
 
-	private static final String DATE_FORMAT_STRING = "MMMMM d, h:mm a";
+	private static final String DATE_FORMAT_STRING = "MMMMM d, h:mm a"; //$NON-NLS-1$
 
 	// private static final int MAX_NUM_LINES = 1000;
 
@@ -72,7 +72,8 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 
 	private TableViewer tableViewer;
 
-	private final String[] columnNames = new String[] { "Kind", "ID", "Count" };
+	private final String[] columnNames = new String[] { Messages.UsageSummaryReportEditorPart_Kind,
+			Messages.UsageSummaryReportEditorPart_Id, Messages.UsageSummaryReportEditorPart_Count };
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -89,7 +90,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 
 	private void createUsageSection(Composite parent, FormToolkit toolkit) {
 		Section section = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR);
-		section.setText("Usage Details");
+		section.setText(Messages.UsageSummaryReportEditorPart_Usage_Details);
 		section.setLayout(new GridLayout());
 		section.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		Composite container = toolkit.createComposite(section);
@@ -106,7 +107,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 	@Override
 	protected void createActionSection(Composite parent, FormToolkit toolkit) {
 		Section section = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR);
-		section.setText("Actions");
+		section.setText(Messages.UsageSummaryReportEditorPart_Actions);
 		section.setLayout(new GridLayout());
 		section.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
@@ -121,8 +122,8 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 		buttonContainerLayout.numColumns = 3;
 		buttonContainer.setLayout(buttonContainerLayout);
 
-		Button submitData = toolkit.createButton(buttonContainer, "Submit to " + studyParameters.getStudyName(),
-				SWT.PUSH | SWT.CENTER);
+		Button submitData = toolkit.createButton(buttonContainer, Messages.UsageSummaryReportEditorPart_Submit_To
+				+ studyParameters.getStudyName(), SWT.PUSH | SWT.CENTER);
 		submitData.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -130,7 +131,8 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 			}
 		});
 
-		Button viewFile = toolkit.createButton(buttonContainer, "View File", SWT.PUSH | SWT.CENTER);
+		Button viewFile = toolkit.createButton(buttonContainer, Messages.UsageSummaryReportEditorPart_View_File,
+				SWT.PUSH | SWT.CENTER);
 		viewFile.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -138,7 +140,8 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 			}
 		});
 
-		Button viewStats = toolkit.createButton(buttonContainer, "View Community Statistics", SWT.PUSH | SWT.CENTER);
+		Button viewStats = toolkit.createButton(buttonContainer,
+				Messages.UsageSummaryReportEditorPart_View_Community_Statistics, SWT.PUSH | SWT.CENTER);
 		viewStats.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -171,7 +174,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 					support.getExternalBrowser().openURL(new URL(studyParameters.getUsagePageUrl()));
 				} catch (Exception e) {
 					StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-							"Could not open task url", e));
+							"Could not open url", e)); //$NON-NLS-1$
 				}
 			} else {
 				IWebBrowser browser = null;
@@ -185,15 +188,17 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 							| IWorkbenchBrowserSupport.NAVIGATION_BAR;
 				}
 
-				String generatedId = "org.eclipse.mylyn.web.browser-" + Calendar.getInstance().getTimeInMillis();
+				String generatedId = "org.eclipse.mylyn.web.browser-" + Calendar.getInstance().getTimeInMillis(); //$NON-NLS-1$
 				browser = WorkbenchBrowserSupport.getInstance().createBrowser(flags, generatedId, null, null);
 				browser.openURL(new URL(studyParameters.getUsagePageUrl()));
 			}
 		} catch (PartInitException e) {
-			MessageDialog.openError(Display.getDefault().getActiveShell(), "Browser init error",
-					"Browser could not be initiated");
+			MessageDialog.openError(Display.getDefault().getActiveShell(), "Browser init error", //$NON-NLS-1$
+					"Browser could not be initiated"); //$NON-NLS-1$
 		} catch (MalformedURLException e) {
-			MessageDialog.openError(Display.getDefault().getActiveShell(), "URL not found", "URL Could not be opened");
+			MessageDialog.openError(Display.getDefault().getActiveShell(),
+					Messages.UsageSummaryReportEditorPart_Url_Not_Found,
+					Messages.UsageSummaryReportEditorPart_Url_Could_Not_Be_Opened);
 		}
 	}
 
@@ -216,7 +221,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 			boolean failed = false;
 			failed = !Program.launch(monitorFile.getAbsolutePath());
 			if (failed) {
-				Program p = Program.findProgram(".txt");
+				Program p = Program.findProgram(".txt"); //$NON-NLS-1$
 				if (p != null) {
 					p.execute(monitorFile.getAbsolutePath());
 				}

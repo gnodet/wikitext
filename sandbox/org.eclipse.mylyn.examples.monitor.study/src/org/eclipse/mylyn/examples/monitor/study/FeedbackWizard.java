@@ -42,14 +42,13 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 	 */
 	public FeedbackWizard(UsageSubmissionWizard wizard) {
 		super();
-		setNeedsProgressMonitor(true);
-
-		feedbackPage = new SubmitFeedbackPage(wizard);
-		super.setDefaultPageImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.ID_PLUGIN,
-				"icons/wizban/banner-user.gif"));
 		studyParameters = UiUsageMonitorPlugin.getDefault().getStudyParameters();
 
+		setNeedsProgressMonitor(true);
+		super.setDefaultPageImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.ID_PLUGIN,
+				"icons/wizban/banner-user.gif"));
 		super.setWindowTitle(studyParameters.getStudyName() + " Feedback");
+		feedbackPage = new SubmitFeedbackPage(wizard, studyParameters);
 	}
 
 	public FeedbackWizard() {
@@ -86,8 +85,6 @@ public class FeedbackWizard extends Wizard implements INewWizard {
 		}
 		return true;
 	}
-
-	private int status;
 
 	/**
 	 * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench,

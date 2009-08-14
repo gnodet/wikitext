@@ -46,14 +46,14 @@ import org.eclipse.ui.PlatformUI;
  */
 public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 
-	private static final String JOB_LABEL = "Mylyn Monitor Log Rollover";
+	private static final String JOB_LABEL = Messages.MonitorFileRolloverJob_Mylyn_Monitor_Log_Rollover;
 
 	// XXX: needs to be the same as NAME_DATA_DIR in org.eclipse.mylyn.tasks.ui.TasksUIPlugin
-	private static final String NAME_DATA_DIR = ".mylyn";
+	private static final String NAME_DATA_DIR = ".mylyn"; //$NON-NLS-1$
 
-	private static final String DIRECTORY_MONITOR_BACKUP = "monitor";
+	private static final String DIRECTORY_MONITOR_BACKUP = "monitor"; //$NON-NLS-1$
 
-	private static final String ZIP_EXTENSION = ".zip";
+	private static final String ZIP_EXTENSION = ".zip"; //$NON-NLS-1$
 
 	private List<IUsageCollector> collectors = null;
 
@@ -63,7 +63,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 
 	private boolean forceSyncForTesting = false;
 
-	public static final String BACKUP_FILE_SUFFIX = "monitor-log";
+	public static final String BACKUP_FILE_SUFFIX = "monitor-log"; //$NON-NLS-1$
 
 	private final StudyParameters studyParameters;
 
@@ -75,7 +75,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 
 	@SuppressWarnings("deprecation")
 	private String getYear(InteractionEvent event) {
-		return "" + (event.getDate().getYear() + 1900);
+		return "" + (event.getDate().getYear() + 1900); //$NON-NLS-1$
 	}
 
 	public void forceSyncForTesting(boolean forceSync) {
@@ -85,31 +85,31 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 	private String getMonth(int month) {
 		switch (month) {
 		case 0:
-			return "01";
+			return "01"; //$NON-NLS-1$
 		case 1:
-			return "02";
+			return "02"; //$NON-NLS-1$
 		case 2:
-			return "03";
+			return "03"; //$NON-NLS-1$
 		case 3:
-			return "04";
+			return "04"; //$NON-NLS-1$
 		case 4:
-			return "05";
+			return "05"; //$NON-NLS-1$
 		case 5:
-			return "06";
+			return "06"; //$NON-NLS-1$
 		case 6:
-			return "07";
+			return "07"; //$NON-NLS-1$
 		case 7:
-			return "08";
+			return "08"; //$NON-NLS-1$
 		case 8:
-			return "09";
+			return "09"; //$NON-NLS-1$
 		case 9:
-			return "10";
+			return "10"; //$NON-NLS-1$
 		case 10:
-			return "11";
+			return "11"; //$NON-NLS-1$
 		case 11:
-			return "12";
+			return "12"; //$NON-NLS-1$
 		default:
-			return "";
+			return ""; //$NON-NLS-1$
 
 		}
 	}
@@ -137,7 +137,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 		if (events.size() > 0 && events.get(0).getDate().getMonth() != nowMonth) {
 			int currMonth = events.get(0).getDate().getMonth();
 
-			String fileName = getYear(events.get(0)) + "-" + getMonth(currMonth) + "-" + BACKUP_FILE_SUFFIX;
+			String fileName = getYear(events.get(0)) + "-" + getMonth(currMonth) + "-" + BACKUP_FILE_SUFFIX; //$NON-NLS-1$ //$NON-NLS-2$
 
 			File dir = new File(getZippedMonitorFileDirPath());
 
@@ -169,7 +169,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 						zipFileStream.closeEntry();
 						zipFileStream.close();
 
-						fileName = getYear(event) + "-" + getMonth(monthOfCurrEvent) + "-" + BACKUP_FILE_SUFFIX;
+						fileName = getYear(event) + "-" + getMonth(monthOfCurrEvent) + "-" + BACKUP_FILE_SUFFIX; //$NON-NLS-1$ //$NON-NLS-2$
 						currBackupZipFile = new File(dir, fileName + ZIP_EXTENSION);
 						if (!currBackupZipFile.exists()) {
 
@@ -196,7 +196,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 				zipFileStream.close();
 			} catch (IOException e) {
 				StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-						studyParameters.getStudyName() + "Mylyn monitor log rollover failed", e));
+						studyParameters.getStudyName() + "Mylyn monitor log rollover failed", e)); //$NON-NLS-1$
 			}
 
 		}
@@ -232,7 +232,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 
 					} catch (PartInitException e) {
 						StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-								"Could not show usage summary", e));
+								"Could not show usage summary", e)); //$NON-NLS-1$
 					}
 
 				}
@@ -270,7 +270,7 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 
 				} catch (PartInitException e) {
 					StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-							"Could not show usage summary", e));
+							"Could not show usage summary", e)); //$NON-NLS-1$
 				}
 			}
 		});

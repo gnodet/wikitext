@@ -20,6 +20,7 @@ import java.util.List;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylyn.internal.monitor.usage.ReportGenerator;
 import org.eclipse.mylyn.internal.monitor.usage.StudyParameters;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IPersistableElement;
 
@@ -52,7 +53,7 @@ public class UsageStatsEditorInput implements IEditorInput {
 	}
 
 	public String getName() {
-		return "Usage Summary";
+		return Messages.UsageStatsEditorInput_Usage_Summary;
 	}
 
 	public IPersistableElement getPersistable() {
@@ -60,7 +61,7 @@ public class UsageStatsEditorInput implements IEditorInput {
 	}
 
 	public String getToolTipText() {
-		return studyParameters.getStudyName() + " Usage Statistics";
+		return NLS.bind(Messages.UsageStatsEditorInput_X_Usage_Statistics, studyParameters.getStudyName());
 	}
 
 	@SuppressWarnings("unchecked")

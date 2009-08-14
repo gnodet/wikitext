@@ -38,18 +38,19 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 public class UsageFileSelectionWizardPage extends WizardPage {
 
-	private final static String PAGE_TITLE = "Select any archived Mylyn usage files you wish to upload";
+	private static final String ID_PAGE_FILE_SELECTION = "org.eclipse.mylyn.monitor.usage.fileSelectionPage"; //$NON-NLS-1$
 
-	private static final String DESCRIPTION = "Please select the archived usage files you want to upload to ";
+	private final static String PAGE_TITLE = Messages.UsageFileSelectionWizardPage_Select_Archived_File_To_Upload;
+
+	private static final String DESCRIPTION = Messages.UsageFileSelectionWizardPage_Please_Selected_Archived_Usage_Files;
 
 	private Table zippedFilesTable;
 
-	public static final String SUBMISSION_LOG_FILE_NAME = "submittedUsageLogs.txt";
+	public static final String SUBMISSION_LOG_FILE_NAME = "submittedUsageLogs.txt"; //$NON-NLS-1$
 
 	protected UsageFileSelectionWizardPage(StudyParameters studyParameters) {
-		super("org.eclipse.mylyn.monitor.usage.fileSelectionPage", PAGE_TITLE,
-				AbstractUIPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.ID_PLUGIN,
-						"icons/wizban/banner-submission.gif"));
+		super(ID_PAGE_FILE_SELECTION, PAGE_TITLE, AbstractUIPlugin.imageDescriptorFromPlugin(
+				UiUsageMonitorPlugin.ID_PLUGIN, "icons/wizban/banner-submission.gif")); //$NON-NLS-1$
 		setDescription(DESCRIPTION + studyParameters.getStudyName());
 	}
 
@@ -74,7 +75,7 @@ public class UsageFileSelectionWizardPage extends WizardPage {
 				int bytesRead = 0;
 				byte[] buffer = new byte[1000];
 
-				String fileContents = "";
+				String fileContents = ""; //$NON-NLS-1$
 
 				if (submissionLogFile.exists()) {
 					while ((bytesRead = inputStream.read(buffer)) != -1) {
@@ -145,7 +146,7 @@ public class UsageFileSelectionWizardPage extends WizardPage {
 		} catch (RuntimeException e) {
 			// FIXME what exception is caught here?
 			StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-					"Could not create import wizard page", e));
+					"Could not create import wizard page", e)); //$NON-NLS-1$
 		}
 	}
 
@@ -158,7 +159,7 @@ public class UsageFileSelectionWizardPage extends WizardPage {
 				list.add(selectedItem.getText());
 			}
 		} else {
-			list.add("<unspecified>");
+			list.add("<unspecified>"); //$NON-NLS-1$
 		}
 		return list;
 	}

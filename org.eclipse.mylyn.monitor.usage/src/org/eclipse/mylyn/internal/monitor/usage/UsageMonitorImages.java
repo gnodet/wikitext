@@ -25,21 +25,21 @@ public class UsageMonitorImages {
 
 	private static ImageRegistry imageRegistry;
 
-	private static final String T_ELCL = "elcl16";
+	private static final String T_ELCL = "elcl16"; //$NON-NLS-1$
 
-	private static final String T_EVIEW = "eview16";
+	private static final String T_EVIEW = "eview16"; //$NON-NLS-1$
 
-	private static final URL baseURL = UiUsageMonitorPlugin.getDefault().getBundle().getEntry("/icons/");
+	private static final URL baseURL = UiUsageMonitorPlugin.getDefault().getBundle().getEntry("/icons/"); //$NON-NLS-1$
 
-	public static final ImageDescriptor REFRESH = create(T_ELCL, "refresh.gif");
+	public static final ImageDescriptor REFRESH = create(T_ELCL, "refresh.gif"); //$NON-NLS-1$
 
-	public static final ImageDescriptor SYNCHED = create(T_ELCL, "synched.gif");
+	public static final ImageDescriptor SYNCHED = create(T_ELCL, "synched.gif"); //$NON-NLS-1$
 
-	public static final ImageDescriptor REMOVE = create(T_ELCL, "remove.gif");
+	public static final ImageDescriptor REMOVE = create(T_ELCL, "remove.gif"); //$NON-NLS-1$
 
-	public static final ImageDescriptor MONITOR = create(T_EVIEW, "monitor.gif");
+	public static final ImageDescriptor MONITOR = create(T_EVIEW, "monitor.gif"); //$NON-NLS-1$
 
-	public static final ImageDescriptor ZIP_FILE = create(T_ELCL, "import-zip.gif");
+	public static final ImageDescriptor ZIP_FILE = create(T_ELCL, "import-zip.gif"); //$NON-NLS-1$
 
 	private static ImageDescriptor create(String prefix, String name) {
 		try {
@@ -74,10 +74,10 @@ public class UsageMonitorImages {
 	public static Image getImage(ImageDescriptor imageDescriptor) {
 		ImageRegistry imageRegistry = getImageRegistry();
 
-		Image image = imageRegistry.get("" + imageDescriptor.hashCode());
+		Image image = imageRegistry.get("" + imageDescriptor.hashCode()); //$NON-NLS-1$
 		if (image == null) {
 			image = imageDescriptor.createImage();
-			imageRegistry.put("" + imageDescriptor.hashCode(), image);
+			imageRegistry.put("" + imageDescriptor.hashCode(), image); //$NON-NLS-1$
 		}
 		return image;
 	}

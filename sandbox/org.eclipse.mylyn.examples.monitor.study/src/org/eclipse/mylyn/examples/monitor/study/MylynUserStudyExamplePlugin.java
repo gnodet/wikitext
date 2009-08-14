@@ -44,6 +44,7 @@ public class MylynUserStudyExamplePlugin extends AbstractUIPlugin {
 		public void earlyStartup() {
 			final IWorkbench workbench = PlatformUI.getWorkbench();
 			workbench.getDisplay().asyncExec(new Runnable() {
+				@SuppressWarnings("deprecation")
 				public void run() {
 					MylynUserStudyExamplePlugin.getDefault().selectionMonitor = new SelectionMonitor();
 					MonitorUiPlugin.getDefault().getSelectionMonitors().add(
@@ -71,6 +72,7 @@ public class MylynUserStudyExamplePlugin extends AbstractUIPlugin {
 		super.start(context);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);

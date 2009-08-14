@@ -31,7 +31,7 @@ import org.eclipse.ui.IWorkbench;
  */
 public class NewUsageSummaryEditorWizard extends Wizard implements INewWizard {
 
-	private static final String TITLE = "New Usage Summary Report";
+	private static final String TITLE = Messages.NewUsageSummaryEditorWizard_New_Usage_Summary_Report;
 
 	private UsageSummaryEditorWizardPage usageSummaryPage;
 

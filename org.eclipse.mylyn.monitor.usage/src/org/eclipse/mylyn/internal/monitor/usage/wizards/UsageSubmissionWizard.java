@@ -39,6 +39,7 @@ import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
 import org.eclipse.mylyn.monitor.usage.AbstractStudyBackgroundPage;
 import org.eclipse.mylyn.monitor.usage.AbstractStudyQuestionnairePage;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
@@ -52,9 +53,9 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  */
 public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
-	public static final String LOG = "log";
+	public static final String LOG = "log"; //$NON-NLS-1$
 
-	public static final String STATS = "usage";
+	public static final String STATS = "usage"; //$NON-NLS-1$
 
 	private boolean displayBackgroundPage = false;
 
@@ -96,14 +97,15 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 	private void setTitles() {
 		super.setDefaultPageImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(UiUsageMonitorPlugin.ID_PLUGIN,
-				"icons/wizban/banner-user.gif"));
-		super.setWindowTitle(studyParameters.getStudyName() + " Feedback");
+				"icons/wizban/banner-user.gif")); //$NON-NLS-1$
+		super.setWindowTitle(NLS.bind(Messages.UsageSubmissionWizard_X_Feedback, studyParameters.getStudyName()));
 	}
 
 	private void init(boolean performUpload) {
 		this.performUpload = performUpload;
 		setNeedsProgressMonitor(true);
-		uid = UiUsageMonitorPlugin.getDefault().getPreferenceStore().getInt(UiUsageMonitorPlugin.PREF_USER_ID);
+
+		uid = UiUsageMonitorPlugin.getDefault().getPreferenceStore().getInt(studyParameters.getUserIdPreferenceId());
 		if (uid == 0 || uid == -1) {
 			addBackgroundPage();
 			final int[] newUid = new int[1];
@@ -129,7 +131,8 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			}
 			uid = newUid[0];
 
-			UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(UiUsageMonitorPlugin.PREF_USER_ID, uid);
+			UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(studyParameters.getUserIdPreferenceId(),
+					uid);
 		}
 		uploadPage = new UsageUploadWizardPage(this, studyParameters);
 		fileSelectionPage = new UsageFileSelectionWizardPage(studyParameters);
@@ -175,19 +178,19 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		// }
 		// };
 
-		Job j = new Job("Upload User Statistics") {
+		Job j = new Job(Messages.UsageSubmissionWizard_Upload_User_Statistics) {
 
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				try {
-					monitor.beginTask("Uploading user statistics", 3);
+					monitor.beginTask(Messages.UsageSubmissionWizard_Uploading_User_Statistics, 3);
 					performUpload(monitor);
 					monitor.done();
 					// op.run(monitor);
 					return Status.OK_STATUS;
 				} catch (Exception e) {
 					Status status = new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, IStatus.ERROR,
-							"Error uploading statistics", e);
+							"Error uploading statistics", e); //$NON-NLS-1$
 					StatusHandler.log(status);
 					return status;
 				}
@@ -234,8 +237,9 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 				public void run() {
 					// popup a dialog telling the user that the upload was good
-					MessageDialog.openInformation(Display.getCurrent().getActiveShell(), "Successful Upload",
-							"Your usage statistics have been successfully uploaded.\n Thank you for participating.");
+					MessageDialog.openInformation(Display.getCurrent().getActiveShell(),
+							Messages.UsageSubmissionWizard_Successful_Upload,
+							Messages.UsageSubmissionWizard_Your_Usage_Statistics_Have_Been_Uploaded);
 				}
 			});
 		}
@@ -303,8 +307,8 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 	// TODO allow this to be customized
 	private File processMonitorFile(File monitorFile) {
-		File processedFile = new File("processed-" + UiUsageMonitorPlugin.MONITOR_LOG_NAME + processedFileCount++
-				+ ".xml");
+		File processedFile = new File("processed-" + UiUsageMonitorPlugin.MONITOR_LOG_NAME + processedFileCount++ //$NON-NLS-1$
+				+ ".xml"); //$NON-NLS-1$
 		InteractionEventLogger logger = new InteractionEventLogger(processedFile);
 		logger.startMonitoring();
 		List<InteractionEvent> eventList = logger.getHistoryFromFile(monitorFile);
@@ -343,12 +347,12 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 				UsageFileSelectionWizardPage.SUBMISSION_LOG_FILE_NAME);
 		try {
 			FileWriter fileWriter = new FileWriter(submissionLogFile, true);
-			fileWriter.append(fileName + "\n");
+			fileWriter.append(fileName + "\n"); //$NON-NLS-1$
 			fileWriter.flush();
 			fileWriter.close();
 		} catch (IOException e) {
 			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-					"Error unzipping backup monitor log files", e));
+					"Error unzipping backup monitor log files", e)); //$NON-NLS-1$
 		}
 	}
 
@@ -367,7 +371,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 				if (file.exists()) {
 					List<File> unzippedFiles;
 					try {
-						unzippedFiles = ZipFileUtil.unzipFiles(file, System.getProperty("java.io.tmpdir"),
+						unzippedFiles = ZipFileUtil.unzipFiles(file, System.getProperty("java.io.tmpdir"), //$NON-NLS-1$
 								new NullProgressMonitor());
 
 						if (unzippedFiles.size() > 0) {
@@ -378,7 +382,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 						}
 					} catch (IOException e) {
 						StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-								"Error unzipping backup monitor log files", e));
+								"Error unzipping backup monitor log files", e)); //$NON-NLS-1$
 					}
 				}
 			}
@@ -386,11 +390,11 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 		UiUsageMonitorPlugin.getDefault().getInteractionLogger().startMonitoring();
 		try {
-			File zipFile = File.createTempFile(uid + ".", ".zip");
+			File zipFile = File.createTempFile(uid + ".", ".zip"); //$NON-NLS-1$ //$NON-NLS-2$
 			ZipFileUtil.createZipFile(zipFile, files);
 			return zipFile;
 		} catch (Exception e) {
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Error uploading", e));
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Error uploading", e)); //$NON-NLS-1$
 			return null;
 		}
 	}

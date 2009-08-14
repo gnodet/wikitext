@@ -25,47 +25,47 @@ import org.eclipse.mylyn.monitor.usage.AbstractStudyQuestionnairePage;
 
 class UiUsageMonitorExtensionPointReader {
 
-	public static final String EXTENSION_ID_STUDY = "org.eclipse.mylyn.monitor.usage.study";
+	public static final String EXTENSION_ID_STUDY = "org.eclipse.mylyn.monitor.usage.study"; //$NON-NLS-1$
 
-	public static final String ELEMENT_SCRIPTS = "scripts";
+	public static final String ELEMENT_SCRIPTS = "scripts"; //$NON-NLS-1$
 
-	public static final String ELEMENT_SCRIPTS_VERSION = "version";
+	public static final String ELEMENT_SCRIPTS_VERSION = "version"; //$NON-NLS-1$
 
-	public static final String ELEMENT_SCRIPTS_SERVER_URL = "url";
+	public static final String ELEMENT_SCRIPTS_SERVER_URL = "url"; //$NON-NLS-1$
 
-	public static final String ELEMENT_SCRIPTS_UPLOAD_USAGE = "upload";
+	public static final String ELEMENT_SCRIPTS_UPLOAD_USAGE = "upload"; //$NON-NLS-1$
 
-	public static final String ELEMENT_SCRIPTS_GET_USER_ID = "userId";
+	public static final String ELEMENT_SCRIPTS_GET_USER_ID = "userId"; //$NON-NLS-1$
 
-	public static final String ELEMENT_SCRIPTS_FORCE_OBFUSCATION = "forceObfuscation";
+	public static final String ELEMENT_SCRIPTS_FORCE_OBFUSCATION = "forceObfuscation"; //$NON-NLS-1$
 
-	public static final String ELEMENT_UI = "ui";
+	public static final String ELEMENT_UI = "ui"; //$NON-NLS-1$
 
-	public static final String ELEMENT_UI_TITLE = "title";
+	public static final String ELEMENT_UI_TITLE = "title"; //$NON-NLS-1$
 
-	public static final String ELEMENT_UI_STUDY_NAME = "studyName";
+	public static final String ELEMENT_UI_STUDY_NAME = "studyName"; //$NON-NLS-1$
 
-	public static final String ELEMENT_UI_DESCRIPTION = "description";
+	public static final String ELEMENT_UI_DESCRIPTION = "description"; //$NON-NLS-1$
 
-	public static final String ELEMENT_UI_UPLOAD_PROMPT = "daysBetweenUpload";
+	public static final String ELEMENT_UI_UPLOAD_PROMPT = "daysBetweenUpload"; //$NON-NLS-1$
 
-	public static final String ELEMENT_UI_QUESTIONNAIRE_PAGE = "questionnairePage";
+	public static final String ELEMENT_UI_QUESTIONNAIRE_PAGE = "questionnairePage"; //$NON-NLS-1$
 
-	public static final String ELEMENT_UI_BACKGROUND_PAGE = "backgroundPage";
+	public static final String ELEMENT_UI_BACKGROUND_PAGE = "backgroundPage"; //$NON-NLS-1$
 
-	public static final String ELEMENT_UI_CONSENT_FORM = "consentForm";
+	public static final String ELEMENT_UI_CONSENT_FORM = "consentForm"; //$NON-NLS-1$
 
-	public static final String ELEMENT_UI_CONTACT_CONSENT_FIELD = "useContactField";
+	public static final String ELEMENT_UI_CONTACT_CONSENT_FIELD = "useContactField"; //$NON-NLS-1$
 
-	public static final String ELEMENT_UI_URL_USAGE_PAGE = "usagePageUrl";
+	public static final String ELEMENT_UI_URL_USAGE_PAGE = "usagePageUrl"; //$NON-NLS-1$
 
-	public static final String ELEMENT_MONITORS = "monitors";
+	public static final String ELEMENT_MONITORS = "monitors"; //$NON-NLS-1$
 
-	public static final String ELEMENT_MONITORS_BROWSER_URL = "browserUrlFilter";
+	public static final String ELEMENT_MONITORS_BROWSER_URL = "browserUrlFilter"; //$NON-NLS-1$
 
-	public static final String ELEMENT_FILTER = "filter";
+	public static final String ELEMENT_FILTER = "filter"; //$NON-NLS-1$
 
-	public static final String ELEMENT_FILTER_ID_PREFIX = "idPrefix";
+	public static final String ELEMENT_FILTER_ID_PREFIX = "idPrefix"; //$NON-NLS-1$
 
 	private boolean extensionsRead = false;
 
@@ -113,7 +113,7 @@ class UiUsageMonitorExtensionPointReader {
 			}
 		} catch (Throwable t) {
 			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-					"Could not read monitor extension", t));
+					"Could not read monitor extension", t)); //$NON-NLS-1$
 		}
 	}
 
@@ -156,7 +156,7 @@ class UiUsageMonitorExtensionPointReader {
 			} else {
 			}
 		} catch (Throwable e) {
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Could not load questionaire",
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Could not load questionaire", //$NON-NLS-1$
 					e));
 		}
 
@@ -171,10 +171,10 @@ class UiUsageMonitorExtensionPointReader {
 			}
 		} catch (Throwable e) {
 			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-					"Could not load background page", e));
+					"Could not load background page", e)); //$NON-NLS-1$
 		}
 
-		studyParameters.setFormsConsent("/" + element.getAttribute(ELEMENT_UI_CONSENT_FORM));
+		studyParameters.setFormsConsent("/" + element.getAttribute(ELEMENT_UI_CONSENT_FORM)); //$NON-NLS-1$
 
 	}
 

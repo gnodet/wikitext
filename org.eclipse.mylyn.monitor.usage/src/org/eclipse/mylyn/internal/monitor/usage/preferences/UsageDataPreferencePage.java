@@ -40,10 +40,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
  */
 public class UsageDataPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 
-	private static final String DESCRIPTION = "If enabled the Mylyn Monitor logs selections, edits, commands, and preference changes. "
-			+ "If you would like to help improve the user experience by anonymously sharing non-private "
-			+ "parts of this data, enable automatic feedback submission or submit your data via the "
-			+ "Usage Summary Wizard.";
+	private static final String DESCRIPTION = Messages.UsageDataPreferencePage_If_Enabled_Mylyn_Monitors;
 
 	private static final long DAYS_IN_MS = 1000 * 60 * 60 * 24;
 
@@ -111,12 +108,12 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 
 	private void createLogFileSection(Composite parent) {
 		final Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
-		group.setText("Monitoring");
+		group.setText(Messages.UsageDataPreferencePage_Monitoring);
 		group.setLayout(new GridLayout(2, false));
 		group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		enableMonitoring = new Button(group, SWT.CHECK);
-		enableMonitoring.setText("Enable logging to: ");
+		enableMonitoring.setText(Messages.UsageDataPreferencePage_Enable_Logging_To);
 		enableMonitoring.setSelection(getPreferenceStore().getBoolean(
 				MonitorPreferenceConstants.PREF_MONITORING_ENABLED));
 		enableMonitoring.addSelectionListener(new SelectionListener() {
@@ -131,14 +128,14 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		});
 
 		String logFilePath = UiUsageMonitorPlugin.getDefault().getMonitorLogFile().getPath();
-		logFilePath = logFilePath.replaceAll("\\\\", "/");
+		logFilePath = logFilePath.replaceAll("\\\\", "/"); //$NON-NLS-1$//$NON-NLS-2$
 		logFileText = new Text(group, SWT.BORDER);
 		logFileText.setText(logFilePath);
 		logFileText.setEditable(false);
 		logFileText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		enableObfuscation = new Button(group, SWT.CHECK);
-		enableObfuscation.setText("Obfuscate elements using: ");
+		enableObfuscation.setText(Messages.UsageDataPreferencePage_Obfuscate_Elements_Using);
 		enableObfuscation.setSelection(getPreferenceStore().getBoolean(
 				MonitorPreferenceConstants.PREF_MONITORING_OBFUSCATE));
 
@@ -148,26 +145,26 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		}
 
 		Label obfuscationLablel = new Label(group, SWT.NULL);
-		obfuscationLablel.setText(InteractionEventObfuscator.ENCRYPTION_ALGORITHM + " message digest one-way hash");
+		obfuscationLablel.setText(InteractionEventObfuscator.ENCRYPTION_ALGORITHM + Messages.UsageDataPreferencePage_Message_Digest_One_Way_Hash);
 	}
 
 	private void createUsageSection(Composite parent) {
 		Group group = new Group(parent, SWT.SHADOW_ETCHED_IN);
-		group.setText("Usage Feedback");
+		group.setText(Messages.UsageDataPreferencePage_Usage_Feedback);
 		group.setLayout(new GridLayout(2, false));
 		group.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 		Label label = new Label(group, SWT.NULL);
-		label.setText(" Upload URL: ");
+		label.setText(Messages.UsageDataPreferencePage_Upload_Url);
 		uploadUrl = new Text(group, SWT.BORDER);
 		uploadUrl.setEditable(false);
 		uploadUrl.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		uploadUrl.setText(studyParameters.getUploadServletUrl());
 
 		Label events = new Label(group, SWT.NULL);
-		events.setText(" Events since upload:");
+		events.setText(Messages.UsageDataPreferencePage_Events_Since_Upload);
 		Label logged = new Label(group, SWT.NULL);
-		logged.setText("" + getPreferenceStore().getInt(MonitorPreferenceConstants.PREF_NUM_USER_EVENTS));
+		logged.setText("" + getPreferenceStore().getInt(MonitorPreferenceConstants.PREF_NUM_USER_EVENTS)); //$NON-NLS-1$
 
 		Composite enableSubmissionComposite = new Composite(group, SWT.NULL);
 		GridLayout submissionGridLayout = new GridLayout(4, false);
@@ -176,7 +173,7 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		enableSubmissionComposite.setLayout(submissionGridLayout);
 		enableSubmission = new Button(enableSubmissionComposite, SWT.CHECK);
 
-		enableSubmission.setText("Enable submission every");
+		enableSubmission.setText(Messages.UsageDataPreferencePage_Enable_Submission_Every);
 		enableSubmission.setSelection(getPreferenceStore().getBoolean(
 				MonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION));
 		enableSubmission.addSelectionListener(new SelectionListener() {
@@ -197,14 +194,14 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 			submissionFreq = getPreferenceStore().getLong(MonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY);
 		}
 		long submissionFreqInDays = submissionFreq / DAYS_IN_MS;
-		submissionTime.setText("" + submissionFreqInDays);
+		submissionTime.setText("" + submissionFreqInDays); //$NON-NLS-1$
 		submissionTime.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 
 			}
 		});
 		Label label2 = new Label(enableSubmissionComposite, SWT.NONE);
-		label2.setText("days");
+		label2.setText(Messages.UsageDataPreferencePage_Days);
 
 	}
 

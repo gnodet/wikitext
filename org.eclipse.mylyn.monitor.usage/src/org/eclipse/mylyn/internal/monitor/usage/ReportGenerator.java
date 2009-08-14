@@ -47,7 +47,7 @@ import org.eclipse.ui.progress.IProgressService;
  */
 public class ReportGenerator {
 
-	public static final String SUMMARY_SEPARATOR = "<hr><br>";
+	public static final String SUMMARY_SEPARATOR = "<hr><br>"; //$NON-NLS-1$
 
 	private final InteractionEventLogger logger;
 
@@ -164,16 +164,16 @@ public class ReportGenerator {
 	private int getUserId(File source) {
 		String userIDText = source.getName();
 		int userId = -1;
-		String prefix = "-usage-";
+		String prefix = "-usage-"; //$NON-NLS-1$
 
 		if (source.getName().indexOf(prefix) >= 0) {
 			try {
 				userIDText = userIDText.substring(userIDText.indexOf(prefix) + prefix.length(), userIDText.length());
-				userIDText = userIDText.substring(0, userIDText.indexOf("-"));
+				userIDText = userIDText.substring(0, userIDText.indexOf("-")); //$NON-NLS-1$
 				userId = Integer.valueOf(userIDText);
 			} catch (Throwable t) {
 				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-						"Could not parse user ID from source file", t));
+						"Could not parse user ID from source file", t)); //$NON-NLS-1$
 			}
 		}
 
@@ -182,15 +182,15 @@ public class ReportGenerator {
 
 	private String getPhase(File source) {
 		String userIDText = source.getName();
-		String phase = "unknown";
-		String terminator = "-";
+		String phase = "unknown"; //$NON-NLS-1$
+		String terminator = "-"; //$NON-NLS-1$
 
 		if (source.getName().indexOf(terminator) >= 0) {
 			try {
 				phase = userIDText.substring(0, userIDText.indexOf(terminator) - 1);
 			} catch (Throwable t) {
 				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-						"Could not parse user ID from source file", t));
+						"Could not parse user ID from source file", t)); //$NON-NLS-1$
 			}
 		}
 		return phase;
@@ -198,14 +198,12 @@ public class ReportGenerator {
 
 	class GenerateStatisticsJob extends Job {
 
-		private static final String JOB_LABEL = "Mylyn Usage Summary Generation";
-
 		private final ReportGenerator generator;
 
 		private final List<File> sources;
 
 		public GenerateStatisticsJob(ReportGenerator generator, List<File> sources) {
-			super("Generate statistics job");
+			super(Messages.ReportGenerator_Generate_Statistics_Job);
 			this.generator = generator;
 			this.sources = sources;
 		}
@@ -240,12 +238,12 @@ public class ReportGenerator {
 				}
 			} catch (Throwable t) {
 				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-						"Could not generate usage report", t));
+						"Could not generate usage report", t)); //$NON-NLS-1$
 			}
 
 			try {
 				// There are three processing events per user
-				monitor.beginTask(JOB_LABEL, userIds.size() * 3);
+				monitor.beginTask(Messages.ReportGenerator_Mylyn_Usage_Summary_Generation, userIds.size() * 3);
 
 				// Process the files for each user
 				for (Integer aUser : filesPerUser.keySet()) {
@@ -349,7 +347,7 @@ public class ReportGenerator {
 
 			} catch (Throwable t) {
 				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-						"Could not generate usage report", t));
+						"Could not generate usage report", t)); //$NON-NLS-1$
 			}
 
 			return Status.OK_STATUS;
@@ -382,7 +380,7 @@ public class ReportGenerator {
 	}
 
 	public static String formatPercentage(float percentage) {
-		String percentageString = "" + percentage;
+		String percentageString = "" + percentage; //$NON-NLS-1$
 		int indexOf2ndDecimal = percentageString.indexOf('.') + 3;
 		if (indexOf2ndDecimal <= percentageString.length()) {
 			percentageString = percentageString.substring(0, indexOf2ndDecimal);

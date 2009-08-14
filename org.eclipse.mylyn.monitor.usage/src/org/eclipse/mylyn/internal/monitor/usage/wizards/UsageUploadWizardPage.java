@@ -15,6 +15,7 @@ import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.mylyn.internal.monitor.usage.StudyParameters;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -52,19 +53,18 @@ public class UsageUploadWizardPage extends WizardPage {
 	 * Constructor
 	 */
 	public UsageUploadWizardPage(UsageSubmissionWizard wizard, StudyParameters studyParameters) {
-		super("Usage Data Submission Wizard");
+		super(Messages.UsageUploadWizardPage_Usage_Data_Submission_Wizard);
 		this.studyParameters = studyParameters;
 
-		setTitle("Usage Data Submission");
+		setTitle(Messages.UsageUploadWizardPage_Usage_Data_Submission);
 		if (studyParameters.getCustomizingPlugin() != null) {
 			String customizedTitle = studyParameters.getTitle();
-			if (customizedTitle != null && !customizedTitle.equals("")) {
-				setTitle(customizedTitle + ": Usage Data Upload");
+			if (customizedTitle != null && !customizedTitle.equals("")) { //$NON-NLS-1$
+				setTitle(NLS.bind(Messages.UsageUploadWizardPage_X_Usage_Data_Upload, customizedTitle));
 			}
 		}
 
-		setDescription("The usage file listed below will be uploaded along with the archived files you selected (there may not have been any to select from).\n"
-				+ "Information about program elements that you worked with is obfuscated to ensure privacy.");
+		setDescription(Messages.UsageUploadWizardPage_Usage_File_Below_Uploaded);
 		// setDescription(
 		// "The files listed below will be uploaded. Information about program
 		// elements that you "
@@ -95,7 +95,7 @@ public class UsageUploadWizardPage extends WizardPage {
 		}
 
 		label = new Label(topContainer, SWT.NULL);
-		label.setText("Upload URL:");
+		label.setText(Messages.UsageUploadWizardPage_Upload_Url);
 
 		serverAddrText = new Text(topContainer, SWT.BORDER | SWT.SINGLE);
 		GridData gd = new GridData(GridData.FILL_HORIZONTAL);
@@ -104,7 +104,7 @@ public class UsageUploadWizardPage extends WizardPage {
 		serverAddrText.setText(studyParameters.getUploadServletUrl());
 
 		label = new Label(topContainer, SWT.NULL);
-		label.setText("Usage file location:");
+		label.setText(Messages.UsageUploadWizardPage_Usage_File_Location);
 
 		usageFileText = new Text(topContainer, SWT.BORDER | SWT.SINGLE);
 		gd = new GridData(GridData.FILL_HORIZONTAL);
@@ -131,7 +131,7 @@ public class UsageUploadWizardPage extends WizardPage {
 
 	public void updateUid() {
 		if (idText != null && !idText.isDisposed()) {
-			idText.setText(wizard.getUid() + "");
+			idText.setText(wizard.getUid() + ""); //$NON-NLS-1$
 		}
 	}
 }

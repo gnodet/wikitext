@@ -95,7 +95,7 @@ public class UsageEditorPart extends EditorPart {
 		sForm = toolkit.createScrolledForm(parent);
 		sForm.getBody().setLayout(new GridLayout());// TableWrapLayout());
 		editorComposite = sForm.getBody();
-		sForm.setText("Usage Summary");
+		sForm.setText(Messages.UsageEditorPart_Usage_Summary);
 		toolkit.decorateFormHeading(sForm.getForm());
 		createSummaryStatsSection(editorComposite, toolkit);
 		addSections(editorComposite, toolkit);
@@ -112,7 +112,7 @@ public class UsageEditorPart extends EditorPart {
 
 	protected void createActionSection(Composite parent, FormToolkit toolkit) {
 		Section section = toolkit.createSection(parent, ExpandableComposite.TITLE_BAR);
-		section.setText("Actions");
+		section.setText(Messages.UsageEditorPart_Actions);
 		section.setLayout(new GridLayout());
 		section.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		Composite container = toolkit.createComposite(section);
@@ -121,7 +121,7 @@ public class UsageEditorPart extends EditorPart {
 		layout.numColumns = 2;
 		container.setLayout(layout);
 
-		Button exportHtml = toolkit.createButton(container, "Export as HTML", SWT.PUSH | SWT.CENTER);
+		Button exportHtml = toolkit.createButton(container, Messages.UsageEditorPart_Export_As_Html, SWT.PUSH | SWT.CENTER);
 		exportHtml.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -129,7 +129,7 @@ public class UsageEditorPart extends EditorPart {
 			}
 		});
 
-		Button export = toolkit.createButton(container, "Export as CSV Files", SWT.PUSH | SWT.CENTER);
+		Button export = toolkit.createButton(container, Messages.UsageEditorPart_Export_As_CSV, SWT.PUSH | SWT.CENTER);
 		export.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -175,7 +175,7 @@ public class UsageEditorPart extends EditorPart {
 				StyledText t = new StyledText(summaryContainer, SWT.NONE);
 				t.setEditable(false);
 				for (String description : summary) {
-					t.append(description + System.getProperty("line.separator"));
+					t.append(description + System.getProperty("line.separator")); //$NON-NLS-1$
 
 				}
 				/*
@@ -214,13 +214,13 @@ public class UsageEditorPart extends EditorPart {
 		// files
 		try {
 			DirectoryDialog dialog = new DirectoryDialog(getSite().getWorkbenchWindow().getShell());
-			dialog.setText("Specify a directory for the CSV files");
+			dialog.setText(Messages.UsageEditorPart_Specify_Directory_For_Csv);
 			String directoryName = dialog.open();
 
 			File outputFile;
 			FileOutputStream outputStream;
 
-			String filename = directoryName + File.separator + "Usage.csv";
+			String filename = directoryName + File.separator + "Usage.csv"; //$NON-NLS-1$
 			outputFile = new File(filename);
 
 			outputStream = new FileOutputStream(outputFile, false);
@@ -234,12 +234,12 @@ public class UsageEditorPart extends EditorPart {
 			outputStream.close();
 
 		} catch (SWTException e) {
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Unable to get directory name",
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Unable to get directory name", //$NON-NLS-1$
 					e));
 		} catch (FileNotFoundException e) {
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Could not resolve file", e));
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Could not resolve file", e)); //$NON-NLS-1$
 		} catch (IOException e) {
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Could not write to file", e));
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Could not write to file", e)); //$NON-NLS-1$
 		}
 	}
 
@@ -247,28 +247,28 @@ public class UsageEditorPart extends EditorPart {
 		File outputFile;
 		try {
 			FileDialog dialog = new FileDialog(getSite().getWorkbenchWindow().getShell());
-			dialog.setText("Specify a file name");
-			dialog.setFilterExtensions(new String[] { "*.html", "*.*" });
+			dialog.setText(Messages.UsageEditorPart_Specify_File_Name);
+			dialog.setFilterExtensions(new String[] { "*.html", "*.*" }); //$NON-NLS-1$ //$NON-NLS-2$
 
 			String filename = dialog.open();
-			if (!filename.endsWith(".html")) {
-				filename += ".html";
+			if (!filename.endsWith(".html")) { //$NON-NLS-1$
+				filename += ".html"; //$NON-NLS-1$
 			}
 			outputFile = new File(filename);
 			// outputStream = new FileOutputStream(outputFile, true);
 			BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
-			writer.write("<html><head>");
+			writer.write("<html><head>"); //$NON-NLS-1$
 			for (IUsageCollector collector : editorInput.getReportGenerator().getCollectors()) {
-				writer.write("<h3>" + collector.getReportTitle() + "</h3>");
+				writer.write("<h3>" + collector.getReportTitle() + "</h3>"); //$NON-NLS-1$ //$NON-NLS-2$
 				for (String reportLine : collector.getReport()) {
 					writer.write(reportLine);
 				}
-				writer.write("<br><hr>");
+				writer.write("<br><hr>"); //$NON-NLS-1$
 			}
-			writer.write("</body></html>");
+			writer.write("</body></html>"); //$NON-NLS-1$
 			writer.close();
 		} catch (IOException e) {
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Cound not write to file", e));
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Cound not write to file", e)); //$NON-NLS-1$
 		}
 	}
 

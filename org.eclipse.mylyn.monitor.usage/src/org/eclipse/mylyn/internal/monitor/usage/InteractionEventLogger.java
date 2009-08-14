@@ -41,9 +41,7 @@ import org.eclipse.mylyn.monitor.core.InteractionEvent;
 import org.eclipse.mylyn.monitor.core.InteractionEvent.Kind;
 
 /**
- * @author Mik Kersten
- * 
- *         TODO: use buffered output stream for better performance?
+ * @author Mik Kersten TODO: use buffered output stream for better performance?
  */
 public class InteractionEventLogger extends AbstractMonitorLog implements IInteractionEventListener {
 
@@ -53,7 +51,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 
 	private final InteractionEventObfuscator handleObfuscator = new InteractionEventObfuscator();
 
-	private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S z", Locale.ENGLISH);
+	private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S z", Locale.ENGLISH); //$NON-NLS-1$
 
 	public InteractionEventLogger(File outputFile) {
 		this.outputFile = outputFile;
@@ -63,7 +61,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 //		 System.err.println("> " + event);
 		if (UiUsageMonitorPlugin.getDefault() == null) {
 			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.ID_PLUGIN,
-					"Attempted to log event before usage monitor start"));
+					"Attempted to log event before usage monitor start")); //$NON-NLS-1$
 		}
 		if (UiUsageMonitorPlugin.getDefault().isObfuscationEnabled()) {
 			String obfuscatedHandle = handleObfuscator.obfuscateHandle(event.getStructureKind(),
@@ -81,7 +79,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 			eventAccumulartor++;
 		} catch (Throwable t) {
 			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.ID_PLUGIN,
-					"Could not log interaction event", t));
+					"Could not log interaction event", t)); //$NON-NLS-1$
 		}
 	}
 
@@ -130,7 +128,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 		List<InteractionEvent> events = new ArrayList<InteractionEvent>();
 		try {
 			// The file may be a zip file...
-			if (file.getName().endsWith(".zip")) {
+			if (file.getName().endsWith(".zip")) { //$NON-NLS-1$
 				ZipFile zip = new ZipFile(file);
 				if (zip.entries().hasMoreElements()) {
 					ZipEntry entry = zip.entries().nextElement();
@@ -144,7 +142,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 
 		} catch (Exception e) {
 			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-					"Could not read interaction history", e));
+					"Could not read interaction history", e)); //$NON-NLS-1$
 		}
 		return events;
 	}
@@ -158,9 +156,9 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 	private void getHistoryFromStream(InputStream reader, List<InteractionEvent> events) throws IOException {
 		String xml;
 		int index;
-		String buf = "";
-		String tag = "</" + InteractionContextExternalizer.ELMNT_INTERACTION_HISTORY_OLD + ">";
-		String endl = "\r\n";
+		String buf = ""; //$NON-NLS-1$
+		String tag = "</" + InteractionContextExternalizer.ELMNT_INTERACTION_HISTORY_OLD + ">"; //$NON-NLS-1$ //$NON-NLS-2$
+		String endl = "\r\n"; //$NON-NLS-1$
 		byte[] buffer = new byte[1000];
 		int bytesRead = 0;
 		while ((bytesRead = reader.read(buffer)) != -1) {
@@ -174,7 +172,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 				}
 
 				if (index + endl.length() > buf.length()) {
-					buf = "";
+					buf = ""; //$NON-NLS-1$
 				} else {
 					buf = buf.substring(index + endl.length(), buf.length());
 				}
@@ -183,61 +181,61 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 		}
 	}
 
-	private static final String OPEN = "<";
+	private static final String OPEN = "<"; //$NON-NLS-1$
 
-	private static final String CLOSE = ">";
+	private static final String CLOSE = ">"; //$NON-NLS-1$
 
-	private static final String SLASH = "/";
+	private static final String SLASH = "/"; //$NON-NLS-1$
 
-	private static final String ENDL = "\n";
+	private static final String ENDL = "\n"; //$NON-NLS-1$
 
-	private static final String TAB = "\t";
+	private static final String TAB = "\t"; //$NON-NLS-1$
 
 	@Deprecated
 	public String writeLegacyEvent(InteractionEvent e) {
 		try {
 			StringBuffer res = new StringBuffer();
-			String tag = "interactionEvent";
+			String tag = "interactionEvent"; //$NON-NLS-1$
 			res.append(OPEN);
 			res.append(tag);
 			res.append(CLOSE);
 			res.append(ENDL);
 
-			openElement(res, "kind");
+			openElement(res, "kind"); //$NON-NLS-1$
 			formatContent(res, e.getKind());
-			closeElement(res, "kind");
+			closeElement(res, "kind"); //$NON-NLS-1$
 
-			openElement(res, "date");
+			openElement(res, "date"); //$NON-NLS-1$
 			formatContent(res, e.getDate());
-			closeElement(res, "date");
+			closeElement(res, "date"); //$NON-NLS-1$
 
-			openElement(res, "endDate");
+			openElement(res, "endDate"); //$NON-NLS-1$
 			formatContent(res, e.getEndDate());
-			closeElement(res, "endDate");
+			closeElement(res, "endDate"); //$NON-NLS-1$
 
-			openElement(res, "originId");
+			openElement(res, "originId"); //$NON-NLS-1$
 			formatContent(res, e.getOriginId());
-			closeElement(res, "originId");
+			closeElement(res, "originId"); //$NON-NLS-1$
 
-			openElement(res, "structureKind");
+			openElement(res, "structureKind"); //$NON-NLS-1$
 			formatContent(res, e.getStructureKind());
-			closeElement(res, "structureKind");
+			closeElement(res, "structureKind"); //$NON-NLS-1$
 
-			openElement(res, "structureHandle");
+			openElement(res, "structureHandle"); //$NON-NLS-1$
 			formatContent(res, e.getStructureHandle());
-			closeElement(res, "structureHandle");
+			closeElement(res, "structureHandle"); //$NON-NLS-1$
 
-			openElement(res, "navigation");
+			openElement(res, "navigation"); //$NON-NLS-1$
 			formatContent(res, e.getNavigation());
-			closeElement(res, "navigation");
+			closeElement(res, "navigation"); //$NON-NLS-1$
 
-			openElement(res, "delta");
+			openElement(res, "delta"); //$NON-NLS-1$
 			formatContent(res, e.getDelta());
-			closeElement(res, "delta");
+			closeElement(res, "delta"); //$NON-NLS-1$
 
-			openElement(res, "interestContribution");
+			openElement(res, "interestContribution"); //$NON-NLS-1$
 			formatContent(res, e.getInterestContribution());
-			closeElement(res, "interestContribution");
+			closeElement(res, "interestContribution"); //$NON-NLS-1$
 
 			res.append(OPEN);
 			res.append(SLASH);
@@ -246,8 +244,8 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 			res.append(ENDL);
 			return res.toString();
 		} catch (Throwable t) {
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Could not write event", t));
-			return "";
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Could not write event", t)); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
 	}
 
@@ -260,7 +258,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 		if (content != null && content.length() > 0) {
 			String xmlContent;
 			xmlContent = org.eclipse.mylyn.internal.commons.core.XmlStringConverter.convertToXmlString(content);
-			xmlContent = xmlContent.replace("\n", "\n\t\t");
+			xmlContent = xmlContent.replace("\n", "\n\t\t"); //$NON-NLS-1$ //$NON-NLS-2$
 			buffer.append(xmlContent);
 		}
 	}
@@ -291,36 +289,36 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 	public InteractionEvent readLegacyEvent(String xml) {
 		Reader reader = new StringReader(xml);
 		HtmlStreamTokenizer tokenizer = new HtmlStreamTokenizer(reader, null);
-		String kind = "";
-		String startDate = "";
-		String endDate = "";
-		String originId = "";
-		String structureKind = "";
-		String structureHandle = "";
-		String navigation = "";
-		String delta = "";
-		String interest = "";
+		String kind = ""; //$NON-NLS-1$
+		String startDate = ""; //$NON-NLS-1$
+		String endDate = ""; //$NON-NLS-1$
+		String originId = ""; //$NON-NLS-1$
+		String structureKind = ""; //$NON-NLS-1$
+		String structureHandle = ""; //$NON-NLS-1$
+		String navigation = ""; //$NON-NLS-1$
+		String delta = ""; //$NON-NLS-1$
+		String interest = ""; //$NON-NLS-1$
 		try {
 			for (Token token = tokenizer.nextToken(); token.getType() != Token.EOF; token = tokenizer.nextToken()) {
-				if (token.getValue().toString().equals("<kind>")) {
-					kind = readStringContent(tokenizer, "</kind>");
+				if (token.getValue().toString().equals("<kind>")) { //$NON-NLS-1$
+					kind = readStringContent(tokenizer, "</kind>"); //$NON-NLS-1$
 					kind = kind.toLowerCase(Locale.ENGLISH);
-				} else if (token.getValue().toString().equals("<date>")) {
-					startDate = readStringContent(tokenizer, "</date>");
-				} else if (token.getValue().toString().equals("<endDate>")) {
-					endDate = readStringContent(tokenizer, "</endDate>");
-				} else if (token.getValue().toString().equals("<originId>")) {
-					originId = readStringContent(tokenizer, "</originId>");
-				} else if (token.getValue().toString().equals("<structureKind>")) {
-					structureKind = readStringContent(tokenizer, "</structureKind>");
-				} else if (token.getValue().toString().equals("<structureHandle>")) {
-					structureHandle = readStringContent(tokenizer, "</structureHandle>");
-				} else if (token.getValue().toString().equals("<navigation>")) {
-					navigation = readStringContent(tokenizer, "</navigation>");
-				} else if (token.getValue().toString().equals("<delta>")) {
-					delta = readStringContent(tokenizer, "</delta>");
-				} else if (token.getValue().toString().equals("<interestContribution>")) {
-					interest = readStringContent(tokenizer, "</interestContribution>");
+				} else if (token.getValue().toString().equals("<date>")) { //$NON-NLS-1$
+					startDate = readStringContent(tokenizer, "</date>"); //$NON-NLS-1$
+				} else if (token.getValue().toString().equals("<endDate>")) { //$NON-NLS-1$
+					endDate = readStringContent(tokenizer, "</endDate>"); //$NON-NLS-1$
+				} else if (token.getValue().toString().equals("<originId>")) { //$NON-NLS-1$
+					originId = readStringContent(tokenizer, "</originId>"); //$NON-NLS-1$
+				} else if (token.getValue().toString().equals("<structureKind>")) { //$NON-NLS-1$
+					structureKind = readStringContent(tokenizer, "</structureKind>"); //$NON-NLS-1$
+				} else if (token.getValue().toString().equals("<structureHandle>")) { //$NON-NLS-1$
+					structureHandle = readStringContent(tokenizer, "</structureHandle>"); //$NON-NLS-1$
+				} else if (token.getValue().toString().equals("<navigation>")) { //$NON-NLS-1$
+					navigation = readStringContent(tokenizer, "</navigation>"); //$NON-NLS-1$
+				} else if (token.getValue().toString().equals("<delta>")) { //$NON-NLS-1$
+					delta = readStringContent(tokenizer, "</delta>"); //$NON-NLS-1$
+				} else if (token.getValue().toString().equals("<interestContribution>")) { //$NON-NLS-1$
+					interest = readStringContent(tokenizer, "</interestContribution>"); //$NON-NLS-1$
 				}
 			}
 			float interestFloatVal = 0;
@@ -335,13 +333,13 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 			return event;
 
 		} catch (ParseException e) {
-			System.err.println("readevent: " + xml);
+			System.err.println("readevent: " + xml); //$NON-NLS-1$
 			e.printStackTrace();
 		} catch (IOException e) {
-			System.err.println("readevent: " + xml);
+			System.err.println("readevent: " + xml); //$NON-NLS-1$
 			e.printStackTrace();
 		} catch (Exception e) {
-			System.err.println("readevent: " + xml);
+			System.err.println("readevent: " + xml); //$NON-NLS-1$
 			e.printStackTrace();
 		}
 

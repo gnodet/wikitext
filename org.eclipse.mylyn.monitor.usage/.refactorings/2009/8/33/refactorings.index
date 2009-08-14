@@ -14,3 +14,6 @@
 1250270540402	Extract local variable 'filteredIds'
 1250270608008	Rename method 'addFilteredId'
 1250272633196	Convert member type 'LogMoveUtility' to top level
+1250285355374	Extract constant 'METADATA_MYLYN_DIR'
+1250286367058	Extract constant 'ID_PAGE_FILE_SELECTION'
+1250287059175	Rename field 'PREF_USER_ID'
