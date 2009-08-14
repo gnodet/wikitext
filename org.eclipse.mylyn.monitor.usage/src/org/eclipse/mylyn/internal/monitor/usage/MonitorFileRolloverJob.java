@@ -32,6 +32,7 @@ import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
 import org.eclipse.mylyn.internal.monitor.usage.editors.UsageStatsEditorInput;
 import org.eclipse.mylyn.internal.monitor.usage.editors.UsageSummaryReportEditorPart;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
@@ -42,7 +43,6 @@ import org.eclipse.ui.PlatformUI;
  * org.eclipse.mylyn.internal.tasks.ui.util.TaskDataExportJob). Overwrites destination if exists!
  * 
  * @author Meghan Allen
- * 
  */
 public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 
@@ -65,9 +65,12 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 
 	public static final String BACKUP_FILE_SUFFIX = "monitor-log";
 
-	public MonitorFileRolloverJob(List<IUsageCollector> collectors) {
+	private final StudyParameters studyParameters;
+
+	public MonitorFileRolloverJob(List<IUsageCollector> collectors, StudyParameters studyParameters) {
 		super(JOB_LABEL);
 		this.collectors = collectors;
+		this.studyParameters = studyParameters;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -207,32 +210,34 @@ public class MonitorFileRolloverJob extends Job implements IJobChangeListener {
 		final List<File> files = new ArrayList<File>();
 
 		files.add(monitorFile);
-		input = new UsageStatsEditorInput(files, generator);
-
 		progressMonitor.done();
 
-		if (forceSyncForTesting) {
-			try {
-				final IEditorInput input = this.input;
+		Display.getDefault().asyncExec(new Runnable() {
 
-				IWorkbenchPage page = UiUsageMonitorPlugin.getDefault()
-						.getWorkbench()
-						.getActiveWorkbenchWindow()
-						.getActivePage();
-				if (page == null) {
-					return new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, IStatus.OK, "Mylyn Usage Summary",
-							null);
-				}
-				if (input != null) {
-					page.openEditor(input, UsageSummaryReportEditorPart.ID);
-				}
+			public void run() {
+				// ignore
 
-			} catch (PartInitException e) {
-				StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-						"Could not show usage summary", e));
+				if (!forceSyncForTesting) {
+					input = new UsageStatsEditorInput(files, generator, studyParameters);
+					try {
+
+						IWorkbenchPage page = UiUsageMonitorPlugin.getDefault()
+								.getWorkbench()
+								.getActiveWorkbenchWindow()
+								.getActivePage();
+
+						if (input != null) {
+							page.openEditor(input, UsageSummaryReportEditorPart.ID);
+						}
+
+					} catch (PartInitException e) {
+						StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
+								"Could not show usage summary", e));
+					}
+
+				}
 			}
-
-		}
+		});
 
 		return Status.OK_STATUS;
 	}

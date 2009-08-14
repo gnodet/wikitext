@@ -16,6 +16,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +26,7 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
@@ -53,8 +55,6 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	public static final String LOG = "log";
 
 	public static final String STATS = "usage";
-
-	private static final String ORG_ECLIPSE_PREFIX = "org.eclipse.";
 
 	private boolean displayBackgroundPage = false;
 
@@ -108,8 +108,14 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			addBackgroundPage();
 			final int[] newUid = new int[1];
 			try {
-				// TODO make sure that this works in some way 
-				getContainer().run(false, true, new IRunnableWithProgress() {
+
+				IRunnableContext service = getContainer();
+				if (service == null) {
+					service = PlatformUI.getWorkbench().getProgressService();
+
+				}
+
+				service.run(false, true, new IRunnableWithProgress() {
 
 					public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 						newUid[0] = UiUsageMonitorPlugin.getDefault().getUploadManager().getNewUid(studyParameters,
@@ -303,16 +309,33 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		logger.startMonitoring();
 		List<InteractionEvent> eventList = logger.getHistoryFromFile(monitorFile);
 
+		Collection<String> filteredIds = studyParameters.getFilteredIds();
+
 		if (eventList.size() > 0) {
 			for (InteractionEvent event : eventList) {
 
-				if (event.getOriginId().startsWith(ORG_ECLIPSE_PREFIX)) {
+				if (shouldIncludeEvent(event, filteredIds)) {
 					logger.interactionObserved(event);
+				} else {
+
+					System.out.println(event.getOriginId());
 				}
 			}
 		}
 
 		return processedFile;
+	}
+
+	private boolean shouldIncludeEvent(InteractionEvent event, Collection<String> filteredIds) {
+		if (filteredIds.size() == 0) {
+			return true;
+		}
+		for (String filterId : filteredIds) {
+			if (event.getOriginId().startsWith(filterId)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void addToSubmittedLogFile(String fileName) {

@@ -43,6 +43,8 @@ class UiUsageMonitorExtensionPointReader {
 
 	public static final String ELEMENT_UI_TITLE = "title";
 
+	public static final String ELEMENT_UI_STUDY_NAME = "studyName";
+
 	public static final String ELEMENT_UI_DESCRIPTION = "description";
 
 	public static final String ELEMENT_UI_UPLOAD_PROMPT = "daysBetweenUpload";
@@ -55,9 +57,15 @@ class UiUsageMonitorExtensionPointReader {
 
 	public static final String ELEMENT_UI_CONTACT_CONSENT_FIELD = "useContactField";
 
+	public static final String ELEMENT_UI_URL_USAGE_PAGE = "usagePageUrl";
+
 	public static final String ELEMENT_MONITORS = "monitors";
 
 	public static final String ELEMENT_MONITORS_BROWSER_URL = "browserUrlFilter";
+
+	public static final String ELEMENT_FILTER = "filter";
+
+	public static final String ELEMENT_FILTER_ID_PREFIX = "idPrefix";
 
 	private boolean extensionsRead = false;
 
@@ -90,6 +98,8 @@ class UiUsageMonitorExtensionPointReader {
 								readForms(element);
 							} else if (element.getName().compareTo(ELEMENT_MONITORS) == 0) {
 								readMonitors(element);
+							} else if (element.getName().compareTo(ELEMENT_FILTER) == 0) {
+								readFilter(element);
 							}
 						}
 						studyParameters.setCustomizingPlugin(extension.getContributor().getName());
@@ -107,6 +117,11 @@ class UiUsageMonitorExtensionPointReader {
 		}
 	}
 
+	private void readFilter(IConfigurationElement element) {
+		studyParameters.addFilteredIdPattern(element.getAttribute(ELEMENT_FILTER_ID_PREFIX));
+
+	}
+
 	private void readScripts(IConfigurationElement element) {
 		studyParameters.setVersion(element.getAttribute(ELEMENT_SCRIPTS_VERSION));
 		String serverUrl = element.getAttribute(ELEMENT_SCRIPTS_SERVER_URL);
@@ -121,6 +136,8 @@ class UiUsageMonitorExtensionPointReader {
 	}
 
 	private void readForms(IConfigurationElement element) throws CoreException {
+		studyParameters.setUsagePageUrl(element.getAttribute(ELEMENT_UI_URL_USAGE_PAGE));
+		studyParameters.setStudyName(element.getAttribute(ELEMENT_UI_STUDY_NAME));
 		studyParameters.setTitle(element.getAttribute(ELEMENT_UI_TITLE));
 		studyParameters.setDescription(element.getAttribute(ELEMENT_UI_DESCRIPTION));
 		if (element.getAttribute(ELEMENT_UI_UPLOAD_PROMPT) != null) {

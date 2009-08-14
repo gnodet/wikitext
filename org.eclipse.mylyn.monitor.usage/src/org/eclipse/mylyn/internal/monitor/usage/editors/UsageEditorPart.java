@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
+import org.eclipse.mylyn.internal.monitor.usage.StudyParameters;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -59,6 +60,8 @@ public class UsageEditorPart extends EditorPart {
 
 	protected Composite editorComposite;
 
+	protected StudyParameters studyParameters;
+
 	@Override
 	public void doSave(IProgressMonitor monitor) {
 	}
@@ -73,6 +76,7 @@ public class UsageEditorPart extends EditorPart {
 		setInput(input);
 		editorInput = (UsageStatsEditorInput) input;
 		setPartName(editorInput.getName());
+		this.studyParameters = editorInput.getStudyParameters();
 	}
 
 	@Override

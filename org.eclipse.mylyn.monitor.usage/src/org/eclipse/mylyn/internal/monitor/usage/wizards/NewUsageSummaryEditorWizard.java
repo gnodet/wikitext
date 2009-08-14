@@ -20,6 +20,8 @@ import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
 import org.eclipse.mylyn.internal.monitor.core.collection.ViewUsageCollector;
 import org.eclipse.mylyn.internal.monitor.usage.MonitorFileRolloverJob;
+import org.eclipse.mylyn.internal.monitor.usage.StudyParameters;
+import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.internal.monitor.usage.collectors.PerspectiveUsageCollector;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
@@ -33,10 +35,13 @@ public class NewUsageSummaryEditorWizard extends Wizard implements INewWizard {
 
 	private UsageSummaryEditorWizardPage usageSummaryPage;
 
+	private final StudyParameters studyParameters;
+
 	public NewUsageSummaryEditorWizard() {
 		super();
 		init();
 		setWindowTitle(TITLE);
+		studyParameters = UiUsageMonitorPlugin.getDefault().getStudyParameters();
 	}
 
 	private void init() {
@@ -60,7 +65,7 @@ public class NewUsageSummaryEditorWizard extends Wizard implements INewWizard {
 			collectors.add(mylynViewUsageCollector);
 		}
 
-		MonitorFileRolloverJob job = new MonitorFileRolloverJob(collectors);
+		MonitorFileRolloverJob job = new MonitorFileRolloverJob(collectors, studyParameters);
 		job.setPriority(Job.LONG);
 		job.schedule();
 

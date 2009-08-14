@@ -12,7 +12,6 @@
 package org.eclipse.mylyn.examples.monitor.study;
 
 import org.eclipse.jdt.internal.ui.JavaPlugin;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.monitor.ui.MonitorUiPlugin;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
@@ -96,14 +95,4 @@ public class MylynUserStudyExamplePlugin extends AbstractUIPlugin {
 		return plugin;
 	}
 
-	/**
-	 * Returns an image descriptor for the image file at the given plug-in relative path.
-	 * 
-	 * @param path
-	 *            the path
-	 * @return the image descriptor
-	 */
-	public static ImageDescriptor getImageDescriptor(String path) {
-		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.mylyn.examples.monitor.study", path);
-	}
 }

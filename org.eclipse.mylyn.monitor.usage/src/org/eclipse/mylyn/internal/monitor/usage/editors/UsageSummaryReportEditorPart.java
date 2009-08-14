@@ -64,8 +64,6 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 
 	private static final long MAX_FILE_LENGTH = 1024 * 1024;
 
-	private static final String URL_USAGE_PAGE = "http://mylyn.eclipse.org/monitor/upload/usageSummary.html";
-
 	private static final String DATE_FORMAT_STRING = "MMMMM d, h:mm a";
 
 	// private static final int MAX_NUM_LINES = 1000;
@@ -123,7 +121,8 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 		buttonContainerLayout.numColumns = 3;
 		buttonContainer.setLayout(buttonContainerLayout);
 
-		Button submitData = toolkit.createButton(buttonContainer, "Submit to Eclipse.org", SWT.PUSH | SWT.CENTER);
+		Button submitData = toolkit.createButton(buttonContainer, "Submit to " + studyParameters.getStudyName(),
+				SWT.PUSH | SWT.CENTER);
 		submitData.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -146,23 +145,30 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 				viewStats();
 			}
 		});
+
+		if (studyParameters.getUsagePageUrl() == null || studyParameters.getUsagePageUrl().length() == 0) {
+			viewStats.setEnabled(false);
+		}
+
 		Composite labelContainer = toolkit.createComposite(topContainer);
 		GridLayout labelContainerLayout = new GridLayout();
 		labelContainerLayout.numColumns = 1;
 		labelContainer.setLayout(labelContainerLayout);
 		Label submissionLabel = new Label(labelContainer, SWT.NONE);
-		submissionLabel.setText("Only usage of org.eclipse.* IDs will be submitted to Eclipse.org");
+
+		submissionLabel.setText(studyParameters.getFilteredIdSubmissionText());
+
 	}
 
 	/**
-	 * TODO: move to Mylyn Web UI stuff
+	 * TODO: Use the coommon api for opening web pages
 	 */
 	private void viewStats() {
 		try {
 			if (WebBrowserPreference.getBrowserChoice() == WebBrowserPreference.EXTERNAL) {
 				try {
 					IWorkbenchBrowserSupport support = PlatformUI.getWorkbench().getBrowserSupport();
-					support.getExternalBrowser().openURL(new URL(URL_USAGE_PAGE));
+					support.getExternalBrowser().openURL(new URL(studyParameters.getUsagePageUrl()));
 				} catch (Exception e) {
 					StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
 							"Could not open task url", e));
@@ -181,7 +187,7 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 
 				String generatedId = "org.eclipse.mylyn.web.browser-" + Calendar.getInstance().getTimeInMillis();
 				browser = WorkbenchBrowserSupport.getInstance().createBrowser(flags, generatedId, null, null);
-				browser.openURL(new URL(URL_USAGE_PAGE));
+				browser.openURL(new URL(studyParameters.getUsagePageUrl()));
 			}
 		} catch (PartInitException e) {
 			MessageDialog.openError(Display.getDefault().getActiveShell(), "Browser init error",

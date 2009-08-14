@@ -16,8 +16,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
@@ -100,8 +98,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 	private final List<AbstractCommandMonitor> commandMonitors = new ArrayList<AbstractCommandMonitor>();
 
-	private ResourceBundle resourceBundle;
-
 	private static Date lastTransmit = null;
 
 	private static boolean performingUpload = false;
@@ -175,35 +171,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 	};
 
 	private LogMoveUtility logMoveUtility;
-
-	/**
-	 * NOTE: this needs to be a separate class in order to avoid loading ..mylyn.context.core on eager startup
-	 */
-	private class LogMoveUtility {
-
-//		private final IContextStoreListener DATA_DIR_MOVE_LISTENER = new IContextStoreListener() {
-//
-//			public void contextStoreMoved(File file) {
-//				if (!isPerformingUpload()) {
-//					for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners()) {
-//						listener.stopMonitoring();
-//					}
-//					interactionLogger.moveOutputFile(getMonitorLogFile().getAbsolutePath());
-//					for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners()) {
-//						listener.startMonitoring();
-//					}
-//				}
-//			}
-//		};
-
-		void start() {
-//			ContextCore.getContextStore().addListener(DATA_DIR_MOVE_LISTENER);
-		}
-
-		void stop() {
-//			ContextCore.getContextStore().removeListener(DATA_DIR_MOVE_LISTENER);
-		}
-	}
 
 	public UiUsageMonitorPlugin() {
 		plugin = this;
@@ -320,9 +287,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 			((IMonitorLifecycleListener) listener).startMonitoring();
 		}
 
-		if (!MonitorUiPlugin.getDefault().suppressConfigurationWizards()) {
-			checkForFirstMonitorUse();
-		}
 		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_MONITORING_STARTED, true);
 	}
 
@@ -344,7 +308,8 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 	public boolean isObfuscationEnabled() {
 		return UiUsageMonitorPlugin.getDefault().getPreferenceStore().getBoolean(
-				MonitorPreferenceConstants.PREF_MONITORING_OBFUSCATE);
+				MonitorPreferenceConstants.PREF_MONITORING_OBFUSCATE)
+				|| (studyParameters != null && studyParameters.forceObfuscation());
 	}
 
 	public void stopMonitoring() {
@@ -401,7 +366,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		plugin = null;
-		resourceBundle = null;
 	}
 
 	public void actionObserved(IAction action, String info) {
@@ -458,37 +422,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 	 */
 	public static UiUsageMonitorPlugin getDefault() {
 		return plugin;
-	}
-
-	/**
-	 * Returns the string from the plugin's resource bundle, or 'key' if not found.
-	 */
-	public static String getResourceString(String key) {
-		ResourceBundle bundle = UiUsageMonitorPlugin.getDefault().getResourceBundle();
-		try {
-			return (bundle != null) ? bundle.getString(key) : key;
-		} catch (MissingResourceException e) {
-			return key;
-		}
-	}
-
-	/**
-	 * Returns the plugin's resource bundle,
-	 */
-	public ResourceBundle getResourceBundle() {
-		try {
-			if (resourceBundle == null) {
-				resourceBundle = ResourceBundle.getBundle("org.eclipse.mylyn.monitor.ui.MonitorPluginResources");
-			}
-		} catch (MissingResourceException x) {
-			resourceBundle = null;
-		}
-		return resourceBundle;
-	}
-
-	// TODO: remove
-	private void checkForFirstMonitorUse() {
-
 	}
 
 	// NOTE: not currently used
@@ -602,6 +535,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 	}
 
 	private void initializeDefaultStudyParameters() {
+		studyParameters = new StudyParameters();
 		studyParameters.setVersion("");
 		studyParameters.setUploadServletUrl("http://mylyn.eclipse.org/monitor/upload/MylarUsageUploadServlet");
 		studyParameters.setUserIdServletUrl("http://mylyn.eclipse.org/monitor/upload/GetUserIDServlet");
@@ -612,5 +546,8 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		studyParameters.setUseContactField("false");
 		studyParameters.setAcceptedUrlList("");
 		studyParameters.setFormsConsent("/doc/study-ethics.html");
+		studyParameters.setUsagePageUrl("http://mylyn.eclipse.org/monitor/upload/usageSummary.html");
+		studyParameters.setStudyName("Eclipse.org");
+		studyParameters.addFilteredIdPattern("org.eclipse.");
 	}
 }

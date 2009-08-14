@@ -32,6 +32,7 @@ import org.eclipse.mylyn.internal.monitor.core.collection.SummaryCollector;
 import org.eclipse.mylyn.internal.monitor.core.collection.ViewUsageCollector;
 import org.eclipse.mylyn.internal.monitor.reports.MonitorReportsPlugin;
 import org.eclipse.mylyn.internal.monitor.usage.ReportGenerator;
+import org.eclipse.mylyn.internal.monitor.usage.StudyParameters;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.internal.monitor.usage.collectors.PerspectiveUsageCollector;
 import org.eclipse.mylyn.internal.monitor.usage.editors.UsageStatsEditorInput;
@@ -55,6 +56,9 @@ public class EclipseUsageSummaryAction implements IViewActionDelegate {
 
 	public void run(IAction action) {
 		if (action instanceof ViewPluginAction) {
+
+			final StudyParameters studyParameters = UiUsageMonitorPlugin.getDefault().getStudyParameters();
+
 			ViewPluginAction objectAction = (ViewPluginAction) action;
 			final List<File> files = getStatsFilesFromSelection(objectAction);
 			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
@@ -82,7 +86,8 @@ public class EclipseUsageSummaryAction implements IViewActionDelegate {
 										if (page == null) {
 											return;
 										}
-										IEditorInput input = new UsageStatsEditorInput(files, generator);
+										IEditorInput input = new UsageStatsEditorInput(files, generator,
+												studyParameters);
 										page.openEditor(input, MonitorReportsPlugin.REPORT_SUMMARY_ID);
 									} catch (PartInitException e) {
 										StatusHandler.log(new Status(IStatus.ERROR, MonitorReportsPlugin.ID_PLUGIN,

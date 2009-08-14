@@ -16,6 +16,7 @@
             <element ref="scripts"/>
             <element ref="ui"/>
             <element ref="monitors"/>
+            <element ref="filter"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -151,12 +152,38 @@
                </documentation>
             </annotation>
          </attribute>
+         <attribute name="usagePageUrl" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="studyName" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 
    <element name="monitors">
       <complexType>
          <attribute name="browserUrlFilter" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="filter">
+      <complexType>
+         <attribute name="idPrefix" type="string" use="required">
             <annotation>
                <documentation>
                   

@@ -28,13 +28,12 @@ import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
 import org.eclipse.mylyn.internal.monitor.core.collection.PercentUsageComparator;
 import org.eclipse.mylyn.internal.monitor.ui.PerspectiveChangeMonitor;
+import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
 
 /**
  * @author Mik Kersten
- * @author Leah Findlater
- * 
- *         TODO: put unclassified events in dummy perspective
+ * @author Leah Findlater TODO: put unclassified events in dummy perspective
  */
 public class PerspectiveUsageCollector implements IUsageCollector {
 
@@ -102,7 +101,7 @@ public class PerspectiveUsageCollector implements IUsageCollector {
 			writer.close();
 
 		} catch (IOException e) {
-			StatusHandler.log(new Status(IStatus.ERROR, "org.eclipse.mylyn.monitor.core", "Unable to write CVS file <" //$NON-NLS-1$//$NON-NLS-2$
+			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Unable to write CSV file <" //$NON-NLS-1$
 					+ filename + ">", e)); //$NON-NLS-1$
 		}
 

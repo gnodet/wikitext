@@ -21,7 +21,14 @@
                daysBetweenUpload="6"
                description="Sample user stydy upload"
                questionnairePage="org.eclipse.mylyn.examples.monitor.study.QuestionnaireWizardPage"
-               title="Mylyn User Study Example"/>
+               studyName="Sample Study"
+               title="Mylyn User Study Example"
+               usagePageUrl="http://someServer/stats.html"
+               useContactField="false"/>
+         <filter
+               idPrefix="org.eclipse."/>
+         <filter
+               idPrefix="com.sampleproject."/>
    </extension>
    
    <extension point="org.eclipse.ui.newWizards">

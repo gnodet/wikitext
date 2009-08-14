@@ -119,7 +119,7 @@ public class UsageUploadWizardPage extends WizardPage {
 		bottomContainerLayout.numColumns = 2;
 
 		Label submissionLabel = new Label(bottomContainer, SWT.NONE);
-		submissionLabel.setText("Only events from org.eclipse.* packages will be submitted to Eclipse.org");
+		submissionLabel.setText(studyParameters.getFilteredIdSubmissionText());
 
 		setControl(container);
 	}

@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylyn.internal.monitor.usage.ReportGenerator;
+import org.eclipse.mylyn.internal.monitor.usage.StudyParameters;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IPersistableElement;
 
@@ -34,10 +35,11 @@ public class UsageStatsEditorInput implements IEditorInput {
 	/**
 	 * Supports either the single workspace file or multiple zip files.
 	 */
-	public UsageStatsEditorInput(List<File> files, ReportGenerator reportGenerator) {
+	public UsageStatsEditorInput(List<File> files, ReportGenerator reportGenerator, StudyParameters studyParameters) {
 		// try {
 		this.reportGenerator = reportGenerator;
 		usageFiles = files;
+		this.studyParameters = studyParameters;
 		reportGenerator.getStatisticsFromInteractionHistories(usageFiles, null);
 	}
 
@@ -76,6 +78,8 @@ public class UsageStatsEditorInput implements IEditorInput {
 
 	private final byte[] buffer = new byte[8192];
 
+	private final StudyParameters studyParameters;
+
 	public void transferData(InputStream sourceStream, OutputStream destination) throws IOException {
 		int bytesRead = 0;
 		while (bytesRead != -1) {
@@ -84,5 +88,9 @@ public class UsageStatsEditorInput implements IEditorInput {
 				destination.write(buffer, 0, bytesRead);
 			}
 		}
+	}
+
+	public StudyParameters getStudyParameters() {
+		return studyParameters;
 	}
 }

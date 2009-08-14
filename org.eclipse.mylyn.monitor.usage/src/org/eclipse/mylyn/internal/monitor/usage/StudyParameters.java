@@ -12,6 +12,10 @@
 
 package org.eclipse.mylyn.internal.monitor.usage;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+
 import org.eclipse.mylyn.monitor.usage.AbstractStudyBackgroundPage;
 import org.eclipse.mylyn.monitor.usage.AbstractStudyQuestionnairePage;
 
@@ -46,6 +50,12 @@ public class StudyParameters {
 	private String customizingPlugin;
 
 	private boolean forceObfuscation = false;
+
+	private String usagePageUrl;
+
+	private String studyName;
+
+	private final Collection<String> filteredIds = new HashSet<String>();
 
 	public String getUploadServletUrl() {
 		return uploadServletUrl;
@@ -204,6 +214,46 @@ public class StudyParameters {
 
 	public String getUploadFileLabel() {
 		return "USAGE";// TODO make this extensible
+	}
+
+	public void setUsagePageUrl(String usagePageUrl) {
+		this.usagePageUrl = usagePageUrl;
+	}
+
+	public String getUsagePageUrl() {
+		return usagePageUrl;
+	}
+
+	public String getStudyName() {
+		return studyName;
+	}
+
+	public void setStudyName(String studyName) {
+		this.studyName = studyName;
+	}
+
+	public Collection<String> getFilteredIds() {
+		return Collections.unmodifiableCollection(filteredIds);
+	}
+
+	public void addFilteredIdPattern(String id) {
+		if (id != null && id.trim().length() > 0) {
+			filteredIds.add(id.trim());
+		}
+	}
+
+	public String getFilteredIdSubmissionText() {
+		Collection<String> filteredIds = getFilteredIds();
+		if (filteredIds.size() != 0) {
+
+			String filteredIdsString = "";
+			for (String id : filteredIds) {
+				filteredIdsString += id + "* ";
+			}
+			return "Only events from " + filteredIdsString + "packages will be submitted to " + getStudyName();
+		} else {
+			return "All events will be submitted to " + getStudyName();
+		}
 	}
 
 }

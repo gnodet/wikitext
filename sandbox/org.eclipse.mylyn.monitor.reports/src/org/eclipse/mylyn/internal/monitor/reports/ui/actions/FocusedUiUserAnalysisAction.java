@@ -24,6 +24,7 @@ import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
 import org.eclipse.mylyn.internal.monitor.reports.MonitorReportsPlugin;
 import org.eclipse.mylyn.internal.monitor.reports.collectors.FocusedUiUsageAnalysisCollector;
 import org.eclipse.mylyn.internal.monitor.usage.ReportGenerator;
+import org.eclipse.mylyn.internal.monitor.usage.StudyParameters;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.mylyn.internal.monitor.usage.editors.UsageStatsEditorInput;
 import org.eclipse.ui.IEditorInput;
@@ -45,6 +46,7 @@ public class FocusedUiUserAnalysisAction implements IViewActionDelegate {
 
 	public void run(IAction action) {
 		if (action instanceof ViewPluginAction) {
+			final StudyParameters studyParameters = UiUsageMonitorPlugin.getDefault().getStudyParameters();
 			ViewPluginAction objectAction = (ViewPluginAction) action;
 			final List<File> files = EclipseUsageSummaryAction.getStatsFilesFromSelection(objectAction);
 			if (files.isEmpty()) {
@@ -65,7 +67,7 @@ public class FocusedUiUserAnalysisAction implements IViewActionDelegate {
 						if (page == null) {
 							return;
 						}
-						IEditorInput input = new UsageStatsEditorInput(files, generator);
+						IEditorInput input = new UsageStatsEditorInput(files, generator, studyParameters);
 						page.openEditor(input, MonitorReportsPlugin.REPORT_USERS_ID);
 					} catch (PartInitException e) {
 						StatusHandler.log(new Status(IStatus.ERROR, MonitorReportsPlugin.ID_PLUGIN,

@@ -11,3 +11,6 @@
 1250193185660	Extract local variable 'uiUsageMonitorExtensionPointReader'
 1250198892427	Extract method 'initializeDefaultStudyParameters'
 1250200076406	Delete element
+1250270540402	Extract local variable 'filteredIds'
+1250270608008	Rename method 'addFilteredId'
+1250272633196	Convert member type 'LogMoveUtility' to top level
