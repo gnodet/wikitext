@@ -19,7 +19,7 @@
   		  	label="Reports: My Usage Summary" 
 	  		tooltip="Mylyn Reports: Usage Summary"
 	  		menubarPath="mylyn.monitor" 
-	  		id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.ComputeSummaryAction" 
+	  		id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.packageExplorer.ComputeMySummaryAction" 
 	  		class="org.eclipse.mylyn.internal.monitor.reports.ui.actions.EclipseUsageSummaryAction"
 	  		icon="icons/eview16/monitor.gif"
 	  		enablesFor="*"/>   
@@ -27,7 +27,7 @@
   		  	label="Reports: Mylyn User Analysis" 
 	  		tooltip="Mylyn Reports: User Analysis"
 	  		menubarPath="mylyn.monitor" 
-	  		id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.ComputeSummaryAction" 
+	  		id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.packageExplorer.ComputeSummaryAction" 
 	  		class="org.eclipse.mylyn.internal.monitor.reports.ui.actions.FocusedUiUserAnalysisAction"
 	  		icon="icons/eview16/monitor.gif"
 	  		enablesFor="*"/>   
@@ -39,7 +39,7 @@
   		  	label="Reports: My Usage Summary" 
 	  		tooltip="Mylyn Reports: My Usage Summary"
 	  		menubarPath="mylyn.monitor" 
-	  		id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.ComputeSummaryAction" 
+	  		id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.resourceNavigator.ComputeMySummaryAction" 
 	  		class="org.eclipse.mylyn.internal.monitor.reports.ui.actions.EclipseUsageSummaryAction"
 	  		icon="icons/eview16/monitor.gif"
 	  		enablesFor="*"/>   
@@ -47,7 +47,7 @@
   		  	label="Reports: Mylyn User Analysis" 
 	  		tooltip="Mylyn Reports: User Analysis"
 	  		menubarPath="mylyn.monitor" 
-	  		id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.ComputeSummaryAction" 
+	  		id="org.eclipse.mylyn.monitor.ui.reports.ui.actions.resourceNavigator.ComputeSummaryAction" 
 	  		class="org.eclipse.mylyn.internal.monitor.reports.ui.actions.FocusedUiUserAnalysisAction"
 	  		icon="icons/eview16/monitor.gif"
 	  		enablesFor="*"/>   
