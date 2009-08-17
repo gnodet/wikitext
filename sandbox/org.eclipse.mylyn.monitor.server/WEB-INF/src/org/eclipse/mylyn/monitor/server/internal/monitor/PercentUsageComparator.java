@@ -10,7 +10,7 @@
  *     Leah Findlater - improvements
  *******************************************************************************/
 
-package upload;
+package org.eclipse.mylyn.monitor.server.internal.monitor;
 
 import java.util.Comparator;
 

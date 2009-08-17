@@ -4,40 +4,57 @@
 <web-app>
 
 <servlet>
-<servlet-name>MylarUsageUploadServlet</servlet-name>
-<display-name>MylarUsageUploadServlet</display-name>
-<servlet-class>upload.MylarUsageUploadServlet</servlet-class>
+<servlet-name>UsageUploadServlet</servlet-name>
+<display-name>UsageUploadServlet</display-name>
+<servlet-class>org.eclipse.mylyn.monitor.server.internal.org.eclipse.mylyn.monitor.server.internal.monitor.UsageUploadServlet</servlet-class>
 </servlet>
 
-<servlet-mapping>
-<servlet-name>MylarUsageUploadServlet</servlet-name>
-<url-pattern>/MylarUsageUploadServlet</url-pattern>
-</servlet-mapping>
 
 
 <servlet>
 <servlet-name>GetUserIDServlet</servlet-name>
 <display-name>GetUserIDServlet</display-name>
-<servlet-class>upload.GetUserIDServlet</servlet-class>
+<servlet-class>org.eclipse.mylyn.monitor.server.internal.monitor.GetUserIDServlet</servlet-class>
 </servlet>
 
-<servlet-mapping>
-<servlet-name>GetUserIDServlet</servlet-name>
-<url-pattern>/GetUserIDServlet</url-pattern>
-</servlet-mapping>
 
 
 
 <servlet>
 <servlet-name>UsageAnalysisServlet</servlet-name>
 <display-name>UsageAnalysisServlet</display-name>
-<servlet-class>upload.UsageAnalysisServlet</servlet-class>
+<servlet-class>org.eclipse.mylyn.monitor.server.internal.monitor.UsageAnalysisServlet</servlet-class>
 </servlet>
 
+
+<servlet-mapping>
+<servlet-name>UsageUploadServlet</servlet-name>
+<url-pattern>/UsageUpload</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>GetUserIDServlet</servlet-name>
+<url-pattern>/GetUserID</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>UsageAnalysisServlet</servlet-name>
+<url-pattern>/UsageAnalysis</url-pattern>
+</servlet-mapping>
+
+<!-- Legacy Mapping --> 
+
+<servlet-mapping>
+<servlet-name>UsageUploadServlet</servlet-name>
+<url-pattern>/MylarUsageUploadServlet</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>GetUserIDServlet</servlet-name>
+<url-pattern>/GetUserIDServlet</url-pattern>
+</servlet-mapping>
 <servlet-mapping>
 <servlet-name>UsageAnalysisServlet</servlet-name>
 <url-pattern>/UsageAnalysisServlet</url-pattern>
 </servlet-mapping>
+
 
 
 </web-app>

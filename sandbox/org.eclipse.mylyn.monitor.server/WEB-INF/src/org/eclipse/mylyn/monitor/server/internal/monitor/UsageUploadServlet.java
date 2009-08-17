@@ -9,7 +9,7 @@
  *     Meghan Allen - initial API and implementation
  *******************************************************************************/
 
-package upload;
+package org.eclipse.mylyn.monitor.server.internal.monitor;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -32,7 +32,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 /**
  * @author - Meghan Allen
  */
-public class MylarUsageUploadServlet extends HttpServlet {
+public class UsageUploadServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 

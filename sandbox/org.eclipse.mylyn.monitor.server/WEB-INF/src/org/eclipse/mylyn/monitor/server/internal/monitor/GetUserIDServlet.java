@@ -9,7 +9,7 @@
  *     Meghan Allen - initial API and implementation
  *******************************************************************************/
 
-package upload;
+package org.eclipse.mylyn.monitor.server.internal.monitor;
 
 import java.io.BufferedWriter;
 import java.io.File;
