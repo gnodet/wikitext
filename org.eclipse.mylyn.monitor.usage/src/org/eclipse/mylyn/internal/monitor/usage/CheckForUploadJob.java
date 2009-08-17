@@ -78,8 +78,8 @@ public class CheckForUploadJob extends UIJob {
 							Messages.UiUsageMonitorPlugin_Open_Ui_Usage_Report,
 							NLS.bind(Messages.UiUsageMonitorPlugin_Remind_Me_In_X_Days, getUserPromptDelay(), ending),
 							Messages.UiUsageMonitorPlugin_Dont_Ask_Again, }, 0);
-			int result = 0;
-			if ((result = message.open()) == 0) {
+			int result = message.open();
+			if (result == 0) {
 				// time must be stored right away into preferences, to prevent
 				// other threads
 				lastTransmit.setTime(new Date().getTime());
