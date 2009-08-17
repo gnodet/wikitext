@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,7 +30,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.commons.net.HtmlStreamTokenizer;
@@ -51,7 +54,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 
 	private final InteractionEventObfuscator handleObfuscator = new InteractionEventObfuscator();
 
-	private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S z", Locale.ENGLISH); //$NON-NLS-1$
+	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S z", Locale.ENGLISH); //$NON-NLS-1$
 
 	public InteractionEventLogger(File outputFile) {
 		this.outputFile = outputFile;
@@ -125,35 +128,64 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 	}
 
 	public List<InteractionEvent> getHistoryFromFile(File file) {
+		return getHistoryFromFile(file, new NullProgressMonitor());
+	}
+
+	public List<InteractionEvent> getHistoryFromFile(File file, IProgressMonitor monitor) {
+
 		List<InteractionEvent> events = new ArrayList<InteractionEvent>();
+		InputStream inputStream = null;
+		long fileLength = 0;
+
 		try {
 			// The file may be a zip file...
 			if (file.getName().endsWith(".zip")) { //$NON-NLS-1$
 				ZipFile zip = new ZipFile(file);
 				if (zip.entries().hasMoreElements()) {
 					ZipEntry entry = zip.entries().nextElement();
-					getHistoryFromStream(zip.getInputStream(entry), events);
+					inputStream = zip.getInputStream(entry);
+					fileLength = entry.getSize();
 				}
 			} else {
-				InputStream reader = new FileInputStream(file);
-				getHistoryFromStream(reader, events);
-				reader.close();
+				inputStream = new FileInputStream(file);
+				fileLength = file.length();
 			}
+
+			//450: the approximate size of an event in XML 
+			int numberOfEventsEstimate = (int) (fileLength / 450);
+
+			monitor.beginTask(Messages.InteractionEventLogger_Reading_History_From_File, numberOfEventsEstimate);
+
+			getHistoryFromStream(inputStream, events, monitor);
 
 		} catch (Exception e) {
 			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
 					"Could not read interaction history", e)); //$NON-NLS-1$
+		} finally {
+			if (inputStream != null) {
+				try {
+					inputStream.close();
+				} catch (IOException e) {
+					StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
+							"unable to close input stream", e)); //$NON-NLS-1$
+				}
+			}
 		}
+
+		monitor.done();
+
 		return events;
 	}
 
 	/**
 	 * @param events
+	 * @param monitor
 	 * @param tag
 	 * @param endl
 	 * @param buf
 	 */
-	private void getHistoryFromStream(InputStream reader, List<InteractionEvent> events) throws IOException {
+	private void getHistoryFromStream(InputStream reader, List<InteractionEvent> events, IProgressMonitor monitor)
+			throws IOException {
 		String xml;
 		int index;
 		String buf = ""; //$NON-NLS-1$
@@ -176,6 +208,8 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 				} else {
 					buf = buf.substring(index + endl.length(), buf.length());
 				}
+
+				monitor.worked(1);
 			}
 			buffer = new byte[1000];
 		}
@@ -358,5 +392,9 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 			token = tokenizer.nextToken();
 		}
 		return org.eclipse.mylyn.internal.commons.core.XmlStringConverter.convertXmlToString(content.toString()).trim();
+	}
+
+	public static DateFormat dateFormat() {
+		return (DateFormat) dateFormat.clone();
 	}
 }

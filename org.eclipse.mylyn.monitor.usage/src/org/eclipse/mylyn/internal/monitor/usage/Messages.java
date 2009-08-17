@@ -16,6 +16,8 @@ import org.eclipse.osgi.util.NLS;
 public class Messages extends NLS {
 	private static final String BUNDLE_NAME = "org.eclipse.mylyn.internal.monitor.usage.messages"; //$NON-NLS-1$
 
+	public static String InteractionEventLogger_Reading_History_From_File;
+
 	public static String MonitorFileRolloverJob_Mylyn_Monitor_Log_Rollover;
 
 	public static String ReportGenerator_Generate_Statistics_Job;
