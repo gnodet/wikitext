@@ -1,0 +1,6 @@
+1250529080577	Extract local variable 'display'
+1250529155509	Extract constant '_60'
+1250529171556	Rename field 'MIN'
+1250530198520	Rename field 'START_JOB_DELAY'
+1250531102172	Convert anonymous class to nested
+1250531220960	Convert local variable 'checkForUploadJob' to field

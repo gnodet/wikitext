@@ -38,6 +38,8 @@ public class StudyParameters {
 
 	private long transmitPromptPeriod = UiUsageMonitorPlugin.DEFAULT_DELAY_BETWEEN_TRANSMITS;
 
+	private boolean promptForSubmission = false;
+
 	private String acceptedUrlList;
 
 	private String useContactField;
@@ -265,6 +267,14 @@ public class StudyParameters {
 			preferenceId += "." + getCustomizingPlugin(); //$NON-NLS-1$
 		}
 		return preferenceId;
+	}
+
+	public void setPromptForSubmission(boolean promptForSubmission) {
+		this.promptForSubmission = promptForSubmission;
+	}
+
+	public boolean shouldPromptForSubmission() {
+		return promptForSubmission;
 	}
 
 }

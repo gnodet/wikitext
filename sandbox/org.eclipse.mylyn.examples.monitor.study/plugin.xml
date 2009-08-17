@@ -20,6 +20,7 @@
                consentForm="doc/study-ethics.html"
                daysBetweenUpload="6"
                description="Sample user stydy upload"
+               promptForSubmission="true"
                questionnairePage="org.eclipse.mylyn.examples.monitor.study.QuestionnaireWizardPage"
                studyName="Sample Study"
                title="Mylyn User Study Example"

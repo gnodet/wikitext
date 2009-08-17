@@ -22,12 +22,11 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.core.runtime.Preferences;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.IJobChangeEvent;
+import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylyn.commons.core.StatusHandler;
-import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.context.core.InteractionContextManager;
 import org.eclipse.mylyn.internal.monitor.ui.ActionExecutionMonitor;
 import org.eclipse.mylyn.internal.monitor.ui.ActivityChangeMonitor;
@@ -37,21 +36,15 @@ import org.eclipse.mylyn.internal.monitor.ui.MonitorUiPlugin;
 import org.eclipse.mylyn.internal.monitor.ui.PerspectiveChangeMonitor;
 import org.eclipse.mylyn.internal.monitor.ui.PreferenceChangeMonitor;
 import org.eclipse.mylyn.internal.monitor.ui.WindowChangeMonitor;
-import org.eclipse.mylyn.internal.monitor.usage.wizards.NewUsageSummaryEditorWizard;
 import org.eclipse.mylyn.monitor.core.IInteractionEventListener;
 import org.eclipse.mylyn.monitor.ui.AbstractCommandMonitor;
 import org.eclipse.mylyn.monitor.ui.IActionExecutionListener;
 import org.eclipse.mylyn.monitor.ui.IMonitorLifecycleListener;
 import org.eclipse.mylyn.monitor.ui.MonitorUi;
-import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ShellEvent;
-import org.eclipse.swt.events.ShellListener;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IStartup;
-import org.eclipse.ui.IWindowListener;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -62,7 +55,9 @@ import org.osgi.framework.BundleContext;
  */
 public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
-	public static final long HOUR = 60 * 60 * 1000;
+	private static final int MINUTE = 60 * 1000;
+
+	public static final long HOUR = 60 * MINUTE;
 
 	public static final long DAY = HOUR * 24;
 
@@ -71,6 +66,10 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 	public static final long DEFAULT_DELAY_DAYS_BETWEEN_TRANSMITS = 21;
 
 	public static final long DEFAULT_DELAY_BETWEEN_TRANSMITS = DEFAULT_DELAY_DAYS_BETWEEN_TRANSMITS * DAY;
+
+	private static final long START_CHECK_UPLOAD_JOB_DELAY = 2 * MINUTE;
+
+	private static final long CHECK_UPLOAD_JOB_INTERVAL = 25 * HOUR;
 
 	private static final String METADATA_MYLYN_DIR = "/.metadata/.mylyn"; //$NON-NLS-1$
 
@@ -108,9 +107,9 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 	private final UsageUploadManager uploadManager = new UsageUploadManager();
 
-	public UsageUploadManager getUploadManager() {
-		return uploadManager;
-	}
+	private LogMoveUtility logMoveUtility;
+
+	private Job checkForUploadJob;
 
 	public static class UiUsageMonitorStartup implements IStartup {
 
@@ -118,59 +117,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 			// everything happens on normal start
 		}
 	}
-
-	private final IWindowListener WINDOW_LISTENER = new IWindowListener() {
-		public void windowActivated(IWorkbenchWindow window) {
-		}
-
-		public void windowDeactivated(IWorkbenchWindow window) {
-		}
-
-		public void windowClosed(IWorkbenchWindow window) {
-			if (window.getShell() != null) {
-				window.getShell().removeShellListener(SHELL_LISTENER);
-			}
-		}
-
-		public void windowOpened(IWorkbenchWindow window) {
-			if (window.getShell() != null && !PlatformUI.getWorkbench().isClosing()) {
-				window.getShell().addShellListener(SHELL_LISTENER);
-			}
-		}
-	};
-
-	private final ShellListener SHELL_LISTENER = new ShellListener() {
-
-		public void shellDeactivated(ShellEvent arg0) {
-			if (!isPerformingUpload() && ContextCorePlugin.getDefault() != null) {
-				for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners()) {
-					listener.stopMonitoring();
-				}
-			}
-		}
-
-		public void shellActivated(ShellEvent arg0) {
-//			if (!MonitorUiPlugin.getDefault().suppressConfigurationWizards() && ContextCorePlugin.getDefault() != null) {
-//				checkForStatisticsUpload();
-//			}
-			if (!isPerformingUpload() && ContextCorePlugin.getDefault() != null) {
-				for (IInteractionEventListener listener : MonitorUiPlugin.getDefault().getInteractionListeners()) {
-					listener.startMonitoring();
-				}
-			}
-		}
-
-		public void shellDeiconified(ShellEvent arg0) {
-		}
-
-		public void shellIconified(ShellEvent arg0) {
-		}
-
-		public void shellClosed(ShellEvent arg0) {
-		}
-	};
-
-	private LogMoveUtility logMoveUtility;
 
 	public UiUsageMonitorPlugin() {
 		plugin = this;
@@ -201,7 +147,21 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		super.start(context);
 		initDefaultPrefs();
 		final IWorkbench workbench = PlatformUI.getWorkbench();
-		workbench.getDisplay().asyncExec(new Runnable() {
+		Display display = workbench.getDisplay();
+
+		checkForUploadJob = new CheckForUploadJob(display);
+		checkForUploadJob.setSystem(true);
+		checkForUploadJob.schedule(START_CHECK_UPLOAD_JOB_DELAY);
+		checkForUploadJob.addJobChangeListener(new JobChangeAdapter() {
+			@Override
+			public void done(IJobChangeEvent event) {
+				if (event.getResult() != null && event.getResult().isOK()) {
+					checkForUploadJob.schedule(CHECK_UPLOAD_JOB_INTERVAL);
+				}
+			}
+		});
+
+		display.asyncExec(new Runnable() {
 			public void run() {
 				try {
 					// ------- moved from synch start
@@ -264,12 +224,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		getCommandMonitors().add(keybindingCommandMonitor);
 
 		getActionExecutionListeners().add(new ActionExecutionMonitor());
-		workbench.addWindowListener(WINDOW_LISTENER);
-		for (IWorkbenchWindow w : MonitorUiPlugin.getDefault().getMonitoredWindows()) {
-			if (w.getShell() != null) {
-				w.getShell().addShellListener(SHELL_LISTENER);
-			}
-		}
 
 		if (logMoveUtility == null) {
 			logMoveUtility = new LogMoveUtility();
@@ -333,12 +287,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		getCommandMonitors().remove(keybindingCommandMonitor);
 		getActionExecutionListeners().remove(new ActionExecutionMonitor());
 
-		workbench.removeWindowListener(WINDOW_LISTENER);
-		for (IWorkbenchWindow w : MonitorUiPlugin.getDefault().getMonitoredWindows()) {
-			if (w.getShell() != null) {
-				w.getShell().removeShellListener(SHELL_LISTENER);
-			}
-		}
 		logMoveUtility.stop();
 		// ContextCore.getPluginPreferences().removePropertyChangeListener(DATA_DIR_MOVE_LISTENER);
 
@@ -401,10 +349,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		return file;
 	}
 
-	private long getUserPromptDelay() {
-		return DELAY_ON_USER_REQUEST / DAY;
-	}
-
 	public void userCancelSubmitFeedback(Date currentTime, boolean wait3Hours) {
 		if (wait3Hours) {
 			lastTransmit.setTime(currentTime.getTime() + DELAY_ON_USER_REQUEST
@@ -424,84 +368,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 	 */
 	public static UiUsageMonitorPlugin getDefault() {
 		return plugin;
-	}
-
-	// NOTE: not currently used
-	synchronized void checkForStatisticsUpload() {
-		if (!isMonitoringEnabled()) {
-			return;
-		}
-		if (plugin == null || plugin.getPreferenceStore() == null) {
-			return;
-		}
-
-		if (plugin.getPreferenceStore().contains(MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE)) {
-
-			lastTransmit = new Date(plugin.getPreferenceStore().getLong(
-					MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE));
-		} else {
-			lastTransmit = new Date();
-			plugin.getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE,
-					lastTransmit.getTime());
-		}
-		Date currentTime = new Date();
-
-		if (currentTime.getTime() > lastTransmit.getTime() + studyParameters.getTransmitPromptPeriod()
-				&& getPreferenceStore().getBoolean(MonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION)) {
-
-			String ending = getUserPromptDelay() == 1 ? "" : "s"; //$NON-NLS-1$//$NON-NLS-2$
-			MessageDialog message = new MessageDialog(Display.getDefault().getActiveShell(),
-					Messages.UiUsageMonitorPlugin_Send_Usage_Feedback, null,
-					Messages.UiUsageMonitorPlugin_Help_Improve_Eclipse_And_Mylyn, MessageDialog.QUESTION, new String[] {
-							Messages.UiUsageMonitorPlugin_Open_Ui_Usage_Report,
-							NLS.bind(Messages.UiUsageMonitorPlugin_Remind_Me_In_X_Days, getUserPromptDelay(), ending),
-							Messages.UiUsageMonitorPlugin_Dont_Ask_Again, }, 0);
-			int result = 0;
-			if ((result = message.open()) == 0) {
-				// time must be stored right away into preferences, to prevent
-				// other threads
-				lastTransmit.setTime(new Date().getTime());
-				plugin.getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE,
-						currentTime.getTime());
-
-				if (!plugin.getPreferenceStore().contains(
-						MonitorPreferenceConstants.PREF_MONITORING_MYLYN_ECLIPSE_ORG_CONSENT_VIEWED)
-						|| !plugin.getPreferenceStore().getBoolean(
-								MonitorPreferenceConstants.PREF_MONITORING_MYLYN_ECLIPSE_ORG_CONSENT_VIEWED)) {
-					MessageDialog consentMessage = new MessageDialog(Display.getDefault().getActiveShell(),
-							Messages.UiUsageMonitorPlugin_Consent, null, Messages.UiUsageMonitorPlugin_All_Data_Public,
-							MessageDialog.INFORMATION, new String[] { IDialogConstants.OK_LABEL }, 0);
-					consentMessage.open();
-					plugin.getPreferenceStore().setValue(
-							MonitorPreferenceConstants.PREF_MONITORING_MYLYN_ECLIPSE_ORG_CONSENT_VIEWED, true);
-				}
-
-				NewUsageSummaryEditorWizard wizard = new NewUsageSummaryEditorWizard();
-				wizard.init(PlatformUI.getWorkbench(), null);
-				// Instantiates the wizard container with the wizard and
-				// opens it
-				WizardDialog dialog = new WizardDialog(Display.getDefault().getActiveShell(), wizard);
-				dialog.create();
-				dialog.open();
-				/*
-				 * the UI usage report is loaded asynchronously so there's no
-				 * synchronous way to know if it failed if (wizard.failed()) {
-				 * lastTransmit.setTime(currentTime.getTime() + DELAY_ON_FAILURE -
-				 * studyParameters.getTransmitPromptPeriod());
-				 * plugin.getPreferenceStore().setValue(MylynMonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE,
-				 * currentTime.getTime()); }
-				 */
-
-			} else {
-				if (result == 1) {
-					userCancelSubmitFeedback(currentTime, true);
-				} else {
-					plugin.getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION,
-							false);
-				}
-			}
-			message.close();
-		}
 	}
 
 	public void incrementObservedEvents(int increment) {
@@ -545,5 +411,9 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		studyParameters.setUsagePageUrl("http://mylyn.eclipse.org/monitor/upload/usageSummary.html"); //$NON-NLS-1$
 		studyParameters.setStudyName(Messages.UiUsageMonitorPlugin_Eclipse_Mylyn);
 		studyParameters.addFilteredIdPattern("org.eclipse."); //$NON-NLS-1$
+	}
+
+	public UsageUploadManager getUploadManager() {
+		return uploadManager;
 	}
 }

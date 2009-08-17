@@ -23,6 +23,9 @@ import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.monitor.usage.AbstractStudyBackgroundPage;
 import org.eclipse.mylyn.monitor.usage.AbstractStudyQuestionnairePage;
 
+/**
+ * @author Shawn Minto
+ */
 class UiUsageMonitorExtensionPointReader {
 
 	public static final String EXTENSION_ID_STUDY = "org.eclipse.mylyn.monitor.usage.study"; //$NON-NLS-1$
@@ -58,6 +61,8 @@ class UiUsageMonitorExtensionPointReader {
 	public static final String ELEMENT_UI_CONTACT_CONSENT_FIELD = "useContactField"; //$NON-NLS-1$
 
 	public static final String ELEMENT_UI_URL_USAGE_PAGE = "usagePageUrl"; //$NON-NLS-1$
+
+	public static final String ELEMENT_UI_PROMPT_FOR_SUBMISSION = "promptForSubmission"; //$NON-NLS-1$
 
 	public static final String ELEMENT_MONITORS = "monitors"; //$NON-NLS-1$
 
@@ -140,6 +145,7 @@ class UiUsageMonitorExtensionPointReader {
 		studyParameters.setStudyName(element.getAttribute(ELEMENT_UI_STUDY_NAME));
 		studyParameters.setTitle(element.getAttribute(ELEMENT_UI_TITLE));
 		studyParameters.setDescription(element.getAttribute(ELEMENT_UI_DESCRIPTION));
+		studyParameters.setPromptForSubmission(Boolean.parseBoolean(element.getAttribute(ELEMENT_UI_PROMPT_FOR_SUBMISSION)));
 		if (element.getAttribute(ELEMENT_UI_UPLOAD_PROMPT) != null) {
 			Integer uploadInt = new Integer(element.getAttribute(ELEMENT_UI_UPLOAD_PROMPT));
 			studyParameters.setTransmitPromptPeriod(UiUsageMonitorPlugin.HOUR * 24 * uploadInt);
