@@ -25,6 +25,8 @@ import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.monitor.core.collection.IUsageCollector;
 import org.eclipse.mylyn.internal.monitor.usage.InteractionEventSummarySorter;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
+import org.eclipse.mylyn.internal.monitor.usage.common.UsageCountContentProvider;
+import org.eclipse.mylyn.internal.monitor.usage.common.UsageCountLabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -49,7 +51,9 @@ public class UserStudyEditorPart extends UsageEditorPart {
 
 	private TableViewer tableViewer;
 
-	private final String[] columnNames = new String[] { Messages.UserStudyEditorPart_Kind, Messages.UserStudyEditorPart_Id, Messages.UserStudyEditorPart_Num, Messages.UserStudyEditorPart_Last_Delta, Messages.UserStudyEditorPart_Users };
+	private final String[] columnNames = new String[] { Messages.UserStudyEditorPart_Kind,
+			Messages.UserStudyEditorPart_Id, Messages.UserStudyEditorPart_Num, Messages.UserStudyEditorPart_Last_Delta,
+			Messages.UserStudyEditorPart_Users };
 
 	public UserStudyEditorPart(String id, String title) {
 		// super(id, title);
@@ -140,9 +144,9 @@ public class UserStudyEditorPart extends UsageEditorPart {
 		tableViewer.setUseHashlookup(true);
 		tableViewer.setColumnProperties(columnNames);
 
-		tableViewer.setContentProvider(new UsageCountContentProvider(editorInput.getReportGenerator()));
+		tableViewer.setContentProvider(new UsageCountContentProvider());
 		tableViewer.setLabelProvider(new UsageCountLabelProvider());
-		tableViewer.setInput(editorInput);
+		tableViewer.setInput(editorInput.getReportGenerator());
 	}
 
 	@Override

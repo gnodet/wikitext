@@ -29,6 +29,8 @@ import org.eclipse.mylyn.internal.monitor.usage.MonitorFileRolloverJob;
 import org.eclipse.mylyn.internal.monitor.usage.StudyParameters;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
@@ -46,12 +48,15 @@ public class UsageFileSelectionWizardPage extends WizardPage {
 
 	private Table zippedFilesTable;
 
+	private final UsageSubmissionWizard wizard;
+
 	public static final String SUBMISSION_LOG_FILE_NAME = "submittedUsageLogs.txt"; //$NON-NLS-1$
 
-	protected UsageFileSelectionWizardPage(StudyParameters studyParameters) {
+	protected UsageFileSelectionWizardPage(UsageSubmissionWizard wizard, StudyParameters studyParameters) {
 		super(ID_PAGE_FILE_SELECTION, PAGE_TITLE, AbstractUIPlugin.imageDescriptorFromPlugin(
 				UiUsageMonitorPlugin.ID_PLUGIN, "icons/wizban/banner-submission.gif")); //$NON-NLS-1$
 		setDescription(DESCRIPTION + studyParameters.getStudyName());
+		this.wizard = wizard;
 	}
 
 	private static List<File> getBackupFiles() {
@@ -109,6 +114,16 @@ public class UsageFileSelectionWizardPage extends WizardPage {
 
 	private void addZippedFileView(Composite composite) {
 		zippedFilesTable = new Table(composite, SWT.BORDER | SWT.MULTI);
+		zippedFilesTable.addSelectionListener(new SelectionListener() {
+
+			public void widgetSelected(SelectionEvent e) {
+				wizard.setBackupFilesToUpload(getZipFilesSelected());
+			}
+
+			public void widgetDefaultSelected(SelectionEvent e) {
+				// ignore
+			}
+		});
 
 		GridDataFactory.fillDefaults().span(2, SWT.DEFAULT).grab(true, true).applyTo(zippedFilesTable);
 

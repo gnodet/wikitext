@@ -78,6 +78,8 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 	private AbstractStudyBackgroundPage backgroundPage;
 
+	private UsageDataOverviewPage dataOverviewPage;
+
 	private boolean performUpload = true;
 
 	private List<String> backupFilesToUpload;
@@ -85,14 +87,11 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	private final StudyParameters studyParameters;
 
 	public UsageSubmissionWizard() {
-		this(true);
-	}
-
-	public UsageSubmissionWizard(boolean performUpload) {
 		super();
 		studyParameters = UiUsageMonitorPlugin.getDefault().getStudyParameters();
 		setTitles();
-		init(performUpload);
+		setNeedsProgressMonitor(true);
+		init(true);
 	}
 
 	private void setTitles() {
@@ -135,7 +134,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 					uid);
 		}
 		uploadPage = new UsageUploadWizardPage(this, studyParameters);
-		fileSelectionPage = new UsageFileSelectionWizardPage(studyParameters);
+		fileSelectionPage = new UsageFileSelectionWizardPage(this, studyParameters);
 		if (studyParameters.isBackgroundEnabled()) {
 			AbstractStudyBackgroundPage page = studyParameters.getBackgroundPage();
 			backgroundPage = page;
@@ -144,6 +143,9 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			AbstractStudyQuestionnairePage page = studyParameters.getQuestionnairePage();
 			questionnairePage = page;
 		}
+
+		dataOverviewPage = new UsageDataOverviewPage(this, studyParameters);
+
 		super.setForcePreviousAndNextButtons(true);
 
 	}
@@ -286,6 +288,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 				addPage(fileSelectionPage);
 				displayFileSelectionPage = true;
 			}
+			addPage(dataOverviewPage);
 			addPage(uploadPage);
 		}
 	}
@@ -397,5 +400,13 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Error uploading", e)); //$NON-NLS-1$
 			return null;
 		}
+	}
+
+	public List<String> getBackupFilesToUpload() {
+		return backupFilesToUpload;
+	}
+
+	public void setBackupFilesToUpload(List<String> backupFilesToUpload) {
+		this.backupFilesToUpload = backupFilesToUpload;
 	}
 }

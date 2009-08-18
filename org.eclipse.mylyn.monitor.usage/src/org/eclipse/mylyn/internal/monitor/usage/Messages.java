@@ -46,7 +46,7 @@ public class Messages extends NLS {
 
 	public static String UiUsageMonitorPlugin_Mylyn_Feedback;
 
-	public static String UiUsageMonitorPlugin_Open_Ui_Usage_Report;
+	public static String UiUsageMonitorPlugin_Submit_Feedback;
 
 	public static String UiUsageMonitorPlugin_Remind_Me_In_X_Days;
 

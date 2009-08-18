@@ -111,10 +111,16 @@ public class ReportGenerator {
 		this.scanners = scanners;
 	}
 
+	// XXX clean up code and methods
 	public void getStatisticsFromInteractionHistory(File source, IJobChangeListener listener) {
 		List<File> sources = new ArrayList<File>();
 		sources.add(source);
 		getStatisticsFromInteractionHistories(sources, listener);
+	}
+
+	public void getStatisticsFromInteractionHistories(List<File> sources, IProgressMonitor monitor) {
+		final GenerateStatisticsJob job = new GenerateStatisticsJob(this, sources);
+		job.run(monitor);
 	}
 
 	public void getStatisticsFromInteractionHistories(List<File> sources, IJobChangeListener jobChangeListener) {

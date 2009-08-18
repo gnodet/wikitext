@@ -10,7 +10,7 @@
  *     Leah Findlater - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.monitor.usage.editors;
+package org.eclipse.mylyn.internal.monitor.usage.common;
 
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
@@ -23,7 +23,7 @@ import org.eclipse.swt.graphics.Image;
  * @author Leah Findlater
  * @author Mik Kersten
  */
-class UsageCountLabelProvider extends LabelProvider implements ITableLabelProvider {
+public class UsageCountLabelProvider extends LabelProvider implements ITableLabelProvider {
 
 	public String getColumnText(Object obj, int index) {
 		String labelText;

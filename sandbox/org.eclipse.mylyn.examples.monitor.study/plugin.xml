@@ -27,7 +27,7 @@
                usagePageUrl="http://someServer/stats.html"
                useContactField="false"/>
          <filter
-               idPrefix="org.eclipse."/>
+               idPrefix="org.eclipse.mylyn."/>
          <filter
                idPrefix="com.sampleproject."/>
    </extension>

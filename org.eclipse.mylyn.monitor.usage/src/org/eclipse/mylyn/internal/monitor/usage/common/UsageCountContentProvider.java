@@ -9,7 +9,7 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.monitor.usage.editors;
+package org.eclipse.mylyn.internal.monitor.usage.common;
 
 import java.util.List;
 
@@ -23,26 +23,25 @@ import org.eclipse.mylyn.internal.monitor.usage.ReportGenerator;
  * 
  * @author Mik Kersten
  */
-class UsageCountContentProvider implements IStructuredContentProvider {
+public class UsageCountContentProvider implements IStructuredContentProvider {
 
-	private final ReportGenerator parser;
+	private ReportGenerator parser;
 
-	public UsageCountContentProvider(ReportGenerator parser) {
-		this.parser = parser;
+	public UsageCountContentProvider() {
 	}
 
 	public void inputChanged(Viewer v, Object oldInput, Object newInput) {
-
+		if (newInput instanceof ReportGenerator) {
+			this.parser = (ReportGenerator) newInput;
+		}
 	}
 
 	public void dispose() {
-		// model.removeChangeListener(this);
 	}
 
 	// Return the individual stat summaries as an array of Objects
-
 	public Object[] getElements(Object parent) {
-		if (parser.getLastParsedSummary() == null) {
+		if (parser == null || parser.getLastParsedSummary() == null) {
 			return new Object[] {};
 		} else {
 			List<InteractionEventSummary> stats = parser.getLastParsedSummary().getSingleSummaries();

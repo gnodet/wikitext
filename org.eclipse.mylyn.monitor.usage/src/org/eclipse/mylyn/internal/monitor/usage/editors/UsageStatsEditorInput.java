@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
+import org.eclipse.core.runtime.jobs.IJobChangeListener;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylyn.internal.monitor.usage.ReportGenerator;
 import org.eclipse.mylyn.internal.monitor.usage.StudyParameters;
@@ -41,7 +42,7 @@ public class UsageStatsEditorInput implements IEditorInput {
 		this.reportGenerator = reportGenerator;
 		usageFiles = files;
 		this.studyParameters = studyParameters;
-		reportGenerator.getStatisticsFromInteractionHistories(usageFiles, null);
+		reportGenerator.getStatisticsFromInteractionHistories(usageFiles, (IJobChangeListener) null);
 	}
 
 	public boolean exists() {

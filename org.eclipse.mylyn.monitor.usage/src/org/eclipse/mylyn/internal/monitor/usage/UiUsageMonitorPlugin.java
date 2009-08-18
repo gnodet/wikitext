@@ -111,6 +111,8 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 	private Job checkForUploadJob;
 
+	private boolean isSubmissionWizardOpen;
+
 	public static class UiUsageMonitorStartup implements IStartup {
 
 		public void earlyStartup() {
@@ -415,5 +417,13 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 	public UsageUploadManager getUploadManager() {
 		return uploadManager;
+	}
+
+	public boolean isSubmissionWizardOpen() {
+		return isSubmissionWizardOpen;
+	}
+
+	public void setSubmissionWizardOpen(boolean isSubmissionWizardOpen) {
+		this.isSubmissionWizardOpen = isSubmissionWizardOpen;
 	}
 }

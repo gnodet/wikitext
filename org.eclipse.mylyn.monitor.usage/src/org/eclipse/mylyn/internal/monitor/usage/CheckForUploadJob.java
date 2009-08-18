@@ -20,7 +20,8 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.monitor.ui.MonitorUiPlugin;
-import org.eclipse.mylyn.internal.monitor.usage.wizards.NewUsageSummaryEditorWizard;
+import org.eclipse.mylyn.internal.monitor.usage.wizards.UsageSubmissionWizard;
+import org.eclipse.mylyn.internal.monitor.usage.wizards.UsageSubmissionWizardDialog;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
@@ -47,42 +48,21 @@ public class CheckForUploadJob extends UIJob {
 	}
 
 	synchronized void checkForStatisticsUpload() {
-		StudyParameters studyParameters = UiUsageMonitorPlugin.getDefault().getStudyParameters();
-		if (!UiUsageMonitorPlugin.getDefault().isMonitoringEnabled() || studyParameters == null
-				|| !studyParameters.shouldPromptForSubmission()) {
-			return;
-		}
 
-		Date lastTransmit;
-		if (UiUsageMonitorPlugin.getDefault().getPreferenceStore().contains(
-				MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE)) {
-
-			lastTransmit = new Date(UiUsageMonitorPlugin.getDefault().getPreferenceStore().getLong(
-					MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE));
-		} else {
-			lastTransmit = new Date();
-			UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(
-					MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE, lastTransmit.getTime());
-		}
 		Date currentTime = new Date();
-
-		// XXX should use the preferences not the study parametes
-		if (currentTime.getTime() > lastTransmit.getTime() + studyParameters.getTransmitPromptPeriod()
-				&& UiUsageMonitorPlugin.getDefault().getPreferenceStore().getBoolean(
-						MonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION)) {
+		if (shouldAskForUpload(currentTime)) {
 
 			String ending = getUserPromptDelay() == 1 ? "" : "s"; //$NON-NLS-1$//$NON-NLS-2$
 			MessageDialog message = new MessageDialog(Display.getDefault().getActiveShell(),
 					Messages.UiUsageMonitorPlugin_Send_Usage_Feedback, null,
 					Messages.UiUsageMonitorPlugin_Help_Improve_Eclipse_And_Mylyn, MessageDialog.QUESTION, new String[] {
-							Messages.UiUsageMonitorPlugin_Open_Ui_Usage_Report,
+							Messages.UiUsageMonitorPlugin_Submit_Feedback,
 							NLS.bind(Messages.UiUsageMonitorPlugin_Remind_Me_In_X_Days, getUserPromptDelay(), ending),
 							Messages.UiUsageMonitorPlugin_Dont_Ask_Again, }, 0);
 			int result = message.open();
 			if (result == 0) {
 				// time must be stored right away into preferences, to prevent
 				// other threads
-				lastTransmit.setTime(new Date().getTime());
 				UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(
 						MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE, currentTime.getTime());
 
@@ -98,13 +78,14 @@ public class CheckForUploadJob extends UIJob {
 							MonitorPreferenceConstants.PREF_MONITORING_MYLYN_ECLIPSE_ORG_CONSENT_VIEWED, true);
 				}
 
-				NewUsageSummaryEditorWizard wizard = new NewUsageSummaryEditorWizard();
+				UsageSubmissionWizard wizard = new UsageSubmissionWizard();
 				wizard.init(PlatformUI.getWorkbench(), null);
 				// Instantiates the wizard container with the wizard and
 				// opens it
-				WizardDialog dialog = new WizardDialog(Display.getDefault().getActiveShell(), wizard);
+				WizardDialog dialog = new UsageSubmissionWizardDialog(Display.getDefault().getActiveShell(), wizard);
 				dialog.create();
 				dialog.open();
+
 				/*
 				 * the UI usage report is loaded asynchronously so there's no
 				 * synchronous way to know if it failed if (wizard.failed()) {
@@ -124,6 +105,39 @@ public class CheckForUploadJob extends UIJob {
 			}
 			message.close();
 		}
+	}
+
+	private boolean shouldAskForUpload(Date currentTime) {
+		if (UiUsageMonitorPlugin.getDefault().isSubmissionWizardOpen()) {
+			return false;
+		}
+
+		StudyParameters studyParameters = UiUsageMonitorPlugin.getDefault().getStudyParameters();
+		if (!UiUsageMonitorPlugin.getDefault().isMonitoringEnabled() || studyParameters == null
+				|| !studyParameters.shouldPromptForSubmission()) {
+			return false;
+		}
+
+		Date lastTransmit;
+		if (UiUsageMonitorPlugin.getDefault().getPreferenceStore().contains(
+				MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE)) {
+
+			lastTransmit = new Date(UiUsageMonitorPlugin.getDefault().getPreferenceStore().getLong(
+					MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE));
+		} else {
+			lastTransmit = new Date();
+			UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(
+					MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE, lastTransmit.getTime());
+		}
+
+		// XXX should use the preferences not the study parametes
+		if (currentTime.getTime() > lastTransmit.getTime() + studyParameters.getTransmitPromptPeriod()
+				&& UiUsageMonitorPlugin.getDefault().getPreferenceStore().getBoolean(
+						MonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION)) {
+			return true;
+
+		}
+		return false;
 	}
 
 	private long getUserPromptDelay() {

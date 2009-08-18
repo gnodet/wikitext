@@ -30,7 +30,10 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.monitor.usage.InteractionEventSummarySorter;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
+import org.eclipse.mylyn.internal.monitor.usage.common.UsageCountContentProvider;
+import org.eclipse.mylyn.internal.monitor.usage.common.UsageCountLabelProvider;
 import org.eclipse.mylyn.internal.monitor.usage.wizards.UsageSubmissionWizard;
+import org.eclipse.mylyn.internal.monitor.usage.wizards.UsageSubmissionWizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -233,8 +236,9 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 
 		UsageSubmissionWizard submissionWizard = new UsageSubmissionWizard();
 
-		WizardDialog dialog = new WizardDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-				submissionWizard);
+		WizardDialog dialog = new UsageSubmissionWizardDialog(PlatformUI.getWorkbench()
+				.getActiveWorkbenchWindow()
+				.getShell(), submissionWizard);
 		dialog.open();
 
 	}
@@ -289,9 +293,9 @@ public class UsageSummaryReportEditorPart extends UsageEditorPart {
 		tableViewer.setUseHashlookup(true);
 		tableViewer.setColumnProperties(columnNames);
 
-		tableViewer.setContentProvider(new UsageCountContentProvider(editorInput.getReportGenerator()));
+		tableViewer.setContentProvider(new UsageCountContentProvider());
 		tableViewer.setLabelProvider(new UsageCountLabelProvider());
-		tableViewer.setInput(editorInput);
+		tableViewer.setInput(editorInput.getReportGenerator());
 	}
 
 }
