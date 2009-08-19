@@ -11,21 +11,26 @@
 
 package org.eclipse.mylyn.web.tests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import junit.framework.TestCase;
+
+import org.eclipse.mylyn.internal.web.ui.BrowserMonitor;
 
 /**
  * @author Mik Kersten
  */
-public class AllWebTests {
+public class BrowserMonitorTest extends TestCase {
 
-	public static Test suite() {
-		TestSuite suite = new TestSuite("Test for org.eclipse.mylyn.web.tests");
-		suite.addTestSuite(UrlExclusionTest.class);
-		suite.addTestSuite(HypertextStructureBridgeTest.class);
-		suite.addTestSuite(GetFaviconForUrlTest.class);
-		suite.addTestSuite(BrowserMonitorTest.class);
-		return suite;
+	private final BrowserMonitor browserMonitor = new BrowserMonitor();
+
+	public void testUrlFilter() {
+		browserMonitor.setAcceptedUrls("url1,url2,url3");
+		assertEquals(3, browserMonitor.getAcceptedUrls().size());
+
+		browserMonitor.setAcceptedUrls(null);
+		assertEquals(0, browserMonitor.getAcceptedUrls().size());
+
+		browserMonitor.setAcceptedUrls("");
+		assertEquals(0, browserMonitor.getAcceptedUrls().size());
 	}
 
 }
