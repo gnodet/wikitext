@@ -109,10 +109,8 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 
 	private int degree = 2;
 
-	// TODO e3.4 move to new api
-	@SuppressWarnings("deprecation")
 	public RelatedElementsPopupDialog(Shell parent, int shellStyle) {
-		super(parent, shellStyle, true, true, true, true, null, "Context Search");
+		super(parent, shellStyle, true, true, true, true, true, null, "Context Search");
 		ContextCore.getContextManager().addListener(REFRESH_UPDATE_LISTENER);
 		for (AbstractRelationProvider provider : ContextCorePlugin.getDefault().getRelationProviders()) {
 			provider.setEnabled(true);
@@ -318,8 +316,6 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 		// See IInformationControlExtension2
 	}
 
-	// TODO e3.4 move to new api
-	@SuppressWarnings("deprecation")
 	public void setLocation(Point location) {
 		/*
 		 * If the location is persisted, it gets managed by PopupDialog - fine. Otherwise, the location is
@@ -332,7 +328,7 @@ public class RelatedElementsPopupDialog extends PopupDialog implements IInformat
 		 * the call to constrainShellSize in PopupDialog.open will still ensure that the shell is
 		 * entirely visible.
 		 */
-		if ((getPersistBounds() == false) || (getDialogSettings() == null)) {
+		if (getPersistLocation() == false || getDialogSettings() == null) {
 			getShell().setLocation(location);
 		}
 	}
