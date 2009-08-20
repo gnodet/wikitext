@@ -26,6 +26,7 @@ Bundle-Vendor: Eclipse Mylyn
 Export-Package: 
  org.eclipse.mylyn.internal.monitor.usage;x-internal:=true,
  org.eclipse.mylyn.internal.monitor.usage.collectors;x-internal:=true,
+ org.eclipse.mylyn.internal.monitor.usage.common;x-internal:=true,
  org.eclipse.mylyn.internal.monitor.usage.editors;x-internal:=true,
  org.eclipse.mylyn.internal.monitor.usage.preferences;x-internal:=true,
  org.eclipse.mylyn.internal.monitor.usage.wizards;x-internal:=true,
