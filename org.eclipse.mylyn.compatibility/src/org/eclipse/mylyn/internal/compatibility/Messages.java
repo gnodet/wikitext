@@ -14,10 +14,10 @@ package org.eclipse.mylyn.internal.compatibility;
 import org.eclipse.osgi.util.NLS;
 
 public class Messages extends NLS {
+
 	private static final String BUNDLE_NAME = "org.eclipse.mylyn.internal.compatibility.messages"; //$NON-NLS-1$
 
 	static {
-		// load message values from bundle file
 		reloadMessages();
 	}
 
@@ -26,6 +26,9 @@ public class Messages extends NLS {
 	}
 
 	public static String JavaRuntimeVersionChecker_Do_not_warn_again;
+
 	public static String JavaRuntimeVersionChecker_JDK_Version_Check;
+
 	public static String JavaRuntimeVersionChecker_Mylyn_was_installed_but_requires_Java_5_or_later_to_run;
+
 }
