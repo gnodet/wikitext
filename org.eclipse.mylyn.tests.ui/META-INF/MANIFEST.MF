@@ -5,13 +5,15 @@ Bundle-SymbolicName: org.eclipse.mylyn.tests.ui
 Bundle-Version: 0.0.0
 Bundle-Vendor: Eclipse Mylyn
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Require-Bundle: org.junit4;bundle-version="4.5.0",
+Require-Bundle: org.junit4,
+ org.hamcrest,
  org.eclipse.swtbot.eclipse.core;bundle-version="2.0.0",
  org.eclipse.swtbot.eclipse.finder;bundle-version="2.0.0",
  org.eclipse.swtbot.swt.finder;bundle-version="2.0.0",
  org.eclipse.swtbot.eclipse.ui;bundle-version="2.0.0",
  org.eclipse.swtbot.junit4_x;bundle-version="2.0.0",
- org.eclipse.ui;bundle-version="3.5.0"
+ org.eclipse.ui
 Import-Package: org.apache.log4j
-Export-Package: org.eclipse.mylyn.tests.ui.discovery,
+Export-Package: org.eclipse.mylyn.tests.ui,
+ org.eclipse.mylyn.tests.ui.discovery,
  org.eclipse.mylyn.tests.ui.util
