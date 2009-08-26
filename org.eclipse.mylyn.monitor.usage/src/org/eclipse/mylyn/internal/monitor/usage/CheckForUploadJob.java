@@ -118,19 +118,8 @@ public class CheckForUploadJob extends UIJob {
 			return false;
 		}
 
-		Date lastTransmit;
-		if (UiUsageMonitorPlugin.getDefault().getPreferenceStore().contains(
-				MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE)) {
+		Date lastTransmit = UiUsageMonitorPlugin.getDefault().getLastTransmitDate();
 
-			lastTransmit = new Date(UiUsageMonitorPlugin.getDefault().getPreferenceStore().getLong(
-					MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE));
-		} else {
-			lastTransmit = new Date();
-			UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(
-					MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE, lastTransmit.getTime());
-		}
-
-		// XXX should use the preferences not the study parametes
 		if (currentTime.getTime() > lastTransmit.getTime() + studyParameters.getTransmitPromptPeriod()
 				&& UiUsageMonitorPlugin.getDefault().getPreferenceStore().getBoolean(
 						MonitorPreferenceConstants.PREF_MONITORING_ENABLE_SUBMISSION)) {

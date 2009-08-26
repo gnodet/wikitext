@@ -97,8 +97,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 	private final List<AbstractCommandMonitor> commandMonitors = new ArrayList<AbstractCommandMonitor>();
 
-	private static Date lastTransmit = null;
-
 	private static boolean performingUpload = false;
 
 	private StudyParameters studyParameters = new StudyParameters();
@@ -193,14 +191,6 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 						startMonitoring();
 					}
 
-					if (plugin.getPreferenceStore().contains(MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE)) {
-						lastTransmit = new Date(plugin.getPreferenceStore().getLong(
-								MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE));
-					} else {
-						lastTransmit = new Date();
-						plugin.getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE,
-								lastTransmit.getTime());
-					}
 				} catch (Throwable t) {
 					StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
 							"Monitor failed to start", t)); //$NON-NLS-1$
@@ -351,18 +341,36 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		return file;
 	}
 
-	public void userCancelSubmitFeedback(Date currentTime, boolean wait3Hours) {
-		if (wait3Hours) {
+	public void userCancelSubmitFeedback(Date currentTime, boolean delay) {
+		Date lastTransmit = getLastTransmitDate();
+		if (delay) {
+			// wait X days
 			lastTransmit.setTime(currentTime.getTime() + DELAY_ON_USER_REQUEST
 					- studyParameters.getTransmitPromptPeriod());
 			plugin.getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE,
 					lastTransmit.getTime());
 		} else {
+			// it was canceled so ask in 1 day
 			long day = HOUR * 24;
 			lastTransmit.setTime(currentTime.getTime() + day - studyParameters.getTransmitPromptPeriod());
 			plugin.getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE,
 					lastTransmit.getTime());
 		}
+	}
+
+	public Date getLastTransmitDate() {
+		Date lastTransmit;
+		if (UiUsageMonitorPlugin.getDefault().getPreferenceStore().contains(
+				MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE)) {
+
+			lastTransmit = new Date(UiUsageMonitorPlugin.getDefault().getPreferenceStore().getLong(
+					MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE));
+		} else {
+			lastTransmit = new Date();
+			UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(
+					MonitorPreferenceConstants.PREF_PREVIOUS_TRANSMIT_DATE, lastTransmit.getTime());
+		}
+		return lastTransmit;
 	}
 
 	/**
