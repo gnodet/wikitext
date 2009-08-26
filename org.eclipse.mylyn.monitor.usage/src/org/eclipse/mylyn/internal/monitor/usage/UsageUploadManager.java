@@ -236,7 +236,7 @@ public class UsageUploadManager {
 			HostConfiguration hostConfiguration = WebUtil.createHostConfiguration(httpClient, location, monitor);
 			final int status = WebUtil.execute(httpClient, hostConfiguration, getUserIdMethod, monitor);
 
-			if (status == HttpStatus.SC_ACCEPTED) {
+			if (status == HttpStatus.SC_OK) {
 				InputStream inputStream = WebUtil.getResponseBodyAsStream(getUserIdMethod, monitor);
 				byte[] buffer = new byte[SIZE_OF_INT];
 				int numBytesRead = inputStream.read(buffer);
@@ -244,6 +244,8 @@ public class UsageUploadManager {
 				inputStream.close();
 				return uid;
 			} else {
+				StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.ID_PLUGIN,
+						"Unable to get new user id.  Server retured: " + status)); //$NON-NLS-1$
 				return -1;
 			}
 

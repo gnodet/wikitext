@@ -13,9 +13,9 @@
    <extension
          point="org.eclipse.mylyn.monitor.usage.study">
          <scripts
-         	url="http://my.server"
-         	upload="upload.cgi"
-         	userId="getUID.cgi"/>
+         	url="http://my.server/monitor"
+         	upload="UsageUpload"
+         	userId="GetUserID"/>
          <ui
                consentForm="doc/study-ethics.html"
                daysBetweenUpload="6"
