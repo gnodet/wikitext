@@ -10,10 +10,6 @@
  *******************************************************************************/
 package org.eclipse.mylyn.tests.ui.discovery;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +20,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Widget;
 import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
+import org.eclipse.swtbot.swt.finder.SWTBotTestCase;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
 import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
@@ -45,7 +42,7 @@ import org.junit.runner.RunWith;
  * @author David Green
  */
 @RunWith(SWTBotJunit4ClassRunner.class)
-public class DiscoverySystemTest {
+public class DiscoverySystemTest extends SWTBotTestCase {
 
 	private static final String KEY_CONNECTOR_ID = "connectorId";
 

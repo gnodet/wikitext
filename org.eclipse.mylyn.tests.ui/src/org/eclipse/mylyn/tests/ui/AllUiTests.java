@@ -14,10 +14,16 @@ package org.eclipse.mylyn.tests.ui;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.eclipse.mylyn.tests.ui.discovery.DiscoverySystemTest;
+
+/**
+ * @author Steffen Pingel
+ */
 public class AllUiTests {
 
 	public static Test suite() {
 		TestSuite suite = new TestSuite("Test for org.eclipse.mylyn.tests.ui");
+		suite.addTestSuite(DiscoverySystemTest.class);
 		return suite;
 	}
 
