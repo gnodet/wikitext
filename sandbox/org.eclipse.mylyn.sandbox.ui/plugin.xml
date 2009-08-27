@@ -334,12 +334,6 @@
     </extension>
 
 	<extension point="org.eclipse.ui.commands">
-		<category
-			name="Task Context Search (Experimental)"
-			description="Mylyn UI Commands"
-			id="org.eclipse.mylyn.context.ui.commands">
-		</category>
-		
 		<command
 			name="Show Context Search Elements"
 			description="Show Context Search Elements"

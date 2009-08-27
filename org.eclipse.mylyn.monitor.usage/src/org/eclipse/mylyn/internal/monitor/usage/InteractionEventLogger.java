@@ -61,7 +61,7 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 	}
 
 	public synchronized void interactionObserved(InteractionEvent event) {
-//		 System.err.println("> " + event);
+//		System.err.println("> " + event); //$NON-NLS-1$
 		if (UiUsageMonitorPlugin.getDefault() == null) {
 			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.ID_PLUGIN,
 					"Attempted to log event before usage monitor start")); //$NON-NLS-1$
