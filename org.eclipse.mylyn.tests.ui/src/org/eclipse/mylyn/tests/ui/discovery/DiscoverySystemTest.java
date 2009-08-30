@@ -23,7 +23,6 @@ import org.eclipse.swtbot.eclipse.finder.SWTWorkbenchBot;
 import org.eclipse.swtbot.swt.finder.SWTBotTestCase;
 import org.eclipse.swtbot.swt.finder.exceptions.WidgetNotFoundException;
 import org.eclipse.swtbot.swt.finder.finders.UIThreadRunnable;
-import org.eclipse.swtbot.swt.finder.junit.SWTBotJunit4ClassRunner;
 import org.eclipse.swtbot.swt.finder.results.Result;
 import org.eclipse.swtbot.swt.finder.waits.Conditions;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotCheckBox;
@@ -31,26 +30,21 @@ import org.eclipse.swtbot.swt.finder.widgets.SWTBotShell;
 import org.eclipse.swtbot.swt.finder.widgets.SWTBotTable;
 import org.eclipse.ui.PlatformUI;
 import org.hamcrest.Matcher;
-import org.junit.After;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
  * tests that drive the Connector Discovery UI
  * 
  * @author David Green
  */
-@RunWith(SWTBotJunit4ClassRunner.class)
 public class DiscoverySystemTest extends SWTBotTestCase {
 
 	private static final String KEY_CONNECTOR_ID = "connectorId";
 
-	private static SWTWorkbenchBot bot;
+	private static SWTWorkbenchBot bot = new SWTWorkbenchBot();
 
-	@BeforeClass
-	public static void beforeClass() throws Exception {
-		bot = new SWTWorkbenchBot();
+	@Override
+	public void setUp() throws Exception {
 		try {
 			bot.viewByTitle("Welcome").close();
 		} catch (WidgetNotFoundException e) {
@@ -58,8 +52,8 @@ public class DiscoverySystemTest extends SWTBotTestCase {
 		}
 	}
 
-	@After
-	public void after() {
+	@Override
+	public void tearDown() {
 		Shell mainShell = UIThreadRunnable.syncExec(new Result<Shell>() {
 			public Shell run() {
 				return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
