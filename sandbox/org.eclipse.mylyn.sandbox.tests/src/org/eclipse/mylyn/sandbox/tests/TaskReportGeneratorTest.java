@@ -20,8 +20,8 @@ import java.util.Set;
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.mylyn.bugzilla.tests.BugzillaTestConstants;
 import org.eclipse.mylyn.internal.bugzilla.core.BugzillaCorePlugin;
-import org.eclipse.mylyn.internal.bugzilla.core.IBugzillaConstants;
 import org.eclipse.mylyn.internal.sandbox.ui.planner.CompletedTaskCollector;
 import org.eclipse.mylyn.internal.sandbox.ui.planner.TaskReportGenerator;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
@@ -95,9 +95,9 @@ public class TaskReportGeneratorTest extends TestCase {
 
 	public void testCompletedBugzillaTasksRetrieved() throws InvocationTargetException, InterruptedException {
 		TaskRepository repository = new TaskRepository(BugzillaCorePlugin.CONNECTOR_KIND,
-				IBugzillaConstants.ECLIPSE_BUGZILLA_URL);
+				BugzillaTestConstants.TEST_BUGZILLA_LATEST_URL);
 		TasksUiPlugin.getRepositoryManager().addRepository(repository);
-		TaskTask task1 = new TaskTask(IBugzillaConstants.ECLIPSE_BUGZILLA_URL, "1", "bugzillatask 1");
+		TaskTask task1 = new TaskTask(BugzillaTestConstants.TEST_BUGZILLA_LATEST_URL, "1", "bugzillatask 1");
 		taskList.addTask(task1);
 
 		Calendar cal = Calendar.getInstance();
