@@ -48,11 +48,16 @@ public class UsageUploadManager {
 	private static final int SIZE_OF_INT = 8;
 
 	public boolean uploadFile(final String postUrl, final File file, final int uid, IProgressMonitor monitor) {
-		return uploadFile(postUrl, "temp.txt", file, file.getName(), uid, monitor); //$NON-NLS-1$
+		// make sure that we send the uid with all files
+		String filename = file.getName();
+		if (!filename.startsWith(uid + ".")) { //$NON-NLS-1$
+			filename = uid + "-" + filename; //$NON-NLS-1$
+		}
+		return uploadFile(postUrl, "temp.txt", file, filename, uid, monitor); //$NON-NLS-1$
 
 	}
 
-	public boolean uploadFile(final String postUrl, final String name, final File file, final String filename,
+	private boolean uploadFile(final String postUrl, final String name, final File file, final String filename,
 			final int uid, IProgressMonitor monitor) {
 
 		PostMethod filePost = new PostMethod(postUrl);
