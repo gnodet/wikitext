@@ -57,7 +57,7 @@ public class UsageUploadManager {
 
 	}
 
-	private boolean uploadFile(final String postUrl, final String name, final File file, final String filename,
+	public boolean uploadFile(final String postUrl, final String name, final File file, final String filename,
 			final int uid, IProgressMonitor monitor) {
 
 		PostMethod filePost = new PostMethod(postUrl);
