@@ -308,10 +308,17 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		return uid;
 	}
 
-	// TODO allow this to be customized
 	private File processMonitorFile(File monitorFile) {
-		File processedFile = new File("processed-" + UiUsageMonitorPlugin.MONITOR_LOG_NAME + processedFileCount++ //$NON-NLS-1$
-				+ ".xml"); //$NON-NLS-1$
+		File processedFile = new File(
+				monitorFile.getParent(),
+				"processed-" + UiUsageMonitorPlugin.MONITOR_LOG_NAME + studyParameters.getCustomizingPlugin() + processedFileCount++ //$NON-NLS-1$
+						+ ".xml"); //$NON-NLS-1$
+
+		if (processedFile.exists()) {
+			processedFile.delete();
+			StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.ID_PLUGIN,
+					"Processed file already exists, overwriting", new Exception())); //$NON-NLS-1$
+		}
 		InteractionEventLogger logger = new InteractionEventLogger(processedFile);
 		logger.startMonitoring();
 		List<InteractionEvent> eventList = logger.getHistoryFromFile(monitorFile);
@@ -323,13 +330,10 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 				if (shouldIncludeEvent(event, filteredIds)) {
 					logger.interactionObserved(event);
-				} else {
-
-					System.out.println(event.getOriginId());
 				}
 			}
 		}
-
+		logger.stopMonitoring();
 		return processedFile;
 	}
 
