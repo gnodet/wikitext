@@ -44,7 +44,9 @@ public class XPlannerTestUtils {
 
 	private final static String PASSWORD = "mylynxp";
 
-	public final static String SERVER_URL = "http://mylyn.eclipse.org/xplanner";
+	public static final String SERVER = System.getProperty("mylyn.xplanner.server", "mylyn.eclipse.org");
+
+	public final static String SERVER_URL = "http://" + SERVER + "/xplanner";
 
 	private final static String TEST_PROJECT_NAME = "UnitTestTestProject";
 
