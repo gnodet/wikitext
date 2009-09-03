@@ -35,7 +35,7 @@
       <command
             name="Sandbox: Introspect Object"
             id="org.eclipse.mylyn.sandbox.dev.commands.Introspect"
-            categoryId="org.eclipse.mylyn.internal.sandbox.dev.commands.category"
+            categoryId="org.eclipse.mylyn.sandbox.dev.commands.category"
             defaultHandler="org.eclipse.mylyn.internal.sandbox.dev.IntrospectObjectHandler">
       </command>
 	</extension>
