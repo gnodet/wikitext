@@ -311,7 +311,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 	private File processMonitorFile(File monitorFile) {
 		File processedFile = new File(
 				monitorFile.getParent(),
-				"processed-" + UiUsageMonitorPlugin.MONITOR_LOG_NAME + studyParameters.getCustomizingPlugin() + processedFileCount++ //$NON-NLS-1$
+				"processed-" + UiUsageMonitorPlugin.MONITOR_LOG_NAME + "-" + studyParameters.getCustomizingPlugin() + "-" + processedFileCount++ //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 						+ ".xml"); //$NON-NLS-1$
 
 		if (processedFile.exists()) {
