@@ -19,7 +19,7 @@ import org.eclipse.mylyn.context.core.AbstractContextStructureBridge;
 import org.eclipse.mylyn.context.core.ContextCore;
 import org.eclipse.mylyn.context.core.IInteractionElement;
 import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
-import org.eclipse.mylyn.internal.context.ui.UiUtil;
+import org.eclipse.mylyn.internal.context.ui.actions.AbstractInterestManipulationAction;
 import org.eclipse.swt.dnd.TransferData;
 
 /**
@@ -44,7 +44,7 @@ public class ActiveViewDropAdapter extends ViewerDropAdapter {
 			boolean manipulated = ContextCorePlugin.getContextManager().manipulateInterestForElement(node, true, true,
 					false, ID_MANIPULATION);
 			if (!manipulated) {
-				UiUtil.displayInterestManipulationFailure();
+				AbstractInterestManipulationAction.displayInterestManipulationFailure();
 			}
 		}
 		return false; // to ensure that the sender doesn't treat this as a
