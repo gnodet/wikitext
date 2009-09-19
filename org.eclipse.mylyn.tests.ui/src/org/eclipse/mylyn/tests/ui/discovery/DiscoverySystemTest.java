@@ -50,10 +50,6 @@ public class DiscoverySystemTest extends SWTBotTestCase {
 		} catch (WidgetNotFoundException e) {
 			// ignore
 		}
-	}
-
-	@Override
-	public void tearDown() {
 		Shell mainShell = UIThreadRunnable.syncExec(new Result<Shell>() {
 			public Shell run() {
 				return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
@@ -67,6 +63,10 @@ public class DiscoverySystemTest extends SWTBotTestCase {
 		}
 	}
 
+	@Override
+	public void tearDown() {
+	}
+
 	@Test
 	public void testSelectOneConnectorAndActivateP2Installer() {
 		activateDiscoveryUi();
@@ -76,8 +76,7 @@ public class DiscoverySystemTest extends SWTBotTestCase {
 
 		// P2 takes over here.  Just verify that the P2 installer is activated and that the selected connector is
 		// visible and checked.
-		SWTBotShell shell = bot.shell("Install");
-		shell.activate();
+		bot.waitUntil(Conditions.shellIsActive("Install"), 30000L);
 
 		final SWTBotTable table = bot.table();
 		int rowCount = table.rowCount();
