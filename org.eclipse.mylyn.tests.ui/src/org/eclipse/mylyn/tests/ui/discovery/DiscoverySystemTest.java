@@ -112,9 +112,9 @@ public class DiscoverySystemTest extends SWTBotTestCase {
 				disabledWidgets.add(data);
 			}
 		}
-		if (!disabledWidgets.isEmpty()) {
-			fail(String.format("%s connectors were disabled: %s", disabledWidgets.size(), disabledWidgets));
-		}
+		assertEquals(String.format("Expected disablement of test contribution only, got %s", disabledWidgets), 1,
+				disabledWidgets.size());
+		assertEquals("org.eclipse.mylyn.discovery.tests.connectorDescriptor1", disabledWidgets.get(0));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -142,7 +142,7 @@ public class DiscoverySystemTest extends SWTBotTestCase {
 		CompoundCondition completeOrErrorCondition = CompoundCondition.or(Conditions.waitForWidget(
 				org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.withId("discoveryComplete", "true"),
 				shell.widget), Conditions.waitForShell(shellMatcher));
-		bot.waitUntil(completeOrErrorCondition, 10000L);
+		bot.waitUntil(completeOrErrorCondition, 30000L);
 
 		if (!completeOrErrorCondition.getResults()[0]) {
 			fail("Connector discovery failed");
