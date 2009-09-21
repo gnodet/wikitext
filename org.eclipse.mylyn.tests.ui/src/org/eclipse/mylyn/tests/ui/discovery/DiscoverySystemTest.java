@@ -68,9 +68,10 @@ public class DiscoverySystemTest extends SWTBotTestCase {
 	}
 
 	@Test
-	public void testSelectOneConnectorAndActivateP2Installer() {
+	public void testSelectTwoConnectorsAndActivateP2Installer() {
 		activateDiscoveryUi();
-		bot.checkBoxWithId(KEY_CONNECTOR_ID, "org.eclipse.mylyn.trac_feature").click();
+		bot.checkBoxWithId(KEY_CONNECTOR_ID, "com.itsolut.mantis_feature").click();
+		bot.checkBoxWithId(KEY_CONNECTOR_ID, "com.foglyn").click();
 
 		bot.button("&Finish").click();
 
