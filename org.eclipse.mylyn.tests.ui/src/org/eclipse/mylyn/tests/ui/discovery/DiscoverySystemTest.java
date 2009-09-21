@@ -82,15 +82,19 @@ public class DiscoverySystemTest extends SWTBotTestCase {
 		final SWTBotTable table = bot.table();
 		int rowCount = table.rowCount();
 		assertTrue(rowCount > 0);
-		int tracRow = -1;
+		int foglynRow = -1;
+		int mantisRow = -1;
 		for (int x = 0; x < rowCount; ++x) {
 			String cellData = table.cell(x, 0);
-			if (cellData.indexOf("Trac") != -1) {
-				tracRow = x;
-				break;
+			if (cellData.indexOf("Foglyn") != -1) {
+				foglynRow = x;
+			}
+			if (cellData.indexOf("Mantis") != -1) {
+				mantisRow = x;
 			}
 		}
-		assertTrue("Trac wasn't in the p2 ui", tracRow >= 0);
+		assertTrue("Foglyn wasn't in the p2 ui", foglynRow >= 0);
+		assertTrue("Mantis wasn't in the p2 ui", mantisRow >= 0);
 
 		bot.button("Cancel").click();
 	}
