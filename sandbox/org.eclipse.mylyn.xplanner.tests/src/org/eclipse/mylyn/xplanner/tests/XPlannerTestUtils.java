@@ -94,8 +94,7 @@ public class XPlannerTestUtils {
 	}
 
 	public static void removeRepository(TaskRepository repository) {
-		TasksUiPlugin.getRepositoryManager().removeRepository(repository,
-				TasksUiPlugin.getDefault().getRepositoriesFilePath());
+		TasksUiPlugin.getRepositoryManager().removeRepository(repository);
 	}
 
 	public static XPlannerClient getXPlannerClient() throws CoreException {
