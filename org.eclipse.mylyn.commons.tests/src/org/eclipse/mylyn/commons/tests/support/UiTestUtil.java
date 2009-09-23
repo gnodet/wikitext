@@ -9,7 +9,7 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.context.tests;
+package org.eclipse.mylyn.commons.tests.support;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +17,9 @@ import java.util.List;
 
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewReference;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 
 /**
@@ -65,5 +67,9 @@ public class UiTestUtil {
 				return;
 			}
 		}
+	}
+
+	public static IViewPart openView(String id) throws PartInitException {
+		return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().showView(id);
 	}
 }
