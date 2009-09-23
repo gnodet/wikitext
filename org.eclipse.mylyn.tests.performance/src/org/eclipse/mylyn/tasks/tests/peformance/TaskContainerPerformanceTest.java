@@ -9,7 +9,7 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.tasks.tests.performance;
+package org.eclipse.mylyn.tasks.tests.peformance;
 
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.tests.connector.MockTask;
@@ -18,7 +18,7 @@ import org.eclipse.test.performance.PerformanceTestCase;
 /**
  * @author Steffen Pingel
  */
-public class TaskContainerTest extends PerformanceTestCase {
+public class TaskContainerPerformanceTest extends PerformanceTestCase {
 
 	int counter;
 

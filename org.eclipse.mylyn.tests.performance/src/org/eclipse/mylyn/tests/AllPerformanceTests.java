@@ -9,20 +9,21 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.tasks.tests;
+package org.eclipse.mylyn.tests;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.mylyn.tasks.tests.performance.TaskContainerTest;
-import org.eclipse.mylyn.tasks.tests.performance.TaskListPerformanceTest;
+import org.eclipse.mylyn.tasks.tests.AllTasksPerformanceTests;
 
-public class AllTasksPerformanceTests {
+/**
+ * @author Steffen Pingel
+ */
+public class AllPerformanceTests {
 
 	public static Test suite() {
-		TestSuite suite = new TestSuite("Test for org.eclipse.mylyn.tests.performance");
-		suite.addTestSuite(TaskContainerTest.class);
-		suite.addTestSuite(TaskListPerformanceTest.class);
+		TestSuite suite = new TestSuite("Performance tests for org.eclipse.mylyn.tests.performance");
+		suite.addTest(AllTasksPerformanceTests.suite());
 		return suite;
 	}
 
