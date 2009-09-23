@@ -34,6 +34,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.mylyn.web.tasks,
  org.apache.commons.httpclient,
  org.eclipse.mylyn.commons.net,
+ org.eclipse.mylyn.commons.tests,
  org.eclipse.mylyn.tasks.tests,
  org.eclipse.pde.core
 Bundle-ActivationPolicy: lazy
