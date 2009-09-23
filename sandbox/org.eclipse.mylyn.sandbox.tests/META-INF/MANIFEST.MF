@@ -36,6 +36,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.mylyn.commons.net,
  org.eclipse.mylyn.commons.tests,
  org.eclipse.mylyn.tasks.tests,
+ org.eclipse.mylyn.tests.util,
  org.eclipse.pde.core
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

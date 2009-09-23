@@ -17,15 +17,15 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.mylyn.commons.net.AuthenticationCredentials;
 import org.eclipse.mylyn.commons.net.AuthenticationType;
-import org.eclipse.mylyn.context.tests.support.TestUtil;
-import org.eclipse.mylyn.context.tests.support.TestUtil.Credentials;
-import org.eclipse.mylyn.context.tests.support.TestUtil.PrivilegeLevel;
 import org.eclipse.mylyn.internal.web.tasks.WebRepositoryConnector;
 import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.ITaskMapping;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.tests.util.TestTaskDataCollector;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
+import org.eclipse.mylyn.tests.util.TestUtil;
+import org.eclipse.mylyn.tests.util.TestUtil.Credentials;
+import org.eclipse.mylyn.tests.util.TestUtil.PrivilegeLevel;
 
 /**
  * @author Steffen Pingel
