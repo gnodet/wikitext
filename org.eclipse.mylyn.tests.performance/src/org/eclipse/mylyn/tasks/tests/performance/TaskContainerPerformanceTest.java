@@ -9,7 +9,7 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.tasks.tests.peformance;
+package org.eclipse.mylyn.tasks.tests.performance;
 
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.tests.connector.MockTask;

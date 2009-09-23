@@ -14,13 +14,14 @@ package org.eclipse.mylyn.tasks.tests;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.mylyn.tasks.tests.peformance.TaskListPerformanceTest;
+import org.eclipse.mylyn.tasks.tests.performance.TaskContainerPerformanceTest;
+import org.eclipse.mylyn.tasks.tests.performance.TaskListPerformanceTest;
 
 public class AllTasksPerformanceTests {
 
 	public static Test suite() {
 		TestSuite suite = new TestSuite("Test for org.eclipse.mylyn.tests.performance");
-		suite.addTestSuite(TaskContainerTest.class);
+		suite.addTestSuite(TaskContainerPerformanceTest.class);
 		suite.addTestSuite(TaskListPerformanceTest.class);
 		return suite;
 	}
