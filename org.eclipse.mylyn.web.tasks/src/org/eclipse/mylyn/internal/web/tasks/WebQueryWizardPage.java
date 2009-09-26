@@ -34,12 +34,15 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.mylyn.internal.provisional.commons.ui.CommonUiUtil;
+import org.eclipse.mylyn.internal.provisional.commons.ui.WorkbenchUtil;
 import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.core.data.TaskData;
 import org.eclipse.mylyn.tasks.core.data.TaskDataCollector;
 import org.eclipse.mylyn.tasks.core.data.TaskMapper;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositoryQueryPage;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -55,8 +58,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
 import org.eclipse.ui.forms.events.ExpansionAdapter;
 import org.eclipse.ui.forms.events.ExpansionEvent;
@@ -374,26 +375,31 @@ public class WebQueryWizardPage extends AbstractRepositoryQueryPage {
 		new Job("Opening Browser") {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
-				String evaluatedUrl = WebRepositoryConnector.evaluateParams(url, params, getTaskRepository());
-
+				final String evaluatedUrl = WebRepositoryConnector.evaluateParams(url, params, getTaskRepository());
 				try {
 					String webPage = WebRepositoryConnector.fetchResource(evaluatedUrl, params, getTaskRepository());
 					File webPageFile = File.createTempFile("mylyn-web-connector", ".html");
 					webPageFile.deleteOnExit();
 
 					FileWriter w = new FileWriter(webPageFile);
-					w.write(webPage);
-					w.flush();
-					w.close();
+					try {
+						w.write(webPage);
+					} finally {
+						w.close();
+					}
 
-					IWorkbenchBrowserSupport browserSupport = PlatformUI.getWorkbench().getBrowserSupport();
-					IWebBrowser browser = browserSupport.getExternalBrowser();
-					browser.openURL(webPageFile.toURL());
-
-				} catch (final Exception e) {
-					Display.getCurrent().asyncExec(new Runnable() {
+					final String location = webPageFile.toURI().toURL().toString();
+					Display.getDefault().asyncExec(new Runnable() {
 						public void run() {
-							setMessage(e.toString());
+							WorkbenchUtil.openUrl(location, IWorkbenchBrowserSupport.AS_EXTERNAL);
+						}
+					});
+				} catch (final Exception e) {
+					Display.getDefault().asyncExec(new Runnable() {
+						public void run() {
+							CommonUiUtil.setMessage(WebQueryWizardPage.this, new Status(IStatus.ERROR,
+									TasksWebPlugin.ID_PLUGIN, NLS.bind("Failed to open ''{0}'': {1}", evaluatedUrl,
+											e.getMessage()), e));
 						}
 					});
 				}
