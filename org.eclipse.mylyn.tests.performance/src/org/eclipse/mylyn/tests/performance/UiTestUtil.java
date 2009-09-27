@@ -9,7 +9,7 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.commons.tests.support;
+package org.eclipse.mylyn.tests.performance;
 
 import java.util.ArrayList;
 import java.util.Arrays;

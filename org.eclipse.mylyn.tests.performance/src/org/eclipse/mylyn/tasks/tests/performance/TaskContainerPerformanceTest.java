@@ -13,6 +13,7 @@ package org.eclipse.mylyn.tasks.tests.performance;
 
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.tasks.tests.connector.MockTask;
+import org.eclipse.mylyn.tests.performance.PerformanceConstants;
 import org.eclipse.test.performance.PerformanceTestCase;
 
 /**
@@ -36,7 +37,7 @@ public class TaskContainerPerformanceTest extends PerformanceTestCase {
 		MockTask task = new MockTask(++counter + "");
 		addChildren(task, new int[] { 1000, 10, 2 }, 0);
 
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < PerformanceConstants.REPEAT; i++) {
 			startMeasuring();
 			task.contains("handle");
 			stopMeasuring();
