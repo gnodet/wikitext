@@ -14,8 +14,6 @@ package org.eclipse.mylyn.tasks.tests.performance;
 import java.io.File;
 import java.io.IOException;
 
-import org.eclipse.mylyn.commons.tests.support.CommonTestUtil;
-import org.eclipse.mylyn.commons.tests.support.UiTestUtil;
 import org.eclipse.mylyn.internal.provisional.commons.ui.WorkbenchUtil;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.LocalRepositoryConnector;
@@ -25,7 +23,9 @@ import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.TasksUi;
 import org.eclipse.mylyn.tasks.ui.TasksUiUtil;
+import org.eclipse.mylyn.tests.performance.CommonTestUtil;
 import org.eclipse.mylyn.tests.performance.PerformanceConstants;
+import org.eclipse.mylyn.tests.performance.UiTestUtil;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.test.performance.Dimension;
 import org.eclipse.test.performance.PerformanceTestCase;
