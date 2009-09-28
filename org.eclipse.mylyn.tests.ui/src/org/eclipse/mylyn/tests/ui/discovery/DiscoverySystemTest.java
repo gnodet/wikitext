@@ -77,7 +77,7 @@ public class DiscoverySystemTest extends SWTBotTestCase {
 
 		// P2 takes over here.  Just verify that the P2 installer is activated and that the selected connector is
 		// visible and checked.
-		bot.waitUntil(Conditions.shellIsActive("Install"), 30000L);
+		bot.waitUntil(Conditions.shellIsActive("Install"), 90000L);
 
 		final SWTBotTable table = bot.table();
 		int rowCount = table.rowCount();
