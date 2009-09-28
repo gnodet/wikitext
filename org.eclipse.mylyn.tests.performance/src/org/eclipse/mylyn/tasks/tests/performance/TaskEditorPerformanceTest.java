@@ -17,7 +17,6 @@ import java.io.IOException;
 import org.eclipse.mylyn.internal.provisional.commons.ui.WorkbenchUtil;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.LocalRepositoryConnector;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.editors.TaskEditorExtensions;
 import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
@@ -97,24 +96,20 @@ public class TaskEditorPerformanceTest extends PerformanceTestCase {
 
 	public void testOpenNewBugzillaTask() {
 		TaskRepository repository = new TaskRepository("bugzilla", "http://mylyn.eclipse.org/bugs34/");
-		try {
-			TasksUi.getRepositoryManager().addRepository(repository);
+		TasksUi.getRepositoryManager().addRepository(repository);
 
-			Shell shell = WorkbenchUtil.getShell();
-			for (int i = 0; i < PerformanceConstants.REPEAT; i++) {
-				startMeasuring();
-				TasksUiUtil.openNewTaskEditor(shell, null, repository);
-				stopMeasuring();
+		Shell shell = WorkbenchUtil.getShell();
+		for (int i = 0; i < PerformanceConstants.REPEAT; i++) {
+			startMeasuring();
+			TasksUiUtil.openNewTaskEditor(shell, null, repository);
+			stopMeasuring();
 
-				UiTestUtil.closeAllEditors();
-			}
-
-			tagAsSummary("Open Bugzilla Task in Editor", Dimension.CPU_TIME);
-			commitMeasurements();
-			assertPerformance();
-		} finally {
-			TasksUiPlugin.getRepositoryManager().removeRepository(repository);
+			UiTestUtil.closeAllEditors();
 		}
+
+		tagAsSummary("Open Bugzilla Task in Editor", Dimension.CPU_TIME);
+		commitMeasurements();
+		assertPerformance();
 	}
 
 	public void testOpenNewLocalTask() {
