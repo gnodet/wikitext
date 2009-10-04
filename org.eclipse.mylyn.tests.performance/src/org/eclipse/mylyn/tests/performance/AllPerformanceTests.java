@@ -14,8 +14,6 @@ package org.eclipse.mylyn.tests.performance;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.mylyn.tasks.tests.AllTasksPerformanceTests;
-
 /**
  * @author Steffen Pingel
  */
