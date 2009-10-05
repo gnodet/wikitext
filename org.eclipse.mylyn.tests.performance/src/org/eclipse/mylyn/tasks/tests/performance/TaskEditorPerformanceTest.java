@@ -14,6 +14,7 @@ package org.eclipse.mylyn.tasks.tests.performance;
 import java.io.File;
 import java.io.IOException;
 
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.mylyn.internal.provisional.commons.ui.WorkbenchUtil;
 import org.eclipse.mylyn.internal.tasks.core.AbstractTask;
 import org.eclipse.mylyn.internal.tasks.core.LocalRepositoryConnector;
@@ -94,9 +95,11 @@ public class TaskEditorPerformanceTest extends PerformanceTestCase {
 		assertPerformance();
 	}
 
-	public void testOpenNewBugzillaTask() {
+	public void testOpenNewBugzillaTask() throws Exception {
 		TaskRepository repository = new TaskRepository("bugzilla", "http://mylyn.eclipse.org/bugs34/");
 		TasksUi.getRepositoryManager().addRepository(repository);
+		TasksUi.getRepositoryConnector(repository.getConnectorKind()).updateRepositoryConfiguration(repository,
+				new NullProgressMonitor());
 
 		Shell shell = WorkbenchUtil.getShell();
 		for (int i = 0; i < PerformanceConstants.REPEAT; i++) {
