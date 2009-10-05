@@ -91,6 +91,14 @@
       </activityPatternBinding>
       <activityPatternBinding
             activityId="org.eclipse.mylyn.capabilities.taskFocusedInterface"
+            pattern="org\.eclipse\.mylyn\.cdt\.ui/.*">
+      </activityPatternBinding>
+      <activityPatternBinding
+            activityId="org.eclipse.mylyn.capabilities.taskFocusedInterface"
+            pattern="org\.eclipse\.cdt\.mylyn\.ui/.*">
+      </activityPatternBinding>
+      <activityPatternBinding
+            activityId="org.eclipse.mylyn.capabilities.taskFocusedInterface"
             pattern="org\.eclipse\.mylyn\.monitor\.ui/.*">
       </activityPatternBinding>
       <activityPatternBinding
