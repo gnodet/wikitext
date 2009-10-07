@@ -145,7 +145,8 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		}
 
 		Label obfuscationLablel = new Label(group, SWT.NULL);
-		obfuscationLablel.setText(InteractionEventObfuscator.ENCRYPTION_ALGORITHM + Messages.UsageDataPreferencePage_Message_Digest_One_Way_Hash);
+		obfuscationLablel.setText(InteractionEventObfuscator.ENCRYPTION_ALGORITHM
+				+ Messages.UsageDataPreferencePage_Message_Digest_One_Way_Hash);
 	}
 
 	private void createUsageSection(Composite parent) {
@@ -162,9 +163,14 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		uploadUrl.setText(studyParameters.getUploadServletUrl());
 
 		Label events = new Label(group, SWT.NULL);
-		events.setText(Messages.UsageDataPreferencePage_Events_Since_Upload);
+		events.setText(Messages.UsageDataPreferencePage_Total_Events);
 		Label logged = new Label(group, SWT.NULL);
 		logged.setText("" + getPreferenceStore().getInt(MonitorPreferenceConstants.PREF_NUM_USER_EVENTS)); //$NON-NLS-1$
+
+		events = new Label(group, SWT.NULL);
+		events.setText(Messages.UsageDataPreferencePage_Events_Since_Upload);
+		logged = new Label(group, SWT.NULL);
+		logged.setText("" + getPreferenceStore().getInt(MonitorPreferenceConstants.PREF_NUM_USER_EVENTS_SINCE_LAST_UPLOAD)); //$NON-NLS-1$
 
 		Composite enableSubmissionComposite = new Composite(group, SWT.NULL);
 		GridLayout submissionGridLayout = new GridLayout(4, false);

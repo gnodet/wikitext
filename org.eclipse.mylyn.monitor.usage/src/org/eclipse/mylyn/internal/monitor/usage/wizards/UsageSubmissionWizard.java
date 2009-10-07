@@ -236,6 +236,7 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		}
 
 		if (!failed) {
+			UiUsageMonitorPlugin.getDefault().resetEventsSinceUpload();
 			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 				public void run() {
 					// popup a dialog telling the user that the upload was good

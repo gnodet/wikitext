@@ -32,6 +32,8 @@ public class Messages extends NLS {
 
 	public static String UsageDataPreferencePage_Obfuscate_Elements_Using;
 
+	public static String UsageDataPreferencePage_Total_Events;
+
 	public static String UsageDataPreferencePage_Upload_Url;
 
 	public static String UsageDataPreferencePage_Usage_Feedback;

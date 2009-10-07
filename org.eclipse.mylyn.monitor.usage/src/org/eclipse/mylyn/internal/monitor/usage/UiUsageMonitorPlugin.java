@@ -149,6 +149,11 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		final IWorkbench workbench = PlatformUI.getWorkbench();
 		Display display = workbench.getDisplay();
 
+		if (!getPreferenceStore().contains(MonitorPreferenceConstants.PREF_NUM_USER_EVENTS_SINCE_LAST_UPLOAD)) {
+			getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_NUM_USER_EVENTS_SINCE_LAST_UPLOAD,
+					getPreferenceStore().getInt(MonitorPreferenceConstants.PREF_NUM_USER_EVENTS));
+		}
+
 		checkForUploadJob = new CheckForUploadJob(display);
 		checkForUploadJob.setSystem(true);
 		checkForUploadJob.schedule(START_CHECK_UPLOAD_JOB_DELAY);
@@ -306,6 +311,7 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 	@Override
 	public void stop(BundleContext context) throws Exception {
+		stopMonitoring();
 		super.stop(context);
 		plugin = null;
 	}
@@ -384,6 +390,16 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		int numEvents = getPreferenceStore().getInt(MonitorPreferenceConstants.PREF_NUM_USER_EVENTS);
 		numEvents += increment;
 		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_NUM_USER_EVENTS, numEvents);
+
+		numEvents = getPreferenceStore().getInt(MonitorPreferenceConstants.PREF_NUM_USER_EVENTS_SINCE_LAST_UPLOAD);
+		numEvents += increment;
+		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_NUM_USER_EVENTS_SINCE_LAST_UPLOAD, numEvents);
+		savePluginPreferences();
+	}
+
+	public void resetEventsSinceUpload() {
+		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_NUM_USER_EVENTS_SINCE_LAST_UPLOAD, 0);
+		savePluginPreferences();
 	}
 
 	public static boolean isPerformingUpload() {

@@ -20,6 +20,8 @@ public class MonitorPreferenceConstants {
 
 	public static final String PREF_NUM_USER_EVENTS = "org.eclipse.mylyn.monitor.ui.events.observed"; //$NON-NLS-1$
 
+	public static final String PREF_NUM_USER_EVENTS_SINCE_LAST_UPLOAD = "org.eclipse.mylyn.monitor.ui.events.observed.last.upload"; //$NON-NLS-1$
+
 	public static final String PREF_MONITORING_ENABLED = "org.eclipse.mylyn.monitor.ui.enabled"; //$NON-NLS-1$
 
 	public static final String PREF_MONITORING_OBFUSCATE = "org.eclipse.mylyn.monitor.ui.obfuscate"; //$NON-NLS-1$
