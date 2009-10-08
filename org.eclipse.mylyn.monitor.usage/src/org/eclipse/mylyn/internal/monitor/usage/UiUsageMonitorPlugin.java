@@ -289,8 +289,10 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 
 		MonitorUiPlugin.getDefault().removeWindowPerspectiveListener(perspectiveMonitor);
 		workbench.getActivitySupport().getActivityManager().removeActivityManagerListener(activityMonitor);
-		workbench.getDisplay().removeFilter(SWT.Selection, menuMonitor);
-		workbench.removeWindowListener(windowMonitor);
+		if (workbench.getDisplay() != null && !workbench.getDisplay().isDisposed()) {
+			workbench.getDisplay().removeFilter(SWT.Selection, menuMonitor);
+			workbench.removeWindowListener(windowMonitor);
+		}
 
 		// uninstallBrowserMonitor(workbench);
 		interactionLogger.stopMonitoring();
