@@ -156,7 +156,7 @@ public class XPlannerTaskEditor extends AbstractTaskEditorPage implements XPlann
 		return extraControls;
 	}
 
-// TODO 3.3 fix validation	
+// TODO 3.4 fix validation	
 //	@Override
 //	protected void validateInput() {
 //		submitButton.setEnabled(true);
@@ -184,7 +184,7 @@ public class XPlannerTaskEditor extends AbstractTaskEditorPage implements XPlann
 		getModel().attributeChanged(attribute);
 	}
 
-// TODO 3.3 fix validation	
+// TODO 3.4 fix validation	
 //	@Override
 //	public void submitToRepository() {
 //		String errorMessage = null;
