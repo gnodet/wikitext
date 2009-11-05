@@ -62,6 +62,8 @@ class UiUsageMonitorExtensionPointReader {
 
 	public static final String ELEMENT_UI_URL_USAGE_PAGE = "usagePageUrl"; //$NON-NLS-1$
 
+	public static final String ELEMENT_UI_URL_MORE_INFORMATION = "moreInformationUrl"; //$NON-NLS-1$
+
 	public static final String ELEMENT_UI_PROMPT_FOR_SUBMISSION = "promptForSubmission"; //$NON-NLS-1$
 
 	public static final String ELEMENT_MONITORS = "monitors"; //$NON-NLS-1$
@@ -141,6 +143,7 @@ class UiUsageMonitorExtensionPointReader {
 	}
 
 	private void readForms(IConfigurationElement element) throws CoreException {
+		studyParameters.setMoreInformationUrl(element.getAttribute(ELEMENT_UI_URL_MORE_INFORMATION));
 		studyParameters.setUsagePageUrl(element.getAttribute(ELEMENT_UI_URL_USAGE_PAGE));
 		studyParameters.setStudyName(element.getAttribute(ELEMENT_UI_STUDY_NAME));
 		studyParameters.setTitle(element.getAttribute(ELEMENT_UI_TITLE));

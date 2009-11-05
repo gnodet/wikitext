@@ -26,6 +26,8 @@ public class Messages extends NLS {
 
 	public static String UsageDataPreferencePage_If_Enabled_Mylyn_Monitors;
 
+	public static String UsageDataPreferencePage_Learn_More;
+
 	public static String UsageDataPreferencePage_Message_Digest_One_Way_Hash;
 
 	public static String UsageDataPreferencePage_Monitoring;
@@ -34,7 +36,11 @@ public class Messages extends NLS {
 
 	public static String UsageDataPreferencePage_Total_Events;
 
+	public static String UsageDataPreferencePage_Unable_To_Open_X;
+
 	public static String UsageDataPreferencePage_Upload_Url;
+
+	public static String UsageDataPreferencePage_Url_Not_Found;
 
 	public static String UsageDataPreferencePage_Usage_Feedback;
 	static {

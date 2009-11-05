@@ -25,6 +25,7 @@
                studyName="Sample Study"
                title="Mylyn User Study Example"
                usagePageUrl="http://someServer/stats.html"
+               moreInformationUrl="http://someServer/information.html"
                useContactField="false"/>
          <filter
                idPrefix="org.eclipse.mylyn."/>

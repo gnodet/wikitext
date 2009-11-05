@@ -60,6 +60,8 @@ public class StudyParameters {
 
 	private String studyName;
 
+	private String moreInformationUrl;
+
 	private final Collection<String> filteredIds = new HashSet<String>();
 
 	public String getUploadServletUrl() {
@@ -275,6 +277,16 @@ public class StudyParameters {
 
 	public boolean shouldPromptForSubmission() {
 		return promptForSubmission;
+	}
+
+	public void setMoreInformationUrl(String moreInformationUrl) {
+		if (moreInformationUrl != null) {
+			this.moreInformationUrl = moreInformationUrl;
+		}
+	}
+
+	public String getMoreInformationUrl() {
+		return moreInformationUrl;
 	}
 
 }

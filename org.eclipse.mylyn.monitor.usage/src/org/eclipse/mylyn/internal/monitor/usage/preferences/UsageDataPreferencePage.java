@@ -12,12 +12,22 @@
 
 package org.eclipse.mylyn.internal.monitor.usage.preferences;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Calendar;
+
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.monitor.usage.InteractionEventObfuscator;
 import org.eclipse.mylyn.internal.monitor.usage.MonitorPreferenceConstants;
 import org.eclipse.mylyn.internal.monitor.usage.StudyParameters;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
+import org.eclipse.mylyn.internal.provisional.commons.ui.CommonColors;
+import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -28,11 +38,21 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.browser.IWebBrowser;
+import org.eclipse.ui.browser.IWorkbenchBrowserSupport;
+import org.eclipse.ui.forms.events.HyperlinkAdapter;
+import org.eclipse.ui.forms.events.HyperlinkEvent;
+import org.eclipse.ui.forms.widgets.ImageHyperlink;
+import org.eclipse.ui.internal.browser.WebBrowserPreference;
+import org.eclipse.ui.internal.browser.WorkbenchBrowserSupport;
 
 /**
  * @author Mik Kersten
@@ -77,12 +97,62 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 			Label label = new Label(parent, SWT.NULL);
 			label.setText(studyParameters.getCustomizedByMessage());
 			label.setFont(JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT));
+
+			if (studyParameters.getMoreInformationUrl() != null) {
+				ImageHyperlink link = new ImageHyperlink(parent, SWT.NONE);
+				link.setText(Messages.UsageDataPreferencePage_Learn_More);
+				link.setForeground(CommonColors.HYPERLINK_WIDGET);
+				link.addHyperlinkListener(new HyperlinkAdapter() {
+					@Override
+					public void linkActivated(HyperlinkEvent e) {
+						openMoreInformaionInBrowser();
+					}
+
+				});
+			}
 		}
 
 		createLogFileSection(container);
 		createUsageSection(container);
 		updateEnablement();
 		return container;
+	}
+
+	private void openMoreInformaionInBrowser() {
+		String moreInformationUrl = studyParameters.getMoreInformationUrl();
+		try {
+			if (WebBrowserPreference.getBrowserChoice() == WebBrowserPreference.EXTERNAL) {
+				try {
+					IWorkbenchBrowserSupport support = PlatformUI.getWorkbench().getBrowserSupport();
+					support.getExternalBrowser().openURL(new URL(moreInformationUrl));
+				} catch (Exception e) {
+					StatusHandler.fail(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
+							"Could not open url", e)); //$NON-NLS-1$
+				}
+			} else {
+				IWebBrowser browser = null;
+				int flags = 0;
+				if (WorkbenchBrowserSupport.getInstance().isInternalWebBrowserAvailable()) {
+					flags = IWorkbenchBrowserSupport.AS_EDITOR | IWorkbenchBrowserSupport.LOCATION_BAR
+							| IWorkbenchBrowserSupport.NAVIGATION_BAR;
+
+				} else {
+					flags = IWorkbenchBrowserSupport.AS_EXTERNAL | IWorkbenchBrowserSupport.LOCATION_BAR
+							| IWorkbenchBrowserSupport.NAVIGATION_BAR;
+				}
+
+				String generatedId = "org.eclipse.mylyn.web.browser-" + Calendar.getInstance().getTimeInMillis(); //$NON-NLS-1$
+				browser = WorkbenchBrowserSupport.getInstance().createBrowser(flags, generatedId, null, null);
+				browser.openURL(new URL(moreInformationUrl));
+			}
+		} catch (PartInitException e) {
+			MessageDialog.openError(Display.getDefault().getActiveShell(), "Browser init error", //$NON-NLS-1$
+					"Browser could not be initiated"); //$NON-NLS-1$
+		} catch (MalformedURLException e) {
+			MessageDialog.openError(Display.getDefault().getActiveShell(),
+					Messages.UsageDataPreferencePage_Url_Not_Found, NLS.bind(
+							Messages.UsageDataPreferencePage_Unable_To_Open_X, moreInformationUrl));
+		}
 	}
 
 	public void init(IWorkbench workbench) {
