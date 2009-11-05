@@ -75,6 +75,8 @@ public class Messages extends NLS {
 	public static String UsageUploadManager_Error_Uploading_X_No_Network;
 
 	public static String UsageUploadManager_Error_Uploading_X_Y;
+
+	public static String UsageUploadManager_Unable_To_Upload_X;
 	static {
 		// initialize resource bundle
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

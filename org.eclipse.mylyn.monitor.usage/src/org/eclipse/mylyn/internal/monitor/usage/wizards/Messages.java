@@ -139,7 +139,15 @@ public class Messages extends NLS {
 	public static String UsageFileSelectionWizardPage_Please_Selected_Archived_Usage_Files;
 
 	public static String UsageFileSelectionWizardPage_Select_Archived_File_To_Upload;
+	public static String UsageSubmissionWizard_Error_Getting_User_Id;
+
+	public static String UsageSubmissionWizard_Error_Uploading_Usage_Data;
+
+	public static String UsageSubmissionWizard_Error_While_Uploading;
+
 	public static String UsageSubmissionWizard_Successful_Upload;
+
+	public static String UsageSubmissionWizard_Unable_To_Get_New_User_Id;
 
 	public static String UsageSubmissionWizard_Upload_User_Statistics;
 

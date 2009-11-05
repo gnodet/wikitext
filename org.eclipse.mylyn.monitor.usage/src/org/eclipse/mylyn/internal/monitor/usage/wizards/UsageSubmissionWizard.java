@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
@@ -36,6 +37,7 @@ import org.eclipse.mylyn.internal.monitor.usage.InteractionEventLogger;
 import org.eclipse.mylyn.internal.monitor.usage.MonitorFileRolloverJob;
 import org.eclipse.mylyn.internal.monitor.usage.StudyParameters;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
+import org.eclipse.mylyn.internal.monitor.usage.UsageDataException;
 import org.eclipse.mylyn.monitor.core.InteractionEvent;
 import org.eclipse.mylyn.monitor.usage.AbstractStudyBackgroundPage;
 import org.eclipse.mylyn.monitor.usage.AbstractStudyQuestionnairePage;
@@ -119,8 +121,14 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 				service.run(false, true, new IRunnableWithProgress() {
 
 					public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-						newUid[0] = UiUsageMonitorPlugin.getDefault().getUploadManager().getNewUid(studyParameters,
-								monitor);
+						try {
+							newUid[0] = UiUsageMonitorPlugin.getDefault().getUploadManager().getNewUid(studyParameters,
+									monitor);
+						} catch (UsageDataException e) {
+							StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, e.getMessage(),
+									e));
+							newUid[0] = -1;
+						}
 					}
 				});
 			} catch (InvocationTargetException e1) {
@@ -133,6 +141,16 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			UiUsageMonitorPlugin.getDefault().getPreferenceStore().setValue(studyParameters.getUserIdPreferenceId(),
 					uid);
 		}
+
+		if (uid == 0 || uid == -1) {
+			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+				public void run() {
+					MessageDialog.openError(null, Messages.UsageSubmissionWizard_Error_Getting_User_Id,
+							Messages.UsageSubmissionWizard_Unable_To_Get_New_User_Id);
+				}
+			});
+		}
+
 		uploadPage = new UsageUploadWizardPage(this, studyParameters);
 		fileSelectionPage = new UsageFileSelectionWizardPage(this, studyParameters);
 		if (studyParameters.isBackgroundEnabled()) {
@@ -206,10 +224,11 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 
 	public void performUpload(IProgressMonitor monitor) {
 		String servletUrl = studyParameters.getUploadServletUrl();
-		boolean failed = false;
+		MultiStatus uploadStatus = new MultiStatus(UiUsageMonitorPlugin.ID_PLUGIN, 0, "Error uploading usage data", //$NON-NLS-1$
+				null);
 		if (studyParameters.isBackgroundEnabled() && performUpload && backgroundFile != null) {
-			failed = !UiUsageMonitorPlugin.getDefault().getUploadManager().uploadFile(servletUrl, backgroundFile, uid,
-					monitor);
+			uploadStatus.add(UiUsageMonitorPlugin.getDefault().getUploadManager().uploadFile(servletUrl,
+					backgroundFile, uid, monitor));
 
 			if (backgroundFile.exists()) {
 				backgroundFile.delete();
@@ -217,8 +236,8 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 		}
 
 		if (studyParameters.isQuestionnaireEnabled() && performUpload && questionnaireFile != null) {
-			failed = !UiUsageMonitorPlugin.getDefault().getUploadManager().uploadFile(servletUrl, questionnaireFile,
-					uid, monitor);
+			uploadStatus.add(UiUsageMonitorPlugin.getDefault().getUploadManager().uploadFile(servletUrl,
+					questionnaireFile, uid, monitor));
 
 			if (questionnaireFile.exists()) {
 				questionnaireFile.delete();
@@ -229,13 +248,14 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 			return;
 		}
 
-		failed = !UiUsageMonitorPlugin.getDefault().getUploadManager().uploadFile(servletUrl, zipFile, uid, monitor);
+		uploadStatus.add(UiUsageMonitorPlugin.getDefault().getUploadManager().uploadFile(servletUrl, zipFile, uid,
+				monitor));
 
 		if (zipFile.exists()) {
 			zipFile.delete();
 		}
 
-		if (!failed) {
+		if (uploadStatus.isOK()) {
 			UiUsageMonitorPlugin.getDefault().resetEventsSinceUpload();
 			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 				public void run() {
@@ -243,6 +263,16 @@ public class UsageSubmissionWizard extends Wizard implements INewWizard {
 					MessageDialog.openInformation(Display.getCurrent().getActiveShell(),
 							Messages.UsageSubmissionWizard_Successful_Upload,
 							Messages.UsageSubmissionWizard_Your_Usage_Statistics_Have_Been_Uploaded);
+				}
+			});
+		} else {
+			StatusHandler.log(uploadStatus);
+			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+				public void run() {
+					// popup a dialog telling the user that the upload was good
+					MessageDialog.openInformation(Display.getCurrent().getActiveShell(),
+							Messages.UsageSubmissionWizard_Error_Uploading_Usage_Data,
+							Messages.UsageSubmissionWizard_Error_While_Uploading);
 				}
 			});
 		}

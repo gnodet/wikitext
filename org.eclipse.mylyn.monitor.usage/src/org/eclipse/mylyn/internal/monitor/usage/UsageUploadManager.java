@@ -33,13 +33,10 @@ import org.apache.commons.httpclient.methods.multipart.Part;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.commons.net.AbstractWebLocation;
 import org.eclipse.mylyn.commons.net.WebLocation;
 import org.eclipse.mylyn.commons.net.WebUtil;
 import org.eclipse.osgi.util.NLS;
-import org.eclipse.ui.PlatformUI;
 
 public class UsageUploadManager {
 
@@ -47,7 +44,7 @@ public class UsageUploadManager {
 
 	private static final int SIZE_OF_INT = 8;
 
-	public boolean uploadFile(final String postUrl, final File file, final int uid, IProgressMonitor monitor) {
+	public IStatus uploadFile(final String postUrl, final File file, final int uid, IProgressMonitor monitor) {
 		// make sure that we send the uid with all files
 		String filename = file.getName();
 		if (!filename.startsWith(uid + ".")) { //$NON-NLS-1$
@@ -57,7 +54,7 @@ public class UsageUploadManager {
 
 	}
 
-	public boolean uploadFile(final String postUrl, final String name, final File file, final String filename,
+	public IStatus uploadFile(final String postUrl, final String name, final File file, final String filename,
 			final int uid, IProgressMonitor monitor) {
 
 		PostMethod filePost = new PostMethod(postUrl);
@@ -72,69 +69,46 @@ public class UsageUploadManager {
 
 			if (status == HttpStatus.SC_UNAUTHORIZED) {
 				// The uid was incorrect so inform the user
-				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-					public void run() {
-						MessageDialog.openError(null, Messages.UsageUploadManager_Error_Uploading, NLS.bind(
-								Messages.UsageUploadManager_Error_Uploading_Uid_Incorrect, file.getName(), uid));
-					}
-				});
+				return new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, status, NLS.bind(
+						Messages.UsageUploadManager_Error_Uploading_Uid_Incorrect, file.getName(), uid),
+						new Exception());
+
 			} else if (status == HttpStatus.SC_PROXY_AUTHENTICATION_REQUIRED) {
-				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-					public void run() {
-						MessageDialog.openError(null, Messages.UsageUploadManager_Error_Uploading,
-								Messages.UsageUploadManager_Error_Uploading_Proxy_Authentication);
-					}
-				});
+				return new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, status,
+						Messages.UsageUploadManager_Error_Uploading_Proxy_Authentication, new Exception());
 			} else if (status != 200) {
 				// there was a problem with the file upload so throw up an error
 				// dialog to inform the user
-				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-					public void run() {
-						MessageDialog.openError(null, Messages.UsageUploadManager_Error_Uploading, NLS.bind(
-								Messages.UsageUploadManager_Error_Uploading_Http_Response, file.getName(), status));
-					}
-				});
+				return new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, status, NLS.bind(
+						Messages.UsageUploadManager_Error_Uploading_Http_Response, file.getName(), status),
+						new Exception());
 			} else {
 				// the file was uploaded successfully
-				return true;
+				return Status.OK_STATUS;
 			}
 
 		} catch (final FileNotFoundException e) {
-			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-				public void run() {
-					MessageDialog.openError(null, Messages.UsageUploadManager_Error_Uploading, NLS.bind(
-							Messages.UsageUploadManager_Error_Uploading_X_Y, file.getName(), e.getClass()
-									.getCanonicalName()));
-				}
-			});
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-					Messages.UsageUploadManager_Error_Uploading, e));
+			return new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, NLS.bind(
+					Messages.UsageUploadManager_Error_Uploading_X_Y, file.getName(), e.getClass().getCanonicalName()),
+					e);
+
 		} catch (final IOException e) {
 			if (e instanceof NoRouteToHostException || e instanceof UnknownHostException) {
-				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-					public void run() {
-						MessageDialog.openError(null, Messages.UsageUploadManager_Error_Uploading, NLS.bind(
-								Messages.UsageUploadManager_Error_Uploading_X_No_Network, file.getName()));
-					}
-				});
+				return new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, NLS.bind(
+						Messages.UsageUploadManager_Error_Uploading_X_No_Network, file.getName()), e);
+
 			} else {
-				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-					public void run() {
-						MessageDialog.openError(null, Messages.UsageUploadManager_Error_Uploading, NLS.bind(
-								Messages.UsageUploadManager_Error_Uploading_X_Y, file.getName(), e.getClass()
-										.getCanonicalName()));
-					}
-				});
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, "Error uploading", e)); //$NON-NLS-1$
+				return new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN, NLS.bind(
+						Messages.UsageUploadManager_Error_Uploading_X_Y, file.getName(), e.getClass()
+								.getCanonicalName()), e);
 			}
 		} finally {
 			filePost.releaseConnection();
 		}
-		return false;
 	}
 
 	public int getExistingUid(StudyParameters studyParameters, String firstName, String lastName, String emailAddress,
-			boolean anonymous, IProgressMonitor monitor) {
+			boolean anonymous, IProgressMonitor monitor) throws UsageDataException {
 		// TODO extract url for servlet
 		String url = studyParameters.getUserIdServletUrl();
 		final GetMethod getUidMethod = new GetMethod(url);
@@ -172,51 +146,26 @@ public class UsageUploadManager {
 				int uid = Integer.parseInt(response);
 				return uid;
 			} else {
-				// there was a problem with the file upload so throw up an error
-				// dialog to inform the user
-				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-					public void run() {
-						MessageDialog.openError(null, Messages.UsageUploadManager_Error_Getting_Uid, NLS.bind(
-								Messages.UsageUploadManager_Error_Getting_Uid_Http_Response, status));
-					}
-				});
-				return -1;
+				throw new UsageDataException(NLS.bind(Messages.UsageUploadManager_Error_Getting_Uid_Http_Response,
+						status));
 			}
 
+		} catch (UsageDataException e) {
+			throw e;
 		} catch (final IOException e) {
-			PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-				public void run() {
-					MessageDialog.openError(null, Messages.UsageUploadManager_Error_Uploading, NLS.bind(
-							Messages.UsageUploadManager_Error_Getting_UidX_Y, e.getClass().getCanonicalName(),
-							e.getMessage()));
-				}
-			});
-			StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-					Messages.UsageUploadManager_Error_Uploading, e));
+			throw new UsageDataException(NLS.bind(Messages.UsageUploadManager_Error_Getting_UidX_Y, e.getClass()
+					.getCanonicalName(), e.getMessage()), e);
 		} catch (final Exception e) {
 			if (e instanceof NoRouteToHostException || e instanceof UnknownHostException) {
-				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-					public void run() {
-						MessageDialog.openError(null, Messages.UsageUploadManager_Error_Uploading,
-								Messages.UsageUploadManager_Error_Getting_Uid_No_Network);
-					}
-				});
+				throw new UsageDataException(Messages.UsageUploadManager_Error_Getting_Uid_No_Network, e);
 			} else {
-				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-					public void run() {
-						MessageDialog.openError(null, Messages.UsageUploadManager_Error_Uploading, NLS.bind(
-								Messages.UsageUploadManager_Error_Getting_Uid_X_Y, e.getClass().getCanonicalName(),
-								e.getMessage()));
-					}
-				});
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-						Messages.UsageUploadManager_Error_Uploading, e));
+				throw new UsageDataException(NLS.bind(Messages.UsageUploadManager_Error_Getting_Uid_X_Y, e.getClass()
+						.getCanonicalName(), e.getMessage()), e);
 			}
 
 		} finally {
 			getUidMethod.releaseConnection();
 		}
-		return -1;
 	}
 
 	private String getStringFromStream(InputStream i) throws IOException {
@@ -230,7 +179,7 @@ public class UsageUploadManager {
 		return data;
 	}
 
-	public int getNewUid(StudyParameters studyParameters, IProgressMonitor monitor) {
+	public int getNewUid(StudyParameters studyParameters, IProgressMonitor monitor) throws UsageDataException {
 		// TODO extract url for servlet
 		String url = studyParameters.getUserIdServletUrl();
 		final PostMethod getUserIdMethod = new PostMethod(url);
@@ -249,30 +198,26 @@ public class UsageUploadManager {
 				inputStream.close();
 				return uid;
 			} else {
-				StatusHandler.log(new Status(IStatus.WARNING, UiUsageMonitorPlugin.ID_PLUGIN,
-						"Unable to get new user id.  Server retured: " + status)); //$NON-NLS-1$
-				return -1;
+				throw new UsageDataException(NLS.bind(Messages.UsageUploadManager_Error_Getting_Uid_Http_Response,
+						status));
 			}
 
 		} catch (final IOException e) {
 			if (e instanceof NoRouteToHostException || e instanceof UnknownHostException) {
-				MessageDialog.openError(null, Messages.UsageUploadManager_Error_Uploading,
-						Messages.UsageUploadManager_Error_Getting_Uid_No_Network);
+				throw new UsageDataException(Messages.UsageUploadManager_Error_Getting_Uid_No_Network, e);
 			} else {
-				MessageDialog.openError(null, Messages.UsageUploadManager_Error_Uploading, NLS.bind(
-						Messages.UsageUploadManager_Error_Getting_Uid_X, e.getClass().getCanonicalName()));
-				StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
-						Messages.UsageUploadManager_Error_Uploading, e));
+				throw new UsageDataException(NLS.bind(Messages.UsageUploadManager_Error_Getting_Uid_X, e.getClass()
+						.getCanonicalName()), e);
+
 			}
 		} finally {
 			getUserIdMethod.releaseConnection();
 		}
-		return -1;
 	}
 
 	public int getNewUid(StudyParameters studyParameters, String firstName, String lastName, String emailAddress,
 			boolean anonymous, String jobFunction, String companySize, String companyFunction, boolean contactEmail,
-			IProgressMonitor monitor) {
+			IProgressMonitor monitor) throws UsageDataException {
 		return getNewUid(studyParameters, monitor);
 		// TODO add back the code for dealing with creasting a user given a name 
 //			// NameValuePair first = new NameValuePair("firstName", firstName);
