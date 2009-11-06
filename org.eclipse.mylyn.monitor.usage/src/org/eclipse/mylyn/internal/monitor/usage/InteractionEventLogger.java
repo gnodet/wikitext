@@ -137,10 +137,11 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 		InputStream inputStream = null;
 		long fileLength = 0;
 
+		ZipFile zip = null;
 		try {
 			// The file may be a zip file...
 			if (file.getName().endsWith(".zip")) { //$NON-NLS-1$
-				ZipFile zip = new ZipFile(file);
+				zip = new ZipFile(file);
 				if (zip.entries().hasMoreElements()) {
 					ZipEntry entry = zip.entries().nextElement();
 					inputStream = zip.getInputStream(entry);
@@ -168,6 +169,13 @@ public class InteractionEventLogger extends AbstractMonitorLog implements IInter
 				} catch (IOException e) {
 					StatusHandler.log(new Status(IStatus.ERROR, UiUsageMonitorPlugin.ID_PLUGIN,
 							"unable to close input stream", e)); //$NON-NLS-1$
+				}
+			}
+			if (zip != null) {
+				try {
+					zip.close();
+				} catch (IOException e) {
+					// ignore
 				}
 			}
 		}
