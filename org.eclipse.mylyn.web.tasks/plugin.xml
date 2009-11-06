@@ -151,7 +151,7 @@
             urlNewTask="${serverUrl}/entry"
             urlTaskQuery="${serverUrl}/csv?can=1&amp;colspec=ID+Status+Type+Owner+Summary">
         <attribute name="queryPattern"
-                   value="&quot;({Id}[0-9]+?)&quot;,&quot;({Status}.*?)&quot;,&quot;({Type}.*?)&quot;,&quot;({Owner}.*?)&quot;,&quot;({Description}.*?)&quot;\n"/>
+                   value="&quot;({Id}[0-9]+?)&quot;,&quot;({Status}.*?)&quot;,&quot;({Type}.*?)&quot;,&quot;({Owner}.*?)&quot;,&quot;({Description}.*?)&quot;,&quot;(.*?)&quot;\n"/>
      </repository>
      <repository
            anonymous="false"
