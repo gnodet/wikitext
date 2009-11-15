@@ -18,8 +18,8 @@
          point="org.eclipse.mylyn.tasks.ui.repositories">
 
       <connectorCore
+            id="xplanner"
             class="org.eclipse.mylyn.internal.xplanner.ui.XPlannerRepositoryConnector"
-            id="org.eclipse.mylyn.xplanner.tasklist.repositories"
             name="%connectorName"/>
 	  <connectorUi
          brandingIcon="icons/eview16/xplanner-logo.gif"
