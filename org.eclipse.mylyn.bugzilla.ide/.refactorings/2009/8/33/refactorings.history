@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring accessors="true" comment="Delete 1 element(s) from project &apos;org.eclipse.mylyn.bugzilla.ide&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.bugzilla.ide&apos;&#x0A;- Original element: &apos;.classpath&apos;" description="Delete element" element1=".classpath" elements="0" flags="589830" id="org.eclipse.jdt.ui.delete" resources="1" stamp="1249930129681" subPackages="false" version="1.0"/>
-</session>

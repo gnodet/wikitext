@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;org.eclipse.mylyn.commons.ui/icons/wizban/discovery.png&apos; to &apos;banner-discovery.png&apos;" description="Rename resource &apos;discovery.png&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="icons/wizban/discovery.png" name="banner-discovery.png" stamp="1243363282741" updateReferences="true"/>
-</session>

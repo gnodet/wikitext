@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Convert anonymous class &apos;org.eclipse.mylyn.internal.sandbox.ui.views.ActiveSearchView.new AbstractContextListener() {...}&apos; in &apos;&apos; to nested class&#x0D;&#x0A;- Original project: &apos;org.eclipse.mylyn.sandbox.ui&apos;&#x0D;&#x0A;- Original element: &apos;org.eclipse.mylyn.internal.sandbox.ui.views.ActiveSearchView.new AbstractContextListener() {...}&apos;&#x0D;&#x0A;- Class name: &apos;ContextListener&apos;&#x0D;&#x0A;- Declared visibility: &apos;private&apos;&#x0D;&#x0A;- Declare class &apos;final&apos;" description="Convert anonymous class to nested" final="true" flags="786434" id="org.eclipse.jdt.ui.convert.anonymous" input="/src&lt;org.eclipse.mylyn.internal.sandbox.ui.views{ActiveSearchView.java" name="ContextListener" selection="4662 0" stamp="1211324093962" static="false" version="1.0" visibility="2"/>
-</session>

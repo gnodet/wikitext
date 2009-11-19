@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Inline constant &apos;org.eclipse.mylyn.internal.trac.core.TracRepositoryConnector.CLIENT_LABEL&apos; in &apos;org.eclipse.mylyn.internal.trac.core.TracRepositoryConnector&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.trac.core&apos;&#x0A;- Original element: &apos;org.eclipse.mylyn.internal.trac.core.TracRepositoryConnector.CLIENT_LABEL&apos;&#x0A;- Remove constant declaration&#x0A;- Replace all references to constant with expression" description="Inline constant &apos;CLIENT_LABEL&apos;" flags="786434" id="org.eclipse.jdt.ui.inline.constant" input="/src&lt;org.eclipse.mylyn.internal.trac.core{TracRepositoryConnector.java" remove="true" replace="true" selection="6074 0" stamp="1245022550886" version="1.0"/>
-</session>

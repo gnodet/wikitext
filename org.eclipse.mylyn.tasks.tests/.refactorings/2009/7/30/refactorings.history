@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Extract local variable &apos;activePage&apos; from expression &apos;PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.tasks.tests&apos;&#x0A;- Variable name: &apos;activePage&apos;&#x0A;- Destination method: &apos;org.eclipse.mylyn.tasks.tests.TaskListUiTest.testListenersRemoved()&apos;&#x0A;- Variable expression: &apos;PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()&apos;&#x0A;- Replace occurrences of expression with variable" description="Extract local variable &apos;activePage&apos;" final="false" id="org.eclipse.jdt.ui.extract.temp" input="/src&lt;org.eclipse.mylyn.tasks.tests{TaskListUiTest.java" name="activePage" replace="true" selection="6536 68" stamp="1248130579211" version="1.0"/>
-</session>
