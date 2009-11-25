@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Extract constant &apos;OSLC_BASEURL&apos; from expression &apos;&quot;oslc.baseurl&quot;&apos;&#x0A;- Original project: &apos;org.eclipse.mylyn.oslc.cm.ui&apos;&#x0A;- Constant name: &apos;OSLC_BASEURL&apos;&#x0A;- Constant expression: &apos;&quot;oslc.baseurl&quot;&apos;&#x0A;- Declared visibility: &apos;private&apos;&#x0A;- Replace occurrences of expression with constant" description="Extract constant &apos;OSLC_BASEURL&apos;" flags="786432" id="org.eclipse.jdt.ui.extract.constant" input="/src&lt;org.eclipse.mylyn.oslc.cm.internal.ui.wizards{OslcRepositorySettingsPage.java" name="OSLC_BASEURL" qualify="false" replace="true" selection="5289 14" stamp="1245431170901" version="1.0" visibility="2"/>
-</session>
