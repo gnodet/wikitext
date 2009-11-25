@@ -26,6 +26,8 @@ import org.eclipse.ui.preferences.ScopedPreferenceStore;
  */
 public class JavaRuntimeVersionChecker implements IStartup {
 
+	private static final Float UNKNOWN_VERSION = new Float(0.0f);
+
 	private static final String ID_PLUGIN = "org.eclipse.mylyn.compatibility"; //$NON-NLS-1$
 
 	private static final String PREF_WARN_DISABLED = "org.eclipse.mylyn.internal.compatibility.warn.disabled"; //$NON-NLS-1$
@@ -36,8 +38,7 @@ public class JavaRuntimeVersionChecker implements IStartup {
 		PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
 			public void run() {
 				try {
-					String javaVersion = System.getProperty("java.runtime.version"); //$NON-NLS-1$
-					if (parseVersion(javaVersion).compareTo(new Float(JRE_MIN_VERSION)) < 0) {
+					if (isJavaVersionSmallerThan(JRE_MIN_VERSION)) {
 						IPersistentPreferenceStore preferenceStore = new ScopedPreferenceStore(new InstanceScope(),
 								ID_PLUGIN);
 						if (!preferenceStore.getBoolean(PREF_WARN_DISABLED)) {
@@ -60,6 +61,17 @@ public class JavaRuntimeVersionChecker implements IStartup {
 		});
 	}
 
+	public static boolean isJavaVersionSmallerThan(float minVersion) {
+		Float result = parseVersion(System.getProperty("java.runtime.version")); //$NON-NLS-1$
+		if (result == UNKNOWN_VERSION) {
+			result = parseVersion(System.getProperty("java.version")); //$NON-NLS-1$
+		}
+		if (result != UNKNOWN_VERSION && result.compareTo(new Float(minVersion)) < 0) {
+			return true;
+		}
+		return false;
+	}
+
 	public static Float parseVersion(String versionString) {
 		if (versionString != null) {
 			int minorIndex = versionString.indexOf('.');
@@ -76,7 +88,7 @@ public class JavaRuntimeVersionChecker implements IStartup {
 				}
 			}
 		}
-		return new Float(0.0f);
+		return UNKNOWN_VERSION;
 	}
 
 }
