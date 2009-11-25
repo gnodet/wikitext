@@ -1,0 +1,5 @@
+1243025068142	Rename type 'OSLCServiceDiscoveryProvider'
+1243036298378	Rename type 'OSLCServiceLabelProvider'
+1243036327036	Delete element
+1243038722395	Rename method 'setSelectedServiceProvider'
+1243038862822	Rename method 'setProvider'
