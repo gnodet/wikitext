@@ -12,7 +12,6 @@
 package org.eclipse.mylyn.internal.sandbox.ui.views;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.jface.util.TransferDragSourceListener;
@@ -30,7 +29,7 @@ public class ActiveViewDelegatingDragAdapter implements DragSourceListener {
 
 	private TransferDragSourceListener[] fPossibleListeners;
 
-	private List fActiveListeners;
+	private List<TransferDragSourceListener> fActiveListeners;
 
 	private TransferDragSourceListener fFinishListener;
 
@@ -47,8 +46,8 @@ public class ActiveViewDelegatingDragAdapter implements DragSourceListener {
 		boolean saveDoit = event.doit;
 		Object saveData = event.data;
 		boolean doIt = false;
-		List transfers = new ArrayList(fPossibleListeners.length);
-		fActiveListeners = new ArrayList(fPossibleListeners.length);
+		List<Transfer> transfers = new ArrayList<Transfer>(fPossibleListeners.length);
+		fActiveListeners = new ArrayList<TransferDragSourceListener>(fPossibleListeners.length);
 
 		for (TransferDragSourceListener listener : fPossibleListeners) {
 			event.doit = saveDoit;
@@ -60,7 +59,7 @@ public class ActiveViewDelegatingDragAdapter implements DragSourceListener {
 			doIt = doIt || event.doit;
 		}
 		if (doIt) {
-			((DragSource) event.widget).setTransfer((Transfer[]) transfers.toArray(new Transfer[transfers.size()]));
+			((DragSource) event.widget).setTransfer(transfers.toArray(new Transfer[transfers.size()]));
 		}
 		event.data = saveData;
 		event.doit = doIt;
@@ -96,8 +95,8 @@ public class ActiveViewDelegatingDragAdapter implements DragSourceListener {
 			return null;
 		}
 
-		for (Iterator iter = fActiveListeners.iterator(); iter.hasNext();) {
-			TransferDragSourceListener listener = (TransferDragSourceListener) iter.next();
+		for (Object element : fActiveListeners) {
+			TransferDragSourceListener listener = (TransferDragSourceListener) element;
 			if (listener.getTransfer().isSupportedType(type)) {
 				return listener;
 			}
