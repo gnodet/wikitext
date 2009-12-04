@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004, 2008 David Green and others.
+ * Copyright (c) 2007, 2008 David Green and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,7 +9,7 @@
  *     David Green - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.help.ui.anttask;
+package org.eclipse.mylyn.internal.wikitext.mediawiki.core.tasks;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -23,42 +23,23 @@ import java.util.regex.Pattern;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
-import org.apache.tools.ant.Task;
 import org.apache.tools.ant.taskdefs.Get;
 
-/**
- * Fetch images from a MediaWiki-generated HTML page source
- * 
- * @author David Green
- */
-public class MediaWikiImageFetcher extends Task {
+class HtmlSourceImageFetchingStrategy extends ImageFetchingStrategy {
 
 	private String base;
-
-	private File dest;
 
 	private File src;
 
 	@Override
-	public void execute() throws BuildException {
-		if (dest == null) {
-			throw new BuildException("Must specify @dest"); //$NON-NLS-1$
-		}
-		if (!dest.exists()) {
-			throw new BuildException("@dest does not exist: " + dest); //$NON-NLS-1$
-		}
-		if (!dest.isDirectory()) {
-			throw new BuildException("@dest is not a directory: " + dest); //$NON-NLS-1$
-		}
-		if (src == null) {
-			throw new BuildException("Must specify @src"); //$NON-NLS-1$
-		}
+	public void fetchImages() {
 		if (!src.exists()) {
 			throw new BuildException("@src does not exist: " + src); //$NON-NLS-1$
 		}
 		if (!src.isFile()) {
 			throw new BuildException("@src is not a file: " + src); //$NON-NLS-1$
 		}
+
 		if (base == null) {
 			throw new BuildException("Must specify @base"); //$NON-NLS-1$
 		}
@@ -106,18 +87,6 @@ public class MediaWikiImageFetcher extends Task {
 		log("Fetched " + fileCount + " image files for " + src, Project.MSG_INFO); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
-	public String getBase() {
-		return base;
-	}
-
-	public File getDest() {
-		return dest;
-	}
-
-	public File getSrc() {
-		return src;
-	}
-
 	private String readSrc() throws IOException {
 		StringBuilder buf = new StringBuilder((int) src.length());
 		Reader reader = new BufferedReader(new FileReader(src));
@@ -132,12 +101,16 @@ public class MediaWikiImageFetcher extends Task {
 		return buf.toString();
 	}
 
+	public String getBase() {
+		return base;
+	}
+
 	public void setBase(String base) {
 		this.base = base;
 	}
 
-	public void setDest(File dest) {
-		this.dest = dest;
+	public File getSrc() {
+		return src;
 	}
 
 	public void setSrc(File src) {
