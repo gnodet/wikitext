@@ -69,13 +69,7 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 
 	@Override
 	public ITaskSearchPage getSearchPage(TaskRepository repository, IStructuredSelection selection) {
-		try {
-			return new XPlannerCustomQueryPage(repository, null);
-		} catch (RuntimeException e) {
-			XPlannerUiPlugin.log(e.getCause(),
-					Messages.XPlannerQueryWizardUtils_COULD_NOT_CREATE_QUERY_PAGE_MESSAGE, true);
-			return null;
-		}
+		return new XPlannerCustomQueryPage(repository, null);
 	}
 
 	@Override

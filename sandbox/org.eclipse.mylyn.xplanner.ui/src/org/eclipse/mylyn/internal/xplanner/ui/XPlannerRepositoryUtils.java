@@ -577,7 +577,7 @@ public class XPlannerRepositoryUtils {
 			DateFormat dateFormat = DateFormat.getDateInstance(XPlannerAttributeMapper.DATE_FORMAT_STYLE);
 			createdDate = dateFormat.parse(dateString);
 		} catch (ParseException e) {
-			XPlannerUiPlugin.log(e.getCause(), "", false); //$NON-NLS-1$
+			XPlannerUiPlugin.log(e.getCause(), ""); //$NON-NLS-1$
 		}
 
 		return createdDate;
@@ -897,7 +897,7 @@ public class XPlannerRepositoryUtils {
 		try {
 			hoursValue = getHoursNumberFormat().parse(hoursStringValue).doubleValue();
 		} catch (ParseException e) {
-			XPlannerUiPlugin.log(e.getCause(), "", false); //$NON-NLS-1$
+			XPlannerUiPlugin.log(e.getCause(), ""); //$NON-NLS-1$
 		}
 
 		return hoursValue;

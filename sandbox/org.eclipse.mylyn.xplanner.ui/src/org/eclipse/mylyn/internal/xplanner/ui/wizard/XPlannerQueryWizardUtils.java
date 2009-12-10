@@ -44,7 +44,7 @@ public class XPlannerQueryWizardUtils {
 		} catch (RuntimeException e) {
 			if (e.getCause() instanceof CoreException) {
 				XPlannerUiPlugin.log(e.getCause(),
-						Messages.XPlannerQueryWizardUtils_COULD_NOT_CREATE_QUERY_PAGE_MESSAGE, true);
+						Messages.XPlannerQueryWizardUtils_COULD_NOT_CREATE_QUERY_PAGE_MESSAGE);
 				queryPage = new ErrorQueryPage(repository, e.getCause().getMessage());
 				queryPage.setWizard(wizard);
 				wizard.addPage(queryPage);

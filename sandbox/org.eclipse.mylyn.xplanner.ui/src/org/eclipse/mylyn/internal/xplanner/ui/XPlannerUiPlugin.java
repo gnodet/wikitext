@@ -8,14 +8,9 @@
 package org.eclipse.mylyn.internal.xplanner.ui;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.mylyn.commons.core.CoreUtil;
 import org.eclipse.mylyn.commons.core.StatusHandler;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -78,31 +73,9 @@ public class XPlannerUiPlugin extends AbstractUIPlugin {
 		}
 	}
 
-	public static void log(final Throwable e, final String message, boolean informUser) {
-		if (Platform.isRunning() && informUser) {
-			try {
-				if (!CoreUtil.TEST_MODE) {
-					PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-						public void run() {
-							Shell shell = null;
-							if (PlatformUI.getWorkbench() != null
-									&& PlatformUI.getWorkbench().getActiveWorkbenchWindow() != null) {
-								shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
-							}
-							String displayMessage = message == null ? e.getMessage() : message + "\n" + e.getMessage(); //$NON-NLS-1$
-							MessageDialog.openError(shell, Messages.XPlannerPlugin_XPLANNER_ERROR_TITLE, displayMessage);
-						}
-					});
-				} else {
-					System.err.println("XPlanner error: " + message); //$NON-NLS-1$
-				}
-			} catch (Throwable t) {
-				t.printStackTrace();
-			}
-		} else {
-			StatusHandler.log(new Status(IStatus.ERROR, XPlannerUiPlugin.ID_PLUGIN, message == null
-					|| message.length() == 0 ? Messages.XPlannerPlugin_XPLANNER_ERROR_TITLE : message, e));
-		}
+	public static void log(final Throwable e, final String message) {
+		StatusHandler.log(new Status(IStatus.ERROR, XPlannerUiPlugin.ID_PLUGIN, message == null
+				|| message.length() == 0 ? Messages.XPlannerPlugin_XPLANNER_ERROR_TITLE : message, e));
 	}
 
 	public static XPlannerUiPlugin getDefault() {

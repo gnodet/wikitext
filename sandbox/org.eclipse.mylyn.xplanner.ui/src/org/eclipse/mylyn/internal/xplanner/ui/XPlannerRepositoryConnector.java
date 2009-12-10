@@ -185,7 +185,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 				XPlannerRepositoryUtils.setAttributeValue(repositoryTaskData, TaskAttribute.SUMMARY, data.getName());
 				resultCollector.accept(repositoryTaskData);
 			} catch (CoreException e) {
-				XPlannerUiPlugin.log(e, "", false); //$NON-NLS-1$
+				XPlannerUiPlugin.log(e, ""); //$NON-NLS-1$
 			}
 		}
 		return Status.OK_STATUS;
@@ -252,8 +252,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 		TaskMapper mapper = getTaskMapping(repositoryTaskData);
 		mapper.applyTo(task);
 
-		String url = repository.getRepositoryUrl() + XPlannerUiPlugin.TASK_URL_PREFIX
-				+ repositoryTaskData.getTaskId();
+		String url = repository.getRepositoryUrl() + XPlannerUiPlugin.TASK_URL_PREFIX + repositoryTaskData.getTaskId();
 		task.setUrl(url);
 
 		if (!repositoryTaskData.isPartial()) {
@@ -437,7 +436,7 @@ public class XPlannerRepositoryConnector extends AbstractRepositoryConnector {
 				}
 			}
 		} catch (Exception e) {
-			XPlannerUiPlugin.log(e, "", false); //$NON-NLS-1$
+			XPlannerUiPlugin.log(e, ""); //$NON-NLS-1$
 		}
 
 		return taskUrl;
