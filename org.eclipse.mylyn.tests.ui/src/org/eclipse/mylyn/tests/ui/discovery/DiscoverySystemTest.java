@@ -121,7 +121,7 @@ public class DiscoverySystemTest extends SWTBotTestCase {
 		assertEquals("org.eclipse.mylyn.discovery.tests.connectorDescriptor1", disabledWidgets.get(0));
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private List<? extends Widget> allConnectorCheckboxes() {
 		return bot.widgets(org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.allOf(
 				org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.widgetOfType(Button.class),

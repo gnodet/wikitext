@@ -210,7 +210,7 @@ public class TracWikiPageHistoryPage extends HistoryPage {
 		(new DownloadPageHistoryJob(input.getRepository(), input.getPage())).schedule();
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public Object getAdapter(Class adapter) {
 		return null;
 	}

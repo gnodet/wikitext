@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.xplanner.soap.XPlanner;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings("rawtypes")
 public class XPlannerProxy implements org.xplanner.soap.XPlanner.XPlanner {
 	private String _endpoint = null;
 

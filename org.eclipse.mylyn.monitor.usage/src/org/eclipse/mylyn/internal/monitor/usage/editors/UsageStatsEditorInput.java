@@ -65,7 +65,7 @@ public class UsageStatsEditorInput implements IEditorInput {
 		return NLS.bind(Messages.UsageStatsEditorInput_X_Usage_Statistics, studyParameters.getStudyName());
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public Object getAdapter(Class adapter) {
 		return null;
 	}

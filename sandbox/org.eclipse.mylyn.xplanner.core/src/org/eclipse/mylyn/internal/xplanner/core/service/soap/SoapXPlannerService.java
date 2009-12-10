@@ -119,12 +119,12 @@ public class SoapXPlannerService extends XPlannerService {
 		return service.getAttribute(objectId, key);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public HashMap getAttributes(int objectId) throws RemoteException {
 		return service.getAttributes(objectId);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public HashMap getAttributesWithPrefix(int objectId, String prefix) throws RemoteException {
 		return service.getAttributesWithPrefix(objectId, prefix);
 	}

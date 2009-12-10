@@ -220,8 +220,7 @@ public class TracWikiPageEditor extends FormEditor {
 			final SourceViewerDecorationSupport support = new SourceViewerDecorationSupport(
 					(SourceViewer) sourceEditor, null, annotationAccess, EditorsUI.getSharedTextColors());
 
-			@SuppressWarnings("unchecked")
-			Iterator e = new MarkerAnnotationPreferences().getAnnotationPreferences().iterator();
+			Iterator<?> e = new MarkerAnnotationPreferences().getAnnotationPreferences().iterator();
 			while (e.hasNext()) {
 				support.setAnnotationPreference((AnnotationPreference) e.next());
 			}

@@ -17,7 +17,7 @@
 
 package org.xplanner.soap;
 
-@SuppressWarnings( { "unchecked", "serial" })
+@SuppressWarnings({ "rawtypes", "serial" })
 public class NoteData extends org.eclipse.mylyn.xplanner.wsdl.soap.domain.DomainData implements java.io.Serializable {
 	private int attachedToId;
 

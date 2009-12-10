@@ -24,7 +24,6 @@ import org.eclipse.swt.dnd.TransferData;
 /**
  * Initially copied from JDT
  */
-@SuppressWarnings("unchecked")
 public class ActiveViewDelegatingDragAdapter implements DragSourceListener {
 
 	private TransferDragSourceListener[] fPossibleListeners;

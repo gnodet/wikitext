@@ -85,7 +85,7 @@ public class TracWikiPageEditorInput implements IEditorInput {
 
 	private static TracWikiPageHistoryPageSource historyPageSource = new TracWikiPageHistoryPageSource();
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public Object getAdapter(Class adapter) {
 		if (adapter == IEditorInput.class) {
 			return this;

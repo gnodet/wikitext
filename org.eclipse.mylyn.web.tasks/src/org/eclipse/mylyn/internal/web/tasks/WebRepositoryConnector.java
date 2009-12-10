@@ -422,8 +422,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 			SimpleDateFormat df = new SimpleDateFormat("yy-MM-dd HH:mm");
 
-			@SuppressWarnings("unchecked")
-			Iterator it;
+			Iterator<?> it;
 			for (it = feed.getEntries().iterator(); it.hasNext();) {
 				SyndEntry entry = (SyndEntry) it.next();
 

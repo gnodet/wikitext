@@ -156,7 +156,7 @@ public class RepositorySpyView extends ViewPart {
 
 		@SuppressWarnings("unchecked")
 		public void inputChanged(Viewer v, Object oldInput, Object newInput) {
-			if (newInput instanceof List || newInput == null) {
+			if (newInput instanceof List<?> || newInput == null) {
 				repositories = (List<TaskRepository>) newInput;
 			}
 		}

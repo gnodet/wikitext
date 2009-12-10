@@ -17,7 +17,7 @@
 
 package org.xplanner.soap.XPlanner;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings("rawtypes")
 public interface XPlanner extends java.rmi.Remote {
 	public java.util.HashMap getAttributes(int objectId) throws java.rmi.RemoteException;
 

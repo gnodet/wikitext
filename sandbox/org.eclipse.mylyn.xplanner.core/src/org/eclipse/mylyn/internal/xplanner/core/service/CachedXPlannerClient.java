@@ -26,9 +26,8 @@ import org.xplanner.soap.UserStoryData;
 
 /**
  * XPlanner client implementation that caches information that is unlikely to change during the session. This client
- * could be persisted to disk and re-loaded. It has lifecycle methods to allow data in the cache to be reloaded.
- * 
- * TODO it is assumed that it will be backed by a standard XPlanner service layer
+ * could be persisted to disk and re-loaded. It has lifecycle methods to allow data in the cache to be reloaded. TODO it
+ * is assumed that it will be backed by a standard XPlanner service layer
  * 
  * @author Ravi Kumar
  * @author Helen Bershadskaya
@@ -185,12 +184,12 @@ public class CachedXPlannerClient extends XPlannerClient implements Serializable
 		return serviceDelegate.getAttribute(objectId, key);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public HashMap getAttributes(int objectId) throws RemoteException {
 		return serviceDelegate.getAttributes(objectId);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public HashMap getAttributesWithPrefix(int objectId, String prefix) throws RemoteException {
 		return serviceDelegate.getAttributesWithPrefix(objectId, prefix);
 	}

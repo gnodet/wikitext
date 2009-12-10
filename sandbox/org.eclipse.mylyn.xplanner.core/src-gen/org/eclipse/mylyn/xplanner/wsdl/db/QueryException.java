@@ -17,7 +17,7 @@
 
 package org.eclipse.mylyn.xplanner.wsdl.db;
 
-@SuppressWarnings( { "unchecked", "serial", "unused" })
+@SuppressWarnings({ "rawtypes", "serial", "unused" })
 public class QueryException extends org.apache.axis.AxisFault implements java.io.Serializable {
 	public QueryException() {
 	}

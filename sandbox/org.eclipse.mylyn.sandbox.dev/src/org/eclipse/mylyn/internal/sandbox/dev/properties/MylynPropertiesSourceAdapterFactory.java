@@ -25,7 +25,7 @@ import org.eclipse.ui.views.properties.IPropertySource;
  */
 public class MylynPropertiesSourceAdapterFactory implements IAdapterFactory {
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		if (adapterType == IPropertySource.class && adaptableObject instanceof TaskRepository) {
 			return new TaskRepositoryPropertiesSource((TaskRepository) adaptableObject);
@@ -42,7 +42,7 @@ public class MylynPropertiesSourceAdapterFactory implements IAdapterFactory {
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public Class[] getAdapterList() {
 		return new Class[] { IPropertySource.class };
 	}

@@ -269,11 +269,11 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 	@SuppressWarnings("unchecked")
 	private void ensureSingleTypeSelected(SelectionChangedEvent e) {
 		StructuredSelection selection = (StructuredSelection) e.getSelection();
-		ArrayList selectedElements = new ArrayList(selection.toList());
+		List<?> selectedElements = new ArrayList<Object>(selection.toList());
 		if (selectedElements.size() > 1) {
 			Object firstElement = selection.getFirstElement();
 			int originalSelectionSize = selection.size();
-			for (Iterator iter = selectedElements.iterator(); iter.hasNext();) {
+			for (Iterator<?> iter = selectedElements.iterator(); iter.hasNext();) {
 				Object element = iter.next();
 
 				if (!element.getClass().equals(firstElement.getClass())) {
@@ -559,7 +559,6 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		return contentIdType;
 	}
 
-	@SuppressWarnings("unchecked")
 	private List<Integer> getSelectedContentIds() {
 		ArrayList<Integer> selectedIds = new ArrayList<Integer>();
 		StructuredSelection selection = (StructuredSelection) projectsViewer.getSelection();
@@ -567,7 +566,7 @@ public class XPlannerCustomQueryPage extends AbstractXPlannerQueryWizardPage imp
 		if (selection.size() == 0) {
 			selectedIds.add(XPlannerAttributeMapper.INVALID_ID);
 		} else {
-			for (Iterator iter = selection.iterator(); iter.hasNext();) {
+			for (Iterator<?> iter = selection.iterator(); iter.hasNext();) {
 				Object selectedElement = iter.next();
 
 				if (selectedElement instanceof ProjectData) {

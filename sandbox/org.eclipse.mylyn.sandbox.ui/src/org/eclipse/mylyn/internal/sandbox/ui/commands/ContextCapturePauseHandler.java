@@ -88,7 +88,7 @@ public class ContextCapturePauseHandler extends AbstractHandler //
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public void updateElement(UIElement element, Map parameters) {
 		element.setChecked(ContextCore.getContextManager().isContextCapturePaused());
 	}

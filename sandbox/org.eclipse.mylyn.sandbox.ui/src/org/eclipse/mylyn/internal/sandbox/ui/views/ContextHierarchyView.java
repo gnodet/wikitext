@@ -356,7 +356,7 @@ class TreeParent implements IAdaptable {
 		return parent;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public Object getAdapter(Class key) {
 		return element;
 	}

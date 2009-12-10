@@ -17,7 +17,7 @@
 
 package org.xplanner.soap;
 
-@SuppressWarnings( { "unchecked", "serial" })
+@SuppressWarnings({ "rawtypes", "serial" })
 public class TimeEntryData extends org.eclipse.mylyn.xplanner.wsdl.soap.domain.DomainData implements
 		java.io.Serializable {
 	private java.lang.String description;
