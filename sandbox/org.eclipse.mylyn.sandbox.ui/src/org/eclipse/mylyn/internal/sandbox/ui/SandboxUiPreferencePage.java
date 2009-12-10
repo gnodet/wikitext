@@ -33,6 +33,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.mylyn.internal.context.ui.ContextUiPlugin;
 import org.eclipse.mylyn.internal.context.ui.HighlighterImageDescriptor;
+import org.eclipse.mylyn.internal.provisional.commons.ui.CommonImages;
 import org.eclipse.mylyn.internal.sandbox.ui.highlighters.Highlighter;
 import org.eclipse.mylyn.internal.sandbox.ui.highlighters.HighlighterList;
 import org.eclipse.mylyn.internal.tasks.ui.ITasksUiPreferenceConstants;
@@ -335,7 +336,7 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 					} else {
 						des = new HighlighterImageDescriptor(h.getHighlightColor(), h.getHighlightColor());
 					}
-					return des.getImage();
+					return CommonImages.getImage(des);
 				default:
 					break;
 				}
