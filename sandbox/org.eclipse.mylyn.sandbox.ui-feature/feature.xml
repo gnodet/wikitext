@@ -12,7 +12,7 @@
 <feature
       id="org.eclipse.mylyn.sandbox.ui_feature"
       label="%featureName"
-      version="3.3.1.qualifier"
+      version="3.3.2.qualifier"
       provider-name="%providerName"
       plugin="org.eclipse.mylyn">
 
@@ -56,10 +56,10 @@
       <import plugin="org.eclipse.mylyn.monitor.core" version="3.0.0" match="compatible"/>
       <import plugin="org.eclipse.mylyn.resources.ui" version="3.0.0" match="compatible"/>
       <import plugin="org.eclipse.mylyn.ide.ant" version="3.0.0" match="compatible"/>
-      <import feature="org.eclipse.mylyn.context_feature" version="3.3.1.mylynQualifier" match="equivalent"/>
+      <import feature="org.eclipse.mylyn.context_feature" version="3.3.2.mylynQualifier" match="equivalent"/>
       <import plugin="org.eclipse.mylyn.pde.ui" version="3.0.0" match="compatible"/>
-      <import feature="org.eclipse.mylyn.pde_feature" version="3.3.1.mylynQualifier" match="equivalent"/>
-      <import feature="org.eclipse.mylyn.java_feature" version="3.3.1.mylynQualifier" match="equivalent"/>
+      <import feature="org.eclipse.mylyn.pde_feature" version="3.3.2.mylynQualifier" match="equivalent"/>
+      <import feature="org.eclipse.mylyn.java_feature" version="3.3.2.mylynQualifier" match="equivalent"/>
    </requires>
 
    <plugin

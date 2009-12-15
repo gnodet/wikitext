@@ -12,7 +12,7 @@
 <feature
       id="org.eclipse.mylyn.tests.performance_feature"
       label="Mylyn Performance Tests Feature"
-      version="3.3.1.qualifier"
+      version="3.3.2.qualifier"
       plugin="org.eclipse.mylyn">
 
    <description url="http://eclipse.org/mylyn">
