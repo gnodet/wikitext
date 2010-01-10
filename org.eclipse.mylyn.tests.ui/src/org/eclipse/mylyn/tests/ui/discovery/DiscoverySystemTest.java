@@ -70,7 +70,7 @@ public class DiscoverySystemTest extends SWTBotTestCase {
 
 	@Test
 	public void testSelectTwoConnectorsAndActivateP2Installer() {
-		if (isDiscoveryAvailable()) {
+		if (!isDiscoveryAvailable()) {
 			// running on Eclipse 3.4
 			return;
 		}
@@ -111,7 +111,7 @@ public class DiscoverySystemTest extends SWTBotTestCase {
 
 	@Test
 	public void testAllConnectorsEnabled() {
-		if (isDiscoveryAvailable()) {
+		if (!isDiscoveryAvailable()) {
 			// running on Eclipse 3.4
 			return;
 		}
