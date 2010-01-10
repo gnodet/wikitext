@@ -32,32 +32,22 @@ public class XPlannerQueryWizardUtilsTest extends TestCase {
 	}
 
 	public void testBadCredentialsPage() {
-		try {
-			TaskRepository badRepository = XPlannerTestUtils.getRepository("baduser", "badpassword");
-			NewXPlannerQueryWizard wizard = new NewXPlannerQueryWizard(badRepository);
-			AbstractXPlannerQueryWizardPage queryPage = XPlannerQueryWizardUtils.addQueryWizardFirstPage(wizard,
-					badRepository, null);
-			assertNotNull(queryPage);
-			assertTrue(queryPage instanceof ErrorQueryPage);
-
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
+		TaskRepository badRepository = XPlannerTestUtils.getRepository("baduser", "badpassword");
+		NewXPlannerQueryWizard wizard = new NewXPlannerQueryWizard(badRepository);
+		AbstractXPlannerQueryWizardPage queryPage = XPlannerQueryWizardUtils.addQueryWizardFirstPage(wizard,
+				badRepository, null);
+		assertNotNull(queryPage);
+		assertTrue(queryPage instanceof ErrorQueryPage);
 	}
 
 	public void testGoodCredentialsPage() {
-		try {
-			TaskRepository goodRepository = XPlannerTestUtils.getRepository();
-			NewXPlannerQueryWizard wizard = new NewXPlannerQueryWizard(goodRepository);
-			AbstractXPlannerQueryWizardPage queryPage = XPlannerQueryWizardUtils.addQueryWizardFirstPage(wizard,
-					goodRepository, null);
-			assertNotNull(queryPage);
-			assertTrue(queryPage instanceof XPlannerCustomQueryPage
-					|| queryPage instanceof XPlannerQuerySelectionWizardPage);
-
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
+		TaskRepository goodRepository = XPlannerTestUtils.getRepository();
+		NewXPlannerQueryWizard wizard = new NewXPlannerQueryWizard(goodRepository);
+		AbstractXPlannerQueryWizardPage queryPage = XPlannerQueryWizardUtils.addQueryWizardFirstPage(wizard,
+				goodRepository, null);
+		assertNotNull(queryPage);
+		assertTrue(queryPage instanceof XPlannerCustomQueryPage
+				|| queryPage instanceof XPlannerQuerySelectionWizardPage);
 	}
 
 	public void testNoConnectionPage() {
@@ -65,7 +55,6 @@ public class XPlannerQueryWizardUtilsTest extends TestCase {
 			NewXPlannerQueryWizard wizard = new NewXPlannerQueryWizard(null);
 			XPlannerQueryWizardUtils.addQueryWizardFirstPage(wizard, null, null);
 			fail("no exception thrown on bad query page creation");
-
 		} catch (Exception e) {
 			assertFalse(e.getCause() instanceof CoreException);
 		}
