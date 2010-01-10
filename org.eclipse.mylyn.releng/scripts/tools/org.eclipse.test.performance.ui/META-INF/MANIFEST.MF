@@ -22,4 +22,3 @@ Bundle-ManifestVersion: 2
 Bundle-Activator: org.eclipse.test.performance.ui.UiPlugin
 Bundle-SymbolicName: org.eclipse.test.performance.ui; singleton:=true
 
-

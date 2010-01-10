@@ -1,0 +1,163 @@
+### Eclipse Workspace Patch 1.0
+#P org.eclipse.test.performance.ui
+Index: src/org/eclipse/test/performance/ui/GenerateResults.java
+===================================================================
+RCS file: /cvsroot/eclipse/org.eclipse.releng.basebuilder/plugins/org.eclipse.test.performance.ui/src/org/eclipse/test/performance/ui/GenerateResults.java,v
+retrieving revision 1.11
+diff -u -r1.11 GenerateResults.java
+--- src/org/eclipse/test/performance/ui/GenerateResults.java	27 Nov 2009 09:57:05 -0000	1.11
++++ src/org/eclipse/test/performance/ui/GenerateResults.java	10 Jan 2010 07:06:16 -0000
+@@ -27,7 +27,6 @@
+ import org.eclipse.core.runtime.OperationCanceledException;
+ import org.eclipse.core.runtime.Status;
+ import org.eclipse.core.runtime.SubMonitor;
+-import org.eclipse.swt.widgets.Display;
+ import org.eclipse.test.internal.performance.results.db.ConfigResults;
+ import org.eclipse.test.internal.performance.results.db.DB_Results;
+ import org.eclipse.test.internal.performance.results.db.PerformanceResults;
+@@ -326,6 +325,26 @@
+ 			buffer.append("	").append(arg).append(" = ").append(dir).append('\n');
+ 			continue;
+ 		}
++		if (arg.equals("-components")) {
++			String components = args[i + 1];
++			if (components.startsWith("-")) {
++				System.out.println("Missing value for "+arg+" parameter");
++				printUsage();
++			}
++			String[] names = components.split(",");
++			Arrays.sort(names);
++			int length = names.length;
++			buffer.append("	").append(arg).append(" = ");
++			for (int j=0; j<length; j++) {
++				if (j>0) buffer.append(',');
++				buffer.append(names[j]);
++			}
++			Arrays.sort(names);
++			DB_Results.KNOWN_COMPONENTS = names;
++			buffer.append('\n');
++			i++;
++			continue;
++		}
+ 		if (arg.equals("-config")) {
+ 			String configs = args[i + 1];
+ 			if (configs.startsWith("-")) {
+@@ -501,21 +520,11 @@
+ 		gStream.print("<table border=0 cellpadding=2 cellspacing=5 width=\"100%\">\n");
+ 		gStream.print("<tbody><tr> <td colspan=3 align=\"left\" bgcolor=\"#0080c0\" valign=\"top\"><b><font color=\"#ffffff\" face=\"Arial,Helvetica\">\n");
+ 		gStream.print("Detailed performance data grouped by scenario prefix</font></b></td></tr></tbody></table>\n");
+-		gStream.print("<a href=\"org.eclipse.ant.php?\">org.eclipse.ant*</a><br>\n");
+-		gStream.print("<a href=\"org.eclipse.compare.php?\">org.eclipse.compare*</a><br>\n");
+-		gStream.print("<a href=\"org.eclipse.core.php?\">org.eclipse.core*</a><br>\n");
+-		gStream.print("<a href=\"org.eclipse.jdt.core.php?\">org.eclipse.jdt.core*</a><br>\n");
+-		gStream.print("<a href=\"org.eclipse.jdt.debug.php?\">org.eclipse.jdt.debug*</a><br>\n");
+-		gStream.print("<a href=\"org.eclipse.jdt.text.php?\">org.eclipse.jdt.text*</a><br>\n");
+-		gStream.print("<a href=\"org.eclipse.jdt.ui.php?\">org.eclipse.jdt.ui*</a><br>\n");
+-		gStream.print("<a href=\"org.eclipse.jface.php?\">org.eclipse.jface*</a><br>\n");
+-		gStream.print("<a href=\"org.eclipse.osgi.php?\">org.eclipse.osgi*</a><br>\n");
+-		gStream.print("<a href=\"org.eclipse.pde.api.tools.php?\">org.eclipse.pde.api.tools*</a><br>\n");
+-		gStream.print("<a href=\"org.eclipse.pde.ui.php?\">org.eclipse.pde.ui*</a><br>\n");
+-		gStream.print("<a href=\"org.eclipse.swt.php?\">org.eclipse.swt*</a><br>\n");
+-		gStream.print("<a href=\"org.eclipse.team.php?\">org.eclipse.team*</a><br>\n");
+-		gStream.print("<a href=\"org.eclipse.ua.php?\">org.eclipse.ua*</a><br>\n");
+-		gStream.print("<a href=\"org.eclipse.ui.php?\">org.eclipse.ui*</a><br><p><br><br>\n");
++		String[] components = DB_Results.KNOWN_COMPONENTS;
++		for (int i = 0; i < components.length; i++) {
++			gStream.print("<a href=\"" + components[i] + ".php?\">" + components[i] +"*</a><br>\n");			
++		}
++		gStream.print("<p><br><br>\n");
+ 		gStream.print("</body>\n");
+ 		gStream.print(Utils.HTML_CLOSE);
+ 		gStream.close();
+@@ -532,20 +541,9 @@
+ 	printComponentTitle(/*performanceResults, */component, isGlobal, stream);
+ 
+ 	// print the html representation of fingerprint for each config
+-	Display display = Display.getDefault();
+ 	if (this.genFingerPrints || this.genAll) {
+ 		final FingerPrint fingerprint = new FingerPrint(component, stream, this.outputDir);
+-		display.syncExec(
+-			new Runnable() {
+-				public void run(){
+-					try {
+-						fingerprint.print(GenerateResults.this.performanceResults);
+-					} catch (Exception ex) {
+-						ex.printStackTrace();
+-					}
+-				}
+-			}
+-		);
++		fingerprint.print(GenerateResults.this.performanceResults);
+ 	}
+ //	FingerPrint fingerprint = new FingerPrint(component, stream, this.outputDir);
+ //	fingerprint.print(performanceResults);
+@@ -554,17 +552,7 @@
+ 	if (!isGlobal) {
+ 		// print the component scenario status table beneath the fingerprint
+ 		final ScenarioStatusTable sst = new ScenarioStatusTable(component, stream);
+-		display.syncExec(
+-			new Runnable() {
+-				public void run(){
+-					try {
+-						sst.print(GenerateResults.this.performanceResults);
+-					} catch (Exception ex) {
+-						ex.printStackTrace();
+-					}
+-				}
+-			}
+-		);
++		sst.print(GenerateResults.this.performanceResults);
+ //		ScenarioStatusTable sst = new ScenarioStatusTable(component, stream);
+ //		sst.print(performanceResults);
+ 	}
+@@ -767,6 +755,9 @@
+ 		"	Optional.  Build id prefix used in baseline test builds and reruns.  Used to plot baseline historical data.\n" +
+ 		"	A common prefix used for the value of the \"build\" key in the eclipse.perf.config system property when rerunning baseline tests.\n\n" +
+ 
++		"-components\n" +
++		"	Comma separated list of component names for which to generate results.\n\n" +
++
+ 		"-current\n" +
+ 		"	build id for which to generate results.  Compared to build id specified in -baseline parameter above.\n" +
+ 		"	Same as value specified for the \"build\" key in the eclipse.perf.config system property. \n\n" +
+Index: src/org/eclipse/test/internal/performance/results/db/BuildResults.java
+===================================================================
+RCS file: /cvsroot/eclipse/org.eclipse.releng.basebuilder/plugins/org.eclipse.test.performance.ui/src/org/eclipse/test/internal/performance/results/db/BuildResults.java,v
+retrieving revision 1.1
+diff -u -r1.1 BuildResults.java
+--- src/org/eclipse/test/internal/performance/results/db/BuildResults.java	1 Sep 2009 11:05:05 -0000	1.1
++++ src/org/eclipse/test/internal/performance/results/db/BuildResults.java	10 Jan 2010 07:06:16 -0000
+@@ -204,7 +204,8 @@
+  * @return The value of the standard deviation
+  */
+ public double getDeviation(int dim_id) {
+-	return this.stddev[getDimIndex(dim_id)];
++	int index = getDimIndex(dim_id);
++	return (index != -1) ? this.stddev[index] : -1;
+ }
+ 
+ /**
+Index: src/org/eclipse/test/internal/performance/results/db/DB_Results.java
+===================================================================
+RCS file: /cvsroot/eclipse/org.eclipse.releng.basebuilder/plugins/org.eclipse.test.performance.ui/src/org/eclipse/test/internal/performance/results/db/DB_Results.java,v
+retrieving revision 1.7
+diff -u -r1.7 DB_Results.java
+--- src/org/eclipse/test/internal/performance/results/db/DB_Results.java	27 Nov 2009 09:57:04 -0000	1.7
++++ src/org/eclipse/test/internal/performance/results/db/DB_Results.java	10 Jan 2010 07:06:16 -0000
+@@ -267,7 +267,7 @@
+ 		"org.eclipse.ua", //$NON-NLS-1$
+ 		"org.eclipse.ui" //$NON-NLS-1$
+ 	};
+-	private static String[] KNOWN_COMPONENTS = ECLIPSE_COMPONENTS;
++	public static String[] KNOWN_COMPONENTS = ECLIPSE_COMPONENTS;
+ 
+ 
+ 	    // Store debug info
+@@ -1143,6 +1143,7 @@
+ 				scenarioResults.setInfos(config_id, build_id, dim_id==0?-1:summaryKind, COMMENTS[comment_id]);
+ 			}
+ 		}
++		Arrays.sort(CONFIGS);
+ 	} catch (SQLException e) {
+ 		PerformanceTestPlugin.log(e);
+ 	} finally {

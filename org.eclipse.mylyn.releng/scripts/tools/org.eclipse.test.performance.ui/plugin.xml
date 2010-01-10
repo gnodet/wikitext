@@ -62,10 +62,23 @@
             class="org.eclipse.test.internal.performance.results.ui.PerformanceResultsPerspective"
             icon="icons/perfs.gif"
             id="org.eclipse.test.performance.ui.perspectives.PerformanceResultsPerspective"
-            name="Performances">
+            name="Performances Results">
          <description>
             Perspective to survey the performances of the Eclipse components
          </description>
       </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="toc.xml"
+            primary="true">
+      </toc>
    </extension>
 </plugin>
