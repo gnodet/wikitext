@@ -13,6 +13,7 @@ package org.eclipse.mylyn.tests.ui.discovery;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.mylyn.internal.tasks.ui.util.TasksUiInternal;
 import org.eclipse.mylyn.tests.ui.util.CompoundCondition;
 import org.eclipse.mylyn.tests.ui.util.HasId;
 import org.eclipse.swt.SWT;
@@ -69,6 +70,11 @@ public class DiscoverySystemTest extends SWTBotTestCase {
 
 	@Test
 	public void testSelectTwoConnectorsAndActivateP2Installer() {
+		if (isDiscoveryAvailable()) {
+			// running on Eclipse 3.4
+			return;
+		}
+
 		activateDiscoveryUi();
 		bot.checkBoxWithId(KEY_CONNECTOR_ID, "com.itsolut.mantis_feature").click();
 		bot.checkBoxWithId(KEY_CONNECTOR_ID, "com.foglyn").click();
@@ -99,8 +105,17 @@ public class DiscoverySystemTest extends SWTBotTestCase {
 		bot.button("Cancel").click();
 	}
 
+	private boolean isDiscoveryAvailable() {
+		return TasksUiInternal.getConfiguredDiscoveryWizardCommand() == null;
+	}
+
 	@Test
 	public void testAllConnectorsEnabled() {
+		if (isDiscoveryAvailable()) {
+			// running on Eclipse 3.4
+			return;
+		}
+
 		activateDiscoveryUi();
 		List<? extends Widget> widgets = allConnectorCheckboxes();
 		assertFalse(widgets.isEmpty());
@@ -121,7 +136,7 @@ public class DiscoverySystemTest extends SWTBotTestCase {
 		assertEquals("org.eclipse.mylyn.discovery.tests.connectorDescriptor1", disabledWidgets.get(0));
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings( { "unchecked", "rawtypes" })
 	private List<? extends Widget> allConnectorCheckboxes() {
 		return bot.widgets(org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.allOf(
 				org.eclipse.swtbot.swt.finder.matchers.WidgetMatcherFactory.widgetOfType(Button.class),
