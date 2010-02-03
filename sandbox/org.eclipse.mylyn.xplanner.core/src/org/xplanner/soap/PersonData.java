@@ -134,6 +134,7 @@ public class PersonData extends org.eclipse.mylyn.xplanner.wsdl.soap.domain.Doma
 
 	private java.lang.Object __equalsCalc = null;
 
+	@SuppressWarnings("unused")
 	@Override
 	public synchronized boolean equals(java.lang.Object obj) {
 		if (!(obj instanceof PersonData)) {

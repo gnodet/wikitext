@@ -155,6 +155,7 @@ public class NoteData extends org.eclipse.mylyn.xplanner.wsdl.soap.domain.Domain
 
 	private java.lang.Object __equalsCalc = null;
 
+	@SuppressWarnings("unused")
 	@Override
 	public synchronized boolean equals(java.lang.Object obj) {
 		if (!(obj instanceof NoteData)) {

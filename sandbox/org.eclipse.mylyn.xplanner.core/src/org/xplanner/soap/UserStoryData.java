@@ -326,6 +326,7 @@ public class UserStoryData extends org.eclipse.mylyn.xplanner.wsdl.soap.domain.D
 
 	private java.lang.Object __equalsCalc = null;
 
+	@SuppressWarnings("unused")
 	@Override
 	public synchronized boolean equals(java.lang.Object obj) {
 		if (!(obj instanceof UserStoryData)) {
