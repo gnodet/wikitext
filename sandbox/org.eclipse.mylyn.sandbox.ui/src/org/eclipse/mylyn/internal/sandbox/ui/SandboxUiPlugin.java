@@ -11,15 +11,10 @@
 
 package org.eclipse.mylyn.internal.sandbox.ui;
 
-import java.util.List;
-
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.mylyn.commons.core.StatusHandler;
-import org.eclipse.mylyn.internal.context.ui.ContextUiPlugin;
-import org.eclipse.mylyn.internal.sandbox.ui.highlighters.Highlighter;
-import org.eclipse.mylyn.internal.sandbox.ui.highlighters.HighlighterList;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -48,8 +43,6 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 
 	private InterestInducingProblemListener problemListener;
 
-	private HighlighterList highlighters;
-
 	public SandboxUiPlugin() {
 		super();
 		plugin = this;
@@ -66,9 +59,6 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 		if (getPreferenceStore().getBoolean(InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS)) {
 			problemListener.enable();
 		}
-
-		// initialize colors to work around deadlock on bug 237596
-		getHighlighterList();
 
 		final IWorkbench workbench = PlatformUI.getWorkbench();
 		workbench.getDisplay().asyncExec(new Runnable() {
@@ -93,11 +83,6 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 
 	@Override
 	public void stop(BundleContext context) throws Exception {
-		if (highlighters != null) {
-			highlighters.dispose();
-			highlighters = null;
-		}
-
 		if (problemListener != null) {
 			getPreferenceStore().removePropertyChangeListener(problemListener);
 		}
@@ -139,56 +124,6 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 
 	public SharedDataDirectoryManager getSharedDataDirectoryManager() {
 		return sharedDataDirectoryManager;
-	}
-
-	private void initializeHighlighters() {
-		String hlist = getPreferenceStore().getString(HIGHLIGHTER_PREFIX);
-		if (hlist.length() == 0) {
-			// migrate preference from context ui
-			hlist = ContextUiPlugin.getDefault().getPreferenceStore().getString(HIGHLIGHTER_PREFIX);
-			getPreferenceStore().setValue(HIGHLIGHTER_PREFIX, hlist);
-			ContextUiPlugin.getDefault().getPreferenceStore().setToDefault(HIGHLIGHTER_PREFIX);
-		}
-		if (hlist.length() == 0) {
-			highlighters = new HighlighterList();
-			highlighters.setToDefaultList();
-		} else {
-			highlighters = new HighlighterList(hlist);
-		}
-	}
-
-	public synchronized HighlighterList getHighlighterList() {
-		if (highlighters == null) {
-			initializeHighlighters();
-		}
-		return highlighters;
-	}
-
-	public List<Highlighter> getHighlighters() {
-		return getHighlighterList().getHighlighters();
-	}
-
-	/**
-	 * @return null if not found
-	 */
-	public Highlighter getHighlighter(String name) {
-		return getHighlighterList().getHighlighter(name);
-	}
-
-	public Highlighter getHighlighterForContextId(String id) {
-		String prefId = TASK_HIGHLIGHTER_PREFIX + id;
-		String highlighterName = getPreferenceStore().getString(prefId);
-		if (highlighterName.equals("")) {
-			highlighterName = ContextUiPlugin.getDefault().getPreferenceStore().getString(prefId);
-			getPreferenceStore().setValue(prefId, highlighterName);
-			ContextUiPlugin.getDefault().getPreferenceStore().setToDefault(prefId);
-		}
-		return getHighlighter(highlighterName);
-	}
-
-	public void setHighlighterMapping(String id, String name) {
-		String prefId = TASK_HIGHLIGHTER_PREFIX + id;
-		getPreferenceStore().putValue(prefId, name);
 	}
 
 }
