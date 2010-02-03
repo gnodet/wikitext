@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Mylyn Sandbox Tests
-Bundle-SymbolicName: org.eclipse.mylyn.sandbox.tests
-Bundle-Version: 0.0.0
+Bundle-SymbolicName: org.eclipse.mylyn.sandbox.tests;singleton:=true
+Bundle-Version: 3.4.0.qualifier
 Bundle-Vendor: Eclipse Mylyn
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
@@ -38,7 +38,6 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.mylyn.tasks.tests,
  org.eclipse.mylyn.tests.util,
  org.eclipse.pde.core
-Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.eclipse.mylyn.sandbox.tests;x-internal:=true,
  org.eclipse.mylyn.sandbox.tests.util;x-internal:=true,
