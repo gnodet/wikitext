@@ -131,7 +131,7 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 				incomingOverlaysButton.getSelection());
 		TaskListView view = TaskListView.getFromActivePerspective();
 		if (view != null) {
-			view.setSynchronizationOverlaid(incomingOverlaysButton.getSelection());
+			view.refresh();
 		}
 
 		SandboxUiPlugin.getDefault().getPreferenceStore().setValue(
