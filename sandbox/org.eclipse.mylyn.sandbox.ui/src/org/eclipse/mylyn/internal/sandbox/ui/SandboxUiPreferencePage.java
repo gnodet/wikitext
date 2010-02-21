@@ -19,7 +19,6 @@ import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.mylyn.internal.context.ui.ContextUiPlugin;
 import org.eclipse.mylyn.internal.tasks.ui.ITasksUiPreferenceConstants;
 import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.internal.tasks.ui.views.TaskListView;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -129,10 +128,6 @@ public class SandboxUiPreferencePage extends PreferencePage implements IWorkbenc
 
 		uiPreferenceStore.setValue(ITasksUiPreferenceConstants.OVERLAYS_INCOMING_TIGHT,
 				incomingOverlaysButton.getSelection());
-		TaskListView view = TaskListView.getFromActivePerspective();
-		if (view != null) {
-			view.refresh();
-		}
 
 		SandboxUiPlugin.getDefault().getPreferenceStore().setValue(
 				InterestInducingProblemListener.PREDICTED_INTEREST_ERRORS, enableErrorInterest.getSelection());
