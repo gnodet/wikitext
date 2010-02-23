@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: org.eclipse.mylyn.jira.core;singleton:=true
-Bundle-Version: 3.3.2.v20100203-0100-e3x
+Bundle-Version: 3.3.2.v20100222-0100-e3x
 Bundle-Activator: org.eclipse.mylyn.internal.jira.core.JiraCorePlugin
 Bundle-Vendor: %Bundle-Vendor
 Require-Bundle: javax.xml.rpc;bundle-version="1.1.0",

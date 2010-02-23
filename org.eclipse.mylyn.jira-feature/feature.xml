@@ -12,7 +12,7 @@
 <feature
       id="org.eclipse.mylyn.jira_feature"
       label="%featureName"
-      version="3.3.2.v20100203-0100-e3x"
+      version="3.3.2.v20100222-0100-e3x"
       provider-name="%providerName"
       plugin="org.eclipse.mylyn">
 
