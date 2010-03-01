@@ -37,7 +37,7 @@ public class XPlannerQueryWizardUtilsTest extends TestCase {
 		AbstractXPlannerQueryWizardPage queryPage = XPlannerQueryWizardUtils.addQueryWizardFirstPage(wizard,
 				badRepository, null);
 		assertNotNull(queryPage);
-		assertTrue(queryPage instanceof ErrorQueryPage);
+		assertTrue("Expected ErrorQueryPage, got: " + queryPage.getClass(), queryPage instanceof ErrorQueryPage);
 	}
 
 	public void testGoodCredentialsPage() {
@@ -46,7 +46,7 @@ public class XPlannerQueryWizardUtilsTest extends TestCase {
 		AbstractXPlannerQueryWizardPage queryPage = XPlannerQueryWizardUtils.addQueryWizardFirstPage(wizard,
 				goodRepository, null);
 		assertNotNull(queryPage);
-		assertTrue(queryPage instanceof XPlannerCustomQueryPage
+		assertTrue("Expected query page, got: " + queryPage.getClass(), queryPage instanceof XPlannerCustomQueryPage
 				|| queryPage instanceof XPlannerQuerySelectionWizardPage);
 	}
 
@@ -56,7 +56,7 @@ public class XPlannerQueryWizardUtilsTest extends TestCase {
 			XPlannerQueryWizardUtils.addQueryWizardFirstPage(wizard, null, null);
 			fail("no exception thrown on bad query page creation");
 		} catch (Exception e) {
-			assertFalse(e.getCause() instanceof CoreException);
+			assertFalse("Did not expect CoreException, got " + e.getCause(), e.getCause() instanceof CoreException);
 		}
 	}
 
