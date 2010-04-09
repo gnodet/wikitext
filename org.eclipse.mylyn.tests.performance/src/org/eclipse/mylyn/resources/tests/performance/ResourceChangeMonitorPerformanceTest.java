@@ -44,8 +44,7 @@ public class ResourceChangeMonitorPerformanceTest extends PerformanceTestCase {
 		excludedPatterns.add(ResourceChangeMonitor.createRegexFromPattern("generated"));
 
 		paths = new HashSet<IPath>();
-		File pathFile = CommonTestUtil.getFile(ResourceChangeMonitorPerformanceTest.class,
-				"resourceExclusionTestPaths.txt");
+		File pathFile = CommonTestUtil.getFile(this, "testdata/resourceExclusionTestPaths.txt");
 		assertNotNull(pathFile);
 
 		BufferedReader br = null;
