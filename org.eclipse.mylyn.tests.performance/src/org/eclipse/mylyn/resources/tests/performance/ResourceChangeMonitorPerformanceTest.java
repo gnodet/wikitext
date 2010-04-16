@@ -37,11 +37,11 @@ public class ResourceChangeMonitorPerformanceTest extends PerformanceTestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		excludedPatterns = new HashSet<String>();
-		excludedPatterns.add(ResourceChangeMonitor.createRegexFromPattern("*.class"));
-		excludedPatterns.add(ResourceChangeMonitor.createRegexFromPattern("*.tmp"));
-		excludedPatterns.add(ResourceChangeMonitor.createRegexFromPattern("~*"));
-		excludedPatterns.add(ResourceChangeMonitor.createRegexFromPattern(".*"));
-		excludedPatterns.add(ResourceChangeMonitor.createRegexFromPattern("generated"));
+		excludedPatterns.addAll(ResourceChangeMonitor.convertToAntPattern("*.class"));
+		excludedPatterns.addAll(ResourceChangeMonitor.convertToAntPattern("*.tmp"));
+		excludedPatterns.addAll(ResourceChangeMonitor.convertToAntPattern("~*"));
+		excludedPatterns.addAll(ResourceChangeMonitor.convertToAntPattern(".*"));
+		excludedPatterns.addAll(ResourceChangeMonitor.convertToAntPattern("generated"));
 
 		paths = new HashSet<IPath>();
 		File pathFile = CommonTestUtil.getFile(this, "testdata/resourceExclusionTestPaths.txt");
