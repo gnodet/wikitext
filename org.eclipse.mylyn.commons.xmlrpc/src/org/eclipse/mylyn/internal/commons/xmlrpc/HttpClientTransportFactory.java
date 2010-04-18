@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006, 2008 Steffen Pingel and others.
+ * Copyright (c) 2006, 2010 Steffen Pingel and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,7 +9,7 @@
  *     Steffen Pingel - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.trac.core.util;
+package org.eclipse.mylyn.internal.commons.xmlrpc;
 
 import java.io.BufferedOutputStream;
 import java.io.FilterOutputStream;
@@ -24,7 +24,6 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.HttpVersion;
-import org.apache.commons.httpclient.auth.AuthScheme;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.xmlrpc.XmlRpcException;
@@ -48,12 +47,12 @@ import org.xml.sax.SAXException;
  * 
  * @author Steffen Pingel
  */
-public class TracHttpClientTransportFactory implements XmlRpcTransportFactory {
+class HttpClientTransportFactory implements XmlRpcTransportFactory {
 
 	/**
 	 * A transport that uses the Apache HttpClient library.
 	 */
-	public static class TracHttpClientTransport extends XmlRpcHttpTransport {
+	static class HttpClientTransport extends XmlRpcHttpTransport {
 
 		private final HttpClient httpClient;
 
@@ -71,7 +70,7 @@ public class TracHttpClientTransportFactory implements XmlRpcTransportFactory {
 
 		private final HttpMethodInterceptor interceptor;
 
-		public TracHttpClientTransport(XmlRpcClient client, HttpClient httpClient, AbstractWebLocation location,
+		public HttpClientTransport(XmlRpcClient client, HttpClient httpClient, AbstractWebLocation location,
 				HttpMethodInterceptor interceptor) {
 			super(client, ""); //$NON-NLS-1$
 			this.httpClient = httpClient;
@@ -92,7 +91,7 @@ public class TracHttpClientTransportFactory implements XmlRpcTransportFactory {
 		protected InputStream getInputStream() throws XmlRpcException {
 			int responseCode = method.getStatusCode();
 			if (responseCode != HttpURLConnection.HTTP_OK) {
-				TracHttpException e = new TracHttpException(responseCode);
+				XmlRpcHttpException e = new XmlRpcHttpException(responseCode);
 				if (responseCode == HttpStatus.SC_UNAUTHORIZED) {
 					e.setAuthScheme(method.getHostAuthState().getAuthScheme());
 				}
@@ -117,9 +116,9 @@ public class TracHttpClientTransportFactory implements XmlRpcTransportFactory {
 		protected void initHttpHeaders(XmlRpcRequest request) throws XmlRpcClientException {
 			config = (XmlRpcHttpClientConfig) request.getConfig();
 
-			if (request instanceof TracXmlRpcClientRequest) {
-				TracXmlRpcClientRequest tracRequest = (TracXmlRpcClientRequest) request;
-				monitor = tracRequest.getProgressMonitor();
+			if (request instanceof XmlRpcClientRequest) {
+				XmlRpcClientRequest clientRequest = (XmlRpcClientRequest) request;
+				monitor = clientRequest.getProgressMonitor();
 			} else {
 				monitor = null;
 			}
@@ -158,7 +157,7 @@ public class TracHttpClientTransportFactory implements XmlRpcTransportFactory {
 
 		@Override
 		protected void setCredentials(XmlRpcHttpClientConfig config) throws XmlRpcClientException {
-			// handled by TracXmlRpcClient
+			// handled by AbstractXmlRpcClient
 		}
 
 		@Override
@@ -170,7 +169,7 @@ public class TracHttpClientTransportFactory implements XmlRpcTransportFactory {
 		protected void writeRequest(final ReqWriter writer) throws XmlRpcException {
 			method.setRequestEntity(new RequestEntity() {
 				public long getContentLength() {
-					return TracHttpClientTransport.this.getContentLength();
+					return HttpClientTransport.this.getContentLength();
 				}
 
 				public String getContentType() {
@@ -231,26 +230,6 @@ public class TracHttpClientTransportFactory implements XmlRpcTransportFactory {
 
 	}
 
-	public static class TracHttpException extends XmlRpcException {
-
-		private static final long serialVersionUID = 9032521978140685830L;
-
-		private AuthScheme authScheme;
-
-		public TracHttpException(int responseCode) {
-			super(responseCode, "HTTP Error " + responseCode); //$NON-NLS-1$
-		}
-
-		public AuthScheme getAuthScheme() {
-			return authScheme;
-		}
-
-		public void setAuthScheme(AuthScheme authScheme) {
-			this.authScheme = authScheme;
-		}
-
-	}
-
 	private final XmlRpcClient xmlRpcClient;
 
 	private AbstractWebLocation location;
@@ -259,7 +238,7 @@ public class TracHttpClientTransportFactory implements XmlRpcTransportFactory {
 
 	private HttpMethodInterceptor interceptor;
 
-	public TracHttpClientTransportFactory(XmlRpcClient xmlRpcClient, HttpClient httpClient) {
+	public HttpClientTransportFactory(XmlRpcClient xmlRpcClient, HttpClient httpClient) {
 		this.xmlRpcClient = xmlRpcClient;
 		this.httpClient = httpClient;
 	}
@@ -269,7 +248,7 @@ public class TracHttpClientTransportFactory implements XmlRpcTransportFactory {
 	}
 
 	public XmlRpcTransport getTransport() {
-		return new TracHttpClientTransport(xmlRpcClient, httpClient, location, interceptor);
+		return new HttpClientTransport(xmlRpcClient, httpClient, location, interceptor);
 	}
 
 	public void setLocation(AbstractWebLocation location) {
