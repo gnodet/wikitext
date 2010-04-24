@@ -33,17 +33,10 @@
    </url>
 
    <requires>
-      <import plugin="com.sun.syndication" version="0.9.0" match="greaterOrEqual"/>
-      <import plugin="org.jdom" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.ui.forms"/>
-      <import plugin="org.eclipse.mylyn.tasks.core" version="3.0.0" match="compatible"/>
-      <import plugin="org.eclipse.mylyn.tasks.ui" version="3.0.0" match="compatible"/>
       <import feature="org.eclipse.mylyn_feature" version="3.4.0.mylynQualifier" match="equivalent"/>
-      <import plugin="org.eclipse.mylyn.commons.core" version="3.0.0" match="compatible"/>
-      <import plugin="org.eclipse.mylyn.commons.net" version="3.0.0" match="compatible"/>
-      <import plugin="org.eclipse.mylyn.commons.ui" version="3.0.0" match="compatible"/>
+      <import plugin="org.eclipse.mylyn.commons.core" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.mylyn.commons.net" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.mylyn.commons.ui" version="3.2.0" match="compatible"/>
    </requires>
 
    <plugin
