@@ -17,7 +17,8 @@ Require-Bundle: org.eclipse.core.resources,
  org.eclipse.mylyn.resources.ui,
  org.eclipse.mylyn.tasks.tests
 Bundle-ClassPath: .
-Export-Package: org.eclipse.mylyn.tasks.tests.performance;x-internal:=true,
+Export-Package: org.eclipse.mylyn.resources.tests.performance;x-internal:=true,
+ org.eclipse.mylyn.tasks.tests.performance;x-internal:=true,
  org.eclipse.mylyn.tests.performance;x-internal:=true,
  org.eclipse.mylyn.tests.performance.support;x-internal:=true
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
