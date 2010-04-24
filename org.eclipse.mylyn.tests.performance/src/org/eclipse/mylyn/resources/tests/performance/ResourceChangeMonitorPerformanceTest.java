@@ -19,7 +19,7 @@ import java.util.Set;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.mylyn.internal.resources.ui.ResourceChangeMonitor;
+import org.eclipse.mylyn.internal.resources.ui.ResourcePatternExclusionStrategy;
 import org.eclipse.mylyn.tests.performance.PerformanceConstants;
 import org.eclipse.mylyn.tests.performance.support.CommonTestUtil;
 import org.eclipse.test.performance.PerformanceTestCase;
@@ -37,11 +37,11 @@ public class ResourceChangeMonitorPerformanceTest extends PerformanceTestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		excludedPatterns = new HashSet<String>();
-		excludedPatterns.addAll(ResourceChangeMonitor.convertToAntPattern("*.class"));
-		excludedPatterns.addAll(ResourceChangeMonitor.convertToAntPattern("*.tmp"));
-		excludedPatterns.addAll(ResourceChangeMonitor.convertToAntPattern("~*"));
-		excludedPatterns.addAll(ResourceChangeMonitor.convertToAntPattern(".*"));
-		excludedPatterns.addAll(ResourceChangeMonitor.convertToAntPattern("generated"));
+		excludedPatterns.addAll(ResourcePatternExclusionStrategy.convertToAntPattern("*.class"));
+		excludedPatterns.addAll(ResourcePatternExclusionStrategy.convertToAntPattern("*.tmp"));
+		excludedPatterns.addAll(ResourcePatternExclusionStrategy.convertToAntPattern("~*"));
+		excludedPatterns.addAll(ResourcePatternExclusionStrategy.convertToAntPattern(".*"));
+		excludedPatterns.addAll(ResourcePatternExclusionStrategy.convertToAntPattern("generated"));
 
 		paths = new HashSet<IPath>();
 		File pathFile = CommonTestUtil.getFile(this, "testdata/resourceExclusionTestPaths.txt");
@@ -69,7 +69,7 @@ public class ResourceChangeMonitorPerformanceTest extends PerformanceTestCase {
 			startMeasuring();
 			boolean excluded = false;
 			for (IPath path : paths) {
-				excluded |= ResourceChangeMonitor.isExcluded(path, null, excludedPatterns);
+				excluded |= ResourcePatternExclusionStrategy.isExcluded(path, null, excludedPatterns);
 			}
 			assertTrue(excluded);
 
