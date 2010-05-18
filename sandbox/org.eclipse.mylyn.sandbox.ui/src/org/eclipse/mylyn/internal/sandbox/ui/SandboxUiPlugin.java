@@ -35,8 +35,6 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 
 	private static SandboxUiPlugin plugin;
 
-	private final SharedDataDirectoryManager sharedDataDirectoryManager = new SharedDataDirectoryManager();
-
 	public static final String OVERLAYS_INCOMING_TIGHT = "org.eclipse.mylyn.tasks.ui.overlays.incoming.tight";
 
 	private final ActiveSearchViewTracker activeSearchViewTracker = new ActiveSearchViewTracker();
@@ -120,10 +118,6 @@ public class SandboxUiPlugin extends AbstractUIPlugin {
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.mylyn.internal.sandbox", path);
-	}
-
-	public SharedDataDirectoryManager getSharedDataDirectoryManager() {
-		return sharedDataDirectoryManager;
 	}
 
 }
