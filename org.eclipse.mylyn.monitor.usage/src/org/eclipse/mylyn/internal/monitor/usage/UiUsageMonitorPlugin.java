@@ -20,12 +20,12 @@ import java.util.List;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.ListenerList;
-import org.eclipse.core.runtime.Preferences;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.mylyn.commons.core.StatusHandler;
 import org.eclipse.mylyn.internal.context.core.InteractionContextManager;
 import org.eclipse.mylyn.internal.monitor.ui.ActionExecutionMonitor;
@@ -241,16 +241,14 @@ public class UiUsageMonitorPlugin extends AbstractUIPlugin {
 		getPreferenceStore().setValue(MonitorPreferenceConstants.PREF_MONITORING_STARTED, true);
 	}
 
-	@SuppressWarnings("deprecation")
-	public void addMonitoredPreferences(Preferences preferences) {
+	public void addMonitoredPreferences(IPreferenceStore preferences) {
 		if (preferenceMonitor == null) {
 			preferenceMonitor = new PreferenceChangeMonitor();
 		}
 		preferences.addPropertyChangeListener(preferenceMonitor);
 	}
 
-	@SuppressWarnings("deprecation")
-	public void removeMonitoredPreferences(Preferences preferences) {
+	public void removeMonitoredPreferences(IPreferenceStore preferences) {
 		if (preferenceMonitor != null) {
 			preferences.removePropertyChangeListener(preferenceMonitor);
 		} else {

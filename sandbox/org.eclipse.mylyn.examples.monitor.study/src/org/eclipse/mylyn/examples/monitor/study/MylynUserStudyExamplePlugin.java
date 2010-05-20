@@ -12,7 +12,6 @@
 package org.eclipse.mylyn.examples.monitor.study;
 
 import org.eclipse.jdt.internal.ui.JavaPlugin;
-import org.eclipse.mylyn.internal.context.core.ContextCorePlugin;
 import org.eclipse.mylyn.internal.monitor.ui.MonitorUiPlugin;
 import org.eclipse.mylyn.internal.monitor.usage.UiUsageMonitorPlugin;
 import org.eclipse.pde.internal.ui.PDEPlugin;
@@ -44,24 +43,21 @@ public class MylynUserStudyExamplePlugin extends AbstractUIPlugin {
 		public void earlyStartup() {
 			final IWorkbench workbench = PlatformUI.getWorkbench();
 			workbench.getDisplay().asyncExec(new Runnable() {
-				@SuppressWarnings("deprecation")
 				public void run() {
 					MylynUserStudyExamplePlugin.getDefault().selectionMonitor = new SelectionMonitor();
 					MonitorUiPlugin.getDefault().getSelectionMonitors().add(
 							MylynUserStudyExamplePlugin.getDefault().selectionMonitor);
 
 					UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
-							WorkbenchPlugin.getDefault().getPluginPreferences());
-					// MylarUsageMonitorPlugin.getDefault().addMonitoredPreferences(
-					// MylarUiPlugin.getDefault().getPluginPreferences());
+							WorkbenchPlugin.getDefault().getPreferenceStore());
 					UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
-							JavaPlugin.getDefault().getPluginPreferences());
+							JavaPlugin.getDefault().getPreferenceStore());
 					UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
-							WorkbenchPlugin.getDefault().getPluginPreferences());
+							WorkbenchPlugin.getDefault().getPreferenceStore());
 					UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
-							EditorsPlugin.getDefault().getPluginPreferences());
+							EditorsPlugin.getDefault().getPreferenceStore());
 					UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(
-							PDEPlugin.getDefault().getPluginPreferences());
+							PDEPlugin.getDefault().getPreferenceStore());
 				}
 			});
 		}
@@ -72,22 +68,17 @@ public class MylynUserStudyExamplePlugin extends AbstractUIPlugin {
 		super.start(context);
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		plugin = null;
 
 		MonitorUiPlugin.getDefault().getSelectionMonitors().remove(selectionMonitor);
-		UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(
-				WorkbenchPlugin.getDefault().getPluginPreferences());
-		UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(
-				ContextCorePlugin.getDefault().getPluginPreferences());
-		UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(JavaPlugin.getDefault().getPluginPreferences());
-		UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(
-				WorkbenchPlugin.getDefault().getPluginPreferences());
-		UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(EditorsPlugin.getDefault().getPluginPreferences());
-		UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(PDEPlugin.getDefault().getPluginPreferences());
+		UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(WorkbenchPlugin.getDefault().getPreferenceStore());
+		UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(JavaPlugin.getDefault().getPreferenceStore());
+		UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(WorkbenchPlugin.getDefault().getPreferenceStore());
+		UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(EditorsPlugin.getDefault().getPreferenceStore());
+		UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(PDEPlugin.getDefault().getPreferenceStore());
 	}
 
 	/**

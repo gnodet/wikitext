@@ -143,7 +143,7 @@ public class StatisticsReportingTest extends TestCase {
 
 	@SuppressWarnings("unused")
 	public void testFilteredModeDetection() throws IOException {
-		UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(ContextUiPlugin.getDefault().getPluginPreferences());
+		UiUsageMonitorPlugin.getDefault().addMonitoredPreferences(ContextUiPlugin.getDefault().getPreferenceStore());
 
 		UiUsageMonitorPlugin.getDefault().getInteractionLogger().clearInteractionHistory();
 		mockExplorerSelection("A.java");
@@ -185,7 +185,7 @@ public class StatisticsReportingTest extends TestCase {
 				assertEquals(2, filtered);
 
 				UiUsageMonitorPlugin.getDefault().removeMonitoredPreferences(
-						ContextUiPlugin.getDefault().getPluginPreferences());
+						ContextUiPlugin.getDefault().getPreferenceStore());
 			}
 		});
 
