@@ -103,7 +103,6 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 //					dialog.setErrorMessage("Authentication credentials missing.");
 //					dialog.setBlockOnOpen(true);
 //					if (dialog.open() == Window.CANCEL) {
-//						dialog.close();
 //						haveValidClient = false;
 //					}
 //				}
@@ -132,7 +131,6 @@ public class XPlannerRepositoryUi extends AbstractRepositoryConnectorUi {
 //				dialog.setTitle(TITLE_EDIT_QUERY);
 //				dialog.setBlockOnOpen(true);
 //				if (dialog.open() == Window.CANCEL) {
-//					dialog.close();
 //					return;
 //				}
 //			}
