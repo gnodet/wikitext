@@ -51,7 +51,7 @@ public class XPlannerRepositoryUiTest extends TestCase {
 	private void checkValidHyperlinks(TaskRepository repository, AbstractRepositoryConnectorUi connectorUi,
 			String testData, String id) throws Exception {
 
-		IHyperlink[] hyperlinks = connectorUi.findHyperlinks(repository, testData, -1, 0);
+		IHyperlink[] hyperlinks = connectorUi.findHyperlinks(repository, null, testData, -1, 0);
 		assertTrue(hyperlinks.length == 1);
 		assertTrue(((TaskHyperlink) hyperlinks[0]).getTaskId().equals(id));
 	}
@@ -59,7 +59,7 @@ public class XPlannerRepositoryUiTest extends TestCase {
 	private void checkInvalidHyperlinks(TaskRepository repository, AbstractRepositoryConnectorUi connectorUi,
 			String testData) throws Exception {
 
-		IHyperlink[] hyperlinks = connectorUi.findHyperlinks(repository, testData, -1, 0);
+		IHyperlink[] hyperlinks = connectorUi.findHyperlinks(repository, null, testData, -1, 0);
 		assertNull(hyperlinks);
 	}
 }

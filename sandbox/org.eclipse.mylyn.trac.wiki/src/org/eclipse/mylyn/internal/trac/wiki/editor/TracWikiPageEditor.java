@@ -233,7 +233,7 @@ public class TracWikiPageEditor extends FormEditor {
 				}
 			});
 
-			TextSourceViewerConfiguration viewerConfig = new RepositoryTextViewerConfiguration(repository, true);
+			TextSourceViewerConfiguration viewerConfig = new RepositoryTextViewerConfiguration(repository, null, true);
 			((SourceViewer) sourceEditor).configure(viewerConfig);
 			Document document = new Document(page.getContent());
 			((SourceViewer) sourceEditor).setDocument(document, new AnnotationModel());
