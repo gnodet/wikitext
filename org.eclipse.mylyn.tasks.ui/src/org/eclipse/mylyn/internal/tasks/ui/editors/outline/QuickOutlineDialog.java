@@ -8,24 +8,31 @@
  *  Contributors:
  *     IBM Corporation - initial API and implementation
  *     Tasktop Technologies - adapted for Mylyn
+ *     Frank Becker - adapted for Mylyn Task Editor
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.context.ui.views;
+package org.eclipse.mylyn.internal.tasks.ui.editors.outline;
 
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.PopupDialog;
 import org.eclipse.jface.text.IInformationControl;
 import org.eclipse.jface.text.IInformationControlExtension;
 import org.eclipse.jface.text.IInformationControlExtension2;
-import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
+import org.eclipse.jface.viewers.IOpenListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.OpenEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.mylyn.context.ui.InterestFilter;
-import org.eclipse.mylyn.internal.context.ui.ContextUiPlugin;
-import org.eclipse.mylyn.internal.context.ui.editors.ContextEditorFormPage;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.mylyn.internal.tasks.ui.editors.TaskEditorOutlineContentProvider;
+import org.eclipse.mylyn.internal.tasks.ui.editors.TaskEditorOutlineModel;
+import org.eclipse.mylyn.internal.tasks.ui.editors.TaskEditorOutlineNode;
+import org.eclipse.mylyn.tasks.ui.editors.AbstractTaskEditorPage;
+import org.eclipse.mylyn.tasks.ui.editors.TaskEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -36,6 +43,7 @@ import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
@@ -43,40 +51,90 @@ import org.eclipse.swt.graphics.FontMetrics;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.misc.StringMatcher;
-import org.eclipse.ui.navigator.CommonViewer;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.dialogs.PatternFilter;
+import org.eclipse.ui.forms.editor.IFormPage;
 
 /**
- * Derived from {@link QuickOutlinePopupDialog}.
- * 
  * @author Mik Kersten
+ * @author Frank Becker
+ * @author Steffen Pingel
  */
-public class QuickContextPopupDialog extends PopupDialog implements IInformationControl, IInformationControlExtension,
+public class QuickOutlineDialog extends PopupDialog implements IInformationControl, IInformationControlExtension,
 		IInformationControlExtension2, DisposeListener {
 
-	public static final String ID_VIEWER = "org.eclipse.mylyn.context.ui.navigator.context.quick"; //$NON-NLS-1$
+	private class OpenListener implements IOpenListener, IDoubleClickListener, MouseListener {
 
-	private CommonViewer commonViewer;
+		private final Viewer viewer;
 
-	private final InterestFilter interestFilter = new InterestFilter();
+		public OpenListener(Viewer viewer) {
+			this.viewer = viewer;
+		}
 
-	private Text fFilterText;
+		public void mouseDoubleClick(MouseEvent e) {
+			setSelection(e);
+		}
 
-	private StringMatcher fStringMatcher;
+		public void mouseDown(MouseEvent e) {
+			setSelection(e);
+		}
 
-	private QuickOutlinePatternAndInterestFilter namePatternFilter;
+		public void mouseUp(MouseEvent e) {
+			// ignore
 
-	private ContextNodeOpenListener openListener;
+		}
 
-	public QuickContextPopupDialog(Shell parent) {
-		super(parent, SWT.RESIZE, true, true, true, true, true, null, Messages.QuickContextPopupDialog_Task_Context);
+		public void doubleClick(DoubleClickEvent event) {
+			open(null);
+		}
+
+		public void open(OpenEvent event) {
+			AbstractTaskEditorPage taskEditorPage = getTaskEditorPage();
+			if (taskEditorPage == null) {
+				return;
+			}
+
+			StructuredSelection selection = (StructuredSelection) viewer.getSelection();
+			Object select = (selection).getFirstElement();
+			taskEditorPage.selectReveal(select);
+		}
+
+		private void setSelection(MouseEvent event) {
+			try {
+				Object selection = ((Tree) event.getSource()).getSelection()[0].getData();
+				viewer.setSelection(new StructuredSelection(selection));
+				open(null);
+			} catch (Exception e) {
+				// ignore
+			}
+		}
+
+	}
+
+	public static final String ID_VIEWER = "org.eclipse.mylyn.internal.tasks.ui.taskdata.quick"; //$NON-NLS-1$
+
+	private TreeViewer viewer;
+
+	private Text filterText;
+
+	private PatternFilter namePatternFilter;
+
+	private OpenListener openListener;
+
+	private final IWorkbenchWindow window;
+
+	public QuickOutlineDialog(IWorkbenchWindow window) {
+		super(window.getShell(), SWT.RESIZE, true, true, true, true, true, null, null);
+		this.window = window;
+		setInfoText(Messages.QuickOutlineDialog_Press_Esc_Info_Text);
 		create();
 	}
 
@@ -92,39 +150,40 @@ public class QuickContextPopupDialog extends PopupDialog implements IInformation
 		createUIListenersTreeViewer();
 		addDisposeListener(this);
 
-		return commonViewer.getControl();
+		return viewer.getControl();
 	}
 
 	private void createViewer(Composite parent) {
 		Control composite = super.createDialogArea(parent);
-		commonViewer = createCommonViewer((Composite) composite);
+		viewer = createCommonViewer((Composite) composite);
+		openListener = new OpenListener(viewer);
 
-		openListener = new ContextNodeOpenListener(commonViewer);
+		viewer.addOpenListener(openListener);
+		viewer.getTree().addMouseListener(openListener);
 
-		commonViewer.addOpenListener(openListener);
-		commonViewer.getTree().addMouseListener(openListener);
+		namePatternFilter = new PatternFilter();
+		namePatternFilter.setIncludeLeadingWildcard(true);
+		viewer.addFilter(namePatternFilter);
 
-		commonViewer.addFilter(interestFilter);
-
-		namePatternFilter = new QuickOutlinePatternAndInterestFilter();
-		commonViewer.addFilter(namePatternFilter);
-
-		try {
-			commonViewer.getControl().setRedraw(false);
-
-			ContextEditorFormPage.forceFlatLayoutOfJavaContent(commonViewer);
-
-			commonViewer.setInput(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getInput());
-			commonViewer.expandAll();
-		} finally {
-			commonViewer.getControl().setRedraw(true);
+		AbstractTaskEditorPage taskEditorPage = getTaskEditorPage();
+		if (taskEditorPage != null) {
+			try {
+				viewer.getControl().setRedraw(false);
+				TaskEditorOutlineNode root = TaskEditorOutlineNode.parse(taskEditorPage.getModel().getTaskData(), true);
+				viewer.setInput(new TaskEditorOutlineModel(root));
+				viewer.expandAll();
+			} finally {
+				viewer.getControl().setRedraw(true);
+			}
 		}
 	}
 
-	protected CommonViewer createCommonViewer(Composite parent) {
-		CommonViewer viewer = new CommonViewer(ID_VIEWER, parent, SWT.H_SCROLL | SWT.V_SCROLL);
+	protected TreeViewer createCommonViewer(Composite parent) {
+		TreeViewer viewer = new TreeViewer(parent, SWT.H_SCROLL | SWT.V_SCROLL);
 		viewer.setUseHashlookup(true);
 		viewer.getControl().setLayoutData(new GridData(500, 400));
+		viewer.setContentProvider(new TaskEditorOutlineContentProvider());
+		viewer.setLabelProvider(new QuickOutlineLabelProvider());
 		return viewer;
 	}
 
@@ -135,7 +194,7 @@ public class QuickContextPopupDialog extends PopupDialog implements IInformation
 	}
 
 	private void createUIListenersTreeViewer() {
-		final Tree tree = commonViewer.getTree();
+		final Tree tree = viewer.getTree();
 		tree.addKeyListener(new KeyListener() {
 			public void keyPressed(KeyEvent e) {
 				if (e.character == 0x1B) {
@@ -180,10 +239,10 @@ public class QuickContextPopupDialog extends PopupDialog implements IInformation
 	}
 
 	private Object getSelectedElement() {
-		if (commonViewer == null) {
+		if (viewer == null) {
 			return null;
 		}
-		return ((IStructuredSelection) commonViewer.getSelection()).getFirstElement();
+		return ((IStructuredSelection) viewer.getSelection()).getFirstElement();
 	}
 
 	public void addDisposeListener(DisposeListener listener) {
@@ -204,7 +263,7 @@ public class QuickContextPopupDialog extends PopupDialog implements IInformation
 	}
 
 	public boolean isFocusControl() {
-		if (commonViewer.getControl().isFocusControl() || fFilterText.isFocusControl()) {
+		if (viewer.getControl().isFocusControl() || filterText.isFocusControl()) {
 			return true;
 		}
 		return false;
@@ -224,7 +283,7 @@ public class QuickContextPopupDialog extends PopupDialog implements IInformation
 
 	public void setFocus() {
 		getShell().forceFocus();
-		fFilterText.setFocus();
+		filterText.setFocus();
 	}
 
 	public void setForegroundColor(Color foreground) {
@@ -270,51 +329,44 @@ public class QuickContextPopupDialog extends PopupDialog implements IInformation
 	}
 
 	public boolean hasContents() {
-		if ((commonViewer == null) || (commonViewer.getInput() == null)) {
+		if ((viewer == null) || (viewer.getInput() == null)) {
 			return false;
 		}
 		return true;
 	}
 
 	public void setInput(Object input) {
-		// Input comes from PDESourceInfoProvider.getInformation2()
-		// The input should be a model object of some sort
-		// Turn it into a structured selection and set the selection in the tree
 		if (input != null) {
-			commonViewer.setSelection(new StructuredSelection(input));
+			viewer.setSelection(new StructuredSelection(input));
 		}
 	}
 
 	public void widgetDisposed(DisposeEvent e) {
 		// Note: We do not reuse the dialog
-		commonViewer = null;
-		fFilterText = null;
+		viewer = null;
+		filterText = null;
 	}
 
 	@Override
 	protected Control createTitleControl(Composite parent) {
+		Composite control = new Composite(parent, SWT.NONE);
+		GridLayout layout = new GridLayout(1, false);
+		layout.marginHeight = 0;
+		control.setLayout(layout);
+		control.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+
 		// Applies only to dialog title - not body.  See createDialogArea
 		// Create the text widget
-		createUIWidgetFilterText(parent);
+		createUIWidgetFilterText(control);
 		// Add listeners to the text widget
 		createUIListenersFilterText();
 		// Return the text widget
-		return fFilterText;
-	}
-
-	@Override
-	protected IDialogSettings getDialogSettings() {
-		IDialogSettings dialogSettings = ContextUiPlugin.getDefault().getDialogSettings();
-		IDialogSettings result = dialogSettings.getSection(ID_VIEWER);
-		if (result == null) {
-			result = dialogSettings.addNewSection(ID_VIEWER);
-		}
-		return result;
+		return control;
 	}
 
 	private void createUIWidgetFilterText(Composite parent) {
 		// Create the widget
-		fFilterText = new Text(parent, SWT.NONE);
+		filterText = new Text(parent, SWT.NONE);
 		// Set the font 
 		GC gc = new GC(parent);
 		gc.setFont(parent.getFont());
@@ -325,7 +377,7 @@ public class QuickContextPopupDialog extends PopupDialog implements IInformation
 		data.heightHint = Dialog.convertHeightInCharsToPixels(fontMetrics, 1);
 		data.horizontalAlignment = GridData.FILL;
 		data.verticalAlignment = GridData.CENTER;
-		fFilterText.setLayoutData(data);
+		filterText.setLayoutData(data);
 	}
 
 	/**
@@ -340,17 +392,17 @@ public class QuickContextPopupDialog extends PopupDialog implements IInformation
 	}
 
 	private void createUIListenersFilterText() {
-		fFilterText.addKeyListener(new KeyListener() {
+		filterText.addKeyListener(new KeyListener() {
 			public void keyPressed(KeyEvent e) {
 				if (e.keyCode == 0x0D) {
 					// Return key was pressed
 					gotoSelectedElement();
 				} else if (e.keyCode == SWT.ARROW_DOWN) {
 					// Down key was pressed
-					commonViewer.getTree().setFocus();
+					viewer.getTree().setFocus();
 				} else if (e.keyCode == SWT.ARROW_UP) {
 					// Up key was pressed
-					commonViewer.getTree().setFocus();
+					viewer.getTree().setFocus();
 				} else if (e.character == 0x1B) {
 					// Escape key was pressed
 					dispose();
@@ -362,7 +414,7 @@ public class QuickContextPopupDialog extends PopupDialog implements IInformation
 			}
 		});
 		// Handle text modify events
-		fFilterText.addModifyListener(new ModifyListener() {
+		filterText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent e) {
 				String text = ((Text) e.widget).getText();
 				int length = text.length();
@@ -396,14 +448,7 @@ public class QuickContextPopupDialog extends PopupDialog implements IInformation
 	 *            <code>true</code> if the viewer should be updated
 	 */
 	private void setMatcherString(String pattern, boolean update) {
-		if (pattern.length() == 0) {
-			fStringMatcher = null;
-		} else {
-			fStringMatcher = new StringMatcher(pattern, true, false);
-		}
-		// Update the name pattern filter on the tree viewer
-		namePatternFilter.setStringMatcher(fStringMatcher);
-		// Update the tree viewer according to the pattern
+		namePatternFilter.setPattern(pattern);
 		if (update) {
 			stringMatcherUpdated();
 		}
@@ -415,56 +460,73 @@ public class QuickContextPopupDialog extends PopupDialog implements IInformation
 	 */
 	private void stringMatcherUpdated() {
 		// Refresh the tree viewer to re-filter
-		commonViewer.getControl().setRedraw(false);
-		commonViewer.refresh();
-		commonViewer.expandAll();
-		selectFirstMatch();
-		commonViewer.getControl().setRedraw(true);
+		viewer.getControl().setRedraw(false);
+		viewer.refresh();
+		viewer.expandAll();
+//		selectFirstMatch();
+		viewer.getControl().setRedraw(true);
 	}
 
-	/**
-	 * Selects the first element in the tree which matches the current filter pattern.
-	 */
-	private void selectFirstMatch() {
-		Tree tree = commonViewer.getTree();
-		Object element = findFirstMatchToPattern(tree.getItems());
-		if (element != null) {
-			commonViewer.setSelection(new StructuredSelection(element), true);
-		} else {
-			commonViewer.setSelection(StructuredSelection.EMPTY);
+	protected AbstractTaskEditorPage getTaskEditorPage() {
+		IWorkbenchPage activePage = window.getActivePage();
+		if (activePage == null) {
+			return null;
 		}
+		IEditorPart editorPart = activePage.getActiveEditor();
+		AbstractTaskEditorPage taskEditorPage = null;
+		if (editorPart instanceof TaskEditor) {
+			TaskEditor taskEditor = (TaskEditor) editorPart;
+			IFormPage formPage = taskEditor.getActivePageInstance();
+			if (formPage instanceof AbstractTaskEditorPage) {
+				taskEditorPage = (AbstractTaskEditorPage) formPage;
+			}
+		}
+		return taskEditorPage;
 	}
 
-	/**
-	 * @param items
-	 * @return
-	 */
-	private Object findFirstMatchToPattern(TreeItem[] items) {
-		// Match the string pattern against labels
-		ILabelProvider labelProvider = (ILabelProvider) commonViewer.getLabelProvider();
-		// Process each item in the tree
-		for (TreeItem item : items) {
-			Object element = item.getData();
-			// Return the first element if no pattern is set
-			if (fStringMatcher == null) {
-				return element;
-			}
-			// Return the element if it matches the pattern
-			if (element != null) {
-				String label = labelProvider.getText(element);
-				if (fStringMatcher.match(label)) {
-					return element;
-				}
-			}
-			// Recursively check the elements children for a match
-			element = findFirstMatchToPattern(item.getItems());
-			// Return the child element match if found
-			if (element != null) {
-				return element;
-			}
-		}
-		// No match found
-		return null;
-	}
+//	/**
+//	 * Selects the first element in the tree which matches the current filter pattern.
+//	 */
+//	private void selectFirstMatch() {
+//		Tree tree = viewer.getTree();
+//		Object element = findFirstMatchToPattern(tree.getItems());
+//		if (element != null) {
+//			viewer.setSelection(new StructuredSelection(element), true);
+//		} else {
+//			viewer.setSelection(StructuredSelection.EMPTY);
+//		}
+//	}
+//
+//	/**
+//	 * @param items
+//	 * @return
+//	 */
+//	private Object findFirstMatchToPattern(TreeItem[] items) {
+//		// Match the string pattern against labels
+//		ILabelProvider labelProvider = (ILabelProvider) viewer.getLabelProvider();
+//		// Process each item in the tree
+//		for (TreeItem item : items) {
+//			Object element = item.getData();
+//			// Return the first element if no pattern is set
+//			if (fStringMatcher == null) {
+//				return element;
+//			}
+//			// Return the element if it matches the pattern
+//			if (element != null) {
+//				String label = labelProvider.getText(element);
+//				if (fStringMatcher.match(label)) {
+//					return element;
+//				}
+//			}
+//			// Recursively check the elements children for a match
+//			element = findFirstMatchToPattern(item.getItems());
+//			// Return the child element match if found
+//			if (element != null) {
+//				return element;
+//			}
+//		}
+//		// No match found
+//		return null;
+//	}
 
 }
