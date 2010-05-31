@@ -192,11 +192,14 @@ public class UsageUploadManager {
 
 			if (status == HttpStatus.SC_OK) {
 				InputStream inputStream = WebUtil.getResponseBodyAsStream(getUserIdMethod, monitor);
-				byte[] buffer = new byte[SIZE_OF_INT];
-				int numBytesRead = inputStream.read(buffer);
-				int uid = new Integer(new String(buffer, 0, numBytesRead)).intValue();
-				inputStream.close();
-				return uid;
+				try {
+					byte[] buffer = new byte[SIZE_OF_INT];
+					int numBytesRead = inputStream.read(buffer);
+					int uid = new Integer(new String(buffer, 0, numBytesRead)).intValue();
+					return uid;
+				} finally {
+					inputStream.close();
+				}
 			} else {
 				throw new UsageDataException(NLS.bind(Messages.UsageUploadManager_Error_Getting_Uid_Http_Response,
 						status));
@@ -211,7 +214,7 @@ public class UsageUploadManager {
 
 			}
 		} finally {
-			getUserIdMethod.releaseConnection();
+			WebUtil.releaseConnection(getUserIdMethod, monitor);
 		}
 	}
 
