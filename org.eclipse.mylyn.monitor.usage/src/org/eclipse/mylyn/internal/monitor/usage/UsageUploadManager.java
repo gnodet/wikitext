@@ -141,10 +141,15 @@ public class UsageUploadManager {
 			final int status = WebUtil.execute(httpClient, hostConfiguration, getUidMethod, monitor);
 
 			if (status == HttpStatus.SC_OK) {
-				String response = getStringFromStream(WebUtil.getResponseBodyAsStream(getUidMethod, monitor));
-				response = response.substring(response.indexOf(":") + 1).trim(); //$NON-NLS-1$
-				int uid = Integer.parseInt(response);
-				return uid;
+				InputStream inputStream = WebUtil.getResponseBodyAsStream(getUidMethod, monitor);
+				try {
+					String response = getStringFromStream(inputStream);
+					response = response.substring(response.indexOf(":") + 1).trim(); //$NON-NLS-1$
+					int uid = Integer.parseInt(response);
+					return uid;
+				} finally {
+					inputStream.close();
+				}
 			} else {
 				throw new UsageDataException(NLS.bind(Messages.UsageUploadManager_Error_Getting_Uid_Http_Response,
 						status));
