@@ -14,7 +14,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.mylyn.internal.tasks.core.IRepositoryConstants;
 import org.eclipse.mylyn.internal.xplanner.core.XPlannerCorePlugin;
 import org.eclipse.mylyn.internal.xplanner.ui.XPlannerRepositoryUtils;
 import org.eclipse.mylyn.internal.xplanner.ui.XPlannerUiPlugin;
@@ -87,7 +86,6 @@ public class XPlannerRepositorySettingsPage extends AbstractRepositorySettingsPa
 	@Override
 	public void applyTo(TaskRepository repository) {
 		super.applyTo(repository);
-		repository.setProperty(IRepositoryConstants.PROPERTY_CATEGORY, IRepositoryConstants.CATEGORY_BUGS);
 	}
 
 	@Override
