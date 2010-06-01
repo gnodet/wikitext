@@ -14,9 +14,10 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.mylyn.internal.tasks.core.IRepositoryConstants;
 import org.eclipse.mylyn.internal.xplanner.core.XPlannerCorePlugin;
-import org.eclipse.mylyn.internal.xplanner.ui.XPlannerUiPlugin;
 import org.eclipse.mylyn.internal.xplanner.ui.XPlannerRepositoryUtils;
+import org.eclipse.mylyn.internal.xplanner.ui.XPlannerUiPlugin;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
 import org.eclipse.swt.widgets.Composite;
@@ -80,6 +81,13 @@ public class XPlannerRepositorySettingsPage extends AbstractRepositorySettingsPa
 			setStatus(new Status(IStatus.OK, XPlannerUiPlugin.ID_PLUGIN, IStatus.OK,
 					Messages.XPlannerRepositorySettingsPage_VALID_SETTINGS_FOUND, null));
 		}
+	}
+
+	@SuppressWarnings("restriction")
+	@Override
+	public void applyTo(TaskRepository repository) {
+		super.applyTo(repository);
+		repository.setProperty(IRepositoryConstants.PROPERTY_CATEGORY, IRepositoryConstants.CATEGORY_BUGS);
 	}
 
 	@Override

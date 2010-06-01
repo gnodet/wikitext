@@ -27,6 +27,7 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.mylyn.internal.tasks.core.IRepositoryConstants;
 import org.eclipse.mylyn.tasks.core.RepositoryTemplate;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
 import org.eclipse.mylyn.tasks.ui.wizards.AbstractRepositorySettingsPage;
@@ -318,6 +319,7 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 		}
 	}
 
+	@SuppressWarnings("restriction")
 	@Override
 	public void applyTo(TaskRepository repository) {
 		super.applyTo(repository);
@@ -351,6 +353,8 @@ public class WebRepositorySettingsPage extends AbstractRepositorySettingsPage im
 		for (Map.Entry<String, String> e : parametersEditor.getParameters().entrySet()) {
 			repository.setProperty(e.getKey(), e.getValue());
 		}
+
+		repository.setProperty(IRepositoryConstants.PROPERTY_CATEGORY, IRepositoryConstants.CATEGORY_BUGS);
 	}
 
 	private String getSelection(ComboViewer viewer) {
