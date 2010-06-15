@@ -9,27 +9,28 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.builds.core;
+package org.eclipse.mylyn.internal.hudson.core.client;
 
 /**
  * @author Steffen Pingel
  */
-public interface IBuildPlanWorkingCopy extends IBuildPlan {
+public class HudsonException extends Exception {
 
-	public void setStatus(String status);
+	private static final long serialVersionUID = -4419540659554920327L;
 
-	public void setSummary(String summary);
+	public HudsonException() {
+	}
 
-	public void setHealth(int health);
+	public HudsonException(String message) {
+		super(message);
+	}
 
-	public void setInfo(String info);
+	public HudsonException(Throwable cause) {
+		super(cause.getMessage(), cause);
+	}
 
-	public void setId(String id);
-
-	public void setName(String name);
-
-	public void setState(BuildState state);
-
-	public void setUrl(String url);
+	public HudsonException(String message, Throwable cause) {
+		super(message, cause);
+	}
 
 }
