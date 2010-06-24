@@ -8,28 +8,24 @@
  * Contributors:
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
-
-package org.eclipse.mylyn.builds.core;
+package org.eclipse.mylyn.internal.builds.ui;
 
 /**
  * @author Steffen Pingel
  */
-public interface IBuildPlanWorkingCopy extends IBuildPlan {
+public class BuildsUiConstants {
 
-	public void setStatus(BuildStatus status);
+	/**
+	 * Refresh every 15 minutes by default.
+	 */
+	public static final int DEFAULT_REFRESH_INTERVAL = 15 * 60 * 1000;
 
-	public void setSummary(String summary);
+	public static final String ID_PREFERENCE_PAGE_BUILDS = "org.eclipse.mylyn.builds.preferences.BuildsPage"; //$NON-NLS-1$
 
-	public void setHealth(int health);
+	public static final int MIN_REFRESH_INTERVAL = 1 * 60 * 1000;
 
-	public void setInfo(String info);
+	public static final String PREF_AUTO_REFRESH_ENABLED = "refresh.enabled"; //$NON-NLS-1$
 
-	public void setId(String id);
-
-	public void setName(String name);
-
-	public void setState(BuildState state);
-
-	public void setUrl(String url);
+	public static final String PREF_AUTO_REFRESH_INTERVAL = "refresh.interval"; //$NON-NLS-1$
 
 }
