@@ -89,10 +89,6 @@
             activityId="org.eclipse.mylyn.capabilities.taskManagement"
             pattern="org\.eclipse\.mylyn\.web\.tasks/.*">
       </activityPatternBinding>
-      <activityPatternBinding
-            activityId="org.eclipse.mylyn.capabilities.taskManagement"
-            pattern="org\.eclipse\.mylyn\.xplanner\.ui/.*">
-      </activityPatternBinding>
    </extension>
    <extension
          id="org.eclipse.mylyn.ide.capabilities.taskFocusedInterface"

@@ -36,7 +36,6 @@
       <import feature="org.eclipse.mylyn.monitor_feature" version="3.4.0"/>
       <import feature="org.eclipse.mylyn.sandbox.ui_feature" version="3.4.0"/>
       <import feature="org.eclipse.mylyn.web.tasks_feature" version="3.4.0"/>
-      <import feature="org.eclipse.mylyn.xplanner_feature" version="3.4.0"/>
       <import feature="org.eclipse.mylyn.wikitext.sdk" version="1.3.0"/>
    </requires>
 
@@ -56,20 +55,6 @@
 
    <plugin
          id="org.eclipse.mylyn.web.tasks.source"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.mylyn.xplanner.core.source"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.mylyn.xplanner.ui.source"
          download-size="0"
          install-size="0"
          version="0.0.0"
