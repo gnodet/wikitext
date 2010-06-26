@@ -12,7 +12,7 @@
 <feature
       id="org.eclipse.mylyn.sandbox.ui_feature"
       label="%featureName"
-      version="3.4.0.qualifier"
+      version="3.5.0.qualifier"
       provider-name="%providerName"
       plugin="org.eclipse.mylyn">
 
@@ -33,9 +33,9 @@
    </url>
 
    <requires>
-      <import feature="org.eclipse.mylyn.context_feature" version="3.4.0.mylynQualifier" match="equivalent"/>
-      <import feature="org.eclipse.mylyn.pde_feature" version="3.4.0.mylynQualifier" match="equivalent"/>
-      <import feature="org.eclipse.mylyn.java_feature" version="3.4.0.mylynQualifier" match="equivalent"/>
+      <import feature="org.eclipse.mylyn.context_feature" version="3.5.0.mylynQualifier" match="equivalent"/>
+      <import feature="org.eclipse.mylyn.pde_feature" version="3.5.0.mylynQualifier" match="equivalent"/>
+      <import feature="org.eclipse.mylyn.java_feature" version="3.5.0.mylynQualifier" match="equivalent"/>
    </requires>
 
    <plugin
