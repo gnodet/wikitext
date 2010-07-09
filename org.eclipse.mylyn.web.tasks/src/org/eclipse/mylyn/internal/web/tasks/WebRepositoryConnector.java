@@ -50,6 +50,7 @@ import org.eclipse.mylyn.tasks.core.IRepositoryManager;
 import org.eclipse.mylyn.tasks.core.IRepositoryQuery;
 import org.eclipse.mylyn.tasks.core.ITask;
 import org.eclipse.mylyn.tasks.core.TaskRepository;
+import org.eclipse.mylyn.tasks.core.data.TaskAttribute;
 import org.eclipse.mylyn.tasks.core.data.TaskAttributeMapper;
 import org.eclipse.mylyn.tasks.core.data.TaskData;
 import org.eclipse.mylyn.tasks.core.data.TaskDataCollector;
@@ -172,15 +173,22 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 		TaskData taskData = createTaskData(repository, taskId);
 		TaskMapper mapper = new TaskMapper(taskData, true);
 		mapper.setCreationDate(DEFAULT_DATE);
-		mapper.setSummary(taskId);
 		mapper.setTaskUrl(taskPrefix + taskId);
 		mapper.setValue(KEY_TASK_PREFIX, taskPrefix);
+		// bug 300310: only update the summary on forced refreshes
+		mapper.setSummary(taskId);
 		try {
 			String pageTitle = WebUtil.getTitleFromUrl(new WebLocation(taskPrefix + taskId), monitor);
-			mapper.setSummary(pageTitle);
+			if (pageTitle != null) {
+				mapper.setSummary(pageTitle);
+			}
 		} catch (IOException e) {
 			// log to error log?
 		}
+		taskData.getRoot()
+				.getMappedAttribute(TaskAttribute.SUMMARY)
+				.getMetaData()
+				.putValue("forced", Boolean.TRUE.toString());
 		return taskData;
 	}
 
@@ -289,6 +297,8 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	@Override
 	public void updateTaskFromTaskData(TaskRepository repository, ITask task, TaskData taskData) {
+		preProcessTaskData(task, taskData);
+
 		TaskMapper mapper = new TaskMapper(taskData);
 		if (Util.isPresent(mapper.getValue(KEY_TASK_PREFIX))) {
 			task.setAttribute(KEY_TASK_PREFIX, mapper.getValue(KEY_TASK_PREFIX));
@@ -298,6 +308,16 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 			task.setTaskKey(null);
 		}
 		mapper.applyTo(task);
+	}
+
+	private void preProcessTaskData(ITask task, TaskData taskData) {
+		if (task.getSummary() != null && task.getSummary().length() > 0) {
+			// bug 300310: if task already has a summary, keep it 
+			TaskAttribute summaryAttribute = taskData.getRoot().getMappedAttribute(TaskAttribute.SUMMARY);
+			if (summaryAttribute != null && Boolean.parseBoolean(summaryAttribute.getMetaData().getValue("forced"))) {
+				summaryAttribute.setValue(task.getSummary());
+			}
+		}
 	}
 
 	public static IStatus performQuery(String resource, String regexp, String taskPrefix, IProgressMonitor monitor,
@@ -675,6 +695,7 @@ public class WebRepositoryConnector extends AbstractRepositoryConnector {
 
 	@Override
 	public boolean hasTaskChanged(TaskRepository taskRepository, ITask task, TaskData taskData) {
+		preProcessTaskData(task, taskData);
 		return new TaskMapper(taskData).hasChanges(task);
 	}
 
