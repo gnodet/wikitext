@@ -9,14 +9,17 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.builds.ui.spi;
+package org.eclipse.mylyn.internal.commons.ui.repositories;
 
-import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.ui.INewWizard;
+import org.eclipse.jface.operation.IRunnableContext;
 
 /**
  * @author Steffen Pingel
  */
-public abstract class NewBuildServerWizard extends Wizard implements INewWizard {
+public interface IPartContainer extends IRunnableContext {
+
+	public void setMessage(String message, int messageType);
+
+	public void updateButtons();
 
 }

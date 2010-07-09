@@ -9,24 +9,26 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.hudson.ui;
+package org.eclipse.mylyn.commons.repositories;
 
-import org.eclipse.mylyn.builds.core.IBuildServer;
-import org.eclipse.mylyn.builds.ui.BuildsUi;
-import org.eclipse.mylyn.builds.ui.spi.BuildServerWizard;
-import org.eclipse.mylyn.internal.hudson.core.HudsonCorePlugin;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 
 /**
  * @author Steffen Pingel
  */
-public class NewHudsonServerWizard extends BuildServerWizard {
+public abstract class RepositoryValidator {
 
-	public NewHudsonServerWizard(IBuildServer model) {
-		super(model);
+	private final RepositoryLocation location;
+
+	public RepositoryValidator(RepositoryLocation location) {
+		this.location = location;
 	}
 
-	public NewHudsonServerWizard() {
-		super(BuildsUi.createServer(HudsonCorePlugin.CONNECTOR_KIND));
+	public RepositoryLocation getLocation() {
+		return location;
 	}
+
+	public abstract IStatus run(IProgressMonitor monitor);
 
 }
