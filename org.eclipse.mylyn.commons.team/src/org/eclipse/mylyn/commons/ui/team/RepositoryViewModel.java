@@ -9,17 +9,13 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.commons.ui.repositories;
-
-import org.eclipse.jface.operation.IRunnableContext;
+package org.eclipse.mylyn.commons.ui.team;
 
 /**
+ * The model for the Team Repositories view.
+ * 
  * @author Steffen Pingel
  */
-public interface IPartContainer extends IRunnableContext {
-
-	public void setMessage(String message, int messageType);
-
-	public void updateButtons();
+public class RepositoryViewModel {
 
 }
