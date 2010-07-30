@@ -18,7 +18,9 @@ import java.util.Calendar;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.mylyn.commons.core.StatusHandler;
@@ -90,8 +92,7 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 	@Override
 	protected Control createContents(Composite parent) {
 		Composite container = new Composite(parent, SWT.NULL);
-		GridLayout layout = new GridLayout(1, false);
-		container.setLayout(layout);
+		GridLayoutFactory.fillDefaults().applyTo(container);
 
 		if (studyParameters.getCustomizingPlugin() != null) {
 			Label label = new Label(parent, SWT.NULL);
@@ -115,6 +116,8 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		createLogFileSection(container);
 		createUsageSection(container);
 		updateEnablement();
+
+		Dialog.applyDialogFont(container);
 		return container;
 	}
 
@@ -150,8 +153,8 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 					"Browser could not be initiated"); //$NON-NLS-1$
 		} catch (MalformedURLException e) {
 			MessageDialog.openError(Display.getDefault().getActiveShell(),
-					Messages.UsageDataPreferencePage_Url_Not_Found, NLS.bind(
-							Messages.UsageDataPreferencePage_Unable_To_Open_X, moreInformationUrl));
+					Messages.UsageDataPreferencePage_Url_Not_Found,
+					NLS.bind(Messages.UsageDataPreferencePage_Unable_To_Open_X, moreInformationUrl));
 		}
 	}
 
@@ -265,8 +268,9 @@ public class UsageDataPreferencePage extends PreferencePage implements IWorkbenc
 		gridData.widthHint = 15;
 		submissionTime.setLayoutData(gridData);
 		long submissionFreq = UiUsageMonitorPlugin.DEFAULT_DELAY_BETWEEN_TRANSMITS;
-		if (UiUsageMonitorPlugin.getDefault().getPreferenceStore().contains(
-				MonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY)) {
+		if (UiUsageMonitorPlugin.getDefault()
+				.getPreferenceStore()
+				.contains(MonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY)) {
 			submissionFreq = getPreferenceStore().getLong(MonitorPreferenceConstants.PREF_MONITORING_SUBMIT_FREQUENCY);
 		}
 		long submissionFreqInDays = submissionFreq / DAYS_IN_MS;
