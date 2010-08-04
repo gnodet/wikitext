@@ -9,31 +9,24 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.hudson.ui;
+package org.eclipse.mylyn.builds.ui;
 
+import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.mylyn.builds.core.IBuildServer;
-import org.eclipse.mylyn.builds.ui.BuildsUi;
 import org.eclipse.mylyn.builds.ui.spi.BuildServerWizard;
-import org.eclipse.mylyn.builds.ui.spi.BuildServerWizardPage;
-import org.eclipse.mylyn.internal.hudson.core.HudsonCorePlugin;
+import org.eclipse.mylyn.internal.provisional.commons.ui.WorkbenchUtil;
+import org.eclipse.mylyn.internal.provisional.commons.ui.dialogs.ValidatableWizardDialog;
 
 /**
  * @author Steffen Pingel
  */
-public class NewHudsonServerWizard extends BuildServerWizard {
+public class BuildsUiUtil {
 
-	public NewHudsonServerWizard(IBuildServer model) {
-		super(model);
-	}
-
-	public NewHudsonServerWizard() {
-		super(BuildsUi.createServer(HudsonCorePlugin.CONNECTOR_KIND));
-	}
-
-	@Override
-	protected void initPage(BuildServerWizardPage page) {
-		page.setTitle("Hudson Server Properties");
-		page.setMessage("Supports Hudson 1.367 or later.");
+	public static int openPropertiesDialog(IBuildServer server) {
+		Wizard wizard = new BuildServerWizard(server);
+		ValidatableWizardDialog dialog = new ValidatableWizardDialog(WorkbenchUtil.getShell(), wizard);
+		dialog.create();
+		return dialog.open();
 	}
 
 }
