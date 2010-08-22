@@ -9,27 +9,27 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.tasks.ui.views;
+package org.eclipse.mylyn.internal.commons.ui.team;
 
+import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
-import org.eclipse.mylyn.internal.tasks.core.Category;
+import org.eclipse.mylyn.commons.repositories.RepositoryCategory;
 
 /**
  * @author Robert Elves
+ * @author Steffen Pingel
  */
-public class EmptyCategoriesFilter extends ViewerFilter {
+public class EmptyRepositoryCategoriesFilter extends ViewerFilter {
 
-	private final TaskRepositoriesContentProvider provider;
-
-	public EmptyCategoriesFilter(TaskRepositoriesContentProvider provider) {
-		this.provider = provider;
+	public EmptyRepositoryCategoriesFilter() {
 	}
 
 	@Override
 	public boolean select(Viewer viewer, Object parentElement, Object element) {
-		if (element instanceof Category) {
-			return provider.getChildren(element).length > 0;
+		if (element instanceof RepositoryCategory) {
+			return ((ITreeContentProvider) ((StructuredViewer) viewer).getContentProvider()).getChildren(element).length > 0;
 		}
 		return true;
 	}

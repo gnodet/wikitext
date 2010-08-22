@@ -1,26 +1,20 @@
 /*******************************************************************************
- * Copyright (c) 2010 Frank Becker and others.
+ * Copyright (c) 2004, 2010 Tasktop Technologies and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     Frank Becker - initial API and implementation
+ *     Tasktop Technologies - initial API and implementation
+ *     Frank Becker - improvements
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.tasks.ui.views;
+package org.eclipse.mylyn.internal.provisional.commons.ui;
 
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.mylyn.commons.core.StatusHandler;
-import org.eclipse.mylyn.internal.provisional.commons.ui.CommonThemes;
-import org.eclipse.mylyn.internal.tasks.ui.TasksUiPlugin;
-import org.eclipse.mylyn.tasks.core.ITask;
-import org.eclipse.mylyn.tasks.core.ITaskContainer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -38,8 +32,9 @@ import org.eclipse.ui.themes.IThemeManager;
 
 /**
  * @author Mik Kersten
+ * @author Frank Becker
  */
-public class GradientDrawer {
+public abstract class GradientDrawer {
 
 	private final Listener CATEGORY_GRADIENT_DRAWER = new Listener() {
 		public void handleEvent(Event event) {
@@ -102,9 +97,7 @@ public class GradientDrawer {
 		}
 	};
 
-	protected boolean shouldApplyGradient(Event event) {
-		return event.item.getData() instanceof ITaskContainer && !(event.item.getData() instanceof ITask);
-	}
+	protected abstract boolean shouldApplyGradient(Event event);
 
 	private final IPropertyChangeListener THEME_CHANGE_LISTENER = new IPropertyChangeListener() {
 		public void propertyChange(PropertyChangeEvent event) {
@@ -192,8 +185,8 @@ public class GradientDrawer {
 					categoryGradientStart = new Color(Display.getDefault(), red, green, blue);
 				} catch (Exception e) {
 					categoryGradientStart = getViewer().getTree().getParent().getBackground();
-					StatusHandler.log(new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, "Could not set color: " + red //$NON-NLS-1$
-							+ ", " + green + ", " + blue, e)); //$NON-NLS-1$ //$NON-NLS-2$
+//					StatusHandler.log(new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, "Could not set color: " + red //$NON-NLS-1$
+//							+ ", " + green + ", " + blue, e)); //$NON-NLS-1$ //$NON-NLS-2$
 				}
 				red = Math.min(255, Math.max(0, (int) (parentBackground.getRed() / GRADIENT_BOTTOM)));
 				green = Math.min(255, Math.max(0, (int) (parentBackground.getGreen() / GRADIENT_BOTTOM)));
@@ -203,8 +196,8 @@ public class GradientDrawer {
 					categoryGradientEnd = new Color(Display.getDefault(), red, green, blue);
 				} catch (Exception e) {
 					categoryGradientStart = getViewer().getTree().getParent().getBackground();
-					StatusHandler.log(new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, "Could not set color: " + red //$NON-NLS-1$
-							+ ", " + green + ", " + blue, e)); //$NON-NLS-1$ //$NON-NLS-2$
+//					StatusHandler.log(new Status(IStatus.ERROR, TasksUiPlugin.ID_PLUGIN, "Could not set color: " + red //$NON-NLS-1$
+//							+ ", " + green + ", " + blue, e)); //$NON-NLS-1$ //$NON-NLS-2$
 				}
 			}
 		} else if (categoryGradientStart != null && categoryGradientStart.equals(categoryGradientEnd)) {
