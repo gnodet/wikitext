@@ -11,19 +11,16 @@
  *     Frank Becker - fixes for bug 259877
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.tasks.ui.util;
+package org.eclipse.mylyn.internal.provisional.commons.ui;
 
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.mylyn.internal.provisional.commons.ui.PlatformUiUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 
 /**
  * @author Steffen Pingel
- * @deprecated use {@link PlatformUiUtil} instead.
  */
-@Deprecated
-public class PlatformUtil {
+public class PlatformUiUtil {
 
 	private static class Eclipse36Checker {
 		public static final boolean result;
