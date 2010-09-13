@@ -9,10 +9,11 @@
  *     Tasktop Technologies - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.mylyn.internal.tasks.ui.util;
+package org.eclipse.mylyn.internal.provisional.commons.ui;
 
-import java.util.Iterator;
+import java.util.List;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.TextTransfer;
@@ -22,9 +23,7 @@ import org.eclipse.ui.PlatformUI;
 
 /**
  * @author Steffen Pingel
- * @deprecated use {@link org.eclipse.mylyn.internal.provisional.commons.ui.ClipboardCopier} instead
  */
-@Deprecated
 public class ClipboardCopier {
 
 	public interface TextProvider {
@@ -35,22 +34,25 @@ public class ClipboardCopier {
 
 	private static ClipboardCopier instance = new ClipboardCopier();
 
+	public static String LINE_SEPARATOR = System.getProperty("line.separator", "\n"); //$NON-NLS-1$ //$NON-NLS-2$
+
 	public static ClipboardCopier getDefault() {
 		return instance;
 	}
 
 	private Clipboard clipboard;
 
-	public static String LINE_SEPARATOR = System.getProperty("line.separator", "\n"); //$NON-NLS-1$ //$NON-NLS-2$
-
 	public ClipboardCopier() {
 	}
 
 	public void copy(IStructuredSelection selection, TextProvider provider) {
+		copy(selection.toList(), provider);
+	}
+
+	public void copy(List<?> selection, TextProvider provider) {
 		if (!selection.isEmpty()) {
 			StringBuilder sb = new StringBuilder();
-			for (Iterator<?> it = selection.iterator(); it.hasNext();) {
-				Object item = it.next();
+			for (Object item : selection) {
 				String textForElement = provider.getTextForElement(item);
 				if (textForElement != null) {
 					if (sb.length() > 0) {
@@ -60,11 +62,16 @@ public class ClipboardCopier {
 					sb.append(textForElement);
 				}
 			}
-			copy(sb.toString());
+			if (sb.length() > 0) {
+				copy(sb.toString());
+			}
 		}
 	}
 
 	public void copy(String text) {
+		Assert.isNotNull(text);
+		Assert.isTrue(text.length() > 0);
+
 		if (clipboard == null) {
 			Display display = PlatformUI.getWorkbench().getDisplay();
 			clipboard = new Clipboard(display);
