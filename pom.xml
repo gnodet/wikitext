@@ -33,6 +33,10 @@
   <modules>
     <module>org.eclipse.mylyn.wikitext.core</module>
     <module>org.eclipse.mylyn.wikitext.confluence.core</module>
+    <module>org.eclipse.mylyn.wikitext.mediawiki.core</module>
+    <module>org.eclipse.mylyn.wikitext.textile.core</module>
+    <module>org.eclipse.mylyn.wikitext.tracwiki.core</module>
+    <module>org.eclipse.mylyn.wikitext.twiki.core</module>
   </modules>
 
   <build>
