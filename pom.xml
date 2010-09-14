@@ -10,7 +10,7 @@
 
   <groupId>org.fusesource.wikitext</groupId>
   <artifactId>project</artifactId>
-  <version>1.4-SNAPSHOT</version>
+  <version>1.0-SNAPSHOT</version>
 
   <packaging>pom</packaging>
   <name>WikiText :: Project</name>
@@ -19,7 +19,24 @@
     <compileSource>1.5</compileSource>
     <log4j-version>1.2.8</log4j-version>
     <junit-version>3.8.1</junit-version>
+    
+    <forge-project-id>wikitext</forge-project-id>
+    <release-altGitURL>scm:git:ssh://git@github.com:gnodet/wikitext.git</release-altGitURL>
   </properties>
+
+  <scm>
+    <connection>scm:git:git://github.com/gnodet/wikitext.git</connection>
+    <!-- Work around for issue: http://jira.codehaus.org/browse/SCM-444 -->
+    <developerConnection>${release-altGitURL}</developerConnection>
+    <url>http://github.com/gnodet/wikitext/tree/master</url>
+  </scm>
+  <distributionManagement>
+    <site>
+      <id>website.fusesource.org</id>
+      <name>website</name>
+      <url>dav:http://fusesource.com/forge/dav/${forge-project-id}/maven/${project.version}</url>
+    </site>
+  </distributionManagement>
 
   <licenses>
     <license>
