@@ -31,6 +31,8 @@ public class ImageAttributes extends Attributes {
 	private Align align = null;
 
 	private String alt;
+	
+	private boolean inline = true;
 
 	public String getAlt() {
 		return alt;
@@ -71,4 +73,12 @@ public class ImageAttributes extends Attributes {
 	public void setAlign(Align align) {
 		this.align = align;
 	}
+
+    public boolean isInline() {
+        return inline;
+    }
+
+    public void setInline(boolean inline) {
+        this.inline = inline;
+    }
 }

@@ -7,6 +7,8 @@
  *
  * Contributors:
  *     David Green - initial API and implementation
+ *     Fintan Bolton - modified to normalize EOL character and to replace
+ *         certain special characters with entities.
  *******************************************************************************/
 package org.eclipse.mylyn.wikitext.core.util;
 
@@ -29,6 +31,8 @@ import org.eclipse.mylyn.internal.wikitext.core.util.XML11Char;
  * @since 1.0
  */
 public class DefaultXmlStreamWriter extends XmlStreamWriter {
+
+	private static final String STANDARD_LINE_TERMINATOR = "\n";
 
 	private PrintWriter out;
 
@@ -162,7 +166,18 @@ public class DefaultXmlStreamWriter extends XmlStreamWriter {
 	@Override
 	public void writeCharacters(String text) {
 		closeElement();
-		encode(text);
+		// It is essential to use the same line terminator throughout.
+		// Otherwise, SVN throws an error during commit.
+		//
+		// Note: Some unusual line terminator characters:
+		//       \u0085 is next-line character
+		//       \u2028 is line-separator character
+		//       \u2029 is paragraph-separator character
+		String normalized = text.replaceAll(
+				"(\r\n|\n|\r|\u0085|\u2028|\u2029)",
+				STANDARD_LINE_TERMINATOR
+				);
+		encode(normalized);
 	}
 
 	public void writeCharactersUnescaped(String text) {
@@ -191,7 +206,11 @@ public class DefaultXmlStreamWriter extends XmlStreamWriter {
 
 	@Override
 	public void writeDTD(String dtd) {
-		out.write(dtd);
+		String normalized = dtd.replaceAll(
+				"(\r\n|\n|\r|\u0085|\u2028|\u2029)",
+				STANDARD_LINE_TERMINATOR
+				);
+		out.write(normalized);
 	}
 
 	@Override
@@ -282,12 +301,27 @@ public class DefaultXmlStreamWriter extends XmlStreamWriter {
 	@Override
 	public void writeProcessingInstruction(String target) {
 		closeElement();
+		// Technically, we ought to check that 'target' does not match to [Xx][Mm][Ll]
+		// but we are unlikely to encounter this in practice.
+		out.write('<');
+		out.write('?');
+		out.write(target);
+		out.write('?');
+		out.write('>');
 	}
 
 	@Override
 	public void writeProcessingInstruction(String target, String data) {
 		closeElement();
-
+		// Technically, we ought to check that 'target' does not match to [Xx][Mm][Ll]
+		// but we are unlikely to encounter this in practice.
+		out.write('<');
+		out.write('?');
+		out.write(target);
+		out.write(' ');
+		out.write(data);
+		out.write('?');
+		out.write('>');
 	}
 
 	@Override
@@ -359,9 +393,28 @@ public class DefaultXmlStreamWriter extends XmlStreamWriter {
 		int length = s.length();
 
 		try {
+			char previous_ch = 0;
 			for (int x = 0; x < length; ++x) {
 				char ch = s.charAt(x);
+				if (ch == '&' && previous_ch != '\\') {
+					// Tunnel text entities into XML
+					// Look ahead in s to see if you can match an entity, &\w+;
+					char ch_in_entity = 0;
+					int w;
+					for (w=1; x+w < length; ++w) {
+						ch_in_entity = s.charAt(x+w);
+						if (!Character.isLetter(ch_in_entity)) {
+							break;
+						}
+					}
+					if ((ch_in_entity == ';') && (w>1)) {
+						writer.write(s.subSequence(x, x+w+1).toString());
+						x += w+1;
+						continue;
+					}
+				}
 				printEscaped(writer, ch, attribute);
+				previous_ch = ch;
 			}
 		} catch (IOException ioe) {
 			throw new IllegalStateException();
@@ -375,6 +428,7 @@ public class DefaultXmlStreamWriter extends XmlStreamWriter {
 	 *            The writer to which the character should be printed.
 	 * @param ch
 	 *            the character to print.
+	 * 
 	 * @throws IOException
 	 */
 	private static void printEscaped(PrintWriter writer, int ch, boolean attribute) throws IOException {
@@ -410,11 +464,9 @@ public class DefaultXmlStreamWriter extends XmlStreamWriter {
 		switch (ch) {
 		case '<':
 			return "lt"; //$NON-NLS-1$
-		case '>':
-			if (!attribute) {
-				// bug 302291: text containing CDATA produces invalid HTML
-				return "gt"; //$NON-NLS-1$
-			}
+
+			// no need to encode '>'.
+
 		case '"':
 			if (attribute) {
 				return "quot"; //$NON-NLS-1$
@@ -422,6 +474,16 @@ public class DefaultXmlStreamWriter extends XmlStreamWriter {
 			break;
 		case '&':
 			return "amp"; //$NON-NLS-1$
+		case 0x2013:
+			return "ndash";
+		case 0x2014:
+			return "mdash";
+		case 0x00A9:
+			return "copy";
+		case 0x2122:
+			return "trade";
+		case 0x00AE:
+			return "reg";
 
 			// WARN: there is no need to encode apostrophe, and doing so has an
 			// adverse

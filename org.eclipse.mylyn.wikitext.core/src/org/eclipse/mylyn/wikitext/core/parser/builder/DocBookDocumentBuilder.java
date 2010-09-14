@@ -7,6 +7,8 @@
  *
  * Contributors:
  *     David Green - initial API and implementation
+ *     Fintan Bolton - modifications to make it easier to implement
+ *         a subclass specialized for Confluence Wiki.
  *******************************************************************************/
 package org.eclipse.mylyn.wikitext.core.parser.builder;
 
@@ -25,6 +27,7 @@ import java.util.regex.Pattern;
 import org.eclipse.mylyn.internal.wikitext.core.util.css.CssParser;
 import org.eclipse.mylyn.internal.wikitext.core.util.css.CssRule;
 import org.eclipse.mylyn.wikitext.core.parser.Attributes;
+import org.eclipse.mylyn.wikitext.core.parser.XmlTableAttributes;
 import org.eclipse.mylyn.wikitext.core.parser.LinkAttributes;
 import org.eclipse.mylyn.wikitext.core.parser.util.MarkupToDocbook;
 import org.eclipse.mylyn.wikitext.core.util.FormattingXMLStreamWriter;
@@ -65,13 +68,31 @@ public class DocBookDocumentBuilder extends AbstractXmlDocumentBuilder {
 
 	private final Map<String, String> acronyms = new HashMap<String, String>();
 
-	private int headingLevel = 0;
+	protected int headingLevel = 0;
 
 	private final Stack<BlockDescription> blockDescriptions = new Stack<BlockDescription>();
 
-	private boolean automaticGlossary = true;
+	protected boolean automaticGlossary = true;
+	protected boolean calsTable = false;
+	protected boolean currentHeadingHasNoBody = true;
 
-	public DocBookDocumentBuilder(Writer out) {
+	public boolean isCalsTable() {
+		return calsTable;
+	}
+
+	public void setCalsTable(boolean calsTable) {
+		this.calsTable = calsTable;
+	}
+
+	public boolean isCurrentHeadingHasNoBody() {
+        return currentHeadingHasNoBody;
+    }
+
+    public void setCurrentHeadingHasNoBody(boolean currentHeadingHasNoBody) {
+        this.currentHeadingHasNoBody = currentHeadingHasNoBody;
+    }
+
+    public DocBookDocumentBuilder(Writer out) {
 		super(out);
 	}
 
@@ -114,35 +135,36 @@ public class DocBookDocumentBuilder extends AbstractXmlDocumentBuilder {
 		writer.writeStartElement("glossterm"); //$NON-NLS-1$
 		characters(text);
 		writer.writeEndElement();
+		
+		currentHeadingHasNoBody = false;
 	}
 
 	@Override
 	public void link(Attributes attributes, String href, final String text) {
-		link(attributes, href, new ContentEmitter() {
-			public void emit() {
-				writer.writeCharacters(text);
-			}
-		});
+		beginLink(attributes, href);
+		writer.writeCharacters(text);
+		endLink();
 	}
 
-	private void link(Attributes attributes, String href, ContentEmitter emitter) {
+	@Override
+	public void beginLink(Attributes attributes, String href) {
 		ensureBlockElementsOpen();
+		
 		if (href.startsWith("#")) { //$NON-NLS-1$
-			if (href.length() > 1) {
-				writer.writeStartElement("link"); //$NON-NLS-1$
-				writer.writeAttribute("linkend", href.substring(1)); //$NON-NLS-1$
-				emitter.emit();
-				writer.writeEndElement(); // link
-			} else {
-				emitter.emit();
-			}
+			writer.writeStartElement("link");
+			writer.writeAttribute("linkend", href.substring(1));
 		} else {
 			writer.writeStartElement("ulink"); //$NON-NLS-1$
 			writer.writeAttribute("url", href); //$NON-NLS-1$
-			emitter.emit();
-			writer.writeEndElement(); // ulink
 		}
 	}
+
+	@Override
+	public void endLink() {
+		writer.writeEndElement(); // link or ulink
+	}
+
+
 
 	private interface ContentEmitter {
 		public void emit();
@@ -200,7 +222,7 @@ public class DocBookDocumentBuilder extends AbstractXmlDocumentBuilder {
 			elementName = "para"; //$NON-NLS-1$
 			break;
 		case CODE:
-			elementName = "code"; //$NON-NLS-1$
+			elementName = "programlisting"; //$NON-NLS-1$
 			break;
 		case PREFORMATTED:
 			elementName = "literallayout"; //$NON-NLS-1$
@@ -278,6 +300,8 @@ public class DocBookDocumentBuilder extends AbstractXmlDocumentBuilder {
 			blockSize = 0;
 		}
 		blockDescriptions.push(new BlockDescription(type, blockSize, elementNames, closeElementsOnBlockStart));
+
+		currentHeadingHasNoBody = false;
 	}
 
 	@Override
@@ -287,6 +311,7 @@ public class DocBookDocumentBuilder extends AbstractXmlDocumentBuilder {
 		for (int x = 0; x < size; ++x) {
 			writer.writeEndElement();
 		}
+		writer.writeCharacters("\n");
 	}
 
 	private void endBlockEntry(BlockDescription blockDescription) {
@@ -319,11 +344,13 @@ public class DocBookDocumentBuilder extends AbstractXmlDocumentBuilder {
 
 		writer.writeStartElement("title"); //$NON-NLS-1$
 
+        currentHeadingHasNoBody = true;
 	}
 
 	@Override
 	public void endHeading() {
 		writer.writeEndElement(); // title
+		writer.writeCharacters("\n");
 	}
 
 	@Override
@@ -338,6 +365,7 @@ public class DocBookDocumentBuilder extends AbstractXmlDocumentBuilder {
 			writer.writeCharacters(bookTitle);
 		}
 		writer.writeEndElement();
+		writer.writeCharacters("\n");
 	}
 
 	@Override
@@ -411,7 +439,7 @@ public class DocBookDocumentBuilder extends AbstractXmlDocumentBuilder {
 		applyAttributes(attributes);
 	}
 
-	private void applyAttributes(Attributes attributes) {
+	protected void applyAttributes(Attributes attributes) {
 		if (attributes.getId() != null) {
 			writer.writeAttribute("id", attributes.getId()); //$NON-NLS-1$
 		}
@@ -429,7 +457,7 @@ public class DocBookDocumentBuilder extends AbstractXmlDocumentBuilder {
 		acronyms.clear();
 	}
 
-	private void closeSections(int toLevel) {
+	protected void closeSections(int toLevel) {
 		if (toLevel < 0) {
 			toLevel = 0;
 		}
@@ -439,7 +467,7 @@ public class DocBookDocumentBuilder extends AbstractXmlDocumentBuilder {
 		}
 	}
 
-	private void writeGlossaryAppendix() {
+	protected void writeGlossaryAppendix() {
 		if (!acronyms.isEmpty() && automaticGlossary) {
 			writer.writeStartElement("appendix"); //$NON-NLS-1$
 			writer.writeAttribute("id", "glossary"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -489,7 +517,7 @@ public class DocBookDocumentBuilder extends AbstractXmlDocumentBuilder {
 		//		Logger.getLogger(DocBookDocumentBuilder.class.getName()).warning("HTML literal not supported in DocBook");
 	}
 
-	private void ensureBlockElementsOpen() {
+	protected void ensureBlockElementsOpen() {
 		if (!blockDescriptions.isEmpty()) {
 			BlockDescription blockDescription = blockDescriptions.peek();
 			if (blockDescription.entrySize == 0 && blockDescription.nestedElementNames != null) {
@@ -568,11 +596,9 @@ public class DocBookDocumentBuilder extends AbstractXmlDocumentBuilder {
 	@Override
 	public void imageLink(Attributes linkAttributes, final Attributes imageAttributes, String href,
 			final String imageUrl) {
-		link(linkAttributes, href, new ContentEmitter() {
-			public void emit() {
-				emitImage(imageAttributes, imageUrl, true);
-			}
-		});
+		beginLink(linkAttributes, href);
+		emitImage(imageAttributes, imageUrl, true);
+		endLink();
 	}
 
 	@Override
@@ -630,6 +656,16 @@ public class DocBookDocumentBuilder extends AbstractXmlDocumentBuilder {
 	 */
 	public void setAutomaticGlossary(boolean automaticGlossary) {
 		this.automaticGlossary = automaticGlossary;
+	}
+
+	@Override
+	public void annotation(String name, String data) {
+		if ((data != null) && !data.equals("")) {
+			writer.writeProcessingInstruction(name, data);
+		}
+		else {
+			writer.writeProcessingInstruction(name);
+		}
 	}
 
 }

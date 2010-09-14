@@ -186,6 +186,18 @@ public abstract class DocumentBuilder {
 	 */
 	public abstract void link(Attributes attributes, String hrefOrHashName, String text);
 
+	public void beginLink(Attributes attributes, String hrefOrHashName) {
+		// Complete.
+		// Ideally, this method should be declared abstract, but I don't
+		// want to force non-Confluence document builders to implement it.
+	}
+
+	public void endLink() {
+		// Complete.
+		// Ideally, this method should be declared abstract, but I don't
+		// want to force non-Confluence document builders to implement it.
+	}
+
 	/**
 	 * Create a hyperlink whose visual representation is an image. Implementations must apply the attributes to the
 	 * image tag. For example, if the builder constructs HTML, the builder would emit
@@ -258,6 +270,21 @@ public abstract class DocumentBuilder {
 	 *            the literal characters to emit
 	 */
 	public abstract void charactersUnescaped(String literal);
+	
+	/**
+	 * Emit an annotation in the target document format. The main purpose of an annotation is to
+	 * preserve information from the original markup that might otherwise be lost. For example,
+	 * when building XML, an annotation maps to a processing instruction. You can use this
+	 * mechanism to preserve unrecognised macros in the Wiki text.
+	 * 
+	 * @param name identifies the annotation. For example, the name of an unparsable macro
+	 *             from the original markup.
+	 * @param data the data associated with the annotation. For example, the attributes associated
+	 *             with an unparsable Wiki macro.
+	 */
+	public void annotation(String name, String data) {
+		// Do nothing by default.
+	}
 
 	/**
 	 * Set the locator for the current session

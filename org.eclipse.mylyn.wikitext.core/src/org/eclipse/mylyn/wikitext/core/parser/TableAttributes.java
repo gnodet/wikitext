@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.mylyn.wikitext.core.parser;
 
-import org.eclipse.mylyn.wikitext.core.parser.DocumentBuilder.BlockType;
-
 /**
  * Attributes that may used when creating blocks of type {@link BlockType#TABLE}.
  * 
