@@ -61,10 +61,16 @@ public class HyperlinkPhraseModifier extends PatternBasedElement {
 					if (text.length() > 0 && text.charAt(0) == '#') {
 						text = text.substring(1);
 					}
+					if (href.charAt(0) == '#') {
+						href = "#" + state.getIdGenerator().getGenerationStrategy().generateId(href.substring(1));
+					}
 					Attributes attributes = new LinkAttributes();
 					attributes.setTitle(tip);
 					getBuilder().link(attributes, href, text);
 				} else {
+					if (href.charAt(0) == '#') {
+						href = "#" + state.getIdGenerator().getGenerationStrategy().generateId(href.substring(1));
+					}
 					LinkAttributes attributes = new LinkAttributes();
 					attributes.setTitle(tip);
 					attributes.setHref(href);

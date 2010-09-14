@@ -41,6 +41,7 @@ public class AnchorReplacementToken extends PatternBasedElement {
 		@Override
 		public void emit() {
 			String name = group(1);
+			name = state.getIdGenerator().getGenerationStrategy().generateId(name);
 			Attributes attributes = new Attributes();
 			attributes.setId(name);
 			getBuilder().beginSpan(SpanType.SPAN, attributes);
