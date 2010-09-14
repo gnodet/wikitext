@@ -23,7 +23,7 @@ public class EscapedCharacterReplacementToken extends PatternBasedElement {
 	protected String getPattern(int groupOffset) {
 		// currently we only escape curly braces, however
 		// it's possible there may be others.  The documentation only shows escaping these.
-		return "\\\\(\\{|\\}|\\[|\\])"; //$NON-NLS-1$
+		return "\\\\(\\{|\\}|\\[|\\]|\\||\\!)"; //$NON-NLS-1$
 	}
 
 	@Override
