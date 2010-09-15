@@ -47,13 +47,13 @@ public class SimpleWrappedPhraseModifier extends PatternBasedElement {
 		}
 	}
 
-	private final String startDelimiter;
+	protected final String startDelimiter;
 
-	private final String endDelimiter;
+	protected final String endDelimiter;
 
-	private final SpanType spanType;
+	protected final SpanType spanType;
 
-	private final boolean nesting;
+	protected final boolean nesting;
 
 	public SimpleWrappedPhraseModifier(String startDelimiter, String endDelimiter, SpanType spanType, boolean nesting) {
 		this.startDelimiter = startDelimiter;
@@ -67,12 +67,21 @@ public class SimpleWrappedPhraseModifier extends PatternBasedElement {
 		String quotedStartDelimiter = quoteLite(startDelimiter);
 		String quotedDelimiter = quoteLite(endDelimiter);
 
-		return quotedStartDelimiter + "(?!" + quotedDelimiter + ")" + "([^\\s" + quotedDelimiter + "]+|\\S[^" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-				+ quotedDelimiter + "]*[^\\s" + quotedDelimiter + "])" + // content //$NON-NLS-1$ //$NON-NLS-2$
-				quotedDelimiter;
+		//return quotedStartDelimiter + "(?!" + quotedDelimiter + ")" + "([^\\s" + quotedDelimiter + "]+|\\S[^" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		//		+ quotedDelimiter + "]*[^\\s" + quotedDelimiter + "])" + // content //$NON-NLS-1$ //$NON-NLS-2$
+		//		quotedDelimiter;
+		if (startDelimiter.equals("{{") && endDelimiter.equals("}}")) {
+			// Special case for monospace delimiter.
+			// Copes with the following edge case: {{{*}BoldMonoText{*}}}
+			return "\\{\\{((?:\\S+?|\\S.*?\\S)\\}?)\\}\\}";
+		}
+		else {
+			// General case.
+			return quotedStartDelimiter + "(\\S+?|\\S.*?\\S)" + quotedDelimiter;
+		}
 	}
 
-	private String quoteLite(String literal) {
+	protected String quoteLite(String literal) {
 		StringBuilder buf = new StringBuilder(literal.length() * 2);
 		for (int x = 0; x < literal.length(); ++x) {
 			char c = literal.charAt(x);

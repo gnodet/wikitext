@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     David Green - initial API and implementation
+ *     Fintan Bolton - modified for use in Confdoc plugin
  *******************************************************************************/
 package org.eclipse.mylyn.internal.wikitext.confluence.core.block;
 
@@ -34,12 +35,15 @@ public class CodeBlock extends AbstractConfluenceDelimitedBlock {
 			builder.beginBlock(BlockType.PANEL, attributes);
 		}
 		Attributes attributes = new Attributes();
-		Attributes preAttributes = new Attributes();
+		//Attributes preAttributes = new Attributes();
 		if (language != null) {
 			// chili-style class and atlassian-style class
 			attributes.setCssClass(language + " code-" + language); //$NON-NLS-1$
 		}
-		builder.beginBlock(BlockType.PREFORMATTED, preAttributes);
+		// fbolton - Backed out code for enclosing CODE in the PREFORMATTED style.
+		// This does not seem to make sense. In DocBook, it would result in a code
+		// block always being enclosed in a 'literallayout' element. Why is this useful?
+		//builder.beginBlock(BlockType.PREFORMATTED, preAttributes);
 		builder.beginBlock(BlockType.CODE, attributes);
 	}
 
@@ -55,7 +59,7 @@ public class CodeBlock extends AbstractConfluenceDelimitedBlock {
 			builder.endBlock(); // panel	
 		}
 		builder.endBlock(); // code
-		builder.endBlock(); // pre
+		//builder.endBlock(); // pre
 	}
 
 	@Override

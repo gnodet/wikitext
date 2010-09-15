@@ -74,11 +74,11 @@ public class HyperlinkPhraseModifier extends PatternBasedElement {
 					LinkAttributes attributes = new LinkAttributes();
 					attributes.setTitle(tip);
 					attributes.setHref(href);
-					getBuilder().beginSpan(SpanType.LINK, attributes);
+					getBuilder().beginLink(attributes, href);
 
 					getMarkupLanguage().emitMarkupLine(parser, state, start(1), text, 0);
 
-					getBuilder().endSpan();
+					getBuilder().endLink();
 				}
 			}
 		}

@@ -30,8 +30,10 @@ import org.eclipse.mylyn.internal.wikitext.confluence.core.phrase.HyperlinkPhras
 import org.eclipse.mylyn.internal.wikitext.confluence.core.phrase.ImagePhraseModifier;
 import org.eclipse.mylyn.internal.wikitext.confluence.core.phrase.SimplePhraseModifier;
 import org.eclipse.mylyn.internal.wikitext.confluence.core.phrase.SimpleWrappedPhraseModifier;
+import org.eclipse.mylyn.internal.wikitext.confluence.core.phrase.StrangePhraseModifier;
 import org.eclipse.mylyn.internal.wikitext.confluence.core.token.AnchorReplacementToken;
 import org.eclipse.mylyn.internal.wikitext.confluence.core.token.EscapedCharacterReplacementToken;
+import org.eclipse.mylyn.internal.wikitext.confluence.core.token.UnknownMacroReplacementToken;
 import org.eclipse.mylyn.wikitext.core.parser.DocumentBuilder.BlockType;
 import org.eclipse.mylyn.wikitext.core.parser.DocumentBuilder.SpanType;
 import org.eclipse.mylyn.wikitext.core.parser.markup.AbstractMarkupLanguage;
@@ -112,17 +114,18 @@ public class ConfluenceLanguage extends AbstractMarkupLanguage {
 	protected void addStandardPhraseModifiers(PatternBasedSyntax phraseModifierSyntax) {
 		phraseModifierSyntax.beginGroup("(?:(?<=[\\s\\.,\\\"'?!;:\\)\\(\\[\\]])|^)(?:", 0); //$NON-NLS-1$
 		phraseModifierSyntax.add(new HyperlinkPhraseModifier());
-		phraseModifierSyntax.add(new SimplePhraseModifier("*", SpanType.STRONG, true)); //$NON-NLS-1$
-		phraseModifierSyntax.add(new EmphasisPhraseModifier());
-		phraseModifierSyntax.add(new SimplePhraseModifier("??", SpanType.CITATION, true)); //$NON-NLS-1$
-		phraseModifierSyntax.add(new SimplePhraseModifier("-", SpanType.DELETED, true)); //$NON-NLS-1$
-		phraseModifierSyntax.add(new SimplePhraseModifier("+", SpanType.UNDERLINED, true)); //$NON-NLS-1$
-		phraseModifierSyntax.add(new SimplePhraseModifier("^", SpanType.SUPERSCRIPT, false)); //$NON-NLS-1$
-		phraseModifierSyntax.add(new SimplePhraseModifier("~", SpanType.SUBSCRIPT, false)); //$NON-NLS-1$
-		phraseModifierSyntax.add(new SimpleWrappedPhraseModifier("{{", "}}", SpanType.MONOSPACE, false)); //$NON-NLS-1$ //$NON-NLS-2$
+		phraseModifierSyntax.add(new StrangePhraseModifier("*", SpanType.STRONG, true)); //$NON-NLS-1$
+		phraseModifierSyntax.add(new StrangePhraseModifier("_", SpanType.EMPHASIS, true));
+		phraseModifierSyntax.add(new StrangePhraseModifier("??", SpanType.CITATION, true)); //$NON-NLS-1$
+		phraseModifierSyntax.add(new StrangePhraseModifier("-", SpanType.DELETED, true)); //$NON-NLS-1$
+		phraseModifierSyntax.add(new StrangePhraseModifier("+", SpanType.UNDERLINED, true)); //$NON-NLS-1$
+		phraseModifierSyntax.add(new StrangePhraseModifier("^", SpanType.SUPERSCRIPT, false)); //$NON-NLS-1$
+		phraseModifierSyntax.add(new StrangePhraseModifier("~", SpanType.SUBSCRIPT, false)); //$NON-NLS-1$
+		phraseModifierSyntax.add(new SimpleWrappedPhraseModifier("{{", "}}", SpanType.MONOSPACE, true)); //$NON-NLS-1$ //$NON-NLS-2$
 		phraseModifierSyntax.add(new ConfluenceWrappedPhraseModifier("{quote}", SpanType.QUOTE, true)); //$NON-NLS-1$ 
 		phraseModifierSyntax.add(new ImagePhraseModifier());
-		phraseModifierSyntax.endGroup(")(?=\\W|$)", 0); //$NON-NLS-1$
+		//phraseModifierSyntax.endGroup(")(?=\\W|$)", 0); // Lookahead expression causes problems!
+		phraseModifierSyntax.endGroup(")", 0); //$NON-NLS-1$
 	}
 
 	@Override
@@ -140,6 +143,9 @@ public class ConfluenceLanguage extends AbstractMarkupLanguage {
 		tokenSyntax.add(new PatternLiteralReplacementToken("(----)", "<hr/>")); // horizontal rule //$NON-NLS-1$ //$NON-NLS-2$
 		tokenSyntax.add(new ImpliedHyperlinkReplacementToken());
 		tokenSyntax.add(new AnchorReplacementToken());
+		
+		// Ordering - this replacement token must come last.
+		tokenSyntax.add(new UnknownMacroReplacementToken());
 	}
 
 	@Override

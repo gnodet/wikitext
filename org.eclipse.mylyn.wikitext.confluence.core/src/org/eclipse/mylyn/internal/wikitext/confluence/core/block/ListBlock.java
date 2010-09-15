@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2009 David Green and others.
+ * Copyright (c) 2007, 2008 David Green and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -40,6 +40,11 @@ public class ListBlock extends Block {
 
 	@Override
 	public int processLineContent(String line, int offset) {
+		if (line.matches("\\s*")) {
+			// A blank line terminates the list.
+			setClosed(true);
+			return 0;
+		}
 		if (blockLineCount == 0) {
 			listState = new Stack<ListState>();
 			Attributes attributes = new Attributes();
@@ -58,12 +63,15 @@ public class ListBlock extends Block {
 			builder.beginBlock(type, attributes);
 
 			adjustLevel(listSpec, level, type);
-		} else {
-			Matcher matcher = startPattern.matcher(line);
-			if (!matcher.matches()) {
-				setClosed(true);
-				return 0;
+
+			ListState listState = this.listState.peek();
+			if (listState.openItem) {
+				builder.endBlock();
 			}
+			listState.openItem = true;
+			builder.beginBlock(BlockType.LIST_ITEM, new Attributes());
+		}
+		else if ((matcher = startPattern.matcher(line)).matches()) {
 			String listSpec = matcher.group(1);
 			int level = calculateLevel(listSpec);
 			BlockType type = calculateType(listSpec);
@@ -71,15 +79,15 @@ public class ListBlock extends Block {
 			offset = matcher.start(LINE_REMAINDER_GROUP_OFFSET);
 
 			adjustLevel(listSpec, level, type);
+
+			ListState listState = this.listState.peek();
+			if (listState.openItem) {
+				builder.endBlock();
+			}
+			listState.openItem = true;
+			builder.beginBlock(BlockType.LIST_ITEM, new Attributes());
 		}
 		++blockLineCount;
-
-		ListState listState = this.listState.peek();
-		if (listState.openItem) {
-			builder.endBlock();
-		}
-		listState.openItem = true;
-		builder.beginBlock(BlockType.LIST_ITEM, new Attributes());
 
 		markupLanguage.emitMarkupLine(getParser(), state, line, offset);
 
@@ -130,18 +138,7 @@ public class ListBlock extends Block {
 		listState = null;
 		if (lineOffset == 0) {
 			matcher = startPattern.matcher(line);
-			final boolean matches = matcher.matches();
-			if (matches) {
-				String listSpec = matcher.group(1);
-				if (listSpec.charAt(0) == '-') {
-					int level = calculateLevel(listSpec);
-					if (level == 4) {
-						// don't match hr
-						return false;
-					}
-				}
-			}
-			return matches;
+			return matcher.matches();
 		} else {
 			matcher = null;
 			return false;

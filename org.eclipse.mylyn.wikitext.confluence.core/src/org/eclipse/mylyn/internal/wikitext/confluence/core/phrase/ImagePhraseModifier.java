@@ -52,6 +52,9 @@ public class ImagePhraseModifier extends PatternBasedElement {
 			String imageOptions = group(OPTIONS_GROUP);
 
 			final ImageAttributes attributes = new ImageAttributes();
+            attributes.setInline(
+			        (getLineStartOffset() == 0) ? false : true
+			);
 			if (imageOptions != null) {
 				Options.parseOptions(imageOptions, new Handler() {
 					public void setOption(String key, String value) {
