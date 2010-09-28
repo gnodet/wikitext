@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2009 David Green and others.
+ * Copyright (c) 2007, 2008 David Green and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,6 +16,8 @@ import org.eclipse.mylyn.wikitext.core.parser.markup.PatternBasedElement;
 import org.eclipse.mylyn.wikitext.core.parser.markup.PatternBasedElementProcessor;
 
 /**
+ * 
+ * 
  * @author David Green
  */
 public class HyperlinkReplacementToken extends PatternBasedElement {
@@ -40,31 +42,24 @@ public class HyperlinkReplacementToken extends PatternBasedElement {
 		public void emit() {
 			String linkComposite = group(1);
 			String[] parts = linkComposite.split("\\s*\\|\\s*"); //$NON-NLS-1$
-			if (parts.length == 0) {
-				// can happen if linkComposite is ' |', see bug 290434
-			} else {
-				String text = parts.length > 1 ? parts[0] : null;
-				if (text != null) {
-					text = text.trim();
-				}
-				String href = parts.length > 1 ? parts[1] : parts[0];
-				if (href != null) {
-					href = href.trim();
-				}
-				String tip = parts.length > 2 ? parts[2] : null;
-				if (tip != null) {
-					tip = tip.trim();
-				}
-				if (text == null || text.length() == 0) {
-					text = href;
-					if (text.length() > 0 && text.charAt(0) == '#') {
-						text = text.substring(1);
-					}
-				}
-				Attributes attributes = new LinkAttributes();
-				attributes.setTitle(tip);
-				getBuilder().link(attributes, href, text);
+			String text = parts.length > 1 ? parts[0] : null;
+			if (text != null) {
+				text = text.trim();
 			}
+			String href = parts.length > 1 ? parts[1] : parts[0];
+			if (href != null) {
+				href = href.trim();
+			}
+			String tip = parts.length > 2 ? parts[2] : null;
+			if (tip != null) {
+				tip = tip.trim();
+			}
+			if (text == null || text.length() == 0) {
+				text = href;
+			}
+			Attributes attributes = new LinkAttributes();
+			attributes.setTitle(tip);
+			getBuilder().link(attributes, href, text);
 		}
 	}
 }
