@@ -70,7 +70,7 @@ public class HtmlDocumentBuilder extends AbstractXmlDocumentBuilder {
 	private static final Map<BlockType, ElementInfo> blockTypeToElementInfo = new HashMap<BlockType, ElementInfo>();
 	static {
 		blockTypeToElementInfo.put(BlockType.BULLETED_LIST, new ElementInfo("ul")); //$NON-NLS-1$
-		blockTypeToElementInfo.put(BlockType.CODE, new ElementInfo("code")); //$NON-NLS-1$
+		blockTypeToElementInfo.put(BlockType.CODE, new ElementInfo("pre")); //$NON-NLS-1$
 		blockTypeToElementInfo.put(BlockType.DIV, new ElementInfo("div")); //$NON-NLS-1$
 		blockTypeToElementInfo.put(BlockType.FOOTNOTE, new ElementInfo("footnote")); //$NON-NLS-1$
 		blockTypeToElementInfo.put(BlockType.LIST_ITEM, new ElementInfo("li")); //$NON-NLS-1$
@@ -643,11 +643,21 @@ public class HtmlDocumentBuilder extends AbstractXmlDocumentBuilder {
 
 	@Override
 	public void link(Attributes attributes, String hrefOrHashName, String text) {
+		beginLink(attributes, hrefOrHashName);
+		characters(text);
+		endLink();
+	}
+
+	@Override
+	public void beginLink(Attributes attributes, String hrefOrHashName) {
 		writer.writeStartElement(htmlNsUri, "a"); //$NON-NLS-1$
 		emitAnchorHref(hrefOrHashName);
 		applyLinkAttributes(attributes, hrefOrHashName);
-		characters(text);
-		writer.writeEndElement(); // a
+	}
+
+	@Override
+	public void endLink() {
+		writer.writeEndElement(); // link or ulink
 	}
 
 	@Override
